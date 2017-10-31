@@ -67,11 +67,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when either:
         /// <list type="bullet">
-        /// <item><see cref="ConstructionProperties.LeftGridXLeft"/> is not smaller than <see cref="ConstructionProperties.LeftGridXRight"/>;</item>
-        /// <item><see cref="ConstructionProperties.LeftGridZTop"/> is not larger than <see cref="ConstructionProperties.LeftGridZBottom"/>;</item>
-        /// <item><see cref="ConstructionProperties.RightGridXLeft"/> is not smaller than <see cref="ConstructionProperties.RightGridXRight"/>;</item>
-        /// <item><see cref="ConstructionProperties.RightGridZTop"/> is not larger than <see cref="ConstructionProperties.RightGridZBottom"/>;</item>
-        /// <item><see cref="ConstructionProperties.TangentLineZBottom"/> is not larger than <see cref="ConstructionProperties.TangentLineZTop"/>.</item>
+        /// <item><see cref="ConstructionProperties.LeftGridXRight"/> is smaller than <see cref="ConstructionProperties.LeftGridXLeft"/>;</item>
+        /// <item><see cref="ConstructionProperties.LeftGridZBottom"/> is larger than <see cref="ConstructionProperties.LeftGridZTop"/>;</item>
+        /// <item><see cref="ConstructionProperties.RightGridXRight"/> is smaller than <see cref="ConstructionProperties.RightGridXLeft"/>;</item>
+        /// <item><see cref="ConstructionProperties.RightGridZBottom"/> is larger than <see cref="ConstructionProperties.RightGridZTop"/>;</item>
+        /// <item><see cref="ConstructionProperties.TangentLineZBottom"/> is larger than <see cref="ConstructionProperties.TangentLineZTop"/>.</item>
         /// </list>
         /// </exception>
         public MacroStabilityInwardsInput(ConstructionProperties properties)
@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             {
                 throw new ArgumentNullException(nameof(properties));
             }
-            if (!IsSmallerOrNaN(properties.TangentLineZBottom, properties.TangentLineZTop))
+            if (!IsSmallerEqualOrNaN(properties.TangentLineZBottom, properties.TangentLineZTop))
             {
                 throw new ArgumentException(Resources.MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_TangentLineZBottom);
             }
@@ -184,9 +184,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
             return clone;
         }
 
-        private static bool IsSmallerOrNaN(double value, double valueToCompareTo)
+        private static bool IsSmallerEqualOrNaN(double value, double valueToCompareTo)
         {
-            return double.IsNaN(value) || double.IsNaN(valueToCompareTo) || value.CompareTo(valueToCompareTo) < 0;
+            return double.IsNaN(value) || double.IsNaN(valueToCompareTo) || value.CompareTo(valueToCompareTo + 1e-3) <= 0;
         }
 
         /// <summary>
@@ -397,8 +397,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets the tangent line z top.
         /// [m+NAP]
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not larger 
-        /// than <see cref="TangentLineZBottom"/> or is <see cref="double.NaN"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is smaller 
+        /// than <see cref="TangentLineZBottom"/> and is not <see cref="double.NaN"/>.</exception>
         public RoundedDouble TangentLineZTop
         {
             get
@@ -407,7 +407,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
             set
             {
-                if (!IsSmallerOrNaN(TangentLineZBottom, value))
+                if (!IsSmallerEqualOrNaN(TangentLineZBottom, value))
                 {
                     throw new ArgumentException(Resources.MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_TangentLineZBottom);
                 }
@@ -420,8 +420,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets the tangent line z bottom.
         /// [m+NAP]
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not smaller 
-        /// than <see cref="TangentLineZTop"/> or is <see cref="double.NaN"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is larger 
+        /// than <see cref="TangentLineZTop"/> and is not <see cref="double.NaN"/>.</exception>
         public RoundedDouble TangentLineZBottom
         {
             get
@@ -430,7 +430,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
             set
             {
-                if (!IsSmallerOrNaN(value, TangentLineZTop))
+                if (!IsSmallerEqualOrNaN(value, TangentLineZTop))
                 {
                     throw new ArgumentException(Resources.MacroStabilityInwardsInput_TangentLineZBottom_should_be_smaller_than_TangentLineZTop);
                 }

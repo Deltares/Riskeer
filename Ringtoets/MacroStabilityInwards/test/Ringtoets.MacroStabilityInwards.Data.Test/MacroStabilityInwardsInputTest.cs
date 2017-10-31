@@ -154,16 +154,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var random = new Random(21);
 
             double leftGridXLeft = random.GetFromRange(0.0, 1.0);
-            double leftGridXRight = random.GetFromRange(2.0, 3.0);
-            double leftGridZTop = random.GetFromRange(2.0, 3.0);
+            double leftGridXRight = random.GetFromRange(1.0, 2.0);
+            double leftGridZTop = random.GetFromRange(1.0, 2.0);
             double leftGridZBottom = random.GetFromRange(0.0, 1.0);
 
             double rightGridXLeft = random.GetFromRange(0.0, 1.0);
-            double rightGridXRight = random.GetFromRange(2.0, 3.0);
-            double rightGridZTop = random.GetFromRange(2.0, 3.0);
+            double rightGridXRight = random.GetFromRange(1.0, 2.0);
+            double rightGridZTop = random.GetFromRange(1.0, 2.0);
             double rightGridZBottom = random.GetFromRange(0.0, 1.0);
 
-            double tangentLineZTop = random.GetFromRange(2.0, 3.0);
+            double tangentLineZTop = random.GetFromRange(1.0, 2.0);
             double tangentLineZBottom = random.GetFromRange(0.0, 1.0);
 
             var properties = new MacroStabilityInwardsInput.ConstructionProperties
@@ -231,7 +231,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double leakageLengthInwardsPhreaticLine4 = random.NextDouble();
             double piezometricHeadPhreaticLine2Outwards = random.NextDouble();
             double piezometricHeadPhreaticLine2Inwards = random.NextDouble();
-            double tangentLineZTop = random.GetFromRange(2.0, 3.0);
+            double tangentLineZTop = random.GetFromRange(1.0, 2.0);
             double tangentLineZBottom = random.GetFromRange(0.0, 1.0);
             int tangentLineNumber = random.Next(1, 51);
 
@@ -493,7 +493,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             TestDelegate test = () => inputParameters.TangentLineZTop = (RoundedDouble) zTop;
 
             // Assert
-            const string expectedMessage = "Tangentlijn Z-boven moet groter zijn dan tangentlijn Z-onder, of NaN.";
+            const string expectedMessage = "Tangentlijn Z-boven moet groter zijn dan of gelijk zijn aan tangentlijn Z-onder, of NaN.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
@@ -511,7 +511,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             TestDelegate test = () => inputParameters.TangentLineZBottom = (RoundedDouble) zBottom;
 
             // Assert
-            const string expectedMessage = "Tangentlijn Z-onder moet kleiner zijn dan tangentlijn Z-boven, of NaN.";
+            const string expectedMessage = "Tangentlijn Z-onder moet kleiner zijn dan of gelijk zijn aan tangentlijn Z-boven, of NaN.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
@@ -590,16 +590,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
         private static IEnumerable<TestCaseData> GetInValidConstructionPropertiesCombinations()
         {
-            const string expectedXMessage = "X links moet kleiner zijn dan X rechts, of NaN.";
-            const string expectedZMessage = "Z boven moet groter zijn dan Z onder, of NaN.";
-            const string expectedTangentLineMessage = "Tangentlijn Z-boven moet groter zijn dan tangentlijn Z-onder, of NaN.";
-
-            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
-                {
-                    LeftGridXLeft = 0.0,
-                    LeftGridXRight = 0.0
-                }, expectedXMessage)
-                .SetName("LeftGrid equal X");
+            const string expectedXMessage = "X links moet kleiner zijn dan of gelijk zijn aan X rechts, of NaN.";
+            const string expectedZMessage = "Z boven moet groter zijn dan of gelijk zijn aan Z onder, of NaN.";
+            const string expectedTangentLineMessage = "Tangentlijn Z-boven moet groter zijn dan of gelijk zijn aan tangentlijn Z-onder, of NaN.";
 
             yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
                 {
@@ -611,23 +604,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
                 {
                     LeftGridZTop = 0.0,
-                    LeftGridZBottom = 0.0
-                }, expectedZMessage)
-                .SetName("LeftGrid equal Z");
-
-            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
-                {
-                    LeftGridZTop = 0.0,
                     LeftGridZBottom = 1.0
                 }, expectedZMessage)
                 .SetName("LeftGrid ZTop smaller than ZBottom");
-
-            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
-                {
-                    RightGridXLeft = 0.0,
-                    RightGridXRight = 0.0
-                }, expectedXMessage)
-                .SetName("RightGrid equal X");
 
             yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
                 {
@@ -639,23 +618,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
                 {
                     RightGridZTop = 0.0,
-                    RightGridZBottom = 0.0
-                }, expectedZMessage)
-                .SetName("RightGrid equal Z");
-
-            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
-                {
-                    RightGridZTop = 0.0,
                     RightGridZBottom = 1.0
                 }, expectedZMessage)
                 .SetName("RightGrid ZTop smaller than ZBottom");
-
-            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
-                {
-                    TangentLineZTop = 0.0,
-                    TangentLineZBottom = 0.0
-                }, expectedTangentLineMessage)
-                .SetName("TangentLine equal Z");
 
             yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
                 {
@@ -667,7 +632,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
         private static IEnumerable<TestCaseData> GetInvalidTangentCombinations()
         {
-            yield return new TestCaseData(0.0, 0.0);
             yield return new TestCaseData(1.0, 0.0);
             yield return new TestCaseData(0.0, -1.0);
         }

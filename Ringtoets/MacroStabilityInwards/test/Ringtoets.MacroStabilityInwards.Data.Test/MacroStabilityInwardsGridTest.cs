@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             TestDelegate test = () => new MacroStabilityInwardsGrid(xLeft, xRight, double.NaN, double.NaN);
 
             // Assert
-            const string message = "X links moet kleiner zijn dan X rechts, of NaN.";
+            const string message = "X links moet kleiner zijn dan of gelijk zijn aan X rechts, of NaN.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -78,8 +78,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var grid = new MacroStabilityInwardsGrid(xLeft, xRight, double.NaN, double.NaN);
 
             // Assert
-            Assert.AreEqual(xLeft, grid.XLeft);
-            Assert.AreEqual(xRight, grid.XRight);
+            Assert.AreEqual(xLeft, grid.XLeft, grid.XLeft.GetAccuracy());
+            Assert.AreEqual(xRight, grid.XRight, grid.XRight.GetAccuracy());
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             TestDelegate test = () => new MacroStabilityInwardsGrid(double.NaN, double.NaN, zTop, zBottom);
 
             // Assert
-            const string message = "Z boven moet groter zijn dan Z onder, of NaN.";
+            const string message = "Z boven moet groter zijn dan of gelijk zijn aan Z onder, of NaN.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -102,8 +102,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var grid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, zTop, zBottom);
 
             // Assert
-            Assert.AreEqual(zTop, grid.ZTop);
-            Assert.AreEqual(zBottom, grid.ZBottom);
+            Assert.AreEqual(zTop, grid.ZTop, grid.ZTop.GetAccuracy());
+            Assert.AreEqual(zBottom, grid.ZBottom, grid.ZBottom.GetAccuracy());
         }
 
         [Test]
@@ -112,8 +112,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var random = new Random(21);
             double xLeft = random.GetFromRange(0.0, 1.0);
-            double xRight = random.GetFromRange(2.0, 3.0);
-            double zTop = random.GetFromRange(2.0, 3.0);
+            double xRight = random.GetFromRange(1.0, 2.0);
+            double zTop = random.GetFromRange(1.0, 2.0);
             double zBottom = random.GetFromRange(0.0, 1.0);
             int numberOfHorizontalPoints = random.Next(1, 100);
             int numberOfVerticalPoints = random.Next(1, 100);
@@ -161,7 +161,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             TestDelegate test = () => grid.XLeft = (RoundedDouble) xLeft;
 
             // Assert
-            const string message = "X links moet kleiner zijn dan X rechts, of NaN.";
+            const string message = "X links moet kleiner zijn dan of gelijk zijn aan X rechts, of NaN.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -176,7 +176,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             TestDelegate test = () => grid.XRight = (RoundedDouble) xRight;
 
             // Assert
-            const string message = "X rechts moet groter zijn dan X links, of NaN.";
+            const string message = "X rechts moet groter zijn dan of gelijk zijn aan X links, of NaN.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -191,7 +191,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             TestDelegate test = () => grid.ZTop = (RoundedDouble) zTop;
 
             // Assert
-            const string message = "Z boven moet groter zijn dan Z onder, of NaN.";
+            const string message = "Z boven moet groter zijn dan of gelijk zijn aan Z onder, of NaN.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -206,7 +206,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             TestDelegate test = () => grid.ZBottom = (RoundedDouble) zBottom;
 
             // Assert
-            const string message = "Z onder moet kleiner zijn dan Z boven, of NaN.";
+            const string message = "Z onder moet kleiner zijn dan of gelijk zijn aan Z boven, of NaN.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -249,10 +249,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var original = new MacroStabilityInwardsGrid(random.NextDouble(),
-                                                         random.GetFromRange(2.0, 3.0),
-                                                         random.GetFromRange(2.0, 3.0),
-                                                         random.NextDouble())
+            var original = new MacroStabilityInwardsGrid(random.GetFromRange(0.0, 1.0),
+                                                         random.GetFromRange(1.0, 2.0),
+                                                         random.GetFromRange(1.0, 2.0),
+                                                         random.GetFromRange(0.0, 1.0))
             {
                 NumberOfHorizontalPoints = random.Next(1, 100),
                 NumberOfVerticalPoints = random.Next(1, 100)
@@ -267,7 +267,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
         private static IEnumerable<TestCaseData> GetInvalidPointCombinations()
         {
-            yield return new TestCaseData(0.0, 0.0);
+            yield return new TestCaseData(1e-2, 0.0);
             yield return new TestCaseData(1.0, 0.0);
             yield return new TestCaseData(0.0, -1.0);
         }
@@ -277,6 +277,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             yield return new TestCaseData(double.NaN, 0.0);
             yield return new TestCaseData(0.0, double.NaN);
             yield return new TestCaseData(double.NaN, double.NaN);
+            yield return new TestCaseData(0.0, 0.0);
+            yield return new TestCaseData(0.0, 1e-3);
+            yield return new TestCaseData(1e-3, 0.0);
             yield return new TestCaseData(0.0, 1.0);
             yield return new TestCaseData(-1.0, 1.0);
         }

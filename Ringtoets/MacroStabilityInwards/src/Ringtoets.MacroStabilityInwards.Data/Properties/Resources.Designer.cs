@@ -118,43 +118,43 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to X links moet kleiner zijn dan X rechts, of NaN..
+        ///   Looks up a localized string similar to X links moet kleiner zijn dan of gelijk zijn aan X rechts, of NaN..
         /// </summary>
-        public static string MacroStabilityInwardsGrid_XLeft_should_be_smaller_than_XRight {
+        public static string MacroStabilityInwardsGrid_XLeft_should_be_smaller_than_or_equal_to_XRight {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsGrid_XLeft_should_be_smaller_than_XRight", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsGrid_XLeft_should_be_smaller_than_or_equal_to_XRight", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to X rechts moet groter zijn dan X links, of NaN..
+        ///   Looks up a localized string similar to X rechts moet groter zijn dan of gelijk zijn aan X links, of NaN..
         /// </summary>
-        public static string MacroStabilityInwardsGrid_XRight_should_be_larger_than_XLeft {
+        public static string MacroStabilityInwardsGrid_XRight_should_be_larger_than_or_equal_to_XLeft {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsGrid_XRight_should_be_larger_than_XLeft", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsGrid_XRight_should_be_larger_than_or_equal_to_XLeft", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Z onder moet kleiner zijn dan Z boven, of NaN..
+        ///   Looks up a localized string similar to Z onder moet kleiner zijn dan of gelijk zijn aan Z boven, of NaN..
         /// </summary>
-        public static string MacroStabilityInwardsGrid_ZBottom_should_be_smaller_than_ZTop {
+        public static string MacroStabilityInwardsGrid_ZBottom_should_be_smaller_than_or_equal_to_ZTop {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsGrid_ZBottom_should_be_smaller_than_ZTop", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsGrid_ZBottom_should_be_smaller_than_or_equal_to_ZTop", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Z boven moet groter zijn dan Z onder, of NaN..
+        ///   Looks up a localized string similar to Z boven moet groter zijn dan of gelijk zijn aan Z onder, of NaN..
         /// </summary>
-        public static string MacroStabilityInwardsGrid_ZTop_should_be_larger_than_ZBottom {
+        public static string MacroStabilityInwardsGrid_ZTop_should_be_larger_than_or_equal_to_ZBottom {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsGrid_ZTop_should_be_larger_than_ZBottom", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsGrid_ZTop_should_be_larger_than_or_equal_to_ZBottom", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tangentlijn Z-onder moet kleiner zijn dan tangentlijn Z-boven, of NaN..
+        ///   Looks up a localized string similar to Tangentlijn Z-onder moet kleiner zijn dan of gelijk zijn aan tangentlijn Z-boven, of NaN..
         /// </summary>
         public static string MacroStabilityInwardsInput_TangentLineZBottom_should_be_smaller_than_TangentLineZTop {
             get {
@@ -164,7 +164,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tangentlijn Z-boven moet groter zijn dan tangentlijn Z-onder, of NaN..
+        ///   Looks up a localized string similar to Tangentlijn Z-boven moet groter zijn dan of gelijk zijn aan tangentlijn Z-onder, of NaN..
         /// </summary>
         public static string MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_TangentLineZBottom {
             get {
