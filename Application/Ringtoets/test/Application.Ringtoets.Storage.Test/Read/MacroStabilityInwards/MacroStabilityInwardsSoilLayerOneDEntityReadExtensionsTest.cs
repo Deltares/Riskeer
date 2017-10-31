@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             // Setup
             var random = new Random(31);
             double top = random.NextDouble();
-            int color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()).ToArgb();
+            int color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()).ToInt32();
             bool isAquifer = random.NextBoolean();
             const double abovePhreaticLevelMean = 0.3;
             const double abovePhreaticLevelCoefficientOfVariation = 0.2;

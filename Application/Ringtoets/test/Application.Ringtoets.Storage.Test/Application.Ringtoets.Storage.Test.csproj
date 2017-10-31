@@ -79,6 +79,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="BackgroundDataIdentifiersTest.cs" />
+    <Compile Include="ColorConversionExtensionsTest.cs" />
     <Compile Include="Create\BackgroundDataCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructures\ClosingStructureCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationCreateExtensionsTest.cs" />

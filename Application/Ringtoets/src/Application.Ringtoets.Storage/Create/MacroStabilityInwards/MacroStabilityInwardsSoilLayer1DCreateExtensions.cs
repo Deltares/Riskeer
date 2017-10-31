@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
                 Top = soilLayer.Top.ToNaNAsNull(),
                 IsAquifer = Convert.ToByte(data.IsAquifer),
                 MaterialName = data.MaterialName.DeepClone(),
-                Color = data.Color.ToArgb(),
+                Color = data.Color.ToInt32(),
                 UsePop = Convert.ToByte(data.UsePop),
                 ShearStrengthModel = Convert.ToByte(data.ShearStrengthModel),
                 AbovePhreaticLevelMean = data.AbovePhreaticLevel.Mean.ToNaNAsNull(),

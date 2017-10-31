@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
                 {
                     IsAquifer = Convert.ToBoolean(entity.IsAquifer),
                     MaterialName = entity.MaterialName ?? string.Empty,
-                    Color = Color.FromArgb(Convert.ToInt32(entity.Color)),
+                    Color = Convert.ToInt32(entity.Color).ToColor(),
                     UsePop = Convert.ToBoolean(entity.UsePop),
                     ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) entity.ShearStrengthModel,
                     AbovePhreaticLevel =

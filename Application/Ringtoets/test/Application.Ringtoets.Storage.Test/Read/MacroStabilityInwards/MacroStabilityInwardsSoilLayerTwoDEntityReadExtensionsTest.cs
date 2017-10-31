@@ -157,7 +157,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             Assert.IsNotNull(layer);
             MacroStabilityInwardsSoilLayerData data = layer.Data;
             Assert.AreEqual(Convert.ToBoolean(entity.IsAquifer), data.IsAquifer);
-            Assert.AreEqual(Color.FromArgb(Convert.ToInt32(entity.Color)), data.Color);
+            Assert.AreEqual(Convert.ToInt32(entity.Color), data.Color.ToInt32());
             Assert.AreEqual(entity.MaterialName, data.MaterialName);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
@@ -215,7 +215,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             var entity = new MacroStabilityInwardsSoilLayerTwoDEntity
             {
                 IsAquifer = Convert.ToByte(random.NextBoolean()),
-                Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()).ToArgb(),
+                Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()).ToInt32(),
                 MaterialName = random.Next().ToString(),
                 AbovePhreaticLevelMean = random.GetFromRange(2.0, 3.0),
                 AbovePhreaticLevelCoefficientOfVariation = random.NextDouble(),

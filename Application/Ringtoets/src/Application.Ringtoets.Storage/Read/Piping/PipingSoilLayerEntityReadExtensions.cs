@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
             return new PipingSoilLayer(entity.Top.ToNullAsNaN())
             {
                 IsAquifer = Convert.ToBoolean(entity.IsAquifer),
-                Color = Color.FromArgb(Convert.ToInt32(entity.Color)),
+                Color = Convert.ToInt32(entity.Color).ToColor(),
                 MaterialName = entity.MaterialName ?? string.Empty,
                 BelowPhreaticLevelMean = entity.BelowPhreaticLevelMean.ToNullAsNaN(),
                 BelowPhreaticLevelDeviation = entity.BelowPhreaticLevelDeviation.ToNullAsNaN(),
