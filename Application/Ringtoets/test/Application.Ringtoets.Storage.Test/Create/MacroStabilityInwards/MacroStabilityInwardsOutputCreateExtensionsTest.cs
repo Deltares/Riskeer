@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -65,8 +64,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                                                                      random.NextDouble(),
                                                                      random.NextDouble());
 
-            MacroStabilityInwardsGrid leftGrid = CreateGrid(13);
-            MacroStabilityInwardsGrid rightGrid = CreateGrid(34);
+            MacroStabilityInwardsGrid leftGrid = MacroStabilityInwardsGridTestFactory.Create();
+            MacroStabilityInwardsGrid rightGrid = MacroStabilityInwardsGridTestFactory.Create();
             var tangentLines = new[]
             {
                 random.NextDouble()
@@ -149,28 +148,9 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
         #region Slip Plane Helpers
 
-        private static MacroStabilityInwardsGrid CreateGrid(int seed)
-        {
-            var random = new Random(seed);
-            return new MacroStabilityInwardsGrid(random.NextDouble(),
-                                                 1 + random.NextDouble(),
-                                                 1 + random.NextDouble(),
-                                                 random.NextDouble())
-            {
-                NumberOfHorizontalPoints = random.Next(1, 100),
-                NumberOfVerticalPoints = random.Next(1, 100)
-            };
-        }
-
         private static MacroStabilityInwardsGrid CreateGridWithNaNValues()
         {
-            return new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN)
-            {
-                XLeft = RoundedDouble.NaN,
-                XRight = RoundedDouble.NaN,
-                ZTop = RoundedDouble.NaN,
-                ZBottom = RoundedDouble.NaN
-            };
+            return new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN);
         }
 
         #endregion

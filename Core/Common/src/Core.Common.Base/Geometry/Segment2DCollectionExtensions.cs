@@ -50,13 +50,6 @@ namespace Core.Common.Base.Geometry
             return Interpolate(segment, x);
         }
 
-        /// <summary>
-        /// Interpolates the segment on <paramref name="x"/>.
-        /// </summary>
-        /// <param name="segment">The segment to interpolate on.</param>
-        /// <param name="x">The x value to use for interpolation.</param>
-        /// <returns>The interpolated y value of the <paramref name="segment"/> or 
-        /// <see cref="double.NaN"/> when no interpolation was found.</returns>
         private static double Interpolate(Segment2D segment, double x)
         {
             double differenceInX = segment.SecondPoint.X - segment.FirstPoint.X;

@@ -107,7 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void Constructor_SetProperties_ExpectedValues()
+        public void Properties_ValidValues_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
@@ -118,34 +118,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             int numberOfHorizontalPoints = random.Next(1, 100);
             int numberOfVerticalPoints = random.Next(1, 100);
 
+            var grid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN);
+
             // Call
-            var grid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN)
-            {
-                XLeft = (RoundedDouble) xLeft,
-                XRight = (RoundedDouble) xRight,
-                ZTop = (RoundedDouble) zTop,
-                ZBottom = (RoundedDouble) zBottom,
-                NumberOfHorizontalPoints = numberOfHorizontalPoints,
-                NumberOfVerticalPoints = numberOfVerticalPoints
-            };
+            grid.XLeft = (RoundedDouble) xLeft;
+            grid.XRight = (RoundedDouble) xRight;
+            grid.ZTop = (RoundedDouble) zTop;
+            grid.ZBottom = (RoundedDouble) zBottom;
+            grid.NumberOfHorizontalPoints = numberOfHorizontalPoints;
+            grid.NumberOfVerticalPoints = numberOfVerticalPoints;
 
             // Assert
-            Assert.AreEqual(2, grid.XLeft.NumberOfDecimalPlaces);
-            Assert.AreEqual(xLeft, grid.XLeft,
-                            grid.XLeft.GetAccuracy());
-
-            Assert.AreEqual(2, grid.XRight.NumberOfDecimalPlaces);
-            Assert.AreEqual(xRight, grid.XRight,
-                            grid.XRight.GetAccuracy());
-
-            Assert.AreEqual(2, grid.ZTop.NumberOfDecimalPlaces);
-            Assert.AreEqual(zTop, grid.ZTop,
-                            grid.ZTop.GetAccuracy());
-
-            Assert.AreEqual(2, grid.ZBottom.NumberOfDecimalPlaces);
-            Assert.AreEqual(zBottom, grid.ZBottom,
-                            grid.ZBottom.GetAccuracy());
-
+            Assert.AreEqual(xLeft, grid.XLeft, grid.XLeft.GetAccuracy());
+            Assert.AreEqual(xRight, grid.XRight, grid.XRight.GetAccuracy());
+            Assert.AreEqual(zTop, grid.ZTop, grid.ZTop.GetAccuracy());
+            Assert.AreEqual(zBottom, grid.ZBottom, grid.ZBottom.GetAccuracy());
             Assert.AreEqual(numberOfHorizontalPoints, grid.NumberOfHorizontalPoints);
             Assert.AreEqual(numberOfVerticalPoints, grid.NumberOfVerticalPoints);
         }

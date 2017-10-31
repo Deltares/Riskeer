@@ -96,7 +96,7 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
-        /// Returns a random <see cref="RoundedDouble"/> value.
+        /// Generates a new pseudo-random number between <paramref name="lowerLimit"/> and <paramref name="upperLimit"/>.
         /// </summary>
         /// <param name="random">A pseudo-random number generator.</param>
         /// <param name="lowerLimit">The lower limit of the new random number.</param>
