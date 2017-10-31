@@ -61,6 +61,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.SlipPlaneMinimumDepth);
             Assert.IsNull(configuration.SlipPlaneMinimumLength);
             Assert.IsNull(configuration.MaximumSliceWidth);
+            Assert.IsNull(configuration.LeftGrid);
+            Assert.IsNull(configuration.RightGrid);
         }
 
         [Test]
@@ -79,6 +81,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const double maximumSliceWidth = 4.4;
 
             var scenarioConfiguration = new ScenarioConfiguration();
+            var leftGrid = new MacroStabilityInwardsGridConfiguration();
+            var rightGrid = new MacroStabilityInwardsGridConfiguration();
 
             // Call
             var configuration = new MacroStabilityInwardsCalculationConfiguration(calculationName)
@@ -92,7 +96,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 DikeSoilScenario = dikeSoilScenario,
                 SlipPlaneMinimumDepth = slipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = slipPlaneMinimumLength,
-                MaximumSliceWidth = maximumSliceWidth
+                MaximumSliceWidth = maximumSliceWidth,
+                LeftGrid = leftGrid,
+                RightGrid = rightGrid
             };
 
             // Assert
@@ -107,6 +113,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(slipPlaneMinimumDepth, configuration.SlipPlaneMinimumDepth);
             Assert.AreEqual(slipPlaneMinimumLength, configuration.SlipPlaneMinimumLength);
             Assert.AreEqual(maximumSliceWidth, configuration.MaximumSliceWidth);
+            Assert.AreSame(leftGrid, configuration.LeftGrid);
+            Assert.AreSame(rightGrid, configuration.RightGrid);
         }
 
         [Test]

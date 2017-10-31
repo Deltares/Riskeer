@@ -92,6 +92,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public double? MaximumSliceWidth { get; set; }
 
         /// <summary>
+        /// Gets or sets the left grid.
+        /// </summary>
+        public MacroStabilityInwardsGridConfiguration LeftGrid { get; set; }
+
+        /// <summary>
+        /// Gets or sets the right grid.
+        /// </summary>
+        public MacroStabilityInwardsGridConfiguration RightGrid { get; set; }
+
+        /// <summary>
         /// Gets or sets the name for the calculation.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>

@@ -9,6 +9,22 @@
     <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
     <maximalelamelbreedte>0.6</maximalelamelbreedte>
+    <linkergrid>
+      <links>NaN</links>
+      <rechts>NaN</rechts>
+      <boven>NaN</boven>
+      <onder>NaN</onder>
+      <aantalpuntenverticaal>5</aantalpuntenverticaal>
+      <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
+    </linkergrid>
+    <rechtergrid>
+      <links>NaN</links>
+      <rechts>NaN</rechts>
+      <boven>NaN</boven>
+      <onder>NaN</onder>
+      <aantalpuntenverticaal>5</aantalpuntenverticaal>
+      <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
+    </rechtergrid>
     <scenario>
       <gebruik>true</gebruik>
       <bijdrage>100</bijdrage>

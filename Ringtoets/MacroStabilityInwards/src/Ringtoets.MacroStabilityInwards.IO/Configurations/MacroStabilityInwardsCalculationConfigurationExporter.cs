@@ -63,7 +63,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 Scenario = calculation.ToScenarioConfiguration(),
                 SlipPlaneMinimumDepth = input.SlipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = input.SlipPlaneMinimumLength,
-                MaximumSliceWidth = input.MaximumSliceWidth
+                MaximumSliceWidth = input.MaximumSliceWidth,
+                LeftGrid = input.LeftGrid.ToMacroStabilityInwardsGridConfiguration(),
+                RightGrid = input.RightGrid.ToMacroStabilityInwardsGridConfiguration()
             };
 
             if (input.HydraulicBoundaryLocation != null)

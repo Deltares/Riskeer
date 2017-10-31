@@ -164,6 +164,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.IsNaN(input.SlipPlaneMinimumDepth);
             Assert.IsNaN(input.SlipPlaneMinimumLength);
             Assert.IsNaN(input.MaximumSliceWidth);
+
+            Assert.IsNaN(input.LeftGrid.XLeft);
+            Assert.IsNaN(input.LeftGrid.XRight);
+            Assert.IsNaN(input.LeftGrid.ZTop);
+            Assert.IsNaN(input.LeftGrid.ZBottom);
+
+            Assert.IsNaN(input.RightGrid.XLeft);
+            Assert.IsNaN(input.RightGrid.XRight);
+            Assert.IsNaN(input.RightGrid.ZTop);
+            Assert.IsNaN(input.RightGrid.ZBottom);
         }
 
         [Test]
@@ -183,9 +193,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual("PK001_0001", input.SurfaceLine.Name);
             Assert.AreEqual("PK001_0001_Macrostabiliteit", input.StochasticSoilModel.Name);
             Assert.AreEqual("W1-6_0_1D1", input.StochasticSoilProfile.SoilProfile.Name);
+
             Assert.AreEqual(double.NegativeInfinity, input.SlipPlaneMinimumDepth);
             Assert.AreEqual(double.PositiveInfinity, input.SlipPlaneMinimumLength);
             Assert.AreEqual(double.NegativeInfinity, input.MaximumSliceWidth);
+
+            Assert.AreEqual(double.NegativeInfinity, input.LeftGrid.XLeft);
+            Assert.AreEqual(double.PositiveInfinity, input.LeftGrid.XRight);
+            Assert.AreEqual(double.PositiveInfinity, input.LeftGrid.ZTop);
+            Assert.AreEqual(double.NegativeInfinity, input.LeftGrid.ZBottom);
+
+            Assert.AreEqual(double.NegativeInfinity, input.RightGrid.XLeft);
+            Assert.AreEqual(double.PositiveInfinity, input.RightGrid.XRight);
+            Assert.AreEqual(double.PositiveInfinity, input.RightGrid.ZTop);
+            Assert.AreEqual(double.NegativeInfinity, input.RightGrid.ZBottom);
         }
 
         private static void AssertCalculation(MacroStabilityInwardsCalculationScenario calculation,

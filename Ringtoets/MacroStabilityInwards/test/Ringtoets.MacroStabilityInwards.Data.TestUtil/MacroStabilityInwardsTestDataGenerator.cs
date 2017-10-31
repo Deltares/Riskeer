@@ -177,6 +177,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             input.SlipPlaneMinimumLength = RoundedDouble.NaN;
             input.MaximumSliceWidth = RoundedDouble.NaN;
 
+            input.LeftGrid.XLeft = RoundedDouble.NaN;
+            input.LeftGrid.XRight = RoundedDouble.NaN;
+            input.LeftGrid.ZTop = RoundedDouble.NaN;
+            input.LeftGrid.ZBottom = RoundedDouble.NaN;
+
+            input.RightGrid.XLeft = RoundedDouble.NaN;
+            input.RightGrid.XRight = RoundedDouble.NaN;
+            input.RightGrid.ZTop = RoundedDouble.NaN;
+            input.RightGrid.ZBottom = RoundedDouble.NaN;
+
             return calculation;
         }
 
@@ -203,6 +213,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             input.SlipPlaneMinimumDepth = (RoundedDouble) double.NegativeInfinity;
             input.SlipPlaneMinimumLength = (RoundedDouble) double.PositiveInfinity;
             input.MaximumSliceWidth = (RoundedDouble) double.NegativeInfinity;
+
+            input.LeftGrid.XLeft = (RoundedDouble) double.NegativeInfinity;
+            input.LeftGrid.XRight = (RoundedDouble) double.PositiveInfinity;
+            input.LeftGrid.ZTop = (RoundedDouble) double.PositiveInfinity;
+            input.LeftGrid.ZBottom = (RoundedDouble) double.NegativeInfinity;
+
+            input.RightGrid.XLeft = (RoundedDouble) double.NegativeInfinity;
+            input.RightGrid.XRight = (RoundedDouble) double.PositiveInfinity;
+            input.RightGrid.ZTop = (RoundedDouble) double.PositiveInfinity;
+            input.RightGrid.ZBottom = (RoundedDouble) double.NegativeInfinity;
 
             return calculation;
         }

@@ -65,6 +65,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             // Assert
             Assert.AreEqual(contribution * 100, configuration.Contribution);
             Assert.AreEqual(relevant, configuration.IsRelevant);
+            mocks.VerifyAll();
         }
     }
 }

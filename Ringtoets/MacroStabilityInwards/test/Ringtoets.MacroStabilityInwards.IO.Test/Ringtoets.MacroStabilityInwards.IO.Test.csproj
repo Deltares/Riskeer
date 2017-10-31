@@ -64,6 +64,7 @@
     <Compile Include="Configurations\Helpers\ConfigurationDikeSoilScenarioTypeConverterTest.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationGridDeterminationTypeConverterTest.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationTangentLineDeterminationTypeConverterTest.cs" />
+    <Compile Include="Configurations\Helpers\MacroStabilityInwardsGridConversionExtensionsTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationWriterTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationImporterTest.cs" />

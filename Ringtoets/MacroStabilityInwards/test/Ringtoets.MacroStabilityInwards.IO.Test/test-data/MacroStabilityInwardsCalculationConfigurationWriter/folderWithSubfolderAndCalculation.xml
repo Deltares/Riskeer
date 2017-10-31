@@ -11,6 +11,22 @@
       <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
       <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
       <maximalelamelbreedte>0.6</maximalelamelbreedte>
+      <linkergrid>
+        <links>1</links>
+        <rechts>1.2</rechts>
+        <boven>1.3</boven>
+        <onder>1.4</onder>
+        <aantalpuntenverticaal>0</aantalpuntenverticaal>
+        <aantalpuntenhorizontaal>1</aantalpuntenhorizontaal>
+      </linkergrid>
+      <rechtergrid>
+        <links>10</links>
+        <rechts>10.2</rechts>
+        <boven>10.3</boven>
+        <onder>10.4</onder>
+        <aantalpuntenverticaal>5</aantalpuntenverticaal>
+        <aantalpuntenhorizontaal>10</aantalpuntenhorizontaal>
+      </rechtergrid>
       <scenario>
         <gebruik>true</gebruik>
         <bijdrage>0.3</bijdrage>

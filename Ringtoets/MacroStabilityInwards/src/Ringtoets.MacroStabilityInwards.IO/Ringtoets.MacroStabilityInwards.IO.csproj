@@ -41,6 +41,7 @@
     <Compile Include="Configurations\Helpers\ConfigurationDikeSoilScenarioTypeConverter.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationGridDeterminationTypeConverter.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationTangentLineDeterminationTypeConverter.cs" />
+    <Compile Include="Configurations\Helpers\MacroStabilityInwardsGridConversionExtensions.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationWriter.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationImporter.cs" />

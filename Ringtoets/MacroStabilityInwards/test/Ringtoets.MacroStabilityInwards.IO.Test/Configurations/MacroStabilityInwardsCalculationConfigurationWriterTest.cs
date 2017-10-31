@@ -85,15 +85,33 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 SurfaceLineName = "PK001_0001",
                 StochasticSoilModelName = "PK001_0001_Macrostabiliteit",
                 StochasticSoilProfileName = "W1-6_0_1D1",
+                DikeSoilScenario = ConfigurationDikeSoilScenario.ClayDikeOnSand,
+                SlipPlaneMinimumDepth = 0.4,
+                SlipPlaneMinimumLength = 0.5,
+                MaximumSliceWidth = 0.6,
+                LeftGrid = new MacroStabilityInwardsGridConfiguration
+                {
+                    XLeft = 1.0,
+                    XRight = 1.2,
+                    ZTop = 1.3,
+                    ZBottom = 1.4,
+                    NumberOfVerticalPoints = 0,
+                    NumberOfHorizontalPoints = 1
+                },
+                RightGrid = new MacroStabilityInwardsGridConfiguration
+                {
+                    XLeft = 10.0,
+                    XRight = 10.2,
+                    ZTop = 10.3,
+                    ZBottom = 10.4,
+                    NumberOfVerticalPoints = 5,
+                    NumberOfHorizontalPoints = 10
+                },
                 Scenario = new ScenarioConfiguration
                 {
                     IsRelevant = true,
                     Contribution = 0.3
-                },
-                DikeSoilScenario = ConfigurationDikeSoilScenario.ClayDikeOnSand,
-                SlipPlaneMinimumDepth = 0.4,
-                SlipPlaneMinimumLength = 0.5,
-                MaximumSliceWidth = 0.6
+                }
             };
         }
 

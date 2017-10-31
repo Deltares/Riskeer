@@ -57,6 +57,68 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
+        /// Writes a grid configuration.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="gridLocationName">The name of the location of the grid.</param>
+        /// <param name="configuration">The configuration for the grid that can be <c>null</c>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="gridLocationName"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        private static void WriteGridWhenAvailable(XmlWriter writer, string gridLocationName, MacroStabilityInwardsGridConfiguration configuration)
+        {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (gridLocationName == null)
+            {
+                throw new ArgumentNullException(nameof(gridLocationName));
+            }
+
+            if (configuration == null)
+            {
+                return;
+            }
+
+            writer.WriteStartElement(gridLocationName);
+
+            if (configuration.XLeft.HasValue)
+            {
+                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXLeft,
+                                          XmlConvert.ToString(configuration.XLeft.Value));
+            }
+            if (configuration.XRight.HasValue)
+            {
+                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXRight,
+                                          XmlConvert.ToString(configuration.XRight.Value));
+            }
+            if (configuration.ZTop.HasValue)
+            {
+                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZTop,
+                                          XmlConvert.ToString(configuration.ZTop.Value));
+            }
+            if (configuration.ZBottom.HasValue)
+            {
+                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZBottom,
+                                          XmlConvert.ToString(configuration.ZBottom.Value));
+            }
+            if (configuration.NumberOfVerticalPoints.HasValue)
+            {
+                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfVerticalPoints,
+                                          XmlConvert.ToString(configuration.NumberOfVerticalPoints.Value));
+            }
+            if (configuration.NumberOfHorizontalPoints.HasValue)
+            {
+                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfHorizontalPoints,
+                                          XmlConvert.ToString(configuration.NumberOfHorizontalPoints.Value));
+            }
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
         /// Writes the elements of the <paramref name="configuration"/> in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
@@ -81,10 +143,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
                                              configuration.StochasticSoilProfileName);
 
-            WriteDikeSoilScenarioWhenAvailable(
-                writer,
-                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioElement,
-                configuration.DikeSoilScenario);
+            WriteDikeSoilScenarioWhenAvailable(writer,
+                                               MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioElement,
+                                               configuration.DikeSoilScenario);
 
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumDepthElement,
@@ -95,6 +156,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MaximumSliceWidthElement,
                                              configuration.MaximumSliceWidth);
+
+            WriteGridWhenAvailable(writer,
+                                   MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeftGridElement,
+                                   configuration.LeftGrid);
+            WriteGridWhenAvailable(writer,
+                                   MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.RightGridElement,
+                                   configuration.RightGrid);
 
             WriteScenarioWhenAvailable(writer, configuration.Scenario);
         }
