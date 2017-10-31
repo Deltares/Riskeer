@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
@@ -56,14 +57,29 @@ namespace Ringtoets.Piping.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateSoilLayerChartData_NameAndFillColor_ReturnsEmptyChartDataCollectionWithExpectedStyling()
+        public void CreateSoilLayerChartData_LayerNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => PipingChartDataFactory.CreateSoilLayerChartData(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("layer", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateSoilLayerChartData_WithLayer_ReturnsEmptyChartDataCollectionWithExpectedStyling()
         {
             // Setup
             const string name = "Soil layer test name";
             Color fillColor = Color.Firebrick;
 
             // Call
-            ChartMultipleAreaData data = PipingChartDataFactory.CreateSoilLayerChartData(name, fillColor);
+            ChartMultipleAreaData data = PipingChartDataFactory.CreateSoilLayerChartData(new PipingSoilLayer(0)
+            {
+                MaterialName = name,
+                Color = fillColor
+            });
 
             // Assert
             CollectionAssert.IsEmpty(data.Areas);

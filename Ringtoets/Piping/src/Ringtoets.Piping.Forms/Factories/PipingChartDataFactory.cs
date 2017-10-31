@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
@@ -57,15 +58,19 @@ namespace Ringtoets.Piping.Forms.Factories
         /// Create <see cref="ChartMultipleAreaData"/> for a <see cref="PipingSoilLayer"/> based
         /// on its name and fill color.
         /// </summary>
-        /// <param name="name">The name of the <see cref="ChartData"/>.</param>
-        /// <param name="fillColor">The fill color of the <see cref="ChartData"/>.</param>
+        /// <param name="layer">The layer to create the <see cref="ChartMultipleAreaData"/> for.</param>
         /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
-        public static ChartMultipleAreaData CreateSoilLayerChartData(string name, Color fillColor)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layer"/> is <c>null</c>.</exception>
+        public static ChartMultipleAreaData CreateSoilLayerChartData(PipingSoilLayer layer)
         {
-            return new ChartMultipleAreaData(name,
+            if (layer == null)
+            {
+                throw new ArgumentNullException(nameof(layer));
+            }
+            return new ChartMultipleAreaData(layer.MaterialName,
                                              new ChartAreaStyle
                                              {
-                                                 FillColor = fillColor,
+                                                 FillColor = layer.Color,
                                                  StrokeColor = Color.Black,
                                                  StrokeThickness = 1
                                              });

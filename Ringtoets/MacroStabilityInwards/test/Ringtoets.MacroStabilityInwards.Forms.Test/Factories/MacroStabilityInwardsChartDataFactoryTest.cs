@@ -25,6 +25,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -204,14 +205,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateSoilLayerChartData_NameAndFillColor_ReturnsEmptyChartDataCollectionWithExpectedStyling()
+        public void CreateSoilLayerChartData_LayerNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("layer", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateSoilLayerChartData_WithLayer_ReturnsEmptyChartDataCollectionWithExpectedStyling()
         {
             // Setup
             const string name = "Soil layer test name";
             Color fillColor = Color.Firebrick;
 
             // Call
-            ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(name, fillColor);
+            MacroStabilityInwardsSoilLayer2D layer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
+            layer.Data.MaterialName = name;
+            layer.Data.Color = fillColor;
+
+            ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(layer);
 
             // Assert
             CollectionAssert.IsEmpty(data.Areas);

@@ -115,7 +115,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
 
             Assert.AreEqual(0.5, stochasticSoilProfile.Probability);
 
-            Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile2D>(stochasticSoilProfile.SoilProfile);
             var soilProfile = (MacroStabilityInwardsSoilProfile2D) stochasticSoilProfile.SoilProfile;
             Assert.AreEqual("Profile 2D", soilProfile.Name);
             CollectionAssert.AreEqual(layers, soilProfile.Layers);

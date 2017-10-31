@@ -37,7 +37,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
 
             // Assert
             Assert.IsNotNull(soilLayer);
-            Assert.AreEqual(typeof(MacroStabilityInwardsSoilLayer2D), soilLayer.GetType());
             Assert.AreEqual(new Ring(new[]
             {
                 new Point2D(0, 0),
@@ -60,7 +59,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
 
             // Assert
             Assert.IsNotNull(soilLayer);
-            Assert.AreEqual(typeof(MacroStabilityInwardsSoilLayer2D), soilLayer.GetType());
             Assert.AreEqual(new Ring(new[]
             {
                 new Point2D(0, 0),

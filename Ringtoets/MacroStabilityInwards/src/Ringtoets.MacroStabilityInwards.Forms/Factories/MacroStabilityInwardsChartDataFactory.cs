@@ -201,15 +201,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <summary>
         /// Create <see cref="ChartMultipleAreaData"/> for a <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="ChartData"/>.</param>
-        /// <param name="fillColor">The fill color of the <see cref="ChartData"/>.</param>
+        /// <param name="layer">The layer to create the <see cref="ChartMultipleAreaData"/> for.</param>
         /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
-        public static ChartMultipleAreaData CreateSoilLayerChartData(string name, Color fillColor)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layer"/> is <c>null</c>.</exception>
+        public static ChartMultipleAreaData CreateSoilLayerChartData(MacroStabilityInwardsSoilLayer2D layer)
         {
-            return new ChartMultipleAreaData(name,
+            if (layer == null)
+            {
+                throw new ArgumentNullException(nameof(layer));
+            }
+            MacroStabilityInwardsSoilLayerData data = layer.Data;
+            return new ChartMultipleAreaData(data.MaterialName,
                                              new ChartAreaStyle
                                              {
-                                                 FillColor = fillColor,
+                                                 FillColor = data.Color,
                                                  StrokeColor = Color.Black,
                                                  StrokeThickness = 1
                                              });

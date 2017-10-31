@@ -296,8 +296,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             IEnumerable<MacroStabilityInwardsSoilLayer2D> soilLayers = GetSoilLayers().Reverse();
 
-            soilLayers.Select(layer => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(layer.Data.MaterialName,
-                                                                                                      layer.Data.Color))
+            soilLayers.Select(MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData)
                       .ForEachElementDo(sl =>
                       {
                           soilProfileChartData.Insert(0, sl);

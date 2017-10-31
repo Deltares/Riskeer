@@ -151,9 +151,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 {
                     InputParameters =
                     {
-                        SurfaceLine = surfaceLine,
-                    },
-                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+                        SurfaceLine = surfaceLine
+                    }
                 };
 
                 // Call

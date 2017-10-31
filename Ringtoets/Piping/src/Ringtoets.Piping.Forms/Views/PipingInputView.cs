@@ -200,8 +200,7 @@ namespace Ringtoets.Piping.Forms.Views
 
                 soilProfileChartData.Clear();
                 soilLayerChartDataLookup.Clear();
-                GetSoilLayers().Select(layer => PipingChartDataFactory.CreateSoilLayerChartData(layer.MaterialName,
-                                                                                                layer.Color))
+                GetSoilLayers().Select(PipingChartDataFactory.CreateSoilLayerChartData)
                                .ForEachElementDo(sl =>
                                {
                                    soilProfileChartData.Insert(0, sl);
