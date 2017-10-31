@@ -2507,6 +2507,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Onbekend.
+        /// </summary>
+        public static string SoilLayerVisualizationHelper_GetDisplayName_Unknown {
+            get {
+                return ResourceManager.GetString("SoilLayerVisualizationHelper_GetDisplayName_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geometrie uit de database..
         /// </summary>
         public static string StochasticSoilModel_Geometry_Description {

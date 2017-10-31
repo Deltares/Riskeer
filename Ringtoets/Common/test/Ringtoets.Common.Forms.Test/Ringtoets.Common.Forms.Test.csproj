@@ -91,6 +91,7 @@
     <Compile Include="Helpers\NamingHelperTest.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelperTest.cs" />
+    <Compile Include="Helpers\SoilLayerVisualizationHelperTest.cs" />
     <Compile Include="ImportInfos\RingtoetsImportInfoFactoryTest.cs" />
     <Compile Include="PresentationObjects\IllustrationPointContextTest.cs" />
     <Compile Include="PresentationObjects\InputContextBaseTest.cs" />
