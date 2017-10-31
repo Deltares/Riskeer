@@ -486,7 +486,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopInnerLoopSimple_ReturnsTwoLayers()
+        public void SoilLayer2DTransform_OuterLoopNestedLayerSimple_ReturnsTwoLayers()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -507,6 +507,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 innerLoop
             }, outerLoop);
 
+            layer.NestedLayers = new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
+            };
+
             double bottom;
 
             // Call
@@ -524,7 +529,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopInnerLoopComplex_ReturnsThreeLayers()
+        public void SoilLayer2DTransform_OuterLoopNestedLayerComplex_ReturnsThreeLayers()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -545,6 +550,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 innerLoop
             }, outerLoop);
 
+            layer.NestedLayers = new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
+            };
+
             double bottom;
 
             // Call
@@ -563,7 +573,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopMultipleInnerLoops_ReturnsThreeLayers()
+        public void SoilLayer2DTransform_OuterLoopMultipleNestedLayers_ReturnsThreeLayers()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -595,6 +605,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 innerLoop2
             }, outerLoop);
 
+            layer.NestedLayers = new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop),
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop2)
+            };
+
             double bottom;
 
             // Call
@@ -613,7 +629,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopOverlappingInnerLoop_ReturnsOneLayer()
+        public void SoilLayer2DTransform_OuterLoopOverlappingNestedLayer_ReturnsOneLayer()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -634,6 +650,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 innerLoop
             }, outerLoop);
 
+            layer.NestedLayers = new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
+            };
+
             double bottom;
 
             // Call
@@ -650,7 +671,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopOverlappingInnerLoopsFirstInnerLoopNotOverBottom_ReturnsOneLayer()
+        public void SoilLayer2DTransform_OuterLoopOverlappingNestedLayersFirstNestedLayerNotOverBottom_ReturnsOneLayer()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -682,6 +703,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 innerLoop2
             }, outerLoop);
 
+            layer.NestedLayers = new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop),
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop2)
+            };
+
             double bottom;
 
             // Call
@@ -698,7 +725,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopInnerLoopOnBorderBottom_ReturnsTwoLayers()
+        public void SoilLayer2DTransform_OuterLoopNestedLayerOnBorderBottom_ReturnsTwoLayers()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -719,6 +746,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 innerLoop
             }, outerLoop);
 
+            layer.NestedLayers = new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
+            };
+
             double bottom;
 
             // Call
@@ -736,7 +768,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopInnerLoopOverlapTop_ReturnsOneLayer()
+        public void SoilLayer2DTransform_OuterLoopNestedLayerOverlapTop_ReturnsOneLayer()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -757,6 +789,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 innerLoop
             }, outerLoop);
 
+            layer.NestedLayers = new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
+            };
+
             double bottom;
 
             // Call
@@ -773,7 +810,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopInnerLoopOnBorderTop_ReturnsOneLayer()
+        public void SoilLayer2DTransform_OuterLoopNestedLayerOnBorderTop_ReturnsOneLayer()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -786,6 +823,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             {
                 innerLoop
             }, outerLoop);
+
+            layer.NestedLayers = new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
+            };
 
             double bottom;
 
@@ -824,7 +866,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer2DTransform_InnerLoopVerticalAtX_ThrowsImportedDataTransformException()
+        public void SoilLayer2DTransform_SingleNestedLayerVerticalAtX_ThrowsImportedDataTransformException()
         {
             // Setup
             const double atX = 3.0;
@@ -845,6 +887,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             {
                 innerLoop
             }, outerLoop);
+
+            layer.NestedLayers = new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
+            };
 
             double bottom;
 

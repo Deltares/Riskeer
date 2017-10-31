@@ -342,6 +342,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                                 ".....",
                                 "1...4")));
 
+            soilLayer2D.NestedLayers = new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], loopHole)
+            };
+
             var profile = new SoilProfile2D(pipingSoilProfileId, profileName,
                                             new List<SoilLayer2D>
                                             {

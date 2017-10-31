@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
 
             var soilLayers = new Collection<PipingSoilLayer>();
-            IEnumerable<IEnumerable<double>> innerLoopsIntersectionHeights = soilLayer.InnerLoops.Select(loop => GetLoopIntersectionHeights(loop.Segments, atX));
+            IEnumerable<IEnumerable<double>> innerLoopsIntersectionHeights = GetLayersRecursively(soilLayer).Select(l => GetLoopIntersectionHeights(l.OuterLoop.Segments, atX));
             IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(innerLoopsIntersectionHeights).ToList();
             IEnumerable<Tuple<double, double>> outerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(outerLoopIntersectionHeights).ToList();
 
@@ -124,6 +124,19 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
             bottom = EnsureBottomOutsideInnerLoop(innerLoopIntersectionHeightPairs, currentBottom);
             return soilLayers;
+        }
+
+        private static IEnumerable<SoilLayer2D> GetLayersRecursively(SoilLayer2D layer)
+        {
+            var layers = new List<SoilLayer2D>();
+
+            foreach (SoilLayer2D nestedLayer in layer.NestedLayers)
+            {
+                layers.Add(nestedLayer);
+                layers.AddRange(GetLayersRecursively(nestedLayer));
+            }
+
+            return layers;
         }
 
         /// <summary>
