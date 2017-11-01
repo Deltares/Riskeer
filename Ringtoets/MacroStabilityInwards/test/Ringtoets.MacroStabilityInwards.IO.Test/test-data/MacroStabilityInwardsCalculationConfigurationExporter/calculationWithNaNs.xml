@@ -12,6 +12,12 @@
     <grids>
       <verplaatsgrid>true</verplaatsgrid>
       <bepaling>automatisch</bepaling>
+      <tangentlijnen>
+        <bepalingtangentlijnen>laagscheiding</bepalingtangentlijnen>
+        <zboven>NaN</zboven>
+        <zonder>NaN</zonder>
+        <aantal>5</aantal>
+      </tangentlijnen>
       <linkergrid>
         <links>NaN</links>
         <rechts>NaN</rechts>

@@ -91,6 +91,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 MaximumSliceWidth = 0.6,
                 MoveGrid = true,
                 GridDeterminationType = ConfigurationGridDeterminationType.Automatic,
+                TangentLineDeterminationType = ConfigurationTangentLineDeterminationType.Specified,
+                TangentLineZTop = 0.7,
+                TangentLineZBottom = 0.8,
+                TangentLineNumber = 9,
                 LeftGrid = new MacroStabilityInwardsGridConfiguration
                 {
                     XLeft = 1.0,

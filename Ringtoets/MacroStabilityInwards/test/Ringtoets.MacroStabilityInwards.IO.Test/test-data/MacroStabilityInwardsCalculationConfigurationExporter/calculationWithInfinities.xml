@@ -12,6 +12,12 @@
     <grids>
       <verplaatsgrid>true</verplaatsgrid>
       <bepaling>automatisch</bepaling>
+      <tangentlijnen>
+        <bepalingtangentlijnen>laagscheiding</bepalingtangentlijnen>
+        <zboven>INF</zboven>
+        <zonder>-INF</zonder>
+        <aantal>5</aantal>
+      </tangentlijnen>
       <linkergrid>
         <links>-INF</links>
         <rechts>INF</rechts>

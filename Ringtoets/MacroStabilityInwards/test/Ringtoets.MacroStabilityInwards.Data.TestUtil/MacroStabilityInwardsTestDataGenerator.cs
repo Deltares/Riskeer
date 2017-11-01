@@ -155,7 +155,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     })),
                     SlipPlaneMinimumDepth = (RoundedDouble) 0.4,
                     SlipPlaneMinimumLength = (RoundedDouble) 0.5,
-                    MaximumSliceWidth = (RoundedDouble) 0.6
+                    MaximumSliceWidth = (RoundedDouble) 0.6,
+                    TangentLineZTop = (RoundedDouble) 10,
+                    TangentLineZBottom = (RoundedDouble) 1,
+                    TangentLineNumber = 5
                 }
             };
 
@@ -176,6 +179,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             input.SlipPlaneMinimumDepth = RoundedDouble.NaN;
             input.SlipPlaneMinimumLength = RoundedDouble.NaN;
             input.MaximumSliceWidth = RoundedDouble.NaN;
+
+            input.TangentLineZTop = RoundedDouble.NaN;
+            input.TangentLineZBottom = RoundedDouble.NaN;
 
             input.LeftGrid.XLeft = RoundedDouble.NaN;
             input.LeftGrid.XRight = RoundedDouble.NaN;
@@ -213,6 +219,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             input.SlipPlaneMinimumDepth = (RoundedDouble) double.NegativeInfinity;
             input.SlipPlaneMinimumLength = (RoundedDouble) double.PositiveInfinity;
             input.MaximumSliceWidth = (RoundedDouble) double.NegativeInfinity;
+
+            input.TangentLineZTop = (RoundedDouble) double.PositiveInfinity;
+            input.TangentLineZBottom = (RoundedDouble) double.NegativeInfinity;
 
             input.LeftGrid.XLeft = (RoundedDouble) double.NegativeInfinity;
             input.LeftGrid.XRight = (RoundedDouble) double.PositiveInfinity;

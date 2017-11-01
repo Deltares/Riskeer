@@ -165,6 +165,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.IsNaN(input.SlipPlaneMinimumLength);
             Assert.IsNaN(input.MaximumSliceWidth);
 
+            Assert.IsNaN(input.TangentLineZTop);
+            Assert.IsNaN(input.TangentLineZBottom);
+
             Assert.IsNaN(input.LeftGrid.XLeft);
             Assert.IsNaN(input.LeftGrid.XRight);
             Assert.IsNaN(input.LeftGrid.ZTop);
@@ -198,6 +201,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(double.PositiveInfinity, input.SlipPlaneMinimumLength);
             Assert.AreEqual(double.NegativeInfinity, input.MaximumSliceWidth);
 
+            Assert.AreEqual(double.PositiveInfinity, input.TangentLineZTop);
+            Assert.AreEqual(double.NegativeInfinity, input.TangentLineZBottom);
+
             Assert.AreEqual(double.NegativeInfinity, input.LeftGrid.XLeft);
             Assert.AreEqual(double.PositiveInfinity, input.LeftGrid.XRight);
             Assert.AreEqual(double.PositiveInfinity, input.LeftGrid.ZTop);
@@ -224,6 +230,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(0.4, input.SlipPlaneMinimumDepth, input.SlipPlaneMinimumDepth.GetAccuracy());
             Assert.AreEqual(0.5, input.SlipPlaneMinimumLength, input.SlipPlaneMinimumLength.GetAccuracy());
             Assert.AreEqual(0.6, input.MaximumSliceWidth, input.MaximumSliceWidth.GetAccuracy());
+            Assert.AreEqual(10, input.TangentLineZTop, input.TangentLineZTop.GetAccuracy());
+            Assert.AreEqual(1, input.TangentLineZBottom, input.TangentLineZBottom.GetAccuracy());
+            Assert.AreEqual(5, input.TangentLineNumber);
 
             if (hasHydraulicLocation)
             {

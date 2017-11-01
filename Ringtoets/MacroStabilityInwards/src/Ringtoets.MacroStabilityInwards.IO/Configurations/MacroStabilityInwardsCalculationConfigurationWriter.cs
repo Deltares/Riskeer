@@ -124,6 +124,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                       typeConverter.ConvertToInvariantString(dikeSoilScenario.Value));
         }
 
+        #region Write grids
+
         /// <summary>
         /// Writes the grid related parameters.
         /// </summary>
@@ -142,6 +144,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             WriteGridDeterminationTypeWhenAvailable(writer,
                                                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeElement,
                                                     configuration.GridDeterminationType);
+
+            WriteTangentLine(writer, configuration);
 
             WriteGridConfigurationWhenAvailable(writer,
                                                 MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeftGridElement,
@@ -163,8 +167,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// is closed.</exception>
         /// <exception cref="NotSupportedException">Thrown when the conversion of
         /// <paramref name="gridDeterminationType"/> cannot be performed.</exception>
-        private static void WriteGridDeterminationTypeWhenAvailable(XmlWriter writer, string
-                                                                        elementName,
+        private static void WriteGridDeterminationTypeWhenAvailable(XmlWriter writer,
+                                                                    string elementName,
                                                                     ConfigurationGridDeterminationType? gridDeterminationType)
         {
             if (!gridDeterminationType.HasValue)
@@ -176,6 +180,64 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             writer.WriteElementString(elementName,
                                       typeConverter.ConvertToInvariantString(gridDeterminationType.Value));
         }
+
+        #region Write tangent line
+
+        /// <summary>
+        /// Writes the tangent line related parameters.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        private static void WriteTangentLine(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        {
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineElement);
+
+            WriteTangentLineDeterminationTypeWhenAvailable(writer,
+                                                           MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeElement,
+                                                           configuration.TangentLineDeterminationType);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZTop,
+                                             configuration.TangentLineZTop);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZBottom,
+                                             configuration.TangentLineZBottom);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineNumber,
+                                             configuration.TangentLineNumber);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes the <paramref name="tangentLineDeterminationType"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="elementName">The XML element name.</param>
+        /// <param name="tangentLineDeterminationType">The tangent line determination type to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of
+        /// <paramref name="tangentLineDeterminationType"/> cannot be performed.</exception>
+        private static void WriteTangentLineDeterminationTypeWhenAvailable(XmlWriter writer,
+                                                                           string elementName,
+                                                                           ConfigurationTangentLineDeterminationType? tangentLineDeterminationType)
+        {
+            if (!tangentLineDeterminationType.HasValue)
+            {
+                return;
+            }
+
+            var typeConverter = new ConfigurationTangentLineDeterminationTypeConverter();
+            writer.WriteElementString(elementName,
+                                      typeConverter.ConvertToInvariantString(tangentLineDeterminationType.Value));
+        }
+
+        #endregion
 
         /// <summary>
         /// Writes a grid configuration.
@@ -240,5 +302,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
             writer.WriteEndElement();
         }
+
+        #endregion
     }
 }

@@ -64,6 +64,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 SlipPlaneMinimumDepth = input.SlipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = input.SlipPlaneMinimumLength,
                 MaximumSliceWidth = input.MaximumSliceWidth,
+                TangentLineZTop = input.TangentLineZTop,
+                TangentLineZBottom = input.TangentLineZBottom,
+                TangentLineNumber = input.TangentLineNumber,
                 MoveGrid = input.MoveGrid,
                 LeftGrid = input.LeftGrid.ToMacroStabilityInwardsGridConfiguration(),
                 RightGrid = input.RightGrid.ToMacroStabilityInwardsGridConfiguration()
@@ -99,6 +102,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 calculationConfiguration.GridDeterminationType = (ConfigurationGridDeterminationType?)
                     new ConfigurationGridDeterminationTypeConverter().ConvertFrom(input.GridDeterminationType);
+            }
+
+            if (Enum.IsDefined(typeof(MacroStabilityInwardsTangentLineDeterminationType), input.TangentLineDeterminationType))
+            {
+                calculationConfiguration.TangentLineDeterminationType = (ConfigurationTangentLineDeterminationType?)
+                    new ConfigurationTangentLineDeterminationTypeConverter().ConvertFrom(input.TangentLineDeterminationType);
             }
 
             return calculationConfiguration;

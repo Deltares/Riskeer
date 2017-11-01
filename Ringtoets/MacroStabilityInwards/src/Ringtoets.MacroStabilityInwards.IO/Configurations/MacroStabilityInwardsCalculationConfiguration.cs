@@ -92,6 +92,28 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public double? MaximumSliceWidth { get; set; }
 
         /// <summary>
+        /// Gets or sets the name for the calculation.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
+                }
+                name = value;
+            }
+        }
+
+        #region Grid
+
+        /// <summary>
         /// Gets or sets the grid determination type.
         /// </summary>
         public ConfigurationGridDeterminationType? GridDeterminationType { get; set; }
@@ -100,6 +122,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// Gets or sets the value whether the grid should be moved.
         /// </summary>
         public bool? MoveGrid { get; set; }
+
+        #region Tangent line
 
         /// <summary>
         /// Gets or sets the tangent line determination type.
@@ -120,7 +144,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// Gets or sets the number of tangent lines.
         /// </summary>
         public int? TangentLineNumber { get; set; }
-        
+
+        #endregion
+
         /// <summary>
         /// Gets or sets the left grid.
         /// </summary>
@@ -131,24 +157,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public MacroStabilityInwardsGridConfiguration RightGrid { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name for the calculation.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
-                }
-                name = value;
-            }
-        }
-     }
+        #endregion
+    }
 }
