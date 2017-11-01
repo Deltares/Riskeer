@@ -20,6 +20,16 @@
         </pl1>
       </initielehoogte>
       <corrigeervooropbarsten>true</corrigeervooropbarsten>
+      <leklengtes>
+        <pl3>
+          <binnenwaarts>NaN</binnenwaarts>
+          <buitenwaarts>NaN</buitenwaarts>
+        </pl3>
+        <pl4>
+          <binnenwaarts>NaN</binnenwaarts>
+          <buitenwaarts>NaN</buitenwaarts>
+        </pl4>
+      </leklengtes>
     </waterspanningen>
     <minimaleglijvlakdiepte>NaN</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>NaN</minimaleglijvlaklengte>

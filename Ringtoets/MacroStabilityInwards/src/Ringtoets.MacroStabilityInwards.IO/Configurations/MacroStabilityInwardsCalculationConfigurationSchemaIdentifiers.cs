@@ -96,6 +96,21 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public const string PhreaticLine1Element = "pl1";
 
         /// <summary>
+        /// The identifier for the phreatic line 2 elements.
+        /// </summary>
+        public const string PhreaticLine2Element = "pl2";
+
+        /// <summary>
+        /// The identifier for the phreatic line 3 elements.
+        /// </summary>
+        public const string PhreaticLine3Element = "pl3";
+
+        /// <summary>
+        /// The identifier for the phreatic line 4 elements.
+        /// </summary>
+        public const string PhreaticLine4Element = "pl4";
+
+        /// <summary>
         /// The tag of the element containing the value indicating the minimum level phreatic line at dike top river.
         /// </summary>
         public const string MinimumLevelPhreaticLineAtDikeTopRiverElement = "buitenkruin";
@@ -104,6 +119,21 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// The tag of the element containing the value indicating the minimum level phreatic line at dike top polder.
         /// </summary>
         public const string MinimumLevelPhreaticLineAtDikeTopPolderElement = "binnenkruin";
+
+        /// <summary>
+        /// The identifier for leakage length elements.
+        /// </summary>
+        public const string LeakageLengthElement = "leklengtes";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the phreatic line inwards leakage length or piezometric head.
+        /// </summary>
+        public const string PhreaticLineInwardsElement = "binnenwaarts";
+
+        /// <summary>
+        /// he tag of the element containing the value indicating the phreatic line outwards leakage length or piezometric head.
+        /// </summary>
+        public const string PhreaticLineOutwardsElement = "buitenwaarts";
 
         #endregion
 

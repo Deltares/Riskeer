@@ -45,8 +45,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual("ghw", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelRiverAverageElement);
             Assert.AreEqual("initielehoogte", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineMinimumLevelElement);
             Assert.AreEqual("pl1", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine1Element);
+            Assert.AreEqual("pl2", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine2Element);
+            Assert.AreEqual("pl3", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine3Element);
+            Assert.AreEqual("pl4", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine4Element);
             Assert.AreEqual("buitenkruin", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MinimumLevelPhreaticLineAtDikeTopRiverElement);
             Assert.AreEqual("binnenkruin", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MinimumLevelPhreaticLineAtDikeTopPolderElement);
+            Assert.AreEqual("leklengtes", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeakageLengthElement);
+            Assert.AreEqual("binnenwaarts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineInwardsElement);
+            Assert.AreEqual("buitenwaarts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOutwardsElement);
 
             Assert.AreEqual("corrigeervooropbarsten", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AdjustPhreaticLine3And4ForUpliftElement);
 

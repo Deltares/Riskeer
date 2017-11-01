@@ -157,6 +157,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public bool? AdjustPhreaticLine3And4ForUplift { get; set; }
 
+        /// <summary>
+        /// Gets or sets the phreatic line configuration for phreatic line 3.
+        /// </summary>
+        public PhreaticLineConfiguration PhreaticLine3 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the phreatic line configuration for phreatic line 4.
+        /// </summary>
+        public PhreaticLineConfiguration PhreaticLine4 { get; set; }
+
         #endregion
 
         #region Grid

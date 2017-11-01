@@ -20,6 +20,16 @@
         </pl1>
       </initielehoogte>
       <corrigeervooropbarsten>true</corrigeervooropbarsten>
+      <leklengtes>
+        <pl3>
+          <binnenwaarts>INF</binnenwaarts>
+          <buitenwaarts>-INF</buitenwaarts>
+        </pl3>
+        <pl4>
+          <binnenwaarts>INF</binnenwaarts>
+          <buitenwaarts>-INF</buitenwaarts>
+        </pl4>
+      </leklengtes>
     </waterspanningen>
     <minimaleglijvlakdiepte>-INF</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>INF</minimaleglijvlaklengte>

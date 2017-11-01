@@ -171,6 +171,59 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AdjustPhreaticLine3And4ForUpliftElement,
                                              configuration.AdjustPhreaticLine3And4ForUplift);
 
+            WriteLeakageLength(writer, configuration);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes the leakage length related parameters.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        private static void WriteLeakageLength(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        {
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeakageLengthElement);
+
+            WritePhreaticLineConfiguration(writer,
+                                           MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine3Element,
+                                           configuration.PhreaticLine3);
+            WritePhreaticLineConfiguration(writer,
+                                           MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine4Element,
+                                           configuration.PhreaticLine4);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes a phreatic line configuration.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="elementName">The name of the phreatic line.</param>
+        /// <param name="configuration">The configuration for the phreatic line that can be <c>null</c>.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        private static void WritePhreaticLineConfiguration(XmlWriter writer,
+                                                           string elementName,
+                                                           PhreaticLineConfiguration configuration)
+        {
+            if (configuration == null)
+            {
+                return;
+            }
+
+            writer.WriteStartElement(elementName);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineInwardsElement,
+                                             configuration.Inwards);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOutwardsElement,
+                                             configuration.Outwards);
+
             writer.WriteEndElement();
         }
 

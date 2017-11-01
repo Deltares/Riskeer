@@ -65,6 +65,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.IsNull(configuration.AdjustPhreaticLine3And4ForUplift);
+            Assert.IsNull(configuration.PhreaticLine3);
+            Assert.IsNull(configuration.PhreaticLine4);
             Assert.IsNull(configuration.SlipPlaneMinimumDepth);
             Assert.IsNull(configuration.SlipPlaneMinimumLength);
             Assert.IsNull(configuration.MaximumSliceWidth);
@@ -100,6 +102,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const double minimumLevelPhreaticLineAtDikeTopPolder = 0.9;
 
             const bool adjustPhreaticLine3And4ForUplift = true;
+            var phreaticLine3 = new PhreaticLineConfiguration();
+            var phreaticLine4 = new PhreaticLineConfiguration();
 
             const double slipPlaneMinimumDepth = 2.2;
             const double slipPlaneMinimumLength = 3.3;
@@ -133,6 +137,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 MinimumLevelPhreaticLineAtDikeTopRiver = minimumLevelPhreaticLineAtDikeTopRiver,
                 MinimumLevelPhreaticLineAtDikeTopPolder = minimumLevelPhreaticLineAtDikeTopPolder,
                 AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift,
+                PhreaticLine3 = phreaticLine3,
+                PhreaticLine4 = phreaticLine4,
                 SlipPlaneMinimumDepth = slipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = slipPlaneMinimumLength,
                 MaximumSliceWidth = maximumSliceWidth,
@@ -163,6 +169,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(adjustPhreaticLine3And4ForUplift, configuration.AdjustPhreaticLine3And4ForUplift);
+            Assert.AreSame(phreaticLine3, configuration.PhreaticLine3);
+            Assert.AreSame(phreaticLine4, configuration.PhreaticLine4);
             Assert.AreEqual(slipPlaneMinimumDepth, configuration.SlipPlaneMinimumDepth);
             Assert.AreEqual(slipPlaneMinimumLength, configuration.SlipPlaneMinimumLength);
             Assert.AreEqual(maximumSliceWidth, configuration.MaximumSliceWidth);

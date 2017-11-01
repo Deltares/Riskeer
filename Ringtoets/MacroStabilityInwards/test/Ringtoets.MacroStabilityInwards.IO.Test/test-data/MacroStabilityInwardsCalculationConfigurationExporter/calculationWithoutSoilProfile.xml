@@ -19,6 +19,16 @@
         </pl1>
       </initielehoogte>
       <corrigeervooropbarsten>true</corrigeervooropbarsten>
+      <leklengtes>
+        <pl3>
+          <binnenwaarts>10.1</binnenwaarts>
+          <buitenwaarts>10.2</buitenwaarts>
+        </pl3>
+        <pl4>
+          <binnenwaarts>10.3</binnenwaarts>
+          <buitenwaarts>10.4</buitenwaarts>
+        </pl4>
+      </leklengtes>
     </waterspanningen>
     <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>

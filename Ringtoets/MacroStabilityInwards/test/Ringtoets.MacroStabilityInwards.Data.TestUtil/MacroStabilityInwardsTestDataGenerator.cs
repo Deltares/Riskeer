@@ -159,6 +159,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     ZCoordinateDrainageConstruction = (RoundedDouble) 10.7,
                     MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) 10.8,
                     MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) 10.9,
+                    LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) 10.1,
+                    LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) 10.2,
+                    LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) 10.3,
+                    LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) 10.4,
                     SlipPlaneMinimumDepth = (RoundedDouble) 0.4,
                     SlipPlaneMinimumLength = (RoundedDouble) 0.5,
                     MaximumSliceWidth = (RoundedDouble) 0.6,
@@ -188,6 +192,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 
             input.MinimumLevelPhreaticLineAtDikeTopPolder = RoundedDouble.NaN;
             input.MinimumLevelPhreaticLineAtDikeTopRiver = RoundedDouble.NaN;
+
+            input.LeakageLengthInwardsPhreaticLine3 = RoundedDouble.NaN;
+            input.LeakageLengthOutwardsPhreaticLine3 = RoundedDouble.NaN;
+            input.LeakageLengthInwardsPhreaticLine4 = RoundedDouble.NaN;
+            input.LeakageLengthOutwardsPhreaticLine4 = RoundedDouble.NaN;
 
             input.AssessmentLevel = RoundedDouble.NaN;
             input.SlipPlaneMinimumDepth = RoundedDouble.NaN;
@@ -234,6 +243,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 
             input.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) double.PositiveInfinity;
             input.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) double.NegativeInfinity;
+
+            input.LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) double.PositiveInfinity;
+            input.LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) double.NegativeInfinity;
+            input.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) double.PositiveInfinity;
+            input.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) double.NegativeInfinity;
 
             input.AssessmentLevel = (RoundedDouble) double.NegativeInfinity;
 
