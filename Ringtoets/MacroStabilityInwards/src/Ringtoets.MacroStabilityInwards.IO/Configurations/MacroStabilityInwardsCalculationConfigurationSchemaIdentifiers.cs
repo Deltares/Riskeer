@@ -165,6 +165,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public const string WaterLevelPolderElement = "polderpeil";
 
         /// <summary>
+        /// The tag of the element containing the penetration length.
+        /// </summary>
+        public const string PenetrationLengthElement = "indringingslengte";
+
+        /// <summary>
         /// The identifier for the offset of the location input elements.
         /// </summary>
         public const string LocationInputOffsetElement = "offsets";

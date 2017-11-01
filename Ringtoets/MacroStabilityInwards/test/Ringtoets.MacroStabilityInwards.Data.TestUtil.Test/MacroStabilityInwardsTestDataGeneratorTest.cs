@@ -193,6 +193,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.IsNaN(inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder);
             Assert.IsNaN(inputDaily.PhreaticLineOffsetBelowShoulderBaseInside);
             Assert.IsNaN(inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder);
+
+            IMacroStabilityInwardsLocationInputExtreme inputExtreme = input.LocationInputExtreme;
+            Assert.IsNaN(inputExtreme.PenetrationLength);
+            Assert.IsNaN(inputExtreme.WaterLevelPolder);
+            Assert.IsNaN(inputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.IsNaN(inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.IsNaN(inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.IsNaN(inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder);
         }
 
         [Test]
@@ -244,6 +252,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(double.PositiveInfinity, inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder);
             Assert.AreEqual(double.NegativeInfinity, inputDaily.PhreaticLineOffsetBelowShoulderBaseInside);
             Assert.AreEqual(double.NegativeInfinity, inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder);
+
+            IMacroStabilityInwardsLocationInputExtreme inputExtreme = input.LocationInputExtreme;
+            Assert.AreEqual(double.PositiveInfinity, inputExtreme.PenetrationLength);
+            Assert.AreEqual(double.NegativeInfinity, inputExtreme.WaterLevelPolder);
+            Assert.AreEqual(double.NegativeInfinity, inputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(double.NegativeInfinity, inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(double.PositiveInfinity, inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(double.PositiveInfinity, inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder);
         }
 
         private static void AssertCalculation(MacroStabilityInwardsCalculationScenario calculation,
@@ -331,6 +347,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(2.22, inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder, inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
             Assert.AreEqual(2.23, inputDaily.PhreaticLineOffsetBelowShoulderBaseInside, inputDaily.PhreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
             Assert.AreEqual(2.24, inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder, inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
+
+            IMacroStabilityInwardsLocationInputExtreme inputExtreme = input.LocationInputExtreme;
+            Assert.IsFalse(inputExtreme.UseDefaultOffsets);
+            Assert.AreEqual(16.2, inputExtreme.PenetrationLength, inputExtreme.PenetrationLength.GetAccuracy());
+            Assert.AreEqual(15.2, inputExtreme.WaterLevelPolder, inputExtreme.WaterLevelPolder.GetAccuracy());
+            Assert.AreEqual(15.21, inputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver, inputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
+            Assert.AreEqual(15.22, inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder, inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
+            Assert.AreEqual(15.23, inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside, inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
+            Assert.AreEqual(15.24, inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder, inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
         }
 
         private static void AssertCalculationsHasSameHydraulicBoundaryLocation(CalculationGroup calculationGroup,

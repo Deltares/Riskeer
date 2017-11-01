@@ -177,6 +177,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public MacroStabilityInwardsLocationInputConfiguration LocationInputDaily { get; set; }
 
+        /// <summary>
+        /// Gets or sets the locations input values for extreme conditions.
+        /// </summary>
+        public MacroStabilityInwardsLocationInputExtremeConfiguration LocationInputExtreme { get; set; }
+
         #endregion
 
         #region Grid

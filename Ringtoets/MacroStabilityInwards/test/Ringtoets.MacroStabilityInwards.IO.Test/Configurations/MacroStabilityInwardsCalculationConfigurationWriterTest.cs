@@ -119,6 +119,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     PhreaticLineOffsetBelowShoulderBaseInside = 99.5,
                     UseDefaultOffsets = false
                 },
+                LocationInputExtreme = new MacroStabilityInwardsLocationInputExtremeConfiguration
+                {
+                    PenetrationLength = 42,
+                    WaterLevelPolder = 199.9,
+                    PhreaticLineOffsetBelowDikeToeAtPolder = 199.8,
+                    PhreaticLineOffsetBelowDikeTopAtPolder = 199.7,
+                    PhreaticLineOffsetBelowDikeTopAtRiver = 199.6,
+                    PhreaticLineOffsetBelowShoulderBaseInside = 199.5,
+                    UseDefaultOffsets = true
+                },
                 AdjustPhreaticLine3And4ForUplift = true,
                 CreateZones = true,
                 MoveGrid = true,

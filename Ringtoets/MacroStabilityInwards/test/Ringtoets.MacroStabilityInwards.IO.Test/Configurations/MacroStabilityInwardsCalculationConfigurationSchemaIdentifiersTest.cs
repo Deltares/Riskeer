@@ -59,6 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual("dagelijks", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LocationInputDailyElement);
             Assert.AreEqual("extreem", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LocationInputExtremeElement);
             Assert.AreEqual("polderpeil", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelPolderElement);
+            Assert.AreEqual("indringingslengte", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PenetrationLengthElement);
             Assert.AreEqual("offsets", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LocationInputOffsetElement);
             Assert.AreEqual("gebruikdefaults", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.UseDefaultOffsetsElement);
             Assert.AreEqual("buitenkruin", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOffsetBelowDikeTopAtRiverElement);

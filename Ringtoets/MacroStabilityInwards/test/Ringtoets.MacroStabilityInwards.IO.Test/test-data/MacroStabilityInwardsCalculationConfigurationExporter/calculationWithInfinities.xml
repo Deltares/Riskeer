@@ -46,6 +46,17 @@
           <teendijkbinnenwaarts>-INF</teendijkbinnenwaarts>
         </offsets>
       </dagelijks>
+      <extreem>
+        <polderpeil>-INF</polderpeil>
+        <indringingslengte>INF</indringingslengte>
+        <offsets>
+          <gebruikdefaults>false</gebruikdefaults>
+          <buitenkruin>-INF</buitenkruin>
+          <binnenkruin>-INF</binnenkruin>
+          <insteekbinnenberm>INF</insteekbinnenberm>
+          <teendijkbinnenwaarts>INF</teendijkbinnenwaarts>
+        </offsets>
+      </extreem>
     </waterspanningen>
     <minimaleglijvlakdiepte>-INF</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>INF</minimaleglijvlaklengte>

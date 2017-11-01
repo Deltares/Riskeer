@@ -87,5 +87,64 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
                             phreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
             mockRepository.VerifyAll();
         }
+
+        [Test]
+        public void ToMacroStabilityInwardsLocationInputExtremeConfiguration_MacroStabilityInwardsLocationInputExtremeNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ((IMacroStabilityInwardsLocationInputExtreme) null).ToMacroStabilityInwardsLocationInputExtremeConfiguration();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("inputExtreme", exception.ParamName);
+        }
+
+        [Test]
+        public void ToMacroStabilityInwardsLocationInputExtremeConfiguration_ValidMacroStabilityInwardsLocationInputExtreme_ReturnsNewMacroStabilityInwardsLocationInputExtremeConfigurationWithParametersSet()
+        {
+            // Setup
+            var random = new Random(31);
+
+            RoundedDouble penetrationLength = random.NextRoundedDouble();
+            bool useDefaultOffsets = random.NextBoolean();
+            RoundedDouble waterLevelPolder = random.NextRoundedDouble();
+            RoundedDouble phreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble();
+            RoundedDouble phreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble();
+            RoundedDouble phreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble();
+            RoundedDouble phreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble();
+
+            var mockRepository = new MockRepository();
+            var inputExtreme = mockRepository.Stub<IMacroStabilityInwardsLocationInputExtreme>();
+            inputExtreme.PenetrationLength = penetrationLength;
+            inputExtreme.UseDefaultOffsets = useDefaultOffsets;
+            inputExtreme.WaterLevelPolder = waterLevelPolder;
+            inputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver = phreaticLineOffsetBelowDikeTopAtRiver;
+            inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder = phreaticLineOffsetBelowDikeTopAtPolder;
+            inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside = phreaticLineOffsetBelowShoulderBaseInside;
+            inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder = phreaticLineOffsetBelowDikeToeAtPolder;
+            mockRepository.ReplayAll();
+
+            // Call
+            MacroStabilityInwardsLocationInputExtremeConfiguration configuration = inputExtreme.ToMacroStabilityInwardsLocationInputExtremeConfiguration();
+
+            // Assert
+            Assert.AreEqual(penetrationLength,
+                            configuration.PenetrationLength,
+                            penetrationLength.GetAccuracy());
+            Assert.AreEqual(useDefaultOffsets, configuration.UseDefaultOffsets);
+            Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtRiver,
+                            configuration.PhreaticLineOffsetBelowDikeTopAtRiver,
+                            phreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
+            Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtPolder,
+                            configuration.PhreaticLineOffsetBelowDikeTopAtPolder,
+                            phreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
+            Assert.AreEqual(phreaticLineOffsetBelowShoulderBaseInside,
+                            configuration.PhreaticLineOffsetBelowShoulderBaseInside,
+                            phreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
+            Assert.AreEqual(phreaticLineOffsetBelowDikeToeAtPolder,
+                            configuration.PhreaticLineOffsetBelowDikeToeAtPolder,
+                            phreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
+            mockRepository.VerifyAll();
+        }
     }
 }

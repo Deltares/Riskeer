@@ -83,6 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                     Outwards = input.LeakageLengthOutwardsPhreaticLine4
                 },
                 LocationInputDaily = input.LocationInputDaily.ToMacroStabilityInwardsLocationInputConfiguration(),
+                LocationInputExtreme = input.LocationInputExtreme.ToMacroStabilityInwardsLocationInputExtremeConfiguration(),
                 Scenario = calculation.ToScenarioConfiguration(),
                 SlipPlaneMinimumDepth = input.SlipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = input.SlipPlaneMinimumLength,

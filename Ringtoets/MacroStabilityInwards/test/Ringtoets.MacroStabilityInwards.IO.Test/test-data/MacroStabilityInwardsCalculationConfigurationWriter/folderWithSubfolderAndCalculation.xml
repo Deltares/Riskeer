@@ -48,6 +48,17 @@
             <teendijkbinnenwaarts>99.8</teendijkbinnenwaarts>
           </offsets>
         </dagelijks>
+        <extreem>
+          <polderpeil>199.9</polderpeil>
+          <indringingslengte>42</indringingslengte>
+          <offsets>
+            <gebruikdefaults>true</gebruikdefaults>
+            <buitenkruin>199.6</buitenkruin>
+            <binnenkruin>199.7</binnenkruin>
+            <insteekbinnenberm>199.5</insteekbinnenberm>
+            <teendijkbinnenwaarts>199.8</teendijkbinnenwaarts>
+          </offsets>
+        </extreem>
       </waterspanningen>
       <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
       <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>

@@ -46,15 +46,47 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                 throw new ArgumentNullException(nameof(inputDaily));
             }
 
-            return new MacroStabilityInwardsLocationInputConfiguration
+            var configuration = new MacroStabilityInwardsLocationInputConfiguration();
+
+            SetMacroStabilityInwardsLocationInputParameters(configuration, inputDaily);
+
+            return configuration;
+        }
+
+        /// <summary>
+        /// Configure a new <see cref="MacroStabilityInwardsLocationInputExtremeConfiguration"/> with 
+        /// values taken from <paramref name="inputExtreme"/>.
+        /// </summary>
+        /// <param name="inputExtreme">The input to take the values from.</param>
+        /// <returns>A new <see cref="MacroStabilityInwardsLocationInputExtremeConfiguration"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="inputExtreme"/> is <c>null</c>.</exception>
+        public static MacroStabilityInwardsLocationInputExtremeConfiguration ToMacroStabilityInwardsLocationInputExtremeConfiguration(
+            this IMacroStabilityInwardsLocationInputExtreme inputExtreme)
+        {
+            if (inputExtreme == null)
             {
-                WaterLevelPolder = inputDaily.WaterLevelPolder,
-                UseDefaultOffsets = inputDaily.UseDefaultOffsets,
-                PhreaticLineOffsetBelowDikeTopAtRiver = inputDaily.PhreaticLineOffsetBelowDikeTopAtRiver,
-                PhreaticLineOffsetBelowDikeTopAtPolder = inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder,
-                PhreaticLineOffsetBelowShoulderBaseInside = inputDaily.PhreaticLineOffsetBelowShoulderBaseInside,
-                PhreaticLineOffsetBelowDikeToeAtPolder = inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder
+                throw new ArgumentNullException(nameof(inputExtreme));
+            }
+
+            var configuration = new MacroStabilityInwardsLocationInputExtremeConfiguration
+            {
+                PenetrationLength = inputExtreme.PenetrationLength
             };
+
+            SetMacroStabilityInwardsLocationInputParameters(configuration, inputExtreme);
+
+            return configuration;
+        }
+
+        private static void SetMacroStabilityInwardsLocationInputParameters(MacroStabilityInwardsLocationInputConfiguration configuration,
+                                                                            IMacroStabilityInwardsLocationInput input)
+        {
+            configuration.WaterLevelPolder = input.WaterLevelPolder;
+            configuration.UseDefaultOffsets = input.UseDefaultOffsets;
+            configuration.PhreaticLineOffsetBelowDikeTopAtRiver = input.PhreaticLineOffsetBelowDikeTopAtRiver;
+            configuration.PhreaticLineOffsetBelowDikeTopAtPolder = input.PhreaticLineOffsetBelowDikeTopAtPolder;
+            configuration.PhreaticLineOffsetBelowShoulderBaseInside = input.PhreaticLineOffsetBelowShoulderBaseInside;
+            configuration.PhreaticLineOffsetBelowDikeToeAtPolder = input.PhreaticLineOffsetBelowDikeToeAtPolder;
         }
     }
 }

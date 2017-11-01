@@ -177,6 +177,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
             WriteLocationLocationDailyInput(writer, configuration.LocationInputDaily);
 
+            WriteLocationLocationExtremeInput(writer, configuration.LocationInputExtreme);
+
             writer.WriteEndElement();
         }
 
@@ -275,6 +277,35 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
+        /// Writes a location input configuration.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration for the location input that can be <c>null</c>.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        private static void WriteLocationLocationExtremeInput(XmlWriter writer, MacroStabilityInwardsLocationInputExtremeConfiguration configuration)
+        {
+            if (configuration == null)
+            {
+                return;
+            }
+
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LocationInputExtremeElement);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelPolderElement,
+                                             configuration.WaterLevelPolder);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PenetrationLengthElement,
+                                             configuration.PenetrationLength);
+
+            WriteLocationLocationInputOffset(writer, configuration);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
         /// Writes the offset of a location input configuration.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
@@ -349,6 +380,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             writer.WriteEndElement();
         }
 
+        /// <summary>
+        /// Writes the phreatic 1 related parameters.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         private static void WritePhreaticLine1(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
         {
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine1Element);

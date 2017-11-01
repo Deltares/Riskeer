@@ -162,6 +162,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                         PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) 2.23,
                         PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) 2.24
                     },
+                    LocationInputExtreme =
+                    {
+                        UseDefaultOffsets = false,
+                        PenetrationLength = (RoundedDouble) 16.2,
+                        WaterLevelPolder = (RoundedDouble) 15.2,
+                        PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) 15.21,
+                        PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) 15.22,
+                        PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) 15.23,
+                        PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) 15.24
+                    },
                     WaterLevelRiverAverage = (RoundedDouble) 10.5,
                     DrainageConstructionPresent = true,
                     XCoordinateDrainageConstruction = (RoundedDouble) 10.6,
@@ -236,6 +246,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             inputDaily.PhreaticLineOffsetBelowShoulderBaseInside = RoundedDouble.NaN;
             inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder = RoundedDouble.NaN;
 
+            IMacroStabilityInwardsLocationInputExtreme inputExtreme = input.LocationInputExtreme;
+            inputExtreme.PenetrationLength = RoundedDouble.NaN;
+            inputExtreme.WaterLevelPolder = RoundedDouble.NaN;
+            inputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver = RoundedDouble.NaN;
+            inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder = RoundedDouble.NaN;
+            inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside = RoundedDouble.NaN;
+            inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder = RoundedDouble.NaN;
+
             return calculation;
         }
 
@@ -296,6 +314,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) double.PositiveInfinity;
             inputDaily.PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) double.NegativeInfinity;
             inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) double.NegativeInfinity;
+
+            IMacroStabilityInwardsLocationInputExtreme inputExtreme = input.LocationInputExtreme;
+            inputExtreme.PenetrationLength = (RoundedDouble) double.PositiveInfinity;
+            inputExtreme.WaterLevelPolder = (RoundedDouble) double.NegativeInfinity;
+            inputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) double.NegativeInfinity;
+            inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) double.NegativeInfinity;
+            inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) double.PositiveInfinity;
+            inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) double.PositiveInfinity;
 
             return calculation;
         }
