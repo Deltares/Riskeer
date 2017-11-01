@@ -445,6 +445,48 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadSoilProfile_DatabaseWith2DSoilProfileNestedLayers_ReturnOneProfile()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dprofileNestedLayers.soil");
+
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                SoilProfile2D soilProfile2D = reader.ReadSoilProfile();
+
+                // Assert
+                Assert.AreEqual(1, soilProfile2D.Id);
+                Assert.AreEqual("Profile", soilProfile2D.Name);
+                CollectionAssert.IsEmpty(soilProfile2D.PreconsolidationStresses);
+                Assert.AreEqual(90.0, soilProfile2D.IntersectionX, 1e-3);
+                Assert.AreEqual(1, soilProfile2D.Layers.Count());
+
+                SoilLayer2D layer = soilProfile2D.Layers.First();
+                Assert.AreEqual("Material1", layer.MaterialName);
+
+                Assert.AreEqual(2, layer.NestedLayers.Count());
+                CollectionAssert.AreEqual(new[]
+                {
+                    1,
+                    0
+                }, layer.NestedLayers.Select(nl => nl.NestedLayers.Count()));
+
+                SoilLayer2D firstNestedLayer = layer.NestedLayers.First();
+                Assert.AreEqual("Material4", firstNestedLayer.MaterialName);
+                Assert.AreEqual(1, firstNestedLayer.NestedLayers.Count());
+                Assert.AreEqual("Material3", firstNestedLayer.NestedLayers.First().MaterialName);
+
+                SoilLayer2D secondNestedLayer = layer.NestedLayers.ElementAt(1);
+                Assert.AreEqual("Material2", secondNestedLayer.MaterialName);
+                Assert.AreEqual(0, secondNestedLayer.NestedLayers.Count());
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+        [Test]
         public void ReadSoilProfile_DatabaseWith2DProfile1LayerWithAllNullValues_ReturnsProfileWithDefaultValues()
         {
             // Setup
