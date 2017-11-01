@@ -58,6 +58,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.StochasticSoilProfileName);
             Assert.IsNull(configuration.Scenario);
             Assert.IsNull(configuration.DikeSoilScenario);
+            Assert.IsNull(configuration.WaterLevelRiverAverage);
+            Assert.IsNull(configuration.DrainageConstructionPresent);
+            Assert.IsNull(configuration.XCoordinateDrainageConstruction);
+            Assert.IsNull(configuration.ZCoordinateDrainageConstruction);
             Assert.IsNull(configuration.SlipPlaneMinimumDepth);
             Assert.IsNull(configuration.SlipPlaneMinimumLength);
             Assert.IsNull(configuration.MaximumSliceWidth);
@@ -83,6 +87,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const string stochasticSoilModel = "Name of the stochastic soil model";
             const string stochasticSoilProfile = "Name of the stochastic soil profile";
             const ConfigurationDikeSoilScenario dikeSoilScenario = ConfigurationDikeSoilScenario.SandDikeOnSand;
+
+            const double waterLevelRiverAverage = 1.5;
+            const bool drainageConstructionPresent = true;
+            const double xCoordinateDrainageConstruction = 0.6;
+            const double zCoordinateDrainageConstruction = 0.7;
+
             const double slipPlaneMinimumDepth = 2.2;
             const double slipPlaneMinimumLength = 3.3;
             const double maximumSliceWidth = 4.4;
@@ -108,6 +118,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 StochasticSoilProfileName = stochasticSoilProfile,
                 Scenario = scenarioConfiguration,
                 DikeSoilScenario = dikeSoilScenario,
+                WaterLevelRiverAverage = waterLevelRiverAverage,
+                DrainageConstructionPresent = drainageConstructionPresent,
+                XCoordinateDrainageConstruction = xCoordinateDrainageConstruction,
+                ZCoordinateDrainageConstruction = zCoordinateDrainageConstruction,
                 SlipPlaneMinimumDepth = slipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = slipPlaneMinimumLength,
                 MaximumSliceWidth = maximumSliceWidth,
@@ -131,6 +145,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(stochasticSoilProfile, configuration.StochasticSoilProfileName);
             Assert.AreSame(scenarioConfiguration, configuration.Scenario);
             Assert.AreEqual(dikeSoilScenario, configuration.DikeSoilScenario);
+            Assert.AreEqual(waterLevelRiverAverage, configuration.WaterLevelRiverAverage);
+            Assert.AreEqual(drainageConstructionPresent, configuration.DrainageConstructionPresent);
+            Assert.AreEqual(xCoordinateDrainageConstruction, configuration.XCoordinateDrainageConstruction);
+            Assert.AreEqual(zCoordinateDrainageConstruction, configuration.ZCoordinateDrainageConstruction);
             Assert.AreEqual(slipPlaneMinimumDepth, configuration.SlipPlaneMinimumDepth);
             Assert.AreEqual(slipPlaneMinimumLength, configuration.SlipPlaneMinimumLength);
             Assert.AreEqual(maximumSliceWidth, configuration.MaximumSliceWidth);

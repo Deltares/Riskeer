@@ -161,6 +161,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual("PK001_0001", input.SurfaceLine.Name);
             Assert.AreEqual("PK001_0001_Macrostabiliteit", input.StochasticSoilModel.Name);
             Assert.AreEqual("W1-6_0_1D1", input.StochasticSoilProfile.SoilProfile.Name);
+            Assert.IsNaN(input.XCoordinateDrainageConstruction);
+            Assert.IsNaN(input.ZCoordinateDrainageConstruction);
+
             Assert.IsNaN(input.SlipPlaneMinimumDepth);
             Assert.IsNaN(input.SlipPlaneMinimumLength);
             Assert.IsNaN(input.MaximumSliceWidth);
@@ -192,6 +195,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
 
             MacroStabilityInwardsInput input = calculation.InputParameters;
+            Assert.AreEqual(double.PositiveInfinity, input.WaterLevelRiverAverage.Value);
+            Assert.AreEqual(double.PositiveInfinity, input.XCoordinateDrainageConstruction.Value);
+            Assert.AreEqual(double.NegativeInfinity, input.ZCoordinateDrainageConstruction.Value);
             Assert.AreEqual(double.NegativeInfinity, input.AssessmentLevel.Value);
             Assert.AreEqual("PK001_0001", input.SurfaceLine.Name);
             Assert.AreEqual("PK001_0001_Macrostabiliteit", input.StochasticSoilModel.Name);
@@ -227,6 +233,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
 
             MacroStabilityInwardsInput input = calculation.InputParameters;
+            Assert.IsTrue(input.DrainageConstructionPresent);
+            Assert.AreEqual(10.5, input.WaterLevelRiverAverage, input.WaterLevelRiverAverage.GetAccuracy());
+            Assert.AreEqual(10.6, input.XCoordinateDrainageConstruction, input.XCoordinateDrainageConstruction.GetAccuracy());
+            Assert.AreEqual(10.7, input.ZCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction.GetAccuracy());
+
             Assert.AreEqual(0.4, input.SlipPlaneMinimumDepth, input.SlipPlaneMinimumDepth.GetAccuracy());
             Assert.AreEqual(0.5, input.SlipPlaneMinimumLength, input.SlipPlaneMinimumLength.GetAccuracy());
             Assert.AreEqual(0.6, input.MaximumSliceWidth, input.MaximumSliceWidth.GetAccuracy());

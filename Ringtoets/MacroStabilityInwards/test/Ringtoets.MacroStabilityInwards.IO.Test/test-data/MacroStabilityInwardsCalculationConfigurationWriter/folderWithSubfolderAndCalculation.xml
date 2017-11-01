@@ -8,6 +8,14 @@
       <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
       <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
       <dijktype>1B</dijktype>
+      <waterspanningen>
+        <ghw>20</ghw>
+        <drainage>
+          <aanwezig>true</aanwezig>
+          <x>10.5</x>
+          <z>10.6</z>
+        </drainage>
+      </waterspanningen>
       <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
       <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
       <maximalelamelbreedte>0.6</maximalelamelbreedte>
@@ -47,6 +55,9 @@
     </berekening>
     <map naam="PK001_0002">
       <berekening naam="Sparse">
+        <waterspanningen>
+          <drainage />
+        </waterspanningen>
         <zonering />
         <grids>
           <tangentlijnen />

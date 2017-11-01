@@ -71,6 +71,44 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public const string CreateZones = "bepaling";
 
+        #region Water stresses
+
+        /// <summary>
+        /// The identifier for water stresses elements.
+        /// </summary>
+        public const string WaterStressesElement = "waterspanningen";
+
+        /// <summary>
+        /// The tag of the element containing the average river water level.
+        /// </summary>
+        public const string WaterLevelRiverAverageElement = "ghw";
+
+        #region Drainage
+
+        /// <summary>
+        /// The identifier for drainage construction elements.
+        /// </summary>
+        public const string DrainageConstructionElement = "drainage";
+
+        /// <summary>
+        /// The tag of the element containing the value whether a drainage construction is present.
+        /// </summary>
+        public const string DrainageConstructionPresentElement = "aanwezig";
+
+        /// <summary>
+        /// The tag of the element containing the x coordinate of the drainage construction.
+        /// </summary>
+        public const string XCoordinateDrainageConstructionElement = "x";
+
+        /// <summary>
+        /// The tag of the element containing the z coordinate of the drainage construction.
+        /// </summary>
+        public const string ZCoordinateDrainageConstructionElement = "z";
+
+        #endregion
+
+        #endregion
+
         #region Dike soil scenario
 
         /// <summary>

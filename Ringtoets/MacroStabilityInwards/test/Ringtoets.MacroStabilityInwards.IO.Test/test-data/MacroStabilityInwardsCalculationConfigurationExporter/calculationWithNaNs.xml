@@ -6,6 +6,14 @@
     <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
     <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
     <dijktype>1A</dijktype>
+    <waterspanningen>
+      <ghw>NaN</ghw>
+      <drainage>
+        <aanwezig>true</aanwezig>
+        <x>NaN</x>
+        <z>NaN</z>
+      </drainage>
+    </waterspanningen>
     <minimaleglijvlakdiepte>NaN</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>NaN</minimaleglijvlaklengte>
     <maximalelamelbreedte>NaN</maximalelamelbreedte>

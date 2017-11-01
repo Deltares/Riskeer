@@ -7,6 +7,14 @@
       <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
       <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
       <dijktype>1A</dijktype>
+      <waterspanningen>
+        <ghw>10.5</ghw>
+        <drainage>
+          <aanwezig>true</aanwezig>
+          <x>10.6</x>
+          <z>10.7</z>
+        </drainage>
+      </waterspanningen>
       <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
       <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
       <maximalelamelbreedte>0.6</maximalelamelbreedte>
@@ -51,6 +59,14 @@
         <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
         <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
         <dijktype>1A</dijktype>
+        <waterspanningen>
+          <ghw>10.5</ghw>
+          <drainage>
+            <aanwezig>true</aanwezig>
+            <x>10.6</x>
+            <z>10.7</z>
+          </drainage>
+        </waterspanningen>
         <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
         <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
         <maximalelamelbreedte>0.6</maximalelamelbreedte>

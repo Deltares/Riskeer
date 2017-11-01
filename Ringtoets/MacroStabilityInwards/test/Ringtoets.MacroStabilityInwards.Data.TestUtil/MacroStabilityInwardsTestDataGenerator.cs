@@ -153,6 +153,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     {
                         new MacroStabilityInwardsSoilLayer1D(0)
                     })),
+                    WaterLevelRiverAverage = (RoundedDouble) 10.5,
+                    DrainageConstructionPresent = true,
+                    XCoordinateDrainageConstruction = (RoundedDouble) 10.6,
+                    ZCoordinateDrainageConstruction = (RoundedDouble) 10.7,
                     SlipPlaneMinimumDepth = (RoundedDouble) 0.4,
                     SlipPlaneMinimumLength = (RoundedDouble) 0.5,
                     MaximumSliceWidth = (RoundedDouble) 0.6,
@@ -175,6 +179,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             calculation.Contribution = RoundedDouble.NaN;
 
             MacroStabilityInwardsInput input = calculation.InputParameters;
+
+            input.WaterLevelRiverAverage = RoundedDouble.NaN;
+            input.XCoordinateDrainageConstruction = RoundedDouble.NaN;
+            input.ZCoordinateDrainageConstruction = RoundedDouble.NaN;
+
             input.AssessmentLevel = RoundedDouble.NaN;
             input.SlipPlaneMinimumDepth = RoundedDouble.NaN;
             input.SlipPlaneMinimumLength = RoundedDouble.NaN;
@@ -213,6 +222,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 new Point3D(0, double.NegativeInfinity, 0),
                 new Point3D(0, double.PositiveInfinity, 0)
             });
+
+            input.WaterLevelRiverAverage = (RoundedDouble) double.PositiveInfinity;
+            input.XCoordinateDrainageConstruction = (RoundedDouble) double.PositiveInfinity;
+            input.ZCoordinateDrainageConstruction = (RoundedDouble) double.NegativeInfinity;
 
             input.AssessmentLevel = (RoundedDouble) double.NegativeInfinity;
 

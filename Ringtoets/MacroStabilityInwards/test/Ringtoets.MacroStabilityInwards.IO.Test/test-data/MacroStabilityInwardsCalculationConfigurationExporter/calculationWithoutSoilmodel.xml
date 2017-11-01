@@ -4,6 +4,14 @@
     <hrlocatie>PUNT_KAT_18</hrlocatie>
     <profielschematisatie>PK001_0001</profielschematisatie>
     <dijktype>1A</dijktype>
+    <waterspanningen>
+      <ghw>10.5</ghw>
+      <drainage>
+        <aanwezig>true</aanwezig>
+        <x>10.6</x>
+        <z>10.7</z>
+      </drainage>
+    </waterspanningen>
     <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
     <maximalelamelbreedte>0.6</maximalelamelbreedte>

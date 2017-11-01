@@ -85,6 +85,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioElement,
                                                configuration.DikeSoilScenario);
 
+            WriteWaterStresses(writer, configuration);
+
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumDepthElement,
                                              configuration.SlipPlaneMinimumDepth);
@@ -102,6 +104,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             WriteScenarioWhenAvailable(writer, configuration.Scenario);
         }
 
+        /// <summary>
+        /// Writes the zone related parameters.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         private static void WriteZones(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
         {
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZonesElement);
@@ -136,6 +145,54 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             writer.WriteElementString(elementName,
                                       typeConverter.ConvertToInvariantString(dikeSoilScenario.Value));
         }
+
+        #region Write water stresses
+
+        /// <summary>
+        /// Writes the water stress related parameters.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        private static void WriteWaterStresses(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        {
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterStressesElement);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelRiverAverageElement,
+                                             configuration.WaterLevelRiverAverage);
+
+            WriteDrainageConstruction(writer, configuration);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes the drainage construction related parameters.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        private static void WriteDrainageConstruction(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        {
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DrainageConstructionElement);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DrainageConstructionPresentElement,
+                                             configuration.DrainageConstructionPresent);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.XCoordinateDrainageConstructionElement,
+                                             configuration.XCoordinateDrainageConstruction);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZCoordinateDrainageConstructionElement,
+                                             configuration.ZCoordinateDrainageConstruction);
+
+            writer.WriteEndElement();
+        }
+
+        #endregion
 
         #region Write grids
 

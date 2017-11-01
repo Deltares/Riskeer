@@ -60,6 +60,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
             var calculationConfiguration = new MacroStabilityInwardsCalculationConfiguration(calculation.Name)
             {
+                WaterLevelRiverAverage = input.WaterLevelRiverAverage,
+                DrainageConstructionPresent = input.DrainageConstructionPresent,
+                XCoordinateDrainageConstruction = input.XCoordinateDrainageConstruction,
+                ZCoordinateDrainageConstruction = input.ZCoordinateDrainageConstruction,
                 Scenario = calculation.ToScenarioConfiguration(),
                 SlipPlaneMinimumDepth = input.SlipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = input.SlipPlaneMinimumLength,

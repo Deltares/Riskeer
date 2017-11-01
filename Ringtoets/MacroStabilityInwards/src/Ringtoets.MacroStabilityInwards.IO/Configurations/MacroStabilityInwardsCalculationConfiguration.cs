@@ -77,6 +77,26 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public ConfigurationDikeSoilScenario? DikeSoilScenario { get; set; }
 
         /// <summary>
+        /// Gets or sets the average river water level.
+        /// </summary>
+        public double? WaterLevelRiverAverage { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether a drainage construction is present.
+        /// </summary>
+        public bool? DrainageConstructionPresent { get; set; }
+
+        /// <summary>
+        /// Gets or sets the x coordinate of the drainage construction.
+        /// </summary>
+        public double? XCoordinateDrainageConstruction { get; set; }
+
+        /// <summary>
+        /// Gets or sets the z coordinate of the drainage construction.
+        /// </summary>
+        public double? ZCoordinateDrainageConstruction { get; set; }
+
+        /// <summary>
         /// Gets or sets the minimum depth of the slip plane.
         /// </summary>
         public double? SlipPlaneMinimumDepth { get; set; }

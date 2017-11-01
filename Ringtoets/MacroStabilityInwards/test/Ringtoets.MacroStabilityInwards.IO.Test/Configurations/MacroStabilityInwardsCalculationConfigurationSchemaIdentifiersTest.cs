@@ -41,6 +41,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual("1B", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioClayDikeOnSand);
             Assert.AreEqual("2B", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioSandDikeOnSand);
 
+            Assert.AreEqual("waterspanningen", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterStressesElement);
+            Assert.AreEqual("ghw", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelRiverAverageElement);
+
+            Assert.AreEqual("drainage", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DrainageConstructionElement);
+            Assert.AreEqual("aanwezig", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DrainageConstructionPresentElement);
+            Assert.AreEqual("x", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.XCoordinateDrainageConstructionElement);
+            Assert.AreEqual("z", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZCoordinateDrainageConstructionElement);
+
             Assert.AreEqual("minimaleglijvlakdiepte", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumDepthElement);
             Assert.AreEqual("minimaleglijvlaklengte", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumLengthElement);
             Assert.AreEqual("maximalelamelbreedte", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MaximumSliceWidthElement);
