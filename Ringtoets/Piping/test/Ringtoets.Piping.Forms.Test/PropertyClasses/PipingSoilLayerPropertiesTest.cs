@@ -78,7 +78,23 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ToString_Always_ReturnsMaterialName()
+        public void GetProperties_WithDataEmptyName_ReturnExpectedValues()
+        {
+            // Setup
+            var layer = new PipingSoilLayer(-2.91)
+            {
+                MaterialName = string.Empty
+            };
+
+            // Call
+            var properties = new PipingSoilLayerProperties(layer);
+
+            // Assert
+            Assert.AreEqual("Onbekend", properties.Name);
+        }
+
+        [Test]
+        public void ToString_ValidName_ReturnsMaterialName()
         {
             // Setup
             var layer = new PipingSoilLayer(-2.9)
@@ -93,6 +109,24 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(layer.MaterialName, name);
+        }
+
+        [Test]
+        public void ToString_EmptyName_ReturnsDefaultName()
+        {
+            // Setup
+            var layer = new PipingSoilLayer(-2.9)
+            {
+                MaterialName = string.Empty
+            };
+
+            var properties = new PipingSoilLayerProperties(layer);
+
+            // Call
+            string name = properties.ToString();
+
+            // Assert
+            Assert.AreEqual("Onbekend", name);
         }
 
         [Test]

@@ -162,10 +162,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     CreatePipingSoilLayer(),
                     CreatePipingSoilLayer()
                 };
-                table.SetData(new[]
-                {
-                    new PipingSoilLayer(1.0)
-                });
 
                 // Call
                 table.SetData(layers);
@@ -205,10 +201,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 {
                     soilLayer
                 };
-                table.SetData(new[]
-                {
-                    new PipingSoilLayer(1.0)
-                });
 
                 // Call
                 table.SetData(layers);

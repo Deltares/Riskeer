@@ -96,7 +96,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ToString_Always_ReturnsMaterialName()
+        public void GetProperties_WithDataEmptyName_ReturnExpectedValues()
+        {
+            // Setup
+            MacroStabilityInwardsSoilLayer2D layer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
+            layer.Data.MaterialName = string.Empty;
+
+            // Call
+            var properties = new MacroStabilityInwardsSoilLayer2DBaseProperties(layer);
+
+            // Assert
+            Assert.AreEqual("Onbekend", properties.Name);
+        }
+
+        [Test]
+        public void ToString_ValidName_ReturnsMaterialName()
         {
             // Setup
             MacroStabilityInwardsSoilLayer2D layer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
@@ -109,6 +123,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(layer.Data.MaterialName, name);
+        }
+
+        [Test]
+        public void ToString_EmptyName_ReturnsDefaultName()
+        {
+            // Setup
+            MacroStabilityInwardsSoilLayer2D layer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
+            layer.Data.MaterialName = string.Empty;
+
+            var properties = new MacroStabilityInwardsSoilLayer2DBaseProperties(layer);
+
+            // Call
+            string name = properties.ToString();
+
+            // Assert
+            Assert.AreEqual("Onbekend", name);
         }
 
         [Test]

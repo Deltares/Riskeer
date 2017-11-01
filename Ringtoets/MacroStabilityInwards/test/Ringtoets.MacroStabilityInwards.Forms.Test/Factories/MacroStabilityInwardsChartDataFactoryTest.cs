@@ -222,11 +222,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             const string name = "Soil layer test name";
             Color fillColor = Color.Firebrick;
 
-            // Call
             MacroStabilityInwardsSoilLayer2D layer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
             layer.Data.MaterialName = name;
             layer.Data.Color = fillColor;
 
+            // Call
             ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(layer);
 
             // Assert
@@ -238,11 +238,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         [Test]
         public void CreateSoilLayerChartData_LayerWithEmptyNameAndColor_ReturnsEmptyChartDataCollectionWithExpectedStyling()
         {
-            // Call
+            // Setup
             MacroStabilityInwardsSoilLayer2D layer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
             layer.Data.MaterialName = string.Empty;
             layer.Data.Color = Color.Empty;
 
+            // Call
             ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(layer);
 
             // Assert

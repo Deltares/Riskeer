@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -61,7 +62,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.MaterialName;
+                return SoilLayerVisualizationHelper.GetDisplayName(data.MaterialName);
             }
         }
 
@@ -91,7 +92,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return data.MaterialName;
+            return Name;
         }
     }
 }

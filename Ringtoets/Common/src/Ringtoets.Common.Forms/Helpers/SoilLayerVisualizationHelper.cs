@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <summary>
         /// Gets the display name of the soil layer.
         /// </summary>
-        /// <param name="name">The name to check whether it's a valid display name.</param>
+        /// <param name="name">The name to turn into a valid display name.</param>
         /// <returns><paramref name="name"/> when it's not <see cref="string.IsNullOrWhiteSpace"/>;
         /// a default value otherwise.</returns>
         public static string GetDisplayName(string name)
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <summary>
         /// Gets the display color of the soil layer.
         /// </summary>
-        /// <param name="color">The color to check whether it's a valid display color.</param>
+        /// <param name="color">The color to turn into a valid display color.</param>
         /// <returns><paramref name="color"/> when it's not <see cref="Color.Empty"/>;
         /// a default value otherwise.</returns>
         public static Color GetDisplayColor(Color color)

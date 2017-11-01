@@ -97,6 +97,28 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         }
 
         [Test]
+        public void Convert_SoilProfileWithSoilLayerWithEmptyName_ReturnSoilProfile()
+        {
+            // Setup
+            MacroStabilityInwardsSoilLayer2D soilLayer1 = CreateRandomSoilLayer(22, Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
+            soilLayer1.Data.MaterialName = string.Empty;
+
+            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(
+                new[]
+                {
+                    soilLayer1
+                },
+                new IMacroStabilityInwardsPreconsolidationStress[0]);
+
+            // Call
+            SoilProfile soilProfile = SoilProfileConverter.Convert(profile);
+
+            // Assert
+            Assert.AreEqual(1, soilProfile.Layers.Count());
+            Assert.AreEqual("Onbekend", soilProfile.Layers.First().MaterialName);
+        }
+
+        [Test]
         public void Convert_InvalidShearStrengthModel_ThrowInvalidEnumArgumentException()
         {
             // Setup
