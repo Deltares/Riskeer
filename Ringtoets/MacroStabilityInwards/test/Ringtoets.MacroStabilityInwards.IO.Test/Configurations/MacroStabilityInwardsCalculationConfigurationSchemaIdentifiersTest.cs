@@ -45,6 +45,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual("minimaleglijvlaklengte", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumLengthElement);
             Assert.AreEqual("maximalelamelbreedte", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MaximumSliceWidthElement);
 
+            Assert.AreEqual("zonering", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZonesElement);
+            Assert.AreEqual("bepaling", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.CreateZones);
+
             Assert.AreEqual("grids", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridElement);
             Assert.AreEqual("verplaatsgrid", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MoveGrid);
 

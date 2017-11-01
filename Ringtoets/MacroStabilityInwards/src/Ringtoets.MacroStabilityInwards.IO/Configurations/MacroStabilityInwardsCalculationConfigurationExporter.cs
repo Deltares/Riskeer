@@ -64,6 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 SlipPlaneMinimumDepth = input.SlipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = input.SlipPlaneMinimumLength,
                 MaximumSliceWidth = input.MaximumSliceWidth,
+                CreateZones = input.CreateZones,
                 TangentLineZTop = input.TangentLineZTop,
                 TangentLineZBottom = input.TangentLineZBottom,
                 TangentLineNumber = input.TangentLineNumber,

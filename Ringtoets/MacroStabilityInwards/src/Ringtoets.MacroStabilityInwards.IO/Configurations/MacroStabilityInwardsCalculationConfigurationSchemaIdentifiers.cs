@@ -61,6 +61,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public const string MaximumSliceWidthElement = "maximalelamelbreedte";
 
+        /// <summary>
+        /// The identifier for zones elements.
+        /// </summary>
+        public const string ZonesElement = "zonering";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating if zones should be created automatically.
+        /// </summary>
+        public const string CreateZones = "bepaling";
+
         #region Dike soil scenario
 
         /// <summary>

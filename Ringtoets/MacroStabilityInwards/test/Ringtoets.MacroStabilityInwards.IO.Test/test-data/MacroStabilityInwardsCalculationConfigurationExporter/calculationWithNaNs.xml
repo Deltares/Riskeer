@@ -9,6 +9,9 @@
     <minimaleglijvlakdiepte>NaN</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>NaN</minimaleglijvlaklengte>
     <maximalelamelbreedte>NaN</maximalelamelbreedte>
+    <zonering>
+      <bepaling>true</bepaling>
+    </zonering>
     <grids>
       <verplaatsgrid>true</verplaatsgrid>
       <bepaling>automatisch</bepaling>

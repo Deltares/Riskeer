@@ -61,6 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.SlipPlaneMinimumDepth);
             Assert.IsNull(configuration.SlipPlaneMinimumLength);
             Assert.IsNull(configuration.MaximumSliceWidth);
+            Assert.IsNull(configuration.CreateZones);
             Assert.IsNull(configuration.GridDeterminationType);
             Assert.IsNull(configuration.MoveGrid);
             Assert.IsNull(configuration.TangentLineDeterminationType);
@@ -85,6 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const double slipPlaneMinimumDepth = 2.2;
             const double slipPlaneMinimumLength = 3.3;
             const double maximumSliceWidth = 4.4;
+            const bool createZones = true;
 
             var scenarioConfiguration = new ScenarioConfiguration();
             const bool movegrid = true;
@@ -109,6 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 SlipPlaneMinimumDepth = slipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = slipPlaneMinimumLength,
                 MaximumSliceWidth = maximumSliceWidth,
+                CreateZones = createZones,
                 MoveGrid = movegrid,
                 GridDeterminationType = gridDeterminationType,
                 TangentLineDeterminationType = tangentLineDeterminationType,
@@ -131,6 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(slipPlaneMinimumDepth, configuration.SlipPlaneMinimumDepth);
             Assert.AreEqual(slipPlaneMinimumLength, configuration.SlipPlaneMinimumLength);
             Assert.AreEqual(maximumSliceWidth, configuration.MaximumSliceWidth);
+            Assert.AreEqual(createZones, configuration.CreateZones);
             Assert.AreEqual(movegrid, configuration.MoveGrid);
             Assert.AreEqual(gridDeterminationType, configuration.GridDeterminationType);
             Assert.AreEqual(tangentLineDeterminationType, configuration.TangentLineDeterminationType);

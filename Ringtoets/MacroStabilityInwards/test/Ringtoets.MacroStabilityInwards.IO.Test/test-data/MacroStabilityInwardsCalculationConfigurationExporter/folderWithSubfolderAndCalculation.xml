@@ -10,6 +10,9 @@
       <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
       <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
       <maximalelamelbreedte>0.6</maximalelamelbreedte>
+      <zonering>
+        <bepaling>true</bepaling>
+      </zonering>
       <grids>
         <verplaatsgrid>true</verplaatsgrid>
         <bepaling>automatisch</bepaling>
@@ -51,6 +54,9 @@
         <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
         <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
         <maximalelamelbreedte>0.6</maximalelamelbreedte>
+        <zonering>
+          <bepaling>true</bepaling>
+        </zonering>
         <grids>
           <verplaatsgrid>true</verplaatsgrid>
           <bepaling>automatisch</bepaling>

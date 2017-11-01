@@ -89,6 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 SlipPlaneMinimumDepth = 0.4,
                 SlipPlaneMinimumLength = 0.5,
                 MaximumSliceWidth = 0.6,
+                CreateZones = true,
                 MoveGrid = true,
                 GridDeterminationType = ConfigurationGridDeterminationType.Automatic,
                 TangentLineDeterminationType = ConfigurationTangentLineDeterminationType.Specified,

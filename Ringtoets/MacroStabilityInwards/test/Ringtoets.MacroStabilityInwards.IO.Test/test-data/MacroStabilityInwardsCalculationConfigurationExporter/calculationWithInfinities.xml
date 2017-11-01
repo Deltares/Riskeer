@@ -9,6 +9,9 @@
     <minimaleglijvlakdiepte>-INF</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>INF</minimaleglijvlaklengte>
     <maximalelamelbreedte>-INF</maximalelamelbreedte>
+    <zonering>
+      <bepaling>true</bepaling>
+    </zonering>
     <grids>
       <verplaatsgrid>true</verplaatsgrid>
       <bepaling>automatisch</bepaling>

@@ -95,9 +95,22 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MaximumSliceWidthElement,
                                              configuration.MaximumSliceWidth);
 
+            WriteZones(writer, configuration);
+
             WriteGrid(writer, configuration);
 
             WriteScenarioWhenAvailable(writer, configuration.Scenario);
+        }
+
+        private static void WriteZones(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        {
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZonesElement);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.CreateZones,
+                                             configuration.CreateZones);
+
+            writer.WriteEndElement();
         }
 
         /// <summary>
@@ -140,7 +153,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MoveGrid,
                                              configuration.MoveGrid);
-
             WriteGridDeterminationTypeWhenAvailable(writer,
                                                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeElement,
                                                     configuration.GridDeterminationType);
