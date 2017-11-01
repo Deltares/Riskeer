@@ -172,6 +172,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public PhreaticLineConfiguration PhreaticLine4 { get; set; }
 
+        /// <summary>
+        /// Gets or sets the locations input values for daily conditions.
+        /// </summary>
+        public MacroStabilityInwardsLocationInputConfiguration LocationInputDaily { get; set; }
+
         #endregion
 
         #region Grid

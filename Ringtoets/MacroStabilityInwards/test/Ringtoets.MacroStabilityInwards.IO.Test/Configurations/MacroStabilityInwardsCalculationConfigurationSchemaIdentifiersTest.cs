@@ -56,6 +56,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual("buitenwaarts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOutwardsElement);
 
             Assert.AreEqual("corrigeervooropbarsten", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AdjustPhreaticLine3And4ForUpliftElement);
+            Assert.AreEqual("dagelijks", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LocationInputDailyElement);
+            Assert.AreEqual("extreem", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LocationInputExtremeElement);
+            Assert.AreEqual("polderpeil", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelPolderElement);
+            Assert.AreEqual("offsets", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LocationInputOffsetElement);
+            Assert.AreEqual("gebruikdefaults", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.UseDefaultOffsetsElement);
+            Assert.AreEqual("buitenkruin", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOffsetBelowDikeTopAtRiverElement);
+            Assert.AreEqual("binnenkruin", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOffsetBelowDikeTopAtPolderElement);
+            Assert.AreEqual("insteekbinnenberm", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOffsetBelowShoulderBaseInsideElement);
+            Assert.AreEqual("teendijkbinnenwaarts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOffsetBelowDikeToeAtPolderElement);
 
             Assert.AreEqual("drainage", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DrainageConstructionElement);
             Assert.AreEqual("aanwezig", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DrainageConstructionPresentElement);

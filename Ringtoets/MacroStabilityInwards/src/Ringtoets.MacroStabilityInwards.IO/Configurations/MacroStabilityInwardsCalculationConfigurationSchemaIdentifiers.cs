@@ -147,6 +147,55 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public const string AdjustPhreaticLine3And4ForUpliftElement = "corrigeervooropbarsten";
 
+        #region Location input
+
+        /// <summary>
+        /// The identifier for all location input elements for daily conditions.
+        /// </summary>
+        public const string LocationInputDailyElement = "dagelijks";
+
+        /// <summary>
+        /// The identifier for all location input elements for extreme conditions.
+        /// </summary>
+        public const string LocationInputExtremeElement = "extreem";
+
+        /// <summary>
+        /// The tag of the element containing the polder water level.
+        /// </summary>
+        public const string WaterLevelPolderElement = "polderpeil";
+
+        /// <summary>
+        /// The identifier for the offset of the location input elements.
+        /// </summary>
+        public const string LocationInputOffsetElement = "offsets";
+
+        /// <summary>
+        /// The tag of the element containing the value whether the default offsets should be used.
+        /// </summary>
+        public const string UseDefaultOffsetsElement = "gebruikdefaults";
+
+        /// <summary>
+        /// The tag of the element containing the offset of the phreatic line below dike top at river.
+        /// </summary>
+        public const string PhreaticLineOffsetBelowDikeTopAtRiverElement = "buitenkruin";
+
+        /// <summary>
+        /// The tag of the element containing the  offset of the phreatic line below dike top at polder.
+        /// </summary>
+        public const string PhreaticLineOffsetBelowDikeTopAtPolderElement = "binnenkruin";
+
+        /// <summary>
+        /// The tag of the element containing the offset of the phreatic line below shoulder base inside.
+        /// </summary>
+        public const string PhreaticLineOffsetBelowShoulderBaseInsideElement = "insteekbinnenberm";
+
+        /// <summary>
+        /// The tag of the element containing the offset of the phreatic line below dike toe at polder.
+        /// </summary>
+        public const string PhreaticLineOffsetBelowDikeToeAtPolderElement = "teendijkbinnenwaarts";
+
+        #endregion
+
         #region Drainage
 
         /// <summary>

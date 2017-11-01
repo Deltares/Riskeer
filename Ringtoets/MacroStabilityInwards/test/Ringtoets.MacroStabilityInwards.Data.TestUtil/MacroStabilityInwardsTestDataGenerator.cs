@@ -153,6 +153,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     {
                         new MacroStabilityInwardsSoilLayer1D(0)
                     })),
+                    LocationInputDaily =
+                    {
+                        UseDefaultOffsets = true,
+                        WaterLevelPolder = (RoundedDouble) 2.2,
+                        PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) 2.21,
+                        PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) 2.22,
+                        PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) 2.23,
+                        PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) 2.24
+                    },
                     WaterLevelRiverAverage = (RoundedDouble) 10.5,
                     DrainageConstructionPresent = true,
                     XCoordinateDrainageConstruction = (RoundedDouble) 10.6,
@@ -220,6 +229,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             input.RightGrid.ZTop = RoundedDouble.NaN;
             input.RightGrid.ZBottom = RoundedDouble.NaN;
 
+            IMacroStabilityInwardsLocationInputDaily inputDaily = input.LocationInputDaily;
+            inputDaily.WaterLevelPolder = RoundedDouble.NaN;
+            inputDaily.PhreaticLineOffsetBelowDikeTopAtRiver = RoundedDouble.NaN;
+            inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder = RoundedDouble.NaN;
+            inputDaily.PhreaticLineOffsetBelowShoulderBaseInside = RoundedDouble.NaN;
+            inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder = RoundedDouble.NaN;
+
             return calculation;
         }
 
@@ -273,6 +289,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             input.RightGrid.XRight = (RoundedDouble) double.PositiveInfinity;
             input.RightGrid.ZTop = (RoundedDouble) double.PositiveInfinity;
             input.RightGrid.ZBottom = (RoundedDouble) double.NegativeInfinity;
+
+            IMacroStabilityInwardsLocationInputDaily inputDaily = input.LocationInputDaily;
+            inputDaily.WaterLevelPolder = (RoundedDouble) double.PositiveInfinity;
+            inputDaily.PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) double.PositiveInfinity;
+            inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) double.PositiveInfinity;
+            inputDaily.PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) double.NegativeInfinity;
+            inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) double.NegativeInfinity;
 
             return calculation;
         }

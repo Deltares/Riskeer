@@ -42,11 +42,13 @@
     <Compile Include="Configurations\Helpers\ConfigurationGridDeterminationTypeConverter.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationTangentLineDeterminationTypeConverter.cs" />
     <Compile Include="Configurations\Helpers\MacroStabilityInwardsGridConversionExtensions.cs" />
+    <Compile Include="Configurations\Helpers\MacroStabilityInwardsLocationInputConversionExtensions.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationWriter.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationImporter.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsGridConfiguration.cs" />
     <Compile Include="Configurations\PhreaticLineConfiguration.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsLocationInputConfiguration.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsPreconsolidationStressTransformer.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilLayerTransformer.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilProfileTransformer.cs" />

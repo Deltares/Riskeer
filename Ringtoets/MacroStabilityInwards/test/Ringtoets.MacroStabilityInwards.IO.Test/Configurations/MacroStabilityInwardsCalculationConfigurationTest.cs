@@ -68,6 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.PhreaticLine2);
             Assert.IsNull(configuration.PhreaticLine3);
             Assert.IsNull(configuration.PhreaticLine4);
+            Assert.IsNull(configuration.LocationInputDaily);
             Assert.IsNull(configuration.SlipPlaneMinimumDepth);
             Assert.IsNull(configuration.SlipPlaneMinimumLength);
             Assert.IsNull(configuration.MaximumSliceWidth);
@@ -106,6 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var phreaticLine2 = new PhreaticLineConfiguration();
             var phreaticLine3 = new PhreaticLineConfiguration();
             var phreaticLine4 = new PhreaticLineConfiguration();
+            var locationInputDaily = new MacroStabilityInwardsLocationInputConfiguration();
 
             const double slipPlaneMinimumDepth = 2.2;
             const double slipPlaneMinimumLength = 3.3;
@@ -142,6 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 PhreaticLine2 = phreaticLine2,
                 PhreaticLine3 = phreaticLine3,
                 PhreaticLine4 = phreaticLine4,
+                LocationInputDaily = locationInputDaily,
                 SlipPlaneMinimumDepth = slipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = slipPlaneMinimumLength,
                 MaximumSliceWidth = maximumSliceWidth,
@@ -175,6 +178,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreSame(phreaticLine2, configuration.PhreaticLine2);
             Assert.AreSame(phreaticLine3, configuration.PhreaticLine3);
             Assert.AreSame(phreaticLine4, configuration.PhreaticLine4);
+            Assert.AreSame(locationInputDaily, configuration.LocationInputDaily);
             Assert.AreEqual(slipPlaneMinimumDepth, configuration.SlipPlaneMinimumDepth);
             Assert.AreEqual(slipPlaneMinimumLength, configuration.SlipPlaneMinimumLength);
             Assert.AreEqual(maximumSliceWidth, configuration.MaximumSliceWidth);

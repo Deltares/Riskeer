@@ -110,6 +110,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     Inwards = 80.1,
                     Outwards = 80.2
                 },
+                LocationInputDaily = new MacroStabilityInwardsLocationInputConfiguration
+                {
+                    WaterLevelPolder = 99.9,
+                    PhreaticLineOffsetBelowDikeToeAtPolder = 99.8,
+                    PhreaticLineOffsetBelowDikeTopAtPolder = 99.7,
+                    PhreaticLineOffsetBelowDikeTopAtRiver = 99.6,
+                    PhreaticLineOffsetBelowShoulderBaseInside = 99.5,
+                    UseDefaultOffsets = false
+                },
                 AdjustPhreaticLine3And4ForUplift = true,
                 CreateZones = true,
                 MoveGrid = true,

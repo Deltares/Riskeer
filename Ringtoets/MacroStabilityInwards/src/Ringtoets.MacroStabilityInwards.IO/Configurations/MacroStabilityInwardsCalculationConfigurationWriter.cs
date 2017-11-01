@@ -166,7 +166,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             WriteDrainageConstruction(writer, configuration);
 
             WriteMinimumLevelPhreaticLine(writer, configuration);
-            
+
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AdjustPhreaticLine3And4ForUpliftElement,
                                              configuration.AdjustPhreaticLine3And4ForUplift);
@@ -174,6 +174,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             WriteLeakageLength(writer, configuration);
 
             WritePiezometricHead(writer, configuration);
+
+            WriteLocationLocationDailyInput(writer, configuration.LocationInputDaily);
 
             writer.WriteEndElement();
         }
@@ -243,6 +245,66 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOutwardsElement,
                                              configuration.Outwards);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes a location input configuration.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration for the location input that can be <c>null</c>.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        private static void WriteLocationLocationDailyInput(XmlWriter writer, MacroStabilityInwardsLocationInputConfiguration configuration)
+        {
+            if (configuration == null)
+            {
+                return;
+            }
+
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LocationInputDailyElement);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelPolderElement,
+                                             configuration.WaterLevelPolder);
+
+            WriteLocationLocationInputOffset(writer, configuration);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes the offset of a location input configuration.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration for the location input that can be <c>null</c>.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        private static void WriteLocationLocationInputOffset(XmlWriter writer, MacroStabilityInwardsLocationInputConfiguration configuration)
+        {
+            if (configuration == null)
+            {
+                return;
+            }
+
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LocationInputOffsetElement);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.UseDefaultOffsetsElement,
+                                             configuration.UseDefaultOffsets);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOffsetBelowDikeTopAtRiverElement,
+                                             configuration.PhreaticLineOffsetBelowDikeTopAtRiver);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOffsetBelowDikeTopAtPolderElement,
+                                             configuration.PhreaticLineOffsetBelowDikeTopAtPolder);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOffsetBelowShoulderBaseInsideElement,
+                                             configuration.PhreaticLineOffsetBelowShoulderBaseInside);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOffsetBelowDikeToeAtPolderElement,
+                                             configuration.PhreaticLineOffsetBelowDikeToeAtPolder);
 
             writer.WriteEndElement();
         }

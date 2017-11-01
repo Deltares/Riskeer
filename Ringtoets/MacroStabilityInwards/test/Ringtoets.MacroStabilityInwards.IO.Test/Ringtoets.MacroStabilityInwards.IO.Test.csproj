@@ -65,6 +65,7 @@
     <Compile Include="Configurations\Helpers\ConfigurationGridDeterminationTypeConverterTest.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationTangentLineDeterminationTypeConverterTest.cs" />
     <Compile Include="Configurations\Helpers\MacroStabilityInwardsGridConversionExtensionsTest.cs" />
+    <Compile Include="Configurations\Helpers\MacroStabilityInwardsLocationInputConversionExtensionsTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationWriterTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationImporterTest.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsGridConfigurationTest.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsLocationInputConfigurationTest.cs" />
     <Compile Include="Configurations\PhreaticLineConfigurationTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsPreconsolidationStressTransformerTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilLayerTransformerTest.cs" />

@@ -26,6 +26,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 {
@@ -185,6 +186,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.IsNaN(input.RightGrid.XRight);
             Assert.IsNaN(input.RightGrid.ZTop);
             Assert.IsNaN(input.RightGrid.ZBottom);
+
+            IMacroStabilityInwardsLocationInputDaily inputDaily = input.LocationInputDaily;
+            Assert.IsNaN(inputDaily.WaterLevelPolder);
+            Assert.IsNaN(inputDaily.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.IsNaN(inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.IsNaN(inputDaily.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.IsNaN(inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder);
         }
 
         [Test]
@@ -229,6 +237,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(double.PositiveInfinity, input.RightGrid.XRight);
             Assert.AreEqual(double.PositiveInfinity, input.RightGrid.ZTop);
             Assert.AreEqual(double.NegativeInfinity, input.RightGrid.ZBottom);
+
+            IMacroStabilityInwardsLocationInputDaily inputDaily = input.LocationInputDaily;
+            Assert.AreEqual(double.PositiveInfinity, inputDaily.WaterLevelPolder);
+            Assert.AreEqual(double.PositiveInfinity, inputDaily.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(double.PositiveInfinity, inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(double.NegativeInfinity, inputDaily.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(double.NegativeInfinity, inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder);
         }
 
         private static void AssertCalculation(MacroStabilityInwardsCalculationScenario calculation,
@@ -308,6 +323,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 Assert.IsNull(input.StochasticSoilModel);
                 Assert.IsNull(input.StochasticSoilProfile);
             }
+
+            IMacroStabilityInwardsLocationInputDaily inputDaily = input.LocationInputDaily;
+            Assert.IsTrue(inputDaily.UseDefaultOffsets);
+            Assert.AreEqual(2.2, inputDaily.WaterLevelPolder, inputDaily.WaterLevelPolder.GetAccuracy());
+            Assert.AreEqual(2.21, inputDaily.PhreaticLineOffsetBelowDikeTopAtRiver, inputDaily.PhreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
+            Assert.AreEqual(2.22, inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder, inputDaily.PhreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
+            Assert.AreEqual(2.23, inputDaily.PhreaticLineOffsetBelowShoulderBaseInside, inputDaily.PhreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
+            Assert.AreEqual(2.24, inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder, inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
         }
 
         private static void AssertCalculationsHasSameHydraulicBoundaryLocation(CalculationGroup calculationGroup,

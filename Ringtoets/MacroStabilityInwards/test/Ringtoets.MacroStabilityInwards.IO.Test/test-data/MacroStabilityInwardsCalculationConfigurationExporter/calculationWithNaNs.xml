@@ -36,6 +36,16 @@
           <buitenwaarts>NaN</buitenwaarts>
         </pl2>
       </stijghoogtes>
+      <dagelijks>
+        <polderpeil>NaN</polderpeil>
+        <offsets>
+          <gebruikdefaults>true</gebruikdefaults>
+          <buitenkruin>NaN</buitenkruin>
+          <binnenkruin>NaN</binnenkruin>
+          <insteekbinnenberm>NaN</insteekbinnenberm>
+          <teendijkbinnenwaarts>NaN</teendijkbinnenwaarts>
+        </offsets>
+      </dagelijks>
     </waterspanningen>
     <minimaleglijvlakdiepte>NaN</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>NaN</minimaleglijvlaklengte>

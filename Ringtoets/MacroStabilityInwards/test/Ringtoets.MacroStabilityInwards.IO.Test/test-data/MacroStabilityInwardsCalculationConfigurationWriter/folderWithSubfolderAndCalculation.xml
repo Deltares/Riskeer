@@ -38,6 +38,16 @@
             <buitenwaarts>60.2</buitenwaarts>
           </pl2>
         </stijghoogtes>
+        <dagelijks>
+          <polderpeil>99.9</polderpeil>
+          <offsets>
+            <gebruikdefaults>false</gebruikdefaults>
+            <buitenkruin>99.6</buitenkruin>
+            <binnenkruin>99.7</binnenkruin>
+            <insteekbinnenberm>99.5</insteekbinnenberm>
+            <teendijkbinnenwaarts>99.8</teendijkbinnenwaarts>
+          </offsets>
+        </dagelijks>
       </waterspanningen>
       <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
       <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
