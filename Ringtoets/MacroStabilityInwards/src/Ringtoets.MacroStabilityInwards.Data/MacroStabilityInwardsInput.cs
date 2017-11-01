@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
             if (!IsSmallerEqualOrNaN(properties.TangentLineZBottom, properties.TangentLineZTop))
             {
-                throw new ArgumentException(Resources.MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_TangentLineZBottom);
+                throw new ArgumentException(Resources.MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_or_equal_to_TangentLineZBottom);
             }
 
             assessmentLevel = new RoundedDouble(2, double.NaN);
@@ -214,52 +214,52 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
 
             /// <summary>
-            /// Gets or sets the x left of the left grid.
+            /// Gets or sets the left boundary of the left grid.
             /// </summary>
             public double LeftGridXLeft { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the x right of the left grid.
+            /// Gets or sets the right boundary of the left grid.
             /// </summary>
             public double LeftGridXRight { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the z top of the left grid.
+            /// Gets or sets the top boundary of the left grid.
             /// </summary>
             public double LeftGridZTop { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the z bottom of the left grid.
+            /// Gets or sets the bottom boundary of the left grid.
             /// </summary>
             public double LeftGridZBottom { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the x left of the right grid.
+            /// Gets or sets the left boundary of the right grid.
             /// </summary>
             public double RightGridXLeft { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the x right of the right grid.
+            /// Gets or sets the right boundary of the right grid.
             /// </summary>
             public double RightGridXRight { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the z top of the right grid.
+            /// Gets or sets the top boundary of the right grid.
             /// </summary>
             public double RightGridZTop { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the z bottom of the right grid.
+            /// Gets or sets the bottom boundary of the right grid.
             /// </summary>
             public double RightGridZBottom { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the tangent line z top.
+            /// Gets or sets the tangent line top boundary.
             /// </summary>
             public double TangentLineZTop { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the tangent line z bottom.
+            /// Gets or sets the tangent line bottom boundary.
             /// </summary>
             public double TangentLineZBottom { internal get; set; }
         }
@@ -394,7 +394,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public MacroStabilityInwardsTangentLineDeterminationType TangentLineDeterminationType { get; set; }
 
         /// <summary>
-        /// Gets or sets the tangent line z top.
+        /// Gets or sets the tangent line top boundary.
         /// [m+NAP]
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is smaller 
@@ -409,7 +409,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             {
                 if (!IsSmallerEqualOrNaN(TangentLineZBottom, value))
                 {
-                    throw new ArgumentException(Resources.MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_TangentLineZBottom);
+                    throw new ArgumentException(Resources.MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_or_equal_to_TangentLineZBottom);
                 }
 
                 tangentLineZTop = value.ToPrecision(tangentLineZTop.NumberOfDecimalPlaces);
@@ -417,7 +417,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the tangent line z bottom.
+        /// Gets or sets the tangent line bottom boundary.
         /// [m+NAP]
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is larger 
@@ -432,7 +432,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             {
                 if (!IsSmallerEqualOrNaN(value, TangentLineZTop))
                 {
-                    throw new ArgumentException(Resources.MacroStabilityInwardsInput_TangentLineZBottom_should_be_smaller_than_TangentLineZTop);
+                    throw new ArgumentException(Resources.MacroStabilityInwardsInput_TangentLineZBottom_should_be_smaller_than_or_equal_to_TangentLineZTop);
                 }
 
                 tangentLineZBottom = value.ToPrecision(tangentLineZBottom.NumberOfDecimalPlaces);

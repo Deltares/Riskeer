@@ -156,20 +156,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Tangentlijn Z-onder moet kleiner zijn dan of gelijk zijn aan tangentlijn Z-boven, of NaN..
         /// </summary>
-        public static string MacroStabilityInwardsInput_TangentLineZBottom_should_be_smaller_than_TangentLineZTop {
+        public static string MacroStabilityInwardsInput_TangentLineZBottom_should_be_smaller_than_or_equal_to_TangentLineZTop {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsInput_TangentLineZBottom_should_be_smaller_than_TangentLineZ" +
-                        "Top", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsInput_TangentLineZBottom_should_be_smaller_than_or_equal_to_" +
+                        "TangentLineZTop", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Tangentlijn Z-boven moet groter zijn dan of gelijk zijn aan tangentlijn Z-onder, of NaN..
         /// </summary>
-        public static string MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_TangentLineZBottom {
+        public static string MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_or_equal_to_TangentLineZBottom {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_TangentLineZBott" +
-                        "om", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_or_equal_to_Tang" +
+                        "entLineZBottom", resourceCulture);
             }
         }
         

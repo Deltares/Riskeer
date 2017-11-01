@@ -174,10 +174,10 @@
   <data name="MacroStabilityInwardsGrid_ZBottom_should_be_smaller_than_or_equal_to_ZTop" xml:space="preserve">
     <value>Z onder moet kleiner zijn dan of gelijk zijn aan Z boven, of NaN.</value>
   </data>
-  <data name="MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_TangentLineZBottom" xml:space="preserve">
+  <data name="MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_or_equal_to_TangentLineZBottom" xml:space="preserve">
     <value>Tangentlijn Z-boven moet groter zijn dan of gelijk zijn aan tangentlijn Z-onder, of NaN.</value>
   </data>
-  <data name="MacroStabilityInwardsInput_TangentLineZBottom_should_be_smaller_than_TangentLineZTop" xml:space="preserve">
+  <data name="MacroStabilityInwardsInput_TangentLineZBottom_should_be_smaller_than_or_equal_to_TangentLineZTop" xml:space="preserve">
     <value>Tangentlijn Z-onder moet kleiner zijn dan of gelijk zijn aan tangentlijn Z-boven, of NaN.</value>
   </data>
 </root>

@@ -27,22 +27,22 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
     public class MacroStabilityInwardsGridConfiguration
     {
         /// <summary>
-        /// Gets or sets the x left of the grid.
+        /// Gets or sets the left boundary of the grid.
         /// </summary>
         public double? XLeft { get; set; }
 
         /// <summary>
-        /// Gets or sets the x right of the grid.
+        /// Gets or sets the right boundary of the grid.
         /// </summary>
         public double? XRight { get; set; }
 
         /// <summary>
-        /// Gets or sets the z top of the grid.
+        /// Gets or sets the top boundary of the grid.
         /// </summary>
         public double? ZTop { get; set; }
 
         /// <summary>
-        /// Gets or sets the z bottom of the grid.
+        /// Gets or sets the bottom boundary of the grid.
         /// </summary>
         public double? ZBottom { get; set; }
 

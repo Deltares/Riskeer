@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the x left of the grid.
+        /// Gets or sets the left boundary of the grid.
         /// [m]
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is larger
@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the x right of the grid.
+        /// Gets or sets the right boundary of the grid.
         /// [m]
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is smaller 
@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the z top of the grid.
+        /// Gets or sets the top boundary of the grid.
         /// [m+NAP]
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is smaller 
@@ -142,7 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the z bottom of the grid.
+        /// Gets or sets the bottom boundary of the grid.
         /// [m+NAP]
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is larger 

@@ -115,13 +115,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         public bool TangentLinesAutomaticAtBoundaries { get; }
 
         /// <summary>
-        /// Gets the tangent line z top.
+        /// Gets the tangent line top boundary.
         /// [m+NAP]
         /// </summary>
         public double TangentZTop { get; }
 
         /// <summary>
-        /// Gets the tangent line z bottom.
+        /// Gets the tangent line bottom boundary.
         /// [m+NAP]
         /// </summary>
         public double TangentZBottom { get; }
