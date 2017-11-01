@@ -83,6 +83,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public const string WaterLevelRiverAverageElement = "ghw";
 
+        /// <summary>
+        /// The tag of the element containing the value indicating whether phreatic line 3 and 4 should be adjusted for Uplift.
+        /// </summary>
+        public const string AdjustPhreaticLine3And4ForUpliftElement = "corrigeervooropbarsten";
+
         #region Drainage
 
         /// <summary>

@@ -13,6 +13,7 @@
         <x>10.6</x>
         <z>10.7</z>
       </drainage>
+      <corrigeervooropbarsten>true</corrigeervooropbarsten>
     </waterspanningen>
     <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>

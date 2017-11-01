@@ -165,6 +165,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
             WriteDrainageConstruction(writer, configuration);
 
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AdjustPhreaticLine3And4ForUpliftElement,
+                                             configuration.AdjustPhreaticLine3And4ForUplift);
+
             writer.WriteEndElement();
         }
 

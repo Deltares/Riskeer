@@ -93,6 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 DrainageConstructionPresent = true,
                 XCoordinateDrainageConstruction = 10.5,
                 ZCoordinateDrainageConstruction = 10.6,
+                AdjustPhreaticLine3And4ForUplift = true,
                 CreateZones = true,
                 MoveGrid = true,
                 GridDeterminationType = ConfigurationGridDeterminationType.Automatic,

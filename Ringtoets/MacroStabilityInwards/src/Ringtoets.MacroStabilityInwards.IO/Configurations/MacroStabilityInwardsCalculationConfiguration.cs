@@ -97,6 +97,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public double? ZCoordinateDrainageConstruction { get; set; }
 
         /// <summary>
+        /// Gets or sets whether phreatic line 3 and 4 should be adjusted for Uplift.
+        /// </summary>
+        public bool? AdjustPhreaticLine3And4ForUplift { get; set; }
+
+        /// <summary>
         /// Gets or sets the minimum depth of the slip plane.
         /// </summary>
         public double? SlipPlaneMinimumDepth { get; set; }
