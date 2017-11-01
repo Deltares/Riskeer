@@ -417,7 +417,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridElement);
 
             WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MoveGrid,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MoveGridElement,
                                              configuration.MoveGrid);
             WriteGridDeterminationTypeWhenAvailable(writer,
                                                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeElement,
@@ -477,15 +477,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                                            configuration.TangentLineDeterminationType);
 
             WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZTop,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZTopElement,
                                              configuration.TangentLineZTop);
 
             WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZBottom,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZBottomElement,
                                              configuration.TangentLineZBottom);
 
             WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineNumber,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineNumberElement,
                                              configuration.TangentLineNumber);
 
             writer.WriteEndElement();
@@ -549,32 +549,32 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
             if (configuration.XLeft.HasValue)
             {
-                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXLeft,
+                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXLeftElement,
                                           XmlConvert.ToString(configuration.XLeft.Value));
             }
             if (configuration.XRight.HasValue)
             {
-                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXRight,
+                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXRightElement,
                                           XmlConvert.ToString(configuration.XRight.Value));
             }
             if (configuration.ZTop.HasValue)
             {
-                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZTop,
+                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZTopElement,
                                           XmlConvert.ToString(configuration.ZTop.Value));
             }
             if (configuration.ZBottom.HasValue)
             {
-                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZBottom,
+                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZBottomElement,
                                           XmlConvert.ToString(configuration.ZBottom.Value));
             }
             if (configuration.NumberOfVerticalPoints.HasValue)
             {
-                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfVerticalPoints,
+                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfVerticalPointsElement,
                                           XmlConvert.ToString(configuration.NumberOfVerticalPoints.Value));
             }
             if (configuration.NumberOfHorizontalPoints.HasValue)
             {
-                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfHorizontalPoints,
+                writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfHorizontalPointsElement,
                                           XmlConvert.ToString(configuration.NumberOfHorizontalPoints.Value));
             }
 

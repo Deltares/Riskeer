@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual("bepaling", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.CreateZones);
 
             Assert.AreEqual("grids", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridElement);
-            Assert.AreEqual("verplaatsgrid", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MoveGrid);
+            Assert.AreEqual("verplaatsgrid", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MoveGridElement);
 
             Assert.AreEqual("bepaling", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeElement);
             Assert.AreEqual("automatisch", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeAutomatic);
@@ -90,18 +90,18 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual("bepalingtangentlijnen", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeElement);
             Assert.AreEqual("laagscheiding", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeLayerSeparated);
             Assert.AreEqual("gespecificeerd", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeSpecified);
-            Assert.AreEqual("zboven", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZTop);
-            Assert.AreEqual("zonder", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZBottom);
-            Assert.AreEqual("aantal", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineNumber);
+            Assert.AreEqual("zboven", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZTopElement);
+            Assert.AreEqual("zonder", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZBottomElement);
+            Assert.AreEqual("aantal", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineNumberElement);
 
             Assert.AreEqual("linkergrid", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeftGridElement);
             Assert.AreEqual("rechtergrid", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.RightGridElement);
-            Assert.AreEqual("links", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXLeft);
-            Assert.AreEqual("rechts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXRight);
-            Assert.AreEqual("boven", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZTop);
-            Assert.AreEqual("onder", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZBottom);
-            Assert.AreEqual("aantalpuntenhorizontaal", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfHorizontalPoints);
-            Assert.AreEqual("aantalpuntenverticaal", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfVerticalPoints);
+            Assert.AreEqual("links", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXLeftElement);
+            Assert.AreEqual("rechts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXRightElement);
+            Assert.AreEqual("boven", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZTopElement);
+            Assert.AreEqual("onder", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZBottomElement);
+            Assert.AreEqual("aantalpuntenhorizontaal", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfHorizontalPointsElement);
+            Assert.AreEqual("aantalpuntenverticaal", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfVerticalPointsElement);
         }
     }
 }

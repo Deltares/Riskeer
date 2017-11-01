@@ -270,7 +270,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <summary>
         /// The tag of the element containing the value whether the grid should be moved.
         /// </summary>
-        public const string MoveGrid = "verplaatsgrid";
+        public const string MoveGridElement = "verplaatsgrid";
 
         /// <summary>
         /// The identifier for the grid determination type elements.
@@ -316,17 +316,17 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <summary>
         /// The tag of the element containing the value indicating the top z of the tangent line.
         /// </summary>
-        public const string TangentLineZTop = "zboven";
+        public const string TangentLineZTopElement = "zboven";
 
         /// <summary>
         /// The tag of the element containing the value indicating the bottom z of the tangent line.
         /// </summary>
-        public const string TangentLineZBottom = "zonder";
+        public const string TangentLineZBottomElement = "zonder";
 
         /// <summary>
         /// The tag of the element containing the value indicating the number of tangent lines.
         /// </summary>
-        public const string TangentLineNumber = "aantal";
+        public const string TangentLineNumberElement = "aantal";
 
         #endregion
 
@@ -343,32 +343,32 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <summary>
         /// The tag of the element containing the value indicating the left x of the grid.
         /// </summary>
-        public const string GridXLeft = "links";
+        public const string GridXLeftElement = "links";
 
         /// <summary>
         /// The tag of the element containing the value indicating the right x of the grid.
         /// </summary>
-        public const string GridXRight = "rechts";
+        public const string GridXRightElement = "rechts";
 
         /// <summary>
         /// The tag of the element containing the value indicating the top z of the grid.
         /// </summary>
-        public const string GridZTop = "boven";
+        public const string GridZTopElement = "boven";
 
         /// <summary>
         /// The tag of the element containing the value indicating the bottom z of the grid.
         /// </summary>
-        public const string GridZBottom = "onder";
+        public const string GridZBottomElement = "onder";
 
         /// <summary>
         /// The tag of the element containing the value indicating the number of horizontal points of the grid.
         /// </summary>
-        public const string GridNumberOfHorizontalPoints = "aantalpuntenhorizontaal";
+        public const string GridNumberOfHorizontalPointsElement = "aantalpuntenhorizontaal";
 
         /// <summary>
         /// The tag of the element containing the value indicating the number of vertical points of the grid.
         /// </summary>
-        public const string GridNumberOfVerticalPoints = "aantalpuntenverticaal";
+        public const string GridNumberOfVerticalPointsElement = "aantalpuntenverticaal";
 
         #endregion
     }
