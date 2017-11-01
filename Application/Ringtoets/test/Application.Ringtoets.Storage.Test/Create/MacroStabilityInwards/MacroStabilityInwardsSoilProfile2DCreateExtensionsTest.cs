@@ -25,7 +25,6 @@ using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
@@ -33,6 +32,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 {
@@ -143,14 +143,9 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
         private static MacroStabilityInwardsSoilProfile2D CreateMacroStabilityInwardsSoilProfile2D(string name)
         {
-            var random = new Random(31);
             var layers = new Collection<MacroStabilityInwardsSoilLayer2D>
             {
-                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                {
-                    new Point2D(random.NextDouble(), random.NextDouble()),
-                    new Point2D(random.NextDouble(), random.NextDouble())
-                }))
+                new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing())
             };
 
             return new MacroStabilityInwardsSoilProfile2D(name, layers, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());

@@ -33,6 +33,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 {
@@ -71,19 +72,10 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         public void Read_WithCollector_ReturnsSoilProfileWithPropertiesSet()
         {
             // Setup
+            Ring outerRingA = RingTestFactory.CreateRandomRing(32);
+            Ring outerRingB = RingTestFactory.CreateRandomRing(33);
+
             var random = new Random(31);
-
-            var outerRingA = new Ring(new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
-            var outerRingB = new Ring(new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
-
             var preconsolidationStressEntity = new MacroStabilityInwardsPreconsolidationStressEntity
             {
                 CoordinateX = random.NextDouble(),
