@@ -453,7 +453,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Setup
             var profile = new MacroStabilityInwardsSoilProfile2D("name",
-                                                                 Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>(),
+                                                                 new[]
+                                                                 {
+                                                                     MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D()
+                                                                 },
                                                                  Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
 
             // Call
