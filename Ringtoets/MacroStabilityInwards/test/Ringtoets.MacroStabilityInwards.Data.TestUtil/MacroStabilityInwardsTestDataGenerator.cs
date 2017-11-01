@@ -157,6 +157,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     DrainageConstructionPresent = true,
                     XCoordinateDrainageConstruction = (RoundedDouble) 10.6,
                     ZCoordinateDrainageConstruction = (RoundedDouble) 10.7,
+                    MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) 10.8,
+                    MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) 10.9,
                     SlipPlaneMinimumDepth = (RoundedDouble) 0.4,
                     SlipPlaneMinimumLength = (RoundedDouble) 0.5,
                     MaximumSliceWidth = (RoundedDouble) 0.6,
@@ -183,6 +185,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             input.WaterLevelRiverAverage = RoundedDouble.NaN;
             input.XCoordinateDrainageConstruction = RoundedDouble.NaN;
             input.ZCoordinateDrainageConstruction = RoundedDouble.NaN;
+
+            input.MinimumLevelPhreaticLineAtDikeTopPolder = RoundedDouble.NaN;
+            input.MinimumLevelPhreaticLineAtDikeTopRiver = RoundedDouble.NaN;
 
             input.AssessmentLevel = RoundedDouble.NaN;
             input.SlipPlaneMinimumDepth = RoundedDouble.NaN;
@@ -226,6 +231,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             input.WaterLevelRiverAverage = (RoundedDouble) double.PositiveInfinity;
             input.XCoordinateDrainageConstruction = (RoundedDouble) double.PositiveInfinity;
             input.ZCoordinateDrainageConstruction = (RoundedDouble) double.NegativeInfinity;
+
+            input.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) double.PositiveInfinity;
+            input.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) double.NegativeInfinity;
 
             input.AssessmentLevel = (RoundedDouble) double.NegativeInfinity;
 

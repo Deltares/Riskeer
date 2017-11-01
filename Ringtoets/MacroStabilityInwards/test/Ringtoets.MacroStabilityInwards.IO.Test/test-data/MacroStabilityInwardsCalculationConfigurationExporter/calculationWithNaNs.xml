@@ -13,6 +13,12 @@
         <x>NaN</x>
         <z>NaN</z>
       </drainage>
+      <initielehoogte>
+        <pl1>
+          <binnenkruin>NaN</binnenkruin>
+          <buitenkruin>NaN</buitenkruin>
+        </pl1>
+      </initielehoogte>
       <corrigeervooropbarsten>true</corrigeervooropbarsten>
     </waterspanningen>
     <minimaleglijvlakdiepte>NaN</minimaleglijvlakdiepte>

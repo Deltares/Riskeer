@@ -165,6 +165,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
             WriteDrainageConstruction(writer, configuration);
 
+            WriteMinimumLevelPhreaticLine(writer, configuration);
+
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AdjustPhreaticLine3And4ForUpliftElement,
                                              configuration.AdjustPhreaticLine3And4ForUplift);
@@ -192,6 +194,36 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZCoordinateDrainageConstructionElement,
                                              configuration.ZCoordinateDrainageConstruction);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes the phreatic line minimum level related parameters.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        private static void WriteMinimumLevelPhreaticLine(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        {
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineMinimumLevelElement);
+
+            WritePhreaticLine1(writer, configuration);
+
+            writer.WriteEndElement();
+        }
+
+        private static void WritePhreaticLine1(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        {
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine1Element);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MinimumLevelPhreaticLineAtDikeTopPolderElement,
+                                             configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MinimumLevelPhreaticLineAtDikeTopRiverElement,
+                                             configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
 
             writer.WriteEndElement();
         }

@@ -83,6 +83,30 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public const string WaterLevelRiverAverageElement = "ghw";
 
+        #region Phreatic lines
+
+        /// <summary>
+        /// The identifier for minimum level elements.
+        /// </summary>
+        public const string PhreaticLineMinimumLevelElement = "initielehoogte";
+
+        /// <summary>
+        /// The identifier for the phreatic line 1 elements.
+        /// </summary>
+        public const string PhreaticLine1Element = "pl1";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the minimum level phreatic line at dike top river.
+        /// </summary>
+        public const string MinimumLevelPhreaticLineAtDikeTopRiverElement = "buitenkruin";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the minimum level phreatic line at dike top polder.
+        /// </summary>
+        public const string MinimumLevelPhreaticLineAtDikeTopPolderElement = "binnenkruin";
+
+        #endregion
+
         /// <summary>
         /// The tag of the element containing the value indicating whether phreatic line 3 and 4 should be adjusted for Uplift.
         /// </summary>

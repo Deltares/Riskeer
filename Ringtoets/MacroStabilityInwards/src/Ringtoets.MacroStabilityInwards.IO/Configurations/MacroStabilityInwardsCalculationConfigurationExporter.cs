@@ -64,6 +64,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 DrainageConstructionPresent = input.DrainageConstructionPresent,
                 XCoordinateDrainageConstruction = input.XCoordinateDrainageConstruction,
                 ZCoordinateDrainageConstruction = input.ZCoordinateDrainageConstruction,
+                MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
+                MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,
                 AdjustPhreaticLine3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift,
                 Scenario = calculation.ToScenarioConfiguration(),
                 SlipPlaneMinimumDepth = input.SlipPlaneMinimumDepth,

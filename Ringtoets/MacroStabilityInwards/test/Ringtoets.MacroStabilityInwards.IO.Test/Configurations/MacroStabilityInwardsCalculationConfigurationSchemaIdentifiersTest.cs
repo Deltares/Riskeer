@@ -43,6 +43,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             Assert.AreEqual("waterspanningen", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterStressesElement);
             Assert.AreEqual("ghw", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelRiverAverageElement);
+            Assert.AreEqual("initielehoogte", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineMinimumLevelElement);
+            Assert.AreEqual("pl1", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine1Element);
+            Assert.AreEqual("buitenkruin", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MinimumLevelPhreaticLineAtDikeTopRiverElement);
+            Assert.AreEqual("binnenkruin", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MinimumLevelPhreaticLineAtDikeTopPolderElement);
+
             Assert.AreEqual("corrigeervooropbarsten", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AdjustPhreaticLine3And4ForUpliftElement);
 
             Assert.AreEqual("drainage", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DrainageConstructionElement);

@@ -62,6 +62,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.DrainageConstructionPresent);
             Assert.IsNull(configuration.XCoordinateDrainageConstruction);
             Assert.IsNull(configuration.ZCoordinateDrainageConstruction);
+            Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.IsNull(configuration.AdjustPhreaticLine3And4ForUplift);
             Assert.IsNull(configuration.SlipPlaneMinimumDepth);
             Assert.IsNull(configuration.SlipPlaneMinimumLength);
@@ -93,6 +95,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const bool drainageConstructionPresent = true;
             const double xCoordinateDrainageConstruction = 0.6;
             const double zCoordinateDrainageConstruction = 0.7;
+
+            const double minimumLevelPhreaticLineAtDikeTopRiver = 0.8;
+            const double minimumLevelPhreaticLineAtDikeTopPolder = 0.9;
+
             const bool adjustPhreaticLine3And4ForUplift = true;
 
             const double slipPlaneMinimumDepth = 2.2;
@@ -124,6 +130,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 DrainageConstructionPresent = drainageConstructionPresent,
                 XCoordinateDrainageConstruction = xCoordinateDrainageConstruction,
                 ZCoordinateDrainageConstruction = zCoordinateDrainageConstruction,
+                MinimumLevelPhreaticLineAtDikeTopRiver = minimumLevelPhreaticLineAtDikeTopRiver,
+                MinimumLevelPhreaticLineAtDikeTopPolder = minimumLevelPhreaticLineAtDikeTopPolder,
                 AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift,
                 SlipPlaneMinimumDepth = slipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = slipPlaneMinimumLength,
@@ -152,6 +160,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(drainageConstructionPresent, configuration.DrainageConstructionPresent);
             Assert.AreEqual(xCoordinateDrainageConstruction, configuration.XCoordinateDrainageConstruction);
             Assert.AreEqual(zCoordinateDrainageConstruction, configuration.ZCoordinateDrainageConstruction);
+            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(adjustPhreaticLine3And4ForUplift, configuration.AdjustPhreaticLine3And4ForUplift);
             Assert.AreEqual(slipPlaneMinimumDepth, configuration.SlipPlaneMinimumDepth);
             Assert.AreEqual(slipPlaneMinimumLength, configuration.SlipPlaneMinimumLength);

@@ -15,6 +15,12 @@
           <x>10.5</x>
           <z>10.6</z>
         </drainage>
+        <initielehoogte>
+          <pl1>
+            <binnenkruin>11.1</binnenkruin>
+            <buitenkruin>11.2</buitenkruin>
+          </pl1>
+        </initielehoogte>
         <corrigeervooropbarsten>true</corrigeervooropbarsten>
       </waterspanningen>
       <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
@@ -58,6 +64,9 @@
       <berekening naam="Sparse">
         <waterspanningen>
           <drainage />
+          <initielehoogte>
+            <pl1 />
+          </initielehoogte>
         </waterspanningen>
         <zonering />
         <grids>

@@ -61,8 +61,7 @@ All rights reserved.
   <xs:element name="initielehoogte">
     <xs:complexType>
       <xs:all>
-        <xs:element name="binnenkruin" minOccurs="0"/>
-        <xs:element name="buitenkruin" minOccurs="0"/>
+        <xs:element name="pl1" type="binnenbuitenkruin" minOccurs="0"/>
       </xs:all>
     </xs:complexType>
   </xs:element>
@@ -92,9 +91,17 @@ All rights reserved.
       </xs:all>
     </xs:complexType>
   </xs:element>
-  
-  <!--Specificeert de waardes voor binnen- en buitenkruin.-->
+
+  <!--Specificeert de waardes voor binnen- en buitenwaarts.-->
   <xs:complexType name="binnenbuitenwaarts">
+    <xs:all>
+      <xs:element name="binnenwaarts" minOccurs="0"/>
+      <xs:element name="buitenwaarts" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <!--Specificeert de waardes voor binnen- en buitenkruin.-->
+  <xs:complexType name="binnenbuitenkruin">
     <xs:all>
       <xs:element name="binnenkruin" minOccurs="0"/>
       <xs:element name="buitenkruin" minOccurs="0"/>

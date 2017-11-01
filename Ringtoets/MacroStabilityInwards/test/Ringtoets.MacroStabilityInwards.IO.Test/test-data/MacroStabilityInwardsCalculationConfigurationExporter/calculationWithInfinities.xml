@@ -13,6 +13,12 @@
         <x>INF</x>
         <z>-INF</z>
       </drainage>
+      <initielehoogte>
+        <pl1>
+          <binnenkruin>INF</binnenkruin>
+          <buitenkruin>-INF</buitenkruin>
+        </pl1>
+      </initielehoogte>
       <corrigeervooropbarsten>true</corrigeervooropbarsten>
     </waterspanningen>
     <minimaleglijvlakdiepte>-INF</minimaleglijvlakdiepte>

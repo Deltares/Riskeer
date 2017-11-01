@@ -77,31 +77,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public ConfigurationDikeSoilScenario? DikeSoilScenario { get; set; }
 
         /// <summary>
-        /// Gets or sets the average river water level.
-        /// </summary>
-        public double? WaterLevelRiverAverage { get; set; }
-
-        /// <summary>
-        /// Gets or sets whether a drainage construction is present.
-        /// </summary>
-        public bool? DrainageConstructionPresent { get; set; }
-
-        /// <summary>
-        /// Gets or sets the x coordinate of the drainage construction.
-        /// </summary>
-        public double? XCoordinateDrainageConstruction { get; set; }
-
-        /// <summary>
-        /// Gets or sets the z coordinate of the drainage construction.
-        /// </summary>
-        public double? ZCoordinateDrainageConstruction { get; set; }
-
-        /// <summary>
-        /// Gets or sets whether phreatic line 3 and 4 should be adjusted for Uplift.
-        /// </summary>
-        public bool? AdjustPhreaticLine3And4ForUplift { get; set; }
-
-        /// <summary>
         /// Gets or sets the minimum depth of the slip plane.
         /// </summary>
         public double? SlipPlaneMinimumDepth { get; set; }
@@ -140,6 +115,49 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 name = value;
             }
         }
+
+        #region Water stresses
+
+        /// <summary>
+        /// Gets or sets the average river water level.
+        /// </summary>
+        public double? WaterLevelRiverAverage { get; set; }
+
+        #region Drainage
+
+        /// <summary>
+        /// Gets or sets whether a drainage construction is present.
+        /// </summary>
+        public bool? DrainageConstructionPresent { get; set; }
+
+        /// <summary>
+        /// Gets or sets the x coordinate of the drainage construction.
+        /// </summary>
+        public double? XCoordinateDrainageConstruction { get; set; }
+
+        /// <summary>
+        /// Gets or sets the z coordinate of the drainage construction.
+        /// </summary>
+        public double? ZCoordinateDrainageConstruction { get; set; }
+
+        #endregion
+
+        /// <summary>
+        /// Gets or sets the minimum level phreatic line at dike top river.
+        /// </summary>
+        public double? MinimumLevelPhreaticLineAtDikeTopRiver { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum level phreatic line at dike top polder.
+        /// </summary>
+        public double? MinimumLevelPhreaticLineAtDikeTopPolder { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether phreatic line 3 and 4 should be adjusted for Uplift.
+        /// </summary>
+        public bool? AdjustPhreaticLine3And4ForUplift { get; set; }
+
+        #endregion
 
         #region Grid
 

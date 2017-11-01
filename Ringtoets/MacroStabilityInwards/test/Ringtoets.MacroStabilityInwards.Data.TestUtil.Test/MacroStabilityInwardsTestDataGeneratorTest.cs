@@ -163,6 +163,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual("W1-6_0_1D1", input.StochasticSoilProfile.SoilProfile.Name);
             Assert.IsNaN(input.XCoordinateDrainageConstruction);
             Assert.IsNaN(input.ZCoordinateDrainageConstruction);
+            Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopPolder);
+            Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopRiver);
 
             Assert.IsNaN(input.SlipPlaneMinimumDepth);
             Assert.IsNaN(input.SlipPlaneMinimumLength);
@@ -198,6 +200,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(double.PositiveInfinity, input.WaterLevelRiverAverage.Value);
             Assert.AreEqual(double.PositiveInfinity, input.XCoordinateDrainageConstruction.Value);
             Assert.AreEqual(double.NegativeInfinity, input.ZCoordinateDrainageConstruction.Value);
+
+            Assert.AreEqual(double.PositiveInfinity, input.MinimumLevelPhreaticLineAtDikeTopPolder.Value);
+            Assert.AreEqual(double.NegativeInfinity, input.MinimumLevelPhreaticLineAtDikeTopRiver.Value);
             Assert.AreEqual(double.NegativeInfinity, input.AssessmentLevel.Value);
             Assert.AreEqual("PK001_0001", input.SurfaceLine.Name);
             Assert.AreEqual("PK001_0001_Macrostabiliteit", input.StochasticSoilModel.Name);
@@ -237,6 +242,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(10.5, input.WaterLevelRiverAverage, input.WaterLevelRiverAverage.GetAccuracy());
             Assert.AreEqual(10.6, input.XCoordinateDrainageConstruction, input.XCoordinateDrainageConstruction.GetAccuracy());
             Assert.AreEqual(10.7, input.ZCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction.GetAccuracy());
+            Assert.AreEqual(10.8, input.MinimumLevelPhreaticLineAtDikeTopPolder, input.MinimumLevelPhreaticLineAtDikeTopPolder.GetAccuracy());
+            Assert.AreEqual(10.9, input.MinimumLevelPhreaticLineAtDikeTopRiver, input.MinimumLevelPhreaticLineAtDikeTopRiver.GetAccuracy());
 
             Assert.AreEqual(0.4, input.SlipPlaneMinimumDepth, input.SlipPlaneMinimumDepth.GetAccuracy());
             Assert.AreEqual(0.5, input.SlipPlaneMinimumLength, input.SlipPlaneMinimumLength.GetAccuracy());

@@ -93,6 +93,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 DrainageConstructionPresent = true,
                 XCoordinateDrainageConstruction = 10.5,
                 ZCoordinateDrainageConstruction = 10.6,
+                MinimumLevelPhreaticLineAtDikeTopPolder = 11.1,
+                MinimumLevelPhreaticLineAtDikeTopRiver = 11.2,
                 AdjustPhreaticLine3And4ForUplift = true,
                 CreateZones = true,
                 MoveGrid = true,

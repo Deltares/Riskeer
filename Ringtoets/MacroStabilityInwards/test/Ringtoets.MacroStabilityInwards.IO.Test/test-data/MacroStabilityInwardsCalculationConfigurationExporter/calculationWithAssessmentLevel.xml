@@ -13,6 +13,12 @@
         <x>10.6</x>
         <z>10.7</z>
       </drainage>
+      <initielehoogte>
+        <pl1>
+          <binnenkruin>10.8</binnenkruin>
+          <buitenkruin>10.9</buitenkruin>
+        </pl1>
+      </initielehoogte>
       <corrigeervooropbarsten>true</corrigeervooropbarsten>
     </waterspanningen>
     <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
