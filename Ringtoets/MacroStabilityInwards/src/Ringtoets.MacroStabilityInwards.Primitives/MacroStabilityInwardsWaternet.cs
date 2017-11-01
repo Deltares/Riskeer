@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         {
             unchecked
             {
-                var hashCode = 0;
+                var hashCode = 31;
 
                 foreach (MacroStabilityInwardsPhreaticLine phreaticLine in PhreaticLines)
                 {
@@ -103,48 +103,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
 
         private bool Equals(MacroStabilityInwardsWaternet other)
         {
-            return EqualPhreaticLines(other.PhreaticLines.ToArray())
-                   && EqualWaternetLines(other.WaternetLines.ToArray());
-        }
-
-        private bool EqualPhreaticLines(MacroStabilityInwardsPhreaticLine[] otherPhreaticLines)
-        {
-            MacroStabilityInwardsPhreaticLine[] phreaticLines = PhreaticLines.ToArray();
-            int nrOfLines = phreaticLines.Length;
-            if (otherPhreaticLines.Length != nrOfLines)
-            {
-                return false;
-            }
-
-            for (var i = 0; i < nrOfLines; i++)
-            {
-                if (!phreaticLines[i].Equals(otherPhreaticLines[i]))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        private bool EqualWaternetLines(MacroStabilityInwardsWaternetLine[] otherWaternetLines)
-        {
-            MacroStabilityInwardsWaternetLine[] waternetLines = WaternetLines.ToArray();
-            int nrOfLines = waternetLines.Length;
-            if (otherWaternetLines.Length != nrOfLines)
-            {
-                return false;
-            }
-
-            for (var i = 0; i < nrOfLines; i++)
-            {
-                if (!waternetLines[i].Equals(otherWaternetLines[i]))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return PhreaticLines.SequenceEqual(other.PhreaticLines)
+                   && WaternetLines.SequenceEqual(other.WaternetLines);
         }
     }
 }

@@ -99,27 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         private bool Equals(MacroStabilityInwardsPhreaticLine other)
         {
             return Name.Equals(other.Name)
-                   && EqualGeometry(other.Geometry.ToArray());
-        }
-
-        private bool EqualGeometry(Point2D[] otherGeometry)
-        {
-            Point2D[] geometry = Geometry.ToArray();
-            int nrOfPoints = geometry.Length;
-            if (otherGeometry.Length != nrOfPoints)
-            {
-                return false;
-            }
-
-            for (var i = 0; i < nrOfPoints; i++)
-            {
-                if (!geometry[i].Equals(otherGeometry[i]))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+                   && Geometry.SequenceEqual(other.Geometry);
         }
     }
 }

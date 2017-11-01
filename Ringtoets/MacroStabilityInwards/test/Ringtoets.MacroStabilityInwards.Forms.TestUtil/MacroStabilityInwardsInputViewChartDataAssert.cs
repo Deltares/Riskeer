@@ -71,6 +71,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         }
 
         /// <summary>
+        /// Asserts whether <paramref name="chartDataCollection"/> contains no waternet chart data.
+        /// </summary>
+        /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when a waternet layer is present.</exception>
+        public static void AssertEmptyWaternetChartData(ChartDataCollection chartDataCollection)
+        {
+            MacroStabilityInwardsViewChartDataAssert.AssertEmptyWaternetChartData(chartDataCollection,
+                                                                                  waternetZonesExtremeIndex,
+                                                                                  waternetZonesDailyIndex);
+        }
+
+        /// <summary>
         /// Asserts whether <paramref name="chartDataCollection"/> contains empty data.
         /// </summary>
         /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>

@@ -101,6 +101,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             MacroStabilityInwardsWaternetLine[] waternetLines = original.WaternetLines.ToArray();
             MacroStabilityInwardsPhreaticLine[] phreaticLines = original.PhreaticLines.ToArray();
 
+            CollectionAssert.IsNotEmpty(waternetLines);
+            CollectionAssert.IsNotEmpty(phreaticLines);
+
             Assert.AreEqual(waternetLines.Length + phreaticLines.Length, waternetChartData.Length);
 
             for (var i = 0; i < waternetChartData.Length; i++)
@@ -139,6 +142,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             };
 
             CollectionAssert.AreEqual(expectedPoints, actual.Points);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="chartDataCollection"/> contains no waternet chart data.
+        /// </summary>
+        /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
+        /// <param name="waternetZonesExtremeIndex">The index of the waternet zones chart data under extreme
+        /// circumstances in the <paramref name="chartDataCollection"/>.</param>
+        /// <param name="waternetZonesDailyIndex">The index of the waternet zones chart data under daily
+        /// circumstances in the <paramref name="chartDataCollection"/>.</param>
+        /// <exception cref="AssertionException">Thrown when a waternet layer is present.</exception>
+        public static void AssertEmptyWaternetChartData(ChartDataCollection chartDataCollection,
+                                                        int waternetZonesExtremeIndex,
+                                                        int waternetZonesDailyIndex)
+        {
+            var waternetExtremeData = (ChartDataCollection) chartDataCollection.Collection.ElementAt(waternetZonesExtremeIndex);
+            var waternetDailyData = (ChartDataCollection) chartDataCollection.Collection.ElementAt(waternetZonesDailyIndex);
+
+            CollectionAssert.IsEmpty(waternetExtremeData.Collection);
+            CollectionAssert.IsEmpty(waternetDailyData.Collection);
+
+            Assert.AreEqual("Zones extreem", waternetExtremeData.Name);
+            Assert.AreEqual("Zones dagelijks", waternetDailyData.Name);
         }
     }
 }

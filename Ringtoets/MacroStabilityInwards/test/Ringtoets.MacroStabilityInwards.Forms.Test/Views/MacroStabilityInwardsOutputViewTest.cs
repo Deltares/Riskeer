@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
@@ -33,6 +32,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
@@ -151,6 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Given
             using (var form = new Form())
             using (var view = new MacroStabilityInwardsOutputView())
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -180,7 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 calculation.NotifyObservers();
 
                 // Then
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(chartData);
             }
         }
 
@@ -190,6 +191,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Given
             using (var form = new Form())
             using (var view = new MacroStabilityInwardsOutputView())
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -211,7 +213,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Precondition
                 ChartDataCollection chartData = GetChartControl(chartControl).Data;
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(chartData);
 
                 // When
                 calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
@@ -228,6 +230,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Given
             using (var form = new Form())
             using (var view = new MacroStabilityInwardsOutputView())
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 form.Controls.Add(view);
                 form.Show();

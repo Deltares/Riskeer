@@ -492,17 +492,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                     {
                         continue;
                     }
+
                     if (Math.Abs(waternetTopDelta) < 1e-6 || waternetTopDelta < 0)
                     {
-                        Point2D[] waternetZonePoints = waternetZoneIntersection.OrderBy(p => p.Y).ToArray();
+                        IEnumerable<Point2D> waternetZonePoints = waternetZoneIntersection.OrderBy(p => p.Y);
 
                         bottomLine.Add(waternetZonePoints.First());
                         topLine.Add(waternetZonePoints.Last());
                     }
                     else if (waternetTopDelta > 0 && waternetBottomDelta < 0)
                     {
-                        Point2D[] waternetZonePoints = waternetZoneIntersection.OrderBy(p => p.Y).ToArray();
-                        bottomLine.Add(waternetZonePoints.First());
+                        bottomLine.Add(waternetZoneIntersection.OrderBy(p => p.Y).First());
                         topLine.Add(surfaceLineIntersection);
                     }
                 }

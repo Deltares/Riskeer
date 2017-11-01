@@ -32,7 +32,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
@@ -325,13 +324,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 view.Data = calculation;
 
                 // Assert
-                ChartData[] chartDataArray = view.Chart.Data.Collection.ToArray();
-
-                var waternetZonesExtremeData = (ChartDataCollection) chartDataArray[waternetZonesExtremeIndex];
-                var waternetZonesDailyData = (ChartDataCollection) chartDataArray[waternetZonesDailyIndex];
-
-                CollectionAssert.IsEmpty(waternetZonesExtremeData.Collection);
-                CollectionAssert.IsEmpty(waternetZonesDailyData.Collection);
+                MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
             }
         }
 
@@ -886,13 +879,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 calculation.InputParameters.NotifyObservers();
 
                 // Assert
-                ChartData[] chartDataArray = view.Chart.Data.Collection.ToArray();
-
-                var waternetZonesExtremeData = (ChartDataCollection) chartDataArray[waternetZonesExtremeIndex];
-                var waternetZonesDailyData = (ChartDataCollection) chartDataArray[waternetZonesDailyIndex];
-
-                CollectionAssert.IsEmpty(waternetZonesExtremeData.Collection);
-                CollectionAssert.IsEmpty(waternetZonesDailyData.Collection);
+                MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
             }
         }
 
@@ -916,13 +903,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 view.Data = calculation;
 
                 // Precondition
-                ChartData[] chartDataArray = view.Chart.Data.Collection.ToArray();
-
-                var waternetZonesExtremeData = (ChartDataCollection) chartDataArray[waternetZonesExtremeIndex];
-                var waternetZonesDailyData = (ChartDataCollection) chartDataArray[waternetZonesDailyIndex];
-
-                CollectionAssert.IsEmpty(waternetZonesExtremeData.Collection);
-                CollectionAssert.IsEmpty(waternetZonesDailyData.Collection);
+                MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
 
                 using (new MacroStabilityInwardsCalculatorFactoryConfig())
                 {

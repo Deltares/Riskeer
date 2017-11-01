@@ -100,12 +100,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             ChartData[] chartDataArray = chartDataCollection.Collection.ToArray();
 
             Assert.AreEqual(nrOfChartData, chartDataArray.Length);
-            var leftGridData = (ChartPointData)chartDataArray[leftGridIndex];
-            var rightGridData = (ChartPointData)chartDataArray[rightGridIndex];
+            var leftGridData = (ChartPointData) chartDataArray[leftGridIndex];
+            var rightGridData = (ChartPointData) chartDataArray[rightGridIndex];
 
             CollectionAssert.IsEmpty(leftGridData.Points);
             CollectionAssert.IsEmpty(rightGridData.Points);
-            
+
             Assert.AreEqual("Linker grid", leftGridData.Name);
             Assert.AreEqual("Rechter grid", rightGridData.Name);
         }
@@ -161,14 +161,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         /// <exception cref="AssertionException">Thrown when a waternet layer is present.</exception>
         public static void AssertEmptyWaternetChartData(ChartDataCollection chartDataCollection)
         {
-            var waternetExtremeData = (ChartDataCollection) chartDataCollection.Collection.ElementAt(waternetZonesExtremeIndex);
-            var waternetDailyData = (ChartDataCollection) chartDataCollection.Collection.ElementAt(waternetZonesDailyIndex);
-
-            CollectionAssert.IsEmpty(waternetExtremeData.Collection);
-            CollectionAssert.IsEmpty(waternetDailyData.Collection);
-
-            Assert.AreEqual("Zones extreem", waternetExtremeData.Name);
-            Assert.AreEqual("Zones dagelijks", waternetDailyData.Name);
+            MacroStabilityInwardsViewChartDataAssert.AssertEmptyWaternetChartData(chartDataCollection,
+                                                                                  waternetZonesExtremeIndex,
+                                                                                  waternetZonesDailyIndex);
         }
 
         /// <summary>
