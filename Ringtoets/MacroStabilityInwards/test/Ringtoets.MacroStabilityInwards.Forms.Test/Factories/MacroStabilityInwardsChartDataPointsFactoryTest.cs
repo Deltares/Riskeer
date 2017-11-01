@@ -766,7 +766,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreatePhreaticLinePoints_WithPhreaticLine_ReturnsEmptyPointsArray()
+        public void CreatePhreaticLinePoints_WithPhreaticLine_ReturnsPointsArray()
         {
             // Setup
             var points = new[]
