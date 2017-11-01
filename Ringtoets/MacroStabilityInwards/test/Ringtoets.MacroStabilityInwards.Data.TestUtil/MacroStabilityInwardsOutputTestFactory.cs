@@ -49,7 +49,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         {
             return new MacroStabilityInwardsOutput(new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
                                                                                          MacroStabilityInwardsSlidingCircleTestFactory.Create(),
-                                                                                         new MacroStabilityInwardsSlice[0], 0, 0),
+                                                                                         new []
+                                                                                         {
+                                                                                             MacroStabilityInwardsSliceTestFactory.CreateSlice(),
+                                                                                             MacroStabilityInwardsSliceTestFactory.CreateSlice(),
+                                                                                             MacroStabilityInwardsSliceTestFactory.CreateSlice()
+                                                                                         }, 0, 0),
                                                    new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
                                                                                                MacroStabilityInwardsGridTestFactory.Create(),
                                                                                                new double[0]),

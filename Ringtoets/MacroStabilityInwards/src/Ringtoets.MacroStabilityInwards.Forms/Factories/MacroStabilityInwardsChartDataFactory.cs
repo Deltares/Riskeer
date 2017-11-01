@@ -200,6 +200,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Creates <see cref="ChartLineData"/> with default styling for grids for the sliding curve.
+        /// </summary>
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreateSlidingCurveChartData()
+        {
+            return new ChartLineData(Resources.SlidingCurve_DisplayName,
+                                     new ChartLineStyle
+                                     {
+                                         Color = Color.SaddleBrown,
+                                         DashStyle = ChartLineDashStyle.Solid,
+                                         Width = 2,
+                                         IsEditable = true
+                                     });
+        }
+
+        /// <summary>
         /// Create <see cref="ChartMultipleAreaData"/> for a <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         /// <param name="layer">The layer to create the <see cref="ChartMultipleAreaData"/> for.</param>

@@ -253,6 +253,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateSlidingCurveChartData_ReturnsChartLineData()
+        {
+            // Call
+            ChartLineData data = MacroStabilityInwardsChartDataFactory.CreateSlidingCurveChartData();
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Points);
+            Assert.AreEqual("Glijcirkel", data.Name);
+            AssertEqualStyle(data.Style, Color.SaddleBrown, 2, ChartLineDashStyle.Solid);
+        }
+
+        [Test]
         public void UpdateSurfaceLineChartDataName_SurfaceLineNull_NameSetToDefaultSurfaceLineName()
         {
             // Setup

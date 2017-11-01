@@ -1209,6 +1209,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Glijcirkel.
+        /// </summary>
+        public static string SlidingCurve_DisplayName {
+            get {
+                return ResourceManager.GetString("SlidingCurve_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Minimale diepte van het berekende glijvlak ten opzichte van het maaiveld..
         /// </summary>
         public static string SlipPlaneMinimumDepth_Description {

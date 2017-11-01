@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using NUnit.Framework;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
@@ -71,6 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(forbiddenZonesXEntryMax, output.ForbiddenZonesXEntryMax);
             Assert.AreEqual(forbiddenZonesXEntryMin, output.ForbiddenZonesXEntryMin);
             Assert.IsNotNull(output.SlidingCurve);
+            Assert.AreEqual(3, output.SlidingCurve.Slices.Count());
             Assert.IsNotNull(output.SlipPlane);
         }
 

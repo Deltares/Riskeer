@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -50,7 +52,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         private const int waternetZonesDailyIndex = 15;
         private const int leftGridIndex = 16;
         private const int rightGridIndex = 17;
-        private const int nrOfChartData = 18;
+        private const int slidingCurveIndex = 18;
+        private const int nrOfChartData = 19;
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to the input of <paramref name="calculationScenario"/>.
@@ -85,8 +88,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         {
             Assert.AreEqual(nrOfChartData, actual.Collection.Count());
 
-            MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(calculationScenario.Output.SlipPlane.LeftGrid, (ChartPointData) actual.Collection.ElementAt(leftGridIndex));
-            MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(calculationScenario.Output.SlipPlane.RightGrid, (ChartPointData) actual.Collection.ElementAt(rightGridIndex));
+            MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(calculationScenario.Output.SlipPlane.LeftGrid,
+                                                                         (ChartPointData) actual.Collection.ElementAt(leftGridIndex));
+            MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(calculationScenario.Output.SlipPlane.RightGrid,
+                                                                         (ChartPointData) actual.Collection.ElementAt(rightGridIndex));
+            AssertSlidingCurveChartData(calculationScenario.Output.SlidingCurve,
+                                        (ChartLineData) actual.Collection.ElementAt(slidingCurveIndex));
         }
 
         /// <summary>
@@ -102,12 +109,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.AreEqual(nrOfChartData, chartDataArray.Length);
             var leftGridData = (ChartPointData) chartDataArray[leftGridIndex];
             var rightGridData = (ChartPointData) chartDataArray[rightGridIndex];
+            var slidingCurveData = (ChartLineData) chartDataArray[slidingCurveIndex];
 
             CollectionAssert.IsEmpty(leftGridData.Points);
             CollectionAssert.IsEmpty(rightGridData.Points);
+            CollectionAssert.IsEmpty(slidingCurveData.Points);
 
             Assert.AreEqual("Linker grid", leftGridData.Name);
             Assert.AreEqual("Rechter grid", rightGridData.Name);
+            Assert.AreEqual("Glijcirkel", slidingCurveData.Name);
         }
 
         /// <summary>
@@ -183,6 +193,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             CollectionAssert.IsNotEmpty(soilProfileData.Collection);
             Assert.IsFalse(soilProfileData.Collection.Any(c => c.HasData));
             AssertEmptyChartData(chartDataCollection);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
+        /// </summary>
+        /// <param name="original">The original <see cref="MacroStabilityInwardsSlidingCurve"/>.</param>
+        /// <param name="actual">The actual <see cref="ChartLineData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// does not correspond to <paramref name="original"/>.</exception>
+        private static void AssertSlidingCurveChartData(MacroStabilityInwardsSlidingCurve original, ChartLineData actual)
+        {
+            List<Point2D> expectedPoints;
+            if (original.Slices.Any())
+            {
+                expectedPoints = original.Slices.Select(slice => slice.BottomLeftPoint).OrderBy(x => x.X).ToList();
+                expectedPoints.Add(original.Slices.Last().BottomRightPoint);
+            }
+            else
+            {
+                expectedPoints = new List<Point2D>();
+            }
+
+            CollectionAssert.AreEqual(expectedPoints, actual.Points);
         }
 
         /// <summary>

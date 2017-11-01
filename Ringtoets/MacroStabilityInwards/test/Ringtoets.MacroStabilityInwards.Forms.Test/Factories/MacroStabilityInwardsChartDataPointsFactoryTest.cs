@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.TestUtil.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
@@ -1208,6 +1209,77 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(11.18, 3.46),
                 new Point2D(11.18, 7)
             }, zones[0], new Point2DComparerWithTolerance(1e-2));
+        }
+
+        [Test]
+        public void CreateSlidingCurvePoints_SlidingCurveNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateSlidingCurvePoints(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(line);
+        }
+
+        [Test]
+        public void CreateSlidingCurvePoints_SlidingCurveEmptySlices_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(
+                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                Enumerable.Empty<MacroStabilityInwardsSlice>(),
+                0.0,
+                0.0);
+
+            // Call
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateSlidingCurvePoints(slidingCurve);
+
+            // Assert
+            CollectionAssert.IsEmpty(line);
+        }
+
+        [Test]
+        public void CreateSlidingCurvePoints_WithSlidingCurve_ReturnsPointsArray()
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(2, 2),
+                new Point2D(4, 4),
+                new Point2D(5, 4)
+            };
+
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(
+                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                new[]
+                {
+                    new MacroStabilityInwardsSlice(new Point2D(0, 1),
+                                                   new Point2D(1, 1),
+                                                   new Point2D(0, 0),
+                                                   new Point2D(1, 0),
+                                                   new MacroStabilityInwardsSlice.ConstructionProperties()),
+                    new MacroStabilityInwardsSlice(new Point2D(2, 3),
+                                                   new Point2D(3, 3),
+                                                   new Point2D(2, 2),
+                                                   new Point2D(3, 2),
+                                                   new MacroStabilityInwardsSlice.ConstructionProperties()),
+                    new MacroStabilityInwardsSlice(new Point2D(4, 5),
+                                                   new Point2D(5, 5),
+                                                   new Point2D(4, 4),
+                                                   new Point2D(5, 4),
+                                                   new MacroStabilityInwardsSlice.ConstructionProperties())
+                },
+                0.0,
+                0.0);
+
+            // Call
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateSlidingCurvePoints(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(points, line);
         }
 
         private static MacroStabilityInwardsWaternetLine CreateWaternetLine(IEnumerable<Point2D> waternetLineGeometry,

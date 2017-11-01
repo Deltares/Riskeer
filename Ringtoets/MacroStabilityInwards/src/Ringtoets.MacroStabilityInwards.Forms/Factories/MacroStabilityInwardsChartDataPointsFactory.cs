@@ -339,6 +339,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             return points.ToArray();
         }
 
+        /// <summary>
+        /// Create points of the sliding curve in 2D space based on the provided <paramref name="slidingCurve"/>.
+        /// </summary>
+        /// <param name="slidingCurve">The sliding curve to create the points for.</param>
+        /// <returns>An array of points in 2D space or an empty array when <paramref name="slidingCurve"/>
+        /// is <c>null</c> or empty.</returns>
+        public static Point2D[] CreateSlidingCurvePoints(MacroStabilityInwardsSlidingCurve slidingCurve)
+        {
+            if (slidingCurve == null || !slidingCurve.Slices.Any())
+            {
+                return new Point2D[0];
+            }
+
+            List<Point2D> points = slidingCurve.Slices.Select(slice => slice.BottomLeftPoint).OrderBy(x => x.X).ToList();
+            points.Add(slidingCurve.Slices.Last().BottomRightPoint);
+
+            return points.ToArray();
+        }
+
         #region SoilLayers and Surface Line Helpers
 
         private static Point2D[] GetLocalPointsFromGeometry(MacroStabilityInwardsSurfaceLine surfaceLine,
