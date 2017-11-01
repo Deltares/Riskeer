@@ -65,6 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.IsNull(configuration.AdjustPhreaticLine3And4ForUplift);
+            Assert.IsNull(configuration.PhreaticLine2);
             Assert.IsNull(configuration.PhreaticLine3);
             Assert.IsNull(configuration.PhreaticLine4);
             Assert.IsNull(configuration.SlipPlaneMinimumDepth);
@@ -102,6 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const double minimumLevelPhreaticLineAtDikeTopPolder = 0.9;
 
             const bool adjustPhreaticLine3And4ForUplift = true;
+            var phreaticLine2 = new PhreaticLineConfiguration();
             var phreaticLine3 = new PhreaticLineConfiguration();
             var phreaticLine4 = new PhreaticLineConfiguration();
 
@@ -137,6 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 MinimumLevelPhreaticLineAtDikeTopRiver = minimumLevelPhreaticLineAtDikeTopRiver,
                 MinimumLevelPhreaticLineAtDikeTopPolder = minimumLevelPhreaticLineAtDikeTopPolder,
                 AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift,
+                PhreaticLine2 = phreaticLine2,
                 PhreaticLine3 = phreaticLine3,
                 PhreaticLine4 = phreaticLine4,
                 SlipPlaneMinimumDepth = slipPlaneMinimumDepth,
@@ -169,6 +172,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(adjustPhreaticLine3And4ForUplift, configuration.AdjustPhreaticLine3And4ForUplift);
+            Assert.AreSame(phreaticLine2, configuration.PhreaticLine2);
             Assert.AreSame(phreaticLine3, configuration.PhreaticLine3);
             Assert.AreSame(phreaticLine4, configuration.PhreaticLine4);
             Assert.AreEqual(slipPlaneMinimumDepth, configuration.SlipPlaneMinimumDepth);

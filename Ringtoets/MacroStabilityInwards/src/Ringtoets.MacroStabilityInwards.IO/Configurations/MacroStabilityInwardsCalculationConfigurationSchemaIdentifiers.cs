@@ -126,6 +126,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public const string LeakageLengthElement = "leklengtes";
 
         /// <summary>
+        /// The identifier for piezometric head elements.
+        /// </summary>
+        public const string PiezometricHeadElement = "stijghoogtes";
+
+        /// <summary>
         /// The tag of the element containing the value indicating the phreatic line inwards leakage length or piezometric head.
         /// </summary>
         public const string PhreaticLineInwardsElement = "binnenwaarts";

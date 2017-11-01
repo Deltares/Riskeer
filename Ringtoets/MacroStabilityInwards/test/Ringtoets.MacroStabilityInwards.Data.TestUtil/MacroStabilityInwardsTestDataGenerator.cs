@@ -163,6 +163,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) 10.2,
                     LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) 10.3,
                     LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) 10.4,
+                    PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) 20.1,
+                    PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) 20.2,
                     SlipPlaneMinimumDepth = (RoundedDouble) 0.4,
                     SlipPlaneMinimumLength = (RoundedDouble) 0.5,
                     MaximumSliceWidth = (RoundedDouble) 0.6,
@@ -197,6 +199,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             input.LeakageLengthOutwardsPhreaticLine3 = RoundedDouble.NaN;
             input.LeakageLengthInwardsPhreaticLine4 = RoundedDouble.NaN;
             input.LeakageLengthOutwardsPhreaticLine4 = RoundedDouble.NaN;
+            input.PiezometricHeadPhreaticLine2Inwards = RoundedDouble.NaN;
+            input.PiezometricHeadPhreaticLine2Outwards = RoundedDouble.NaN;
 
             input.AssessmentLevel = RoundedDouble.NaN;
             input.SlipPlaneMinimumDepth = RoundedDouble.NaN;
@@ -248,6 +252,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             input.LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) double.NegativeInfinity;
             input.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) double.PositiveInfinity;
             input.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) double.NegativeInfinity;
+            input.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) double.PositiveInfinity;
+            input.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) double.NegativeInfinity;
 
             input.AssessmentLevel = (RoundedDouble) double.NegativeInfinity;
 

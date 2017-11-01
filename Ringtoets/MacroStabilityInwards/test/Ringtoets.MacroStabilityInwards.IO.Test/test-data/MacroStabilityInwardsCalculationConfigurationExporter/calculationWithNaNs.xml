@@ -30,6 +30,12 @@
           <buitenwaarts>NaN</buitenwaarts>
         </pl4>
       </leklengtes>
+      <stijghoogtes>
+        <pl2>
+          <binnenwaarts>NaN</binnenwaarts>
+          <buitenwaarts>NaN</buitenwaarts>
+        </pl2>
+      </stijghoogtes>
     </waterspanningen>
     <minimaleglijvlakdiepte>NaN</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>NaN</minimaleglijvlaklengte>

@@ -166,12 +166,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             WriteDrainageConstruction(writer, configuration);
 
             WriteMinimumLevelPhreaticLine(writer, configuration);
-
+            
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AdjustPhreaticLine3And4ForUpliftElement,
                                              configuration.AdjustPhreaticLine3And4ForUplift);
 
             WriteLeakageLength(writer, configuration);
+
+            WritePiezometricHead(writer, configuration);
 
             writer.WriteEndElement();
         }
@@ -193,6 +195,24 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             WritePhreaticLineConfiguration(writer,
                                            MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine4Element,
                                            configuration.PhreaticLine4);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes the piezometric head related parameters.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        private static void WritePiezometricHead(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        {
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PiezometricHeadElement);
+
+            WritePhreaticLineConfiguration(writer,
+                                           MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine2Element,
+                                           configuration.PhreaticLine2);
 
             writer.WriteEndElement();
         }

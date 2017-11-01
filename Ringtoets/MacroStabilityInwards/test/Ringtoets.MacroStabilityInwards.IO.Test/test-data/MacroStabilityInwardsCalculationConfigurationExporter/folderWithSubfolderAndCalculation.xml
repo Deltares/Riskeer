@@ -31,6 +31,12 @@
             <buitenwaarts>10.4</buitenwaarts>
           </pl4>
         </leklengtes>
+        <stijghoogtes>
+          <pl2>
+            <binnenwaarts>20.1</binnenwaarts>
+            <buitenwaarts>20.2</buitenwaarts>
+          </pl2>
+        </stijghoogtes>
       </waterspanningen>
       <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
       <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
@@ -100,6 +106,12 @@
               <buitenwaarts>10.4</buitenwaarts>
             </pl4>
           </leklengtes>
+          <stijghoogtes>
+            <pl2>
+              <binnenwaarts>20.1</binnenwaarts>
+              <buitenwaarts>20.2</buitenwaarts>
+            </pl2>
+          </stijghoogtes>
         </waterspanningen>
         <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
         <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>

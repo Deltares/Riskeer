@@ -67,6 +67,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
                 MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,
                 AdjustPhreaticLine3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift,
+                PhreaticLine2 = new PhreaticLineConfiguration
+                {
+                    Inwards = input.PiezometricHeadPhreaticLine2Inwards,
+                    Outwards = input.PiezometricHeadPhreaticLine2Outwards
+                },
                 PhreaticLine3 = new PhreaticLineConfiguration
                 {
                     Inwards = input.LeakageLengthInwardsPhreaticLine3,

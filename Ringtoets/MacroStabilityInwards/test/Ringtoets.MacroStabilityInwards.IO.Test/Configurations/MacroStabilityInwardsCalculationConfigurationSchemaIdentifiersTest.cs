@@ -51,6 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual("buitenkruin", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MinimumLevelPhreaticLineAtDikeTopRiverElement);
             Assert.AreEqual("binnenkruin", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MinimumLevelPhreaticLineAtDikeTopPolderElement);
             Assert.AreEqual("leklengtes", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeakageLengthElement);
+            Assert.AreEqual("stijghoogtes", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PiezometricHeadElement);
             Assert.AreEqual("binnenwaarts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineInwardsElement);
             Assert.AreEqual("buitenwaarts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOutwardsElement);
 

@@ -161,10 +161,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual("PK001_0001", input.SurfaceLine.Name);
             Assert.AreEqual("PK001_0001_Macrostabiliteit", input.StochasticSoilModel.Name);
             Assert.AreEqual("W1-6_0_1D1", input.StochasticSoilProfile.SoilProfile.Name);
+
             Assert.IsNaN(input.XCoordinateDrainageConstruction);
             Assert.IsNaN(input.ZCoordinateDrainageConstruction);
             Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.IsNaN(input.PiezometricHeadPhreaticLine2Inwards.Value);
+            Assert.IsNaN(input.PiezometricHeadPhreaticLine2Outwards.Value);
 
             Assert.IsNaN(input.SlipPlaneMinimumDepth);
             Assert.IsNaN(input.SlipPlaneMinimumLength);
@@ -203,6 +206,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             Assert.AreEqual(double.PositiveInfinity, input.MinimumLevelPhreaticLineAtDikeTopPolder.Value);
             Assert.AreEqual(double.NegativeInfinity, input.MinimumLevelPhreaticLineAtDikeTopRiver.Value);
+            Assert.AreEqual(double.PositiveInfinity, input.PiezometricHeadPhreaticLine2Inwards.Value);
+            Assert.AreEqual(double.NegativeInfinity, input.PiezometricHeadPhreaticLine2Outwards.Value);
             Assert.AreEqual(double.NegativeInfinity, input.AssessmentLevel.Value);
             Assert.AreEqual("PK001_0001", input.SurfaceLine.Name);
             Assert.AreEqual("PK001_0001_Macrostabiliteit", input.StochasticSoilModel.Name);
@@ -244,6 +249,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(10.7, input.ZCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction.GetAccuracy());
             Assert.AreEqual(10.8, input.MinimumLevelPhreaticLineAtDikeTopPolder, input.MinimumLevelPhreaticLineAtDikeTopPolder.GetAccuracy());
             Assert.AreEqual(10.9, input.MinimumLevelPhreaticLineAtDikeTopRiver, input.MinimumLevelPhreaticLineAtDikeTopRiver.GetAccuracy());
+            Assert.AreEqual(20.1, input.PiezometricHeadPhreaticLine2Inwards, input.PiezometricHeadPhreaticLine2Inwards.GetAccuracy());
+            Assert.AreEqual(20.2, input.PiezometricHeadPhreaticLine2Outwards, input.PiezometricHeadPhreaticLine2Outwards.GetAccuracy());
 
             Assert.AreEqual(0.4, input.SlipPlaneMinimumDepth, input.SlipPlaneMinimumDepth.GetAccuracy());
             Assert.AreEqual(0.5, input.SlipPlaneMinimumLength, input.SlipPlaneMinimumLength.GetAccuracy());

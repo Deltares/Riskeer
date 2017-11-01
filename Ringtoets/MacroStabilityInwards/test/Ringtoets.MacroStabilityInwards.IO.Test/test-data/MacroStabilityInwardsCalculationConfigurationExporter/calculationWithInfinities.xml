@@ -30,6 +30,12 @@
           <buitenwaarts>-INF</buitenwaarts>
         </pl4>
       </leklengtes>
+      <stijghoogtes>
+        <pl2>
+          <binnenwaarts>INF</binnenwaarts>
+          <buitenwaarts>-INF</buitenwaarts>
+        </pl2>
+      </stijghoogtes>
     </waterspanningen>
     <minimaleglijvlakdiepte>-INF</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>INF</minimaleglijvlaklengte>
