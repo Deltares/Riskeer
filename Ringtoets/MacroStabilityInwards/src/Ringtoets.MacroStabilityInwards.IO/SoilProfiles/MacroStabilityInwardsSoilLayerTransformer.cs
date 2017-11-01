@@ -88,11 +88,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
         private static MacroStabilityInwardsSoilLayer2D ConvertLayerRecursively(SoilLayer2D soilLayer)
         {
-            Ring outerRing = TransformSegmentsToRing(soilLayer.OuterLoop.Segments);
-            Ring[] innerRings = soilLayer.InnerLoops.Select(il => TransformSegmentsToRing(il.Segments)).ToArray();
-
-            return new MacroStabilityInwardsSoilLayer2D(outerRing,
-                                                        innerRings,
+            return new MacroStabilityInwardsSoilLayer2D(TransformSegmentsToRing(soilLayer.OuterLoop.Segments),
                                                         ConvertSoilLayerData(soilLayer),
                                                         soilLayer.NestedLayers.Select(ConvertLayerRecursively).ToArray());
         }

@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
         public Point2D[] OuterRing { get; }
 
         /// <summary>
-        /// Gets any nested layers of the soil layer.
+        /// Gets the nested layers of the soil layer.
         /// </summary>
         public IEnumerable<SoilLayer> NestedLayers { get; }
 

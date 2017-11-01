@@ -244,15 +244,13 @@ namespace Ringtoets.Common.IO.SoilProfile
                     continue;
                 }
 
-                SoilLayer2D soilLayer = CreateSoilLayer2D(soilLayerGeometry, soilLayerGeometryLookup[soilLayerGeometry]);
-
-                CreateNestedSoilLayersRecursively(soilLayerGeometryLookup, soilLayerGeometry, soilLayer);
-
-                yield return soilLayer;
+                yield return CreateSoilLayer2D(soilLayerGeometry,
+                                               soilLayerGeometryLookup[soilLayerGeometry],
+                                               CreateNestedSoilLayersRecursively(soilLayerGeometryLookup, soilLayerGeometry));
             }
         }
 
-        private static void CreateNestedSoilLayersRecursively(Dictionary<SoilLayer2DGeometry, Layer2DProperties> soilLayerGeometryLookup, SoilLayer2DGeometry soilLayerGeometry, SoilLayer2D soilLayer)
+        private static IEnumerable<SoilLayer2D> CreateNestedSoilLayersRecursively(Dictionary<SoilLayer2DGeometry, Layer2DProperties> soilLayerGeometryLookup, SoilLayer2DGeometry soilLayerGeometry)
         {
             var nestedLayers = new List<SoilLayer2D>();
             SoilLayer2DGeometry[] soilLayerGeometries = soilLayerGeometryLookup.Keys.ToArray();
@@ -260,19 +258,19 @@ namespace Ringtoets.Common.IO.SoilProfile
             foreach (SoilLayer2DLoop innerLoop in soilLayerGeometry.InnerLoops)
             {
                 SoilLayer2DGeometry nestedSoilLayerGeometry = soilLayerGeometries.First(slg => slg.OuterLoop.Equals(innerLoop));
-                SoilLayer2D nestedSoilLayer = CreateSoilLayer2D(nestedSoilLayerGeometry, soilLayerGeometryLookup[nestedSoilLayerGeometry]);
-
-                CreateNestedSoilLayersRecursively(soilLayerGeometryLookup, nestedSoilLayerGeometry, nestedSoilLayer);
+                SoilLayer2D nestedSoilLayer = CreateSoilLayer2D(nestedSoilLayerGeometry,
+                                                                soilLayerGeometryLookup[nestedSoilLayerGeometry],
+                                                                CreateNestedSoilLayersRecursively(soilLayerGeometryLookup, nestedSoilLayerGeometry));
 
                 nestedLayers.Add(nestedSoilLayer);
             }
 
-            soilLayer.NestedLayers = StripDuplicateNestedLayers(nestedLayers);
+            return StripDuplicateNestedLayers(nestedLayers);
         }
 
-        private static SoilLayer2D CreateSoilLayer2D(SoilLayer2DGeometry soilLayerGeometry, LayerProperties layerProperties)
+        private static SoilLayer2D CreateSoilLayer2D(SoilLayer2DGeometry soilLayerGeometry, LayerProperties layerProperties, IEnumerable<SoilLayer2D> nestedLayers)
         {
-            var soilLayer = new SoilLayer2D(soilLayerGeometry.OuterLoop, soilLayerGeometry.InnerLoops);
+            var soilLayer = new SoilLayer2D(soilLayerGeometry.OuterLoop, nestedLayers);
 
             SoilLayerHelper.SetSoilLayerBaseProperties(soilLayer, layerProperties);
 

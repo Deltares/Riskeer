@@ -148,7 +148,6 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         private static MacroStabilityInwardsSoilLayer2D CreateRandomSoilLayer(int seed, IEnumerable<MacroStabilityInwardsSoilLayer2D> nestedLayers)
         {
             return new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(seed),
-                                                        Enumerable.Empty<Ring>(),
                                                         CreateRandomSoilLayerData(seed),
                                                         nestedLayers);
         }

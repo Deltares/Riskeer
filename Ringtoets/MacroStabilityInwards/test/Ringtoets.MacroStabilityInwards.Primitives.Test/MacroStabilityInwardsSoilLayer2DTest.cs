@@ -23,9 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
@@ -48,19 +46,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [Test]
         public void Constructor_OuterRingNullWithDataAndNestedLayers_ThrowsArgumentNullException()
         {
-            // Setup
-            var holes = new[]
-            {
-                new Ring(new[]
-                {
-                    new Point2D(0, 2),
-                    new Point2D(2, 2)
-                })
-            };
-
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(null,
-                                                                           holes,
                                                                            new MacroStabilityInwardsSoilLayerData(),
                                                                            Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
 
@@ -70,34 +57,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Constructor_HolesNullWithDataAndNestedLayers_ThrowsArgumentNullException()
-        {
-            // Setup
-            Ring outerRing = RingTestFactory.CreateRandomRing();
-
-            // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing,
-                                                                           null,
-                                                                           new MacroStabilityInwardsSoilLayerData(),
-                                                                           Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("holes", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Setup
             Ring outerRing = RingTestFactory.CreateRandomRing();
-            var holes = new[]
-            {
-                RingTestFactory.CreateRandomRing()
-            };
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, holes, null, Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, null, Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -109,13 +75,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         {
             // Setup
             Ring outerRing = RingTestFactory.CreateRandomRing();
-            var holes = new[]
-            {
-                RingTestFactory.CreateRandomRing()
-            };
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, holes, new MacroStabilityInwardsSoilLayerData(), null);
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, new MacroStabilityInwardsSoilLayerData(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -134,31 +96,24 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Assert
             Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer>(layer);
             Assert.AreSame(outerRing, layer.OuterRing);
-            CollectionAssert.IsEmpty(layer.Holes);
             Assert.IsNotNull(layer.Data);
             Assert.IsEmpty(layer.NestedLayers);
         }
 
         [Test]
-        public void Constructor_WithOuterRingHolesDataAndNestedLayers_ReturnsNewInstance()
+        public void Constructor_WithOuterRingDataAndNestedLayers_ReturnsNewInstance()
         {
             // Setup
             Ring outerRing = RingTestFactory.CreateRandomRing();
-            var holes = new[]
-            {
-                RingTestFactory.CreateRandomRing()
-            };
             var data = new MacroStabilityInwardsSoilLayerData();
             IEnumerable<MacroStabilityInwardsSoilLayer2D> nestedLayers = Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>();
 
             // Call
-            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, holes, data, nestedLayers);
+            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, data, nestedLayers);
 
             // Assert
             Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer>(layer);
             Assert.AreSame(outerRing, layer.OuterRing);
-            Assert.AreNotSame(holes, layer.Holes);
-            TestHelper.AssertCollectionsAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
             Assert.AreSame(data, layer.Data);
             Assert.AreSame(nestedLayers, layer.NestedLayers);
         }
@@ -227,7 +182,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             var layerE = new MacroStabilityInwardsSoilLayer2D(
                 RingTestFactory.CreateRandomRing(21),
-                Enumerable.Empty<Ring>(),
                 new MacroStabilityInwardsSoilLayerData
                 {
                     Color = Color.Blue
@@ -239,7 +193,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             var layerF = new MacroStabilityInwardsSoilLayer2D(
                 RingTestFactory.CreateRandomRing(31),
-                Enumerable.Empty<Ring>(),
                 new MacroStabilityInwardsSoilLayerData
                 {
                     Color = Color.Blue
@@ -251,7 +204,17 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             var layerG = new MacroStabilityInwardsSoilLayer2D(
                 RingTestFactory.CreateRandomRing(21),
-                Enumerable.Empty<Ring>(),
+                new MacroStabilityInwardsSoilLayerData
+                {
+                    Color = Color.Gold
+                },
+                new[]
+                {
+                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22))
+                });
+
+            var layerH = new MacroStabilityInwardsSoilLayer2D(
+                RingTestFactory.CreateRandomRing(21),
                 new MacroStabilityInwardsSoilLayerData
                 {
                     Color = Color.Blue
@@ -261,16 +224,32 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                     new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(32))
                 });
 
-            var layerH = new MacroStabilityInwardsSoilLayer2D(
+            var layerI = new MacroStabilityInwardsSoilLayer2D(
                 RingTestFactory.CreateRandomRing(21),
-                Enumerable.Empty<Ring>(),
                 new MacroStabilityInwardsSoilLayerData
                 {
-                    Color = Color.Gold
+                    Color = Color.Blue
                 },
                 new[]
                 {
+                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22)),
                     new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22))
+                });
+
+            var layerJ = new MacroStabilityInwardsSoilLayer2D(
+                RingTestFactory.CreateRandomRing(21),
+                new MacroStabilityInwardsSoilLayerData
+                {
+                    Color = Color.Blue
+                },
+                new[]
+                {
+                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22),
+                                                         new MacroStabilityInwardsSoilLayerData(),
+                                                         new[]
+                                                         {
+                                                             new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22))
+                                                         })
                 });
 
             return new[]
@@ -285,7 +264,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 },
                 new TestCaseData(layerB, layerD, true)
                 {
-                    TestName = "Equals_LayerALayerD_True"
+                    TestName = "Equals_LayerBLayerD_True"
                 },
                 new TestCaseData(layerA, layerD, true)
                 {
@@ -309,11 +288,19 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 },
                 new TestCaseData(layerE, layerG, false)
                 {
-                    TestName = "Equals_DifferentHoles_False"
+                    TestName = "Equals_DifferentProperties_False"
                 },
                 new TestCaseData(layerE, layerH, false)
                 {
-                    TestName = "Equals_DifferentProperties_False"
+                    TestName = "Equals_DifferentNestedLayers1False"
+                },
+                new TestCaseData(layerE, layerI, false)
+                {
+                    TestName = "Equals_DifferentNestedLayers2_False"
+                },
+                new TestCaseData(layerE, layerJ, false)
+                {
+                    TestName = "Equals_DifferentNestedLayers3_False"
                 }
             };
         }
@@ -323,7 +310,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             var random = new Random(randomSeed);
 
             return new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(randomSeed),
-                                                        Enumerable.Empty<Ring>(),
                                                         new MacroStabilityInwardsSoilLayerData
                                                         {
                                                             Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())

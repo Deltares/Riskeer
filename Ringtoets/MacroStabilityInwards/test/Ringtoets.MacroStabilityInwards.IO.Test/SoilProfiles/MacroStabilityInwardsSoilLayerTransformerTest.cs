@@ -328,29 +328,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_PropertiesSetAndValid_ReturnMacroStabilityInwardSoilLayer2D()
         {
             // Setup
-            var nestedLayer1 = new SoilLayer2D(CreateRandomLoop(21), Enumerable.Empty<SoilLayer2DLoop>())
-            {
-                NestedLayers = Enumerable.Empty<SoilLayer2D>()
-            };
-            var nestedLayer2 = new SoilLayer2D(CreateRandomLoop(22), Enumerable.Empty<SoilLayer2DLoop>())
-            {
-                NestedLayers = Enumerable.Empty<SoilLayer2D>()
-            };
-            var nestedLayer3 = new SoilLayer2D(CreateRandomLoop(22), Enumerable.Empty<SoilLayer2DLoop>())
-            {
-                NestedLayers = new[]
-                {
-                    nestedLayer2
-                }
-            };
-            var layer = new SoilLayer2D(CreateRandomLoop(23), Enumerable.Empty<SoilLayer2DLoop>())
-            {
-                NestedLayers = new[]
-                {
-                    nestedLayer1,
-                    nestedLayer3
-                }
-            };
+            var nestedLayer1 = new SoilLayer2D(CreateRandomLoop(21), Enumerable.Empty<SoilLayer2D>());
+            var nestedLayer2 = new SoilLayer2D(CreateRandomLoop(22), Enumerable.Empty<SoilLayer2D>());
+            var nestedLayer3 = new SoilLayer2D(CreateRandomLoop(22),
+                                               new[]
+                                               {
+                                                   nestedLayer2
+                                               });
+            var layer = new SoilLayer2D(CreateRandomLoop(23),
+                                        new[]
+                                        {
+                                            nestedLayer1,
+                                            nestedLayer3
+                                        });
 
             SetRandomSoilData(nestedLayer1, 21, "Nested sand");
             SetRandomSoilData(nestedLayer2, 22, "Nested gold");

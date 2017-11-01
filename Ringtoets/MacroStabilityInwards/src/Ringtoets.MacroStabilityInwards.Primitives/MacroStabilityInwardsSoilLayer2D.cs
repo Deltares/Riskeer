@@ -36,27 +36,20 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="outerRing">The ring describing the outer boundaries of the layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsSoilLayer2D(Ring outerRing)
-            : this(outerRing, Enumerable.Empty<Ring>(), new MacroStabilityInwardsSoilLayerData(), Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()) {}
+            : this(outerRing, new MacroStabilityInwardsSoilLayerData(), Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         /// <param name="outerRing">The ring describing the outer boundaries of the layer.</param>
-        /// <param name="holes">The rings describing the holes within the outer boundaries of 
-        /// the layer.</param>
         /// <param name="data">The data of the soil layer.</param>
         /// <param name="nestedLayers">The nested <see cref="MacroStabilityInwardsSoilLayer2D"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayer2D(Ring outerRing, IEnumerable<Ring> holes, MacroStabilityInwardsSoilLayerData data, IEnumerable<MacroStabilityInwardsSoilLayer2D> nestedLayers)
+        public MacroStabilityInwardsSoilLayer2D(Ring outerRing, MacroStabilityInwardsSoilLayerData data, IEnumerable<MacroStabilityInwardsSoilLayer2D> nestedLayers)
         {
             if (outerRing == null)
             {
                 throw new ArgumentNullException(nameof(outerRing));
-            }
-
-            if (holes == null)
-            {
-                throw new ArgumentNullException(nameof(holes));
             }
 
             if (data == null)
@@ -70,23 +63,17 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             }
 
             OuterRing = outerRing;
-            Holes = holes.ToArray();
             Data = data;
             NestedLayers = nestedLayers;
         }
 
         /// <summary>
-        /// Gets the outer ring of the layer.
+        /// Gets the outer ring of the soil layer.
         /// </summary>
         public Ring OuterRing { get; }
 
         /// <summary>
-        /// Gets the holes of the layer.
-        /// </summary>
-        public Ring[] Holes { get; }
-
-        /// <summary>
-        /// Gets any nested layers.
+        /// Gets the nested layers of the soil layer.
         /// </summary>
         public IEnumerable<MacroStabilityInwardsSoilLayer2D> NestedLayers { get; }
 
@@ -117,11 +104,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
 
                 hashCode = (hashCode * 397) ^ OuterRing.GetHashCode();
 
-                foreach (Ring hole in Holes)
-                {
-                    hashCode = (hashCode * 397) ^ hole.GetHashCode();
-                }
-
                 foreach (MacroStabilityInwardsSoilLayer2D nestedLayer in NestedLayers)
                 {
                     hashCode = (hashCode * 397) ^ nestedLayer.GetHashCode();
@@ -135,7 +117,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         {
             return Data.Equals(other.Data)
                    && OuterRing.Equals(other.OuterRing)
-                   && Holes.SequenceEqual(other.Holes)
                    && NestedLayers.SequenceEqual(other.NestedLayers);
         }
     }

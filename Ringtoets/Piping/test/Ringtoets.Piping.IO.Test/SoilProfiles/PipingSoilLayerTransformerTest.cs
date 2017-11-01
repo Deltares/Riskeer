@@ -236,7 +236,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_EmptySoilLayer2D_ReturnsEmptyCollectionWithMaxValueBottom()
         {
             // Setup
-            var layer = new SoilLayer2D(new SoilLayer2DLoop(new Segment2D[0]), Enumerable.Empty<SoilLayer2DLoop>());
+            var layer = new SoilLayer2D(new SoilLayer2DLoop(new Segment2D[0]), Enumerable.Empty<SoilLayer2D>());
             double bottom;
 
             // Call
@@ -531,11 +531,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 innerLoop
             }, outerLoop);
 
-            layer.NestedLayers = new[]
-            {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
-            };
-
             double bottom;
 
             // Call
@@ -574,11 +569,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             {
                 innerLoop
             }, outerLoop);
-
-            layer.NestedLayers = new[]
-            {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
-            };
 
             double bottom;
 
@@ -632,12 +622,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 innerLoop2
             }, outerLoop);
 
-            layer.NestedLayers = new[]
-            {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop),
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop2)
-            };
-
             double bottom;
 
             // Call
@@ -684,21 +668,21 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "........",
                             "........"));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            var layer = new SoilLayer2D(new SoilLayer2DLoop(outerLoop.ToArray()), new[]
             {
-                innerLoop,
-                innerLoop2
-            }, outerLoop);
-
-            SoilLayer2D nestedLayer = SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop);
-            nestedLayer.NestedLayers = new[]
+                new SoilLayer2D(new SoilLayer2DLoop(innerLoop.ToArray()), new[]
+                {
+                    new SoilLayer2D(new SoilLayer2DLoop(innerLoop2.ToArray()), Enumerable.Empty<SoilLayer2D>())
+                    {
+                        IsAquifer = 0.0
+                    }
+                })
+                {
+                    IsAquifer = 0.0
+                }
+            })
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop2)
-            };
-
-            layer.NestedLayers = new[]
-            {
-                nestedLayer
+                IsAquifer = 0.0
             };
 
             double bottom;
@@ -741,11 +725,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             {
                 innerLoop
             }, outerLoop);
-
-            layer.NestedLayers = new[]
-            {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
-            };
 
             double bottom;
 
@@ -796,12 +775,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 innerLoop2
             }, outerLoop);
 
-            layer.NestedLayers = new[]
-            {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop),
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop2)
-            };
-
             double bottom;
 
             // Call
@@ -840,11 +813,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             {
                 innerLoop
             }, outerLoop);
-
-            layer.NestedLayers = new[]
-            {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
-            };
 
             double bottom;
 
@@ -885,11 +853,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 innerLoop
             }, outerLoop);
 
-            layer.NestedLayers = new[]
-            {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
-            };
-
             double bottom;
 
             // Call
@@ -920,11 +883,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             {
                 innerLoop
             }, outerLoop);
-
-            layer.NestedLayers = new[]
-            {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
-            };
 
             double bottom;
 
@@ -985,11 +943,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             {
                 innerLoop
             }, outerLoop);
-
-            layer.NestedLayers = new[]
-            {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
-            };
 
             double bottom;
 

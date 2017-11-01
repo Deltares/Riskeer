@@ -80,16 +80,15 @@ namespace Ringtoets.Common.IO.TestUtil
                 throw new ArgumentNullException(nameof(outerLoop));
             }
 
-            return new SoilLayer2D(new SoilLayer2DLoop(outerLoop.ToArray()), Enumerable.Empty<SoilLayer2DLoop>())
+            return new SoilLayer2D(new SoilLayer2DLoop(outerLoop.ToArray()),
+                                   innerLoops.Select(il => new SoilLayer2D(
+                                                         new SoilLayer2DLoop(il.ToArray()),
+                                                         Enumerable.Empty<SoilLayer2D>())
+                                                     {
+                                                         IsAquifer = 0.0
+                                                     }).ToArray())
             {
-                IsAquifer = 0.0,
-                NestedLayers = innerLoops.Select(il => new SoilLayer2D(
-                                                     new SoilLayer2DLoop(il.ToArray()),
-                                                     Enumerable.Empty<SoilLayer2DLoop>())
-                                                 {
-                                                     IsAquifer = 0.0,
-                                                     NestedLayers = Enumerable.Empty<SoilLayer2D>()
-                                                 }).ToArray()
+                IsAquifer = 0.0
             };
         }
     }

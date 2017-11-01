@@ -33,22 +33,22 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Creates a new instance of <see cref="SoilLayer2D"/>.
         /// </summary>
         /// <param name="outerLoop">The outer loop of the soil layer.</param>
-        /// <param name="innerLoops">The inner loops of the soil layer.</param>
+        /// <param name="nestedLayers">The nested layers of the soil layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public SoilLayer2D(SoilLayer2DLoop outerLoop, IEnumerable<SoilLayer2DLoop> innerLoops)
+        public SoilLayer2D(SoilLayer2DLoop outerLoop, IEnumerable<SoilLayer2D> nestedLayers)
         {
             if (outerLoop == null)
             {
                 throw new ArgumentNullException(nameof(outerLoop));
             }
 
-            if (innerLoops == null)
+            if (nestedLayers == null)
             {
-                throw new ArgumentNullException(nameof(innerLoops));
+                throw new ArgumentNullException(nameof(nestedLayers));
             }
 
             OuterLoop = outerLoop;
-            InnerLoops = innerLoops;
+            NestedLayers = nestedLayers;
         }
 
         /// <summary>
@@ -57,13 +57,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         public SoilLayer2DLoop OuterLoop { get; }
 
         /// <summary>
-        /// Gets the inner loops of the soil layer.
+        /// Gets the nested layers of the soil layer.
         /// </summary>
-        public IEnumerable<SoilLayer2DLoop> InnerLoops { get; }
-
-        /// <summary>
-        /// Gets or sets any nested layers.
-        /// </summary>
-        public IEnumerable<SoilLayer2D> NestedLayers { get; set; }
+        public IEnumerable<SoilLayer2D> NestedLayers { get; }
     }
 }

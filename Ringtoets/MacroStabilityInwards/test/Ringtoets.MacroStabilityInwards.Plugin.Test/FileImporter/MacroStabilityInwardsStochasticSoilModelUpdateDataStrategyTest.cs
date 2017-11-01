@@ -585,7 +585,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                                                                       soilProfile.Name,
                                                                       soilProfile.Layers.Select(s => new MacroStabilityInwardsSoilLayer2D(
                                                                                                     new Ring(s.OuterRing.Points.Select(p => new Point2D(p.Y - 1, p.Y))),
-                                                                                                    s.Holes,
                                                                                                     s.Data,
                                                                                                     s.NestedLayers)),
                                                                       soilProfile.PreconsolidationStresses.Select(stress => new MacroStabilityInwardsPreconsolidationStress(new Point2D(stress.Location.X + 1,

@@ -35,7 +35,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_OuterLoopNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilLayer2D(null, Enumerable.Empty<SoilLayer2DLoop>());
+            TestDelegate test = () => new SoilLayer2D(null, Enumerable.Empty<SoilLayer2D>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -43,14 +43,14 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_InnerLoopsNull_ThrowsArgumentNullException()
+        public void Constructor_NestedLayersNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new SoilLayer2D(new SoilLayer2DLoop(new Segment2D[0]), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("innerLoops", paramName);
+            Assert.AreEqual("nestedLayers", paramName);
         }
 
         [Test]
@@ -58,15 +58,15 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             // Setup
             var outerLoop = new SoilLayer2DLoop(new Segment2D[0]);
-            IEnumerable<SoilLayer2DLoop> innerLoops = Enumerable.Empty<SoilLayer2DLoop>();
+            IEnumerable<SoilLayer2D> nestedLayers = Enumerable.Empty<SoilLayer2D>();
 
             // Call
-            var layer = new SoilLayer2D(outerLoop, innerLoops);
+            var layer = new SoilLayer2D(outerLoop, nestedLayers);
 
             // Assert
             Assert.IsInstanceOf<SoilLayerBase>(layer);
             Assert.AreSame(outerLoop, layer.OuterLoop);
-            Assert.AreSame(innerLoops, layer.InnerLoops);
+            Assert.AreSame(nestedLayers, layer.NestedLayers);
         }
     }
 }

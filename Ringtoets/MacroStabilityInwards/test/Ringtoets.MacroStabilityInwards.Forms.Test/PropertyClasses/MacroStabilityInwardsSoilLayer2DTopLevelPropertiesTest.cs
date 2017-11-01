@@ -59,7 +59,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                  new Point2D(20.210230, 26.00001),
                                                                  new Point2D(3.830, 1.040506)
                                                              }),
-                                                             new Ring[0],
                                                              new MacroStabilityInwardsSoilLayerData
                                                              {
                                                                  IsAquifer = true

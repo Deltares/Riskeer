@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -58,7 +57,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     new Point2D(0.0, 1.0),
                     new Point2D(2.0, 4.0)
                 }),
-                Enumerable.Empty<Ring>(),
                 new MacroStabilityInwardsSoilLayerData(),
                 new[]
                 {
@@ -78,7 +76,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     new Point2D(4.0, 2.0),
                     new Point2D(0.0, 2.5)
                 }),
-                Enumerable.Empty<Ring>(),
                 new MacroStabilityInwardsSoilLayerData(),
                 new[]
                 {
@@ -91,7 +88,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     new Point2D(3.0, 1.0),
                     new Point2D(8.0, 3.0)
                 }),
-                Enumerable.Empty<Ring>(),
                 new MacroStabilityInwardsSoilLayerData(),
                 new[]
                 {

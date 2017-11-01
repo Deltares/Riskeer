@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -73,7 +72,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                     new Point2D(20.210230, 26.00001),
                     new Point2D(3.830, 1.040506)
                 }),
-                Enumerable.Empty<Ring>(),
                 new MacroStabilityInwardsSoilLayerData
                 {
                     MaterialName = "Test Name",

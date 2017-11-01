@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             const string name = "name";
             var profile = new SoilProfile2D(0, name, new[]
             {
-                new SoilLayer2D(new SoilLayer2DLoop(new Segment2D[0]), Enumerable.Empty<SoilLayer2DLoop>())
+                new SoilLayer2D(new SoilLayer2DLoop(new Segment2D[0]), Enumerable.Empty<SoilLayer2D>())
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             const string profileName = "SomeProfile";
             var profile = new SoilProfile2D(0, profileName, new[]
             {
-                new SoilLayer2D(new SoilLayer2DLoop(new Segment2D[0]), Enumerable.Empty<SoilLayer2DLoop>())
+                new SoilLayer2D(new SoilLayer2DLoop(new Segment2D[0]), Enumerable.Empty<SoilLayer2D>())
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
@@ -341,11 +341,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                                 ".....",
                                 ".....",
                                 "1...4")));
-
-            soilLayer2D.NestedLayers = new[]
-            {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], loopHole)
-            };
 
             var profile = new SoilProfile2D(pipingSoilProfileId, profileName,
                                             new List<SoilLayer2D>

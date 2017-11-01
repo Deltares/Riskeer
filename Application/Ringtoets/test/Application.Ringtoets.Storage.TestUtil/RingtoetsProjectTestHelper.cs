@@ -1124,7 +1124,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }), new Ring[0],
+                }),
                 new MacroStabilityInwardsSoilLayerData(), new[]
                 {
                     new MacroStabilityInwardsSoilLayer2D(new Ring(new[]

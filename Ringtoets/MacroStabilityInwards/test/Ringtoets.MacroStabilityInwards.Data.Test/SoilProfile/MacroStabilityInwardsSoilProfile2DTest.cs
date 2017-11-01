@@ -313,7 +313,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(Random random)
         {
             return new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(random.Next()),
-                                                        Enumerable.Empty<Ring>(),
                                                         new MacroStabilityInwardsSoilLayerData
                                                         {
                                                             Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
@@ -328,7 +327,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         private static MacroStabilityInwardsSoilLayer2D CopyAndModifySoilLayer(MacroStabilityInwardsSoilLayer2D soilLayer)
         {
             return new MacroStabilityInwardsSoilLayer2D(soilLayer.OuterRing,
-                                                        Enumerable.Empty<Ring>(),
                                                         new MacroStabilityInwardsSoilLayerData
                                                         {
                                                             Color = soilLayer.Data.Color

@@ -143,7 +143,7 @@ namespace Ringtoets.Common.IO.TestUtil.Test
                 new Segment2D(pointC, pointD),
                 new Segment2D(pointD, pointC)
             }), nestedLayer.OuterLoop);
-            CollectionAssert.IsEmpty(nestedLayer.InnerLoops);
+            CollectionAssert.IsEmpty(nestedLayer.NestedLayers);
             Assert.AreEqual(0.0, nestedLayer.IsAquifer);
         }
 
@@ -173,7 +173,7 @@ namespace Ringtoets.Common.IO.TestUtil.Test
                 new Segment2D(pointA, pointB),
                 new Segment2D(pointB, pointA)
             }), nestedLayer.OuterLoop);
-            CollectionAssert.IsEmpty(nestedLayer.InnerLoops);
+            CollectionAssert.IsEmpty(nestedLayer.NestedLayers);
             Assert.AreEqual(0.0, nestedLayer.IsAquifer);
         }
     }
