@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Data.Helpers
         /// <summary>
         /// Gets a valid name for the soil layer.
         /// </summary>
-        /// <param name="name">The name to turn into a valid display name.</param>
+        /// <param name="name">The name to turn into a valid name.</param>
         /// <returns><paramref name="name"/> when it's not <see cref="string.IsNullOrWhiteSpace"/>;
         /// a default value otherwise.</returns>
         public static string GetValidName(string name)
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Data.Helpers
         /// <summary>
         /// Gets a valid color for the soil layer.
         /// </summary>
-        /// <param name="color">The color to turn into a valid display color.</param>
+        /// <param name="color">The color to turn into a valid color.</param>
         /// <returns><paramref name="color"/> when it's not <see cref="Color.Empty"/>;
         /// a default value otherwise.</returns>
         public static Color GetValidColor(Color color)
