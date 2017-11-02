@@ -37,16 +37,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     public class SoilLayer2DGeometryReaderTest
     {
         [Test]
-        public void Constructor_ReturnsNewInstance()
-        {
-            // Call
-            var reader = new SoilLayer2DGeometryReader();
-
-            // Assert
-            Assert.NotNull(reader);
-        }
-
-        [Test]
         public void Read_NullByteArray_ThrowsArgumentNullException()
         {
             // Setup

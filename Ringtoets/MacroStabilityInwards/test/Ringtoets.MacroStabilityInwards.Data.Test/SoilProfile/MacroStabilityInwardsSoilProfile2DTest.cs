@@ -31,6 +31,7 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
@@ -73,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilProfile2D(string.Empty,
-                                                                             new Collection<MacroStabilityInwardsSoilLayer2D>(),
+                                                                             Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>(),
                                                                              Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
 
             // Assert
@@ -86,11 +87,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilProfile2D(null,
-                                                                             new Collection<MacroStabilityInwardsSoilLayer2D>(),
+                                                                             new[]
+                                                                             {
+                                                                                 MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D()
+                                                                             },
                                                                              Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("value", exception.ParamName);
         }
 
         [Test]

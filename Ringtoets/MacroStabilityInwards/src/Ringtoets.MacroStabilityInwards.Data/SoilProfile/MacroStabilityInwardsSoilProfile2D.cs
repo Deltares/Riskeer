@@ -124,7 +124,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         {
             unchecked
             {
-                var hashCode = 0;
+                int hashCode = Name.GetHashCode();
                 foreach (MacroStabilityInwardsSoilLayer2D layer in layers)
                 {
                     hashCode = (hashCode * 397) ^ layer.GetHashCode();
@@ -133,7 +133,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 {
                     hashCode = (hashCode * 397) ^ stress.GetHashCode();
                 }
-                hashCode = (hashCode * 397) ^ Name.GetHashCode();
                 return hashCode;
             }
         }

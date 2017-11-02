@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         {
             unchecked
             {
-                var hashCode = 31;
+                var hashCode = 397;
 
                 foreach (MacroStabilityInwardsPhreaticLine phreaticLine in PhreaticLines)
                 {

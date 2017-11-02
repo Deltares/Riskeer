@@ -138,14 +138,13 @@ namespace Ringtoets.Piping.Primitives
         {
             unchecked
             {
-                var hashCode = 0;
+                int hashCode = Bottom.GetHashCode();
+                hashCode = (hashCode * 397) ^ Name.GetHashCode();
+                hashCode = (hashCode * 397) ^ (int)SoilProfileSourceType;
                 foreach (PipingSoilLayer layer in layers)
                 {
                     hashCode = (hashCode * 397) ^ layer.GetHashCode();
                 }
-                hashCode = (hashCode * 397) ^ Bottom.GetHashCode();
-                hashCode = (hashCode * 397) ^ Name.GetHashCode();
-                hashCode = (hashCode * 397) ^ (int) SoilProfileSourceType;
                 return hashCode;
             }
         }

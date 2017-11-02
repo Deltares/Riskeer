@@ -142,7 +142,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Parses <param name="geometry"/> in order to create a 2D soil layer geometry.
+        /// Parses <paramref name="geometry"/> in order to create a 2D soil layer geometry.
         /// </summary>
         /// <param name="geometry">An <see cref="XmlDocument"/> which contains the information
         /// of a 2D soil layer geometry.</param>
@@ -158,7 +158,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Parses <param name="loop"/> in order to create a <see cref="SoilLayer2DLoop"/>.
+        /// Parses <paramref name="loop"/> in order to create a <see cref="SoilLayer2DLoop"/>.
         /// </summary>
         /// <param name="loop">An <see cref="XElement"/> which contains the information
         /// of a 2D soil layer loop.</param>
@@ -185,7 +185,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Parses <see cref="curve"/> in order to create a <see cref="Segment2D"/>.
+        /// Parses <paramref name="curve"/> in order to create a <see cref="Segment2D"/>.
         /// </summary>
         /// <param name="curve">An <see cref="XElement"/> which contains the information
         /// of a 2D segment.</param>
@@ -205,7 +205,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Parses <see cref="point"/> in order to create a <see cref="Point2D"/>.
+        /// Parses <paramref name="point"/> in order to create a <see cref="Point2D"/>.
         /// </summary>
         /// <param name="point">An <see cref="XElement"/> which contains the information
         /// of a 2D point.</param>
@@ -239,7 +239,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Creates sorted segments from <param name="unsortedSegments"/>.
+        /// Creates sorted segments from <paramref name="unsortedSegments"/>.
         /// </summary>
         /// <param name="unsortedSegments">The unsorted segments to get the sorted segments from.</param>
         /// <returns>An array of sorted segments.</returns>
@@ -260,7 +260,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Gets sorted points from <param name="segments"/>.
+        /// Gets sorted points from <paramref name="segments"/>.
         /// </summary>
         /// <param name="segments">The segments to get the sorted points from.</param>
         /// <returns>An array of sorted points.</returns>

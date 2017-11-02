@@ -181,9 +181,10 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 properties = new RequiredProfileProperties(this, criticalProperties.ProfileName);
 
+                var geometryReader = new SoilLayer2DGeometryReader();
                 for (var i = 1; i <= criticalProperties.LayerCount; i++)
                 {
-                    ReadSoilLayerGeometryFrom(this, criticalProperties.ProfileName, soilLayerGeometryLookup);
+                    ReadSoilLayerGeometryFrom(this, geometryReader, criticalProperties.ProfileName, soilLayerGeometryLookup);
                     MoveNext();
                 }
 
@@ -222,7 +223,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <returns>A collection of the read <see cref="PreconsolidationStress"/> .</returns>
         /// <exception cref="SoilProfileReadException">Thrown when the preconsolidation
         /// stresses could not be read.</exception>
-        private PreconsolidationStress[] GetPreconsolidationStresses(long currentSoilProfileId)
+        private IEnumerable<PreconsolidationStress> GetPreconsolidationStresses(long currentSoilProfileId)
         {
             if (!preconsolidationStressReader.HasNext || preconsolidationStressReader.ReadSoilProfileId() != currentSoilProfileId)
             {
@@ -239,14 +240,12 @@ namespace Ringtoets.Common.IO.SoilProfile
 
             foreach (SoilLayer2DGeometry soilLayerGeometry in soilLayerGeometries)
             {
-                if (IsNestedLayer(innerLoops, soilLayerGeometry))
+                if (!IsNestedLayer(innerLoops, soilLayerGeometry))
                 {
-                    continue;
+                    yield return CreateSoilLayer2D(soilLayerGeometry,
+                                                   soilLayerGeometryLookup[soilLayerGeometry],
+                                                   CreateNestedSoilLayersRecursively(soilLayerGeometryLookup, soilLayerGeometry));
                 }
-
-                yield return CreateSoilLayer2D(soilLayerGeometry,
-                                               soilLayerGeometryLookup[soilLayerGeometry],
-                                               CreateNestedSoilLayersRecursively(soilLayerGeometryLookup, soilLayerGeometry));
             }
         }
 
@@ -309,23 +308,25 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Reads a <see cref="SoilLayer2DGeometry"/> from the given <paramref name="reader"/>.
+        /// Reads a <see cref="SoilLayer2DGeometry"/> from the given <paramref name="databaseReader"/>.
         /// </summary>
-        /// <param name="reader">The reader to read a geometry from.</param>
+        /// <param name="databaseReader">The reader to read a geometry from.</param>
+        /// <param name="geometryReader">The geometry reader to use.</param>
         /// <param name="profileName">The name of the profile to read a geometry for.</param>
         /// <param name="soilLayerGeometriesLookup">The lookup to add the read data to.</param>
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the geometry failed.</exception>
-        private static void ReadSoilLayerGeometryFrom(IRowBasedDatabaseReader reader, string profileName, Dictionary<SoilLayer2DGeometry, Layer2DProperties> soilLayerGeometriesLookup)
+        private static void ReadSoilLayerGeometryFrom(IRowBasedDatabaseReader databaseReader, SoilLayer2DGeometryReader geometryReader, string profileName,
+                                                      IDictionary<SoilLayer2DGeometry, Layer2DProperties> soilLayerGeometriesLookup)
         {
-            var properties = new Layer2DProperties(reader, profileName);
+            var properties = new Layer2DProperties(databaseReader, profileName);
 
             try
             {
-                soilLayerGeometriesLookup[new SoilLayer2DGeometryReader().Read(properties.GeometryValue)] = properties;
+                soilLayerGeometriesLookup[geometryReader.Read(properties.GeometryValue)] = properties;
             }
             catch (SoilLayerConversionException e)
             {
-                throw CreateSoilProfileReadException(reader.Path, profileName, e);
+                throw CreateSoilProfileReadException(databaseReader.Path, profileName, e);
             }
         }
 

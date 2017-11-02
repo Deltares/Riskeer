@@ -449,7 +449,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void SoilProfile2DCreate_ProfileWithData_ExpectedValues()
+        public void SoilProfile2DCreate_ProfileWithData_ReturnsSoilProfileUnderSurfaceLine()
         {
             // Setup
             var profile = new MacroStabilityInwardsSoilProfile2D("name",

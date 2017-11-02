@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         {
             unchecked
             {
-                var hashCode = 0;
+                var hashCode = 397;
                 foreach (Point2D p in Points)
                 {
                     hashCode = (hashCode * 397) ^ p.GetHashCode();

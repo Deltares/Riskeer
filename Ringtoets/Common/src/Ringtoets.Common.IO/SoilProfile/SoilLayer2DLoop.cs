@@ -56,9 +56,18 @@ namespace Ringtoets.Common.IO.SoilProfile
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
 
             return Equals((SoilLayer2DLoop) obj);
         }
@@ -67,7 +76,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         {
             unchecked
             {
-                var hashCode = 0;
+                var hashCode = 397;
 
                 foreach (Segment2D segment in Segments)
                 {

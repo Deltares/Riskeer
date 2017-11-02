@@ -86,6 +86,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             return ConvertLayerRecursively(soilLayer);
         }
 
+        /// <summary>
+        /// Converts <see cref="SoilLayer2D"/> into <see cref="MacroStabilityInwardsSoilLayer2D"/>.
+        /// </summary>
+        /// <param name="soilLayer">The soil layer to convert..</param>
+        /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
+        /// in a valid transformed instance.</exception>
         private static MacroStabilityInwardsSoilLayer2D ConvertLayerRecursively(SoilLayer2D soilLayer)
         {
             return new MacroStabilityInwardsSoilLayer2D(TransformSegmentsToRing(soilLayer.OuterLoop.Segments),
