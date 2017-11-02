@@ -57,7 +57,7 @@ All rights reserved.
   <xs:element name="tangentlijnen">
     <xs:complexType>
       <xs:all>
-        <xs:element name="bepaling" type="bepalingtangentlijnen" minOccurs="0"/>
+        <xs:element name="bepalingtangentlijnen" type="bepalingtangentlijnen" minOccurs="0"/>
         <xs:element ref="zboven" minOccurs="0"/>
         <xs:element ref="zonder" minOccurs="0"/>
         <xs:element ref="aantal" minOccurs="0"/>

@@ -144,14 +144,39 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
-            Assert.AreEqual("Calculation", calculation.Name);
-            Assert.IsNull(calculation.AssessmentLevel);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.SurfaceLineName);
-            Assert.IsNull(calculation.StochasticSoilModelName);
-            Assert.IsNull(calculation.StochasticSoilProfileName);
-            Assert.IsNull(calculation.Scenario);
+            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
+            Assert.AreEqual("Calculation", configuration.Name);
+            Assert.IsNull(configuration.AssessmentLevel);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.SurfaceLineName);
+            Assert.IsNull(configuration.StochasticSoilModelName);
+            Assert.IsNull(configuration.StochasticSoilProfileName);
+            Assert.IsNull(configuration.Scenario);
+            Assert.IsNull(configuration.DikeSoilScenario);
+            Assert.IsNull(configuration.WaterLevelRiverAverage);
+            Assert.IsNull(configuration.DrainageConstructionPresent);
+            Assert.IsNull(configuration.XCoordinateDrainageConstruction);
+            Assert.IsNull(configuration.ZCoordinateDrainageConstruction);
+            Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
+            Assert.IsNull(configuration.AdjustPhreaticLine3And4ForUplift);
+            Assert.IsNull(configuration.PhreaticLine2);
+            Assert.IsNull(configuration.PhreaticLine3);
+            Assert.IsNull(configuration.PhreaticLine4);
+            Assert.IsNull(configuration.LocationInputDaily);
+            Assert.IsNull(configuration.LocationInputExtreme);
+            Assert.IsNull(configuration.SlipPlaneMinimumDepth);
+            Assert.IsNull(configuration.SlipPlaneMinimumLength);
+            Assert.IsNull(configuration.MaximumSliceWidth);
+            Assert.IsNull(configuration.CreateZones);
+            Assert.IsNull(configuration.GridDeterminationType);
+            Assert.IsNull(configuration.MoveGrid);
+            Assert.IsNull(configuration.TangentLineDeterminationType);
+            Assert.IsNull(configuration.TangentLineZTop);
+            Assert.IsNull(configuration.TangentLineZBottom);
+            Assert.IsNull(configuration.TangentLineNumber);
+            Assert.IsNull(configuration.LeftGrid);
+            Assert.IsNull(configuration.RightGrid);
         }
 
         [Test]
@@ -167,9 +192,44 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
-            Assert.IsNaN(calculation.AssessmentLevel);
-            Assert.IsNaN(calculation.Scenario.Contribution);
+            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
+            Assert.IsNaN(configuration.AssessmentLevel);
+            Assert.IsNaN(configuration.Scenario.Contribution);
+            Assert.IsNaN(configuration.WaterLevelRiverAverage);
+            Assert.IsNaN(configuration.XCoordinateDrainageConstruction);
+            Assert.IsNaN(configuration.ZCoordinateDrainageConstruction);
+            Assert.IsNaN(configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.IsNaN(configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
+            Assert.IsNaN(configuration.PhreaticLine2.Inwards);
+            Assert.IsNaN(configuration.PhreaticLine2.Outwards);
+            Assert.IsNaN(configuration.PhreaticLine3.Inwards);
+            Assert.IsNaN(configuration.PhreaticLine3.Outwards);
+            Assert.IsNaN(configuration.PhreaticLine4.Inwards);
+            Assert.IsNaN(configuration.PhreaticLine4.Outwards);
+            Assert.IsNaN(configuration.LocationInputDaily.WaterLevelPolder);
+            Assert.IsNaN(configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.IsNaN(configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.IsNaN(configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.IsNaN(configuration.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.IsNaN(configuration.LocationInputExtreme.PenetrationLength);
+            Assert.IsNaN(configuration.LocationInputExtreme.WaterLevelPolder);
+            Assert.IsNaN(configuration.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.IsNaN(configuration.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.IsNaN(configuration.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.IsNaN(configuration.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.IsNaN(configuration.SlipPlaneMinimumDepth);
+            Assert.IsNaN(configuration.SlipPlaneMinimumLength);
+            Assert.IsNaN(configuration.MaximumSliceWidth);
+            Assert.IsNaN(configuration.TangentLineZTop);
+            Assert.IsNaN(configuration.TangentLineZBottom);
+            Assert.IsNaN(configuration.LeftGrid.XLeft);
+            Assert.IsNaN(configuration.LeftGrid.XRight);
+            Assert.IsNaN(configuration.LeftGrid.ZTop);
+            Assert.IsNaN(configuration.LeftGrid.ZBottom);
+            Assert.IsNaN(configuration.RightGrid.XLeft);
+            Assert.IsNaN(configuration.RightGrid.XRight);
+            Assert.IsNaN(configuration.RightGrid.ZTop);
+            Assert.IsNaN(configuration.RightGrid.ZBottom);
         }
 
         [Test]
@@ -185,13 +245,48 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
+            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
 
-            Assert.IsNotNull(calculation.AssessmentLevel);
-            Assert.IsNotNull(calculation.Scenario.Contribution);
+            Assert.IsNotNull(configuration.AssessmentLevel);
+            Assert.IsNotNull(configuration.Scenario.Contribution);
 
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.AssessmentLevel.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.Scenario.Contribution.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.AssessmentLevel.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.Scenario.Contribution.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.WaterLevelRiverAverage.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.XCoordinateDrainageConstruction.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.ZCoordinateDrainageConstruction.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.MinimumLevelPhreaticLineAtDikeTopRiver.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.MinimumLevelPhreaticLineAtDikeTopPolder.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLine2.Inwards.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLine2.Outwards.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLine3.Inwards.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLine3.Outwards.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLine4.Inwards.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLine4.Outwards.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputDaily.WaterLevelPolder.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputExtreme.PenetrationLength.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputExtreme.WaterLevelPolder.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.SlipPlaneMinimumDepth.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.SlipPlaneMinimumLength.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.MaximumSliceWidth.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.TangentLineZTop.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.TangentLineZBottom.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LeftGrid.XLeft.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LeftGrid.XRight.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LeftGrid.ZTop.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LeftGrid.ZBottom.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.RightGrid.XLeft.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.RightGrid.XRight.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.RightGrid.ZTop.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.RightGrid.ZBottom.Value));
         }
 
         [Test]
@@ -211,15 +306,97 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
-            Assert.AreEqual("Calculation", calculation.Name);
-            Assert.IsNull(calculation.AssessmentLevel);
-            Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
-            Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModelName);
-            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
-            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
-            Assert.IsFalse(calculation.Scenario.IsRelevant);
+            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
+            Assert.AreEqual("Calculation", configuration.Name);
+            Assert.IsNull(configuration.AssessmentLevel);
+            Assert.AreEqual("HRlocatie", configuration.HydraulicBoundaryLocationName);
+
+            Assert.AreEqual("Profielschematisatie", configuration.SurfaceLineName);
+            Assert.AreEqual("Ondergrondmodel", configuration.StochasticSoilModelName);
+            Assert.AreEqual("Ondergrondschematisatie", configuration.StochasticSoilProfileName);
+
+            Assert.AreEqual(ConfigurationDikeSoilScenario.SandDikeOnClay, configuration.DikeSoilScenario);
+            Assert.AreEqual(10.5, configuration.WaterLevelRiverAverage);
+
+            Assert.IsTrue(configuration.DrainageConstructionPresent);
+            Assert.AreEqual(10.6, configuration.XCoordinateDrainageConstruction);
+            Assert.AreEqual(10.7, configuration.ZCoordinateDrainageConstruction);
+
+            Assert.AreEqual(10.9, configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(10.8, configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
+
+            Assert.IsTrue(configuration.AdjustPhreaticLine3And4ForUplift);
+
+            MacroStabilityInwardsPhreaticLineConfiguration phreaticLine3Configuration = configuration.PhreaticLine3;
+            Assert.IsNotNull(phreaticLine3Configuration);
+            Assert.AreEqual(10.1, phreaticLine3Configuration.Inwards);
+            Assert.AreEqual(10.2, phreaticLine3Configuration.Outwards);
+
+            MacroStabilityInwardsPhreaticLineConfiguration phreaticLine4Configuration = configuration.PhreaticLine4;
+            Assert.IsNotNull(phreaticLine4Configuration);
+            Assert.AreEqual(10.3, phreaticLine4Configuration.Inwards);
+            Assert.AreEqual(10.4, phreaticLine4Configuration.Outwards);
+
+            MacroStabilityInwardsPhreaticLineConfiguration phreaticLine2Configuration = configuration.PhreaticLine2;
+            Assert.IsNotNull(phreaticLine2Configuration);
+            Assert.AreEqual(20.1, phreaticLine2Configuration.Inwards);
+            Assert.AreEqual(20.2, phreaticLine2Configuration.Outwards);
+
+            MacroStabilityInwardsLocationInputConfiguration dailyConfiguration = configuration.LocationInputDaily;
+            Assert.IsNotNull(dailyConfiguration);
+            Assert.AreEqual(2.2, dailyConfiguration.WaterLevelPolder);
+            Assert.IsTrue(dailyConfiguration.UseDefaultOffsets);
+            Assert.AreEqual(2.21, dailyConfiguration.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(2.24, dailyConfiguration.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(2.22, dailyConfiguration.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(2.23, dailyConfiguration.PhreaticLineOffsetBelowShoulderBaseInside);
+
+            MacroStabilityInwardsLocationInputExtremeConfiguration extremeConfiguration = configuration.LocationInputExtreme;
+            Assert.IsNotNull(extremeConfiguration);
+            Assert.AreEqual(15.2, extremeConfiguration.WaterLevelPolder);
+            Assert.AreEqual(16.2, extremeConfiguration.PenetrationLength);
+            Assert.IsFalse(extremeConfiguration.UseDefaultOffsets);
+            Assert.AreEqual(15.21, extremeConfiguration.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(15.24, extremeConfiguration.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(15.22, extremeConfiguration.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(15.23, extremeConfiguration.PhreaticLineOffsetBelowShoulderBaseInside);
+
+            Assert.AreEqual(0.4, configuration.SlipPlaneMinimumDepth);
+            Assert.AreEqual(0.5, configuration.SlipPlaneMinimumLength);
+            Assert.AreEqual(0.6, configuration.MaximumSliceWidth);
+
+            Assert.IsTrue(configuration.CreateZones);
+
+            Assert.IsTrue(configuration.MoveGrid);
+            Assert.AreEqual(ConfigurationGridDeterminationType.Automatic, configuration.GridDeterminationType);
+
+            Assert.AreEqual(ConfigurationTangentLineDeterminationType.LayerSeparated, configuration.TangentLineDeterminationType);
+            Assert.AreEqual(10, configuration.TangentLineZTop);
+            Assert.AreEqual(1, configuration.TangentLineZBottom);
+            Assert.AreEqual(5, configuration.TangentLineNumber);
+
+            MacroStabilityInwardsGridConfiguration leftGridConfiguration = configuration.LeftGrid;
+            Assert.IsNotNull(leftGridConfiguration);
+            Assert.IsNaN(leftGridConfiguration.XLeft);
+            Assert.IsNaN(leftGridConfiguration.XRight);
+            Assert.IsNaN(leftGridConfiguration.ZTop);
+            Assert.IsNaN(leftGridConfiguration.ZBottom);
+            Assert.AreEqual(6, leftGridConfiguration.NumberOfVerticalPoints);
+            Assert.AreEqual(5, leftGridConfiguration.NumberOfHorizontalPoints);
+
+            MacroStabilityInwardsGridConfiguration rightGridConfiguration = configuration.RightGrid;
+            Assert.IsNotNull(rightGridConfiguration);
+            Assert.AreEqual(1, rightGridConfiguration.XLeft);
+            Assert.AreEqual(2, rightGridConfiguration.XRight);
+            Assert.AreEqual(3, rightGridConfiguration.ZTop);
+            Assert.AreEqual(4, rightGridConfiguration.ZBottom);
+            Assert.AreEqual(5, rightGridConfiguration.NumberOfVerticalPoints);
+            Assert.AreEqual(6, rightGridConfiguration.NumberOfHorizontalPoints);
+
+            ScenarioConfiguration scenarioConfiguration = configuration.Scenario;
+            Assert.IsNotNull(scenarioConfiguration);
+            Assert.AreEqual(8.8, scenarioConfiguration.Contribution);
+            Assert.IsFalse(scenarioConfiguration.IsRelevant);
         }
 
         [Test]
@@ -239,15 +416,96 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
-            Assert.AreEqual("Calculation", calculation.Name);
-            Assert.AreEqual(1.1, calculation.AssessmentLevel);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
-            Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModelName);
-            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
-            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
-            Assert.IsFalse(calculation.Scenario.IsRelevant);
+            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
+            Assert.AreEqual("Calculation", configuration.Name);
+            Assert.AreEqual(1.1, configuration.AssessmentLevel);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual("Profielschematisatie", configuration.SurfaceLineName);
+            Assert.AreEqual("Ondergrondmodel", configuration.StochasticSoilModelName);
+            Assert.AreEqual("Ondergrondschematisatie", configuration.StochasticSoilProfileName);
+
+            Assert.AreEqual(ConfigurationDikeSoilScenario.SandDikeOnClay, configuration.DikeSoilScenario);
+            Assert.AreEqual(10.5, configuration.WaterLevelRiverAverage);
+
+            Assert.IsTrue(configuration.DrainageConstructionPresent);
+            Assert.AreEqual(10.6, configuration.XCoordinateDrainageConstruction);
+            Assert.AreEqual(10.7, configuration.ZCoordinateDrainageConstruction);
+
+            Assert.AreEqual(10.9, configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(10.8, configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
+
+            Assert.IsTrue(configuration.AdjustPhreaticLine3And4ForUplift);
+
+            MacroStabilityInwardsPhreaticLineConfiguration phreaticLine3Configuration = configuration.PhreaticLine3;
+            Assert.IsNotNull(phreaticLine3Configuration);
+            Assert.AreEqual(10.1, phreaticLine3Configuration.Inwards);
+            Assert.AreEqual(10.2, phreaticLine3Configuration.Outwards);
+
+            MacroStabilityInwardsPhreaticLineConfiguration phreaticLine4Configuration = configuration.PhreaticLine4;
+            Assert.IsNotNull(phreaticLine4Configuration);
+            Assert.AreEqual(10.3, phreaticLine4Configuration.Inwards);
+            Assert.AreEqual(10.4, phreaticLine4Configuration.Outwards);
+
+            MacroStabilityInwardsPhreaticLineConfiguration phreaticLine2Configuration = configuration.PhreaticLine2;
+            Assert.IsNotNull(phreaticLine2Configuration);
+            Assert.AreEqual(20.1, phreaticLine2Configuration.Inwards);
+            Assert.AreEqual(20.2, phreaticLine2Configuration.Outwards);
+
+            MacroStabilityInwardsLocationInputConfiguration dailyConfiguration = configuration.LocationInputDaily;
+            Assert.IsNotNull(dailyConfiguration);
+            Assert.AreEqual(2.2, dailyConfiguration.WaterLevelPolder);
+            Assert.IsTrue(dailyConfiguration.UseDefaultOffsets);
+            Assert.AreEqual(2.21, dailyConfiguration.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(2.24, dailyConfiguration.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(2.22, dailyConfiguration.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(2.23, dailyConfiguration.PhreaticLineOffsetBelowShoulderBaseInside);
+
+            MacroStabilityInwardsLocationInputExtremeConfiguration extremeConfiguration = configuration.LocationInputExtreme;
+            Assert.IsNotNull(extremeConfiguration);
+            Assert.AreEqual(15.2, extremeConfiguration.WaterLevelPolder);
+            Assert.AreEqual(16.2, extremeConfiguration.PenetrationLength);
+            Assert.IsFalse(extremeConfiguration.UseDefaultOffsets);
+            Assert.AreEqual(15.21, extremeConfiguration.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(15.24, extremeConfiguration.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(15.22, extremeConfiguration.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(15.23, extremeConfiguration.PhreaticLineOffsetBelowShoulderBaseInside);
+
+            Assert.AreEqual(0.4, configuration.SlipPlaneMinimumDepth);
+            Assert.AreEqual(0.5, configuration.SlipPlaneMinimumLength);
+            Assert.AreEqual(0.6, configuration.MaximumSliceWidth);
+
+            Assert.IsTrue(configuration.CreateZones);
+
+            Assert.IsTrue(configuration.MoveGrid);
+            Assert.AreEqual(ConfigurationGridDeterminationType.Automatic, configuration.GridDeterminationType);
+
+            Assert.AreEqual(ConfigurationTangentLineDeterminationType.LayerSeparated, configuration.TangentLineDeterminationType);
+            Assert.AreEqual(10, configuration.TangentLineZTop);
+            Assert.AreEqual(1, configuration.TangentLineZBottom);
+            Assert.AreEqual(5, configuration.TangentLineNumber);
+
+            MacroStabilityInwardsGridConfiguration leftGridConfiguration = configuration.LeftGrid;
+            Assert.IsNotNull(leftGridConfiguration);
+            Assert.IsNaN(leftGridConfiguration.XLeft);
+            Assert.IsNaN(leftGridConfiguration.XRight);
+            Assert.IsNaN(leftGridConfiguration.ZTop);
+            Assert.IsNaN(leftGridConfiguration.ZBottom);
+            Assert.AreEqual(6, leftGridConfiguration.NumberOfVerticalPoints);
+            Assert.AreEqual(5, leftGridConfiguration.NumberOfHorizontalPoints);
+
+            MacroStabilityInwardsGridConfiguration rightGridConfiguration = configuration.RightGrid;
+            Assert.IsNotNull(rightGridConfiguration);
+            Assert.AreEqual(1, rightGridConfiguration.XLeft);
+            Assert.AreEqual(2, rightGridConfiguration.XRight);
+            Assert.AreEqual(3, rightGridConfiguration.ZTop);
+            Assert.AreEqual(4, rightGridConfiguration.ZBottom);
+            Assert.AreEqual(5, rightGridConfiguration.NumberOfVerticalPoints);
+            Assert.AreEqual(6, rightGridConfiguration.NumberOfHorizontalPoints);
+
+            ScenarioConfiguration scenarioConfiguration = configuration.Scenario;
+            Assert.IsNotNull(scenarioConfiguration);
+            Assert.AreEqual(8.8, scenarioConfiguration.Contribution);
+            Assert.IsFalse(scenarioConfiguration.IsRelevant);
         }
 
         [Test]
@@ -263,13 +521,43 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
 
-            var calculation = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
-            Assert.AreEqual("Calculation", calculation.Name);
-            Assert.AreEqual(1.1, calculation.AssessmentLevel);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.SurfaceLineName);
-            Assert.IsNull(calculation.StochasticSoilModelName);
-            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
+            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
+            Assert.AreEqual("Calculation", configuration.Name);
+            Assert.AreEqual(1.1, configuration.AssessmentLevel);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.SurfaceLineName);
+            Assert.IsNull(configuration.StochasticSoilModelName);
+            Assert.AreEqual("Ondergrondschematisatie", configuration.StochasticSoilProfileName);
+
+            Assert.IsNull(configuration.Scenario);
+            Assert.AreEqual(10.5, configuration.WaterLevelRiverAverage);
+            Assert.AreEqual(10.6, configuration.XCoordinateDrainageConstruction);
+            Assert.IsNull(configuration.ZCoordinateDrainageConstruction);
+            Assert.AreEqual(10.9, configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
+            Assert.IsNull(configuration.AdjustPhreaticLine3And4ForUplift);
+            Assert.AreEqual(20.1, configuration.PhreaticLine2.Inwards);
+            Assert.AreEqual(20.2, configuration.PhreaticLine2.Outwards);
+            Assert.AreEqual(10.1, configuration.PhreaticLine3.Inwards);
+            Assert.AreEqual(10.2, configuration.PhreaticLine3.Outwards);
+            Assert.IsNull(configuration.PhreaticLine4);
+            Assert.IsNaN(configuration.LocationInputDaily.WaterLevelPolder);
+            Assert.AreEqual(2.21, configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(2.24, configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(2.22, configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(2.23, configuration.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.IsNull(configuration.LocationInputExtreme);
+            Assert.IsNull(configuration.MaximumSliceWidth);
+            Assert.IsNull(configuration.SlipPlaneMinimumLength);
+            Assert.AreEqual(0.4, configuration.SlipPlaneMinimumDepth);
+            Assert.AreEqual(10, configuration.TangentLineZTop);
+            Assert.AreEqual(1, configuration.TangentLineZBottom);
+            Assert.AreEqual(5, configuration.TangentLineNumber);
+            Assert.IsNaN(configuration.LeftGrid.XLeft);
+            Assert.IsNaN(configuration.LeftGrid.XRight);
+            Assert.IsNaN(configuration.LeftGrid.ZTop);
+            Assert.IsNaN(configuration.LeftGrid.ZBottom);
+            Assert.IsNull(configuration.RightGrid);
         }
     }
 }

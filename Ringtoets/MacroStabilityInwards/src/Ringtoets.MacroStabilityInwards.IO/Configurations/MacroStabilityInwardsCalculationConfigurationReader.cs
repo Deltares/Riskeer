@@ -26,6 +26,7 @@ using Core.Common.Base.IO;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
+using Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
@@ -77,7 +78,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
         protected override MacroStabilityInwardsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
-            return new MacroStabilityInwardsCalculationConfiguration(
+            var configuration = new MacroStabilityInwardsCalculationConfiguration(
                 calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement),
@@ -85,8 +86,104 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 SurfaceLineName = calculationElement.GetStringValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
                 StochasticSoilModelName = calculationElement.GetStringValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement),
                 StochasticSoilProfileName = calculationElement.GetStringValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement),
+                DikeSoilScenario = (ConfigurationDikeSoilScenario?) calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationDikeSoilScenarioTypeConverter>(
+                    MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioElement),
+
+                WaterLevelRiverAverage = calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelRiverAverageElement),
+                DrainageConstructionPresent = calculationElement.GetBoolValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DrainageConstructionPresentElement),
+                XCoordinateDrainageConstruction = calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.XCoordinateDrainageConstructionElement),
+                ZCoordinateDrainageConstruction = calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZCoordinateDrainageConstructionElement),
+
+                AdjustPhreaticLine3And4ForUplift = calculationElement.GetBoolValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AdjustPhreaticLine3And4ForUpliftElement),
+
+                PhreaticLine2 = calculationElement.GetMacroStabilityInwardsPhreaticLineConfiguration(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine2Element),
+                PhreaticLine3 = calculationElement.GetMacroStabilityInwardsPhreaticLineConfiguration(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine3Element),
+                PhreaticLine4 = calculationElement.GetMacroStabilityInwardsPhreaticLineConfiguration(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine4Element),
+
+                LocationInputDaily = calculationElement.GetMacroStabilityInwardsLocationInputConfiguration(),
+                LocationInputExtreme = calculationElement.GetMacroStabilityInwardsLocationInputExtremeConfiguration(),
+
+                SlipPlaneMinimumDepth = calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumDepthElement),
+                SlipPlaneMinimumLength = calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumLengthElement),
+                MaximumSliceWidth = calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MaximumSliceWidthElement),
+
                 Scenario = calculationElement.GetScenarioConfiguration()
             };
+
+            SetPhreaticLine1Properties(configuration, calculationElement);
+            SetZonesProperties(configuration, calculationElement);
+            SetGridProperties(configuration, calculationElement);
+
+            return configuration;
+        }
+
+        /// <summary>
+        /// Sets the phreatic line 1 related parameters to <paramref name="configuration"/>.
+        /// </summary>
+        /// <param name="configuration">The configuration to set to the phreatic line 1 properties, if any.</param>
+        /// <param name="calculationElement">The <see cref="XElement"/> that contains the phreatic line 1 element.</param>
+        /// <exception cref="FormatException">Thrown when the value for a parameter isn't in the correct format.</exception>
+        /// <exception cref="OverflowException">Thrown when the value for a parameter represents a number less
+        /// than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when any conversion cannot be performed.</exception>
+        private static void SetPhreaticLine1Properties(MacroStabilityInwardsCalculationConfiguration configuration, XElement calculationElement)
+        {
+            XElement phreaticLine1Element = calculationElement.GetDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine1Element);
+            if (phreaticLine1Element == null)
+            {
+                return;
+            }
+
+            configuration.MinimumLevelPhreaticLineAtDikeTopPolder = phreaticLine1Element.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MinimumLevelPhreaticLineAtDikeTopPolderElement);
+            configuration.MinimumLevelPhreaticLineAtDikeTopRiver = phreaticLine1Element.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MinimumLevelPhreaticLineAtDikeTopRiverElement);
+        }
+
+        /// <summary>
+        /// Sets the zone related parameters to <paramref name="configuration"/>.
+        /// </summary>
+        /// <param name="configuration">The configuration to set to the zone properties, if any.</param>
+        /// <param name="calculationElement">The <see cref="XElement"/> that contains the zone element.</param>
+        /// <exception cref="FormatException">Thrown when the value for a parameter isn't in the correct format.</exception>
+        private static void SetZonesProperties(MacroStabilityInwardsCalculationConfiguration configuration, XElement calculationElement)
+        {
+            XElement zonesElement = calculationElement.GetDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZonesElement);
+            if (zonesElement == null)
+            {
+                return;
+            }
+
+            configuration.CreateZones = zonesElement.GetBoolValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.CreateZonesElement);
+        }
+
+        /// <summary>
+        /// Sets the grid related parameters to <paramref name="configuration"/>.
+        /// </summary>
+        /// <param name="configuration">The configuration to set to the grid properties, if any.</param>
+        /// <param name="calculationElement">The <see cref="XElement"/> that contains the grid element.</param>
+        /// <exception cref="FormatException">Thrown when the value for a parameter isn't in the correct format.</exception>
+        /// <exception cref="OverflowException">Thrown when the value for a parameter represents a number less
+        /// than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when any conversion cannot be performed.</exception>
+        private static void SetGridProperties(MacroStabilityInwardsCalculationConfiguration configuration, XElement calculationElement)
+        {
+            XElement gridElement = calculationElement.GetDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridElement);
+            if (gridElement == null)
+            {
+                return;
+            }
+
+            configuration.MoveGrid = gridElement.GetBoolValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MoveGridElement);
+            configuration.GridDeterminationType = (ConfigurationGridDeterminationType?) gridElement.GetConvertedValueFromDescendantStringElement<ConfigurationGridDeterminationTypeConverter>(
+                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeElement);
+
+            configuration.TangentLineDeterminationType = (ConfigurationTangentLineDeterminationType?) gridElement.GetConvertedValueFromDescendantStringElement<ConfigurationTangentLineDeterminationTypeConverter>(
+                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeElement);
+            configuration.TangentLineZTop = gridElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZTopElement);
+            configuration.TangentLineZBottom = gridElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZBottomElement);
+            configuration.TangentLineNumber = gridElement.GetIntegerValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineNumberElement);
+
+            configuration.LeftGrid = gridElement.GetMacroStabilityInwardsGridConfiguration(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeftGridElement);
+            configuration.RightGrid = gridElement.GetMacroStabilityInwardsGridConfiguration(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.RightGridElement);
         }
     }
 }
