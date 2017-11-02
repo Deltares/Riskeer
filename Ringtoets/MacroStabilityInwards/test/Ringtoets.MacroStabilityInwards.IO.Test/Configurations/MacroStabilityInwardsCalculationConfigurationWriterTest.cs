@@ -95,17 +95,17 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 ZCoordinateDrainageConstruction = 10.6,
                 MinimumLevelPhreaticLineAtDikeTopPolder = 11.1,
                 MinimumLevelPhreaticLineAtDikeTopRiver = 11.2,
-                PhreaticLine2 = new PhreaticLineConfiguration
+                PhreaticLine2 = new MacroStabilityInwardsPhreaticLineConfiguration
                 {
                     Inwards = 60.1,
                     Outwards = 60.2
                 },
-                PhreaticLine3 = new PhreaticLineConfiguration
+                PhreaticLine3 = new MacroStabilityInwardsPhreaticLineConfiguration
                 {
                     Inwards = 70.1,
                     Outwards = 70.2
                 },
-                PhreaticLine4 = new PhreaticLineConfiguration
+                PhreaticLine4 = new MacroStabilityInwardsPhreaticLineConfiguration
                 {
                     Inwards = 80.1,
                     Outwards = 80.2

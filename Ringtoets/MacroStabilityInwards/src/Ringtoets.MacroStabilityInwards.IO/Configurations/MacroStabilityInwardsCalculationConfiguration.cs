@@ -160,17 +160,17 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <summary>
         /// Gets or sets the phreatic line configuration for phreatic line 2.
         /// </summary>
-        public PhreaticLineConfiguration PhreaticLine2 { get; set; }
+        public MacroStabilityInwardsPhreaticLineConfiguration PhreaticLine2 { get; set; }
 
         /// <summary>
         /// Gets or sets the phreatic line configuration for phreatic line 3.
         /// </summary>
-        public PhreaticLineConfiguration PhreaticLine3 { get; set; }
+        public MacroStabilityInwardsPhreaticLineConfiguration PhreaticLine3 { get; set; }
 
         /// <summary>
         /// Gets or sets the phreatic line configuration for phreatic line 4.
         /// </summary>
-        public PhreaticLineConfiguration PhreaticLine4 { get; set; }
+        public MacroStabilityInwardsPhreaticLineConfiguration PhreaticLine4 { get; set; }
 
         /// <summary>
         /// Gets or sets the locations input values for daily conditions.
@@ -204,12 +204,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public ConfigurationTangentLineDeterminationType? TangentLineDeterminationType { get; set; }
 
         /// <summary>
-        /// Gets or sets the tangent line z top.
+        /// Gets or sets the tangent line top boundary.
         /// </summary>
         public double? TangentLineZTop { get; set; }
 
         /// <summary>
-        /// Gets or sets the tangent line z bottom.
+        /// Gets or sets the tangent line bottom boundary.
         /// </summary>
         public double? TangentLineZBottom { get; set; }
 

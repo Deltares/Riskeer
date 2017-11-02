@@ -75,7 +75,7 @@
     <Compile Include="Configurations\MacroStabilityInwardsGridConfigurationTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsLocationInputConfigurationTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsLocationInputExtremeConfigurationTest.cs" />
-    <Compile Include="Configurations\PhreaticLineConfigurationTest.cs" />
+    <Compile Include="Configurations\MacroStabilityInwardsPhreaticLineConfigurationTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsPreconsolidationStressTransformerTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilLayerTransformerTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilProfileTransformerTest.cs" />

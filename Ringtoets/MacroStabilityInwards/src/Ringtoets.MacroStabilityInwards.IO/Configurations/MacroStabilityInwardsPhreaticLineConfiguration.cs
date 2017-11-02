@@ -24,7 +24,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
     /// <summary>
     /// Configuration of a phreatic line.
     /// </summary>
-    public class PhreaticLineConfiguration
+    public class MacroStabilityInwardsPhreaticLineConfiguration
     {
         /// <summary>
         /// Gets or sets the phreatic line inwards.

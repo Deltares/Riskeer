@@ -22,7 +22,7 @@
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
-    /// Defines the various dike soil scenario types in a read calculation configuration.
+    /// Defines the various dike soil scenario types in a calculation configuration.
     /// </summary>
     public enum ConfigurationDikeSoilScenario
     {

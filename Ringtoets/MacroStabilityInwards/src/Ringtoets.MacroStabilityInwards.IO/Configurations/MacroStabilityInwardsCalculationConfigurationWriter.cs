@@ -116,7 +116,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZonesElement);
 
             WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.CreateZones,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.CreateZonesElement,
                                              configuration.CreateZones);
 
             writer.WriteEndElement();
@@ -231,7 +231,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// is closed.</exception>
         private static void WritePhreaticLineConfiguration(XmlWriter writer,
                                                            string elementName,
-                                                           PhreaticLineConfiguration configuration)
+                                                           MacroStabilityInwardsPhreaticLineConfiguration configuration)
         {
             if (configuration == null)
             {
@@ -252,7 +252,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes a location input configuration.
+        /// Writes a location input configuration for daily conditions.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration for the location input that can be <c>null</c>.</param>
@@ -277,7 +277,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes a location input configuration.
+        /// Writes a location input configuration for extreme conditions.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration for the location input that can be <c>null</c>.</param>
@@ -523,23 +523,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="gridLocationName">The name of the location of the grid.</param>
         /// <param name="configuration">The configuration for the grid that can be <c>null</c>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="gridLocationName"/>
-        /// is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
         private static void WriteGridConfigurationWhenAvailable(XmlWriter writer,
                                                                 string gridLocationName,
                                                                 MacroStabilityInwardsGridConfiguration configuration)
         {
-            if (writer == null)
-            {
-                throw new ArgumentNullException(nameof(writer));
-            }
-            if (gridLocationName == null)
-            {
-                throw new ArgumentNullException(nameof(gridLocationName));
-            }
-
             if (configuration == null)
             {
                 return;

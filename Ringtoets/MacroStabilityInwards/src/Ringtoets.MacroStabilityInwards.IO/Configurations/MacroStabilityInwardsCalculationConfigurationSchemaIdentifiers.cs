@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <summary>
         /// The tag of the element containing the value indicating if zones should be created automatically.
         /// </summary>
-        public const string CreateZones = "bepaling";
+        public const string CreateZonesElement = "bepaling";
 
         #region Water stresses
 
@@ -314,12 +314,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public const string TangentLineDeterminationTypeSpecified = "gespecificeerd";
 
         /// <summary>
-        /// The tag of the element containing the value indicating the top z of the tangent line.
+        /// The tag of the element containing the value indicating the top boundary of the tangent line.
         /// </summary>
         public const string TangentLineZTopElement = "zboven";
 
         /// <summary>
-        /// The tag of the element containing the value indicating the bottom z of the tangent line.
+        /// The tag of the element containing the value indicating the bottom boundary of the tangent line.
         /// </summary>
         public const string TangentLineZBottomElement = "zonder";
 
@@ -341,22 +341,22 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public const string RightGridElement = "rechtergrid";
 
         /// <summary>
-        /// The tag of the element containing the value indicating the left x of the grid.
+        /// The tag of the element containing the value indicating the left boundary of the grid.
         /// </summary>
         public const string GridXLeftElement = "links";
 
         /// <summary>
-        /// The tag of the element containing the value indicating the right x of the grid.
+        /// The tag of the element containing the value indicating the right boundary of the grid.
         /// </summary>
         public const string GridXRightElement = "rechts";
 
         /// <summary>
-        /// The tag of the element containing the value indicating the top z of the grid.
+        /// The tag of the element containing the value indicating the top boundary of the grid.
         /// </summary>
         public const string GridZTopElement = "boven";
 
         /// <summary>
-        /// The tag of the element containing the value indicating the bottom z of the grid.
+        /// The tag of the element containing the value indicating the bottom boundary of the grid.
         /// </summary>
         public const string GridZBottomElement = "onder";
 

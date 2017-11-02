@@ -25,13 +25,13 @@ using Ringtoets.MacroStabilityInwards.IO.Configurations;
 namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 {
     [TestFixture]
-    public class PhreaticLineConfigurationTest
+    public class MacroStabilityInwardsPhreaticLineConfigurationTest
     {
         [Test]
         public void Constructor_Always_ExpectedValues()
         {
             // Call
-            var configuration = new PhreaticLineConfiguration();
+            var configuration = new MacroStabilityInwardsPhreaticLineConfiguration();
 
             // Assert
             Assert.IsNull(configuration.Inwards);
@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const double outwards = 3.3;
 
             // Call
-            var configuration = new PhreaticLineConfiguration
+            var configuration = new MacroStabilityInwardsPhreaticLineConfiguration
             {
                 Inwards = inwards,
                 Outwards = outwards

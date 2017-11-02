@@ -22,7 +22,7 @@
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
-    /// Defines the various tangent line determination types in a read calculation configuration.
+    /// Defines the various tangent line determination types in a calculation configuration.
     /// </summary>
     public enum ConfigurationTangentLineDeterminationType
     {

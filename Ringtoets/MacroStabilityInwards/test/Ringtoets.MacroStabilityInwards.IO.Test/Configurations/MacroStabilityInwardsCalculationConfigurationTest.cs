@@ -105,9 +105,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const double minimumLevelPhreaticLineAtDikeTopPolder = 0.9;
 
             const bool adjustPhreaticLine3And4ForUplift = true;
-            var phreaticLine2 = new PhreaticLineConfiguration();
-            var phreaticLine3 = new PhreaticLineConfiguration();
-            var phreaticLine4 = new PhreaticLineConfiguration();
+            var phreaticLine2 = new MacroStabilityInwardsPhreaticLineConfiguration();
+            var phreaticLine3 = new MacroStabilityInwardsPhreaticLineConfiguration();
+            var phreaticLine4 = new MacroStabilityInwardsPhreaticLineConfiguration();
             var locationInputDaily = new MacroStabilityInwardsLocationInputConfiguration();
             var locationInputExtreme = new MacroStabilityInwardsLocationInputExtremeConfiguration();
 
