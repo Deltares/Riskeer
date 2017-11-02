@@ -21,10 +21,12 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -50,13 +52,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IChartView>(view);
                 Assert.IsNull(view.Data);
+                Assert.IsNotNull(view.Chart);
                 Assert.AreEqual(1, view.Controls.Count);
 
                 var splitContainer = view.Controls[0] as SplitContainer;
                 Assert.IsNotNull(splitContainer);
+
                 Assert.AreEqual(1, splitContainer.Panel1.Controls.Count);
-                Assert.IsEmpty(splitContainer.Panel2.Controls);
+                Assert.AreEqual(1, splitContainer.Panel2.Controls.Count);
                 Assert.IsInstanceOf<MacroStabilityInwardsOutputChartControl>(splitContainer.Panel1.Controls[0]);
+                Assert.IsInstanceOf<MacroStabilityInwardsSlicesTable>(splitContainer.Panel2.Controls[0]);
+
+                var tableControl = (MacroStabilityInwardsSlicesTable) splitContainer.Panel2.Controls[0];
+                CollectionAssert.IsEmpty(tableControl.Rows);
             }
         }
 
@@ -306,9 +314,93 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenViewWithOutputSet_WhenOutputUpdated_ThenTableUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                MacroStabilityInwardsSlicesTable slicesTable = GetSlicesTable(view);
+
+                var outputWithoutSlices = new MacroStabilityInwardsOutput(new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                                                                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                                                                new[]
+                                                                                                                {
+                                                                                                                    MacroStabilityInwardsSliceTestFactory.CreateSlice()
+                                                                                                                }, 0, 0),
+                                                                          new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
+                                                                                                                      MacroStabilityInwardsGridTestFactory.Create(),
+                                                                                                                      new double[0]),
+                                                                          new MacroStabilityInwardsOutput.ConstructionProperties());
+
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    Output = outputWithoutSlices
+                };
+
+                view.Data = calculation;
+
+                // Precondition
+                Assert.AreEqual(1, slicesTable.Rows.Count);
+
+                // When
+                calculation.InputParameters.Attach(observer);
+                calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
+                calculation.InputParameters.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(3, slicesTable.Rows.Count);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenViewWithOutputSet_WhenOutputCleared_ThenTableCleared()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                MacroStabilityInwardsSlicesTable slicesTable = GetSlicesTable(view);
+
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+                };
+
+                view.Data = calculation;
+
+                // Precondition
+                Assert.AreEqual(3, slicesTable.Rows.Count);
+
+                // When
+                calculation.InputParameters.Attach(observer);
+                calculation.ClearOutput();
+                calculation.InputParameters.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(0, slicesTable.Rows.Count);
+                mocks.VerifyAll();
+            }
+        }
+
         private static MacroStabilityInwardsOutputChartControl GetChartControl(Form form)
         {
             return ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
+        }
+
+        private static MacroStabilityInwardsSlicesTable GetSlicesTable(MacroStabilityInwardsOutputView view)
+        {
+            return ControlTestHelper.GetControls<MacroStabilityInwardsSlicesTable>(view, "slicesTable").Single();
         }
 
         private static IChartControl GetChartControl(MacroStabilityInwardsOutputChartControl view)

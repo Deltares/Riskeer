@@ -26,9 +26,9 @@ using System.Linq;
 namespace Core.Common.Base.Geometry
 {
     /// <summary>
-    /// Extension methods for collections of <see cref="Segment2D"/>.
+    /// Extension methods for <see cref="Segment2D"/> objects.
     /// </summary>
-    public static class Segment2DCollectionExtensions
+    public static class Segment2DExtensions
     {
         /// <summary>
         /// Interpolates the segments on <paramref name="x"/>.
@@ -47,11 +47,24 @@ namespace Core.Common.Base.Geometry
 
             Segment2D segment = segments.LastOrDefault(s => s.FirstPoint.X <= x) ?? segments.First();
 
-            return Interpolate(segment, x);
+            return segment.Interpolate(x);
         }
 
-        private static double Interpolate(Segment2D segment, double x)
+        /// <summary>
+        /// Interpolate the segment on <paramref name="x"/>
+        /// </summary>
+        /// <param name="segment">The segment to interpolate on.</param>
+        /// <param name="x">The x value to use for interpolation.</param>
+        /// <returns>The interpolated y value on the segment or <see cref="double.NaN"/>
+        /// when no interpolation was found.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="segment"/> is <c>null</c>.</exception>
+        public static double Interpolate(this Segment2D segment, double x)
         {
+            if (segment == null)
+            {
+                throw new ArgumentNullException(nameof(segment));
+            }
+
             double differenceInX = segment.SecondPoint.X - segment.FirstPoint.X;
             if (Math.Abs(differenceInX) < 1e-6)
             {
@@ -59,7 +72,6 @@ namespace Core.Common.Base.Geometry
             }
 
             double m = (segment.SecondPoint.Y - segment.FirstPoint.Y) / differenceInX;
-
             double b = segment.FirstPoint.Y - (m * segment.FirstPoint.X);
 
             return m * x + b;

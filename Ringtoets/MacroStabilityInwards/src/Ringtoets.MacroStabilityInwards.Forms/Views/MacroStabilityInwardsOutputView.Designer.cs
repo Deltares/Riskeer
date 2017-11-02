@@ -39,25 +39,31 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private void InitializeComponent()
         {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.macroStabilityInwardsOutputChartControl = new MacroStabilityInwardsOutputChartControl();
+            this.macroStabilityInwardsOutputChartControl = new Ringtoets.MacroStabilityInwards.Forms.Views.MacroStabilityInwardsOutputChartControl();
+            this.slicesTable = new Ringtoets.MacroStabilityInwards.Forms.Views.MacroStabilityInwardsSlicesTable();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer
             // 
+            this.splitContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer.Location = new System.Drawing.Point(0, 0);
             this.splitContainer.Name = "splitContainer";
             this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.splitContainer.BorderStyle = BorderStyle.FixedSingle;
             // 
             // splitContainer.Panel1
             // 
             this.splitContainer.Panel1.Controls.Add(this.macroStabilityInwardsOutputChartControl);
+            // 
+            // splitContainer.Panel2
+            // 
+            this.splitContainer.Panel2.Controls.Add(this.slicesTable);
             this.splitContainer.Size = new System.Drawing.Size(150, 150);
-            this.splitContainer.SplitterDistance = 75;
+            this.splitContainer.SplitterDistance = 100;
             this.splitContainer.TabIndex = 0;
             // 
             // macroStabilityInwardsOutputChartControl
@@ -66,8 +72,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             this.macroStabilityInwardsOutputChartControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.macroStabilityInwardsOutputChartControl.Location = new System.Drawing.Point(0, 0);
             this.macroStabilityInwardsOutputChartControl.Name = "macroStabilityInwardsOutputChartControl";
-            this.macroStabilityInwardsOutputChartControl.Size = new System.Drawing.Size(150, 75);
+            this.macroStabilityInwardsOutputChartControl.Size = new System.Drawing.Size(148, 98);
             this.macroStabilityInwardsOutputChartControl.TabIndex = 0;
+            // 
+            // slicesTable
+            // 
+            this.slicesTable.AutoSize = true;
+            this.slicesTable.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.slicesTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.slicesTable.Location = new System.Drawing.Point(0, 0);
+            this.slicesTable.Margin = new System.Windows.Forms.Padding(0);
+            this.slicesTable.MultiSelect = true;
+            this.slicesTable.Name = "slicesTable";
+            this.slicesTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.slicesTable.Size = new System.Drawing.Size(148, 44);
+            this.slicesTable.TabIndex = 0;
             // 
             // MacroStabilityInwardsOutputView
             // 
@@ -76,6 +95,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             this.Controls.Add(this.splitContainer);
             this.Name = "MacroStabilityInwardsOutputView";
             this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
+            this.splitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -86,5 +107,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private System.Windows.Forms.SplitContainer splitContainer;
         private MacroStabilityInwardsOutputChartControl macroStabilityInwardsOutputChartControl;
+        private MacroStabilityInwardsSlicesTable slicesTable;
     }
 }

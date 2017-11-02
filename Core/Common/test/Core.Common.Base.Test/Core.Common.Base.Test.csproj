@@ -93,7 +93,7 @@
     <Compile Include="Geometry\Point3DCollectionExtensionsTest.cs" />
     <Compile Include="Geometry\Point3DExtensionsTest.cs" />
     <Compile Include="Geometry\Point3DTest.cs" />
-    <Compile Include="Geometry\Segment2DCollectionExtensionsTest.cs" />
+    <Compile Include="Geometry\Segment2DExtensionsTest.cs" />
     <Compile Include="Geometry\Segment2DIntersectSegment2DResultTest.cs" />
     <Compile Include="Geometry\Segment2DTest.cs" />
     <Compile Include="IO\CriticalFileReadExceptionTest.cs" />

@@ -750,6 +750,233 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Booglengte [m].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_ArcLength {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_ArcLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bodemhoek [°].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_BottomAngle {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_BottomAngle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cohesie [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_Cohesion {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_Cohesion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterspanning door consolidatiegraad belasting [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureLoad {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureLo" +
+                        "ad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterspanning door consolidatiegraad grond [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureSoil {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureSo" +
+                        "il", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effectieve spanning [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStress {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Externe belasting [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_ExternalLoad {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_ExternalLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrijvingshoek [°].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_FrictionAngle {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_FrictionAngle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horizontale waterspanning op maaiveld [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_HorizontalPorePressure {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_HorizontalPorePressure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spanning belasting [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_LoadStress {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_LoadStress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_Name {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normaalspanning [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_NormalStress {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_NormalStress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OCR [-].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_OverConsolidationRatio {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_OverConsolidationRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Piezometrische waterspanning [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_PiezometricPorePressure {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_PiezometricPorePressure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to POP [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_Pop {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_Pop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterspanning op maaiveld [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_PorePressure {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_PorePressure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schuifspanning [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_ShearStress {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_ShearStress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tophoek [°].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_TopAngle {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_TopAngle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Totale waterspanning [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_TotalPorePressure {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_TotalPorePressure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verticale waterspanning op maaiveld [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_VerticalPorePressure {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_VerticalPorePressure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gewicht [kN/m].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_Weight {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_Weight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breedte [m].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_Width {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_Width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X centrum [m].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_XCenter {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_XCenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z centrum bodem [m+NAP].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_ZCenterBottom {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_ZCenterBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lamel {0}.
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_Name_Slice_0 {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_Name_Slice_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Onverzadigd gewicht [kN/m³].
         /// </summary>
         public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_AbovePhreaticLevel {

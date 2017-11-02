@@ -175,7 +175,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public double ExternalLoad { get; }
 
         /// <summary>
-        /// Gets the hydraostatic pore pressure.
+        /// Gets the hydrostatic pore pressure.
         /// [kN/m²]
         /// </summary>
         public double HydrostaticPorePressure { get; }

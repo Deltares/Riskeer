@@ -658,4 +658,79 @@
   <data name="WaternetLinesExtreme_DisplayName" xml:space="preserve">
     <value>Zones extreem</value>
   </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_ArcLength" xml:space="preserve">
+    <value>Booglengte [m]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_BottomAngle" xml:space="preserve">
+    <value>Bodemhoek [°]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_Cohesion" xml:space="preserve">
+    <value>Cohesie [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureLoad" xml:space="preserve">
+    <value>Waterspanning door consolidatiegraad belasting [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureSoil" xml:space="preserve">
+    <value>Waterspanning door consolidatiegraad grond [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStress" xml:space="preserve">
+    <value>Effectieve spanning [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_ExternalLoad" xml:space="preserve">
+    <value>Externe belasting [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_FrictionAngle" xml:space="preserve">
+    <value>Wrijvingshoek [°]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_HorizontalPorePressure" xml:space="preserve">
+    <value>Horizontale waterspanning op maaiveld [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_LoadStress" xml:space="preserve">
+    <value>Spanning belasting [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_NormalStress" xml:space="preserve">
+    <value>Normaalspanning [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_OverConsolidationRatio" xml:space="preserve">
+    <value>OCR [-]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_PiezometricPorePressure" xml:space="preserve">
+    <value>Piezometrische waterspanning [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_Pop" xml:space="preserve">
+    <value>POP [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_PorePressure" xml:space="preserve">
+    <value>Waterspanning op maaiveld [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_ShearStress" xml:space="preserve">
+    <value>Schuifspanning [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_TopAngle" xml:space="preserve">
+    <value>Tophoek [°]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_TotalPorePressure" xml:space="preserve">
+    <value>Totale waterspanning [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_VerticalPorePressure" xml:space="preserve">
+    <value>Verticale waterspanning op maaiveld [kN/m²]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_Weight" xml:space="preserve">
+    <value>Gewicht [kN/m]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_Width" xml:space="preserve">
+    <value>Breedte [m]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_XCenter" xml:space="preserve">
+    <value>X centrum [m]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_ZCenterBottom" xml:space="preserve">
+    <value>Z centrum bodem [m+NAP]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_Name" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_Name_Slice_0" xml:space="preserve">
+    <value>Lamel {0}</value>
+  </data>
 </root>

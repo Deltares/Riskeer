@@ -43,8 +43,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             InitializeComponent();
 
-            calculationObserver = new Observer(UpdateChartData);
-            inputObserver = new Observer(UpdateChartData);
+            calculationObserver = new Observer(UpdateViewData);
+            inputObserver = new Observer(UpdateViewData);
         }
 
         public object Data
@@ -61,6 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 inputObserver.Observable = data?.InputParameters;
 
                 macroStabilityInwardsOutputChartControl.Data = data;
+                UpdateTableData();
             }
         }
 
@@ -84,9 +85,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void UpdateChartData()
+        private void UpdateViewData()
         {
             macroStabilityInwardsOutputChartControl.UpdateChartData();
+            UpdateTableData();
+        }
+
+        private void UpdateTableData()
+        {
+            slicesTable.SetData(data?.Output?.SlidingCurve.Slices);
         }
     }
 }

@@ -102,7 +102,7 @@
     <Compile Include="Geometry\Point3DCollectionExtensions.cs" />
     <Compile Include="Geometry\Point3DExtensions.cs" />
     <Compile Include="Geometry\Segment2D.cs" />
-    <Compile Include="Geometry\Segment2DCollectionExtensions.cs" />
+    <Compile Include="Geometry\Segment2DExtensions.cs" />
     <Compile Include="Geometry\Segment2DIntersectSegment2DResult.cs" />
     <Compile Include="IO\CriticalFileReadException.cs" />
     <Compile Include="IO\FileImporterBase.cs" />

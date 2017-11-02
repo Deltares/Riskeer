@@ -104,6 +104,7 @@
     <Compile Include="Views\MacroStabilityInwardsCalculationRowTest.cs" />
     <Compile Include="Factories\MacroStabilityInwardsChartDataPointsFactoryTest.cs" />
     <Compile Include="Factories\MacroStabilityInwardsMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="Views\MacroStabilityInwardsFormattedSliceRowTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsFormattedSoilLayerDataRowTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsOutputChartControlTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsOutputViewTest.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Views\MacroStabilityInwardsCalculationsViewTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsFailureMechanismViewTest.cs" />
+    <Compile Include="Views\MacroStabilityInwardsSlicesTableTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsSoilLayerDataTableTest.cs" />
   </ItemGroup>
   <ItemGroup>

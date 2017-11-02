@@ -41,7 +41,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             TestDelegate test = () => new MacroStabilityInwardsFormattedSoilLayerDataRow(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("layerData", paramName);
         }
 
         [Test]
