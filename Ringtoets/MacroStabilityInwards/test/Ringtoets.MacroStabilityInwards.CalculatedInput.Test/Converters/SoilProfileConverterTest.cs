@@ -100,13 +100,13 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         public void Convert_SoilProfileWithSoilLayerWithEmptyName_ReturnSoilProfile()
         {
             // Setup
-            MacroStabilityInwardsSoilLayer2D soilLayer1 = CreateRandomSoilLayer(22, Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
-            soilLayer1.Data.MaterialName = string.Empty;
+            MacroStabilityInwardsSoilLayer2D soilLayer = CreateRandomSoilLayer(22, Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
+            soilLayer.Data.MaterialName = string.Empty;
 
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(
                 new[]
                 {
-                    soilLayer1
+                    soilLayer
                 },
                 new IMacroStabilityInwardsPreconsolidationStress[0]);
 

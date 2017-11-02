@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Utils;
+using Ringtoets.Common.Data.Helpers;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -50,8 +51,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 throw new ArgumentNullException(nameof(layerData));
             }
 
-            MaterialName = SoilLayerVisualizationHelper.GetDisplayName(layerData.MaterialName);
-            Color = SoilLayerVisualizationHelper.GetDisplayColor(layerData.Color);
+            MaterialName = SoilLayerDataHelper.GetValidName(layerData.MaterialName);
+            Color = SoilLayerDataHelper.GetValidColor(layerData.Color);
             IsAquifer = layerData.IsAquifer;
             AbovePhreaticLevel = FormatVariationCoefficientDesignVariableWithShift(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layerData));
             BelowPhreaticLevel = FormatVariationCoefficientDesignVariableWithShift(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layerData));

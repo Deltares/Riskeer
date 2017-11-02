@@ -846,6 +846,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Onbekend.
+        /// </summary>
+        public static string SoilLayerDataHelper_GetValidName_Unknown {
+            get {
+                return ResourceManager.GetString("SoilLayerDataHelper_GetValidName_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0..
         /// </summary>
         public static string StandardDeviation_Should_be_greater_or_equal_zero {

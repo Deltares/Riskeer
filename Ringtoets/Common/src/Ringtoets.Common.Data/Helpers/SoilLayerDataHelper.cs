@@ -20,35 +20,35 @@
 // All rights reserved.
 
 using System.Drawing;
-using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Forms.Helpers
+namespace Ringtoets.Common.Data.Helpers
 {
     /// <summary>
-    /// Helper class for visualizing soil layer data.
+    /// Helper class for getting valid soil layer data.
     /// </summary>
-    public static class SoilLayerVisualizationHelper
+    public static class SoilLayerDataHelper
     {
         /// <summary>
-        /// Gets the display name of the soil layer.
+        /// Gets a valid name for the soil layer.
         /// </summary>
         /// <param name="name">The name to turn into a valid display name.</param>
         /// <returns><paramref name="name"/> when it's not <see cref="string.IsNullOrWhiteSpace"/>;
         /// a default value otherwise.</returns>
-        public static string GetDisplayName(string name)
+        public static string GetValidName(string name)
         {
             return string.IsNullOrWhiteSpace(name)
-                       ? Resources.SoilLayerVisualizationHelper_GetDisplayName_Unknown
+                       ? Resources.SoilLayerDataHelper_GetValidName_Unknown
                        : name;
         }
 
         /// <summary>
-        /// Gets the display color of the soil layer.
+        /// Gets a valid color for the soil layer.
         /// </summary>
         /// <param name="color">The color to turn into a valid display color.</param>
         /// <returns><paramref name="color"/> when it's not <see cref="Color.Empty"/>;
         /// a default value otherwise.</returns>
-        public static Color GetDisplayColor(Color color)
+        public static Color GetValidColor(Color color)
         {
             return color == Color.Empty
                        ? Color.White

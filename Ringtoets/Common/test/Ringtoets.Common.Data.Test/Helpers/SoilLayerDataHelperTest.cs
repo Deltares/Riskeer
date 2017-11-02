@@ -23,58 +23,58 @@ using System;
 using System.Drawing;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Data.Helpers;
 
-namespace Ringtoets.Common.Forms.Test.Helpers
+namespace Ringtoets.Common.Data.Test.Helpers
 {
     [TestFixture]
-    public class SoilLayerVisualizationHelperTest
+    public class SoilLayerDataHelperTest
     {
         [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void GetDisplayName_InvalidName_ReturnValidName(string invalidName)
+        public void GetValidName_InvalidName_ReturnValidName(string invalidName)
         {
             // Call
-            string validName = SoilLayerVisualizationHelper.GetDisplayName(invalidName);
+            string validName = SoilLayerDataHelper.GetValidName(invalidName);
 
             // Assert
             Assert.AreEqual("Onbekend", validName);
         }
 
         [Test]
-        public void GetDisplayName_ValidName_ReturnName()
+        public void GetValidName_ValidName_ReturnName()
         {
             // Setup
             const string name = "Test";
 
             // Call
-            string validName = SoilLayerVisualizationHelper.GetDisplayName(name);
+            string validName = SoilLayerDataHelper.GetValidName(name);
 
             // Assert
             Assert.AreEqual(name, validName);
         }
 
         [Test]
-        public void GetDisplayColor_ColorEmpty_ReturnColorWhite()
+        public void GetValidColor_ColorEmpty_ReturnColorWhite()
         {
             // Call
-            Color validColor = SoilLayerVisualizationHelper.GetDisplayColor(Color.Empty);
+            Color validColor = SoilLayerDataHelper.GetValidColor(Color.Empty);
 
             // Assert
             Assert.AreEqual(Color.White, validColor);
         }
 
         [Test]
-        public void GetDisplayColor_ValidColor_ReturnColor()
+        public void GetValidColor_ValidColor_ReturnColor()
         {
             // Setup
             var random = new Random(21);
             Color color = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
 
             // Call
-            Color validColor = SoilLayerVisualizationHelper.GetDisplayColor(color);
+            Color validColor = SoilLayerDataHelper.GetValidColor(color);
 
             // Assert
             Assert.AreEqual(color, validColor);

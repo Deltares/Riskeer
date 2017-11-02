@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Data.Helpers;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -83,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
                 return new SoilLayer(RingToPoints(l.OuterRing),
                                      new SoilLayer.ConstructionProperties
                                      {
-                                         MaterialName = SoilLayerVisualizationHelper.GetDisplayName(data.MaterialName),
+                                         MaterialName = SoilLayerDataHelper.GetValidName(data.MaterialName),
                                          UsePop = data.UsePop,
                                          IsAquifer = data.IsAquifer,
                                          ShearStrengthModel = ConvertShearStrengthModel(data.ShearStrengthModel),

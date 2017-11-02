@@ -27,6 +27,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.Helpers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -64,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return SoilLayerVisualizationHelper.GetDisplayName(data.Data.MaterialName);
+                return SoilLayerDataHelper.GetValidName(data.Data.MaterialName);
             }
         }
 
