@@ -52,8 +52,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         private const int waternetZonesDailyIndex = 15;
         private const int leftGridIndex = 16;
         private const int rightGridIndex = 17;
-        private const int slidingCurveIndex = 18;
-        private const int nrOfChartData = 19;
+        private const int slipPlaneIndex = 18;
+        private const int activeCircleRadiusIndex = 19;
+        private const int passiveCircleRadiusIndex = 20;
+        private const int nrOfChartData = 21;
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to the input of <paramref name="calculationScenario"/>.
@@ -92,8 +94,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
                                                                          (ChartPointData) actual.Collection.ElementAt(leftGridIndex));
             MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(calculationScenario.Output.SlipPlane.RightGrid,
                                                                          (ChartPointData) actual.Collection.ElementAt(rightGridIndex));
-            AssertSlidingCurveChartData(calculationScenario.Output.SlidingCurve,
-                                        (ChartLineData) actual.Collection.ElementAt(slidingCurveIndex));
+            AssertSlipPlaneChartData(calculationScenario.Output.SlidingCurve,
+                                     (ChartLineData) actual.Collection.ElementAt(slipPlaneIndex));
+
+            AssertCircleRadiusChartData(calculationScenario.Output.SlidingCurve.Slices.First().TopLeftPoint,
+                                        calculationScenario.Output.SlidingCurve.LeftCircle,
+                                        (ChartLineData) actual.Collection.ElementAt(activeCircleRadiusIndex));
+            AssertCircleRadiusChartData(calculationScenario.Output.SlidingCurve.Slices.Last().TopRightPoint,
+                                        calculationScenario.Output.SlidingCurve.RightCircle,
+                                        (ChartLineData) actual.Collection.ElementAt(passiveCircleRadiusIndex));
         }
 
         /// <summary>
@@ -109,15 +118,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.AreEqual(nrOfChartData, chartDataArray.Length);
             var leftGridData = (ChartPointData) chartDataArray[leftGridIndex];
             var rightGridData = (ChartPointData) chartDataArray[rightGridIndex];
-            var slidingCurveData = (ChartLineData) chartDataArray[slidingCurveIndex];
+            var slipPlaneData = (ChartLineData) chartDataArray[slipPlaneIndex];
+            var activeCircleRadiusData = (ChartLineData) chartDataArray[activeCircleRadiusIndex];
+            var passiveCircleRadiusData = (ChartLineData) chartDataArray[passiveCircleRadiusIndex];
 
             CollectionAssert.IsEmpty(leftGridData.Points);
             CollectionAssert.IsEmpty(rightGridData.Points);
-            CollectionAssert.IsEmpty(slidingCurveData.Points);
+            CollectionAssert.IsEmpty(slipPlaneData.Points);
+            CollectionAssert.IsEmpty(activeCircleRadiusData.Points);
+            CollectionAssert.IsEmpty(passiveCircleRadiusData.Points);
 
             Assert.AreEqual("Linker grid", leftGridData.Name);
             Assert.AreEqual("Rechter grid", rightGridData.Name);
-            Assert.AreEqual("Glijcirkel", slidingCurveData.Name);
+            Assert.AreEqual("Glijvlak", slipPlaneData.Name);
+            Assert.AreEqual("Radius actieve cirkel", activeCircleRadiusData.Name);
+            Assert.AreEqual("Radius passieve cirkel", passiveCircleRadiusData.Name);
         }
 
         /// <summary>
@@ -177,6 +192,27 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         }
 
         /// <summary>
+        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
+        /// </summary>
+        /// <param name="startingPoint">The point to use for the start of the line</param>
+        /// <param name="slidingCircle">The circle to use for the end of the line.</param>
+        /// <param name="actual">The actual <see cref="ChartLineData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// does not correspond to the specified start and end points.</exception>
+        private static void AssertCircleRadiusChartData(Point2D startingPoint,
+                                                        MacroStabilityInwardsSlidingCircle slidingCircle,
+                                                        ChartLineData actual)
+        {
+            var points = new[]
+            {
+                slidingCircle.Center,
+                startingPoint
+            };
+
+            CollectionAssert.AreEqual(points, actual.Points);
+        }
+
+        /// <summary>
         /// Asserts whether <paramref name="chartDataCollection"/> contains empty data and
         /// empty soil layer chart data.
         /// </summary>
@@ -202,7 +238,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         /// <param name="actual">The actual <see cref="ChartLineData"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="original"/>.</exception>
-        private static void AssertSlidingCurveChartData(MacroStabilityInwardsSlidingCurve original, ChartLineData actual)
+        private static void AssertSlipPlaneChartData(MacroStabilityInwardsSlidingCurve original, ChartLineData actual)
         {
             List<Point2D> expectedPoints;
             if (original.Slices.Any())

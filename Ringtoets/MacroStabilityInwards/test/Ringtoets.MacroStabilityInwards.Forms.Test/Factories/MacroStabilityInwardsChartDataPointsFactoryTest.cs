@@ -1212,17 +1212,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateSlidingCurvePoints_SlidingCurveNull_ReturnsEmptyPointsArray()
+        public void CreateSlipPlanePoints_SlidingCurveNull_ReturnsEmptyPointsArray()
         {
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateSlidingCurvePoints(null);
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateSlipPlanePoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(line);
         }
 
         [Test]
-        public void CreateSlidingCurvePoints_SlidingCurveEmptySlices_ReturnsEmptyPointsArray()
+        public void CreateSlipPlanePoints_SlidingCurveEmptySlices_ReturnsEmptyPointsArray()
         {
             // Setup
             var slidingCurve = new MacroStabilityInwardsSlidingCurve(
@@ -1233,14 +1233,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 0.0);
 
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateSlidingCurvePoints(slidingCurve);
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateSlipPlanePoints(slidingCurve);
 
             // Assert
             CollectionAssert.IsEmpty(line);
         }
 
         [Test]
-        public void CreateSlidingCurvePoints_WithSlidingCurve_ReturnsPointsArray()
+        public void CreateSlipPlanePoints_WithSlidingCurve_ReturnsPointsArray()
         {
             // Setup
             var points = new[]
@@ -1276,7 +1276,125 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 0.0);
 
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateSlidingCurvePoints(slidingCurve);
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateSlipPlanePoints(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(points, line);
+        }
+
+        [Test]
+        public void CreateActiveCircleRadiusPoints_SlidingCurveNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateActiveCircleRadiusPoints(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(line);
+        }
+
+        [Test]
+        public void CreateActiveCircleRadiusPoints_SlidingCurveEmptySlices_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(
+                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                Enumerable.Empty<MacroStabilityInwardsSlice>(),
+                0.0,
+                0.0);
+
+            // Call
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateActiveCircleRadiusPoints(slidingCurve);
+
+            // Assert
+            CollectionAssert.IsEmpty(line);
+        }
+
+        [Test]
+        public void CreateActiveCircleRadiusPoints_WithSlidingCurve_ReturnsPointsArray()
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point2D(10, 10),
+                new Point2D(0, 1)
+            };
+
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(
+                new MacroStabilityInwardsSlidingCircle(new Point2D(10, 10), 0.0, true, 0.0, 0.0, 0.0, 0.0),
+                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                new[]
+                {
+                    new MacroStabilityInwardsSlice(new Point2D(0, 1),
+                                                   new Point2D(1, 1),
+                                                   new Point2D(0, 0),
+                                                   new Point2D(1, 0),
+                                                   new MacroStabilityInwardsSlice.ConstructionProperties())
+                },
+                0.0,
+                0.0);
+
+            // Call
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateActiveCircleRadiusPoints(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(points, line);
+        }
+
+        [Test]
+        public void CreatePassiveCircleRadiusPoints_SlidingCurveNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreatePassiveCircleRadiusPoints(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(line);
+        }
+
+        [Test]
+        public void CreatePassiveCircleRadiusPoints_SlidingCurveEmptySlices_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(
+                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                Enumerable.Empty<MacroStabilityInwardsSlice>(),
+                0.0,
+                0.0);
+
+            // Call
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreatePassiveCircleRadiusPoints(slidingCurve);
+
+            // Assert
+            CollectionAssert.IsEmpty(line);
+        }
+
+        [Test]
+        public void CreatePassiveCircleRadiusPoints_WithSlidingCurve_ReturnsPointsArray()
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point2D(20, 10),
+                new Point2D(1, 1)
+            };
+
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(
+                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                new MacroStabilityInwardsSlidingCircle(new Point2D(20, 10), 0.0, false, 0.0, 0.0, 0.0, 0.0),
+                new[]
+                {
+                    new MacroStabilityInwardsSlice(new Point2D(0, 1),
+                                                   new Point2D(1, 1),
+                                                   new Point2D(0, 0),
+                                                   new Point2D(1, 0),
+                                                   new MacroStabilityInwardsSlice.ConstructionProperties())
+                },
+                0.0,
+                0.0);
+
+            // Call
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreatePassiveCircleRadiusPoints(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(points, line);

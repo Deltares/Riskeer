@@ -253,15 +253,39 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateSlidingCurveChartData_ReturnsChartLineData()
+        public void CreateSlipPlaneChartData_ReturnsChartLineData()
         {
             // Call
-            ChartLineData data = MacroStabilityInwardsChartDataFactory.CreateSlidingCurveChartData();
+            ChartLineData data = MacroStabilityInwardsChartDataFactory.CreateSlipPlaneChartData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Points);
-            Assert.AreEqual("Glijcirkel", data.Name);
-            AssertEqualStyle(data.Style, Color.SaddleBrown, 2, ChartLineDashStyle.Solid);
+            Assert.AreEqual("Glijvlak", data.Name);
+            AssertEqualStyle(data.Style, Color.SaddleBrown, 3, ChartLineDashStyle.Solid);
+        }
+
+        [Test]
+        public void CreateActiveCircleRadiusChartData_ReturnsChartLineData()
+        {
+            // Call
+            ChartLineData data = MacroStabilityInwardsChartDataFactory.CreateActiveCircleRadiusChartData();
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Points);
+            Assert.AreEqual("Radius actieve cirkel", data.Name);
+            AssertEqualStyle(data.Style, Color.Gray, 1, ChartLineDashStyle.Dash);
+        }
+
+        [Test]
+        public void CreatePassiveCircleRadiusChartData_ReturnsChartLineData()
+        {
+            // Call
+            ChartLineData data = MacroStabilityInwardsChartDataFactory.CreatePassiveCircleRadiusChartData();
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Points);
+            Assert.AreEqual("Radius passieve cirkel", data.Name);
+            AssertEqualStyle(data.Style, Color.Gray, 1, ChartLineDashStyle.Dash);
         }
 
         [Test]

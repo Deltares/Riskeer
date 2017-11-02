@@ -340,12 +340,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create points of the sliding curve in 2D space based on the provided <paramref name="slidingCurve"/>.
+        /// Create points of the slip plane in 2D space based on the provided <paramref name="slidingCurve"/>.
         /// </summary>
         /// <param name="slidingCurve">The sliding curve to create the points for.</param>
         /// <returns>An array of points in 2D space or an empty array when <paramref name="slidingCurve"/>
         /// is <c>null</c> or empty.</returns>
-        public static Point2D[] CreateSlidingCurvePoints(MacroStabilityInwardsSlidingCurve slidingCurve)
+        public static Point2D[] CreateSlipPlanePoints(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
             if (slidingCurve == null || !slidingCurve.Slices.Any())
             {
@@ -356,6 +356,46 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             points.Add(slidingCurve.Slices.Last().BottomRightPoint);
 
             return points.ToArray();
+        }
+
+        /// <summary>
+        /// Create points of the active circle radius in 2D space based on the provided <paramref name="slidingCurve"/>.
+        /// </summary>
+        /// <param name="slidingCurve">The sliding curve to create the points for.</param>
+        /// <returns>An array of points in 2D space or an empty array when <paramref name="slidingCurve"/>
+        /// is <c>null</c> or empty.</returns>
+        public static Point2D[] CreateActiveCircleRadiusPoints(MacroStabilityInwardsSlidingCurve slidingCurve)
+        {
+            if (slidingCurve == null || !slidingCurve.Slices.Any())
+            {
+                return new Point2D[0];
+            }
+
+            return new[]
+            {
+                slidingCurve.LeftCircle.Center,
+                slidingCurve.Slices.First().TopLeftPoint
+            };
+        }
+
+        /// <summary>
+        /// Create points of the passive circle radius in 2D space based on the provided <paramref name="slidingCurve"/>.
+        /// </summary>
+        /// <param name="slidingCurve">The sliding curve to create the points for.</param>
+        /// <returns>An array of points in 2D space or an empty array when <paramref name="slidingCurve"/>
+        /// is <c>null</c> or empty.</returns>
+        public static Point2D[] CreatePassiveCircleRadiusPoints(MacroStabilityInwardsSlidingCurve slidingCurve)
+        {
+            if (slidingCurve == null || !slidingCurve.Slices.Any())
+            {
+                return new Point2D[0];
+            }
+
+            return new[]
+            {
+                slidingCurve.RightCircle.Center,
+                slidingCurve.Slices.Last().TopRightPoint
+            };
         }
 
         #region SoilLayers and Surface Line Helpers

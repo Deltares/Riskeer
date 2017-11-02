@@ -82,6 +82,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Radius actieve cirkel.
+        /// </summary>
+        public static string ActiveCircleRadius_DisplayName {
+            get {
+                return ResourceManager.GetString("ActiveCircleRadius_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Corrigeer de stijghoogte in watervoerende zandlaag en tussenzandlaag voor opbarsten?.
         /// </summary>
         public static string AdjustPhreaticLine3And4ForUplift_Description {
@@ -993,6 +1002,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Radius passieve cirkel.
+        /// </summary>
+        public static string PassiveCircleRadius_DisplayName {
+            get {
+                return ResourceManager.GetString("PassiveCircleRadius_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De verticale afstand waarover de waterspanning in de deklaag verandert bij waterspanningsvariaties in de watervoerende zandlaag..
         /// </summary>
         public static string PenetrationLength_Description {
@@ -1209,11 +1227,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Glijcirkel.
+        ///   Looks up a localized string similar to Glijvlak.
         /// </summary>
-        public static string SlidingCurve_DisplayName {
+        public static string SlipPlane_DisplayName {
             get {
-                return ResourceManager.GetString("SlidingCurve_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SlipPlane_DisplayName", resourceCulture);
             }
         }
         

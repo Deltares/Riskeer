@@ -200,19 +200,41 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Creates <see cref="ChartLineData"/> with default styling for grids for the sliding curve.
+        /// Creates <see cref="ChartLineData"/> with default styling for the slip plane.
         /// </summary>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
-        public static ChartLineData CreateSlidingCurveChartData()
+        public static ChartLineData CreateSlipPlaneChartData()
         {
-            return new ChartLineData(Resources.SlidingCurve_DisplayName,
+            return new ChartLineData(Resources.SlipPlane_DisplayName,
                                      new ChartLineStyle
                                      {
                                          Color = Color.SaddleBrown,
                                          DashStyle = ChartLineDashStyle.Solid,
-                                         Width = 2,
+                                         Width = 3,
                                          IsEditable = true
                                      });
+        }
+
+        /// <summary>
+        /// Creates <see cref="ChartLineData"/> with default styling for the active circle
+        /// radius line.
+        /// </summary>
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreateActiveCircleRadiusChartData()
+        {
+            return new ChartLineData(Resources.ActiveCircleRadius_DisplayName,
+                                     GetCircleRadiusStyle());
+        }
+
+        /// <summary>
+        /// Creates <see cref="ChartLineData"/> with default styling for the passive circle
+        /// radius line.
+        /// </summary>
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreatePassiveCircleRadiusChartData()
+        {
+            return new ChartLineData(Resources.PassiveCircleRadius_DisplayName,
+                                     GetCircleRadiusStyle());
         }
 
         /// <summary>
@@ -262,6 +284,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             chartData.Name = soilProfile != null
                                  ? soilProfile.Name
                                  : RingtoetsCommonFormsResources.StochasticSoilProfileProperties_DisplayName;
+        }
+
+        private static ChartLineStyle GetCircleRadiusStyle()
+        {
+            return new ChartLineStyle
+            {
+                Color = Color.Gray,
+                DashStyle = ChartLineDashStyle.Dash,
+                Width = 1,
+                IsEditable = true
+            };
         }
 
         private static ChartPointStyle GetCharacteristicPointStyle(Color fillColor, Color strokeColor, ChartPointSymbol symbol)
