@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <grids>
+      <linkergrid>
+        <rechts>NaN</rechts>
+        <rechts>10</rechts>
+      </linkergrid>
+      </grids>
+  </berekening>
+</configuratie>

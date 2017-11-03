@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <waterspanningen>
+      <dagelijks>
+        <offsets>
+          <binnenkruin>NaN</binnenkruin>
+          <binnenkruin>2.22</binnenkruin>
+        </offsets>
+      </dagelijks>
+    </waterspanningen>
+  </berekening>
+</configuratie>

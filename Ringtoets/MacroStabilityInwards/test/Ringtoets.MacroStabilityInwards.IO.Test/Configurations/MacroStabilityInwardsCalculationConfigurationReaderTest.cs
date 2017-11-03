@@ -38,76 +38,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
                                                                                nameof(MacroStabilityInwardsCalculationConfigurationReader));
 
-        private static IEnumerable<TestCaseData> InvalidConfigurations
-        {
-            get
-            {
-                yield return new TestCaseData("invalidAssessmentLevelEmpty.xml",
-                                              "The 'toetspeil' element is invalid - The value '' is invalid according to its datatype 'Double'")
-                    .SetName("invalidAssessmentLevelEmpty");
-                yield return new TestCaseData("invalidAssessmentLevelNoDouble.xml",
-                                              "The 'toetspeil' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
-                    .SetName("invalidAssessmentLevelNoDouble");
-                yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocation");
-                yield return new TestCaseData("invalidCalculationMultipleAssessmentLevel.xml",
-                                              "Element 'toetspeil' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleAssessmentLevel");
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
-                yield return new TestCaseData("invalidCalculationMultipleSurfaceLine.xml",
-                                              "Element 'profielschematisatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleSurfaceLine");
-                yield return new TestCaseData("invalidCalculationMultipleStochasticSoilModel.xml",
-                                              "Element 'ondergrondmodel' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleStochasticSoilModel");
-                yield return new TestCaseData("invalidCalculationMultipleStochasticSoilProfile.xml",
-                                              "Element 'ondergrondschematisatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleStochasticSoilProfile");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
-                                              "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySurfaceLine.xml",
-                                              "The 'profielschematisatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidConfigurationCalculationContainingEmptySurfaceLine");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySoilModel.xml",
-                                              "The 'ondergrondmodel' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidConfigurationCalculationContainingEmptySoilModel");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySoilProfile.xml",
-                                              "The 'ondergrondschematisatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidConfigurationCalculationContainingEmptySoilProfile");
-                yield return new TestCaseData("invalidCalculationMultipleScenario.xml",
-                                              "Element 'scenario' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleScenario");
-                yield return new TestCaseData("invalidScenarioMultipleContribution.xml",
-                                              "Element 'bijdrage' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidScenarioMultipleContribution");
-                yield return new TestCaseData("invalidScenarioContributionEmpty.xml",
-                                              "The 'bijdrage' element is invalid - The value '' is invalid according to its datatype 'Double'")
-                    .SetName("invalidScenarioContributionEmpty");
-                yield return new TestCaseData("invalidScenarioContributionNoDouble.xml",
-                                              "The 'bijdrage' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
-                    .SetName("invalidScenarioContributionNoDouble");
-                yield return new TestCaseData("invalidScenarioMultipleRelevant.xml",
-                                              "Element 'gebruik' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidScenarioMultipleRelevant");
-                yield return new TestCaseData("invalidScenarioRelevantEmpty.xml",
-                                              "The 'gebruik' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
-                    .SetName("invalidScenarioRelevantEmpty");
-                yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
-                                              "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
-                    .SetName("invalidScenarioRelevantNoBoolean");
-            }
-        }
-
         [Test]
         [TestCaseSource(nameof(InvalidConfigurations))]
         public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(string fileName, string expectedParsingMessage)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, fileName);
+
+            // Precondition
+            Assert.IsTrue(File.Exists(filePath), $"File '{fileName}' does not exist");
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsCalculationConfigurationReader(filePath);
@@ -558,6 +497,196 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNaN(configuration.LeftGrid.ZTop);
             Assert.IsNaN(configuration.LeftGrid.ZBottom);
             Assert.IsNull(configuration.RightGrid);
+        }
+
+        private static IEnumerable<TestCaseData> InvalidConfigurations()
+        {
+            const string testName = "{0:100}";
+
+            foreach (TestCaseData testCaseData in InvalidDuplicateElements())
+            {
+                yield return testCaseData.SetName(testName);
+            }
+        }
+
+        private static IEnumerable<TestCaseData> InvalidTypeTestCases()
+        {
+            const string message = "The '{0}' element is invalid - The value '{1}' is invalid according to its datatype '{2}'";
+
+            const string dataTypeDouble = "Double";
+            foreach (NameAdapter adapter in GetNameAdaptersOfDoubleProperties())
+            {
+                yield return new TestCaseData($"invalid{adapter.PropertyName}Empty.xml",
+                                              string.Format(message, adapter.ElementName, "", dataTypeDouble));
+                yield return new TestCaseData($"invalid{adapter.PropertyName}No{dataTypeDouble}.xml",
+                                              string.Format(message, adapter.ElementName, "string", dataTypeDouble));
+            }
+
+            const string dataTypeBoolean = "Boolean";
+            foreach (NameAdapter adapter in GetNameAdaptersOfBoolProperties())
+            {
+                yield return new TestCaseData($"invalid{adapter.PropertyName}Empty.xml",
+                                              string.Format(message, adapter.ElementName, "", dataTypeBoolean));
+                yield return new TestCaseData($"invalid{adapter.PropertyName}No{dataTypeBoolean}.xml",
+                                              string.Format(message, adapter.ElementName, "string", dataTypeBoolean));
+            }
+
+            const string dataTypeInteger = "Integer";
+            foreach (NameAdapter adapter in GetNameAdaptersOfIntegerProperties())
+            {
+                yield return new TestCaseData($"invalid{adapter.PropertyName}Empty.xml",
+                                              string.Format(message, adapter.ElementName, "", dataTypeInteger));
+                yield return new TestCaseData($"invalid{adapter.PropertyName}No{dataTypeInteger}.xml",
+                                              string.Format(message, adapter.ElementName, "string", dataTypeInteger));
+            }
+
+            const string stringMessage = "The '{0}' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.";
+            foreach (NameAdapter adapter in GetNameAdaptersOfStringProperties())
+            {
+                yield return new TestCaseData($"invalid{adapter.PropertyName}Empty.xml",
+                                              string.Format(stringMessage, adapter.ElementName));
+            }
+
+            const string dataTypeEnumeration = "Enumeration";
+            const string enumMessage = "The '{0}' element is invalid - The value '{1}' is invalid according to its datatype 'String' - The Enumeration constraint failed.";
+            foreach (NameAdapter adapter in GetNameAdaptersOfEnumerationProperties())
+            {
+                yield return new TestCaseData($"invalid{adapter.PropertyName}Empty.xml",
+                                              string.Format(enumMessage, adapter.ElementName, ""));
+                yield return new TestCaseData($"invalid{adapter.PropertyName}No{dataTypeEnumeration}.xml",
+                                              string.Format(enumMessage, adapter.ElementName, "string"));
+            }
+        }
+
+        private static IEnumerable<NameAdapter> GetNameAdaptersOfIntegerProperties()
+        {
+            yield return new NameAdapter("TangentLineNumber", "aantal");
+            yield return new NameAdapter("LeftGridGridNumberOfHorizontalPoints", "aantalpuntenhorizontaal");
+            yield return new NameAdapter("LeftGridGridNumberOfVerticalPoints", "aantalpuntenverticaal");
+            yield return new NameAdapter("RightGridGridNumberOfHorizontalPoints", "aantalpuntenhorizontaal");
+            yield return new NameAdapter("RightGridGridNumberOfVerticalPoints", "aantalpuntenverticaal");
+        }
+
+        private static IEnumerable<NameAdapter> GetNameAdaptersOfStringProperties()
+        {
+            yield return new NameAdapter("HydraulicBoundaryLocation", "hrlocatie");
+            yield return new NameAdapter("SurfaceLine", "profielschematisatie");
+            yield return new NameAdapter("StochasticSoilModel", "ondergrondmodel");
+            yield return new NameAdapter("StochasticSoilProfile", "ondergrondschematisatie");
+        }
+
+        private static IEnumerable<NameAdapter> GetNameAdaptersOfEnumerationProperties()
+        {
+            yield return new NameAdapter("DikeSoilScenario", "dijktype");
+            yield return new NameAdapter("GridDeterminationType", "bepaling");
+            yield return new NameAdapter("TangentLineDeterminationType", "bepalingtangentlijnen");
+        }
+
+        private static IEnumerable<NameAdapter> GetNameAdaptersOfBoolProperties()
+        {
+            yield return new NameAdapter("IsRelevant", "gebruik");
+            yield return new NameAdapter("CreateZones", "bepaling");
+            yield return new NameAdapter("DrainageConstructionPresent", "aanwezig");
+            yield return new NameAdapter("AdjustPhreaticLine3And4ForUplift", "corrigeervooropbarsten");
+            yield return new NameAdapter("LocationInputDailyUseDefaultOffsets", "gebruikdefaults");
+            yield return new NameAdapter("LocationInputExtremeUseDefaultOffsets", "gebruikdefaults");
+            yield return new NameAdapter("MoveGrid", "verplaatsgrid");
+        }
+
+        private static IEnumerable<NameAdapter> GetNameAdaptersOfDoubleProperties()
+        {
+            yield return new NameAdapter("AssessmentLevel", "toetspeil");
+            yield return new NameAdapter("ScenarioContribution", "bijdrage");
+            yield return new NameAdapter("SlipPlaneMinimumDepth", "minimaleglijvlakdiepte");
+            yield return new NameAdapter("SlipPlaneMinimumLength", "minimaleglijvlaklengte");
+            yield return new NameAdapter("MaximumSliceWidth", "maximalelamelbreedte");
+            yield return new NameAdapter("WaterLevelRiverAverage", "ghw");
+            yield return new NameAdapter("XCoordinateDrainageConstruction", "x");
+            yield return new NameAdapter("ZCoordinateDrainageConstruction", "z");
+
+            yield return new NameAdapter("MinimumLevelPhreaticLineAtDikeTopRiver", "buitenkruin");
+            yield return new NameAdapter("MinimumLevelPhreaticLineAtDikeTopPolder", "binnenkruin");
+            yield return new NameAdapter("TangentLineZTop", "zboven");
+            yield return new NameAdapter("TangentLineZBottom", "zonder");
+
+            yield return new NameAdapter("PiezometricHeadPhreaticLine2Inwards", "binnenwaarts");
+            yield return new NameAdapter("PiezometricHeadPhreaticLine2Outwards", "buitenwaarts");
+            yield return new NameAdapter("LeakageLengthInwardsPhreaticLine3", "binnenwaarts");
+            yield return new NameAdapter("LeakageLengthOutwardsPhreaticLine3", "buitenwaarts");
+            yield return new NameAdapter("LeakageLengthInwardsPhreaticLine4", "binnenwaarts");
+            yield return new NameAdapter("LeakageLengthOutwardsPhreaticLine4", "buitenwaarts");
+
+            yield return new NameAdapter("LocationInputExtremePenetrationLength", "indringingslengte");
+            yield return new NameAdapter("LocationInputExtremeWaterLevelPolder", "polderpeil");
+            yield return new NameAdapter("LocationInputExtremePhreaticLineOffsetBelowDikeTopAtRiver", "buitenkruin");
+            yield return new NameAdapter("LocationInputExtremePhreaticLineOffsetBelowDikeTopAtPolder", "binnenkruin");
+            yield return new NameAdapter("LocationInputExtremePhreaticLineOffsetBelowShoulderBaseInside", "insteekbinnenberm");
+            yield return new NameAdapter("LocationInputExtremePhreaticLineOffsetBelowDikeToeAtPolder", "teendijkbinnenwaarts");
+
+            yield return new NameAdapter("LocationInputDailyWaterLevelPolder", "polderpeil");
+            yield return new NameAdapter("LocationInputDailyPhreaticLineOffsetBelowDikeTopAtRiver", "buitenkruin");
+            yield return new NameAdapter("LocationInputDailyPhreaticLineOffsetBelowDikeTopAtPolder", "binnenkruin");
+            yield return new NameAdapter("LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside", "insteekbinnenberm");
+            yield return new NameAdapter("LocationInputDailyPhreaticLineOffsetBelowDikeToeAtPolder", "teendijkbinnenwaarts");
+
+            yield return new NameAdapter("LeftGridXLeft", "links");
+            yield return new NameAdapter("LeftGridXRight", "rechts");
+            yield return new NameAdapter("LeftGridZTop", "boven");
+            yield return new NameAdapter("LeftGridZBottom", "onder");
+
+            yield return new NameAdapter("RightGridXLeft", "links");
+            yield return new NameAdapter("RightGridXRight", "rechts");
+            yield return new NameAdapter("RightGridZTop", "boven");
+            yield return new NameAdapter("RightGridZBottom", "onder");
+        }
+
+        private static IEnumerable<TestCaseData> InvalidDuplicateElements()
+        {
+            const string message = "Element '{0}' cannot appear more than once if content model type is \"all\".";
+
+            foreach (NameAdapter adapter in GetNameAdaptersOfAllProperties())
+            {
+                yield return new TestCaseData($"invalidCalculationMultiple{adapter.PropertyName}.xml",
+                                              string.Format(message, adapter.ElementName));
+            }
+
+            yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml",
+                                          string.Format(message, "hrlocatie"));
+        }
+
+        private static IEnumerable<NameAdapter> GetNameAdaptersOfAllProperties()
+        {
+            return GetNameAdaptersOfDoubleProperties().Concat(GetNameAdaptersOfBoolProperties())
+                                                      .Concat(GetNameAdaptersOfIntegerProperties())
+                                                      .Concat(GetNameAdaptersOfEnumerationProperties())
+                                                      .Concat(GetNameAdaptersOfStringProperties());
+        }
+
+        /// <summary>
+        /// Adapter class between the name of the property in the data model and the name of the corresponding xml element.
+        /// </summary>
+        private class NameAdapter
+        {
+            /// <summary>
+            /// Creates a new instance of <see cref="NameAdapter"/>.
+            /// </summary>
+            /// <param name="propertyName">The name of the property in the data model.</param>
+            /// <param name="elementName">The name of the identifier of the xml element.</param>
+            public NameAdapter(string propertyName, string elementName)
+            {
+                PropertyName = propertyName;
+                ElementName = elementName;
+            }
+
+            /// <summary>
+            /// Gets the name of the property in the data model.
+            /// </summary>
+            public string PropertyName { get; }
+
+            /// <summary>
+            /// Gets the name of the identifier of the xml element.
+            /// </summary>
+            public string ElementName { get; }
         }
     }
 }

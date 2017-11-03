@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <waterspanningen>
+      <initielehoogte>
+        <pl1>
+          <binnenkruin>NaN</binnenkruin>
+          <binnenkruin>10.8</binnenkruin>
+        </pl1>
+      </initielehoogte>
+    </waterspanningen>
+  </berekening>
+</configuratie>

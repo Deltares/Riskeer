@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <waterspanningen>
+      <leklengtes>
+        <pl4>
+          <buitenwaarts>10.4</buitenwaarts>
+          <buitenwaarts>10.5</buitenwaarts>
+        </pl4>
+      </leklengtes>
+    </waterspanningen>
+  </berekening>
+</configuratie>

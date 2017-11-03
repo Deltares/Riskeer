@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <waterspanningen>
+      <drainage>
+        <z>NaN</z>
+        <z>10.7</z>
+      </drainage>
+    </waterspanningen>
+  </berekening>
+</configuratie>
