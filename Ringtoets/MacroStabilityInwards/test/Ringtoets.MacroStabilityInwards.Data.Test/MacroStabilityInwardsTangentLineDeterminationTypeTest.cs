@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsTangentLineDeterminationTypeTest : EnumTestFixture<MacroStabilityInwardsTangentLineDeterminationType>
+    public class MacroStabilityInwardsTangentLineDeterminationTypeTest : EnumWithDisplayNameTestFixture<MacroStabilityInwardsTangentLineDeterminationType>
     {
         protected override IDictionary<MacroStabilityInwardsTangentLineDeterminationType, string> ExpectedDisplayNameForEnumValues
         {

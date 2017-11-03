@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 namespace Ringtoets.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
-    public class RingtoetsWellKnownTileSourceTest : EnumTestFixture<RingtoetsWellKnownTileSource>
+    public class RingtoetsWellKnownTileSourceTest : EnumWithDisplayNameTestFixture<RingtoetsWellKnownTileSource>
     {
         protected override IDictionary<RingtoetsWellKnownTileSource, string> ExpectedDisplayNameForEnumValues
         {

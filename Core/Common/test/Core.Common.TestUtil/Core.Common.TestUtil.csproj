@@ -95,7 +95,7 @@
     <Compile Include="DirectoryDisposeHelper.cs" />
     <Compile Include="DoubleWithToleranceComparer.cs" />
     <Compile Include="EnumValuesTestFixture.cs" />
-    <Compile Include="EnumTestFixture.cs" />
+    <Compile Include="EnumWithDisplayNameTestFixture.cs" />
     <Compile Include="FileDisposeHelper.cs" />
     <Compile Include="DirectoryPermissionsRevoker.cs" />
     <Compile Include="GuiTestHelper.cs" />

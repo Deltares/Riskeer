@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.Revetment.Data.Test
 {
     [TestFixture]
-    public class WaveConditionsInputStepSizeTest : EnumTestFixture<WaveConditionsInputStepSize>
+    public class WaveConditionsInputStepSizeTest : EnumWithDisplayNameTestFixture<WaveConditionsInputStepSize>
     {
         protected override IDictionary<WaveConditionsInputStepSize, string> ExpectedDisplayNameForEnumValues
         {

@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Data.Test.FailureMechanism
 {
-    public class AssessmentLayerOneStateTest : EnumTestFixture<AssessmentLayerOneState>
+    public class AssessmentLayerOneStateTest : EnumWithDisplayNameTestFixture<AssessmentLayerOneState>
     {
         protected override IDictionary<AssessmentLayerOneState, string> ExpectedDisplayNameForEnumValues
         {

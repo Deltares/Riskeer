@@ -27,7 +27,7 @@ using NUnit.Framework;
 namespace Core.Common.TestUtil.Test
 {
     [TestFixture]
-    public class EnumTestFixtureTest
+    public class EnumWithDisplayNameTestFixtureTest
     {
         [Test]
         public void Constructor_ExpectedResult()
@@ -40,7 +40,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [TestFixture]
-        private class DisplayNameEnumTest : EnumTestFixture<EnumDisplayName>
+        private class DisplayNameEnumTest : EnumWithDisplayNameTestFixture<EnumDisplayName>
         {
             protected override IDictionary<EnumDisplayName, string> ExpectedDisplayNameForEnumValues => new Dictionary<EnumDisplayName, string>
             {

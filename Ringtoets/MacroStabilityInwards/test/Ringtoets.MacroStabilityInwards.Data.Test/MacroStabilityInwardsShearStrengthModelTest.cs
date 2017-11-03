@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsShearStrengthModelTest : EnumTestFixture<MacroStabilityInwardsShearStrengthModel>
+    public class MacroStabilityInwardsShearStrengthModelTest : EnumWithDisplayNameTestFixture<MacroStabilityInwardsShearStrengthModel>
     {
         protected override IDictionary<MacroStabilityInwardsShearStrengthModel, string> ExpectedDisplayNameForEnumValues
         {

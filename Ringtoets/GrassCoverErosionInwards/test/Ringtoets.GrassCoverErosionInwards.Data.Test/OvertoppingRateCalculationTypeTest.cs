@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class OvertoppingRateCalculationTypeTest : EnumTestFixture<OvertoppingRateCalculationType>
+    public class OvertoppingRateCalculationTypeTest : EnumWithDisplayNameTestFixture<OvertoppingRateCalculationType>
     {
         protected override IDictionary<OvertoppingRateCalculationType, string> ExpectedDisplayNameForEnumValues
         {

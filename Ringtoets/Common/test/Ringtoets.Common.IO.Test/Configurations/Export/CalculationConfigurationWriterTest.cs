@@ -76,7 +76,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 null,
                 "some name",
-                null);
+                new StochastConfiguration());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -95,7 +95,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter,
                 null,
-                null);
+                new StochastConfiguration());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -149,7 +149,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 null,
                 "some name",
-                null);
+                new StochastConfiguration());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -168,7 +168,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteDistributionWhenAvailable(
                 xmlWriter,
                 null,
-                null);
+                new StochastConfiguration());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -222,7 +222,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 null,
                 "some name",
-                (string) null);
+                "some value");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -241,7 +241,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,
                 null,
-                (string) null);
+                "some value");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -295,7 +295,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 null,
                 "some name",
-                (double?) null);
+                0.1);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -314,7 +314,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,
                 null,
-                (double?) null);
+                0.2);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -368,7 +368,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 null,
                 "some name",
-                (bool?) null);
+                false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -387,7 +387,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
                 xmlWriter,
                 null,
-                (bool?) null);
+                false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -440,7 +440,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             // Call
             TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteWaveReductionWhenAvailable(
                 null,
-                null);
+                new WaveReductionConfiguration());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
