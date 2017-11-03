@@ -56,23 +56,27 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                 kernelSlipPlane.SlipPlaneLeftGrid = CreateGrid(slipPlane.LeftGrid);
                 kernelSlipPlane.SlipPlaneRightGrid = CreateGrid(slipPlane.RightGrid);
             }
-            if (!slipPlane.TangentLinesAutomaticAtBoundaries)
-            {
-                kernelSlipPlane.SlipPlaneTangentLine = CreateTangentline(slipPlane);
-            }
+
+            kernelSlipPlane.SlipPlaneTangentLine = CreateTangentline(slipPlane);
 
             return kernelSlipPlane;
         }
 
         private static SlipCircleTangentLine CreateTangentline(UpliftVanSlipPlane slipPlane)
         {
-            return new SlipCircleTangentLine
+            var tangentLine = new SlipCircleTangentLine
             {
-                AutomaticAtBoundaries = slipPlane.TangentLinesAutomaticAtBoundaries,
-                TangentLineZTop = slipPlane.TangentZTop,
-                TangentLineZBottom = slipPlane.TangentZBottom,
-                TangentLineNumber = slipPlane.TangentLineNumber
+                AutomaticAtBoundaries = slipPlane.TangentLinesAutomaticAtBoundaries
             };
+
+            if (!slipPlane.TangentLinesAutomaticAtBoundaries)
+            {
+                tangentLine.TangentLineZTop = slipPlane.TangentZTop;
+                tangentLine.TangentLineZBottom = slipPlane.TangentZBottom;
+                tangentLine.TangentLineNumber = slipPlane.TangentLineNumber;
+            }
+
+            return tangentLine;
         }
 
         private static SlipCircleGrid CreateGrid(UpliftVanGrid grid)
