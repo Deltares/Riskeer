@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
@@ -93,10 +94,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_WithCoordinates_ExpectedValues()
         {
             // Setup
-            var topLeftPoint = new Point2D(0, 0);
-            var topRightPoint = new Point2D(1, 1);
-            var bottomLeftPoint = new Point2D(2, 2);
-            var bottomRightPoint = new Point2D(3, 3);
+            var topLeftPoint = new Point2D(0, 5);
+            var topRightPoint = new Point2D(5, 4);
+            var bottomLeftPoint = new Point2D(0, 0);
+            var bottomRightPoint = new Point2D(5, 1);
 
             // Call
             var slice = new MacroStabilityInwardsSlice(topLeftPoint, topRightPoint, bottomLeftPoint, bottomRightPoint,
@@ -109,6 +110,24 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(topRightPoint, slice.TopRightPoint);
             Assert.AreEqual(bottomLeftPoint, slice.BottomLeftPoint);
             Assert.AreEqual(bottomRightPoint, slice.BottomRightPoint);
+
+            Assert.AreEqual(2, slice.XCenter.NumberOfDecimalPlaces);
+            Assert.AreEqual(2.5, slice.XCenter, slice.XCenter.GetAccuracy());
+
+            Assert.AreEqual(2, slice.ZCenterBottom.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.5, slice.ZCenterBottom, slice.ZCenterBottom.GetAccuracy());
+
+            Assert.AreEqual(2, slice.Width.NumberOfDecimalPlaces);
+            Assert.AreEqual(5.0, slice.Width, slice.Width.GetAccuracy());
+
+            Assert.AreEqual(2, slice.ArcLength.NumberOfDecimalPlaces);
+            Assert.AreEqual(5.1, slice.ArcLength, slice.ArcLength.GetAccuracy());
+
+            Assert.AreEqual(2, slice.BottomAngle.NumberOfDecimalPlaces);
+            Assert.AreEqual(11.31, slice.BottomAngle, slice.BottomAngle.GetAccuracy());
+
+            Assert.AreEqual(2, slice.TopAngle.NumberOfDecimalPlaces);
+            Assert.AreEqual(-11.31, slice.TopAngle, slice.TopAngle.GetAccuracy());
         }
 
         [Test]
@@ -227,36 +246,95 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                                                        properties);
 
             // Assert
-            Assert.AreEqual(cohesion, slice.Cohesion);
-            Assert.AreEqual(frictionAngle, slice.FrictionAngle);
-            Assert.AreEqual(criticalPressure, slice.CriticalPressure);
-            Assert.AreEqual(overConsolidationRatio, slice.OverConsolidationRatio);
-            Assert.AreEqual(pop, slice.Pop);
-            Assert.AreEqual(degreeOfConsolidationPorePressureSoil, slice.DegreeOfConsolidationPorePressureSoil);
-            Assert.AreEqual(degreeOfConsolidationPorePressureLoad, slice.DegreeOfConsolidationPorePressureLoad);
-            Assert.AreEqual(dilatancy, slice.Dilatancy);
-            Assert.AreEqual(externalLoad, slice.ExternalLoad);
-            Assert.AreEqual(hydrostaticPorePressure, slice.HydrostaticPorePressure);
-            Assert.AreEqual(leftForce, slice.LeftForce);
-            Assert.AreEqual(leftForceAngle, slice.LeftForceAngle);
-            Assert.AreEqual(leftForceY, slice.LeftForceY);
-            Assert.AreEqual(rightForce, slice.RightForce);
-            Assert.AreEqual(rightForceAngle, slice.RightForceAngle);
-            Assert.AreEqual(rightForceY, slice.RightForceY);
-            Assert.AreEqual(loadStress, slice.LoadStress);
-            Assert.AreEqual(normalStress, slice.NormalStress);
-            Assert.AreEqual(porePressure, slice.PorePressure);
-            Assert.AreEqual(horizontalPorePressure, slice.HorizontalPorePressure);
-            Assert.AreEqual(verticalPorePressure, slice.VerticalPorePressure);
-            Assert.AreEqual(piezometricPorePressure, slice.PiezometricPorePressure);
-            Assert.AreEqual(effectiveStress, slice.EffectiveStress);
-            Assert.AreEqual(effectiveStressDaily, slice.EffectiveStressDaily);
-            Assert.AreEqual(excessPorePressure, slice.ExcessPorePressure);
-            Assert.AreEqual(shearStress, slice.ShearStress);
-            Assert.AreEqual(soilStress, slice.SoilStress);
-            Assert.AreEqual(totalPorePressure, slice.TotalPorePressure);
-            Assert.AreEqual(totalStress, slice.TotalStress);
-            Assert.AreEqual(weight, slice.Weight);
+            Assert.AreEqual(3, slice.Cohesion.NumberOfDecimalPlaces);
+            Assert.AreEqual(cohesion, slice.Cohesion, slice.Cohesion.GetAccuracy());
+
+            Assert.AreEqual(3, slice.FrictionAngle.NumberOfDecimalPlaces);
+            Assert.AreEqual(frictionAngle, slice.FrictionAngle, slice.FrictionAngle.GetAccuracy());
+
+            Assert.AreEqual(3, slice.CriticalPressure.NumberOfDecimalPlaces);
+            Assert.AreEqual(criticalPressure, slice.CriticalPressure, slice.CriticalPressure.GetAccuracy());
+
+            Assert.AreEqual(3, slice.OverConsolidationRatio.NumberOfDecimalPlaces);
+            Assert.AreEqual(overConsolidationRatio, slice.OverConsolidationRatio, slice.OverConsolidationRatio.GetAccuracy());
+
+            Assert.AreEqual(3, slice.Pop.NumberOfDecimalPlaces);
+            Assert.AreEqual(pop, slice.Pop, slice.Pop.GetAccuracy());
+
+            Assert.AreEqual(3, slice.DegreeOfConsolidationPorePressureSoil.NumberOfDecimalPlaces);
+            Assert.AreEqual(degreeOfConsolidationPorePressureSoil, slice.DegreeOfConsolidationPorePressureSoil, slice.DegreeOfConsolidationPorePressureSoil.GetAccuracy());
+
+            Assert.AreEqual(3, slice.DegreeOfConsolidationPorePressureLoad.NumberOfDecimalPlaces);
+            Assert.AreEqual(degreeOfConsolidationPorePressureLoad, slice.DegreeOfConsolidationPorePressureLoad, slice.DegreeOfConsolidationPorePressureLoad.GetAccuracy());
+
+            Assert.AreEqual(3, slice.Dilatancy.NumberOfDecimalPlaces);
+            Assert.AreEqual(dilatancy, slice.Dilatancy, slice.Dilatancy.GetAccuracy());
+
+            Assert.AreEqual(3, slice.ExternalLoad.NumberOfDecimalPlaces);
+            Assert.AreEqual(externalLoad, slice.ExternalLoad, slice.ExternalLoad.GetAccuracy());
+
+            Assert.AreEqual(3, slice.HydrostaticPorePressure.NumberOfDecimalPlaces);
+            Assert.AreEqual(hydrostaticPorePressure, slice.HydrostaticPorePressure, slice.HydrostaticPorePressure.GetAccuracy());
+
+            Assert.AreEqual(3, slice.LeftForce.NumberOfDecimalPlaces);
+            Assert.AreEqual(leftForce, slice.LeftForce, slice.LeftForce.GetAccuracy());
+
+            Assert.AreEqual(3, slice.LeftForceAngle.NumberOfDecimalPlaces);
+            Assert.AreEqual(leftForceAngle, slice.LeftForceAngle, slice.LeftForceAngle.GetAccuracy());
+
+            Assert.AreEqual(3, slice.LeftForceY.NumberOfDecimalPlaces);
+            Assert.AreEqual(leftForceY, slice.LeftForceY, slice.LeftForceY.GetAccuracy());
+
+            Assert.AreEqual(3, slice.RightForce.NumberOfDecimalPlaces);
+            Assert.AreEqual(rightForce, slice.RightForce, slice.RightForce.GetAccuracy());
+
+            Assert.AreEqual(3, slice.RightForceAngle.NumberOfDecimalPlaces);
+            Assert.AreEqual(rightForceAngle, slice.RightForceAngle, slice.RightForceAngle.GetAccuracy());
+
+            Assert.AreEqual(3, slice.RightForceY.NumberOfDecimalPlaces);
+            Assert.AreEqual(rightForceY, slice.RightForceY, slice.RightForceY.GetAccuracy());
+
+            Assert.AreEqual(3, slice.LoadStress.NumberOfDecimalPlaces);
+            Assert.AreEqual(loadStress, slice.LoadStress, slice.LoadStress.GetAccuracy());
+
+            Assert.AreEqual(3, slice.NormalStress.NumberOfDecimalPlaces);
+            Assert.AreEqual(normalStress, slice.NormalStress, slice.NormalStress.GetAccuracy());
+
+            Assert.AreEqual(3, slice.PorePressure.NumberOfDecimalPlaces);
+            Assert.AreEqual(porePressure, slice.PorePressure, slice.PorePressure.GetAccuracy());
+
+            Assert.AreEqual(3, slice.HorizontalPorePressure.NumberOfDecimalPlaces);
+            Assert.AreEqual(horizontalPorePressure, slice.HorizontalPorePressure, slice.HorizontalPorePressure.GetAccuracy());
+
+            Assert.AreEqual(3, slice.VerticalPorePressure.NumberOfDecimalPlaces);
+            Assert.AreEqual(verticalPorePressure, slice.VerticalPorePressure, slice.VerticalPorePressure.GetAccuracy());
+
+            Assert.AreEqual(3, slice.PiezometricPorePressure.NumberOfDecimalPlaces);
+            Assert.AreEqual(piezometricPorePressure, slice.PiezometricPorePressure, slice.PiezometricPorePressure.GetAccuracy());
+
+            Assert.AreEqual(3, slice.EffectiveStress.NumberOfDecimalPlaces);
+            Assert.AreEqual(effectiveStress, slice.EffectiveStress, slice.EffectiveStress.GetAccuracy());
+
+            Assert.AreEqual(3, slice.EffectiveStressDaily.NumberOfDecimalPlaces);
+            Assert.AreEqual(effectiveStressDaily, slice.EffectiveStressDaily, slice.EffectiveStressDaily.GetAccuracy());
+
+            Assert.AreEqual(3, slice.ExcessPorePressure.NumberOfDecimalPlaces);
+            Assert.AreEqual(excessPorePressure, slice.ExcessPorePressure, slice.ExcessPorePressure.GetAccuracy());
+
+            Assert.AreEqual(3, slice.ShearStress.NumberOfDecimalPlaces);
+            Assert.AreEqual(shearStress, slice.ShearStress, slice.ShearStress.GetAccuracy());
+
+            Assert.AreEqual(3, slice.SoilStress.NumberOfDecimalPlaces);
+            Assert.AreEqual(soilStress, slice.SoilStress, slice.SoilStress.GetAccuracy());
+
+            Assert.AreEqual(3, slice.TotalPorePressure.NumberOfDecimalPlaces);
+            Assert.AreEqual(totalPorePressure, slice.TotalPorePressure, slice.TotalPorePressure.GetAccuracy());
+
+            Assert.AreEqual(3, slice.TotalStress.NumberOfDecimalPlaces);
+            Assert.AreEqual(totalStress, slice.TotalStress, slice.TotalStress.GetAccuracy());
+
+            Assert.AreEqual(3, slice.Weight.NumberOfDecimalPlaces);
+            Assert.AreEqual(weight, slice.Weight, slice.Weight.GetAccuracy());
         }
 
         [Test]

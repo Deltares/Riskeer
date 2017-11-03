@@ -96,7 +96,7 @@
     <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextSurfaceLineSelectionEditor.cs" />
     <Compile Include="Factories\MacroStabilityInwardsChartDataPointsFactory.cs" />
     <Compile Include="Factories\MacroStabilityInwardsMapDataFeaturesFactory.cs" />
-    <Compile Include="Views\MacroStabilityInwardsFormattedSliceRow.cs" />
+    <Compile Include="Views\MacroStabilityInwardsSliceRow.cs" />
     <Compile Include="Views\MacroStabilityInwardsFormattedSoilLayerDataRow.cs" />
     <Compile Include="Views\MacroStabilityInwardsOutputChartControl.cs">
       <SubType>UserControl</SubType>

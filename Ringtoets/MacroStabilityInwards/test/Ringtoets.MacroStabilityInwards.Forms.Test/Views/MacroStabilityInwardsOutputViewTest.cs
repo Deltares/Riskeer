@@ -21,12 +21,10 @@
 
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -318,11 +316,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithOutputSet_WhenOutputUpdated_ThenTableUpdated()
         {
             // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
             using (var view = new MacroStabilityInwardsOutputView())
             {
                 MacroStabilityInwardsSlicesTable slicesTable = GetSlicesTable(view);
@@ -349,25 +342,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(1, slicesTable.Rows.Count);
 
                 // When
-                calculation.InputParameters.Attach(observer);
                 calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
-                calculation.InputParameters.NotifyObservers();
+                calculation.NotifyObservers();
 
                 // Then
                 Assert.AreEqual(3, slicesTable.Rows.Count);
-                mocks.VerifyAll();
             }
         }
 
         [Test]
         public void GivenViewWithOutputSet_WhenOutputCleared_ThenTableCleared()
         {
-            // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
+            // Give
             using (var view = new MacroStabilityInwardsOutputView())
             {
                 MacroStabilityInwardsSlicesTable slicesTable = GetSlicesTable(view);
@@ -383,13 +369,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(3, slicesTable.Rows.Count);
 
                 // When
-                calculation.InputParameters.Attach(observer);
                 calculation.ClearOutput();
-                calculation.InputParameters.NotifyObservers();
+                calculation.NotifyObservers();
 
                 // Then
                 Assert.AreEqual(0, slicesTable.Rows.Count);
-                mocks.VerifyAll();
             }
         }
 

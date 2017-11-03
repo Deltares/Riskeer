@@ -20,39 +20,34 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Common.Base.Geometry
 {
     /// <summary>
-    /// Extension methods for <see cref="Segment2D"/> objects.
+    /// Extension methods for <see cref="Segment2D"/> collections.
     /// </summary>
-    public static class Segment2DExtensions
+    public static class Segment2DCollectionExtensions
     {
         /// <summary>
-        /// Interpolate the segment on <paramref name="x"/>.
+        /// Interpolates the segments on <paramref name="x"/>.
         /// </summary>
-        /// <param name="segment">The segment to interpolate on.</param>
+        /// <param name="segments">The segments to interpolate on.</param>
         /// <param name="x">The x value to use for interpolation.</param>
-        /// <returns>The interpolated y value on the segment or <see cref="double.NaN"/>
-        /// when no interpolation was found.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="segment"/> is <c>null</c>.</exception>
-        public static double Interpolate(this Segment2D segment, double x)
+        /// <returns>The interpolated y value of the segment that is closest to <paramref name="x"/> 
+        /// or <see cref="double.NaN"/> when no interpolation was found.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="segments"/> is <c>null</c>.</exception>
+        public static double Interpolate(this IEnumerable<Segment2D> segments, double x)
         {
-            if (segment == null)
+            if (segments == null)
             {
-                throw new ArgumentNullException(nameof(segment));
+                throw new ArgumentNullException(nameof(segments));
             }
 
-            double differenceInX = segment.SecondPoint.X - segment.FirstPoint.X;
-            if (Math.Abs(differenceInX) < 1e-6)
-            {
-                return double.NaN;
-            }
+            Segment2D segment = segments.LastOrDefault(s => s.FirstPoint.X <= x) ?? segments.First();
 
-            double m = (segment.SecondPoint.Y - segment.FirstPoint.Y) / differenceInX;
-            double b = segment.FirstPoint.Y - (m * segment.FirstPoint.X);
-
-            return m * x + b;
+            return segment.Interpolate(x);
         }
     }
 }

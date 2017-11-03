@@ -48,81 +48,81 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <param name="slices">The collection of slices to show.</param>
         public void SetData(IEnumerable<MacroStabilityInwardsSlice> slices)
         {
-            SetDataSource(slices?.Select((data, index) => new MacroStabilityInwardsFormattedSliceRow(data, index + 1)).ToArray());
+            SetDataSource(slices?.Select((slice, index) => new MacroStabilityInwardsSliceRow(slice, index + 1)).ToArray());
         }
 
         private void AddColumns()
         {
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.Name),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.Name),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_Name,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.XCenter),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.XCenter),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_XCenter,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.ZCenterBottom),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.ZCenterBottom),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_ZCenterBottom,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.Width),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.Width),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_Width,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.ArcLength),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.ArcLength),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_ArcLength,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.TopAngle),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.TopAngle),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_TopAngle,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.BottomAngle),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.BottomAngle),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_BottomAngle,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.FrictionAngle),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.FrictionAngle),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_FrictionAngle,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.Cohesion),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.Cohesion),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_Cohesion,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.EffectiveStress),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.EffectiveStress),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStress,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.TotalPorePressure),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.TotalPorePressure),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_TotalPorePressure,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.Weight),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.Weight),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_Weight,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.PiezometricPorePressure),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.PiezometricPorePressure),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_PiezometricPorePressure,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.DegreeOfConsolidationPorePressureSoil),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.DegreeOfConsolidationPorePressureSoil),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureSoil,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.DegreeOfConsolidationPorePressureLoad),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.DegreeOfConsolidationPorePressureLoad),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureLoad,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.PorePressure),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.PorePressure),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_PorePressure,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.VerticalPorePressure),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.VerticalPorePressure),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_VerticalPorePressure,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.HorizontalPorePressure),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.HorizontalPorePressure),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_HorizontalPorePressure,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.ExternalLoad),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.ExternalLoad),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_ExternalLoad,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.OverConsolidationRatio),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.OverConsolidationRatio),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_OverConsolidationRatio,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.Pop),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.Pop),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_Pop,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.NormalStress),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.NormalStress),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_NormalStress,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.ShearStress),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.ShearStress),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_ShearStress,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSliceRow.LoadStress),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.LoadStress),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_LoadStress,
                              true);
         }

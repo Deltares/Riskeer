@@ -201,10 +201,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     MacroStabilityInwardsSliceTestFactory.CreateSlice(),
                     MacroStabilityInwardsSliceTestFactory.CreateSlice()
                 };
-                table.SetData(new[]
-                {
-                    MacroStabilityInwardsSliceTestFactory.CreateSlice()
-                });
 
                 // Call
                 table.SetData(slices);
@@ -240,12 +236,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                     arcLength.GetAccuracy());
 
                     var bottomAngle = (RoundedDouble) rowCells[bottomAngleColumnIndex].Value;
-                    Assert.AreEqual(GetAngleBetween(slice.BottomRightPoint, slice.BottomLeftPoint),
+                    Assert.AreEqual(Math2D.GetAngleBetween(slice.BottomLeftPoint, slice.BottomRightPoint),
                                     bottomAngle,
                                     bottomAngle.GetAccuracy());
 
                     var topAngle = (RoundedDouble) rowCells[topAngleColumnIndex].Value;
-                    Assert.AreEqual(GetAngleBetween(slice.TopRightPoint, slice.TopLeftPoint),
+                    Assert.AreEqual(Math2D.GetAngleBetween(slice.TopLeftPoint, slice.TopRightPoint),
                                     topAngle,
                                     topAngle.GetAccuracy());
 
@@ -335,12 +331,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                     loadStress.GetAccuracy());
                 }
             }
-        }
-
-        private static double GetAngleBetween(Point2D pointA, Point2D pointB)
-        {
-            return Math.Atan2(pointA.Y - pointB.Y,
-                              pointA.X - pointB.X) * (180 / Math.PI);
         }
     }
 }

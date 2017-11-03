@@ -269,6 +269,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             CoreCloneAssert.AreObjectClones(original.BottomLeftPoint, clone.BottomLeftPoint, GeometryCloneAssert.AreClones);
             CoreCloneAssert.AreObjectClones(original.BottomRightPoint, clone.BottomRightPoint, GeometryCloneAssert.AreClones);
 
+            Assert.AreEqual(original.XCenter, clone.XCenter);
+            Assert.AreEqual(original.ZCenterBottom, clone.ZCenterBottom);
+            Assert.AreEqual(original.Width, clone.Width);
+            Assert.AreEqual(original.ArcLength, clone.ArcLength);
+            Assert.AreEqual(original.BottomAngle, clone.BottomAngle);
+            Assert.AreEqual(original.TopAngle, clone.TopAngle);
             Assert.AreEqual(original.Cohesion, clone.Cohesion);
             Assert.AreEqual(original.FrictionAngle, clone.FrictionAngle);
             Assert.AreEqual(original.CriticalPressure, clone.CriticalPressure);

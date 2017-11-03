@@ -321,6 +321,30 @@ namespace Core.Common.Base.Geometry
         }
 
         /// <summary>
+        /// Gets the angle between a horizontal line and a line running
+        /// from <paramref name="pointA"/> and <paramref name="pointB"/>
+        /// </summary>
+        /// <param name="pointA">The starting point of the line.</param>
+        /// <param name="pointB">The end point of the line.</param>
+        /// <returns>The calculated angle in degrees.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pointA"/>
+        /// or <paramref name="pointB"/> is <c>null</c>.</exception>
+        public static double GetAngleBetween(Point2D pointA, Point2D pointB)
+        {
+            if (pointA == null)
+            {
+                throw new ArgumentNullException(nameof(pointA));
+            }
+            if (pointB == null)
+            {
+                throw new ArgumentNullException(nameof(pointB));
+            }
+
+            return Math.Atan2(pointB.Y - pointA.Y,
+                              pointB.X - pointA.X) * (180 / Math.PI);
+        }
+
+        /// <summary>
         /// Determines if two parallel vectors are collinear.
         /// </summary>
         /// <param name="vector1">The first 2D vector.</param>

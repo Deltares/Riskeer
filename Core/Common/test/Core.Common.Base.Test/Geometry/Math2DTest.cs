@@ -1204,6 +1204,44 @@ namespace Core.Common.Base.Test.Geometry
                 "Fraction needs to be defined in range [0.0, 1.0] in order to reliably interpolate.");
         }
 
+        [Test]
+        public void GetAngleBetween_PointANull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => Math2D.GetAngleBetween(null, new Point2D(0.0, 0.0));
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("pointA", paramName);
+        }
+
+        [Test]
+        public void GetAngleBetween_PointBNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => Math2D.GetAngleBetween(null, new Point2D(0.0, 0.0));
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("pointA", paramName);
+        }
+
+        [Test]
+        [TestCase(0, 0, 10, 10, 45)]
+        [TestCase(0, 0, -10, 0, 180)]
+        [TestCase(0, 5, 0, 10, 90)]
+        [TestCase(0, 0, 0, 0, 0)]
+        public void GetAngleBetween_WithValidPoints_ReturnsExpectedAngle(double x1, double y1,
+                                                                         double x2, double y2,
+                                                                         double expectedAngle)
+        {
+            // Call
+            double angle = Math2D.GetAngleBetween(new Point2D(x1, y1), new Point2D(x2, y2));
+
+            // Assert
+            Assert.AreEqual(expectedAngle, angle);
+        }
+
         private static void CollectionAssertAreEquivalent(Point2D[] expected, ReadOnlyCollection<Point2D> actual)
         {
             var comparer = new Point2DComparerWithTolerance(1e-6);

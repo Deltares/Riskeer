@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 
@@ -30,15 +29,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     /// <summary>
     /// This class represents a row of <see cref="MacroStabilityInwardsSlice"/>.
     /// </summary>
-    public class MacroStabilityInwardsFormattedSliceRow
+    public class MacroStabilityInwardsSliceRow
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsFormattedSoilLayerDataRow"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSliceRow"/>.
         /// </summary>
-        /// <param name="slice">The <see cref="MacroStabilityInwardsSlice"/> to format.</param>
+        /// <param name="slice">The <see cref="MacroStabilityInwardsSlice"/> to use.</param>
+        /// <param name="index">The index of the slice.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="slice"/>
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsFormattedSliceRow(MacroStabilityInwardsSlice slice, int index)
+        public MacroStabilityInwardsSliceRow(MacroStabilityInwardsSlice slice, int index)
         {
             if (slice == null)
             {
@@ -46,29 +46,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             }
 
             Name = string.Format(Resources.MacroStabilityInwardsSlicesTable_Name_Slice_0, index);
-            XCenter = new RoundedDouble(2, (slice.TopLeftPoint.X + slice.TopRightPoint.X) / 2.0);
-            ZCenterBottom = new RoundedDouble(2, new Segment2D(slice.BottomLeftPoint, slice.BottomRightPoint).Interpolate(XCenter));
-            Width = new RoundedDouble(2, slice.TopRightPoint.X - slice.TopLeftPoint.X);
-            ArcLength = new RoundedDouble(2, slice.BottomLeftPoint.GetEuclideanDistanceTo(slice.BottomRightPoint));
-            BottomAngle = new RoundedDouble(2, GetAngleBetween(slice.BottomRightPoint, slice.BottomLeftPoint));
-            TopAngle = new RoundedDouble(2, GetAngleBetween(slice.TopRightPoint, slice.TopLeftPoint));
-            FrictionAngle = new RoundedDouble(3, slice.FrictionAngle);
-            Cohesion = new RoundedDouble(3, slice.Cohesion);
-            EffectiveStress = new RoundedDouble(3, slice.EffectiveStress);
-            TotalPorePressure = new RoundedDouble(3, slice.TotalPorePressure);
-            Weight = new RoundedDouble(3, slice.Weight);
-            PiezometricPorePressure = new RoundedDouble(3, slice.PiezometricPorePressure);
-            DegreeOfConsolidationPorePressureSoil = new RoundedDouble(3, slice.DegreeOfConsolidationPorePressureSoil);
-            DegreeOfConsolidationPorePressureLoad = new RoundedDouble(3, slice.DegreeOfConsolidationPorePressureLoad);
-            PorePressure = new RoundedDouble(3, slice.PorePressure);
-            VerticalPorePressure = new RoundedDouble(3, slice.VerticalPorePressure);
-            HorizontalPorePressure = new RoundedDouble(3, slice.HorizontalPorePressure);
-            ExternalLoad = new RoundedDouble(3, slice.ExternalLoad);
-            OverConsolidationRatio = new RoundedDouble(3, slice.OverConsolidationRatio);
-            Pop = new RoundedDouble(3, slice.Pop);
-            NormalStress = new RoundedDouble(3, slice.NormalStress);
-            ShearStress = new RoundedDouble(3, slice.ShearStress);
-            LoadStress = new RoundedDouble(3, slice.LoadStress);
+            XCenter = slice.XCenter;
+            ZCenterBottom = slice.ZCenterBottom;
+            Width = slice.Width;
+            ArcLength = slice.ArcLength;
+            BottomAngle = slice.BottomAngle;
+            TopAngle = slice.TopAngle;
+            FrictionAngle = slice.FrictionAngle;
+            Cohesion = slice.Cohesion;
+            EffectiveStress = slice.EffectiveStress;
+            TotalPorePressure = slice.TotalPorePressure;
+            Weight = slice.Weight;
+            PiezometricPorePressure = slice.PiezometricPorePressure;
+            DegreeOfConsolidationPorePressureSoil = slice.DegreeOfConsolidationPorePressureSoil;
+            DegreeOfConsolidationPorePressureLoad = slice.DegreeOfConsolidationPorePressureLoad;
+            PorePressure = slice.PorePressure;
+            VerticalPorePressure = slice.VerticalPorePressure;
+            HorizontalPorePressure = slice.HorizontalPorePressure;
+            ExternalLoad = slice.ExternalLoad;
+            OverConsolidationRatio = slice.OverConsolidationRatio;
+            Pop = slice.Pop;
+            NormalStress = slice.NormalStress;
+            ShearStress = slice.ShearStress;
+            LoadStress = slice.LoadStress;
         }
 
         /// <summary>
@@ -213,11 +213,5 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// [kN/m²]
         /// </summary>
         public RoundedDouble EffectiveStress { get; }
-
-        private static double GetAngleBetween(Point2D pointA, Point2D pointB)
-        {
-            return Math.Atan2(pointA.Y - pointB.Y,
-                              pointA.X - pointB.X) * (180 / Math.PI);
-        }
     }
 }

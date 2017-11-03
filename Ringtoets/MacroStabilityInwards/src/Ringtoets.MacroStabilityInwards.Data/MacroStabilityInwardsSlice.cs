@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
 namespace Ringtoets.MacroStabilityInwards.Data
@@ -69,36 +70,43 @@ namespace Ringtoets.MacroStabilityInwards.Data
             BottomLeftPoint = bottomLeftPoint;
             BottomRightPoint = bottomRightPoint;
 
-            Cohesion = properties.Cohesion;
-            FrictionAngle = properties.FrictionAngle;
-            CriticalPressure = properties.CriticalPressure;
-            OverConsolidationRatio = properties.OverConsolidationRatio;
-            Pop = properties.Pop;
-            DegreeOfConsolidationPorePressureSoil = properties.DegreeOfConsolidationPorePressureSoil;
-            DegreeOfConsolidationPorePressureLoad = properties.DegreeOfConsolidationPorePressureLoad;
-            Dilatancy = properties.Dilatancy;
-            ExternalLoad = properties.ExternalLoad;
-            HydrostaticPorePressure = properties.HydrostaticPorePressure;
-            LeftForce = properties.LeftForce;
-            LeftForceAngle = properties.LeftForceAngle;
-            LeftForceY = properties.LeftForceY;
-            RightForce = properties.RightForce;
-            RightForceAngle = properties.RightForceAngle;
-            RightForceY = properties.RightForceY;
-            LoadStress = properties.LoadStress;
-            NormalStress = properties.NormalStress;
-            PorePressure = properties.PorePressure;
-            HorizontalPorePressure = properties.HorizontalPorePressure;
-            VerticalPorePressure = properties.VerticalPorePressure;
-            PiezometricPorePressure = properties.PiezometricPorePressure;
-            EffectiveStress = properties.EffectiveStress;
-            EffectiveStressDaily = properties.EffectiveStressDaily;
-            ExcessPorePressure = properties.ExcessPorePressure;
-            ShearStress = properties.ShearStress;
-            SoilStress = properties.SoilStress;
-            TotalPorePressure = properties.TotalPorePressure;
-            TotalStress = properties.TotalStress;
-            Weight = properties.Weight;
+            XCenter = new RoundedDouble(2, (topLeftPoint.X + topRightPoint.X) / 2.0);
+            ZCenterBottom = new RoundedDouble(2, new Segment2D(bottomLeftPoint, bottomRightPoint).Interpolate(XCenter));
+            Width = new RoundedDouble(2, topRightPoint.X - topLeftPoint.X);
+            ArcLength = new RoundedDouble(2, bottomLeftPoint.GetEuclideanDistanceTo(bottomRightPoint));
+            BottomAngle = new RoundedDouble(2, Math2D.GetAngleBetween(bottomLeftPoint, bottomRightPoint));
+            TopAngle = new RoundedDouble(2, Math2D.GetAngleBetween(topLeftPoint, topRightPoint));
+
+            Cohesion = new RoundedDouble(3, properties.Cohesion);
+            FrictionAngle = new RoundedDouble(3, properties.FrictionAngle);
+            CriticalPressure = new RoundedDouble(3, properties.CriticalPressure);
+            OverConsolidationRatio = new RoundedDouble(3, properties.OverConsolidationRatio);
+            Pop = new RoundedDouble(3, properties.Pop);
+            DegreeOfConsolidationPorePressureSoil = new RoundedDouble(3, properties.DegreeOfConsolidationPorePressureSoil);
+            DegreeOfConsolidationPorePressureLoad = new RoundedDouble(3, properties.DegreeOfConsolidationPorePressureLoad);
+            Dilatancy = new RoundedDouble(3, properties.Dilatancy);
+            ExternalLoad = new RoundedDouble(3, properties.ExternalLoad);
+            HydrostaticPorePressure = new RoundedDouble(3, properties.HydrostaticPorePressure);
+            LeftForce = new RoundedDouble(3, properties.LeftForce);
+            LeftForceAngle = new RoundedDouble(3, properties.LeftForceAngle);
+            LeftForceY = new RoundedDouble(3, properties.LeftForceY);
+            RightForce = new RoundedDouble(3, properties.RightForce);
+            RightForceAngle = new RoundedDouble(3, properties.RightForceAngle);
+            RightForceY = new RoundedDouble(3, properties.RightForceY);
+            LoadStress = new RoundedDouble(3, properties.LoadStress);
+            NormalStress = new RoundedDouble(3, properties.NormalStress);
+            PorePressure = new RoundedDouble(3, properties.PorePressure);
+            HorizontalPorePressure = new RoundedDouble(3, properties.HorizontalPorePressure);
+            VerticalPorePressure = new RoundedDouble(3, properties.VerticalPorePressure);
+            PiezometricPorePressure = new RoundedDouble(3, properties.PiezometricPorePressure);
+            EffectiveStress = new RoundedDouble(3, properties.EffectiveStress);
+            EffectiveStressDaily = new RoundedDouble(3, properties.EffectiveStressDaily);
+            ExcessPorePressure = new RoundedDouble(3, properties.ExcessPorePressure);
+            ShearStress = new RoundedDouble(3, properties.ShearStress);
+            SoilStress = new RoundedDouble(3, properties.SoilStress);
+            TotalPorePressure = new RoundedDouble(3, properties.TotalPorePressure);
+            TotalStress = new RoundedDouble(3, properties.TotalStress);
+            Weight = new RoundedDouble(3, properties.Weight);
         }
 
         /// <summary>
@@ -122,183 +130,219 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public Point2D BottomRightPoint { get; private set; }
 
         /// <summary>
+        /// Gets the X center point of the slice.
+        /// [m]
+        /// </summary>
+        public RoundedDouble XCenter { get; }
+
+        /// <summary>
+        /// Gets the Z center bottom point of the slice.
+        /// [m+NAP]
+        /// </summary>
+        public RoundedDouble ZCenterBottom { get; }
+
+        /// <summary>
+        /// Gets the width of the slice.
+        /// [m]
+        /// </summary>
+        public RoundedDouble Width { get; }
+
+        /// <summary>
+        /// Gets the arc length of the slice.
+        /// [m]
+        /// </summary>
+        public RoundedDouble ArcLength { get; }
+
+        /// <summary>
+        /// Gets the top angle of the slice.
+        /// [°]
+        /// </summary>
+        public RoundedDouble TopAngle { get; }
+
+        /// <summary>
+        /// Gets the bottom angle of the slice.
+        /// [°]
+        /// </summary>
+        public RoundedDouble BottomAngle { get; }
+
+        /// <summary>
         /// Gets the cohesion.
         /// [kN/m²]
         /// </summary>
-        public double Cohesion { get; }
+        public RoundedDouble Cohesion { get; }
 
         /// <summary>
         /// Gets the friction angle.
         /// [°]
         /// </summary>
-        public double FrictionAngle { get; }
+        public RoundedDouble FrictionAngle { get; }
 
         /// <summary>
         /// Gets the critical pressure.
         /// [kN/m²]
         /// </summary>
-        public double CriticalPressure { get; }
+        public RoundedDouble CriticalPressure { get; }
 
         /// <summary>
         /// Gets the OCR.
         /// [-]
         /// </summary>
-        public double OverConsolidationRatio { get; }
+        public RoundedDouble OverConsolidationRatio { get; }
 
         /// <summary>
         /// Gets the POP.
         /// [kN/m²]
         /// </summary>
-        public double Pop { get; }
+        public RoundedDouble Pop { get; }
 
         /// <summary>
         /// Gets the pore pressure from degree of consolidation soil.
         /// [kN/m²]
         /// </summary>
-        public double DegreeOfConsolidationPorePressureSoil { get; }
+        public RoundedDouble DegreeOfConsolidationPorePressureSoil { get; }
 
         /// <summary>
         /// Gets the pore pressure from degree of consolidation load.
         /// [kN/m²]
         /// </summary>
-        public double DegreeOfConsolidationPorePressureLoad { get; }
+        public RoundedDouble DegreeOfConsolidationPorePressureLoad { get; }
 
         /// <summary>
         /// Gets the dilatancy of the slice.
         /// </summary>
-        public double Dilatancy { get; }
+        public RoundedDouble Dilatancy { get; }
 
         /// <summary>
         /// Gets the external load.
         /// [kN/m²]
         /// </summary>
-        public double ExternalLoad { get; }
+        public RoundedDouble ExternalLoad { get; }
 
         /// <summary>
         /// Gets the hydrostatic pore pressure.
         /// [kN/m²]
         /// </summary>
-        public double HydrostaticPorePressure { get; }
+        public RoundedDouble HydrostaticPorePressure { get; }
 
         /// <summary>
         /// Gets the left force.
         /// [kN/m²]
         /// </summary>
-        public double LeftForce { get; }
+        public RoundedDouble LeftForce { get; }
 
         /// <summary>
         /// Gets the left force angle.
         /// [°]
         /// </summary>
-        public double LeftForceAngle { get; }
+        public RoundedDouble LeftForceAngle { get; }
 
         /// <summary>
         /// Gets the left force y.
         /// [kN/m²]
         /// </summary>
-        public double LeftForceY { get; }
+        public RoundedDouble LeftForceY { get; }
 
         /// <summary>
         /// Gets the right force.
         /// [kN/m²]
         /// </summary>
-        public double RightForce { get; }
+        public RoundedDouble RightForce { get; }
 
         /// <summary>
         /// Gets the right force angle.
         /// [°]
         /// </summary>
-        public double RightForceAngle { get; }
+        public RoundedDouble RightForceAngle { get; }
 
         /// <summary>
         /// Gets the right force y.
         /// [kN/m²]
         /// </summary>
-        public double RightForceY { get; }
+        public RoundedDouble RightForceY { get; }
 
         /// <summary>
         /// Gets the load stress.
         /// [kN/m²]
         /// </summary>
-        public double LoadStress { get; }
+        public RoundedDouble LoadStress { get; }
 
         /// <summary>
         /// Gets the normal stress.
         /// [kN/m²]
         /// </summary>
-        public double NormalStress { get; }
+        public RoundedDouble NormalStress { get; }
 
         /// <summary>
         /// Gets the pore pressure.
         /// [kN/m²]
         /// </summary>
-        public double PorePressure { get; }
+        public RoundedDouble PorePressure { get; }
 
         /// <summary>
         /// Gets the horizontal pore pressure.
         /// [kN/m²]
         /// </summary>
-        public double HorizontalPorePressure { get; }
+        public RoundedDouble HorizontalPorePressure { get; }
 
         /// <summary>
         /// Gets the vertical pore pressure.
         /// [kN/m²]
         /// </summary>
-        public double VerticalPorePressure { get; }
+        public RoundedDouble VerticalPorePressure { get; }
 
         /// <summary>
         /// Gets the piezometric pore pressure.
         /// [kN/m²]
         /// </summary>
-        public double PiezometricPorePressure { get; }
+        public RoundedDouble PiezometricPorePressure { get; }
 
         /// <summary>
         /// Gets the effective stress.
         /// [kN/m²]
         /// </summary>
-        public double EffectiveStress { get; }
+        public RoundedDouble EffectiveStress { get; }
 
         /// <summary>
         /// Gets the daily effective stress.
         /// [kN/m²]
         /// </summary>
-        public double EffectiveStressDaily { get; }
+        public RoundedDouble EffectiveStressDaily { get; }
 
         /// <summary>
         /// Gets the excess pore pressure.
         /// [kN/m²]
         /// </summary>
-        public double ExcessPorePressure { get; }
+        public RoundedDouble ExcessPorePressure { get; }
 
         /// <summary>
         /// Gets the shear stress.
         /// [kN/m²]
         /// </summary>
-        public double ShearStress { get; }
+        public RoundedDouble ShearStress { get; }
 
         /// <summary>
         /// Gets the soil stress.
         /// [kN/m²]
         /// </summary>
-        public double SoilStress { get; }
+        public RoundedDouble SoilStress { get; }
 
         /// <summary>
         /// Gets the total pore pressure.
         /// [kN/m²]
         /// </summary>
-        public double TotalPorePressure { get; }
+        public RoundedDouble TotalPorePressure { get; }
 
         /// <summary>
         /// Gets the total stress.
         /// [kN/m²]
         /// </summary>
-        public double TotalStress { get; }
+        public RoundedDouble TotalStress { get; }
 
         /// <summary>
         /// Gets the weight.
         /// [kN/m]
         /// </summary>
-        public double Weight { get; }
+        public RoundedDouble Weight { get; }
 
         public object Clone()
         {
