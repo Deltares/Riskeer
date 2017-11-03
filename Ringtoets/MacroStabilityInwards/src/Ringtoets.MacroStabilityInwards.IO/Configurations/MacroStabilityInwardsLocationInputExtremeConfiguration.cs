@@ -22,7 +22,7 @@
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
-    /// Configuration of locations input for extreme conditions.
+    /// Configuration of Locations input for extreme conditions.
     /// </summary>
     public class MacroStabilityInwardsLocationInputExtremeConfiguration : MacroStabilityInwardsLocationInputConfiguration
     {

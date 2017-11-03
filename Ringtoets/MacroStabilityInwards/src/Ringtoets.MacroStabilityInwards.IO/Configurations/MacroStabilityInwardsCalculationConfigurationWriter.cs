@@ -182,9 +182,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                                                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine2PiezometricHeadElement,
                                                                configuration.PhreaticLine2);
 
-            WriteLocationLocationDailyInputWhenContentAvailable(writer, configuration.LocationInputDaily);
+            WriteLocationDailyInputWhenContentAvailable(writer, configuration.LocationInputDaily);
 
-            WriteLocationLocationExtremeInputWhenContentAvailable(writer, configuration.LocationInputExtreme);
+            WriteLocationExtremeInputWhenContentAvailable(writer, configuration.LocationInputExtreme);
 
             writer.WriteEndElement();
         }
@@ -226,7 +226,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <param name="configuration">The configuration for the location input that can be <c>null</c>.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteLocationLocationDailyInputWhenContentAvailable(XmlWriter writer, MacroStabilityInwardsLocationInputConfiguration configuration)
+        private static void WriteLocationDailyInputWhenContentAvailable(XmlWriter writer, MacroStabilityInwardsLocationInputConfiguration configuration)
         {
             if (configuration == null)
             {
@@ -251,7 +251,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <param name="configuration">The configuration for the location input that can be <c>null</c>.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteLocationLocationExtremeInputWhenContentAvailable(XmlWriter writer,
+        private static void WriteLocationExtremeInputWhenContentAvailable(XmlWriter writer,
                                                                                   MacroStabilityInwardsLocationInputExtremeConfiguration configuration)
         {
             if (configuration == null)
@@ -362,7 +362,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// is closed.</exception>
         private static void WriteGrid(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
         {
-            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridElement);
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridsElement);
 
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MoveGridElement,

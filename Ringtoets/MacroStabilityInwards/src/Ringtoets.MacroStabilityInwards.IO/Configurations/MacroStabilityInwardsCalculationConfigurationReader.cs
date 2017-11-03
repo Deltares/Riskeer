@@ -166,7 +166,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <exception cref="NotSupportedException">Thrown when any conversion cannot be performed.</exception>
         private static void SetGridProperties(MacroStabilityInwardsCalculationConfiguration configuration, XElement calculationElement)
         {
-            XElement gridElement = calculationElement.GetDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridElement);
+            XElement gridElement = calculationElement.GetDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridsElement);
             if (gridElement == null)
             {
                 return;

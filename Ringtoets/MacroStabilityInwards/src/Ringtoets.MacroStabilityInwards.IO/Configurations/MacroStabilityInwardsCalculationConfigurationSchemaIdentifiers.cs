@@ -248,9 +248,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         #region Grid
 
         /// <summary>
-        /// The identifier for grid elements.
+        /// The identifier for grids elements.
         /// </summary>
-        public const string GridElement = "grids";
+        public const string GridsElement = "grids";
 
         /// <summary>
         /// The tag of the element containing the value whether the grid should be moved.

@@ -22,7 +22,7 @@
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
-    /// Configuration of locations input.
+    /// Configuration of Locations input.
     /// </summary>
     public class MacroStabilityInwardsLocationInputConfiguration
     {
