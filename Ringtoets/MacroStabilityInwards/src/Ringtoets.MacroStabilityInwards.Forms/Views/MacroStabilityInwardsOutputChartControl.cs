@@ -60,8 +60,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartPointData leftGridChartData;
         private readonly ChartPointData rightGridChartData;
         private readonly ChartLineData slipPlaneChartData;
-        private readonly ChartLineData radiusActiveCircleChartData;
-        private readonly ChartLineData radiusPassiveCircleChartData;
+        private readonly ChartLineData leftCircleRadiusChartData;
+        private readonly ChartLineData rightCircleRadiusChartData;
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
 
@@ -103,8 +103,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             leftGridChartData = MacroStabilityInwardsChartDataFactory.CreateLeftGridChartData();
             rightGridChartData = MacroStabilityInwardsChartDataFactory.CreateRightGridChartData();
             slipPlaneChartData = MacroStabilityInwardsChartDataFactory.CreateSlipPlaneChartData();
-            radiusActiveCircleChartData = MacroStabilityInwardsChartDataFactory.CreateActiveCircleRadiusChartData();
-            radiusPassiveCircleChartData = MacroStabilityInwardsChartDataFactory.CreatePassiveCircleRadiusChartData();
+            leftCircleRadiusChartData = MacroStabilityInwardsChartDataFactory.CreateActiveCircleRadiusChartData();
+            rightCircleRadiusChartData = MacroStabilityInwardsChartDataFactory.CreatePassiveCircleRadiusChartData();
 
             chartDataCollection.Add(soilProfileChartData);
             chartDataCollection.Add(surfaceLineChartData);
@@ -125,8 +125,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection.Add(leftGridChartData);
             chartDataCollection.Add(rightGridChartData);
             chartDataCollection.Add(slipPlaneChartData);
-            chartDataCollection.Add(radiusActiveCircleChartData);
-            chartDataCollection.Add(radiusPassiveCircleChartData);
+            chartDataCollection.Add(leftCircleRadiusChartData);
+            chartDataCollection.Add(rightCircleRadiusChartData);
 
             soilLayerChartDataLookup = new List<ChartMultipleAreaData>();
 
@@ -183,8 +183,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             rightGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(output?.SlipPlane.RightGrid);
 
             slipPlaneChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSlipPlanePoints(output?.SlidingCurve);
-            radiusActiveCircleChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateActiveCircleRadiusPoints(output?.SlidingCurve);
-            radiusPassiveCircleChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreatePassiveCircleRadiusPoints(output?.SlidingCurve);
+            leftCircleRadiusChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateLeftCircleRadiusPoints(output?.SlidingCurve);
+            rightCircleRadiusChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateRightCircleRadiusPoints(output?.SlidingCurve);
         }
 
         private void UpdateInputChartData()

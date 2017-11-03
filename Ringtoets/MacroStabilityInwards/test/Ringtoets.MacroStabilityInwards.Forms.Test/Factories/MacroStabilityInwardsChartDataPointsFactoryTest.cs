@@ -1283,17 +1283,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateActiveCircleRadiusPoints_SlidingCurveNull_ReturnsEmptyPointsArray()
+        public void CreateLeftCircleRadiusPoints_SlidingCurveNull_ReturnsEmptyPointsArray()
         {
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateActiveCircleRadiusPoints(null);
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateLeftCircleRadiusPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(line);
         }
 
         [Test]
-        public void CreateActiveCircleRadiusPoints_SlidingCurveEmptySlices_ReturnsEmptyPointsArray()
+        public void CreateLeftCircleRadiusPoints_SlidingCurveEmptySlices_ReturnsEmptyPointsArray()
         {
             // Setup
             var slidingCurve = new MacroStabilityInwardsSlidingCurve(
@@ -1304,14 +1304,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 0.0);
 
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateActiveCircleRadiusPoints(slidingCurve);
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateLeftCircleRadiusPoints(slidingCurve);
 
             // Assert
             CollectionAssert.IsEmpty(line);
         }
 
         [Test]
-        public void CreateActiveCircleRadiusPoints_WithSlidingCurve_ReturnsPointsArray()
+        public void CreateLeftCircleRadiusPoints_WithSlidingCurve_ReturnsPointsArray()
         {
             // Setup
             var points = new[]
@@ -1335,24 +1335,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 0.0);
 
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateActiveCircleRadiusPoints(slidingCurve);
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateLeftCircleRadiusPoints(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(points, line);
         }
 
         [Test]
-        public void CreatePassiveCircleRadiusPoints_SlidingCurveNull_ReturnsEmptyPointsArray()
+        public void CreateRightCircleRadiusPoints_SlidingCurveNull_ReturnsEmptyPointsArray()
         {
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreatePassiveCircleRadiusPoints(null);
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateRightCircleRadiusPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(line);
         }
 
         [Test]
-        public void CreatePassiveCircleRadiusPoints_SlidingCurveEmptySlices_ReturnsEmptyPointsArray()
+        public void CreateRightCircleRadiusPoints_SlidingCurveEmptySlices_ReturnsEmptyPointsArray()
         {
             // Setup
             var slidingCurve = new MacroStabilityInwardsSlidingCurve(
@@ -1363,14 +1363,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 0.0);
 
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreatePassiveCircleRadiusPoints(slidingCurve);
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateRightCircleRadiusPoints(slidingCurve);
 
             // Assert
             CollectionAssert.IsEmpty(line);
         }
 
         [Test]
-        public void CreatePassiveCircleRadiusPoints_WithSlidingCurve_ReturnsPointsArray()
+        public void CreateRightCircleRadiusPoints_WithSlidingCurve_ReturnsPointsArray()
         {
             // Setup
             var points = new[]
@@ -1394,7 +1394,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 0.0);
 
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreatePassiveCircleRadiusPoints(slidingCurve);
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateRightCircleRadiusPoints(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(points, line);

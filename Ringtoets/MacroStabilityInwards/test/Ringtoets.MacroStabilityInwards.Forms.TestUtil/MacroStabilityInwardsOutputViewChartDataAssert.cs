@@ -192,7 +192,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
+        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="startingPoint"/>
+        /// and <paramref name="slidingCircle"/>.
         /// </summary>
         /// <param name="startingPoint">The point to use for the start of the line</param>
         /// <param name="slidingCircle">The circle to use for the end of the line.</param>
@@ -240,17 +241,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         /// does not correspond to <paramref name="original"/>.</exception>
         private static void AssertSlipPlaneChartData(MacroStabilityInwardsSlidingCurve original, ChartLineData actual)
         {
-            List<Point2D> expectedPoints;
-            if (original.Slices.Any())
-            {
-                expectedPoints = original.Slices.Select(slice => slice.BottomLeftPoint).OrderBy(x => x.X).ToList();
-                expectedPoints.Add(original.Slices.Last().BottomRightPoint);
-            }
-            else
-            {
-                expectedPoints = new List<Point2D>();
-            }
-
+            CollectionAssert.IsNotEmpty(original.Slices);
+            List<Point2D> expectedPoints = original.Slices.Select(slice => slice.BottomLeftPoint).OrderBy(x => x.X).ToList();
+            expectedPoints.Add(original.Slices.Last().BottomRightPoint);
             CollectionAssert.AreEqual(expectedPoints, actual.Points);
         }
 

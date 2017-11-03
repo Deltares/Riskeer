@@ -216,8 +216,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Creates <see cref="ChartLineData"/> with default styling for the active circle
-        /// radius line.
+        /// Creates <see cref="ChartLineData"/> with default styling for the radius of
+        /// the active circle.
         /// </summary>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
         public static ChartLineData CreateActiveCircleRadiusChartData()
@@ -227,8 +227,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Creates <see cref="ChartLineData"/> with default styling for the passive circle
-        /// radius line.
+        /// Creates <see cref="ChartLineData"/> with default styling for the radius of
+        /// the passive circle.
         /// </summary>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
         public static ChartLineData CreatePassiveCircleRadiusChartData()
