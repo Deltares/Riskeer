@@ -29,6 +29,7 @@ using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -93,6 +94,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 && TrySetStochasticSoilProfile(calculationConfiguration, calculation)
                 && TrySetScenarioParameters(calculationConfiguration.Scenario, calculation))
             {
+                SetDikeSoilScenario(calculationConfiguration, calculation);
+                SetGridDeterminationType(calculationConfiguration, calculation);
+                SetTangentLineDeterminationType(calculationConfiguration, calculation);
                 return calculation;
             }
             return null;
@@ -251,6 +255,72 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 macroStabilityInwardsCalculation.InputParameters.StochasticSoilProfile = soilProfile;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Assigns the dike soil scenario.
+        /// </summary>
+        /// <param name="configuration">The read calculation read.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        private static void SetDikeSoilScenario(MacroStabilityInwardsCalculationConfiguration configuration,
+                                                MacroStabilityInwardsCalculationScenario calculation)
+        {
+            if (!configuration.DikeSoilScenario.HasValue)
+            {
+                return;
+            }
+
+            var dikeSoilScenario = (MacroStabilityInwardsDikeSoilScenario?) new ConfigurationDikeSoilScenarioTypeConverter()
+                .ConvertTo(configuration.DikeSoilScenario.Value, typeof(MacroStabilityInwardsDikeSoilScenario));
+
+            if (dikeSoilScenario.HasValue)
+            {
+                calculation.InputParameters.DikeSoilScenario = dikeSoilScenario.Value;
+            }
+        }
+
+        /// <summary>
+        /// Assigns the grid determination type.
+        /// </summary>
+        /// <param name="configuration">The read calculation read.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        private static void SetGridDeterminationType(MacroStabilityInwardsCalculationConfiguration configuration,
+                                                     MacroStabilityInwardsCalculationScenario calculation)
+        {
+            if (!configuration.GridDeterminationType.HasValue)
+            {
+                return;
+            }
+
+            var gridDeterminationType = (MacroStabilityInwardsGridDeterminationType?) new ConfigurationGridDeterminationTypeConverter()
+                .ConvertTo(configuration.GridDeterminationType.Value, typeof(MacroStabilityInwardsGridDeterminationType));
+
+            if (gridDeterminationType.HasValue)
+            {
+                calculation.InputParameters.GridDeterminationType = gridDeterminationType.Value;
+            }
+        }
+
+        /// <summary>
+        /// Assigns the tangent line determination type.
+        /// </summary>
+        /// <param name="configuration">The read calculation read.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        private static void SetTangentLineDeterminationType(MacroStabilityInwardsCalculationConfiguration configuration,
+                                                            MacroStabilityInwardsCalculationScenario calculation)
+        {
+            if (!configuration.TangentLineDeterminationType.HasValue)
+            {
+                return;
+            }
+
+            var tangentLineDeterminationType = (MacroStabilityInwardsTangentLineDeterminationType?) new ConfigurationTangentLineDeterminationTypeConverter()
+                .ConvertTo(configuration.TangentLineDeterminationType.Value, typeof(MacroStabilityInwardsTangentLineDeterminationType));
+
+            if (tangentLineDeterminationType.HasValue)
+            {
+                calculation.InputParameters.TangentLineDeterminationType = tangentLineDeterminationType.Value;
+            }
         }
     }
 }

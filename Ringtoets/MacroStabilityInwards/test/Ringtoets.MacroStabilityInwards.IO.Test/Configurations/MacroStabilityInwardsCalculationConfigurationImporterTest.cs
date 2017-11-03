@@ -429,7 +429,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     UseAssessmentLevelManualInput = manualAssessmentLevel,
                     SurfaceLine = surfaceLine,
                     StochasticSoilModel = stochasticSoilModel,
-                    StochasticSoilProfile = stochasticSoilProfile
+                    StochasticSoilProfile = stochasticSoilProfile,
+                    DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
+                    GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic,
+                    TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated
                 },
                 IsRelevant = false,
                 Contribution = (RoundedDouble) 0.088
@@ -447,18 +450,24 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                                                                            MacroStabilityInwardsCalculationScenario actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
-            Assert.AreEqual(expectedCalculation.InputParameters.UseAssessmentLevelManualInput, actualCalculation.InputParameters.UseAssessmentLevelManualInput);
-            if (expectedCalculation.InputParameters.UseAssessmentLevelManualInput)
+
+            MacroStabilityInwardsInput expectedInput = expectedCalculation.InputParameters;
+            MacroStabilityInwardsInput actualInput = actualCalculation.InputParameters;
+            Assert.AreEqual(expectedInput.UseAssessmentLevelManualInput, actualInput.UseAssessmentLevelManualInput);
+            if (expectedInput.UseAssessmentLevelManualInput)
             {
-                Assert.AreEqual(expectedCalculation.InputParameters.AssessmentLevel.Value, actualCalculation.InputParameters.AssessmentLevel.Value);
+                Assert.AreEqual(expectedInput.AssessmentLevel.Value, actualInput.AssessmentLevel.Value);
             }
             else
             {
-                Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
+                Assert.AreSame(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
             }
-            Assert.AreSame(expectedCalculation.InputParameters.SurfaceLine, actualCalculation.InputParameters.SurfaceLine);
-            Assert.AreSame(expectedCalculation.InputParameters.StochasticSoilModel, actualCalculation.InputParameters.StochasticSoilModel);
-            Assert.AreSame(expectedCalculation.InputParameters.StochasticSoilProfile, actualCalculation.InputParameters.StochasticSoilProfile);
+            Assert.AreSame(expectedInput.SurfaceLine, actualInput.SurfaceLine);
+            Assert.AreSame(expectedInput.StochasticSoilModel, actualInput.StochasticSoilModel);
+            Assert.AreSame(expectedInput.StochasticSoilProfile, actualInput.StochasticSoilProfile);
+            Assert.AreEqual(expectedInput.DikeSoilScenario, actualInput.DikeSoilScenario);
+            Assert.AreEqual(expectedInput.GridDeterminationType, actualInput.GridDeterminationType);
+            Assert.AreEqual(expectedInput.TangentLineDeterminationType, actualInput.TangentLineDeterminationType);
 
             Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
             Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution, actualCalculation.Contribution.GetAccuracy());
