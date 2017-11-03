@@ -27,7 +27,7 @@ using NUnit.Framework;
 namespace Core.Components.Gis.Test.Style
 {
     [TestFixture]
-    public class LineDashStyleTest : EnumTestFixture<LineDashStyle>
+    public class LineDashStyleTest : EnumWithDisplayNameTestFixture<LineDashStyle>
     {
         protected override IDictionary<LineDashStyle, string> ExpectedDisplayNameForEnumValues
         {
