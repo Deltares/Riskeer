@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Deltares.WTIStability;
 using NUnit.Framework;
@@ -49,16 +48,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         {
             // Setup
             var random = new Random(21);
-            var leftGridXLeft = new RoundedDouble(2, random.NextDouble());
-            var leftGridXRight = new RoundedDouble(2, random.NextDouble());
-            var leftGridZTop = new RoundedDouble(2, random.NextDouble());
-            var leftGridZBottom = new RoundedDouble(2, random.NextDouble());
+            double leftGridXLeft = random.NextDouble();
+            double leftGridXRight = random.NextDouble();
+            double leftGridZTop = random.NextDouble();
+            double leftGridZBottom = random.NextDouble();
             int leftGridXNumber = random.Next();
             int leftGridZNumber = random.Next();
-            var rightGridXLeft = new RoundedDouble(2, random.NextDouble());
-            var rightGridXRight = new RoundedDouble(2, random.NextDouble());
-            var rightGridZTop = new RoundedDouble(2, random.NextDouble());
-            var rightGridZBottom = new RoundedDouble(2, random.NextDouble());
+            double rightGridXLeft = random.NextDouble();
+            double rightGridXRight = random.NextDouble();
+            double rightGridZTop = random.NextDouble();
+            double rightGridZBottom = random.NextDouble();
             int rightGridXNumber = random.Next();
             int rightGridZNumber = random.Next();
             double tangentLineZTop = random.GetFromRange(2.0, 3.0);
@@ -133,16 +132,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         {
             // Setup
             var random = new Random(21);
-            var leftGridXLeft = new RoundedDouble(2, random.NextDouble());
-            var leftGridXRight = new RoundedDouble(2, random.NextDouble());
-            var leftGridZTop = new RoundedDouble(2, random.NextDouble());
-            var leftGridZBottom = new RoundedDouble(2, random.NextDouble());
+            double leftGridXLeft = random.NextDouble();
+            double leftGridXRight = random.NextDouble();
+            double leftGridZTop = random.NextDouble();
+            double leftGridZBottom = random.NextDouble();
             int leftGridXNumber = random.Next();
             int leftGridZNumber = random.Next();
-            var rightGridXLeft = new RoundedDouble(2, random.NextDouble());
-            var rightGridXRight = new RoundedDouble(2, random.NextDouble());
-            var rightGridZTop = new RoundedDouble(2, random.NextDouble());
-            var rightGridZBottom = new RoundedDouble(2, random.NextDouble());
+            double rightGridXLeft = random.NextDouble();
+            double rightGridXRight = random.NextDouble();
+            double rightGridZTop = random.NextDouble();
+            double rightGridZBottom = random.NextDouble();
             int rightGridXNumber = random.Next();
             int rightGridZNumber = random.Next();
 
