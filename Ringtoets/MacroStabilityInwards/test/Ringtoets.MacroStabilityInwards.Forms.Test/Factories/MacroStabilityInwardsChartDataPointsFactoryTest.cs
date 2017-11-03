@@ -1400,6 +1400,60 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             CollectionAssert.AreEqual(points, line);
         }
 
+        [Test]
+        public void CreateSliceAreas_SlicesNull_ReturnsEmptyCollection()
+        {
+            // Call
+            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceAreas(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(areas);
+        }
+
+        [Test]
+        public void CreateSliceAreas_WithSlices_ReturnsAreas()
+        {
+            // Setup
+            var expectedAreas = new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 1),
+                    new Point2D(1, 1),
+                    new Point2D(1, 0),
+                    new Point2D(0, 0)
+                },
+                new[]
+                {
+                    new Point2D(3, 4),
+                    new Point2D(4, 4),
+                    new Point2D(4, 3),
+                    new Point2D(3, 3)
+                }
+            };
+
+            var slices =
+                new[]
+                {
+                    new MacroStabilityInwardsSlice(new Point2D(0, 1),
+                                                   new Point2D(1, 1),
+                                                   new Point2D(0, 0),
+                                                   new Point2D(1, 0),
+                                                   new MacroStabilityInwardsSlice.ConstructionProperties()),
+                    new MacroStabilityInwardsSlice(new Point2D(3, 4),
+                                                   new Point2D(4, 4),
+                                                   new Point2D(3, 3),
+                                                   new Point2D(4, 3),
+                                                   new MacroStabilityInwardsSlice.ConstructionProperties())
+                };
+
+            // Call
+            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceAreas(slices);
+
+            // Assert
+            CollectionAssert.AreEqual(expectedAreas, areas);
+        }
+
         private static MacroStabilityInwardsWaternetLine CreateWaternetLine(IEnumerable<Point2D> waternetLineGeometry,
                                                                             IEnumerable<Point2D> phreaticLineGeometry)
         {

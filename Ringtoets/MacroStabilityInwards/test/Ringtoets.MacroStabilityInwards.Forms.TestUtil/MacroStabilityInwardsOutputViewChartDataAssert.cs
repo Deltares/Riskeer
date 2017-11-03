@@ -52,10 +52,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         private const int waternetZonesDailyIndex = 15;
         private const int leftGridIndex = 16;
         private const int rightGridIndex = 17;
-        private const int slipPlaneIndex = 18;
-        private const int activeCircleRadiusIndex = 19;
-        private const int passiveCircleRadiusIndex = 20;
-        private const int nrOfChartData = 21;
+        private const int slicesIndex = 18;
+        private const int slipPlaneIndex = 19;
+        private const int activeCircleRadiusIndex = 20;
+        private const int passiveCircleRadiusIndex = 21;
+        private const int nrOfChartData = 22;
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to the input of <paramref name="calculationScenario"/>.
@@ -94,6 +95,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
                                                                          (ChartPointData) actual.Collection.ElementAt(leftGridIndex));
             MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(calculationScenario.Output.SlipPlane.RightGrid,
                                                                          (ChartPointData) actual.Collection.ElementAt(rightGridIndex));
+
+            AssertSlicesChartData(calculationScenario.Output.SlidingCurve.Slices,
+                                  (ChartMultipleAreaData) actual.Collection.ElementAt(slicesIndex));
+
             AssertSlipPlaneChartData(calculationScenario.Output.SlidingCurve,
                                      (ChartLineData) actual.Collection.ElementAt(slipPlaneIndex));
 
@@ -118,18 +123,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.AreEqual(nrOfChartData, chartDataArray.Length);
             var leftGridData = (ChartPointData) chartDataArray[leftGridIndex];
             var rightGridData = (ChartPointData) chartDataArray[rightGridIndex];
+            var slicesData = (ChartMultipleAreaData) chartDataArray[slicesIndex];
             var slipPlaneData = (ChartLineData) chartDataArray[slipPlaneIndex];
             var activeCircleRadiusData = (ChartLineData) chartDataArray[activeCircleRadiusIndex];
             var passiveCircleRadiusData = (ChartLineData) chartDataArray[passiveCircleRadiusIndex];
 
             CollectionAssert.IsEmpty(leftGridData.Points);
             CollectionAssert.IsEmpty(rightGridData.Points);
+            CollectionAssert.IsEmpty(slicesData.Areas);
             CollectionAssert.IsEmpty(slipPlaneData.Points);
             CollectionAssert.IsEmpty(activeCircleRadiusData.Points);
             CollectionAssert.IsEmpty(passiveCircleRadiusData.Points);
 
             Assert.AreEqual("Linker grid", leftGridData.Name);
             Assert.AreEqual("Rechter grid", rightGridData.Name);
+            Assert.AreEqual("Lamellen", slicesData.Name);
             Assert.AreEqual("Glijvlak", slipPlaneData.Name);
             Assert.AreEqual("Radius actieve cirkel", activeCircleRadiusData.Name);
             Assert.AreEqual("Radius passieve cirkel", passiveCircleRadiusData.Name);
@@ -189,6 +197,31 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             MacroStabilityInwardsViewChartDataAssert.AssertEmptyWaternetChartData(chartDataCollection,
                                                                                   waternetZonesExtremeIndex,
                                                                                   waternetZonesDailyIndex);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="slices"/>.
+        /// </summary>
+        /// <param name="slices">The original slices.</param>
+        /// <param name="actual">The actual <see cref="ChartMultipleAreaData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// does not correspond to <paramref name="slices"/>.</exception>
+        private static void AssertSlicesChartData(IEnumerable<MacroStabilityInwardsSlice> slices, ChartMultipleAreaData actual)
+        {
+            MacroStabilityInwardsSlice[] macroStabilityInwardsSlices = slices.ToArray();
+            CollectionAssert.IsNotEmpty(macroStabilityInwardsSlices);
+            for (var i = 0; i < macroStabilityInwardsSlices.Length; i++)
+            {
+                MacroStabilityInwardsSlice slice = macroStabilityInwardsSlices[i];
+                var expectedPoints = new[]
+                {
+                    slice.TopLeftPoint,
+                    slice.TopRightPoint,
+                    slice.BottomRightPoint,
+                    slice.BottomLeftPoint
+                };
+                CollectionAssert.AreEqual(expectedPoints, actual.Areas.ElementAt(i));
+            }
         }
 
         /// <summary>

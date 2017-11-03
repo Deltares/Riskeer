@@ -260,6 +260,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Create a <see cref="ChartMultipleAreaData"/> for the slices in a slip plane.
+        /// </summary>
+        /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
+        public static ChartMultipleAreaData CreateSlicesChartData()
+        {
+            return new ChartMultipleAreaData(Resources.Slices_DisplayName,
+                                             new ChartAreaStyle
+                                             {
+                                                 FillColor = Color.Empty,
+                                                 StrokeColor = Color.DarkGreen,
+                                                 StrokeThickness = 2,
+                                                 IsEditable = true
+                                             });
+        }
+
+        /// <summary>
         /// Updates the name of <paramref name="chartData"/> based on <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>

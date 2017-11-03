@@ -44,6 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartDataCollection soilProfileChartData;
         private readonly ChartDataCollection waternetZonesExtremeChartData;
         private readonly ChartDataCollection waternetZonesDailyChartData;
+        private readonly ChartMultipleAreaData slicesChartData;
         private readonly ChartLineData surfaceLineChartData;
         private readonly ChartPointData surfaceLevelInsideChartData;
         private readonly ChartPointData ditchPolderSideChartData;
@@ -105,6 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             slipPlaneChartData = MacroStabilityInwardsChartDataFactory.CreateSlipPlaneChartData();
             leftCircleRadiusChartData = MacroStabilityInwardsChartDataFactory.CreateActiveCircleRadiusChartData();
             rightCircleRadiusChartData = MacroStabilityInwardsChartDataFactory.CreatePassiveCircleRadiusChartData();
+            slicesChartData = MacroStabilityInwardsChartDataFactory.CreateSlicesChartData();
 
             chartDataCollection.Add(soilProfileChartData);
             chartDataCollection.Add(surfaceLineChartData);
@@ -124,6 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection.Add(waternetZonesDailyChartData);
             chartDataCollection.Add(leftGridChartData);
             chartDataCollection.Add(rightGridChartData);
+            chartDataCollection.Add(slicesChartData);
             chartDataCollection.Add(slipPlaneChartData);
             chartDataCollection.Add(leftCircleRadiusChartData);
             chartDataCollection.Add(rightCircleRadiusChartData);
@@ -185,6 +188,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             slipPlaneChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSlipPlanePoints(output?.SlidingCurve);
             leftCircleRadiusChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateLeftCircleRadiusPoints(output?.SlidingCurve);
             rightCircleRadiusChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateRightCircleRadiusPoints(output?.SlidingCurve);
+            slicesChartData.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceAreas(output?.SlidingCurve.Slices);
         }
 
         private void UpdateInputChartData()

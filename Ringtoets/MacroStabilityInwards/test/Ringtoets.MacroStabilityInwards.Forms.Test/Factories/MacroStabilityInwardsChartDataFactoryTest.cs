@@ -289,6 +289,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateSlicesChartData_ReturnsChartMultipleAreaData()
+        {
+            // Call
+            ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSlicesChartData();
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Areas);
+            Assert.AreEqual("Lamellen", data.Name);
+            AssertEqualStyle(data.Style, Color.Empty, Color.DarkGreen, 2, true);
+        }
+
+        [Test]
         public void UpdateSurfaceLineChartDataName_SurfaceLineNull_NameSetToDefaultSurfaceLineName()
         {
             // Setup

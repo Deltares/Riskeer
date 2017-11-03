@@ -733,4 +733,7 @@
   <data name="MacroStabilityInwardsSlicesTable_Name_Slice_0" xml:space="preserve">
     <value>Lamel {0}</value>
   </data>
+  <data name="Slices_DisplayName" xml:space="preserve">
+    <value>Lamellen</value>
+  </data>
 </root>

@@ -398,6 +398,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             };
         }
 
+        /// <summary>
+        /// Create areas of the slices based on the provided <paramref name="slices"/>.
+        /// </summary>
+        /// <param name="slices">The slices to create the areas for.</param>
+        /// <returns>A collection of arrays of points in 2D space or an empty collection when <paramref name="slices"/>
+        /// is <c>null</c>.</returns>
+        public static IEnumerable<Point2D[]> CreateSliceAreas(IEnumerable<MacroStabilityInwardsSlice> slices)
+        {
+            if (slices == null)
+            {
+                return Enumerable.Empty<Point2D[]>();
+            }
+
+            return slices.Select(slice => new[]
+            {
+                slice.TopLeftPoint,
+                slice.TopRightPoint,
+                slice.BottomRightPoint,
+                slice.BottomLeftPoint
+            });
+        }
+
         #region SoilLayers and Surface Line Helpers
 
         private static Point2D[] GetLocalPointsFromGeometry(MacroStabilityInwardsSurfaceLine surfaceLine,

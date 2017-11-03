@@ -1454,6 +1454,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lamellen.
+        /// </summary>
+        public static string Slices_DisplayName {
+            get {
+                return ResourceManager.GetString("Slices_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Glijvlak.
         /// </summary>
         public static string SlipPlane_DisplayName {
