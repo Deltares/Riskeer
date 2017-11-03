@@ -81,34 +81,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <summary>
         /// The tag of the element containing the average river water level.
         /// </summary>
-        public const string WaterLevelRiverAverageElement = "ghw";
+        public const string WaterLevelRiverAverageElement = "gemiddeldhoogwater";
 
         #region Phreatic lines
 
         /// <summary>
-        /// The identifier for minimum level elements.
+        /// The identifier for minimum level phreatic line 1 elements.
         /// </summary>
-        public const string PhreaticLineMinimumLevelElement = "initielehoogte";
-
-        /// <summary>
-        /// The identifier for the phreatic line 1 elements.
-        /// </summary>
-        public const string PhreaticLine1Element = "pl1";
-
-        /// <summary>
-        /// The identifier for the phreatic line 2 elements.
-        /// </summary>
-        public const string PhreaticLine2Element = "pl2";
-
-        /// <summary>
-        /// The identifier for the phreatic line 3 elements.
-        /// </summary>
-        public const string PhreaticLine3Element = "pl3";
-
-        /// <summary>
-        /// The identifier for the phreatic line 4 elements.
-        /// </summary>
-        public const string PhreaticLine4Element = "pl4";
+        public const string PhreaticLine1MinimumLevelElement = "initielehoogtepl1";
 
         /// <summary>
         /// The tag of the element containing the value indicating the minimum level phreatic line at dike top river.
@@ -121,14 +101,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public const string MinimumLevelPhreaticLineAtDikeTopPolderElement = "binnenkruin";
 
         /// <summary>
-        /// The identifier for leakage length elements.
+        /// The identifier for leakage length phreatic line 3 elements.
         /// </summary>
-        public const string LeakageLengthElement = "leklengtes";
+        public const string PhreaticLine3LeakageLengthElement = "leklengtespl3";
 
         /// <summary>
-        /// The identifier for piezometric head elements.
+        /// The identifier for leakage length phreatic line 4 elements.
         /// </summary>
-        public const string PiezometricHeadElement = "stijghoogtes";
+        public const string PhreaticLine4LeakageLengthElement = "leklengtespl4";
+
+        /// <summary>
+        /// The identifier for piezometric head phreatic line 2 elements.
+        /// </summary>
+        public const string PhreaticLine2PiezometricHeadElement = "stijghoogtespl2";
 
         /// <summary>
         /// The tag of the element containing the value indicating the phreatic line inwards leakage length or piezometric head.
@@ -238,25 +223,25 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// The possible content of the <see cref="ConfigurationDikeSoilScenario"/> 
         /// element indicating a clay dike on clay.
         /// </summary>
-        public const string DikeSoilScenarioClayDikeOnClay = "1A";
+        public const string DikeSoilScenarioClayDikeOnClay = "kleidijkopklei";
 
         /// <summary>
         /// The possible content of the <see cref="ConfigurationDikeSoilScenario"/> 
         /// element indicating a sand dike on clay.
         /// </summary>
-        public const string DikeSoilScenarioSandDikeOnClay = "2A";
+        public const string DikeSoilScenarioSandDikeOnClay = "zanddijkopklei";
 
         /// <summary>
         /// The possible content of the <see cref="ConfigurationDikeSoilScenario"/> 
         /// element indicating a clay dike on sand
         /// </summary>
-        public const string DikeSoilScenarioClayDikeOnSand = "1B";
+        public const string DikeSoilScenarioClayDikeOnSand = "kleidijkopzand";
 
         /// <summary>
         /// The possible content of the <see cref="ConfigurationDikeSoilScenario"/> 
         /// element indicating a sand dike on sand.
         /// </summary>
-        public const string DikeSoilScenarioSandDikeOnSand = "2B";
+        public const string DikeSoilScenarioSandDikeOnSand = "zanddijkopzand";
 
         #endregion
 
@@ -343,22 +328,22 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <summary>
         /// The tag of the element containing the value indicating the left boundary of the grid.
         /// </summary>
-        public const string GridXLeftElement = "links";
+        public const string GridXLeftElement = "xlinks";
 
         /// <summary>
         /// The tag of the element containing the value indicating the right boundary of the grid.
         /// </summary>
-        public const string GridXRightElement = "rechts";
+        public const string GridXRightElement = "xrechts";
 
         /// <summary>
         /// The tag of the element containing the value indicating the top boundary of the grid.
         /// </summary>
-        public const string GridZTopElement = "boven";
+        public const string GridZTopElement = "zboven";
 
         /// <summary>
         /// The tag of the element containing the value indicating the bottom boundary of the grid.
         /// </summary>
-        public const string GridZBottomElement = "onder";
+        public const string GridZBottomElement = "zonder";
 
         /// <summary>
         /// The tag of the element containing the value indicating the number of horizontal points of the grid.

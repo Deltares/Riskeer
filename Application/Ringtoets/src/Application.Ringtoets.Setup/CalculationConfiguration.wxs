@@ -51,6 +51,15 @@
       <Component Id="CalculationConfigurationMacroStabilityInwardsFile" Guid="024995CD-95A8-4238-AE2E-DA8CB8EEEFF2">
         <File Source="..\..\..\..\Ringtoets\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.IO\Resources\MacroStabiliteitBinnenwaartsConfiguratieSchema.xsd" KeyPath="yes"/>
       </Component>
+      <Component Id="CalculationConfigurationMacroStabilityInwardsGridsFile" Guid="B53F0CC7-EE4F-44F7-A07F-EF8F150F9AA4">
+        <File Source="..\..\..\..\Ringtoets\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.IO\Resources\MacroStabiliteitBinnenwaartsGridsSchema.xsd" KeyPath="yes"/>
+      </Component>
+      <Component Id="CalculationConfigurationMacroStabilityInwardsWaternetCreatorFile" Guid="1A4BF258-E1DD-492E-B0A7-B5E5C489B5EF">
+        <File Source="..\..\..\..\Ringtoets\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.IO\Resources\MacroStabiliteitBinnenwaartsWaterspanningenSchema.xsd" KeyPath="yes"/>
+      </Component>
+      <Component Id="CalculationConfigurationMacroStabilityInwardsZonesFile" Guid="56127E53-8A7F-491E-B499-F94A66860335">
+        <File Source="..\..\..\..\Ringtoets\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.IO\Resources\MacroStabiliteitBinnenwaartsZonesSchema.xsd" KeyPath="yes"/>
+      </Component>
       <!-- Piping -->
       <Component Id="CalculationConfigurationPipingFile" Guid="1A1DBB40-B07E-4B64-89A4-33167EB944F9">
         <File Source="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.IO\Resources\PipingConfiguratieSchema.xsd" KeyPath="yes"/>
@@ -78,6 +87,9 @@
       <ComponentRef Id="CalculationConfigurationStabilityPointStructuresFile" />
       <ComponentRef Id="CalculationConfigurationGrassCoverErosionInwardsFile" />
       <ComponentRef Id="CalculationConfigurationMacroStabilityInwardsFile" />
+      <ComponentRef Id="CalculationConfigurationMacroStabilityInwardsGridsFile" />
+      <ComponentRef Id="CalculationConfigurationMacroStabilityInwardsWaternetCreatorFile" />
+      <ComponentRef Id="CalculationConfigurationMacroStabilityInwardsZonesFile" />
       <ComponentRef Id="CalculationConfigurationPipingFile" />
       <ComponentRef Id="CalculationConfigurationRevetmentFile" />
     </ComponentGroup>

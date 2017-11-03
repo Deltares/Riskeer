@@ -55,13 +55,13 @@ All rights reserved.
   </xs:redefine>
 
   <!--Definitie voor de invoer van waterspanningen.-->
-  <xs:include schemaLocation="WaternetCreatorSchema.xsd"/>
+  <xs:include schemaLocation="MacroStabiliteitBinnenwaartsWaterspanningenSchema.xsd"/>
 
   <!--Definitie voor de invoer van zonering van het glijvlak.-->
-  <xs:include schemaLocation="SlopeStabilityZones.xsd"/>
+  <xs:include schemaLocation="MacroStabiliteitBinnenwaartsZonesSchema.xsd"/>
   
   <!--Definitie voor de invoer van grids en rekeninstellingen voor macrostabiliteitsberekeningen.-->
-  <xs:include schemaLocation="SlopeStabilityGrids.xsd"/>
+  <xs:include schemaLocation="MacroStabiliteitBinnenwaartsGridsSchema.xsd"/>
   
   <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
   
@@ -120,10 +120,10 @@ All rights reserved.
   <xs:element name="dijktype">
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:enumeration value="1A" />
-        <xs:enumeration value="2A"/>
-        <xs:enumeration value="1B"/>
-        <xs:enumeration value="2B"/>
+        <xs:enumeration value="kleidijkopklei"/>
+        <xs:enumeration value="zanddijkopklei"/>
+        <xs:enumeration value="kleidijkopzand"/>
+        <xs:enumeration value="zanddijkopzand"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>

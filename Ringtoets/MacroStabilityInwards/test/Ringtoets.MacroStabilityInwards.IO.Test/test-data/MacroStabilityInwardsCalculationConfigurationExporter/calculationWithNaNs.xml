@@ -5,37 +5,31 @@
     <profielschematisatie>PK001_0001</profielschematisatie>
     <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
     <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
-    <dijktype>1A</dijktype>
+    <dijktype>kleidijkopklei</dijktype>
     <waterspanningen>
-      <ghw>NaN</ghw>
+      <gemiddeldhoogwater>NaN</gemiddeldhoogwater>
       <drainage>
         <aanwezig>true</aanwezig>
         <x>NaN</x>
         <z>NaN</z>
       </drainage>
-      <initielehoogte>
-        <pl1>
-          <binnenkruin>NaN</binnenkruin>
-          <buitenkruin>NaN</buitenkruin>
-        </pl1>
-      </initielehoogte>
+      <initielehoogtepl1>
+        <binnenkruin>NaN</binnenkruin>
+        <buitenkruin>NaN</buitenkruin>
+      </initielehoogtepl1>
       <corrigeervooropbarsten>true</corrigeervooropbarsten>
-      <leklengtes>
-        <pl3>
-          <binnenwaarts>NaN</binnenwaarts>
-          <buitenwaarts>NaN</buitenwaarts>
-        </pl3>
-        <pl4>
-          <binnenwaarts>NaN</binnenwaarts>
-          <buitenwaarts>NaN</buitenwaarts>
-        </pl4>
-      </leklengtes>
-      <stijghoogtes>
-        <pl2>
-          <binnenwaarts>NaN</binnenwaarts>
-          <buitenwaarts>NaN</buitenwaarts>
-        </pl2>
-      </stijghoogtes>
+      <leklengtespl3>
+        <binnenwaarts>NaN</binnenwaarts>
+        <buitenwaarts>NaN</buitenwaarts>
+      </leklengtespl3>
+      <leklengtespl4>
+        <binnenwaarts>NaN</binnenwaarts>
+        <buitenwaarts>NaN</buitenwaarts>
+      </leklengtespl4>
+      <stijghoogtespl2>
+        <binnenwaarts>NaN</binnenwaarts>
+        <buitenwaarts>NaN</buitenwaarts>
+      </stijghoogtespl2>
       <dagelijks>
         <polderpeil>NaN</polderpeil>
         <offsets>
@@ -74,18 +68,18 @@
         <aantal>5</aantal>
       </tangentlijnen>
       <linkergrid>
-        <links>NaN</links>
-        <rechts>NaN</rechts>
-        <boven>NaN</boven>
-        <onder>NaN</onder>
+        <xlinks>NaN</xlinks>
+        <xrechts>NaN</xrechts>
+        <zboven>NaN</zboven>
+        <zonder>NaN</zonder>
         <aantalpuntenverticaal>5</aantalpuntenverticaal>
         <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
       </linkergrid>
       <rechtergrid>
-        <links>NaN</links>
-        <rechts>NaN</rechts>
-        <boven>NaN</boven>
-        <onder>NaN</onder>
+        <xlinks>NaN</xlinks>
+        <xrechts>NaN</xrechts>
+        <zboven>NaN</zboven>
+        <zonder>NaN</zonder>
         <aantalpuntenverticaal>5</aantalpuntenverticaal>
         <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
       </rechtergrid>

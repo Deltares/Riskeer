@@ -27,12 +27,13 @@ All rights reserved.
   <xs:element name="waterspanningen">
     <xs:complexType>
       <xs:all>
-        <xs:element ref="ghw" minOccurs="0"/>
+        <xs:element ref="gemiddeldhoogwater" minOccurs="0"/>
         <xs:element ref="drainage" minOccurs="0"/>
-        <xs:element ref="initielehoogte" minOccurs="0"/>
+        <xs:element name ="initielehoogtepl1" type="binnenbuitenkruin" minOccurs="0"/>
         <xs:element ref="corrigeervooropbarsten" minOccurs="0"/>
-        <xs:element ref="leklengtes" minOccurs="0"/>
-        <xs:element ref="stijghoogtes" minOccurs="0"/>
+        <xs:element name="leklengtespl3" type="binnenbuitenwaarts" minOccurs="0"/>
+        <xs:element name="leklengtespl4" type="binnenbuitenwaarts" minOccurs="0"/>
+        <xs:element name="stijghoogtespl2" type="binnenbuitenwaarts" minOccurs="0"/>
         <xs:element ref="dagelijks" minOccurs="0"/>
         <xs:element ref="extreem" minOccurs="0"/>
       </xs:all>
@@ -40,7 +41,7 @@ All rights reserved.
   </xs:element>
   
   <!--Specificeert het gemiddeld hoog water.-->
-  <xs:element name="ghw">
+  <xs:element name="gemiddeldhoogwater">
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
     </xs:simpleType>
@@ -56,15 +57,6 @@ All rights reserved.
       </xs:all>
     </xs:complexType>
   </xs:element>
-
-  <!--Specificeert de PL 1 initiële hoogte onder binnen- en buitenkruin.-->
-  <xs:element name="initielehoogte">
-    <xs:complexType>
-      <xs:all>
-        <xs:element name="pl1" type="binnenbuitenkruin" minOccurs="0"/>
-      </xs:all>
-    </xs:complexType>
-  </xs:element>
   
   <!--Specificeert of de PL 3 en PL 4 voor opbarsten gecorrigeerd moet worden.-->
   <xs:element name="corrigeervooropbarsten">
@@ -72,39 +64,20 @@ All rights reserved.
       <xs:restriction base="xs:boolean"/>
     </xs:simpleType>
   </xs:element>
-
-  <!--Specificeert de leklengtes van PL 3 en PL 4 binnen- en buitenwaarts.-->
-  <xs:element name="leklengtes">
-    <xs:complexType>
-      <xs:all>
-        <xs:element name="pl3" type="binnenbuitenwaarts" minOccurs="0"/>
-        <xs:element name="pl4" type="binnenbuitenwaarts" minOccurs="0"/>
-      </xs:all>
-    </xs:complexType>
-  </xs:element>
-
-  <!--Specificeert de stijghoogtes van PL 2 binnen- en buitenwaarts.-->
-  <xs:element name="stijghoogtes">
-    <xs:complexType>
-      <xs:all>
-        <xs:element name="pl2" type="binnenbuitenwaarts" minOccurs="1"/>
-      </xs:all>
-    </xs:complexType>
-  </xs:element>
-
-  <!--Specificeert de waardes voor binnen- en buitenwaarts.-->
-  <xs:complexType name="binnenbuitenwaarts">
-    <xs:all>
-      <xs:element name="binnenwaarts" minOccurs="0"/>
-      <xs:element name="buitenwaarts" minOccurs="0"/>
-    </xs:all>
-  </xs:complexType>
-
-  <!--Specificeert de waardes voor binnen- en buitenkruin.-->
+  
+  <!--Specificeert de PL 1 initiële hoogte onder binnen- en buitenkruin.-->
   <xs:complexType name="binnenbuitenkruin">
     <xs:all>
       <xs:element name="binnenkruin" minOccurs="0"/>
       <xs:element name="buitenkruin" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+  
+  <!--Specificeert de leklengtes (PL3 of PL 4) of de stijghoogtes (PL 2) binnen- en buitenwaarts.-->
+  <xs:complexType name="binnenbuitenwaarts">
+    <xs:all>
+      <xs:element name="binnenwaarts" minOccurs="0"/>
+      <xs:element name="buitenwaarts" minOccurs="0"/>
     </xs:all>
   </xs:complexType>
 

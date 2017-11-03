@@ -68,10 +68,10 @@ All rights reserved.
   <!--Specificeert eigenschappen van een grid.-->
   <xs:complexType name="slopestabilitygrid">
     <xs:all>
-      <xs:element ref="links"/>
-      <xs:element ref="rechts"/>
-      <xs:element ref="boven"/>
-      <xs:element ref="onder"/>
+      <xs:element ref="xlinks"/>
+      <xs:element ref="xrechts"/>
+      <xs:element ref="zboven"/>
+      <xs:element ref="zonder"/>
       <xs:element ref="aantalpuntenverticaal"/>
       <xs:element ref="aantalpuntenhorizontaal"/>
     </xs:all>
@@ -107,28 +107,28 @@ All rights reserved.
   </xs:element>
 
   <!--Specificeert de horizontale coördinaat van de linkerkant van het rekengrid.-->
-  <xs:element name="links">
+  <xs:element name="xlinks">
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
     </xs:simpleType>
   </xs:element>
 
   <!--Specificeert de horizontale coördinaat van de rechterkant van het rekengrid.-->
-  <xs:element name="rechts">
+  <xs:element name="xrechts">
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
     </xs:simpleType>
   </xs:element>
 
   <!--Specificeert de verticale coördinaat van de bovenkant van het rekengrid.-->
-  <xs:element name="boven">
+  <xs:element name="xboven">
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
     </xs:simpleType>
   </xs:element>
 
   <!--Specificeert de verticale coördinaat van de onderkant van het rekengrid.-->
-  <xs:element name="onder">
+  <xs:element name="xonder">
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
     </xs:simpleType>

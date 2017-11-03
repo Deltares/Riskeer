@@ -3,38 +3,32 @@
   <berekening naam="Calculation">
     <toetspeil>NaN</toetspeil>
     <waterspanningen>
-      <ghw>NaN</ghw>
+      <gemiddeldhoogwater>NaN</gemiddeldhoogwater>
       <drainage>
         <x>NaN</x>
         <z>NaN</z>
       </drainage>
-      <initielehoogte>
-        <pl1>
+      <initielehoogtepl1>
           <binnenkruin>NaN</binnenkruin>
-          <buitenkruin>NaN</buitenkruin>
-        </pl1>
-      </initielehoogte>
-      <leklengtes>
-        <pl3>
-          <binnenwaarts>NaN</binnenwaarts>
-          <buitenwaarts>NaN</buitenwaarts>
-        </pl3>
-        <pl4>
-          <binnenwaarts>NaN</binnenwaarts>
-          <buitenwaarts>NaN</buitenwaarts>
-        </pl4>
-      </leklengtes>
-      <stijghoogtes>
-        <pl2>
-          <binnenwaarts>NaN</binnenwaarts>
-          <buitenwaarts>NaN</buitenwaarts>
-        </pl2>
-      </stijghoogtes>
+        <buitenkruin>NaN</buitenkruin>
+      </initielehoogtepl1>
+      <leklengtespl3>
+        <binnenwaarts>NaN</binnenwaarts>
+        <buitenwaarts>NaN</buitenwaarts>
+      </leklengtespl3>
+      <leklengtespl4>
+        <binnenwaarts>NaN</binnenwaarts>
+        <buitenwaarts>NaN</buitenwaarts>
+      </leklengtespl4>
+      <stijghoogtespl2>
+        <binnenwaarts>NaN</binnenwaarts>
+        <buitenwaarts>NaN</buitenwaarts>
+      </stijghoogtespl2>
       <dagelijks>
         <polderpeil>NaN</polderpeil>
         <offsets>
           <gebruikdefaults>true</gebruikdefaults>
-          <buitenkruin>NaN</buitenkruin>
+        <buitenkruin>NaN</buitenkruin>
           <binnenkruin>NaN</binnenkruin>
           <insteekbinnenberm>NaN</insteekbinnenberm>
           <teendijkbinnenwaarts>NaN</teendijkbinnenwaarts>
@@ -44,7 +38,7 @@
         <polderpeil>NaN</polderpeil>
         <indringingslengte>NaN</indringingslengte>
         <offsets>
-          <buitenkruin>NaN</buitenkruin>
+        <buitenkruin>NaN</buitenkruin>
           <binnenkruin>NaN</binnenkruin>
           <insteekbinnenberm>NaN</insteekbinnenberm>
           <teendijkbinnenwaarts>NaN</teendijkbinnenwaarts>
@@ -61,18 +55,18 @@
         <zonder>NaN</zonder>
       </tangentlijnen>
       <linkergrid>
-        <links>NaN</links>
-        <rechts>NaN</rechts>
-        <boven>NaN</boven>
-        <onder>NaN</onder>
+        <xlinks>NaN</xlinks>
+        <xrechts>NaN</xrechts>
+        <zboven>NaN</zboven>
+        <zonder>NaN</zonder>
         <aantalpuntenverticaal>0</aantalpuntenverticaal>
         <aantalpuntenhorizontaal>0</aantalpuntenhorizontaal>
       </linkergrid>
       <rechtergrid>
-        <links>NaN</links>
-        <rechts>NaN</rechts>
-        <boven>NaN</boven>
-        <onder>NaN</onder>
+        <xlinks>NaN</xlinks>
+        <xrechts>NaN</xrechts>
+        <zboven>NaN</zboven>
+        <zonder>NaN</zonder>
         <aantalpuntenverticaal>0</aantalpuntenverticaal>
         <aantalpuntenhorizontaal>0</aantalpuntenhorizontaal>
       </rechtergrid>

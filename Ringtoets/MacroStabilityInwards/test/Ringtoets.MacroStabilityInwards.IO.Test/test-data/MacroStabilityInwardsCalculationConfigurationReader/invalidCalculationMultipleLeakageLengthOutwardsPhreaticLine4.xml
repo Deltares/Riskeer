@@ -2,12 +2,10 @@
 <configuratie>
   <berekening naam="Calculation">
     <waterspanningen>
-      <leklengtes>
-        <pl4>
-          <buitenwaarts>10.4</buitenwaarts>
-          <buitenwaarts>10.5</buitenwaarts>
-        </pl4>
-      </leklengtes>
+      <leklengtespl4>
+        <buitenwaarts>10.4</buitenwaarts>
+        <buitenwaarts>10.5</buitenwaarts>
+      </leklengtespl4>
     </waterspanningen>
   </berekening>
 </configuratie>

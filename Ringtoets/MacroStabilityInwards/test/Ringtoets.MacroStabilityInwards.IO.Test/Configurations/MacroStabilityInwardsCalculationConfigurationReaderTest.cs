@@ -600,7 +600,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             yield return new NameAdapter("SlipPlaneMinimumDepth", "minimaleglijvlakdiepte");
             yield return new NameAdapter("SlipPlaneMinimumLength", "minimaleglijvlaklengte");
             yield return new NameAdapter("MaximumSliceWidth", "maximalelamelbreedte");
-            yield return new NameAdapter("WaterLevelRiverAverage", "ghw");
+            yield return new NameAdapter("WaterLevelRiverAverage", "gemiddeldhoogwater");
             yield return new NameAdapter("XCoordinateDrainageConstruction", "x");
             yield return new NameAdapter("ZCoordinateDrainageConstruction", "z");
 
@@ -629,15 +629,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             yield return new NameAdapter("LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside", "insteekbinnenberm");
             yield return new NameAdapter("LocationInputDailyPhreaticLineOffsetBelowDikeToeAtPolder", "teendijkbinnenwaarts");
 
-            yield return new NameAdapter("LeftGridXLeft", "links");
-            yield return new NameAdapter("LeftGridXRight", "rechts");
-            yield return new NameAdapter("LeftGridZTop", "boven");
-            yield return new NameAdapter("LeftGridZBottom", "onder");
+            yield return new NameAdapter("LeftGridXLeft", "xlinks");
+            yield return new NameAdapter("LeftGridXRight", "xrechts");
+            yield return new NameAdapter("LeftGridZTop", "zboven");
+            yield return new NameAdapter("LeftGridZBottom", "zonder");
 
-            yield return new NameAdapter("RightGridXLeft", "links");
-            yield return new NameAdapter("RightGridXRight", "rechts");
-            yield return new NameAdapter("RightGridZTop", "boven");
-            yield return new NameAdapter("RightGridZBottom", "onder");
+            yield return new NameAdapter("RightGridXLeft", "xlinks");
+            yield return new NameAdapter("RightGridXRight", "xrechts");
+            yield return new NameAdapter("RightGridZTop", "zboven");
+            yield return new NameAdapter("RightGridZBottom", "zonder");
         }
 
         private static IEnumerable<TestCaseData> InvalidDuplicateElements()

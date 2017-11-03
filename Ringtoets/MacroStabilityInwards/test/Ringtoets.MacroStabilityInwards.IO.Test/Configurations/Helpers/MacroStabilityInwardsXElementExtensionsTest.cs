@@ -766,7 +766,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
             // Setup
             const string descendantElementName = "descendantElement";
 
-            var element = new XElement("Root", new XElement(descendantElementName, new XElement("links", doubleValue)));
+            var element = new XElement("Root", new XElement(descendantElementName, new XElement("xlinks", doubleValue)));
 
             // Call
             TestDelegate test = () => element.GetMacroStabilityInwardsGridConfiguration(descendantElementName);
@@ -820,7 +820,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
             const string descendantElementName = "descendantElement";
 
             var element = new XElement("Root", new XElement(descendantElementName,
-                                                            new XElement("links", xLeft)));
+                                                            new XElement("xlinks", xLeft)));
 
             // Call
             MacroStabilityInwardsGridConfiguration configuration = element.GetMacroStabilityInwardsGridConfiguration(descendantElementName);
@@ -843,7 +843,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
             const string descendantElementName = "descendantElement";
 
             var element = new XElement("Root", new XElement(descendantElementName,
-                                                            new XElement("rechts", xRight)));
+                                                            new XElement("xrechts", xRight)));
 
             // Call
             MacroStabilityInwardsGridConfiguration configuration = element.GetMacroStabilityInwardsGridConfiguration(descendantElementName);
@@ -866,7 +866,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
             const string descendantElementName = "descendantElement";
 
             var element = new XElement("Root", new XElement(descendantElementName,
-                                                            new XElement("boven", zTop)));
+                                                            new XElement("zboven", zTop)));
 
             // Call
             MacroStabilityInwardsGridConfiguration configuration = element.GetMacroStabilityInwardsGridConfiguration(descendantElementName);
@@ -889,7 +889,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
             const string descendantElementName = "descendantElement";
 
             var element = new XElement("Root", new XElement(descendantElementName,
-                                                            new XElement("onder", zBottom)));
+                                                            new XElement("zonder", zBottom)));
 
             // Call
             MacroStabilityInwardsGridConfiguration configuration = element.GetMacroStabilityInwardsGridConfiguration(descendantElementName);
@@ -962,10 +962,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
             double numberOfVerticalPoints = random.Next();
             const string descendantElementName = "descendantElement";
 
-            var xLeftElement = new XElement("links", xLeft);
-            var xRightElement = new XElement("rechts", xRight);
-            var zTopElement = new XElement("boven", zTop);
-            var zBottomElement = new XElement("onder", zBottom);
+            var xLeftElement = new XElement("xlinks", xLeft);
+            var xRightElement = new XElement("xrechts", xRight);
+            var zTopElement = new XElement("zboven", zTop);
+            var zBottomElement = new XElement("zonder", zBottom);
             var numberOfHorizontalPointsElement = new XElement("aantalpuntenhorizontaal", numberOfHorizontalPoints);
             var numberOfVerticalPointsElement = new XElement("aantalpuntenverticaal", numberOfVerticalPoints);
 

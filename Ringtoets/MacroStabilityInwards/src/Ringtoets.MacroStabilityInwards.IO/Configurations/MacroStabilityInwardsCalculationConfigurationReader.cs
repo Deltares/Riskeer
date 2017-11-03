@@ -40,9 +40,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         : CalculationConfigurationReader<MacroStabilityInwardsCalculationConfiguration>
     {
         private const string scenarioSchemaName = "ScenarioSchema.xsd";
-        private const string waternetCreatorSchemaSchemaName = "WaternetCreatorSchema.xsd";
-        private const string slopeStabilityZonesSchemaName = "SlopeStabilityZones.xsd";
-        private const string slopeStabilityGridsSchemaName = "SlopeStabilityGrids.xsd";
+        private const string waternetCreatorSchemaSchemaName = "MacroStabiliteitBinnenwaartsWaterspanningenSchema.xsd";
+        private const string slopeStabilityZonesSchemaName = "MacroStabiliteitBinnenwaartsZonesSchema.xsd";
+        private const string slopeStabilityGridsSchemaName = "MacroStabiliteitBinnenwaartsGridsSchema.xsd";
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationConfigurationReader"/>.
@@ -66,13 +66,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                            scenarioSchemaName, RingtoetsCommonIOResources.ScenarioSchema
                        },
                        {
-                           waternetCreatorSchemaSchemaName, Resources.WaternetCreatorSchema
+                           waternetCreatorSchemaSchemaName, Resources.MacroStabiliteitBinnenwaartsWaterspanningenSchema
                        },
                        {
-                           slopeStabilityZonesSchemaName, Resources.SlopeStabilityZones
+                           slopeStabilityZonesSchemaName, Resources.MacroStabiliteitBinnenwaartsZonesSchema
                        },
                        {
-                           slopeStabilityGridsSchemaName, Resources.SlopeStabilityGrids
+                           slopeStabilityGridsSchemaName, Resources.MacroStabiliteitBinnenwaartsGridsSchema
                        }
                    }) {}
 
@@ -96,9 +96,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
                 AdjustPhreaticLine3And4ForUplift = calculationElement.GetBoolValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AdjustPhreaticLine3And4ForUpliftElement),
 
-                PhreaticLine2 = calculationElement.GetMacroStabilityInwardsPhreaticLineConfiguration(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine2Element),
-                PhreaticLine3 = calculationElement.GetMacroStabilityInwardsPhreaticLineConfiguration(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine3Element),
-                PhreaticLine4 = calculationElement.GetMacroStabilityInwardsPhreaticLineConfiguration(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine4Element),
+                PhreaticLine2 = calculationElement.GetMacroStabilityInwardsPhreaticLineConfiguration(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine2PiezometricHeadElement),
+                PhreaticLine3 = calculationElement.GetMacroStabilityInwardsPhreaticLineConfiguration(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine3LeakageLengthElement),
+                PhreaticLine4 = calculationElement.GetMacroStabilityInwardsPhreaticLineConfiguration(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine4LeakageLengthElement),
 
                 LocationInputDaily = calculationElement.GetMacroStabilityInwardsLocationInputConfiguration(),
                 LocationInputExtreme = calculationElement.GetMacroStabilityInwardsLocationInputExtremeConfiguration(),
@@ -128,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <exception cref="NotSupportedException">Thrown when any conversion cannot be performed.</exception>
         private static void SetPhreaticLine1Properties(MacroStabilityInwardsCalculationConfiguration configuration, XElement calculationElement)
         {
-            XElement phreaticLine1Element = calculationElement.GetDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine1Element);
+            XElement phreaticLine1Element = calculationElement.GetDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine1MinimumLevelElement);
             if (phreaticLine1Element == null)
             {
                 return;
@@ -176,14 +176,34 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             configuration.GridDeterminationType = (ConfigurationGridDeterminationType?) gridElement.GetConvertedValueFromDescendantStringElement<ConfigurationGridDeterminationTypeConverter>(
                 MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeElement);
 
-            configuration.TangentLineDeterminationType = (ConfigurationTangentLineDeterminationType?) gridElement.GetConvertedValueFromDescendantStringElement<ConfigurationTangentLineDeterminationTypeConverter>(
-                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeElement);
-            configuration.TangentLineZTop = gridElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZTopElement);
-            configuration.TangentLineZBottom = gridElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZBottomElement);
-            configuration.TangentLineNumber = gridElement.GetIntegerValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineNumberElement);
+            SetTangentLineProperties(configuration, gridElement);
 
             configuration.LeftGrid = gridElement.GetMacroStabilityInwardsGridConfiguration(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeftGridElement);
             configuration.RightGrid = gridElement.GetMacroStabilityInwardsGridConfiguration(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.RightGridElement);
+        }
+
+        /// <summary>
+        /// Sets the tangent line related parameters to <paramref name="configuration"/>.
+        /// </summary>
+        /// <param name="configuration">The configuration to set to the tangent line properties, if any.</param>
+        /// <param name="gridElement">The <see cref="XElement"/> that contains the tangent line element.</param>
+        /// <exception cref="FormatException">Thrown when the value for a parameter isn't in the correct format.</exception>
+        /// <exception cref="OverflowException">Thrown when the value for a parameter represents a number less
+        /// than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when any conversion cannot be performed.</exception>
+        private static void SetTangentLineProperties(MacroStabilityInwardsCalculationConfiguration configuration, XElement gridElement)
+        {
+            XElement tangentLineElement = gridElement.GetDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineElement);
+            if (tangentLineElement == null)
+            {
+                return;
+            }
+
+            configuration.TangentLineDeterminationType = (ConfigurationTangentLineDeterminationType?) tangentLineElement.GetConvertedValueFromDescendantStringElement<ConfigurationTangentLineDeterminationTypeConverter>(
+                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeElement);
+            configuration.TangentLineZTop = tangentLineElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZTopElement);
+            configuration.TangentLineZBottom = tangentLineElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZBottomElement);
+            configuration.TangentLineNumber = tangentLineElement.GetIntegerValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineNumberElement);
         }
     }
 }

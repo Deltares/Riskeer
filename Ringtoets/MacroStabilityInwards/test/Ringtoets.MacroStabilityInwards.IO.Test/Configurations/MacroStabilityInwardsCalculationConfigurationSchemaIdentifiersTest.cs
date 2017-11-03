@@ -36,22 +36,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual("ondergrondschematisatie", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement);
 
             Assert.AreEqual("dijktype", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioElement);
-            Assert.AreEqual("1A", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioClayDikeOnClay);
-            Assert.AreEqual("2A", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioSandDikeOnClay);
-            Assert.AreEqual("1B", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioClayDikeOnSand);
-            Assert.AreEqual("2B", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioSandDikeOnSand);
+            Assert.AreEqual("kleidijkopklei", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioClayDikeOnClay);
+            Assert.AreEqual("zanddijkopklei", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioSandDikeOnClay);
+            Assert.AreEqual("kleidijkopzand", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioClayDikeOnSand);
+            Assert.AreEqual("zanddijkopzand", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioSandDikeOnSand);
 
             Assert.AreEqual("waterspanningen", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterStressesElement);
-            Assert.AreEqual("ghw", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelRiverAverageElement);
-            Assert.AreEqual("initielehoogte", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineMinimumLevelElement);
-            Assert.AreEqual("pl1", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine1Element);
-            Assert.AreEqual("pl2", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine2Element);
-            Assert.AreEqual("pl3", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine3Element);
-            Assert.AreEqual("pl4", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine4Element);
+            Assert.AreEqual("gemiddeldhoogwater", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelRiverAverageElement);
+            Assert.AreEqual("initielehoogtepl1", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine1MinimumLevelElement);
+            Assert.AreEqual("stijghoogtespl2", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine2PiezometricHeadElement);
+            Assert.AreEqual("leklengtespl3", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine3LeakageLengthElement);
+            Assert.AreEqual("leklengtespl4", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine4LeakageLengthElement);
             Assert.AreEqual("buitenkruin", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MinimumLevelPhreaticLineAtDikeTopRiverElement);
             Assert.AreEqual("binnenkruin", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MinimumLevelPhreaticLineAtDikeTopPolderElement);
-            Assert.AreEqual("leklengtes", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeakageLengthElement);
-            Assert.AreEqual("stijghoogtes", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PiezometricHeadElement);
             Assert.AreEqual("binnenwaarts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineInwardsElement);
             Assert.AreEqual("buitenwaarts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOutwardsElement);
 
@@ -96,10 +93,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             Assert.AreEqual("linkergrid", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeftGridElement);
             Assert.AreEqual("rechtergrid", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.RightGridElement);
-            Assert.AreEqual("links", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXLeftElement);
-            Assert.AreEqual("rechts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXRightElement);
-            Assert.AreEqual("boven", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZTopElement);
-            Assert.AreEqual("onder", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZBottomElement);
+            Assert.AreEqual("xlinks", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXLeftElement);
+            Assert.AreEqual("xrechts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXRightElement);
+            Assert.AreEqual("zboven", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZTopElement);
+            Assert.AreEqual("zonder", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZBottomElement);
             Assert.AreEqual("aantalpuntenhorizontaal", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfHorizontalPointsElement);
             Assert.AreEqual("aantalpuntenverticaal", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfVerticalPointsElement);
         }

@@ -9,23 +9,23 @@
     </scenario>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <hrlocatie>HRlocatie</hrlocatie>
-    <dijktype>2A</dijktype>
+    <dijktype>zanddijkopklei</dijktype>
     <grids>
       <rechtergrid>
         <aantalpuntenhorizontaal>6</aantalpuntenhorizontaal>
         <aantalpuntenverticaal>5</aantalpuntenverticaal>
-        <onder>4</onder>
-        <boven>3</boven>
-        <rechts>2</rechts>
-        <links>1</links>
+        <zonder>4</zonder>
+        <zboven>3</zboven>
+        <xrechts>2</xrechts>
+        <xlinks>1</xlinks>
       </rechtergrid>
       <linkergrid>
         <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
         <aantalpuntenverticaal>6</aantalpuntenverticaal>
-        <onder>NaN</onder>
-        <boven>NaN</boven>
-        <rechts>NaN</rechts>
-        <links>NaN</links>
+        <zonder>NaN</zonder>
+        <zboven>NaN</zboven>
+        <xrechts>NaN</xrechts>
+        <xlinks>NaN</xlinks>
       </linkergrid>
       <bepaling>automatisch</bepaling>
       <verplaatsgrid>true</verplaatsgrid>
@@ -43,25 +43,21 @@
     <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
     <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
     <waterspanningen>
-      <ghw>10.5</ghw>
+      <gemiddeldhoogwater>10.5</gemiddeldhoogwater>
       <drainage>
         <aanwezig>true</aanwezig>
         <x>10.6</x>
         <z>10.7</z>
       </drainage>
-      <initielehoogte>
-        <pl1>
+      <initielehoogtepl1>
           <binnenkruin>10.8</binnenkruin>
-          <buitenkruin>10.9</buitenkruin>
-        </pl1>
-      </initielehoogte>
+        <buitenkruin>10.9</buitenkruin>
+      </initielehoogtepl1>
       <corrigeervooropbarsten>true</corrigeervooropbarsten>
-      <stijghoogtes>
-        <pl2>
-          <binnenwaarts>20.1</binnenwaarts>
-          <buitenwaarts>20.2</buitenwaarts>
-        </pl2>
-      </stijghoogtes>
+      <stijghoogtespl2>
+        <binnenwaarts>20.1</binnenwaarts>
+        <buitenwaarts>20.2</buitenwaarts>
+      </stijghoogtespl2>
       <extreem>
         <indringingslengte>16.2</indringingslengte>
         <polderpeil>15.2</polderpeil>
@@ -69,25 +65,23 @@
           <binnenkruin>15.22</binnenkruin>
           <gebruikdefaults>false</gebruikdefaults>
           <teendijkbinnenwaarts>15.24</teendijkbinnenwaarts>
-          <buitenkruin>15.21</buitenkruin>
+        <buitenkruin>15.21</buitenkruin>
           <insteekbinnenberm>15.23</insteekbinnenberm>
         </offsets>
       </extreem>
-      <leklengtes>
-        <pl3>
-          <binnenwaarts>10.1</binnenwaarts>
-          <buitenwaarts>10.2</buitenwaarts>
-        </pl3>
-        <pl4>
-          <binnenwaarts>10.3</binnenwaarts>
-          <buitenwaarts>10.4</buitenwaarts>
-        </pl4>
-      </leklengtes>
+      <leklengtespl4>
+        <binnenwaarts>10.3</binnenwaarts>
+        <buitenwaarts>10.4</buitenwaarts>
+      </leklengtespl4>
+      <leklengtespl3>
+        <binnenwaarts>10.1</binnenwaarts>
+        <buitenwaarts>10.2</buitenwaarts>
+      </leklengtespl3>
       <dagelijks>
         <polderpeil>2.2</polderpeil>
         <offsets>
           <gebruikdefaults>true</gebruikdefaults>
-          <buitenkruin>2.21</buitenkruin>
+        <buitenkruin>2.21</buitenkruin>
           <binnenkruin>2.22</binnenkruin>
           <insteekbinnenberm>2.23</insteekbinnenberm>
           <teendijkbinnenwaarts>2.24</teendijkbinnenwaarts>

@@ -5,37 +5,31 @@
     <profielschematisatie>PK001_0001</profielschematisatie>
     <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
     <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
-    <dijktype>1A</dijktype>
+    <dijktype>kleidijkopklei</dijktype>
     <waterspanningen>
-      <ghw>INF</ghw>
+      <gemiddeldhoogwater>INF</gemiddeldhoogwater>
       <drainage>
         <aanwezig>true</aanwezig>
         <x>INF</x>
         <z>-INF</z>
       </drainage>
-      <initielehoogte>
-        <pl1>
-          <binnenkruin>INF</binnenkruin>
-          <buitenkruin>-INF</buitenkruin>
-        </pl1>
-      </initielehoogte>
+      <initielehoogtepl1>
+        <binnenkruin>INF</binnenkruin>
+        <buitenkruin>-INF</buitenkruin>
+      </initielehoogtepl1>
       <corrigeervooropbarsten>true</corrigeervooropbarsten>
-      <leklengtes>
-        <pl3>
-          <binnenwaarts>INF</binnenwaarts>
-          <buitenwaarts>-INF</buitenwaarts>
-        </pl3>
-        <pl4>
-          <binnenwaarts>INF</binnenwaarts>
-          <buitenwaarts>-INF</buitenwaarts>
-        </pl4>
-      </leklengtes>
-      <stijghoogtes>
-        <pl2>
-          <binnenwaarts>INF</binnenwaarts>
-          <buitenwaarts>-INF</buitenwaarts>
-        </pl2>
-      </stijghoogtes>
+      <leklengtespl3>
+        <binnenwaarts>INF</binnenwaarts>
+        <buitenwaarts>-INF</buitenwaarts>
+      </leklengtespl3>
+      <leklengtespl4>
+        <binnenwaarts>INF</binnenwaarts>
+        <buitenwaarts>-INF</buitenwaarts>
+      </leklengtespl4>
+      <stijghoogtespl2>
+        <binnenwaarts>INF</binnenwaarts>
+        <buitenwaarts>-INF</buitenwaarts>
+      </stijghoogtespl2>
       <dagelijks>
         <polderpeil>INF</polderpeil>
         <offsets>
@@ -74,18 +68,18 @@
         <aantal>5</aantal>
       </tangentlijnen>
       <linkergrid>
-        <links>-INF</links>
-        <rechts>INF</rechts>
-        <boven>INF</boven>
-        <onder>-INF</onder>
+        <xlinks>-INF</xlinks>
+        <xrechts>INF</xrechts>
+        <zboven>INF</zboven>
+        <zonder>-INF</zonder>
         <aantalpuntenverticaal>5</aantalpuntenverticaal>
         <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
       </linkergrid>
       <rechtergrid>
-        <links>-INF</links>
-        <rechts>INF</rechts>
-        <boven>INF</boven>
-        <onder>-INF</onder>
+        <xlinks>-INF</xlinks>
+        <xrechts>INF</xrechts>
+        <zboven>INF</zboven>
+        <zonder>-INF</zonder>
         <aantalpuntenverticaal>5</aantalpuntenverticaal>
         <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
       </rechtergrid>

@@ -3,30 +3,24 @@
   <berekening naam="Calculation">
     <toetspeil>1.1</toetspeil>
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
-    <dijktype>1A</dijktype>
+    <dijktype>kleidijkopklei</dijktype>
     <waterspanningen>
-      <ghw>10.5</ghw>
+      <gemiddeldhoogwater>10.5</gemiddeldhoogwater>
       <drainage>
         <aanwezig>true</aanwezig>
         <x>10.6</x>
       </drainage>
-      <initielehoogte>
-        <pl1>
-          <buitenkruin>10.9</buitenkruin>
-        </pl1>
-      </initielehoogte>
-      <leklengtes>
-        <pl3>
-          <binnenwaarts>10.1</binnenwaarts>
-          <buitenwaarts>10.2</buitenwaarts>
-        </pl3>
-      </leklengtes>
-      <stijghoogtes>
-        <pl2>
-          <binnenwaarts>20.1</binnenwaarts>
-          <buitenwaarts>20.2</buitenwaarts>
-        </pl2>
-      </stijghoogtes>
+      <initielehoogtepl1>
+        <buitenkruin>10.9</buitenkruin>
+      </initielehoogtepl1>
+      <leklengtespl3>
+        <binnenwaarts>10.1</binnenwaarts>
+        <buitenwaarts>10.2</buitenwaarts>
+      </leklengtespl3>
+      <stijghoogtespl2>
+        <binnenwaarts>20.1</binnenwaarts>
+        <buitenwaarts>20.2</buitenwaarts>
+      </stijghoogtespl2>
       <dagelijks>
         <polderpeil>NaN</polderpeil>
         <offsets>
@@ -52,10 +46,10 @@
         <aantal>5</aantal>
       </tangentlijnen>
       <linkergrid>
-        <links>NaN</links>
-        <rechts>NaN</rechts>
-        <boven>NaN</boven>
-        <onder>NaN</onder>
+        <xlinks>NaN</xlinks>
+        <xrechts>NaN</xrechts>
+        <zboven>NaN</zboven>
+        <zonder>NaN</zonder>
         <aantalpuntenverticaal>5</aantalpuntenverticaal>
         <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
       </linkergrid>

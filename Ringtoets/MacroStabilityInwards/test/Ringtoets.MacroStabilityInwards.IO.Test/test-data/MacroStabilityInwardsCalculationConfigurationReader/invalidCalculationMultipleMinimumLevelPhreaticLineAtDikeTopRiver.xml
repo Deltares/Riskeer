@@ -2,12 +2,10 @@
 <configuratie>
   <berekening naam="Calculation">
     <waterspanningen>
-      <initielehoogte>
-        <pl1>
-          <buitenkruin>NaN</buitenkruin>
-          <buitenkruin>10.9</buitenkruin>
-        </pl1>
-      </initielehoogte>
+      <initielehoogtepl1>
+        <buitenkruin>NaN</buitenkruin>
+        <buitenkruin>10.9</buitenkruin>
+      </initielehoogtepl1>
     </waterspanningen>
   </berekening>
 </configuratie>

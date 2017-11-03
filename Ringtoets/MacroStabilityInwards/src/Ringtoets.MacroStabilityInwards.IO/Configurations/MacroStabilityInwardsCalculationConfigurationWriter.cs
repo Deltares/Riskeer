@@ -171,52 +171,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AdjustPhreaticLine3And4ForUpliftElement,
                                              configuration.AdjustPhreaticLine3And4ForUplift);
 
-            WriteLeakageLength(writer, configuration);
+            WritePhreaticLineConfigurationWhenContentAvailable(writer,
+                                                               MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine3LeakageLengthElement,
+                                                               configuration.PhreaticLine3);
+            WritePhreaticLineConfigurationWhenContentAvailable(writer,
+                                                               MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine4LeakageLengthElement,
+                                                               configuration.PhreaticLine4);
 
-            WritePiezometricHead(writer, configuration);
+            WritePhreaticLineConfigurationWhenContentAvailable(writer,
+                                                               MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine2PiezometricHeadElement,
+                                                               configuration.PhreaticLine2);
 
-            WriteLocationLocationDailyInput(writer, configuration.LocationInputDaily);
+            WriteLocationLocationDailyInputWhenContentAvailable(writer, configuration.LocationInputDaily);
 
-            WriteLocationLocationExtremeInput(writer, configuration.LocationInputExtreme);
-
-            writer.WriteEndElement();
-        }
-
-        /// <summary>
-        /// Writes the leakage length related parameters.
-        /// </summary>
-        /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="configuration">The configuration to write.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
-        /// is closed.</exception>
-        private static void WriteLeakageLength(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
-        {
-            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeakageLengthElement);
-
-            WritePhreaticLineConfiguration(writer,
-                                           MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine3Element,
-                                           configuration.PhreaticLine3);
-            WritePhreaticLineConfiguration(writer,
-                                           MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine4Element,
-                                           configuration.PhreaticLine4);
-
-            writer.WriteEndElement();
-        }
-
-        /// <summary>
-        /// Writes the piezometric head related parameters.
-        /// </summary>
-        /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="configuration">The configuration to write.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
-        /// is closed.</exception>
-        private static void WritePiezometricHead(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
-        {
-            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PiezometricHeadElement);
-
-            WritePhreaticLineConfiguration(writer,
-                                           MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine2Element,
-                                           configuration.PhreaticLine2);
+            WriteLocationLocationExtremeInputWhenContentAvailable(writer, configuration.LocationInputExtreme);
 
             writer.WriteEndElement();
         }
@@ -229,9 +197,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <param name="configuration">The configuration for the phreatic line that can be <c>null</c>.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WritePhreaticLineConfiguration(XmlWriter writer,
-                                                           string elementName,
-                                                           MacroStabilityInwardsPhreaticLineConfiguration configuration)
+        private static void WritePhreaticLineConfigurationWhenContentAvailable(XmlWriter writer,
+                                                                               string elementName,
+                                                                               MacroStabilityInwardsPhreaticLineConfiguration configuration)
         {
             if (configuration == null)
             {
@@ -258,7 +226,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <param name="configuration">The configuration for the location input that can be <c>null</c>.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteLocationLocationDailyInput(XmlWriter writer, MacroStabilityInwardsLocationInputConfiguration configuration)
+        private static void WriteLocationLocationDailyInputWhenContentAvailable(XmlWriter writer, MacroStabilityInwardsLocationInputConfiguration configuration)
         {
             if (configuration == null)
             {
@@ -283,7 +251,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <param name="configuration">The configuration for the location input that can be <c>null</c>.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteLocationLocationExtremeInput(XmlWriter writer, MacroStabilityInwardsLocationInputExtremeConfiguration configuration)
+        private static void WriteLocationLocationExtremeInputWhenContentAvailable(XmlWriter writer,
+                                                                                  MacroStabilityInwardsLocationInputExtremeConfiguration configuration)
         {
             if (configuration == null)
             {
@@ -314,11 +283,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// is closed.</exception>
         private static void WriteLocationLocationInputOffset(XmlWriter writer, MacroStabilityInwardsLocationInputConfiguration configuration)
         {
-            if (configuration == null)
-            {
-                return;
-            }
-
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LocationInputOffsetElement);
 
             WriteElementWhenContentAvailable(writer,
@@ -365,7 +329,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the phreatic line minimum level related parameters.
+        /// Writes the phreatic line 1 minimum level related parameters.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration to write.</param>
@@ -373,23 +337,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// is closed.</exception>
         private static void WriteMinimumLevelPhreaticLine(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
         {
-            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineMinimumLevelElement);
-
-            WritePhreaticLine1(writer, configuration);
-
-            writer.WriteEndElement();
-        }
-
-        /// <summary>
-        /// Writes the phreatic 1 related parameters.
-        /// </summary>
-        /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="configuration">The configuration to write.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
-        /// is closed.</exception>
-        private static void WritePhreaticLine1(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
-        {
-            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine1Element);
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine1MinimumLevelElement);
 
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MinimumLevelPhreaticLineAtDikeTopPolderElement,

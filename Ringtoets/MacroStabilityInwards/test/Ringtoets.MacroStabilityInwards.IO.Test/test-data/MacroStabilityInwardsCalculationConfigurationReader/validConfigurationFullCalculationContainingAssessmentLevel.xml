@@ -5,42 +5,36 @@
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
-    <dijktype>2A</dijktype>
+    <dijktype>zanddijkopklei</dijktype>
     <waterspanningen>
-      <ghw>10.5</ghw>
+      <gemiddeldhoogwater>10.5</gemiddeldhoogwater>
       <drainage>
         <aanwezig>true</aanwezig>
         <x>10.6</x>
         <z>10.7</z>
       </drainage>
-      <initielehoogte>
-        <pl1>
+      <initielehoogtepl1>
           <binnenkruin>10.8</binnenkruin>
-          <buitenkruin>10.9</buitenkruin>
-        </pl1>
-      </initielehoogte>
+        <buitenkruin>10.9</buitenkruin>
+      </initielehoogtepl1>
       <corrigeervooropbarsten>true</corrigeervooropbarsten>
-      <leklengtes>
-        <pl3>
-          <binnenwaarts>10.1</binnenwaarts>
-          <buitenwaarts>10.2</buitenwaarts>
-        </pl3>
-        <pl4>
-          <binnenwaarts>10.3</binnenwaarts>
-          <buitenwaarts>10.4</buitenwaarts>
-        </pl4>
-      </leklengtes>
-      <stijghoogtes>
-        <pl2>
-          <binnenwaarts>20.1</binnenwaarts>
-          <buitenwaarts>20.2</buitenwaarts>
-        </pl2>
-      </stijghoogtes>
+      <leklengtespl3>
+        <binnenwaarts>10.1</binnenwaarts>
+        <buitenwaarts>10.2</buitenwaarts>
+      </leklengtespl3>
+      <leklengtespl4>
+        <binnenwaarts>10.3</binnenwaarts>
+        <buitenwaarts>10.4</buitenwaarts>
+      </leklengtespl4>
+      <stijghoogtespl2>
+        <binnenwaarts>20.1</binnenwaarts>
+        <buitenwaarts>20.2</buitenwaarts>
+      </stijghoogtespl2>
       <dagelijks>
         <polderpeil>2.2</polderpeil>
         <offsets>
           <gebruikdefaults>true</gebruikdefaults>
-          <buitenkruin>2.21</buitenkruin>
+        <buitenkruin>2.21</buitenkruin>
           <binnenkruin>2.22</binnenkruin>
           <insteekbinnenberm>2.23</insteekbinnenberm>
           <teendijkbinnenwaarts>2.24</teendijkbinnenwaarts>
@@ -51,7 +45,7 @@
         <indringingslengte>16.2</indringingslengte>
         <offsets>
           <gebruikdefaults>false</gebruikdefaults>
-          <buitenkruin>15.21</buitenkruin>
+        <buitenkruin>15.21</buitenkruin>
           <binnenkruin>15.22</binnenkruin>
           <insteekbinnenberm>15.23</insteekbinnenberm>
           <teendijkbinnenwaarts>15.24</teendijkbinnenwaarts>
@@ -74,18 +68,18 @@
         <aantal>5</aantal>
       </tangentlijnen>
       <linkergrid>
-        <links>NaN</links>
-        <rechts>NaN</rechts>
-        <boven>NaN</boven>
-        <onder>NaN</onder>
+        <xlinks>NaN</xlinks>
+        <xrechts>NaN</xrechts>
+        <zboven>NaN</zboven>
+        <zonder>NaN</zonder>
         <aantalpuntenverticaal>6</aantalpuntenverticaal>
         <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
       </linkergrid>
       <rechtergrid>
-        <links>1</links>
-        <rechts>2</rechts>
-        <boven>3</boven>
-        <onder>4</onder>
+        <xlinks>1</xlinks>
+        <xrechts>2</xrechts>
+        <zboven>3</zboven>
+        <zonder>4</zonder>
         <aantalpuntenverticaal>5</aantalpuntenverticaal>
         <aantalpuntenhorizontaal>6</aantalpuntenhorizontaal>
       </rechtergrid>

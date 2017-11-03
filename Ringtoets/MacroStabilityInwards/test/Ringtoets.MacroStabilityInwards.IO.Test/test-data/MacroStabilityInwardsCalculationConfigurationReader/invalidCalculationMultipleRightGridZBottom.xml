@@ -3,8 +3,8 @@
   <berekening naam="Calculation">
     <grids>
       <rechtergrid>
-        <onder>NaN</onder>
-        <onder>10</onder>
+        <zonder>NaN</zonder>
+        <zonder>10</zonder>
       </rechtergrid>
     </grids>
   </berekening>

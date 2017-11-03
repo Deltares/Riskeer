@@ -2,12 +2,10 @@
 <configuratie>
   <berekening naam="Calculation">
     <waterspanningen>
-      <stijghoogtes>
-        <pl2>
-          <buitenwaarts>NaN</buitenwaarts>
-          <buitenwaarts>20.2</buitenwaarts>
-        </pl2>
-      </stijghoogtes>
+      <stijghoogtespl2>
+        <buitenwaarts>NaN</buitenwaarts>
+        <buitenwaarts>20.2</buitenwaarts>
+      </stijghoogtespl2>
     </waterspanningen>
   </berekening>
 </configuratie>
