@@ -57,7 +57,7 @@ All rights reserved.
   <xs:element name="tangentlijnen">
     <xs:complexType>
       <xs:all>
-        <xs:element name="bepalingtangentlijnen" type="bepalingtangentlijnen" minOccurs="0"/>
+        <xs:element ref="bepalingtangentlijnen" minOccurs="0"/>
         <xs:element ref="zboven" minOccurs="0"/>
         <xs:element ref="zonder" minOccurs="0"/>
         <xs:element ref="aantal" minOccurs="0"/>
@@ -78,12 +78,14 @@ All rights reserved.
   </xs:complexType>
 
   <!--Specificeert of raaklijnen op basis van grondlaagscheiding bepaald of handmatig ingevuld moeten worden.-->
-  <xs:simpleType name="bepalingtangentlijnen">
-    <xs:restriction base ="xs:string">
-      <xs:enumeration value="laagscheiding"/>
-      <xs:enumeration value="gespecificeerd"/>
-    </xs:restriction>
-  </xs:simpleType>
+  <xs:element name="bepalingtangentlijnen">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="laagscheiding"/>
+        <xs:enumeration value="gespecificeerd"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
 
   <!--Specificeert de verticale coördinaat van de bovenste raaklijn.-->
   <xs:element name="zboven">

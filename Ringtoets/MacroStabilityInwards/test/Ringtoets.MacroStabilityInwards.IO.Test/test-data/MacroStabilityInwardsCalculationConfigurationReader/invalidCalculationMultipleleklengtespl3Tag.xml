@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="Calculation">
+    <waterspanningen>
+      <leklengtespl3 />
+      <leklengtespl3 />
+    </waterspanningen>
+  </berekening>
+</configuratie>

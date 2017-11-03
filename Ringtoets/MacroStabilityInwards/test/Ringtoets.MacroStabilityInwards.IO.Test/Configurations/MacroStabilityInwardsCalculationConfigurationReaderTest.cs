@@ -507,40 +507,44 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             {
                 yield return testCaseData.SetName(testName);
             }
+            foreach (TestCaseData testCaseData in InvalidTypeTestCases())
+            {
+                yield return testCaseData.SetName(testName);
+            }
         }
 
         private static IEnumerable<TestCaseData> InvalidTypeTestCases()
         {
-            const string message = "The '{0}' element is invalid - The value '{1}' is invalid according to its datatype '{2}'";
+            const string message = "The '{0}' element is invalid - The value '{1}' is invalid according to its datatype";
 
             const string dataTypeDouble = "Double";
             foreach (NameAdapter adapter in GetNameAdaptersOfDoubleProperties())
             {
                 yield return new TestCaseData($"invalid{adapter.PropertyName}Empty.xml",
-                                              string.Format(message, adapter.ElementName, "", dataTypeDouble));
+                                              string.Format(message, adapter.ElementName, ""));
                 yield return new TestCaseData($"invalid{adapter.PropertyName}No{dataTypeDouble}.xml",
-                                              string.Format(message, adapter.ElementName, "string", dataTypeDouble));
+                                              string.Format(message, adapter.ElementName, "string"));
             }
 
             const string dataTypeBoolean = "Boolean";
             foreach (NameAdapter adapter in GetNameAdaptersOfBoolProperties())
             {
                 yield return new TestCaseData($"invalid{adapter.PropertyName}Empty.xml",
-                                              string.Format(message, adapter.ElementName, "", dataTypeBoolean));
+                                              string.Format(message, adapter.ElementName, ""));
                 yield return new TestCaseData($"invalid{adapter.PropertyName}No{dataTypeBoolean}.xml",
-                                              string.Format(message, adapter.ElementName, "string", dataTypeBoolean));
+                                              string.Format(message, adapter.ElementName, "string"));
             }
 
             const string dataTypeInteger = "Integer";
             foreach (NameAdapter adapter in GetNameAdaptersOfIntegerProperties())
             {
                 yield return new TestCaseData($"invalid{adapter.PropertyName}Empty.xml",
-                                              string.Format(message, adapter.ElementName, "", dataTypeInteger));
+                                              string.Format(message, adapter.ElementName, ""));
                 yield return new TestCaseData($"invalid{adapter.PropertyName}No{dataTypeInteger}.xml",
-                                              string.Format(message, adapter.ElementName, "string", dataTypeInteger));
+                                              string.Format(message, adapter.ElementName, "string"));
             }
 
-            const string stringMessage = "The '{0}' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.";
+            const string stringMessage = "The '{0}' element is invalid - The value '' is invalid according to its datatype";
             foreach (NameAdapter adapter in GetNameAdaptersOfStringProperties())
             {
                 yield return new TestCaseData($"invalid{adapter.PropertyName}Empty.xml",
@@ -640,6 +644,25 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             yield return new NameAdapter("RightGridZBottom", "zonder");
         }
 
+        private static IEnumerable<string> GetTagElements()
+        {
+            yield return "waterspanningen";
+            yield return "drainage";
+            yield return "initielehoogtepl1";
+            yield return "leklengtespl3";
+            yield return "leklengtespl4";
+            yield return "stijghoogtespl2";
+            yield return "dagelijks";
+            yield return "extreem";
+            yield return "offsets";
+            yield return "zonering";
+            yield return "grids";
+            yield return "tangentlijnen";
+            yield return "linkergrid";
+            yield return "rechtergrid";
+            yield return "scenario";
+        }
+
         private static IEnumerable<TestCaseData> InvalidDuplicateElements()
         {
             const string message = "Element '{0}' cannot appear more than once if content model type is \"all\".";
@@ -648,6 +671,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             {
                 yield return new TestCaseData($"invalidCalculationMultiple{adapter.PropertyName}.xml",
                                               string.Format(message, adapter.ElementName));
+            }
+            foreach (string tagElement in GetTagElements())
+            {
+                yield return new TestCaseData($"invalidCalculationMultiple{tagElement}Tag.xml",
+                                              string.Format(message, tagElement));
             }
 
             yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml",

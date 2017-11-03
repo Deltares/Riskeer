@@ -68,16 +68,16 @@ All rights reserved.
   <!--Specificeert de PL 1 initiële hoogte onder binnen- en buitenkruin.-->
   <xs:complexType name="binnenbuitenkruin">
     <xs:all>
-      <xs:element name="binnenkruin" minOccurs="0"/>
-      <xs:element name="buitenkruin" minOccurs="0"/>
+      <xs:element name="binnenkruin" type="xs:double" minOccurs="0"/>
+      <xs:element name="buitenkruin" type="xs:double" minOccurs="0"/>
     </xs:all>
   </xs:complexType>
   
   <!--Specificeert de leklengtes (PL3 of PL 4) of de stijghoogtes (PL 2) binnen- en buitenwaarts.-->
   <xs:complexType name="binnenbuitenwaarts">
     <xs:all>
-      <xs:element name="binnenwaarts" minOccurs="0"/>
-      <xs:element name="buitenwaarts" minOccurs="0"/>
+      <xs:element name="binnenwaarts" type="xs:double" minOccurs="0"/>
+      <xs:element name="buitenwaarts" type="xs:double" minOccurs="0"/>
     </xs:all>
   </xs:complexType>
 

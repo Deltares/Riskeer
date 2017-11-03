@@ -1,0 +1,10 @@
+﻿<dagelijks>
+  <polderpeil>string</polderpeil>
+  <offsets>
+    <gebruikdefaults>true</gebruikdefaults>
+    <buitenkruin>2.21</buitenkruin>
+    <binnenkruin>2.22</binnenkruin>
+    <insteekbinnenberm>2.23</insteekbinnenberm>
+    <teendijkbinnenwaarts>2.24</teendijkbinnenwaarts>
+  </offsets>
+</dagelijks>
