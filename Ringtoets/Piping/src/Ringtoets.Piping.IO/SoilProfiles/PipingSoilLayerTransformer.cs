@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 return;
             }
 
-            IEnumerable<IEnumerable<double>> innerLoopsIntersectionHeights = GetLayersRecursively(soilLayer).Select(l => GetLoopIntersectionHeights(l.OuterLoop.Segments, atX));
+            IEnumerable<IEnumerable<double>> innerLoopsIntersectionHeights = GetNestedLayersRecursively(soilLayer).Select(l => GetLoopIntersectionHeights(l.OuterLoop.Segments, atX));
             IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(innerLoopsIntersectionHeights).ToList();
             IEnumerable<Tuple<double, double>> outerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(outerLoopIntersectionHeights).ToList();
 
@@ -148,14 +148,14 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
         }
 
-        private static IEnumerable<SoilLayer2D> GetLayersRecursively(SoilLayer2D layer)
+        private static IEnumerable<SoilLayer2D> GetNestedLayersRecursively(SoilLayer2D layer)
         {
             var layers = new List<SoilLayer2D>();
 
             foreach (SoilLayer2D nestedLayer in layer.NestedLayers)
             {
                 layers.Add(nestedLayer);
-                layers.AddRange(GetLayersRecursively(nestedLayer));
+                layers.AddRange(GetNestedLayersRecursively(nestedLayer));
             }
 
             return layers;
