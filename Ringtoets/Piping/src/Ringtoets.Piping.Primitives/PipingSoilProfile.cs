@@ -140,7 +140,7 @@ namespace Ringtoets.Piping.Primitives
             {
                 int hashCode = Bottom.GetHashCode();
                 hashCode = (hashCode * 397) ^ Name.GetHashCode();
-                hashCode = (hashCode * 397) ^ (int)SoilProfileSourceType;
+                hashCode = (hashCode * 397) ^ (int) SoilProfileSourceType;
                 foreach (PipingSoilLayer layer in layers)
                 {
                     hashCode = (hashCode * 397) ^ layer.GetHashCode();

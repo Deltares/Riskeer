@@ -57,13 +57,6 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
                                                         ReadNestedLayers(entity).ToArray());
         }
 
-        private static IEnumerable<MacroStabilityInwardsSoilLayer2D> ReadNestedLayers(MacroStabilityInwardsSoilLayerTwoDEntity entity)
-        {
-            return entity.MacroStabilityInwardsSoilLayerTwoDEntity1
-                         .OrderBy(e => e.Order)
-                         .Select(e => e.Read());
-        }
-
         private static MacroStabilityInwardsSoilLayerData ReadData(MacroStabilityInwardsSoilLayerTwoDEntity entity)
         {
             return new MacroStabilityInwardsSoilLayerData
@@ -111,6 +104,13 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
                     CoefficientOfVariation = (RoundedDouble) entity.PopCoefficientOfVariation.ToNullAsNaN()
                 }
             };
+        }
+
+        private static IEnumerable<MacroStabilityInwardsSoilLayer2D> ReadNestedLayers(MacroStabilityInwardsSoilLayerTwoDEntity entity)
+        {
+            return entity.MacroStabilityInwardsSoilLayerTwoDEntity1
+                         .OrderBy(e => e.Order)
+                         .Select(e => e.Read());
         }
     }
 }

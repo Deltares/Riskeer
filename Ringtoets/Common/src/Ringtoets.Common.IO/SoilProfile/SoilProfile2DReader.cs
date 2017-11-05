@@ -230,7 +230,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 return new PreconsolidationStress[0];
             }
 
-            return preconsolidationStressReader.ReadPreconsolidationStresses().ToArray();
+            return preconsolidationStressReader.ReadPreconsolidationStresses();
         }
 
         private static IEnumerable<SoilLayer2D> GetHierarchicallyOrderedSoilLayers(Dictionary<SoilLayer2DGeometry, Layer2DProperties> soilLayerGeometryLookup)

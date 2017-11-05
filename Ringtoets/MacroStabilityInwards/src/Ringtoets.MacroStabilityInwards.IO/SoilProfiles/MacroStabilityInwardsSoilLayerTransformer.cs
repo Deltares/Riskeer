@@ -89,7 +89,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// <summary>
         /// Converts <see cref="SoilLayer2D"/> into <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
-        /// <param name="soilLayer">The soil layer to convert..</param>
+        /// <param name="soilLayer">The soil layer to convert.</param>
+        /// <returns>The converted <see cref="MacroStabilityInwardsSoilLayer2D"/>.</returns>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>
         private static MacroStabilityInwardsSoilLayer2D ConvertLayerRecursively(SoilLayer2D soilLayer)
