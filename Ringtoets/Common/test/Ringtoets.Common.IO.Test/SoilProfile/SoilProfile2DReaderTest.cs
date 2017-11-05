@@ -445,7 +445,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadSoilProfile_DatabaseWith2DSoilProfileNestedLayers_ReturnOneProfile()
+        public void ReadSoilProfile_DatabaseWith2DSoilProfileContainingNestedLayers_ReturnOneProfile()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "2dprofileNestedLayers.soil");
@@ -466,18 +466,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
                 SoilLayer2D layer = soilProfile2D.Layers.First();
                 Assert.AreEqual("Material1", layer.MaterialName);
-
                 Assert.AreEqual(2, layer.NestedLayers.Count());
-                CollectionAssert.AreEqual(new[]
-                {
-                    1,
-                    0
-                }, layer.NestedLayers.Select(nl => nl.NestedLayers.Count()));
 
                 SoilLayer2D firstNestedLayer = layer.NestedLayers.First();
                 Assert.AreEqual("Material4", firstNestedLayer.MaterialName);
                 Assert.AreEqual(1, firstNestedLayer.NestedLayers.Count());
                 Assert.AreEqual("Material3", firstNestedLayer.NestedLayers.First().MaterialName);
+                Assert.AreEqual(0, firstNestedLayer.NestedLayers.First().NestedLayers.Count());
 
                 SoilLayer2D secondNestedLayer = layer.NestedLayers.ElementAt(1);
                 Assert.AreEqual("Material2", secondNestedLayer.MaterialName);
@@ -486,6 +481,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
+
         [Test]
         public void ReadSoilProfile_DatabaseWith2DProfile1LayerWithAllNullValues_ReturnsProfileWithDefaultValues()
         {
