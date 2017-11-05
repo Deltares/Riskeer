@@ -67,12 +67,12 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         }
 
         /// <summary>
-        /// Transforms the generic <paramref name="soilLayer"/> into a <see cref="PipingSoilLayer"/>.
+        /// Transforms the generic <paramref name="soilLayer"/> into one or more <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="soilLayer">The soil layer to use in the transformation.</param>
         /// <param name="atX">The 1D intersection of the profile.</param>
         /// <param name="bottom">The bottom of the soil layer.</param>
-        /// <returns>A new <see cref="PipingSoilLayer"/> based on the given data.</returns>
+        /// <returns>A collection of <see cref="PipingSoilLayer"/> based on the given data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/> is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>
@@ -86,14 +86,13 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         }
 
         /// <summary>
-        /// Transforms the generic <paramref name="soilLayer"/> into a <see cref="PipingSoilLayer"/>.
+        /// Transforms the generic <paramref name="soilLayer"/> into one or more <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="soilLayer">The soil layer to use in the transformation.</param>
         /// <param name="atX">The 1D intersection of the profile.</param>
         /// <param name="soilLayers">The collection of transformed piping soil layers to add the
         /// transformation to.</param>
         /// <param name="bottom">The bottom of the soil layer.</param>
-        /// <returns>A new <see cref="PipingSoilLayer"/> based on the given data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/> is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>

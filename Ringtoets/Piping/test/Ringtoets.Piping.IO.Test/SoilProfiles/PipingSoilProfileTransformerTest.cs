@@ -238,7 +238,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_SoilProfile2DWithMultipleLayersOnlyOuterLoop_ReturnsProfileWithBottomAndALayers()
+        public void Transform_SoilProfile2DWithMultipleLayersOnlyOuterLoop_ReturnsProfileWithBottomAndLayers()
         {
             // Setup
             const string profileName = "SomeProfile";
