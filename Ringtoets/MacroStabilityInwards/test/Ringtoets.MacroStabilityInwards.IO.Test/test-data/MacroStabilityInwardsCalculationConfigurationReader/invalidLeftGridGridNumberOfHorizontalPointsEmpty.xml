@@ -3,11 +3,6 @@
   <berekening naam="Calculation">
     <grids>
       <linkergrid>
-        <xlinks>NaN</xlinks>
-        <xrechts>NaN</xrechts>
-        <zboven>NaN</zboven>
-        <zonder>NaN</zonder>
-        <aantalpuntenverticaal>5</aantalpuntenverticaal>
         <aantalpuntenhorizontaal />
       </linkergrid>
     </grids>

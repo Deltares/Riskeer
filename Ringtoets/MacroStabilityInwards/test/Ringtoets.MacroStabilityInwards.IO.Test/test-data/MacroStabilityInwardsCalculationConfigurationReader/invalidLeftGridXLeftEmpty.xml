@@ -4,11 +4,6 @@
     <grids>
       <linkergrid>
         <xlinks />
-        <xrechts>NaN</xrechts>
-        <zboven>NaN</zboven>
-        <zonder>NaN</zonder>
-        <aantalpuntenverticaal>5</aantalpuntenverticaal>
-        <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
       </linkergrid>
     </grids>
   </berekening>

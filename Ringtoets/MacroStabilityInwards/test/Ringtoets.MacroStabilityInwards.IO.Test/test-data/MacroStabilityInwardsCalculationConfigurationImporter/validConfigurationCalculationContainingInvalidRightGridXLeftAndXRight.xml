@@ -1,9 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="Calculation">
     <grids>
       <rechtergrid>
-        <aantalpuntenhorizontaal />
+        <xlinks>10</xlinks>
+        <xrechts>0</xrechts>
       </rechtergrid>
     </grids>
   </berekening>

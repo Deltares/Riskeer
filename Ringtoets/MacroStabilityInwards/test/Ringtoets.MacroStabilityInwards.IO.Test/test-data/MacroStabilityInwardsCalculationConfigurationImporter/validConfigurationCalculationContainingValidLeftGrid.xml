@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <map naam="left grid combinations">
+    <berekening naam="Valid Z top and Z bottom">
+      <grids>
+        <linkergrid>
+          <zboven>0</zboven>
+          <zonder>0</zonder>
+        </linkergrid>
+      </grids>
+    </berekening>
+    <berekening naam="Valid Z top, Z bottom NaN">
+      <grids>
+        <linkergrid>
+          <zboven>1</zboven>
+          <zonder>NaN</zonder>
+        </linkergrid>
+      </grids>
+    </berekening>
+    <berekening naam="Valid Z top">
+      <grids>
+        <linkergrid>
+          <zboven>1</zboven>
+        </linkergrid>
+      </grids>
+    </berekening>
+    <berekening naam="Z top NaN, valid Z bottom">
+      <grids>
+        <linkergrid>
+          <zboven>NaN</zboven>
+          <zonder>1</zonder>
+        </linkergrid>
+      </grids>
+    </berekening>
+    <berekening naam="Valid Z bottom">
+      <grids>
+        <linkergrid>
+          <zonder>1</zonder>
+        </linkergrid>
+      </grids>
+    </berekening>
+    <berekening naam="Valid X rechts and X links">
+      <grids>
+        <linkergrid>
+          <xrechts>0</xrechts>
+          <xlinks>0</xlinks>
+        </linkergrid>
+      </grids>
+    </berekening>
+    <berekening naam="Valid X rechts, X links NaN">
+      <grids>
+        <linkergrid>
+          <xrechts>1</xrechts>
+          <xlinks>NaN</xlinks>
+        </linkergrid>
+      </grids>
+    </berekening>
+    <berekening naam="Valid X rechts">
+      <grids>
+        <linkergrid>
+          <xrechts>1</xrechts>
+        </linkergrid>
+      </grids>
+    </berekening>
+    <berekening naam="X rechts NaN, valid X links">
+      <grids>
+        <linkergrid>
+          <xrechts>NaN</xrechts>
+          <xlinks>1</xlinks>
+        </linkergrid>
+      </grids>
+    </berekening>
+    <berekening naam="Valid X links">
+      <grids>
+        <linkergrid>
+          <xlinks>1</xlinks>
+        </linkergrid>
+      </grids>
+    </berekening>
+  </map>
+</configuratie>

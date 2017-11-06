@@ -68,12 +68,12 @@ All rights reserved.
   <!--Specificeert eigenschappen van een grid.-->
   <xs:complexType name="slopestabilitygrid">
     <xs:all>
-      <xs:element ref="xlinks"/>
-      <xs:element ref="xrechts"/>
-      <xs:element ref="zboven"/>
-      <xs:element ref="zonder"/>
-      <xs:element ref="aantalpuntenverticaal"/>
-      <xs:element ref="aantalpuntenhorizontaal"/>
+      <xs:element ref="xlinks" minOccurs="0"/>
+      <xs:element ref="xrechts" minOccurs="0"/>
+      <xs:element ref="zboven" minOccurs="0"/>
+      <xs:element ref="zonder" minOccurs="0"/>
+      <xs:element ref="aantalpuntenverticaal" minOccurs="0"/>
+      <xs:element ref="aantalpuntenhorizontaal" minOccurs="0"/>
     </xs:all>
   </xs:complexType>
 

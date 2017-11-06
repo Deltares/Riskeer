@@ -327,8 +327,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNotNull(rightGridConfiguration);
             Assert.AreEqual(1, rightGridConfiguration.XLeft);
             Assert.AreEqual(2, rightGridConfiguration.XRight);
-            Assert.AreEqual(3, rightGridConfiguration.ZTop);
-            Assert.AreEqual(4, rightGridConfiguration.ZBottom);
+            Assert.AreEqual(4, rightGridConfiguration.ZTop);
+            Assert.AreEqual(3, rightGridConfiguration.ZBottom);
             Assert.AreEqual(5, rightGridConfiguration.NumberOfVerticalPoints);
             Assert.AreEqual(6, rightGridConfiguration.NumberOfHorizontalPoints);
 
@@ -436,8 +436,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNotNull(rightGridConfiguration);
             Assert.AreEqual(1, rightGridConfiguration.XLeft);
             Assert.AreEqual(2, rightGridConfiguration.XRight);
-            Assert.AreEqual(3, rightGridConfiguration.ZTop);
-            Assert.AreEqual(4, rightGridConfiguration.ZBottom);
+            Assert.AreEqual(4, rightGridConfiguration.ZTop);
+            Assert.AreEqual(3, rightGridConfiguration.ZBottom);
             Assert.AreEqual(5, rightGridConfiguration.NumberOfVerticalPoints);
             Assert.AreEqual(6, rightGridConfiguration.NumberOfHorizontalPoints);
 

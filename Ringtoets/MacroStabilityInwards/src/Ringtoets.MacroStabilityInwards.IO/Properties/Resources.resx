@@ -268,4 +268,19 @@
   <data name="MacroStabilityInwardsCalculationConfigurationImporter_TrySetTangentLineZTopBottom_Combination_of_TangentLineZTop_0_and_TangentLineZBottom_1_invalid_Reason_2" xml:space="preserve">
     <value>Een waarde van '{0}' als tangentlijn Z-boven en '{1}' als tangentlijn Z-onder is ongeldig. {2}</value>
   </data>
+  <data name="MacroStabilityInwardsCalculationConfigurationImporter_TrySetTangentLineNumber_TangentLineNumber_0_invalid" xml:space="preserve">
+    <value>Een waarde van '{0}' als aantal tangentlijnen is ongeldig.</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationConfigurationImporter_TrySetGridZTopZBottom_Combination_of_ZTop_0_and_ZBottom_1_invalid_Reason_2" xml:space="preserve">
+    <value>Een waarde van '{0}' als Z boven en '{1}' als Z onder is ongeldig. {2}</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationConfigurationImporter_TrySetGridXLeftXRight_Combination_of_XLeft_0_and_XRight_1_invalid_Reason_2" xml:space="preserve">
+    <value>Een waarde van '{0}' als X links en '{1}' als X rechts is ongeldig. {2}</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationConfigurationImporter_TrySetNumberOfHorizontalPoints_NumberOfHorizontalPoints_0_invalid" xml:space="preserve">
+    <value>Een waarde van '{0}' als aantal horizontale punten is ongeldig.</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationConfigurationImporter_TrySetNumberOfVerticalPoints_NumberOfVerticalPoints_0_invalid" xml:space="preserve">
+    <value>Een waarde van '{0}' als aantal verticale punten is ongeldig.</value>
+  </data>
 </root>

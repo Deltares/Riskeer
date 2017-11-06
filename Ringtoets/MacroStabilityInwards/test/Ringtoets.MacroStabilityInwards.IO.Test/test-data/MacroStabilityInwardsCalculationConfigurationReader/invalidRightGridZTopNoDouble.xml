@@ -3,12 +3,7 @@
   <berekening naam="Calculation">
     <grids>
       <rechtergrid>
-        <xlinks>1</xlinks>
-        <xrechts>2</xrechts>
         <zboven>string</zboven>
-        <zonder>4</zonder>
-        <aantalpuntenverticaal>5</aantalpuntenverticaal>
-        <aantalpuntenhorizontaal>6</aantalpuntenhorizontaal>
       </rechtergrid>
     </grids>
   </berekening>

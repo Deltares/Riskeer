@@ -181,7 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                     string message = string.Format(Resources.NumberOfHorizontalPoints_must_be_in_Range_0_,
                                                    numberOfPointsValidityRange);
 
-                    throw new ArgumentOutOfRangeException(nameof(value), message);
+                    throw new ArgumentOutOfRangeException(null, message);
                 }
 
                 numberOfHorizontalPoints = value;
@@ -205,7 +205,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                     string message = string.Format(Resources.NumberOfVerticalPoints_must_be_in_Range_0_,
                                                    numberOfPointsValidityRange);
 
-                    throw new ArgumentOutOfRangeException(nameof(value), message);
+                    throw new ArgumentOutOfRangeException(null, message);
                 }
 
                 numberOfVerticalPoints = value;

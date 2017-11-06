@@ -240,6 +240,56 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als X links en &apos;{1}&apos; als X rechts is ongeldig. {2}.
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationConfigurationImporter_TrySetGridXLeftXRight_Combination_of_XLeft_0_and_XRight_1_invalid_Reason_2 {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationConfigurationImporter_TrySetGridXLeftXRight_Combi" +
+                        "nation_of_XLeft_0_and_XRight_1_invalid_Reason_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als Z boven en &apos;{1}&apos; als Z onder is ongeldig. {2}.
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationConfigurationImporter_TrySetGridZTopZBottom_Combination_of_ZTop_0_and_ZBottom_1_invalid_Reason_2 {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationConfigurationImporter_TrySetGridZTopZBottom_Combi" +
+                        "nation_of_ZTop_0_and_ZBottom_1_invalid_Reason_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als aantal horizontale punten is ongeldig..
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationConfigurationImporter_TrySetNumberOfHorizontalPoints_NumberOfHorizontalPoints_0_invalid {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationConfigurationImporter_TrySetNumberOfHorizontalPoi" +
+                        "nts_NumberOfHorizontalPoints_0_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als aantal verticale punten is ongeldig..
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationConfigurationImporter_TrySetNumberOfVerticalPoints_NumberOfVerticalPoints_0_invalid {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationConfigurationImporter_TrySetNumberOfVerticalPoint" +
+                        "s_NumberOfVerticalPoints_0_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als aantal tangentlijnen is ongeldig..
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationConfigurationImporter_TrySetTangentLineNumber_TangentLineNumber_0_invalid {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationConfigurationImporter_TrySetTangentLineNumber_Tan" +
+                        "gentLineNumber_0_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als tangentlijn Z-boven en &apos;{1}&apos; als tangentlijn Z-onder is ongeldig. {2}.
         /// </summary>
         public static string MacroStabilityInwardsCalculationConfigurationImporter_TrySetTangentLineZTopBottom_Combination_of_TangentLineZTop_0_and_TangentLineZBottom_1_invalid_Reason_2 {

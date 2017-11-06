@@ -502,6 +502,326 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
+        public void Import_ValidLeftGrid_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingValidLeftGrid.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
+                                                                                     calculationGroup,
+                                                                                     Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                     new MacroStabilityInwardsFailureMechanism());
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculations = new[]
+            {
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid Z top and Z bottom",
+                    InputParameters =
+                    {
+                        LeftGrid =
+                        {
+                            ZTop = (RoundedDouble) 0,
+                            ZBottom = (RoundedDouble) 0
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid Z top, Z bottom NaN",
+                    InputParameters =
+                    {
+                        LeftGrid =
+                        {
+                            ZTop = (RoundedDouble) 1,
+                            ZBottom = RoundedDouble.NaN
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid Z top",
+                    InputParameters =
+                    {
+                        LeftGrid =
+                        {
+                            ZTop = (RoundedDouble) 1
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Z top NaN, valid Z bottom",
+                    InputParameters =
+                    {
+                        LeftGrid =
+                        {
+                            ZTop = RoundedDouble.NaN,
+                            ZBottom = (RoundedDouble) 1
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid Z bottom",
+                    InputParameters =
+                    {
+                        LeftGrid =
+                        {
+                            ZBottom = (RoundedDouble) 1
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid X rechts and X links",
+                    InputParameters =
+                    {
+                        LeftGrid =
+                        {
+                            XLeft = (RoundedDouble) 0,
+                            XRight = (RoundedDouble) 0
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid X rechts, X links NaN",
+                    InputParameters =
+                    {
+                        LeftGrid =
+                        {
+                            XLeft = RoundedDouble.NaN,
+                            XRight = (RoundedDouble) 1
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid X rechts",
+                    InputParameters =
+                    {
+                        LeftGrid =
+                        {
+                            XRight = (RoundedDouble) 1
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "X rechts NaN, valid X links",
+                    InputParameters =
+                    {
+                        LeftGrid =
+                        {
+                            XLeft = (RoundedDouble) 1,
+                            XRight = RoundedDouble.NaN
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid X links",
+                    InputParameters =
+                    {
+                        LeftGrid =
+                        {
+                            XLeft = (RoundedDouble) 1
+                        }
+                    }
+                }
+            };
+
+            ICalculation[] actualCalculations = calculationGroup.GetCalculations().ToArray();
+            Assert.AreEqual(expectedCalculations.Length, actualCalculations.Length);
+            for (var i = 0; i < expectedCalculations.Length; i++)
+            {
+                AssertMacroStabilityInwardsCalculationScenario(expectedCalculations[i],
+                                                               (MacroStabilityInwardsCalculationScenario) actualCalculations[i]);
+            }
+        }
+
+        [Test]
+        public void Import_ValidRightGrid_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingValidRightGrid.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
+                                                                                     calculationGroup,
+                                                                                     Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                     new MacroStabilityInwardsFailureMechanism());
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculations = new[]
+            {
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid Z top and Z bottom",
+                    InputParameters =
+                    {
+                        RightGrid =
+                        {
+                            ZTop = (RoundedDouble) 0,
+                            ZBottom = (RoundedDouble) 0
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid Z top, Z bottom NaN",
+                    InputParameters =
+                    {
+                        RightGrid =
+                        {
+                            ZTop = (RoundedDouble) 1,
+                            ZBottom = RoundedDouble.NaN
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid Z top",
+                    InputParameters =
+                    {
+                        RightGrid =
+                        {
+                            ZTop = (RoundedDouble) 1
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Z top NaN, valid Z bottom",
+                    InputParameters =
+                    {
+                        RightGrid =
+                        {
+                            ZTop = RoundedDouble.NaN,
+                            ZBottom = (RoundedDouble) 1
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid Z bottom",
+                    InputParameters =
+                    {
+                        RightGrid =
+                        {
+                            ZBottom = (RoundedDouble) 1
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid X rechts and X links",
+                    InputParameters =
+                    {
+                        RightGrid =
+                        {
+                            XLeft = (RoundedDouble) 0,
+                            XRight = (RoundedDouble) 0
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid X rechts, X links NaN",
+                    InputParameters =
+                    {
+                        RightGrid =
+                        {
+                            XLeft = RoundedDouble.NaN,
+                            XRight = (RoundedDouble) 1
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid X rechts",
+                    InputParameters =
+                    {
+                        RightGrid =
+                        {
+                            XRight = (RoundedDouble) 1
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "X rechts NaN, valid X links",
+                    InputParameters =
+                    {
+                        RightGrid =
+                        {
+                            XLeft = (RoundedDouble) 1,
+                            XRight = RoundedDouble.NaN
+                        }
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid X links",
+                    InputParameters =
+                    {
+                        RightGrid =
+                        {
+                            XLeft = (RoundedDouble) 1
+                        }
+                    }
+                }
+            };
+
+            ICalculation[] actualCalculations = calculationGroup.GetCalculations().ToArray();
+            Assert.AreEqual(expectedCalculations.Length, actualCalculations.Length);
+            for (var i = 0; i < expectedCalculations.Length; i++)
+            {
+                AssertMacroStabilityInwardsCalculationScenario(expectedCalculations[i],
+                                                               (MacroStabilityInwardsCalculationScenario) actualCalculations[i]);
+            }
+        }
+
+        [Test]
+        [SetCulture("en-US")]
+        [TestCaseSource(nameof(GetInvalidGridCombinations))]
+        public void Import_InvalidGrid_LogMessageAndContinueImport(string file, string expectedMessage)
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, file);
+
+            var calculationGroup = new CalculationGroup();
+            var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
+                                                                                     calculationGroup,
+                                                                                     new HydraulicBoundaryLocation[0],
+                                                                                     new MacroStabilityInwardsFailureMechanism());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
         [TestCase(false, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml")]
         [TestCase(true, "validConfigurationFullCalculationContainingAssessmentLevel.xml")]
         public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(bool manualAssessmentLevel, string file)
@@ -583,7 +903,25 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     TangentLineZBottom = (RoundedDouble) 1,
                     TangentLineNumber = 5,
                     GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic,
-                    TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated
+                    TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated,
+                    LeftGrid =
+                    {
+                        XLeft = RoundedDouble.NaN,
+                        XRight = RoundedDouble.NaN,
+                        ZTop = RoundedDouble.NaN,
+                        ZBottom = RoundedDouble.NaN,
+                        NumberOfVerticalPoints = 6,
+                        NumberOfHorizontalPoints = 5
+                    },
+                    RightGrid =
+                    {
+                        XLeft = (RoundedDouble) 1,
+                        XRight = (RoundedDouble) 2,
+                        ZTop = (RoundedDouble) 4,
+                        ZBottom = (RoundedDouble) 3,
+                        NumberOfVerticalPoints = 5,
+                        NumberOfHorizontalPoints = 6
+                    }
                 },
                 IsRelevant = false,
                 Contribution = (RoundedDouble) 0.088
@@ -640,24 +978,84 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(expectedInput.GridDeterminationType, actualInput.GridDeterminationType);
             Assert.AreEqual(expectedInput.TangentLineDeterminationType, actualInput.TangentLineDeterminationType);
 
+            AssertMacroStabilityInwardsGrid(expectedInput.LeftGrid, actualInput.LeftGrid);
+            AssertMacroStabilityInwardsGrid(expectedInput.RightGrid, actualInput.RightGrid);
+
             Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
             Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution, actualCalculation.Contribution.GetAccuracy());
         }
 
-        private static IEnumerable<TestCaseData> GetValidLargerThanCombinations()
+        private static void AssertMacroStabilityInwardsGrid(MacroStabilityInwardsGrid expected, MacroStabilityInwardsGrid actual)
         {
-            yield return new TestCaseData(1.0, null);
-            yield return new TestCaseData(1.0, double.NaN);
-            yield return new TestCaseData(null, 0.0);
-            yield return new TestCaseData(double.NaN, 0.0);
-            yield return new TestCaseData(0.0, 0.0);
-            yield return new TestCaseData(1.0, 0.0);
+            Assert.AreEqual(expected.ZTop, actual.ZTop);
+            Assert.AreEqual(expected.ZBottom, actual.ZBottom);
+            Assert.AreEqual(expected.XLeft, actual.XLeft);
+            Assert.AreEqual(expected.XRight, actual.XRight);
+            Assert.AreEqual(expected.NumberOfHorizontalPoints, actual.NumberOfHorizontalPoints);
+            Assert.AreEqual(expected.NumberOfVerticalPoints, actual.NumberOfVerticalPoints);
         }
 
-        private static IEnumerable<TestCaseData> GetInvalidLargerThanCombinations()
+        private static IEnumerable<TestCaseData> GetInvalidGridCombinations()
         {
-            yield return new TestCaseData(1.0, 0.0);
-            yield return new TestCaseData(0.0, -1.0);
+            const string expectedZTopZBottomMessage = "Een waarde van '0.00' als Z boven en '10.00' als Z onder is ongeldig. " +
+                                                      "Z onder moet kleiner zijn dan of gelijk zijn aan Z boven, of NaN. " +
+                                                      "Berekening 'Calculation' is overgeslagen.";
+            yield return new TestCaseData("validConfigurationCalculationContainingInvalidLeftGridZTopAndZBottom.xml",
+                                          expectedZTopZBottomMessage)
+                .SetName("Invalid left grid ZTop And ZBottom");
+            yield return new TestCaseData("validConfigurationCalculationContainingInvalidRightGridZTopAndZBottom.xml",
+                                          expectedZTopZBottomMessage)
+                .SetName("Invalid right grid ZTop And ZBottom");
+
+            const string expectedXLeftXRightMessage = "Een waarde van '10.00' als X links en '0.00' als X rechts is ongeldig. " +
+                                                      "X rechts moet groter zijn dan of gelijk zijn aan X links, of NaN. " +
+                                                      "Berekening 'Calculation' is overgeslagen.";
+            yield return new TestCaseData("validConfigurationCalculationContainingInvalidLeftGridXLeftAndXRight.xml",
+                                          expectedXLeftXRightMessage)
+                .SetName("Invalid left grid XLeft And XRight");
+            yield return new TestCaseData("validConfigurationCalculationContainingInvalidRightGridXLeftAndXRight.xml",
+                                          expectedXLeftXRightMessage)
+                .SetName("Invalid left grid XLeft And XRight");
+
+            const string expectedNumberOfHorizontalPointsTooLargeMessage = "Een waarde van '101' als aantal horizontale punten is ongeldig. " +
+                                                                           "De waarde voor het aantal horizontale punten moet in het bereik [1, 100] liggen. " +
+                                                                           "Berekening 'Calculation' is overgeslagen.";
+            yield return new TestCaseData("validConfigurationCalculationContainingInvalidLeftGridNumberOfHorizontalPointsTooLarge.xml",
+                                          expectedNumberOfHorizontalPointsTooLargeMessage)
+                .SetName("Invalid left grid NumberOfHorizontalPoints too large");
+            yield return new TestCaseData("validConfigurationCalculationContainingInvalidRightGridNumberOfHorizontalPointsTooLarge.xml",
+                                          expectedNumberOfHorizontalPointsTooLargeMessage)
+                .SetName("Invalid left grid NumberOfHorizontalPoints too large");
+
+            const string expectedNumberOfHorizontalPointsTooLowMessage = "Een waarde van '0' als aantal horizontale punten is ongeldig. " +
+                                                                         "De waarde voor het aantal horizontale punten moet in het bereik [1, 100] liggen. " +
+                                                                         "Berekening 'Calculation' is overgeslagen.";
+            yield return new TestCaseData("validConfigurationCalculationContainingInvalidLeftGridNumberOfHorizontalPointsTooLow.xml",
+                                          expectedNumberOfHorizontalPointsTooLowMessage)
+                .SetName("Invalid left grid NumberOfHorizontalPoints too low");
+            yield return new TestCaseData("validConfigurationCalculationContainingInvalidRightGridNumberOfHorizontalPointsTooLow.xml",
+                                          expectedNumberOfHorizontalPointsTooLowMessage)
+                .SetName("Invalid left grid NumberOfHorizontalPoints too low");
+
+            const string expectedNumberOfVerticalPointsTooLargeMessage = "Een waarde van '101' als aantal verticale punten is ongeldig. " +
+                                                                         "De waarde voor het aantal verticale punten moet in het bereik [1, 100] liggen. " +
+                                                                         "Berekening 'Calculation' is overgeslagen.";
+            yield return new TestCaseData("validConfigurationCalculationContainingInvalidLeftGridNumberOfVerticalPointsTooLarge.xml",
+                                          expectedNumberOfVerticalPointsTooLargeMessage)
+                .SetName("Invalid left grid NumberOfVerticalPoints too large");
+            yield return new TestCaseData("validConfigurationCalculationContainingInvalidRightGridNumberOfVerticalPointsTooLarge.xml",
+                                          expectedNumberOfVerticalPointsTooLargeMessage)
+                .SetName("Invalid left grid NumberOfVerticalPoints too large");
+
+            const string expectedNumberOfVerticalPointsTooLowMessage = "Een waarde van '0' als aantal verticale punten is ongeldig. " +
+                                                                       "De waarde voor het aantal verticale punten moet in het bereik [1, 100] liggen. " +
+                                                                       "Berekening 'Calculation' is overgeslagen.";
+            yield return new TestCaseData("validConfigurationCalculationContainingInvalidLeftGridNumberOfVerticalPointsTooLow.xml",
+                                          expectedNumberOfVerticalPointsTooLowMessage)
+                .SetName("Invalid left grid NumberOfVerticalPoints too low");
+            yield return new TestCaseData("validConfigurationCalculationContainingInvalidRightGridNumberOfVerticalPointsTooLow.xml",
+                                          expectedNumberOfVerticalPointsTooLowMessage)
+                .SetName("Invalid left grid NumberOfVerticalPoints too low");
         }
     }
 }
