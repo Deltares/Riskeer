@@ -547,10 +547,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var waternetExtremeChartDataCollection = (ChartDataCollection) chartData[waternetZonesExtremeIndex];
                 var waternetDailyChartDataCollection = (ChartDataCollection) chartData[waternetZonesDailyIndex];
 
-                MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetExtreme,
-                                                                                 waternetExtremeChartDataCollection);
-                MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetDaily,
-                                                                                 waternetDailyChartDataCollection);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetExtreme,
+                                                                                       waternetExtremeChartDataCollection);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetDaily,
+                                                                                       waternetDailyChartDataCollection);
 
                 IEnumerable<ChartData> waternetExtremeChartData = waternetExtremeChartDataCollection.Collection;
                 IEnumerable<ChartData> waternetDailyChartData = waternetDailyChartDataCollection.Collection;

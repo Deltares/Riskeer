@@ -243,14 +243,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             foreach (MacroStabilityInwardsPhreaticLine phreaticLine in waternet.PhreaticLines)
             {
-                ChartLineData phreaticLineChartData = MacroStabilityInwardsChartDataFactory.CreatePhreaticLineChartData(phreaticLine.Name);
+                ChartLineData phreaticLineChartData = MacroStabilityInwardsChartDataFactory.CreatePhreaticLineChartData(phreaticLine.Name, true);
                 phreaticLineChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreatePhreaticLinePoints(phreaticLine);
                 chartData.Add(phreaticLineChartData);
             }
 
             foreach (MacroStabilityInwardsWaternetLine waternetLine in waternet.WaternetLines)
             {
-                ChartMultipleAreaData waternetLineChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(waternetLine.Name);
+                ChartMultipleAreaData waternetLineChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(waternetLine.Name, true);
                 waternetLineChartData.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
                 chartData.Add(waternetLineChartData);
             }

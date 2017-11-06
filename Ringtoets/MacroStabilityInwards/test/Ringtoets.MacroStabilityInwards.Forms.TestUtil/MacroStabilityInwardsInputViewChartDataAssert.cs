@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
 {
@@ -80,6 +81,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             MacroStabilityInwardsViewChartDataAssert.AssertEmptyWaternetChartData(chartDataCollection,
                                                                                   waternetZonesExtremeIndex,
                                                                                   waternetZonesDailyIndex);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="chartDataCollection"/> contains no waternet chart data.
+        /// </summary>
+        /// <param name="waternet">The original <see cref="MacroStabilityInwardsWaternet"/>.</param>
+        /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when a waternet layer is present.</exception>
+        public static void AssertWaternetChartData(MacroStabilityInwardsWaternet waternet, ChartDataCollection chartDataCollection)
+        {
+            MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(waternet,
+                                                                             true,
+                                                                             chartDataCollection);
         }
 
         /// <summary>

@@ -21,6 +21,7 @@
 
 using System;
 using System.Drawing;
+using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
@@ -60,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateWaternetZoneChartData_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(null);
+            TestDelegate call = () => MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(null, new Random(21).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -68,17 +69,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateWaternetZoneChartData_ReturnsEmptyChartAreaData()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateWaternetZoneChartData_WithVisibility_ReturnsEmptyChartLineDataWithExpectedVisibility(bool isVisible)
         {
             // Setup
             const string name = "zone";
 
             // Call
-            ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(name);
+            ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(name, isVisible);
 
             // Assert
             CollectionAssert.IsEmpty(data.Areas);
             Assert.AreEqual(name, data.Name);
+            Assert.AreEqual(isVisible, data.IsVisible);
             AssertEqualStyle(data.Style, Color.FromArgb(60, Color.DeepSkyBlue), Color.Empty, 0, true);
         }
 
@@ -86,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreatePhreaticLineChartData_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsChartDataFactory.CreatePhreaticLineChartData(null);
+            TestDelegate call = () => MacroStabilityInwardsChartDataFactory.CreatePhreaticLineChartData(null, new Random(21).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -94,17 +98,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreatePhreaticLineChartData_ReturnsEmptyChartLineData()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreatePhreaticLineChartData_WithVisibility_ReturnsEmptyChartLineDataWithExpectedVisibility(bool isVisible)
         {
             // Setup
             const string name = "zone";
 
             // Call
-            ChartLineData data = MacroStabilityInwardsChartDataFactory.CreatePhreaticLineChartData(name);
+            ChartLineData data = MacroStabilityInwardsChartDataFactory.CreatePhreaticLineChartData(name, isVisible);
 
             // Assert
             CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual(name, data.Name);
+            Assert.AreEqual(isVisible, data.IsVisible);
             AssertEqualStyle(data.Style, Color.Blue, 2, ChartLineDashStyle.Solid);
         }
 

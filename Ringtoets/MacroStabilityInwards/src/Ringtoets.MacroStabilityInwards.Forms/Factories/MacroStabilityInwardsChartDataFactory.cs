@@ -61,10 +61,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a <see cref="ChartMultipleAreaData"/> for a waternet zone.
         /// </summary>
         /// <param name="name">The name of the zone.</param>
+        /// <param name="isVisible">The default visibility of the zone.</param>
         /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
-        public static ChartMultipleAreaData CreateWaternetZoneChartData(string name)
+        public static ChartMultipleAreaData CreateWaternetZoneChartData(string name, bool isVisible)
         {
             if (name == null)
             {
@@ -76,17 +77,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 StrokeThickness = 0,
                 FillColor = Color.FromArgb(60, Color.DeepSkyBlue),
                 IsEditable = true
-            });
+            })
+            {
+                IsVisible = isVisible
+            };
         }
 
         /// <summary>
         /// Create a <see cref="ChartLineData"/> for a phreatic line.
         /// </summary>
         /// <param name="name">The name of the line.</param>
+        /// <param name="isVisible">The default visibility of the line.</param>
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
-        public static ChartLineData CreatePhreaticLineChartData(string name)
+        public static ChartLineData CreatePhreaticLineChartData(string name, bool isVisible)
         {
             if (name == null)
             {
@@ -98,7 +103,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 Color = Color.Blue,
                 DashStyle = ChartLineDashStyle.Solid,
                 Width = 2
-            });
+            })
+            {
+                IsVisible = isVisible
+            };
         }
 
         /// <summary>

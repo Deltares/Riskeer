@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
 {
@@ -74,10 +75,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
                                                                                 true,
                                                                                 actual.Collection.ElementAt(soilProfileIndex));
 
-            MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculationScenario.InputParameters.WaternetExtreme,
-                                                                             (ChartDataCollection) actual.Collection.ElementAt(waternetZonesExtremeIndex));
-            MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculationScenario.InputParameters.WaternetDaily,
-                                                                             (ChartDataCollection) actual.Collection.ElementAt(waternetZonesDailyIndex));
+            AssertWaternetChartData(calculationScenario.InputParameters.WaternetExtreme,
+                                    (ChartDataCollection) actual.Collection.ElementAt(waternetZonesExtremeIndex));
+            AssertWaternetChartData(calculationScenario.InputParameters.WaternetDaily,
+                                    (ChartDataCollection) actual.Collection.ElementAt(waternetZonesDailyIndex));
         }
 
         /// <summary>
@@ -108,6 +109,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             AssertCircleRadiusChartData(calculationScenario.Output.SlidingCurve.Slices.Last().TopRightPoint,
                                         calculationScenario.Output.SlidingCurve.RightCircle,
                                         (ChartLineData) actual.Collection.ElementAt(passiveCircleRadiusIndex));
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="chartDataCollection"/> contains no waternet chart data.
+        /// </summary>
+        /// <param name="waternet">The original <see cref="MacroStabilityInwardsWaternet"/>.</param>
+        /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when a waternet layer is present.</exception>
+        public static void AssertWaternetChartData(MacroStabilityInwardsWaternet waternet, ChartDataCollection chartDataCollection)
+        {
+            MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(waternet,
+                                                                             false,
+                                                                             chartDataCollection);
         }
 
         /// <summary>

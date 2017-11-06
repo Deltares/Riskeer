@@ -92,10 +92,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
         /// </summary>
         /// <param name="original">The original <see cref="MacroStabilityInwardsWaternet"/>.</param>
+        /// <param name="expectedVisibility">The expected visibility of the chart data.</param>
         /// <param name="actual">The actual <see cref="ChartDataCollection"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="original"/>.</exception>
-        public static void AssertWaternetChartData(MacroStabilityInwardsWaternet original, ChartDataCollection actual)
+        public static void AssertWaternetChartData(MacroStabilityInwardsWaternet original, bool expectedVisibility, ChartDataCollection actual)
         {
             ChartData[] waternetChartData = actual.Collection.ToArray();
             MacroStabilityInwardsWaternetLine[] waternetLines = original.WaternetLines.ToArray();
@@ -113,6 +114,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
                     var phreaticLineChartData = (ChartLineData) waternetChartData[i];
                     Assert.AreEqual(phreaticLines[i].Name, phreaticLineChartData.Name);
                     Assert.AreEqual(phreaticLines[i].Geometry, phreaticLineChartData.Points);
+                    Assert.AreEqual(expectedVisibility, phreaticLineChartData.IsVisible);
                 }
                 else
                 {
@@ -120,6 +122,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
                     MacroStabilityInwardsWaternetLine waternetLine = waternetLines[i - waternetLines.Length];
                     Assert.AreEqual(waternetLine.Name, waternetLineChartData.Name);
                     Assert.IsTrue(waternetLineChartData.HasData);
+                    Assert.AreEqual(expectedVisibility, waternetLineChartData.IsVisible);
                 }
             }
         }
