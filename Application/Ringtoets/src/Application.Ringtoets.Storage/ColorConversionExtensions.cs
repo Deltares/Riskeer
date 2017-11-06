@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 
 namespace Application.Ringtoets.Storage
@@ -27,16 +28,19 @@ namespace Application.Ringtoets.Storage
     /// Class that contains extension methods for <see cref="Color"/> to convert them to
     /// other value types.
     /// </summary>
-    public static class ColorConversionExtensions
+    internal static class ColorConversionExtensions
     {
         /// <summary>
         /// Convert <paramref name="value"/> to its 32-bit ARGB value.
         /// </summary>
         /// <param name="value">The value to convert.</param>
-        /// <returns>The 32-bit ARGB value.</returns>
-        public static int ToInt32(this Color value)
+        /// <returns>The 32-bit ARGB value, or null when the
+		/// color is empty.</returns>
+        public static int? ToInt32(this Color value)
         {
-            return value.ToArgb();
+            return value.IsEmpty
+                       ? (int?) null
+                       : value.ToArgb();
         }
 
         /// <summary>
@@ -44,9 +48,9 @@ namespace Application.Ringtoets.Storage
         /// </summary>
         /// <param name="value">The 32-bit ARGB value to convert.</param>
         /// <returns>The created <see cref="Color"/>.</returns>
-        public static Color ToColor(this int value)
+        public static Color ToColor(this long? value)
         {
-            return value == 0 ? Color.Empty : Color.FromArgb(value);
+            return value == null ? Color.Empty : Color.FromArgb(Convert.ToInt32(value));
         }
     }
 }

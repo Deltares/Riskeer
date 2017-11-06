@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long MacroStabilityInwardsSoilLayerTwoDEntityId { get; set; }
         public long? ParentMacroStabilityInwardsSoilLayerTwoDEntityId { get; set; }
         public byte IsAquifer { get; set; }
-        public long Color { get; set; }
+        public long? Color { get; set; }
         public string MaterialName { get; set; }
         public byte ShearStrengthModel { get; set; }
         public byte UsePop { get; set; }

@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long PipingSoilProfileEntityId { get; set; }
         public double? Top { get; set; }
         public byte IsAquifer { get; set; }
-        public long Color { get; set; }
+        public long? Color { get; set; }
         public string MaterialName { get; set; }
         public double? BelowPhreaticLevelMean { get; set; }
         public double? BelowPhreaticLevelDeviation { get; set; }

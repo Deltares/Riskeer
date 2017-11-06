@@ -1178,12 +1178,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertPipingSoilLayers(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            string validateSoilProfiles =
+            string validateSoilLayers =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].SoilLayerEntity) " +
                 "FROM PipingSoilLayerEntity; " +
                 "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateSoilProfiles);
+            reader.AssertReturnedDataIsValid(validateSoilLayers);
+
+            string validateSoilLayerColors =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].SoilLayerEntity WHERE Color = 0) " +
+                "FROM PipingSoilLayerEntity " +
+                "WHERE Color IS NULL;" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSoilLayerColors);
         }
 
         private static void AssertPipingStochasticSoilProfiles(MigratedDatabaseReader reader, string sourceFilePath)

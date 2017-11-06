@@ -865,18 +865,34 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             Point2D[] referenceLineGeometryPoints = assessmentSection.ReferenceLine.Points.ToArray();
 
-            PipingSoilProfile pipingSoilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile("SoilProfile1D",
-                                                                                                       SoilProfileType.SoilProfile1D);
-            PipingSoilLayer pipingSoilLayer = pipingSoilProfile.Layers.First();
-            pipingSoilLayer.BelowPhreaticLevelMean = 2.2;
-            pipingSoilLayer.BelowPhreaticLevelDeviation = 1.2;
-            pipingSoilLayer.BelowPhreaticLevelShift = 3.2;
-            pipingSoilLayer.DiameterD70Mean = 2.42;
-            pipingSoilLayer.DiameterD70CoefficientOfVariation = 21.002;
-            pipingSoilLayer.PermeabilityMean = 0.9982;
-            pipingSoilLayer.PermeabilityCoefficientOfVariation = 0.220;
-            pipingSoilLayer.Color = Color.HotPink;
-            pipingSoilLayer.MaterialName = "HotPinkLayer";
+            var pipingSoilProfile = new PipingSoilProfile("SoilProfile1D", 0.0, new[]
+            {
+                new PipingSoilLayer(1.0)
+                {
+                    IsAquifer = true,
+                    BelowPhreaticLevelMean = 2.2,
+                    BelowPhreaticLevelDeviation = 1.2,
+                    BelowPhreaticLevelShift = 3.2,
+                    DiameterD70Mean = 2.42,
+                    DiameterD70CoefficientOfVariation = 21.002,
+                    PermeabilityMean = 0.9982,
+                    PermeabilityCoefficientOfVariation = 0.220,
+                    Color = Color.HotPink,
+                    MaterialName = "HotPinkLayer"
+                },
+                new PipingSoilLayer(2.0)
+                {
+                    IsAquifer = false,
+                    Color = Color.Empty,
+                    MaterialName = "EmptyLayer"
+                },
+                new PipingSoilLayer(3.0)
+                {
+                    IsAquifer = false,
+                    Color = Color.FromArgb(0),
+                    MaterialName = "ColorZeroLayer"
+                }
+            }, SoilProfileType.SoilProfile1D);
 
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -1136,8 +1152,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                         Data =
                         {
                             IsAquifer = true,
-                            MaterialName = "Navy",
-                            Color = Color.Navy,
+                            MaterialName = "Zero",
+                            Color = Color.FromArgb(0),
                             UsePop = true,
                             ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi,
                             AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
@@ -1187,8 +1203,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                     {
                         Data =
                         {
-                            MaterialName = "HotPink",
-                            Color = Color.HotPink,
+                            MaterialName = "Empty",
+                            Color = Color.Empty,
                             ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.SuCalculated
                         }
                     }

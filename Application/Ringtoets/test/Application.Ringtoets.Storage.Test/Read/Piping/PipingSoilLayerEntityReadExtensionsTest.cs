@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var random = new Random(21);
             double top = random.NextDouble();
-            int color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()).ToInt32();
+            int? color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()).ToInt32();
             const string materialName = "sand";
 
             bool isAquifer = random.NextBoolean();

@@ -50,7 +50,7 @@ namespace Core.Common.Controls.DataGrid
                 rowIndex,
                 cellState,
                 value,
-                formattedValue,
+                string.Empty,
                 errorText,
                 cellStyle,
                 advancedBorderStyle,

@@ -1166,7 +1166,12 @@ SELECT
 	[SoilProfileEntityId],
 	[Top],
 	[IsAquifer],
-	[Color],
+	CASE
+		WHEN [Color] IS 0
+			THEN NULL
+		ELSE
+			[Color]
+	END,
 	[MaterialName],
 	[BelowPhreaticLevelMean],
 	[BelowPhreaticLevelDeviation],

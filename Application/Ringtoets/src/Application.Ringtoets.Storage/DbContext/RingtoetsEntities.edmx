@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\WTI\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Ringtoets\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -837,7 +837,7 @@
           <Property Name="MacroStabilityInwardsSoilProfileOneDEntityId" Type="integer" Nullable="false" />
           <Property Name="Top" Type="real" />
           <Property Name="IsAquifer" Type="tinyint" Nullable="false" />
-          <Property Name="Color" Type="integer" Nullable="false" />
+          <Property Name="Color" Type="integer" />
           <Property Name="MaterialName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="ShearStrengthModel" Type="tinyint" Nullable="false" />
           <Property Name="UsePop" Type="tinyint" Nullable="false" />
@@ -866,7 +866,7 @@
           <Property Name="MacroStabilityInwardsSoilLayerTwoDEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ParentMacroStabilityInwardsSoilLayerTwoDEntityId" Type="integer" />
           <Property Name="IsAquifer" Type="tinyint" Nullable="false" />
-          <Property Name="Color" Type="integer" Nullable="false" />
+          <Property Name="Color" Type="integer" />
           <Property Name="MaterialName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="ShearStrengthModel" Type="tinyint" Nullable="false" />
           <Property Name="UsePop" Type="tinyint" Nullable="false" />
@@ -1046,7 +1046,7 @@
           <Property Name="PipingSoilProfileEntityId" Type="integer" Nullable="false" />
           <Property Name="Top" Type="real" />
           <Property Name="IsAquifer" Type="tinyint" Nullable="false" />
-          <Property Name="Color" Type="integer" Nullable="false" />
+          <Property Name="Color" Type="integer" />
           <Property Name="MaterialName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="BelowPhreaticLevelMean" Type="real" />
           <Property Name="BelowPhreaticLevelDeviation" Type="real" />
@@ -5288,7 +5288,7 @@
           <Property Name="MacroStabilityInwardsSoilProfileOneDEntityId" Type="Int64" Nullable="false" />
           <Property Name="Top" Type="Double" />
           <Property Name="IsAquifer" Type="Byte" Nullable="false" />
-          <Property Name="Color" Type="Int64" Nullable="false" />
+          <Property Name="Color" Type="Int64" />
           <Property Name="MaterialName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="ShearStrengthModel" Type="Byte" Nullable="false" />
           <Property Name="UsePop" Type="Byte" Nullable="false" />
@@ -5318,7 +5318,7 @@
           <Property Name="MacroStabilityInwardsSoilLayerTwoDEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ParentMacroStabilityInwardsSoilLayerTwoDEntityId" Type="Int64" />
           <Property Name="IsAquifer" Type="Byte" Nullable="false" />
-          <Property Name="Color" Type="Int64" Nullable="false" />
+          <Property Name="Color" Type="Int64" />
           <Property Name="MaterialName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="ShearStrengthModel" Type="Byte" Nullable="false" />
           <Property Name="UsePop" Type="Byte" Nullable="false" />
@@ -5515,7 +5515,7 @@
           <Property Name="PipingSoilProfileEntityId" Type="Int64" Nullable="false" />
           <Property Name="Top" Type="Double" />
           <Property Name="IsAquifer" Type="Byte" Nullable="false" />
-          <Property Name="Color" Type="Int64" Nullable="false" />
+          <Property Name="Color" Type="Int64" />
           <Property Name="MaterialName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="BelowPhreaticLevelMean" Type="Double" />
           <Property Name="BelowPhreaticLevelDeviation" Type="Double" />

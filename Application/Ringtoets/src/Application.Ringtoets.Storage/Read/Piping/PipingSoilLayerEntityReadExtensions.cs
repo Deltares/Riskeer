@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Primitives;
 
@@ -48,7 +47,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
             return new PipingSoilLayer(entity.Top.ToNullAsNaN())
             {
                 IsAquifer = Convert.ToBoolean(entity.IsAquifer),
-                Color = Convert.ToInt32(entity.Color).ToColor(),
+                Color = entity.Color.ToColor(),
                 MaterialName = entity.MaterialName ?? string.Empty,
                 BelowPhreaticLevelMean = entity.BelowPhreaticLevelMean.ToNullAsNaN(),
                 BelowPhreaticLevelDeviation = entity.BelowPhreaticLevelDeviation.ToNullAsNaN(),
