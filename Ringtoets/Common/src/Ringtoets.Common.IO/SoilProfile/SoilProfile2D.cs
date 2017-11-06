@@ -56,8 +56,8 @@ namespace Ringtoets.Common.IO.SoilProfile
 
             Id = id;
             Name = name;
-            PreconsolidationStresses = preconsolidationStresses.ToArray();
-            Layers = layers.ToArray();
+            PreconsolidationStresses = preconsolidationStresses;
+            Layers = layers;
             IntersectionX = double.NaN;
         }
 

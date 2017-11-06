@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
@@ -81,15 +82,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Setup
             const long id = 12;
             const string name = "some name";
-            var soilLayer2Ds = new[]
-            {
-                SoilLayer2DTestFactory.CreateSoilLayer2D()
-            };
-
-            var stresses = new[]
-            {
-                new PreconsolidationStress()
-            };
+            IEnumerable<SoilLayer2D> soilLayer2Ds = Enumerable.Empty<SoilLayer2D>();
+            IEnumerable<PreconsolidationStress> stresses = Enumerable.Empty<PreconsolidationStress>();
 
             // Call
             var soilProfile2D = new SoilProfile2D(id, name, soilLayer2Ds, stresses);
@@ -98,10 +92,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.IsInstanceOf<ISoilProfile>(soilProfile2D);
             Assert.AreEqual(id, soilProfile2D.Id);
             Assert.AreEqual(name, soilProfile2D.Name);
-            CollectionAssert.AreEqual(soilLayer2Ds, soilProfile2D.Layers);
-            Assert.AreNotSame(soilLayer2Ds, soilProfile2D.Layers);
-            CollectionAssert.AreEqual(stresses, soilProfile2D.PreconsolidationStresses);
-            Assert.AreNotSame(stresses, soilProfile2D.PreconsolidationStresses);
+            Assert.AreSame(soilLayer2Ds, soilProfile2D.Layers);
+            Assert.AreSame(stresses, soilProfile2D.PreconsolidationStresses);
             Assert.IsNaN(soilProfile2D.IntersectionX);
         }
     }

@@ -170,16 +170,14 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
         private SoilProfile2D TryReadSoilProfile()
         {
-            RequiredProfileProperties properties;
             var criticalProperties = new CriticalProfileProperties(this);
             var soilLayerGeometryLookup = new Dictionary<SoilLayer2DGeometry, Layer2DProperties>();
-            var stresses = new List<PreconsolidationStress>();
 
             long soilProfileId = criticalProperties.ProfileId;
 
             try
             {
-                properties = new RequiredProfileProperties(this, criticalProperties.ProfileName);
+                var properties = new RequiredProfileProperties(this, criticalProperties.ProfileName);
 
                 var geometryReader = new SoilLayer2DGeometryReader();
                 for (var i = 1; i <= criticalProperties.LayerCount; i++)
@@ -188,23 +186,18 @@ namespace Ringtoets.Common.IO.SoilProfile
                     MoveNext();
                 }
 
-                stresses.AddRange(GetPreconsolidationStresses(soilProfileId));
+                return new SoilProfile2D(soilProfileId,
+                                        criticalProperties.ProfileName,
+                                        GetHierarchicallyOrderedSoilLayers(soilLayerGeometryLookup).ToArray(),
+                                        GetPreconsolidationStresses(soilProfileId).ToArray())
+                {
+                    IntersectionX = properties.IntersectionX
+                };
             }
             catch (SoilProfileReadException)
             {
                 MoveToNextProfile(soilProfileId);
                 throw;
-            }
-
-            try
-            {
-                return new SoilProfile2D(soilProfileId,
-                                         criticalProperties.ProfileName,
-                                         GetHierarchicallyOrderedSoilLayers(soilLayerGeometryLookup),
-                                         stresses)
-                {
-                    IntersectionX = properties.IntersectionX
-                };
             }
             catch (ArgumentException exception)
             {
