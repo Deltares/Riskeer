@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -366,6 +367,107 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
+        [TestCase("validConfigurationCalculationContainingValidTangentLineZTopAndZBottom.xml")]
+        public void Import_ValidTangentLineZTopAndZBottom_DataAddedToModel(string file)
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, file);
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
+                                                                                     calculationGroup,
+                                                                                     Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                     new MacroStabilityInwardsFailureMechanism());
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculations = new[]
+            {
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid tangent line Z top and Z bottom",
+                    InputParameters =
+                    {
+                        TangentLineZTop = (RoundedDouble) 0,
+                        TangentLineZBottom = (RoundedDouble) 0
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid tangent line Z top, tangent Z bottom NaN",
+                    InputParameters =
+                    {
+                        TangentLineZTop = (RoundedDouble) 1,
+                        TangentLineZBottom = RoundedDouble.NaN
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid tangent line Z top",
+                    InputParameters =
+                    {
+                        TangentLineZTop = (RoundedDouble) 1
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Tangent line Z top NaN, valid tangent Z bottom",
+                    InputParameters =
+                    {
+                        TangentLineZTop = RoundedDouble.NaN,
+                        TangentLineZBottom = (RoundedDouble) 1
+                    }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Valid tangent line Z bottom",
+                    InputParameters =
+                    {
+                        TangentLineZBottom = (RoundedDouble) 1
+                    }
+                }
+            };
+
+            ICalculation[] actualCalculations = calculationGroup.GetCalculations().ToArray();
+            Assert.AreEqual(expectedCalculations.Length, actualCalculations.Length);
+            for (var i = 0; i < expectedCalculations.Length; i++)
+            {
+                AssertMacroStabilityInwardsCalculationScenario(expectedCalculations[i],
+                                                               (MacroStabilityInwardsCalculationScenario) actualCalculations[i]);
+            }
+        }
+
+        [Test]
+        public void Import_InvalidTangentLineZTopAndZBottom_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingInvalidTangentLineZTopAndZBottom.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
+                                                                                     calculationGroup,
+                                                                                     new HydraulicBoundaryLocation[0],
+                                                                                     new MacroStabilityInwardsFailureMechanism());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "Een waarde van '0.00' als tangentlijn Z-boven en '10.00' als tangentlijn Z-onder is ongeldig. " +
+                                           "Tangentlijn Z-onder moet kleiner zijn dan of gelijk zijn aan tangentlijn Z-boven, of NaN. " +
+                                           "Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
         [TestCase(false, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml")]
         [TestCase(true, "validConfigurationFullCalculationContainingAssessmentLevel.xml")]
         public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(bool manualAssessmentLevel, string file)
@@ -443,6 +545,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     CreateZones = true,
                     MoveGrid = true,
                     DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
+                    TangentLineZTop = (RoundedDouble) 10,
+                    TangentLineZBottom = (RoundedDouble) 1,
                     GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic,
                     TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated
                 },
@@ -494,11 +598,30 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(expectedInput.MoveGrid, actualInput.MoveGrid);
 
             Assert.AreEqual(expectedInput.DikeSoilScenario, actualInput.DikeSoilScenario);
+            Assert.AreEqual(expectedInput.TangentLineZTop, actualInput.TangentLineZTop);
+            Assert.AreEqual(expectedInput.TangentLineZBottom, actualInput.TangentLineZBottom);
+
             Assert.AreEqual(expectedInput.GridDeterminationType, actualInput.GridDeterminationType);
             Assert.AreEqual(expectedInput.TangentLineDeterminationType, actualInput.TangentLineDeterminationType);
 
             Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
             Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution, actualCalculation.Contribution.GetAccuracy());
+        }
+
+        private static IEnumerable<TestCaseData> GetValidLargerThanCombinations()
+        {
+            yield return new TestCaseData(1.0, null);
+            yield return new TestCaseData(1.0, double.NaN);
+            yield return new TestCaseData(null, 0.0);
+            yield return new TestCaseData(double.NaN, 0.0);
+            yield return new TestCaseData(0.0, 0.0);
+            yield return new TestCaseData(1.0, 0.0);
+        }
+
+        private static IEnumerable<TestCaseData> GetInvalidLargerThanCombinations()
+        {
+            yield return new TestCaseData(1.0, 0.0);
+            yield return new TestCaseData(0.0, -1.0);
         }
     }
 }

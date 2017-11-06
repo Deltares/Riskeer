@@ -240,6 +240,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als tangentlijn Z-boven en &apos;{1}&apos; als tangentlijn Z-onder is ongeldig. {2}.
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationConfigurationImporter_TrySetTangentLineZTopBottom_Combination_of_TangentLineZTop_0_and_TangentLineZBottom_1_invalid_Reason_2 {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationConfigurationImporter_TrySetTangentLineZTopBottom" +
+                        "_Combination_of_TangentLineZTop_0_and_TangentLineZBottom_1_invalid_Reason_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De laag bevat een ongeldige geometrie..
         /// </summary>
         public static string MacroStabilityInwardsSoilLayerTransformer_TransformSegmentToRing_Invalid_geometry_for_Ring {

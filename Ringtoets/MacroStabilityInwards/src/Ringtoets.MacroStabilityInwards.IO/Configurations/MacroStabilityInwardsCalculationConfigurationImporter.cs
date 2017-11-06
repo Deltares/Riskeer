@@ -92,7 +92,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 && TrySetSurfaceLine(calculationConfiguration, calculation)
                 && TrySetStochasticSoilModel(calculationConfiguration, calculation)
                 && TrySetStochasticSoilProfile(calculationConfiguration, calculation)
-                && TrySetScenarioParameters(calculationConfiguration.Scenario, calculation))
+                && TrySetScenarioParameters(calculationConfiguration.Scenario, calculation)
+                && TrySetTangentLineZTopBottom(calculationConfiguration, calculation))
             {
                 SetSimpleProperties(calculationConfiguration, calculation.InputParameters);
 
@@ -102,6 +103,52 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 return calculation;
             }
             return null;
+        }
+
+        /// <summary>
+        /// Assigns the tangent line Z top and tangent line Z bottom parameters to the <paramref name="calculation"/>.
+        /// </summary>
+        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <returns><c>true</c> if no tangent line z top and tangent line z bottom was given, or when 
+        /// tangent line z top and tangent line z bottom are set to the <paramref name="calculation"/>, 
+        /// <c>false</c> otherwise.</returns>
+        private bool TrySetTangentLineZTopBottom(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                                 MacroStabilityInwardsCalculationScenario calculation)
+        {
+            bool hasTangentLineZTop = calculationConfiguration.TangentLineZTop.HasValue;
+            bool hasTangentLineZBottom = calculationConfiguration.TangentLineZBottom.HasValue;
+
+            if (!hasTangentLineZTop && !hasTangentLineZBottom)
+            {
+                return true;
+            }
+
+            RoundedDouble tangentLineZTop = hasTangentLineZTop
+                                                ? (RoundedDouble) calculationConfiguration.TangentLineZTop.Value
+                                                : RoundedDouble.NaN;
+            RoundedDouble tangentLineZBottom = hasTangentLineZBottom
+                                                   ? (RoundedDouble) calculationConfiguration.TangentLineZBottom.Value
+                                                   : RoundedDouble.NaN;
+
+            MacroStabilityInwardsInput input = calculation.InputParameters;
+            try
+            {
+                input.TangentLineZTop = tangentLineZTop;
+                input.TangentLineZBottom = tangentLineZBottom;
+            }
+            catch (ArgumentException e)
+            {
+                Log.LogCalculationConversionError(string.Format(Resources.MacroStabilityInwardsCalculationConfigurationImporter_TrySetTangentLineZTopBottom_Combination_of_TangentLineZTop_0_and_TangentLineZBottom_1_invalid_Reason_2,
+                                                                tangentLineZTop.ToPrecision(input.TangentLineZTop.NumberOfDecimalPlaces),
+                                                                tangentLineZBottom.ToPrecision(input.TangentLineZTop.NumberOfDecimalPlaces),
+                                                                e.Message),
+                                                  calculation.Name);
+
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
