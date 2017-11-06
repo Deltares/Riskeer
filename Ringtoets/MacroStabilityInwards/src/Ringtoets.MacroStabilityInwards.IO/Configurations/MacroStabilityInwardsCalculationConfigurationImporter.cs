@@ -93,7 +93,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 && TrySetStochasticSoilModel(calculationConfiguration, calculation)
                 && TrySetStochasticSoilProfile(calculationConfiguration, calculation)
                 && TrySetScenarioParameters(calculationConfiguration.Scenario, calculation)
-                && TrySetTangentLineZTopBottom(calculationConfiguration, calculation))
+                && TrySetTangentLineZTopBottom(calculationConfiguration, calculation)
+                && TrySetTangentLineNumber(calculationConfiguration, calculation))
             {
                 SetSimpleProperties(calculationConfiguration, calculation.InputParameters);
 
@@ -144,6 +145,38 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                                                 tangentLineZBottom.ToPrecision(input.TangentLineZTop.NumberOfDecimalPlaces),
                                                                 e.Message),
                                                   calculation.Name);
+
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Assigns the tangent line number.
+        /// </summary>
+        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <returns><c>true</c> when the tangent line number is set to the <paramref name="calculation"/>,
+        /// <c>false</c> otherwise.</returns>
+        private bool TrySetTangentLineNumber(MacroStabilityInwardsCalculationConfiguration calculationConfiguration, MacroStabilityInwardsCalculationScenario calculation)
+        {
+            if (!calculationConfiguration.TangentLineNumber.HasValue)
+            {
+                return true;
+            }
+
+            int tangentLineNumber = calculationConfiguration.TangentLineNumber.Value;
+
+            try
+            {
+                calculation.InputParameters.TangentLineNumber = tangentLineNumber;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Log.LogOutOfRangeException(string.Format("Een waarde van '{0}' als aantal tangentlijnen is ongeldig.", tangentLineNumber),
+                                           calculation.Name,
+                                           e);
 
                 return false;
             }

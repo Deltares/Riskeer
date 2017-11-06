@@ -528,8 +528,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             const string message = "De waarde voor het aantal raaklijnen moet in het bereik [1, 50] liggen.";
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
-            Assert.AreEqual("value", paramName);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message);
         }
 
         [Test]

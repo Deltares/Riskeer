@@ -367,11 +367,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationCalculationContainingValidTangentLineZTopAndZBottom.xml")]
-        public void Import_ValidTangentLineZTopAndZBottom_DataAddedToModel(string file)
+        public void Import_ValidTangentLineZTopAndZBottom_DataAddedToModel()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, file);
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingValidTangentLineZTopAndZBottom.xml");
 
             var calculationGroup = new CalculationGroup();
 
@@ -443,6 +442,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
+        [SetCulture("en-US")]
         public void Import_InvalidTangentLineZTopAndZBottom_LogMessageAndContinueImport()
         {
             // Setup
@@ -465,6 +465,40 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        [SetCulture("en-US")]
+        public void Import_InvalidTangentLineNumber_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingInvalidTangentLineNumber.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
+                                                                                     calculationGroup,
+                                                                                     new HydraulicBoundaryLocation[0],
+                                                                                     new MacroStabilityInwardsFailureMechanism());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, new[]
+            {
+                Tuple.Create("Een waarde van '0' als aantal tangentlijnen is ongeldig. " +
+                             "De waarde voor het aantal raaklijnen moet in het bereik [1, 50] liggen. " +
+                             "Berekening 'Calculation with tangent line too low' is overgeslagen.",
+                             LogLevelConstant.Error),
+                Tuple.Create("Een waarde van '51' als aantal tangentlijnen is ongeldig. " +
+                             "De waarde voor het aantal raaklijnen moet in het bereik [1, 50] liggen. " +
+                             "Berekening 'Calculation with tangent line too high' is overgeslagen.",
+                             LogLevelConstant.Error)
+            });
+
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.GetCalculations());
         }
 
         [Test]
@@ -547,6 +581,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
                     TangentLineZTop = (RoundedDouble) 10,
                     TangentLineZBottom = (RoundedDouble) 1,
+                    TangentLineNumber = 5,
                     GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic,
                     TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated
                 },
@@ -600,6 +635,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(expectedInput.DikeSoilScenario, actualInput.DikeSoilScenario);
             Assert.AreEqual(expectedInput.TangentLineZTop, actualInput.TangentLineZTop);
             Assert.AreEqual(expectedInput.TangentLineZBottom, actualInput.TangentLineZBottom);
+            Assert.AreEqual(expectedInput.TangentLineNumber, actualInput.TangentLineNumber);
 
             Assert.AreEqual(expectedInput.GridDeterminationType, actualInput.GridDeterminationType);
             Assert.AreEqual(expectedInput.TangentLineDeterminationType, actualInput.TangentLineDeterminationType);

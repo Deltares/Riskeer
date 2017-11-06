@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <map naam="Tangent line numbers">
+    <berekening naam="Calculation with tangent line too low">
+      <grids>
+        <tangentlijnen>
+          <aantal>0</aantal>
+        </tangentlijnen>
+      </grids>
+    </berekening>
+    <berekening naam="Calculation with tangent line too high">
+      <grids>
+        <tangentlijnen>
+          <aantal>51</aantal>
+        </tangentlijnen>
+      </grids>
+    </berekening>
+  </map>
+</configuratie>
