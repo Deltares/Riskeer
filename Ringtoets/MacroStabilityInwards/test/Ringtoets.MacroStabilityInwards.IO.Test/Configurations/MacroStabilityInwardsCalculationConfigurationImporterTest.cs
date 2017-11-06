@@ -430,6 +430,18 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     SurfaceLine = surfaceLine,
                     StochasticSoilModel = stochasticSoilModel,
                     StochasticSoilProfile = stochasticSoilProfile,
+                    WaterLevelRiverAverage = (RoundedDouble) 10.5,
+                    DrainageConstructionPresent = true,
+                    XCoordinateDrainageConstruction = (RoundedDouble) 10.6,
+                    ZCoordinateDrainageConstruction = (RoundedDouble) 10.7,
+                    MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) 10.9,
+                    MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) 10.8,
+                    AdjustPhreaticLine3And4ForUplift = true,
+                    SlipPlaneMinimumDepth = (RoundedDouble) 0.4,
+                    SlipPlaneMinimumLength = (RoundedDouble) 0.5,
+                    MaximumSliceWidth = (RoundedDouble) 0.6,
+                    CreateZones = true,
+                    MoveGrid = true,
                     DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
                     GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic,
                     TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated
@@ -465,6 +477,22 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreSame(expectedInput.SurfaceLine, actualInput.SurfaceLine);
             Assert.AreSame(expectedInput.StochasticSoilModel, actualInput.StochasticSoilModel);
             Assert.AreSame(expectedInput.StochasticSoilProfile, actualInput.StochasticSoilProfile);
+
+            Assert.AreEqual(expectedInput.WaterLevelRiverAverage, actualInput.WaterLevelRiverAverage);
+            Assert.AreEqual(expectedInput.DrainageConstructionPresent, actualInput.DrainageConstructionPresent);
+            Assert.AreEqual(expectedInput.XCoordinateDrainageConstruction, actualInput.XCoordinateDrainageConstruction);
+            Assert.AreEqual(expectedInput.ZCoordinateDrainageConstruction, actualInput.ZCoordinateDrainageConstruction);
+            Assert.AreEqual(expectedInput.MinimumLevelPhreaticLineAtDikeTopRiver, actualInput.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(expectedInput.MinimumLevelPhreaticLineAtDikeTopPolder, actualInput.MinimumLevelPhreaticLineAtDikeTopPolder);
+            Assert.AreEqual(expectedInput.AdjustPhreaticLine3And4ForUplift, actualInput.AdjustPhreaticLine3And4ForUplift);
+
+            Assert.AreEqual(expectedInput.SlipPlaneMinimumDepth, actualInput.SlipPlaneMinimumDepth);
+            Assert.AreEqual(expectedInput.SlipPlaneMinimumLength, actualInput.SlipPlaneMinimumLength);
+            Assert.AreEqual(expectedInput.MaximumSliceWidth, actualInput.MaximumSliceWidth);
+
+            Assert.AreEqual(expectedInput.CreateZones, actualInput.CreateZones);
+            Assert.AreEqual(expectedInput.MoveGrid, actualInput.MoveGrid);
+
             Assert.AreEqual(expectedInput.DikeSoilScenario, actualInput.DikeSoilScenario);
             Assert.AreEqual(expectedInput.GridDeterminationType, actualInput.GridDeterminationType);
             Assert.AreEqual(expectedInput.TangentLineDeterminationType, actualInput.TangentLineDeterminationType);

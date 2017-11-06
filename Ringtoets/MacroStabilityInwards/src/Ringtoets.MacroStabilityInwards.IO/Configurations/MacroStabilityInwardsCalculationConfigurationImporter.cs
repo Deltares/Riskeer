@@ -94,9 +94,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 && TrySetStochasticSoilProfile(calculationConfiguration, calculation)
                 && TrySetScenarioParameters(calculationConfiguration.Scenario, calculation))
             {
-                SetDikeSoilScenario(calculationConfiguration, calculation);
-                SetGridDeterminationType(calculationConfiguration, calculation);
-                SetTangentLineDeterminationType(calculationConfiguration, calculation);
+                SetSimpleProperties(calculationConfiguration, calculation.InputParameters);
+
+                SetDikeSoilScenario(calculationConfiguration, calculation.InputParameters);
+                SetGridDeterminationType(calculationConfiguration, calculation.InputParameters);
+                SetTangentLineDeterminationType(calculationConfiguration, calculation.InputParameters);
                 return calculation;
             }
             return null;
@@ -258,12 +260,76 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
+        /// Assigns the simple properties of <see cref="MacroStabilityInwardsInput"/>.
+        /// </summary>
+        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
+        /// <param name="input">The calculation input to configure.</param>
+        private static void SetSimpleProperties(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                                MacroStabilityInwardsInput input)
+        {
+            if (calculationConfiguration.WaterLevelRiverAverage.HasValue)
+            {
+                input.WaterLevelRiverAverage = (RoundedDouble) calculationConfiguration.WaterLevelRiverAverage.Value;
+            }
+
+            if (calculationConfiguration.DrainageConstructionPresent.HasValue)
+            {
+                input.DrainageConstructionPresent = calculationConfiguration.DrainageConstructionPresent.Value;
+            }
+            if (calculationConfiguration.XCoordinateDrainageConstruction.HasValue)
+            {
+                input.XCoordinateDrainageConstruction = (RoundedDouble) calculationConfiguration.XCoordinateDrainageConstruction.Value;
+            }
+            if (calculationConfiguration.ZCoordinateDrainageConstruction.HasValue)
+            {
+                input.ZCoordinateDrainageConstruction = (RoundedDouble) calculationConfiguration.ZCoordinateDrainageConstruction.Value;
+            }
+
+            if (calculationConfiguration.MinimumLevelPhreaticLineAtDikeTopRiver.HasValue)
+            {
+                input.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) calculationConfiguration.MinimumLevelPhreaticLineAtDikeTopRiver.Value;
+            }
+            if (calculationConfiguration.MinimumLevelPhreaticLineAtDikeTopPolder.HasValue)
+            {
+                input.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) calculationConfiguration.MinimumLevelPhreaticLineAtDikeTopPolder.Value;
+            }
+
+            if (calculationConfiguration.AdjustPhreaticLine3And4ForUplift.HasValue)
+            {
+                input.AdjustPhreaticLine3And4ForUplift = calculationConfiguration.AdjustPhreaticLine3And4ForUplift.Value;
+            }
+
+            if (calculationConfiguration.SlipPlaneMinimumDepth.HasValue)
+            {
+                input.SlipPlaneMinimumDepth = (RoundedDouble) calculationConfiguration.SlipPlaneMinimumDepth.Value;
+            }
+            if (calculationConfiguration.SlipPlaneMinimumLength.HasValue)
+            {
+                input.SlipPlaneMinimumLength = (RoundedDouble) calculationConfiguration.SlipPlaneMinimumLength.Value;
+            }
+            if (calculationConfiguration.MaximumSliceWidth.HasValue)
+            {
+                input.MaximumSliceWidth = (RoundedDouble) calculationConfiguration.MaximumSliceWidth.Value;
+            }
+
+            if (calculationConfiguration.CreateZones.HasValue)
+            {
+                input.CreateZones = calculationConfiguration.CreateZones.Value;
+            }
+
+            if (calculationConfiguration.MoveGrid.HasValue)
+            {
+                input.MoveGrid = calculationConfiguration.MoveGrid.Value;
+            }
+        }
+
+        /// <summary>
         /// Assigns the dike soil scenario.
         /// </summary>
         /// <param name="configuration">The read calculation read.</param>
-        /// <param name="calculation">The calculation to configure.</param>
+        /// <param name="input">The calculation input to configure.</param>
         private static void SetDikeSoilScenario(MacroStabilityInwardsCalculationConfiguration configuration,
-                                                MacroStabilityInwardsCalculationScenario calculation)
+                                                MacroStabilityInwardsInput input)
         {
             if (!configuration.DikeSoilScenario.HasValue)
             {
@@ -275,7 +341,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
             if (dikeSoilScenario.HasValue)
             {
-                calculation.InputParameters.DikeSoilScenario = dikeSoilScenario.Value;
+                input.DikeSoilScenario = dikeSoilScenario.Value;
             }
         }
 
@@ -283,9 +349,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// Assigns the grid determination type.
         /// </summary>
         /// <param name="configuration">The read calculation read.</param>
-        /// <param name="calculation">The calculation to configure.</param>
+        /// <param name="input">The calculation input to configure.</param>
         private static void SetGridDeterminationType(MacroStabilityInwardsCalculationConfiguration configuration,
-                                                     MacroStabilityInwardsCalculationScenario calculation)
+                                                     MacroStabilityInwardsInput input)
         {
             if (!configuration.GridDeterminationType.HasValue)
             {
@@ -297,7 +363,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
             if (gridDeterminationType.HasValue)
             {
-                calculation.InputParameters.GridDeterminationType = gridDeterminationType.Value;
+                input.GridDeterminationType = gridDeterminationType.Value;
             }
         }
 
@@ -305,9 +371,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// Assigns the tangent line determination type.
         /// </summary>
         /// <param name="configuration">The read calculation read.</param>
-        /// <param name="calculation">The calculation to configure.</param>
+        /// <param name="input">The calculation input to configure.</param>
         private static void SetTangentLineDeterminationType(MacroStabilityInwardsCalculationConfiguration configuration,
-                                                            MacroStabilityInwardsCalculationScenario calculation)
+                                                            MacroStabilityInwardsInput input)
         {
             if (!configuration.TangentLineDeterminationType.HasValue)
             {
@@ -319,7 +385,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
             if (tangentLineDeterminationType.HasValue)
             {
-                calculation.InputParameters.TangentLineDeterminationType = tangentLineDeterminationType.Value;
+                input.TangentLineDeterminationType = tangentLineDeterminationType.Value;
             }
         }
     }
