@@ -585,6 +585,33 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 input.AdjustPhreaticLine3And4ForUplift = calculationConfiguration.AdjustPhreaticLine3And4ForUplift.Value;
             }
 
+            if (calculationConfiguration.PhreaticLine2?.Outwards.HasValue ?? false)
+            {
+                input.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) calculationConfiguration.PhreaticLine2.Outwards.Value;
+            }
+            if (calculationConfiguration.PhreaticLine2?.Inwards.HasValue ?? false)
+            {
+                input.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) calculationConfiguration.PhreaticLine2.Inwards.Value;
+            }
+
+            if (calculationConfiguration.PhreaticLine3?.Outwards.HasValue ?? false)
+            {
+                input.LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) calculationConfiguration.PhreaticLine3.Outwards.Value;
+            }
+            if (calculationConfiguration.PhreaticLine3?.Inwards.HasValue ?? false)
+            {
+                input.LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) calculationConfiguration.PhreaticLine3.Inwards.Value;
+            }
+
+            if (calculationConfiguration.PhreaticLine4?.Outwards.HasValue ?? false)
+            {
+                input.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) calculationConfiguration.PhreaticLine4.Outwards.Value;
+            }
+            if (calculationConfiguration.PhreaticLine4?.Inwards.HasValue ?? false)
+            {
+                input.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) calculationConfiguration.PhreaticLine4.Inwards.Value;
+            }
+
             if (calculationConfiguration.SlipPlaneMinimumDepth.HasValue)
             {
                 input.SlipPlaneMinimumDepth = (RoundedDouble) calculationConfiguration.SlipPlaneMinimumDepth.Value;

@@ -904,6 +904,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     TangentLineNumber = 5,
                     GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic,
                     TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated,
+                    PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) 20.1,
+                    PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) 20.2,
+                    LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) 10.1,
+                    LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) 10.2,
+                    LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) 10.3,
+                    LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) 10.4,
                     LeftGrid =
                     {
                         XLeft = RoundedDouble.NaN,
@@ -962,6 +968,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(expectedInput.MinimumLevelPhreaticLineAtDikeTopRiver, actualInput.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(expectedInput.MinimumLevelPhreaticLineAtDikeTopPolder, actualInput.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(expectedInput.AdjustPhreaticLine3And4ForUplift, actualInput.AdjustPhreaticLine3And4ForUplift);
+
+            Assert.AreEqual(expectedInput.PiezometricHeadPhreaticLine2Inwards, actualInput.PiezometricHeadPhreaticLine2Inwards);
+            Assert.AreEqual(expectedInput.PiezometricHeadPhreaticLine2Outwards, actualInput.PiezometricHeadPhreaticLine2Outwards);
+            Assert.AreEqual(expectedInput.LeakageLengthInwardsPhreaticLine3, actualInput.LeakageLengthInwardsPhreaticLine3);
+            Assert.AreEqual(expectedInput.LeakageLengthOutwardsPhreaticLine3, actualInput.LeakageLengthOutwardsPhreaticLine3);
+            Assert.AreEqual(expectedInput.LeakageLengthInwardsPhreaticLine4, actualInput.LeakageLengthInwardsPhreaticLine4);
+            Assert.AreEqual(expectedInput.LeakageLengthOutwardsPhreaticLine4, actualInput.LeakageLengthOutwardsPhreaticLine4);
 
             Assert.AreEqual(expectedInput.SlipPlaneMinimumDepth, actualInput.SlipPlaneMinimumDepth);
             Assert.AreEqual(expectedInput.SlipPlaneMinimumLength, actualInput.SlipPlaneMinimumLength);
