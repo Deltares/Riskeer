@@ -1219,11 +1219,11 @@ namespace Core.Common.Base.Test.Geometry
         public void GetAngleBetween_PointBNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => Math2D.GetAngleBetween(null, new Point2D(0.0, 0.0));
+            TestDelegate test = () => Math2D.GetAngleBetween(new Point2D(0.0, 0.0), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("pointA", paramName);
+            Assert.AreEqual("pointB", paramName);
         }
 
         [Test]

@@ -320,16 +320,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 MacroStabilityInwardsSlicesTable slicesTable = GetSlicesTable(view);
 
-                var outputWithoutSlices = new MacroStabilityInwardsOutput(new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
-                                                                                                                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
-                                                                                                                new[]
-                                                                                                                {
-                                                                                                                    MacroStabilityInwardsSliceTestFactory.CreateSlice()
-                                                                                                                }, 0, 0),
-                                                                          new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
-                                                                                                                      MacroStabilityInwardsGridTestFactory.Create(),
-                                                                                                                      new double[0]),
-                                                                          new MacroStabilityInwardsOutput.ConstructionProperties());
+                MacroStabilityInwardsOutput outputWithoutSlices = MacroStabilityInwardsOutputTestFactory.CreateOutputWithoutSlices();
 
                 var calculation = new MacroStabilityInwardsCalculationScenario
                 {
@@ -339,7 +330,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 view.Data = calculation;
 
                 // Precondition
-                Assert.AreEqual(1, slicesTable.Rows.Count);
+                Assert.AreEqual(0, slicesTable.Rows.Count);
 
                 // When
                 calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
@@ -353,7 +344,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         [Test]
         public void GivenViewWithOutputSet_WhenOutputCleared_ThenTableCleared()
         {
-            // Give
+            // Given
             using (var view = new MacroStabilityInwardsOutputView())
             {
                 MacroStabilityInwardsSlicesTable slicesTable = GetSlicesTable(view);

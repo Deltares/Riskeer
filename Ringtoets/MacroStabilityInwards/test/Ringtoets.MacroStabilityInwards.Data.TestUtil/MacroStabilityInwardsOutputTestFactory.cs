@@ -20,17 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
-    /// Factory that creates instances of <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>
+    /// Factory that creates instances of <see cref="MacroStabilityInwardsOutput"/>
     /// that can be used for testing.
     /// </summary>
     public static class MacroStabilityInwardsOutputTestFactory
     {
         /// <summary>
-        /// Creates an instance of <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/> with default values.
+        /// Creates an instance of <see cref="MacroStabilityInwardsOutput"/> with default values.
         /// </summary>
         /// <returns>A <see cref="MacroStabilityInwardsOutput"/>.</returns>
         public static MacroStabilityInwardsOutput CreateOutput()
@@ -39,7 +40,23 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>.
+        /// Creates an instance of <see cref="MacroStabilityInwardsOutput"/> without slices.
+        /// </summary>
+        /// <returns>A <see cref="MacroStabilityInwardsOutput"/>.</returns>
+        public static MacroStabilityInwardsOutput CreateOutputWithoutSlices()
+        {
+            return new MacroStabilityInwardsOutput(
+                new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                      MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                      Enumerable.Empty<MacroStabilityInwardsSlice>(), 0, 0),
+                new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
+                                                            MacroStabilityInwardsGridTestFactory.Create(),
+                                                            new double[0]),
+                new MacroStabilityInwardsOutput.ConstructionProperties());
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="MacroStabilityInwardsOutput"/>.
         /// </summary>
         /// <param name="properties">The container of the properties for the <see cref="MacroStabilityInwardsOutput"/>.</param>
         /// <returns>A <see cref="MacroStabilityInwardsOutput"/>.</returns>
@@ -49,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         {
             return new MacroStabilityInwardsOutput(new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
                                                                                          MacroStabilityInwardsSlidingCircleTestFactory.Create(),
-                                                                                         new []
+                                                                                         new[]
                                                                                          {
                                                                                              MacroStabilityInwardsSliceTestFactory.CreateSlice(),
                                                                                              MacroStabilityInwardsSliceTestFactory.CreateSlice(),
@@ -62,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/> with initialized values
+        /// Creates an instance of <see cref="MacroStabilityInwardsOutput"/> with initialized values
         /// for all properties.
         /// </summary>
         /// <returns>A <see cref="MacroStabilityInwardsOutput"/>.</returns>

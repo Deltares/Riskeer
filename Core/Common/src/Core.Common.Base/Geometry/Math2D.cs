@@ -322,11 +322,12 @@ namespace Core.Common.Base.Geometry
 
         /// <summary>
         /// Gets the angle between a horizontal line and a line running
-        /// from <paramref name="pointA"/> and <paramref name="pointB"/>
+        /// from <paramref name="pointA"/> to <paramref name="pointB"/>.
         /// </summary>
         /// <param name="pointA">The starting point of the line.</param>
         /// <param name="pointB">The end point of the line.</param>
-        /// <returns>The calculated angle in degrees.</returns>
+        /// <returns>The calculated angle in degrees, or NaN when one
+        /// of the points has coordinates that are infinite or NaN.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="pointA"/>
         /// or <paramref name="pointB"/> is <c>null</c>.</exception>
         public static double GetAngleBetween(Point2D pointA, Point2D pointB)

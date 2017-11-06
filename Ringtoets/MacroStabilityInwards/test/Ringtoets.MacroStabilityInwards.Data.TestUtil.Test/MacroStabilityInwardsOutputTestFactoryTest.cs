@@ -39,7 +39,23 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(typeof(MacroStabilityInwardsOutput), output.GetType());
 
             Assert.IsNotNull(output.SlidingCurve);
+            CollectionAssert.IsNotEmpty(output.SlidingCurve.Slices);
             Assert.IsNotNull(output.SlipPlane);
+        }
+
+        [Test]
+        public void CreateOutputWithoutSlices_ReturnsOutputWithExpectedProperties()
+        {
+            // Call
+            MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutputWithoutSlices();
+
+            // Assert
+            Assert.IsNotNull(output);
+            Assert.AreEqual(typeof(MacroStabilityInwardsOutput), output.GetType());
+
+            Assert.IsNotNull(output.SlidingCurve);
+            Assert.IsNotNull(output.SlipPlane);
+            Assert.IsEmpty(output.SlidingCurve.Slices);
         }
 
         [Test]

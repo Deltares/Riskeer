@@ -106,10 +106,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<ICloneable>(slice);
 
-            Assert.AreEqual(topLeftPoint, slice.TopLeftPoint);
-            Assert.AreEqual(topRightPoint, slice.TopRightPoint);
-            Assert.AreEqual(bottomLeftPoint, slice.BottomLeftPoint);
-            Assert.AreEqual(bottomRightPoint, slice.BottomRightPoint);
+            Assert.AreSame(topLeftPoint, slice.TopLeftPoint);
+            Assert.AreSame(topRightPoint, slice.TopRightPoint);
+            Assert.AreSame(bottomLeftPoint, slice.BottomLeftPoint);
+            Assert.AreSame(bottomRightPoint, slice.BottomRightPoint);
 
             Assert.AreEqual(2, slice.XCenter.NumberOfDecimalPlaces);
             Assert.AreEqual(2.5, slice.XCenter, slice.XCenter.GetAccuracy());

@@ -55,7 +55,11 @@ namespace Core.Common.Base.Test.Geometry
 
         private static IEnumerable<TestCaseData> ValidInterpolationSegment()
         {
-            yield return new TestCaseData(new Segment2D(new Point2D(0, 10), new Point2D(10, 100)), 0, 10).SetName("Same as first point that passed through origin");
+            yield return new TestCaseData(
+                new Segment2D(new Point2D(0, 10),
+                              new Point2D(10, 100)),
+                0,
+                10).SetName("Same as first point that passed through origin");
 
             yield return new TestCaseData(
                 new Segment2D(new Point2D(0, 10),
