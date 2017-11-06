@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
@@ -43,10 +43,10 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void GivenGridWithColorCell_WhenGridCellIsMadeVisibleAndUnselected_ThenOutlinedSquareOfColorDrawnAsExpected()
+        [TestCaseSource(nameof(GetColors))]
+        public void GivenGridWithColorCell_WhenGridCellIsMadeVisibleAndUnselected_ThenOutlinedSquareOfColorDrawnAsExpected(Color expectedColor)
         {
             // Given
-            Color expectedColor = Color.FromKnownColor(new Random(21).NextEnumValue<KnownColor>());
             var view = new DataGridView
             {
                 DataSource = new[]
@@ -81,9 +81,17 @@ namespace Core.Common.Controls.Test.DataGrid
                                 TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
                             }
                         }
-                        Assert.AreEqual(string.Empty, view.Rows[0].Cells[0].FormattedValue);
                     });
             }
+        }
+
+        private static IEnumerable<TestCaseData> GetColors()
+        {
+            yield return new TestCaseData(Color.White);
+            yield return new TestCaseData(Color.HotPink);
+            yield return new TestCaseData(Color.Aqua);
+            yield return new TestCaseData(Color.Empty);
+            yield return new TestCaseData(Color.Transparent);
         }
 
         private static Bitmap CreateExpectedImage(Rectangle cellDisplayRectangle, Color cellValueColor, Color borderColor)
