@@ -70,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 DataGridViewColumn frictionAngleColumn = table.GetColumnFromIndex(frictionAngleColumnIndex);
                 Assert.AreEqual("Wrijvingshoek [°]", frictionAngleColumn.HeaderText);
                 DataGridViewColumn shrearStrengthRatioColumn = table.GetColumnFromIndex(shrearStrengthRatioColumnIndex);
-                Assert.AreEqual("Schuifsterkte ratio S [-]", shrearStrengthRatioColumn.HeaderText);
+                Assert.AreEqual("Schuifsterkte ratio (S) [-]", shrearStrengthRatioColumn.HeaderText);
                 DataGridViewColumn strengthIncreaseExponentColumn = table.GetColumnFromIndex(strengthIncreaseExponentColumnIndex);
                 Assert.AreEqual("Sterkte toename exp (m) [-]", strengthIncreaseExponentColumn.HeaderText);
                 DataGridViewColumn usePopColumn = table.GetColumnFromIndex(usePopColumnIndex);

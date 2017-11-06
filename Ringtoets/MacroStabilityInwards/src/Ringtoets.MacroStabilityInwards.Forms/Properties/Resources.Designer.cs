@@ -1058,7 +1058,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schuifsterkte ratio S [-].
+        ///   Looks up a localized string similar to Schuifsterkte ratio (S) [-].
         /// </summary>
         public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthRatio {
             get {

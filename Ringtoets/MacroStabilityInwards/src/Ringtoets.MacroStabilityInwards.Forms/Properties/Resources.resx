@@ -251,7 +251,7 @@
     <value>Wrijvingshoek [°]</value>
   </data>
   <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthRatio" xml:space="preserve">
-    <value>Schuifsterkte ratio S [-]</value>
+    <value>Schuifsterkte ratio (S) [-]</value>
   </data>
   <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_StrengthIncreaseExponent" xml:space="preserve">
     <value>Sterkte toename exp (m) [-]</value>

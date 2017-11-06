@@ -465,7 +465,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schuifsterkte ratio S.
+        ///   Looks up a localized string similar to Schuifsterkte ratio (S).
         /// </summary>
         public static string SoilLayerData_ShearStrengthRatioDistribution_DisplayName {
             get {
@@ -474,7 +474,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sterkte toename exponent.
+        ///   Looks up a localized string similar to Sterkte toename exp (m).
         /// </summary>
         public static string SoilLayerData_StrengthIncreaseExponentDistribution_DisplayName {
             get {

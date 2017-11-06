@@ -233,10 +233,10 @@
     <value>POP</value>
   </data>
   <data name="SoilLayerData_ShearStrengthRatioDistribution_DisplayName" xml:space="preserve">
-    <value>Schuifsterkte ratio S</value>
+    <value>Schuifsterkte ratio (S)</value>
   </data>
   <data name="SoilLayerData_StrengthIncreaseExponentDistribution_DisplayName" xml:space="preserve">
-    <value>Sterkte toename exponent</value>
+    <value>Sterkte toename exp (m)</value>
   </data>
   <data name="SoilLayerData_BelowPhreaticLevelDistribution_DisplayName" xml:space="preserve">
     <value>Verzadigd gewicht</value>

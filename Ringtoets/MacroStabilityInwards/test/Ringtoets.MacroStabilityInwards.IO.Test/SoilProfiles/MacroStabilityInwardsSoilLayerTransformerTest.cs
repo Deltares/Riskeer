@@ -769,25 +769,25 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             SoilLayerBase invalidShearStrengthRatioShift = soilLayer();
             invalidShearStrengthRatioShift.ShearStrengthRatioDistributionType = validDistributionType;
             invalidShearStrengthRatioShift.ShearStrengthRatioShift = -1;
-            yield return new TestCaseData(invalidShearStrengthRatioShift, "Schuifsterkte ratio S"
+            yield return new TestCaseData(invalidShearStrengthRatioShift, "Schuifsterkte ratio (S)"
             ).SetName(string.Format(testNameFormat, typeName, "Shift"));
 
             SoilLayerBase invalidShearStrengthRatioDistribution = soilLayer();
             invalidShearStrengthRatioDistribution.ShearStrengthRatioDistributionType = -1;
             invalidShearStrengthRatioDistribution.ShearStrengthRatioShift = validShift;
-            yield return new TestCaseData(invalidShearStrengthRatioDistribution, "Schuifsterkte ratio S"
+            yield return new TestCaseData(invalidShearStrengthRatioDistribution, "Schuifsterkte ratio (S)"
             ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
 
             SoilLayerBase invalidStrengthIncreaseExponentShift = soilLayer();
             invalidStrengthIncreaseExponentShift.StrengthIncreaseExponentDistributionType = validDistributionType;
             invalidStrengthIncreaseExponentShift.StrengthIncreaseExponentShift = -1;
-            yield return new TestCaseData(invalidStrengthIncreaseExponentShift, "Sterkte toename exponent"
+            yield return new TestCaseData(invalidStrengthIncreaseExponentShift, "Sterkte toename exp (m)"
             ).SetName(string.Format(testNameFormat, typeName, "Shift"));
 
             SoilLayerBase invalidStrengthIncreaseExponentDistribution = soilLayer();
             invalidStrengthIncreaseExponentDistribution.StrengthIncreaseExponentDistributionType = -1;
             invalidStrengthIncreaseExponentDistribution.StrengthIncreaseExponentShift = validShift;
-            yield return new TestCaseData(invalidStrengthIncreaseExponentDistribution, "Sterkte toename exponent"
+            yield return new TestCaseData(invalidStrengthIncreaseExponentDistribution, "Sterkte toename exp (m)"
             ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
 
             SoilLayerBase invalidPopShift = soilLayer();
