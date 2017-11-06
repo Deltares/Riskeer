@@ -93,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Import_HydraulicBoundaryLocationUnknown_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownHydraulicBoundaryLocation.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWithUnknownHydraulicBoundaryLocation.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
@@ -116,7 +116,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Import_SurfaceLineUnknown_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSurfaceLine.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWithUnknownSurfaceLine.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
@@ -139,7 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Import_StochasticSoilModelUnknown_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSoilModel.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWithUnknownSoilModel.xml");
 
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -163,7 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Import_StochasticSoilModelNotIntersectingWithSurfaceLine_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingNonIntersectingSurfaceLineAndSoilModel.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWithNonIntersectingSurfaceLineAndSoilModel.xml");
 
             var calculationGroup = new CalculationGroup();
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("Profielschematisatie");
@@ -210,7 +210,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Import_StochasticSoilProfileUnknown_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSoilProfile.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWithUnknownSoilProfile.xml");
 
             var calculationGroup = new CalculationGroup();
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("Profielschematisatie");
@@ -257,7 +257,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Import_StochasticSoilProfileSpecifiedWithoutSoilModel_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingSoilProfileWithoutSoilModel.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWithSoilProfileWithoutSoilModel.xml");
 
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -281,7 +281,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Import_ScenarioEmpty_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingEmptyScenario.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWithEmptyScenario.xml");
 
             var calculationGroup = new CalculationGroup();
 
@@ -370,7 +370,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Import_ValidTangentLineZTopAndZBottom_DataAddedToModel()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingValidTangentLineZTopAndZBottom.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWithValidTangentLineZTopAndZBottom.xml");
 
             var calculationGroup = new CalculationGroup();
 
@@ -446,7 +446,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Import_InvalidTangentLineZTopAndZBottom_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingInvalidTangentLineZTopAndZBottom.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWithInvalidTangentLineZTopAndZBottom.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
@@ -472,7 +472,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Import_InvalidTangentLineNumber_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingInvalidTangentLineNumber.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWithInvalidTangentLineNumber.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
@@ -505,7 +505,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Import_ValidLeftGrid_DataAddedToModel()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingValidLeftGrid.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWithValidLeftGrid.xml");
 
             var calculationGroup = new CalculationGroup();
 
@@ -653,7 +653,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Import_ValidRightGrid_DataAddedToModel()
         {
             // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingValidRightGrid.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWithValidRightGrid.xml");
 
             var calculationGroup = new CalculationGroup();
 
@@ -1013,60 +1013,60 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const string expectedZTopZBottomMessage = "Een waarde van '0.00' als Z boven en '10.00' als Z onder is ongeldig. " +
                                                       "Z onder moet kleiner zijn dan of gelijk zijn aan Z boven, of NaN. " +
                                                       "Berekening 'Calculation' is overgeslagen.";
-            yield return new TestCaseData("validConfigurationCalculationContainingInvalidLeftGridZTopAndZBottom.xml",
+            yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridZTopAndZBottom.xml",
                                           expectedZTopZBottomMessage)
                 .SetName("Invalid left grid ZTop And ZBottom");
-            yield return new TestCaseData("validConfigurationCalculationContainingInvalidRightGridZTopAndZBottom.xml",
+            yield return new TestCaseData("validConfigurationCalculationWithInvalidRightGridZTopAndZBottom.xml",
                                           expectedZTopZBottomMessage)
                 .SetName("Invalid right grid ZTop And ZBottom");
 
             const string expectedXLeftXRightMessage = "Een waarde van '10.00' als X links en '0.00' als X rechts is ongeldig. " +
                                                       "X rechts moet groter zijn dan of gelijk zijn aan X links, of NaN. " +
                                                       "Berekening 'Calculation' is overgeslagen.";
-            yield return new TestCaseData("validConfigurationCalculationContainingInvalidLeftGridXLeftAndXRight.xml",
+            yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridXLeftAndXRight.xml",
                                           expectedXLeftXRightMessage)
                 .SetName("Invalid left grid XLeft And XRight");
-            yield return new TestCaseData("validConfigurationCalculationContainingInvalidRightGridXLeftAndXRight.xml",
+            yield return new TestCaseData("validConfigurationCalculationWithInvalidRightGridXLeftAndXRight.xml",
                                           expectedXLeftXRightMessage)
                 .SetName("Invalid left grid XLeft And XRight");
 
             const string expectedNumberOfHorizontalPointsTooLargeMessage = "Een waarde van '101' als aantal horizontale punten is ongeldig. " +
                                                                            "De waarde voor het aantal horizontale punten moet in het bereik [1, 100] liggen. " +
                                                                            "Berekening 'Calculation' is overgeslagen.";
-            yield return new TestCaseData("validConfigurationCalculationContainingInvalidLeftGridNumberOfHorizontalPointsTooLarge.xml",
+            yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridNumberOfHorizontalPointsTooLarge.xml",
                                           expectedNumberOfHorizontalPointsTooLargeMessage)
                 .SetName("Invalid left grid NumberOfHorizontalPoints too large");
-            yield return new TestCaseData("validConfigurationCalculationContainingInvalidRightGridNumberOfHorizontalPointsTooLarge.xml",
+            yield return new TestCaseData("validConfigurationCalculationWithInvalidRightGridNumberOfHorizontalPointsTooLarge.xml",
                                           expectedNumberOfHorizontalPointsTooLargeMessage)
                 .SetName("Invalid left grid NumberOfHorizontalPoints too large");
 
             const string expectedNumberOfHorizontalPointsTooLowMessage = "Een waarde van '0' als aantal horizontale punten is ongeldig. " +
                                                                          "De waarde voor het aantal horizontale punten moet in het bereik [1, 100] liggen. " +
                                                                          "Berekening 'Calculation' is overgeslagen.";
-            yield return new TestCaseData("validConfigurationCalculationContainingInvalidLeftGridNumberOfHorizontalPointsTooLow.xml",
+            yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridNumberOfHorizontalPointsTooLow.xml",
                                           expectedNumberOfHorizontalPointsTooLowMessage)
                 .SetName("Invalid left grid NumberOfHorizontalPoints too low");
-            yield return new TestCaseData("validConfigurationCalculationContainingInvalidRightGridNumberOfHorizontalPointsTooLow.xml",
+            yield return new TestCaseData("validConfigurationCalculationWithInvalidRightGridNumberOfHorizontalPointsTooLow.xml",
                                           expectedNumberOfHorizontalPointsTooLowMessage)
                 .SetName("Invalid left grid NumberOfHorizontalPoints too low");
 
             const string expectedNumberOfVerticalPointsTooLargeMessage = "Een waarde van '101' als aantal verticale punten is ongeldig. " +
                                                                          "De waarde voor het aantal verticale punten moet in het bereik [1, 100] liggen. " +
                                                                          "Berekening 'Calculation' is overgeslagen.";
-            yield return new TestCaseData("validConfigurationCalculationContainingInvalidLeftGridNumberOfVerticalPointsTooLarge.xml",
+            yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridNumberOfVerticalPointsTooLarge.xml",
                                           expectedNumberOfVerticalPointsTooLargeMessage)
                 .SetName("Invalid left grid NumberOfVerticalPoints too large");
-            yield return new TestCaseData("validConfigurationCalculationContainingInvalidRightGridNumberOfVerticalPointsTooLarge.xml",
+            yield return new TestCaseData("validConfigurationCalculationWithInvalidRightGridNumberOfVerticalPointsTooLarge.xml",
                                           expectedNumberOfVerticalPointsTooLargeMessage)
                 .SetName("Invalid left grid NumberOfVerticalPoints too large");
 
             const string expectedNumberOfVerticalPointsTooLowMessage = "Een waarde van '0' als aantal verticale punten is ongeldig. " +
                                                                        "De waarde voor het aantal verticale punten moet in het bereik [1, 100] liggen. " +
                                                                        "Berekening 'Calculation' is overgeslagen.";
-            yield return new TestCaseData("validConfigurationCalculationContainingInvalidLeftGridNumberOfVerticalPointsTooLow.xml",
+            yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridNumberOfVerticalPointsTooLow.xml",
                                           expectedNumberOfVerticalPointsTooLowMessage)
                 .SetName("Invalid left grid NumberOfVerticalPoints too low");
-            yield return new TestCaseData("validConfigurationCalculationContainingInvalidRightGridNumberOfVerticalPointsTooLow.xml",
+            yield return new TestCaseData("validConfigurationCalculationWithInvalidRightGridNumberOfVerticalPointsTooLow.xml",
                                           expectedNumberOfVerticalPointsTooLowMessage)
                 .SetName("Invalid left grid NumberOfVerticalPoints too low");
         }
