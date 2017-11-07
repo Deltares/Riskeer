@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(top, layer.Top, 1e-6);
             Assert.AreEqual(isAquifer, layer.IsAquifer);
             Assert.IsNotNull(color);
-            Assert.AreEqual(Color.FromArgb(color), entity.Color);
+            Assert.AreEqual(color, entity.Color);
             Assert.AreEqual(materialName, layer.MaterialName);
 
             Assert.AreEqual(belowPhreaticLevelMean, layer.BelowPhreaticLevelMean);
