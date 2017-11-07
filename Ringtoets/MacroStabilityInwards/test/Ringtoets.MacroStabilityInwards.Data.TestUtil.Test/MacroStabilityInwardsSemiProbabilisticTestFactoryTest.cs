@@ -37,9 +37,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(output);
-
-            Assert.AreEqual(typeof(MacroStabilityInwardsSemiProbabilisticOutput), output.GetType());
-
             Assert.AreEqual(0, output.FactorOfStability, output.FactorOfStability.GetAccuracy());
             Assert.AreEqual(0, output.RequiredProbability);
             Assert.AreEqual(0, output.RequiredReliability, output.RequiredReliability.GetAccuracy());
@@ -60,9 +57,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(output);
-
-            Assert.AreEqual(typeof(MacroStabilityInwardsSemiProbabilisticOutput), output.GetType());
-
             Assert.AreEqual(0, output.FactorOfStability, output.FactorOfStability.GetAccuracy());
             Assert.AreEqual(0, output.RequiredProbability);
             Assert.AreEqual(0, output.RequiredReliability, output.RequiredReliability.GetAccuracy());
@@ -79,9 +73,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(output);
-
-            Assert.AreEqual(typeof(MacroStabilityInwardsSemiProbabilisticOutput), output.GetType());
-
             AssertIsConcreteValue(output.FactorOfStability);
             AssertIsConcreteValue(output.RequiredProbability);
             AssertIsConcreteValue(output.RequiredReliability);

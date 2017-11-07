@@ -38,8 +38,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(model);
-
-            Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModel), model.GetType());
             Assert.IsEmpty(model.Name);
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count());
             CollectionAssert.AreEquivalent(new[]
@@ -67,8 +65,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(model);
-
-            Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModel), model.GetType());
             Assert.AreEqual(soilModelName, model.Name);
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count());
             CollectionAssert.AreEquivalent(new[]
@@ -100,8 +96,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(model);
-
-            Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModel), model.GetType());
             Assert.AreEqual(soilModelName, model.Name);
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count());
             CollectionAssert.AreEquivalent(new[]
@@ -129,8 +123,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(model);
-
-            Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModel), model.GetType());
             Assert.AreEqual(soilModelName, model.Name);
             CollectionAssert.AreEqual(stochasticSoilProfiles, model.StochasticSoilProfiles);
             CollectionAssert.AllItemsAreNotNull(model.StochasticSoilProfiles.Select(p => p.SoilProfile));
@@ -156,8 +148,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(model);
-
-            Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModel), model.GetType());
             Assert.IsEmpty(model.Name);
             CollectionAssert.AreEqual(stochasticSoilProfiles, model.StochasticSoilProfiles);
             CollectionAssert.AllItemsAreNotNull(model.StochasticSoilProfiles.Select(p => p.SoilProfile));

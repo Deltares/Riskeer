@@ -36,8 +36,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(output);
-            Assert.AreEqual(typeof(MacroStabilityInwardsOutput), output.GetType());
-
             Assert.IsNotNull(output.SlidingCurve);
             CollectionAssert.IsNotEmpty(output.SlidingCurve.Slices);
             Assert.IsNotNull(output.SlipPlane);
@@ -51,11 +49,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(output);
-            Assert.AreEqual(typeof(MacroStabilityInwardsOutput), output.GetType());
-
             Assert.IsNotNull(output.SlidingCurve);
             Assert.IsNotNull(output.SlipPlane);
-            Assert.IsEmpty(output.SlidingCurve.Slices);
+            CollectionAssert.IsEmpty(output.SlidingCurve.Slices);
         }
 
         [Test]
@@ -81,8 +77,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(output);
-            Assert.AreEqual(typeof(MacroStabilityInwardsOutput), output.GetType());
-
             Assert.AreEqual(factorOfStability, output.FactorOfStability);
             Assert.AreEqual(zValue, output.ZValue);
             Assert.AreEqual(forbiddenZonesXEntryMax, output.ForbiddenZonesXEntryMax);
@@ -100,8 +94,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(output);
-            Assert.AreEqual(typeof(MacroStabilityInwardsOutput), output.GetType());
-
             AssertIsConcreteValue(output.FactorOfStability);
             AssertIsConcreteValue(output.ZValue);
             AssertIsConcreteValue(output.ForbiddenZonesXEntryMax);

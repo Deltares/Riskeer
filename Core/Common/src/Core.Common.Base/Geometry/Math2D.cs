@@ -326,8 +326,9 @@ namespace Core.Common.Base.Geometry
         /// </summary>
         /// <param name="pointA">The starting point of the line.</param>
         /// <param name="pointB">The end point of the line.</param>
-        /// <returns>The calculated angle in degrees, or NaN when one
-        /// of the points has coordinates that are infinite or NaN.</returns>
+        /// <returns>The calculated angle in degrees, or <see cref="double.NaN"/> when one
+        /// of the points has coordinates that are <see cref="double.PositiveInfinity"/>,
+        /// <see cref="double.NegativeInfinity"/> or <see cref="double.NaN"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="pointA"/>
         /// or <paramref name="pointB"/> is <c>null</c>.</exception>
         public static double GetAngleBetween(Point2D pointA, Point2D pointB)

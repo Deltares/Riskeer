@@ -35,8 +35,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(typeof(PipingStochasticSoilProfileEntity), entity.GetType());
-
             Assert.AreEqual(0.34, entity.Probability);
 
             PipingSoilProfileEntity soilProfileEntity = entity.PipingSoilProfileEntity;

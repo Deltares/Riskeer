@@ -36,8 +36,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilProfileEntity), entity.GetType());
-
             Assert.AreEqual(0.34, entity.Probability);
 
             MacroStabilityInwardsSoilProfileOneDEntity soilProfileEntity = entity.MacroStabilityInwardsSoilProfileOneDEntity;

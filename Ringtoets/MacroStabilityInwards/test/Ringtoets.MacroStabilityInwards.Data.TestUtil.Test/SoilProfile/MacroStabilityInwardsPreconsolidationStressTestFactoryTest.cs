@@ -41,8 +41,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
 
             // Assert
             Assert.IsNotNull(stress);
-
-            Assert.AreEqual(typeof(MacroStabilityInwardsPreconsolidationStress), stress.GetType());
             Assert.AreEqual(new Point2D(13, 34), stress.Location);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
