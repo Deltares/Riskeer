@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
+using CommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Data.SoilProfile
 {
@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
                 ProbabilityHelper.ValidateProbability(
                     value,
                     nameof(value),
-                    Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_);
+                    CommonDataResources.StochasticSoilProfile_Probability_Should_be_in_range_0_);
                 probability = value;
             }
         }

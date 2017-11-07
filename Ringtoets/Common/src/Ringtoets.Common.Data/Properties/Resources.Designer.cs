@@ -893,6 +893,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik {0} liggen..
+        /// </summary>
+        public static string StochasticSoilProfile_Probability_Should_be_in_range_0_ {
+            get {
+                return ResourceManager.GetString("StochasticSoilProfile_Probability_Should_be_in_range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kunstwerken.
         /// </summary>
         public static string StructureCollection_TypeDescriptor {

@@ -22,8 +22,8 @@
 using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.MacroStabilityInwards.Data.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using CommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
@@ -75,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 ProbabilityHelper.ValidateProbability(
                     value,
                     nameof(value),
-                    Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_);
+                    CommonDataResources.StochasticSoilProfile_Probability_Should_be_in_range_0_);
 
                 probability = value;
             }
