@@ -29,7 +29,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -1017,7 +1016,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             AssertMacroStabilityInwardsLocationInput(expectedInput.LocationInputExtreme, actualInput.LocationInputExtreme);
 
             Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
-            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution, actualCalculation.Contribution.GetAccuracy());
+            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
         }
 
         private static void AssertMacroStabilityInwardsGrid(MacroStabilityInwardsGrid expected,
