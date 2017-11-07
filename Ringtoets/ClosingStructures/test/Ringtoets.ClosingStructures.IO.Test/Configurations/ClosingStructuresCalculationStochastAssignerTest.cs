@@ -118,10 +118,12 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             // Setup
             var configuration = new ClosingStructuresCalculationConfiguration("name")
             {
-                StructureId = "some structure"
+                StructureId = "some structure",
+                DrainCoefficient = new StochastConfiguration
+                {
+                    Mean = 8.1
+                }
             };
-            configuration.DrainCoefficient = new StochastConfiguration();
-            configuration.DrainCoefficient.Mean = 8.1;
             if (withStandardDeviation)
             {
                 configuration.DrainCoefficient.StandardDeviation = 0.8;

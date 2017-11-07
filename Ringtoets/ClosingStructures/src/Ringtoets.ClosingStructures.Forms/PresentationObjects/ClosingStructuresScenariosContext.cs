@@ -52,6 +52,6 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         /// <summary>
         /// The parent failure mechanism of the calculation group.
         /// </summary>
-        public ClosingStructuresFailureMechanism ParentFailureMechanism { get; private set; }
+        public ClosingStructuresFailureMechanism ParentFailureMechanism { get; }
     }
 }

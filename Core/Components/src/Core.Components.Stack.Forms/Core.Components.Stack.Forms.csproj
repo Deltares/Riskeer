@@ -53,11 +53,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
-      <Name>Core.Common.Controls</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Core.Components.Stack\Core.Components.Stack.csproj">
       <Project>{6A146889-A3C4-48BF-AF53-C0B0CD355BE4}</Project>
       <Name>Core.Components.Stack</Name>

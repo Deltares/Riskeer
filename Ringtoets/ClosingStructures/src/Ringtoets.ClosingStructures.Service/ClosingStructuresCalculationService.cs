@@ -21,7 +21,6 @@
 
 using System.ComponentModel;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.Structures;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;

@@ -63,17 +63,17 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets the general closing structures calculation input parameters that apply to each calculation.
         /// </summary>
-        public GeneralClosingStructuresInput GeneralInput { get; private set; }
+        public GeneralClosingStructuresInput GeneralInput { get; }
 
         /// <summary>
         /// Gets the available closing structures for this instance.
         /// </summary>
-        public StructureCollection<ClosingStructure> ClosingStructures { get; private set; }
+        public StructureCollection<ClosingStructure> ClosingStructures { get; }
 
         /// <summary>
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
-        public ForeshoreProfileCollection ForeshoreProfiles { get; private set; }
+        public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
         public CalculationGroup CalculationsGroup { get; }
 
