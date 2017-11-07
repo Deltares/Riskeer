@@ -123,9 +123,6 @@
   <data name="Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN" xml:space="preserve">
     <value>Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{0}'.</value>
   </data>
-  <data name="SoilLayer2D_Error_Loop_contains_disconnected_segments" xml:space="preserve">
-    <value>De segmenten van de geometrie van de laag vormen geen lus.</value>
-  </data>
   <data name="SoilLayer_BelowPhreaticLevelDistribution_DisplayName" xml:space="preserve">
     <value>Verzadigd gewicht</value>
   </data>

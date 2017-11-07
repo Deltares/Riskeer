@@ -1603,15 +1603,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geometrie.
-        /// </summary>
-        public static string Geometry_DisplayName {
-            get {
-                return ResourceManager.GetString("Geometry_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to En.
         /// </summary>
         public static string GraphNode_CombinationType_And {
@@ -2156,15 +2147,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Probability_Could_not_parse_string_to_probability {
             get {
                 return ResourceManager.GetString("Probability_Could_not_parse_string_to_probability", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans moet ingevuld zijn..
-        /// </summary>
-        public static string Probability_Value_cannot_be_null {
-            get {
-                return ResourceManager.GetString("Probability_Value_cannot_be_null", resourceCulture);
             }
         }
         

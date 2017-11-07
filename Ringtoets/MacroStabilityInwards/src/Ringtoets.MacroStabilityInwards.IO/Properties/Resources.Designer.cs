@@ -82,34 +82,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}..
-        /// </summary>
-        public static string Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_ {
-            get {
-                return ResourceManager.GetString("Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kon geen ondergrondschematisaties verkrijgen uit de database..
-        /// </summary>
-        public static string Error_SoilProfile_read_from_database {
-            get {
-                return ResourceManager.GetString("Error_SoilProfile_read_from_database", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel &apos;{0}&apos;..
-        /// </summary>
-        public static string Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN {
-            get {
-                return ResourceManager.GetString("Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///
@@ -320,43 +292,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
-        /// </summary>
-        public static string MacroStabilityInwardsSoilProfileReader_Critical_Unexpected_value_on_column {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSoilProfileReader_Critical_Unexpected_value_on_column", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De database heeft niet de vereiste versie informatie. Vereiste versie is &apos;{0}&apos;..
-        /// </summary>
-        public static string MacroStabilityInwardsSoilProfileReader_Database_incorrect_version_requires_Version_0_ {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSoilProfileReader_Database_incorrect_version_requires_Versio" +
-                        "n_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ondergrondschematisatie bevat geen geldige waarde in kolom &apos;{0}&apos;..
-        /// </summary>
-        public static string MacroStabilityInwardsSoilProfileReader_Profile_has_invalid_value_on_Column_0_ {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSoilProfileReader_Profile_has_invalid_value_on_Column_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ondergrondschematisatie &apos;{0}&apos;.
-        /// </summary>
-        public static string MacroStabilityInwardsSoilProfileReader_SoilProfileName_0_ {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSoilProfileReader_SoilProfileName_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Karakteristiek punt &apos;{0}&apos; is niet gedefiniëerd..
         /// </summary>
         public static string MacroStabilityInwardsSurfaceLineTransformer_CharacteristicPoint_0_is_undefined {
@@ -371,102 +306,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         public static string PreconsolidationStress_DisplayName {
             get {
                 return ResourceManager.GetString("PreconsolidationStress_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan geen ondergrondmodellen lezen. Mogelijk bestaat de &apos;{0}&apos; tabel niet..
-        /// </summary>
-        public static string SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing {
-            get {
-                return ResourceManager.GetString("SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_" +
-                        "Perhaps_table_missing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan geen ondergrondschematisaties lezen. Mogelijk bestaat de &apos;{0}&apos; tabel niet..
-        /// </summary>
-        public static string SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfile_Perhaps_table_missing {
-            get {
-                return ResourceManager.GetString("SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfil" +
-                        "e_Perhaps_table_missing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er zijn stochastische ondergrondschematisaties zonder geldige kans van voorkomen..
-        /// </summary>
-        public static string SoilDatabaseConstraintsReader_VerifyConstraints_Invalid_StochasticSoilProfile_probability {
-            get {
-                return ResourceManager.GetString("SoilDatabaseConstraintsReader_VerifyConstraints_Invalid_StochasticSoilProfile_pro" +
-                        "bability", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Namen van ondergrondmodellen zijn niet uniek..
-        /// </summary>
-        public static string SoilDatabaseConstraintsReader_VerifyConstraints_Non_unique_StochasticSoilModel_names {
-            get {
-                return ResourceManager.GetString("SoilDatabaseConstraintsReader_VerifyConstraints_Non_unique_StochasticSoilModel_na" +
-                        "mes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Onverwachte fout tijdens het verifiëren van unieke ondergrondmodelnamen..
-        /// </summary>
-        public static string SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_unique_StochasticSoilModel_names {
-            get {
-                return ResourceManager.GetString("SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_" +
-                        "unique_StochasticSoilModel_names", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Onverwachte fout tijdens het verifiëren van kansen van voorkomen voor profielen..
-        /// </summary>
-        public static string SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_valid_StochasticSoilProfile_probability {
-            get {
-                return ResourceManager.GetString("SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_" +
-                        "valid_StochasticSoilProfile_probability", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De segmenten van de geometrie van de laag vormen geen lus..
-        /// </summary>
-        public static string SoilLayer2D_Error_Loop_contains_disconnected_segments {
-            get {
-                return ResourceManager.GetString("SoilLayer2D_Error_Loop_contains_disconnected_segments", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Coördinaat van een punt bevat ongeldige waarde..
-        /// </summary>
-        public static string SoilLayer2DReader_Could_not_parse_point_location {
-            get {
-                return ResourceManager.GetString("SoilLayer2DReader_Could_not_parse_point_location", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het XML-document dat de geometrie beschrijft voor de laag is niet geldig..
-        /// </summary>
-        public static string SoilLayer2DReader_Geometry_contains_no_valid_xml {
-            get {
-                return ResourceManager.GetString("SoilLayer2DReader_Geometry_contains_no_valid_xml", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De geometrie is leeg..
-        /// </summary>
-        public static string SoilLayer2DReader_Geometry_is_null {
-            get {
-                return ResourceManager.GetString("SoilLayer2DReader_Geometry_is_null", resourceCulture);
             }
         }
         
@@ -548,92 +387,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         public static string SoilLayerData_UsePop_Description {
             get {
                 return ResourceManager.GetString("SoilLayerData_UsePop_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kon geen stochastische ondergrondmodellen verkrijgen uit de database..
-        /// </summary>
-        public static string StochasticSoilModelDatabaseReader_Failed_to_read_database {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelDatabaseReader_Failed_to_read_database", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De uitgelezen ondergrondschematisatie &apos;{0}&apos; wordt niet gebruikt in een van de stochastische ondergrondmodellen..
-        /// </summary>
-        public static string StochasticSoilModelImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in_any_stochastic_soil_model {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_i" +
-                        "n_any_stochastic_soil_model", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controleren van ondergrondschematisaties..
-        /// </summary>
-        public static string StochasticSoilModelImporter_CheckIfAllProfilesAreUsed_Start_checking_soil_profiles {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelImporter_CheckIfAllProfilesAreUsed_Start_checking_soil_profile" +
-                        "s", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Inlezen van de stochastische ondergrondmodellen..
-        /// </summary>
-        public static string StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Reading_stochastic_s" +
-                        "oil_models_from_database", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ondergrondschematisatie &apos;{0}&apos; is meerdere keren gevonden in ondergrondmodel &apos;{1}&apos;. Kansen van voorkomen worden opgeteld..
-        /// </summary>
-        public static string StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_used_in_StochasticSoilModel_1_Probabilities_added {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelImporter_MergeStochasticSoilProfiles_Multiple_SoilProfile_0_us" +
-                        "ed_in_StochasticSoilModel_1_Probabilities_added", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Inlezen van de D-Soil Model database..
-        /// </summary>
-        public static string StochasticSoilModelImporter_Reading_database {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelImporter_Reading_database", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Inlezen van de ondergrondschematisatie uit de D-Soil Model database..
-        /// </summary>
-        public static string StochasticSoilModelImporter_ReadingSoilProfiles {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelImporter_ReadingSoilProfiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De som van de kansen van voorkomen in het stochastich ondergrondmodel &apos;{0}&apos; is niet gelijk aan 100%..
-        /// </summary>
-        public static string StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_s" +
-                        "tochastic_soil_model_0_is_not_correct", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De ondergrondschematisatie verwijst naar een ongeldige waarde..
-        /// </summary>
-        public static string StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value", resourceCulture);
             }
         }
         

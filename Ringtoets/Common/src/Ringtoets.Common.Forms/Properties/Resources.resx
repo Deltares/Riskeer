@@ -748,9 +748,6 @@
   <data name="Probability_Could_not_parse_string_to_probability" xml:space="preserve">
     <value>De waarde kon niet geïnterpreteerd worden als een kans.</value>
   </data>
-  <data name="Probability_Value_cannot_be_null" xml:space="preserve">
-    <value>De waarde voor de faalkans moet ingevuld zijn.</value>
-  </data>
   <data name="Probability_Value_too_large" xml:space="preserve">
     <value>De waarde is te groot of te klein.</value>
   </data>
@@ -1136,9 +1133,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="RingtoetsContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_name_0" xml:space="preserve">
     <value>Kopie van {0}</value>
-  </data>
-  <data name="Geometry_DisplayName" xml:space="preserve">
-    <value>Geometrie</value>
   </data>
   <data name="SoilLayer_IsAquifer_Description" xml:space="preserve">
     <value>Geeft aan of deze grondlaag een watervoerende laag betreft.</value>

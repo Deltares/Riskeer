@@ -224,14 +224,5 @@ namespace Ringtoets.Piping.IO.Properties {
                 return ResourceManager.GetString("SoilLayer_PermeabilityDistribution_DisplayName", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De segmenten van de geometrie van de laag vormen geen lus..
-        /// </summary>
-        public static string SoilLayer2D_Error_Loop_contains_disconnected_segments {
-            get {
-                return ResourceManager.GetString("SoilLayer2D_Error_Loop_contains_disconnected_segments", resourceCulture);
-            }
-        }
     }
 }
