@@ -31,42 +31,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
     public static class MacroStabilityInwardsXElementExtensions
     {
         /// <summary>
-        /// Gets a phreatic line configuration based on the values found in the <paramref name="calculationElement"/>.
-        /// </summary>
-        /// <param name="calculationElement">The element containing values for phreatic line parameters.</param>
-        /// <param name="descendantElementName">The name of the descendant to find the parameter values for.</param>
-        /// <returns>A new <see cref="MacroStabilityInwardsPhreaticLineConfiguration"/> or <c>null</c> 
-        /// when <paramref name="descendantElementName"/> was not found.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="FormatException">Thrown when the value for a parameter isn't in the correct format.</exception>
-        /// <exception cref="OverflowException">Thrown when the value for a parameter represents a number less
-        /// than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
-        public static MacroStabilityInwardsPhreaticLineConfiguration GetMacroStabilityInwardsPhreaticLineConfiguration(this XElement calculationElement,
-                                                                                                                       string descendantElementName)
-        {
-            if (calculationElement == null)
-            {
-                throw new ArgumentNullException(nameof(calculationElement));
-            }
-            if (descendantElementName == null)
-            {
-                throw new ArgumentNullException(nameof(descendantElementName));
-            }
-
-            XElement element = calculationElement.GetDescendantElement(descendantElementName);
-            if (element == null)
-            {
-                return null;
-            }
-
-            return new MacroStabilityInwardsPhreaticLineConfiguration
-            {
-                Inwards = element.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineInwardsElement),
-                Outwards = element.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLineOutwardsElement)
-            };
-        }
-
-        /// <summary>
         /// Gets a location input configuration based on the values in the <paramref name="calculationElement"/>.
         /// </summary>
         /// <param name="calculationElement">The element containing values for location input parameters.</param>
@@ -76,7 +40,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
         /// <exception cref="FormatException">Thrown when the value for a parameter isn't in the correct format.</exception>
         /// <exception cref="OverflowException">Thrown when the value for a parameter represents a number less
         /// than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
-        public static MacroStabilityInwardsLocationInputConfiguration GetMacroStabilityInwardsLocationInputConfiguration(this XElement calculationElement)
+        public static MacroStabilityInwardsLocationInputConfiguration GetMacroStabilityInwardsLocationInputConfiguration(
+            this XElement calculationElement)
         {
             if (calculationElement == null)
             {
@@ -110,7 +75,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
         /// <exception cref="FormatException">Thrown when the value for a parameter isn't in the correct format.</exception>
         /// <exception cref="OverflowException">Thrown when the value for a parameter represents a number less
         /// than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
-        public static MacroStabilityInwardsLocationInputExtremeConfiguration GetMacroStabilityInwardsLocationInputExtremeConfiguration(this XElement calculationElement)
+        public static MacroStabilityInwardsLocationInputExtremeConfiguration GetMacroStabilityInwardsLocationInputExtremeConfiguration(
+            this XElement calculationElement)
         {
             if (calculationElement == null)
             {
@@ -146,8 +112,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
         /// <exception cref="FormatException">Thrown when the value for a parameter isn't in the correct format.</exception>
         /// <exception cref="OverflowException">Thrown when the value for a parameter represents a number less
         /// than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
-        public static MacroStabilityInwardsGridConfiguration GetMacroStabilityInwardsGridConfiguration(this XElement calculationElement,
-                                                                                                       string descendantElementName)
+        public static MacroStabilityInwardsGridConfiguration GetMacroStabilityInwardsGridConfiguration(
+            this XElement calculationElement,
+            string descendantElementName)
         {
             if (calculationElement == null)
             {

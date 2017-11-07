@@ -99,9 +99,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.IsNull(configuration.AdjustPhreaticLine3And4ForUplift);
-            Assert.IsNull(configuration.PhreaticLine2);
-            Assert.IsNull(configuration.PhreaticLine3);
-            Assert.IsNull(configuration.PhreaticLine4);
+            Assert.IsNull(configuration.PiezometricHeadPhreaticLine2Inwards);
+            Assert.IsNull(configuration.PiezometricHeadPhreaticLine2Outwards);
+            Assert.IsNull(configuration.LeakageLengthInwardsPhreaticLine3);
+            Assert.IsNull(configuration.LeakageLengthOutwardsPhreaticLine3);
+            Assert.IsNull(configuration.LeakageLengthInwardsPhreaticLine4);
+            Assert.IsNull(configuration.LeakageLengthOutwardsPhreaticLine4);
             Assert.IsNull(configuration.LocationInputDaily);
             Assert.IsNull(configuration.LocationInputExtreme);
             Assert.IsNull(configuration.SlipPlaneMinimumDepth);
@@ -139,12 +142,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNaN(configuration.ZCoordinateDrainageConstruction);
             Assert.IsNaN(configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.IsNaN(configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.IsNaN(configuration.PhreaticLine2.Inwards);
-            Assert.IsNaN(configuration.PhreaticLine2.Outwards);
-            Assert.IsNaN(configuration.PhreaticLine3.Inwards);
-            Assert.IsNaN(configuration.PhreaticLine3.Outwards);
-            Assert.IsNaN(configuration.PhreaticLine4.Inwards);
-            Assert.IsNaN(configuration.PhreaticLine4.Outwards);
+            Assert.IsNaN(configuration.PiezometricHeadPhreaticLine2Inwards);
+            Assert.IsNaN(configuration.PiezometricHeadPhreaticLine2Outwards);
+            Assert.IsNaN(configuration.LeakageLengthInwardsPhreaticLine3);
+            Assert.IsNaN(configuration.LeakageLengthOutwardsPhreaticLine3);
+            Assert.IsNaN(configuration.LeakageLengthInwardsPhreaticLine4);
+            Assert.IsNaN(configuration.LeakageLengthOutwardsPhreaticLine4);
             Assert.IsNaN(configuration.LocationInputDaily.WaterLevelPolder);
             Assert.IsNaN(configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver);
             Assert.IsNaN(configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder);
@@ -196,12 +199,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsTrue(double.IsPositiveInfinity(configuration.ZCoordinateDrainageConstruction.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.MinimumLevelPhreaticLineAtDikeTopRiver.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.MinimumLevelPhreaticLineAtDikeTopPolder.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLine2.Inwards.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLine2.Outwards.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLine3.Inwards.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLine3.Outwards.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLine4.Inwards.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLine4.Outwards.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.PiezometricHeadPhreaticLine2Inwards.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.PiezometricHeadPhreaticLine2Outwards.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LeakageLengthInwardsPhreaticLine3.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LeakageLengthOutwardsPhreaticLine3.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LeakageLengthInwardsPhreaticLine4.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.LeakageLengthOutwardsPhreaticLine4.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputDaily.WaterLevelPolder.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder.Value));
@@ -266,20 +269,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             Assert.IsTrue(configuration.AdjustPhreaticLine3And4ForUplift);
 
-            MacroStabilityInwardsPhreaticLineConfiguration phreaticLine3Configuration = configuration.PhreaticLine3;
-            Assert.IsNotNull(phreaticLine3Configuration);
-            Assert.AreEqual(10.1, phreaticLine3Configuration.Inwards);
-            Assert.AreEqual(10.2, phreaticLine3Configuration.Outwards);
-
-            MacroStabilityInwardsPhreaticLineConfiguration phreaticLine4Configuration = configuration.PhreaticLine4;
-            Assert.IsNotNull(phreaticLine4Configuration);
-            Assert.AreEqual(10.3, phreaticLine4Configuration.Inwards);
-            Assert.AreEqual(10.4, phreaticLine4Configuration.Outwards);
-
-            MacroStabilityInwardsPhreaticLineConfiguration phreaticLine2Configuration = configuration.PhreaticLine2;
-            Assert.IsNotNull(phreaticLine2Configuration);
-            Assert.AreEqual(20.1, phreaticLine2Configuration.Inwards);
-            Assert.AreEqual(20.2, phreaticLine2Configuration.Outwards);
+            Assert.AreEqual(20.1, configuration.PiezometricHeadPhreaticLine2Inwards);
+            Assert.AreEqual(20.2, configuration.PiezometricHeadPhreaticLine2Outwards);
+            Assert.AreEqual(10.1, configuration.LeakageLengthInwardsPhreaticLine3);
+            Assert.AreEqual(10.2, configuration.LeakageLengthOutwardsPhreaticLine3);
+            Assert.AreEqual(10.3, configuration.LeakageLengthInwardsPhreaticLine4);
+            Assert.AreEqual(10.4, configuration.LeakageLengthOutwardsPhreaticLine4);
 
             MacroStabilityInwardsLocationInputConfiguration dailyConfiguration = configuration.LocationInputDaily;
             Assert.IsNotNull(dailyConfiguration);
@@ -375,20 +370,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             Assert.IsTrue(configuration.AdjustPhreaticLine3And4ForUplift);
 
-            MacroStabilityInwardsPhreaticLineConfiguration phreaticLine3Configuration = configuration.PhreaticLine3;
-            Assert.IsNotNull(phreaticLine3Configuration);
-            Assert.AreEqual(10.1, phreaticLine3Configuration.Inwards);
-            Assert.AreEqual(10.2, phreaticLine3Configuration.Outwards);
-
-            MacroStabilityInwardsPhreaticLineConfiguration phreaticLine4Configuration = configuration.PhreaticLine4;
-            Assert.IsNotNull(phreaticLine4Configuration);
-            Assert.AreEqual(10.3, phreaticLine4Configuration.Inwards);
-            Assert.AreEqual(10.4, phreaticLine4Configuration.Outwards);
-
-            MacroStabilityInwardsPhreaticLineConfiguration phreaticLine2Configuration = configuration.PhreaticLine2;
-            Assert.IsNotNull(phreaticLine2Configuration);
-            Assert.AreEqual(20.1, phreaticLine2Configuration.Inwards);
-            Assert.AreEqual(20.2, phreaticLine2Configuration.Outwards);
+            Assert.AreEqual(20.1, configuration.PiezometricHeadPhreaticLine2Inwards);
+            Assert.AreEqual(20.2, configuration.PiezometricHeadPhreaticLine2Outwards);
+            Assert.AreEqual(10.1, configuration.LeakageLengthInwardsPhreaticLine3);
+            Assert.AreEqual(10.2, configuration.LeakageLengthOutwardsPhreaticLine3);
+            Assert.AreEqual(10.3, configuration.LeakageLengthInwardsPhreaticLine4);
+            Assert.AreEqual(10.4, configuration.LeakageLengthOutwardsPhreaticLine4);
 
             MacroStabilityInwardsLocationInputConfiguration dailyConfiguration = configuration.LocationInputDaily;
             Assert.IsNotNull(dailyConfiguration);
@@ -475,11 +462,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(10.9, configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.IsNull(configuration.AdjustPhreaticLine3And4ForUplift);
-            Assert.AreEqual(20.1, configuration.PhreaticLine2.Inwards);
-            Assert.AreEqual(20.2, configuration.PhreaticLine2.Outwards);
-            Assert.AreEqual(10.1, configuration.PhreaticLine3.Inwards);
-            Assert.AreEqual(10.2, configuration.PhreaticLine3.Outwards);
-            Assert.IsNull(configuration.PhreaticLine4);
+            Assert.AreEqual(20.1, configuration.PiezometricHeadPhreaticLine2Inwards);
+            Assert.AreEqual(20.2, configuration.PiezometricHeadPhreaticLine2Outwards);
+            Assert.AreEqual(10.1, configuration.LeakageLengthInwardsPhreaticLine3);
+            Assert.AreEqual(10.2, configuration.LeakageLengthOutwardsPhreaticLine3);
+            Assert.IsNull(configuration.LeakageLengthInwardsPhreaticLine4);
+            Assert.IsNull(configuration.LeakageLengthOutwardsPhreaticLine4);
             Assert.IsNaN(configuration.LocationInputDaily.WaterLevelPolder);
             Assert.AreEqual(2.21, configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver);
             Assert.AreEqual(2.24, configuration.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder);

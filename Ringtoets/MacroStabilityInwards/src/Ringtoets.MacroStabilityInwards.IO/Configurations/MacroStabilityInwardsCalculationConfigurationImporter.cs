@@ -596,31 +596,31 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 input.AdjustPhreaticLine3And4ForUplift = calculationConfiguration.AdjustPhreaticLine3And4ForUplift.Value;
             }
 
-            if (calculationConfiguration.PhreaticLine2?.Outwards.HasValue ?? false)
+            if (calculationConfiguration.PiezometricHeadPhreaticLine2Outwards.HasValue)
             {
-                input.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) calculationConfiguration.PhreaticLine2.Outwards.Value;
+                input.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) calculationConfiguration.PiezometricHeadPhreaticLine2Outwards.Value;
             }
-            if (calculationConfiguration.PhreaticLine2?.Inwards.HasValue ?? false)
+            if (calculationConfiguration.PiezometricHeadPhreaticLine2Inwards.HasValue)
             {
-                input.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) calculationConfiguration.PhreaticLine2.Inwards.Value;
-            }
-
-            if (calculationConfiguration.PhreaticLine3?.Outwards.HasValue ?? false)
-            {
-                input.LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) calculationConfiguration.PhreaticLine3.Outwards.Value;
-            }
-            if (calculationConfiguration.PhreaticLine3?.Inwards.HasValue ?? false)
-            {
-                input.LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) calculationConfiguration.PhreaticLine3.Inwards.Value;
+                input.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) calculationConfiguration.PiezometricHeadPhreaticLine2Inwards.Value;
             }
 
-            if (calculationConfiguration.PhreaticLine4?.Outwards.HasValue ?? false)
+            if (calculationConfiguration.LeakageLengthOutwardsPhreaticLine3.HasValue)
             {
-                input.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) calculationConfiguration.PhreaticLine4.Outwards.Value;
+                input.LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) calculationConfiguration.LeakageLengthOutwardsPhreaticLine3.Value;
             }
-            if (calculationConfiguration.PhreaticLine4?.Inwards.HasValue ?? false)
+            if (calculationConfiguration.LeakageLengthInwardsPhreaticLine3.HasValue)
             {
-                input.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) calculationConfiguration.PhreaticLine4.Inwards.Value;
+                input.LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) calculationConfiguration.LeakageLengthInwardsPhreaticLine3.Value;
+            }
+
+            if (calculationConfiguration.LeakageLengthOutwardsPhreaticLine4.HasValue)
+            {
+                input.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) calculationConfiguration.LeakageLengthOutwardsPhreaticLine4.Value;
+            }
+            if (calculationConfiguration.LeakageLengthInwardsPhreaticLine4.HasValue)
+            {
+                input.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) calculationConfiguration.LeakageLengthInwardsPhreaticLine4.Value;
             }
 
             if (calculationConfiguration.SlipPlaneMinimumDepth.HasValue)

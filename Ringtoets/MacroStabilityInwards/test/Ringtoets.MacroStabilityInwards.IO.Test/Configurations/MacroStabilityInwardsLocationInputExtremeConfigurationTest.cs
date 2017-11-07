@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.IO.Configurations;
 
@@ -44,16 +46,17 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void SimpleProperties_SetNewValues_NewValuesSet()
+        public void Constructor_SetProperties_ExpectedValues()
         {
             // Setup
-            const double penetrationLength = 1.1;
-            const double waterLevelPolder = 2.2;
-            const bool useDefaultOffsets = false;
-            const double phreaticLineOffsetBelowDikeTopAtRiver = 4.4;
-            const double phreaticLineOffsetBelowDikeTopAtPolder = 5.5;
-            const double phreaticLineOffsetBelowShoulderBaseInside = 6.6;
-            const double phreaticLineOffsetBelowDikeToeAtPolder = 7.7;
+            var random = new Random(31);
+            double penetrationLength = random.NextDouble();
+            double waterLevelPolder = random.NextDouble();
+            bool useDefaultOffsets = random.NextBoolean();
+            double phreaticLineOffsetBelowDikeTopAtRiver = random.NextDouble();
+            double phreaticLineOffsetBelowDikeTopAtPolder = random.NextDouble();
+            double phreaticLineOffsetBelowShoulderBaseInside = random.NextDouble();
+            double phreaticLineOffsetBelowDikeToeAtPolder = random.NextDouble();
 
             // Call
             var configuration = new MacroStabilityInwardsLocationInputExtremeConfiguration

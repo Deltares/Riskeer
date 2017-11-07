@@ -67,21 +67,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
                 MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,
                 AdjustPhreaticLine3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift,
-                PhreaticLine2 = new MacroStabilityInwardsPhreaticLineConfiguration
-                {
-                    Inwards = input.PiezometricHeadPhreaticLine2Inwards,
-                    Outwards = input.PiezometricHeadPhreaticLine2Outwards
-                },
-                PhreaticLine3 = new MacroStabilityInwardsPhreaticLineConfiguration
-                {
-                    Inwards = input.LeakageLengthInwardsPhreaticLine3,
-                    Outwards = input.LeakageLengthOutwardsPhreaticLine3
-                },
-                PhreaticLine4 = new MacroStabilityInwardsPhreaticLineConfiguration
-                {
-                    Inwards = input.LeakageLengthInwardsPhreaticLine4,
-                    Outwards = input.LeakageLengthOutwardsPhreaticLine4
-                },
+                PiezometricHeadPhreaticLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
+                PiezometricHeadPhreaticLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
+                LeakageLengthInwardsPhreaticLine3 = input.LeakageLengthInwardsPhreaticLine3,
+                LeakageLengthOutwardsPhreaticLine3 = input.LeakageLengthOutwardsPhreaticLine3,
+                LeakageLengthInwardsPhreaticLine4 = input.LeakageLengthInwardsPhreaticLine4,
+                LeakageLengthOutwardsPhreaticLine4 = input.LeakageLengthOutwardsPhreaticLine4,
                 LocationInputDaily = input.LocationInputDaily.ToMacroStabilityInwardsLocationInputConfiguration(),
                 LocationInputExtreme = input.LocationInputExtreme.ToMacroStabilityInwardsLocationInputExtremeConfiguration(),
                 Scenario = calculation.ToScenarioConfiguration(),

@@ -95,21 +95,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 ZCoordinateDrainageConstruction = 10.6,
                 MinimumLevelPhreaticLineAtDikeTopPolder = 11.1,
                 MinimumLevelPhreaticLineAtDikeTopRiver = 11.2,
-                PhreaticLine2 = new MacroStabilityInwardsPhreaticLineConfiguration
-                {
-                    Inwards = 60.1,
-                    Outwards = 60.2
-                },
-                PhreaticLine3 = new MacroStabilityInwardsPhreaticLineConfiguration
-                {
-                    Inwards = 70.1,
-                    Outwards = 70.2
-                },
-                PhreaticLine4 = new MacroStabilityInwardsPhreaticLineConfiguration
-                {
-                    Inwards = 80.1,
-                    Outwards = 80.2
-                },
+                PiezometricHeadPhreaticLine2Inwards = 60.1,
+                PiezometricHeadPhreaticLine2Outwards = 60.2,
+                LeakageLengthInwardsPhreaticLine3 = 70.1,
+                LeakageLengthOutwardsPhreaticLine3 = 70.2,
+                LeakageLengthInwardsPhreaticLine4 = 80.1,
+                LeakageLengthOutwardsPhreaticLine4 = 80.2,
                 LocationInputDaily = new MacroStabilityInwardsLocationInputConfiguration
                 {
                     WaterLevelPolder = 99.9,

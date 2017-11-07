@@ -96,6 +96,9 @@
         <waterspanningen>
           <drainage />
           <initielehoogtepl1 />
+          <leklengtespl3 />
+          <leklengtespl4 />
+          <stijghoogtespl2 />
         </waterspanningen>
         <zonering />
         <grids>

@@ -158,19 +158,34 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public bool? AdjustPhreaticLine3And4ForUplift { get; set; }
 
         /// <summary>
-        /// Gets or sets the phreatic line configuration for phreatic line 2.
+        /// Gets or sets the piezometric head of the phreatic line 2 inwards.
         /// </summary>
-        public MacroStabilityInwardsPhreaticLineConfiguration PhreaticLine2 { get; set; }
+        public double? PiezometricHeadPhreaticLine2Inwards { get; set; }
 
         /// <summary>
-        /// Gets or sets the phreatic line configuration for phreatic line 3.
+        /// Gets or sets the piezometric head of the phreatic line 2 outwards.
         /// </summary>
-        public MacroStabilityInwardsPhreaticLineConfiguration PhreaticLine3 { get; set; }
+        public double? PiezometricHeadPhreaticLine2Outwards { get; set; }
 
         /// <summary>
-        /// Gets or sets the phreatic line configuration for phreatic line 4.
+        /// Gets or sets the leakage length inwards of phreatic line 3.
         /// </summary>
-        public MacroStabilityInwardsPhreaticLineConfiguration PhreaticLine4 { get; set; }
+        public double? LeakageLengthInwardsPhreaticLine3 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the leakage length outwards of phreatic line 3.
+        /// </summary>
+        public double? LeakageLengthOutwardsPhreaticLine3 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the leakage length inwards of phreatic line 4.
+        /// </summary>
+        public double? LeakageLengthInwardsPhreaticLine4 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the leakage length outwards of phreatic line 4.
+        /// </summary>
+        public double? LeakageLengthOutwardsPhreaticLine4 { get; set; }
 
         /// <summary>
         /// Gets or sets the locations input values for daily conditions.

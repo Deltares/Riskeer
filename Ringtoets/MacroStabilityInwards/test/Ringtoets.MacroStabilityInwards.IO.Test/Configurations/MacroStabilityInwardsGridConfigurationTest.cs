@@ -44,12 +44,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void SimpleProperties_SetNewValue_GetsNewlySetValue()
+        public void Constructor_SetProperties_ExpectedValues()
         {
             // Setup
             var random = new Random(31);
-            var configuration = new MacroStabilityInwardsGridConfiguration();
-
             double xLeft = random.NextDouble();
             double xRight = random.NextDouble();
             double zTop = random.NextDouble();
@@ -58,14 +56,17 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             int numberOfVerticalPoints = random.Next();
 
             // Call
-            configuration.XLeft = xLeft;
-            configuration.XRight = xRight;
-            configuration.ZTop = zTop;
-            configuration.ZBottom = zBottom;
-            configuration.NumberOfHorizontalPoints = numberOfHorizontalPoints;
-            configuration.NumberOfVerticalPoints = numberOfVerticalPoints;
+            var configuration = new MacroStabilityInwardsGridConfiguration
+            {
+                XLeft = xLeft,
+                XRight = xRight,
+                ZTop = zTop,
+                ZBottom = zBottom,
+                NumberOfHorizontalPoints = numberOfHorizontalPoints,
+                NumberOfVerticalPoints = numberOfVerticalPoints
+            };
 
-            // Assert 
+            // Assert
             Assert.AreEqual(xLeft, configuration.XLeft);
             Assert.AreEqual(xRight, configuration.XRight);
             Assert.AreEqual(zTop, configuration.ZTop);

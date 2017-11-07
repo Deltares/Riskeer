@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.MacroStabilityInwards.IO.Configurations;
@@ -65,9 +66,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.IsNull(configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.IsNull(configuration.AdjustPhreaticLine3And4ForUplift);
-            Assert.IsNull(configuration.PhreaticLine2);
-            Assert.IsNull(configuration.PhreaticLine3);
-            Assert.IsNull(configuration.PhreaticLine4);
+            Assert.IsNull(configuration.PiezometricHeadPhreaticLine2Inwards);
+            Assert.IsNull(configuration.PiezometricHeadPhreaticLine2Outwards);
+            Assert.IsNull(configuration.LeakageLengthInwardsPhreaticLine3);
+            Assert.IsNull(configuration.LeakageLengthOutwardsPhreaticLine3);
+            Assert.IsNull(configuration.LeakageLengthInwardsPhreaticLine4);
+            Assert.IsNull(configuration.LeakageLengthOutwardsPhreaticLine4);
             Assert.IsNull(configuration.LocationInputDaily);
             Assert.IsNull(configuration.LocationInputExtreme);
             Assert.IsNull(configuration.SlipPlaneMinimumDepth);
@@ -85,44 +89,48 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void SimpleProperties_SetNewValues_NewValuesSet()
+        public void Constructor_SetProperties_ExpectedValues()
         {
             // Setup
+            var random = new Random(31);
             const string calculationName = "Name of the calculation";
-            const double assessmentLevel = 1.1;
+            double assessmentLevel = random.NextDouble();
             const string hydraulicBoundaryLocation = "Name of the hydraulic boundary location";
             const string surfaceLine = "Name of the surface line";
             const string stochasticSoilModel = "Name of the stochastic soil model";
             const string stochasticSoilProfile = "Name of the stochastic soil profile";
             const ConfigurationDikeSoilScenario dikeSoilScenario = ConfigurationDikeSoilScenario.SandDikeOnSand;
 
-            const double waterLevelRiverAverage = 1.5;
-            const bool drainageConstructionPresent = true;
-            const double xCoordinateDrainageConstruction = 0.6;
-            const double zCoordinateDrainageConstruction = 0.7;
+            double waterLevelRiverAverage = random.NextDouble();
+            bool drainageConstructionPresent = random.NextBoolean();
+            double xCoordinateDrainageConstruction = random.NextDouble();
+            double zCoordinateDrainageConstruction = random.NextDouble();
 
-            const double minimumLevelPhreaticLineAtDikeTopRiver = 0.8;
-            const double minimumLevelPhreaticLineAtDikeTopPolder = 0.9;
+            double minimumLevelPhreaticLineAtDikeTopRiver = random.NextDouble();
+            double minimumLevelPhreaticLineAtDikeTopPolder = random.NextDouble();
 
-            const bool adjustPhreaticLine3And4ForUplift = true;
-            var phreaticLine2 = new MacroStabilityInwardsPhreaticLineConfiguration();
-            var phreaticLine3 = new MacroStabilityInwardsPhreaticLineConfiguration();
-            var phreaticLine4 = new MacroStabilityInwardsPhreaticLineConfiguration();
+            bool adjustPhreaticLine3And4ForUplift = random.NextBoolean();
+            double piezometricHeadPhreaticLine2Inwards = random.NextDouble();
+            double piezometricHeadPhreaticLine2Outwards = random.NextDouble();
+            double leakageLengthInwardsPhreaticLine3 = random.NextDouble();
+            double leakageLengthOutwardsPhreaticLine3 = random.NextDouble();
+            double leakageLengthInwardsPhreaticLine4 = random.NextDouble();
+            double leakageLengthOutwardsPhreaticLine4 = random.NextDouble();
             var locationInputDaily = new MacroStabilityInwardsLocationInputConfiguration();
             var locationInputExtreme = new MacroStabilityInwardsLocationInputExtremeConfiguration();
 
-            const double slipPlaneMinimumDepth = 2.2;
-            const double slipPlaneMinimumLength = 3.3;
-            const double maximumSliceWidth = 4.4;
-            const bool createZones = true;
+            double slipPlaneMinimumDepth = random.NextDouble();
+            double slipPlaneMinimumLength = random.NextDouble();
+            double maximumSliceWidth = random.NextDouble();
+            bool createZones = random.NextBoolean();
 
             var scenarioConfiguration = new ScenarioConfiguration();
-            const bool movegrid = true;
+            bool movegrid = random.NextBoolean();
             const ConfigurationGridDeterminationType gridDeterminationType = ConfigurationGridDeterminationType.Manual;
             const ConfigurationTangentLineDeterminationType tangentLineDeterminationType = ConfigurationTangentLineDeterminationType.Specified;
-            const double tangentLineZTop = 5.5;
-            const double tangentLineZBottom = 6.6;
-            const int tangentLineNumber = 7;
+            double tangentLineZTop = random.NextDouble();
+            double tangentLineZBottom = random.NextDouble();
+            int tangentLineNumber = random.Next();
             var leftGrid = new MacroStabilityInwardsGridConfiguration();
             var rightGrid = new MacroStabilityInwardsGridConfiguration();
 
@@ -143,9 +151,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 MinimumLevelPhreaticLineAtDikeTopRiver = minimumLevelPhreaticLineAtDikeTopRiver,
                 MinimumLevelPhreaticLineAtDikeTopPolder = minimumLevelPhreaticLineAtDikeTopPolder,
                 AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift,
-                PhreaticLine2 = phreaticLine2,
-                PhreaticLine3 = phreaticLine3,
-                PhreaticLine4 = phreaticLine4,
+                PiezometricHeadPhreaticLine2Inwards = piezometricHeadPhreaticLine2Inwards,
+                PiezometricHeadPhreaticLine2Outwards = piezometricHeadPhreaticLine2Outwards,
+                LeakageLengthInwardsPhreaticLine3 = leakageLengthInwardsPhreaticLine3,
+                LeakageLengthOutwardsPhreaticLine3 = leakageLengthOutwardsPhreaticLine3,
+                LeakageLengthInwardsPhreaticLine4 = leakageLengthInwardsPhreaticLine4,
+                LeakageLengthOutwardsPhreaticLine4 = leakageLengthOutwardsPhreaticLine4,
                 LocationInputDaily = locationInputDaily,
                 LocationInputExtreme = locationInputExtreme,
                 SlipPlaneMinimumDepth = slipPlaneMinimumDepth,
@@ -178,9 +189,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, configuration.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, configuration.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(adjustPhreaticLine3And4ForUplift, configuration.AdjustPhreaticLine3And4ForUplift);
-            Assert.AreSame(phreaticLine2, configuration.PhreaticLine2);
-            Assert.AreSame(phreaticLine3, configuration.PhreaticLine3);
-            Assert.AreSame(phreaticLine4, configuration.PhreaticLine4);
+            Assert.AreEqual(piezometricHeadPhreaticLine2Inwards, configuration.PiezometricHeadPhreaticLine2Inwards);
+            Assert.AreEqual(piezometricHeadPhreaticLine2Outwards, configuration.PiezometricHeadPhreaticLine2Outwards);
+            Assert.AreEqual(leakageLengthInwardsPhreaticLine3, configuration.LeakageLengthInwardsPhreaticLine3);
+            Assert.AreEqual(leakageLengthOutwardsPhreaticLine3, configuration.LeakageLengthOutwardsPhreaticLine3);
+            Assert.AreEqual(leakageLengthInwardsPhreaticLine4, configuration.LeakageLengthInwardsPhreaticLine4);
+            Assert.AreEqual(leakageLengthOutwardsPhreaticLine4, configuration.LeakageLengthOutwardsPhreaticLine4);
             Assert.AreSame(locationInputDaily, configuration.LocationInputDaily);
             Assert.AreSame(locationInputExtreme, configuration.LocationInputExtreme);
             Assert.AreEqual(slipPlaneMinimumDepth, configuration.SlipPlaneMinimumDepth);
