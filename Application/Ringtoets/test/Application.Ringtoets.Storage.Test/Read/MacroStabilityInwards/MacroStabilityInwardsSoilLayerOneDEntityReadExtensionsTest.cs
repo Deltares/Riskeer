@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             // Setup
             var random = new Random(31);
             double top = random.NextDouble();
-            int? color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()).ToInt32();
+            int color = Convert.ToInt32(Color.FromKnownColor(random.NextEnumValue<KnownColor>()).ToInt64());
             bool isAquifer = random.NextBoolean();
             const double abovePhreaticLevelMean = 0.3;
             const double abovePhreaticLevelCoefficientOfVariation = 0.2;
@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             MacroStabilityInwardsSoilLayerData data = layer.Data;
             Assert.AreEqual(isAquifer, data.IsAquifer);
             Assert.IsNotNull(color);
-            Assert.AreEqual(Color.FromArgb(color.Value), data.Color);
+            Assert.AreEqual(Color.FromArgb(color), data.Color);
             Assert.AreEqual(entity.MaterialName, data.MaterialName);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)

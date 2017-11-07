@@ -31,15 +31,15 @@ namespace Application.Ringtoets.Storage
     internal static class ColorConversionExtensions
     {
         /// <summary>
-        /// Convert <paramref name="value"/> to its 32-bit ARGB value.
+        /// Convert <paramref name="value"/> to its 64-bit ARGB value.
         /// </summary>
         /// <param name="value">The value to convert.</param>
-        /// <returns>The 32-bit ARGB value, or null when the
-		/// color is empty.</returns>
-        public static int? ToInt32(this Color value)
+        /// <returns>The 64-bit ARGB value, or null when the
+        /// color is empty.</returns>
+        public static long? ToInt64(this Color value)
         {
             return value.IsEmpty
-                       ? (int?) null
+                       ? (long?) null
                        : value.ToArgb();
         }
 

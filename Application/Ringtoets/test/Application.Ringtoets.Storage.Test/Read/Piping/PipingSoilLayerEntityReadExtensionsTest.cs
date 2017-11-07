@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var random = new Random(21);
             double top = random.NextDouble();
-            int? color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()).ToInt32();
+            int color = Convert.ToInt32(Color.FromKnownColor(random.NextEnumValue<KnownColor>()).ToInt64());
             const string materialName = "sand";
 
             bool isAquifer = random.NextBoolean();
@@ -83,7 +83,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.IsNotNull(layer);
             Assert.AreEqual(top, layer.Top, 1e-6);
             Assert.AreEqual(isAquifer, layer.IsAquifer);
-            Assert.AreEqual(color, layer.Color.ToInt32());
+            Assert.IsNotNull(color);
+            Assert.AreEqual(Color.FromArgb(color), entity.Color);
             Assert.AreEqual(materialName, layer.MaterialName);
 
             Assert.AreEqual(belowPhreaticLevelMean, layer.BelowPhreaticLevelMean);

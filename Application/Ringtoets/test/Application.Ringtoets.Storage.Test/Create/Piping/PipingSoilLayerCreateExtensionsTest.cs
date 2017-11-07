@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNotNull(entity);
             Assert.AreEqual(soilLayer.Top, entity.Top);
             Assert.AreEqual(Convert.ToByte(soilLayer.IsAquifer), entity.IsAquifer);
-            Assert.AreEqual(soilLayer.Color.ToInt32(), Convert.ToInt32(entity.Color));
+            Assert.AreEqual(soilLayer.Color.ToInt64(), Convert.ToInt64(entity.Color));
             Assert.AreEqual(soilLayer.BelowPhreaticLevelMean, entity.BelowPhreaticLevelMean);
             Assert.AreEqual(soilLayer.BelowPhreaticLevelDeviation, entity.BelowPhreaticLevelDeviation);
             Assert.AreEqual(soilLayer.BelowPhreaticLevelShift, entity.BelowPhreaticLevelShift);

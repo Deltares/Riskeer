@@ -244,12 +244,6 @@
   <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthModel" xml:space="preserve">
     <value>Schuifsterkte model</value>
   </data>
-  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Cohesion" xml:space="preserve">
-    <value>Cohesie [kN/m²]</value>
-  </data>
-  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_FrictionAngle" xml:space="preserve">
-    <value>Wrijvingshoek [°]</value>
-  </data>
   <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthRatio" xml:space="preserve">
     <value>Schuifsterkte ratio (S) [-]</value>
   </data>
@@ -258,9 +252,6 @@
   </data>
   <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_UsePop" xml:space="preserve">
     <value>Gebruik POP</value>
-  </data>
-  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Pop" xml:space="preserve">
-    <value>POP [kN/m²]</value>
   </data>
   <data name="MacroStabilityInwardsSurfaceLineCollection_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd.</value>
@@ -664,7 +655,7 @@
   <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_BottomAngle" xml:space="preserve">
     <value>Bodemhoek [°]</value>
   </data>
-  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_Cohesion" xml:space="preserve">
+  <data name="MacroStabilityInwardsTable_ColumnHeader_Cohesion" xml:space="preserve">
     <value>Cohesie [kN/m²]</value>
   </data>
   <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureLoad" xml:space="preserve">
@@ -679,7 +670,7 @@
   <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_ExternalLoad" xml:space="preserve">
     <value>Externe belasting [kN/m²]</value>
   </data>
-  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_FrictionAngle" xml:space="preserve">
+  <data name="MacroStabilityInwardsTable_ColumnHeader_FrictionAngle" xml:space="preserve">
     <value>Wrijvingshoek [°]</value>
   </data>
   <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_HorizontalPorePressure" xml:space="preserve">
@@ -697,7 +688,7 @@
   <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_PiezometricPorePressure" xml:space="preserve">
     <value>Piezometrische waterspanning [kN/m²]</value>
   </data>
-  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_Pop" xml:space="preserve">
+  <data name="MacroStabilityInwardsTable_ColumnHeader_Pop" xml:space="preserve">
     <value>POP [kN/m²]</value>
   </data>
   <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_PorePressure" xml:space="preserve">

@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 DiameterD70CoefficientOfVariation = layer.DiameterD70CoefficientOfVariation.ToNaNAsNull(),
                 PermeabilityMean = layer.PermeabilityMean.ToNaNAsNull(),
                 PermeabilityCoefficientOfVariation = layer.PermeabilityCoefficientOfVariation.ToNaNAsNull(),
-                Color = layer.Color.ToInt32(),
+                Color = layer.Color.ToInt64(),
                 MaterialName = layer.MaterialName.DeepClone(),
                 Order = order
             };

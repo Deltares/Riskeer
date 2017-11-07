@@ -31,31 +31,31 @@ namespace Application.Ringtoets.Storage.Test
     public class ColorConversionExtensionsTest
     {
         [Test]
-        public void ToInt32_WithColor_ReturnsArgbValue()
+        public void ToInt64_WithColor_ReturnsArgbValue()
         {
             // Setup
             const int argb = 123;
             Color color = Color.FromArgb(argb);
 
             // Call
-            int? result = color.ToInt32();
+            long? result = color.ToInt64();
 
             // Assert
             Assert.AreEqual(argb, result);
         }
 
         [Test]
-        public void ToInt32_WithEmptyColor_ReturnsNull()
+        public void ToInt64_WithEmptyColor_ReturnsNull()
         {
             // Call
-            int? result = Color.Empty.ToInt32();
+            long? result = Color.Empty.ToInt64();
 
             // Assert
             Assert.IsNull(result);
         }
 
         [Test]
-        public void ToColor_ReturnsColor()
+        public void ToColor_WithValue_ReturnsColor()
         {
             // Setup
             long? argb = 123;
@@ -64,11 +64,11 @@ namespace Application.Ringtoets.Storage.Test
             Color color = argb.ToColor();
 
             // Assert
-            Assert.AreEqual(Color.FromArgb((int) argb), color);
+            Assert.AreEqual(Color.FromArgb(Convert.ToInt32(argb)), color);
         }
 
         [Test]
-        public void ToColor__ArgbNull_ReturnsEmptyColor()
+        public void ToColor_ArgbNull_ReturnsEmptyColor()
         {
             // Setup
             long? argb = null;
@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test
         public void GivenColor_WhenConversionRoundtrip_ThenSameColor(Color color)
         {
             // When
-            long? intValue = color.ToInt32();
+            long? intValue = color.ToInt64();
             Color colorValue = intValue.ToColor();
 
             // Then

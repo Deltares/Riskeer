@@ -75,10 +75,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_BottomAngle,
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.FrictionAngle),
-                             Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_FrictionAngle,
+                             Resources.MacroStabilityInwardsTable_ColumnHeader_FrictionAngle,
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.Cohesion),
-                             Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_Cohesion,
+                             Resources.MacroStabilityInwardsTable_ColumnHeader_Cohesion,
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.EffectiveStress),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStress,
@@ -114,7 +114,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_OverConsolidationRatio,
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.Pop),
-                             Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_Pop,
+                             Resources.MacroStabilityInwardsTable_ColumnHeader_Pop,
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.NormalStress),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_NormalStress,

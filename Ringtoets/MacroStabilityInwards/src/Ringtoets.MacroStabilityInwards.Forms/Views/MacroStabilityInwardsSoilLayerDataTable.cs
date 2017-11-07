@@ -71,10 +71,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthModel,
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.Cohesion),
-                             Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Cohesion,
+                             Resources.MacroStabilityInwardsTable_ColumnHeader_Cohesion,
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.FrictionAngle),
-                             Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_FrictionAngle,
+                             Resources.MacroStabilityInwardsTable_ColumnHeader_FrictionAngle,
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.ShearStrengthRatio),
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthRatio,
@@ -86,7 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                               Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_UsePop,
                               true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.Pop),
-                             Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Pop,
+                             Resources.MacroStabilityInwardsTable_ColumnHeader_Pop,
                              true);
         }
     }

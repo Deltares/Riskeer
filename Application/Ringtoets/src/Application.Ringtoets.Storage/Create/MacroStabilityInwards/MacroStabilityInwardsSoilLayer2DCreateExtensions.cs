@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
                 OuterRingXml = new Point2DXmlSerializer().ToXml(soilLayer.OuterRing.Points),
                 IsAquifer = Convert.ToByte(data.IsAquifer),
                 MaterialName = data.MaterialName.DeepClone(),
-                Color = data.Color.ToInt32(),
+                Color = data.Color.ToInt64(),
                 UsePop = Convert.ToByte(data.UsePop),
                 ShearStrengthModel = Convert.ToByte(data.ShearStrengthModel),
                 AbovePhreaticLevelMean = data.AbovePhreaticLevel.Mean.ToNaNAsNull(),

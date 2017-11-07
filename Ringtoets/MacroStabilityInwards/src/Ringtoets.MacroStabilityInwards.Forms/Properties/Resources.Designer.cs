@@ -768,15 +768,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cohesie [kN/m²].
-        /// </summary>
-        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_Cohesion {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_Cohesion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Waterspanning door consolidatiegraad belasting [kN/m²].
         /// </summary>
         public static string MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureLoad {
@@ -811,15 +802,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string MacroStabilityInwardsSlicesTable_ColumnHeader_ExternalLoad {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_ExternalLoad", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wrijvingshoek [°].
-        /// </summary>
-        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_FrictionAngle {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_FrictionAngle", resourceCulture);
             }
         }
         
@@ -874,15 +856,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string MacroStabilityInwardsSlicesTable_ColumnHeader_PiezometricPorePressure {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_PiezometricPorePressure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to POP [kN/m²].
-        /// </summary>
-        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_Pop {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_Pop", resourceCulture);
             }
         }
         
@@ -995,29 +968,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cohesie [kN/m²].
-        /// </summary>
-        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Cohesion {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Cohesion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kleur.
         /// </summary>
         public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Color {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Color", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wrijvingshoek [°].
-        /// </summary>
-        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_FrictionAngle {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_FrictionAngle", resourceCulture);
             }
         }
         
@@ -1036,15 +991,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_MaterialName {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_MaterialName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to POP [kN/m²].
-        /// </summary>
-        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Pop {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Pop", resourceCulture);
             }
         }
         
@@ -1099,6 +1045,33 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string MacroStabilityInwardsSurfaceLineSelectionDialog_Select_SurfaceLines {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsSurfaceLineSelectionDialog_Select_SurfaceLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cohesie [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsTable_ColumnHeader_Cohesion {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsTable_ColumnHeader_Cohesion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrijvingshoek [°].
+        /// </summary>
+        public static string MacroStabilityInwardsTable_ColumnHeader_FrictionAngle {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsTable_ColumnHeader_FrictionAngle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to POP [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsTable_ColumnHeader_Pop {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsTable_ColumnHeader_Pop", resourceCulture);
             }
         }
         

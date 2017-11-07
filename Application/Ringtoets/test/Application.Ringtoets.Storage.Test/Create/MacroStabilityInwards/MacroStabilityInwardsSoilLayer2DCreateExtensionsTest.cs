@@ -241,7 +241,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsSoilLayerData data = soilLayer.Data;
             Assert.AreEqual(Convert.ToByte(data.IsAquifer), entity.IsAquifer);
             Assert.AreEqual(data.MaterialName, entity.MaterialName);
-            Assert.AreEqual(data.Color.ToInt32(), Convert.ToInt32(entity.Color));
+            Assert.AreEqual(data.Color.ToInt64(), Convert.ToInt64(entity.Color));
             Assert.AreEqual(Convert.ToByte(data.UsePop), entity.UsePop);
             Assert.AreEqual(Convert.ToByte(data.ShearStrengthModel), entity.ShearStrengthModel);
             Assert.AreEqual(data.AbovePhreaticLevel.Mean, entity.AbovePhreaticLevelMean);
