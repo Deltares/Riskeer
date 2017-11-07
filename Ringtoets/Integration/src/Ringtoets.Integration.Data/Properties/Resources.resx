@@ -120,9 +120,6 @@
   <data name="FailureMechanismContribution_DisplayName" xml:space="preserve">
     <value>Faalkansbegroting</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden</value>
-  </data>
   <data name="AssessmentSection_DisplayName" xml:space="preserve">
     <value>Traject</value>
   </data>

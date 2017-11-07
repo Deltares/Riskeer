@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -88,6 +90,36 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(newName, assessmentSection.Name);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributeValues()
+        {
+            // Call
+            var properties = new AssessmentSectionProperties
+            {
+                Data = new AssessmentSection(AssessmentSectionComposition.Dike)
+            };
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+
+            Assert.AreEqual(2, dynamicProperties.Count);
+
+            const string generalCategoryName = "Algemeen";
+
+            PropertyDescriptor idProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
+                                                                            generalCategoryName,
+                                                                            "ID",
+                                                                            "ID van het traject.",
+                                                                            true);
+
+            PropertyDescriptor nameProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategoryName,
+                                                                            "Naam",
+                                                                            "Naam van het toetstraject.");
         }
     }
 }

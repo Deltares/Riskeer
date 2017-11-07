@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
@@ -95,6 +97,25 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(newName, calculation.Name);
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributeValues()
+        {
+            // Call
+            var properties = new CalculationContextProperties();
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+
+            Assert.AreEqual(1, dynamicProperties.Count);
+
+            const string generalCategoryName = "Algemeen";
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategoryName,
+                                                                            "Naam",
+                                                                            "Naam van de berekening.");
         }
 
         private class TestCalculationContext : Observable, ICalculationContext<ICalculation, IFailureMechanism>

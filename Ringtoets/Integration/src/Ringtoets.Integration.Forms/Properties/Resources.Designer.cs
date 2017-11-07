@@ -101,15 +101,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Traject.
-        /// </summary>
-        public static string AssessmentSection_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ID van het traject..
         /// </summary>
         public static string AssessmentSection_Id_Description {

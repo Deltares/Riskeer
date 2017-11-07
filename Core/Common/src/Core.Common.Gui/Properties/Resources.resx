@@ -142,9 +142,6 @@
   <data name="Ribbon_GroupBox_Show_Hide" xml:space="preserve">
     <value>Weergeven/Verbergen</value>
   </data>
-  <data name="openfolderHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\openfolderHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Ribbon_Command_Save" xml:space="preserve">
     <value>Opslaan</value>
   </data>
@@ -169,9 +166,6 @@
   <data name="DeleteIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/DeleteHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="saveHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\saveHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_" xml:space="preserve">
     <value>Geen enkele 'Importer' is beschikbaar voor dit element ({0}).</value>
   </data>
@@ -186,9 +180,6 @@
   </data>
   <data name="PropertiesHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PropertiesHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="map" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Ribbon_Command_Save_As" xml:space="preserve">
     <value>Opslaan Als</value>
@@ -216,9 +207,6 @@
   </data>
   <data name="folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SaveAsHH" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SaveAsHH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GuiCore_Run_Started_in_0_f2_sec" xml:space="preserve">
     <value>Gestart in {0:f2} seconden.</value>

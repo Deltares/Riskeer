@@ -145,15 +145,6 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to STBU.
         /// </summary>
         public static string MacrostabilityOutwardFailureMechanism_Code {

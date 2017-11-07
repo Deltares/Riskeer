@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AssessmentSection_DisplayName" xml:space="preserve">
-    <value>Traject</value>
-  </data>
   <data name="AssessmentSection_Name_Description" xml:space="preserve">
     <value>Naam van het toetstraject.</value>
   </data>

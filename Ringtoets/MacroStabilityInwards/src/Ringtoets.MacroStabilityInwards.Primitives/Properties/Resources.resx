@@ -135,9 +135,6 @@
   <data name="SandDikeOnSand_DisplayName" xml:space="preserve">
     <value>Zand dijk op zand (geval 2B)</value>
   </data>
-  <data name="MacroStabilityInwardsPreconsolidationStress_ValidateParameter_The_value_of_ParameterName_0_must_be_a_concrete_value" xml:space="preserve">
-    <value>De waarde voor parameter '{0}' voor de grensspanning moet een concreet getal zijn.</value>
-  </data>
   <data name="MacroStabilityInwardsShearStrengthModel_CPhiOrSuCalculated_DisplayName" xml:space="preserve">
     <value>CPhi of Su berekend</value>
   </data>
