@@ -102,216 +102,130 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 SetDikeSoilScenario(calculationConfiguration, calculation.InputParameters);
                 SetGridDeterminationType(calculationConfiguration, calculation.InputParameters);
                 SetTangentLineDeterminationType(calculationConfiguration, calculation.InputParameters);
+                SetMacroStabilityInwardsLocationInput(calculationConfiguration.LocationInputDaily, calculation.InputParameters.LocationInputDaily);
+                SetMacroStabilityInwardsLocationInputExtreme(calculationConfiguration.LocationInputExtreme, calculation.InputParameters.LocationInputExtreme);
                 return calculation;
             }
             return null;
         }
 
         /// <summary>
-        /// Assigns the read grids to the <paramref name="calculation"/>.
+        /// Tries to assign the hydraulic boundary location or the assessment level that is set manually.
         /// </summary>
-        /// <param name="calculationConfiguration">The configuration read from the imported file.</param>
+        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
+        /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
+        /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="HydraulicBoundaryLocation"/>
+        /// set which is not available in <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
+        private bool TrySetHydraulicBoundaryData(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                                 MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
+        {
+            HydraulicBoundaryLocation location;
+
+            bool locationRead = TryReadHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName,
+                                                                 calculationConfiguration.Name,
+                                                                 availableHydraulicBoundaryLocations,
+                                                                 out location);
+
+            if (!locationRead)
+            {
+                return false;
+            }
+
+            if (location != null)
+            {
+                macroStabilityInwardsCalculation.InputParameters.HydraulicBoundaryLocation = location;
+            }
+            else if (calculationConfiguration.AssessmentLevel.HasValue)
+            {
+                macroStabilityInwardsCalculation.InputParameters.UseAssessmentLevelManualInput = true;
+                macroStabilityInwardsCalculation.InputParameters.AssessmentLevel = (RoundedDouble) calculationConfiguration.AssessmentLevel.Value;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Tries to assign the surface line.
+        /// </summary>
+        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>true</c> if no grids where given, or set to the <paramref name="calculation"/>
-        /// , <c>false</c> otherwise.</returns>
-        private bool TrySetGrids(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
-                                 MacroStabilityInwardsCalculationScenario calculation)
+        /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="MacroStabilityInwardsSurfaceLine"/>
+        /// set which is not available in <see cref="MacroStabilityInwardsFailureMechanism.SurfaceLines"/>, <c>true</c> otherwise.</returns>
+        private bool TrySetSurfaceLine(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                       MacroStabilityInwardsCalculationScenario calculation)
         {
-            return TrySetGrid(calculationConfiguration.LeftGrid,
-                              calculation.InputParameters.LeftGrid,
-                              calculation.Name)
-                   && TrySetGrid(calculationConfiguration.RightGrid,
-                                 calculation.InputParameters.RightGrid,
-                                 calculation.Name);
-        }
-
-        /// <summary>
-        /// Assigns the read grid to the <paramref name="grid"/>.
-        /// </summary>
-        /// <param name="gridConfiguration">The grid configuration read from the imported file.</param>
-        /// <param name="grid">The grid to configure.</param>
-        /// <param name="calculationName">The name of the read calculation.</param>
-        /// <returns><c>true</c> if no grid configuration where given, or set to the <paramref name="grid"/>
-        /// , <c>false</c> otherwise.</returns>
-        private bool TrySetGrid(MacroStabilityInwardsGridConfiguration gridConfiguration,
-                                MacroStabilityInwardsGrid grid,
-                                string calculationName)
-        {
-            if (gridConfiguration == null)
+            if (calculationConfiguration.SurfaceLineName == null)
             {
                 return true;
             }
 
-            return TrySetGridZTopZBottom(gridConfiguration, grid, calculationName)
-                   && TrySetGridXLeftXRight(gridConfiguration, grid, calculationName)
-                   && TrySetNumberOfHorizontalPoints(gridConfiguration, grid, calculationName)
-                   && TrySetNumberOfVerticalPoints(gridConfiguration, grid, calculationName);
-        }
+            MacroStabilityInwardsSurfaceLine surfaceLine = failureMechanism.SurfaceLines
+                                                                           .FirstOrDefault(sl => sl.Name == calculationConfiguration.SurfaceLineName);
 
-        /// <summary>
-        /// Assigns the grid Z top and Z bottom parameters to the <paramref name="grid"/>.
-        /// </summary>
-        /// <param name="gridConfiguration">The grid configuration read from the imported file.</param>
-        /// <param name="grid">The calculation grid to configure.</param>
-        /// <param name="calculationName">The name of the read calculation.</param>
-        /// <returns><c>true</c> if no z top and z bottom was given, or when z top and z bottom 
-        /// are set to the <paramref name="grid"/>, <c>false</c> otherwise.</returns>
-        private bool TrySetGridZTopZBottom(MacroStabilityInwardsGridConfiguration gridConfiguration,
-                                           MacroStabilityInwardsGrid grid,
-                                           string calculationName)
-        {
-            bool hasZTopValue = gridConfiguration.ZTop.HasValue;
-            bool hasZBottomValue = gridConfiguration.ZBottom.HasValue;
-            if (!hasZTopValue && !hasZBottomValue)
+            if (surfaceLine == null)
             {
-                return true;
-            }
-
-            RoundedDouble zTop = hasZTopValue
-                                     ? (RoundedDouble) gridConfiguration.ZTop.Value
-                                     : RoundedDouble.NaN;
-
-            RoundedDouble zBottom = hasZBottomValue
-                                        ? (RoundedDouble) gridConfiguration.ZBottom.Value
-                                        : RoundedDouble.NaN;
-            try
-            {
-                grid.ZTop = zTop;
-                grid.ZBottom = zBottom;
-            }
-            catch (ArgumentException e)
-            {
-                Log.LogCalculationConversionError(string.Format(Resources.MacroStabilityInwardsCalculationConfigurationImporter_TrySetGridZTopZBottom_Combination_of_ZTop_0_and_ZBottom_1_invalid_Reason_2,
-                                                                zTop.ToPrecision(grid.ZTop.NumberOfDecimalPlaces),
-                                                                zBottom.ToPrecision(grid.ZBottom.NumberOfDecimalPlaces),
-                                                                e.Message),
-                                                  calculationName);
-
+                Log.LogCalculationConversionError(string.Format(
+                                                      Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist,
+                                                      calculationConfiguration.SurfaceLineName),
+                                                  calculation.Name);
                 return false;
             }
 
+            calculation.InputParameters.SurfaceLine = surfaceLine;
             return true;
         }
 
         /// <summary>
-        /// Assigns the grid x left and x right parameters to the <paramref name="grid"/>.
+        /// Tries to assign the stochastic soil profile.
         /// </summary>
-        /// <param name="gridConfiguration">The grid configuration read from the imported file.</param>
-        /// <param name="grid">The calculation grid to configure.</param>
-        /// <param name="calculationName">The name of the read calculation.</param>
-        /// <returns><c>true</c> if no x left and x right was given, or when x left and x right
-        /// are set to the <paramref name="grid"/>, <c>false</c> otherwise.</returns>
-        private bool TrySetGridXLeftXRight(MacroStabilityInwardsGridConfiguration gridConfiguration,
-                                           MacroStabilityInwardsGrid grid,
-                                           string calculationName)
+        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has:
+        /// <list type="bullet">
+        /// <item>a <see cref="MacroStabilityInwardsStochasticSoilProfile"/> set but no <see cref="MacroStabilityInwardsStochasticSoilModel"/> 
+        /// is specified;</item>
+        /// <item>a <see cref="MacroStabilityInwardsStochasticSoilProfile"/> set which is not
+        ///  available in the <see cref="MacroStabilityInwardsStochasticSoilModel"/>.</item>
+        /// </list>
+        /// <c>true</c> otherwise.</returns>
+        private bool TrySetStochasticSoilProfile(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                                 MacroStabilityInwardsCalculationScenario calculation)
         {
-            bool hasXLeftValue = gridConfiguration.XLeft.HasValue;
-            bool hasXRightValue = gridConfiguration.XRight.HasValue;
-            if (!hasXLeftValue && !hasXRightValue)
+            if (calculationConfiguration.StochasticSoilProfileName == null)
             {
                 return true;
             }
 
-            RoundedDouble xLeft = hasXLeftValue
-                                      ? (RoundedDouble) gridConfiguration.XLeft.Value
-                                      : RoundedDouble.NaN;
-
-            RoundedDouble xRight = hasXRightValue
-                                       ? (RoundedDouble) gridConfiguration.XRight.Value
-                                       : RoundedDouble.NaN;
-            try
+            if (calculation.InputParameters.StochasticSoilModel == null)
             {
-                grid.XLeft = xLeft;
-                grid.XRight = xRight;
-            }
-            catch (ArgumentException e)
-            {
-                Log.LogCalculationConversionError(string.Format(Resources.MacroStabilityInwardsCalculationConfigurationImporter_TrySetGridXLeftXRight_Combination_of_XLeft_0_and_XRight_1_invalid_Reason_2,
-                                                                xLeft.ToPrecision(grid.XLeft.NumberOfDecimalPlaces),
-                                                                xRight.ToPrecision(grid.XRight.NumberOfDecimalPlaces),
-                                                                e.Message),
-                                                  calculationName);
-
+                Log.LogCalculationConversionError(string.Format(
+                                                      Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilProfile_No_soil_model_provided_for_soil_profile_with_name_0,
+                                                      calculationConfiguration.StochasticSoilProfileName),
+                                                  calculation.Name);
                 return false;
             }
 
+            MacroStabilityInwardsStochasticSoilProfile soilProfile = calculation.InputParameters
+                                                                                .StochasticSoilModel
+                                                                                .StochasticSoilProfiles
+                                                                                .FirstOrDefault(ssp => ssp.SoilProfile.Name == calculationConfiguration.StochasticSoilProfileName);
+
+            if (soilProfile == null)
+            {
+                Log.LogCalculationConversionError(string.Format(
+                                                      Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist_within_soil_model_1,
+                                                      calculationConfiguration.StochasticSoilProfileName,
+                                                      calculationConfiguration.StochasticSoilModelName),
+                                                  calculation.Name);
+                return false;
+            }
+
+            calculation.InputParameters.StochasticSoilProfile = soilProfile;
             return true;
         }
 
         /// <summary>
-        /// Assigns the number of horizontal points to the <paramref name="grid"/>.
-        /// </summary>
-        /// <param name="gridConfiguration">The grid configuration read from the imported file.</param>
-        /// <param name="grid">The calculation grid to configure.</param>
-        /// <param name="calculationName">The name of the read calculation.</param>
-        /// <returns><c>true</c> if no number of horizontal points was given, or when number of 
-        /// horizontal points is set to the <paramref name="grid"/>, <c>false</c> otherwise.</returns>
-        private bool TrySetNumberOfHorizontalPoints(MacroStabilityInwardsGridConfiguration gridConfiguration,
-                                                    MacroStabilityInwardsGrid grid,
-                                                    string calculationName)
-        {
-            if (!gridConfiguration.NumberOfHorizontalPoints.HasValue)
-            {
-                return true;
-            }
-
-            int numberOfHorizontalPoints = gridConfiguration.NumberOfHorizontalPoints.Value;
-
-            try
-            {
-                grid.NumberOfHorizontalPoints = numberOfHorizontalPoints;
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                Log.LogOutOfRangeException(string.Format(Resources.MacroStabilityInwardsCalculationConfigurationImporter_TrySetNumberOfHorizontalPoints_NumberOfHorizontalPoints_0_invalid,
-                                                         numberOfHorizontalPoints),
-                                           calculationName,
-                                           e);
-
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Assigns the number of vertical points to the <paramref name="grid"/>.
-        /// </summary>
-        /// <param name="gridConfiguration">The grid configuration read from the imported file.</param>
-        /// <param name="grid">The calculation grid to configure.</param>
-        /// <param name="calculationName">The name of the read calculation.</param>
-        /// <returns><c>true</c> if no number of vertical points was given, or when number of 
-        /// vertical points is set to the <paramref name="grid"/>, <c>false</c> otherwise.</returns>
-        private bool TrySetNumberOfVerticalPoints(MacroStabilityInwardsGridConfiguration gridConfiguration,
-                                                  MacroStabilityInwardsGrid grid,
-                                                  string calculationName)
-        {
-            if (!gridConfiguration.NumberOfVerticalPoints.HasValue)
-            {
-                return true;
-            }
-
-            int numberOfVerticalPoints = gridConfiguration.NumberOfVerticalPoints.Value;
-
-            try
-            {
-                grid.NumberOfVerticalPoints = numberOfVerticalPoints;
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                Log.LogOutOfRangeException(string.Format(Resources.MacroStabilityInwardsCalculationConfigurationImporter_TrySetNumberOfVerticalPoints_NumberOfVerticalPoints_0_invalid,
-                                                         numberOfVerticalPoints),
-                                           calculationName,
-                                           e);
-
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Assigns the tangent line Z top and tangent line Z bottom parameters to the <paramref name="calculation"/>.
+        /// Tries to assign the tangent line Z top and tangent line Z bottom parameters to the <paramref name="calculation"/>.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
@@ -357,7 +271,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Assigns the tangent line number.
+        /// Tries to assign the tangent line number.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
@@ -391,162 +305,259 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Assigns the hydraulic boundary location or the assessment level that is set manually.
+        /// Tries to assign the read grids to the <paramref name="calculation"/>.
         /// </summary>
-        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
-        /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="HydraulicBoundaryLocation"/>
-        /// set which is not available in <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
-        private bool TrySetHydraulicBoundaryData(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
-                                                 MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
+        /// <param name="calculationConfiguration">The configuration read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        /// <returns><c>true</c> if no grids where given, or set to the <paramref name="calculation"/>, 
+        /// <c>false</c> otherwise.</returns>
+        private bool TrySetGrids(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                 MacroStabilityInwardsCalculationScenario calculation)
         {
-            HydraulicBoundaryLocation location;
+            return TrySetGrid(calculationConfiguration.LeftGrid,
+                              calculation.InputParameters.LeftGrid,
+                              calculation.Name)
+                   && TrySetGrid(calculationConfiguration.RightGrid,
+                                 calculation.InputParameters.RightGrid,
+                                 calculation.Name);
+        }
 
-            bool locationRead = TryReadHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName,
-                                                                 calculationConfiguration.Name,
-                                                                 availableHydraulicBoundaryLocations,
-                                                                 out location);
-
-            if (!locationRead)
+        /// <summary>
+        /// Tries to assign the read grid to the <paramref name="grid"/>.
+        /// </summary>
+        /// <param name="gridConfiguration">The grid configuration read from the imported file.</param>
+        /// <param name="grid">The grid to configure.</param>
+        /// <param name="calculationName">The name of the read calculation.</param>
+        /// <returns><c>true</c> if no grid configuration where given, or set to the <paramref name="grid"/>
+        /// , <c>false</c> otherwise.</returns>
+        private bool TrySetGrid(MacroStabilityInwardsGridConfiguration gridConfiguration,
+                                MacroStabilityInwardsGrid grid,
+                                string calculationName)
+        {
+            if (gridConfiguration == null)
             {
+                return true;
+            }
+
+            return TrySetGridZTopZBottom(gridConfiguration, grid, calculationName)
+                   && TrySetGridXLeftXRight(gridConfiguration, grid, calculationName)
+                   && TrySetNumberOfHorizontalPoints(gridConfiguration, grid, calculationName)
+                   && TrySetNumberOfVerticalPoints(gridConfiguration, grid, calculationName);
+        }
+
+        /// <summary>
+        /// Tries to assign the grid Z top and Z bottom parameters to the <paramref name="grid"/>.
+        /// </summary>
+        /// <param name="gridConfiguration">The grid configuration read from the imported file.</param>
+        /// <param name="grid">The calculation grid to configure.</param>
+        /// <param name="calculationName">The name of the read calculation.</param>
+        /// <returns><c>true</c> if no z top and z bottom was given, or when z top and z bottom 
+        /// are set to the <paramref name="grid"/>, <c>false</c> otherwise.</returns>
+        private bool TrySetGridZTopZBottom(MacroStabilityInwardsGridConfiguration gridConfiguration,
+                                           MacroStabilityInwardsGrid grid,
+                                           string calculationName)
+        {
+            bool hasZTopValue = gridConfiguration.ZTop.HasValue;
+            bool hasZBottomValue = gridConfiguration.ZBottom.HasValue;
+            if (!hasZTopValue && !hasZBottomValue)
+            {
+                return true;
+            }
+
+            RoundedDouble zTop = hasZTopValue
+                                     ? (RoundedDouble) gridConfiguration.ZTop.Value
+                                     : RoundedDouble.NaN;
+
+            RoundedDouble zBottom = hasZBottomValue
+                                        ? (RoundedDouble) gridConfiguration.ZBottom.Value
+                                        : RoundedDouble.NaN;
+            try
+            {
+                grid.ZTop = zTop;
+                grid.ZBottom = zBottom;
+            }
+            catch (ArgumentException e)
+            {
+                Log.LogCalculationConversionError(string.Format(Resources.MacroStabilityInwardsCalculationConfigurationImporter_TrySetGridZTopZBottom_Combination_of_ZTop_0_and_ZBottom_1_invalid_Reason_2,
+                                                                zTop.ToPrecision(grid.ZTop.NumberOfDecimalPlaces),
+                                                                zBottom.ToPrecision(grid.ZBottom.NumberOfDecimalPlaces),
+                                                                e.Message),
+                                                  calculationName);
+
                 return false;
             }
 
-            if (location != null)
-            {
-                macroStabilityInwardsCalculation.InputParameters.HydraulicBoundaryLocation = location;
-            }
-            else if (calculationConfiguration.AssessmentLevel.HasValue)
-            {
-                macroStabilityInwardsCalculation.InputParameters.UseAssessmentLevelManualInput = true;
-                macroStabilityInwardsCalculation.InputParameters.AssessmentLevel = (RoundedDouble) calculationConfiguration.AssessmentLevel.Value;
-            }
-
             return true;
         }
 
         /// <summary>
-        /// Assigns the surface line.
+        /// Tries to assign the grid x left and x right parameters to the <paramref name="grid"/>.
         /// </summary>
-        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
-        /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="MacroStabilityInwardsSurfaceLine"/>
-        /// set which is not available in <see cref="MacroStabilityInwardsFailureMechanism.SurfaceLines"/>, <c>true</c> otherwise.</returns>
-        private bool TrySetSurfaceLine(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
-                                       MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
+        /// <param name="gridConfiguration">The grid configuration read from the imported file.</param>
+        /// <param name="grid">The calculation grid to configure.</param>
+        /// <param name="calculationName">The name of the read calculation.</param>
+        /// <returns><c>true</c> if no x left and x right was given, or when x left and x right
+        /// are set to the <paramref name="grid"/>, <c>false</c> otherwise.</returns>
+        private bool TrySetGridXLeftXRight(MacroStabilityInwardsGridConfiguration gridConfiguration,
+                                           MacroStabilityInwardsGrid grid,
+                                           string calculationName)
         {
-            if (calculationConfiguration.SurfaceLineName != null)
+            bool hasXLeftValue = gridConfiguration.XLeft.HasValue;
+            bool hasXRightValue = gridConfiguration.XRight.HasValue;
+            if (!hasXLeftValue && !hasXRightValue)
             {
-                MacroStabilityInwardsSurfaceLine surfaceLine = failureMechanism.SurfaceLines
-                                                                               .FirstOrDefault(sl => sl.Name == calculationConfiguration.SurfaceLineName);
-
-                if (surfaceLine == null)
-                {
-                    Log.LogCalculationConversionError(string.Format(
-                                                          Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist,
-                                                          calculationConfiguration.SurfaceLineName),
-                                                      macroStabilityInwardsCalculation.Name);
-                    return false;
-                }
-
-                macroStabilityInwardsCalculation.InputParameters.SurfaceLine = surfaceLine;
+                return true;
             }
+
+            RoundedDouble xLeft = hasXLeftValue
+                                      ? (RoundedDouble) gridConfiguration.XLeft.Value
+                                      : RoundedDouble.NaN;
+
+            RoundedDouble xRight = hasXRightValue
+                                       ? (RoundedDouble) gridConfiguration.XRight.Value
+                                       : RoundedDouble.NaN;
+            try
+            {
+                grid.XLeft = xLeft;
+                grid.XRight = xRight;
+            }
+            catch (ArgumentException e)
+            {
+                Log.LogCalculationConversionError(string.Format(Resources.MacroStabilityInwardsCalculationConfigurationImporter_TrySetGridXLeftXRight_Combination_of_XLeft_0_and_XRight_1_invalid_Reason_2,
+                                                                xLeft.ToPrecision(grid.XLeft.NumberOfDecimalPlaces),
+                                                                xRight.ToPrecision(grid.XRight.NumberOfDecimalPlaces),
+                                                                e.Message),
+                                                  calculationName);
+
+                return false;
+            }
+
             return true;
         }
 
         /// <summary>
-        /// Assigns the stochastic soil model.
+        /// Tries to assign the number of horizontal points to the <paramref name="grid"/>.
+        /// </summary>
+        /// <param name="gridConfiguration">The grid configuration read from the imported file.</param>
+        /// <param name="grid">The calculation grid to configure.</param>
+        /// <param name="calculationName">The name of the read calculation.</param>
+        /// <returns><c>true</c> if no number of horizontal points was given, or when number of 
+        /// horizontal points is set to the <paramref name="grid"/>, <c>false</c> otherwise.</returns>
+        private bool TrySetNumberOfHorizontalPoints(MacroStabilityInwardsGridConfiguration gridConfiguration,
+                                                    MacroStabilityInwardsGrid grid,
+                                                    string calculationName)
+        {
+            if (!gridConfiguration.NumberOfHorizontalPoints.HasValue)
+            {
+                return true;
+            }
+
+            int numberOfHorizontalPoints = gridConfiguration.NumberOfHorizontalPoints.Value;
+
+            try
+            {
+                grid.NumberOfHorizontalPoints = numberOfHorizontalPoints;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Log.LogOutOfRangeException(string.Format(Resources.MacroStabilityInwardsCalculationConfigurationImporter_TrySetNumberOfHorizontalPoints_NumberOfHorizontalPoints_0_invalid,
+                                                         numberOfHorizontalPoints),
+                                           calculationName,
+                                           e);
+
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Tries to assign the number of vertical points to the <paramref name="grid"/>.
+        /// </summary>
+        /// <param name="gridConfiguration">The grid configuration read from the imported file.</param>
+        /// <param name="grid">The calculation grid to configure.</param>
+        /// <param name="calculationName">The name of the read calculation.</param>
+        /// <returns><c>true</c> if no number of vertical points was given, or when number of 
+        /// vertical points is set to the <paramref name="grid"/>, <c>false</c> otherwise.</returns>
+        private bool TrySetNumberOfVerticalPoints(MacroStabilityInwardsGridConfiguration gridConfiguration,
+                                                  MacroStabilityInwardsGrid grid,
+                                                  string calculationName)
+        {
+            if (!gridConfiguration.NumberOfVerticalPoints.HasValue)
+            {
+                return true;
+            }
+
+            int numberOfVerticalPoints = gridConfiguration.NumberOfVerticalPoints.Value;
+
+            try
+            {
+                grid.NumberOfVerticalPoints = numberOfVerticalPoints;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Log.LogOutOfRangeException(string.Format(Resources.MacroStabilityInwardsCalculationConfigurationImporter_TrySetNumberOfVerticalPoints_NumberOfVerticalPoints_0_invalid,
+                                                         numberOfVerticalPoints),
+                                           calculationName,
+                                           e);
+
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Tries to assign the stochastic soil model.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
-        /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
+        /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when
         /// <list type="bullet">
-        /// <item>the <paramref name="calculationConfiguration"/> has a <see cref="MacroStabilityInwardsStochasticSoilModel"/> set
-        /// which is not available in the failure mechanism.</item>
-        /// <item>The <see cref="MacroStabilityInwardsStochasticSoilModel"/> does not intersect with the <see cref="MacroStabilityInwardsSurfaceLine"/>
+        /// <item>the <paramref name="calculationConfiguration"/> has a <see cref="MacroStabilityInwardsStochasticSoilModel"/> 
+        /// set which is not available in the failure mechanism.</item>
+        /// <item>The <see cref="MacroStabilityInwardsStochasticSoilModel"/> does not intersect 
+        /// with the <see cref="MacroStabilityInwardsSurfaceLine"/>
         /// when this is set.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>
         private bool TrySetStochasticSoilModel(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
-                                               MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
+                                               MacroStabilityInwardsCalculationScenario calculation)
         {
-            if (calculationConfiguration.StochasticSoilModelName != null)
+            if (calculationConfiguration.StochasticSoilModelName == null)
             {
-                MacroStabilityInwardsStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels
-                                                                                     .FirstOrDefault(ssm => ssm.Name == calculationConfiguration.StochasticSoilModelName);
-
-                if (soilModel == null)
-                {
-                    Log.LogCalculationConversionError(string.Format(
-                                                          Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_exist,
-                                                          calculationConfiguration.StochasticSoilModelName),
-                                                      macroStabilityInwardsCalculation.Name);
-                    return false;
-                }
-
-                if (macroStabilityInwardsCalculation.InputParameters.SurfaceLine != null
-                    && !soilModel.IntersectsWithSurfaceLineGeometry(macroStabilityInwardsCalculation.InputParameters.SurfaceLine))
-                {
-                    Log.LogCalculationConversionError(string.Format(
-                                                          Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_intersect_with_surfaceLine_1,
-                                                          calculationConfiguration.StochasticSoilModelName,
-                                                          calculationConfiguration.SurfaceLineName),
-                                                      macroStabilityInwardsCalculation.Name);
-                    return false;
-                }
-
-                macroStabilityInwardsCalculation.InputParameters.StochasticSoilModel = soilModel;
+                return true;
             }
+
+            MacroStabilityInwardsStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels
+                                                                                 .FirstOrDefault(ssm => ssm.Name == calculationConfiguration.StochasticSoilModelName);
+
+            if (soilModel == null)
+            {
+                Log.LogCalculationConversionError(string.Format(
+                                                      Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_exist,
+                                                      calculationConfiguration.StochasticSoilModelName),
+                                                  calculation.Name);
+                return false;
+            }
+
+            if (calculation.InputParameters.SurfaceLine != null
+                && !soilModel.IntersectsWithSurfaceLineGeometry(calculation.InputParameters.SurfaceLine))
+            {
+                Log.LogCalculationConversionError(string.Format(
+                                                      Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilModel_Stochastische_soil_model_0_does_not_intersect_with_surfaceLine_1,
+                                                      calculationConfiguration.StochasticSoilModelName,
+                                                      calculationConfiguration.SurfaceLineName),
+                                                  calculation.Name);
+                return false;
+            }
+
+            calculation.InputParameters.StochasticSoilModel = soilModel;
             return true;
         }
 
         /// <summary>
-        /// Assigns the stochastic soil profile.
-        /// </summary>
-        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
-        /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has:
-        /// <list type="bullet">
-        /// <item>a <see cref="MacroStabilityInwardsStochasticSoilProfile"/> set but no <see cref="MacroStabilityInwardsStochasticSoilModel"/> is specified;</item>
-        /// <item>a <see cref="MacroStabilityInwardsStochasticSoilProfile"/> set which is not available in the <see cref="MacroStabilityInwardsStochasticSoilModel"/>.</item>
-        /// </list>
-        /// <c>true</c> otherwise.</returns>
-        private bool TrySetStochasticSoilProfile(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
-                                                 MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
-        {
-            if (calculationConfiguration.StochasticSoilProfileName != null)
-            {
-                if (macroStabilityInwardsCalculation.InputParameters.StochasticSoilModel == null)
-                {
-                    Log.LogCalculationConversionError(string.Format(
-                                                          Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilProfile_No_soil_model_provided_for_soil_profile_with_name_0,
-                                                          calculationConfiguration.StochasticSoilProfileName),
-                                                      macroStabilityInwardsCalculation.Name);
-                    return false;
-                }
-
-                MacroStabilityInwardsStochasticSoilProfile soilProfile = macroStabilityInwardsCalculation.InputParameters
-                                                                                                         .StochasticSoilModel
-                                                                                                         .StochasticSoilProfiles
-                                                                                                         .FirstOrDefault(ssp => ssp.SoilProfile.Name == calculationConfiguration.StochasticSoilProfileName);
-
-                if (soilProfile == null)
-                {
-                    Log.LogCalculationConversionError(string.Format(
-                                                          Resources.MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist_within_soil_model_1,
-                                                          calculationConfiguration.StochasticSoilProfileName,
-                                                          calculationConfiguration.StochasticSoilModelName),
-                                                      macroStabilityInwardsCalculation.Name);
-                    return false;
-                }
-
-                macroStabilityInwardsCalculation.InputParameters.StochasticSoilProfile = soilProfile;
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Assigns the simple properties of <see cref="MacroStabilityInwardsInput"/>.
+        /// Assigns simple properties of <see cref="MacroStabilityInwardsInput"/>.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="input">The calculation input to configure.</param>
@@ -700,6 +711,66 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 input.TangentLineDeterminationType = tangentLineDeterminationType.Value;
             }
+        }
+
+        /// <summary>
+        /// Assigns the read location input configuration to the of <paramref name="locationInput"/>.
+        /// </summary>
+        /// <param name="configurationLocationInput">The location input configuration read from the imported file.</param>
+        /// <param name="locationInput">The location input to configure.</param>
+        private static void SetMacroStabilityInwardsLocationInput(MacroStabilityInwardsLocationInputConfiguration configurationLocationInput,
+                                                                  IMacroStabilityInwardsLocationInput locationInput)
+        {
+            if (configurationLocationInput == null)
+            {
+                return;
+            }
+
+            if (configurationLocationInput.WaterLevelPolder.HasValue)
+            {
+                locationInput.WaterLevelPolder = (RoundedDouble) configurationLocationInput.WaterLevelPolder.Value;
+            }
+            if (configurationLocationInput.UseDefaultOffsets.HasValue)
+            {
+                locationInput.UseDefaultOffsets = configurationLocationInput.UseDefaultOffsets.Value;
+            }
+            if (configurationLocationInput.PhreaticLineOffsetBelowDikeTopAtRiver.HasValue)
+            {
+                locationInput.PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) configurationLocationInput.PhreaticLineOffsetBelowDikeTopAtRiver.Value;
+            }
+            if (configurationLocationInput.PhreaticLineOffsetBelowDikeTopAtPolder.HasValue)
+            {
+                locationInput.PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) configurationLocationInput.PhreaticLineOffsetBelowDikeTopAtPolder.Value;
+            }
+            if (configurationLocationInput.PhreaticLineOffsetBelowShoulderBaseInside.HasValue)
+            {
+                locationInput.PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) configurationLocationInput.PhreaticLineOffsetBelowShoulderBaseInside.Value;
+            }
+            if (configurationLocationInput.PhreaticLineOffsetBelowDikeToeAtPolder.HasValue)
+            {
+                locationInput.PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) configurationLocationInput.PhreaticLineOffsetBelowDikeToeAtPolder.Value;
+            }
+        }
+
+        /// <summary>
+        /// Assigns the read location input configuration to the of <paramref name="locationInput"/>.
+        /// </summary>
+        /// <param name="configurationLocationInput">The location input configuration read from the imported file.</param>
+        /// <param name="locationInput">The location input to configure.</param>
+        private static void SetMacroStabilityInwardsLocationInputExtreme(MacroStabilityInwardsLocationInputExtremeConfiguration configurationLocationInput,
+                                                                         IMacroStabilityInwardsLocationInputExtreme locationInput)
+        {
+            if (configurationLocationInput == null)
+            {
+                return;
+            }
+
+            if (configurationLocationInput.PenetrationLength.HasValue)
+            {
+                locationInput.PenetrationLength = (RoundedDouble) configurationLocationInput.PenetrationLength.Value;
+            }
+
+            SetMacroStabilityInwardsLocationInput(configurationLocationInput, locationInput);
         }
     }
 }

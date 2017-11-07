@@ -927,6 +927,25 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                         ZBottom = (RoundedDouble) 3,
                         NumberOfVerticalPoints = 5,
                         NumberOfHorizontalPoints = 6
+                    },
+                    LocationInputDaily =
+                    {
+                        WaterLevelPolder = (RoundedDouble) 2.2,
+                        UseDefaultOffsets = true,
+                        PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) 2.21,
+                        PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) 2.24,
+                        PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) 2.22,
+                        PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) 2.23
+                    },
+                    LocationInputExtreme =
+                    {
+                        PenetrationLength = (RoundedDouble) 16.2,
+                        WaterLevelPolder = (RoundedDouble) 15.2,
+                        UseDefaultOffsets = false,
+                        PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) 15.21,
+                        PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) 15.24,
+                        PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) 15.22,
+                        PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) 15.23
                     }
                 },
                 IsRelevant = false,
@@ -994,11 +1013,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             AssertMacroStabilityInwardsGrid(expectedInput.LeftGrid, actualInput.LeftGrid);
             AssertMacroStabilityInwardsGrid(expectedInput.RightGrid, actualInput.RightGrid);
 
+            AssertMacroStabilityInwardsLocationInput(expectedInput.LocationInputDaily, actualInput.LocationInputDaily);
+            AssertMacroStabilityInwardsLocationInput(expectedInput.LocationInputExtreme, actualInput.LocationInputExtreme);
+
             Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
             Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution, actualCalculation.Contribution.GetAccuracy());
         }
 
-        private static void AssertMacroStabilityInwardsGrid(MacroStabilityInwardsGrid expected, MacroStabilityInwardsGrid actual)
+        private static void AssertMacroStabilityInwardsGrid(MacroStabilityInwardsGrid expected,
+                                                            MacroStabilityInwardsGrid actual)
         {
             Assert.AreEqual(expected.ZTop, actual.ZTop);
             Assert.AreEqual(expected.ZBottom, actual.ZBottom);
@@ -1006,6 +1029,30 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(expected.XRight, actual.XRight);
             Assert.AreEqual(expected.NumberOfHorizontalPoints, actual.NumberOfHorizontalPoints);
             Assert.AreEqual(expected.NumberOfVerticalPoints, actual.NumberOfVerticalPoints);
+        }
+
+        private static void AssertMacroStabilityInwardsLocationInput(IMacroStabilityInwardsLocationInputDaily expected,
+                                                                     IMacroStabilityInwardsLocationInputDaily actual)
+        {
+            Assert.AreEqual(expected.PenetrationLength, actual.PenetrationLength);
+            Assert.AreEqual(expected.WaterLevelPolder, actual.WaterLevelPolder);
+            Assert.AreEqual(expected.UseDefaultOffsets, actual.UseDefaultOffsets);
+            Assert.AreEqual(expected.PhreaticLineOffsetBelowDikeTopAtRiver, actual.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(expected.PhreaticLineOffsetBelowDikeTopAtPolder, actual.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(expected.PhreaticLineOffsetBelowShoulderBaseInside, actual.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(expected.PhreaticLineOffsetBelowDikeToeAtPolder, actual.PhreaticLineOffsetBelowDikeToeAtPolder);
+        }
+
+        private static void AssertMacroStabilityInwardsLocationInput(IMacroStabilityInwardsLocationInputExtreme expected,
+                                                                     IMacroStabilityInwardsLocationInputExtreme actual)
+        {
+            Assert.AreEqual(expected.PenetrationLength, actual.PenetrationLength);
+            Assert.AreEqual(expected.WaterLevelPolder, actual.WaterLevelPolder);
+            Assert.AreEqual(expected.UseDefaultOffsets, actual.UseDefaultOffsets);
+            Assert.AreEqual(expected.PhreaticLineOffsetBelowDikeTopAtRiver, actual.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(expected.PhreaticLineOffsetBelowDikeTopAtPolder, actual.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(expected.PhreaticLineOffsetBelowShoulderBaseInside, actual.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(expected.PhreaticLineOffsetBelowDikeToeAtPolder, actual.PhreaticLineOffsetBelowDikeToeAtPolder);
         }
 
         private static IEnumerable<TestCaseData> GetInvalidGridCombinations()
