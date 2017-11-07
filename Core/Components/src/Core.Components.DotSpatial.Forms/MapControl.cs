@@ -119,7 +119,7 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        public virtual void RemoveAllData()
+        public void RemoveAllData()
         {
             removing = true;
             Data = null;

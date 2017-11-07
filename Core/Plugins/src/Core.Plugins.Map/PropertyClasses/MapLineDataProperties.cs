@@ -38,6 +38,14 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     public class MapLineDataProperties : FeatureBasedMapDataProperties<MapLineData>
     {
+        public override string Type
+        {
+            get
+            {
+                return Resources.FeatureBasedMapData_Type_Lines;
+            }
+        }
+
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
@@ -89,14 +97,6 @@ namespace Core.Plugins.Map.PropertyClasses
             {
                 data.Style.DashStyle = value;
                 data.NotifyObservers();
-            }
-        }
-
-        public override string Type
-        {
-            get
-            {
-                return Resources.FeatureBasedMapData_Type_Lines;
             }
         }
     }

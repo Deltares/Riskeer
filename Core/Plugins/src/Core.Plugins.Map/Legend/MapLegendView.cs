@@ -72,7 +72,7 @@ namespace Core.Plugins.Map.Legend
         /// </summary>
         public IMapControl MapControl
         {
-            get
+            private get
             {
                 return mapControl;
             }
@@ -80,6 +80,14 @@ namespace Core.Plugins.Map.Legend
             {
                 mapControl = value;
                 Data = value?.Data;
+            }
+        }
+
+        public object Selection
+        {
+            get
+            {
+                return treeViewControl.SelectedData;
             }
         }
 
@@ -92,14 +100,6 @@ namespace Core.Plugins.Map.Legend
             set
             {
                 treeViewControl.Data = (MapData) value;
-            }
-        }
-
-        public object Selection
-        {
-            get
-            {
-                return treeViewControl.SelectedData;
             }
         }
 

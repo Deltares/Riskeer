@@ -76,6 +76,21 @@ namespace Core.Components.OxyPlot.Forms
         public double YMax { get; private set; }
 
         /// <summary>
+        /// Gets a value indicating whether values were
+        /// given to the properties.
+        /// </summary>
+        public bool IsNaN
+        {
+            get
+            {
+                return double.IsNaN(XMin)
+                       || double.IsNaN(XMax)
+                       || double.IsNaN(YMin)
+                       || double.IsNaN(YMax);
+            }
+        }
+
+        /// <summary>
         /// Adds padding to the extent and returns the new
         /// extent.
         /// </summary>
@@ -92,23 +107,8 @@ namespace Core.Components.OxyPlot.Forms
                 XMin = XMin - xPadding,
                 XMax = XMax + xPadding,
                 YMin = YMin - yPadding,
-                YMax = YMax + yPadding,
+                YMax = YMax + yPadding
             };
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether values were
-        /// given to the properties.
-        /// </summary>
-        public bool IsNaN
-        {
-            get
-            {
-                return double.IsNaN(XMin)
-                        || double.IsNaN(XMax)
-                        || double.IsNaN(YMin)
-                        || double.IsNaN(YMax);
-            }
         }
 
         /// <summary>

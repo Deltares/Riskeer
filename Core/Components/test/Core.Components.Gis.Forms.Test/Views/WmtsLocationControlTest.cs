@@ -947,9 +947,9 @@ namespace Core.Components.Gis.Forms.Test.Views
 
         private static void WriteToFile(string filePath, WmtsConnectionInfo wmtsConnectionInfo)
         {
-            File.WriteAllText(filePath, "<?xml version=\"1.0\" encoding=\"utf-8\"?><WmtsConnections><WmtsConnection>" +
-                                        $"<Name>{wmtsConnectionInfo.Name}</Name><URL>{wmtsConnectionInfo.Url}</URL>" +
-                                        "</WmtsConnection></WmtsConnections>");
+            File.WriteAllText(filePath, @"<?xml version=""1.0"" encoding=""utf-8""?><WmtsConnections><WmtsConnection>" +
+                                        $@"<Name>{wmtsConnectionInfo.Name}</Name><URL>{wmtsConnectionInfo.Url}</URL>" +
+                                        @"</WmtsConnection></WmtsConnections>");
         }
     }
 }

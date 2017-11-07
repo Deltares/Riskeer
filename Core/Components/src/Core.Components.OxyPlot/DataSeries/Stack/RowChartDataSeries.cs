@@ -45,7 +45,7 @@ namespace Core.Components.OxyPlot.DataSeries.Stack
 
             IsStacked = true;
             StrokeThickness = 1;
-            
+
             RowChartDataConverter.ConvertSeriesData(rowChartData, this);
             RowChartDataConverter.ConvertSeriesProperties(rowChartData, this);
         }

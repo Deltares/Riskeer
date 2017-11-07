@@ -69,7 +69,7 @@ namespace Core.Plugins.Chart.Legend
 
         public IChartControl ChartControl
         {
-            get
+            private get
             {
                 return chartControl;
             }

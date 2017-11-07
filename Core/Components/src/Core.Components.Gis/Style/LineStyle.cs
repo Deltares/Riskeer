@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Properties;
 

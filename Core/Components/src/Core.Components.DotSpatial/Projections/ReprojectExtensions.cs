@@ -66,7 +66,7 @@ namespace Core.Components.DotSpatial.Projections
             }
             if (ring.Coordinates.Count < 3)
             {
-                throw new ArgumentException("Ring must contain at least 3 coordinates.",
+                throw new ArgumentException(@"Ring must contain at least 3 coordinates.",
                                             nameof(ring));
             }
 
@@ -154,8 +154,10 @@ namespace Core.Components.DotSpatial.Projections
         private static IList<Coordinate> GetDensifiedCoordinates(IList<Coordinate> original, int numberOfAdditionalPoints)
         {
             int numberOfEdges = original.Count - 1;
-            var resultList = new List<Coordinate>(numberOfEdges * (numberOfAdditionalPoints + 1) + 1);
-            resultList.Add(original[0]);
+            var resultList = new List<Coordinate>(numberOfEdges * (numberOfAdditionalPoints + 1) + 1)
+            {
+                original[0]
+            };
             for (var i = 1; i <= numberOfEdges; i++)
             {
                 resultList.AddRange(GetEdgePointsExcludingStart(original[i - 1], original[i], numberOfAdditionalPoints));
@@ -168,7 +170,7 @@ namespace Core.Components.DotSpatial.Projections
             if (numberOfAdditionalPoints < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(numberOfAdditionalPoints),
-                                                      "Number of additional points cannot be negative.");
+                                                      @"Number of additional points cannot be negative.");
             }
 
             double dx = (end.X - start.X) / (numberOfAdditionalPoints + 1);

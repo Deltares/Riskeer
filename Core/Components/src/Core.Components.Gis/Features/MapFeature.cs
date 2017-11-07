@@ -51,11 +51,11 @@ namespace Core.Components.Gis.Features
         /// <summary>
         /// Gets the geometries defined in the RD-new coordinate system associated with this feature.
         /// </summary>
-        public IEnumerable<MapGeometry> MapGeometries { get; private set; }
+        public IEnumerable<MapGeometry> MapGeometries { get; }
 
         /// <summary>
         /// Gets the meta data associated with the feature.
         /// </summary>
-        public IDictionary<string, object> MetaData { get; private set; }
+        public IDictionary<string, object> MetaData { get; }
     }
 }

@@ -92,7 +92,7 @@ namespace Core.Components.OxyPlot.CustomSeries
             {
                 throw new ArgumentNullException(nameof(renderContext));
             }
-            
+
             if (!Areas.Any() || Areas.All(a => !a.Any()))
             {
                 return;

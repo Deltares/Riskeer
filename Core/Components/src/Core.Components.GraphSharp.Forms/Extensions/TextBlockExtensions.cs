@@ -43,7 +43,7 @@ namespace Core.Components.GraphSharp.Forms.Extensions
         {
             return (string) element.GetValue(FormattedTextProperty);
         }
-        
+
         private static void FormattedTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs eventArgs)
         {
             var textBlock = sender as TextBlock;

@@ -86,6 +86,8 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         private class IgnoreOnNoInternetAttribute : Attribute, ITestAction
         {
+            public ActionTargets Targets { get; }
+
             public void BeforeTest(ITest test)
             {
                 bool ignore;
@@ -106,9 +108,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 }
             }
 
-            public void AfterTest(ITest test) { }
-
-            public ActionTargets Targets { get; }
+            public void AfterTest(ITest test) {}
         }
     }
 }

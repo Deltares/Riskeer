@@ -416,7 +416,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual("FID", labelCategory.Symbolizer.PriorityField);
             Assert.AreEqual(ContentAlignment.MiddleRight, labelCategory.Symbolizer.Orientation);
             Assert.AreEqual(5, labelCategory.Symbolizer.OffsetX);
-            Assert.AreEqual(string.Format("[{0}]", "2"), labelCategory.Expression);
+            Assert.AreEqual("[2]", labelCategory.Expression);
         }
 
         [TestCase(true)]

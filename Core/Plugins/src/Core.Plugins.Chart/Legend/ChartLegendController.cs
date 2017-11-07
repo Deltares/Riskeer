@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ViewHost;

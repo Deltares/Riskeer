@@ -189,7 +189,6 @@ namespace Core.Plugins.Chart.Test
                     propertyInfos,
                     typeof(ChartPointData),
                     typeof(ChartPointDataProperties));
-
             }
         }
     }

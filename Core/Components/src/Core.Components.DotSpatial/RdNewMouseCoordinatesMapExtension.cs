@@ -72,7 +72,8 @@ namespace Core.Components.DotSpatial
                 Height = 16,
                 Controls =
                 {
-                    xLabel, yLabel
+                    xLabel,
+                    yLabel
                 },
                 RowCount = 1,
                 ColumnCount = 2

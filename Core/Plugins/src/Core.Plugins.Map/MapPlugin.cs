@@ -107,7 +107,7 @@ namespace Core.Plugins.Map
             if (viewController == null)
             {
                 throw new ArgumentNullException(nameof(viewController),
-                                                $"Cannot create a {typeof(MapLegendController).Name} when the view controller is null");
+                                                $@"Cannot create a {typeof(MapLegendController).Name} when the view controller is null");
             }
 
             var controller = new MapLegendController(viewController, Gui);

@@ -43,6 +43,14 @@ namespace Core.Components.Chart.Data
             points = new Point2D[0];
         }
 
+        public override bool HasData
+        {
+            get
+            {
+                return Points.Any();
+            }
+        }
+
         /// <summary>
         /// Gets or sets an array of points in 2D space.
         /// </summary>
@@ -61,14 +69,6 @@ namespace Core.Components.Chart.Data
                 }
 
                 points = value;
-            }
-        }
-
-        public override bool HasData
-        {
-            get
-            {
-                return Points.Any();
             }
         }
     }

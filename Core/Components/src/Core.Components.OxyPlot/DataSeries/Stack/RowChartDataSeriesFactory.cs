@@ -46,7 +46,7 @@ namespace Core.Components.OxyPlot.DataSeries.Stack
             foreach (RowChartData row in data.Rows)
             {
                 yield return new RowChartDataSeries(row);
-            }            
+            }
         }
     }
 }

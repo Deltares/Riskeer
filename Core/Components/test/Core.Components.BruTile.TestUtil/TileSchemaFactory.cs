@@ -43,7 +43,7 @@ namespace Core.Components.BruTile.TestUtil
         {
             if (!mapData.IsConfigured)
             {
-                throw new ArgumentException($"Only configured {typeof(WmtsMapData).Name} instances can be used to create a schema for.",
+                throw new ArgumentException($@"Only configured {typeof(WmtsMapData).Name} instances can be used to create a schema for.",
                                             nameof(mapData));
             }
 

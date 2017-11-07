@@ -43,6 +43,14 @@ namespace Core.Components.Chart.Data
             chartDataList = new List<ChartData>();
         }
 
+        public override bool HasData
+        {
+            get
+            {
+                return chartDataList.Any(c => c.HasData);
+            }
+        }
+
         /// <summary>
         /// Gets the collection of <see cref="ChartData"/> of the <see cref="ChartDataCollection"/>.
         /// </summary>
@@ -99,14 +107,6 @@ namespace Core.Components.Chart.Data
         public void Clear()
         {
             chartDataList.Clear();
-        }
-
-        public override bool HasData
-        {
-            get
-            {
-                return chartDataList.Any(c => c.HasData);
-            }
         }
     }
 }

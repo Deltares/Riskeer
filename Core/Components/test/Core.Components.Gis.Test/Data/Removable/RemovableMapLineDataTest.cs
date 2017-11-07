@@ -39,7 +39,7 @@ namespace Core.Components.Gis.Test.Data.Removable
             Assert.IsInstanceOf<MapLineData>(data);
             Assert.IsInstanceOf<IRemovable>(data);
         }
-        
+
         [Test]
         public void Constructor_WithStyle_ExpectedValues()
         {

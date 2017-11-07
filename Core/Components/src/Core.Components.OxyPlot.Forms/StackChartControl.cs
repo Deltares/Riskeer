@@ -35,9 +35,9 @@ namespace Core.Components.OxyPlot.Forms
     public class StackChartControl : Control, IStackChartControl
     {
         private readonly CategoryPlotView plotView;
-        private StackChartData data;
 
         private readonly Observer stackChartDataObserver;
+        private StackChartData data;
 
         /// <summary>
         /// Creates a new <see cref="StackChartControl"/>.
@@ -56,6 +56,18 @@ namespace Core.Components.OxyPlot.Forms
             Controls.Add(plotView);
 
             stackChartDataObserver = new Observer(HandleStackChartDataChange);
+        }
+
+        public string VerticalAxisTitle
+        {
+            get
+            {
+                return plotView.VerticalAxisTitle;
+            }
+            set
+            {
+                plotView.VerticalAxisTitle = value;
+            }
         }
 
         public StackChartData Data
@@ -90,18 +102,6 @@ namespace Core.Components.OxyPlot.Forms
             set
             {
                 plotView.ModelTitle = value;
-            }
-        }
-
-        public string VerticalAxisTitle
-        {
-            get
-            {
-                return plotView.VerticalAxisTitle;
-            }
-            set
-            {
-                plotView.VerticalAxisTitle = value;
             }
         }
 

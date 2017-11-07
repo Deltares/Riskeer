@@ -32,6 +32,8 @@ namespace Core.Components.GraphSharp.Commands
     {
         private readonly PointedTreeElementVertex vertex;
 
+        public event EventHandler CanExecuteChanged;
+
         /// <summary>
         /// Creates a new instance of <see cref="VertexSelectedCommand"/>.
         /// </summary>
@@ -57,7 +59,5 @@ namespace Core.Components.GraphSharp.Commands
         {
             return vertex.IsSelectable;
         }
-
-        public event EventHandler CanExecuteChanged;
     }
 }

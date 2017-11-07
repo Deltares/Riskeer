@@ -49,6 +49,6 @@ namespace Core.Components.Gis.Geometries
         /// Gets the points associated with the <see cref="MapGeometry"/> defined in the
         /// RD-new coordinate system.
         /// </summary>
-        public IEnumerable<IEnumerable<Point2D>> PointCollections { get; private set; }
+        public IEnumerable<IEnumerable<Point2D>> PointCollections { get; }
     }
 }

@@ -114,7 +114,7 @@ namespace Core.Components.BruTile.Configurations
         /// doesn't allow for tiles to be received.</exception>
         protected abstract void OnInitialize();
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (IsDisposed)
             {

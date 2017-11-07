@@ -103,7 +103,7 @@ namespace Core.Components.Gis.Data
             }
             if (!preferredFormat.StartsWith("image/"))
             {
-                throw new ArgumentException("Specified image format is not a MIME type.", nameof(preferredFormat));
+                throw new ArgumentException(@"Specified image format is not a MIME type.", nameof(preferredFormat));
             }
 
             SourceCapabilitiesUrl = sourceCapabilitiesUrl;

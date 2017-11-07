@@ -406,6 +406,15 @@ namespace Core.Components.OxyPlot.Forms.Test
             }
         }
 
+        private void AssertExpectedExtent(ElementCollection<Axis> modelAxes, Extent expectedExtent)
+        {
+            const double accuracy = 1e-8;
+            Assert.AreEqual(expectedExtent.XMin, modelAxes[0].ActualMinimum, Math.Abs(expectedExtent.XMin * accuracy));
+            Assert.AreEqual(expectedExtent.XMax, modelAxes[0].ActualMaximum, Math.Abs(expectedExtent.XMax * accuracy));
+            Assert.AreEqual(expectedExtent.YMin, modelAxes[1].ActualMinimum, Math.Abs(expectedExtent.YMin * accuracy));
+            Assert.AreEqual(expectedExtent.YMax, modelAxes[1].ActualMaximum, Math.Abs(expectedExtent.YMax * accuracy));
+        }
+
         #region ZoomToAllVisibleLayers
 
         [Test]
@@ -726,14 +735,5 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         #endregion
-
-        private void AssertExpectedExtent(ElementCollection<Axis> modelAxes, Extent expectedExtent)
-        {
-            const double accuracy = 1e-8;
-            Assert.AreEqual(expectedExtent.XMin, modelAxes[0].ActualMinimum, Math.Abs(expectedExtent.XMin * accuracy));
-            Assert.AreEqual(expectedExtent.XMax, modelAxes[0].ActualMaximum, Math.Abs(expectedExtent.XMax * accuracy));
-            Assert.AreEqual(expectedExtent.YMin, modelAxes[1].ActualMinimum, Math.Abs(expectedExtent.YMin * accuracy));
-            Assert.AreEqual(expectedExtent.YMax, modelAxes[1].ActualMaximum, Math.Abs(expectedExtent.YMax * accuracy));
-        }
     }
 }

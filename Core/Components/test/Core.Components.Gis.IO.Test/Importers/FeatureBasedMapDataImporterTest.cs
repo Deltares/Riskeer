@@ -61,7 +61,8 @@ namespace Core.Components.Gis.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': het bestand of andere benodigde bestanden zijn niet gevonden.", path) + Environment.NewLine +
+            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': het bestand of andere benodigde bestanden zijn niet gevonden."
+                                     + Environment.NewLine +
                                      "Er is geen kaartlaag geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -80,7 +81,8 @@ namespace Core.Components.Gis.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': kon geen geometrieën vinden in dit bestand.", path) + Environment.NewLine +
+            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': kon geen geometrieën vinden in dit bestand."
+                                     + Environment.NewLine +
                                      "Er is geen kaartlaag geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
