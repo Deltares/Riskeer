@@ -286,8 +286,7 @@ namespace Application.Ringtoets
                                              ? ConfigurationManager.AppSettings["applicationName"]
                                              : string.Empty;
 
-                string mutexName = string.Format("Ringtoets-single-instance-mutex-{0}-{1}", Environment.UserName,
-                                                 applicationName);
+                string mutexName = $"Ringtoets-single-instance-mutex-{Environment.UserName}-{applicationName}";
                 singleInstanceMutex = new Mutex(true, mutexName, out createdNew);
             }
             catch (AbandonedMutexException) {} //might throw an abandoned mutex exception if the previous DS instance forcefully exited.
@@ -329,10 +328,7 @@ namespace Application.Ringtoets
             {
                 using (var exceptionDialog = new ExceptionDialog(gui.MainWindow, gui, exception)
                 {
-                    OpenLogClicked = () =>
-                    {
-                        gui.ApplicationCommands?.OpenLogFileExternal();
-                    }
+                    OpenLogClicked = () => gui.ApplicationCommands?.OpenLogFileExternal()
                 })
                 {
                     if (exceptionDialog.ShowDialog() == DialogResult.OK)
@@ -407,8 +403,7 @@ namespace Application.Ringtoets
         {
             try
             {
-                return string.Format("{0} ({1})", UserPrincipal.Current.DisplayName,
-                                     UserPrincipal.Current.SamAccountName);
+                return $"{UserPrincipal.Current.DisplayName} ({UserPrincipal.Current.SamAccountName})";
             }
             catch (SystemException)
             {

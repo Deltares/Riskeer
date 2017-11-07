@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage
 
             if (File.Exists(databaseFilePath))
             {
-                string message = string.Format("File '{0}' already exists.", databaseFilePath);
+                string message = $"File '{databaseFilePath}' already exists.";
                 throw new ArgumentException(message);
             }
 

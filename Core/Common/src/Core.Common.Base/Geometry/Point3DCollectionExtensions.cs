@@ -38,19 +38,20 @@ namespace Core.Common.Base.Geometry
         /// <returns>Collection of 2D points in the LZ-plane.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<Point2D> ProjectToLZ(this IEnumerable<Point3D> points)
+        public static IEnumerable<Point2D> ProjectToLz(this IEnumerable<Point3D> points)
         {
             if (points == null)
             {
                 throw new ArgumentNullException(nameof(points));
             }
-            int count = points.Count();
+            Point3D[] point3Ds = points.ToArray();
+            int count = point3Ds.Length;
             if (count == 0)
             {
                 return Enumerable.Empty<Point2D>();
             }
 
-            Point3D first = points.First();
+            Point3D first = point3Ds.First();
             if (count == 1)
             {
                 return new[]
@@ -59,10 +60,10 @@ namespace Core.Common.Base.Geometry
                 };
             }
 
-            Point3D last = points.Last();
+            Point3D last = point3Ds.Last();
             var firstPoint = new Point2D(first.X, first.Y);
             var lastPoint = new Point2D(last.X, last.Y);
-            return points.Select(p => p.ProjectIntoLocalCoordinates(firstPoint, lastPoint));
+            return point3Ds.Select(p => p.ProjectIntoLocalCoordinates(firstPoint, lastPoint));
         }
 
         /// <summary>
@@ -108,7 +109,7 @@ namespace Core.Common.Base.Geometry
         /// is <c>null</c>.</exception>
         public static bool IsReclining(this IEnumerable<Point3D> points)
         {
-            return points.ProjectToLZ().IsReclining();
+            return points.ProjectToLz().IsReclining();
         }
     }
 }

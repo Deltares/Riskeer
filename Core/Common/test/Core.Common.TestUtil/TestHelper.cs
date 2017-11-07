@@ -649,9 +649,7 @@ namespace Core.Common.TestUtil
 
             if (!File.Exists(Path.Combine(curDir, solutionName)))
             {
-                throw new InvalidOperationException(string.Format("Solution file '{0}' not found in any folder of '{1}'.",
-                                                                  solutionName,
-                                                                  Directory.GetCurrentDirectory()));
+                throw new InvalidOperationException($"Solution file '{solutionName}' not found in any folder of '{Directory.GetCurrentDirectory()}'.");
             }
 
             return Path.GetFullPath(curDir);

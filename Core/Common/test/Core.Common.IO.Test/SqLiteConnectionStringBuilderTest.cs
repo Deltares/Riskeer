@@ -78,7 +78,7 @@ namespace Core.Common.IO.Test
             StringAssert.DoesNotContain("metadata=", connectionString);
             StringAssert.DoesNotContain("System.Data.SQLite.EF6", connectionString);
             StringAssert.Contains("failifmissing=True", connectionString);
-            StringAssert.Contains(string.Format(@"data source={0}", uncPathToSqlFile), connectionString);
+            StringAssert.Contains($@"data source={uncPathToSqlFile}", connectionString);
             StringAssert.Contains($"read only={readOnly}", connectionString);
             StringAssert.Contains("foreign keys=True", connectionString);
             StringAssert.Contains("version=3", connectionString);

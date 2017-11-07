@@ -71,16 +71,16 @@ namespace Core.Common.Controls.TreeView.Test
             Func<object, bool> expandOnCreate = o => true;
             Func<object, object[]> childNodeObjects = o => new object[0];
             Func<object, object, bool> canRename = (o1, o2) => true;
-            Action<object, string> onNodeRenamed = (o, newName) => { };
+            Action<object, string> onNodeRenamed = (o, newName) => {};
             Func<object, object, bool> canRemove = (o1, o2) => true;
-            Action<object, object> onNodeRemoved = (o1, o2) => { };
+            Action<object, object> onNodeRemoved = (o1, o2) => {};
             Func<object, bool> canCheck = o => true;
             Func<object, bool> isChecked = o => true;
-            Action<object, object> onNodeChecked = (o1, o2) => { };
+            Action<object, object> onNodeChecked = (o1, o2) => {};
             Func<object, object, bool> canDrag = (o1, o2) => true;
             Func<object, object, bool> canDrop = (o1, o2) => true;
             Func<object, object, bool> canInsert = (o1, o2) => true;
-            Action<object, object, object, int, TreeViewControl> onDrop = (o1, o2, o3, index, tvc) => { };
+            Action<object, object, object, int, TreeViewControl> onDrop = (o1, o2, o3, index, tvc) => {};
 
             // Call
             treeNodeInfo.TagType = tagType;
@@ -166,16 +166,16 @@ namespace Core.Common.Controls.TreeView.Test
             Func<int, bool> expandOnCreate = o => true;
             Func<int, object[]> childNodeObjects = o => new object[0];
             Func<int, object, bool> canRename = (o1, o2) => true;
-            Action<int, string> onNodeRenamed = (o, newName) => { };
+            Action<int, string> onNodeRenamed = (o, newName) => {};
             Func<int, object, bool> canRemove = (o1, o2) => true;
-            Action<int, object> onNodeRemoved = (o1, o2) => { };
+            Action<int, object> onNodeRemoved = (o1, o2) => {};
             Func<int, bool> canCheck = o => true;
             Func<int, bool> isChecked = o => true;
-            Action<int, object> onNodeChecked = (o1, o2) => { };
+            Action<int, object> onNodeChecked = (o1, o2) => {};
             Func<int, object, bool> canDrag = (o1, o2) => true;
             Func<object, object, bool> canDrop = (o1, o2) => true;
             Func<object, object, bool> canInsert = (o1, o2) => true;
-            Action<object, object, object, int, TreeViewControl> onDrop = (o1, o2, o3, index, tvc) => { };
+            Action<object, object, object, int, TreeViewControl> onDrop = (o1, o2, o3, index, tvc) => {};
 
             // Call
             treeNodeInfo.Text = text;

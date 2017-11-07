@@ -68,7 +68,7 @@ namespace Core.Common.Utils.Test.Attributes
             var attribute = new ResourcesCategoryAttribute(typeof(Resources), "SomeStringResource", 1, 2);
 
             // Assert
-            Assert.AreEqual(string.Format("\t{0}", Resources.SomeStringResource), attribute.Category);
+            Assert.AreEqual($"\t{Resources.SomeStringResource}", attribute.Category);
         }
 
         [Test]

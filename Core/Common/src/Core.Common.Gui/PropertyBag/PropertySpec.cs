@@ -76,17 +76,17 @@ namespace Core.Common.Gui.PropertyBag
         /// <see cref="PropertySpec"/> class, such as <see cref="System.ComponentModel.ReadOnlyAttribute"/> 
         /// and <see cref="BrowsableAttribute"/>.
         /// </summary>
-        public ReadOnlyCollection<Attribute> Attributes { get; private set; }
+        public ReadOnlyCollection<Attribute> Attributes { get; }
 
         /// <summary>
         /// Gets the name of the property.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the fully qualified name of the type of this property.
         /// </summary>
-        public string TypeName { get; private set; }
+        public string TypeName { get; }
 
         /// <summary>
         /// Sets the property represented by this instance of some object instance.

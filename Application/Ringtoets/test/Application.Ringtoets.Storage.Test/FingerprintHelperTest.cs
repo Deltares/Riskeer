@@ -170,7 +170,7 @@ namespace Application.Ringtoets.Storage.Test
             }
 
             // Then
-            Assert.Less(actualTime, timeToBeat, string.Format("actualTime '{0}' is not less than timeToBeat '{1}'", actualTime, timeToBeat));
+            Assert.Less(actualTime, timeToBeat, $"actualTime '{actualTime}' is not less than timeToBeat '{timeToBeat}'");
         }
 
         private static bool SlowBaselineLinqEquality(byte[] array1, byte[] array2)

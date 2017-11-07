@@ -141,7 +141,7 @@ namespace Core.Common.Gui.Test
 
             using (var dialog = new ExceptionDialog(window, null, null)
             {
-                OpenLogClicked = () => { }
+                OpenLogClicked = () => {}
             })
             {
                 // Call

@@ -42,7 +42,7 @@ namespace Core.Common.TestUtil
         {
             if (!(x is double) || !(y is double))
             {
-                throw new ArgumentException(string.Format("Cannot compare objects other than {0} with this comparer.", typeof(double)));
+                throw new ArgumentException($"Cannot compare objects other than {typeof(double)} with this comparer.");
             }
             return Compare((double) x, (double) y);
         }

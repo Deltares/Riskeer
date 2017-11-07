@@ -199,7 +199,7 @@ namespace Core.Common.Base.Test.Geometry
             string stringRepresentation = point.ToString();
 
             // Assert
-            string expectedText = string.Format("({0}, {1}, {2})", point.X, point.Y, point.Z);
+            string expectedText = $"({point.X}, {point.Y}, {point.Z})";
             Assert.AreEqual(expectedText, stringRepresentation);
         }
     }

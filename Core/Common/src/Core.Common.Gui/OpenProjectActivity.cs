@@ -243,19 +243,19 @@ namespace Core.Common.Gui
         {
             if (requiredOpenProjectProperties.FilePath == null)
             {
-                throw new ArgumentException("Filepath should be set.", nameof(requiredOpenProjectProperties));
+                throw new ArgumentException(@"Filepath should be set.", nameof(requiredOpenProjectProperties));
             }
             if (requiredOpenProjectProperties.ProjectOwner == null)
             {
-                throw new ArgumentException("Project owner should be set.", nameof(requiredOpenProjectProperties));
+                throw new ArgumentException(@"Project owner should be set.", nameof(requiredOpenProjectProperties));
             }
             if (requiredOpenProjectProperties.ProjectFactory == null)
             {
-                throw new ArgumentException("Project factory should be set.", nameof(requiredOpenProjectProperties));
+                throw new ArgumentException(@"Project factory should be set.", nameof(requiredOpenProjectProperties));
             }
             if (requiredOpenProjectProperties.ProjectStorage == null)
             {
-                throw new ArgumentException("Project storage should be set.", nameof(requiredOpenProjectProperties));
+                throw new ArgumentException(@"Project storage should be set.", nameof(requiredOpenProjectProperties));
             }
         }
 

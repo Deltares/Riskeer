@@ -98,7 +98,7 @@ namespace Core.Common.Utils.Extensions
                 max = limit1;
             }
 
-            return (min.IsSmaller(value) && max.IsBigger(value)) || min.CompareTo(value) == 0 || max.CompareTo(value) == 0;
+            return min.IsSmaller(value) && max.IsBigger(value) || min.CompareTo(value) == 0 || max.CompareTo(value) == 0;
         }
 
         /// <summary>

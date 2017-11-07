@@ -119,7 +119,7 @@ namespace Core.Common.TestUtil
                 {
                     if (nonModalControlsTestName != testName)
                     {
-                        string errorMessage = string.Format("Did you forget to call WindowsFormsTestHelper.CloseAll() at the end of the following test: {0}?", nonModalControlsTestName);
+                        string errorMessage = $"Did you forget to call WindowsFormsTestHelper.CloseAll() at the end of the following test: {nonModalControlsTestName}?";
                         nonModalControlsTestName = testName; // reset for the next test
                         throw new InvalidOperationException(errorMessage);
                     }

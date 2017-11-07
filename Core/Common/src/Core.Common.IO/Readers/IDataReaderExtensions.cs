@@ -61,7 +61,7 @@ namespace Core.Common.IO.Readers
             }
             catch (IndexOutOfRangeException)
             {
-                throw new ArgumentException(string.Format("Column '{0}' not defined for data row.", columnName), "columnName");
+                throw new ArgumentException($@"Column '{columnName}' not defined for data row.", nameof(columnName));
             }
 
             try

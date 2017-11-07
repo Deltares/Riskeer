@@ -90,10 +90,11 @@ namespace Core.Common.Base.Geometry
                 throw new ArgumentNullException(nameof(p2));
             }
 
-            var result = new DenseVector(2);
-            result[0] = p1.X - p2.X;
-            result[1] = p1.Y - p2.Y;
-            return result;
+            return new DenseVector(2)
+            {
+                [0] = p1.X - p2.X,
+                [1] = p1.Y - p2.Y
+            };
         }
 
         /// <summary>
@@ -183,6 +184,11 @@ namespace Core.Common.Base.Geometry
                                  X, Y);
         }
 
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
         /// <summary>
         /// Compares the <see cref="Point2D"/> with <paramref name="other"/> based on <see cref="X"/>
         /// and <see cref="Y"/>.
@@ -193,11 +199,6 @@ namespace Core.Common.Base.Geometry
         private bool Equals(Point2D other)
         {
             return X.Equals(other.X) && Y.Equals(other.Y);
-        }
-
-        public object Clone()
-        {
-            return MemberwiseClone();
         }
     }
 }

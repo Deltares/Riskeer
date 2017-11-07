@@ -418,7 +418,7 @@ namespace Core.Common.Base.Test.Geometry
             string stringRepresentation = point.ToString();
 
             // Assert
-            string expectedText = string.Format("({0}, {1})", point.X, point.Y);
+            string expectedText = $"({point.X}, {point.Y})";
             Assert.AreEqual(expectedText, stringRepresentation);
         }
     }

@@ -42,25 +42,37 @@ namespace Core.Common.TestUtil.Test
         [TestFixture]
         private class DisplayNameEnumTest : EnumWithDisplayNameTestFixture<EnumDisplayName>
         {
-            protected override IDictionary<EnumDisplayName, string> ExpectedDisplayNameForEnumValues => new Dictionary<EnumDisplayName, string>
+            protected override IDictionary<EnumDisplayName, string> ExpectedDisplayNameForEnumValues
             {
+                get
                 {
-                    EnumDisplayName.NoDisplayName, null
-                },
-                {
-                    EnumDisplayName.HasResourcesDisplayName, Resources.SomeDisplayName
+                    return new Dictionary<EnumDisplayName, string>
+                    {
+                        {
+                            EnumDisplayName.NoDisplayName, null
+                        },
+                        {
+                            EnumDisplayName.HasResourcesDisplayName, Resources.SomeDisplayName
+                        }
+                    };
                 }
-            };
+            }
 
-            protected override IDictionary<EnumDisplayName, byte> ExpectedValueForEnumValues => new Dictionary<EnumDisplayName, byte>
+            protected override IDictionary<EnumDisplayName, byte> ExpectedValueForEnumValues
             {
+                get
                 {
-                    EnumDisplayName.NoDisplayName, 0
-                },
-                {
-                    EnumDisplayName.HasResourcesDisplayName, 4
+                    return new Dictionary<EnumDisplayName, byte>
+                    {
+                        {
+                            EnumDisplayName.NoDisplayName, 0
+                        },
+                        {
+                            EnumDisplayName.HasResourcesDisplayName, 4
+                        }
+                    };
                 }
-            };
+            }
         }
 
         private enum EnumDisplayName

@@ -53,26 +53,28 @@ namespace Core.Common.Gui.Forms.MessageWindow
             MessageWindowLogAppender.Instance.MessageWindow = this;
             InitializeComponent();
 
-            levelImageName = new Dictionary<string, string>();
-
             // order is the same as in log4j Level (check sources of log4net)
-            levelImageName[Level.Off.ToString()] = errorLevelImageName;
-            levelImageName[Level.Emergency.ToString()] = errorLevelImageName;
-            levelImageName[Level.Fatal.ToString()] = errorLevelImageName;
-            levelImageName[Level.Alert.ToString()] = errorLevelImageName;
-            levelImageName[Level.Critical.ToString()] = errorLevelImageName;
-            levelImageName[Level.Severe.ToString()] = errorLevelImageName;
-            levelImageName[Level.Error.ToString()] = errorLevelImageName;
-            levelImageName[Level.Warn.ToString()] = warningLevelImageName;
-            levelImageName[Level.Notice.ToString()] = warningLevelImageName;
-            levelImageName[Level.Info.ToString()] = informationLevelImageName;
-            levelImageName[Level.Debug.ToString()] = debugLevelImageName;
-            levelImageName[Level.Fine.ToString()] = debugLevelImageName;
-            levelImageName[Level.Trace.ToString()] = debugLevelImageName;
-            levelImageName[Level.Finer.ToString()] = debugLevelImageName;
-            levelImageName[Level.Verbose.ToString()] = debugLevelImageName;
-            levelImageName[Level.Finest.ToString()] = debugLevelImageName;
-            levelImageName[Level.All.ToString()] = debugLevelImageName;
+            levelImageName = new Dictionary<string, string>
+            {
+                [Level.Off.ToString()] = errorLevelImageName,
+                [Level.Emergency.ToString()] = errorLevelImageName,
+                [Level.Fatal.ToString()] = errorLevelImageName,
+                [Level.Alert.ToString()] = errorLevelImageName,
+                [Level.Critical.ToString()] = errorLevelImageName,
+                [Level.Severe.ToString()] = errorLevelImageName,
+                [Level.Error.ToString()] = errorLevelImageName,
+                [Level.Warn.ToString()] = warningLevelImageName,
+                [Level.Notice.ToString()] = warningLevelImageName,
+                [Level.Info.ToString()] = informationLevelImageName,
+                [Level.Debug.ToString()] = debugLevelImageName,
+                [Level.Fine.ToString()] = debugLevelImageName,
+                [Level.Trace.ToString()] = debugLevelImageName,
+                [Level.Finer.ToString()] = debugLevelImageName,
+                [Level.Verbose.ToString()] = debugLevelImageName,
+                [Level.Finest.ToString()] = debugLevelImageName,
+                [Level.All.ToString()] = debugLevelImageName
+            };
+
             messagesDataGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             messagesDataGridView.MouseUp += MessagesDataGridViewMouseUp;
 

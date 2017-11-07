@@ -310,13 +310,10 @@ namespace Core.Common.Gui.Forms.ViewHost
 
             while (containerControl.ActiveControl is IContainerControl)
             {
-                containerControl = (IContainerControl)containerControl.ActiveControl;
+                containerControl = (IContainerControl) containerControl.ActiveControl;
             }
 
-            PerformWithoutChangingActiveContent(() =>
-            {
-                containerControl.ActiveControl = null;
-            });
+            PerformWithoutChangingActiveContent(() => containerControl.ActiveControl = null);
         }
 
         private void OnLayoutDocumentClosed(object sender, EventArgs e)

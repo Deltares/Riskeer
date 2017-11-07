@@ -608,7 +608,7 @@ namespace Core.Common.TestUtil.Test
         public void AssertExceptionCustomMessage_NoException_ThrowsAssertionException()
         {
             // Setup
-            TestDelegate t = () => { };
+            TestDelegate t = () => {};
 
             // Call
             TestDelegate call = () => TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, string.Empty);
@@ -1223,15 +1223,6 @@ namespace Core.Common.TestUtil.Test
             public virtual double PropertyWithTypeConverter { get; private set; }
         }
 
-        private class DerivedTestClass : TestClass
-        {
-            public override double PropertyWithTypeConverter
-            {
-                get
-                {
-                    return base.PropertyWithTypeConverter;
-                }
-            }
-        }
+        private class DerivedTestClass : TestClass {}
     }
 }

@@ -66,7 +66,7 @@ namespace Core.Common.Base.Geometry
         /// <summary>
         /// Gets the (euclidean) length of the segment.
         /// </summary>
-        public double Length { get; private set; }
+        public double Length { get; }
 
         /// <summary>
         /// This method determines whether <paramref name="x"/> is contained by the <see cref="FirstPoint"/>

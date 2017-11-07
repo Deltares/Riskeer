@@ -35,18 +35,18 @@ namespace Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards
         /// <returns>A valid <see cref="MacroStabilityInwardsStochasticSoilProfileEntity"/>.</returns>
         public static MacroStabilityInwardsStochasticSoilProfileEntity CreateStochasticSoilProfileEntity()
         {
-           return new MacroStabilityInwardsStochasticSoilProfileEntity
-           {
-               Probability = 0.34,
-               MacroStabilityInwardsSoilProfileOneDEntity = new MacroStabilityInwardsSoilProfileOneDEntity
-               {
-                   Name = "Profile Name",
-                   MacroStabilityInwardsSoilLayerOneDEntities =
-                   {
-                       new MacroStabilityInwardsSoilLayerOneDEntity()
-                   }
-               }
-           };
+            return new MacroStabilityInwardsStochasticSoilProfileEntity
+            {
+                Probability = 0.34,
+                MacroStabilityInwardsSoilProfileOneDEntity = new MacroStabilityInwardsSoilProfileOneDEntity
+                {
+                    Name = "Profile Name",
+                    MacroStabilityInwardsSoilLayerOneDEntities =
+                    {
+                        new MacroStabilityInwardsSoilLayerOneDEntity()
+                    }
+                }
+            };
         }
     }
 }

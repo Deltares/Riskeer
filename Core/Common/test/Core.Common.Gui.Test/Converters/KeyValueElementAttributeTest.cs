@@ -72,7 +72,7 @@ namespace Core.Common.Gui.Test.Converters
             // Call
             string name = attribute.GetName(new TestObject
             {
-                Name = expectedName,
+                Name = expectedName
             });
 
             // Assert
@@ -90,7 +90,7 @@ namespace Core.Common.Gui.Test.Converters
             // Call
             string name = attribute.GetName(new TestObject
             {
-                NonStringName = expectedName,
+                NonStringName = expectedName
             });
 
             // Assert

@@ -205,7 +205,7 @@ namespace Core.Common.Gui.TestUtil.Test.ContextMenu
             const string text = "custom item";
             const string toolTip = "tooltip";
             Bitmap image = CoreCommonGuiResources.Busy_indicator;
-            var customItem = new StrictContextMenuItem(text, toolTip, image, (sender, args) => { });
+            var customItem = new StrictContextMenuItem(text, toolTip, image, (sender, args) => {});
 
             var builder = new CustomItemsOnlyContextMenuBuilder();
 

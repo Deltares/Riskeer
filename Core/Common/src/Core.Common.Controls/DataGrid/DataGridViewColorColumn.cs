@@ -47,7 +47,7 @@ namespace Core.Common.Controls.DataGrid
                 {
                     base.CellTemplate = value;
                 }
-                else throw new ArgumentException($"Given template must be of type {typeof(DataGridViewColorCell)}", nameof(value));
+                else throw new ArgumentException($@"Given template must be of type {typeof(DataGridViewColorCell)}", nameof(value));
             }
         }
     }

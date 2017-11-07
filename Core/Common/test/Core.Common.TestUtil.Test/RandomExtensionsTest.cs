@@ -69,9 +69,8 @@ namespace Core.Common.TestUtil.Test
 
             // Assert
             string message = Assert.Throws<NotFiniteNumberException>(test).Message;
-            string expectedMessage = string.Format("Creating a new random value with lower limit {0} " +
-                                                   "and upper limit {1} did not result in a finite value.",
-                                                   lowerLimit, upperLimit);
+            string expectedMessage = $"Creating a new random value with lower limit {lowerLimit} " +
+                                     $"and upper limit {upperLimit} did not result in a finite value.";
             Assert.AreEqual(expectedMessage, message);
         }
 

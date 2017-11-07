@@ -30,23 +30,35 @@ namespace Core.Common.TestUtil.Test
         [TestFixture]
         private class IntEnumTest : EnumValuesTestFixture<SomeEnum, int>
         {
-            protected override IDictionary<SomeEnum, int> ExpectedValueForEnumValues => new Dictionary<SomeEnum, int>
+            protected override IDictionary<SomeEnum, int> ExpectedValueForEnumValues
             {
+                get
                 {
-                    SomeEnum.Value, int.MaxValue
+                    return new Dictionary<SomeEnum, int>
+                    {
+                        {
+                            SomeEnum.Value, int.MaxValue
+                        }
+                    };
                 }
-            };
+            }
         }
 
         [TestFixture]
         private class LongEnumTest : EnumValuesTestFixture<LongEnum, long>
         {
-            protected override IDictionary<LongEnum, long> ExpectedValueForEnumValues => new Dictionary<LongEnum, long>
+            protected override IDictionary<LongEnum, long> ExpectedValueForEnumValues
             {
+                get
                 {
-                    LongEnum.Value, long.MaxValue
+                    return new Dictionary<LongEnum, long>
+                    {
+                        {
+                            LongEnum.Value, long.MaxValue
+                        }
+                    };
                 }
-            };
+            }
         }
 
         private enum SomeEnum

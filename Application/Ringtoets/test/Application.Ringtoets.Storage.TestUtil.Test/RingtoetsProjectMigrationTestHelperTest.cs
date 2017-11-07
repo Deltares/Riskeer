@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
                 "5",
                 "17.1"
             };
-            List<string> returnedProjectVersions = versions.Select(v => new RingtoetsVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core, 
+            List<string> returnedProjectVersions = versions.Select(v => new RingtoetsVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
                                                                                                                               $"FullTestProject{v}.rtd")).GetVersion()).ToList();
             CollectionAssert.AreEqual(expectedProjectVersions, returnedProjectVersions);
         }

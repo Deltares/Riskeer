@@ -55,9 +55,8 @@ namespace Core.Common.TestUtil
             double randomValue = lowerLimit + random.NextDouble() * difference;
             if (double.IsInfinity(randomValue) || double.IsNaN(randomValue))
             {
-                string message = string.Format("Creating a new random value with lower limit {0} " +
-                                               "and upper limit {1} did not result in a finite value.",
-                                               lowerLimit, upperLimit);
+                string message = $"Creating a new random value with lower limit {lowerLimit} " +
+                                 $"and upper limit {upperLimit} did not result in a finite value.";
                 throw new NotFiniteNumberException(message, randomValue);
             }
             return randomValue;

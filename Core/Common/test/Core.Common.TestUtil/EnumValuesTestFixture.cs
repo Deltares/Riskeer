@@ -28,6 +28,8 @@ namespace Core.Common.TestUtil
     [TestFixture]
     public abstract class EnumValuesTestFixture<TEnum, TInnerValue>
     {
+        protected abstract IDictionary<TEnum, TInnerValue> ExpectedValueForEnumValues { get; }
+
         [Test]
         public void ConvertToInnerValueType_AllEnumValues_ReturnExpectedValues()
         {
@@ -46,7 +48,5 @@ namespace Core.Common.TestUtil
                                 $"Value for {value} incorrect.");
             }
         }
-
-        protected abstract IDictionary<TEnum, TInnerValue> ExpectedValueForEnumValues { get; }
     }
 }

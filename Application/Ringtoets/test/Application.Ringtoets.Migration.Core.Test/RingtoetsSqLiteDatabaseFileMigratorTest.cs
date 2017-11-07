@@ -33,11 +33,17 @@ namespace Application.Ringtoets.Migration.Core.Test
     [TestFixture]
     public class RingtoetsSqLiteDatabaseFileMigratorTest
     {
-        private static TestCaseData[] ValidFromVersions => new[]
+        private static TestCaseData[] ValidFromVersions
         {
-            new TestCaseData("5"),
-            new TestCaseData("17.1")
-        };
+            get
+            {
+                return new[]
+                {
+                    new TestCaseData("5"),
+                    new TestCaseData("17.1")
+                };
+            }
+        }
 
         [Test]
         public void Constructor_ReturnsExpectedValues()

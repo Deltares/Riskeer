@@ -41,6 +41,6 @@ namespace Core.Common.Gui.Forms.ViewHost
         /// <summary>
         /// Gets the view for which there was a change.
         /// </summary>
-        public IView View { get; private set; }
+        public IView View { get; }
     }
 }

@@ -384,7 +384,7 @@ namespace Core.Common.Controls.TreeView
                     yPos = bounds.Top + bounds.Height / 2;
                     break;
                 default:
-                    throw new InvalidEnumArgumentException("location",
+                    throw new InvalidEnumArgumentException(nameof(location),
                                                            (int) location,
                                                            typeof(PlaceholderLocation));
             }

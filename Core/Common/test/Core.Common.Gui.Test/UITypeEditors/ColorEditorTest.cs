@@ -57,7 +57,7 @@ namespace Core.Common.Gui.Test.UITypeEditors
         {
             // Setup
             var editor = new ColorEditor();
-            object value = new object();
+            var value = new object();
 
             // Call
             object editedValue = editor.EditValue(null, null, value);

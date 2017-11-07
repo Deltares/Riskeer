@@ -212,8 +212,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         {
             // Setup
             const string messageText = "<logmessage text>";
-            string expectedText = string.Format("{0} {1}{2}",
-                                                messageText, Environment.NewLine, "Controleer logbestand voor meer informatie (\"Bestand\"->\"Help\"->\"Log tonen\").");
+            string expectedText = $"{messageText} {Environment.NewLine}Controleer logbestand voor meer informatie (\"Bestand\"->\"Help\"->\"Log tonen\").";
             var exception = new Exception();
 
             Level level = LogLevelConstant.Error.ToLog4NetLevel();

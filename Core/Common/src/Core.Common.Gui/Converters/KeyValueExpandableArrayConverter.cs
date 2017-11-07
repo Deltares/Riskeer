@@ -108,7 +108,7 @@ namespace Core.Common.Gui.Converters
                 return value;
             }
 
-            public override void SetValue(object component, object value)
+            public override void SetValue(object component, object valueToSet)
             {
                 throw new NotSupportedException();
             }

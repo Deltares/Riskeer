@@ -308,11 +308,13 @@ namespace Core.Common.TestUtil.Test
             {
                 new TestRowData
                 {
-                    Boolean = false, Text = "A"
+                    Boolean = false,
+                    Text = "A"
                 },
                 new TestRowData
                 {
-                    Boolean = true, Text = "B"
+                    Boolean = true,
+                    Text = "B"
                 }
             };
             gridView.Refresh();

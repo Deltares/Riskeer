@@ -172,10 +172,10 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void ProjectToLZ_PointsNull_ThrowsArgumentNullException()
+        public void ProjectToLz_PointsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((IEnumerable<Point3D>) null).ProjectToLZ();
+            TestDelegate test = () => ((IEnumerable<Point3D>) null).ProjectToLz();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -183,20 +183,20 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void ProjectToLZ_EmptyCollection_ReturnEmptyCollection()
+        public void ProjectToLz_EmptyCollection_ReturnEmptyCollection()
         {
             // Setup
             var points = new Point3D[0];
 
             // Call
-            IEnumerable<Point2D> lzCoordinates = points.ProjectToLZ();
+            IEnumerable<Point2D> lzCoordinates = points.ProjectToLz();
 
             // Assert
             CollectionAssert.IsEmpty(lzCoordinates);
         }
 
         [Test]
-        public void ProjectToLZ_GeometryWithOnePoint_ReturnSinglePointAtZeroXAndOriginalZ()
+        public void ProjectToLz_GeometryWithOnePoint_ReturnSinglePointAtZeroXAndOriginalZ()
         {
             // Setup
             const double originalZ = 3.3;
@@ -206,7 +206,7 @@ namespace Core.Common.Base.Test.Geometry
             };
 
             // Call
-            IEnumerable<Point2D> lzCoordinates = points.ProjectToLZ();
+            IEnumerable<Point2D> lzCoordinates = points.ProjectToLz();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -216,7 +216,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void ProjectToLZ_GeometryWithMultiplePoints_ProjectPointsOntoLzPlaneKeepingOriginalZ()
+        public void ProjectToLz_GeometryWithMultiplePoints_ProjectPointsOntoLzPlaneKeepingOriginalZ()
         {
             // Setup
             var points = new[]
@@ -227,7 +227,7 @@ namespace Core.Common.Base.Test.Geometry
             };
 
             // Call
-            IEnumerable<Point2D> actual = points.ProjectToLZ();
+            IEnumerable<Point2D> actual = points.ProjectToLz();
 
             // Assert
             double length = Math.Sqrt(2 * 2 + 3 * 3);

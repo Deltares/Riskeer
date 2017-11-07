@@ -291,6 +291,74 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void CanExportFrom_HasNoFileExportersForTarget_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>
+            {
+                new ExportInfo<int>(), // Wrong object type
+                new ExportInfo<object> // Disabled
+                {
+                    IsEnabled = o => false
+                }
+            });
+
+            // Call
+            bool isExportPossible = commandHandler.CanExportFrom(new object());
+
+            // Assert
+            Assert.IsFalse(isExportPossible);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanExportFrom_HasOneFileExporterForTarget_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>
+            {
+                new ExportInfo<object>()
+            });
+
+            // Call
+            bool isExportPossible = commandHandler.CanExportFrom(new object());
+
+            // Assert
+            Assert.IsTrue(isExportPossible);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanExportFrom_HasMultipleFileExportersForTarget_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>
+            {
+                new ExportInfo<object>(),
+                new ExportInfo<object>()
+            });
+
+            // Call
+            bool isExportPossible = commandHandler.CanExportFrom(new object());
+
+            // Assert
+            Assert.IsTrue(isExportPossible);
+            mocks.VerifyAll();
+        }
+
         [TestCase(true)]
         [TestCase(false)]
         [Apartment(ApartmentState.STA)]
@@ -360,74 +428,6 @@ namespace Core.Common.Gui.Test.Commands
             Assert.AreEqual(exportInfo2.Category, listViewItems[1].Group);
 
             mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void CanExportFrom_HasNoFileExportersForTarget_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
-
-            var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>
-            {
-                new ExportInfo<int>(), // Wrong object type
-                new ExportInfo<object> // Disabled
-                {
-                    IsEnabled = o => false
-                }
-            });
-
-            // Call
-            bool isExportPossible = commandHandler.CanExportFrom(new object());
-
-            // Assert
-            Assert.IsFalse(isExportPossible);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CanExportFrom_HasOneFileExporterForTarget_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
-
-            var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>
-            {
-                new ExportInfo<object>()
-            });
-
-            // Call
-            bool isExportPossible = commandHandler.CanExportFrom(new object());
-
-            // Assert
-            Assert.IsTrue(isExportPossible);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CanExportFrom_HasMultipleFileExportersForTarget_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
-
-            var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>
-            {
-                new ExportInfo<object>(),
-                new ExportInfo<object>()
-            });
-
-            // Call
-            bool isExportPossible = commandHandler.CanExportFrom(new object());
-
-            // Assert
-            Assert.IsTrue(isExportPossible);
-            mocks.VerifyAll();
         }
 
         private class TestListViewItem

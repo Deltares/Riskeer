@@ -334,7 +334,7 @@ namespace Core.Common.Gui.Test.Commands
                 Action call = () => importHandler.ImportOn(targetObject);
 
                 // Assert
-                TestHelper.AssertLogMessagesAreGenerated(call, new []
+                TestHelper.AssertLogMessagesAreGenerated(call, new[]
                 {
                     $"Importeren van '{dataDescription}' is gestart.",
                     $"Importeren van '{dataDescription}' is mislukt."

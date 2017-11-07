@@ -62,7 +62,7 @@ namespace Core.Common.Gui.Test.Attributes
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMemberException>(call).Message;
-            Assert.AreEqual(string.Format("Kon eigenschap NotExistingProperty van type {0} niet vinden.", o.GetType()), exceptionMessage);
+            Assert.AreEqual($"Kon eigenschap NotExistingProperty van type {o.GetType()} niet vinden.", exceptionMessage);
         }
 
         [Test]
@@ -89,8 +89,7 @@ namespace Core.Common.Gui.Test.Attributes
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            string expectedMessage = string.Format("DynamicReadOnlyValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.",
-                                                   o.GetType());
+            string expectedMessage = $"DynamicReadOnlyValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {o.GetType()}.";
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -105,8 +104,7 @@ namespace Core.Common.Gui.Test.Attributes
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            string expectedMessage = string.Format("Slechts één DynamicReadOnlyValidationMethod toegestaan per klasse: {0}.",
-                                                   o.GetType());
+            string expectedMessage = $"Slechts één DynamicReadOnlyValidationMethod toegestaan per klasse: {o.GetType()}.";
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -121,8 +119,7 @@ namespace Core.Common.Gui.Test.Attributes
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            string expectedMessage = string.Format("DynamicReadOnlyValidationMethod moet 'bool' als 'return type' hebben. Klasse: {0}.",
-                                                   o.GetType());
+            string expectedMessage = $"DynamicReadOnlyValidationMethod moet 'bool' als 'return type' hebben. Klasse: {o.GetType()}.";
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -137,8 +134,7 @@ namespace Core.Common.Gui.Test.Attributes
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            string expectedMessage = string.Format("DynamicReadOnlyValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.",
-                                                   o.GetType());
+            string expectedMessage = $"DynamicReadOnlyValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {o.GetType()}.";
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
@@ -153,8 +149,7 @@ namespace Core.Common.Gui.Test.Attributes
 
             // Assert
             string exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            string expectedMessage = string.Format("Argument van DynamicReadOnlyValidationMethod moet van het type 'string' zijn. Klasse: {0}.",
-                                                   o.GetType());
+            string expectedMessage = $"Argument van DynamicReadOnlyValidationMethod moet van het type 'string' zijn. Klasse: {o.GetType()}.";
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 

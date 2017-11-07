@@ -38,7 +38,7 @@ namespace Core.Common.Base.Geometry
         /// <summary>
         /// Gets the type of the intersection found.
         /// </summary>
-        public Intersection2DType IntersectionType { get; private set; }
+        public Intersection2DType IntersectionType { get; }
 
         /// <summary>
         /// Gets the intersection points, if any.
@@ -49,7 +49,7 @@ namespace Core.Common.Base.Geometry
         /// <para>If <see cref="IntersectionType"/> has a value of <see cref="Intersection2DType.Overlaps"/>,
         /// the array holds the two points defining the overlapping area for both segments.</para>
         /// </remarks>
-        public ReadOnlyCollection<Point2D> IntersectionPoints { get; private set; }
+        public ReadOnlyCollection<Point2D> IntersectionPoints { get; }
 
         /// <summary>
         /// Creates the calculation result for having found no intersections.

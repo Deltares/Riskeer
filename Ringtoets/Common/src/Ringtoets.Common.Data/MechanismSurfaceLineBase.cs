@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Data
                 EndingWorldPoint = Points[Points.Length - 1];
             }
 
-            LocalGeometry = new RoundedPoint2DCollection(numberOfDecimalPlaces, Points.ProjectToLZ().ToArray());
+            LocalGeometry = new RoundedPoint2DCollection(numberOfDecimalPlaces, Points.ProjectToLz().ToArray());
         }
 
         /// <summary>

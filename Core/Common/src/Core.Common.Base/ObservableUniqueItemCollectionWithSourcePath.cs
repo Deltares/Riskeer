@@ -148,7 +148,7 @@ namespace Core.Common.Base
             }
             if (!IOUtils.IsValidFilePath(filePath) && filePath.Length > 0)
             {
-                throw new ArgumentException($"'{filePath}' is not a valid file path.", nameof(filePath));
+                throw new ArgumentException($@"'{filePath}' is not a valid file path.", nameof(filePath));
             }
             InternalValidateItems(items);
 

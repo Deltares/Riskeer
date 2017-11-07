@@ -79,7 +79,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 throw new ArgumentException(Resources.SurfaceLine_SetGeometry_SurfaceLine_has_zero_length);
             }
-            if (new RoundedPoint2DCollection(2, points.ProjectToLZ()).IsReclining())
+            if (new RoundedPoint2DCollection(2, points.ProjectToLz()).IsReclining())
             {
                 throw new ArgumentException(Resources.SurfaceLine_SetGeometry_SurfaceLine_has_reclining_geometry);
             }

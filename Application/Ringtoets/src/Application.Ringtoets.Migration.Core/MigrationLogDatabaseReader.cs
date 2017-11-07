@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Migration.Core
         /// <item>The database contains invalid data.</item>
         /// </list>
         /// </exception>
-        public MigrationLogDatabaseReader(string databaseFilePath) : base(databaseFilePath) { }
+        public MigrationLogDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
         /// Gets the migration log messages from the database.

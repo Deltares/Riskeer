@@ -38,8 +38,7 @@ namespace Core.Common.Utils.Test.Builders
             string message = new FileWriterErrorMessageBuilder(filePath).Build(errorMessage);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het schrijven naar bestand '{0}': {1}",
-                                                   filePath, errorMessage);
+            string expectedMessage = $"Fout bij het schrijven naar bestand '{filePath}': {errorMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
     }

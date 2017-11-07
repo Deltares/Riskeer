@@ -38,8 +38,7 @@ namespace Core.Common.Utils.Test.Builders
             string message = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                   filePath, errorMessage);
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': {errorMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -53,8 +52,7 @@ namespace Core.Common.Utils.Test.Builders
             string message = new FileReaderErrorMessageBuilder(filePath).Build("Test TEst 1,2,3");
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                   filePath, "test TEst 1,2,3");
+            string expectedMessage = $"Fout bij het lezen van bestand \'{filePath}\': test TEst 1,2,3";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -70,8 +68,7 @@ namespace Core.Common.Utils.Test.Builders
             string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(location).Build(errorMessage);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' {1}: {2}",
-                                                   filePath, location, errorMessage);
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}' {location}: {errorMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -87,8 +84,7 @@ namespace Core.Common.Utils.Test.Builders
             string message = new FileReaderErrorMessageBuilder(filePath).WithSubject(subject).Build(errorMessage);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' ({1}): {2}",
-                                                   filePath, subject, errorMessage);
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}' ({subject}): {errorMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -105,8 +101,7 @@ namespace Core.Common.Utils.Test.Builders
             string message = new FileReaderErrorMessageBuilder(filePath).WithSubject(subject).WithLocation(location).Build(errorMessage);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' {1} ({2}): {3}",
-                                                   filePath, location, subject, errorMessage);
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}' {location} ({subject}): {errorMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
     }

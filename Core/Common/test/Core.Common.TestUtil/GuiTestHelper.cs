@@ -116,7 +116,9 @@ namespace Core.Common.TestUtil
             {
                 synchronizationForm = new Form
                 {
-                    ShowInTaskbar = false, WindowState = FormWindowState.Minimized, FormBorderStyle = FormBorderStyle.None
+                    ShowInTaskbar = false,
+                    WindowState = FormWindowState.Minimized,
+                    FormBorderStyle = FormBorderStyle.None
                 };
                 synchronizationForm.Load += (sender, args) => synchronizationForm.Size = new Size(0, 0);
                 IntPtr handle = synchronizationForm.Handle; //force get handle

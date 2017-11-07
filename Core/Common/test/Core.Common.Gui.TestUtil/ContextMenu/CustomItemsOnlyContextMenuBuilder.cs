@@ -173,7 +173,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
 
         private static ToolStripItem StubItem()
         {
-            return new StrictContextMenuItem(string.Empty, string.Empty, null, (sender, args) => { });
+            return new StrictContextMenuItem(string.Empty, string.Empty, null, (sender, args) => {});
         }
     }
 }

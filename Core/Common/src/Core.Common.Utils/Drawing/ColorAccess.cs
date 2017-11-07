@@ -206,7 +206,7 @@ namespace Core.Common.Utils.Drawing
         {
             if (!IsInValidRange(x, y))
             {
-                throw new ArgumentOutOfRangeException("indices", $"Index must be in range x:[{validRange.Left},{validRange.Right - 1}], y:[{validRange.Top},{validRange.Bottom - 1}].");
+                throw new ArgumentOutOfRangeException("indices", $@"Index must be in range x:[{validRange.Left},{validRange.Right - 1}], y:[{validRange.Top},{validRange.Bottom - 1}].");
             }
         }
 

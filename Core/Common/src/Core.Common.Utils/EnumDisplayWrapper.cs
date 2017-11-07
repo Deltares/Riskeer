@@ -57,7 +57,7 @@ namespace Core.Common.Utils
         /// <summary>
         /// The actual value of <typeparamref name="T"/> that has been wrapped.
         /// </summary>
-        public T Value { get; private set; }
+        public T Value { get; }
 
         /// <summary>
         /// Returns the name to use to display the enum value.

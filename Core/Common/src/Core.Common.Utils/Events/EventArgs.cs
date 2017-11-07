@@ -41,6 +41,6 @@ namespace Core.Common.Utils.Events
         /// <summary>
         /// Gets or sets the attached instance.
         /// </summary>
-        public T Value { get; private set; }
+        public T Value { get; }
     }
 }

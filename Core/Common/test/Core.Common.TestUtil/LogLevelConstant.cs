@@ -53,7 +53,7 @@ namespace Core.Common.TestUtil
                 case LogLevelConstant.Debug:
                     return Level.Debug;
                 default:
-                    throw new InvalidEnumArgumentException("level", (int) level, typeof(LogLevelConstant));
+                    throw new InvalidEnumArgumentException(nameof(level), (int) level, typeof(LogLevelConstant));
             }
         }
     }
