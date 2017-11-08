@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <summary>
         /// Gets the assessment section which the calculation group belongs to.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets the foreshore profiles currently known in the <see cref="FailureMechanism"/>.

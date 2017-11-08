@@ -64,11 +64,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <summary>
         /// Gets the assessment section.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets the grass cover erosion outwards failure mechanism.
         /// </summary>
-        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; private set; }
+        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
     }
 }

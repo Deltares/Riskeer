@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <summary>
         /// Gets the general input parameter used in wave conditions calculations.
         /// </summary>
-        public GeneralWaveConditionsInput GeneralWaveConditionsInput { get; private set; }
+        public GeneralWaveConditionsInput GeneralWaveConditionsInput { get; }
 
         #region Probability assessment
 

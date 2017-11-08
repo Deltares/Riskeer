@@ -29,8 +29,8 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
-using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.Revetment.Data.TestUtil;
+using Ringtoets.Revetment.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
