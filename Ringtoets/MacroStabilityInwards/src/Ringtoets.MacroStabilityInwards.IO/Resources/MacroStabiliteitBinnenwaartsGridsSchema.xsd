@@ -122,20 +122,6 @@ All rights reserved.
     </xs:simpleType>
   </xs:element>
 
-  <!--Specificeert de verticale coördinaat van de bovenkant van het rekengrid.-->
-  <xs:element name="xboven">
-    <xs:simpleType>
-      <xs:restriction base="xs:double"/>
-    </xs:simpleType>
-  </xs:element>
-
-  <!--Specificeert de verticale coördinaat van de onderkant van het rekengrid.-->
-  <xs:element name="xonder">
-    <xs:simpleType>
-      <xs:restriction base="xs:double"/>
-    </xs:simpleType>
-  </xs:element>
-  
   <!--Specificeert het aantal punten waarmee het grid wordt samengesteld in horizontale richting.-->
   <xs:element name="aantalpuntenhorizontaal">
     <xs:simpleType>

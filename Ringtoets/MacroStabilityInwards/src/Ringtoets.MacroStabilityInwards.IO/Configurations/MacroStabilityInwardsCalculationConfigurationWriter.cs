@@ -30,7 +30,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
     /// <summary>
     /// Writer for writing a macro stability inwards calculation configuration to XML.
     /// </summary>
-    public class MacroStabilityInwardsCalculationConfigurationWriter : CalculationConfigurationWriter<MacroStabilityInwardsCalculationConfiguration>
+    public class MacroStabilityInwardsCalculationConfigurationWriter
+        : CalculationConfigurationWriter<MacroStabilityInwardsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationConfigurationWriter"/>.
@@ -46,7 +47,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </list></remarks>
         public MacroStabilityInwardsCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
-        protected override void WriteCalculation(MacroStabilityInwardsCalculationConfiguration configuration, XmlWriter writer)
+        protected override void WriteCalculation(MacroStabilityInwardsCalculationConfiguration configuration,
+                                                 XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, configuration.Name);
@@ -62,7 +64,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The calculation configuration to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
-        private static void WriteCalculationElements(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        private static void WriteCalculationElements(XmlWriter writer,
+                                                     MacroStabilityInwardsCalculationConfiguration configuration)
         {
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
@@ -81,9 +84,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
                                              configuration.StochasticSoilProfileName);
 
-            WriteDikeSoilScenarioWhenAvailable(writer,
-                                               MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioElement,
-                                               configuration.DikeSoilScenario);
+            WriteDikeSoilScenarioWhenContentAvailable(writer,
+                                                      MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioElement,
+                                                      configuration.DikeSoilScenario);
 
             WriteWaterStresses(writer, configuration);
 
@@ -105,13 +108,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the zone related parameters.
+        /// Writes the zone related properties in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteZones(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        private static void WriteZones(XmlWriter writer,
+                                       MacroStabilityInwardsCalculationConfiguration configuration)
         {
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZonesElement);
 
@@ -123,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the <paramref name="dikeSoilScenario"/> in XML format to file.
+        /// Writes the <paramref name="dikeSoilScenario"/> in XML format to file when it has a value.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="elementName">The XML element name.</param>
@@ -132,9 +136,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// is closed.</exception>
         /// <exception cref="NotSupportedException">Thrown when the conversion of
         /// <paramref name="dikeSoilScenario"/> cannot be performed.</exception>
-        private static void WriteDikeSoilScenarioWhenAvailable(XmlWriter writer,
-                                                               string elementName,
-                                                               ConfigurationDikeSoilScenario? dikeSoilScenario)
+        private static void WriteDikeSoilScenarioWhenContentAvailable(XmlWriter writer,
+                                                                      string elementName,
+                                                                      ConfigurationDikeSoilScenario? dikeSoilScenario)
         {
             if (!dikeSoilScenario.HasValue)
             {
@@ -149,13 +153,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         #region Write water stresses
 
         /// <summary>
-        /// Writes the water stress related parameters.
+        /// Writes the water stress related properties in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteWaterStresses(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        private static void WriteWaterStresses(XmlWriter writer,
+                                               MacroStabilityInwardsCalculationConfiguration configuration)
         {
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterStressesElement);
 
@@ -171,26 +176,26 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AdjustPhreaticLine3And4ForUpliftElement,
                                              configuration.AdjustPhreaticLine3And4ForUplift);
 
-            WritePhreaticLine3Configuration(writer, configuration);
-            WritePhreaticLine4Configuration(writer, configuration);
-            WritePhreaticLine2Configuration(writer, configuration);
+            WriteLeakageLengthPhreaticLine3Configuration(writer, configuration);
+            WriteLeakageLengthPhreaticLine4Configuration(writer, configuration);
+            WritePiezometricHeadPhreaticLine2Configuration(writer, configuration);
 
-            WriteLocationDailyInputWhenContentAvailable(writer, configuration.LocationInputDaily);
+            WriteLocationDailyInputWhenAvailable(writer, configuration.LocationInputDaily);
 
-            WriteLocationExtremeInputWhenContentAvailable(writer, configuration.LocationInputExtreme);
+            WriteLocationExtremeInputWhenAvailable(writer, configuration.LocationInputExtreme);
 
             writer.WriteEndElement();
         }
 
         /// <summary>
-        /// Writes a phreatic line 2 configuration.
+        /// Writes the piezometric head phreatic line 2 related properties in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WritePhreaticLine2Configuration(XmlWriter writer,
-                                                            MacroStabilityInwardsCalculationConfiguration configuration)
+        private static void WritePiezometricHeadPhreaticLine2Configuration(XmlWriter writer,
+                                                                           MacroStabilityInwardsCalculationConfiguration configuration)
         {
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine2PiezometricHeadElement);
 
@@ -206,14 +211,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes a phreatic line 3 configuration.
+        /// Writes the leakage length phreatic line 3 related properties in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WritePhreaticLine3Configuration(XmlWriter writer,
-                                                            MacroStabilityInwardsCalculationConfiguration configuration)
+        private static void WriteLeakageLengthPhreaticLine3Configuration(XmlWriter writer,
+                                                                         MacroStabilityInwardsCalculationConfiguration configuration)
         {
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine3LeakageLengthElement);
 
@@ -229,14 +234,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes a phreatic line 4 configuration.
+        /// Writes the leakage length phreatic line 4 related properties in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WritePhreaticLine4Configuration(XmlWriter writer,
-                                                            MacroStabilityInwardsCalculationConfiguration configuration)
+        private static void WriteLeakageLengthPhreaticLine4Configuration(XmlWriter writer,
+                                                                         MacroStabilityInwardsCalculationConfiguration configuration)
         {
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine4LeakageLengthElement);
 
@@ -252,13 +257,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes a location input configuration for daily conditions.
+        /// Writes a location input configuration for daily conditions in XML format to file when 
+        /// <paramref name="configuration"/> has a value.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration for the location input that can be <c>null</c>.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteLocationDailyInputWhenContentAvailable(XmlWriter writer, MacroStabilityInwardsLocationInputConfiguration configuration)
+        private static void WriteLocationDailyInputWhenAvailable(XmlWriter writer,
+                                                                 MacroStabilityInwardsLocationInputConfiguration configuration)
         {
             if (configuration == null)
             {
@@ -277,14 +284,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes a location input configuration for extreme conditions.
+        /// Writes a location input configuration for extreme conditions in XML format to file 
+        /// when <paramref name="configuration"/> has a value.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration for the location input that can be <c>null</c>.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteLocationExtremeInputWhenContentAvailable(XmlWriter writer,
-                                                                          MacroStabilityInwardsLocationInputExtremeConfiguration configuration)
+        private static void WriteLocationExtremeInputWhenAvailable(XmlWriter writer,
+                                                                   MacroStabilityInwardsLocationInputExtremeConfiguration configuration)
         {
             if (configuration == null)
             {
@@ -307,13 +315,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the offset of a location input configuration.
+        /// Writes the offset of a location input configuration in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration for the location input that can be <c>null</c>.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteLocationLocationInputOffset(XmlWriter writer, MacroStabilityInwardsLocationInputConfiguration configuration)
+        private static void WriteLocationLocationInputOffset(XmlWriter writer,
+                                                             MacroStabilityInwardsLocationInputConfiguration configuration)
         {
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LocationInputOffsetElement);
 
@@ -337,13 +346,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the drainage construction related parameters.
+        /// Writes the drainage construction related properties in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteDrainageConstruction(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        private static void WriteDrainageConstruction(XmlWriter writer,
+                                                      MacroStabilityInwardsCalculationConfiguration configuration)
         {
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DrainageConstructionElement);
 
@@ -361,13 +371,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the phreatic line 1 minimum level related parameters.
+        /// Writes the phreatic line 1 minimum level related properties in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteMinimumLevelPhreaticLine(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        private static void WriteMinimumLevelPhreaticLine(XmlWriter writer,
+                                                          MacroStabilityInwardsCalculationConfiguration configuration)
         {
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.PhreaticLine1MinimumLevelElement);
 
@@ -386,22 +397,23 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         #region Write grids
 
         /// <summary>
-        /// Writes the grid related parameters.
+        /// Writes the grid related properties in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteGrid(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        private static void WriteGrid(XmlWriter writer,
+                                      MacroStabilityInwardsCalculationConfiguration configuration)
         {
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridsElement);
 
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MoveGridElement,
                                              configuration.MoveGrid);
-            WriteGridDeterminationTypeWhenAvailable(writer,
-                                                    MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeElement,
-                                                    configuration.GridDeterminationType);
+            WriteGridDeterminationTypeWhenContentAvailable(writer,
+                                                           MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeElement,
+                                                           configuration.GridDeterminationType);
 
             WriteTangentLine(writer, configuration);
 
@@ -416,7 +428,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the <paramref name="gridDeterminationType"/> in XML format to file.
+        /// Writes the <paramref name="gridDeterminationType"/> in XML format to file when it has a value.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="elementName">The XML element name.</param>
@@ -425,9 +437,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// is closed.</exception>
         /// <exception cref="NotSupportedException">Thrown when the conversion of
         /// <paramref name="gridDeterminationType"/> cannot be performed.</exception>
-        private static void WriteGridDeterminationTypeWhenAvailable(XmlWriter writer,
-                                                                    string elementName,
-                                                                    ConfigurationGridDeterminationType? gridDeterminationType)
+        private static void WriteGridDeterminationTypeWhenContentAvailable(XmlWriter writer,
+                                                                           string elementName,
+                                                                           ConfigurationGridDeterminationType? gridDeterminationType)
         {
             if (!gridDeterminationType.HasValue)
             {
@@ -442,19 +454,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         #region Write tangent line
 
         /// <summary>
-        /// Writes the tangent line related parameters.
+        /// Writes the tangent line related properties in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteTangentLine(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        private static void WriteTangentLine(XmlWriter writer,
+                                             MacroStabilityInwardsCalculationConfiguration configuration)
         {
             writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineElement);
 
-            WriteTangentLineDeterminationTypeWhenAvailable(writer,
-                                                           MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeElement,
-                                                           configuration.TangentLineDeterminationType);
+            WriteTangentLineDeterminationTypeWhenContentAvailable(writer,
+                                                                  MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeElement,
+                                                                  configuration.TangentLineDeterminationType);
 
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineZTopElement,
@@ -472,7 +485,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the <paramref name="tangentLineDeterminationType"/> in XML format to file.
+        /// Writes the <paramref name="tangentLineDeterminationType"/> in XML format to file when it has a value.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="elementName">The XML element name.</param>
@@ -481,9 +494,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// is closed.</exception>
         /// <exception cref="NotSupportedException">Thrown when the conversion of
         /// <paramref name="tangentLineDeterminationType"/> cannot be performed.</exception>
-        private static void WriteTangentLineDeterminationTypeWhenAvailable(XmlWriter writer,
-                                                                           string elementName,
-                                                                           ConfigurationTangentLineDeterminationType? tangentLineDeterminationType)
+        private static void WriteTangentLineDeterminationTypeWhenContentAvailable(XmlWriter writer,
+                                                                                  string elementName,
+                                                                                  ConfigurationTangentLineDeterminationType? tangentLineDeterminationType)
         {
             if (!tangentLineDeterminationType.HasValue)
             {
@@ -498,7 +511,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         #endregion
 
         /// <summary>
-        /// Writes a grid configuration.
+        /// Writes a grid configuration in XML format to file when <paramref name="configuration"/> has a value.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="gridLocationName">The name of the location of the grid.</param>
