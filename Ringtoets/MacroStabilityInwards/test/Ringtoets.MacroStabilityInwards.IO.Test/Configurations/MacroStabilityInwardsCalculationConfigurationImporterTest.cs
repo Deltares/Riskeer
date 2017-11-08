@@ -441,7 +441,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [SetCulture("nl-NL")]
         public void Import_InvalidTangentLineZTopAndZBottom_LogMessageAndContinueImport()
         {
             // Setup
@@ -458,7 +458,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "Een waarde van '0.00' als tangentlijn Z-boven en '10.00' als tangentlijn Z-onder is ongeldig. " +
+            const string expectedMessage = "Een waarde van '0,00' als tangentlijn Z-boven en '10,00' als tangentlijn Z-onder is ongeldig. " +
                                            "Tangentlijn Z-onder moet kleiner zijn dan of gelijk zijn aan tangentlijn Z-boven, of NaN. " +
                                            "Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
@@ -467,7 +467,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [SetCulture("nl-NL")]
         public void Import_InvalidTangentLineNumber_LogMessageAndContinueImport()
         {
             // Setup
@@ -797,7 +797,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        [SetCulture("en-US")]
+        [SetCulture("nl-NL")]
         [TestCaseSource(nameof(GetInvalidGridCombinations))]
         public void Import_InvalidGrid_LogMessageAndContinueImport(string file, string expectedMessage)
         {
@@ -1056,7 +1056,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
         private static IEnumerable<TestCaseData> GetInvalidGridCombinations()
         {
-            const string expectedZTopZBottomMessage = "Een waarde van '0.00' als Z boven en '10.00' als Z onder is ongeldig. " +
+            const string expectedZTopZBottomMessage = "Een waarde van '0,00' als Z boven en '10,00' als Z onder is ongeldig. " +
                                                       "Z onder moet kleiner zijn dan of gelijk zijn aan Z boven, of NaN. " +
                                                       "Berekening 'Calculation' is overgeslagen.";
             yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridZTopAndZBottom.xml",
@@ -1066,7 +1066,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                                           expectedZTopZBottomMessage)
                 .SetName("Invalid right grid ZTop And ZBottom");
 
-            const string expectedXLeftXRightMessage = "Een waarde van '10.00' als X links en '0.00' als X rechts is ongeldig. " +
+            const string expectedXLeftXRightMessage = "Een waarde van '10,00' als X links en '0,00' als X rechts is ongeldig. " +
                                                       "X rechts moet groter zijn dan of gelijk zijn aan X links, of NaN. " +
                                                       "Berekening 'Calculation' is overgeslagen.";
             yield return new TestCaseData("validConfigurationCalculationWithInvalidLeftGridXLeftAndXRight.xml",
