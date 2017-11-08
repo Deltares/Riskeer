@@ -84,21 +84,21 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets the gravitational acceleration.
         /// [m/s^2]
         /// </summary>
-        public RoundedDouble GravitationalAcceleration { get; private set; }
+        public RoundedDouble GravitationalAcceleration { get; }
 
         /// <summary>
         /// Gets the model factor overtopping flow.
         /// </summary>
-        public LogNormalDistribution ModelFactorOvertoppingFlow { get; private set; }
+        public LogNormalDistribution ModelFactorOvertoppingFlow { get; }
 
         /// <summary>
         /// Gets the model factor for storage volume.
         /// </summary>
-        public LogNormalDistribution ModelFactorStorageVolume { get; private set; }
+        public LogNormalDistribution ModelFactorStorageVolume { get; }
 
         /// <summary>
         /// Gets the model factor for incoming flow volume.
         /// </summary>
-        public RoundedDouble ModelFactorInflowVolume { get; private set; }
+        public RoundedDouble ModelFactorInflowVolume { get; }
     }
 }

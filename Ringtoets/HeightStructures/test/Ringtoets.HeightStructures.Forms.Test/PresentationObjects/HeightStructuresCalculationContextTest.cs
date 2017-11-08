@@ -82,10 +82,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         private class DerivedHeightStructuresCalculationContext : HeightStructuresCalculationContext
         {
             public DerivedHeightStructuresCalculationContext(StructuresCalculation<HeightStructuresInput> calculation,
-                                                                     CalculationGroup parent,
-                                                                     HeightStructuresFailureMechanism failureMechanism,
-                                                                     IAssessmentSection assessmentSection)
-                : base(calculation, parent, failureMechanism, assessmentSection) { }
+                                                             CalculationGroup parent,
+                                                             HeightStructuresFailureMechanism failureMechanism,
+                                                             IAssessmentSection assessmentSection)
+                : base(calculation, parent, failureMechanism, assessmentSection) {}
         }
     }
 }

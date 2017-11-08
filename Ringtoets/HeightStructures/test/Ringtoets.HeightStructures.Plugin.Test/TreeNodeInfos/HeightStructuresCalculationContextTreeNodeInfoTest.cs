@@ -38,7 +38,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
@@ -912,8 +911,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestHeightStructuresFailureMechanism();
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-            calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
+            var calculation = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
 
             var nodeData = new HeightStructuresCalculationContext(calculation,
                                                                   parent,
@@ -953,8 +957,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var foreshoreProfileInput = new TestForeshoreProfile();
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-            calculation.InputParameters.ForeshoreProfile = foreshoreProfileInput;
+            var calculation = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = foreshoreProfileInput
+                }
+            };
             TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
             var nodeData = new HeightStructuresCalculationContext(calculation,

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.Structures;
 using Ringtoets.HeightStructures.Data;

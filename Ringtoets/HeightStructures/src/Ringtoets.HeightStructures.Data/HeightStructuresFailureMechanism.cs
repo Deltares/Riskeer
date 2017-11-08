@@ -62,17 +62,17 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets the height structures calculation input parameters that apply to each calculation.
         /// </summary>
-        public GeneralHeightStructuresInput GeneralInput { get; private set; }
+        public GeneralHeightStructuresInput GeneralInput { get; }
 
         /// <summary>
         /// Gets the available height structures of this instance.
         /// </summary>
-        public StructureCollection<HeightStructure> HeightStructures { get; private set; }
+        public StructureCollection<HeightStructure> HeightStructures { get; }
 
         /// <summary>
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
-        public ForeshoreProfileCollection ForeshoreProfiles { get; private set; }
+        public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
         /// <summary>
         /// Gets the container of all calculations.

@@ -51,6 +51,22 @@ namespace Ringtoets.HeightStructures.Data
             SetDefaultSchematizationProperties();
         }
 
+        public override bool IsStructureInputSynchronized
+        {
+            get
+            {
+                return Structure != null
+                       && Equals(StructureNormalOrientation, Structure.StructureNormalOrientation)
+                       && Equals(LevelCrestStructure, Structure.LevelCrestStructure)
+                       && Equals(FlowWidthAtBottomProtection, Structure.FlowWidthAtBottomProtection)
+                       && Equals(CriticalOvertoppingDischarge, Structure.CriticalOvertoppingDischarge)
+                       && Equals(WidthFlowApertures, Structure.WidthFlowApertures)
+                       && Equals(FailureProbabilityStructureWithErosion, Structure.FailureProbabilityStructureWithErosion)
+                       && Equals(StorageStructureArea, Structure.StorageStructureArea)
+                       && Equals(AllowedLevelIncreaseStorage, Structure.AllowedLevelIncreaseStorage);
+            }
+        }
+
         #region Hydraulic data
 
         /// <summary>
@@ -105,22 +121,6 @@ namespace Ringtoets.HeightStructures.Data
             clone.levelCrestStructure = (NormalDistribution) LevelCrestStructure.Clone();
 
             return clone;
-        }
-
-        public override bool IsStructureInputSynchronized
-        {
-            get
-            {
-                return Structure != null
-                       && Equals(StructureNormalOrientation, Structure.StructureNormalOrientation)
-                       && Equals(LevelCrestStructure, Structure.LevelCrestStructure)
-                       && Equals(FlowWidthAtBottomProtection, Structure.FlowWidthAtBottomProtection)
-                       && Equals(CriticalOvertoppingDischarge, Structure.CriticalOvertoppingDischarge)
-                       && Equals(WidthFlowApertures, Structure.WidthFlowApertures)
-                       && Equals(FailureProbabilityStructureWithErosion, Structure.FailureProbabilityStructureWithErosion)
-                       && Equals(StorageStructureArea, Structure.StorageStructureArea)
-                       && Equals(AllowedLevelIncreaseStorage, Structure.AllowedLevelIncreaseStorage);
-            }
         }
 
         public override void SynchronizeStructureInput()

@@ -67,7 +67,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             // Assert
             ValidationRule[] validationRules = rules.ToArray();
             Assert.AreEqual(10, validationRules.Length);
-            
+
             Assert.IsInstanceOf<UseBreakWaterRule>(validationRules[0]);
             Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionRule>(validationRules[1]);
             Assert.IsInstanceOf<NormalDistributionRule>(validationRules[2]);
