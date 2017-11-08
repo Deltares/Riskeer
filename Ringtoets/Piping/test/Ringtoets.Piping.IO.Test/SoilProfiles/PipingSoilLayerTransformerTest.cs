@@ -539,7 +539,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             Assert.AreEqual(3, pipingSoilLayers.Length);
-            Assert.AreEqual(1, bottom);
+            Assert.AreEqual(0, bottom);
             CollectionAssert.AreEquivalent(new[]
             {
                 5.0,
@@ -578,7 +578,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             Assert.AreEqual(5, pipingSoilLayers.Length);
-            Assert.AreEqual(1, bottom);
+            Assert.AreEqual(0, bottom);
             CollectionAssert.AreEquivalent(new[]
             {
                 5.0,
@@ -693,7 +693,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             Assert.AreEqual(5, pipingSoilLayers.Length);
-            Assert.AreEqual(2.0, bottom);
+            Assert.AreEqual(0, bottom);
             CollectionAssert.AreEquivalent(new[]
             {
                 5.0,
@@ -861,7 +861,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             Assert.AreEqual(2, pipingSoilLayers.Length);
-            Assert.AreEqual(3.0, bottom);
+            Assert.AreEqual(1.0, bottom);
             CollectionAssert.AreEquivalent(new[]
             {
                 3.0,
@@ -892,7 +892,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             Assert.AreEqual(2, pipingSoilLayers.Length);
-            Assert.AreEqual(3.0, bottom);
+            Assert.AreEqual(1.0, bottom);
             CollectionAssert.AreEquivalent(new[]
             {
                 3.0,

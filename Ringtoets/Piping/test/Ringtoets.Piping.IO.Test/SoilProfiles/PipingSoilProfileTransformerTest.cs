@@ -368,7 +368,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 3.0,
                 2.0
             }, transformed.Layers.Select(rl => rl.Top));
-            Assert.AreEqual(2.0, transformed.Bottom);
+            Assert.AreEqual(0, transformed.Bottom);
         }
 
         [Test]

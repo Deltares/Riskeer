@@ -139,7 +139,8 @@ namespace Ringtoets.Piping.IO.SoilProfiles
 
                 soilLayers.Add(pipingSoilLayer);
             }
-            bottom = EnsureBottomOutsideInnerLoop(innerLoopIntersectionHeightPairs, currentBottom);
+
+            bottom = currentBottom < bottom ? currentBottom : bottom;
 
             foreach (SoilLayer2D nestedLayer in soilLayer.NestedLayers)
             {
@@ -189,25 +190,6 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         private static bool HeightInInnerLoop(Tuple<double, double> tuple, double height)
         {
             return height <= tuple.Item2 && height > tuple.Item1;
-        }
-
-        private static bool BottomInInnerLoop(Tuple<double, double> tuple, double height)
-        {
-            return height < tuple.Item2 && height >= tuple.Item1;
-        }
-
-        private static double EnsureBottomOutsideInnerLoop(IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs, double bottom)
-        {
-            double newBottom = bottom;
-            List<Tuple<double, double>> heightPairArray = innerLoopIntersectionHeightPairs.ToList();
-            Tuple<double, double> overlappingInnerLoop = heightPairArray.FirstOrDefault(t => BottomInInnerLoop(t, newBottom));
-
-            while (overlappingInnerLoop != null)
-            {
-                newBottom = overlappingInnerLoop.Item2;
-                overlappingInnerLoop = heightPairArray.FirstOrDefault(t => BottomInInnerLoop(t, newBottom));
-            }
-            return newBottom;
         }
 
         private static IEnumerable<Tuple<double, double>> GetOrderedStartAndEndPairsIn1D(IEnumerable<IEnumerable<double>> innerLoopsIntersectionPoints)
