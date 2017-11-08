@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.TestUtils
         /// <para>This will import 283 failure mechanism sections.</para>
         /// <para>Imports using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
-        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IEnumerable{IFailureMechanism})"/>
+        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, System.Collections.Generic.IEnumerable{Ringtoets.Common.Data.FailureMechanism.IFailureMechanism})"/>
         public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,

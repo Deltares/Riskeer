@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Forms.Test
                 var compositionLabel = (Label) new ControlTester(assessmentSectionCompositionLabelName).TheObject;
 
                 string compositionDisplayName = new EnumDisplayWrapper<AssessmentSectionComposition>(newComposition).DisplayName;
-                string newCompositionValue = string.Format("Trajecttype: {0}", compositionDisplayName);
+                string newCompositionValue = $"Trajecttype: {compositionDisplayName}";
                 Assert.AreEqual(newCompositionValue, compositionLabel.Text);
 
                 Assert.IsTrue(dataGridInvalidated,

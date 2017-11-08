@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.TestUtils.Test
     public class TestDataGeneratorTest
     {
         [Test]
-        public void GetAssessmentSectionWithAllCalculationConfigurations_NoArguments_ReturnsWithAllPossibleCalculationConfigurations()
+        public void GetAssessmentSectionWithAllCalculationConfigurations_DefaultComposition_ReturnsWithAllPossibleCalculationConfigurations()
         {
             // Call
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.TestUtils.Test
         }
 
         [Test]
-        public void GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput_NoArguments_ReturnWithOnlyCalculationOutputsAndComposition()
+        public void GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput_DefaultComposition_ReturnWithOnlyCalculationOutputsAndComposition()
         {
             // Call 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput();
@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.TestUtils.Test
         }
 
         [Test]
-        public void GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput_NoArguments_ReturnWithOnlyHydraulicBoundaryLocationAndDuneLocationOutputsAndComposition()
+        public void GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput_DefaultComposition_ReturnWithOnlyHydraulicBoundaryLocationAndDuneLocationOutputsAndComposition()
         {
             // Call 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput();

@@ -52,24 +52,14 @@ namespace Ringtoets.Integration.TestUtils
     public static class TestDataGenerator
     {
         /// <summary>
-        /// Gets a fully configured <see cref="AssessmentSection"/> with all possible configurations for the 
-        /// parent and nested calculations of the failure mechanisms.
-        /// </summary>
-        /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible configuration of 
-        /// the parent and nested calculations inside the failure mechanisms.</returns>
-        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurations()
-        {
-            return GetAssessmentSectionWithAllCalculationConfigurations(AssessmentSectionComposition.Dike);
-        }
-
-        /// <summary>
         /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/>
         /// and with all possible configurations for the parent and nested calculations of the failure mechanisms.
         /// </summary>
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
         /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible configurations of 
         /// the parent and nested calculation inside the failure mechanisms.</returns>
-        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurations(AssessmentSectionComposition composition)
+        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurations(
+            AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
@@ -112,19 +102,6 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Gets a fully configured <see cref="AssessmentSection"/> with all possible configurations of the parent 
-        /// and nested calculations, but without the output of the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>, 
-        /// and <see cref="DuneLocation"/>.
-        /// </summary>
-        /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible calculation configurations of 
-        /// the parent and nested calculations inside the failure mechanisms, but without the output of the 
-        /// <see cref="HydraulicBoundaryLocation"/> and the <see cref="DuneLocation"/>.</returns>
-        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput()
-        {
-            return GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(AssessmentSectionComposition.Dike);
-        }
-
-        /// <summary>
         /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/> and 
         /// possible configurations of the parent and nested calculations, but without the output of the 
         /// <see cref="HydraulicBoundaryLocation.DesignWaterLevelCalculation"/>, <see cref="HydraulicBoundaryLocation.WaveHeightCalculation"/> 
@@ -134,23 +111,13 @@ namespace Ringtoets.Integration.TestUtils
         /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible calculation configurations of the parent and 
         /// nested calculations inside the failure mechanisms, but without the output of the <see cref="HydraulicBoundaryLocation.DesignWaterLevelCalculation"/>
         /// , <see cref="HydraulicBoundaryLocation.WaveHeightCalculation"/> and <see cref="DuneLocation.Output"/>.</returns>
-        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(AssessmentSectionComposition composition)
+        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(
+            AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
             RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
 
             return assessmentSection;
-        }
-
-        /// <summary>
-        /// Gets a fully configured <see cref="AssessmentSection"/> with all possible configurations of the 
-        /// parent and nested calculations, but without any calculation output of the failure mechanism.
-        /// </summary>
-        /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible configurations of the parent and nested calculations
-        /// of the failure mechanisms, but without any calculation outputs.</returns>
-        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput()
-        {
-            return GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(AssessmentSectionComposition.Dike);
         }
 
         /// <summary>
@@ -160,7 +127,8 @@ namespace Ringtoets.Integration.TestUtils
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
         /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible configurations of the parent and nested calculations 
         /// of the failure mechanisms, but without any calculation output.</returns>
-        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(AssessmentSectionComposition composition)
+        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(
+            AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
             RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);

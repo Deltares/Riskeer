@@ -21,27 +21,15 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Plugin.Properties;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
@@ -111,7 +99,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.Foreshore, image);
         }
-        
+
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {

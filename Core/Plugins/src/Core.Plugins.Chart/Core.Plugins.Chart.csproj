@@ -137,7 +137,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDictionary Include="Resources\chart.png" />
+    <Content Include="Resources\chart.png" />
     <Content Include="Resources\area.png" />
     <Content Include="Resources\document.png" />
     <Content Include="Resources\hand.png" />

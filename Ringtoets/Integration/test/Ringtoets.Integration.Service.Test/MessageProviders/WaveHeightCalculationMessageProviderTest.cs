@@ -74,7 +74,6 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             Assert.AreEqual(expectedMessage, message);
         }
 
-
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -112,7 +111,6 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
                                      $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
-
 
         [Test]
         [TestCase(null)]
