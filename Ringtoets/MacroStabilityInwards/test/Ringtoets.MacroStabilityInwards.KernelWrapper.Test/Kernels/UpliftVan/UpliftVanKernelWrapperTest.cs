@@ -95,10 +95,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNotNull(stabilityModel.SlipPlaneConstraints);
             Assert.AreEqual(GridOrientation.Inwards, stabilityModel.GridOrientation);
             Assert.IsNotNull(stabilityModel.SlipCircle);
-            Assert.IsNotNull(stabilityModel.GeotechnicsData.CurrentWaternetDaily);
-            Assert.AreEqual("WaternetDaily", stabilityModel.GeotechnicsData.CurrentWaternetDaily.Name);
             Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
             Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
+            Assert.IsNotNull(stabilityModel.GeotechnicsData.CurrentWaternetDaily);
+            Assert.AreEqual("WaternetDaily", stabilityModel.GeotechnicsData.CurrentWaternetDaily.Name);
+            Assert.AreEqual(1, stabilityModel.MultiplicationFactorsCPhiForUpliftList.Count);
+            Assert.AreEqual(1.2, stabilityModel.MultiplicationFactorsCPhiForUpliftList[0].UpliftFactor);
+            Assert.AreEqual(0.0, stabilityModel.MultiplicationFactorsCPhiForUpliftList[0].MultiplicationFactor);
             Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
             Assert.AreSame(stabilityLocationExtreme, stabilityModel.Location);
             Assert.AreSame(stabilityLocationDaily, stabilityModel.LocationDaily);
@@ -290,7 +293,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         {
             Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMin); // Set during calculation
             Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMax); // Set during calculation
-            Assert.IsEmpty(stabilityModel.MultiplicationFactorsCPhiForUpliftList); // No multiplication factors CPhi for WBI
             Assert.IsEmpty(stabilityModel.UniformLoads); // No traffic load for WBI
             Assert.AreEqual(0.0, stabilityModel.FileVersionAsRead); // Set by XML serialization
             Assert.IsNull(stabilityModel.MinimumSafetyCurve); // Output
