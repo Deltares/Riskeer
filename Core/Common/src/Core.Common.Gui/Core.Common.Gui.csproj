@@ -362,7 +362,6 @@
     <Resource Include="Resources\icon_clear_all_messages.PNG" />
     <Resource Include="Resources\information.png" />
     <Resource Include="Resources\manual.png" />
-    <Resource Include="Resources\map.png" />
     <Resource Include="Resources\openfolderHS.png" />
     <Resource Include="Resources\Paste.png" />
     <Resource Include="Resources\PasteLarge.png" />
