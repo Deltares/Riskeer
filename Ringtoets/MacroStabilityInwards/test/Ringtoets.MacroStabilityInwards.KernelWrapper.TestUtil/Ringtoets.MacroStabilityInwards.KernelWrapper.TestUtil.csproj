@@ -47,7 +47,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="WTIStability, Version=17.2.1.0, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="WTIStability, Version=17.2.2.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\Plugins\Wti\WTIStability.dll</HintPath>
     </Reference>
