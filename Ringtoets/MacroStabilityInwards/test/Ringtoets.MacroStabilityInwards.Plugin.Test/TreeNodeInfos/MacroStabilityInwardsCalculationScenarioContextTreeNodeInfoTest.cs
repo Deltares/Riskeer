@@ -638,6 +638,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.Current);
                         Assert.IsTrue(msgs.MoveNext());
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs.Current);
+                        msgs.Dispose();
                     });
                     Assert.IsNotNull(calculation.Output);
                     Assert.IsNotNull(calculation.SemiProbabilisticOutput);

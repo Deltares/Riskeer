@@ -60,7 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void CreateInstance_Always_NewPropertiesWithInputContextAsData()
         {
             // Setup
-            MacroStabilityInwardsStochasticSoilModel context = 
+            MacroStabilityInwardsStochasticSoilModel context =
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
 
             // Call

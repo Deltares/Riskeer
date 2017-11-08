@@ -154,21 +154,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var random = new Random(21);
             var slidingCurve = new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
                                                                      MacroStabilityInwardsSlidingCircleTestFactory.Create(),
-                                                                     new []
+                                                                     new[]
                                                                      {
                                                                          MacroStabilityInwardsSliceTestFactory.CreateSlice()
-                                                                     }, 
-                                                                     random.NextDouble(), 
+                                                                     },
+                                                                     random.NextDouble(),
                                                                      random.NextDouble());
 
             var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
                                                                         MacroStabilityInwardsGridTestFactory.Create(),
-                                                                        new []
+                                                                        new[]
                                                                         {
                                                                             random.NextDouble()
                                                                         });
 
-            
             var properties = new MacroStabilityInwardsOutput.ConstructionProperties
             {
                 FactorOfStability = random.NextDouble(),

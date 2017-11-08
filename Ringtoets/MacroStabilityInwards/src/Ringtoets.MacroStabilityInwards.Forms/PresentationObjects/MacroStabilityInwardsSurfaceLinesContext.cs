@@ -59,11 +59,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// <summary>
         /// Gets the assessment section which the context belongs to.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets the failure mechanism which the context belongs to.
         /// </summary>
-        public MacroStabilityInwardsFailureMechanism FailureMechanism { get; private set; }
+        public MacroStabilityInwardsFailureMechanism FailureMechanism { get; }
     }
 }

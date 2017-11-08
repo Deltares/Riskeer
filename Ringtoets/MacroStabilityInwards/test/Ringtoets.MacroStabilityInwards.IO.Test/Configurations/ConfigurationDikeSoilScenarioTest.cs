@@ -29,20 +29,26 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
     [TestFixture]
     public class ConfigurationDikeSoilScenarioTest : EnumValuesTestFixture<ConfigurationDikeSoilScenario, int>
     {
-        protected override IDictionary<ConfigurationDikeSoilScenario, int> ExpectedValueForEnumValues => new Dictionary<ConfigurationDikeSoilScenario, int>
+        protected override IDictionary<ConfigurationDikeSoilScenario, int> ExpectedValueForEnumValues
         {
+            get
             {
-                ConfigurationDikeSoilScenario.ClayDikeOnClay, 1
-            },
-            {
-                ConfigurationDikeSoilScenario.SandDikeOnClay, 2
-            },
-            {
-                ConfigurationDikeSoilScenario.ClayDikeOnSand, 3
-            },
-            {
-                ConfigurationDikeSoilScenario.SandDikeOnSand, 4
+                return new Dictionary<ConfigurationDikeSoilScenario, int>
+                {
+                    {
+                        ConfigurationDikeSoilScenario.ClayDikeOnClay, 1
+                    },
+                    {
+                        ConfigurationDikeSoilScenario.SandDikeOnClay, 2
+                    },
+                    {
+                        ConfigurationDikeSoilScenario.ClayDikeOnSand, 3
+                    },
+                    {
+                        ConfigurationDikeSoilScenario.SandDikeOnSand, 4
+                    }
+                };
             }
-        };
+        }
     }
 }

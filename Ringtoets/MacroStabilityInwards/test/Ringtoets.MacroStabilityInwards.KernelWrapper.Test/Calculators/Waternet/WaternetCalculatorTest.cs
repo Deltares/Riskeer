@@ -195,7 +195,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
 
         private class TestWaternetCalculator : WaternetCalculator
         {
-            public TestWaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory) 
+            public TestWaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
                 : base(input, factory) {}
 
             protected override IWaternetKernel CreateWaternetKernel()

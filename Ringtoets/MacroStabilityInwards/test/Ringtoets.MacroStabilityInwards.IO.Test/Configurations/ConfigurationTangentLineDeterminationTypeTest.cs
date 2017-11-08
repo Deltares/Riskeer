@@ -29,14 +29,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
     [TestFixture]
     public class ConfigurationTangentLineDeterminationTypeTest : EnumValuesTestFixture<ConfigurationTangentLineDeterminationType, int>
     {
-        protected override IDictionary<ConfigurationTangentLineDeterminationType, int> ExpectedValueForEnumValues => new Dictionary<ConfigurationTangentLineDeterminationType, int>
+        protected override IDictionary<ConfigurationTangentLineDeterminationType, int> ExpectedValueForEnumValues
         {
+            get
             {
-                ConfigurationTangentLineDeterminationType.Specified, 1
-            },
-            {
-                ConfigurationTangentLineDeterminationType.LayerSeparated, 2
+                return new Dictionary<ConfigurationTangentLineDeterminationType, int>
+                {
+                    {
+                        ConfigurationTangentLineDeterminationType.Specified, 1
+                    },
+                    {
+                        ConfigurationTangentLineDeterminationType.LayerSeparated, 2
+                    }
+                };
             }
-        };
+        }
     }
 }

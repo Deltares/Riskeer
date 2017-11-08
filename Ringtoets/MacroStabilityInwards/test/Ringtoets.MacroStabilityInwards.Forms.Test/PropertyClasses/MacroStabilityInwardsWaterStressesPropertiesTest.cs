@@ -445,7 +445,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         private static void SetPropertyAndVerifyNotificationsForCalculation(Action<MacroStabilityInwardsWaterStressesProperties> setProperty,
-                                                                           MacroStabilityInwardsCalculation calculation)
+                                                                            MacroStabilityInwardsCalculation calculation)
         {
             // Setup
             var mocks = new MockRepository();

@@ -35,9 +35,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Wat
         /// <returns>The created <see cref="WaternetCalculatorResult"/>.</returns>
         public static WaternetCalculatorResult Create()
         {
-            var phreaticLine = new WaternetPhreaticLineResult("Line 1", new []
+            var phreaticLine = new WaternetPhreaticLineResult("Line 1", new[]
             {
-                new Point2D(0, 0), 
+                new Point2D(0, 0),
                 new Point2D(1, 1)
             });
 

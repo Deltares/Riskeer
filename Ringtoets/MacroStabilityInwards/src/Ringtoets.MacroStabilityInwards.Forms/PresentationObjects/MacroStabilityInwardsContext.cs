@@ -66,13 +66,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// Gets the available macro stability inwards surface lines in order for the user to select one to 
         /// set <see cref="MacroStabilityInwardsInput.SurfaceLine"/>.
         /// </summary>
-        public IEnumerable<MacroStabilityInwardsSurfaceLine> AvailableMacroStabilityInwardsSurfaceLines { get; private set; }
+        public IEnumerable<MacroStabilityInwardsSurfaceLine> AvailableMacroStabilityInwardsSurfaceLines { get; }
 
         /// <summary>
         /// Gets the available stochastic soil models in order for the user to select a <see cref="MacroStabilityInwardsStochasticSoilModel"/> and <see cref="MacroStabilityInwardsStochasticSoilProfile"/>
         /// to set <see cref="MacroStabilityInwardsInput.StochasticSoilProfile"/> and <see cref="MacroStabilityInwardsInput.StochasticSoilModel"/>.
         /// </summary>
-        public IEnumerable<MacroStabilityInwardsStochasticSoilModel> AvailableStochasticSoilModels { get; private set; }
+        public IEnumerable<MacroStabilityInwardsStochasticSoilModel> AvailableStochasticSoilModels { get; }
 
         /// <summary>
         /// Gets the available hydraulic boundary locations in order for the user to select one to 

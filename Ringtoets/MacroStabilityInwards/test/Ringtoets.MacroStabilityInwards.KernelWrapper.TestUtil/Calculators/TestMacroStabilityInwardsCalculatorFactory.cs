@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators
         /// Gets the last created <see cref="UpliftVanCalculatorStub"/>.
         /// </summary>
         public UpliftVanCalculatorStub LastCreatedUpliftVanCalculator { get; }
-        
+
         /// <summary>
         /// Gets the last created <see cref="WaternetCalculatorStub"/>.
         /// </summary>

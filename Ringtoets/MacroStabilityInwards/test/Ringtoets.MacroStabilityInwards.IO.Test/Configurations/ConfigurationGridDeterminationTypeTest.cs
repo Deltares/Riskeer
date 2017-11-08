@@ -29,14 +29,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
     [TestFixture]
     public class ConfigurationGridDeterminationTypeTest : EnumValuesTestFixture<ConfigurationGridDeterminationType, int>
     {
-        protected override IDictionary<ConfigurationGridDeterminationType, int> ExpectedValueForEnumValues => new Dictionary<ConfigurationGridDeterminationType, int>
+        protected override IDictionary<ConfigurationGridDeterminationType, int> ExpectedValueForEnumValues
         {
+            get
             {
-                ConfigurationGridDeterminationType.Automatic, 1
-            },
-            {
-                ConfigurationGridDeterminationType.Manual, 2
+                return new Dictionary<ConfigurationGridDeterminationType, int>
+                {
+                    {
+                        ConfigurationGridDeterminationType.Automatic, 1
+                    },
+                    {
+                        ConfigurationGridDeterminationType.Manual, 2
+                    }
+                };
             }
-        };
+        }
     }
 }

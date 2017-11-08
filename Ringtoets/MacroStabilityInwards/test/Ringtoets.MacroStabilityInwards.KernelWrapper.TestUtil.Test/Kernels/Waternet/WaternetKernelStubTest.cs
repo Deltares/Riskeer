@@ -56,7 +56,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Wa
             Assert.IsTrue(kernel.Calculated);
         }
 
-
         [Test]
         public void Calculate_ThrowExceptionOnCalculateTrue_ThrowsUpliftVanKernelWrapperException()
         {

@@ -64,6 +64,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
             Parent = parent;
         }
 
+        public CalculationGroup Parent { get; }
+
         public override bool Equals(object obj)
         {
             return Equals(obj as MacroStabilityInwardsCalculationScenarioContext);
@@ -80,7 +82,5 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         {
             return base.GetHashCode() ^ Parent.GetHashCode();
         }
-
-        public CalculationGroup Parent { get; }
     }
 }

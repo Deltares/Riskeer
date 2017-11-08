@@ -64,6 +64,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// <summary>
         /// Gets the calculation scenario which the macro stability inwards context belongs to.
         /// </summary>
-        public MacroStabilityInwardsCalculationScenario MacroStabilityInwardsCalculation { get; private set; }
+        public MacroStabilityInwardsCalculationScenario MacroStabilityInwardsCalculation { get; }
     }
 }

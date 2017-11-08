@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
                     PiezometricHeadPhreaticLine2Inwards = piezometricHeadPhreaticLine2Inwards,
                     PenetrationLength = penetrationLength,
                     AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift,
-                    DikeSoilScenario = dikeSoilScenario,
+                    DikeSoilScenario = dikeSoilScenario
                 });
 
             // Assert
@@ -206,7 +206,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
                 {
                     SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    PhreaticLineOffsets = new PhreaticLineOffsets(),
+                    PhreaticLineOffsets = new PhreaticLineOffsets()
                 });
 
             // Assert
@@ -222,7 +222,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
                 {
                     SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    DrainageConstruction = new DrainageConstruction(),
+                    DrainageConstruction = new DrainageConstruction()
                 });
 
             // Assert

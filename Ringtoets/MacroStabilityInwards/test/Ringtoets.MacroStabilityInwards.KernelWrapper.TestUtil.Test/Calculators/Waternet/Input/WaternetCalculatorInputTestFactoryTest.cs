@@ -101,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
 
             foreach (SoilLayer layer in soilProfile.Layers)
             {
-                CollectionAssert.AreEqual(new []
+                CollectionAssert.AreEqual(new[]
                 {
                     surfaceLine.LocalGeometry.First(),
                     surfaceLine.LocalGeometry.Last()

@@ -385,10 +385,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D()
         {
             return new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                                                        {
-                                                            new Point2D(20.210230, 26.00001),
-                                                            new Point2D(3.830, 1.040506)
-                                                        }));
+            {
+                new Point2D(20.210230, 26.00001),
+                new Point2D(3.830, 1.040506)
+            }));
         }
 
         private class UnsupportedSoilProfile : IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>

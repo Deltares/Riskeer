@@ -47,6 +47,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
             ParentFailureMechanism = failureMechanism;
         }
 
-        public MacroStabilityInwardsFailureMechanism ParentFailureMechanism { get; private set; }
+        public MacroStabilityInwardsFailureMechanism ParentFailureMechanism { get; }
     }
 }

@@ -93,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
                 // Call
                 MacroStabilityInwardsWaternet waternet = new DerivedMacroStabilityInwardsInput(calculation.InputParameters).WaternetExtreme;
-                
+
                 // Assert
                 CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, waternet);
             }
@@ -149,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
                 // Call
                 MacroStabilityInwardsWaternet waternet = new DerivedMacroStabilityInwardsInput(calculation.InputParameters).WaternetDaily;
-                
+
                 // Assert
                 CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, waternet);
             }

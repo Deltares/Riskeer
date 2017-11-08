@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets 'b' parameter used to factor in the 'length effect' when determining the
         /// maximum tolerated probability of failure.
         /// </summary>
-        public double B { get; private set; }
+        public double B { get; }
 
         /// <summary>
         /// Gets or sets the length of the assessment section.
