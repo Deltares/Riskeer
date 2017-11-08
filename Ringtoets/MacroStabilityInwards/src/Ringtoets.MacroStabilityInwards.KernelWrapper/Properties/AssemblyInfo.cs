@@ -28,5 +28,4 @@ using System.Runtime.InteropServices;
 [assembly: Guid("b5f16494-0810-4343-9e2e-7fc996c5f8d4")]
 [assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.KernelWrapper.Test")]
 [assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil")]
-[assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.Integration.Test")]
 [assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.Service.Test")]
