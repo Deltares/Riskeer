@@ -44,7 +44,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
             TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
                 null,
                 3,
-                (f, v) => { });
+                (f, v) => {});
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -61,7 +61,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
             TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation<int?>(
                 new DuneErosionFailureMechanism(),
                 null,
-                (f, v) => { });
+                (f, v) => {});
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

@@ -65,37 +65,37 @@ namespace Ringtoets.DuneErosion.Data
         /// <summary>
         /// Gets the database id of the dune location.
         /// </summary>
-        public long Id { get; private set; }
+        public long Id { get; }
 
         /// <summary>
         /// Gets the name of the dune location.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the coordinate of the dune location.
         /// </summary>
-        public Point2D Location { get; private set; }
+        public Point2D Location { get; }
 
         /// <summary>
         /// Gets the coastal area id of the dune location.
         /// </summary>
-        public int CoastalAreaId { get; private set; }
+        public int CoastalAreaId { get; }
 
         /// <summary>
         /// Gets the offset of the dune location.
         /// </summary>
-        public RoundedDouble Offset { get; private set; }
+        public RoundedDouble Offset { get; }
 
         /// <summary>
         /// Gets the orientation of the dune location.
         /// </summary>
-        public RoundedDouble Orientation { get; private set; }
+        public RoundedDouble Orientation { get; }
 
         /// <summary>
         /// Gets the d50 of the dune location.
         /// </summary>
-        public RoundedDouble D50 { get; private set; }
+        public RoundedDouble D50 { get; }
 
         /// <summary>
         /// Gets or sets the output of a dune erosion calculation.

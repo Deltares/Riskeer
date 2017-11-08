@@ -61,49 +61,49 @@ namespace Ringtoets.DuneErosion.Data
         /// Gets the water level of the calculation.
         /// [m+NAP]
         /// </summary>
-        public RoundedDouble WaterLevel { get; private set; }
+        public RoundedDouble WaterLevel { get; }
 
         /// <summary>
         /// Gets the wave height of the calculation.
         /// [m]
         /// </summary>
-        public RoundedDouble WaveHeight { get; private set; }
+        public RoundedDouble WaveHeight { get; }
 
         /// <summary>
         /// Gets the wave period of the calculation.
         /// [s]
         /// </summary>
-        public RoundedDouble WavePeriod { get; private set; }
+        public RoundedDouble WavePeriod { get; }
 
         /// <summary>
         /// Gets the target probability.
         /// [1/year]
         /// </summary>
-        public double TargetProbability { get; private set; }
+        public double TargetProbability { get; }
 
         /// <summary>
         /// Gets the target beta.
         /// [-]
         /// </summary>
-        public RoundedDouble TargetReliability { get; private set; }
+        public RoundedDouble TargetReliability { get; }
 
         /// <summary>
         /// Gets the calculated probability.
         /// [1/year]
         /// </summary>
-        public double CalculatedProbability { get; private set; }
+        public double CalculatedProbability { get; }
 
         /// <summary>
         /// Gets the calculated reliability.
         /// [-]
         /// </summary>
-        public RoundedDouble CalculatedReliability { get; private set; }
+        public RoundedDouble CalculatedReliability { get; }
 
         /// <summary>
         /// Gets the convergence status of the calculation.
         /// [-]
         /// </summary>
-        public CalculationConvergence CalculationConvergence { get; private set; }
+        public CalculationConvergence CalculationConvergence { get; }
 
         /// <summary>
         /// Container for properties for constructing a <see cref="DuneLocationOutput"/>.

@@ -57,12 +57,12 @@ namespace Ringtoets.DuneErosion.Data
         /// <summary>
         /// Gets the general dune erosion calculation input parameters that apply to each calculation.
         /// </summary>
-        public GeneralDuneErosionInput GeneralInput { get; private set; }
+        public GeneralDuneErosionInput GeneralInput { get; }
 
         /// <summary>
         /// Gets the dune locations.
         /// </summary>
-        public ObservableList<DuneLocation> DuneLocations { get; private set; }
+        public ObservableList<DuneLocation> DuneLocations { get; }
 
         public IEnumerable<DuneErosionFailureMechanismSectionResult> SectionResults
         {
