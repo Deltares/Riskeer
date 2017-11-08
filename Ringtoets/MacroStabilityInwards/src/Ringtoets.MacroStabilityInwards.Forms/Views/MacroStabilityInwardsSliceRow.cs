@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares ²017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -55,6 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             FrictionAngle = slice.FrictionAngle;
             Cohesion = slice.Cohesion;
             EffectiveStress = slice.EffectiveStress;
+            EffectiveStressDaily = slice.EffectiveStressDaily;
             TotalPorePressure = slice.TotalPorePressure;
             Weight = slice.Weight;
             PiezometricPorePressure = slice.PiezometricPorePressure;
@@ -213,5 +214,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// [kN/m²]
         /// </summary>
         public RoundedDouble EffectiveStress { get; }
+
+        /// <summary>
+        /// Gets the effective stress of the slice under
+        /// daily circumstances.
+        /// [kN/m²]
+        /// </summary>
+        public RoundedDouble EffectiveStressDaily { get; }
     }
 }

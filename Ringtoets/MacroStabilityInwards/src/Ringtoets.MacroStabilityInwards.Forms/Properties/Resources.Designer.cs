@@ -797,6 +797,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Effectieve spanning (dagelijks) [kN/m²].
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStressDaily {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStressDaily", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Externe belasting [kN/m²].
         /// </summary>
         public static string MacroStabilityInwardsSlicesTable_ColumnHeader_ExternalLoad {

@@ -667,6 +667,9 @@
   <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStress" xml:space="preserve">
     <value>Effectieve spanning [kN/m²]</value>
   </data>
+  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStressDaily" xml:space="preserve">
+    <value>Effectieve spanning (dagelijks) [kN/m²]</value>
+  </data>
   <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_ExternalLoad" xml:space="preserve">
     <value>Externe belasting [kN/m²]</value>
   </data>

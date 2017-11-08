@@ -83,6 +83,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.EffectiveStress),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStress,
                              true);
+            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.EffectiveStressDaily),
+                             Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStressDaily,
+                             true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.TotalPorePressure),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_TotalPorePressure,
                              true);

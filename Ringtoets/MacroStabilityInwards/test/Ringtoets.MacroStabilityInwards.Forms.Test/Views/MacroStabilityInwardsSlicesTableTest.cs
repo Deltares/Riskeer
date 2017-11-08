@@ -44,20 +44,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int frictionAngleColumnIndex = 7;
         private const int cohesionColumnIndex = 8;
         private const int effectiveStressColumnIndex = 9;
-        private const int totalPorePressureColumnIndex = 10;
-        private const int weightColumnIndex = 11;
-        private const int piezometricPorePressureColumnIndex = 12;
-        private const int degreePorePressureSoilColumnIndex = 13;
-        private const int degreePorePressureLoadColumnIndex = 14;
-        private const int porePressureColumnIndex = 15;
-        private const int verticalPorePressureColumnIndex = 16;
-        private const int horizontalPorePressureColumnIndex = 17;
-        private const int externalLoadColumnIndex = 18;
-        private const int overConsolidationRatioColumnIndex = 19;
-        private const int popColumnIndex = 20;
-        private const int normalStressColumnIndex = 21;
-        private const int shearStressColumnIndex = 22;
-        private const int loadStressColumnIndex = 23;
+        private const int effectiveStressDailyColumnIndex = 10;
+        private const int totalPorePressureColumnIndex = 11;
+        private const int weightColumnIndex = 12;
+        private const int piezometricPorePressureColumnIndex = 13;
+        private const int degreePorePressureSoilColumnIndex = 14;
+        private const int degreePorePressureLoadColumnIndex = 15;
+        private const int porePressureColumnIndex = 16;
+        private const int verticalPorePressureColumnIndex = 17;
+        private const int horizontalPorePressureColumnIndex = 18;
+        private const int externalLoadColumnIndex = 19;
+        private const int overConsolidationRatioColumnIndex = 20;
+        private const int popColumnIndex = 21;
+        private const int normalStressColumnIndex = 22;
+        private const int shearStressColumnIndex = 23;
+        private const int loadStressColumnIndex = 24;
 
         [Test]
         public void Constructor_InitializesWithColumns()
@@ -86,6 +87,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Cohesie [kN/m²]", cohesionColumn.HeaderText);
                 DataGridViewColumn effectiveStressColumn = table.GetColumnFromIndex(effectiveStressColumnIndex);
                 Assert.AreEqual("Effectieve spanning [kN/m²]", effectiveStressColumn.HeaderText);
+                DataGridViewColumn effectiveStressDailyColumn = table.GetColumnFromIndex(effectiveStressDailyColumnIndex);
+                Assert.AreEqual("Effectieve spanning (dagelijks) [kN/m²]", effectiveStressDailyColumn.HeaderText);
                 DataGridViewColumn totalPorePressureColumn = table.GetColumnFromIndex(totalPorePressureColumnIndex);
                 Assert.AreEqual("Totale waterspanning [kN/m²]", totalPorePressureColumn.HeaderText);
                 DataGridViewColumn weightColumn = table.GetColumnFromIndex(weightColumnIndex);
@@ -259,6 +262,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     Assert.AreEqual(slice.EffectiveStress,
                                     effectiveStress,
                                     effectiveStress.GetAccuracy());
+
+                    var effectiveStressDaily = (RoundedDouble) rowCells[effectiveStressDailyColumnIndex].Value;
+                    Assert.AreEqual(slice.EffectiveStressDaily,
+                                    effectiveStressDaily,
+                                    effectiveStressDaily.GetAccuracy());
 
                     var totalPorePressure = (RoundedDouble) rowCells[totalPorePressureColumnIndex].Value;
                     Assert.AreEqual(slice.TotalPorePressure,
