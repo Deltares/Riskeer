@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             {
                 Name = calculationConfiguration.Name
             };
-            
+
             if (TrySetCriticalFlowRate(calculationConfiguration, calculation)
                 && TrySetHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, calculation)
                 && TrySetDikeProfile(calculationConfiguration.DikeProfileId, calculation)

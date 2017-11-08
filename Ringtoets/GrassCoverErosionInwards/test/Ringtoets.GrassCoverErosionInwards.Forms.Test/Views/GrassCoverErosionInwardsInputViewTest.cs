@@ -350,9 +350,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 view.Data = calculation1;
 
-                var dikeProfileChartData = (ChartLineData)view.Chart.Data.Collection.ElementAt(dikeProfileIndex);
-                var foreshoreChartData = (ChartLineData)view.Chart.Data.Collection.ElementAt(foreshoreIndex);
-                var dikeHeightChartData = (ChartLineData)view.Chart.Data.Collection.ElementAt(dikeHeightIndex);
+                var dikeProfileChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(dikeProfileIndex);
+                var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreshoreIndex);
+                var dikeHeightChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(dikeHeightIndex);
 
                 dikeProfileChartData.Attach(observer);
                 foreshoreChartData.Attach(observer);

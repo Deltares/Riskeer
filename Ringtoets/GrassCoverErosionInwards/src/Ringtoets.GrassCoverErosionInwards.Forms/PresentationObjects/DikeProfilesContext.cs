@@ -56,11 +56,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// <summary>
         /// Gets the parent assessment section.
         /// </summary>
-        public IAssessmentSection ParentAssessmentSection { get; private set; }
+        public IAssessmentSection ParentAssessmentSection { get; }
 
         /// <summary>
         /// Gets the parent failure mechanism.
         /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism ParentFailureMechanism { get; private set; }
+        public GrassCoverErosionInwardsFailureMechanism ParentFailureMechanism { get; }
     }
 }

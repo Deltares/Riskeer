@@ -293,7 +293,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
             var surfaceLines = new DikeProfileCollection();
             surfaceLines.AddRange(new[]
             {
-                new TestDikeProfile() 
+                new TestDikeProfile()
             }, expectedFilePath);
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();

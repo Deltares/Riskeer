@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
             }
             if (sectionResults.Any(sr => sr == null))
             {
-                throw new ArgumentException("SectionResults contains an entry without value.", nameof(sectionResults));
+                throw new ArgumentException(@"SectionResults contains an entry without value.", nameof(sectionResults));
             }
         }
 

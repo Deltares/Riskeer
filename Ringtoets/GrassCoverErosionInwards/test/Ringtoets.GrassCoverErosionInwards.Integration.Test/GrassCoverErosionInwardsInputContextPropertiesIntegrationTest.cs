@@ -76,11 +76,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             failureMechanism.AddSection(new FailureMechanismSection("firstSection", new List<Point2D>
             {
-                new Point2D(0.0, 0.0), new Point2D(1.1, 1.1)
+                new Point2D(0.0, 0.0),
+                new Point2D(1.1, 1.1)
             }));
             failureMechanism.AddSection(new FailureMechanismSection("secondSection", new List<Point2D>
             {
-                new Point2D(1.1, 1.1), new Point2D(2.2, 2.2)
+                new Point2D(1.1, 1.1),
+                new Point2D(2.2, 2.2)
             }));
 
             GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
@@ -140,11 +142,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             failureMechanism.AddSection(new FailureMechanismSection("firstSection", new List<Point2D>
             {
-                new Point2D(0.0, 0.0), new Point2D(1.1, 1.1)
+                new Point2D(0.0, 0.0),
+                new Point2D(1.1, 1.1)
             }));
             failureMechanism.AddSection(new FailureMechanismSection("secondSection", new List<Point2D>
             {
-                new Point2D(1.1, 1.1), new Point2D(2.2, 2.2)
+                new Point2D(1.1, 1.1),
+                new Point2D(2.2, 2.2)
             }));
 
             GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();

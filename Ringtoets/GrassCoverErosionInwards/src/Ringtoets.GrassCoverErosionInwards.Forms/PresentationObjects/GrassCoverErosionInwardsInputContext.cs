@@ -56,6 +56,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// <summary>
         /// Gets the calculation item which the context belongs to.
         /// </summary>
-        public GrassCoverErosionInwardsCalculation Calculation { get; private set; }
+        public GrassCoverErosionInwardsCalculation Calculation { get; }
     }
 }

@@ -59,12 +59,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the general grass cover erosion inwards calculation input parameters that apply to each calculation.
         /// </summary>
-        public GeneralGrassCoverErosionInwardsInput GeneralInput { get; private set; }
+        public GeneralGrassCoverErosionInwardsInput GeneralInput { get; }
 
         /// <summary>
         /// Gets the available dike profiles for this instance.
         /// </summary>
-        public DikeProfileCollection DikeProfiles { get; private set; }
+        public DikeProfileCollection DikeProfiles { get; }
 
         public CalculationGroup CalculationsGroup { get; }
 

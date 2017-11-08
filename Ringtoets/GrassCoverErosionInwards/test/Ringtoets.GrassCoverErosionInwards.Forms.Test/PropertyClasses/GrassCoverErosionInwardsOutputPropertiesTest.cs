@@ -185,7 +185,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var resultOutput = new OvertoppingOutput(10,
                                                      true,
-                                                     probabilityAssessmentOutput, 
+                                                     probabilityAssessmentOutput,
                                                      null);
             var dikeHeightOutput = new TestDikeHeightOutput(double.NaN);
             var overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN);

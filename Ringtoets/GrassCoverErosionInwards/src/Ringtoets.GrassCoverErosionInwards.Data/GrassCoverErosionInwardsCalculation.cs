@@ -63,6 +63,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>The name of this calculation.</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
+
         public override object Clone()
         {
             var clone = (GrassCoverErosionInwardsCalculation) base.Clone();
@@ -76,15 +85,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
 
             return clone;
-        }
-
-        /// <summary>
-        /// Returns a string that represents the current object.
-        /// </summary>
-        /// <returns>The name of this calculation.</returns>
-        public override string ToString()
-        {
-            return Name;
         }
 
         public void ClearOutput()
