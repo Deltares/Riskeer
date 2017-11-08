@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         public void ChangePropertyAndNotify_WithoutChangeHandler_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PropertyChangeHelper.ChangePropertyAndNotify(() => { }, null);
+            TestDelegate test = () => PropertyChangeHelper.ChangePropertyAndNotify(() => {}, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         public void ChangePropertyAndNotify_ChangeHasNoAffectedObjects_HandlerUsedForSetAction()
         {
             // Setup
-            SetObservablePropertyValueDelegate setAction = () => { };
+            SetObservablePropertyValueDelegate setAction = () => {};
 
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IObservablePropertyChangeHandler>();
@@ -82,7 +82,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         public void ChangePropertyAndNotify_ChangeHasAffectedObjects_AffectedObjectsNotified()
         {
             // Setup
-            SetObservablePropertyValueDelegate setAction = () => { };
+            SetObservablePropertyValueDelegate setAction = () => {};
 
             var mocks = new MockRepository();
             var observableA = mocks.StrictMock<IObservable>();

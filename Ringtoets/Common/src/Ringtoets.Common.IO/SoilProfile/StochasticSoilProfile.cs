@@ -20,10 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
-using Core.Common.Base;
-using Core.Common.Base.Data;
-using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.SoilProfile
 {
@@ -32,7 +28,6 @@ namespace Ringtoets.Common.IO.SoilProfile
     /// </summary>
     public class StochasticSoilProfile
     {
-       
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilProfile"/>.
         /// </summary>

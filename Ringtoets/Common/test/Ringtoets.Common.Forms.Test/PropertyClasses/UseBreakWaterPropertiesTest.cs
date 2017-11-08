@@ -193,7 +193,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             RoundedDouble breakWaterHeight = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.BreakWaterHeight = breakWaterHeight,
-                                                                    new TestUseBreakWater());
+                                                                     new TestUseBreakWater());
         }
 
         [Test]
@@ -201,7 +201,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             var type = new Random(21).NextEnumValue<BreakWaterType>();
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.BreakWaterType = type,
-                                                                    new TestUseBreakWater());
+                                                                     new TestUseBreakWater());
         }
 
         [Test]
@@ -209,7 +209,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             bool useBreakWater = new Random(21).NextBoolean();
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.UseBreakWater = useBreakWater,
-                                                                    new TestUseBreakWater());
+                                                                     new TestUseBreakWater());
         }
 
         private class TestUseBreakWater : Observable, ICalculationInput, IUseBreakWater

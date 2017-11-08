@@ -61,16 +61,16 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the name of the calculation.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the location of the calculation.
         /// </summary>
-        public Point2D CalculationLocation { get; private set; }
+        public Point2D CalculationLocation { get; }
 
         /// <summary>
         /// Gets the hydraulic boundary location assigned to the calculation.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; }
     }
 }

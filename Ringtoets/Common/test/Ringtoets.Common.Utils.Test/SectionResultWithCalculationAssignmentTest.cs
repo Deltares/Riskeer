@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Utils.Test
         public void Constructor_FailureMechanismSectionResultIsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SectionResultWithCalculationAssignment(null, result => null, (result, calculation) => { });
+            TestDelegate test = () => new SectionResultWithCalculationAssignment(null, result => null, (result, calculation) => {});
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Utils.Test
 
             // Call
             TestDelegate test = () => new SectionResultWithCalculationAssignment(failureMechanismSectionResult,
-                                                                                 null, (result, calculation) => { });
+                                                                                 null, (result, calculation) => {});
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Utils.Test
 
             // Call
             var sectionResultWithCalculationAssignment = new SectionResultWithCalculationAssignment(failureMechanismSectionResult,
-                                                                                                    result => null, (result, calculation) => { });
+                                                                                                    result => null, (result, calculation) => {});
 
             // Assert
             Assert.AreSame(failureMechanismSectionResult, sectionResultWithCalculationAssignment.Result);

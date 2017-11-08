@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void Constructor_WithId_ExpectedProperties()
+        public void Constructor_WithIdAndDefaultName_ExpectedProperties()
         {
             // Setup
             const string id = "some Id";

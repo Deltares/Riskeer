@@ -117,7 +117,6 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         public void Constructor_StochastNamesNotUnique_ThrowArgumentException()
         {
             // Setup
-            var random = new Random(21);
             var stochasts = new[]
             {
                 new SubMechanismIllustrationPointStochast("unique", 0, 0, 0),

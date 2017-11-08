@@ -143,7 +143,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             bool useForeshore = new Random(21).NextBoolean();
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.UseForeshore = useForeshore,
-                                                                    new TestUseForeshore());
+                                                                     new TestUseForeshore());
         }
 
         [TestCase(0, false)]

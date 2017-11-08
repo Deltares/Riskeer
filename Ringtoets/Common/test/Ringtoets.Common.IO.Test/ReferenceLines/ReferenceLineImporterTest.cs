@@ -122,11 +122,15 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             {
                 new ExpectedProgressNotification
                 {
-                    Text = "Inlezen referentielijn.", CurrentStep = 1, TotalNumberOfSteps = 2
+                    Text = "Inlezen referentielijn.",
+                    CurrentStep = 1,
+                    TotalNumberOfSteps = 2
                 },
                 new ExpectedProgressNotification
                 {
-                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.", CurrentStep = 2, TotalNumberOfSteps = 2
+                    Text = "Geïmporteerde data toevoegen aan het toetsspoor.",
+                    CurrentStep = 2,
+                    TotalNumberOfSteps = 2
                 }
             };
             var progressChangedCallCount = 0;
@@ -170,8 +174,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam. ", path) + Environment.NewLine +
-                                     "Er is geen referentielijn geïmporteerd.";
+            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': bestandspad mag niet verwijzen naar een lege bestandsnaam. "
+                                     + $"{Environment.NewLine}Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             mocks.VerifyAll();
@@ -200,8 +204,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': het bestand bestaat niet. ", path) + Environment.NewLine +
-                                     "Er is geen referentielijn geïmporteerd.";
+            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': het bestand bestaat niet. "
+                                     + $"{Environment.NewLine}Er is geen referentielijn geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             mocks.VerifyAll();

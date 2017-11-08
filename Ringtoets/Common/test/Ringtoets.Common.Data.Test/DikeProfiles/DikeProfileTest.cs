@@ -868,8 +868,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                            Id = profile.Id,
                            Orientation = profile.Orientation,
                            X0 = profile.X0
-                       })
-            { }
+                       }) {}
         }
     }
 }

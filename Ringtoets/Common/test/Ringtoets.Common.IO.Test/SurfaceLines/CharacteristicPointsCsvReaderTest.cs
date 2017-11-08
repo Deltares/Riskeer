@@ -449,7 +449,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         public void ReadCharacteristicPointsLocation_FileHasCoordinateCausingOverOrUnderflow_ThrowsLineParseException(string malformattedVariableName)
         {
             // Setup
-            string path = Path.Combine(testDataPath, string.Format("1location_{0}.krp.csv", malformattedVariableName));
+            string path = Path.Combine(testDataPath, $"1location_{malformattedVariableName}.krp.csv");
 
             // Precondition
             Assert.IsTrue(File.Exists(path));

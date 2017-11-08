@@ -54,11 +54,11 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// The changed objects.
         /// </summary>
-        public IEnumerable<IObservable> ChangedObjects { get; private set; }
+        public IEnumerable<IObservable> ChangedObjects { get; }
 
         /// <summary>
         /// The removed objects.
         /// </summary>
-        public IEnumerable<object> RemovedObjects { get; private set; }
+        public IEnumerable<object> RemovedObjects { get; }
     }
 }

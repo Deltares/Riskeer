@@ -81,7 +81,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(expectedProbability, row.Probability);
             Assert.AreEqual(beta, row.Reliability);
             Assert.AreEqual(nrOfDecimals, row.Reliability.NumberOfDecimalPlaces);
-
         }
     }
 }

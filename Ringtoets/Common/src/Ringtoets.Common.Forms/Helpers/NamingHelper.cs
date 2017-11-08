@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Forms.Helpers
             string[] existingNames = existingObjects.Select(nameGetter).ToArray();
             while (existingNames.Any(name => name.Equals(result)))
             {
-                result = string.Format("{0} ({1})", nameBase, i++);
+                result = $"{nameBase} ({i++})";
             }
             return result;
         }

@@ -51,7 +51,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
 
             if (distributionType.HasValue && (distributionType.Value != SoilLayerConstants.LogNormalDistributionValue
-                                          || Math.Abs(shift) > tolerance))
+                                              || Math.Abs(shift) > tolerance))
             {
                 throw new ImportedDataTransformException(string.Format(
                                                              Resources.Stochastic_parameter_0_has_no_lognormal_distribution,

@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
 
             // Call
             var stochast = new TestSubMechanismIllustrationPointStochast(name, alpha);
-            
+
             // Assert
             Assert.AreEqual(name, stochast.Name);
             Assert.AreEqual(alpha, stochast.Alpha);

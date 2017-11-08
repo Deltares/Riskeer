@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
 
             // Assert
             Assert.AreEqual(1, validationMessages.Length);
-            string expectedMessage = string.Format("De waarde voor '{0}' moet een concreet getal zijn.", paramName);
+            string expectedMessage = $"De waarde voor '{paramName}' moet een concreet getal zijn.";
             StringAssert.StartsWith(expectedMessage, validationMessages[0]);
         }
     }

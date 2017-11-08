@@ -1618,11 +1618,13 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             string twovalidsurfacelinesCsv = string.Format(surfaceLineFormat, fileName);
             string validSurfaceLinesFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
 
-            var updateStrategy = new TestSurfaceLineUpdateStrategy();
-            updateStrategy.UpdatedInstances = new[]
+            var updateStrategy = new TestSurfaceLineUpdateStrategy
             {
-                observableA,
-                observableB
+                UpdatedInstances = new[]
+                {
+                    observableA,
+                    observableB
+                }
             };
             var importer = new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(
                 new TestSurfaceLineCollection(),

@@ -58,7 +58,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string result = HydraulicDatabaseHelper.ValidatePathForCalculation(filePath);
 
             // Assert
-            StringAssert.StartsWith(string.Format("Fout bij het lezen van bestand '{0}':", filePath), result);
+            StringAssert.StartsWith($"Fout bij het lezen van bestand '{filePath}':", result);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string result = HydraulicDatabaseHelper.ValidatePathForCalculation(invalidPath);
 
             // Assert
-            StringAssert.StartsWith(string.Format("Fout bij het lezen van bestand '{0}':", invalidPath), result);
+            StringAssert.StartsWith($"Fout bij het lezen van bestand '{invalidPath}':", result);
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string result = HydraulicDatabaseHelper.ValidatePathForCalculation(filePath);
 
             // Assert
-            StringAssert.StartsWith(string.Format("Fout bij het lezen van bestand '{0}':", filePath), result);
+            StringAssert.StartsWith($"Fout bij het lezen van bestand '{filePath}':", result);
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string result = HydraulicDatabaseHelper.ValidatePathForCalculation(validFilePath);
 
             // Assert
-            StringAssert.StartsWith(string.Format("Fout bij het lezen van bestand '{0}':", validFilePath), result);
+            StringAssert.StartsWith($"Fout bij het lezen van bestand '{validFilePath}':", result);
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string result = HydraulicDatabaseHelper.ValidatePathForCalculation(validFilePath);
 
             // Assert
-            StringAssert.StartsWith(string.Format("Fout bij het lezen van bestand '{0}':", validFilePath), result);
+            StringAssert.StartsWith($"Fout bij het lezen van bestand '{validFilePath}':", result);
         }
 
         [Test]

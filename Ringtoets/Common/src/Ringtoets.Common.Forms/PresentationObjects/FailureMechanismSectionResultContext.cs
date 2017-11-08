@@ -51,6 +51,6 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the <see cref="IFailureMechanism"/>.
         /// </summary>
-        public IFailureMechanism FailureMechanism { get; private set; }
+        public IFailureMechanism FailureMechanism { get; }
     }
 }

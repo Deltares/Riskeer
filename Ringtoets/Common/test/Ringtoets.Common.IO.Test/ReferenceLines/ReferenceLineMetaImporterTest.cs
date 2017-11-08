@@ -49,8 +49,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => new ReferenceLineMetaImporter(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -83,8 +82,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => new ReferenceLineMetaImporter(pathTooLong);
 
             // Assert
-            string expectedExceptionMessage = string.Format("De map met specificaties voor trajecten '{0}' is niet gevonden.",
-                                                            pathTooLong);
+            string expectedExceptionMessage = $"De map met specificaties voor trajecten '{pathTooLong}' is niet gevonden.";
             var exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
         }
@@ -102,8 +100,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => new ReferenceLineMetaImporter(pathToNonExistingFolder);
 
             // Assert
-            string expectedExceptionMessage = string.Format("De map met specificaties voor trajecten '{0}' is niet gevonden.",
-                                                            pathToNonExistingFolder);
+            string expectedExceptionMessage = $"De map met specificaties voor trajecten '{pathToNonExistingFolder}' is niet gevonden.";
             var exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
         }
@@ -118,8 +115,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => new ReferenceLineMetaImporter(pathToEmptyFolder);
 
             // Assert
-            string expectedExceptionMessage = string.Format(@"Geen shapebestand om trajecten te specificeren gevonden in de map '{0}'.",
-                                                            pathToEmptyFolder);
+            string expectedExceptionMessage = $@"Geen shapebestand om trajecten te specificeren gevonden in de map '{pathToEmptyFolder}'.";
             var exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
         }
@@ -134,7 +130,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             Action call = () => new ReferenceLineMetaImporter(pathToFolder);
 
             // Assert
-            string expectedMessage = string.Format(@"Meerdere shapebestanden gevonden in '{0}'. Het bestand 'NBPW_A.shp' is gebruikt.", pathToFolder);
+            string expectedMessage = $@"Meerdere shapebestanden gevonden in '{pathToFolder}'. Het bestand 'NBPW_A.shp' is gebruikt.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
         }
 
@@ -149,8 +145,9 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => importer.GetReferenceLineMetas();
 
             // Assert
-            string expectedExceptionMessage = string.Format("Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: {1} niet gevonden.",
-                                                            Path.Combine(pathToInvalid, "InvalidShapeFile.shp"), "'TRAJECT_ID', 'NORM_SW', 'NORM_OG'");
+            string expectedExceptionMessage = $"Het shapebestand '{Path.Combine(pathToInvalid, "InvalidShapeFile.shp")}' " +
+                                              "om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: " +
+                                              @"'TRAJECT_ID', 'NORM_SW', 'NORM_OG' niet gevonden.";
             var exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
         }
@@ -167,8 +164,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             // Assert
             string shapeFile = Path.Combine(pathToFolder, "NonUniqueTrajectIds.shp");
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': meerdere trajecten met dezelfde identificatiecode (attribuut 'TRAJECT_ID') gevonden.",
-                                                   shapeFile);
+            string expectedMessage = $"Fout bij het lezen van bestand '{shapeFile}': meerdere trajecten met dezelfde identificatiecode " +
+                                     "(attribuut 'TRAJECT_ID') gevonden.";
             var exception = Assert.Throws<CriticalFileValidationException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -185,7 +182,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             // Assert
             string shapeFile = Path.Combine(pathToFolder, "EmptyTrackId.shp");
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': trajecten gevonden zonder een geldige identificatiecode (attribuut 'TRAJECT_ID').", shapeFile);
+            string expectedMessage = $"Fout bij het lezen van bestand '{shapeFile}': trajecten gevonden zonder een geldige " +
+                                     "identificatiecode (attribuut 'TRAJECT_ID').";
             var exception = Assert.Throws<CriticalFileValidationException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -267,7 +265,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             Point2D[] actualPoints = actualReferenceLineMeta.ReferenceLine.Points.ToArray();
             CollectionAssert.AreEqual(expectedPoints, actualPoints,
                                       new Point2DComparerWithTolerance(1e-6),
-                                      string.Format("Unexpected geometry found in ReferenceLineMeta with id '{0}'", actualReferenceLineMeta.AssessmentSectionId));
+                                      $"Unexpected geometry found in ReferenceLineMeta with id '{actualReferenceLineMeta.AssessmentSectionId}'");
         }
     }
 }

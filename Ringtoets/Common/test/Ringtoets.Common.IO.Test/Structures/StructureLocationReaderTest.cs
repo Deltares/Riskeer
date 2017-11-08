@@ -59,8 +59,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             TestDelegate call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -94,8 +93,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             TestDelegate call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -109,8 +107,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             TestDelegate call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
@@ -131,8 +128,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             TestDelegate call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen punten vinden in dit bestand.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': kon geen punten vinden in dit bestand.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
@@ -148,8 +144,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             TestDelegate call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand heeft geen attribuut '{1}'. Dit attribuut is vereist.",
-                                                   invalidFilePath, "KWKIDENT");
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand heeft geen attribuut '{"KWKIDENT"}'. Dit attribuut is vereist.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }

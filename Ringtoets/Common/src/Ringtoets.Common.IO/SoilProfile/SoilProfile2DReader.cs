@@ -187,9 +187,9 @@ namespace Ringtoets.Common.IO.SoilProfile
                 }
 
                 return new SoilProfile2D(soilProfileId,
-                                        criticalProperties.ProfileName,
-                                        GetHierarchicallyOrderedSoilLayers(soilLayerGeometryLookup).ToArray(),
-                                        GetPreconsolidationStresses(soilProfileId).ToArray())
+                                         criticalProperties.ProfileName,
+                                         GetHierarchicallyOrderedSoilLayers(soilLayerGeometryLookup).ToArray(),
+                                         GetPreconsolidationStresses(soilProfileId).ToArray())
                 {
                     IntersectionX = properties.IntersectionX
                 };

@@ -57,7 +57,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <summary>
         /// Gets a value which indicates whether the validation subject is valid.
         /// </summary>
-        public bool IsValid { get; private set; }
+        public bool IsValid { get; }
 
         /// <summary>
         /// Gets the error messages resulting from the validation.

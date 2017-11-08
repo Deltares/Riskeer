@@ -31,7 +31,7 @@ namespace Ringtoets.Common.IO.Structures
     /// Interface describing the method of updating the data model after new structures have 
     /// been imported.
     /// </summary>
-    public interface IStructureUpdateStrategy<TStructure> where TStructure : StructureBase
+    public interface IStructureUpdateStrategy<in TStructure> where TStructure : StructureBase
     {
         /// <summary>
         /// Updates the structures and its dependent data with data from <paramref name="readStructures"/>.

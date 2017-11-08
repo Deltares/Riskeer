@@ -239,7 +239,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         public void GetSurfaceLinesCount_InvalidHeader2_ThrowCriticalFileReadException(string missingVariableName)
         {
             // Setup
-            string filename = string.Format("InvalidHeader_Lacks{0}1.csv", missingVariableName);
+            string filename = $"InvalidHeader_Lacks{missingVariableName}1.csv";
             string path = Path.Combine(testDataPath, filename);
 
             // Precondition
@@ -521,7 +521,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         public void ReadLine_InvalidHeader2_ThrowCriticalFileReadException(string missingVariableName)
         {
             // Setup
-            string filename = string.Format("InvalidHeader_Lacks{0}1.csv", missingVariableName);
+            string filename = $"InvalidHeader_Lacks{missingVariableName}1.csv";
             string path = Path.Combine(testDataPath, filename);
 
             // Precondition
@@ -548,7 +548,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         public void ReadLine_FileHasInvalidCoordinate_ThrowLineParseException(string malformattedVariableName)
         {
             // Setup
-            string path = Path.Combine(testDataPath, string.Format("InvalidRow_{0}NotAValidNumber.csv", malformattedVariableName));
+            string path = Path.Combine(testDataPath, $"InvalidRow_{malformattedVariableName}NotAValidNumber.csv");
 
             // Precondition
             Assert.IsTrue(File.Exists(path));
@@ -579,7 +579,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         public void ReadLine_FileHasCoordinateCausingOverOrUnderflow_ThrowLineParseException(string malformattedVariableName)
         {
             // Setup
-            string path = Path.Combine(testDataPath, string.Format("InvalidRow_{0}flowingNumber.csv", malformattedVariableName));
+            string path = Path.Combine(testDataPath, $"InvalidRow_{malformattedVariableName}flowingNumber.csv");
 
             // Precondition
             Assert.IsTrue(File.Exists(path));

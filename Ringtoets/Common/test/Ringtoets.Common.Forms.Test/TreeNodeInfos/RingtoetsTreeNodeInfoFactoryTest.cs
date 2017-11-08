@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             Func<TestCalculationGroupContext, object[]> childNodeObjects = context => new object[0];
             Func<TestCalculationGroupContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
-            Action<TestCalculationGroupContext, object> onNodeRemoved = (context, parent) => { };
+            Action<TestCalculationGroupContext, object> onNodeRemoved = (context, parent) => {};
 
             // Call
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo(childNodeObjects, contextMenuStrip, onNodeRemoved);
@@ -594,7 +594,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Bitmap icon = RingtoetsFormsResources.CalculationIcon;
             Func<TestCalculationContext, object[]> childNodeObjects = context => new object[0];
             Func<TestCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
-            Action<TestCalculationContext, object> onNodeRemoved = (context, parent) => { };
+            Action<TestCalculationContext, object> onNodeRemoved = (context, parent) => {};
 
             // Call
             TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo(childNodeObjects, contextMenuStrip, onNodeRemoved);

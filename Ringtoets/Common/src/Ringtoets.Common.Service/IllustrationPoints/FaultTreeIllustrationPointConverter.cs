@@ -61,9 +61,9 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                     .Stochasts.Select(StochastConverter.Convert);
 
                 return new FaultTreeIllustrationPoint(hydraRingFaultTreeIllustrationPoint.Name,
-                                                                   hydraRingFaultTreeIllustrationPoint.Beta,
-                                                                   stochasts,
-                                                                   combinationType);
+                                                      hydraRingFaultTreeIllustrationPoint.Beta,
+                                                      stochasts,
+                                                      combinationType);
             }
             catch (Exception e) when (e is NotSupportedException || e is InvalidEnumArgumentException)
             {

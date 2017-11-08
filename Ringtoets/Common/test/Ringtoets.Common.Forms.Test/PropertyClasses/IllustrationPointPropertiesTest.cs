@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
@@ -49,7 +48,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Call
             TestDelegate test = () => new IllustrationPointProperties(null,
-                                                                      "Point name A", 
+                                                                      "Point name A",
                                                                       "Closing Situation");
 
             // Assert

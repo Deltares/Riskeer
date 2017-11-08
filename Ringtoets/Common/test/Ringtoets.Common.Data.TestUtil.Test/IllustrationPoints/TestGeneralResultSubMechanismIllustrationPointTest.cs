@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
         public void Constructor_TopLevelSubMechanismIllustrationPoint_ExpectedProperties()
         {
             // Setup
-            IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelIllustrationPoints = 
+            IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelIllustrationPoints =
                 Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>();
 
             // Call

@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public TopLevelSubMechanismIllustrationPoint(WindDirection windDirection,
                                                      string closingSituation,
-                                                     SubMechanismIllustrationPoint subMechanismIllustrationPoint) 
+                                                     SubMechanismIllustrationPoint subMechanismIllustrationPoint)
             : base(windDirection, closingSituation)
         {
             if (subMechanismIllustrationPoint == null)

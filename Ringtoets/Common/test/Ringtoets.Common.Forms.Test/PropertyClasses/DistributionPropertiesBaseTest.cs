@@ -175,10 +175,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(distribution.Mean, properties.Mean);
             Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
-            string expectedToString = string.Format("{0} ({1} = {2})",
-                                                    distribution.Mean,
-                                                    Resources.NormalDistribution_StandardDeviation_DisplayName,
-                                                    distribution.StandardDeviation);
+            string expectedToString = $"{distribution.Mean} ({Resources.NormalDistribution_StandardDeviation_DisplayName} = {distribution.StandardDeviation})";
             Assert.AreEqual(expectedToString, properties.ToString());
             mocks.VerifyAll();
         }

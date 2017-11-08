@@ -58,16 +58,16 @@ namespace Ringtoets.Common.IO.Structures
         /// <summary>
         /// Gets the identifier for this <see cref="StructureLocation"/>.
         /// </summary>
-        public string Id { get; private set; }
+        public string Id { get; }
 
         /// <summary>
         /// Gets the name of this <see cref="StructureLocation"/>.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the actual location of this <see cref="StructureLocation"/>.
         /// </summary>
-        public Point2D Point { get; private set; }
+        public Point2D Point { get; }
     }
 }

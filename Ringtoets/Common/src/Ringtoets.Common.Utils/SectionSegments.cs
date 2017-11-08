@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Utils
         /// <summary>
         /// Gets the <see cref="FailureMechanismSection"/>.
         /// </summary>
-        public FailureMechanismSection Section { get; private set; }
+        public FailureMechanismSection Section { get; }
 
         /// <summary>
         /// Calculate the Euclidean distance between the <see cref="FailureMechanismSection"/> and a <see cref="Point2D"/>.

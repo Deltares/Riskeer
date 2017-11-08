@@ -284,18 +284,20 @@ namespace Ringtoets.Common.Forms.Factories
         /// <summary>
         /// Create calculation features based on the provided <paramref name="calculations"/>.
         /// </summary>
+        /// <typeparam name="T">The type of the <see cref="StructuresInputBase{T}"/>.</typeparam>
+        /// <typeparam name="TU">The type of the <see cref="StructureBase"/>.</typeparam>
         /// <param name="calculations">The collection of <see cref="StructuresCalculation{T}"/> to create the 
         /// calculation features for.</param>
         /// <returns>An array of features or an empty array when <paramref name="calculations"/> is <c>null</c> 
         /// or empty.</returns>
-        public static MapFeature[] CreateStructureCalculationsFeatures<T, U>(IEnumerable<StructuresCalculation<T>> calculations)
-            where T : StructuresInputBase<U>, new()
-            where U : StructureBase
+        public static MapFeature[] CreateStructureCalculationsFeatures<T, TU>(IEnumerable<StructuresCalculation<T>> calculations)
+            where T : StructuresInputBase<TU>, new()
+            where TU : StructureBase
         {
             if (calculations != null && calculations.Any())
             {
-                MapCalculationData[] calculationData = calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<T, U>)
-                                                                   .Select(CreatemapCalculationData<T, U>).ToArray();
+                MapCalculationData[] calculationData = calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<T, TU>)
+                                                                   .Select(CreatemapCalculationData<T, TU>).ToArray();
 
                 return CreateCalculationFeatures(calculationData);
             }
@@ -363,9 +365,9 @@ namespace Ringtoets.Common.Forms.Factories
             });
         }
 
-        private static MapCalculationData CreatemapCalculationData<T, U>(StructuresCalculation<T> calculation)
-            where T : StructuresInputBase<U>, new()
-            where U : StructureBase
+        private static MapCalculationData CreatemapCalculationData<T, TU>(StructuresCalculation<T> calculation)
+            where T : StructuresInputBase<TU>, new()
+            where TU : StructureBase
         {
             return new MapCalculationData(
                 calculation.Name,
@@ -373,9 +375,9 @@ namespace Ringtoets.Common.Forms.Factories
                 calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
-        private static bool CalculationHasStructureAndHydraulicBoundaryLocation<T, U>(StructuresCalculation<T> calculation)
-            where T : StructuresInputBase<U>, new()
-            where U : StructureBase
+        private static bool CalculationHasStructureAndHydraulicBoundaryLocation<T, TU>(StructuresCalculation<T> calculation)
+            where T : StructuresInputBase<TU>, new()
+            where TU : StructureBase
         {
             return calculation.InputParameters.Structure != null &&
                    calculation.InputParameters.HydraulicBoundaryLocation != null;

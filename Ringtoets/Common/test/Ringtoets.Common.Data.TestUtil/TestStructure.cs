@@ -40,19 +40,10 @@ namespace Ringtoets.Common.Data.TestUtil
         /// Creates a new instance of <see cref="TestStructure"/>.
         /// </summary>
         /// <param name="id">The id of the structure.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/>
-        /// is <c>null</c>, empty or consists of whitespace.</exception>
-        public TestStructure(string id)
-            : this(id, "name") {}
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TestStructure"/>.
-        /// </summary>
-        /// <param name="id">The id of the structure.</param>
         /// <param name="name">The name of the structure.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> or 
         /// <paramref name="name"/> is <c>null</c>, empty or consists of only whitespaces.</exception>
-        public TestStructure(string id, string name)
+        public TestStructure(string id, string name = "name")
             : this(id, name, new Point2D(0.0, 0.0)) {}
 
         /// <summary>

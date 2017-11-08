@@ -34,7 +34,8 @@ using Ringtoets.Common.IO.Configurations.Export;
 namespace Ringtoets.Common.IO.TestUtil
 {
     [TestFixture]
-    public abstract class CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
+    public abstract class CustomCalculationConfigurationExporterDesignGuidelinesTestFixture
+    <
         TCalculationConfigurationExporter, TWriter, TCalculation, TConfiguration>
         where TCalculation : class, ICalculation
         where TWriter : CalculationConfigurationWriter<TConfiguration>

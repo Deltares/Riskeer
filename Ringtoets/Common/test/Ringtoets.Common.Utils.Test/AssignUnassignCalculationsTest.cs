@@ -151,7 +151,8 @@ namespace Ringtoets.Common.Utils.Test
 
             var section = new FailureMechanismSection("firstSection", new List<Point2D>
             {
-                new Point2D(0.0, 0.0), new Point2D(1.1, 1.1)
+                new Point2D(0.0, 0.0),
+                new Point2D(1.1, 1.1)
             });
 
             var sectionResult = new FailureMechanismSectionResultWithCalculation(section);
@@ -184,7 +185,8 @@ namespace Ringtoets.Common.Utils.Test
 
             var sectionA = new FailureMechanismSection("firstSection", new List<Point2D>
             {
-                new Point2D(0.0, 0.0), new Point2D(1.1, 1.1)
+                new Point2D(0.0, 0.0),
+                new Point2D(1.1, 1.1)
             });
 
             var sectionResult = new FailureMechanismSectionResultWithCalculation(sectionA);

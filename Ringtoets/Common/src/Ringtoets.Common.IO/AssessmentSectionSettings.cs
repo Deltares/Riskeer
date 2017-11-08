@@ -39,17 +39,17 @@ namespace Ringtoets.Common.IO
         /// <summary>
         /// The 'length effect' parameter.
         /// </summary>
-        public int N { get; private set; }
+        public int N { get; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is a dune assessment section or not.
         /// </summary>
-        public bool IsDune { get; private set; }
+        public bool IsDune { get; }
 
         /// <summary>
         /// Gets the assessment section identifier, that can be used to match to <see cref="IAssessmentSection.Name"/>.
         /// </summary>
-        public string AssessmentSectionId { get; private set; }
+        public string AssessmentSectionId { get; }
 
         /// <summary>
         /// Creates the settings for a dike assessment section.

@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const string parameterName = " A ";
-            string parameterWithUnits = string.Format("{0} [m/s]", parameterName);
+            string parameterWithUnits = $"{parameterName} [m/s]";
 
             // Call
             string result = ParameterNameExtractor.GetFromDisplayName(parameterWithUnits);

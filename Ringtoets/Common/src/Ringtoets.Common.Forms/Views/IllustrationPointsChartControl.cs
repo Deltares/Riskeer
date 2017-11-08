@@ -31,9 +31,8 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class IllustrationPointsChartControl : UserControl
     {
-        private IEnumerable<IllustrationPointControlItem> data;
-
         private readonly StackChartData chartData;
+        private IEnumerable<IllustrationPointControlItem> data;
 
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointsChartControl"/>.

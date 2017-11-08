@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
 
             // Assert
             Assert.AreEqual(1, validationMessages.Length);
-            string expectedMessage = string.Format("De verwachtingswaarde voor '{0}' moet een positief getal zijn.", paramName);
+            string expectedMessage = $"De verwachtingswaarde voor '{paramName}' moet een positief getal zijn.";
             StringAssert.StartsWith(expectedMessage, validationMessages[0]);
         }
 
@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
 
             // Assert
             Assert.AreEqual(1, validationMessages.Length);
-            string expectedMessage = string.Format("De standaardafwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", paramName);
+            string expectedMessage = $"De standaardafwijking voor '{paramName}' moet groter zijn dan of gelijk zijn aan 0.";
             StringAssert.StartsWith(expectedMessage, validationMessages[0]);
         }
     }

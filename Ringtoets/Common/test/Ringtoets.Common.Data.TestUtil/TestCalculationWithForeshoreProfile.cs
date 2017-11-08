@@ -103,11 +103,24 @@ namespace Ringtoets.Common.Data.TestUtil
             HasOutput = false;
         }
 
+        public object Clone()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// A simple input class with a <see cref="ForeshoreProfile"/>.
         /// </summary>
         public class TestCalculationInputWithForeshoreProfile : ICalculationInput, IUseForeshore, IHasForeshoreProfile
         {
+            public IEnumerable<IObserver> Observers
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
             public ForeshoreProfile ForeshoreProfile { get; set; }
 
             public bool IsForeshoreProfileInputSynchronized { get; }
@@ -119,14 +132,6 @@ namespace Ringtoets.Common.Data.TestUtil
                 get
                 {
                     return ForeshoreProfile?.Geometry;
-                }
-            }
-
-            public IEnumerable<IObserver> Observers
-            {
-                get
-                {
-                    throw new NotImplementedException();
                 }
             }
 
@@ -149,11 +154,6 @@ namespace Ringtoets.Common.Data.TestUtil
             {
                 throw new NotImplementedException();
             }
-        }
-
-        public object Clone()
-        {
-            throw new NotImplementedException();
         }
     }
 }

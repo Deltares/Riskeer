@@ -56,11 +56,11 @@ namespace Ringtoets.Common.Utils
         /// <summary>
         /// Gets the calculation which has a location assigned.
         /// </summary>
-        public ICalculation Calculation { get; private set; }
+        public ICalculation Calculation { get; }
 
         /// <summary>
         /// Gets the location of the calculation.
         /// </summary>
-        public Point2D Location { get; private set; }
+        public Point2D Location { get; }
     }
 }

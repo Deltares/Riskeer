@@ -39,8 +39,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Call
             TestDelegate call = () => DistributionHelper.ValidateIsNonShiftedLogNormal(distributionType,
-                                                                                                shift,
-                                                                                                null);
+                                                                                       shift,
+                                                                                       null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,8 +59,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Call
             TestDelegate call = () => DistributionHelper.ValidateIsNonShiftedLogNormal(distributionType,
-                                                                                                shift,
-                                                                                                parameterName);
+                                                                                       shift,
+                                                                                       parameterName);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -76,8 +76,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Call
             TestDelegate call = () => DistributionHelper.ValidateIsNonShiftedLogNormal(distributionType,
-                                                                                                shift,
-                                                                                                string.Empty);
+                                                                                       shift,
+                                                                                       string.Empty);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -93,8 +93,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Call
             TestDelegate call = () => DistributionHelper.ValidateIsNonShiftedLogNormal(null,
-                                                                                                shift,
-                                                                                                parameterName);
+                                                                                       shift,
+                                                                                       parameterName);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Call
             TestDelegate call = () => DistributionHelper.ValidateIsLogNormal(distributionType,
-                                                                                      null);
+                                                                             null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -125,7 +125,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Call
             TestDelegate call = () => DistributionHelper.ValidateIsLogNormal(invalidDistributionType,
-                                                                                      parameterName);
+                                                                             parameterName);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -140,7 +140,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Call
             TestDelegate call = () => DistributionHelper.ValidateIsLogNormal(distributionType,
-                                                                                      string.Empty);
+                                                                             string.Empty);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -154,7 +154,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Call
             TestDelegate call = () => DistributionHelper.ValidateIsLogNormal(null,
-                                                                                      parameterName);
+                                                                             parameterName);
 
             // Assert
             Assert.DoesNotThrow(call);

@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             var faultTreeData = Data as FaultTreeIllustrationPoint;
             if (faultTreeData != null)
             {
-                ValidateChildNames(faultTreeData, children);
+                ValidateChildNames(children);
                 ValidateChildStochasts(faultTreeData, children);
             }
 
@@ -109,11 +109,10 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <summary>
         /// Validates a <see cref="FaultTreeIllustrationPoint"/> by checking for duplicate names in child nodes.
         /// </summary>
-        /// <param name="data">The <see cref="FaultTreeIllustrationPoint"/> to be validated.</param>
         /// <param name="children">The collection of <see cref="IllustrationPointNode"/> to be validated.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="children"/> contains child nodes with
         /// duplicate names.</exception>
-        private static void ValidateChildNames(FaultTreeIllustrationPoint data, IEnumerable<IllustrationPointNode> children)
+        private static void ValidateChildNames(IEnumerable<IllustrationPointNode> children)
         {
             if (children.HasDuplicates(c => c.Data.Name))
             {

@@ -67,8 +67,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -106,8 +105,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -124,8 +122,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
@@ -148,8 +145,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen lijnen vinden in dit bestand.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': kon geen lijnen vinden in dit bestand.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
@@ -169,8 +165,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand moet exact één gehele polylijn bevatten.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand moet exact één gehele polylijn bevatten.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
@@ -188,8 +183,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bevat een multi-polylijn. Multi-polylijnen worden niet ondersteund.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bevat een multi-polylijn. " +
+                                     "Multi-polylijnen worden niet ondersteund.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }

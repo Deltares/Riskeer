@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the failure mechanism which the context belongs to.
         /// </summary>
-        public TFailureMechanism FailureMechanism { get; private set; }
+        public TFailureMechanism FailureMechanism { get; }
 
         /// <summary>
         /// Gets the assessment section which the context belongs to.

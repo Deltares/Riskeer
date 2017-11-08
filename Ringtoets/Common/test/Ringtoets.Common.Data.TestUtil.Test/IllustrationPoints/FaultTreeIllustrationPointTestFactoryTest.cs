@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
     public class FaultTreeIllustrationPointTestFactoryTest
     {
         [Test]
-        public void CreateTestFaultTreeIllustrationPoint_ReturnsExpectedProperties()
+        public void CreateTestFaultTreeIllustrationPoint_DefaultBeta_ReturnsExpectedProperties()
         {
             // Call
             FaultTreeIllustrationPoint illustrationPoint = FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint();
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateTestFaultTreeIllustrationPoint_ValidParameter_ReturnsExpectedProperties()
+        public void CreateTestFaultTreeIllustrationPoint_WithBeta_ReturnsExpectedProperties()
         {
             // Setup
             double beta = new Random().NextDouble();

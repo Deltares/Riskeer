@@ -95,8 +95,8 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             }
 
             return Distance < 1000
-                       ? string.Format("{0} ({1:f0} m)", HydraulicBoundaryLocation.Name, Distance)
-                       : string.Format("{0} ({1:f1} km)", HydraulicBoundaryLocation.Name, Distance / 1000);
+                       ? $"{HydraulicBoundaryLocation.Name} ({Distance:f0} m)"
+                       : $"{HydraulicBoundaryLocation.Name} ({Distance / 1000:f1} km)";
         }
 
         private bool Equals(SelectableHydraulicBoundaryLocation other)

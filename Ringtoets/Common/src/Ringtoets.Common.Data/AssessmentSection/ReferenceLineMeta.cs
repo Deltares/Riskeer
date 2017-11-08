@@ -52,6 +52,6 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// Gets the reference line.
         /// </summary>
-        public ReferenceLine ReferenceLine { get; private set; }
+        public ReferenceLine ReferenceLine { get; }
     }
 }

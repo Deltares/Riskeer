@@ -56,11 +56,11 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets the name of the <see cref="Item"/>.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the item.
         /// </summary>
-        public T Item { get; private set; }
+        public T Item { get; }
     }
 }

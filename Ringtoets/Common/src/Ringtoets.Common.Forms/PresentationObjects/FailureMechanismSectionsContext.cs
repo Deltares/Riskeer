@@ -51,6 +51,6 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the assessment section which the context belongs to.
         /// </summary>
-        public IAssessmentSection ParentAssessmentSection { get; private set; }
+        public IAssessmentSection ParentAssessmentSection { get; }
     }
 }

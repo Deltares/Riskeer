@@ -46,13 +46,13 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         {
             // Setup
             const string name = "Illustration Point Name";
-            
+
             var random = new Random(21);
             double beta = random.NextDouble();
 
             // Call
             var illustrationPoint = new TestIllustrationPointBase(name, beta);
-            
+
             // Assert
             Assert.IsInstanceOf<ICloneable>(illustrationPoint);
             Assert.AreEqual(name, illustrationPoint.Name);
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
         private class TestIllustrationPointBase : IllustrationPointBase
         {
-            public TestIllustrationPointBase(string name, double beta) 
+            public TestIllustrationPointBase(string name, double beta)
                 : base(name, beta) {}
         }
     }

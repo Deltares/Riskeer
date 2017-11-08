@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         {
             var topLevelIlustrationPoints = new List<TopLevelSubMechanismIllustrationPoint>();
             foreach (KeyValuePair<HydraRingWindDirectionClosingSituation,
-                HydraRingIllustrationPointTreeNode> topLevelIllustrationPointTreeNode in hydraRingTopLevelIllustrationPoints)
+                         HydraRingIllustrationPointTreeNode> topLevelIllustrationPointTreeNode in hydraRingTopLevelIllustrationPoints)
             {
                 IHydraRingIllustrationPoint hydraIllustrationPointData = topLevelIllustrationPointTreeNode.Value.Data;
                 HydraRingWindDirectionClosingSituation hydraWindDirectionClosingSituation = topLevelIllustrationPointTreeNode.Key;
@@ -162,7 +162,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         {
             var topLevelIllustrationPoints = new List<TopLevelFaultTreeIllustrationPoint>();
             foreach (KeyValuePair<HydraRingWindDirectionClosingSituation,
-                HydraRingIllustrationPointTreeNode> hydraRingillustrationPointTreeNode in hydraRingTopLevelIllustrationPoints)
+                         HydraRingIllustrationPointTreeNode> hydraRingillustrationPointTreeNode in hydraRingTopLevelIllustrationPoints)
             {
                 HydraRingIllustrationPointTreeNode hydraRingIllustrationPointTreeNode = hydraRingillustrationPointTreeNode.Value;
                 IHydraRingIllustrationPoint hydraIllustrationPointData = hydraRingIllustrationPointTreeNode.Data;

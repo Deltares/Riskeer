@@ -268,8 +268,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             double distance = location.Location.GetEuclideanDistanceTo(referencePoint);
 
             return distance / 1000 < 1
-                       ? string.Format("{0} ({1:f0} m)", location.Name, distance)
-                       : string.Format("{0} ({1:f1} km)", location.Name, distance / 1000);
+                       ? $"{location.Name} ({distance:f0} m)"
+                       : $"{location.Name} ({distance / 1000:f1} km)";
         }
     }
 }

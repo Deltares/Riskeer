@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 expectedFailureMechanism, value, Enumerable.Empty<IObservable>());
 
             // Call
-            TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(passedFailureMechanism, value, (m, v) => { });
+            TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(passedFailureMechanism, value, (m, v) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -86,7 +86,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 expectedFailureMechanism, expectedValue, Enumerable.Empty<IObservable>());
 
             // Call
-            TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(expectedFailureMechanism, passedValue, (m, v) => { });
+            TestDelegate test = () => tester.SetPropertyValueAfterConfirmation(expectedFailureMechanism, passedValue, (m, v) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);

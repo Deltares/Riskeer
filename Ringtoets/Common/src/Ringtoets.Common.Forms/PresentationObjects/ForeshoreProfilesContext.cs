@@ -59,11 +59,11 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the parent assessment section.
         /// </summary>
-        public IAssessmentSection ParentAssessmentSection { get; private set; }
+        public IAssessmentSection ParentAssessmentSection { get; }
 
         /// <summary>
         /// Gets the parent failure mechanism.
         /// </summary>
-        public IFailureMechanism ParentFailureMechanism { get; private set; }
+        public IFailureMechanism ParentFailureMechanism { get; }
     }
 }

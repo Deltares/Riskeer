@@ -223,8 +223,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam. ", sectionsFilePath) + Environment.NewLine +
-                                     "Er is geen vakindeling geïmporteerd.";
+            string expectedMessage = $@"Fout bij het lezen van bestand '{sectionsFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam. " +
+                                     $"{Environment.NewLine}Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -250,8 +250,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             string expectedMessage =
-                string.Format(@"Fout bij het lezen van bestand '{0}': het bestand bestaat niet. ", sectionsFilePath) + Environment.NewLine +
-                "Er is geen vakindeling geïmporteerd.";
+                $@"Fout bij het lezen van bestand '{sectionsFilePath}': het bestand bestaat niet. " +
+                $"{Environment.NewLine}Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -277,8 +277,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = "Het bestand heeft geen vakindeling. " + Environment.NewLine +
-                                     "Er is geen vakindeling geïmporteerd.";
+            string expectedMessage = "Het bestand heeft geen vakindeling. " +
+                                     $"{Environment.NewLine}Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -292,7 +292,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                       Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
-            string shapeFileName = string.Format("Artificial_referencelijn_testA_InvalidVakken_Section{0}.shp", shapeCondition);
+            string shapeFileName = $"Artificial_referencelijn_testA_InvalidVakken_Section{shapeCondition}.shp";
             string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                  Path.Combine("FailureMechanismSections", shapeFileName));
 
@@ -307,8 +307,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn. " + Environment.NewLine +
-                                     "Er is geen vakindeling geïmporteerd.";
+            string expectedMessage = "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn. " +
+                                     $"{Environment.NewLine}Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -322,7 +322,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                       Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
-            string shapeFileName = string.Format("Artificial_referencelijn_testA_InvalidVakken_{0}.shp", shapeCondition);
+            string shapeFileName = $"Artificial_referencelijn_testA_InvalidVakken_{shapeCondition}.shp";
             string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                  Path.Combine("FailureMechanismSections", shapeFileName));
 
@@ -337,8 +337,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn. " + Environment.NewLine +
-                                     "Er is geen vakindeling geïmporteerd.";
+            string expectedMessage = "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn. " +
+                                     $"{Environment.NewLine}Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -364,8 +364,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte. " + Environment.NewLine +
-                                     "Er is geen vakindeling geïmporteerd.";
+            string expectedMessage = "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte. " +
+                                     $"{Environment.NewLine}Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -391,8 +391,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte. " + Environment.NewLine +
-                                     "Er is geen vakindeling geïmporteerd.";
+            string expectedMessage = "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte. " +
+                                     $"{Environment.NewLine}Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -414,10 +414,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = string.Format(
-                "Fout bij het lezen van bestand '{0}': voor één of meerdere vakken is geen naam opgegeven. {1}Er is geen vakindeling geïmporteerd.",
-                sectionsFilePath,
-                Environment.NewLine);
+            string expectedMessage = $"Fout bij het lezen van bestand '{sectionsFilePath}': voor één of meerdere vakken is geen naam opgegeven. " +
+                                     $"{Environment.NewLine}Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);

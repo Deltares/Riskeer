@@ -33,6 +33,19 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// because the order is normally undefined when determining reference equality.</remarks>
     public class IllustrationPointControlItemComparer : IComparer<IllustrationPointControlItem>, IComparer
     {
+        public int Compare(object x, object y)
+        {
+            var lhs = x as IllustrationPointControlItem;
+            var rhs = y as IllustrationPointControlItem;
+            if (lhs == null || rhs == null)
+            {
+                throw new ArgumentException("Arguments must be of type 'IllustrationPointControlItem', but found:" +
+                                            $"x: {x.GetType()} and y: {y.GetType()}");
+            }
+
+            return Compare(lhs, rhs);
+        }
+
         public int Compare(IllustrationPointControlItem x, IllustrationPointControlItem y)
         {
             if (!ReferenceEquals(x?.Source, y?.Source))
@@ -53,19 +66,6 @@ namespace Ringtoets.Common.Forms.TestUtil
             }
 
             return x.Beta.CompareTo(y.Beta);
-        }
-
-        public int Compare(object x, object y)
-        {
-            var lhs = x as IllustrationPointControlItem;
-            var rhs = y as IllustrationPointControlItem;
-            if (lhs == null || rhs == null)
-            {
-                throw new ArgumentException("Arguments must be of type 'IllustrationPointControlItem', but found:" +
-                                            $"x: {x.GetType()} and y: {y.GetType()}");
-            }
-
-            return Compare(lhs, rhs);
         }
     }
 }

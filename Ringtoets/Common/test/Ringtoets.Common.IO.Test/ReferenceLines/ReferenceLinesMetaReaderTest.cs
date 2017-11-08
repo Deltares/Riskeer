@@ -48,8 +48,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet leeg of ongedefinieerd zijn.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -81,8 +80,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': bestandspad mag niet verwijzen naar een lege bestandsnaam.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -96,8 +94,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': het bestand bestaat niet.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
@@ -116,8 +113,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert .
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': kon geen lijnen vinden in dit bestand.",
-                                                   invalidFilePath);
+            string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': kon geen lijnen vinden in dit bestand.";
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
@@ -151,8 +147,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.", validFilePath,
-                                                   missingAttribute);
+            string expectedMessage = $"Het shapebestand '{validFilePath}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{missingAttribute}' niet gevonden.";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -170,8 +165,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             // Assert
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.", validFilePath,
-                                                   missingAttributes);
+            string expectedMessage = $"Het shapebestand '{validFilePath}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{missingAttributes}' niet gevonden.";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -270,7 +264,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             Point2D[] actualPoints = actualReferenceLineMeta.ReferenceLine.Points.ToArray();
             CollectionAssert.AreEqual(expectedPoints, actualPoints,
                                       new Point2DComparerWithTolerance(1e-6),
-                                      string.Format("Unexpected geometry found in ReferenceLineMeta with id '{0}'", actualReferenceLineMeta.AssessmentSectionId));
+                                      $"Unexpected geometry found in ReferenceLineMeta with id '{actualReferenceLineMeta.AssessmentSectionId}'");
         }
     }
 }

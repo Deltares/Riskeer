@@ -86,43 +86,25 @@ namespace Ringtoets.Common.IO.HydraRing
         public HydraRingSettingsDatabaseReader(string databaseFilePath)
             : base(databaseFilePath)
         {
-            designTableSettingsForLocationAndCalculationTypeQuery = string.Format(
-                "SELECT {0}, {1} FROM DesignTablesSettings WHERE LocationID = {2} AND CalculationTypeID = {3}",
-                minColumn,
-                maxColumn,
-                locationIdParameterName,
-                calculationTypeIdParameterName);
+            designTableSettingsForLocationAndCalculationTypeQuery =
+                $"SELECT {minColumn}, {maxColumn} " +
+                "FROM DesignTablesSettings " +
+                $"WHERE LocationID = {locationIdParameterName} AND CalculationTypeID = {calculationTypeIdParameterName}";
 
-            numericSettingsForLocationMechanismAndSubMechanismQuery = string.Format(
-                "SELECT {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13} " +
-                "FROM NumericsSettings WHERE LocationID = {14} AND MechanismID = {15} AND SubMechanismID = {16}",
-                calculationTechniqueIdColumn,
-                formStartMethodColumn,
-                formNumberOfIterationsColumn,
-                formRelaxationFactorColumn,
-                formEpsBetaColumn,
-                formEpsHohColumn,
-                formEpsZFuncColumn,
-                dsStartMethodColumn,
-                dsMinNumberOfIterationsColumn,
-                dsMaxNumberOfIterationsColumn,
-                dsVarCoefficientColumn,
-                niUMinColumn,
-                niUMaxColumn,
-                niNumberStepsColumn,
-                locationIdParameterName,
-                mechanismIdParameterName,
-                subMechanismIdParameterName);
+            numericSettingsForLocationMechanismAndSubMechanismQuery =
+                $"SELECT {calculationTechniqueIdColumn}, {formStartMethodColumn}, {formNumberOfIterationsColumn}, " +
+                $"{formRelaxationFactorColumn}, {formEpsBetaColumn}, {formEpsHohColumn}, {formEpsZFuncColumn}, " +
+                $"{dsStartMethodColumn}, {dsMinNumberOfIterationsColumn}, {dsMaxNumberOfIterationsColumn}, " +
+                $"{dsVarCoefficientColumn}, {niUMinColumn}, {niUMaxColumn}, {niNumberStepsColumn} " +
+                "FROM NumericsSettings " +
+                $"WHERE LocationID = {locationIdParameterName} AND MechanismID = {mechanismIdParameterName} AND SubMechanismID = {subMechanismIdParameterName}";
 
-            timeIntegrationSettingsForLocationAndCalculationTypeQuery = string.Format(
-                "SELECT {0} FROM TimeIntegrationSettings WHERE LocationID = {1} AND CalculationTypeID = {2}",
-                timeIntegrationSchemeIdColumn,
-                locationIdParameterName,
-                calculationTypeIdParameterName);
+            timeIntegrationSettingsForLocationAndCalculationTypeQuery =
+                $"SELECT {timeIntegrationSchemeIdColumn} " +
+                $"FROM TimeIntegrationSettings " +
+                $"WHERE LocationID = {locationIdParameterName} AND CalculationTypeID = {calculationTypeIdParameterName}";
 
-            excludedLocationsQuery = string.Format(
-                "SELECT {0} FROM ExcludedLocations",
-                locationIdColumn);
+            excludedLocationsQuery = $"SELECT {locationIdColumn} FROM ExcludedLocations";
 
             ValidateSchema();
         }
@@ -141,7 +123,7 @@ namespace Ringtoets.Common.IO.HydraRing
         {
             if (!Enum.IsDefined(calculationType.GetType(), calculationType))
             {
-                throw new InvalidEnumArgumentException("calculationType", (int) calculationType, calculationType.GetType());
+                throw new InvalidEnumArgumentException(nameof(calculationType), (int) calculationType, calculationType.GetType());
             }
 
             using (IDataReader reader = CreateDesignTablesDataReader(locationId, calculationType))
@@ -219,7 +201,7 @@ namespace Ringtoets.Common.IO.HydraRing
         {
             if (!Enum.IsDefined(calculationType.GetType(), calculationType))
             {
-                throw new InvalidEnumArgumentException("calculationType", (int) calculationType, calculationType.GetType());
+                throw new InvalidEnumArgumentException(nameof(calculationType), (int) calculationType, calculationType.GetType());
             }
 
             using (IDataReader reader = CreateTimeIntegrationDataReader(locationId, calculationType))

@@ -38,6 +38,6 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// Gets the type of well known tile source.
         /// </summary>
-        public RingtoetsWellKnownTileSource WellKnownTileSource { get; private set; }
+        public RingtoetsWellKnownTileSource WellKnownTileSource { get; }
     }
 }

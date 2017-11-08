@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the category of the folder.
         /// </summary>
-        public TreeFolderCategory Category { get; private set; }
+        public TreeFolderCategory Category { get; }
 
         public override bool Equals(object obj)
         {

@@ -150,6 +150,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             Name = sectionResult.Section.Name;
         }
 
-        public string Name { get; private set; }
+        public string Name { get; }
     }
 }

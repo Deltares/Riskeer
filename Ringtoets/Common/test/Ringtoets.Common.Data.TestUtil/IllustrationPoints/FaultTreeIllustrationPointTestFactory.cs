@@ -31,21 +31,11 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
     {
         /// <summary>
         /// Creates a new instance of <see cref="FaultTreeIllustrationPoint"/> with arbitrary value
-        /// for <see cref="CombinationType"/> and beta.
-        /// </summary>
-        /// <returns>The created <see cref="FaultTreeIllustrationPoint"/>.</returns>
-        public static FaultTreeIllustrationPoint CreateTestFaultTreeIllustrationPoint()
-        {
-            return CreateTestFaultTreeIllustrationPoint(1.23);
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="FaultTreeIllustrationPoint"/> with arbitrary value
         /// for <see cref="CombinationType"/>.
         /// </summary>
         /// <param name="beta">The beta value of the illustration point.</param>
         /// <returns>The created <see cref="FaultTreeIllustrationPoint"/>.</returns>
-        public static FaultTreeIllustrationPoint CreateTestFaultTreeIllustrationPoint(double beta)
+        public static FaultTreeIllustrationPoint CreateTestFaultTreeIllustrationPoint(double beta = 1.23)
         {
             return CreateTestFaultTreeIllustrationPointCombinationTypeAnd(beta);
         }

@@ -51,6 +51,6 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Gets the hydraulic boundary locations.
         /// </summary>
-        public List<HydraulicBoundaryLocation> Locations { get; private set; }
+        public List<HydraulicBoundaryLocation> Locations { get; }
     }
 }
