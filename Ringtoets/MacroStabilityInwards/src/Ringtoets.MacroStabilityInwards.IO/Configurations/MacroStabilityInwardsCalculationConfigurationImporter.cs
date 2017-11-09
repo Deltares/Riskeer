@@ -660,13 +660,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 return;
             }
 
-            var dikeSoilScenario = (MacroStabilityInwardsDikeSoilScenario?) new ConfigurationDikeSoilScenarioTypeConverter()
+            input.DikeSoilScenario = (MacroStabilityInwardsDikeSoilScenario) new ConfigurationDikeSoilScenarioTypeConverter()
                 .ConvertTo(configuration.DikeSoilScenario.Value, typeof(MacroStabilityInwardsDikeSoilScenario));
-
-            if (dikeSoilScenario.HasValue)
-            {
-                input.DikeSoilScenario = dikeSoilScenario.Value;
-            }
         }
 
         /// <summary>
@@ -682,13 +677,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 return;
             }
 
-            var gridDeterminationType = (MacroStabilityInwardsGridDeterminationType?) new ConfigurationGridDeterminationTypeConverter()
+            input.GridDeterminationType = (MacroStabilityInwardsGridDeterminationType) new ConfigurationGridDeterminationTypeConverter()
                 .ConvertTo(configuration.GridDeterminationType.Value, typeof(MacroStabilityInwardsGridDeterminationType));
-
-            if (gridDeterminationType.HasValue)
-            {
-                input.GridDeterminationType = gridDeterminationType.Value;
-            }
         }
 
         /// <summary>
@@ -704,13 +694,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 return;
             }
 
-            var tangentLineDeterminationType = (MacroStabilityInwardsTangentLineDeterminationType?) new ConfigurationTangentLineDeterminationTypeConverter()
-                .ConvertTo(configuration.TangentLineDeterminationType.Value, typeof(MacroStabilityInwardsTangentLineDeterminationType));
-
-            if (tangentLineDeterminationType.HasValue)
-            {
-                input.TangentLineDeterminationType = tangentLineDeterminationType.Value;
-            }
+            input.TangentLineDeterminationType = (MacroStabilityInwardsTangentLineDeterminationType)
+                new ConfigurationTangentLineDeterminationTypeConverter()
+                    .ConvertTo(configuration.TangentLineDeterminationType.Value, typeof(MacroStabilityInwardsTangentLineDeterminationType));
         }
 
         /// <summary>
