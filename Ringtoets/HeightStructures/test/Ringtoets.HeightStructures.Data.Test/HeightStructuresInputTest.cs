@@ -80,7 +80,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             RoundedDouble expectedDeviationWaveDirection = input.DeviationWaveDirection;
 
-            // Pre-condition
+            // Precondition
             AssertHeightStructureInput(structure, input);
 
             // When

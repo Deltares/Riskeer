@@ -266,7 +266,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             GrassCoverErosionInwardsCalculation[] calculationsWithDikeProfilesAndOutput =
                 calculationsWithDikeProfiles.Where(calc => calc.HasOutput).ToArray();
 
-            // Pre-condition
+            // Precondition
             CollectionAssert.IsNotEmpty(calculationsWithDikeProfiles);
 
             // Call
@@ -436,7 +436,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                                 .Where(calc => ReferenceEquals(profileToKeep, calc.InputParameters.DikeProfile))
                                 .ToArray();
 
-            // Pre-condition
+            // Precondition
             CollectionAssert.IsNotEmpty(affectedCalculationsWithOutput);
 
             // Call

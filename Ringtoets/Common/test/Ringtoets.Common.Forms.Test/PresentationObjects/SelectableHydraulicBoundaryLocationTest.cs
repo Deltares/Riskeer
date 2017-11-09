@@ -199,7 +199,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var inputItem1 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint1);
             var inputItem2 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint2);
 
-            // Pre-condition
+            // Precondition
             Assert.AreEqual(inputItem1, inputItem2);
 
             // Call

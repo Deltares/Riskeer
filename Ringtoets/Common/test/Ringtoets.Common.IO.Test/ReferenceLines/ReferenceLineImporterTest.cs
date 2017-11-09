@@ -374,7 +374,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
             importer.SetProgressChanged((description, step, steps) => importer.Cancel());
 
-            // Pre-condition
+            // Precondition
             bool importSuccessful = importer.Import();
             Assert.IsFalse(importSuccessful);
             importer.SetProgressChanged(null);

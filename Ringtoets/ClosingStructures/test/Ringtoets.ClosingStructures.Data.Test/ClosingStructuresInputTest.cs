@@ -121,7 +121,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             RoundedDouble expectedDeviationWaveDirection = input.DeviationWaveDirection;
             double expectedFailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
-            // Pre-condition
+            // Precondition
             AssertClosingStructureInput(structure, input);
 
             // When

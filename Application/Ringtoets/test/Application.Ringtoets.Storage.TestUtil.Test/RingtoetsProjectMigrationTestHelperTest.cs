@@ -111,7 +111,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             string applicationScriptFilePath = Path.Combine(solutionRoot, "build", $"{baseFileName}.sql");
             string migrationScriptFilePath = Path.Combine(solutionRoot, "Application", "Ringtoets", "src", "Application.Ringtoets.Migration.Core", "EmbeddedResources", $"{migrationFileName}.sql");
 
-            // Pre-condition
+            // Precondition
             AssertFilePath(applicationScriptFilePath);
             AssertFilePath(migrationScriptFilePath);
 

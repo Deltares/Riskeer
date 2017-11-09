@@ -480,7 +480,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var dikeProfilesImporter = new DikeProfilesImporter(new DikeProfileCollection(), referenceLine, filePath, updateDataStrategy, messageProvider);
             dikeProfilesImporter.SetProgressChanged((description, step, steps) => dikeProfilesImporter.Cancel());
 
-            // Pre-condition
+            // Precondition
             bool importResult = dikeProfilesImporter.Import();
             Assert.IsFalse(importResult);
             CollectionAssert.IsEmpty(new DikeProfileCollection());

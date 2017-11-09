@@ -170,7 +170,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             NormalDistribution expectedModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow;
             double expectedFailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
-            // Pre-condition
+            // Precondition
             Assert.AreSame(structure, input.Structure);
 
             // When

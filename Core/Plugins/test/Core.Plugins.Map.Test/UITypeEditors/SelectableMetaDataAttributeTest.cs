@@ -135,7 +135,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
             var selectableAttribute1 = new SelectableMetaDataAttribute(attribute);
             var selectableAttribute2 = new SelectableMetaDataAttribute(attribute);
 
-            // Pre-condition
+            // Precondition
             Assert.IsTrue(selectableAttribute1.Equals(selectableAttribute2));
 
             // Call

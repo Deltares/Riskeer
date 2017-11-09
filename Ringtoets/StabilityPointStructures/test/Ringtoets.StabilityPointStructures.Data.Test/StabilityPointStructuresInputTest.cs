@@ -196,7 +196,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             RoundedDouble expectedFactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure;
             double expectedFailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
-            // Pre-condition
+            // Precondition
             AssertStabilityPointStructureInput(structure, input);
 
             // When
