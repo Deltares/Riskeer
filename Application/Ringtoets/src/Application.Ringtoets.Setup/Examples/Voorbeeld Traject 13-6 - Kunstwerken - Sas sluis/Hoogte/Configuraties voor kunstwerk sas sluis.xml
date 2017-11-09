@@ -5,7 +5,6 @@
     <kunstwerk>17k6</kunstwerk>
     <orientatie>180</orientatie>
     <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
-    <illustratiepunteninlezen>true</illustratiepunteninlezen>
     <stochasten>
       <stochast naam="breedtebodembescherming">
         <verwachtingswaarde>10</verwachtingswaarde>
@@ -38,6 +37,7 @@
         <standaardafwijking>0.05</standaardafwijking>
       </stochast>
     </stochasten>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
   </berekening>
   <map naam="Gevoeligheid">
     <berekening naam="Stormduur 8 uur">
@@ -45,7 +45,6 @@
       <kunstwerk>17k6</kunstwerk>
       <orientatie>180</orientatie>
       <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
-      <illustratiepunteninlezen>false</illustratiepunteninlezen>
       <stochasten>
         <stochast naam="breedtebodembescherming">
           <verwachtingswaarde>10</verwachtingswaarde>
@@ -78,6 +77,7 @@
           <standaardafwijking>0.05</standaardafwijking>
         </stochast>
       </stochasten>
+      <illustratiepunteninlezen>false</illustratiepunteninlezen>
     </berekening>
   </map>
 </configuratie>

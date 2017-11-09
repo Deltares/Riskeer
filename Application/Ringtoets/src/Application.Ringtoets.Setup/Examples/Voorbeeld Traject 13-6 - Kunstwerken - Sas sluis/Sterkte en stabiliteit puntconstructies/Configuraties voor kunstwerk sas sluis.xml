@@ -14,7 +14,6 @@
     <kansaanvaringtweedekeermiddel>1E-08</kansaanvaringtweedekeermiddel>
     <afstandonderkantwandteendijk>0</afstandonderkantwandteendijk>
     <volumiekgewichtwater>9.81</volumiekgewichtwater>
-    <illustratiepunteninlezen>true</illustratiepunteninlezen>
     <stochasten>
       <stochast naam="breedtebodembescherming">
         <verwachtingswaarde>10</verwachtingswaarde>
@@ -101,6 +100,7 @@
         <standaardafwijking>0.1</standaardafwijking>
       </stochast>
     </stochasten>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
   </berekening>
   <map naam="Gevoeligheid">
     <berekening naam="Kwadratisch belastingmodel">
@@ -117,7 +117,6 @@
       <kansaanvaringtweedekeermiddel>1E-08</kansaanvaringtweedekeermiddel>
       <afstandonderkantwandteendijk>0</afstandonderkantwandteendijk>
       <volumiekgewichtwater>9.81</volumiekgewichtwater>
-      <illustratiepunteninlezen>false</illustratiepunteninlezen>
       <stochasten>
         <stochast naam="breedtebodembescherming">
           <verwachtingswaarde>10</verwachtingswaarde>
@@ -204,6 +203,7 @@
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
       </stochasten>
+      <illustratiepunteninlezen>false</illustratiepunteninlezen>
     </berekening>
   </map>
 </configuratie>
