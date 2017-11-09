@@ -921,12 +921,12 @@ namespace Application.Ringtoets.Storage.TestUtil
                 {
                     new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
                     {
-                        Name = "AA",
+                        Name = "With HydraulicBoundaryLocation",
                         IsRelevant = true,
                         Contribution = (RoundedDouble) 1.0,
                         Comments =
                         {
-                            Body = "Nice comment about this calculation!"
+                            Body = "Calculation with hydraulic boundary location and output",
                         },
                         InputParameters =
                         {
@@ -970,6 +970,55 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                                     13.13, 14.14, 0.15,
                                                                                     0.16, 17.17,
                                                                                     0.18, 19.19, 20.20)
+                    },
+                    new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
+                    {
+                        Name = "Manual input",
+                        IsRelevant = true,
+                        Contribution = (RoundedDouble) 1.0,
+                        Comments =
+                        {
+                            Body = "Calculation with manual assessment level and output",
+                        },
+                        InputParameters =
+                        {
+                            SurfaceLine = pipingFailureMechanism.SurfaceLines.First(),
+                            StochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(),
+                            StochasticSoilProfile = pipingFailureMechanism.StochasticSoilModels.First()
+                                                                          .StochasticSoilProfiles.First(),
+                            EntryPointL = (RoundedDouble) 1.0,
+                            ExitPointL = (RoundedDouble) 2.0,
+                            PhreaticLevelExit =
+                            {
+                                Mean = (RoundedDouble) 1.1,
+                                StandardDeviation = (RoundedDouble) 2.2
+                            },
+                            DampingFactorExit =
+                            {
+                                Mean = (RoundedDouble) 3.3,
+                                StandardDeviation = (RoundedDouble) 4.4
+                            },
+                            SaturatedVolumicWeightOfCoverageLayer =
+                            {
+                                Mean = (RoundedDouble) 7.7,
+                                StandardDeviation = (RoundedDouble) 6.6,
+                                Shift = (RoundedDouble) 5.5
+                            },
+                            Diameter70 =
+                            {
+                                Mean = (RoundedDouble) 8.8,
+                                CoefficientOfVariation = (RoundedDouble) 9.9
+                            },
+                            DarcyPermeability =
+                            {
+                                Mean = (RoundedDouble) 10.10,
+                                CoefficientOfVariation = (RoundedDouble) 11.11
+                            },
+                            UseAssessmentLevelManualInput = true,
+                            AssessmentLevel = (RoundedDouble) 6.0
+                        },
+                        Output = new TestPipingOutput(),
+                        SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
                     }
                 }
             });
@@ -1295,7 +1344,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                 {
                     new MacroStabilityInwardsCalculationScenario
                     {
-                        Name = "Calculation With output",
+                        Name = "Calculation with hydraulic boundary location and output",
                         IsRelevant = true,
                         Contribution = (RoundedDouble) 1.0,
                         Comments =
@@ -1306,6 +1355,85 @@ namespace Application.Ringtoets.Storage.TestUtil
                         {
                             SurfaceLine = macroStabilityInwardsFailureMechanism.SurfaceLines.First(),
                             HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                            StochasticSoilModel = macroStabilityInwardsFailureMechanism.StochasticSoilModels.First(),
+                            StochasticSoilProfile = macroStabilityInwardsFailureMechanism.StochasticSoilModels.First()
+                                                                                         .StochasticSoilProfiles.First(),
+                            SlipPlaneMinimumDepth = (RoundedDouble) 0.2,
+                            SlipPlaneMinimumLength = (RoundedDouble) 0.3,
+                            MaximumSliceWidth = (RoundedDouble) 0.4,
+                            MoveGrid = true,
+                            DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand,
+                            WaterLevelRiverAverage = (RoundedDouble) 0.6,
+                            DrainageConstructionPresent = true,
+                            XCoordinateDrainageConstruction = (RoundedDouble) 0.7,
+                            ZCoordinateDrainageConstruction = (RoundedDouble) 0.8,
+                            LocationInputExtreme =
+                            {
+                                WaterLevelPolder = (RoundedDouble) 0.9,
+                                UseDefaultOffsets = false,
+                                PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) 1.0,
+                                PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) 1.1,
+                                PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) 1.2,
+                                PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) 1.3,
+                                PenetrationLength = (RoundedDouble) 1.4
+                            },
+                            LocationInputDaily =
+                            {
+                                WaterLevelPolder = (RoundedDouble) 1.5,
+                                UseDefaultOffsets = true,
+                                PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) 1.6,
+                                PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) 1.7,
+                                PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) 1.8,
+                                PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) 1.9
+                            },
+                            AdjustPhreaticLine3And4ForUplift = false,
+                            LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) 2.0,
+                            LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) 2.1,
+                            LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) 2.2,
+                            LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) 2.3,
+                            PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) 2.4,
+                            PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) 2.5,
+                            GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual,
+                            TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
+                            TangentLineZTop = (RoundedDouble) 2.7,
+                            TangentLineZBottom = (RoundedDouble) 2.6,
+                            TangentLineNumber = 2,
+                            LeftGrid =
+                            {
+                                XLeft = (RoundedDouble) 2.8,
+                                XRight = (RoundedDouble) 2.9,
+                                NumberOfHorizontalPoints = 3,
+                                ZTop = (RoundedDouble) 3.1,
+                                ZBottom = (RoundedDouble) 3.0,
+                                NumberOfVerticalPoints = 4
+                            },
+                            RightGrid =
+                            {
+                                XLeft = (RoundedDouble) 3.2,
+                                XRight = (RoundedDouble) 3.3,
+                                NumberOfHorizontalPoints = 5,
+                                ZTop = (RoundedDouble) 3.5,
+                                ZBottom = (RoundedDouble) 3.4,
+                                NumberOfVerticalPoints = 6
+                            },
+                            CreateZones = false
+                        },
+                        Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
+                        SemiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(1, 0.7, 8.8, 0.9,
+                                                                                                   10.10, 11.11)
+                    },
+                    new MacroStabilityInwardsCalculationScenario
+                    {
+                        Name = "Calculation with manual assessment level and output",
+                        IsRelevant = true,
+                        Contribution = (RoundedDouble) 1.0,
+                        Comments =
+                        {
+                            Body = "Nice comment about this calculation!"
+                        },
+                        InputParameters =
+                        {
+                            SurfaceLine = macroStabilityInwardsFailureMechanism.SurfaceLines.First(),
                             StochasticSoilModel = macroStabilityInwardsFailureMechanism.StochasticSoilModels.First(),
                             StochasticSoilProfile = macroStabilityInwardsFailureMechanism.StochasticSoilModels.First()
                                                                                          .StochasticSoilProfiles.First(),
@@ -1372,8 +1500,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             CreateZones = false
                         },
                         Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                        SemiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(1, 0.7, 8.8, 0.9,
-                                                                                                   10.10, 11.11)
+                        SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
                     }
                 }
             });

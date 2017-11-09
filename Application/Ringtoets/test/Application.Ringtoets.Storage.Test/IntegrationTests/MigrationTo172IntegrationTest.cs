@@ -64,34 +64,40 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 using (var reader = new MigratedDatabaseReader(targetFilePath))
                 {
                     AssertTablesContentMigrated(reader, sourceFilePath);
+
                     AssertCalculationGroup(reader, sourceFilePath);
 
-                    AssertMacroStabilityInwardsFailureMechanism(reader);
-                    AssertGrassCoverErosionOutwardsFailureMechanism(reader);
-                    AssertStabilityStoneCoverFailureMechanism(reader);
-                    AssertWaveImpactAsphaltCoverFailureMechanism(reader);
-                    AssertHeightStructuresFailureMechanism(reader);
                     AssertClosingStructuresFailureMechanism(reader);
-                    AssertStabilityPointStructuresFailureMechanism(reader);
-                    AssertGrassCoverErosionInwardsFailureMechanism(reader);
-                    AssertHydraulicBoundaryLocations(reader);
-
                     AssertClosingStructures(reader);
-                    AssertHeightStructures(reader);
-                    AssertStabilityPointStructures(reader);
+                    AssertDuneErosionFailureMechanism(reader);
                     AssertForeshoreProfiles(reader);
 
+                    AssertGrassCoverErosionInwardsFailureMechanism(reader);
+                    AssertGrassCoverErosionOutwardsFailureMechanism(reader);
+
+                    AssertHeightStructuresFailureMechanism(reader);
+                    AssertHeightStructures(reader);
+                    AssertHydraulicBoundaryLocations(reader);
+                    AssertMacroStabilityInwardsFailureMechanism(reader);
+
+                    AssertPipingFailureMechanism(reader, sourceFilePath);
+                    AssertPipingCharacteristicPoints(reader, sourceFilePath);
+                    AssertPipingStochasticSoilProfiles(reader, sourceFilePath);
                     AssertPipingSoilProfiles(reader, sourceFilePath);
                     AssertPipingSoilLayers(reader, sourceFilePath);
-                    AssertPipingStochasticSoilProfiles(reader, sourceFilePath);
-                    AssertPipingCharacteristicPoints(reader, sourceFilePath);
+
+                    AssertStabilityPointStructuresFailureMechanism(reader);
+                    AssertStabilityPointStructures(reader);
+
+                    AssertWaveImpactAsphaltCoverFailureMechanism(reader);
+                    AssertStabilityStoneCoverFailureMechanism(reader);
 
                     AssertFailureMechanismSectionResults(reader, "ClosingStructuresSectionResultEntity");
-                    AssertFailureMechanismSectionResults(reader, "StabilityPointStructuresSectionResultEntity");
-                    AssertFailureMechanismSectionResults(reader, "HeightStructuresSectionResultEntity");
-                    AssertFailureMechanismSectionResults(reader, "PipingSectionResultEntity");
                     AssertFailureMechanismSectionResults(reader, "GrassCoverErosionInwardsSectionResultEntity");
+                    AssertFailureMechanismSectionResults(reader, "HeightStructuresSectionResultEntity");
                     AssertFailureMechanismSectionResults(reader, "MacroStabilityInwardsSectionResultEntity");
+                    AssertFailureMechanismSectionResults(reader, "PipingSectionResultEntity");
+                    AssertFailureMechanismSectionResults(reader, "StabilityPointStructuresSectionResultEntity");
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
@@ -707,7 +713,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT " +
                 "COUNT() " +
                 "FROM [SOURCEPROJECT].FailureMechanismEntity " +
-                "WHERE FailureMechanismType = 2" +
+                "WHERE [FailureMechanismType] = 2" +
                 ") " +
                 "FROM [SOURCEPROJECT].CalculationGroupEntity ";
 
@@ -719,8 +725,21 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             reader.AssertReturnedDataIsValid(validateMigratedTable);
         }
 
-        private static void AssertGrassCoverErosionOutwardsFailureMechanism(MigratedDatabaseReader reader)
+        private static void AssertClosingStructuresFailureMechanism(MigratedDatabaseReader reader)
         {
+            const string validateStructuresCollectionSourcePath =
+                "SELECT SUM([IsInvalid]) = 0 " +
+                "FROM (SELECT " +
+                "CASE WHEN " +
+                "COUNT([ClosingStructureEntityId]) AND [ClosingStructureCollectionSourcePath] IS NULL " +
+                "OR " +
+                "[ClosingStructureCollectionSourcePath] IS NOT NULL AND NOT COUNT([ClosingStructureEntityId]) " +
+                "THEN 1 ELSE 0 END AS [IsInvalid] " +
+                "FROM [ClosingStructuresFailureMechanismMetaEntity] " +
+                "LEFT JOIN [ClosingStructureEntity] USING ([FailureMechanismEntityId]) " +
+                "GROUP BY [FailureMechanismEntityId]);";
+            reader.AssertReturnedDataIsValid(validateStructuresCollectionSourcePath);
+
             const string validateForeshoreProfileCollectionSourcePath =
                 "SELECT SUM([IsInvalid]) = 0 " +
                 "FROM(" +
@@ -729,72 +748,96 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "COUNT([ForeshoreProfileEntityId]) AND [ForeshoreProfileCollectionSourcePath] IS NULL " +
                 "OR " +
                 "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
-                "THEN 1 ELSE 0 END AS[IsInvalid] " +
-                "FROM[GrassCoverErosionOutwardsFailureMechanismMetaEntity] " +
-                "LEFT JOIN[ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
-                "GROUP BY[FailureMechanismEntityId]);";
+                "THEN 1 ELSE 0 END AS [IsInvalid] " +
+                "FROM [ClosingStructuresFailureMechanismMetaEntity] " +
+                "LEFT JOIN [ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
+                "GROUP BY [FailureMechanismEntityId]);";
             reader.AssertReturnedDataIsValid(validateForeshoreProfileCollectionSourcePath);
 
             const string validateCalculations =
                 "SELECT COUNT() = 0 " +
-                "FROM GrassCoverErosionOutwardsHydraulicLocationEntity " +
-                "WHERE ShouldWaveHeightIllustrationPointsBeCalculated != 0 " +
-                "|| ShouldDesignWaterLevelIllustrationPointsBeCalculated != 0;";
+                "FROM [ClosingStructuresCalculationEntity] " +
+                "WHERE [ShouldIllustrationPointsBeCalculated] != 0;";
             reader.AssertReturnedDataIsValid(validateCalculations);
-        }
 
-        private static void AssertMacroStabilityInwardsFailureMechanism(MigratedDatabaseReader reader)
-        {
-            const string validateFailureMechanisms =
-                "SELECT COUNT() = (SELECT COUNT() FROM FailureMechanismEntity WHERE FailureMechanismType = 2) " +
-                "FROM MacroStabilityInwardsFailureMechanismMetaEntity " +
-                "WHERE A = 0.033 " +
-                "AND StochasticSoilModelCollectionSourcePath IS NULL " +
-                "AND SurfaceLineCollectionSourcePath IS NULL " +
-                "AND FailureMechanismEntityId IN " +
-                "(SELECT FailureMechanismEntityId FROM FailureMechanismEntity WHERE FailureMechanismType = 2);";
-            reader.AssertReturnedDataIsValid(validateFailureMechanisms);
-
-            const string validateMacroStabilityInwardsFailureMechanismCalculationGroup =
+            const string validateCalculationOutputs =
                 "SELECT COUNT() = 0 " +
-                "FROM FailureMechanismEntity " +
-                "WHERE FailureMechanismType = 2 " +
-                "AND CalculationGroupEntityId IS NULL";
-            reader.AssertReturnedDataIsValid(validateMacroStabilityInwardsFailureMechanismCalculationGroup);
+                "FROM [ClosingStructuresOutputEntity]";
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
         }
 
-        private static void AssertStabilityStoneCoverFailureMechanism(MigratedDatabaseReader reader)
+        private static void AssertClosingStructures(MigratedDatabaseReader reader)
+        {
+            const string validateClosingStructures =
+                "SELECT COUNT(DISTINCT(Id)) = COUNT() " +
+                "FROM [ClosingStructureEntity] " +
+                "GROUP BY [FailureMechanismEntityId]";
+            reader.AssertReturnedDataIsValid(validateClosingStructures);
+        }
+
+        private static void AssertDuneErosionFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
+                "FROM [DuneLocationOutputEntity]";
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
+        }
+
+        private static void AssertForeshoreProfiles(MigratedDatabaseReader reader)
+        {
+            const string validateForeshoreProfiles =
+                "SELECT COUNT(DISTINCT([Id])) IS COUNT() " +
+                "FROM [ForeshoreProfileEntity] " +
+                "GROUP BY [FailureMechanismEntityId]";
+            reader.AssertReturnedDataIsValid(validateForeshoreProfiles);
+        }
+
+        private static void AssertGrassCoverErosionInwardsFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateCalculations =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionInwardsCalculationEntity] " +
+                "WHERE [ShouldDikeHeightIllustrationPointsBeCalculated] != 0 AND " +
+                "[ShouldOvertoppingRateIllustrationPointsBeCalculated] != 0 AND " +
+                "[ShouldOvertoppingOutputIllustrationPointsBeCalculated] != 0;";
+            reader.AssertReturnedDataIsValid(validateCalculations);
+
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionInwardsDikeHeightOutputEntity] " +
+                "JOIN [GrassCoverErosionInwardsOutputEntity] " +
+                "JOIN [GrassCoverErosionInwardsOvertoppingRateOutputEntity];";
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
+        }
+
+        private static void AssertGrassCoverErosionOutwardsFailureMechanism(MigratedDatabaseReader reader)
         {
             const string validateForeshoreProfileCollectionSourcePath =
                 "SELECT SUM([IsInvalid]) = 0 " +
-                "FROM(" +
+                "FROM (" +
                 "SELECT " +
                 "CASE WHEN " +
                 "COUNT([ForeshoreProfileEntityId]) AND [ForeshoreProfileCollectionSourcePath] IS NULL " +
                 "OR " +
                 "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
                 "THEN 1 ELSE 0 END AS[IsInvalid] " +
-                "FROM[StabilityStoneCoverFailureMechanismMetaEntity] " +
-                "LEFT JOIN[ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
-                "GROUP BY[FailureMechanismEntityId]);";
+                "FROM [GrassCoverErosionOutwardsFailureMechanismMetaEntity] " +
+                "LEFT JOIN [ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
+                "GROUP BY [FailureMechanismEntityId]);";
             reader.AssertReturnedDataIsValid(validateForeshoreProfileCollectionSourcePath);
-        }
 
-        private static void AssertWaveImpactAsphaltCoverFailureMechanism(MigratedDatabaseReader reader)
-        {
-            const string validateForeshoreProfileCollectionSourcePath =
-                "SELECT SUM([IsInvalid]) = 0 " +
-                "FROM(" +
-                "SELECT " +
-                "CASE WHEN " +
-                "COUNT([ForeshoreProfileEntityId]) AND [ForeshoreProfileCollectionSourcePath] IS NULL " +
-                "OR " +
-                "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
-                "THEN 1 ELSE 0 END AS[IsInvalid] " +
-                "FROM[WaveImpactAsphaltCoverFailureMechanismMetaEntity] " +
-                "LEFT JOIN[ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
-                "GROUP BY[FailureMechanismEntityId]);";
-            reader.AssertReturnedDataIsValid(validateForeshoreProfileCollectionSourcePath);
+            const string validateCalculations =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionOutwardsHydraulicLocationEntity] " +
+                "WHERE [ShouldWaveHeightIllustrationPointsBeCalculated] != 0 " +
+                "|| [ShouldDesignWaterLevelIllustrationPointsBeCalculated] != 0;";
+            reader.AssertReturnedDataIsValid(validateCalculations);
+
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionOutwardsHydraulicLocationOutputEntity] " +
+                "JOIN [GrassCoverErosionOutwardsWaveConditionsOutputEntity]";
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
         }
 
         private static void AssertHeightStructuresFailureMechanism(MigratedDatabaseReader reader)
@@ -828,45 +871,141 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             const string validateCalculations =
                 "SELECT COUNT() = 0 " +
-                "FROM HeightStructuresCalculationEntity " +
-                "WHERE ShouldIllustrationPointsBeCalculated != 0;";
+                "FROM [HeightStructuresCalculationEntity] " +
+                "WHERE [ShouldIllustrationPointsBeCalculated] != 0;";
             reader.AssertReturnedDataIsValid(validateCalculations);
+
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
+                "FROM [HeightStructuresOutputEntity]";
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
         }
 
-        private static void AssertClosingStructuresFailureMechanism(MigratedDatabaseReader reader)
+        private static void AssertHeightStructures(MigratedDatabaseReader reader)
         {
-            const string validateStructuresCollectionSourcePath =
-                "SELECT SUM([IsInvalid]) = 0 " +
-                "FROM (SELECT " +
-                "CASE WHEN " +
-                "COUNT([ClosingStructureEntityId]) AND [ClosingStructureCollectionSourcePath] IS NULL " +
-                "OR " +
-                "[ClosingStructureCollectionSourcePath] IS NOT NULL AND NOT COUNT([ClosingStructureEntityId]) " +
-                "THEN 1 ELSE 0 END AS [IsInvalid] " +
-                "FROM [ClosingStructuresFailureMechanismMetaEntity] " +
-                "LEFT JOIN [ClosingStructureEntity] USING ([FailureMechanismEntityId]) " +
-                "GROUP BY [FailureMechanismEntityId]);";
-            reader.AssertReturnedDataIsValid(validateStructuresCollectionSourcePath);
+            const string validateHeightStructures =
+                "SELECT COUNT(DISTINCT(Id)) = COUNT() " +
+                "FROM [HeightStructureEntity] " +
+                "GROUP BY [FailureMechanismEntityId]";
+            reader.AssertReturnedDataIsValid(validateHeightStructures);
+        }
 
-            const string validateForeshoreProfileCollectionSourcePath =
-                "SELECT SUM([IsInvalid]) = 0 " +
-                "FROM(" +
-                "SELECT " +
-                "CASE WHEN " +
-                "COUNT([ForeshoreProfileEntityId]) AND [ForeshoreProfileCollectionSourcePath] IS NULL " +
-                "OR " +
-                "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
-                "THEN 1 ELSE 0 END AS[IsInvalid] " +
-                "FROM [ClosingStructuresFailureMechanismMetaEntity] " +
-                "LEFT JOIN [ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
-                "GROUP BY [FailureMechanismEntityId]);";
-            reader.AssertReturnedDataIsValid(validateForeshoreProfileCollectionSourcePath);
-
+        private static void AssertHydraulicBoundaryLocations(MigratedDatabaseReader reader)
+        {
             const string validateCalculations =
                 "SELECT COUNT() = 0 " +
-                "FROM ClosingStructuresCalculationEntity " +
-                "WHERE ShouldIllustrationPointsBeCalculated != 0;";
+                "FROM [HydraulicLocationEntity] " +
+                "WHERE [ShouldWaveHeightIllustrationPointsBeCalculated] != 0 " +
+                "|| [ShouldDesignWaterLevelIllustrationPointsBeCalculated] != 0;";
             reader.AssertReturnedDataIsValid(validateCalculations);
+
+            const string validateOutputs =
+                "SELECT COUNT() = 0 " +
+                "FROM [HydraulicLocationOutputEntity]";
+            reader.AssertReturnedDataIsValid(validateOutputs);
+        }
+
+        private static void AssertMacroStabilityInwardsFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateFailureMechanisms =
+                "SELECT COUNT() = (SELECT COUNT() FROM FailureMechanismEntity WHERE FailureMechanismType = 2) " +
+                "FROM [MacroStabilityInwardsFailureMechanismMetaEntity] " +
+                "WHERE [A] = 0.033 " +
+                "AND [StochasticSoilModelCollectionSourcePath] IS NULL " +
+                "AND [SurfaceLineCollectionSourcePath] IS NULL " +
+                "AND [FailureMechanismEntityId] IN " +
+                "(SELECT [FailureMechanismEntityId] FROM [FailureMechanismEntity] WHERE [FailureMechanismType] = 2);";
+            reader.AssertReturnedDataIsValid(validateFailureMechanisms);
+
+            const string validateMacroStabilityInwardsFailureMechanismCalculationGroup =
+                "SELECT COUNT() = 0 " +
+                "FROM [FailureMechanismEntity] " +
+                "WHERE [FailureMechanismType] = 2 " +
+                "AND [CalculationGroupEntityId] IS NULL";
+            reader.AssertReturnedDataIsValid(validateMacroStabilityInwardsFailureMechanismCalculationGroup);
+        }
+
+        private static void AssertPipingFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
+                "FROM [PipingCalculationOutputEntity] " +
+                "LEFT JOIN [PipingSemiProbabilisticOutputEntity] USING(PipingCalculationEntityId) " +
+                "WHERE [PipingCalculationEntityId] IN( " +
+                "SELECT [PipingCalculationEntityId] " +
+                "FROM [PipingCalculationEntity] " +
+                "WHERE [UseAssessmentLevelManualInput] IS 0);";
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
+
+            string validateCalculationOutputsWithManualInput =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = ( " +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].PipingCalculationOutputEntity " +
+                "LEFT JOIN [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity USING(PipingCalculationEntityId) " +
+                "WHERE [PipingCalculationEntityId] IN( " +
+                "SELECT [PipingCalculationEntityId] " +
+                "FROM [SOURCEPROJECT].PipingCalculationEntity " +
+                "WHERE [UseAssessmentLevelManualInput] IS 1 " +
+                ") " +
+                ") " +
+                "FROM [PipingCalculationOutputEntity] " +
+                "LEFT JOIN [PipingSemiProbabilisticOutputEntity] USING(PipingCalculationEntityId) " +
+                "WHERE [PipingCalculationEntityId] IN( " +
+                "SELECT [PipingCalculationEntityId] " +
+                "FROM [PipingCalculationEntity] " +
+                "WHERE [UseAssessmentLevelManualInput] IS 1);" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationOutputsWithManualInput);
+        }
+
+        private static void AssertPipingCharacteristicPoints(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSoilProfiles =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].CharacteristicPointEntity) " +
+                "FROM [PipingCharacteristicPointEntity]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSoilProfiles);
+        }
+
+        private static void AssertPipingStochasticSoilProfiles(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSoilProfiles =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StochasticSoilProfileEntity) " +
+                "FROM [PipingStochasticSoilProfileEntity]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSoilProfiles);
+        }
+
+        private static void AssertPipingSoilProfiles(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSoilProfiles =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].SoilProfileEntity) " +
+                "FROM [PipingSoilProfileEntity] " +
+                "WHERE [SourceType] IN (1,2);" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSoilProfiles);
+        }
+
+        private static void AssertPipingSoilLayers(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSoilLayers =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].SoilLayerEntity) " +
+                "FROM [PipingSoilLayerEntity]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSoilLayers);
+
+            string validateSoilLayerColors =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].SoilLayerEntity WHERE [Color] = 0) " +
+                "FROM [PipingSoilLayerEntity] " +
+                "WHERE [Color] IS NULL;" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSoilLayerColors);
         }
 
         private static void AssertStabilityPointStructuresFailureMechanism(MigratedDatabaseReader reader)
@@ -886,13 +1025,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             const string validateForeshoreProfileCollectionSourcePath =
                 "SELECT SUM([IsInvalid]) = 0 " +
-                "FROM(" +
+                "FROM (" +
                 "SELECT " +
                 "CASE WHEN " +
                 "COUNT([ForeshoreProfileEntityId]) AND [ForeshoreProfileCollectionSourcePath] IS NULL " +
                 "OR " +
                 "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
-                "THEN 1 ELSE 0 END AS[IsInvalid] " +
+                "THEN 1 ELSE 0 END AS [IsInvalid] " +
                 "FROM [StabilityPointStructuresFailureMechanismMetaEntity] " +
                 "LEFT JOIN [ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
                 "GROUP BY [FailureMechanismEntityId]);";
@@ -900,30 +1039,121 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             const string validateCalculations =
                 "SELECT COUNT() = 0 " +
-                "FROM StabilityPointStructuresCalculationEntity " +
-                "WHERE ShouldIllustrationPointsBeCalculated != 0;";
+                "FROM [StabilityPointStructuresCalculationEntity] " +
+                "WHERE [ShouldIllustrationPointsBeCalculated] != 0;";
             reader.AssertReturnedDataIsValid(validateCalculations);
+
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
+                "FROM [StabilityPointStructuresOutputEntity]";
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
         }
 
-        private static void AssertGrassCoverErosionInwardsFailureMechanism(MigratedDatabaseReader reader)
+        private static void AssertStabilityPointStructures(MigratedDatabaseReader reader)
         {
-            const string validateCalculations =
-                "SELECT COUNT() = 0 " +
-                "FROM GrassCoverErosionInwardsCalculationEntity " +
-                "WHERE ShouldDikeHeightIllustrationPointsBeCalculated != 0 AND " +
-                "ShouldOvertoppingRateIllustrationPointsBeCalculated != 0 AND " +
-                "ShouldOvertoppingOutputIllustrationPointsBeCalculated != 0;";
-            reader.AssertReturnedDataIsValid(validateCalculations);
+            const string validateStabilityPointStructures =
+                "SELECT COUNT(DISTINCT(Id)) = COUNT() " +
+                "FROM [StabilityPointStructureEntity] " +
+                "GROUP BY [FailureMechanismEntityId]";
+            reader.AssertReturnedDataIsValid(validateStabilityPointStructures);
         }
 
-        private static void AssertHydraulicBoundaryLocations(MigratedDatabaseReader reader)
+        private static void AssertStabilityStoneCoverFailureMechanism(MigratedDatabaseReader reader)
         {
-            const string validateCalculations =
+            const string validateForeshoreProfileCollectionSourcePath =
+                "SELECT SUM([IsInvalid]) = 0 " +
+                "FROM (" +
+                "SELECT " +
+                "CASE WHEN " +
+                "COUNT([ForeshoreProfileEntityId]) AND [ForeshoreProfileCollectionSourcePath] IS NULL " +
+                "OR " +
+                "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
+                "THEN 1 ELSE 0 END AS[IsInvalid] " +
+                "FROM [StabilityStoneCoverFailureMechanismMetaEntity] " +
+                "LEFT JOIN [ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
+                "GROUP BY [FailureMechanismEntityId]);";
+            reader.AssertReturnedDataIsValid(validateForeshoreProfileCollectionSourcePath);
+
+            const string validateCalculationOutputs =
                 "SELECT COUNT() = 0 " +
-                "FROM HydraulicLocationEntity " +
-                "WHERE ShouldWaveHeightIllustrationPointsBeCalculated != 0 " +
-                "|| ShouldDesignWaterLevelIllustrationPointsBeCalculated != 0;";
-            reader.AssertReturnedDataIsValid(validateCalculations);
+                "FROM [StabilityStoneCoverWaveConditionsOutputEntity]";
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
+        }
+
+        private static void AssertWaveImpactAsphaltCoverFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateForeshoreProfileCollectionSourcePath =
+                "SELECT SUM([IsInvalid]) = 0 " +
+                "FROM (" +
+                "SELECT " +
+                "CASE WHEN " +
+                "COUNT([ForeshoreProfileEntityId]) AND [ForeshoreProfileCollectionSourcePath] IS NULL " +
+                "OR " +
+                "[ForeshoreProfileCollectionSourcePath] IS NOT NULL AND NOT COUNT([ForeshoreProfileEntityId]) " +
+                "THEN 1 ELSE 0 END AS[IsInvalid] " +
+                "FROM [WaveImpactAsphaltCoverFailureMechanismMetaEntity] " +
+                "LEFT JOIN [ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
+                "GROUP BY [FailureMechanismEntityId]);";
+            reader.AssertReturnedDataIsValid(validateForeshoreProfileCollectionSourcePath);
+
+            const string validateCalculationOutputs =
+                "SELECT COUNT() = 0 " +
+                "FROM [WaveImpactAsphaltCoverWaveConditionsOutputEntity]";
+
+            reader.AssertReturnedDataIsValid(validateCalculationOutputs);
+        }
+
+        private static void AssertAssessmentSectionNormMigrationMessage(MigrationLogMessage[] messages,
+                                                                        int lowerLimitReturnPeriod,
+                                                                        int signalingReturnPeriod,
+                                                                        NormType normType)
+        {
+            Assert.AreEqual(3, messages.Length);
+
+            string lowerLimitLogSuffix = normType == NormType.LowerLimit
+                                             ? " (voorheen de waarde van de norm)"
+                                             : "";
+            AssertMigrationLogMessageEqual(
+                new MigrationLogMessage("17.1", newVersion, $"  + De ondergrens is gelijk gesteld aan 1/{lowerLimitReturnPeriod}{lowerLimitLogSuffix}."),
+                messages[0]);
+            string signalingLogSuffix = normType == NormType.Signaling
+                                            ? " (voorheen de waarde van de norm)"
+                                            : "";
+            AssertMigrationLogMessageEqual(
+                new MigrationLogMessage("17.1", newVersion, $"  + De signaleringswaarde is gelijk gesteld aan 1/{signalingReturnPeriod}{signalingLogSuffix}."),
+                messages[1]);
+            AssertMigrationLogMessageEqual(
+                new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(normType)}."),
+                messages[2]);
+        }
+
+        private static void AssertFailureMechanismSectionResults(MigratedDatabaseReader reader, string sectionResultTable)
+        {
+            string validateFailureMechanismSectionResults =
+                "SELECT COUNT() = 0 " +
+                $"FROM {sectionResultTable} " +
+                "WHERE [LayerThree] < 0 OR [LayerThree] > 1";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismSectionResults);
+        }
+
+        private static void AssertLayerThreeMigrationMessage(MigrationLogMessage[] messages)
+        {
+            Assert.AreEqual(2, messages.Length);
+
+            AssertMigrationLogMessageEqual(
+                new MigrationLogMessage("17.1", newVersion, "    - Het geregistreerde resultaat voor toetslaag 3 in 'Vak 1' ('5.0') kon niet worden geconverteerd naar een geldige kans en is verwijderd."),
+                messages[0]);
+            AssertMigrationLogMessageEqual(
+                new MigrationLogMessage("17.1", newVersion, "    - Het geregistreerde resultaat voor toetslaag 3 in 'Vak 2' ('-10.0') kon niet worden geconverteerd naar een geldige kans en is verwijderd."),
+                messages[1]);
+        }
+
+        private static void AssertMigrationLogMessageEqual(MigrationLogMessage expected, MigrationLogMessage actual)
+        {
+            Assert.AreEqual(expected.ToVersion, actual.ToVersion);
+            Assert.AreEqual(expected.FromVersion, actual.FromVersion);
+            Assert.AreEqual(expected.Message, actual.Message);
         }
 
         private static void AssertLogDatabase(string logFilePath)
@@ -963,19 +1193,19 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Golfklappen op asfaltbekleding'"),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '10' is veranderd naar '10004'."),
+                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '10' is veranderd naar '10000000000000000000004'."),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Stabiliteit steenzetting'"),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '100' is veranderd naar '10006'."),
+                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '100' is veranderd naar '10000000000000000000006'."),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '1' is veranderd naar '102'."),
+                    new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '1' is veranderd naar '103'."),
                     messages[i++]);
 
                 AssertMigrationLogMessageEqual(
@@ -1070,54 +1300,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertLayerThreeMigrationMessage(MigrationLogMessage[] messages)
-        {
-            Assert.AreEqual(2, messages.Length);
-
-            AssertMigrationLogMessageEqual(
-                new MigrationLogMessage("17.1", newVersion, "    - Het geregistreerde resultaat voor toetslaag 3 in 'Vak 1' ('5.0') kon niet worden geconverteerd naar een geldige kans en is verwijderd."),
-                messages[0]);
-            AssertMigrationLogMessageEqual(
-                new MigrationLogMessage("17.1", newVersion, "    - Het geregistreerde resultaat voor toetslaag 3 in 'Vak 2' ('-10.0') kon niet worden geconverteerd naar een geldige kans en is verwijderd."),
-                messages[1]);
-        }
-
-        private static void AssertAssessmentSectionNormMigrationMessage(MigrationLogMessage[] messages,
-                                                                        int lowerLimitReturnPeriod,
-                                                                        int signalingReturnPeriod,
-                                                                        NormType normType)
-        {
-            Assert.AreEqual(3, messages.Length);
-
-            string lowerLimitLogSuffix = normType == NormType.LowerLimit
-                                             ? " (voorheen de waarde van de norm)"
-                                             : "";
-            AssertMigrationLogMessageEqual(
-                new MigrationLogMessage("17.1", newVersion, $"  + De ondergrens is gelijk gesteld aan 1/{lowerLimitReturnPeriod}{lowerLimitLogSuffix}."),
-                messages[0]);
-            string signalingLogSuffix = normType == NormType.Signaling
-                                            ? " (voorheen de waarde van de norm)"
-                                            : "";
-            AssertMigrationLogMessageEqual(
-                new MigrationLogMessage("17.1", newVersion, $"  + De signaleringswaarde is gelijk gesteld aan 1/{signalingReturnPeriod}{signalingLogSuffix}."),
-                messages[1]);
-            AssertMigrationLogMessageEqual(
-                new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(normType)}."),
-                messages[2]);
-        }
-
-        private static void AssertMigrationLogMessageEqual(MigrationLogMessage expected, MigrationLogMessage actual)
-        {
-            Assert.AreEqual(expected.ToVersion, actual.ToVersion);
-            Assert.AreEqual(expected.FromVersion, actual.FromVersion);
-            Assert.AreEqual(expected.Message, actual.Message);
-        }
-
         private static void AssertVersions(MigratedDatabaseReader reader)
         {
             const string validateVersion =
                 "SELECT COUNT() = 1 " +
-                "FROM VersionEntity " +
+                "FROM [VersionEntity] " +
                 "WHERE [Version] = \"17.2\";";
             reader.AssertReturnedDataIsValid(validateVersion);
         }
@@ -1127,101 +1314,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             const string validateForeignKeys =
                 "PRAGMA foreign_keys;";
             reader.AssertReturnedDataIsValid(validateForeignKeys);
-        }
-
-        private static void AssertForeshoreProfiles(MigratedDatabaseReader reader)
-        {
-            const string validateForeshoreProfiles =
-                "SELECT COUNT(DISTINCT([Id])) IS COUNT() " +
-                "FROM ForeshoreProfileEntity " +
-                "GROUP BY [FailureMechanismEntityId]";
-            reader.AssertReturnedDataIsValid(validateForeshoreProfiles);
-        }
-
-        private static void AssertHeightStructures(MigratedDatabaseReader reader)
-        {
-            const string validateHeightStructures =
-                "SELECT COUNT(DISTINCT(Id)) = COUNT() " +
-                "FROM HeightStructureEntity " +
-                "GROUP BY [FailureMechanismEntityId]";
-            reader.AssertReturnedDataIsValid(validateHeightStructures);
-        }
-
-        private static void AssertClosingStructures(MigratedDatabaseReader reader)
-        {
-            const string validateClosingStructures =
-                "SELECT COUNT(DISTINCT(Id)) = COUNT() " +
-                "FROM ClosingStructureEntity " +
-                "GROUP BY [FailureMechanismEntityId]";
-            reader.AssertReturnedDataIsValid(validateClosingStructures);
-        }
-
-        private static void AssertStabilityPointStructures(MigratedDatabaseReader reader)
-        {
-            const string validateStabilityPointStructures =
-                "SELECT COUNT(DISTINCT(Id)) = COUNT() " +
-                "FROM StabilityPointStructureEntity " +
-                "GROUP BY [FailureMechanismEntityId]";
-            reader.AssertReturnedDataIsValid(validateStabilityPointStructures);
-        }
-
-        private static void AssertPipingSoilProfiles(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateSoilProfiles =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].SoilProfileEntity) " +
-                "FROM PipingSoilProfileEntity " +
-                "WHERE [SourceType] IN (1,2);" +
-                "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateSoilProfiles);
-        }
-
-        private static void AssertPipingSoilLayers(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateSoilLayers =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].SoilLayerEntity) " +
-                "FROM PipingSoilLayerEntity; " +
-                "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateSoilLayers);
-
-            string validateSoilLayerColors =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].SoilLayerEntity WHERE Color = 0) " +
-                "FROM PipingSoilLayerEntity " +
-                "WHERE Color IS NULL;" +
-                "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateSoilLayerColors);
-        }
-
-        private static void AssertPipingStochasticSoilProfiles(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateSoilProfiles =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StochasticSoilProfileEntity) " +
-                "FROM PipingStochasticSoilProfileEntity; " +
-                "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateSoilProfiles);
-        }
-
-        private static void AssertPipingCharacteristicPoints(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateSoilProfiles =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].CharacteristicPointEntity) " +
-                "FROM PipingCharacteristicPointEntity; " +
-                "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateSoilProfiles);
-        }
-
-        private static void AssertFailureMechanismSectionResults(MigratedDatabaseReader reader, string sectionResultTable)
-        {
-            string validateFailureMechanismSectionResults =
-                "SELECT COUNT() = 0 " +
-                $"FROM {sectionResultTable} " +
-                "WHERE LayerThree < 0 OR LayerThree > 1";
-
-            reader.AssertReturnedDataIsValid(validateFailureMechanismSectionResults);
         }
 
         /// <summary>
