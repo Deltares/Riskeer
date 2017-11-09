@@ -86,7 +86,7 @@ namespace Core.Components.Gis.IO.Readers
         {
             using (XmlReader reader = XmlReader.Create(new StringReader(Resources.defaultWmtsConnectionInfo)))
             {
-                return ReadWntsConnectionInfosFromReader(reader, CreateWmtsConnectionInfo);
+                return ReadWmtsConnectionInfosFromReader(reader, CreateWmtsConnectionInfo);
             }
         }
 
@@ -101,7 +101,7 @@ namespace Core.Components.Gis.IO.Readers
         {
             using (XmlReader reader = XmlReader.Create(path))
             {
-                return ReadWntsConnectionInfosFromReader(reader, element => TryCreateWmtsConnectionInfo(path, element));
+                return ReadWmtsConnectionInfosFromReader(reader, element => TryCreateWmtsConnectionInfo(path, element));
             }
         }
 
@@ -116,7 +116,7 @@ namespace Core.Components.Gis.IO.Readers
         /// <remarks>This method only throws exceptions thrown by <paramref name="tryParseWmtsConnectionElement"/>.</remarks>
         /// <exception cref="XmlException">Thrown when an error occurred while parsing the XML.</exception>
         /// <exception cref="InvalidOperationException">Thrown when an error occurred while reading the XML.</exception>
-        private static ReadOnlyCollection<WmtsConnectionInfo> ReadWntsConnectionInfosFromReader(XmlReader reader,
+        private static ReadOnlyCollection<WmtsConnectionInfo> ReadWmtsConnectionInfosFromReader(XmlReader reader,
                                                                                                 Func<XElement, WmtsConnectionInfo> tryParseWmtsConnectionElement)
         {
             var connectionInfos = new List<WmtsConnectionInfo>();
