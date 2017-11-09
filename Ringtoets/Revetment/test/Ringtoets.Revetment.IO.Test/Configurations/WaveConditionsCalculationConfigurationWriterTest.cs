@@ -130,7 +130,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             // Setup
             var configuration = new WaveConditionsCalculationConfiguration("fail")
             {
-                StepSize = (ConfigurationWaveConditionsInputStepSize?)9000
+                StepSize = (ConfigurationWaveConditionsInputStepSize?) 9000
             };
 
             var writer = new WaveConditionsCalculationConfigurationWriter("valid");

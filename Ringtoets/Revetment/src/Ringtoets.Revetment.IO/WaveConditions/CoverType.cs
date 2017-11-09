@@ -41,6 +41,6 @@ namespace Ringtoets.Revetment.IO.WaveConditions
         /// <summary>
         /// Gets the name of the type of cover.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
     }
 }

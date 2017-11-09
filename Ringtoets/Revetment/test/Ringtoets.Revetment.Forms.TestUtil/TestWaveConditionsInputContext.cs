@@ -24,8 +24,8 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Data.TestUtil;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 
 namespace Ringtoets.Revetment.Forms.TestUtil
 {

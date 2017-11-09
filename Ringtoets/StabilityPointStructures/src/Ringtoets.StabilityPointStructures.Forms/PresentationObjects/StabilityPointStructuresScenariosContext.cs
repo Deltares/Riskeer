@@ -52,6 +52,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         /// <summary>
         /// The parent failure mechanism of the calculation group.
         /// </summary>
-        public StabilityPointStructuresFailureMechanism ParentFailureMechanism { get; private set; }
+        public StabilityPointStructuresFailureMechanism ParentFailureMechanism { get; }
     }
 }

@@ -26,8 +26,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.Revetment.Data.TestUtil;
+using Ringtoets.Revetment.IO.WaveConditions;
 
 namespace Ringtoets.Revetment.IO.Test.WaveConditions
 {

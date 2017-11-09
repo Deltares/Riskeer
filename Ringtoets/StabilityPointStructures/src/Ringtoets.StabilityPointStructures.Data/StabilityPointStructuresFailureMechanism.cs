@@ -63,17 +63,17 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <summary>
         /// Gets the general stability point structures calculation input parameters that apply to each calculation.
         /// </summary>
-        public GeneralStabilityPointStructuresInput GeneralInput { get; private set; }
+        public GeneralStabilityPointStructuresInput GeneralInput { get; }
 
         /// <summary>
         /// Gets the available stability point structures for this instance.
         /// </summary>
-        public StructureCollection<StabilityPointStructure> StabilityPointStructures { get; private set; }
+        public StructureCollection<StabilityPointStructure> StabilityPointStructures { get; }
 
         /// <summary>
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
-        public ForeshoreProfileCollection ForeshoreProfiles { get; private set; }
+        public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
         public CalculationGroup CalculationsGroup { get; }
 

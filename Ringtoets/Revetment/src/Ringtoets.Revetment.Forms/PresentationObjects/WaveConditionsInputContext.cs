@@ -53,7 +53,7 @@ namespace Ringtoets.Revetment.Forms.PresentationObjects
         /// <summary>
         /// Gets the calculation containing the wrapped <see cref="WaveConditionsInput"/>.
         /// </summary>
-        public ICalculation<WaveConditionsInput> Calculation { get; private set; }
+        public ICalculation<WaveConditionsInput> Calculation { get; }
 
         /// <summary>
         /// Gets the hydraulic boundary locations.

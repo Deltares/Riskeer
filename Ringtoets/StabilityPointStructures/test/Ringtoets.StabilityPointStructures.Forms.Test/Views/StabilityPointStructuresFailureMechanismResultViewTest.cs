@@ -278,7 +278,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(result1.AssessmentLayerThree),
-                                 cells[assessmentLayerThreeIndex].FormattedValue);
+                                cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);

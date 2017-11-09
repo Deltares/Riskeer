@@ -172,7 +172,7 @@ namespace Ringtoets.Revetment.Data
             {
                 if (!Enum.IsDefined(typeof(CalculationConvergence), value))
                 {
-                    throw new InvalidEnumArgumentException("value", (int) value, typeof(CalculationConvergence));
+                    throw new InvalidEnumArgumentException(nameof(value), (int) value, typeof(CalculationConvergence));
                 }
 
                 calculationConvergence = value;

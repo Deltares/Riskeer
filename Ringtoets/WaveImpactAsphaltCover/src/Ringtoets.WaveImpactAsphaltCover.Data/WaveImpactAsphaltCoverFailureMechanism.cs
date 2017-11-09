@@ -61,12 +61,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// <summary>
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
-        public ForeshoreProfileCollection ForeshoreProfiles { get; private set; }
+        public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
         /// <summary>
         /// Gets the general wave conditions input parameters that apply to each calculation.
         /// </summary>
-        public GeneralWaveConditionsInput GeneralInput { get; private set; }
+        public GeneralWaveConditionsInput GeneralInput { get; }
 
         /// <summary>
         /// Gets the container of all wave conditions calculations.

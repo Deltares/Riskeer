@@ -60,7 +60,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// <summary>
         /// Gets the general stability stone cover wave conditions input parameters that apply to each calculation.
         /// </summary>
-        public GeneralStabilityStoneCoverWaveConditionsInput GeneralInput { get; private set; }
+        public GeneralStabilityStoneCoverWaveConditionsInput GeneralInput { get; }
 
         /// <summary>
         /// Gets the container of all wave conditions calculations.
@@ -70,7 +70,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// <summary>
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
-        public ForeshoreProfileCollection ForeshoreProfiles { get; private set; }
+        public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
         public IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> SectionResults
         {

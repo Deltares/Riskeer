@@ -131,7 +131,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// </returns>
         public static Point2D[] CreateLowerBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
         {
-            return input != null                       
+            return input != null
                        ? CreateGeometryPoints(input, () => input.LowerBoundaryRevetment)
                        : new Point2D[0];
         }

@@ -752,8 +752,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var parent = new CalculationGroup();
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                       parent,
@@ -793,8 +798,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var foreshoreProfileInput = new TestForeshoreProfile();
             var parent = new CalculationGroup();
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            calculation.InputParameters.ForeshoreProfile = foreshoreProfileInput;
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = foreshoreProfileInput
+                }
+            };
             TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,

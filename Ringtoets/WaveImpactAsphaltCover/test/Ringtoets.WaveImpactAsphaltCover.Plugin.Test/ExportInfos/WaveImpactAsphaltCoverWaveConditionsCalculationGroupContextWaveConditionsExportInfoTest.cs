@@ -28,8 +28,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.Revetment.Data.TestUtil;
+using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -165,14 +165,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
-            WaveImpactAsphaltCoverWaveConditionsOutput WaveImpactAsphaltCoverWaveConditionsOutput = null;
+            WaveImpactAsphaltCoverWaveConditionsOutput waveImpactAsphaltCoverWaveConditionsOutput = null;
             if (hasOutput)
             {
                 var output = new[]
                 {
                     new TestWaveConditionsOutput()
                 };
-                WaveImpactAsphaltCoverWaveConditionsOutput = new WaveImpactAsphaltCoverWaveConditionsOutput(output);
+                waveImpactAsphaltCoverWaveConditionsOutput = new WaveImpactAsphaltCoverWaveConditionsOutput(output);
             }
             calculationGroup.Children.Add(
                 new CalculationGroup
@@ -181,7 +181,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
                     {
                         new WaveImpactAsphaltCoverWaveConditionsCalculation
                         {
-                            Output = WaveImpactAsphaltCoverWaveConditionsOutput
+                            Output = waveImpactAsphaltCoverWaveConditionsOutput
                         }
                     }
                 });

@@ -82,66 +82,66 @@ namespace Ringtoets.Revetment.IO.WaveConditions
         /// <summary>
         /// Gets the wave angle with respect to the dike normal.
         /// </summary>
-        public RoundedDouble WaveAngle { get; private set; }
+        public RoundedDouble WaveAngle { get; }
 
         /// <summary>
         /// Gets the wave direction with respect to North.
         /// </summary>
-        public RoundedDouble WaveDirection { get; private set; }
+        public RoundedDouble WaveDirection { get; }
 
         /// <summary>
         /// Gets the wave period.
         /// </summary>
-        public RoundedDouble WavePeriod { get; private set; }
+        public RoundedDouble WavePeriod { get; }
 
         /// <summary>
         /// Gets the wave height.
         /// </summary>
-        public RoundedDouble WaveHeight { get; private set; }
+        public RoundedDouble WaveHeight { get; }
 
         /// <summary>
         /// Gets the water level.
         /// </summary>
-        public RoundedDouble WaterLevel { get; private set; }
+        public RoundedDouble WaterLevel { get; }
 
         /// <summary>
         /// Gets the type of dike cover.
         /// </summary>
-        public CoverType CoverType { get; private set; }
+        public CoverType CoverType { get; }
 
         /// <summary>
         /// Gets the id of the foreshore.
         /// </summary>
-        public string ForeshoreId { get; private set; }
+        public string ForeshoreId { get; }
 
         /// <summary>
         /// Gets a value indicating whether a foreshore profile was used in the calculation.
         /// </summary>
-        public bool UseForeshore { get; private set; }
+        public bool UseForeshore { get; }
 
         /// <summary>
         /// Gets a value indicating whether a break water was used in the calculation. 
         /// </summary>
-        public bool UseBreakWater { get; private set; }
+        public bool UseBreakWater { get; }
 
         /// <summary>
         /// Gets the y coordinate of the location.
         /// </summary>
-        public double LocationYCoordinate { get; private set; }
+        public double LocationYCoordinate { get; }
 
         /// <summary>
         /// Gets the x coordinate of the location.
         /// </summary>
-        public double LocationXCoordinate { get; private set; }
+        public double LocationXCoordinate { get; }
 
         /// <summary>
         /// Gets the name of the location.
         /// </summary>
-        public string LocationName { get; private set; }
+        public string LocationName { get; }
 
         /// <summary>
         /// Gets the name of the calculation.
         /// </summary>
-        public string CalculationName { get; private set; }
+        public string CalculationName { get; }
     }
 }

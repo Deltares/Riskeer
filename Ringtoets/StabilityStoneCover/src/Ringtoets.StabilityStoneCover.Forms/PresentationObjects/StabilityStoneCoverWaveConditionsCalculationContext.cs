@@ -62,7 +62,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         {
             return base.Equals(other)
                    && other is StabilityStoneCoverWaveConditionsCalculationContext
-                   && ReferenceEquals(Parent, ((StabilityStoneCoverWaveConditionsCalculationContext)other).Parent);
+                   && ReferenceEquals(Parent, ((StabilityStoneCoverWaveConditionsCalculationContext) other).Parent);
         }
 
         public override bool Equals(object obj)

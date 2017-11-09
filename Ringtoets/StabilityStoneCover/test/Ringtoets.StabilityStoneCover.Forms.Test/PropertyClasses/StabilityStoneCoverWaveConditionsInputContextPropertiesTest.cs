@@ -27,8 +27,8 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.Revetment.Data.TestUtil;
+using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 
@@ -64,7 +64,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 
             var context = new StabilityStoneCoverWaveConditionsInputContext(
                 new WaveConditionsInput(),
-                new TestWaveConditionsCalculation(), 
+                new TestWaveConditionsCalculation(),
                 Enumerable.Empty<ForeshoreProfile>(),
                 assessmentSection);
 

@@ -43,7 +43,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class StabilityPointStructuresContextImportInfoTest :NUnitFormTest
+    public class StabilityPointStructuresContextImportInfoTest : NUnitFormTest
     {
         [Test]
         public void CreateFileImporter_Always_ReturnFileImporter()
@@ -267,7 +267,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
             {
                 plugin.Gui = gui;
                 ImportInfo importInfo = GetImportInfo(plugin);
-                
+
                 // Call
                 bool updatesVerified = importInfo.VerifyUpdates(context);
 

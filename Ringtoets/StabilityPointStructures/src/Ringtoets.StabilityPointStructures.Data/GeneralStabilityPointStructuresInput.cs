@@ -79,7 +79,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets the gravitational acceleration.
         /// [m/s^2]
         /// </summary>
-        public RoundedDouble GravitationalAcceleration { get; private set; }
+        public RoundedDouble GravitationalAcceleration { get; }
 
         #region Length effect parameters
 
@@ -112,37 +112,37 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <summary>
         /// Gets the model factor for the storage volume.
         /// </summary>
-        public LogNormalDistribution ModelFactorStorageVolume { get; private set; }
+        public LogNormalDistribution ModelFactorStorageVolume { get; }
 
         /// <summary>
         /// Gets the model factor for sub critical flow.
         /// </summary>
-        public VariationCoefficientNormalDistribution ModelFactorSubCriticalFlow { get; private set; }
+        public VariationCoefficientNormalDistribution ModelFactorSubCriticalFlow { get; }
 
         /// <summary>
         /// Gets the model factor for collision load.
         /// </summary>
-        public VariationCoefficientNormalDistribution ModelFactorCollisionLoad { get; private set; }
+        public VariationCoefficientNormalDistribution ModelFactorCollisionLoad { get; }
 
         /// <summary>
         /// Gets the model factor for load effect.
         /// </summary>
-        public NormalDistribution ModelFactorLoadEffect { get; private set; }
+        public NormalDistribution ModelFactorLoadEffect { get; }
 
         /// <summary>
         /// Gets the model factor for incoming flow volume.
         /// </summary>
-        public RoundedDouble ModelFactorInflowVolume { get; private set; }
+        public RoundedDouble ModelFactorInflowVolume { get; }
 
         /// <summary>
         /// Gets the modification factor for wave slowly varying pressure component.
         /// </summary>
-        public RoundedDouble ModificationFactorWavesSlowlyVaryingPressureComponent { get; private set; }
+        public RoundedDouble ModificationFactorWavesSlowlyVaryingPressureComponent { get; }
 
         /// <summary>
         /// Gets the modification factor for waves dynamic or impulsive pressure component.
         /// </summary>
-        public RoundedDouble ModificationFactorDynamicOrImpulsivePressureComponent { get; private set; }
+        public RoundedDouble ModificationFactorDynamicOrImpulsivePressureComponent { get; }
 
         #endregion
 
@@ -151,12 +151,12 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <summary>
         /// Gets the N of the Rayleigh-N distribution for wave ratio max H. 
         /// </summary>
-        public RoundedDouble WaveRatioMaxHN { get; private set; }
+        public RoundedDouble WaveRatioMaxHN { get; }
 
         /// <summary>
         /// Gets the standard deviation of the Rayleigh-N distribution for wave ratio max H.
         /// </summary>
-        public RoundedDouble WaveRatioMaxHStandardDeviation { get; private set; }
+        public RoundedDouble WaveRatioMaxHStandardDeviation { get; }
 
         #endregion
     }

@@ -797,8 +797,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var parent = new CalculationGroup();
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-            calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                    parent,
@@ -838,8 +843,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var foreshoreProfileInput = new TestForeshoreProfile();
             var parent = new CalculationGroup();
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-            calculation.InputParameters.ForeshoreProfile = foreshoreProfileInput;
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = foreshoreProfileInput
+                }
+            };
             TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,

@@ -40,11 +40,11 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// <summary>
         /// Gets the general input parameter used in wave conditions calculations for blocks.
         /// </summary>
-        public GeneralWaveConditionsInput GeneralBlocksWaveConditionsInput { get; private set; }
+        public GeneralWaveConditionsInput GeneralBlocksWaveConditionsInput { get; }
 
         /// <summary>
         /// Gets the general input parameter used in wave conditions calculations for columns.
         /// </summary>
-        public GeneralWaveConditionsInput GeneralColumnsWaveConditionsInput { get; private set; }
+        public GeneralWaveConditionsInput GeneralColumnsWaveConditionsInput { get; }
     }
 }

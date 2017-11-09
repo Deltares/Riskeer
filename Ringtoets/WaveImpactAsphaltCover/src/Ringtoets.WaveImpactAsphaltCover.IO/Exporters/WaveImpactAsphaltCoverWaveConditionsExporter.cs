@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.IO.Exceptions;
-using Ringtoets.Revetment.IO;
 using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 

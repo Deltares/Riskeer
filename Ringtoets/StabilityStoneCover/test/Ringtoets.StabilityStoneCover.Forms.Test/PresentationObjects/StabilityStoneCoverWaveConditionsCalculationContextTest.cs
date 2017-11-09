@@ -27,7 +27,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using Is = Rhino.Mocks.Constraints.Is;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
 {
