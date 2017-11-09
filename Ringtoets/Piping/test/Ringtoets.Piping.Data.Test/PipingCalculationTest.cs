@@ -26,7 +26,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {

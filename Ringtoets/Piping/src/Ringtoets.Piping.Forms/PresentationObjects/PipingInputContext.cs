@@ -64,6 +64,6 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <summary>
         /// Gets the calculation scenario which the piping context belongs to.
         /// </summary>
-        public PipingCalculationScenario PipingCalculation { get; private set; }
+        public PipingCalculationScenario PipingCalculation { get; }
     }
 }

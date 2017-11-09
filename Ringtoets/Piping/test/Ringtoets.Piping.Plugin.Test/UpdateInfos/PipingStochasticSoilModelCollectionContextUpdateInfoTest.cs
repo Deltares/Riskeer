@@ -37,7 +37,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.UpdateInfos

@@ -49,6 +49,6 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <summary>
         /// Gets the semi-probabilistic output created from the piping output.
         /// </summary>
-        public PipingSemiProbabilisticOutput SemiProbabilisticOutput { get; private set; }
+        public PipingSemiProbabilisticOutput SemiProbabilisticOutput { get; }
     }
 }

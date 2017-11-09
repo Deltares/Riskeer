@@ -30,7 +30,7 @@ using Ringtoets.Piping.Data.TestUtil;
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
-    public class PipingFailureMechanismSection2aAssessmentResultExtensionsTest
+    public class PipingFailureMechanismSection2AAssessmentResultExtensionsTest
     {
         [Test]
         public void GetAssessmentLayerTwoA_MultipleScenarios_ReturnsValueBasedOnRelevantAndDoneScenarios()

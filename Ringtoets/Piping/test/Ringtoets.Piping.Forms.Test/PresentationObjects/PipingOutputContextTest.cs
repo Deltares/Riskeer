@@ -25,7 +25,6 @@ using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 {

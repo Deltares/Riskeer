@@ -764,7 +764,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsForCalculation(properties => properties.UseAssessmentLevelManualInput = true,
-                                                           calculation);
+                                                            calculation);
         }
 
         [Test]

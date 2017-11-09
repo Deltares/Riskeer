@@ -138,57 +138,57 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <summary>
         /// Gets the z-value of the Uplift sub calculation.
         /// </summary>
-        public double UpliftZValue { get; private set; }
+        public double UpliftZValue { get; }
 
         /// <summary>
         /// Gets the factor of safety of the Uplift sub calculation.
         /// </summary>
-        public double UpliftFactorOfSafety { get; private set; }
+        public double UpliftFactorOfSafety { get; }
 
         /// <summary>
         /// Gets the z-value of the Heave sub calculation.
         /// </summary>
-        public double HeaveZValue { get; private set; }
+        public double HeaveZValue { get; }
 
         /// <summary>
         /// Gets the factor of safety of the Heave sub calculation.
         /// </summary>
-        public double HeaveFactorOfSafety { get; private set; }
+        public double HeaveFactorOfSafety { get; }
 
         /// <summary>
         /// Gets the z-value of the Sellmeijer sub calculation.
         /// </summary>
-        public double SellmeijerZValue { get; private set; }
+        public double SellmeijerZValue { get; }
 
         /// <summary>
         /// Gets the factor of safety of the Sellmeijer sub calculation.
         /// </summary>
-        public double SellmeijerFactorOfSafety { get; private set; }
+        public double SellmeijerFactorOfSafety { get; }
 
         /// <summary>
         /// Gets the effective stress that was calculated for the uplift sub calculation.
         /// </summary>
-        public double UpliftEffectiveStress { get; private set; }
+        public double UpliftEffectiveStress { get; }
 
         /// <summary>
         /// Gets the gradient that was calculated for the heave sub calculation.
         /// </summary>
-        public double HeaveGradient { get; private set; }
+        public double HeaveGradient { get; }
 
         /// <summary>
         /// Gets the creep coefficient that was calculated for the Sellmeijer sub calculation.
         /// </summary>
-        public double SellmeijerCreepCoefficient { get; private set; }
+        public double SellmeijerCreepCoefficient { get; }
 
         /// <summary>
         /// Gets the critical fall that was calculated for the Sellmeijer sub calculation.
         /// </summary>
-        public double SellmeijerCriticalFall { get; private set; }
+        public double SellmeijerCriticalFall { get; }
 
         /// <summary>
         /// Gets the reduced fall that was calculated for the Sellmeijer sub calculation.
         /// </summary>
-        public double SellmeijerReducedFall { get; private set; }
+        public double SellmeijerReducedFall { get; }
 
         #endregion
     }

@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.WTIPiping;
-using PipingSurfaceLine = Ringtoets.Piping.Primitives.PipingSurfaceLine;
 
 namespace Ringtoets.Piping.KernelWrapper.Creators
 {
@@ -38,9 +37,9 @@ namespace Ringtoets.Piping.KernelWrapper.Creators
         /// </summary>
         /// <param name="line">The surface line configured in the Ringtoets application.</param>
         /// <returns>The surface line to be consumed by the kernel.</returns>
-        public static Deltares.WTIPiping.PipingSurfaceLine Create(PipingSurfaceLine line)
+        public static PipingSurfaceLine Create(Primitives.PipingSurfaceLine line)
         {
-            var surfaceLine = new Deltares.WTIPiping.PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = line.Name
             };
@@ -52,7 +51,7 @@ namespace Ringtoets.Piping.KernelWrapper.Creators
             return surfaceLine;
         }
 
-        private static IEnumerable<PipingPoint> CreatePoints(PipingSurfaceLine line)
+        private static IEnumerable<PipingPoint> CreatePoints(Primitives.PipingSurfaceLine line)
         {
             Point2D[] projectedPoints = line.LocalGeometry.ToArray();
             var pipingPoints = new List<PipingPoint>();
@@ -65,7 +64,7 @@ namespace Ringtoets.Piping.KernelWrapper.Creators
             return pipingPoints;
         }
 
-        private static IEnumerable<PipingPoint> CreatePoint(PipingSurfaceLine line, Point2D[] projectedPoints, int index)
+        private static IEnumerable<PipingPoint> CreatePoint(Primitives.PipingSurfaceLine line, Point2D[] projectedPoints, int index)
         {
             Point3D surfaceLinePoint = line.Points[index];
             Point2D projectedPoint = projectedPoints[index];

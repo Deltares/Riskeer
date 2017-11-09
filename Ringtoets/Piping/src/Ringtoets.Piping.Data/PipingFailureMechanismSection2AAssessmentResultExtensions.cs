@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Extension methods for obtaining level 2a results from output for an assessment of the piping failure mechanism.
     /// </summary>
-    public static class PipingFailureMechanismSection2aAssessmentResultExtensions
+    public static class PipingFailureMechanismSection2AAssessmentResultExtensions
     {
         /// <summary>
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Data
                     case CalculationScenarioStatus.Done:
                         continue;
                     default:
-                        throw new InvalidEnumArgumentException("pipingFailureMechanismSectionResult",
+                        throw new InvalidEnumArgumentException(nameof(pipingFailureMechanismSectionResult),
                                                                (int) calculationScenario.Status,
                                                                typeof(CalculationScenarioStatus));
                 }

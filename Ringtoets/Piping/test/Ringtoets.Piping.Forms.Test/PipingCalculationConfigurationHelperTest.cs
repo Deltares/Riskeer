@@ -507,8 +507,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Assert
             Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
-                string.Format("Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.",
-                              testName),
+                $"Geen ondergrondschematisaties gevonden voor profielschematisatie '{testName}'. De profielschematisatie is overgeslagen.",
                 LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage);
             CollectionAssert.IsEmpty(result);
@@ -791,9 +790,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Assert
             Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
-                string.Format(
-                    "Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.",
-                    surfaceLineName2),
+                $"Geen ondergrondschematisaties gevonden voor profielschematisatie '{surfaceLineName2}'. De profielschematisatie is overgeslagen.",
                 LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
@@ -875,8 +872,8 @@ namespace Ringtoets.Piping.Forms.Test
             var calculationInput1 = (PipingCalculationScenario) group.Children[0];
             var calculationInput2 = (PipingCalculationScenario) group.Children[1];
 
-            Assert.AreEqual(string.Format("{0} {1}", surfaceLine.Name, soilProfile1.Name), calculationInput1.Name);
-            Assert.AreEqual(string.Format("{0} {1}", surfaceLine.Name, soilProfile2.Name), calculationInput2.Name);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile1.Name}", calculationInput1.Name);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile2.Name}", calculationInput2.Name);
 
             CompareGeneralInputToInput(generalInput, calculationInput1);
             CompareGeneralInputToInput(generalInput, calculationInput2);
@@ -947,9 +944,9 @@ namespace Ringtoets.Piping.Forms.Test
             var calculationInput2 = (PipingCalculationScenario) group.Children[1];
             var calculationInput3 = (PipingCalculationScenario) group.Children[2];
 
-            Assert.AreEqual(string.Format("{0} {1}", surfaceLine.Name, soilProfile1.Name), calculationInput1.Name);
-            Assert.AreEqual(string.Format("{0} {1} (1)", surfaceLine.Name, soilProfile2.Name), calculationInput2.Name);
-            Assert.AreEqual(string.Format("{0} {1} (2)", surfaceLine.Name, soilProfile3.Name), calculationInput3.Name);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile1.Name}", calculationInput1.Name);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile2.Name} (1)", calculationInput2.Name);
+            Assert.AreEqual($"{surfaceLine.Name} {soilProfile3.Name} (2)", calculationInput3.Name);
         }
 
         #endregion

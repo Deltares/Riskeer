@@ -428,7 +428,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             List<string> validationMessages = calculation.Validate();
 
             // Assert
-            string message = string.Format("De onderkant({0}) van het ondergrondprofiel is niet laag genoeg. Het moet tenminste {1} m onder de bovenkant van de diepste laag ({2}) liggen.", bottom, 0.001, top);
+            string message = $"De onderkant({bottom}) van het ondergrondprofiel is niet laag genoeg. Het moet tenminste {0.001} m onder de bovenkant van de diepste laag ({top}) liggen.";
             Assert.AreEqual(1, validationMessages.Count);
             Assert.AreEqual(message, validationMessages[0]);
         }

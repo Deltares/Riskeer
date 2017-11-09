@@ -32,7 +32,6 @@ using Ringtoets.Integration.TestUtils;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Integration.Test
@@ -124,7 +123,7 @@ namespace Ringtoets.Piping.Integration.Test
                 pipingCalculation1.Output = new TestPipingOutput();
                 pipingCalculation1.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput(probability);
                 pipingCalculation1.NotifyObservers();
-                Assert.AreEqual(string.Format("1/{0:N0}", 1.0 / pipingCalculation1.Probability),
+                Assert.AreEqual($"1/{1.0 / pipingCalculation1.Probability:N0}",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -132,7 +131,7 @@ namespace Ringtoets.Piping.Integration.Test
                 var pipingCalculation3 = new PipingCalculationScenario(new GeneralPipingInput());
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
-                Assert.AreEqual(string.Format("1/{0:N0}", 1.0 / pipingCalculation1.Probability),
+                Assert.AreEqual($"1/{1.0 / pipingCalculation1.Probability:N0}",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -166,7 +165,7 @@ namespace Ringtoets.Piping.Integration.Test
                 // Set contribution again so we have a probability.
                 pipingCalculation1.Contribution = (RoundedDouble) 1.0;
                 pipingCalculation1.NotifyObservers();
-                Assert.AreEqual(string.Format("1/{0:N0}", 1.0 / pipingCalculation1.Probability),
+                Assert.AreEqual($"1/{1.0 / pipingCalculation1.Probability:N0}",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 

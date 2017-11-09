@@ -43,21 +43,21 @@ namespace Ringtoets.Piping.Service
         private readonly double contribution;
 
         // Intermediate results
-        private double heaveReliability;
-        private double upliftReliability;
-        private double sellmeijerReliability;
-
         private double heaveProbability;
+        private double heaveReliability;
+
         private double upliftProbability;
+        private double upliftReliability;
+
         private double sellmeijerProbability;
+        private double sellmeijerReliability;
 
         private double pipingProbability;
         private double pipingReliability;
+        private double pipingFactorOfSafety;
 
         private double requiredProbability;
         private double requiredReliability;
-
-        private double pipingFactorOfSafety;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingSemiProbabilisticCalculationService"/>.

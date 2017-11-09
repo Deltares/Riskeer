@@ -47,6 +47,6 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
             ParentFailureMechanism = failureMechanism;
         }
 
-        public PipingFailureMechanism ParentFailureMechanism { get; private set; }
+        public PipingFailureMechanism ParentFailureMechanism { get; }
     }
 }

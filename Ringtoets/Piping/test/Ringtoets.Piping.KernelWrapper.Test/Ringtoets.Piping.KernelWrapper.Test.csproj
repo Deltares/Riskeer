@@ -57,7 +57,6 @@
     <Compile Include="PipingCalculatorInputTest.cs" />
     <Compile Include="PipingCalculatorResultTest.cs" />
     <Compile Include="PipingCalculatorTest.cs" />
-    <Compile Include="Creators\PipingProfileCreatorExceptionTest.cs" />
     <Compile Include="Creators\PipingProfileCreatorTest.cs" />
     <Compile Include="SubCalculator\PipingProfilePropertyCalculatorTest.cs" />
     <Compile Include="SubCalculator\EffectiveThicknessCalculatorTest.cs" />
@@ -82,14 +81,6 @@
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
-      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
-      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Ringtoets.Piping.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
       <Name>Ringtoets.Piping.KernelWrapper</Name>
@@ -97,10 +88,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
       <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
       <Name>Ringtoets.Piping.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
-      <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
-      <Name>Ringtoets.Piping.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
       <Project>{27e0a5c9-3abf-426a-a3da-7d0b83a218c8}</Project>

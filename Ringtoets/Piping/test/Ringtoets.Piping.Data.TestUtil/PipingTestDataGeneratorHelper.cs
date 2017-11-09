@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.TestUtil

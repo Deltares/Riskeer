@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var soilProfile = mockRepository.Stub<ISoilProfile>();
             mockRepository.ReplayAll();
 
-            var stochasticSoilProfile = StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(soilProfile);
+            StochasticSoilProfile stochasticSoilProfile = StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(soilProfile);
 
             // Call
             TestDelegate test = () => PipingStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, null);

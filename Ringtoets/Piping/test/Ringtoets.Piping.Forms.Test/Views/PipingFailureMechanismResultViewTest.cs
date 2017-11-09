@@ -350,7 +350,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
-                Assert.AreEqual(string.Format("1/{0:N0}", 1 / calculationScenario.Probability),
+                Assert.AreEqual($"1/{1 / calculationScenario.Probability:N0}",
                                 formattedValue);
             }
         }
