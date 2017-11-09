@@ -42,16 +42,16 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output
         /// <summary>
         /// Gets the calculated water level.
         /// </summary>
-        public double WaterLevel { get; private set; }
+        public double WaterLevel { get; }
 
         /// <summary>
         /// Gets the calculated wave height.
         /// </summary>
-        public double WaveHeight { get; private set; }
+        public double WaveHeight { get; }
 
         /// <summary>
         /// Gets the calculated wave period.
         /// </summary>
-        public double WavePeriod { get; private set; }
+        public double WavePeriod { get; }
     }
 }

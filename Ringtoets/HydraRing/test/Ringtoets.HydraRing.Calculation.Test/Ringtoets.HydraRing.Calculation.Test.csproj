@@ -106,7 +106,6 @@
     <Compile Include="Data\Variables\RayleighNHydraRingVariableTest.cs" />
     <Compile Include="Data\Variables\TruncatedNormalHydraRingVariableTest.cs" />
     <Compile Include="Exceptions\HydraRingCalculationExceptionTest.cs" />
-    <Compile Include="Exceptions\HydraRingDatabaseReaderExceptionTest.cs" />
     <Compile Include="Exceptions\HydraRingFileParserExceptionTest.cs" />
     <Compile Include="Parsers\DunesBoundaryConditionsCalculationParserTest.cs" />
     <Compile Include="Parsers\ConvergenceParserTest.cs" />
@@ -163,10 +162,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
       <Name>Ringtoets.HydraRing.Calculation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.HydraRing.IO\Ringtoets.HydraRing.IO.csproj">
-      <Project>{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}</Project>
-      <Name>Ringtoets.HydraRing.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>

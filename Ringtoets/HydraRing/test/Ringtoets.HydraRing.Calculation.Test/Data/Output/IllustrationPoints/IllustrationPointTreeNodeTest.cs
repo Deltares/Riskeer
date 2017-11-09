@@ -92,7 +92,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 
             var treeNode = new IllustrationPointTreeNode(data);
             var childrenToBeAttached = new IllustrationPointTreeNode[nrOfChildren];
-            
+
             // Call
             TestDelegate call = () => treeNode.SetChildren(childrenToBeAttached);
 
@@ -113,7 +113,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             var mocks = new MockRepository();
             var data = mocks.Stub<IIllustrationPoint>();
             mocks.ReplayAll();
-            
+
             var treeNode = new IllustrationPointTreeNode(data);
             var childrenToBeAttached = new IllustrationPointTreeNode[nrOfChildren];
 

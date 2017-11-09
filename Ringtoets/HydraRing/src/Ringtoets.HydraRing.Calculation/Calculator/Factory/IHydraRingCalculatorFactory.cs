@@ -93,7 +93,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
         /// <returns>A new <see cref="IStructuresCalculator{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory) 
+        IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory)
             where TCalculationInput : ExceedanceProbabilityCalculationInput;
     }
 }

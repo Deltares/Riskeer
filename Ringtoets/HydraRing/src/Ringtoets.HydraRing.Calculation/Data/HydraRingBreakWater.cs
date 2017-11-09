@@ -40,11 +40,11 @@ namespace Ringtoets.HydraRing.Calculation.Data
         /// <summary>
         /// Gets the type.
         /// </summary>
-        public int Type { get; private set; }
+        public int Type { get; }
 
         /// <summary>
         /// Gets the height.
         /// </summary>
-        public double Height { get; private set; }
+        public double Height { get; }
     }
 }

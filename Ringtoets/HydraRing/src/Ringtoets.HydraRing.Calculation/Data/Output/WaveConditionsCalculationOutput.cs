@@ -44,21 +44,21 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output
         /// <summary>
         /// Gets the calculated wave height.
         /// </summary>
-        public double WaveHeight { get; private set; }
+        public double WaveHeight { get; }
 
         /// <summary>
         /// Gets the calculated wave peak period.
         /// </summary>
-        public double WavePeakPeriod { get; private set; }
+        public double WavePeakPeriod { get; }
 
         /// <summary>
         /// Gets the calculated wave angle with respect to the dike normal.
         /// </summary>
-        public double WaveAngle { get; private set; }
+        public double WaveAngle { get; }
 
         /// <summary>
         /// Gets the calculated wave direction with respect to North.
         /// </summary>
-        public double WaveDirection { get; private set; }
+        public double WaveDirection { get; }
     }
 }

@@ -105,9 +105,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 
                 // Assert
                 var exception = Assert.Throws<HydraRingFileParserException>(call);
-                string expectedMessage = string.Format("Kan het Hydra-Ring last_error bestand {0} niet lezen uit de map {1}.",
-                                                       HydraRingFileConstants.LastErrorFileName,
-                                                       lastErrorTestDataDirectory);
+                string expectedMessage = $"Kan het Hydra-Ring last_error bestand {HydraRingFileConstants.LastErrorFileName} " +
+                                         $"niet lezen uit de map {lastErrorTestDataDirectory}.";
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -39,7 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             // Call
             TestDelegate call = () => new FaultTreeIllustrationPoint(null,
                                                                      random.NextDouble(),
-                                                                     Enumerable.Empty<Stochast>(), 
+                                                                     Enumerable.Empty<Stochast>(),
                                                                      random.NextEnumValue<CombinationType>());
 
             // Assert
@@ -72,7 +73,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             const string name = "name";
             double beta = random.NextDouble();
             var combinationType = random.NextEnumValue<CombinationType>();
-            var stochasts = Enumerable.Empty<Stochast>();
+            IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
 
             // Call
             var illustrationPoint = new FaultTreeIllustrationPoint(name, beta, stochasts, combinationType);

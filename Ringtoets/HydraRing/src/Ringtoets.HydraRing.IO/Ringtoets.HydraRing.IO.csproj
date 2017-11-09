@@ -54,7 +54,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HydraulicBoundaryDatabaseContext\HrdLocationsTableDefinitions.cs" />
-    <Compile Include="Exceptions\HydraulicBoundaryDatabaseReadException.cs" />
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundaryDatabaseQueryBuilder.cs" />
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundarySqLiteDatabaseReader.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabaseContext\HydraulicLocationConfigurationSqLiteDatabaseReader.cs" />

@@ -102,6 +102,16 @@ namespace Ringtoets.HydraRing.Calculation.Readers
             return null;
         }
 
+        /// <summary>
+        /// Progresses the reader to the next result in the data set.
+        /// </summary>
+        /// <returns><c>true</c> if there was another result in the data set, <c>false</c>
+        /// otherwise.</returns>
+        public bool NextResult()
+        {
+            return reader.NextResult();
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -155,16 +165,6 @@ namespace Ringtoets.HydraRing.Calculation.Readers
         private void OpenConnection()
         {
             connection.Open();
-        }
-
-        /// <summary>
-        /// Progresses the reader to the next result in the data set.
-        /// </summary>
-        /// <returns><c>true</c> if there was another result in the data set, <c>false</c>
-        /// otherwise.</returns>
-        public bool NextResult()
-        {
-            return reader.NextResult();
         }
     }
 }

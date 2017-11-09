@@ -41,12 +41,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output
         /// <summary>
         /// Gets the wave height that was a result of the overtopping calculation.
         /// </summary>
-        public double WaveHeight { get; private set; }
+        public double WaveHeight { get; }
 
         /// <summary>
         /// Gets whether the overtopping sub failure mechanism was dominant over
         /// the overflow sub failure mechanism.
         /// </summary>
-        public bool IsOvertoppingDominant { get; private set; }
+        public bool IsOvertoppingDominant { get; }
     }
 }

@@ -32,14 +32,10 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         /// <returns>The query to get the version from the database.</returns>
         public static string GetVersionQuery()
         {
-            return string.Format(
-                "SELECT ({0} || {1} || {2}) as {3} FROM {4} LIMIT 0,1;",
-                GeneralTableDefinitions.RegionName,
-                GeneralTableDefinitions.CreationDate,
-                GeneralTableDefinitions.TrackId,
-                GeneralTableDefinitions.GeneratedVersion,
-                GeneralTableDefinitions.TableName
-            );
+            return $"SELECT ({GeneralTableDefinitions.RegionName} || " +
+                   $"{GeneralTableDefinitions.CreationDate} || " +
+                   $"{GeneralTableDefinitions.TrackId}) as {GeneralTableDefinitions.GeneratedVersion} " +
+                   $"FROM {GeneralTableDefinitions.TableName} LIMIT 0,1;";
         }
 
         /// <summary>
@@ -48,11 +44,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         /// <returns>The query to get the track id from the database.</returns>
         public static string GetTrackIdQuery()
         {
-            return string.Format(
-                "SELECT {0} FROM {1} LIMIT 0,1;",
-                GeneralTableDefinitions.TrackId,
-                GeneralTableDefinitions.TableName
-            );
+            return $"SELECT {GeneralTableDefinitions.TrackId} FROM {GeneralTableDefinitions.TableName} LIMIT 0,1;";
         }
 
         /// <summary>
@@ -61,13 +53,8 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         /// <returns>The query to get the amount of relevant locations from the database.</returns>
         public static string GetRelevantLocationsCountQuery()
         {
-            return string.Format(
-                "SELECT count({0}) as {1} FROM {2} WHERE {3} > 1 ;",
-                HrdLocationsTableDefinitions.HrdLocationId,
-                HrdLocationsTableDefinitions.Count,
-                HrdLocationsTableDefinitions.TableName,
-                HrdLocationsTableDefinitions.LocationTypeId // Value > 1 makes it relevant
-            );
+            return $"SELECT count({HrdLocationsTableDefinitions.HrdLocationId}) as {HrdLocationsTableDefinitions.Count} " +
+                   $"FROM {HrdLocationsTableDefinitions.TableName} WHERE {HrdLocationsTableDefinitions.LocationTypeId} > 1 ;";
         }
 
         /// <summary>
@@ -76,15 +63,9 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         /// <returns>The query to get the all relevant locations from the database.</returns>
         public static string GetRelevantLocationsQuery()
         {
-            return string.Format(
-                "SELECT {0}, {1}, {2}, {3} FROM {4} WHERE {5} > 1;",
-                HrdLocationsTableDefinitions.HrdLocationId,
-                HrdLocationsTableDefinitions.Name,
-                HrdLocationsTableDefinitions.XCoordinate,
-                HrdLocationsTableDefinitions.YCoordinate,
-                HrdLocationsTableDefinitions.TableName,
-                HrdLocationsTableDefinitions.LocationTypeId // Value > 1 makes it relevant
-            );
+            return $"SELECT {HrdLocationsTableDefinitions.HrdLocationId}, {HrdLocationsTableDefinitions.Name}, " +
+                   $"{HrdLocationsTableDefinitions.XCoordinate}, {HrdLocationsTableDefinitions.YCoordinate} " +
+                   $"FROM {HrdLocationsTableDefinitions.TableName} WHERE {HrdLocationsTableDefinitions.LocationTypeId} > 1;";
         }
     }
 }

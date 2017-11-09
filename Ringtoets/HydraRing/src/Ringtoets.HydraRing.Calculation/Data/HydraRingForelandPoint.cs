@@ -40,11 +40,11 @@ namespace Ringtoets.HydraRing.Calculation.Data
         /// <summary>
         /// Gets the X-coordinate.
         /// </summary>
-        public double X { get; private set; }
+        public double X { get; }
 
         /// <summary>
         /// Gets the Z-coordinate.
         /// </summary>
-        public double Z { get; private set; }
+        public double Z { get; }
     }
 }

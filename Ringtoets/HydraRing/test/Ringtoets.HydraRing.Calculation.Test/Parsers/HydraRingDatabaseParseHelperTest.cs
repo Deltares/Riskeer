@@ -90,7 +90,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_ReaderThrowsHydraRingDatabaseReaderException_ThrowsHydraRingFileParserExceptionWithCustomMessage()
+        public void Parse_ReaderThrowsSQLiteException_ThrowsHydraRingFileParserExceptionWithCustomMessage()
         {
             // Setup
             const string customMessage = "Exception message";

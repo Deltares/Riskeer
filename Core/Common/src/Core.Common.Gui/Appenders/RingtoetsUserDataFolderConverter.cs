@@ -28,7 +28,7 @@ namespace Core.Common.Gui.Appenders
     /// <summary>
     /// Converter that injects the application user data folder.
     /// </summary>
-    public class RingtoetsUserDataFolderConverter : PatternConverter // NOTE: Class might be marked as unused, but it's actually created in Application.Ringtoets/app.config!
+    public class RingtoetsUserDataFolderConverter : PatternConverter // NOTE: Class might look like it's only used in tests, but it's actually created in Application.Ringtoets/app.config!
     {
         protected override void Convert(TextWriter writer, object state)
         {

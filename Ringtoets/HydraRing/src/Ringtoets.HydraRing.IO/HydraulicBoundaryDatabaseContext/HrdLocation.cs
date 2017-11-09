@@ -51,21 +51,21 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         /// <summary>
         /// Gets the database HrdLocationId of <see cref="HrdLocation"/>.
         /// </summary>
-        public long HrdLocationId { get; private set; }
+        public long HrdLocationId { get; }
 
         /// <summary>
         /// Gets the name of <see cref="HrdLocation"/>.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the X-coordinate of <see cref="HrdLocation"/>.
         /// </summary>
-        public double LocationX { get; private set; }
+        public double LocationX { get; }
 
         /// <summary>
         /// Gets the Y-coordinate of <see cref="HrdLocation"/>.
         /// </summary>
-        public double LocationY { get; private set; }
+        public double LocationY { get; }
     }
 }

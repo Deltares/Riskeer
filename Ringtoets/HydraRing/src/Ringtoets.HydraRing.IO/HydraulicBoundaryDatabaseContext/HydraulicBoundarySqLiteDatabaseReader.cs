@@ -87,8 +87,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             }
             catch (ConversionException e)
             {
-                string message = new FileReaderErrorMessageBuilder(Path).
-                    Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 throw new LineParseException(message, e);
             }
         }
@@ -140,8 +139,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             }
             catch (InvalidCastException exception)
             {
-                string message = new FileReaderErrorMessageBuilder(Path).
-                    Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 throw new LineParseException(message, exception);
             }
             catch (SQLiteException exception)
