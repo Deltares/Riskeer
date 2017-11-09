@@ -59,12 +59,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             TotalPorePressure = slice.TotalPorePressure;
             Weight = slice.Weight;
             PiezometricPorePressure = slice.PiezometricPorePressure;
-            DegreeOfConsolidationPorePressureSoil = slice.DegreeOfConsolidationPorePressureSoil;
-            DegreeOfConsolidationPorePressureLoad = slice.DegreeOfConsolidationPorePressureLoad;
             PorePressure = slice.PorePressure;
             VerticalPorePressure = slice.VerticalPorePressure;
             HorizontalPorePressure = slice.HorizontalPorePressure;
-            ExternalLoad = slice.ExternalLoad;
             OverConsolidationRatio = slice.OverConsolidationRatio;
             Pop = slice.Pop;
             NormalStress = slice.NormalStress;
@@ -108,12 +105,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         public RoundedDouble OverConsolidationRatio { get; }
 
         /// <summary>
-        /// Gets the external load of the slice.
-        /// [kN/m²]
-        /// </summary>
-        public RoundedDouble ExternalLoad { get; }
-
-        /// <summary>
         /// Gets the horizontal pressure of the slice.
         /// [kN/m²]
         /// </summary>
@@ -130,18 +121,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// [kN/m²]
         /// </summary>
         public RoundedDouble PorePressure { get; }
-
-        /// <summary>
-        /// Gets the pore pressure from degree of consolidation load of the slice.
-        /// [kN/m²]
-        /// </summary>
-        public RoundedDouble DegreeOfConsolidationPorePressureLoad { get; }
-
-        /// <summary>
-        /// Gets the pore pressure from degree of consolidation soil of the slice.
-        /// [kN/m²]
-        /// </summary>
-        public RoundedDouble DegreeOfConsolidationPorePressureSoil { get; }
 
         /// <summary>
         /// Gets the piezometric pore pressure of the slice.

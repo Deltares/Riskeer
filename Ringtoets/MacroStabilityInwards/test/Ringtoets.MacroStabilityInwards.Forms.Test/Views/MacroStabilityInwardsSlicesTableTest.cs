@@ -48,17 +48,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int totalPorePressureColumnIndex = 11;
         private const int weightColumnIndex = 12;
         private const int piezometricPorePressureColumnIndex = 13;
-        private const int degreePorePressureSoilColumnIndex = 14;
-        private const int degreePorePressureLoadColumnIndex = 15;
-        private const int porePressureColumnIndex = 16;
-        private const int verticalPorePressureColumnIndex = 17;
-        private const int horizontalPorePressureColumnIndex = 18;
-        private const int externalLoadColumnIndex = 19;
-        private const int overConsolidationRatioColumnIndex = 20;
-        private const int popColumnIndex = 21;
-        private const int normalStressColumnIndex = 22;
-        private const int shearStressColumnIndex = 23;
-        private const int loadStressColumnIndex = 24;
+        private const int porePressureColumnIndex = 14;
+        private const int verticalPorePressureColumnIndex = 15;
+        private const int horizontalPorePressureColumnIndex = 16;
+        private const int overConsolidationRatioColumnIndex = 17;
+        private const int popColumnIndex = 18;
+        private const int normalStressColumnIndex = 19;
+        private const int shearStressColumnIndex = 20;
+        private const int loadStressColumnIndex = 21;
 
         [Test]
         public void Constructor_InitializesWithColumns()
@@ -95,18 +92,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Gewicht [kN/m]", weightColumn.HeaderText);
                 DataGridViewColumn piezometricPorePressureColumn = table.GetColumnFromIndex(piezometricPorePressureColumnIndex);
                 Assert.AreEqual("Piezometrische waterspanning [kN/m²]", piezometricPorePressureColumn.HeaderText);
-                DataGridViewColumn degreePorePressureSoilColumn = table.GetColumnFromIndex(degreePorePressureSoilColumnIndex);
-                Assert.AreEqual("Waterspanning door consolidatiegraad grond [kN/m²]", degreePorePressureSoilColumn.HeaderText);
-                DataGridViewColumn degreePorePressureLoadColumn = table.GetColumnFromIndex(degreePorePressureLoadColumnIndex);
-                Assert.AreEqual("Waterspanning door consolidatiegraad belasting [kN/m²]", degreePorePressureLoadColumn.HeaderText);
                 DataGridViewColumn porePressureColumn = table.GetColumnFromIndex(porePressureColumnIndex);
                 Assert.AreEqual("Waterspanning op maaiveld [kN/m²]", porePressureColumn.HeaderText);
                 DataGridViewColumn verticalPorePressureColumn = table.GetColumnFromIndex(verticalPorePressureColumnIndex);
                 Assert.AreEqual("Verticale waterspanning op maaiveld [kN/m²]", verticalPorePressureColumn.HeaderText);
                 DataGridViewColumn horizontalPorePressureColumn = table.GetColumnFromIndex(horizontalPorePressureColumnIndex);
                 Assert.AreEqual("Horizontale waterspanning op maaiveld [kN/m²]", horizontalPorePressureColumn.HeaderText);
-                DataGridViewColumn externalLoadColumn = table.GetColumnFromIndex(externalLoadColumnIndex);
-                Assert.AreEqual("Externe belasting [kN/m²]", externalLoadColumn.HeaderText);
                 DataGridViewColumn overConsolidationRatioColumn = table.GetColumnFromIndex(overConsolidationRatioColumnIndex);
                 Assert.AreEqual("OCR [-]", overConsolidationRatioColumn.HeaderText);
                 DataGridViewColumn popColumn = table.GetColumnFromIndex(popColumnIndex);
@@ -283,16 +274,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                     piezometricPorePressure,
                                     piezometricPorePressure.GetAccuracy());
 
-                    var degreePorePressureSoil = (RoundedDouble) rowCells[degreePorePressureSoilColumnIndex].Value;
-                    Assert.AreEqual(slice.DegreeOfConsolidationPorePressureSoil,
-                                    degreePorePressureSoil,
-                                    degreePorePressureSoil.GetAccuracy());
-
-                    var degreePorePressureLoad = (RoundedDouble) rowCells[degreePorePressureLoadColumnIndex].Value;
-                    Assert.AreEqual(slice.DegreeOfConsolidationPorePressureLoad,
-                                    degreePorePressureLoad,
-                                    degreePorePressureLoad.GetAccuracy());
-
                     var porePressure = (RoundedDouble) rowCells[porePressureColumnIndex].Value;
                     Assert.AreEqual(slice.PorePressure,
                                     porePressure,
@@ -307,11 +288,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     Assert.AreEqual(slice.HorizontalPorePressure,
                                     horizontalPorePressure,
                                     horizontalPorePressure.GetAccuracy());
-
-                    var externalLoad = (RoundedDouble) rowCells[externalLoadColumnIndex].Value;
-                    Assert.AreEqual(slice.ExternalLoad,
-                                    externalLoad,
-                                    externalLoad.GetAccuracy());
 
                     var ocr = (RoundedDouble) rowCells[overConsolidationRatioColumnIndex].Value;
                     Assert.AreEqual(slice.OverConsolidationRatio,

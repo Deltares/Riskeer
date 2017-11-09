@@ -95,12 +95,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.PiezometricPorePressure),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_PiezometricPorePressure,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.DegreeOfConsolidationPorePressureSoil),
-                             Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureSoil,
-                             true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.DegreeOfConsolidationPorePressureLoad),
-                             Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureLoad,
-                             true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.PorePressure),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_PorePressure,
                              true);
@@ -109,9 +103,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.HorizontalPorePressure),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_HorizontalPorePressure,
-                             true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.ExternalLoad),
-                             Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_ExternalLoad,
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.OverConsolidationRatio),
                              Resources.MacroStabilityInwardsSlicesTable_ColumnHeader_OverConsolidationRatio,

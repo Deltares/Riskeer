@@ -768,26 +768,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterspanning door consolidatiegraad belasting [kN/m²].
-        /// </summary>
-        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureLoad {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureLo" +
-                        "ad", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waterspanning door consolidatiegraad grond [kN/m²].
-        /// </summary>
-        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureSoil {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureSo" +
-                        "il", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Effectieve spanning [kN/m²].
         /// </summary>
         public static string MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStress {
@@ -802,15 +782,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStressDaily {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStressDaily", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Externe belasting [kN/m²].
-        /// </summary>
-        public static string MacroStabilityInwardsSlicesTable_ColumnHeader_ExternalLoad {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_ColumnHeader_ExternalLoad", resourceCulture);
             }
         }
         

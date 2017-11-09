@@ -658,20 +658,11 @@
   <data name="MacroStabilityInwardsTable_ColumnHeader_Cohesion" xml:space="preserve">
     <value>Cohesie [kN/m²]</value>
   </data>
-  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureLoad" xml:space="preserve">
-    <value>Waterspanning door consolidatiegraad belasting [kN/m²]</value>
-  </data>
-  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_DegreeOfConsolidationPorePressureSoil" xml:space="preserve">
-    <value>Waterspanning door consolidatiegraad grond [kN/m²]</value>
-  </data>
   <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStress" xml:space="preserve">
     <value>Effectieve spanning [kN/m²]</value>
   </data>
   <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_EffectiveStressDaily" xml:space="preserve">
     <value>Effectieve spanning (dagelijks) [kN/m²]</value>
-  </data>
-  <data name="MacroStabilityInwardsSlicesTable_ColumnHeader_ExternalLoad" xml:space="preserve">
-    <value>Externe belasting [kN/m²]</value>
   </data>
   <data name="MacroStabilityInwardsTable_ColumnHeader_FrictionAngle" xml:space="preserve">
     <value>Wrijvingshoek [°]</value>

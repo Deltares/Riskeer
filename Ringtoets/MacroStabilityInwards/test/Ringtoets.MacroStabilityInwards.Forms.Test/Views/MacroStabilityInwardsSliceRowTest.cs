@@ -90,12 +90,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(4.0, sliceRow.TotalPorePressure, sliceRow.TotalPorePressure.GetAccuracy());
             Assert.AreEqual(5.0, sliceRow.Weight, sliceRow.Weight.GetAccuracy());
             Assert.AreEqual(6.0, sliceRow.PiezometricPorePressure, sliceRow.PiezometricPorePressure.GetAccuracy());
-            Assert.AreEqual(7.0, sliceRow.DegreeOfConsolidationPorePressureSoil, sliceRow.DegreeOfConsolidationPorePressureSoil.GetAccuracy());
-            Assert.AreEqual(8.0, sliceRow.DegreeOfConsolidationPorePressureLoad, sliceRow.DegreeOfConsolidationPorePressureLoad.GetAccuracy());
             Assert.AreEqual(9.0, sliceRow.PorePressure, sliceRow.PorePressure.GetAccuracy());
             Assert.AreEqual(10.0, sliceRow.VerticalPorePressure, sliceRow.VerticalPorePressure.GetAccuracy());
             Assert.AreEqual(11.0, sliceRow.HorizontalPorePressure, sliceRow.HorizontalPorePressure.GetAccuracy());
-            Assert.AreEqual(12.0, sliceRow.ExternalLoad, sliceRow.ExternalLoad.GetAccuracy());
             Assert.AreEqual(13.0, sliceRow.OverConsolidationRatio, sliceRow.OverConsolidationRatio.GetAccuracy());
             Assert.AreEqual(14.0, sliceRow.Pop, sliceRow.Pop.GetAccuracy());
             Assert.AreEqual(15.0, sliceRow.NormalStress, sliceRow.NormalStress.GetAccuracy());
