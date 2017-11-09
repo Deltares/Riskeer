@@ -120,7 +120,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void ProjectIntoLocalCoordinates_GeometryWithMultiplePoints_ProjectPointsOntoLzPlaneKeepingOriginalZ()
+        public void ProjectIntoLocalCoordinates_GeometryWithMultiplePoints_ProjectPointsOntoLZPlaneKeepingOriginalZ()
         {
             // Setup
             var startPoint = new Point2D(1.0, 1.0);

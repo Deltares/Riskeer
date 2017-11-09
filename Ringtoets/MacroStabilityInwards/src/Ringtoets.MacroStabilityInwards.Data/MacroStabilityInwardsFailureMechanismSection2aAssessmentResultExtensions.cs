@@ -29,9 +29,9 @@ using Ringtoets.Common.Data.Calculation;
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// Extension methods for obtaining level 2A results from output for an assessment of the macro stability inwards failure mechanism.
+    /// Extension methods for obtaining level 2a results from output for an assessment of the macro stability inwards failure mechanism.
     /// </summary>
-    public static class MacroStabilityInwardsFailureMechanismSection2AAssessmentResultExtensions
+    public static class MacroStabilityInwardsFailureMechanismSection2aAssessmentResultExtensions
     {
         /// <summary>
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.

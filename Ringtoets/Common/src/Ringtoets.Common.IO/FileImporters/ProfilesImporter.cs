@@ -271,7 +271,6 @@ namespace Ringtoets.Common.IO.FileImporters
 
             var dikeProfileData = new Collection<DikeProfileData>();
             var dikeProfileDataReader = new DikeProfileDataReader(acceptedIds);
-            var errorOccured = false;
 
             for (var i = 0; i < totalNumberOfSteps; i++)
             {

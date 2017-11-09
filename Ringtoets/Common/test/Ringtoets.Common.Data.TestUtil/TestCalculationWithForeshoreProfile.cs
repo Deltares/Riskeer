@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Data.TestUtil
             HasOutput = false;
         }
 
-        public object Clone()
+        public override object Clone()
         {
             throw new NotImplementedException();
         }

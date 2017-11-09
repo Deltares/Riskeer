@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismSection2AAssessmentResultExtensionsTest
+    public class MacroStabilityInwardsFailureMechanismSection2aAssessmentResultExtensionsTest
     {
         [Test]
         public void GetAssessmentLayerTwoA_MultipleScenarios_ReturnsValueBasedOnRelevantAndDoneScenarios()
