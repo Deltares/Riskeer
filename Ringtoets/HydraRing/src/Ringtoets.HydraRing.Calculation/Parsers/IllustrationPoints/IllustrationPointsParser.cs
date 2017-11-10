@@ -79,7 +79,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                     ParseResultsFromReader(reader);
                 }
             }
-            catch (Exception e) when (e is SQLiteException)
+            catch (SQLiteException e)
             {
                 throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Could_not_read_illustration_point_data, e);
             }

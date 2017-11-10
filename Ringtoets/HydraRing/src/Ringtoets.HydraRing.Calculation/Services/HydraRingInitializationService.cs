@@ -52,7 +52,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
         // Working directories
         private readonly string hydraRingDirectory;
-
         private readonly string hlcdDirectory;
 
         /// <summary>

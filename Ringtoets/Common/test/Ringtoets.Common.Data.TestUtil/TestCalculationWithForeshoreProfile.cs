@@ -103,11 +103,6 @@ namespace Ringtoets.Common.Data.TestUtil
             HasOutput = false;
         }
 
-        public override object Clone()
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// A simple input class with a <see cref="ForeshoreProfile"/>.
         /// </summary>

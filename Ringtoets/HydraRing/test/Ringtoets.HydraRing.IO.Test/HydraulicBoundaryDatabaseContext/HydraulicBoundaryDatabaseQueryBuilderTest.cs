@@ -57,7 +57,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         public void GetRelevantLocationsCountQuery_Always_ReturnsExpectedValues()
         {
             // Setup
-            const string expectedQuery = "SELECT count(HRDLocationId) as nrOfRows FROM HRDLocations WHERE LocationTypeId > 1 ;";
+            const string expectedQuery = "SELECT count(HRDLocationId) as nrOfRows FROM HRDLocations WHERE LocationTypeId > 1;";
 
             // Call
             string query = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsCountQuery();
