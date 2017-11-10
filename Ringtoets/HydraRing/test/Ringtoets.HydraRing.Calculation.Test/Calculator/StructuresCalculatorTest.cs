@@ -29,10 +29,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
     public class StructuresCalculatorTest
     {
         [Test]
-        public void DefaultConstructor_InitializesOutputWithoutValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
-            var calculator = new StructuresCalculator<ExceedanceProbabilityCalculationInput>(string.Empty);
+            var calculator = new StructuresCalculator<ExceedanceProbabilityCalculationInput>(string.Empty, string.Empty);
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);

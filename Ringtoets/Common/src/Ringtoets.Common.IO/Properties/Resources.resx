@@ -874,4 +874,10 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="StochasticSoilProfileHelper_GetUniqueStochasticSoilProfiles_StochasticSoilProfile_0_has_multiple_occurences_in_SoilModel_1_Probability_Summed" xml:space="preserve">
     <value>Ondergrondschematisatie '{0}' is meerdere keren gevonden in ondergrondmodel '{1}'. Kansen van voorkomen worden opgeteld.</value>
   </data>
+  <data name="HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Invalid_path" xml:space="preserve">
+    <value>De bestandsmap waar de preprocessor bestanden opslaat is ongeldig.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Path_does_not_exist" xml:space="preserve">
+    <value>De bestandsmap bestaat niet.</value>
+  </data>
 </root>

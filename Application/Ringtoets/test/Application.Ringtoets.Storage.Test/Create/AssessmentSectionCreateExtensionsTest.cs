@@ -184,7 +184,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithHydraulicBoundaryDatabase_SetsPropertiesAndLocationsToEntity()
+        public void Create_WithHydraulicBoundaryDatabaseCanUsePreprocessorFalse_SetsPropertiesAndLocationsToEntity()
         {
             // Setup
             const string testFilePath = "path";
@@ -211,6 +211,43 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(testFilePath, entity.HydraulicDatabaseLocation);
             Assert.AreEqual(testVersion, entity.HydraulicDatabaseVersion);
             Assert.AreEqual(1, entity.HydraulicLocationEntities.Count);
+            Assert.AreEqual(0, entity.HydraRingPreprocessorEntities.Count);
+        }
+
+        [Test]
+        public void Create_WithHydraulicBoundaryDatabaseCanUsePreprocessorTrue_SetsPropertiesAndLocationsToEntity()
+        {
+            // Setup
+            const string testFilePath = "path";
+            const string testVersion = "1";
+            const bool usePreprocessor = true;
+            const string preprocessorDirectory = "directory";
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, preprocessorDirectory)
+                {
+                    FilePath = testFilePath,
+                    Version = testVersion,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(-1, "name", 1, 2)
+                    }
+                }
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
+
+            // Assert
+            Assert.AreEqual(testFilePath, entity.HydraulicDatabaseLocation);
+            Assert.AreEqual(testVersion, entity.HydraulicDatabaseVersion);
+            Assert.AreEqual(1, entity.HydraulicLocationEntities.Count);
+            Assert.AreEqual(1, entity.HydraRingPreprocessorEntities.Count);
+            HydraRingPreprocessorEntity preprocessorEntity = entity.HydraRingPreprocessorEntities.First();
+            Assert.AreEqual(Convert.ToByte(usePreprocessor), preprocessorEntity.UsePreprocessor);
+            Assert.AreEqual(preprocessorDirectory, preprocessorEntity.PreprocessorDirectory);
         }
 
         [Test]

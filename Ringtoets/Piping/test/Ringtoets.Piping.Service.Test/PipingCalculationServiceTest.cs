@@ -64,11 +64,6 @@ namespace Ringtoets.Piping.Service.Test
         [Test]
         public void Validate_Always_LogStartAndEndOfValidatingInputs()
         {
-            // Setup
-            const string name = "<very nice name>";
-
-            testCalculation.Name = name;
-
             // Call
             Action call = () => PipingCalculationService.Validate(testCalculation);
 
@@ -101,12 +96,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_InvalidCalculationInput_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
-            var calculation = new PipingCalculation(new GeneralPipingInput())
-            {
-                Name = name
-            };
+            var calculation = new PipingCalculation(new GeneralPipingInput());
 
             // Call
             var isValid = false;
@@ -132,9 +122,6 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_HydraulicBoundaryLocationNotCalculated_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
-            testCalculation.Name = name;
             testCalculation.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             testCalculation.InputParameters.UseAssessmentLevelManualInput = false;
 
@@ -162,11 +149,8 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_InvalidManualAssessmentLevel_LogsErrorAndReturnsFalse(double assessmentLevel)
         {
             // Setup
-            const string name = "<very nice name>";
-
             testCalculation.InputParameters.UseAssessmentLevelManualInput = true;
             testCalculation.InputParameters.AssessmentLevel = (RoundedDouble) assessmentLevel;
-            testCalculation.Name = name;
 
             // Call
             var isValid = false;
@@ -189,10 +173,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_WithoutEntryPointL_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
             testCalculation.InputParameters.EntryPointL = RoundedDouble.NaN;
-            testCalculation.Name = name;
 
             // Call
             var isValid = false;
@@ -214,10 +195,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_WithoutExitPointL_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
             testCalculation.InputParameters.ExitPointL = RoundedDouble.NaN;
-            testCalculation.Name = name;
 
             // Call
             var isValid = false;
@@ -239,12 +217,9 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_WithoutSurfaceLine_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
             testCalculation.InputParameters.SurfaceLine = null;
             testCalculation.InputParameters.ExitPointL = (RoundedDouble) 0.9;
             testCalculation.InputParameters.EntryPointL = (RoundedDouble) 0.1;
-            testCalculation.Name = name;
 
             // Call
             var isValid = false;
@@ -266,8 +241,6 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_WithSurfaceLineOneOutOfFourDitchPoints_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
             Point3D[] geometry = testCalculation.InputParameters.SurfaceLine.Points;
             const string surfaceLineName = "surfaceLineA";
             var surfaceLineMissingCharacteristicPoint = new PipingSurfaceLine(surfaceLineName);
@@ -277,7 +250,6 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.InputParameters.SurfaceLine = surfaceLineMissingCharacteristicPoint;
             testCalculation.InputParameters.ExitPointL = (RoundedDouble) 0.9;
             testCalculation.InputParameters.EntryPointL = (RoundedDouble) 0.1;
-            testCalculation.Name = name;
 
             // Call
             var isValid = false;
@@ -300,10 +272,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_WithoutStochasticSoilProfile_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
             testCalculation.InputParameters.StochasticSoilProfile = null;
-            testCalculation.Name = name;
 
             var isValid = false;
 
@@ -326,8 +295,6 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_StochasticSoilProfileBelowSurfaceLine_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
             var topLayer = new PipingSoilLayer(testSurfaceLineTopLevel - 1e-6)
             {
                 IsAquifer = false,
@@ -353,8 +320,6 @@ namespace Ringtoets.Piping.Service.Test
                     },
                     SoilProfileType.SoilProfile1D));
 
-            testCalculation.Name = name;
-
             var isValid = false;
 
             // Call
@@ -376,8 +341,6 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_WithoutAquiferLayer_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
             var aquitardLayer = new PipingSoilLayer(2.0)
             {
                 IsAquifer = false
@@ -390,7 +353,6 @@ namespace Ringtoets.Piping.Service.Test
                                                 SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
-            testCalculation.Name = name;
 
             var isValid = false;
 
@@ -416,8 +378,6 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_WithoutAquitardLayer_LogsWarningsAndReturnsTrue()
         {
             // Setup
-            const string name = "<very nice name>";
-
             var aquiferLayer = new PipingSoilLayer(10.56)
             {
                 IsAquifer = true,
@@ -434,7 +394,6 @@ namespace Ringtoets.Piping.Service.Test
                                                 SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
-            testCalculation.Name = name;
 
             var isValid = false;
 
@@ -458,8 +417,6 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_WithoutCoverageLayer_LogsWarningsAndReturnsTrue()
         {
             // Setup
-            const string name = "<very nice name>";
-
             var coverageLayerAboveSurfaceLine = new PipingSoilLayer(13.0)
             {
                 IsAquifer = false
@@ -481,7 +438,6 @@ namespace Ringtoets.Piping.Service.Test
                                                 SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
-            testCalculation.Name = name;
 
             var isValid = false;
 
@@ -505,8 +461,6 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_MultipleCoverageLayer_LogsWarningAndReturnsTrue()
         {
             // Setup
-            const string name = "<very nice name>";
-
             var random = new Random(21);
             const double belowPhreaticLevelDeviation = 0.5;
             const int belowPhreaticLevelShift = 1;
@@ -545,7 +499,6 @@ namespace Ringtoets.Piping.Service.Test
                                                 SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
-            testCalculation.Name = name;
 
             var isValid = false;
 
@@ -571,8 +524,6 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_IncompleteDiameterD70Definition_LogsErrorAndReturnsFalse(bool meanSet, bool deviationSet)
         {
             // Setup
-            const string name = "<very nice name>";
-
             var random = new Random(21);
             var incompletePipingSoilLayer = new PipingSoilLayer(5.0)
             {
@@ -606,7 +557,6 @@ namespace Ringtoets.Piping.Service.Test
                                                 SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
-            testCalculation.Name = name;
 
             var isValid = false;
 
@@ -631,8 +581,6 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_InvalidDiameterD70Value_LogsWarningAndReturnsTrue(double diameter70Value)
         {
             // Setup
-            const string name = "<very nice name>";
-
             var random = new Random(21);
             var coverageLayerInvalidD70 = new PipingSoilLayer(5.0)
             {
@@ -657,7 +605,6 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D);
 
-            testCalculation.Name = name;
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             var isValid = false;
@@ -684,8 +631,6 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_IncompletePermeabilityDefinition_LogsErrorAndReturnsFalse(bool meanSet, bool deviationSet)
         {
             // Setup
-            const string name = "<very nice name>";
-
             var random = new Random(21);
             var incompletePipingSoilLayer = new PipingSoilLayer(5.0)
             {
@@ -719,7 +664,6 @@ namespace Ringtoets.Piping.Service.Test
                                                 SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
-            testCalculation.Name = name;
 
             var isValid = false;
 
@@ -746,8 +690,6 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_IncompleteSaturatedVolumicWeightDefinition_LogsErrorAndReturnsFalse(bool meanSet, bool deviationSet, bool shiftSet)
         {
             // Setup
-            const string name = "<very nice name>";
-
             var random = new Random(21);
             var incompletePipingSoilLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
             {
@@ -784,7 +726,6 @@ namespace Ringtoets.Piping.Service.Test
                                                 SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
-            testCalculation.Name = name;
 
             var isValid = false;
 
@@ -807,8 +748,6 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_SaturatedCoverageLayerVolumicWeightLessThanWaterVolumicWeight_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
             var coverageLayerInvalidSaturatedVolumicWeight = new PipingSoilLayer(testSurfaceLineTopLevel)
             {
                 IsAquifer = false,
@@ -832,7 +771,6 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D);
 
-            testCalculation.Name = name;
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             var isValid = false;
@@ -859,8 +797,6 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_SaturatedCoverageLayerLessThanWaterLayerAndMissingSaturatedParameter_LogsErrorOnlyForIncompleteDefinition()
         {
             // Setup
-            const string name = "<very nice name>";
-
             var topCoverageLayer = new PipingSoilLayer(testSurfaceLineTopLevel)
             {
                 IsAquifer = false,
@@ -892,7 +828,6 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D);
 
-            testCalculation.Name = name;
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
@@ -942,11 +877,6 @@ namespace Ringtoets.Piping.Service.Test
         [Test]
         public void Calculate_ValidPipingCalculation_LogStartAndEndOfValidatingInputsAndCalculation()
         {
-            // Setup
-            const string name = "<very nice name>";
-
-            testCalculation.Name = name;
-
             Action call = () =>
             {
                 // Precondition

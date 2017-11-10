@@ -21,6 +21,7 @@
 
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
@@ -33,15 +34,22 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
     [TestFixture]
     public class HydraulicBoundaryDatabasePropertiesTest
     {
+        private const int namePropertyIndex = 0;
+        private const int usePreprocessorPropertyIndex = 1;
+        private const int preprocessorDirectoryPropertyIndex = 2;
+
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
+            // Setup
+            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike));
+
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties();
+            var properties = new HydraulicBoundaryDatabaseProperties(context);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryDatabaseContext>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(context, properties.Data);
         }
 
         [Test]
@@ -51,11 +59,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             const string filePath = @"C:\file.sqlite";
+            const bool usePreprocessor = true;
+            const string preprocessorDirectory = @"C:\preprocessor";
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection)
             {
                 WrappedData =
                 {
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, preprocessorDirectory)
                     {
                         FilePath = filePath
                     }
@@ -63,38 +73,201 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties
-            {
-                Data = hydraulicBoundaryDatabaseContext
-            };
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabaseContext);
 
             // Assert
             Assert.AreEqual(filePath, properties.FilePath);
+            Assert.AreEqual(usePreprocessor, properties.UsePreprocessor);
+            Assert.AreEqual(preprocessorDirectory, properties.PreprocessorDirectory);
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_CanUsePreprocessorTrue_PropertiesHaveExpectedAttributesValues(bool usePreprocessor)
         {
+            // Setup
+            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike))
+            {
+                WrappedData =
+                {
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, "Preprocessor")
+                }
+            };
+
             // Call
-            var hydraulicBoundaryLocationProperties = new HydraulicBoundaryDatabaseProperties();
+            var properties = new HydraulicBoundaryDatabaseProperties(context);
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(hydraulicBoundaryLocationProperties);
-            const string expectedFilePathDisplayName = "Hydraulische randvoorwaardendatabase";
-            const string expectedFilePathDescription = "Locatie van het hydraulische randvoorwaardendatabase bestand.";
-            const string expectedFilePathCategory = "Algemeen";
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(hydraulicBoundaryLocationProperties, true);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            PropertyDescriptor filePathProperty = dynamicProperties.Find("FilePath", false);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
-            Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            "Algemeen",
+                                                                            "Hydraulische randvoorwaardendatabase",
+                                                                            "Locatie van het hydraulische randvoorwaardendatabase bestand.",
+                                                                            true);
 
-            Assert.IsNotNull(filePathProperty);
-            Assert.IsTrue(filePathProperty.IsReadOnly);
-            Assert.IsTrue(filePathProperty.IsBrowsable);
-            Assert.AreEqual(expectedFilePathDisplayName, filePathProperty.DisplayName);
-            Assert.AreEqual(expectedFilePathDescription, filePathProperty.Description);
-            Assert.AreEqual(expectedFilePathCategory, filePathProperty.Category);
+            PropertyDescriptor usePreprocessorProperty = dynamicProperties[usePreprocessorPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(usePreprocessorProperty,
+                                                                            "Algemeen",
+                                                                            "Gebruik preprocessor",
+                                                                            "Gebruik de preprocessor bij het uitvoeren van een berekening.");
+
+            PropertyDescriptor preprocessorDirectoryProperty = dynamicProperties[preprocessorDirectoryPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(preprocessorDirectoryProperty,
+                                                                            "Algemeen",
+                                                                            "Locatie preprocessor bestanden",
+                                                                            "Locatie waar de preprocessor bestanden opslaat.",
+                                                                            !usePreprocessor);
+        }
+
+        [Test]
+        public void Constructor_CanUsePreprocessorFalse_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike))
+            {
+                WrappedData =
+                {
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                }
+            };
+
+            // Call
+            var properties = new HydraulicBoundaryDatabaseProperties(context);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(1, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            "Algemeen",
+                                                                            "Hydraulische randvoorwaardendatabase",
+                                                                            "Locatie van het hydraulische randvoorwaardendatabase bestand.",
+                                                                            true);
+        }
+
+        [Test]
+        public void Constructor_HydraulicBoundaryDatabaseNull_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Call
+            var properties = new HydraulicBoundaryDatabaseProperties(context);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(1, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            "Algemeen",
+                                                                            "Hydraulische randvoorwaardendatabase",
+                                                                            "Locatie van het hydraulische randvoorwaardendatabase bestand.",
+                                                                            true);
+        }
+
+        [Test]
+        public void UsePreprocessor_SetNewValue_ValueSetToHydraulicBoundaryDataBase([Values(true, false)] bool usePreprocessor)
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(!usePreprocessor, "Preprocessor");
+            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike))
+            {
+                WrappedData =
+                {
+                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                }
+            };
+            var properties = new HydraulicBoundaryDatabaseProperties(context);
+
+            // Call
+            properties.UsePreprocessor = usePreprocessor;
+
+            // Assert
+            Assert.AreEqual(usePreprocessor, hydraulicBoundaryDatabase.UsePreprocessor);
+        }
+
+        [Test]
+        public void PreprocessorDirectory_SetNewValue_ValueSetToHydraulicBoundaryDataBase()
+        {
+            // Setup
+            const string newPreprocessorDirectory = @"C:/path";
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "Preprocessor");
+            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike))
+            {
+                WrappedData =
+                {
+                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                }
+            };
+            var properties = new HydraulicBoundaryDatabaseProperties(context);
+
+            // Call
+            properties.PreprocessorDirectory = newPreprocessorDirectory;
+
+            // Assert
+            Assert.AreEqual(newPreprocessorDirectory, hydraulicBoundaryDatabase.PreprocessorDirectory);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_DependingOnCanUsePreprocessor_ReturnExpectedVisibility(bool canUsePreprocessor)
+        {
+            // Setup
+            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = canUsePreprocessor
+                                                ? new HydraulicBoundaryDatabase(true, "Preprocessor")
+                                                : new HydraulicBoundaryDatabase()
+            });
+
+            // Call
+            var properties = new HydraulicBoundaryDatabaseProperties(context);
+
+            // Assert
+            Assert.AreEqual(canUsePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.UsePreprocessor)));
+            Assert.AreEqual(canUsePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FilePath)));
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_HydraulicBoundaryDatabaseNull_ReturnExpectedVisibility()
+        {
+            // Setup
+            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Call
+            var properties = new HydraulicBoundaryDatabaseProperties(context);
+
+            // Assert
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.UsePreprocessor)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FilePath)));
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicReadOnlyValidationMethod_DependingOnUsePreprocessor_ReturnExpectedValue(bool usePreprocessor)
+        {
+            // Setup
+            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, "Preprocessor")
+            });
+
+            // Call
+            var properties = new HydraulicBoundaryDatabaseProperties(context);
+
+            // Assert
+            Assert.AreEqual(!usePreprocessor, properties.DynamicReadOnlyValidationMethod(nameof(properties.PreprocessorDirectory)));
+            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(properties.UsePreprocessor)));
         }
     }
 }

@@ -160,7 +160,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 throw new ArgumentNullException(nameof(generalInput));
             }
 
-            int numberOfCalculators = CreateCalculators(calculation, Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath));
+            string effectivePreprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
+            bool usePreprocessor = !string.IsNullOrEmpty(effectivePreprocessorDirectory);
+
+            int numberOfCalculators = CreateCalculators(calculation,
+                                                        Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath),
+                                                        effectivePreprocessorDirectory);
 
             CalculationServiceHelper.LogCalculationBegin();
 
@@ -169,6 +174,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 OvertoppingOutput overtoppingOutput = CalculateOvertopping(calculation,
                                                                            generalInput,
                                                                            hydraulicBoundaryDatabaseFilePath,
+                                                                           usePreprocessor,
                                                                            assessmentSection.FailureMechanismContribution.Norm,
                                                                            failureMechanismContribution,
                                                                            numberOfCalculators);
@@ -183,6 +189,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                         generalInput,
                                                                         failureMechanismContribution,
                                                                         hydraulicBoundaryDatabaseFilePath,
+                                                                        usePreprocessor,
                                                                         numberOfCalculators);
                 if (canceled)
                 {
@@ -194,6 +201,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                                        generalInput,
                                                                                        failureMechanismContribution,
                                                                                        hydraulicBoundaryDatabaseFilePath,
+                                                                                       usePreprocessor,
                                                                                        numberOfCalculators);
 
                 if (canceled)
@@ -216,21 +224,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        private int CreateCalculators(GrassCoverErosionInwardsCalculation calculation, string hlcdDirectory)
+        private int CreateCalculators(GrassCoverErosionInwardsCalculation calculation, string hlcdDirectory, string preprocessorDirectory)
         {
             var numberOfCalculators = 1;
 
-            overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory);
+            overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory, preprocessorDirectory);
 
             if (calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
             {
-                dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory);
+                dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory, preprocessorDirectory);
                 numberOfCalculators++;
             }
 
             if (calculation.InputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation)
             {
-                overtoppingRateCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingRateCalculator(hlcdDirectory);
+                overtoppingRateCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingRateCalculator(hlcdDirectory, preprocessorDirectory);
                 numberOfCalculators++;
             }
 
@@ -243,6 +251,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="calculation">The calculation containing the input for the overtopping calculation.</param>
         /// <param name="generalInput">The general grass cover erosion inwards calculation input parameters.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <param name="norm">The norm which has been defined on the assessment section.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section</param>
         /// <param name="numberOfCalculators">The total number of calculations to perform.</param>
@@ -251,6 +260,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         private OvertoppingOutput CalculateOvertopping(GrassCoverErosionInwardsCalculation calculation,
                                                        GeneralGrassCoverErosionInwardsInput generalInput,
                                                        string hydraulicBoundaryDatabaseFilePath,
+                                                       bool usePreprocessor,
                                                        double norm,
                                                        double failureMechanismContribution,
                                                        int numberOfCalculators)
@@ -259,7 +269,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                          Resources.GrassCoverErosionInwardsCalculationService_Overtopping),
                            1, numberOfCalculators);
 
-            OvertoppingCalculationInput overtoppingCalculationInput = CreateOvertoppingInput(calculation, generalInput, hydraulicBoundaryDatabaseFilePath);
+            OvertoppingCalculationInput overtoppingCalculationInput = CreateOvertoppingInput(calculation,
+                                                                                             generalInput,
+                                                                                             hydraulicBoundaryDatabaseFilePath,
+                                                                                             usePreprocessor);
 
             PerformCalculation(() => overtoppingCalculator.Calculate(overtoppingCalculationInput),
                                () => overtoppingCalculator.LastErrorFileContent,
@@ -298,6 +311,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                      GeneralGrassCoverErosionInwardsInput generalInput,
                                                      double failureMechanismContribution,
                                                      string hydraulicBoundaryDatabaseFilePath,
+                                                     bool usePreprocessor,
                                                      int numberOfCalculators)
         {
             if (dikeHeightCalculator == null)
@@ -318,7 +332,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, norm,
                                                                                           generalInput,
-                                                                                          hydraulicBoundaryDatabaseFilePath);
+                                                                                          hydraulicBoundaryDatabaseFilePath,
+                                                                                          usePreprocessor);
 
             var dikeHeightCalculated = true;
 
@@ -353,6 +368,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                GeneralGrassCoverErosionInwardsInput generalInput,
                                                                double failureMechanismContribution,
                                                                string hydraulicBoundaryDatabaseFilePath,
+                                                               bool usePreprocessor,
                                                                int numberOfCalculators)
         {
             if (overtoppingRateCalculator == null)
@@ -373,7 +389,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             OvertoppingRateCalculationInput overtoppingRateCalculationInput = CreateOvertoppingRateInput(calculation, norm,
                                                                                                          generalInput,
-                                                                                                         hydraulicBoundaryDatabaseFilePath);
+                                                                                                         hydraulicBoundaryDatabaseFilePath,
+                                                                                                         usePreprocessor);
 
             var overtoppingRateCalculated = true;
 
@@ -480,6 +497,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="calculation">The calculation containing the input for the overtopping calculation.</param>
         /// <param name="generalInput">The general grass cover erosion inwards calculation input parameters.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>A new <see cref="OvertoppingCalculationInput"/> instance.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
@@ -493,7 +511,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </exception>
         private static OvertoppingCalculationInput CreateOvertoppingInput(GrassCoverErosionInwardsCalculation calculation,
                                                                           GeneralGrassCoverErosionInwardsInput generalInput,
-                                                                          string hydraulicBoundaryDatabaseFilePath)
+                                                                          string hydraulicBoundaryDatabaseFilePath,
+                                                                          bool usePreprocessor)
         {
             var overtoppingCalculationInput = new OvertoppingCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
                                                                               calculation.InputParameters.Orientation,
@@ -522,7 +541,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                               generalInput.FshallowModelFactor.LowerBoundary,
                                                                               generalInput.FshallowModelFactor.UpperBoundary);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(overtoppingCalculationInput, hydraulicBoundaryDatabaseFilePath);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(overtoppingCalculationInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
             return overtoppingCalculationInput;
         }
@@ -534,6 +553,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="norm">The norm to use in the calculation.</param>
         /// <param name="generalInput">The general grass cover erosion inwards calculation input parameters.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>A new <see cref="DikeHeightCalculationInput"/> instance.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
@@ -548,7 +568,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         private static DikeHeightCalculationInput CreateDikeHeightInput(GrassCoverErosionInwardsCalculation calculation,
                                                                         double norm,
                                                                         GeneralGrassCoverErosionInwardsInput generalInput,
-                                                                        string hydraulicBoundaryDatabaseFilePath)
+                                                                        string hydraulicBoundaryDatabaseFilePath,
+                                                                        bool usePreprocessor)
         {
             var dikeHeightCalculationInput = new DikeHeightCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
                                                                             norm,
@@ -577,7 +598,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                             generalInput.FshallowModelFactor.LowerBoundary,
                                                                             generalInput.FshallowModelFactor.UpperBoundary);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dikeHeightCalculationInput, hydraulicBoundaryDatabaseFilePath);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dikeHeightCalculationInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
             return dikeHeightCalculationInput;
         }
@@ -589,6 +610,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="norm">The norm to use in the calculation.</param>
         /// <param name="generalInput">The general grass cover erosion inwards calculation input parameters.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>A new <see cref="OvertoppingRateCalculationInput"/> instance.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
@@ -603,7 +625,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         private static OvertoppingRateCalculationInput CreateOvertoppingRateInput(GrassCoverErosionInwardsCalculation calculation,
                                                                                   double norm,
                                                                                   GeneralGrassCoverErosionInwardsInput generalInput,
-                                                                                  string hydraulicBoundaryDatabaseFilePath)
+                                                                                  string hydraulicBoundaryDatabaseFilePath,
+                                                                                  bool usePreprocessor)
         {
             var overtoppingRateCalculationInput = new OvertoppingRateCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
                                                                                       norm,
@@ -631,7 +654,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                                       generalInput.FshallowModelFactor.LowerBoundary,
                                                                                       generalInput.FshallowModelFactor.UpperBoundary);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(overtoppingRateCalculationInput, hydraulicBoundaryDatabaseFilePath);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(overtoppingRateCalculationInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
             return overtoppingRateCalculationInput;
         }
@@ -747,33 +770,43 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private static string[] ValidateInput(GrassCoverErosionInwardsInput inputParameters, IAssessmentSection assessmentSection)
         {
-            var validationResult = new List<string>();
+            var validationResults = new List<string>();
 
-            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
-            if (!string.IsNullOrEmpty(validationProblem))
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
-                validationResult.Add(validationProblem);
-                return validationResult.ToArray();
+                validationResults.Add(databaseFilePathValidationProblem);
+            }
+
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
+            {
+                validationResults.Add(preprocessorDirectoryValidationProblem);
+            }
+
+            if (validationResults.Any())
+            {
+                return validationResults.ToArray();
             }
 
             if (inputParameters.HydraulicBoundaryLocation == null)
             {
-                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+                validationResults.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
 
             if (inputParameters.DikeProfile == null)
             {
-                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_dike_profile_selected);
+                validationResults.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_dike_profile_selected);
             }
             else
             {
-                validationResult.AddRange(new NumericInputRule(inputParameters.Orientation, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.Orientation_DisplayName)).Validate());
-                validationResult.AddRange(new NumericInputRule(inputParameters.DikeHeight, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.DikeHeight_DisplayName)).Validate());
+                validationResults.AddRange(new NumericInputRule(inputParameters.Orientation, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.Orientation_DisplayName)).Validate());
+                validationResults.AddRange(new NumericInputRule(inputParameters.DikeHeight, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.DikeHeight_DisplayName)).Validate());
             }
 
-            validationResult.AddRange(new UseBreakWaterRule(inputParameters).Validate());
+            validationResults.AddRange(new UseBreakWaterRule(inputParameters).Validate());
 
-            return validationResult.ToArray();
+            return validationResults.ToArray();
         }
 
         private static GeneralResult<TopLevelFaultTreeIllustrationPoint> ConvertIllustrationPointsResult(HydraRingGeneralResult result, string errorMessage)

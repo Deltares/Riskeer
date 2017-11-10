@@ -40,7 +40,8 @@ namespace Ringtoets.ClosingStructures.Service
 
         protected override StructuresClosureCalculationInput CreateInput(ClosingStructuresInput structureInput,
                                                                          GeneralClosingStructuresInput generalInput,
-                                                                         string hydraulicBoundaryDatabaseFilePath)
+                                                                         string hydraulicBoundaryDatabaseFilePath,
+                                                                         bool usePreprocessor)
         {
             StructuresClosureCalculationInput input;
             switch (structureInput.InflowModelType)
@@ -60,7 +61,7 @@ namespace Ringtoets.ClosingStructures.Service
                                                            typeof(ClosingStructureInflowModelType));
             }
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
             return input;
         }
 

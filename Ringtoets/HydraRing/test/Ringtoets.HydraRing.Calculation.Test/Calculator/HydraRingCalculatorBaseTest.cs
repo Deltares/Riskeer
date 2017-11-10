@@ -38,10 +38,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
     public class HydraRingCalculatorBaseTest
     {
         [Test]
-        public void Constructor_WithoutHlcdDirectory_ThrowsArgumentNullException()
+        public void Constructor_HlcdDirectoryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestHydraRingCalculator(null);
+            TestDelegate test = () => new TestHydraRingCalculator(null, "");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -49,14 +49,43 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         }
 
         [Test]
+        public void Constructor_PreprocessorDirectoryNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new TestHydraRingCalculator("", null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("preprocessorDirectory", paramName);
+        }
+
+        [Test]
+        public void Calculate_NoPreprocessorDirectoryWhenRequired_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var parser = new TestParser();
+            var calculator = new TestHydraRingCalculator("", "", parser);
+            var hydraRingCalculationInput = new TestHydraRingCalculationInput();
+
+            hydraRingCalculationInput.PreprocessorSetting = new PreprocessorSetting(1, 2, new NumericsSetting(1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000, 0.1, -6, 6));
+
+            // Call
+            TestDelegate test = () => calculator.PublicCalculate(hydraRingCalculationInput);
+
+            // Assert
+            string message = Assert.Throws<InvalidOperationException>(test).Message;
+            Assert.AreEqual("Preprocessor directory required but not specified.", message);
+        }
+
+        [Test]
         public void Calculate_WithCustomParser_ParsersExecutedAndOutputSet()
         {
             // Setup
             var parser = new TestParser();
-            var calculator = new TestHydraRingCalculator("", parser);
+            var calculator = new TestHydraRingCalculator("", "", parser);
 
             // Call
-            calculator.PublicCalculate();
+            calculator.PublicCalculate(new TestHydraRingCalculationInput());
 
             // Assert
             Assert.IsTrue(!string.IsNullOrEmpty(calculator.OutputDirectory));
@@ -69,10 +98,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             // Setup
             var parseException = new HydraRingFileParserException("message", new Exception());
             var parser = new TestParser(parseException);
-            var calculator = new TestHydraRingCalculator("", parser);
+            var calculator = new TestHydraRingCalculator("", "", parser);
 
             // Call
-            TestDelegate test = () => calculator.PublicCalculate();
+            TestDelegate test = () => calculator.PublicCalculate(new TestHydraRingCalculationInput());
 
             // Assert
             var exception = Assert.Throws<HydraRingCalculationException>(test);
@@ -94,10 +123,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
                                                                           "Exception message",
                                                                           new Exception("InnerException"));
             var parser = new TestParser(supportedException);
-            var calculator = new TestHydraRingCalculator("", parser);
+            var calculator = new TestHydraRingCalculator("", "", parser);
 
             // Call
-            TestDelegate test = () => calculator.PublicCalculate();
+            TestDelegate test = () => calculator.PublicCalculate(new TestHydraRingCalculationInput());
 
             // Assert
             var exception = Assert.Throws<HydraRingCalculationException>(test);
@@ -112,23 +141,23 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         public void Calculate_LastErrorFilePresent_LastErrorFileContentSet()
         {
             // Setup
-            var calculator = new TestHydraRingCalculator("", new TestParser());
+            var calculator = new TestHydraRingCalculator("", "", new TestParser());
 
             // Call
-            calculator.PublicCalculate();
+            calculator.PublicCalculate(new TestHydraRingCalculationInput());
 
             // Assert
-            Assert.AreEqual(" Hydraulic database HLCD.sqlite not found.\r\n", calculator.LastErrorFileContent);
+            Assert.AreEqual("Hydraulic database HLCD.sqlite not found.\r\n", calculator.LastErrorFileContent);
         }
 
         [Test]
         public void Calculate_IllustrationPointsParserThrowsException_SetsIllustrationPointsParserError()
         {
             // Setup
-            var calculator = new TestHydraRingCalculator("", new TestParser());
+            var calculator = new TestHydraRingCalculator("", "", new TestParser());
 
             // Call
-            calculator.PublicCalculate();
+            calculator.PublicCalculate(new TestHydraRingCalculationInput());
 
             // Assert
             const string expectedMessage = "Er konden geen illustratiepunten worden uitgelezen.";
@@ -141,16 +170,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
     {
         private readonly IHydraRingFileParser parser;
 
-        public TestHydraRingCalculator(string hlcdDirectory) : base(hlcdDirectory) {}
+        public TestHydraRingCalculator(string hlcdDirectory, string preprocessorDirectory) : base(hlcdDirectory, preprocessorDirectory) {}
 
-        public TestHydraRingCalculator(string hlcdDirectory, IHydraRingFileParser parser) : base(hlcdDirectory)
+        public TestHydraRingCalculator(string hlcdDirectory, string preprocessorDirectory, IHydraRingFileParser parser) : base(hlcdDirectory, preprocessorDirectory)
         {
             this.parser = parser;
         }
 
-        public void PublicCalculate()
+        public void PublicCalculate(HydraRingCalculationInput hydraRingCalculationInput)
         {
-            Calculate(HydraRingUncertaintiesType.All, new TestHydraRingCalculationInput());
+            Calculate(HydraRingUncertaintiesType.All, hydraRingCalculationInput);
         }
 
         protected override void SetOutputs() {}
@@ -165,6 +194,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
     {
         public TestHydraRingCalculationInput() : base(12)
         {
+            PreprocessorSetting = new PreprocessorSetting();
             DesignTablesSetting = new DesignTablesSetting(0, 0);
             NumericsSettings = new Dictionary<int, NumericsSetting>
             {

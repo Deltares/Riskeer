@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
@@ -81,7 +82,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
 
         protected override bool Validate()
         {
-            return WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, hlcdFilePath);
+            return WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                                   hlcdFilePath,
+                                                                                   assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
 
         protected override void PerformCalculation()

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 
@@ -81,6 +82,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <param name="input">The <see cref="WaveConditionsCosineCalculationInput"/> which contains all the necessary input
         /// for the calculation.</param>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when preprocessor directory is required but not specified.</exception>
         void Calculate(WaveConditionsCosineCalculationInput input);
 
         /// <summary>

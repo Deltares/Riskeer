@@ -41,16 +41,19 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicLocationConfigurationDatabase");
 
         [Test]
-        public void Constructor_ValidFile_ThrowsCriticalFileReadException()
+        public void Constructor_InvalidFile_ThrowsCriticalFileReadException()
         {
             // Setup
             string testFile = Path.Combine(testDataPath, "none.sqlite");
-            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
 
             // Call
-            TestDelegate test = () => new HydraulicLocationConfigurationSqLiteDatabaseReader(testFile).Dispose();
+            TestDelegate test = () =>
+            {
+                using (new HydraulicLocationConfigurationSqLiteDatabaseReader(testFile)) {}
+            };
 
             // Assert
+            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -67,12 +70,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
                 // Assert
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(hydraulicBoundarySqLiteDatabaseReader);
             }
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
-        [TestCase(1, 1, 100001)]
-        [TestCase(18, 1000, 1801000)]
+        [TestCase(18169, 1000, 1801000)]
         [TestCase(6, 1000, 0)]
         public void GetLocationsIdByTrackId_ValidFile_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
         {
@@ -89,7 +90,6 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
                 locationIdDictionary.TryGetValue(hrdLocationId, out locationId);
                 Assert.AreEqual(expectedLocationId, locationId);
             }
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
@@ -99,8 +99,6 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
             string dbFile = Path.Combine(testDataPath, "ambigousLocation.sqlite");
             const int trackId = 18;
             const int hrdLocationId = 1;
-            const int expectedLocationId = 1800001;
-            const string expectedMessage = "Er zijn meerdere resultaten gevonden, wat niet voor zou mogen komen. Neem contact op met de leverancier. Het eerste resultaat zal worden gebruikt.";
             var locationIdDictionary = new Dictionary<long, long>();
 
             using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
@@ -109,12 +107,13 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
                 Action call = () => locationIdDictionary = hydraulicBoundarySqLiteDatabaseReader.GetLocationsIdByTrackId(trackId);
 
                 // Assert
+                const int expectedLocationId = 1800001;
+                const string expectedMessage = "Er zijn meerdere resultaten gevonden, wat niet voor zou mogen komen. Neem contact op met de leverancier. Het eerste resultaat zal worden gebruikt.";
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
                 long locationId;
                 locationIdDictionary.TryGetValue(hrdLocationId, out locationId);
                 Assert.AreEqual(expectedLocationId, locationId);
             }
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
@@ -122,11 +121,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
-            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
             const int trackId = 1;
-
-            // Precondition
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
             using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
             {
@@ -134,11 +129,11 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
                 TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetLocationsIdByTrackId(trackId);
 
                 // Assert
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 var exception = Assert.Throws<LineParseException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
             }
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
@@ -146,11 +141,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "empty.sqlite");
-            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
             const int trackId = 1;
-
-            // Precondition
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
             using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
             {
@@ -158,11 +149,106 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
                 TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetLocationsIdByTrackId(trackId);
 
                 // Assert
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
                 var exception = Assert.Throws<CriticalFileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        [TestCase(1000, true)]
+        [TestCase(11, false)]
+        public void GetCanUsePreprocessorByTrackId_ValidFile_ExpectedValues(long trackId, bool expectedUsePreprocessor)
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "complete.sqlite");
+
+            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            {
+                // Call
+                bool usePreprocessor = hydraulicBoundarySqLiteDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
+
+                // Assert
+                Assert.AreEqual(expectedUsePreprocessor, usePreprocessor);
+            }
+        }
+
+        [Test]
+        public void GetCanUsePreprocessorByTrackId_ValidFileWithoutUsePreprocessorColumn_ReturnFalse()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "noUsePreprocessorColumn.sqlite");
+            const int trackId = 1000;
+
+            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            {
+                // Call
+                bool usePreprocessor = hydraulicBoundarySqLiteDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
+
+                // Assert
+                Assert.IsFalse(usePreprocessor);
+            }
+        }
+
+        [Test]
+        public void GetCanUsePreprocessorByTrackId_UnknownRegionIdForTrackId_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "complete.sqlite");
+            const int trackId = 1;
+
+            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
+
+                // Assert
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsNull(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void GetCanUsePreprocessorByTrackId_EmptyFile_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "empty.sqlite");
+            const int trackId = 1;
+
+            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
+
+                // Assert
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void GetCanUsePreprocessorByTrackId_InvalidColumns_ThrowsLineParseException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
+            const int trackId = 1000;
+
+            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
+
+                // Assert
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                var exception = Assert.Throws<LineParseException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<FormatException>(exception.InnerException);
+            }
         }
     }
 }

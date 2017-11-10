@@ -30,13 +30,22 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         [Test]
         public void GetLocationsIdByTrackIdQuery_Always_ReturnsExpectedValues()
         {
-            // Setup
-            const string expectedQuery = "SELECT LocationId, HRDLocationId FROM Locations WHERE TrackId = @TrackId ORDER BY HRDLocationId;";
-
             // Call
             string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsIdByTrackIdQuery();
 
             // Assert
+            const string expectedQuery = "SELECT LocationId, HRDLocationId FROM Locations WHERE TrackId = @TrackId ORDER BY HRDLocationId;";
+            Assert.AreEqual(expectedQuery, query);
+        }
+
+        [Test]
+        public void GetUsePreprocessorByTrackIdQuery_Always_ReturnsExpectedValues()
+        {
+            // Call
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetUsePreprocessorByTrackIdQuery();
+
+            // Assert
+            const string expectedQuery = "SELECT * FROM Regions LEFT JOIN Tracks ON Regions.RegionId = Tracks.RegionId WHERE Tracks.TrackId = @TrackId";
             Assert.AreEqual(expectedQuery, query);
         }
     }

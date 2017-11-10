@@ -43,18 +43,18 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class WaveHeightCalculationServiceTest
     {
-        private const string validFile = "HRD dutch coast south.sqlite";
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
-        public void Validate_ValidHydraulicBoundaryDatabase_ReturnsTrue()
+        public void Validate_ValidPaths_ReturnsTrue()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
             var valid = false;
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(validFilePath);
+            Action call = () => valid = WaveHeightCalculationService.Validate(validFilePath, validPreprocessorDirectory);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -68,14 +68,14 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Validate_InvalidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
+        public void Validate_InvalidHydraulicBoundaryDatabasePath_LogsErrorAndReturnsFalse()
         {
             // Setup
             string notValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             var valid = true;
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(notValidFilePath);
+            Action call = () => valid = WaveHeightCalculationService.Validate(notValidFilePath, validPreprocessorDirectory);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -93,11 +93,11 @@ namespace Ringtoets.Common.Service.Test
         public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsErrorAndReturnsFalse()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+            string notValidFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
             var valid = false;
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(validFilePath);
+            Action call = () => valid = WaveHeightCalculationService.Validate(notValidFilePath, validPreprocessorDirectory);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -112,6 +112,28 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
+        public void Validate_InvalidPreprocessorDirectory_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string invalidPreprocessorDirectory = "Preprocessor";
+            var valid = true;
+
+            // Call
+            Action call = () => valid = WaveHeightCalculationService.Validate(validFilePath, invalidPreprocessorDirectory);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
         public void Calculate_WaveHeightCalculationNull_ThrowArgumentNullException()
         {
             // Setup
@@ -120,7 +142,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new WaveHeightCalculationService().Calculate(null, string.Empty, 1, calculationMessageProvider);
+            TestDelegate test = () => new WaveHeightCalculationService().Calculate(null, testDataPath, validPreprocessorDirectory, 1, calculationMessageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -133,8 +155,6 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidWaveHeightCalculationAndConverges_StartsCalculationWithRightParametersAndLogs(bool readIllustrationPoints)
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             const double norm = 1.0 / 30;
 
             var calculator = new TestWaveHeightCalculator
@@ -145,7 +165,7 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -159,6 +179,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 Action call = () => new WaveHeightCalculationService().Calculate(calculation,
                                                                                  validFilePath,
+                                                                                 validPreprocessorDirectory,
                                                                                  norm,
                                                                                  calculationMessageProvider);
 
@@ -185,11 +206,53 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
+        public void Calculate_ValidDesignWaterLevelCalculationWithPreprocessorDirectory_StartsCalculationWithRightParametersAndLogs(bool usePreprocessor)
+        {
+            // Setup
+            string preprocessorDirectory = usePreprocessor
+                                               ? validPreprocessorDirectory
+                                               : string.Empty;
+
+            var calculator = new TestWaveHeightCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult(),
+                Converged = true
+            };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, preprocessorDirectory)).Return(calculator);
+
+            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            calculation.Stub(c => c.Name).Return("punt_flw_ 1");
+            calculation.Expect(c => c.Id).Return(100);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(false);
+
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new WaveHeightCalculationService().Calculate(calculation,
+                                                             validFilePath,
+                                                             preprocessorDirectory,
+                                                             1.0 / 30,
+                                                             calculationMessageProvider);
+
+                // Assert
+                Assert.AreEqual(usePreprocessor, calculator.ReceivedInputs.Single().PreprocessorSetting.RunPreprocessor);
+                Assert.IsFalse(calculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
         public void Calculate_ValidWaveHeightCalculationAndDoesNotConverge_SetsOutputAndLogs(bool calculateIllustrationPoints)
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             var calculator = new TestWaveHeightCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult(),
@@ -198,7 +261,7 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -214,6 +277,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 Action call = () => new WaveHeightCalculationService().Calculate(calculation,
                                                                                  validFilePath,
+                                                                                 validPreprocessorDirectory,
                                                                                  1.0 / 30,
                                                                                  calculationMessageProvider);
 
@@ -239,8 +303,6 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidWaveHeightCalculationButIllustrationPointResultsOfIncorrectType_IllustrationPointsNotSetAndLogs()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             var calculator = new TestWaveHeightCalculator
             {
                 IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithFaultTreeIllustrationPoints(),
@@ -249,7 +311,7 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -264,6 +326,7 @@ namespace Ringtoets.Common.Service.Test
                 // Call
                 Action call = () => new WaveHeightCalculationService().Calculate(calculation,
                                                                                  validFilePath,
+                                                                                 validPreprocessorDirectory,
                                                                                  1.0 / 30,
                                                                                  calculationMessageProvider);
 
@@ -293,8 +356,6 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_CalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLog()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             var calculator = new TestWaveHeightCalculator
             {
                 IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts(),
@@ -303,7 +364,7 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -318,6 +379,7 @@ namespace Ringtoets.Common.Service.Test
                 // Call
                 Action call = () => new WaveHeightCalculationService().Calculate(calculation,
                                                                                  validFilePath,
+                                                                                 validPreprocessorDirectory,
                                                                                  1.0 / 30,
                                                                                  calculationMessageProvider);
 
@@ -347,8 +409,6 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidWaveHeightCalculationThrowsException_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             var expectedException = new HydraRingFileParserException();
 
             var mockRepository = new MockRepository();
@@ -359,7 +419,7 @@ namespace Ringtoets.Common.Service.Test
             calculator.Stub(c => c.OutputDirectory).Return(string.Empty);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -375,6 +435,7 @@ namespace Ringtoets.Common.Service.Test
                 TestDelegate call = () => new WaveHeightCalculationService()
                     .Calculate(calculation,
                                validFilePath,
+                               validPreprocessorDirectory,
                                1.0 / 30,
                                calculationMessageProvider);
 
@@ -389,8 +450,6 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidWaveHeightCalculationAndOutputButIllustrationPointsAreNull_IllustrationPointsNotSetAndLog()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             const string parserErrorMessage = "Parser error";
             var mockRepository = new MockRepository();
             var calculator = new TestWaveHeightCalculator
@@ -400,7 +459,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -416,6 +475,7 @@ namespace Ringtoets.Common.Service.Test
                 Action call = () => new WaveHeightCalculationService()
                     .Calculate(calculation,
                                validFilePath,
+                               validPreprocessorDirectory,
                                1.0 / 30,
                                calculationMessageProvider);
 
@@ -439,8 +499,6 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidWaveHeightCalculationCalculateIllustrationPointsFalseAndIllustrationPointsParserErrorMessageNotNull_DoesNotLog()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             var mockRepository = new MockRepository();
             var calculator = new TestWaveHeightCalculator
             {
@@ -449,7 +507,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -465,6 +523,7 @@ namespace Ringtoets.Common.Service.Test
                 Action call = () => new WaveHeightCalculationService()
                     .Calculate(calculation,
                                validFilePath,
+                               validPreprocessorDirectory,
                                1.0 / 30,
                                calculationMessageProvider);
 
@@ -486,12 +545,11 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
             var calculator = new TestWaveHeightCalculator();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("name");
@@ -510,6 +568,7 @@ namespace Ringtoets.Common.Service.Test
                 // Call
                 service.Calculate(calculation,
                                   validFilePath,
+                                  validPreprocessorDirectory,
                                   norm,
                                   calculationMessageProvider);
 
@@ -527,8 +586,6 @@ namespace Ringtoets.Common.Service.Test
         public void Run_InvalidCalculation_LogsErrorAndThrowException(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             const string locationName = "punt_flw_ 1";
             const string calculationFailedMessage = "calculationFailedMessage";
             const double norm = 1.0 / 30;
@@ -541,7 +598,7 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return(locationName);
@@ -573,6 +630,7 @@ namespace Ringtoets.Common.Service.Test
                     {
                         new WaveHeightCalculationService().Calculate(calculation,
                                                                      validFilePath,
+                                                                     validPreprocessorDirectory,
                                                                      norm,
                                                                      calculationMessageProvider);
                     }

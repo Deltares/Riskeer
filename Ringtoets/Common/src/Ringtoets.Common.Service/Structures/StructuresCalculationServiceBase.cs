@@ -29,6 +29,7 @@ using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
@@ -125,8 +126,10 @@ namespace Ringtoets.Common.Service.Structures
         /// <param name="norm">The norm used in the calculation.</param>
         /// <param name="contribution">The contribution used in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or <paramref name="generalInput"/>
-        /// is <c>null</c>.</exception>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="generalInput"/>,
+        /// <paramref name="hydraulicBoundaryDatabaseFilePath"/> or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
@@ -144,7 +147,8 @@ namespace Ringtoets.Common.Service.Structures
                               double lengthEffectN,
                               double norm,
                               double contribution,
-                              string hydraulicBoundaryDatabaseFilePath)
+                              string hydraulicBoundaryDatabaseFilePath,
+                              string preprocessorDirectory)
         {
             if (calculation == null)
             {
@@ -155,10 +159,10 @@ namespace Ringtoets.Common.Service.Structures
                 throw new ArgumentNullException(nameof(generalInput));
             }
 
-            TCalculationInput input = CreateInput(calculation.InputParameters, generalInput, hydraulicBoundaryDatabaseFilePath);
+            TCalculationInput input = CreateInput(calculation.InputParameters, generalInput, hydraulicBoundaryDatabaseFilePath, !string.IsNullOrEmpty(preprocessorDirectory));
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<TCalculationInput>(hlcdDirectory);
+            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<TCalculationInput>(hlcdDirectory, preprocessorDirectory);
             string calculationName = calculation.Name;
 
             CalculationServiceHelper.LogCalculationBegin();
@@ -219,6 +223,7 @@ namespace Ringtoets.Common.Service.Structures
         /// <param name="structureInput">The structure input to create the calculation input for.</param>
         /// <param name="generalInput">The <see cref="TGeneralInput"/> that is used in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
+        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>A <see cref="TCalculationInput"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
@@ -234,7 +239,8 @@ namespace Ringtoets.Common.Service.Structures
         /// </exception>
         protected abstract TCalculationInput CreateInput(TStructureInput structureInput,
                                                          TGeneralInput generalInput,
-                                                         string hydraulicBoundaryDatabaseFilePath);
+                                                         string hydraulicBoundaryDatabaseFilePath,
+                                                         bool usePreprocessor);
 
         /// <summary>
         /// Performs a structures calculation.
@@ -333,10 +339,20 @@ namespace Ringtoets.Common.Service.Structures
         {
             var validationResults = new List<string>();
 
-            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
-            if (!string.IsNullOrEmpty(validationProblem))
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
-                validationResults.Add(validationProblem);
+                validationResults.Add(databaseFilePathValidationProblem);
+            }
+
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
+            {
+                validationResults.Add(preprocessorDirectoryValidationProblem);
+            }
+
+            if (validationResults.Any())
+            {
                 return validationResults.ToArray();
             }
 

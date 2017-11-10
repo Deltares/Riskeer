@@ -114,6 +114,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 FailureMechanism.GeneralInput.N);
 
             bool successFullCalculation = CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                     AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                      locations,
                                                                                      mechanismSpecificNorm,
                                                                                      new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());

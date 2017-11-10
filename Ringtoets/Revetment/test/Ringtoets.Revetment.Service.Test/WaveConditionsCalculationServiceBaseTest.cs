@@ -45,17 +45,17 @@ namespace Ringtoets.Revetment.Service.Test
     [TestFixture]
     public class WaveConditionsCalculationServiceBaseTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
         public void Validate_InputNull_ThrowArgumentNullException()
         {
-            // Setup
-            string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             // Call
             TestDelegate action = () => new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(null,
-                                                                                                                 dbFilePath,
+                                                                                                                 validFilePath,
+                                                                                                                 validPreprocessorDirectory,
                                                                                                                  string.Empty);
 
             // Assert
@@ -67,8 +67,6 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_DesignWaterLevelNameNull_ThrowArgumentNullException()
         {
             // Setup 
-            string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
@@ -76,7 +74,8 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             TestDelegate action = () => new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                 dbFilePath,
+                                                                                                                 validFilePath,
+                                                                                                                 validPreprocessorDirectory,
                                                                                                                  null);
 
             // Assert
@@ -91,7 +90,10 @@ namespace Ringtoets.Revetment.Service.Test
             var isValid = false;
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(), string.Empty, string.Empty);
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(),
+                                                                                                                     string.Empty,
+                                                                                                                     validPreprocessorDirectory,
+                                                                                                                     string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -111,10 +113,13 @@ namespace Ringtoets.Revetment.Service.Test
         {
             // Setup 
             var isValid = false;
-            string dbFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
+            string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(), dbFilePath, string.Empty);
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(),
+                                                                                                                     invalidFilePath,
+                                                                                                                     validPreprocessorDirectory,
+                                                                                                                     string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -122,7 +127,33 @@ namespace Ringtoets.Revetment.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual($"Fout bij het lezen van bestand '{dbFilePath}': het bestand bestaat niet.", msgs[1]);
+                Assert.AreEqual($"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_InvalidPreprocessorDirectory_ReturnsFalseAndLogsValidationError()
+        {
+            // Setup 
+            var isValid = false;
+            const string invalidPreprocessorDirectory = "Preprocessor";
+
+            // Call
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(),
+                                                                                                                     validFilePath,
+                                                                                                                     invalidPreprocessorDirectory,
+                                                                                                                     string.Empty);
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 
@@ -137,7 +168,10 @@ namespace Ringtoets.Revetment.Service.Test
             string dbFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(), dbFilePath, string.Empty);
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(),
+                                                                                                                     dbFilePath,
+                                                                                                                     validPreprocessorDirectory,
+                                                                                                                     string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -159,10 +193,12 @@ namespace Ringtoets.Revetment.Service.Test
             var isValid = false;
 
             var input = new WaveConditionsInput();
-            string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input, dbFilePath, string.Empty);
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
+                                                                                                                     validFilePath,
+                                                                                                                     validPreprocessorDirectory,
+                                                                                                                     string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -183,7 +219,6 @@ namespace Ringtoets.Revetment.Service.Test
             // Setup
             var isValid = false;
 
-            string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
@@ -193,7 +228,8 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     dbFilePath,
+                                                                                                                     validFilePath,
+                                                                                                                     validPreprocessorDirectory,
                                                                                                                      designWaterLevelName);
 
             // Assert
@@ -221,8 +257,6 @@ namespace Ringtoets.Revetment.Service.Test
             // Setup
             var isValid = false;
 
-            string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(designWaterLevel),
@@ -236,7 +270,8 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     dbFilePath,
+                                                                                                                     validFilePath,
+                                                                                                                     validPreprocessorDirectory,
                                                                                                                      "DesignWaterLevelName");
 
             // Assert
@@ -261,15 +296,14 @@ namespace Ringtoets.Revetment.Service.Test
             // Setup
             var isValid = false;
 
-            string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             WaveConditionsInput input = GetDefaultValidationInput();
             input.ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight));
             input.UseBreakWater = true;
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     dbFilePath,
+                                                                                                                     validFilePath,
+                                                                                                                     validPreprocessorDirectory,
                                                                                                                      "DesignWaterLevelName");
 
             // Assert
@@ -294,15 +328,14 @@ namespace Ringtoets.Revetment.Service.Test
             // Setup
             var isValid = false;
 
-            string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             WaveConditionsInput input = GetDefaultValidationInput();
             input.ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Wall, breakWaterHeight));
             input.UseBreakWater = false;
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     dbFilePath,
+                                                                                                                     validFilePath,
+                                                                                                                     validPreprocessorDirectory,
                                                                                                                      "DesignWaterLevelName");
 
             // Assert
@@ -326,8 +359,6 @@ namespace Ringtoets.Revetment.Service.Test
             // Setup 
             var isValid = false;
 
-            string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             WaveConditionsInput input = GetDefaultValidationInput();
 
             switch (calculationType)
@@ -348,7 +379,8 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     dbFilePath,
+                                                                                                                     validFilePath,
+                                                                                                                     validPreprocessorDirectory,
                                                                                                                      "DesignWaterLevelName");
 
             // Assert
@@ -369,14 +401,13 @@ namespace Ringtoets.Revetment.Service.Test
             // Setup
             var isValid = false;
 
-            string dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             WaveConditionsInput input = GetDefaultValidationInput();
             input.Orientation = RoundedDouble.NaN;
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     dbFilePath,
+                                                                                                                     validFilePath,
+                                                                                                                     validPreprocessorDirectory,
                                                                                                                      "DesignWaterLevelName");
 
             // Assert
@@ -404,7 +435,7 @@ namespace Ringtoets.Revetment.Service.Test
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             // Call
-            TestDelegate test = () => new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, null, hcldFilePath);
+            TestDelegate test = () => new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, null, hcldFilePath, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -442,7 +473,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(calculator)
                              .Repeat
                              .Times(nrOfCalculators);
@@ -451,13 +482,65 @@ namespace Ringtoets.Revetment.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath);
+                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, string.Empty);
 
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
                 {
                     WaveConditionsCosineCalculationInput expectedInput = CreateInput(input.WaterLevels.ElementAt(i), a, b, c, norm, input, useForeshore, useBreakWater);
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, calculator.ReceivedInputs[i]);
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_PreprocessorDirectorySet_StartsCalculationWithRightParameters(bool usePreprocessor)
+        {
+            // Setup
+            string preprocessorDirectory = usePreprocessor
+                                               ? validPreprocessorDirectory
+                                               : string.Empty;
+
+            var waterLevel = (RoundedDouble) 4.20;
+            var a = (RoundedDouble) 1.0;
+            var b = (RoundedDouble) 0.8;
+            var c = (RoundedDouble) 0.4;
+            const double norm = 0.2;
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(waterLevel),
+                ForeshoreProfile = new TestForeshoreProfile(true),
+                UpperBoundaryRevetment = (RoundedDouble) 4,
+                LowerBoundaryRevetment = (RoundedDouble) 3,
+                StepSize = WaveConditionsInputStepSize.Two,
+                Orientation = (RoundedDouble) 0
+            };
+
+            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+
+            var calculator = new TestWaveConditionsCosineCalculator();
+            int nrOfCalculators = input.WaterLevels.Count();
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, preprocessorDirectory))
+                             .Return(calculator)
+                             .Repeat
+                             .Times(nrOfCalculators);
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, preprocessorDirectory);
+
+                // Assert
+                for (var i = 0; i < nrOfCalculators; i++)
+                {
+                    Assert.AreEqual(usePreprocessor, calculator.ReceivedInputs[i].PreprocessorSetting.RunPreprocessor);
                 }
             }
             mockRepository.VerifyAll();
@@ -494,7 +577,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(calculatorThatFails)
                              .Repeat
                              .Times(nrOfCalculators);
@@ -515,7 +598,7 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     try
                     {
-                        new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath);
+                        new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, string.Empty);
                     }
                     catch (HydraRingCalculationException e)
                     {
@@ -571,9 +654,9 @@ namespace Ringtoets.Revetment.Service.Test
             };
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculatorThatFails);
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator());
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(calculatorThatFails);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator());
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator());
             mockRepository.ReplayAll();
 
             var waterLevelUpperBoundary = new RoundedDouble(2, 4.00);
@@ -597,7 +680,7 @@ namespace Ringtoets.Revetment.Service.Test
                 var service = new WaveConditionsCalculationService();
 
                 // Call
-                Action call = () => service.PublicCalculate(a, b, c, norm, input, hcldFilePath);
+                Action call = () => service.PublicCalculate(a, b, c, norm, input, hcldFilePath, string.Empty);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -647,13 +730,10 @@ namespace Ringtoets.Revetment.Service.Test
                 UpperBoundaryRevetment = waterLevel,
                 LowerBoundaryRevetment = (RoundedDouble) 3
             };
-
-            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
             var calculator = new TestWaveConditionsCosineCalculator();
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -662,7 +742,7 @@ namespace Ringtoets.Revetment.Service.Test
                 calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
-                service.PublicCalculate(a, b, c, norm, input, hcldFilePath);
+                service.PublicCalculate(a, b, c, norm, input, validFilePath, validPreprocessorDirectory);
 
                 // Assert
                 Assert.IsTrue(calculator.IsCanceled);
@@ -711,14 +791,14 @@ namespace Ringtoets.Revetment.Service.Test
     {
         public IEnumerable<WaveConditionsOutput> Outputs;
 
-        public bool PublicValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput, string dbFilePath, string valueName)
+        public bool PublicValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput, string dbFilePath, string preprocessorDirectory, string valueName)
         {
-            return ValidateWaveConditionsInput(waveConditionsInput, dbFilePath, valueName);
+            return ValidateWaveConditionsInput(waveConditionsInput, dbFilePath, preprocessorDirectory, valueName);
         }
 
-        public void PublicCalculate(RoundedDouble a, RoundedDouble b, RoundedDouble c, double norm, WaveConditionsInput input, string dbFilePath)
+        public void PublicCalculate(RoundedDouble a, RoundedDouble b, RoundedDouble c, double norm, WaveConditionsInput input, string dbFilePath, string preprocessorDirectory)
         {
-            Outputs = CalculateWaveConditions(input, a, b, c, norm, dbFilePath);
+            Outputs = CalculateWaveConditions(input, a, b, c, norm, dbFilePath, preprocessorDirectory);
         }
     }
 }

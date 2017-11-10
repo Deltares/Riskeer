@@ -201,7 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInValidConstructionPropertiesCombinations))]
+        [TestCaseSource(nameof(GetInvalidConstructionPropertiesCombinations))]
         public void Constructor_InvalidConstructionProperties_ThrowsArgumentException(MacroStabilityInwardsInput.ConstructionProperties properties,
                                                                                       string expectedMessage)
         {
@@ -587,7 +587,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
         }
 
-        private static IEnumerable<TestCaseData> GetInValidConstructionPropertiesCombinations()
+        private static IEnumerable<TestCaseData> GetInvalidConstructionPropertiesCombinations()
         {
             const string expectedXMessage = "X links moet kleiner zijn dan of gelijk zijn aan X rechts, of NaN.";
             const string expectedZMessage = "Z boven moet groter zijn dan of gelijk zijn aan Z onder, of NaN.";

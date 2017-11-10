@@ -369,7 +369,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                 }
             };
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "/temp/preprocessor")
             {
                 FilePath = "/temp/test",
                 Version = "1.0",

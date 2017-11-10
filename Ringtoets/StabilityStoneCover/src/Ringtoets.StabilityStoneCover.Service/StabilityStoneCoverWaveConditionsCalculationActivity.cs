@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service.Properties;
@@ -79,7 +80,9 @@ namespace Ringtoets.StabilityStoneCover.Service
 
         protected override bool Validate()
         {
-            return StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation, hlcdFilePath);
+            return StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                                hlcdFilePath,
+                                                                                assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
 
         protected override void PerformCalculation()

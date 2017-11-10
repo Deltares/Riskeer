@@ -134,7 +134,7 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             try
             {
-                string settingsDatabaseFileName = HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(filePath);
+                string settingsDatabaseFileName = HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(filePath);
                 using (new DesignTablesSettingsProvider(settingsDatabaseFileName)) {}
                 using (new TimeIntegrationSettingsProvider(settingsDatabaseFileName)) {}
                 using (new NumericsSettingsProvider(settingsDatabaseFileName)) {}
@@ -168,17 +168,21 @@ namespace Ringtoets.Common.IO.FileImporters
 
             try
             {
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    FilePath = hydraulicBoundaryDatabaseReader.Path,
-                    Version = hydraulicBoundaryDatabaseReader.GetVersion()
-                };
+                string hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseReader.Path;
+                bool canUsePreprocessor = hydraulicLocationConfigurationDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
+
+                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = canUsePreprocessor
+                                                                          ? new HydraulicBoundaryDatabase(true, Path.Combine(Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath)))
+                                                                          : new HydraulicBoundaryDatabase();
+
+                hydraulicBoundaryDatabase.FilePath = hydraulicBoundaryDatabaseFilePath;
+                hydraulicBoundaryDatabase.Version = hydraulicBoundaryDatabaseReader.GetVersion();
 
                 // Locations directory of HLCD location ids and HRD location ids
                 Dictionary<long, long> locationidsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationsIdByTrackId(trackId);
 
                 var filter = new HydraulicBoundaryLocationFilter(
-                    HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabase.FilePath));
+                    HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabase.FilePath));
 
                 // Prepare query to fetch hrd locations
                 hydraulicBoundaryDatabaseReader.PrepareReadLocation();
@@ -201,14 +205,10 @@ namespace Ringtoets.Common.IO.FileImporters
                 }
                 return hydraulicBoundaryDatabase;
             }
-            catch (Exception e)
+            catch (Exception e) when (e is LineParseException || e is CriticalFileReadException)
             {
-                if (e is LineParseException || e is CriticalFileReadException)
-                {
-                    HandleException(e);
-                    return null;
-                }
-                throw;
+                HandleException(e);
+                return null;
             }
         }
 

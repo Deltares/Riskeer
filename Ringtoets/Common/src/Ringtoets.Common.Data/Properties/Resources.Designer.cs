@@ -574,6 +574,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De bestandsmap waar de preprocessor bestanden opslaat moet een waarde hebben..
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_PreprocessorDirectory_Path_must_have_a_value {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_PreprocessorDirectory_Path_must_have_a_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekening.
         /// </summary>
         public static string ICalculation_DisplayName {

@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Utils;
 using log4net;
@@ -51,23 +49,44 @@ namespace Ringtoets.Common.Service
         private bool canceled;
 
         /// <summary>
-        /// Performs validation over the values on the given <paramref name="hydraulicBoundaryDatabaseFilePath"/>.
+        /// Performs validation on the given <paramref name="hydraulicBoundaryDatabaseFilePath"/> and <paramref name="preprocessorDirectory"/>.
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
         /// <returns><c>True</c> if there were no validation errors; <c>False</c> otherwise.</returns>
-        public static bool Validate(string hydraulicBoundaryDatabaseFilePath)
+        public static bool Validate(string hydraulicBoundaryDatabaseFilePath, string preprocessorDirectory)
         {
+            var isValid = true;
+
             CalculationServiceHelper.LogValidationBegin();
 
-            string[] validationProblems = ValidateInput(hydraulicBoundaryDatabaseFilePath);
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
+            if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
+            {
+                CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_boundary_database_connection_failed_0_,
+                                                            new[]
+                                                            {
+                                                                databaseFilePathValidationProblem
+                                                            });
 
-            CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_boundary_database_connection_failed_0_,
-                                                        validationProblems);
+                isValid = false;
+            }
+
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
+            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
+            {
+                CalculationServiceHelper.LogMessagesAsError(new[]
+                {
+                    preprocessorDirectoryValidationProblem
+                });
+
+                isValid = false;
+            }
 
             CalculationServiceHelper.LogValidationEnd();
 
-            return !validationProblems.Any();
+            return isValid;
         }
 
         /// <summary>
@@ -75,9 +94,13 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="designWaterLevelCalculation">The design water level calculation to use.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelCalculation"/>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelCalculation"/>,
+        /// <paramref name="hydraulicBoundaryDatabaseFilePath"/> or <paramref name="preprocessorDirectory"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when 
         /// <list type="bullet">
@@ -94,6 +117,7 @@ namespace Ringtoets.Common.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public void Calculate(IHydraulicBoundaryWrapperCalculation designWaterLevelCalculation,
                               string hydraulicBoundaryDatabaseFilePath,
+                              string preprocessorDirectory,
                               double norm,
                               ICalculationMessageProvider messageProvider)
         {
@@ -105,7 +129,7 @@ namespace Ringtoets.Common.Service
 
             CalculationServiceHelper.LogCalculationBegin();
 
-            calculator = HydraRingCalculatorFactory.Instance.CreateDesignWaterLevelCalculator(hlcdDirectory);
+            calculator = HydraRingCalculatorFactory.Instance.CreateDesignWaterLevelCalculator(hlcdDirectory, preprocessorDirectory);
 
             var exceptionThrown = false;
 
@@ -113,6 +137,7 @@ namespace Ringtoets.Common.Service
             {
                 PerformCalculation(designWaterLevelCalculation,
                                    hydraulicBoundaryDatabaseFilePath,
+                                   !string.IsNullOrEmpty(preprocessorDirectory),
                                    norm,
                                    messageProvider);
             }
@@ -164,6 +189,7 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="designWaterLevelCalculation">The design water level calculation to use.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -176,10 +202,11 @@ namespace Ringtoets.Common.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         private void PerformCalculation(IHydraulicBoundaryWrapperCalculation designWaterLevelCalculation,
                                         string hydraulicBoundaryDatabaseFilePath,
+                                        bool usePreprocessor,
                                         double norm,
                                         ICalculationMessageProvider messageProvider)
         {
-            AssessmentLevelCalculationInput calculationInput = CreateInput(designWaterLevelCalculation, norm, hydraulicBoundaryDatabaseFilePath);
+            AssessmentLevelCalculationInput calculationInput = CreateInput(designWaterLevelCalculation, norm, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
             calculator.Calculate(calculationInput);
 
@@ -279,6 +306,7 @@ namespace Ringtoets.Common.Service
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
         /// boundary database.</param>
+        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>An <see cref="AssessmentLevelCalculationInput"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
@@ -292,27 +320,14 @@ namespace Ringtoets.Common.Service
         /// </exception>
         private static AssessmentLevelCalculationInput CreateInput(IHydraulicBoundaryWrapperCalculation designWaterLevelCalculation,
                                                                    double norm,
-                                                                   string hydraulicBoundaryDatabaseFilePath)
+                                                                   string hydraulicBoundaryDatabaseFilePath,
+                                                                   bool usePreprocessor)
         {
             var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, designWaterLevelCalculation.Id, norm);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(assessmentLevelCalculationInput, hydraulicBoundaryDatabaseFilePath);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(assessmentLevelCalculationInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
             return assessmentLevelCalculationInput;
-        }
-
-        private static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath)
-        {
-            var validationResult = new List<string>();
-
-            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
-
-            if (!string.IsNullOrEmpty(validationProblem))
-            {
-                validationResult.Add(validationProblem);
-            }
-
-            return validationResult.ToArray();
         }
     }
 }

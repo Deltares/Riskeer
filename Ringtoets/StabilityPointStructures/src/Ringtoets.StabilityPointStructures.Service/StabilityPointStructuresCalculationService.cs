@@ -44,7 +44,8 @@ namespace Ringtoets.StabilityPointStructures.Service
 
         protected override StructuresStabilityPointCalculationInput CreateInput(StabilityPointStructuresInput structureInput,
                                                                                 GeneralStabilityPointStructuresInput generalInput,
-                                                                                string hydraulicBoundaryDatabaseFilePath)
+                                                                                string hydraulicBoundaryDatabaseFilePath,
+                                                                                bool usePreprocessor)
         {
             StructuresStabilityPointCalculationInput input;
             switch (structureInput.InflowModelType)
@@ -93,7 +94,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                                                            typeof(StabilityPointStructureInflowModelType));
             }
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
             return input;
         }
 

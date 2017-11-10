@@ -910,6 +910,25 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De bestandsmap waar de preprocessor bestanden opslaat is ongeldig..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Invalid_path {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Invalid_path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De bestandsmap bestaat niet..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Path_does_not_exist {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Path_does_not_exist" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kon het rekeninstellingen bestand niet openen. {0}.
         /// </summary>
         public static string HydraulicBoundaryDatabaseImporter_Cannot_open_hydaulic_calculation_settings_file_0_ {

@@ -34,7 +34,7 @@ namespace Ringtoets.Common.IO.HydraRing
     /// </summary>
     public class DesignTablesSettingsProvider : IDisposable
     {
-        private readonly HydraRingSettingsDatabaseReader designTableSettingsReader;
+        private readonly HydraRingSettingsDatabaseReader designTablesSettingsReader;
         private IDictionary<HydraRingFailureMechanismType, DesignTablesSetting> defaultDesignTablesSettings;
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.IO.HydraRing
         {
             InitializeDefaultDesignTablesSettings();
 
-            designTableSettingsReader = new HydraRingSettingsDatabaseReader(databaseFilePath);
+            designTablesSettingsReader = new HydraRingSettingsDatabaseReader(databaseFilePath);
         }
 
         /// <summary>
@@ -68,13 +68,13 @@ namespace Ringtoets.Common.IO.HydraRing
         /// contain expected type.</exception>
         public DesignTablesSetting GetDesignTablesSetting(long locationId, HydraRingFailureMechanismType failureMechanismType)
         {
-            return designTableSettingsReader.ReadDesignTableSetting(locationId, failureMechanismType) ??
+            return designTablesSettingsReader.ReadDesignTableSetting(locationId, failureMechanismType) ??
                    defaultDesignTablesSettings[failureMechanismType];
         }
 
         public void Dispose()
         {
-            designTableSettingsReader.Dispose();
+            designTablesSettingsReader.Dispose();
         }
 
         private void InitializeDefaultDesignTablesSettings()

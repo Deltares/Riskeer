@@ -30,6 +30,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
 using Core.Common.Utils;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Service;
@@ -269,6 +270,7 @@ namespace Ringtoets.DuneErosion.Plugin
 
                     duneLocationCalculationGuiService.Calculate(context.WrappedData,
                                                                 context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                 context.FailureMechanism.GetMechanismSpecificNorm(context.AssessmentSection.FailureMechanismContribution.Norm));
                     context.NotifyObservers();
                 });

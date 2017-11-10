@@ -128,6 +128,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 FailureMechanism.GeneralInput.N);
 
             bool successfulCalculation = CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                          AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                           locations,
                                                                                           mechanismSpecificNorm,
                                                                                           new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());

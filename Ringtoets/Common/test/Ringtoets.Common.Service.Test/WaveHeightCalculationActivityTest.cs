@@ -43,9 +43,10 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class WaveHeightCalculationActivityTest
     {
-        private const string validFile = "HRD dutch coast south.sqlite";
         private MockRepository mockRepository;
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         private static IEnumerable<TestCaseData> HydraulicBoundaryLocationsToCalculate
         {
@@ -86,10 +87,8 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
             mockRepository.ReplayAll();
 
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             // Call
-            var activity = new WaveHeightCalculationActivity(calculation, validFilePath, 1, calculationMessageProvider);
+            var activity = new WaveHeightCalculationActivity(calculation, validFilePath, validPreprocessorDirectory, 1, calculationMessageProvider);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -105,10 +104,8 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             var calculation = new WaveHeightCalculation(new TestHydraulicBoundaryLocation(string.Empty));
 
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             // Call
-            TestDelegate call = () => new WaveHeightCalculationActivity(calculation, validFilePath, 1, null);
+            TestDelegate call = () => new WaveHeightCalculationActivity(calculation, validFilePath, validPreprocessorDirectory, 1, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -122,10 +119,8 @@ namespace Ringtoets.Common.Service.Test
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             // Call
-            TestDelegate call = () => new WaveHeightCalculationActivity(null, validFilePath, 1, calculationMessageProvider);
+            TestDelegate call = () => new WaveHeightCalculationActivity(null, validFilePath, validPreprocessorDirectory, 1, calculationMessageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -137,7 +132,7 @@ namespace Ringtoets.Common.Service.Test
         public void Run_InvalidHydraulicBoundaryDatabase_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
-            string inValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+            string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             const string locationName = "testLocation";
             const string activityDescription = "activityDescription";
 
@@ -147,7 +142,7 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
             mockRepository.ReplayAll();
 
-            var activity = new WaveHeightCalculationActivity(calculation, inValidFilePath, 1, calculationMessageProvider);
+            var activity = new WaveHeightCalculationActivity(calculation, invalidFilePath, validPreprocessorDirectory, 1, calculationMessageProvider);
 
             // Call
             Action call = () => activity.Run();
@@ -166,10 +161,46 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
+        public void Run_InvalidPreprocessorDirectory_PerformValidationAndLogStartAndEndAndError()
+        {
+            // Setup
+            const string invalidPreprocessorDirectory = "Preprocessor";
+            const string locationName = "testLocation";
+            const string activityDescription = "activityDescription";
+
+            var calculation = new WaveHeightCalculation(new TestHydraulicBoundaryLocation(locationName));
+
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
+            mockRepository.ReplayAll();
+
+            var activity = new WaveHeightCalculationActivity(calculation,
+                                                             validFilePath,
+                                                             invalidPreprocessorDirectory,
+                                                             1,
+                                                             calculationMessageProvider);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+                Assert.AreEqual($"{activityDescription} is gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
+            });
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Run_ValidHydraulicBoundaryLocation_PerformValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
             const string locationName = "locationName";
             const string activityDescription = "activityDescription";
             const double norm = 1.0 / 30;
@@ -181,14 +212,16 @@ namespace Ringtoets.Common.Service.Test
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
             mockRepository.ReplayAll();
 
             var activity = new WaveHeightCalculationActivity(calculation,
                                                              validFilePath,
-                                                             norm, calculationMessageProvider);
+                                                             validPreprocessorDirectory,
+                                                             norm,
+                                                             calculationMessageProvider);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -220,7 +253,6 @@ namespace Ringtoets.Common.Service.Test
         public void Run_HydraulicLocationWaveHeightSet_ValidationAndCalculationNotPerformedAndStateSkipped()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
             const string locationName = "locationName";
             const double norm = 1.0 / 30;
 
@@ -243,6 +275,7 @@ namespace Ringtoets.Common.Service.Test
 
             var activity = new WaveHeightCalculationActivity(calculation,
                                                              validFilePath,
+                                                             validPreprocessorDirectory,
                                                              norm,
                                                              calculationMessageProvider);
 
@@ -275,17 +308,16 @@ namespace Ringtoets.Common.Service.Test
             }
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
             mockRepository.ReplayAll();
-
-            string validFilePath = Path.Combine(testDataPath, validFile);
 
             var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation);
 
             var activity = new WaveHeightCalculationActivity(calculation,
                                                              validFilePath,
+                                                             validPreprocessorDirectory,
                                                              norm,
                                                              calculationMessageProvider);
 
@@ -321,7 +353,7 @@ namespace Ringtoets.Common.Service.Test
 
             const string failureMessage = "Failed calculation";
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
             if (string.IsNullOrEmpty(lastErrorFileContent))
@@ -354,10 +386,9 @@ namespace Ringtoets.Common.Service.Test
 
             var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation);
 
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             var activity = new WaveHeightCalculationActivity(calculation,
                                                              validFilePath,
+                                                             validPreprocessorDirectory,
                                                              30,
                                                              calculationMessageProvider);
 
@@ -388,7 +419,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
             calculationMessageProvider.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(calculationNotConvergedMessage);
@@ -408,11 +439,12 @@ namespace Ringtoets.Common.Service.Test
 
             var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation);
 
-            string validFilePath = Path.Combine(testDataPath, validFile);
             const double norm = 1.0 / 300;
             var activity = new WaveHeightCalculationActivity(calculation,
                                                              validFilePath,
-                                                             norm, calculationMessageProvider);
+                                                             validPreprocessorDirectory,
+                                                             norm,
+                                                             calculationMessageProvider);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -449,7 +481,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
             if (string.IsNullOrEmpty(lastErrorFileContent))
@@ -463,13 +495,12 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProvider.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
             mockRepository.ReplayAll();
 
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation);
 
             const double norm = 1.0 / 30;
             var activity = new WaveHeightCalculationActivity(calculation,
                                                              validFilePath,
+                                                             validPreprocessorDirectory,
                                                              norm,
                                                              calculationMessageProvider);
 
@@ -502,7 +533,8 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             var activity = new TestWaveHeightCalculationActivity(calculation,
-                                                                 Path.Combine(testDataPath, validFile),
+                                                                 validFilePath,
+                                                                 validPreprocessorDirectory,
                                                                  1.0,
                                                                  calculationMessageProvider,
                                                                  state);
@@ -518,11 +550,13 @@ namespace Ringtoets.Common.Service.Test
         {
             public TestWaveHeightCalculationActivity(WaveHeightCalculation waveHeightCalculation,
                                                      string hydraulicBoundaryDatabaseFilePath,
+                                                     string preprocessorDirectory,
                                                      double norm,
                                                      ICalculationMessageProvider messageProvider,
                                                      ActivityState state)
                 : base(waveHeightCalculation,
                        hydraulicBoundaryDatabaseFilePath,
+                       preprocessorDirectory,
                        norm,
                        messageProvider)
             {

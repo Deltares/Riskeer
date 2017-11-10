@@ -28,10 +28,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
     public class DesignWaterLevelCalculatorTest
     {
         [Test]
-        public void DefaultConstructor_InitializesOutputWithoutValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
-            var calculator = new DesignWaterLevelCalculator(string.Empty);
+            var calculator = new DesignWaterLevelCalculator(string.Empty, string.Empty);
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);

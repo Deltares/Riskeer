@@ -47,7 +47,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Setup()
         {
             testCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-            testCalculation.Name = "<very nice name>";
         }
 
         [Test]
@@ -100,10 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_InvalidCalculationInput_LogsErrorAndReturnsFalse()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation
-            {
-                Name = "<very nice name>"
-            };
+            var calculation = new MacroStabilityInwardsCalculation();
             var isValid = true;
 
             // Call

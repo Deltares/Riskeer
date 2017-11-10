@@ -67,6 +67,7 @@
     <Compile Include="Hydraulics\CalculationConvergence.cs" />
     <Compile Include="Hydraulics\DesignWaterLevelCalculation.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryDatabaseExtensions.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocation.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculation.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationInput.cs" />

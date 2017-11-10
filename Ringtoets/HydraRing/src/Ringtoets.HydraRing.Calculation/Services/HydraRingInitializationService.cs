@@ -50,10 +50,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private readonly int mechanismId;
         private readonly int sectionId;
 
-        // Working directories
+        private readonly string hlcdFilePath;
         private readonly string hydraRingDirectory;
-
-        private readonly string hlcdDirectory;
+        private readonly string configurationDatabaseFilePath;
+        private readonly string preprocessorDirectory;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingInitializationService"/> class.
@@ -62,15 +62,22 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="sectionId">The section id.</param>
         /// <param name="hlcdDirectory">The HLCD directory.</param>
         /// <param name="temporaryWorkingDirectory">The working directory.</param>
-        public HydraRingInitializationService(HydraRingFailureMechanismType failureMechanismType, int sectionId, string hlcdDirectory, string temporaryWorkingDirectory)
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// matches <see cref="string.IsNullOrEmpty"/>.</remarks>
+        public HydraRingInitializationService(HydraRingFailureMechanismType failureMechanismType,
+                                              int sectionId,
+                                              string hlcdDirectory,
+                                              string temporaryWorkingDirectory,
+                                              string preprocessorDirectory)
         {
             mechanismId = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(failureMechanismType).MechanismId;
             this.sectionId = sectionId;
-
             TemporaryWorkingDirectory = temporaryWorkingDirectory;
-
-            this.hlcdDirectory = hlcdDirectory;
+            hlcdFilePath = Path.Combine(hlcdDirectory, HydraRingFileConstants.HlcdDatabaseFileName);
             hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), hydraRingBinariesSubDirectory);
+            configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, HydraRingFileConstants.ConfigurationDatabaseFileName);
+            this.preprocessorDirectory = preprocessorDirectory;
         }
 
         /// <summary>
@@ -92,50 +99,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
             get
             {
                 return Path.Combine(TemporaryWorkingDirectory, sectionId + databaseFileExtension);
-            }
-        }
-
-        /// <summary>
-        /// Gets the log file path.
-        /// </summary>
-        public string LogFilePath
-        {
-            get
-            {
-                return Path.Combine(TemporaryWorkingDirectory, sectionId + logFileExtension);
-            }
-        }
-
-        /// <summary>
-        /// Gets the output file path.
-        /// </summary>
-        public string OutputFilePath
-        {
-            get
-            {
-                return Path.Combine(TemporaryWorkingDirectory, HydraRingFileConstants.DesignTablesFileName);
-            }
-        }
-
-        /// <summary>
-        /// Gets the output database path.
-        /// </summary>
-        public string OutputDatabasePath
-        {
-            get
-            {
-                return Path.Combine(TemporaryWorkingDirectory, HydraRingFileConstants.WorkingDatabaseFileName);
-            }
-        }
-
-        /// <summary>
-        /// Gets the HLCD file path.
-        /// </summary>
-        public string HlcdFilePath
-        {
-            get
-            {
-                return Path.Combine(hlcdDirectory, HydraRingFileConstants.HlcdDatabaseFileName);
             }
         }
 
@@ -166,31 +129,25 @@ namespace Ringtoets.HydraRing.Calculation.Services
         public void WriteInitializationScript()
         {
             string initializationFileContent = string.Join(Environment.NewLine,
-                                                           "section             = " + sectionId,
-                                                           "mechanism           = " + mechanismId,
-                                                           "alternative         = 1", // Fixed: no support for piping
-                                                           "layer               = 1", // Fixed: no support for revetments
-                                                           "logfile             = " + sectionId + logFileExtension,
-                                                           "outputverbosity     = basic",
-                                                           "outputtofile        = file",
-                                                           "projectdbfilename   = " + sectionId + databaseFileExtension,
-                                                           "outputfilename      = " + HydraRingFileConstants.DesignTablesFileName,
-                                                           "configdbfilename    = " + ConfigurationDatabaseFilePath,
-                                                           "hydraulicdbfilename = " + HlcdFilePath,
-                                                           "designpointOutput   = sqlite");
+                                                           "section                 = " + sectionId,
+                                                           "mechanism               = " + mechanismId,
+                                                           "alternative             = 1", // Fixed: no support for piping
+                                                           "layer                   = 1", // Fixed: no support for revetments
+                                                           "logfile                 = " + sectionId + logFileExtension,
+                                                           "outputverbosity         = basic",
+                                                           "outputtofile            = file",
+                                                           "projectdbfilename       = " + sectionId + databaseFileExtension,
+                                                           "outputfilename          = " + HydraRingFileConstants.DesignTablesFileName,
+                                                           "configdbfilename        = " + configurationDatabaseFilePath,
+                                                           "hydraulicdbfilename     = " + hlcdFilePath,
+                                                           "designpointOutput       = sqlite");
+
+            if (!string.IsNullOrEmpty(preprocessorDirectory))
+            {
+                initializationFileContent += Environment.NewLine + "preprocessordbdirectory = " + preprocessorDirectory;
+            }
 
             File.WriteAllText(IniFilePath, initializationFileContent);
-        }
-
-        /// <summary>
-        /// Gets the path of the configuration database file.
-        /// </summary>
-        private string ConfigurationDatabaseFilePath
-        {
-            get
-            {
-                return Path.Combine(hydraRingDirectory, HydraRingFileConstants.ConfigurationDatabaseFileName);
-            }
         }
     }
 }

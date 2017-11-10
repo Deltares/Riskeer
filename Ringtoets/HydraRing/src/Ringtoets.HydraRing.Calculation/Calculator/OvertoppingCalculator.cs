@@ -40,9 +40,13 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Create a new instance of <see cref="OvertoppingCalculator"/>.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the hydraulic boundary database can be found.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        internal OvertoppingCalculator(string hlcdDirectory)
-            : base(hlcdDirectory)
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
+        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
+        internal OvertoppingCalculator(string hlcdDirectory, string preprocessorDirectory)
+            : base(hlcdDirectory, preprocessorDirectory)
         {
             exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
             waveHeightParser = new OvertoppingCalculationWaveHeightParser();

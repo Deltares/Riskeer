@@ -86,6 +86,25 @@ namespace Ringtoets.Common.IO.HydraRing
             return numericsSettings;
         }
 
+        /// <summary>
+        /// Returns <see cref="NumericsSetting"/> based on the provided location id.
+        /// </summary>
+        /// <param name="locationId">The location id to obtain the <see cref="NumericsSetting"/> for.</param>
+        /// <returns>A new <see cref="NumericsSetting"/> containing values corresponding to the provided location id.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
+        /// contain expected type.</exception>
+        public NumericsSetting GetNumericsSettingForPreprocessor(long locationId)
+        {
+            FailureMechanismDefaults failureMechanismDefaults = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(HydraRingFailureMechanismType.AssessmentLevel);
+            int mechanismId = failureMechanismDefaults.MechanismId;
+            const int preprocessorSubmechanismId = 7;
+            const int defaultSubmechanismId = 1;
+
+            return numericsSettingsReader.ReadNumericsSetting(locationId, mechanismId, preprocessorSubmechanismId)
+                   ?? (numericsSettingsReader.ReadNumericsSetting(locationId, mechanismId, defaultSubmechanismId)
+                       ?? defaultNumericsSettings[HydraRingFailureMechanismType.AssessmentLevel][defaultSubmechanismId]);
+        }
+
         public void Dispose()
         {
             numericsSettingsReader.Dispose();

@@ -40,6 +40,7 @@ namespace Application.Ringtoets.Storage.DbContext
         {
             BackgroundDataEntities = new HashSet<BackgroundDataEntity>();
             FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
+            HydraRingPreprocessorEntities = new HashSet<HydraRingPreprocessorEntity>();
             HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
         }
 
@@ -64,6 +65,9 @@ namespace Application.Ringtoets.Storage.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HydraRingPreprocessorEntity> HydraRingPreprocessorEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }

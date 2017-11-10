@@ -41,9 +41,13 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Creates a new instance of <see cref="StructuresCalculator{T}"/>.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the hydraulic boundary database can be found.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        public StructuresCalculator(string hlcdDirectory)
-            : base(hlcdDirectory)
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
+        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
+        public StructuresCalculator(string hlcdDirectory, string preprocessorDirectory)
+            : base(hlcdDirectory, preprocessorDirectory)
         {
             exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
             ExceedanceProbabilityBeta = double.NaN;

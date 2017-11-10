@@ -48,31 +48,31 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     HydraRingFailureMechanismType.AssessmentLevel, new FailureMechanismDefaults(1, new[]
                     {
                         1
-                    }, 1)
+                    }, 1, 9)
                 },
                 {
                     HydraRingFailureMechanismType.WaveHeight, new FailureMechanismDefaults(11, new[]
                     {
                         11
-                    }, 11)
+                    }, 11, 9)
                 },
                 {
                     HydraRingFailureMechanismType.WavePeakPeriod, new FailureMechanismDefaults(11, new[]
                     {
                         14
-                    }, 14)
+                    }, 14, 9)
                 },
                 {
                     HydraRingFailureMechanismType.WaveSpectralPeriod, new FailureMechanismDefaults(11, new[]
                     {
                         16
-                    }, 16)
+                    }, 16, 9)
                 },
                 {
                     HydraRingFailureMechanismType.QVariant, new FailureMechanismDefaults(3, new[]
                     {
                         5
-                    }, 6)
+                    }, 6, 10)
                 },
                 {
                     HydraRingFailureMechanismType.DikeHeight, GetOvertoppingDefaults()
@@ -86,7 +86,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                         421,
                         422,
                         423
-                    }, 4404)
+                    }, 4404, 9)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresClosure, new FailureMechanismDefaults(111, new[]
@@ -96,7 +96,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                         425,
                         426,
                         427
-                    }, 4505)
+                    }, 4505, 9)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresStructuralFailure, new FailureMechanismDefaults(112, new[]
@@ -110,13 +110,13 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                         433,
                         434,
                         435
-                    }, 4607)
+                    }, 4607, 9)
                 },
                 {
                     HydraRingFailureMechanismType.DunesBoundaryConditions, new FailureMechanismDefaults(1, new[]
                     {
                         6
-                    }, 8)
+                    }, 8, 9)
                 },
                 {
                     HydraRingFailureMechanismType.OvertoppingRate, GetOvertoppingDefaults()
@@ -140,7 +140,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
             {
                 102,
                 103
-            }, 1017);
+            }, 1017, 9);
         }
     }
 }

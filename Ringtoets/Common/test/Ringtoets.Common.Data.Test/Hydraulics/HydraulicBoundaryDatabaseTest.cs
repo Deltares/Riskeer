@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using System;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -30,17 +30,109 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     public class HydraulicBoundaryDatabaseTest
     {
         [Test]
-        public void Constructor_DefaultConstructor_ExpectedValues()
+        public void Constructor_Parameterless_ExpectedValues()
         {
             // Call
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Assert
-            Assert.That(string.IsNullOrEmpty(hydraulicBoundaryDatabase.FilePath));
-            Assert.That(string.IsNullOrEmpty(hydraulicBoundaryDatabase.Version));
-            Assert.IsInstanceOf<ICollection<HydraulicBoundaryLocation>>(hydraulicBoundaryDatabase.Locations);
             Assert.IsInstanceOf<Observable>(hydraulicBoundaryDatabase);
+            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
+            Assert.IsNull(hydraulicBoundaryDatabase.Version);
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
+            Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
+        }
+
+        [Test]
+        public void Constructor_WithParameters_ExpectedValues([Values(true, false)] bool usePreprocessor)
+        {
+            // Setup
+            const string preprocessorDirectory = "Preprocessor";
+
+            // Call
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, preprocessorDirectory);
+
+            // Assert
+            Assert.IsInstanceOf<Observable>(hydraulicBoundaryDatabase);
+            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
+            Assert.IsNull(hydraulicBoundaryDatabase.Version);
+            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+            Assert.IsTrue(hydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.AreEqual(usePreprocessor, hydraulicBoundaryDatabase.UsePreprocessor);
+            Assert.AreEqual(preprocessorDirectory, hydraulicBoundaryDatabase.PreprocessorDirectory);
+        }
+
+        [Test]
+        public void UsePreprocessor_SetValueWithCanUsePreprocessorTrue_ExpectedValueSet([Values(true, false)] bool usePreprocessor)
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(!usePreprocessor, "Preprocessor");
+
+            // Call
+            hydraulicBoundaryDatabase.UsePreprocessor = usePreprocessor;
+
+            // Assert
+            Assert.AreEqual(usePreprocessor, hydraulicBoundaryDatabase.UsePreprocessor);
+        }
+
+        [Test]
+        public void UsePreprocessor_SetValueWithCanUsePreprocessorFalse_ThrowsInvalidOperationException([Values(true, false)] bool usePreprocessor)
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Call
+            TestDelegate test = () => hydraulicBoundaryDatabase.UsePreprocessor = usePreprocessor;
+
+            // Assert
+            string message = Assert.Throws<InvalidOperationException>(test).Message;
+            Assert.AreEqual($"{nameof(HydraulicBoundaryDatabase.CanUsePreprocessor)} is false.", message);
+        }
+
+        [Test]
+        public void PreprocessorDirectory_SetValidValueWithCanUsePreprocessorTrue_ExpectedValueSet()
+        {
+            // Setup
+            const string preprocessorDirectory = "OtherPreprocessor";
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "Preprocessor");
+
+            // Call
+            hydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorDirectory;
+
+            // Assert
+            Assert.AreEqual(preprocessorDirectory, hydraulicBoundaryDatabase.PreprocessorDirectory);
+        }
+
+        [Test]
+        public void PreprocessorDirectory_SetValidValueWithCanUsePreprocessorFalse_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Call
+            TestDelegate test = () => hydraulicBoundaryDatabase.PreprocessorDirectory = "Preprocessor";
+
+            // Assert
+            string message = Assert.Throws<InvalidOperationException>(test).Message;
+            Assert.AreEqual($"{nameof(HydraulicBoundaryDatabase.CanUsePreprocessor)} is false.", message);
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void PreprocessorDirectory_SetInvalidValueWithCanUsePreprocessorTrue_ThrowsArgumentException(string preprocessorDirectory)
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "Preprocessor");
+
+            // Call
+            TestDelegate test = () => hydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorDirectory;
+
+            // Assert
+            string message = Assert.Throws<ArgumentException>(test).Message;
+            Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat moet een waarde hebben.", message);
         }
     }
 }

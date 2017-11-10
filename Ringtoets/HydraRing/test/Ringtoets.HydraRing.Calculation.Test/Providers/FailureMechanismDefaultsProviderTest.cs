@@ -33,39 +33,39 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 1, new[]
         {
             1
-        }, 1)]
+        }, 1, 9)]
         [TestCase(HydraRingFailureMechanismType.WaveHeight, 11, new[]
         {
             11
-        }, 11)]
+        }, 11, 9)]
         [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 11, new[]
         {
             14
-        }, 14)]
+        }, 14, 9)]
         [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 11, new[]
         {
             16
-        }, 16)]
+        }, 16, 9)]
         [TestCase(HydraRingFailureMechanismType.QVariant, 3, new[]
         {
             5
-        }, 6)]
+        }, 6, 10)]
         [TestCase(HydraRingFailureMechanismType.DikeHeight, 101, new[]
         {
             102,
             103
-        }, 1017)]
+        }, 1017, 9)]
         [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 101, new[]
         {
             102,
             103
-        }, 1017)]
+        }, 1017, 9)]
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 110, new[]
         {
             421,
             422,
             423
-        }, 4404)]
+        }, 4404, 9)]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, 111, new[]
         {
             422,
@@ -73,7 +73,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
             425,
             426,
             427
-        }, 4505)]
+        }, 4505, 9)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 112, new[]
         {
             422,
@@ -85,20 +85,21 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
             433,
             434,
             435
-        }, 4607)]
+        }, 4607, 9)]
         [TestCase(HydraRingFailureMechanismType.DunesBoundaryConditions, 1, new[]
         {
             6
-        }, 8)]
+        }, 8, 9)]
         [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 101, new[]
         {
             102,
             103
-        }, 1017)]
+        }, 1017, 9)]
         public void GetFailureMechanismDefaults_ReturnsExpectedFailureMechanismDefaults(HydraRingFailureMechanismType failureMechanismType,
                                                                                         int expectedMechanismId,
                                                                                         IEnumerable<int> expectedSubMechanismIds,
-                                                                                        int expectedFaultTreeModel)
+                                                                                        int expectedFaultTreeModelId,
+                                                                                        int expectedPreprocessorFaultTreeModelId)
         {
             // Setup
             var failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
@@ -109,7 +110,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
             // Assert
             Assert.AreEqual(expectedMechanismId, failureMechanismDefaults.MechanismId);
             Assert.AreEqual(expectedSubMechanismIds, failureMechanismDefaults.SubMechanismIds);
-            Assert.AreEqual(expectedFaultTreeModel, failureMechanismDefaults.FaultTreeModelId);
+            Assert.AreEqual(expectedFaultTreeModelId, failureMechanismDefaults.FaultTreeModelId);
+            Assert.AreEqual(expectedPreprocessorFaultTreeModelId, failureMechanismDefaults.PreprocessorFaultTreeModelId);
         }
     }
 }

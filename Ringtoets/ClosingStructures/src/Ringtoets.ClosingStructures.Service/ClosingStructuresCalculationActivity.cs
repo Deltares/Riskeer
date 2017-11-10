@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Service;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Calculation.Activities;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
@@ -95,7 +96,8 @@ namespace Ringtoets.ClosingStructures.Service
                                          failureMechanism.GeneralInput.N,
                                          assessmentSection.FailureMechanismContribution.Norm,
                                          failureMechanism.Contribution,
-                                         hydraulicBoundaryDatabaseFilePath);
+                                         hydraulicBoundaryDatabaseFilePath,
+                                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
 
         protected override void OnCancel()

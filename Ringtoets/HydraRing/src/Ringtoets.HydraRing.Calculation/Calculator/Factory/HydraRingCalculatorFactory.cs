@@ -46,45 +46,45 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
             }
         }
 
-        public IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory)
+        public IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory, string preprocessorDirectory)
         {
-            return new DesignWaterLevelCalculator(hlcdDirectory);
+            return new DesignWaterLevelCalculator(hlcdDirectory, preprocessorDirectory);
         }
 
-        public IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory)
+        public IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory, string preprocessorDirectory)
         {
-            return new OvertoppingCalculator(hlcdDirectory);
+            return new OvertoppingCalculator(hlcdDirectory, preprocessorDirectory);
         }
 
-        public IHydraulicLoadsCalculator CreateDikeHeightCalculator(string hlcdDirectory)
+        public IHydraulicLoadsCalculator CreateDikeHeightCalculator(string hlcdDirectory, string preprocessorDirectory)
         {
-            return new HydraulicLoadsCalculator(hlcdDirectory);
+            return new HydraulicLoadsCalculator(hlcdDirectory, preprocessorDirectory);
         }
 
-        public IHydraulicLoadsCalculator CreateOvertoppingRateCalculator(string hlcdDirectory)
+        public IHydraulicLoadsCalculator CreateOvertoppingRateCalculator(string hlcdDirectory, string preprocessorDirectory)
         {
-            return new HydraulicLoadsCalculator(hlcdDirectory);
+            return new HydraulicLoadsCalculator(hlcdDirectory, preprocessorDirectory);
         }
 
-        public IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory)
+        public IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory, string preprocessorDirectory)
         {
-            return new WaveConditionsCosineCalculator(hlcdDirectory);
+            return new WaveConditionsCosineCalculator(hlcdDirectory, preprocessorDirectory);
         }
 
-        public IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory)
+        public IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory, string preprocessorDirectory)
         {
-            return new WaveHeightCalculator(hlcdDirectory);
+            return new WaveHeightCalculator(hlcdDirectory, preprocessorDirectory);
         }
 
-        public IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory)
+        public IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory, string preprocessorDirectory)
         {
-            return new DunesBoundaryConditionsCalculator(hlcdDirectory);
+            return new DunesBoundaryConditionsCalculator(hlcdDirectory, preprocessorDirectory);
         }
 
-        public IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory)
+        public IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory, string preprocessorDirectory)
             where TCalculationInput : ExceedanceProbabilityCalculationInput
         {
-            return new StructuresCalculator<TCalculationInput>(hlcdDirectory);
+            return new StructuresCalculator<TCalculationInput>(hlcdDirectory, preprocessorDirectory);
         }
     }
 }

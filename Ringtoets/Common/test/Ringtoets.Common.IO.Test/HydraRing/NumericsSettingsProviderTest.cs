@@ -149,6 +149,88 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             }
         }
 
+        [Test]
+        public void GetNumericsSettingForPreprocessor_PreprocessorSubmechanismIdKnown_ReturnExpectedNumericsSetting()
+        {
+            // Setup
+            using (var numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))
+            {
+                // Call
+                NumericsSetting numericsSetting = numericsSettingsProvider.GetNumericsSettingForPreprocessor(700131);
+
+                // Assert
+                Assert.AreEqual(2, numericsSetting.CalculationTechniqueId);
+                Assert.AreEqual(3, numericsSetting.FormStartMethod);
+                Assert.AreEqual(20, numericsSetting.FormNumberOfIterations);
+                Assert.AreEqual(0.2, numericsSetting.FormRelaxationFactor);
+                Assert.AreEqual(0.1, numericsSetting.FormEpsBeta);
+                Assert.AreEqual(0.1, numericsSetting.FormEpsHoh);
+                Assert.AreEqual(0.1, numericsSetting.FormEpsZFunc);
+                Assert.AreEqual(3, numericsSetting.DsStartMethod);
+                Assert.AreEqual(4, numericsSetting.DsMinNumberOfIterations);
+                Assert.AreEqual(15000, numericsSetting.DsMaxNumberOfIterations);
+                Assert.AreEqual(90000, numericsSetting.DsVarCoefficient);
+                Assert.AreEqual(0.2, numericsSetting.NiUMin);
+                Assert.AreEqual(-4, numericsSetting.NiUMax);
+                Assert.AreEqual(5, numericsSetting.NiNumberSteps);
+            }
+        }
+
+        [Test]
+        public void GetNumericsSettingForPreprocessor_PreprocessorSubmechanismIdUnknownDefaultSubmechanismIdKnown_ReturnExpectedNumericsSetting()
+        {
+            // Setup
+            using (var numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))
+            {
+                // Call
+                NumericsSetting numericsSetting = numericsSettingsProvider.GetNumericsSettingForPreprocessor(700138);
+
+                // Assert
+                NumericsSetting expectedValues = GetExpectedNumericsSetting();
+                Assert.AreEqual(expectedValues.CalculationTechniqueId, numericsSetting.CalculationTechniqueId);
+                Assert.AreEqual(expectedValues.FormStartMethod, numericsSetting.FormStartMethod);
+                Assert.AreEqual(expectedValues.FormNumberOfIterations, numericsSetting.FormNumberOfIterations);
+                Assert.AreEqual(expectedValues.FormRelaxationFactor, numericsSetting.FormRelaxationFactor);
+                Assert.AreEqual(expectedValues.FormEpsBeta, numericsSetting.FormEpsBeta);
+                Assert.AreEqual(expectedValues.FormEpsHoh, numericsSetting.FormEpsHoh);
+                Assert.AreEqual(expectedValues.FormEpsZFunc, numericsSetting.FormEpsZFunc);
+                Assert.AreEqual(expectedValues.DsStartMethod, numericsSetting.DsStartMethod);
+                Assert.AreEqual(expectedValues.DsMinNumberOfIterations, numericsSetting.DsMinNumberOfIterations);
+                Assert.AreEqual(expectedValues.DsMaxNumberOfIterations, numericsSetting.DsMaxNumberOfIterations);
+                Assert.AreEqual(expectedValues.DsVarCoefficient, numericsSetting.DsVarCoefficient);
+                Assert.AreEqual(expectedValues.NiNumberSteps, numericsSetting.NiNumberSteps);
+                Assert.AreEqual(expectedValues.NiUMin, numericsSetting.NiUMin);
+                Assert.AreEqual(expectedValues.NiUMax, numericsSetting.NiUMax);
+            }
+        }
+
+        [Test]
+        public void GetNumericsSettingForPreprocessor_LocationIdUnknown_ReturnsExpectedDefaultNumericsSetting()
+        {
+            // Setup
+            using (var numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))
+            {
+                // Call
+                NumericsSetting numericsSetting = numericsSettingsProvider.GetNumericsSettingForPreprocessor(700139);
+
+                // Assert
+                Assert.AreEqual(11, numericsSetting.CalculationTechniqueId);
+                Assert.AreEqual(4, numericsSetting.FormStartMethod);
+                Assert.AreEqual(150, numericsSetting.FormNumberOfIterations);
+                Assert.AreEqual(0.15, numericsSetting.FormRelaxationFactor);
+                Assert.AreEqual(0.005, numericsSetting.FormEpsBeta);
+                Assert.AreEqual(0.005, numericsSetting.FormEpsHoh);
+                Assert.AreEqual(0.005, numericsSetting.FormEpsZFunc);
+                Assert.AreEqual(2, numericsSetting.DsStartMethod);
+                Assert.AreEqual(10000, numericsSetting.DsMinNumberOfIterations);
+                Assert.AreEqual(40000, numericsSetting.DsMaxNumberOfIterations);
+                Assert.AreEqual(0.1, numericsSetting.DsVarCoefficient);
+                Assert.AreEqual(-6.0, numericsSetting.NiUMin);
+                Assert.AreEqual(6.0, numericsSetting.NiUMax);
+                Assert.AreEqual(25, numericsSetting.NiNumberSteps);
+            }
+        }
+
         private static NumericsSetting GetExpectedNumericsSetting()
         {
             return new NumericsSetting(1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000, 0.1, -6, 6);

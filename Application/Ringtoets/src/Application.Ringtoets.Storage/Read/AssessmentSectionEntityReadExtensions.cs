@@ -122,11 +122,18 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity.HydraulicDatabaseLocation != null)
             {
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    FilePath = entity.HydraulicDatabaseLocation,
-                    Version = entity.HydraulicDatabaseVersion
-                };
+                HydraRingPreprocessorEntity preprocessorEntity = entity.HydraRingPreprocessorEntities.FirstOrDefault();
+
+                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = preprocessorEntity != null
+                                                                          ? new HydraulicBoundaryDatabase(
+                                                                              Convert.ToBoolean(preprocessorEntity.UsePreprocessor),
+                                                                              preprocessorEntity.PreprocessorDirectory)
+                                                                          : new HydraulicBoundaryDatabase();
+
+                hydraulicBoundaryDatabase.FilePath = entity.HydraulicDatabaseLocation;
+                hydraulicBoundaryDatabase.Version = entity.HydraulicDatabaseVersion;
+
+                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
                 foreach (HydraulicLocationEntity hydraulicLocationEntity in entity.HydraulicLocationEntities.OrderBy(hl => hl.Order))
                 {

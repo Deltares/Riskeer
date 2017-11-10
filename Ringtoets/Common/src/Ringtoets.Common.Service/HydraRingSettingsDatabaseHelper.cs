@@ -39,6 +39,7 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="calculationInput">The calculation input for which the settings are updated.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
+        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -49,13 +50,17 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list>
         /// </exception>
-        public static void AssignSettingsFromDatabase(HydraRingCalculationInput calculationInput, string hydraulicBoundaryDatabaseFilePath)
+        public static void AssignSettingsFromDatabase(HydraRingCalculationInput calculationInput, string hydraulicBoundaryDatabaseFilePath, bool usePreprocessor)
         {
             IOUtils.ValidateFilePath(hydraulicBoundaryDatabaseFilePath);
 
             long locationId = calculationInput.HydraulicBoundaryLocationId;
-            string settingsDatabaseFileName = HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabaseFilePath);
+            string settingsDatabaseFileName = HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabaseFilePath);
 
+            using (var preprocessorSettingsProvider = new PreprocessorSettingsProvider(settingsDatabaseFileName))
+            {
+                calculationInput.PreprocessorSetting = preprocessorSettingsProvider.GetPreprocessorSetting(locationId, usePreprocessor);
+            }
             using (var designTablesSettingsProviders = new DesignTablesSettingsProvider(settingsDatabaseFileName))
             {
                 calculationInput.DesignTablesSetting = designTablesSettingsProviders.GetDesignTablesSetting(

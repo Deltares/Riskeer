@@ -1064,6 +1064,310 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void GivenHydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_WhenValidatingCalculation_ThenNoValidationErrorsLogged()
+        {
+            // Given
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, Path.Combine(testDataPath, "complete.sqlite"));
+
+            var parent = new CalculationGroup();
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                    StepSize = WaveConditionsInputStepSize.One,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
+                    Orientation = (RoundedDouble) 0
+                }
+            };
+
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                     parent,
+                                                                                     failureMechanism,
+                                                                                     assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // When
+                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
+                    Action call = () => validateMenuItem.PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessages(call, logMessages =>
+                    {
+                        string[] messages = logMessages.ToArray();
+                        Assert.AreEqual(2, messages.Length);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[1]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void GivenHydraulicBoundaryDatabaseWithUsePreprocessorFalse_WhenValidatingCalculation_ThenNoValidationErrorsLogged()
+        {
+            // Given
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                failureMechanism, mocks);
+
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            {
+                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+            };
+
+            var parent = new CalculationGroup();
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                    StepSize = WaveConditionsInputStepSize.One,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
+                    Orientation = (RoundedDouble) 0
+                }
+            };
+
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                     parent,
+                                                                                     failureMechanism,
+                                                                                     assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // When
+                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
+                    Action call = () => validateMenuItem.PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessages(call, logMessages =>
+                    {
+                        string[] messages = logMessages.ToArray();
+                        Assert.AreEqual(2, messages.Length);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[1]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void GivenHydraulicBoundaryDatabaseWithUsePreprocessorTrue_WhenValidatingCalculation_ThenNoValidationErrorsLogged()
+        {
+            // Given
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                failureMechanism, mocks);
+
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, TestHelper.GetScratchPadPath())
+            {
+                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+            };
+
+            var parent = new CalculationGroup();
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                    StepSize = WaveConditionsInputStepSize.One,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
+                    Orientation = (RoundedDouble) 0
+                }
+            };
+
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                     parent,
+                                                                                     failureMechanism,
+                                                                                     assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // When
+                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
+                    Action call = () => validateMenuItem.PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessages(call, logMessages =>
+                    {
+                        string[] messages = logMessages.ToArray();
+                        Assert.AreEqual(2, messages.Length);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[1]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void GivenHydraulicBoundaryDatabaseWithUsePreprocessorTrue_WhenValidatingCalculation_ThenValidationErrorsLogged()
+        {
+            // Given
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                failureMechanism, mocks);
+
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "InvalidPreprocessorDirectory")
+            {
+                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+            };
+
+            var parent = new CalculationGroup();
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                    StepSize = WaveConditionsInputStepSize.One,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
+                    Orientation = (RoundedDouble) 0
+                }
+            };
+
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                     parent,
+                                                                                     failureMechanism,
+                                                                                     assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var updateHandler = mocks.Stub<IUpdateCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // When
+                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
+                    Action call = () => validateMenuItem.PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessages(call, logMessages =>
+                    {
+                        string[] messages = logMessages.ToArray();
+                        Assert.AreEqual(3, messages.Length);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
+                        Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", messages[1]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
+                    });
+                }
+            }
+        }
+
+        [Test]
         public void GivenAssessmentSectionWithoutHydraulicBoundaryDatabase_ThenCalculationItemDisabled()
         {
             // Given
@@ -1288,7 +1592,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = calculation.InputParameters.WaterLevels.Count();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
+                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                                  .Return(new TestWaveConditionsCosineCalculator())
                                  .Repeat
                                  .Times(nrOfCalculators);

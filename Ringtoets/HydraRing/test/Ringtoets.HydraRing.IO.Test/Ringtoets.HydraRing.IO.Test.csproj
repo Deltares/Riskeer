@@ -60,6 +60,9 @@
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundarySqLiteDatabaseReaderTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabaseContext\HydraulicLocationConfigurationDatabaseQueryBuilderTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabaseContext\HydraulicLocationConfigurationSqLiteDatabaseReaderTest.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabaseContext\LocationsTableDefinitionsTest.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabaseContext\RegionsTableDefinitionsTest.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabaseContext\TracksTableDefinitionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

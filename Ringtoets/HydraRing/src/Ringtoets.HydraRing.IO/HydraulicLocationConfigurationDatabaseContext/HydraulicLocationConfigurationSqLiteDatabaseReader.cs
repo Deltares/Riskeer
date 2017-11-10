@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -58,14 +59,14 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         /// <param name="trackId">Hydraulic boundary track id.</param>
         /// <returns>List of location id and Hrd location id found in the database.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
-        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
         public Dictionary<long, long> GetLocationsIdByTrackId(long trackId)
         {
             var trackParameter = new SQLiteParameter
             {
                 DbType = DbType.String,
-                ParameterName = LocationsTableDefinitions.TrackId,
+                ParameterName = TracksTableDefinitions.TrackId,
                 Value = trackId
             };
 
@@ -73,18 +74,60 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
             {
                 return GetLocationIdsFromDatabase(trackParameter);
             }
+            catch (SQLiteException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
+                throw new CriticalFileReadException(message, exception);
+            }
             catch (InvalidCastException exception)
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 throw new LineParseException(message, exception);
+            }
+        }
+
+        /// <summary>
+        /// Gets whether the preprocessor can be used for the given <paramref name="trackId"/>.
+        /// </summary>
+        /// <param name="trackId">Hydraulic boundary track id.</param>
+        /// <returns>The value found in the database; or <c>false</c> when the database
+        /// is valid but outdated (no usePreprocessor column present).</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
+        public bool GetCanUsePreprocessorByTrackId(long trackId)
+        {
+            var trackParameter = new SQLiteParameter
+            {
+                DbType = DbType.String,
+                ParameterName = TracksTableDefinitions.TrackId,
+                Value = trackId
+            };
+
+            try
+            {
+                return GetCanUsePreprocessorFromDatabase(trackParameter);
             }
             catch (SQLiteException exception)
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
                 throw new CriticalFileReadException(message, exception);
             }
+            catch (FormatException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                throw new LineParseException(message, exception);
+            }
         }
 
+        /// <summary>
+        /// Gets the location ids from the database, based upon <paramref name="trackParameter"/>.
+        /// </summary>
+        /// <param name="trackParameter">Hydraulic boundary track id.</param>
+        /// <returns>List of location id and Hrd location id found in the database.</returns>
+        /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
+        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
         private Dictionary<long, long> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
         {
             var dictionary = new Dictionary<long, long>();
@@ -108,6 +151,39 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
                 }
             }
             return dictionary;
+        }
+
+        /// <summary>
+        /// Gets whether the preprocessor can be used for the given <paramref name="trackParameter"/>.
+        /// </summary>
+        /// <param name="trackParameter">Hydraulic boundary track id.</param>
+        /// <returns>The value found in the database; or <c>false</c> when the database
+        /// is valid but outdated (no usePreprocessor column present).</returns>
+        /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
+        /// <exception cref="FormatException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when no results could be found.</exception>
+        private bool GetCanUsePreprocessorFromDatabase(SQLiteParameter trackParameter)
+        {
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetUsePreprocessorByTrackIdQuery();
+            using (IDataReader dataReader = CreateDataReader(query, trackParameter))
+            {
+                DataTable schemaTable = dataReader.GetSchemaTable();
+                DataColumn columnName = schemaTable.Columns[schemaTable.Columns.IndexOf("ColumnName")];
+
+                if (schemaTable.Rows.Cast<DataRow>().All(row => row[columnName].ToString() != RegionsTableDefinitions.UsePreprocessor))
+                {
+                    return false;
+                }
+
+                if (MoveNext(dataReader))
+                {
+                    return Convert.ToBoolean(dataReader[RegionsTableDefinitions.UsePreprocessor]);
+                }
+
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
+                throw new CriticalFileReadException(message);
+            }
         }
     }
 }

@@ -500,7 +500,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
             {
-                WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, database.FilePath);
+                WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, database.FilePath, database.EffectivePreprocessorDirectory());
             }
         }
 
@@ -602,7 +602,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private static void Validate(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {
-            WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(context.WrappedData, context.AssessmentSection.HydraulicBoundaryDatabase.FilePath);
+            WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(context.WrappedData,
+                                                                            context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                            context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
 
         private void PerformCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,

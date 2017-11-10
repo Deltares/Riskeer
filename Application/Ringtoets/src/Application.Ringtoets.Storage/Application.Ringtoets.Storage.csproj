@@ -218,6 +218,9 @@
     <Compile Include="DbContext\HeightStructuresSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\HydraRingPreprocessorEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\HydraulicLocationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>

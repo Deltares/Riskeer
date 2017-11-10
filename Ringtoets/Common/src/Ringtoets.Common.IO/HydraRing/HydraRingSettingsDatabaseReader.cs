@@ -31,6 +31,7 @@ using Core.Common.IO.Readers;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
+using Ringtoets.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.Common.IO.HydraRing
 {
@@ -66,10 +67,15 @@ namespace Ringtoets.Common.IO.HydraRing
 
         private const string locationIdColumn = "LocationID";
 
-        private readonly string designTableSettingsForLocationAndCalculationTypeQuery;
-        private readonly string numericSettingsForLocationMechanismAndSubMechanismQuery;
+        private const string minValueRunPreprocessorColumn = "MinValueRunPreprocessor";
+        private const string maxValueRunPreprocessorColumn = "MaxValueRunPreprocessor";
+
+        private readonly string designTablesSettingsForLocationAndCalculationTypeQuery;
+        private readonly string numericsSettingsForLocationMechanismAndSubMechanismQuery;
         private readonly string excludedLocationsQuery;
+        private readonly string excludedPreprocessorLocationsQuery;
         private readonly string timeIntegrationSettingsForLocationAndCalculationTypeQuery;
+        private readonly string preprocessorSettingsForLocationQuery;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingSettingsDatabaseReader"/>.
@@ -86,25 +92,35 @@ namespace Ringtoets.Common.IO.HydraRing
         public HydraRingSettingsDatabaseReader(string databaseFilePath)
             : base(databaseFilePath)
         {
-            designTableSettingsForLocationAndCalculationTypeQuery =
-                $"SELECT {minColumn}, {maxColumn} " +
-                "FROM DesignTablesSettings " +
-                $"WHERE LocationID = {locationIdParameterName} AND CalculationTypeID = {calculationTypeIdParameterName}";
+            designTablesSettingsForLocationAndCalculationTypeQuery = $"SELECT {minColumn}, {maxColumn} " +
+                                                                     "FROM DesignTablesSettings " +
+                                                                     $"WHERE LocationID = {locationIdParameterName} " +
+                                                                     $"AND CalculationTypeID = {calculationTypeIdParameterName}";
 
-            numericSettingsForLocationMechanismAndSubMechanismQuery =
-                $"SELECT {calculationTechniqueIdColumn}, {formStartMethodColumn}, {formNumberOfIterationsColumn}, " +
-                $"{formRelaxationFactorColumn}, {formEpsBetaColumn}, {formEpsHohColumn}, {formEpsZFuncColumn}, " +
-                $"{dsStartMethodColumn}, {dsMinNumberOfIterationsColumn}, {dsMaxNumberOfIterationsColumn}, " +
-                $"{dsVarCoefficientColumn}, {niUMinColumn}, {niUMaxColumn}, {niNumberStepsColumn} " +
-                "FROM NumericsSettings " +
-                $"WHERE LocationID = {locationIdParameterName} AND MechanismID = {mechanismIdParameterName} AND SubMechanismID = {subMechanismIdParameterName}";
+            numericsSettingsForLocationMechanismAndSubMechanismQuery = $"SELECT {calculationTechniqueIdColumn}, {formStartMethodColumn}, " +
+                                                                       $"{formNumberOfIterationsColumn}, {formRelaxationFactorColumn}, " +
+                                                                       $"{formEpsBetaColumn}, {formEpsHohColumn}, " +
+                                                                       $"{formEpsZFuncColumn}, {dsStartMethodColumn}, " +
+                                                                       $"{dsMinNumberOfIterationsColumn}, {dsMaxNumberOfIterationsColumn}, " +
+                                                                       $"{dsVarCoefficientColumn}, {niUMinColumn}, " +
+                                                                       $"{niUMaxColumn}, {niNumberStepsColumn} " + 
+                                                                       "FROM NumericsSettings " +
+                                                                       $"WHERE LocationID = {locationIdParameterName} " +
+                                                                       $"AND MechanismID = {mechanismIdParameterName} " +
+                                                                       $"AND SubMechanismID = {subMechanismIdParameterName}";
 
-            timeIntegrationSettingsForLocationAndCalculationTypeQuery =
-                $"SELECT {timeIntegrationSchemeIdColumn} " +
-                $"FROM TimeIntegrationSettings " +
-                $"WHERE LocationID = {locationIdParameterName} AND CalculationTypeID = {calculationTypeIdParameterName}";
+            timeIntegrationSettingsForLocationAndCalculationTypeQuery = $"SELECT {timeIntegrationSchemeIdColumn} " +
+                                                                        "FROM TimeIntegrationSettings " +
+                                                                        $"WHERE LocationID = {locationIdParameterName} " +
+                                                                        $"AND CalculationTypeID = {calculationTypeIdParameterName}";
 
             excludedLocationsQuery = $"SELECT {locationIdColumn} FROM ExcludedLocations";
+
+            preprocessorSettingsForLocationQuery = $"SELECT {minValueRunPreprocessorColumn}, {maxValueRunPreprocessorColumn} " +
+                                                   "FROM PreprocessorSettings " +
+                                                   $"WHERE LocationID = {locationIdParameterName}";
+
+            excludedPreprocessorLocationsQuery = $"SELECT {locationIdColumn} FROM ExcludedLocationsPreprocessor";
 
             ValidateSchema();
         }
@@ -240,6 +256,51 @@ namespace Ringtoets.Common.IO.HydraRing
         }
 
         /// <summary>
+        /// Read a preprocessor setting for a given location.
+        /// </summary>
+        /// <param name="locationId">The id of a hydraulic boundary location.</param>
+        /// <returns>A new <see cref="ReadPreprocessorSetting"/> containing values read from the database.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
+        /// contain expected type.</exception>
+        public ReadPreprocessorSetting ReadPreprocessorSetting(long locationId)
+        {
+            using (IDataReader reader = CreatePreprocessorSettingsDataReader(locationId))
+            {
+                if (MoveNext(reader))
+                {
+                    try
+                    {
+                        return new ReadPreprocessorSetting(
+                            reader.Read<double>(minValueRunPreprocessorColumn),
+                            reader.Read<double>(maxValueRunPreprocessorColumn));
+                    }
+                    catch (ConversionException)
+                    {
+                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                    }
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Reads the excluded preprocessor locations (those for which no preprocessor calculation is possible) from the database.
+        /// </summary>
+        /// <returns>A <see cref="IEnumerable{T}"/> of ids for all the excluded locations.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
+        /// contain expected type.</exception>
+        public IEnumerable<long> ReadExcludedPreprocessorLocations()
+        {
+            using (IDataReader reader = CreateExcludedPreprocessorLocationsDataReader())
+            {
+                while (MoveNext(reader))
+                {
+                    yield return TryReadLocationIdColumn(reader);
+                }
+            }
+        }
+
+        /// <summary>
         /// Tries to read the <see cref="locationIdColumn"/> from the <paramref name="reader"/>.
         /// </summary>
         /// <param name="reader">The reader to read the column's value from.</param>
@@ -294,7 +355,7 @@ namespace Ringtoets.Common.IO.HydraRing
             };
 
             return CreateDataReader(
-                designTableSettingsForLocationAndCalculationTypeQuery,
+                designTablesSettingsForLocationAndCalculationTypeQuery,
                 locationParameter,
                 typeParameter);
         }
@@ -323,7 +384,7 @@ namespace Ringtoets.Common.IO.HydraRing
             };
 
             return CreateDataReader(
-                numericSettingsForLocationMechanismAndSubMechanismQuery,
+                numericsSettingsForLocationMechanismAndSubMechanismQuery,
                 locationParameter,
                 mechanismIdParameter,
                 subMechanismIdParameter);
@@ -354,6 +415,25 @@ namespace Ringtoets.Common.IO.HydraRing
         private IDataReader CreateExcludedLocationsDataReader()
         {
             return CreateDataReader(excludedLocationsQuery);
+        }
+
+        private IDataReader CreatePreprocessorSettingsDataReader(long locationId)
+        {
+            var locationParameter = new SQLiteParameter
+            {
+                DbType = DbType.Int64,
+                ParameterName = locationIdParameterName,
+                Value = locationId
+            };
+
+            return CreateDataReader(
+                preprocessorSettingsForLocationQuery,
+                locationParameter);
+        }
+
+        private IDataReader CreateExcludedPreprocessorLocationsDataReader()
+        {
+            return CreateDataReader(excludedPreprocessorLocationsQuery);
         }
 
         private List<Tuple<string, string>> GetValidSchema()

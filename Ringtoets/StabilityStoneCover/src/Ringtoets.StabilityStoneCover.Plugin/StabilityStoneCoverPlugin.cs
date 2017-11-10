@@ -496,7 +496,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
             {
-                StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation, database.FilePath);
+                StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation, database.FilePath, database.EffectivePreprocessorDirectory());
             }
         }
 
@@ -599,7 +599,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         private static void Validate(StabilityStoneCoverWaveConditionsCalculationContext context)
         {
-            StabilityStoneCoverWaveConditionsCalculationService.Validate(context.WrappedData, context.AssessmentSection.HydraulicBoundaryDatabase.FilePath);
+            StabilityStoneCoverWaveConditionsCalculationService.Validate(context.WrappedData,
+                                                                         context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                         context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
 
         private void PerformCalculation(StabilityStoneCoverWaveConditionsCalculation calculation,

@@ -43,18 +43,18 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class DesignWaterLevelCalculationServiceTest
     {
-        private const string validFile = "HRD dutch coast south.sqlite";
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
-        public void Validate_ValidHydraulicBoundaryDatabasePath_ReturnsTrue()
+        public void Validate_ValidPaths_ReturnsTrue()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
             var valid = false;
 
             // Call
-            Action call = () => valid = DesignWaterLevelCalculationService.Validate(validFilePath);
+            Action call = () => valid = DesignWaterLevelCalculationService.Validate(validFilePath, validPreprocessorDirectory);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Service.Test
             var valid = true;
 
             // Call
-            Action call = () => valid = DesignWaterLevelCalculationService.Validate(notValidFilePath);
+            Action call = () => valid = DesignWaterLevelCalculationService.Validate(notValidFilePath, validPreprocessorDirectory);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Service.Test
             var valid = false;
 
             // Call
-            Action call = () => valid = DesignWaterLevelCalculationService.Validate(notValidFilePath);
+            Action call = () => valid = DesignWaterLevelCalculationService.Validate(notValidFilePath, validPreprocessorDirectory);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -112,6 +112,28 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
+        public void Validate_InvalidPreprocessorDirectory_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string invalidPreprocessorDirectory = "Preprocessor";
+            var valid = true;
+
+            // Call
+            Action call = () => valid = DesignWaterLevelCalculationService.Validate(validFilePath, invalidPreprocessorDirectory);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
         public void Calculate_DesignWaterLevelCalculationNull_ThrowArgumentNullException()
         {
             // Setup
@@ -120,7 +142,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new DesignWaterLevelCalculationService().Calculate(null, string.Empty, 1, calculationMessageProvider);
+            TestDelegate test = () => new DesignWaterLevelCalculationService().Calculate(null, string.Empty, string.Empty, 1, calculationMessageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -133,8 +155,6 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidDesignWaterLevelCalculationAndConverges_StartsCalculationWithRightParametersAndLogs(bool calculateIllustrationPoints)
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             var calculator = new TestDesignWaterLevelCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult(),
@@ -143,7 +163,7 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -158,6 +178,7 @@ namespace Ringtoets.Common.Service.Test
                 // Call
                 Action call = () => new DesignWaterLevelCalculationService().Calculate(calculation,
                                                                                        validFilePath,
+                                                                                       validPreprocessorDirectory,
                                                                                        1.0 / 30,
                                                                                        calculationMessageProvider);
 
@@ -184,11 +205,53 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
+        public void Calculate_ValidDesignWaterLevelCalculationWithPreprocessorDirectory_StartsCalculationWithRightParametersAndLogs(bool usePreprocessor)
+        {
+            // Setup
+            string preprocessorDirectory = usePreprocessor
+                                               ? validPreprocessorDirectory
+                                               : string.Empty;
+
+            var calculator = new TestDesignWaterLevelCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult(),
+                Converged = true
+            };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, preprocessorDirectory)).Return(calculator);
+
+            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            calculation.Stub(c => c.Name).Return("punt_flw_ 1");
+            calculation.Expect(c => c.Id).Return(100);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(false);
+
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new DesignWaterLevelCalculationService().Calculate(calculation,
+                                                                   validFilePath,
+                                                                   preprocessorDirectory,
+                                                                   1.0 / 30,
+                                                                   calculationMessageProvider);
+
+                // Assert
+                Assert.AreEqual(usePreprocessor, calculator.ReceivedInputs.Single().PreprocessorSetting.RunPreprocessor);
+                Assert.IsFalse(calculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
         public void Calculate_ValidDesignWaterLevelCalculationAndDoesNotConverge_SetsOutputAndLogs(bool readIllustrationPoints)
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             const double norm = 1.0 / 30;
 
             var calculator = new TestDesignWaterLevelCalculator
@@ -199,7 +262,7 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -216,6 +279,7 @@ namespace Ringtoets.Common.Service.Test
                 // Call
                 Action call = () => new DesignWaterLevelCalculationService().Calculate(calculation,
                                                                                        validFilePath,
+                                                                                       validPreprocessorDirectory,
                                                                                        norm,
                                                                                        calculationMessageProvider);
 
@@ -244,8 +308,6 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidDesignWaterLevelCalculationButIllustrationPointResultsOfIncorrectType_IllustrationPointNotSetAndLog()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             var calculator = new TestDesignWaterLevelCalculator
             {
                 IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithFaultTreeIllustrationPoints(),
@@ -254,7 +316,7 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -269,6 +331,7 @@ namespace Ringtoets.Common.Service.Test
                 // Call
                 Action call = () => new DesignWaterLevelCalculationService().Calculate(calculation,
                                                                                        validFilePath,
+                                                                                       validPreprocessorDirectory,
                                                                                        1.0 / 30,
                                                                                        calculationMessageProvider);
 
@@ -298,8 +361,6 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_CalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsWarning()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             var calculator = new TestDesignWaterLevelCalculator
             {
                 IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts(),
@@ -308,7 +369,7 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -323,6 +384,7 @@ namespace Ringtoets.Common.Service.Test
                 // Call
                 Action call = () => new DesignWaterLevelCalculationService().Calculate(calculation,
                                                                                        validFilePath,
+                                                                                       validPreprocessorDirectory,
                                                                                        1.0 / 30,
                                                                                        calculationMessageProvider);
 
@@ -352,8 +414,6 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidDesignWaterLevelCalculationThrowsException_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             var expectedException = new HydraRingFileParserException();
 
             var mockRepository = new MockRepository();
@@ -364,7 +424,7 @@ namespace Ringtoets.Common.Service.Test
             calculator.Stub(c => c.OutputDirectory).Return(string.Empty);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -380,6 +440,7 @@ namespace Ringtoets.Common.Service.Test
                 TestDelegate call = () => new DesignWaterLevelCalculationService()
                     .Calculate(calculation,
                                validFilePath,
+                               validPreprocessorDirectory,
                                1.0 / 30,
                                calculationMessageProvider);
 
@@ -394,8 +455,6 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidDesignWaterLevelCalculationAndOutputButIllustrationPointsAreNull_IllustrationPointsNotSetAndLogs()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             const string parserErrorMessage = "Some Error Message";
             var mockRepository = new MockRepository();
             var calculator = new TestDesignWaterLevelCalculator
@@ -405,7 +464,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -421,6 +480,7 @@ namespace Ringtoets.Common.Service.Test
                 Action call = () => new DesignWaterLevelCalculationService()
                     .Calculate(calculation,
                                validFilePath,
+                               validPreprocessorDirectory,
                                1.0 / 30,
                                calculationMessageProvider);
 
@@ -444,8 +504,6 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidDesignWaterLevelCalculationCalculateIllustrationPointsFalseAndIllustrationPointsParserErrorMessageNotNull_DoesNotLog()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             var mockRepository = new MockRepository();
             var calculator = new TestDesignWaterLevelCalculator
             {
@@ -454,7 +512,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
@@ -470,6 +528,7 @@ namespace Ringtoets.Common.Service.Test
                 Action call = () => new DesignWaterLevelCalculationService()
                     .Calculate(calculation,
                                validFilePath,
+                               validPreprocessorDirectory,
                                1.0 / 30,
                                calculationMessageProvider);
 
@@ -491,13 +550,11 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             var calculator = new TestDesignWaterLevelCalculator();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return("name");
@@ -516,6 +573,7 @@ namespace Ringtoets.Common.Service.Test
                 // Call
                 service.Calculate(calculation,
                                   validFilePath,
+                                  validPreprocessorDirectory,
                                   norm,
                                   calculationMessageProvider);
 
@@ -533,8 +591,6 @@ namespace Ringtoets.Common.Service.Test
         public void Run_InvalidCalculation_LogsErrorAndThrowException(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
             const string locationName = "punt_flw_ 1";
             const string calculationFailedMessage = "calculationFailedMessage";
             const double norm = 1.0 / 30;
@@ -547,7 +603,7 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return(locationName);
@@ -579,6 +635,7 @@ namespace Ringtoets.Common.Service.Test
                     {
                         new DesignWaterLevelCalculationService().Calculate(calculation,
                                                                            validFilePath,
+                                                                           validPreprocessorDirectory,
                                                                            norm,
                                                                            calculationMessageProvider);
                     }

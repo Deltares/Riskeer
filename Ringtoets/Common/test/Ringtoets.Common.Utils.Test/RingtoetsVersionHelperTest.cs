@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(InValidVersions))]
+        [TestCaseSource(nameof(InvalidVersions))]
         public void IsNewerThanCurrentString_InvalidVersion_ReturnsFalse(string invalidVersion)
         {
             // Call
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(InValidVersions))]
+        [TestCaseSource(nameof(InvalidVersions))]
         public void IsValidVersion_InvalidVersion_ReturnsFalse(string invalidVersion)
         {
             // Call
@@ -120,8 +120,8 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(InValidVersions))]
-        public void ValidateVersion_InValidVersion_ThrowArgumentException(string validVersion)
+        [TestCaseSource(nameof(InvalidVersions))]
+        public void ValidateVersion_InvalidVersion_ThrowArgumentException(string validVersion)
         {
             // Call
             TestDelegate call = () => RingtoetsVersionHelper.ValidateVersion(validVersion);
@@ -140,7 +140,7 @@ namespace Ringtoets.Common.Utils.Test
             };
         }
 
-        private static TestCaseData[] InValidVersions()
+        private static TestCaseData[] InvalidVersions()
         {
             return new[]
             {

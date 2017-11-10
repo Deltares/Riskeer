@@ -67,17 +67,20 @@ namespace Ringtoets.Revetment.Service
         protected bool Canceled { get; private set; }
 
         /// <summary>
-        /// Performs validation over the values on the given <paramref name="waveConditionsInput"/>.
-        /// Error and status information is logged during the execution of the operation.
+        /// Performs validation over the given input parameters. Error and status information is logged
+        /// during the execution of the operation.
         /// </summary>
         /// <param name="waveConditionsInput">The input of the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary
+        /// database file which to validate.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
         /// <param name="designWaterLevelName">The name of the design water level property.</param>
-        /// <returns><c>True</c> if <paramref name="waveConditionsInput"/> has no validation errors; <c>False</c> otherwise.</returns>
+        /// <returns><c>True</c> if there were no validation errors; <c>False</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/>
         /// or <paramref name="designWaterLevelName"/> is <c>null</c>.</exception>
         protected static bool ValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput,
                                                           string hydraulicBoundaryDatabaseFilePath,
+                                                          string preprocessorDirectory,
                                                           string designWaterLevelName)
         {
             if (waveConditionsInput == null)
@@ -91,7 +94,7 @@ namespace Ringtoets.Revetment.Service
 
             CalculationServiceHelper.LogValidationBegin();
 
-            string[] messages = ValidateInput(hydraulicBoundaryDatabaseFilePath, waveConditionsInput, designWaterLevelName);
+            string[] messages = ValidateInput(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory, waveConditionsInput, designWaterLevelName);
 
             CalculationServiceHelper.LogMessagesAsError(messages);
 
@@ -111,15 +114,18 @@ namespace Ringtoets.Revetment.Service
         /// <param name="b">The 'b' factor decided on failure mechanism level.</param>
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
         /// <param name="norm">The norm to use as the target.</param>
-        /// <param name="hrdFilePath">The file path of the hydraulic boundary database.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/>,
+        /// <paramref name="hydraulicBoundaryDatabaseFilePath"/> or <paramref name="preprocessorDirectory"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hrdFilePath"/> 
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hrdFilePath"/>
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
@@ -132,7 +138,8 @@ namespace Ringtoets.Revetment.Service
                                                                             RoundedDouble b,
                                                                             RoundedDouble c,
                                                                             double norm,
-                                                                            string hrdFilePath)
+                                                                            string hydraulicBoundaryDatabaseFilePath,
+                                                                            string preprocessorDirectory)
         {
             if (waveConditionsInput == null)
             {
@@ -159,7 +166,8 @@ namespace Ringtoets.Revetment.Service
                                                                       c,
                                                                       norm,
                                                                       waveConditionsInput,
-                                                                      hrdFilePath);
+                                                                      hydraulicBoundaryDatabaseFilePath,
+                                                                      preprocessorDirectory);
 
                     if (output != null)
                     {
@@ -191,20 +199,30 @@ namespace Ringtoets.Revetment.Service
         }
 
         private static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath,
+                                              string preprocessorDirectory,
                                               WaveConditionsInput input,
                                               string designWaterLevelName)
         {
             var validationResults = new List<string>();
 
-            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
-            if (!string.IsNullOrEmpty(validationProblem))
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
+            if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
-                validationResults.Add(validationProblem);
+                validationResults.Add(databaseFilePathValidationProblem);
             }
-            else
+
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
+            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
             {
-                validationResults.AddRange(ValidateWaveConditionsInput(input, designWaterLevelName));
+                validationResults.Add(preprocessorDirectoryValidationProblem);
             }
+
+            if (validationResults.Any())
+            {
+                return validationResults.ToArray();
+            }
+
+            validationResults.AddRange(ValidateWaveConditionsInput(input, designWaterLevelName));
 
             return validationResults.ToArray();
         }
@@ -225,7 +243,11 @@ namespace Ringtoets.Revetment.Service
         /// <param name="norm">The norm to use as the target.</param>
         /// <param name="input">The input that is different per calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <returns>A <see cref="WaveConditionsOutput"/> if the calculation was successful; or <c>null</c> if it was canceled.</returns>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabaseFilePath"/> or
+        /// <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -234,18 +256,21 @@ namespace Ringtoets.Revetment.Service
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         private WaveConditionsOutput CalculateWaterLevel(RoundedDouble waterLevel,
                                                          RoundedDouble a,
                                                          RoundedDouble b,
                                                          RoundedDouble c,
                                                          double norm,
                                                          WaveConditionsInput input,
-                                                         string hydraulicBoundaryDatabaseFilePath)
+                                                         string hydraulicBoundaryDatabaseFilePath,
+                                                         string preprocessorDirectory)
         {
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            calculator = HydraRingCalculatorFactory.Instance.CreateWaveConditionsCosineCalculator(hlcdDirectory);
-            WaveConditionsCosineCalculationInput calculationInput = CreateInput(waterLevel, a, b, c, norm, input, hydraulicBoundaryDatabaseFilePath);
+            calculator = HydraRingCalculatorFactory.Instance.CreateWaveConditionsCosineCalculator(hlcdDirectory, preprocessorDirectory);
+            WaveConditionsCosineCalculationInput calculationInput = CreateInput(waterLevel, a, b, c, norm, input, hydraulicBoundaryDatabaseFilePath,
+                                                                                !string.IsNullOrEmpty(preprocessorDirectory));
 
             WaveConditionsOutput output;
             var exceptionThrown = false;
@@ -319,6 +344,7 @@ namespace Ringtoets.Revetment.Service
         /// <param name="norm">The norm to use as the target.</param>
         /// <param name="input">The input that is different per calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
+        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>A <see cref="WaveConditionsCalculationInput"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
@@ -336,7 +362,8 @@ namespace Ringtoets.Revetment.Service
                                                                         RoundedDouble c,
                                                                         double norm,
                                                                         WaveConditionsInput input,
-                                                                        string hydraulicBoundaryDatabaseFilePath)
+                                                                        string hydraulicBoundaryDatabaseFilePath,
+                                                                        bool usePreprocessor)
         {
             var waveConditionsCosineCalculationInput = new WaveConditionsCosineCalculationInput(
                 1,
@@ -350,7 +377,7 @@ namespace Ringtoets.Revetment.Service
                 b,
                 c);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveConditionsCosineCalculationInput, hydraulicBoundaryDatabaseFilePath);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveConditionsCosineCalculationInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
             return waveConditionsCosineCalculationInput;
         }

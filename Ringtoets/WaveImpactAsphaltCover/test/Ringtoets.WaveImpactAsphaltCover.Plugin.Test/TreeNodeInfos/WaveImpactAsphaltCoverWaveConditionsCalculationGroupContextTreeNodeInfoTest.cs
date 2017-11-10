@@ -927,6 +927,290 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_NoValidationErrorsLogged()
+        {
+            // Setup
+            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                    StepSize = WaveConditionsInputStepSize.One,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
+                    Orientation = (RoundedDouble) 0
+                }
+            };
+
+            var group = new CalculationGroup();
+            group.Children.Add(calculation);
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
+
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism.WaveConditionsCalculationGroup,
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 null,
+                                                                                                 failureMechanism,
+                                                                                                 assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Call
+                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+
+                    // Assert
+                    TestHelper.AssertLogMessages(test, m =>
+                    {
+                        string[] messages = m.ToArray();
+                        Assert.AreEqual(2, messages.Length);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[1]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_NoValidationErrorsLogged()
+        {
+            // Setup
+            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                    StepSize = WaveConditionsInputStepSize.One,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
+                    Orientation = (RoundedDouble) 0
+                }
+            };
+
+            var group = new CalculationGroup();
+            group.Children.Add(calculation);
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                failureMechanism, mocks);
+
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
+
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism.WaveConditionsCalculationGroup,
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 null,
+                                                                                                 failureMechanism,
+                                                                                                 assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Call
+                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+
+                    // Assert
+                    TestHelper.AssertLogMessages(test, m =>
+                    {
+                        string[] messages = m.ToArray();
+                        Assert.AreEqual(2, messages.Length);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[1]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_NoValidationErrorsLogged()
+        {
+            // Setup
+            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                    StepSize = WaveConditionsInputStepSize.One,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
+                    Orientation = (RoundedDouble) 0
+                }
+            };
+
+            var group = new CalculationGroup();
+            group.Children.Add(calculation);
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                failureMechanism, mocks);
+
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, TestHelper.GetScratchPadPath())
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
+
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism.WaveConditionsCalculationGroup,
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 null,
+                                                                                                 failureMechanism,
+                                                                                                 assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Call
+                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+
+                    // Assert
+                    TestHelper.AssertLogMessages(test, m =>
+                    {
+                        string[] messages = m.ToArray();
+                        Assert.AreEqual(2, messages.Length);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[1]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_ValidationErrorsLogged()
+        {
+            // Setup
+            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                    StepSize = WaveConditionsInputStepSize.One,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
+                    Orientation = (RoundedDouble) 0
+                }
+            };
+
+            var group = new CalculationGroup();
+            group.Children.Add(calculation);
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                failureMechanism, mocks);
+
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "InvalidPreprocessorDirectory")
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
+
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism.WaveConditionsCalculationGroup,
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 null,
+                                                                                                 failureMechanism,
+                                                                                                 assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Call
+                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+
+                    // Assert
+                    TestHelper.AssertLogMessages(test, m =>
+                    {
+                        string[] messages = m.ToArray();
+                        Assert.AreEqual(3, messages.Length);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messages[0]);
+                        Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", messages[1]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
+                    });
+                }
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_TwoCalculationsClickOnCalculateAllInGroup_MessagesLogged()
         {
             // Setup
@@ -977,7 +1261,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                       .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                                       .Sum(c => c.InputParameters.WaterLevels.Count());
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(hrdPath))
+                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(hrdPath, string.Empty))
                                  .Return(new TestWaveConditionsCosineCalculator())
                                  .Repeat
                                  .Times(nrOfCalculators);

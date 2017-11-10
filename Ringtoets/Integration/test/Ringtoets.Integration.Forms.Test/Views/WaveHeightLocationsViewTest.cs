@@ -37,8 +37,10 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
+using Ringtoets.Integration.Service.MessageProviders;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
@@ -274,8 +276,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
 
             IEnumerable<HydraulicBoundaryLocation> locations = null;
-            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, 1, null)).IgnoreArguments().WhenCalled(
-                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[1]; }).Return(isSuccessful);
+            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]; }).Return(isSuccessful);
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiService;
@@ -308,6 +310,184 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_CalculateWaveHeightsCalledAsExpected()
+        {
+            // Setup
+            const string databaseFilePath = "DatabaseFilePath";
+
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase
+            {
+                FilePath = databaseFilePath
+            };
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
+            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+
+            var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
+
+            var hydraulicBoundaryDatabaseFilePathValue = "";
+            var preprocessorDirectoryValue = "";
+            HydraulicBoundaryLocation[] calculatedLocationsValue = null;
+            double normValue = double.NaN;
+            ICalculationMessageProvider messageProviderValue = null;
+            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+                invocation =>
+                {
+                    hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
+                    preprocessorDirectoryValue = invocation.Arguments[1].ToString();
+                    calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
+                    normValue = (double) invocation.Arguments[3];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                }).Return(true);
+
+            mockRepository.ReplayAll();
+
+            WaveHeightLocationsView view = ShowWaveHeightLocationsView(assessmentSection, testForm);
+            view.Data = hydraulicBoundaryDatabase.Locations;
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            DataGridViewRowCollection rows = locationsDataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+
+            view.CalculationGuiService = guiService;
+            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+
+            // Call
+            button.Click();
+
+            // Assert
+            Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
+            Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
+            Assert.AreEqual("", preprocessorDirectoryValue);
+            Assert.AreEqual(normValue, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(1, calculatedLocationsValue.Length);
+            HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
+            Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
+        }
+
+        [Test]
+        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_CalculateWaveHeightsCalledAsExpected()
+        {
+            // Setup
+            const string databaseFilePath = "DatabaseFilePath";
+            const string preprocessorDirectory = "PreprocessorDirectory";
+
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase(true, preprocessorDirectory)
+            {
+                FilePath = databaseFilePath
+            };
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
+            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+
+            var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
+
+            var hydraulicBoundaryDatabaseFilePathValue = "";
+            var preprocessorDirectoryValue = "";
+            HydraulicBoundaryLocation[] calculatedLocationsValue = null;
+            double normValue = double.NaN;
+            ICalculationMessageProvider messageProviderValue = null;
+            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+                invocation =>
+                {
+                    hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
+                    preprocessorDirectoryValue = invocation.Arguments[1].ToString();
+                    calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
+                    normValue = (double) invocation.Arguments[3];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                }).Return(true);
+
+            mockRepository.ReplayAll();
+
+            WaveHeightLocationsView view = ShowWaveHeightLocationsView(assessmentSection, testForm);
+            view.Data = hydraulicBoundaryDatabase.Locations;
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            DataGridViewRowCollection rows = locationsDataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+
+            view.CalculationGuiService = guiService;
+            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+
+            // Call
+            button.Click();
+
+            // Assert
+            Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
+            Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
+            Assert.AreEqual(preprocessorDirectory, preprocessorDirectoryValue);
+            Assert.AreEqual(normValue, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(1, calculatedLocationsValue.Length);
+            HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
+            Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
+        }
+
+        [Test]
+        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_CalculateWaveHeightsCalledAsExpected()
+        {
+            // Setup
+            const string databaseFilePath = "DatabaseFilePath";
+
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            {
+                FilePath = databaseFilePath
+            };
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
+            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+
+            var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
+
+            var hydraulicBoundaryDatabaseFilePathValue = "";
+            var preprocessorDirectoryValue = "";
+            HydraulicBoundaryLocation[] calculatedLocationsValue = null;
+            double normValue = double.NaN;
+            ICalculationMessageProvider messageProviderValue = null;
+            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+                invocation =>
+                {
+                    hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
+                    preprocessorDirectoryValue = invocation.Arguments[1].ToString();
+                    calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
+                    normValue = (double) invocation.Arguments[3];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                }).Return(true);
+
+            mockRepository.ReplayAll();
+
+            WaveHeightLocationsView view = ShowWaveHeightLocationsView(assessmentSection, testForm);
+            view.Data = hydraulicBoundaryDatabase.Locations;
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            DataGridViewRowCollection rows = locationsDataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+
+            view.CalculationGuiService = guiService;
+            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+
+            // Call
+            button.Click();
+
+            // Assert
+            Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
+            Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
+            Assert.AreEqual(string.Empty, preprocessorDirectoryValue);
+            Assert.AreEqual(normValue, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(1, calculatedLocationsValue.Length);
+            HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
+            Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
         }
 
         private DataGridView GetLocationsDataGridView()
@@ -365,7 +545,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase
         {
+            public TestHydraulicBoundaryDatabase(bool usePreprocessor, string preprocessorDirectory) : base(usePreprocessor, preprocessorDirectory)
+            {
+                AddLocations();
+            }
+
             public TestHydraulicBoundaryDatabase()
+            {
+                AddLocations();
+            }
+
+            private void AddLocations()
             {
                 Locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
                 Locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)

@@ -34,66 +34,98 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// Creates a calculator for calculating a design water level.
         /// </summary>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
         /// <returns>A new <see cref="IDesignWaterLevelCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory);
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
+        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
+        IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory, string preprocessorDirectory);
 
         /// <summary>
         /// Creates a calculator for performing an overtopping calculation.
         /// </summary>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
         /// <returns>A new <see cref="IOvertoppingCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory);
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
+        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
+        IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory, string preprocessorDirectory);
 
         /// <summary>
         /// Creates a calculator for calculating a dike height.
         /// </summary>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
         /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IHydraulicLoadsCalculator CreateDikeHeightCalculator(string hlcdDirectory);
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
+        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
+        IHydraulicLoadsCalculator CreateDikeHeightCalculator(string hlcdDirectory, string preprocessorDirectory);
 
         /// <summary>
         /// Creates a calculator for calculating an overtopping rate.
         /// </summary>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
         /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IHydraulicLoadsCalculator CreateOvertoppingRateCalculator(string hlcdDirectory);
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
+        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
+        IHydraulicLoadsCalculator CreateOvertoppingRateCalculator(string hlcdDirectory, string preprocessorDirectory);
 
         /// <summary>
         /// Creates a calculator for calculating wave conditions.
         /// </summary>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
         /// <returns>A new <see cref="IWaveConditionsCosineCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory);
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
+        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
+        IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory, string preprocessorDirectory);
 
         /// <summary>
         /// Creates a calculator for calculating a wave height.
         /// </summary>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
         /// <returns>A new <see cref="IWaveHeightCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory);
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
+        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
+        IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory, string preprocessorDirectory);
 
         /// <summary>
         /// Creates a calculator for performing a calculation for dunes boundary conditions.
         /// </summary>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
         /// <returns>A new <see cref="IDunesBoundaryConditionsCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory);
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
+        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
+        IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory, string preprocessorDirectory);
 
         /// <summary>
         /// Creates a calculator for performing a calculation for structures.
         /// </summary>
         /// <typeparam name="TCalculationInput">The type of the input.</typeparam>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
         /// <returns>A new <see cref="IStructuresCalculator{T}"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
+        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
+        IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory, string preprocessorDirectory)
             where TCalculationInput : ExceedanceProbabilityCalculationInput;
     }
 }

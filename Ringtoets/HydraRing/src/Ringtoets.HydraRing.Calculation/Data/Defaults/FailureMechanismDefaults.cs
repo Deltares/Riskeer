@@ -34,11 +34,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
         /// <param name="mechanismId">The mechanism id.</param>
         /// <param name="subMechanismIds">The sub mechanism ids that are applicable.</param>
         /// <param name="faultTreeModelId">The fault tree model id.</param>
-        public FailureMechanismDefaults(int mechanismId, IEnumerable<int> subMechanismIds, int faultTreeModelId)
+        /// <param name="preprocessorFaultTreeModelId">The fault tree model id to be used when running the preprocessor.</param>
+        public FailureMechanismDefaults(int mechanismId, IEnumerable<int> subMechanismIds, int faultTreeModelId, int preprocessorFaultTreeModelId)
         {
             MechanismId = mechanismId;
             SubMechanismIds = subMechanismIds;
             FaultTreeModelId = faultTreeModelId;
+            PreprocessorFaultTreeModelId = preprocessorFaultTreeModelId;
         }
 
         /// <summary>
@@ -55,5 +57,21 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
         /// Gets the fault tree model id.
         /// </summary>
         public int FaultTreeModelId { get; }
+
+        /// <summary>
+        /// Gets the fault tree model id to be used when running the preprocessor.
+        /// </summary>
+        public int PreprocessorFaultTreeModelId { get; }
+
+        /// <summary>
+        /// Gets the sub mechanism id to be used when running the preprocessor.
+        /// </summary>
+        public int PreprocessorSubMechanismId
+        {
+            get
+            {
+                return 7;
+            }
+        }
     }
 }

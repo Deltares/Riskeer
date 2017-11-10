@@ -33,6 +33,7 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -41,6 +42,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -258,6 +260,196 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
+        public void CalculateDesignWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    },
+                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                }
+            };
+
+            var context = new DesignWaterLevelLocationsContext(assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
+
+                var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
+                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, string.Empty)).Return(designWaterLevelCalculator);
+                mockRepository.ReplayAll();
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect an activity dialog which is automatically closed
+                };
+
+                using (var plugin = new RingtoetsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+                    plugin.Activate();
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                    {
+                        // Call
+                        contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
+
+                        // Assert
+                        AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
+
+                        Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
+                        double expectedProbability = assessmentSection.FailureMechanismContribution.Norm;
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), designWaterLevelCalculationInput.Beta);
+                    }
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void CalculateDesignWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService()
+        {
+            // Setup
+            string preprocessorDirectory = TestHelper.GetScratchPadPath();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, preprocessorDirectory)
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    },
+                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                }
+            };
+
+            var context = new DesignWaterLevelLocationsContext(assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
+
+                var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
+                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, preprocessorDirectory)).Return(designWaterLevelCalculator);
+                mockRepository.ReplayAll();
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect an activity dialog which is automatically closed
+                };
+
+                using (var plugin = new RingtoetsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+                    plugin.Activate();
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                    {
+                        // Call
+                        contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
+
+                        // Assert
+                        AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
+
+                        Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
+                        double expectedProbability = assessmentSection.FailureMechanismContribution.Norm;
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), designWaterLevelCalculationInput.Beta);
+                    }
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void CalculateDesignWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    },
+                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                }
+            };
+
+            var context = new DesignWaterLevelLocationsContext(assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
+
+                var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
+                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, string.Empty)).Return(designWaterLevelCalculator);
+                mockRepository.ReplayAll();
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect an activity dialog which is automatically closed
+                };
+
+                using (var plugin = new RingtoetsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+                    plugin.Activate();
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                    {
+                        // Call
+                        contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
+
+                        // Assert
+                        AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
+
+                        Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
+                        double expectedProbability = assessmentSection.FailureMechanismContribution.Norm;
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), designWaterLevelCalculationInput.Beta);
+                    }
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenHydraulicBoundaryLocationThatSucceeds_CalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedOutputSet()
         {
             // Given
@@ -282,7 +474,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             databaseObserver.Expect(o => o.UpdateObserver());
             assessmentSection.HydraulicBoundaryDatabase.Attach(databaseObserver);
 
-
             var context = new DesignWaterLevelLocationsContext(assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -299,7 +490,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Converged = false
                 };
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, string.Empty)).Return(calculator);
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>

@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Resources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.Data.Hydraulics
 {
@@ -29,13 +31,31 @@ namespace Ringtoets.Common.Data.Hydraulics
     /// </summary>
     public class HydraulicBoundaryDatabase : Observable
     {
+        private bool usePreprocessor;
+        private string preprocessorDirectory;
+
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>
-        /// and creates a <see cref="List{T}"/> with <see cref="HydraulicBoundaryLocation"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.
         /// </summary>
+        /// <remarks><see cref="CanUsePreprocessor"/> is set to <c>false</c>.</remarks>
         public HydraulicBoundaryDatabase()
         {
+            CanUsePreprocessor = false;
             Locations = new List<HydraulicBoundaryLocation>();
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.
+        /// </summary>
+        /// <param name="usePreprocessor">A value indicating whether the Hydra-Ring preprocessor must be used.</param>
+        /// <param name="preprocessorDirectory">The Hydra-Ring preprocessor directory.</param>
+        /// <remarks><see cref="CanUsePreprocessor"/> is set to <c>true</c>.</remarks>
+        public HydraulicBoundaryDatabase(bool usePreprocessor, string preprocessorDirectory)
+        {
+            CanUsePreprocessor = true;
+            Locations = new List<HydraulicBoundaryLocation>();
+            UsePreprocessor = usePreprocessor;
+            PreprocessorDirectory = preprocessorDirectory;
         }
 
         /// <summary>
@@ -52,5 +72,58 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// Gets the hydraulic boundary locations.
         /// </summary>
         public List<HydraulicBoundaryLocation> Locations { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the Hydra-Ring preprocessor can be used.
+        /// </summary>
+        public bool CanUsePreprocessor { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the Hydra-Ring preprocessor must be used.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when set while <see cref="CanUsePreprocessor"/> is <c>false</c>.</exception>
+        public bool UsePreprocessor
+        {
+            get
+            {
+                return usePreprocessor;
+            }
+            set
+            {
+                if (!CanUsePreprocessor)
+                {
+                    throw new InvalidOperationException($"{nameof(CanUsePreprocessor)} is false.");
+                }
+
+                usePreprocessor = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Hydra-Ring preprocessor directory.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when set while <see cref="CanUsePreprocessor"/> is <c>false</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when setting a value that matches <see cref="string.IsNullOrWhiteSpace"/>.</exception>
+        public string PreprocessorDirectory
+        {
+            get
+            {
+                return preprocessorDirectory;
+            }
+            set
+            {
+                if (!CanUsePreprocessor)
+                {
+                    throw new InvalidOperationException($"{nameof(CanUsePreprocessor)} is false.");
+                }
+
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException(Resources.HydraulicBoundaryDatabase_PreprocessorDirectory_Path_must_have_a_value);
+                }
+
+                preprocessorDirectory = value;
+            }
+        }
     }
 }

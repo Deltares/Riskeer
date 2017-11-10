@@ -626,6 +626,15 @@
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerThree" Type="real" />
         </EntityType>
+        <EntityType Name="HydraRingPreprocessorEntity">
+          <Key>
+            <PropertyRef Name="HydraRingPreprocessorEntityId" />
+          </Key>
+          <Property Name="HydraRingPreprocessorEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="UsePreprocessor" Type="tinyint" Nullable="false" />
+          <Property Name="PreprocessorDirectory" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
         <EntityType Name="HydraulicLocationEntity">
           <Key>
             <PropertyRef Name="HydraulicLocationEntityId" />
@@ -2261,6 +2270,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HydraRingPreprocessorEntity_0_0">
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
+          <End Role="HydraRingPreprocessorEntity" Type="Self.HydraRingPreprocessorEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentSectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Principal>
+            <Dependent Role="HydraRingPreprocessorEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HydraulicLocationEntity_0_0">
           <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
           <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
@@ -3121,6 +3142,7 @@
           <EntitySet Name="HeightStructuresFailureMechanismMetaEntity" EntityType="Self.HeightStructuresFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="HeightStructuresOutputEntity" EntityType="Self.HeightStructuresOutputEntity" store:Type="Tables" />
           <EntitySet Name="HeightStructuresSectionResultEntity" EntityType="Self.HeightStructuresSectionResultEntity" store:Type="Tables" />
+          <EntitySet Name="HydraRingPreprocessorEntity" EntityType="Self.HydraRingPreprocessorEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationOutputEntity" EntityType="Self.HydraulicLocationOutputEntity" store:Type="Tables" />
           <EntitySet Name="IllustrationPointResultEntity" EntityType="Self.IllustrationPointResultEntity" store:Type="Tables" />
@@ -3433,6 +3455,10 @@
           <AssociationSet Name="FK_HeightStructuresSectionResultEntity_1_0" Association="Self.FK_HeightStructuresSectionResultEntity_1_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="HeightStructuresSectionResultEntity" EntitySet="HeightStructuresSectionResultEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraRingPreprocessorEntity_0_0" Association="Self.FK_HydraRingPreprocessorEntity_0_0">
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+            <End Role="HydraRingPreprocessorEntity" EntitySet="HydraRingPreprocessorEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="Self.FK_HydraulicLocationEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
@@ -3751,6 +3777,7 @@
           <EntitySet Name="HeightStructuresFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresFailureMechanismMetaEntity" />
           <EntitySet Name="HeightStructuresOutputEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresOutputEntity" />
           <EntitySet Name="HeightStructuresSectionResultEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity" />
+          <EntitySet Name="HydraRingPreprocessorEntities" EntityType="RingtoetsEntitiesModel.HydraRingPreprocessorEntity" />
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="HydraulicLocationOutputEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" />
           <EntitySet Name="IllustrationPointResultEntities" EntityType="RingtoetsEntitiesModel.IllustrationPointResultEntity" />
@@ -3814,6 +3841,10 @@
           <AssociationSet Name="FK_FailureMechanismEntity_1_0" Association="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraRingPreprocessorEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraRingPreprocessorEntity_0_0">
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
+            <End Role="HydraRingPreprocessorEntity" EntitySet="HydraRingPreprocessorEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
@@ -4336,6 +4367,7 @@
           <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ProjectEntity" />
           <NavigationProperty Name="BackgroundDataEntities" Relationship="RingtoetsEntitiesModel.FK_BackgroundDataEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="BackgroundDataEntity" />
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="AssessmentSectionEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="HydraRingPreprocessorEntities" Relationship="RingtoetsEntitiesModel.FK_HydraRingPreprocessorEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraRingPreprocessorEntity" />
           <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
         </EntityType>
         <EntityType Name="BackgroundDataEntity">
@@ -5051,6 +5083,16 @@
           <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresSectionResultEntity_1_0" FromRole="HeightStructuresSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="HeightStructuresCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresSectionResultEntity_0_0" FromRole="HeightStructuresSectionResultEntity" ToRole="HeightStructuresCalculationEntity" />
+        </EntityType>
+        <EntityType Name="HydraRingPreprocessorEntity">
+          <Key>
+            <PropertyRef Name="HydraRingPreprocessorEntityId" />
+          </Key>
+          <Property Name="HydraRingPreprocessorEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="UsePreprocessor" Type="Byte" Nullable="false" />
+          <Property Name="PreprocessorDirectory" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraRingPreprocessorEntity_0_0" FromRole="HydraRingPreprocessorEntity" ToRole="AssessmentSectionEntity" />
         </EntityType>
         <EntityType Name="HydraulicLocationEntity">
           <Key>
@@ -6040,6 +6082,18 @@
               <PropertyRef Name="AssessmentSectionEntityId" />
             </Principal>
             <Dependent Role="FailureMechanismEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraRingPreprocessorEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HydraRingPreprocessorEntity" Role="HydraRingPreprocessorEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentSectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Principal>
+            <Dependent Role="HydraRingPreprocessorEntity">
               <PropertyRef Name="AssessmentSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -8135,6 +8189,16 @@
                 <ScalarProperty Name="HeightStructuresCalculationEntityId" ColumnName="HeightStructuresCalculationEntityId" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="HeightStructuresSectionResultEntityId" ColumnName="HeightStructuresSectionResultEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HydraRingPreprocessorEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraRingPreprocessorEntity">
+              <MappingFragment StoreEntitySet="HydraRingPreprocessorEntity">
+                <ScalarProperty Name="PreprocessorDirectory" ColumnName="PreprocessorDirectory" />
+                <ScalarProperty Name="UsePreprocessor" ColumnName="UsePreprocessor" />
+                <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
+                <ScalarProperty Name="HydraRingPreprocessorEntityId" ColumnName="HydraRingPreprocessorEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

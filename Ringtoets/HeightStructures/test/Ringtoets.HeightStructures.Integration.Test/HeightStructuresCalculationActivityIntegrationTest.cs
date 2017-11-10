@@ -49,6 +49,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
         public void Run_CalculationInvalidInput_LogValidationStartAndEndWithError()
@@ -95,7 +96,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             // Setup
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, string.Empty))
                              .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
             mockRepository.ReplayAll();
 
@@ -161,7 +162,8 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, string.Empty))
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -209,7 +211,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, string.Empty))
                              .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
             mockRepository.ReplayAll();
 
@@ -270,7 +272,8 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 LastErrorFileContent = lastErrorFileContent
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, string.Empty))
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -310,6 +313,150 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Run_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_ExpectedPreprocessorDirectorySetToCalculator()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, string.Empty))
+                             .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
+            mockRepository.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    FilePath = validFilePath,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                    }
+                }
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                activity.Run();
+            }
+
+            // Assert
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Run_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_ExpectedPreprocessorDirectorySetToCalculator()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, validPreprocessorDirectory))
+                             .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
+            mockRepository.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
+                {
+                    FilePath = validFilePath,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                    }
+                }
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                activity.Run();
+            }
+
+            // Assert
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Run_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_ExpectedPreprocessorDirectorySetToCalculator()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, string.Empty))
+                             .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
+            mockRepository.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+                {
+                    FilePath = validFilePath,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                    }
+                }
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                activity.Run();
+            }
+
+            // Assert
             mockRepository.VerifyAll();
         }
     }

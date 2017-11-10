@@ -83,26 +83,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private MockRepository mocks;
         private GrassCoverErosionInwardsPlugin plugin;
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            gui = mocks.Stub<IGui>();
-            plugin = new GrassCoverErosionInwardsPlugin
-            {
-                Gui = gui
-            };
-
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationGroupContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -1384,8 +1364,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabase = mocks.Stub<HydraulicBoundaryDatabase>();
-            hydraulicBoundaryDatabase.FilePath = validFilePath;
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
@@ -1451,8 +1433,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabase = mocks.Stub<HydraulicBoundaryDatabase>();
-            hydraulicBoundaryDatabase.FilePath = validFilePath;
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
@@ -1473,7 +1457,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath))
+                calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty))
                                  .Return(new TestOvertoppingCalculator())
                                  .Repeat
                                  .Times(nrOfCalculators);
@@ -1916,6 +1900,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNull(result.Calculation);
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            gui = mocks.Stub<IGui>();
+            plugin = new GrassCoverErosionInwardsPlugin
+            {
+                Gui = gui
+            };
+
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationGroupContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
 
         private static void ChangeDikeProfile(DikeProfile dikeProfile)

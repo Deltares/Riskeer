@@ -62,6 +62,7 @@
     <Compile Include="Calculator\HydraRingCalculatorBase.cs" />
     <Compile Include="Calculator\OvertoppingCalculator.cs" />
     <Compile Include="Data\HydraRingBreakWater.cs" />
+    <Compile Include="Data\Settings\PreprocessorSetting.cs" />
     <Compile Include="Data\HydraRingSection.cs" />
     <Compile Include="Data\HydraRingForelandPoint.cs" />
     <Compile Include="Data\HydraRingProfilePoint.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Providers\FailureMechanismDefaultsProvider.cs" />
     <Compile Include="Data\Settings\DesignTablesSetting.cs" />
     <Compile Include="Data\HydraRingFailureMechanismType.cs" />
+    <Compile Include="Readers\ReadPreprocessorSetting.cs" />
     <Compile Include="Services\HydraRingConfigurationService.cs" />
     <Compile Include="Data\Settings\NumericsSetting.cs" />
     <Compile Include="Data\Input\ReliabilityIndexCalculationInput.cs" />

@@ -983,7 +983,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath))
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, string.Empty))
                                  .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
                 mocks.ReplayAll();
 

@@ -60,10 +60,16 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
         /// <param name="locations">The <see cref="DuneLocation"/> objects to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file 
         /// that should be used for performing the calculation.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/>,
+        /// <paramref name="hydraulicBoundaryDatabaseFilePath"/> or <paramref name="preprocessorDirectory"/>
+        /// is <c>null</c>.</exception>
         public void Calculate(IEnumerable<DuneLocation> locations,
                               string hydraulicBoundaryDatabaseFilePath,
+                              string preprocessorDirectory,
                               double norm)
         {
             if (locations == null)
@@ -71,7 +77,7 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
                 throw new ArgumentNullException(nameof(locations));
             }
 
-            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
+            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
             if (!string.IsNullOrEmpty(validationProblem))
             {
                 log.ErrorFormat(RingtoetsCommonFormsResources.CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_,
@@ -83,6 +89,7 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
                 viewParent,
                 locations.Select(l => new DuneErosionBoundaryCalculationActivity(l,
                                                                                  hydraulicBoundaryDatabaseFilePath,
+                                                                                 preprocessorDirectory,
                                                                                  norm)).ToArray());
         }
     }

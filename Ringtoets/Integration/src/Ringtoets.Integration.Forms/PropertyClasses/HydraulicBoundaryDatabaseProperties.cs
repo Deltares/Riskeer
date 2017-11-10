@@ -19,6 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.ComponentModel;
+using System.Drawing.Design;
+using System.Windows.Forms.Design;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
@@ -33,6 +38,23 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabaseContext>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseProperties"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryDatabaseContext">The context to show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabaseContext"/>
+        /// is <c>null</c>.</exception>
+        public HydraulicBoundaryDatabaseProperties(HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext)
+        {
+            if (hydraulicBoundaryDatabaseContext == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabaseContext));
+            }
+
+            Data = hydraulicBoundaryDatabaseContext;
+        }
+
+        [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_FilePath_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_FilePath_Description))]
@@ -42,6 +64,62 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             {
                 return data.WrappedData.HydraulicBoundaryDatabase != null ? data.WrappedData.HydraulicBoundaryDatabase.FilePath : string.Empty;
             }
+        }
+
+        [PropertyOrder(2)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_UsePreprocessor_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_UsePreprocessor_Description))]
+        public bool UsePreprocessor
+        {
+            get
+            {
+                return data.WrappedData.HydraulicBoundaryDatabase.UsePreprocessor;
+            }
+            set
+            {
+                data.WrappedData.HydraulicBoundaryDatabase.UsePreprocessor = value;
+            }
+        }
+
+        [PropertyOrder(3)]
+        [DynamicVisible]
+        [DynamicReadOnly]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_PreprocessorDirectory_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_PreprocessorDirectory_Description))]
+        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
+        public string PreprocessorDirectory
+        {
+            get
+            {
+                return data.WrappedData.HydraulicBoundaryDatabase.PreprocessorDirectory;
+            }
+            set
+            {
+                data.WrappedData.HydraulicBoundaryDatabase.PreprocessorDirectory = value;
+            }
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (propertyName.Equals(nameof(UsePreprocessor)) || propertyName.Equals(nameof(PreprocessorDirectory)))
+            {
+                return data.WrappedData.HydraulicBoundaryDatabase?.CanUsePreprocessor ?? false;
+            }
+            return true;
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            if (propertyName.Equals(nameof(PreprocessorDirectory)))
+            {
+                return !data.WrappedData.HydraulicBoundaryDatabase.UsePreprocessor;
+            }
+            return false;
         }
     }
 }

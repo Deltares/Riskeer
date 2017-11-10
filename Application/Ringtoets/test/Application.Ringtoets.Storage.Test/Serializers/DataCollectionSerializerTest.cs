@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Test.Serializers
     [TestFixture]
     public class DataCollectionSerializerTest
     {
-        private const string inValidXml = "<ArrayOfTestDataCollectionSerializer.TestSerializableObject " +
+        private const string invalidXml = "<ArrayOfTestDataCollectionSerializer.TestSerializableObject " +
                                           "xmlns=\"http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers\" " +
                                           "xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\">Invalid</ArrayOfTestDataCollectionSerializer.TestSerializableObject>";
 
@@ -106,7 +106,7 @@ namespace Application.Ringtoets.Storage.Test.Serializers
             var serializer = new TestDataCollectionSerializer();
 
             // Call
-            TestDelegate call = () => serializer.FromXml(inValidXml);
+            TestDelegate call = () => serializer.FromXml(invalidXml);
 
             // Assert
             Assert.Throws<SerializationException>(call);

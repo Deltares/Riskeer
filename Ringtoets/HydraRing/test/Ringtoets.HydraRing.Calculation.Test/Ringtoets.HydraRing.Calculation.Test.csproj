@@ -97,6 +97,7 @@
     <Compile Include="Data\Output\OvertoppingCalculationWaveHeightOutputTest.cs" />
     <Compile Include="Data\Output\ReliabilityIndexCalculationOutputTest.cs" />
     <Compile Include="Data\Output\WaveConditionsCalculationOutputTest.cs" />
+    <Compile Include="Data\Settings\PreprocessorSettingTest.cs" />
     <Compile Include="Data\Settings\TimeIntegrationSettingTest.cs" />
     <Compile Include="Data\Variables\DeterministicHydraRingVariableTest.cs" />
     <Compile Include="Data\Variables\HydraRingVariableTest.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParserTest.cs" />
     <Compile Include="Parsers\ReliabilityIndexCalculationParserTest.cs" />
     <Compile Include="Parsers\WaveConditionsCalculationParserTest.cs" />
+    <Compile Include="Readers\ReadPreprocessorSettingTest.cs" />
     <Compile Include="Services\HydraRingConfigurationServiceTest.cs" />
     <Compile Include="Data\HydraRingSectionTest.cs" />
     <Compile Include="Data\HydraRingProfilePointTest.cs" />

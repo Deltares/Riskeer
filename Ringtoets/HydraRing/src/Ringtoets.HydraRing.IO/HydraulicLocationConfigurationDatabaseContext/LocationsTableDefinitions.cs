@@ -25,11 +25,10 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
     /// Defines the table and column names of the table 'Locations' in the hydraulic location 
     /// configuration database.
     /// </summary>
-    public static class LocationsTableDefinitions
+    internal static class LocationsTableDefinitions
     {
-        internal const string TableName = "Locations";
-        internal const string LocationId = "LocationId";
-        internal const string HrdLocationId = "HRDLocationId";
-        internal const string TrackId = "TrackId";
+        public const string TableName = "Locations";
+        public const string LocationId = "LocationId";
+        public const string HrdLocationId = "HRDLocationId";
     }
 }

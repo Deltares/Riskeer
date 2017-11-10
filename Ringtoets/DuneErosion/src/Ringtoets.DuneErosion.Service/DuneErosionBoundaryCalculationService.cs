@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Utils;
 using log4net;
@@ -50,24 +48,44 @@ namespace Ringtoets.DuneErosion.Service
         private IDunesBoundaryConditionsCalculator calculator;
 
         /// <summary>
-        /// Performs validation over the values on the given <paramref name="hydraulicBoundaryDatabaseFilePath"/>.
+        /// Performs validation on the given <paramref name="hydraulicBoundaryDatabaseFilePath"/> and <paramref name="preprocessorDirectory"/>.
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary 
-        /// database file which to validate.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
         /// <returns><c>True</c> if there were no validation errors; <c>False</c> otherwise.</returns>
-        public static bool Validate(string hydraulicBoundaryDatabaseFilePath)
+        public static bool Validate(string hydraulicBoundaryDatabaseFilePath, string preprocessorDirectory)
         {
+            var isValid = true;
+
             CalculationServiceHelper.LogValidationBegin();
 
-            string[] validationProblems = ValidateInput(hydraulicBoundaryDatabaseFilePath);
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
+            if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
+            {
+                CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
+                                                            new[]
+                                                            {
+                                                                databaseFilePathValidationProblem
+                                                            });
 
-            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
-                                                        validationProblems);
+                isValid = false;
+            }
+
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
+            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
+            {
+                CalculationServiceHelper.LogMessagesAsError(new[]
+                {
+                    preprocessorDirectoryValidationProblem
+                });
+
+                isValid = false;
+            }
 
             CalculationServiceHelper.LogValidationEnd();
 
-            return !validationProblems.Any();
+            return isValid;
         }
 
         /// <summary>
@@ -80,7 +98,10 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic 
         /// boundary database file.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> 
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/>,
+        /// <paramref name="hydraulicBoundaryDatabaseFilePath"/> or <paramref name="preprocessorDirectory"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
@@ -100,7 +121,8 @@ namespace Ringtoets.DuneErosion.Service
         /// the calculation.</exception>
         public void Calculate(DuneLocation duneLocation,
                               double norm,
-                              string hydraulicBoundaryDatabaseFilePath)
+                              string hydraulicBoundaryDatabaseFilePath,
+                              string preprocessorDirectory)
         {
             if (duneLocation == null)
             {
@@ -112,7 +134,7 @@ namespace Ringtoets.DuneErosion.Service
 
             CalculationServiceHelper.LogCalculationBegin();
 
-            calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(hlcdDirectory);
+            calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(hlcdDirectory, preprocessorDirectory);
 
             var exceptionThrown = false;
 
@@ -120,7 +142,8 @@ namespace Ringtoets.DuneErosion.Service
             {
                 DunesBoundaryConditionsCalculationInput calculationInput = CreateInput(duneLocation,
                                                                                        norm,
-                                                                                       hydraulicBoundaryDatabaseFilePath);
+                                                                                       hydraulicBoundaryDatabaseFilePath,
+                                                                                       !string.IsNullOrEmpty(preprocessorDirectory));
                 calculator.Calculate(calculationInput);
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
@@ -214,6 +237,7 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="norm">The norm of the failure mechanism to use.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
         /// boundary database.</param>
+        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <returns>A <see cref="DunesBoundaryConditionsCalculationInput"/> with all needed
         /// input data.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
@@ -228,25 +252,12 @@ namespace Ringtoets.DuneErosion.Service
         /// </exception>
         private static DunesBoundaryConditionsCalculationInput CreateInput(DuneLocation duneLocation,
                                                                            double norm,
-                                                                           string hydraulicBoundaryDatabaseFilePath)
+                                                                           string hydraulicBoundaryDatabaseFilePath,
+                                                                           bool usePreprocessor)
         {
             var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, norm);
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dunesBoundaryConditionsCalculationInput, hydraulicBoundaryDatabaseFilePath);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dunesBoundaryConditionsCalculationInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
             return dunesBoundaryConditionsCalculationInput;
-        }
-
-        private static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath)
-        {
-            var validationResult = new List<string>();
-
-            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
-
-            if (!string.IsNullOrEmpty(validationProblem))
-            {
-                validationResult.Add(validationProblem);
-            }
-
-            return validationResult.ToArray();
         }
     }
 }

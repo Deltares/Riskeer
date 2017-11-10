@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.StabilityPointStructures.Data;
@@ -95,7 +96,8 @@ namespace Ringtoets.StabilityPointStructures.Service
                                          failureMechanism.GeneralInput.N,
                                          assessmentSection.FailureMechanismContribution.Norm,
                                          failureMechanism.Contribution,
-                                         hydraulicBoundaryDatabaseFilePath);
+                                         hydraulicBoundaryDatabaseFilePath,
+                                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
 
         protected override void OnCancel()

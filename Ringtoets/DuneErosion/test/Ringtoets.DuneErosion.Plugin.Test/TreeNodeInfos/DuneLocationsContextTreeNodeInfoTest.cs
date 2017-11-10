@@ -32,6 +32,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -42,6 +43,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -431,7 +433,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = failureMechanism.DuneLocations.Count;
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
                                  .Return(new TestDunesBoundaryConditionsCalculator())
                                  .Repeat
                                  .Times(nrOfCalculators);
@@ -471,6 +473,226 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'A' is gelukt.", messageList[14]);
                         Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'B' is gelukt.", messageList[15]);
                     });
+                }
+            }
+        }
+
+        [Test]
+        public void CalculateDuneLocationsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService()
+        {
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var duneLocation = new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+            {
+                CoastalAreaId = 0,
+                Offset = 0,
+                Orientation = 0,
+                D50 = 0.000007
+            });
+
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = 10,
+                DuneLocations =
+                {
+                    duneLocation
+                }
+            };
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
+            assessmentSection.Stub(a => a.Id).Return("13-1");
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
+                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
+                             {
+                                 failureMechanism
+                             }));
+
+            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+
+                var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
+                                 .Return(dunesBoundaryConditionsCalculator);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+                plugin.Activate();
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+
+                    // Assert
+                    DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
+
+                    Assert.AreEqual(duneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    double expectedProbability = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                }
+            }
+        }
+
+        [Test]
+        public void CalculateDuneLocationsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService()
+        {
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+            string preprocessorDirectory = TestHelper.GetScratchPadPath();
+
+            var duneLocation = new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+            {
+                CoastalAreaId = 0,
+                Offset = 0,
+                Orientation = 0,
+                D50 = 0.000007
+            });
+
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = 10,
+                DuneLocations =
+                {
+                    duneLocation
+                }
+            };
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, preprocessorDirectory)
+            {
+                FilePath = validFilePath
+            };
+            assessmentSection.Stub(a => a.Id).Return("13-1");
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
+                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
+                             {
+                                 failureMechanism
+                             }));
+
+            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+
+                var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, preprocessorDirectory))
+                                 .Return(dunesBoundaryConditionsCalculator);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+                plugin.Activate();
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+
+                    // Assert
+                    DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
+
+                    Assert.AreEqual(duneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    double expectedProbability = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                }
+            }
+        }
+
+        [Test]
+        public void CalculateDuneLocationsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService()
+        {
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var duneLocation = new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+            {
+                CoastalAreaId = 0,
+                Offset = 0,
+                Orientation = 0,
+                D50 = 0.000007
+            });
+
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = 10,
+                DuneLocations =
+                {
+                    duneLocation
+                }
+            };
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            {
+                FilePath = validFilePath
+            };
+            assessmentSection.Stub(a => a.Id).Return("13-1");
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
+                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
+                             {
+                                 failureMechanism
+                             }));
+
+            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+
+                var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
+                                 .Return(dunesBoundaryConditionsCalculator);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+                plugin.Activate();
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+
+                    // Assert
+                    DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
+
+                    Assert.AreEqual(duneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    double expectedProbability = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
         }

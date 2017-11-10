@@ -62,8 +62,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private const double defaultLayerId = 1;
         private const double defaultAlternativeId = 1;
         private const double defaultHydraRingValue = 0.0;
-        private readonly double? defaultHydraRingNullValue = null;
 
+        private readonly double? defaultHydraRingNullValue = null;
         private readonly IList<HydraRingCalculationInput> hydraRingInputs = new List<HydraRingCalculationInput>();
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
         private readonly VariableDefaultsProvider variableDefaultsProvider = new VariableDefaultsProvider();
@@ -121,6 +121,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             configurationDictionary["Sections"] = GetSectionsConfiguration();
             configurationDictionary["SectionCalculationSchemes"] = GetSectionCalculationSchemesConfiguration();
             configurationDictionary["DesignTables"] = GetDesignTablesConfiguration();
+            configurationDictionary["PreprocessorSettings"] = GetPreprocessorSettingsConfiguration();
             configurationDictionary["Numerics"] = GetNumericsConfiguration();
             configurationDictionary["VariableDatas"] = GetVariableDatasConfiguration();
             configurationDictionary["CalculationProfiles"] = GetCalculationProfilesConfiguration();
@@ -303,6 +304,34 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderedDictionaries;
         }
 
+        private IList<OrderedDictionary> GetPreprocessorSettingsConfiguration()
+        {
+            var orderedDictionaries = new List<OrderedDictionary>();
+
+            foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
+            {
+                PreprocessorSetting preprocessorSetting = hydraRingCalculationInput.PreprocessorSetting;
+
+                if (preprocessorSetting.RunPreprocessor)
+                {
+                    orderedDictionaries.Add(new OrderedDictionary
+                    {
+                        {
+                            "SectionId", hydraRingCalculationInput.Section.SectionId
+                        },
+                        {
+                            "MinValueRunPreprocessor", preprocessorSetting.ValueMin
+                        },
+                        {
+                            "MaxValueRunPreprocessor", preprocessorSetting.ValueMax
+                        }
+                    });
+                }
+            }
+
+            return orderedDictionaries;
+        }
+
         private IList<OrderedDictionary> GetNumericsConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
@@ -315,73 +344,89 @@ namespace Ringtoets.HydraRing.Calculation.Services
                 {
                     NumericsSetting numericsSetting = hydraRingCalculationInput.NumericsSettings[subMechanismId];
 
-                    orderDictionaries.Add(new OrderedDictionary
-                    {
-                        {
-                            "SectionId", hydraRingCalculationInput.Section.SectionId
-                        },
-                        {
-                            "MechanismId", failureMechanismDefaults.MechanismId
-                        },
-                        {
-                            "LayerId", defaultLayerId // Fixed: no support for revetments
-                        },
-                        {
-                            "AlternativeId", defaultAlternativeId // Fixed: no support for piping
-                        },
-                        {
-                            "SubMechanismId", subMechanismId
-                        },
-                        {
-                            "Method", numericsSetting.CalculationTechniqueId
-                        },
-                        {
-                            "FormStartMethod", numericsSetting.FormStartMethod
-                        },
-                        {
-                            "FormNumberOfIterations", numericsSetting.FormNumberOfIterations
-                        },
-                        {
-                            "FormRelaxationFactor", GetHydraRingValue(numericsSetting.FormRelaxationFactor)
-                        },
-                        {
-                            "FormEpsBeta", GetHydraRingValue(numericsSetting.FormEpsBeta)
-                        },
-                        {
-                            "FormEpsHOH", GetHydraRingValue(numericsSetting.FormEpsHoh)
-                        },
-                        {
-                            "FormEpsZFunc", GetHydraRingValue(numericsSetting.FormEpsZFunc)
-                        },
-                        {
-                            "DsStartMethod", numericsSetting.DsStartMethod
-                        },
-                        {
-                            "DsIterationmethod", 3 // Fixed: not relevant
-                        },
-                        {
-                            "DsMinNumberOfIterations", numericsSetting.DsMinNumberOfIterations
-                        },
-                        {
-                            "DsMaxNumberOfIterations", numericsSetting.DsMaxNumberOfIterations
-                        },
-                        {
-                            "DsVarCoefficient", GetHydraRingValue(numericsSetting.DsVarCoefficient)
-                        },
-                        {
-                            "NiUMin", GetHydraRingValue(numericsSetting.NiUMin)
-                        },
-                        {
-                            "NiUMax", GetHydraRingValue(numericsSetting.NiUMax)
-                        },
-                        {
-                            "NiNumberSteps", numericsSetting.NiNumberSteps
-                        }
-                    });
+                    orderDictionaries.Add(CreateNumericsRecord(hydraRingCalculationInput.Section.SectionId,
+                                                               failureMechanismDefaults.MechanismId,
+                                                               subMechanismId,
+                                                               numericsSetting));
+                }
+
+                if (hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
+                {
+                    orderDictionaries.Add(CreateNumericsRecord(hydraRingCalculationInput.Section.SectionId,
+                                                               failureMechanismDefaults.MechanismId,
+                                                               failureMechanismDefaults.PreprocessorSubMechanismId,
+                                                               hydraRingCalculationInput.PreprocessorSetting.NumericsSetting));
                 }
             }
 
             return orderDictionaries;
+        }
+
+        private static OrderedDictionary CreateNumericsRecord(int sectionId, int mechanismId, int subMechanismId, NumericsSetting numericsSetting)
+        {
+            return new OrderedDictionary
+            {
+                {
+                    "SectionId", sectionId
+                },
+                {
+                    "MechanismId", mechanismId
+                },
+                {
+                    "LayerId", defaultLayerId // Fixed: no support for revetments
+                },
+                {
+                    "AlternativeId", defaultAlternativeId // Fixed: no support for piping
+                },
+                {
+                    "SubMechanismId", subMechanismId
+                },
+                {
+                    "Method", numericsSetting.CalculationTechniqueId
+                },
+                {
+                    "FormStartMethod", numericsSetting.FormStartMethod
+                },
+                {
+                    "FormNumberOfIterations", numericsSetting.FormNumberOfIterations
+                },
+                {
+                    "FormRelaxationFactor", GetHydraRingValue(numericsSetting.FormRelaxationFactor)
+                },
+                {
+                    "FormEpsBeta", GetHydraRingValue(numericsSetting.FormEpsBeta)
+                },
+                {
+                    "FormEpsHOH", GetHydraRingValue(numericsSetting.FormEpsHoh)
+                },
+                {
+                    "FormEpsZFunc", GetHydraRingValue(numericsSetting.FormEpsZFunc)
+                },
+                {
+                    "DsStartMethod", numericsSetting.DsStartMethod
+                },
+                {
+                    "DsIterationmethod", 3 // Fixed: not relevant
+                },
+                {
+                    "DsMinNumberOfIterations", numericsSetting.DsMinNumberOfIterations
+                },
+                {
+                    "DsMaxNumberOfIterations", numericsSetting.DsMaxNumberOfIterations
+                },
+                {
+                    "DsVarCoefficient", GetHydraRingValue(numericsSetting.DsVarCoefficient)
+                },
+                {
+                    "NiUMin", GetHydraRingValue(numericsSetting.NiUMin)
+                },
+                {
+                    "NiUMax", GetHydraRingValue(numericsSetting.NiUMax)
+                },
+                {
+                    "NiNumberSteps", numericsSetting.NiNumberSteps
+                }
+            };
         }
 
         private IList<OrderedDictionary> GetVariableDatasConfiguration()
@@ -595,27 +640,41 @@ namespace Ringtoets.HydraRing.Calculation.Services
             {
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
 
-                orderedDictionaries.Add(new OrderedDictionary
+                orderedDictionaries.Add(CreateFaultTreeModelsRecord(hydraRingCalculationInput.Section.SectionId,
+                                                                    failureMechanismDefaults.MechanismId,
+                                                                    failureMechanismDefaults.FaultTreeModelId));
+
+                if (hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
                 {
-                    {
-                        "SectionId", hydraRingCalculationInput.Section.SectionId
-                    },
-                    {
-                        "MechanismId", failureMechanismDefaults.MechanismId
-                    },
-                    {
-                        "LayerId", defaultLayerId // Fixed: no support for revetments
-                    },
-                    {
-                        "AlternativeId", defaultAlternativeId // Fixed: no support for piping
-                    },
-                    {
-                        "FaultTreeModelId", failureMechanismDefaults.FaultTreeModelId
-                    }
-                });
+                    orderedDictionaries.Add(CreateFaultTreeModelsRecord(hydraRingCalculationInput.Section.SectionId,
+                                                                        failureMechanismDefaults.MechanismId,
+                                                                        failureMechanismDefaults.PreprocessorFaultTreeModelId));
+                }
             }
 
             return orderedDictionaries;
+        }
+
+        private static OrderedDictionary CreateFaultTreeModelsRecord(int sectionId, int mechanismId, int faultTreeModelId)
+        {
+            return new OrderedDictionary
+            {
+                {
+                    "SectionId", sectionId
+                },
+                {
+                    "MechanismId", mechanismId
+                },
+                {
+                    "LayerId", defaultLayerId // Fixed: no support for revetments
+                },
+                {
+                    "AlternativeId", defaultAlternativeId // Fixed: no support for piping
+                },
+                {
+                    "FaultTreeModelId", faultTreeModelId
+                }
+            };
         }
 
         private IList<OrderedDictionary> GetSectionSubMechanismModelsConfiguration()

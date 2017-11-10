@@ -24,6 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
@@ -175,6 +176,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             CalculationGuiService.Calculate(locationsToCalculate,
                                             AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                            AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                             FailureMechanism.GetMechanismSpecificNorm(AssessmentSection.FailureMechanismContribution.Norm));
 
             ((IObservable) Data).NotifyObservers();

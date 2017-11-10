@@ -40,7 +40,8 @@ namespace Ringtoets.HeightStructures.Service
 
         protected override StructuresOvertoppingCalculationInput CreateInput(HeightStructuresInput structureInput,
                                                                              GeneralHeightStructuresInput generalInput,
-                                                                             string hydraulicBoundaryDatabaseFilePath)
+                                                                             string hydraulicBoundaryDatabaseFilePath,
+                                                                             bool usePreprocessor)
         {
             var structuresOvertoppingCalculationInput = new StructuresOvertoppingCalculationInput(
                 structureInput.HydraulicBoundaryLocation.Id,
@@ -63,7 +64,7 @@ namespace Ringtoets.HeightStructures.Service
                 structureInput.DeviationWaveDirection,
                 structureInput.StormDuration.Mean, structureInput.StormDuration.CoefficientOfVariation);
 
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresOvertoppingCalculationInput, hydraulicBoundaryDatabaseFilePath);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresOvertoppingCalculationInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
             return structuresOvertoppingCalculationInput;
         }

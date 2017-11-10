@@ -41,13 +41,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         private static readonly string hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithAssessmentLevelCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithAssessmentLevelCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new AssessmentLevelCalculationInput(1, 700004, 1.0 / 10000)
             {
+                PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                 DesignTablesSetting = new DesignTablesSetting(1.1, 2.2),
                 NumericsSettings = new Dictionary<int, NumericsSetting>
                 {
@@ -70,8 +71,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 9, 26, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545571);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 0, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
@@ -80,6 +89,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 1);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -126,13 +138,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveHeightCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveHeightCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new WaveHeightCalculationInput(1, 700004, 1.0 / 10000)
             {
+                PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                 DesignTablesSetting = new DesignTablesSetting(1.1, 2.2),
                 NumericsSettings = new Dictionary<int, NumericsSetting>
                 {
@@ -155,8 +168,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 11, 1, 1, 9, 28, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545571);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 11, 1, 1, 11, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 11, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 11, 1, 1, 28, 0, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
@@ -165,6 +186,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 11, 1, 1, 11);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 11, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -211,7 +235,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithOvertoppingCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithOvertoppingCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -267,6 +291,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                     exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
                     exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary)
                 {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(17.17, 18.18),
                     NumericsSettings = new Dictionary<int, NumericsSetting>
                     {
@@ -292,9 +317,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 101, 1, 1, 1, 1, 0, 0, 0, 0, 17.17, 18.18, 0);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 101, 1, 1, 102, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 101, 1, 1, 103, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 101, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 1, 4.4, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
@@ -311,6 +344,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 101, 1, 1, 1017);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 101, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 102, 94);" + Environment.NewLine +
@@ -363,7 +399,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithDikeHeightCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithDikeHeightCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -418,6 +454,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
                                                exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary)
                 {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(16.16, 17.17),
                     NumericsSettings = new Dictionary<int, NumericsSetting>
                     {
@@ -443,9 +480,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 101, 1, 1, 9, 1, 0, 0, 0, 0, 16.16, 17.17, 3.09023230616781);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 101, 1, 1, 102, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 101, 1, 1, 103, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 101, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 1, 0, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
@@ -462,6 +507,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 101, 1, 1, 1017);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 101, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 102, 94);" + Environment.NewLine +
@@ -514,7 +562,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithOvertoppingRateCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithOvertoppingRateCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -568,6 +616,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                     exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation,
                                                     exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary)
                 {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(15.15, 16.16),
                     NumericsSettings = new Dictionary<int, NumericsSetting>
                     {
@@ -593,9 +642,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 101, 1, 1, 2, 17, 0, 0, 0, 0, 15.15, 16.16, 3.09023230616781);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 101, 1, 1, 102, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 101, 1, 1, 103, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 101, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 1, 4.4, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
@@ -612,6 +669,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 101, 1, 1, 1017);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 101, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 102, 94);" + Environment.NewLine +
@@ -664,7 +724,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresOvertoppingCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresOvertoppingCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -723,6 +783,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                                                  deviationWaveDirection,
                                                                                                                  stormDurationMean, stormDurationVariation)
             {
+                PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                 DesignTablesSetting = new DesignTablesSetting(0, 0),
                 NumericsSettings = new Dictionary<int, NumericsSetting>
                 {
@@ -751,10 +812,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 "DELETE FROM [DesignTables];" + Environment.NewLine +
                 "INSERT INTO [DesignTables] VALUES (1, 110, 1, 1, 1, 60, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
                 Environment.NewLine +
+                "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                (runPreprocessor
+                     ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                     : string.Empty) +
+                Environment.NewLine +
                 "DELETE FROM [Numerics];" + Environment.NewLine +
                 "INSERT INTO [Numerics] VALUES (1, 110, 1, 1, 421, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                 "INSERT INTO [Numerics] VALUES (1, 110, 1, 1, 422, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                 "INSERT INTO [Numerics] VALUES (1, 110, 1, 1, 423, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                (runPreprocessor
+                     ? "INSERT INTO [Numerics] VALUES (1, 110, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                     : string.Empty) +
                 Environment.NewLine +
                 "DELETE FROM [VariableDatas];" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 58, 4.4, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -777,6 +846,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 Environment.NewLine +
                 "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                 "INSERT INTO [SectionFaultTreeModels] VALUES (1, 110, 1, 1, 4404);" + Environment.NewLine +
+                (runPreprocessor
+                     ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 110, 1, 1, 9);" + Environment.NewLine
+                     : string.Empty) +
                 Environment.NewLine +
                 "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                 Environment.NewLine +
@@ -826,7 +898,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveConditionsCosineCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveConditionsCosineCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -850,6 +922,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                          5.5,
                                                          6.6)
                 {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(7.7, 8.8),
                     NumericsSettings = new Dictionary<int, NumericsSetting>
                     {
@@ -872,8 +945,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 7.7, 8.8, 3.71901648545571);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 3, 1, 1, 5, 4, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 3, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 3, 1, 1, 113, 3.3, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
@@ -886,6 +967,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 3, 1, 1, 6);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 3, 1, 1, 10);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 5, 71);" + Environment.NewLine +
@@ -936,7 +1020,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveConditionsTrapezoidCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithWaveConditionsTrapezoidCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -961,6 +1045,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                             6.6,
                                                             7.7)
                 {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(8.8, 9.9),
                     NumericsSettings = new Dictionary<int, NumericsSetting>
                     {
@@ -983,8 +1068,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 8.8, 9.9, 3.71901648545571);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 3, 1, 1, 5, 4, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 3, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 3, 1, 1, 113, 3.3, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
@@ -998,6 +1091,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 3, 1, 1, 6);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 3, 1, 1, 10);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 5, 70);" + Environment.NewLine +
@@ -1048,7 +1144,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureFloodedCulvertCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureFloodedCulvertCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1072,6 +1168,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                     19.9, 20.0, 21.1, 22.2,
                                                                     23.3, 24.4, 25.5, 26.6)
                 {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresClosureNumericsSettings(),
                     TimeIntegrationSetting = new TimeIntegrationSetting(1)
@@ -1089,12 +1186,20 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 111, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 426, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 427, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 58, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -1119,6 +1224,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 111, 1, 1, 4505);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 111, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 424, 107);" + Environment.NewLine +
@@ -1170,7 +1278,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureLowSillCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureLowSillCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1195,6 +1303,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                              23.3, 24.4, 25.5, 26.6,
                                                              27.7, 28.8, 29.9, 30.0)
                 {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresClosureNumericsSettings(),
                     TimeIntegrationSetting = new TimeIntegrationSetting(1)
@@ -1212,12 +1321,20 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 111, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 426, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 427, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 58, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -1244,6 +1361,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 111, 1, 1, 4505);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 111, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 424, 106);" + Environment.NewLine +
@@ -1295,7 +1415,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureVerticalWallCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresClosureVerticalWallCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1320,6 +1440,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                   23.3, 24.4, 25.5, 26.6,
                                                                   27.7, 28.8, 29.9, 30.0)
                 {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresClosureNumericsSettings(),
                     TimeIntegrationSetting = new TimeIntegrationSetting(1)
@@ -1337,12 +1458,20 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 111, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 426, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 427, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 58, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -1370,6 +1499,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 111, 1, 1, 4505);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 111, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 424, 105);" + Environment.NewLine +
@@ -1421,7 +1553,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointFloodedCulvertLinearCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointFloodedCulvertLinearCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1454,6 +1586,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                  55.5, 56.6, 57.7, 58.8,
                                                                                  59.9)
                 {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresStabilityPointNumericsSettings(),
                     TimeIntegrationSetting = new TimeIntegrationSetting(1)
@@ -1471,6 +1604,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 112, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -1481,6 +1619,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 433, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 434, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 43, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -1524,6 +1665,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 112, 1, 1, 4607);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 112, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 424, 107);" + Environment.NewLine +
@@ -1577,7 +1721,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointFloodedCulvertQuadraticCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointFloodedCulvertQuadraticCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1610,6 +1754,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                     55.5, 56.6, 57.7, 58.8,
                                                                                     59.9)
                 {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresStabilityPointNumericsSettings(),
                     TimeIntegrationSetting = new TimeIntegrationSetting(1)
@@ -1627,6 +1772,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 112, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -1637,6 +1787,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 433, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 434, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 43, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -1680,6 +1833,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 112, 1, 1, 4607);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 112, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 424, 107);" + Environment.NewLine +
@@ -1733,7 +1889,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointLowSillLinearCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointLowSillLinearCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1766,6 +1922,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                           55.5, 56.6, 57.7, 58.8,
                                                                           59.9)
                 {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresStabilityPointNumericsSettings(),
                     TimeIntegrationSetting = new TimeIntegrationSetting(1)
@@ -1783,6 +1940,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 112, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -1793,6 +1955,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 433, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 434, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 43, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -1836,6 +2001,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 112, 1, 1, 4607);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 112, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 424, 106);" + Environment.NewLine +
@@ -1889,7 +2057,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointLowSillQuadraticCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithStructuresStabilityPointLowSillQuadraticCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
@@ -1922,6 +2090,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                              55.5, 56.6, 57.7, 58.8,
                                                                              59.9)
                 {
+                    PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresStabilityPointNumericsSettings(),
                     TimeIntegrationSetting = new TimeIntegrationSetting(1)
@@ -1939,6 +2108,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 112, 1, 1, 1, 58, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -1949,6 +2123,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 433, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 434, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 43, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -1992,6 +2169,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 112, 1, 1, 4607);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 112, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 424, 106);" + Environment.NewLine +
@@ -2045,13 +2225,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void WriteDatabaseCreationScript_HydraRingConfigurationWithDunesBoundaryConditionsCalculationInput_WritesExpectedCreationScript()
+        public void WriteDatabaseCreationScript_HydraRingConfigurationWithDunesBoundaryConditionsCalculationInput_WritesExpectedCreationScript([Values(true, false)] bool runPreprocessor)
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService(HydraRingUncertaintiesType.All);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new DunesBoundaryConditionsCalculationInput(1, 700004, 1.0 / 10000)
             {
+                PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                 DesignTablesSetting = new DesignTablesSetting(1.1, 2.2),
                 NumericsSettings = new Dictionary<int, NumericsSetting>
                 {
@@ -2074,8 +2255,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 2, 26, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545571);" + Environment.NewLine +
                                             Environment.NewLine +
+                                            "DELETE FROM [PreprocessorSettings];" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [PreprocessorSettings] VALUES (1, 1001.1, 1002.2);" + Environment.NewLine
+                                                 : string.Empty) +
+                                            Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 6, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 0, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
@@ -2084,6 +2273,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             Environment.NewLine +
                                             "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 8);" + Environment.NewLine +
+                                            (runPreprocessor
+                                                 ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 9);" + Environment.NewLine
+                                                 : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -2127,6 +2319,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 string creationScript = File.ReadAllText(databaseFilePath);
                 Assert.AreEqual(expectedCreationScript, creationScript);
             }
+        }
+
+        private static PreprocessorSetting CreatePreprocessorSetting(bool runPreprocessor)
+        {
+            return runPreprocessor
+                       ? new PreprocessorSetting(1001.1, 1002.2, new NumericsSetting(1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 1016, 1017, 1018.18, 1019.19, 1020.20, 1021))
+                       : new PreprocessorSetting();
         }
 
         private static Dictionary<int, NumericsSetting> CreateStructuresClosureNumericsSettings()

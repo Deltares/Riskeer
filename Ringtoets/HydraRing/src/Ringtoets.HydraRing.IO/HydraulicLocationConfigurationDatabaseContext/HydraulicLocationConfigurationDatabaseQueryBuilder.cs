@@ -27,16 +27,27 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
     public static class HydraulicLocationConfigurationDatabaseQueryBuilder
     {
         /// <summary>
-        /// Returns the query to get the LocationIds from the database.
+        /// Gets the query to get the LocationIds from the database.
         /// </summary>
         /// <returns>The query to get the locationIds from the database.</returns>
         public static string GetLocationsIdByTrackIdQuery()
         {
-            return string.Format("SELECT {0}, {1} FROM {2} WHERE {3} = @{3} ORDER BY {1};",
-                                 LocationsTableDefinitions.LocationId,
-                                 LocationsTableDefinitions.HrdLocationId,
-                                 LocationsTableDefinitions.TableName,
-                                 LocationsTableDefinitions.TrackId);
+            return $"SELECT {LocationsTableDefinitions.LocationId}, {LocationsTableDefinitions.HrdLocationId} " +
+                   $"FROM {LocationsTableDefinitions.TableName} " +
+                   $"WHERE {TracksTableDefinitions.TrackId} = @{TracksTableDefinitions.TrackId} " +
+                   $"ORDER BY {LocationsTableDefinitions.HrdLocationId};";
+        }
+
+        /// <summary>
+        /// Gets the query to get the UsePreprocessor indicator from the database.
+        /// </summary>
+        /// <returns>The query to get the UsePreprocessor indicator from the database.</returns>
+        public static string GetUsePreprocessorByTrackIdQuery()
+        {
+            return $"SELECT * FROM {RegionsTableDefinitions.TableName} " +
+                   $"LEFT JOIN {TracksTableDefinitions.TableName} " +
+                   $"ON {RegionsTableDefinitions.TableName}.{RegionsTableDefinitions.RegionId} = {TracksTableDefinitions.TableName}.{RegionsTableDefinitions.RegionId} " +
+                   $"WHERE {TracksTableDefinitions.TableName}.{TracksTableDefinitions.TrackId} = @{TracksTableDefinitions.TrackId}";
         }
     }
 }

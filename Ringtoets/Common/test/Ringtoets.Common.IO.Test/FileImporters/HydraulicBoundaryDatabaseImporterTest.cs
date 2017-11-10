@@ -206,7 +206,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestDelegate test = () => importer.Import(assessmentSection, validFilePath);
 
             // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build($"Kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(validFilePath)}': het bestand bestaat niet.");
+            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build($"Kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(validFilePath)}': het bestand bestaat niet.");
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
 
@@ -237,7 +237,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ImportingToValidTargetWithValidFile_ImportHydraulicBoundaryLocationsToCollectionAndAssessmentSectionNotified()
+        public void Import_ImportingToValidTargetWithValidFileWithoutUsePreprocessor_ImportHydraulicBoundaryLocationsToCollectionAndAssessmentSectionNotified()
         {
             // Setup
             var mocks = new MockRepository();
@@ -261,6 +261,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 StringAssert.EndsWith("De hydraulische randvoorwaardenlocaties zijn ingelezen.", messageArray[0]);
             });
             Assert.IsTrue(importResult);
+            Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor);
             ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(9, importedLocations.Count);
             CollectionAssert.AllItemsAreNotNull(importedLocations);
@@ -320,6 +321,75 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             Assert.IsTrue(importResult);
             Assert.AreEqual(validFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            Assert.AreEqual(9, importedLocations.Count);
+            CollectionAssert.AllItemsAreNotNull(importedLocations);
+            CollectionAssert.AllItemsAreUnique(importedLocations);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ImportingToValidTargetWithValidFileUsePreprocessorTrue_ImportHydraulicBoundaryLocationsToCollectionAndAssessmentSectionNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers());
+            mocks.ReplayAll();
+
+            string directory = Path.Combine(testDataPath, "WithUsePreprocessor");
+            string validFilePath = Path.Combine(directory, "completeUsePreprocessorTrue.sqlite");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(validFilePath), $"Precondition failed. File does not exist: {validFilePath}");
+
+            // Call
+            var importResult = false;
+            Action call = () => importResult = importer.Import(assessmentSection, validFilePath);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                StringAssert.EndsWith("De hydraulische randvoorwaardenlocaties zijn ingelezen.", messageArray[0]);
+            });
+            Assert.IsTrue(importResult);
+            Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.AreEqual(directory, assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory);
+            ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            Assert.AreEqual(106, importedLocations.Count);
+            CollectionAssert.AllItemsAreNotNull(importedLocations);
+            CollectionAssert.AllItemsAreUnique(importedLocations);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ImportingToValidTargetWithValidFileUsePreprocessorFalse_ImportHydraulicBoundaryLocationsToCollectionAndAssessmentSectionNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers());
+            mocks.ReplayAll();
+
+            string validFilePath = Path.Combine(testDataPath, "WithUsePreprocessor", "completeUsePreprocessorFalse.sqlite");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(validFilePath), $"Precondition failed. File does not exist: {validFilePath}");
+
+            // Call
+            var importResult = false;
+            Action call = () => importResult = importer.Import(assessmentSection, validFilePath);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                StringAssert.EndsWith("De hydraulische randvoorwaardenlocaties zijn ingelezen.", messageArray[0]);
+            });
+            Assert.IsTrue(importResult);
+            Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory);
             ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(9, importedLocations.Count);
             CollectionAssert.AllItemsAreNotNull(importedLocations);

@@ -999,7 +999,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath))
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, string.Empty))
                                  .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
                 mocks.ReplayAll();
 

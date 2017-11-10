@@ -76,6 +76,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             bool successfulCalculation = CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                    AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                     locations,
                                                                                     AssessmentSection.FailureMechanismContribution.Norm,
                                                                                     new WaveHeightCalculationMessageProvider());

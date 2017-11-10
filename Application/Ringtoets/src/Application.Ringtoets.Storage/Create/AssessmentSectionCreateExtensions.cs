@@ -122,6 +122,15 @@ namespace Application.Ringtoets.Storage.Create
                 entity.HydraulicDatabaseLocation = section.HydraulicBoundaryDatabase.FilePath.DeepClone();
                 entity.HydraulicDatabaseVersion = section.HydraulicBoundaryDatabase.Version.DeepClone();
 
+                if (section.HydraulicBoundaryDatabase.CanUsePreprocessor)
+                {
+                    entity.HydraRingPreprocessorEntities.Add(new HydraRingPreprocessorEntity
+                    {
+                        UsePreprocessor = Convert.ToByte(section.HydraulicBoundaryDatabase.UsePreprocessor),
+                        PreprocessorDirectory = section.HydraulicBoundaryDatabase.PreprocessorDirectory.DeepClone()
+                    });
+                }
+
                 for (var i = 0; i < section.HydraulicBoundaryDatabase.Locations.Count; i++)
                 {
                     HydraulicBoundaryLocation hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations[i];

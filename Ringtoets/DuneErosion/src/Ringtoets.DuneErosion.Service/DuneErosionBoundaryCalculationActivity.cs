@@ -34,6 +34,7 @@ namespace Ringtoets.DuneErosion.Service
     {
         private readonly DuneLocation duneLocation;
         private readonly string hydraulicBoundaryDatabaseFilePath;
+        private readonly string preprocessorDirectory;
         private readonly double norm;
         private readonly DuneErosionBoundaryCalculationService calculationService;
 
@@ -43,10 +44,16 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that 
         /// should be used for performing the calculation.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/>,
+        /// <paramref name="hydraulicBoundaryDatabaseFilePath"/> or <paramref name="preprocessorDirectory"/>
+        ///  is <c>null</c>.</exception>
         public DuneErosionBoundaryCalculationActivity(DuneLocation duneLocation,
                                                       string hydraulicBoundaryDatabaseFilePath,
+                                                      string preprocessorDirectory,
                                                       double norm)
         {
             if (duneLocation == null)
@@ -56,6 +63,7 @@ namespace Ringtoets.DuneErosion.Service
 
             this.duneLocation = duneLocation;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
+            this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
 
             Description = string.Format(Resources.DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_,
@@ -72,7 +80,7 @@ namespace Ringtoets.DuneErosion.Service
                 return true;
             }
 
-            return DuneErosionBoundaryCalculationService.Validate(hydraulicBoundaryDatabaseFilePath);
+            return DuneErosionBoundaryCalculationService.Validate(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory);
         }
 
         protected override void PerformCalculation()
@@ -81,7 +89,8 @@ namespace Ringtoets.DuneErosion.Service
             {
                 calculationService.Calculate(duneLocation,
                                              norm,
-                                             hydraulicBoundaryDatabaseFilePath);
+                                             hydraulicBoundaryDatabaseFilePath,
+                                             preprocessorDirectory);
             }
         }
 

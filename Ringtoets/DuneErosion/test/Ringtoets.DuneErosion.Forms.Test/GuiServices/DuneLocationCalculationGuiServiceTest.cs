@@ -41,7 +41,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
     public class DuneLocationCalculationGuiServiceTest
     {
         private MockRepository mockRepository;
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [SetUp]
         public void Setup()
@@ -70,7 +72,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
 
                 // Call
                 TestDelegate test = () => guiService.Calculate(null,
-                                                               "path",
+                                                               validFilePath,
+                                                               validPreprocessorDirectory,
                                                                1.0 / 30000);
 
                 // Assert
@@ -83,8 +86,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         public void Calculate_ValidData_ScheduleAllLocations()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var duneLocations = new[]
             {
                 new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
@@ -105,7 +106,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
 
             int nrOfCalculators = duneLocations.Length;
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(new TestDunesBoundaryConditionsCalculator())
                              .Repeat
                              .Times(nrOfCalculators);
@@ -119,6 +120,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 // Call
                 TestHelper.AssertLogMessages(() => guiService.Calculate(duneLocations,
                                                                         validFilePath,
+                                                                        validPreprocessorDirectory,
                                                                         1.0 / 200),
                                              messages =>
                                              {
@@ -165,7 +167,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocation>(), databasePath, 1);
+                Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocation>(), databasePath, validPreprocessorDirectory, 1);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -183,12 +185,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         {
             // Setup
             const string hydraulicLocationName = "name";
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var viewParent = mockRepository.Stub<IWin32Window>();
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath)).Return(new TestDunesBoundaryConditionsCalculator());
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(new TestDunesBoundaryConditionsCalculator());
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -202,6 +203,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                         new TestDuneLocation(hydraulicLocationName)
                     },
                     validFilePath,
+                    validPreprocessorDirectory,
                     1);
 
                 // Assert

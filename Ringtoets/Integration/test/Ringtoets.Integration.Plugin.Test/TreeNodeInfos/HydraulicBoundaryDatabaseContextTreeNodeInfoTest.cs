@@ -459,7 +459,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                     // Then
                     string expectedMessage =
-                        $"Fout bij het lezen van bestand '{testFile}': kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(testFile)}': het bestand bestaat niet.";
+                        $"Fout bij het lezen van bestand '{testFile}': kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(testFile)}': het bestand bestaat niet.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
                     Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
@@ -522,7 +522,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenFilePathIsSet_WhenOpeningSameFileFromContextMenu_ThenCalculationsWillNotBeClearedAndNoNotifyObservers()
         {
             // Given
-            string validFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             var assessmentObserver = mocks.StrictMock<IObserver>();
             var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
             const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
@@ -530,7 +530,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
-                importer.Import(assessmentSection, validFile);
+                importer.Import(assessmentSection, validFilePath);
             }
 
             assessmentSection.Attach(assessmentObserver);
@@ -577,7 +577,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 DialogBoxHandler = (name, wnd) =>
                 {
                     var tester = new OpenFileDialogTester(wnd);
-                    tester.OpenFile(validFile);
+                    tester.OpenFile(validFilePath);
                 };
 
                 TreeNodeInfo info = GetInfo(plugin);
@@ -589,7 +589,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Action action = () => contextMenuAdapter.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
 
                     // Then
-                    string expectedMessage = $"Database op pad '{validFile}' gekoppeld.";
+                    string expectedMessage = $"Database op pad '{validFilePath}' gekoppeld.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
                     Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);

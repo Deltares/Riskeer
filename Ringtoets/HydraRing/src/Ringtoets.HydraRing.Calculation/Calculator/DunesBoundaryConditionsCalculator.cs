@@ -41,9 +41,13 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Create a new instance of <see cref="DesignWaterLevelCalculator"/>.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the hydraulic boundary database can be found.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        internal DunesBoundaryConditionsCalculator(string hlcdDirectory)
-            : base(hlcdDirectory)
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
+        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
+        internal DunesBoundaryConditionsCalculator(string hlcdDirectory, string preprocessorDirectory)
+            : base(hlcdDirectory, preprocessorDirectory)
         {
             dunesBoundaryParser = new DunesBoundaryConditionsCalculationParser();
             targetProbabilityParser = new ReliabilityIndexCalculationParser();

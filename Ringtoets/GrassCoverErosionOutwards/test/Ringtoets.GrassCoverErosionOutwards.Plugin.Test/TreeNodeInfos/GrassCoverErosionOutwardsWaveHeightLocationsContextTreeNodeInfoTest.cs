@@ -38,6 +38,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -393,7 +394,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         EndInFailure = true
                     };
                     var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                    calculatorFactory.Stub(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(waveHeightCalculator);
+                    calculatorFactory.Stub(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator);
                     mockRepository.ReplayAll();
 
                     plugin.Gui = gui;
@@ -415,25 +416,31 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CalculateWaveHeightsFromContextMenu_Always_SendsRightInputToCalculationService()
+        public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
+            string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 5
             };
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
 
-            HydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = filePath,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
+
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
-                grassCoverErosionOutwardsHydraulicBoundaryLocation
+                hydraulicBoundaryLocation
             }, assessmentSection, failureMechanism);
-
-            var observer = mockRepository.StrictMock<IObserver>();
-            context.Attach(observer);
-            observer.Expect(o => o.UpdateObserver());
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -443,7 +450,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(waveHeightCalculator);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator);
                 mockRepository.ReplayAll();
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -461,10 +468,142 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         // Assert
                         WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
 
-                        Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        double expectedProbability = assessmentSection.FailureMechanismContribution.Norm
-                                                     * (failureMechanism.Contribution / 100)
-                                                     / failureMechanism.GeneralInput.N;
+                        Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
+                        double expectedProbability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                            assessmentSection.FailureMechanismContribution.Norm,
+                            failureMechanism.Contribution,
+                            failureMechanism.GeneralInput.N);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
+                    }
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService()
+        {
+            // Setup
+            string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+            string preprocessorDirectory = TestHelper.GetScratchPadPath();
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, preprocessorDirectory)
+            {
+                FilePath = filePath,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
+
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
+            {
+                hydraulicBoundaryLocation
+            }, assessmentSection, failureMechanism);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+
+                var waveHeightCalculator = new TestWaveHeightCalculator();
+                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, preprocessorDirectory)).Return(waveHeightCalculator);
+                mockRepository.ReplayAll();
+
+                using (var plugin = new GrassCoverErosionOutwardsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+                    plugin.Activate();
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                    {
+                        // Call
+                        contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
+
+                        // Assert
+                        WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
+
+                        Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
+                        double expectedProbability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                            assessmentSection.FailureMechanismContribution.Norm,
+                            failureMechanism.Contribution,
+                            failureMechanism.GeneralInput.N);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
+                    }
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService()
+        {
+            // Setup
+            string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            {
+                FilePath = filePath,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
+
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
+            {
+                hydraulicBoundaryLocation
+            }, assessmentSection, failureMechanism);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+
+                var waveHeightCalculator = new TestWaveHeightCalculator();
+                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator);
+                mockRepository.ReplayAll();
+
+                using (var plugin = new GrassCoverErosionOutwardsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+                    plugin.Activate();
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                    {
+                        // Call
+                        contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
+
+                        // Assert
+                        WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
+
+                        Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
+                        double expectedProbability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                            assessmentSection.FailureMechanismContribution.Norm,
+                            failureMechanism.Contribution,
+                            failureMechanism.GeneralInput.N);
                         Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
                     }
                 }

@@ -736,8 +736,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabase = mocksRepository.Stub<HydraulicBoundaryDatabase>();
-            hydraulicBoundaryDatabase.FilePath = validFilePath;
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
@@ -754,7 +756,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocksRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath))
+                calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty))
                                  .Return(new TestOvertoppingCalculator())
                                  .Repeat
                                  .Times(nrOfCalculators);
@@ -824,8 +826,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabase = mocksRepository.Stub<HydraulicBoundaryDatabase>();
-            hydraulicBoundaryDatabase.FilePath = validFilePath;
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
 
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;

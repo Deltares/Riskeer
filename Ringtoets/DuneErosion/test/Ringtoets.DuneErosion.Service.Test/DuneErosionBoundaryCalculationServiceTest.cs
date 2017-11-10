@@ -42,22 +42,22 @@ namespace Ringtoets.DuneErosion.Service.Test
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
-        public void Validate_ValidHydraulicBoundaryDatabasePath_ReturnsTrue()
+        public void Validate_ValidPaths_ReturnsTrue()
         {
             // Setup
             var valid = false;
 
             // Call
-            Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(validFilePath);
+            Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(validFilePath, validPreprocessorDirectory);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
             });
@@ -72,17 +72,15 @@ namespace Ringtoets.DuneErosion.Service.Test
             var valid = true;
 
             // Call
-            Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(notValidFilePath);
+            Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(notValidFilePath, validPreprocessorDirectory);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. " +
-                                        $"Fout bij het lezen van bestand '{notValidFilePath}'", msgs[1]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(valid);
@@ -93,21 +91,40 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             string notValidFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
-            string missingConfigFilePath = Path.Combine(testDataPath, "HRD nosettings.config.sqlite");
             var valid = false;
 
             // Call
-            Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(notValidFilePath);
+            Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(notValidFilePath, validPreprocessorDirectory);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. " +
-                                        $"Fout bij het lezen van bestand '{missingConfigFilePath}'", msgs[1]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        public void Validate_InvalidPreprocessorDirectory_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string notValidPreprocessorDirectory = "Preprocessor";
+            var valid = true;
+
+            // Call
+            Action call = () => valid = DuneErosionBoundaryCalculationService.Validate(validFilePath, notValidPreprocessorDirectory);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(valid);
@@ -120,7 +137,8 @@ namespace Ringtoets.DuneErosion.Service.Test
             TestDelegate test = () => new DuneErosionBoundaryCalculationService().Calculate(
                 null,
                 1,
-                validFilePath);
+                validFilePath,
+                validPreprocessorDirectory);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -128,14 +146,20 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidData_CalculationStartedWithRightParameters()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_ValidData_CalculationStartedWithRightParameters(bool usePreprocessor)
         {
             // Setup
+            string preprocessorDirectory = usePreprocessor
+                                               ? validPreprocessorDirectory
+                                               : string.Empty;
+
             var calculator = new TestDunesBoundaryConditionsCalculator();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, preprocessorDirectory))
                              .Return(calculator);
             mockRepository.ReplayAll();
 
@@ -160,11 +184,14 @@ namespace Ringtoets.DuneErosion.Service.Test
                 new DuneErosionBoundaryCalculationService().Calculate(
                     duneLocation,
                     mechanismSpecificNorm,
-                    validFilePath);
+                    validFilePath,
+                    preprocessorDirectory);
 
                 // Assert
                 DunesBoundaryConditionsCalculationInput expectedInput = CreateInput(duneLocation, mechanismSpecificNorm);
-                AssertInput(expectedInput, calculator.ReceivedInputs.Single());
+                DunesBoundaryConditionsCalculationInput actualInput = calculator.ReceivedInputs.Single();
+                AssertInput(expectedInput, actualInput);
+                Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
                 Assert.IsFalse(calculator.IsCanceled);
             }
 
@@ -186,7 +213,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(calculator);
             mockRepository.ReplayAll();
 
@@ -214,7 +241,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                 Action test = () => new DuneErosionBoundaryCalculationService().Calculate(
                     duneLocation,
                     mechanismSpecificNorm,
-                    validFilePath);
+                    validFilePath,
+                    validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(
@@ -255,7 +283,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(calculator);
             mockRepository.ReplayAll();
 
@@ -279,7 +307,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                 Action test = () => new DuneErosionBoundaryCalculationService().Calculate(
                     duneLocation,
                     failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
-                    validFilePath);
+                    validFilePath,
+                    validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(
@@ -307,7 +336,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(calculator);
             mockRepository.ReplayAll();
 
@@ -334,7 +363,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                 service.Calculate(
                     duneLocation,
                     failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
-                    validFilePath);
+                    validFilePath,
+                    validPreprocessorDirectory);
 
                 // Assert
                 Assert.IsTrue(calculator.IsCanceled);
@@ -355,7 +385,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(calculator);
             mockRepository.ReplayAll();
 
@@ -385,7 +415,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                         new DuneErosionBoundaryCalculationService().Calculate(
                             duneLocation,
                             failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
-                            validFilePath);
+                            validFilePath,
+                            validPreprocessorDirectory);
                     }
                     catch (HydraRingCalculationException)
                     {
@@ -424,7 +455,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(calculator);
             mockRepository.ReplayAll();
 
@@ -454,7 +485,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                         new DuneErosionBoundaryCalculationService().Calculate(
                             duneLocation,
                             failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
-                            validFilePath);
+                            validFilePath,
+                            validPreprocessorDirectory);
                     }
                     catch (HydraRingCalculationException)
                     {
@@ -494,7 +526,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(calculator);
             mockRepository.ReplayAll();
 
@@ -525,7 +557,8 @@ namespace Ringtoets.DuneErosion.Service.Test
                         new DuneErosionBoundaryCalculationService().Calculate(
                             duneLocation,
                             failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
-                            validFilePath);
+                            validFilePath,
+                            validPreprocessorDirectory);
                     }
                     catch (HydraRingCalculationException e)
                     {

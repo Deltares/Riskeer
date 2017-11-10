@@ -45,6 +45,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         private readonly IllustrationPointsParser illustrationPointsParser;
 
         private readonly string hlcdDirectory;
+        private readonly string preprocessorDirectory;
+
         private Process hydraRingProcess;
 
         /// <summary>
@@ -52,14 +54,25 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// initialized.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the hydraulic boundary database can be found.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        protected HydraRingCalculatorBase(string hlcdDirectory)
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
+        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
+        protected HydraRingCalculatorBase(string hlcdDirectory, string preprocessorDirectory)
         {
             if (hlcdDirectory == null)
             {
                 throw new ArgumentNullException(nameof(hlcdDirectory));
             }
+
+            if (preprocessorDirectory == null)
+            {
+                throw new ArgumentNullException(nameof(preprocessorDirectory));
+            }
+
             this.hlcdDirectory = hlcdDirectory;
+            this.preprocessorDirectory = preprocessorDirectory;
 
             lastErrorFileParser = new LastErrorFileParser();
             illustrationPointsParser = new IllustrationPointsParser();
@@ -116,18 +129,29 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <param name="uncertaintiesType">The uncertainty type used in the calculation.</param>
         /// <param name="hydraRingCalculationInput">The object containing input data.</param>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when preprocessor directory is required but not specified.</exception>
         protected void Calculate(HydraRingUncertaintiesType uncertaintiesType,
                                  HydraRingCalculationInput hydraRingCalculationInput)
         {
             try
             {
+                if (string.IsNullOrEmpty(preprocessorDirectory) && hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
+                {
+                    throw new InvalidOperationException("Preprocessor directory required but not specified.");
+                }
+
                 int sectionId = hydraRingCalculationInput.Section.SectionId;
                 OutputDirectory = CreateWorkingDirectory();
 
                 var hydraRingConfigurationService = new HydraRingConfigurationService(uncertaintiesType);
                 hydraRingConfigurationService.AddHydraRingCalculationInput(hydraRingCalculationInput);
 
-                var hydraRingInitializationService = new HydraRingInitializationService(hydraRingCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, OutputDirectory);
+                var hydraRingInitializationService = new HydraRingInitializationService(
+                    hydraRingCalculationInput.FailureMechanismType,
+                    sectionId,
+                    hlcdDirectory,
+                    OutputDirectory,
+                    preprocessorDirectory);
                 hydraRingInitializationService.WriteInitializationScript();
                 hydraRingConfigurationService.WriteDatabaseCreationScript(hydraRingInitializationService.DatabaseCreationScriptFilePath);
 

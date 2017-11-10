@@ -35,6 +35,7 @@ namespace Ringtoets.Common.Service
         private readonly DesignWaterLevelCalculation designWaterLevelCalculation;
         private readonly double norm;
         private readonly string hydraulicBoundaryDatabaseFilePath;
+        private readonly string preprocessorDirectory;
         private readonly ICalculationMessageProvider messageProvider;
         private readonly DesignWaterLevelCalculationService calculationService;
 
@@ -43,12 +44,16 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="designWaterLevelCalculation">The <see cref="DesignWaterLevelCalculation"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelCalculation"/> or 
+        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelCalculation"/>,
+        /// <paramref name="hydraulicBoundaryDatabaseFilePath"/>, <paramref name="preprocessorDirectory"/> or
         /// <paramref name="messageProvider"/>is <c>null</c>.</exception>
         public DesignWaterLevelCalculationActivity(DesignWaterLevelCalculation designWaterLevelCalculation,
                                                    string hydraulicBoundaryDatabaseFilePath,
+                                                   string preprocessorDirectory,
                                                    double norm,
                                                    ICalculationMessageProvider messageProvider)
         {
@@ -65,6 +70,7 @@ namespace Ringtoets.Common.Service
             this.designWaterLevelCalculation = designWaterLevelCalculation;
             this.messageProvider = messageProvider;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
+            this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
 
             calculationService = new DesignWaterLevelCalculationService();
@@ -80,7 +86,7 @@ namespace Ringtoets.Common.Service
                 return true;
             }
 
-            return DesignWaterLevelCalculationService.Validate(hydraulicBoundaryDatabaseFilePath);
+            return DesignWaterLevelCalculationService.Validate(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory);
         }
 
         protected override void PerformCalculation()
@@ -90,6 +96,7 @@ namespace Ringtoets.Common.Service
                 calculationService.Calculate(
                     designWaterLevelCalculation,
                     hydraulicBoundaryDatabaseFilePath,
+                    preprocessorDirectory,
                     norm,
                     messageProvider);
             }

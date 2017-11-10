@@ -292,7 +292,10 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateInstance = data => new BackgroundDataProperties(data)
             };
-            yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
+            yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>
+            {
+                CreateInstance = context => new HydraulicBoundaryDatabaseProperties(context)
+            };
             yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionProperties>
             {
                 CreateInstance = context => new FailureMechanismContributionProperties(
@@ -834,7 +837,7 @@ namespace Ringtoets.Integration.Plugin
             foreach (AssessmentSection section in sectionsWithDatabase)
             {
                 string selectedFile = section.HydraulicBoundaryDatabase.FilePath;
-                string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(selectedFile);
+                string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(selectedFile);
                 if (validationProblem != null)
                 {
                     log.WarnFormat(
@@ -1383,6 +1386,7 @@ namespace Ringtoets.Integration.Plugin
 
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                                                           assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                                                            assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                                                                                            assessmentSection.FailureMechanismContribution.Norm,
                                                                                                                            new DesignWaterLevelCalculationMessageProvider());
@@ -1418,6 +1422,7 @@ namespace Ringtoets.Integration.Plugin
                     }
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                                                     assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                                                      assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                                                                                      assessmentSection.FailureMechanismContribution.Norm,
                                                                                                                      new WaveHeightCalculationMessageProvider());
@@ -1503,7 +1508,7 @@ namespace Ringtoets.Integration.Plugin
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
             bool isHydraulicBoundaryDatabaseSet = hydraulicBoundaryDatabase != null;
-            bool isClearConfirmationRequired = isHydraulicBoundaryDatabaseSet && !HydraulicDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
+            bool isClearConfirmationRequired = isHydraulicBoundaryDatabaseSet && !HydraulicBoundaryDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
             bool isClearConfirmationGiven = isClearConfirmationRequired && IsClearCalculationConfirmationGiven();
 
             if (isHydraulicBoundaryDatabaseSet && isClearConfirmationRequired && !isClearConfirmationGiven)
