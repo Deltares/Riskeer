@@ -1162,10 +1162,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(49, messages.Count);
+                Assert.AreEqual(50, messages.Count);
                 var i = 0;
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
+                    messages[i++]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' waarbij het toetspeil handmatig is ingevuld."),
                     messages[i++]);
 
                 AssertMigrationLogMessageEqual(

@@ -1440,9 +1440,13 @@ INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM 
 INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity (
 	[FailureMechanismEntityId],
 	[ForeshoreProfileCollectionSourcePath])
-SELECT 
+SELECT
 	[FailureMechanismEntityId],
-	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "" ELSE NULL END
+	CASE
+		WHEN COUNT([ForeshoreProfileEntityId])
+			THEN ""
+			ELSE NULL
+	END
 	FROM [SOURCEPROJECT].FailureMechanismEntity
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityID)
 	WHERE FailureMechanismType = 3
@@ -1537,6 +1541,81 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[ToVersion],
 	[LogMessage])
 VALUES ("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:");
+
+CREATE TEMP TABLE TempLogOutputDeleted 
+(
+	'NrDeleted' INTEGER NOT NULL
+);
+
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].DuneLocationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOvertoppingRateOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted
+SELECT COUNT()
+	FROM [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity
+	WHERE PipingCalculationEntityId IN (
+		SELECT PipingCalculationEntityId
+		FROM [SOURCEPROJECT].PipingCalculationEntity
+		WHERE UseAssessmentLevelManualInput IS 0
+	);
+INSERT INTO TempLogOutputDeleted
+SELECT COUNT()
+	FROM [SOURCEPROJECT].PipingCalculationOutputEntity
+	WHERE PipingCalculationEntityId IN (
+		SELECT PipingCalculationEntityId
+		FROM [SOURCEPROJECT].PipingCalculationEntity
+		WHERE UseAssessmentLevelManualInput IS 0
+	);
+
+CREATE TEMP TABLE TempLogOutputRemaining
+(
+	'NrRemaining' INTEGER NOT NULL
+);
+INSERT INTO TempLogOutputRemaining
+SELECT COUNT()
+	FROM [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity
+	WHERE PipingCalculationEntityId IN (
+		SELECT PipingCalculationEntityId
+		FROM [SOURCEPROJECT].PipingCalculationEntity
+		WHERE UseAssessmentLevelManualInput IS 1
+	);
+INSERT INTO TempLogOutputRemaining
+SELECT COUNT()
+	FROM [SOURCEPROJECT].PipingCalculationOutputEntity
+	WHERE PipingCalculationEntityId IN (
+		SELECT PipingCalculationEntityId
+		FROM [SOURCEPROJECT].PipingCalculationEntity
+		WHERE UseAssessmentLevelManualInput IS 1
+	);
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+	[FromVersion],
+	[ToVersion],
+	[LogMessage])
+SELECT
+	"17.1",
+	"17.2",
+	CASE
+		WHEN [NrRemaining] > 0
+			THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' waarbij het toetspeil handmatig is ingevuld."
+			ELSE "* Alle berekende resultaten zijn verwijderd."
+	END
+	FROM TempLogOutputDeleted
+	LEFT JOIN TempLogOutputRemaining
+	WHERE [NrDeleted] > 0
+	LIMIT 1;
+
+DROP TABLE TempLogOutputDeleted;
+DROP TABLE TempLogOutputRemaining;
 
 CREATE TEMP TABLE TempFailureMechanisms
 (
