@@ -48,7 +48,7 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Initializes a new instance of <see cref="PersistentCacheConfiguration"/>.
         /// </summary>
-        /// <param name="persistentCacheDirectoryPath">The path to the directory for thisn
+        /// <param name="persistentCacheDirectoryPath">The path to the directory for this
         /// cache to keep its data.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="persistentCacheDirectoryPath"/>
         /// is invalid.</exception>

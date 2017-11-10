@@ -47,6 +47,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
             ParentFailureMechanism = failureMechanism;
         }
 
+        /// <summary>
+        /// Gets the parent failure mechanism of the calculation group.
+        /// </summary>
         public MacroStabilityInwardsFailureMechanism ParentFailureMechanism { get; }
     }
 }

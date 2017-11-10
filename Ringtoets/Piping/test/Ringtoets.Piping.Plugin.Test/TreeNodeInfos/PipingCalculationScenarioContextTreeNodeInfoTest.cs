@@ -1028,20 +1028,21 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Then
                     TestHelper.AssertLogMessages(action, messages =>
                     {
-                        IEnumerator<string> msgs = messages.GetEnumerator();
-                        Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs.Current);
-                        Assert.IsTrue(msgs.MoveNext());
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs.Current);
-                        Assert.IsTrue(msgs.MoveNext());
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs.Current);
-                        Assert.IsTrue(msgs.MoveNext());
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.Current);
-                        Assert.IsTrue(msgs.MoveNext());
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.Current);
-                        Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs.Current);
-                        msgs.Dispose();
+                        using (IEnumerator<string> msgs = messages.GetEnumerator())
+                        {
+                            Assert.IsTrue(msgs.MoveNext());
+                            Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs.Current);
+                            Assert.IsTrue(msgs.MoveNext());
+                            CalculationServiceTestHelper.AssertValidationStartMessage(msgs.Current);
+                            Assert.IsTrue(msgs.MoveNext());
+                            CalculationServiceTestHelper.AssertValidationEndMessage(msgs.Current);
+                            Assert.IsTrue(msgs.MoveNext());
+                            CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.Current);
+                            Assert.IsTrue(msgs.MoveNext());
+                            CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.Current);
+                            Assert.IsTrue(msgs.MoveNext());
+                            Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs.Current);
+                        }
                     });
                     Assert.IsNotNull(calculation.Output);
                     Assert.IsNotNull(calculation.SemiProbabilisticOutput);
