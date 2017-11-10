@@ -186,7 +186,7 @@ namespace Core.Components.Gis.IO.Readers
             XElement nameElement = element.Element(WmtsConnectionInfoXmlDefinitions.WmtsConnectionNameElement);
             XElement urlElement = element.Element(WmtsConnectionInfoXmlDefinitions.WmtsConnectionUrlElement);
 
-            return new WmtsConnectionInfo(nameElement?.Value, urlElement?.Value);
+            return new WmtsConnectionInfo(nameElement.Value, urlElement.Value);
         }
     }
 }

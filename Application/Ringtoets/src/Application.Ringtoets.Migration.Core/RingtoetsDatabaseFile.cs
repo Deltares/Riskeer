@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Migration.Core
             GC.SuppressFinalize(this);
         }
 
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (disposed)
             {

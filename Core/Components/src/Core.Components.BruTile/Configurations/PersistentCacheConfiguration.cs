@@ -48,7 +48,7 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Initializes a new instance of <see cref="PersistentCacheConfiguration"/>.
         /// </summary>
-        /// <param name="persistentCacheDirectoryPath">The path to the directory for this
+        /// <param name="persistentCacheDirectoryPath">The path to the directory for thisn
         /// cache to keep its data.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="persistentCacheDirectoryPath"/>
         /// is invalid.</exception>
@@ -114,7 +114,7 @@ namespace Core.Components.BruTile.Configurations
         /// doesn't allow for tiles to be received.</exception>
         protected abstract void OnInitialize();
 
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (IsDisposed)
             {

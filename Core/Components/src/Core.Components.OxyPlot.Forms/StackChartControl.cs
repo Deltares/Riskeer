@@ -35,8 +35,8 @@ namespace Core.Components.OxyPlot.Forms
     public class StackChartControl : Control, IStackChartControl
     {
         private readonly CategoryPlotView plotView;
-
         private readonly Observer stackChartDataObserver;
+
         private StackChartData data;
 
         /// <summary>

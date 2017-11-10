@@ -61,9 +61,8 @@ namespace Core.Components.Gis.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': het bestand of andere benodigde bestanden zijn niet gevonden."
-                                     + Environment.NewLine +
-                                     "Er is geen kaartlaag geïmporteerd.";
+            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': het bestand of andere benodigde bestanden zijn niet gevonden." +
+                                     $"{Environment.NewLine}Er is geen kaartlaag geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
         }
@@ -81,9 +80,8 @@ namespace Core.Components.Gis.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': kon geen geometrieën vinden in dit bestand."
-                                     + Environment.NewLine +
-                                     "Er is geen kaartlaag geïmporteerd.";
+            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': kon geen geometrieën vinden in dit bestand." +
+                                     $"{Environment.NewLine}Er is geen kaartlaag geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
         }
@@ -101,9 +99,9 @@ namespace Core.Components.Gis.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            const string message = @"Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
-            string expectedMessage = string.Format(message, path) + Environment.NewLine +
-                                     "Er is geen kaartlaag geïmporteerd.";
+            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. " +
+                                     "Mogelijk is het bestand corrupt of in gebruik door een andere applicatie." +
+                                     $"{Environment.NewLine}Er is geen kaartlaag geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
         }
@@ -123,9 +121,9 @@ namespace Core.Components.Gis.IO.Test.Importers
                 Action call = () => importSuccessful = importer.Import();
 
                 // Assert
-                const string message = @"Fout bij het lezen van bestand '{0}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
-                string expectedMessage = string.Format(message, path) + Environment.NewLine +
-                                         "Er is geen kaartlaag geïmporteerd.";
+                string expectedMessage = $@"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. " +
+                                         "Mogelijk is het bestand corrupt of in gebruik door een andere applicatie." +
+                                         $"{Environment.NewLine}Er is geen kaartlaag geïmporteerd.";
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
                 Assert.IsFalse(importSuccessful);
             }

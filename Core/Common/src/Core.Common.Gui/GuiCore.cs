@@ -178,6 +178,7 @@ namespace Core.Common.Gui
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public void ExitApplication()
@@ -222,15 +223,7 @@ namespace Core.Common.Gui
 
         #endregion
 
-        private IProjectExplorer ProjectExplorer
-        {
-            get
-            {
-                return ViewHost.ToolViews.OfType<IProjectExplorer>().FirstOrDefault();
-            }
-        }
-
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -331,6 +324,14 @@ namespace Core.Common.Gui
 
             instanceCreationStackTrace = "";
             isAlreadyRunningInstanceOfIGui = false;
+        }
+
+        private IProjectExplorer ProjectExplorer
+        {
+            get
+            {
+                return ViewHost.ToolViews.OfType<IProjectExplorer>().FirstOrDefault();
+            }
         }
 
         private void InitializeProjectFromPath(string projectPath)

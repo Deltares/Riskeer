@@ -206,7 +206,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         private void SetMapDataFeatures()
         {
             ReferenceLine referenceLine = data.Parent.ReferenceLine;
-            FailureMechanismSection[] failureMechanismSections = data.WrappedData.Sections.ToArray();
+            IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
             IEnumerable<ForeshoreProfile> foreshoreProfiles = data.WrappedData.ForeshoreProfiles;
             IEnumerable<ClosingStructure> structures = data.WrappedData.ClosingStructures;

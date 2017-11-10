@@ -145,7 +145,7 @@ namespace Core.Components.BruTile.IO
             GC.SuppressFinalize(this);
         }
 
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (IsDisposed)
             {

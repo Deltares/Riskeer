@@ -28,7 +28,7 @@ namespace Core.Common.Utils.TestUtil.Settings
     /// Configures <see cref="SettingsHelper.Instance"/> to temporarily use a different
     /// instance.
     /// </summary>
-    public sealed class UseCustomSettingsHelper : IDisposable
+    public class UseCustomSettingsHelper : IDisposable
     {
         private readonly ISettingsHelper originalHelper;
         private bool disposed;
@@ -46,9 +46,10 @@ namespace Core.Common.Utils.TestUtil.Settings
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (disposed)
             {

@@ -27,7 +27,6 @@ using Core.Components.GraphSharp.Converters;
 using Core.Components.GraphSharp.Data;
 using Core.Components.PointedTree.Data;
 using NUnit.Framework;
-using Brush = System.Windows.Media.Brush;
 using Color = System.Drawing.Color;
 using WpfColor = System.Windows.Media.Color;
 
