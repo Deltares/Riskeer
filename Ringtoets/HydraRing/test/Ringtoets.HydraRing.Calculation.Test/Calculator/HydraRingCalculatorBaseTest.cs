@@ -118,7 +118,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             calculator.PublicCalculate();
 
             // Assert
-            Assert.AreEqual(" Hydraulic database HLCD.sqlite not found.\r\n", calculator.LastErrorFileContent);
+            Assert.AreEqual("Hydraulic database HLCD.sqlite not found.\r\n", calculator.LastErrorFileContent);
         }
 
         [Test]
