@@ -97,6 +97,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             yield return new FileToMigrate("Empty valid Release 16.4.rtd", "17.1");
             yield return new FileToMigrate("Empty valid Release 17.1.rtd", "17.2");
+            yield return new FileToMigrate("Empty valid Release 17.2.rtd", "17.3");
         }
 
         private static IEnumerable<char> GetSpecialCharactersToValidate()

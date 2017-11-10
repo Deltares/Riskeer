@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Utils
     public static class RingtoetsVersionHelper
     {
         private const string validDatabaseVersion = "5";
-        private const string currentDatabaseVersion = "17.2";
+        private const string currentDatabaseVersion = "17.3";
 
         /// <summary>
         /// Gets the current database version.

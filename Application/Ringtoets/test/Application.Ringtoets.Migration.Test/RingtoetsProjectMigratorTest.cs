@@ -475,7 +475,9 @@ namespace Application.Ringtoets.Migration.Test
                                         $@"* Traject: 'Demo traject'{Environment.NewLine}" +
                                         $@"  + De ondergrens is gelijk gesteld aan 1/1000.{Environment.NewLine}" +
                                         $@"  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).{Environment.NewLine}" +
-                                        @"  + De norm van het dijktraject is gelijk gesteld aan de signaleringswaarde.");
+                                        $@"  + De norm van het dijktraject is gelijk gesteld aan de signaleringswaarde.{Environment.NewLine}" +
+                                        $@"Gevolgen van de migratie van versie 17.2 naar versie 17.3:{Environment.NewLine}" +
+                                        @"* Geen aanpassingen.");
 
                 var expectedLogMessagesAndLevel = new[]
                 {
