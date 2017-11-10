@@ -143,10 +143,11 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
                 Assert.AreEqual(expectedMessage, message);
             }
             Assert.AreEqual(1, propertySet);
-            CollectionAssert.AreEqual(new List<IObservable>(testCase.ExpectedAffectedCalculations)
+            var expectedAffectedObjects = new List<IObservable>(testCase.ExpectedAffectedCalculations)
             {
                 testFailureMechanism
-            }, affectedObjects);
+            };
+            CollectionAssert.AreEqual(expectedAffectedObjects, affectedObjects);
             Assert.IsTrue(testCase.Calculations.All(c => !c.HasOutput));
         }
 

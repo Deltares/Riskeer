@@ -101,7 +101,7 @@ namespace Ringtoets.Common.IO.HydraRing
 
             timeIntegrationSettingsForLocationAndCalculationTypeQuery =
                 $"SELECT {timeIntegrationSchemeIdColumn} " +
-                $"FROM TimeIntegrationSettings " +
+                "FROM TimeIntegrationSettings " +
                 $"WHERE LocationID = {locationIdParameterName} AND CalculationTypeID = {calculationTypeIdParameterName}";
 
             excludedLocationsQuery = $"SELECT {locationIdColumn} FROM ExcludedLocations";
