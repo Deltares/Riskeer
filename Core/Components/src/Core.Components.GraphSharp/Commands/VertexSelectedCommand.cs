@@ -32,7 +32,17 @@ namespace Core.Components.GraphSharp.Commands
     {
         private readonly PointedTreeElementVertex vertex;
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="VertexSelectedCommand"/>.
