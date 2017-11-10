@@ -104,7 +104,7 @@ All rights reserved.
   <!--Specificeert het aantal raaklijnen dat bepaald moet worden.-->
   <xs:element name="aantal">
     <xs:simpleType>
-      <xs:restriction base="xs:double"/>
+      <xs:restriction base="xs:integer"/>
     </xs:simpleType>
   </xs:element>
 
