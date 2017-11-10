@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van het toetstraject..
+        ///   Looks up a localized string similar to Naam van het traject..
         /// </summary>
         public static string AssessmentSection_Name_Description {
             get {
