@@ -284,20 +284,21 @@ namespace Ringtoets.Common.Forms.Factories
         /// <summary>
         /// Create calculation features based on the provided <paramref name="calculations"/>.
         /// </summary>
-        /// <typeparam name="T">The type of the <see cref="StructuresInputBase{T}"/>.</typeparam>
-        /// <typeparam name="TU">The type of the <see cref="StructureBase"/>.</typeparam>
+        /// <typeparam name="TStructuresInput">The type of the <see cref="StructuresInputBase{T}"/>.</typeparam>
+        /// <typeparam name="TStructure">The type of the <see cref="StructureBase"/>.</typeparam>
         /// <param name="calculations">The collection of <see cref="StructuresCalculation{T}"/> to create the 
         /// calculation features for.</param>
         /// <returns>An array of features or an empty array when <paramref name="calculations"/> is <c>null</c> 
         /// or empty.</returns>
-        public static MapFeature[] CreateStructureCalculationsFeatures<T, TU>(IEnumerable<StructuresCalculation<T>> calculations)
-            where T : StructuresInputBase<TU>, new()
-            where TU : StructureBase
+        public static MapFeature[] CreateStructureCalculationsFeatures<TStructuresInput, TStructure>(
+            IEnumerable<StructuresCalculation<TStructuresInput>> calculations)
+            where TStructuresInput : StructuresInputBase<TStructure>, new()
+            where TStructure : StructureBase
         {
             if (calculations != null && calculations.Any())
             {
-                MapCalculationData[] calculationData = calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<T, TU>)
-                                                                   .Select(CreatemapCalculationData<T, TU>).ToArray();
+                MapCalculationData[] calculationData = calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<TStructuresInput, TStructure>)
+                                                                   .Select(CreatemapCalculationData<TStructuresInput, TStructure>).ToArray();
 
                 return CreateCalculationFeatures(calculationData);
             }
