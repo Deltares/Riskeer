@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategoryName,
                                                                             "Naam",
-                                                                            "Naam van het toetstraject.");
+                                                                            "Naam van het traject.");
         }
     }
 }

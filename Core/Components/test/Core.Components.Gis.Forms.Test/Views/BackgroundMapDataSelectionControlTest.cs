@@ -33,17 +33,25 @@ namespace Core.Components.Gis.Forms.Test.Views
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            const string name = "Random display name";
+
             // Call
-            var backgroundMapDataSelectionControl = new TestBackgroundMapDataSelectionControl("Random display name");
+            var backgroundMapDataSelectionControl = new TestBackgroundMapDataSelectionControl(name);
 
             // Assert
             Assert.IsInstanceOf<UserControl>(backgroundMapDataSelectionControl);
-            Assert.AreEqual("Random display name", backgroundMapDataSelectionControl.DisplayName);
+            Assert.AreEqual(name, backgroundMapDataSelectionControl.DisplayName);
+            Assert.IsNull(backgroundMapDataSelectionControl.SelectedMapData);
         }
 
         private class TestBackgroundMapDataSelectionControl : BackgroundMapDataSelectionControl
         {
-            public override event EventHandler<EventArgs> SelectedMapDataChanged;
+            public override event EventHandler<EventArgs> SelectedMapDataChanged
+            {
+                add {}
+                remove {}
+            }
 
             public TestBackgroundMapDataSelectionControl(string displayName)
                 : base(displayName) {}
