@@ -414,20 +414,20 @@ namespace Application.Ringtoets.Migration.Test
         }
 
         [Test]
-        public void GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessFullyMigrates()
+        public void GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessfullyMigrates()
         {
             // Given
             string sourceFilePath = RingtoetsProjectMigrationTestHelper.GetOutdatedSupportedProjectFilePath();
 
             string targetFile = $"{nameof(RingtoetsProjectMigratorTest)}." +
-                                $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessFullyMigrates)}.rtd";
+                                $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessfullyMigrates)}.rtd";
             string targetFilePath = Path.Combine(TestHelper.GetScratchPadPath(), testDirectory, targetFile);
 
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            string logDirectory = $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessFullyMigrates)}_log";
+            string logDirectory = $"{nameof(GivenMigratorAndSupportedFile_WhenValidTargetLocationGiven_ThenFileSuccessfullyMigrates)}_log";
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), logDirectory))
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {

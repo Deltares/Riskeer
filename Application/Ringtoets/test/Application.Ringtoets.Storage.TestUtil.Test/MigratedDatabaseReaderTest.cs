@@ -19,20 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.TestUtil.Test
 {
+    [TestFixture]
     public class MigratedDatabaseReaderTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
-                                                     "FullTestProject171.rtd");
+            string path = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Common.IO, "SqLiteDatabaseReaderBase"),
+                                       "empty.sqlite");
+
             // Call
             using (var reader = new MigratedDatabaseReader(path))
             {
