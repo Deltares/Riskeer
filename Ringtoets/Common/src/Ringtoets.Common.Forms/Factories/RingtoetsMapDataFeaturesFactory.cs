@@ -298,7 +298,7 @@ namespace Ringtoets.Common.Forms.Factories
             if (calculations != null && calculations.Any())
             {
                 MapCalculationData[] calculationData = calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<TStructuresInput, TStructure>)
-                                                                   .Select(CreatemapCalculationData<TStructuresInput, TStructure>).ToArray();
+                                                                   .Select(CreateMapCalculationData<TStructuresInput, TStructure>).ToArray();
 
                 return CreateCalculationFeatures(calculationData);
             }
@@ -366,7 +366,7 @@ namespace Ringtoets.Common.Forms.Factories
             });
         }
 
-        private static MapCalculationData CreatemapCalculationData<TStructuresInput, TStructure>(
+        private static MapCalculationData CreateMapCalculationData<TStructuresInput, TStructure>(
             StructuresCalculation<TStructuresInput> calculation)
             where TStructuresInput : StructuresInputBase<TStructure>, new()
             where TStructure : StructureBase

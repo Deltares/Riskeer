@@ -33,8 +33,7 @@ namespace Ringtoets.Piping.KernelWrapper.Creators
     internal static class PipingSurfaceLineCreator
     {
         /// <summary>
-        /// Creates a <see cref="PipingSurfaceLine"/> for the kernel
-        /// given different surface line.
+        /// Creates a <see cref="PipingSurfaceLine"/> for the kernel given a <see cref="RingtoetsPipingSurfaceLine"/>.
         /// </summary>
         /// <param name="line">The surface line configured in the Ringtoets application.</param>
         /// <returns>The surface line to be consumed by the kernel.</returns>
