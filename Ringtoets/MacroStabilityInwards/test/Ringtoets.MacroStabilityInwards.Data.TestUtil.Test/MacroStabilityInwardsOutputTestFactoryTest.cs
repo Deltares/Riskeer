@@ -84,6 +84,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.IsNotNull(output.SlidingCurve);
             Assert.AreEqual(3, output.SlidingCurve.Slices.Count());
             Assert.IsNotNull(output.SlipPlane);
+            CollectionAssert.AreEqual(new[]
+            {
+                -3.5,
+                0.0,
+                2.0
+            }, output.SlipPlane.TangentLines);
         }
 
         [Test]

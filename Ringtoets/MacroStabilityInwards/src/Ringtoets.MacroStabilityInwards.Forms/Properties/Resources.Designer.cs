@@ -1581,6 +1581,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tangentlijnen.
+        /// </summary>
+        public static string TangentLines_DisplayName {
+            get {
+                return ResourceManager.GetString("TangentLines_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verticale coördinaat van de onderste raaklijn..
         /// </summary>
         public static string TangentLineZBottom_Description {

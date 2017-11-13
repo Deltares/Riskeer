@@ -308,6 +308,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateTangentLinesChartData_ReturnsChartMultipleLineData()
+        {
+            // Call
+            ChartMultipleLineData data = MacroStabilityInwardsChartDataFactory.CreateTangentLinesChartData();
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Lines);
+            Assert.AreEqual("Tangentlijnen", data.Name);
+            AssertEqualStyle(data.Style, Color.Green, 1, ChartLineDashStyle.Dash);
+        }
+
+        [Test]
         public void UpdateSurfaceLineChartDataName_SurfaceLineNull_NameSetToDefaultSurfaceLineName()
         {
             // Setup
@@ -388,6 +400,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
             Assert.AreEqual(dashStyle, lineStyle.DashStyle);
+            Assert.IsTrue(lineStyle.IsEditable);
         }
     }
 }

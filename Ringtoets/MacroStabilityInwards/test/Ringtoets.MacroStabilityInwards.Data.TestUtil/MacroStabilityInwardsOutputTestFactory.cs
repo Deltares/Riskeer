@@ -74,7 +74,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                                                                                          }, 0, 0),
                                                    new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
                                                                                                MacroStabilityInwardsGridTestFactory.Create(),
-                                                                                               new double[0]),
+                                                                                               new[]
+                                                                                               {
+                                                                                                   -3.5,
+                                                                                                   0.0,
+                                                                                                   2.0
+                                                                                               }),
                                                    properties);
         }
 

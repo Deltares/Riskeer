@@ -399,7 +399,30 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create areas of the slices based on the provided <paramref name="slices"/>.
+        /// Create the tangent lines based on the provided <paramref name="tangentLines"/>
+        /// and <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="tangentLines">The tangent line Y-coordinates.</param>
+        /// <param name="surfaceLine">The surface line that determines the boundaries of the tangent line.</param>
+        /// <returns>A collection of arrays of points in 2D space or an empty collection when <paramref name="surfaceLine"/>
+        /// or <paramref name="tangentLines"/> is <c>null</c>.</returns>
+        public static IEnumerable<Point2D[]> CreateTangentLines(IEnumerable<double> tangentLines,
+                                                                MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            if (surfaceLine == null || tangentLines == null)
+            {
+                return Enumerable.Empty<Point2D[]>();
+            }
+
+            return tangentLines.Select(tangentLine => new[]
+            {
+                new Point2D(surfaceLine.LocalGeometry.First().X, tangentLine),
+                new Point2D(surfaceLine.LocalGeometry.Last().X, tangentLine)
+            });
+        }
+
+        /// <summary>
+        /// Create lines of the slices based on the provided <paramref name="slices"/>.
         /// </summary>
         /// <param name="slices">The slices to create the areas for.</param>
         /// <returns>A collection of arrays of points in 2D space or an empty collection when <paramref name="slices"/>
