@@ -20,11 +20,8 @@
 // All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.SQLite;
 using Application.Ringtoets.Migration.Core;
-using Core.Common.Base.IO;
-using Core.Common.IO.Readers;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
@@ -439,43 +436,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM WaveImpactAsphaltCoverWaveConditionsOutputEntity";
 
             reader.AssertReturnedDataIsValid(validateCalculationOutputs);
-        }
-
-        /// <summary>
-        /// Database reader for migrated database.
-        /// </summary>
-        private class MigratedDatabaseReader : SqLiteDatabaseReaderBase
-        {
-            /// <summary>
-            /// Creates a new instance of <see cref="MigratedDatabaseReader"/>.
-            /// </summary>
-            /// <param name="databaseFilePath">The path of the database file to open.</param>
-            /// <exception cref="CriticalFileReadException">Thrown when:
-            /// <list type="bullet">
-            /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
-            /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
-            /// <item>Unable to open database file.</item>
-            /// </list>
-            /// </exception>
-            public MigratedDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
-
-            /// <summary>
-            /// Asserts that the <paramref name="queryString"/> results in one field with the value <c>true</c>.
-            /// </summary>
-            /// <param name="queryString">The query to execute.</param>
-            /// <exception cref="SQLiteException">The execution of <paramref name="queryString"/> 
-            /// failed.</exception>
-            public void AssertReturnedDataIsValid(string queryString)
-            {
-                using (IDataReader dataReader = CreateDataReader(queryString))
-                {
-                    Assert.IsTrue(dataReader.Read(), "No data can be read from the data reader " +
-                                                     $"when using query '{queryString}'.");
-                    Assert.AreEqual(1, dataReader.FieldCount, $"Expected one field, was {dataReader.FieldCount} " +
-                                                              $"fields when using query '{queryString}'.");
-                    Assert.AreEqual(1, dataReader[0], $"Result should be 1 when using query '{queryString}'.");
-                }
-            }
         }
     }
 }
