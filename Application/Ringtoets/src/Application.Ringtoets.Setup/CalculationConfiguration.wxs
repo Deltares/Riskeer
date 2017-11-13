@@ -21,6 +21,9 @@
       <Component Id="CalculationConfigurationOrientationSchema" Guid="ADAB171C-FC0D-44F3-B90D-5C8DD4598825">
         <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\OrientatieSchema.xsd" KeyPath="yes"/>
       </Component>
+      <Component Id="CalculationConfigurationScenarioSchema" Guid="32A8A316-C662-4D81-9BBC-42E60AFD7545">
+        <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\ScenarioSchema.xsd" KeyPath="yes"/>
+      </Component>
       <Component Id="CalculationConfigurationStochastSchema" Guid="C667653D-B7CC-4DA9-A4FF-96C4EBB5D09A">
         <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\StochastSchema.xsd" KeyPath="yes"/>
       </Component>
@@ -78,6 +81,7 @@
       <ComponentRef Id="CalculationConfigurationHydraulicBoundaryLocationSchema" />
       <ComponentRef Id="CalculationConfigurationStructureBaseSchema" />
       <ComponentRef Id="CalculationConfigurationOrientationSchema" />
+      <ComponentRef Id="CalculationConfigurationScenarioSchema" />
       <ComponentRef Id="CalculationConfigurationStochastSchema" />
       <ComponentRef Id="CalculationConfigurationStochastStandardDeviationSchema" />
       <ComponentRef Id="CalculationConfigurationStochastVarationCoefficientSchema" />

@@ -521,8 +521,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                                               string.Format(message, adapter.ElementName, ""));
                 yield return new TestCaseData($"invalid{adapter.PropertyName}No{dataTypeBoolean}.xml",
                                               string.Format(message, adapter.ElementName, "string"));
-                yield return new TestCaseData($"invalid{adapter.PropertyName}No{dataTypeBoolean}ButDouble.xml",
-                                              string.Format(message, adapter.ElementName, "3.1415"));
             }
 
             const string dataTypeInteger = "Integer";

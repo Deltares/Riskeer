@@ -54,7 +54,8 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         public static string GetRelevantLocationsCountQuery()
         {
             return $"SELECT count({HrdLocationsTableDefinitions.HrdLocationId}) as {HrdLocationsTableDefinitions.Count} " +
-                   $"FROM {HrdLocationsTableDefinitions.TableName} WHERE {HrdLocationsTableDefinitions.LocationTypeId} > 1 ;";
+                   $"FROM {HrdLocationsTableDefinitions.TableName} " +
+                   $"WHERE {HrdLocationsTableDefinitions.LocationTypeId} > 1;"; // Value > 1 makes it relevant
         }
 
         /// <summary>
@@ -65,7 +66,8 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         {
             return $"SELECT {HrdLocationsTableDefinitions.HrdLocationId}, {HrdLocationsTableDefinitions.Name}, " +
                    $"{HrdLocationsTableDefinitions.XCoordinate}, {HrdLocationsTableDefinitions.YCoordinate} " +
-                   $"FROM {HrdLocationsTableDefinitions.TableName} WHERE {HrdLocationsTableDefinitions.LocationTypeId} > 1;";
+                   $"FROM {HrdLocationsTableDefinitions.TableName} " +
+                   $"WHERE {HrdLocationsTableDefinitions.LocationTypeId} > 1;"; // Value > 1 makes it relevant
         }
     }
 }

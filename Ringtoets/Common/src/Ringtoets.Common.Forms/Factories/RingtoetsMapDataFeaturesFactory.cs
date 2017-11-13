@@ -298,7 +298,7 @@ namespace Ringtoets.Common.Forms.Factories
             if (calculations != null && calculations.Any())
             {
                 MapCalculationData[] calculationData = calculations.Where(CalculationHasStructureAndHydraulicBoundaryLocation<TStructuresInput, TStructure>)
-                                                                   .Select(CreatemapCalculationData<TStructuresInput, TStructure>).ToArray();
+                                                                   .Select(CreateMapCalculationData<TStructuresInput, TStructure>).ToArray();
 
                 return CreateCalculationFeatures(calculationData);
             }
@@ -366,9 +366,10 @@ namespace Ringtoets.Common.Forms.Factories
             });
         }
 
-        private static MapCalculationData CreatemapCalculationData<T, TU>(StructuresCalculation<T> calculation)
-            where T : StructuresInputBase<TU>, new()
-            where TU : StructureBase
+        private static MapCalculationData CreateMapCalculationData<TStructuresInput, TStructure>(
+            StructuresCalculation<TStructuresInput> calculation)
+            where TStructuresInput : StructuresInputBase<TStructure>, new()
+            where TStructure : StructureBase
         {
             return new MapCalculationData(
                 calculation.Name,
@@ -376,9 +377,10 @@ namespace Ringtoets.Common.Forms.Factories
                 calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
-        private static bool CalculationHasStructureAndHydraulicBoundaryLocation<T, TU>(StructuresCalculation<T> calculation)
-            where T : StructuresInputBase<TU>, new()
-            where TU : StructureBase
+        private static bool CalculationHasStructureAndHydraulicBoundaryLocation<TStructuresInput, TStructure>(
+            StructuresCalculation<TStructuresInput> calculation)
+            where TStructuresInput : StructuresInputBase<TStructure>, new()
+            where TStructure : StructureBase
         {
             return calculation.InputParameters.Structure != null &&
                    calculation.InputParameters.HydraulicBoundaryLocation != null;

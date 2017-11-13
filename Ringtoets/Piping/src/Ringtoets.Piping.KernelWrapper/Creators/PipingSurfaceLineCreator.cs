@@ -23,21 +23,21 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.WTIPiping;
+using RingtoetsPipingSurfaceLine = Ringtoets.Piping.Primitives.PipingSurfaceLine;
 
 namespace Ringtoets.Piping.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="Deltares.WTIPiping.PipingSurfaceLine"/> instances which are required by the <see cref="PipingCalculator"/>.
+    /// Creates <see cref="PipingSurfaceLine"/> instances which are required by the <see cref="PipingCalculator"/>.
     /// </summary>
     internal static class PipingSurfaceLineCreator
     {
         /// <summary>
-        /// Creates a <see cref="Deltares.WTIPiping.PipingSurfaceLine"/> for the kernel
-        /// given different surface line.
+        /// Creates a <see cref="PipingSurfaceLine"/> for the kernel given a <see cref="RingtoetsPipingSurfaceLine"/>.
         /// </summary>
         /// <param name="line">The surface line configured in the Ringtoets application.</param>
         /// <returns>The surface line to be consumed by the kernel.</returns>
-        public static PipingSurfaceLine Create(Primitives.PipingSurfaceLine line)
+        public static PipingSurfaceLine Create(RingtoetsPipingSurfaceLine line)
         {
             var surfaceLine = new PipingSurfaceLine
             {
@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.KernelWrapper.Creators
             return surfaceLine;
         }
 
-        private static IEnumerable<PipingPoint> CreatePoints(Primitives.PipingSurfaceLine line)
+        private static IEnumerable<PipingPoint> CreatePoints(RingtoetsPipingSurfaceLine line)
         {
             Point2D[] projectedPoints = line.LocalGeometry.ToArray();
             var pipingPoints = new List<PipingPoint>();
@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.KernelWrapper.Creators
             return pipingPoints;
         }
 
-        private static IEnumerable<PipingPoint> CreatePoint(Primitives.PipingSurfaceLine line, Point2D[] projectedPoints, int index)
+        private static IEnumerable<PipingPoint> CreatePoint(RingtoetsPipingSurfaceLine line, Point2D[] projectedPoints, int index)
         {
             Point3D surfaceLinePoint = line.Points[index];
             Point2D projectedPoint = projectedPoints[index];
