@@ -47,11 +47,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         private const int dikeToeAtRiverIndex = 11;
         private const int dikeTopAtRiverIndex = 12;
         private const int surfaceLevelOutsideIndex = 13;
-        private const int leftGridIndex = 14;
-        private const int rightGridIndex = 15;
-        private const int waternetZonesExtremeIndex = 16;
-        private const int waternetZonesDailyIndex = 17;
-        private const int nrOfChartData = 18;
+        private const int tangentLinesIndex = 14;
+        private const int leftGridIndex = 15;
+        private const int rightGridIndex = 16;
+        private const int waternetZonesExtremeIndex = 17;
+        private const int waternetZonesDailyIndex = 18;
+        private const int nrOfChartData = 19;
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="calculationScenario"/>.
@@ -124,6 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             var dikeToeAtRiverData = (ChartPointData) chartDataArray[dikeToeAtRiverIndex];
             var dikeTopAtRiverData = (ChartPointData) chartDataArray[dikeTopAtRiverIndex];
             var surfaceLevelOutsideData = (ChartPointData) chartDataArray[surfaceLevelOutsideIndex];
+            var tangentLinesData = (ChartMultipleLineData) chartDataArray[tangentLinesIndex];
             var leftGridOutsideData = (ChartPointData) chartDataArray[leftGridIndex];
             var rightGridOutsideData = (ChartPointData) chartDataArray[rightGridIndex];
             var waternetZonesExtremeData = (ChartDataCollection) chartDataArray[waternetZonesExtremeIndex];
@@ -143,6 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             CollectionAssert.IsEmpty(dikeToeAtRiverData.Points);
             CollectionAssert.IsEmpty(dikeTopAtRiverData.Points);
             CollectionAssert.IsEmpty(surfaceLevelOutsideData.Points);
+            CollectionAssert.IsEmpty(tangentLinesData.Lines);
             CollectionAssert.IsEmpty(leftGridOutsideData.Points);
             CollectionAssert.IsEmpty(rightGridOutsideData.Points);
             CollectionAssert.IsEmpty(waternetZonesExtremeData.Collection);
@@ -162,6 +165,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
             Assert.AreEqual("Kruin buitentalud", dikeTopAtRiverData.Name);
             Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
+            Assert.AreEqual("Tangentlijnen", tangentLinesData.Name);
             Assert.AreEqual("Linker grid", leftGridOutsideData.Name);
             Assert.AreEqual("Rechter grid", rightGridOutsideData.Name);
             Assert.AreEqual("Zones extreem", waternetZonesExtremeData.Name);
