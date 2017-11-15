@@ -66,6 +66,7 @@
     <Compile Include="Calculators\Input\PreconsolidationStressTest.cs" />
     <Compile Include="Calculators\Input\DilatancyTypeTest.cs" />
     <Compile Include="Calculators\Input\PlLineCreationMethodTest.cs" />
+    <Compile Include="Calculators\UpliftVan\Input\UpliftVanSlipPlaneConstraintsTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSlipPlaneTest.cs" />
     <Compile Include="Calculators\Input\WaterPressureInterpolationModelTest.cs" />
     <Compile Include="Calculators\Input\ShearStrengthModelTest.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Calculators\Waternet\WaternetExtremeCalculatorTest.cs" />
     <Compile Include="Creators\Input\LayerWithSoilCreatorTest.cs" />
     <Compile Include="Creators\Input\LayerWithSoilTest.cs" />
+    <Compile Include="Creators\Input\SlipPlaneConstraintsCreatorTest.cs" />
     <Compile Include="Creators\Input\SlipPlaneUpliftVanCreatorTest.cs" />
     <Compile Include="Creators\Input\SoilProfileCreatorTest.cs" />
     <Compile Include="Creators\Input\StabilityLocationCreatorHelperTest.cs" />

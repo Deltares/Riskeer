@@ -49,6 +49,7 @@
     <Compile Include="Calculators\Input\PreconsolidationStress.cs" />
     <Compile Include="Calculators\Input\DilatancyType.cs" />
     <Compile Include="Calculators\Input\WaternetCreationMode.cs" />
+    <Compile Include="Calculators\UpliftVan\Input\UpliftVanSlipPlaneConstraints.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSlipPlane.cs" />
     <Compile Include="Calculators\Input\WaterPressureInterpolationModel.cs" />
     <Compile Include="Calculators\Input\ShearStrengthModel.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Creators\Input\LayerWithSoilCreator.cs" />
     <Compile Include="Creators\Input\SlipPlaneUpliftVanCreator.cs" />
     <Compile Include="Creators\Input\SoilProfileCreator.cs" />
+    <Compile Include="Creators\Input\SlipPlaneConstraintsCreator.cs" />
     <Compile Include="Creators\Input\UpliftVanStabilityLocationCreator.cs" />
     <Compile Include="Creators\Input\StabilityLocationCreatorHelper.cs" />
     <Compile Include="Creators\Input\SurfaceLineCreator.cs" />

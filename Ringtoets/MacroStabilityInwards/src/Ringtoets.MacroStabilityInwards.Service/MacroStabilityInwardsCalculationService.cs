@@ -172,6 +172,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     PhreaticLineOffsetsExtreme = PhreaticLineOffsetsConverter.Convert(inputParameters.LocationInputExtreme),
                     PhreaticLineOffsetsDaily = PhreaticLineOffsetsConverter.Convert(inputParameters.LocationInputDaily),
                     SlipPlane = UpliftVanSlipPlaneConverter.Convert(inputParameters),
+                    SlipPlaneConstraints = UpliftVanSlipPlaneConstraintsConverter.Convert(inputParameters),
                     DikeSoilScenario = inputParameters.DikeSoilScenario,
                     WaterLevelRiverAverage = inputParameters.WaterLevelRiverAverage,
                     WaterLevelPolderExtreme = inputParameters.LocationInputExtreme.WaterLevelPolder,
@@ -188,11 +189,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     PenetrationLengthDaily = inputParameters.LocationInputDaily.PenetrationLength,
                     AdjustPhreaticLine3And4ForUplift = inputParameters.AdjustPhreaticLine3And4ForUplift,
                     MoveGrid = inputParameters.MoveGrid,
-                    MaximumSliceWidth = inputParameters.MaximumSliceWidth,
-                    CreateZones = inputParameters.CreateZones,
-                    AutomaticForbiddenZones = inputParameters.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic,
-                    SlipPlaneMinimumDepth = inputParameters.SlipPlaneMinimumDepth,
-                    SlipPlaneMinimumLength = inputParameters.SlipPlaneMinimumLength
+                    MaximumSliceWidth = inputParameters.MaximumSliceWidth
                 });
         }
     }

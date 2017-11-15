@@ -560,6 +560,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             CalculatorInputAssert.AssertPhreaticLineOffsets(originalInput.LocationInputExtreme, actualInput.PhreaticLineOffsetsExtreme);
             CalculatorInputAssert.AssertPhreaticLineOffsets(originalInput.LocationInputDaily, actualInput.PhreaticLineOffsetsDaily);
             AssertSlipPlaneInput(originalInput, actualInput.SlipPlane);
+            AssertSlipPlaneConstraints(originalInput, actualInput.SlipPlaneConstraints);
             Assert.AreEqual(WaternetCreationMode.CreateWaternet, actualInput.WaternetCreationMode);
             Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, actualInput.PlLineCreationMethod);
             Assert.AreEqual(LandwardDirection.PositiveX, actualInput.LandwardDirection);
@@ -585,10 +586,14 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(originalInput.AdjustPhreaticLine3And4ForUplift, actualInput.AdjustPhreaticLine3And4ForUplift);
             Assert.AreEqual(originalInput.MoveGrid, actualInput.MoveGrid);
             Assert.AreEqual(originalInput.MaximumSliceWidth, actualInput.MaximumSliceWidth);
-            Assert.AreEqual(originalInput.CreateZones, actualInput.CreateZones);
-            Assert.AreEqual(originalInput.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, actualInput.AutomaticForbiddenZones);
-            Assert.AreEqual(originalInput.SlipPlaneMinimumDepth, actualInput.SlipPlaneMinimumDepth);
-            Assert.AreEqual(originalInput.SlipPlaneMinimumLength, actualInput.SlipPlaneMinimumLength);
+        }
+
+        private static void AssertSlipPlaneConstraints(MacroStabilityInwardsInput originalInput, UpliftVanSlipPlaneConstraints actualConstraints)
+        {
+            Assert.AreEqual(originalInput.CreateZones, actualConstraints.CreateZones);
+            Assert.AreEqual(originalInput.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, actualConstraints.AutomaticForbiddenZones);
+            Assert.AreEqual(originalInput.SlipPlaneMinimumDepth, actualConstraints.SlipPlaneMinimumDepth);
+            Assert.AreEqual(originalInput.SlipPlaneMinimumLength, actualConstraints.SlipPlaneMinimumLength);
         }
 
         private static void AssertSlipPlaneInput(MacroStabilityInwardsInput originalInput, UpliftVanSlipPlane actualInput)

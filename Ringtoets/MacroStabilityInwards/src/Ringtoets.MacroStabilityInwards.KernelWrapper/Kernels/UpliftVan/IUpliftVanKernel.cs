@@ -81,31 +81,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         SlipPlaneUpliftVan SlipPlaneUpliftVan { set; }
 
         /// <summary>
+        /// Sets the slip plane constraints.
+        /// </summary>
+        SlipPlaneConstraints SlipPlaneConstraints { set; }
+
+        /// <summary>
         /// Sets whether the grid is automatically determined or not.
         /// </summary>
         bool GridAutomaticDetermined { set; }
-
-        /// <summary>
-        /// Sets whether zones should be created.
-        /// </summary>
-        bool CreateZones { set; }
-
-        /// <summary>
-        /// Sets whether forbidden zones are automatically determined or not.
-        /// </summary>
-        bool AutomaticForbiddenZones { set; }
-
-        /// <summary>
-        /// Sets the minimum depth of the slip plane.
-        /// [m]
-        /// </summary>
-        double SlipPlaneMinimumDepth { set; }
-
-        /// <summary>
-        /// Sets the minimum length of the slip plane.
-        /// [m]
-        /// </summary>
-        double SlipPlaneMinimumLength { set; }
 
         /// <summary>
         /// Gets the factor of stability.

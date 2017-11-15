@@ -66,10 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var slipPlaneUpliftVan = new SlipPlaneUpliftVan();
             bool moveGrid = random.NextBoolean();
             bool gridAutomaticDetermined = random.NextBoolean();
-            bool createZones = random.NextBoolean();
-            bool automaticForbiddenZones = random.NextBoolean();
-            double slipPlaneMinimumDepth = random.NextDouble();
-            double slipPlaneMinimumLength = random.NextDouble();
+            var slipPlaneConstraints = new SlipPlaneConstraints();
 
             // Call
             var kernel = new UpliftVanKernelWrapper
@@ -83,10 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                 SlipPlaneUpliftVan = slipPlaneUpliftVan,
                 MoveGrid = moveGrid,
                 GridAutomaticDetermined = gridAutomaticDetermined,
-                CreateZones = createZones,
-                AutomaticForbiddenZones = automaticForbiddenZones,
-                SlipPlaneMinimumDepth = slipPlaneMinimumDepth,
-                SlipPlaneMinimumLength = slipPlaneMinimumLength
+                SlipPlaneConstraints = slipPlaneConstraints
             };
 
             // Assert
@@ -109,12 +103,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreSame(soilProfile2D, stabilityModel.SoilProfile);
             Assert.AreEqual(maximumSliceWidth, stabilityModel.MaximumSliceWidth);
             Assert.AreSame(slipPlaneUpliftVan, stabilityModel.SlipPlaneUpliftVan);
+            Assert.AreSame(slipPlaneConstraints, stabilityModel.SlipPlaneConstraints);
             Assert.AreEqual(moveGrid, stabilityModel.MoveGrid);
             Assert.AreEqual(gridAutomaticDetermined, stabilityModel.SlipCircle.Auto);
-            Assert.AreEqual(createZones, stabilityModel.SlipPlaneConstraints.CreateZones);
-            Assert.AreEqual(automaticForbiddenZones, stabilityModel.SlipPlaneConstraints.AutomaticForbiddenZones);
-            Assert.AreEqual(slipPlaneMinimumDepth, stabilityModel.SlipPlaneConstraints.SlipPlaneMinDepth);
-            Assert.AreEqual(slipPlaneMinimumLength, stabilityModel.SlipPlaneConstraints.SlipPlaneMinLength);
 
             AssertIrrelevantValues(stabilityModel);
             AssertAutomaticallySyncedValues(stabilityModel, soilProfile2D, surfaceLine);
@@ -281,11 +272,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                 },
                 SlipPlaneUpliftVan = new SlipPlaneUpliftVan(),
                 MoveGrid = true,
-                AutomaticForbiddenZones = true,
-                CreateZones = true,
-                SlipPlaneMinimumDepth = 0,
                 MaximumSliceWidth = 0,
-                SlipPlaneMinimumLength = 0
+                SlipPlaneConstraints = new SlipPlaneConstraints()
             };
         }
 
