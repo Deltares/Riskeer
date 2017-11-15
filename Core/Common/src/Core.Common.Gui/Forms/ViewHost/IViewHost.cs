@@ -52,6 +52,11 @@ namespace Core.Common.Gui.Forms.ViewHost
         event EventHandler<ViewChangeEventArgs> ViewOpened;
 
         /// <summary>
+        /// Fired when an already opened document view or tool view is brought to front.
+        /// </summary>
+        event EventHandler<ViewChangeEventArgs> ViewBroughtToFront;
+
+        /// <summary>
         /// Fired when a document view or a tool view has been closed.
         /// </summary>
         event EventHandler<ViewChangeEventArgs> ViewClosed;

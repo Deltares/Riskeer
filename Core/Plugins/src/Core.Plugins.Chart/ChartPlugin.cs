@@ -58,6 +58,7 @@ namespace Core.Plugins.Chart
 
             chartLegendController.ToggleView();
             Gui.ViewHost.ViewOpened += OnViewOpened;
+            Gui.ViewHost.ViewBroughtToFront += OnViewBroughtToFront;
             Gui.ViewHost.ViewClosed += OnViewClosed;
             Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
             activated = true;
@@ -78,6 +79,7 @@ namespace Core.Plugins.Chart
             if (activated)
             {
                 Gui.ViewHost.ViewOpened -= OnViewOpened;
+                Gui.ViewHost.ViewBroughtToFront -= OnViewBroughtToFront;
                 Gui.ViewHost.ViewClosed -= OnViewClosed;
                 Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
             }
@@ -112,17 +114,22 @@ namespace Core.Plugins.Chart
             };
         }
 
+        private void OnViewOpened(object sender, ViewChangeEventArgs e)
+        {
+            UpdateComponentsForView(e.View as IChartView);
+        }
+
+        private void OnViewBroughtToFront(object sender, ViewChangeEventArgs e)
+        {
+            UpdateComponentsForView(e.View as IChartView);
+        }
+
         private void OnViewClosed(object sender, ViewChangeEventArgs e)
         {
             if (ReferenceEquals(currentChartView, e.View))
             {
                 UpdateComponentsForView(null);
             }
-        }
-
-        private void OnViewOpened(object sender, ViewChangeEventArgs e)
-        {
-            UpdateComponentsForView(e.View as IChartView);
         }
 
         private void OnActiveDocumentViewChanged(object sender, EventArgs e)

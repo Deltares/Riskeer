@@ -380,11 +380,12 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void BringToFront_ActiveDocumentView_ActiveViewNotAffectedAndNoActiveViewEventsFired()
+        public void BringToFront_ActiveDocumentView_ViewBroughtToFrontFiredButActiveViewNotAffectedAndNoActiveViewEventsFired()
         {
             // Setup
             var testView1 = new TestView();
             var testView2 = new TestView();
+            var viewBroughtToFrontCounter = 0;
             var activeDocumentViewChangingCounter = 0;
             var activeDocumentViewChangedCounter = 0;
             var activeViewChangedCounter = 0;
@@ -395,6 +396,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddDocumentView(testView2);
                 SetActiveView(avalonDockViewHost, testView1);
 
+                avalonDockViewHost.ViewBroughtToFront += (sender, args) => viewBroughtToFrontCounter++;
                 avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
                 avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
                 avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
@@ -403,6 +405,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.BringToFront(testView1);
 
                 // Assert
+                Assert.AreEqual(1, viewBroughtToFrontCounter);
                 Assert.AreEqual(0, activeDocumentViewChangingCounter);
                 Assert.AreEqual(0, activeDocumentViewChangedCounter);
                 Assert.AreEqual(0, activeViewChangedCounter);
@@ -412,11 +415,12 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void BringToFront_NonActiveDocumentView_ActiveViewNotAffectedAndNoActiveViewEventsFired()
+        public void BringToFront_NonActiveDocumentView_ViewBroughtToFrontFiredButActiveViewNotAffectedAndNoActiveViewEventsFired()
         {
             // Setup
             var testView1 = new TestView();
             var testView2 = new TestView();
+            var viewBroughtToFrontCounter = 0;
             var activeDocumentViewChangingCounter = 0;
             var activeDocumentViewChangedCounter = 0;
             var activeViewChangedCounter = 0;
@@ -427,6 +431,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddDocumentView(testView2);
                 SetActiveView(avalonDockViewHost, testView2);
 
+                avalonDockViewHost.ViewBroughtToFront += (sender, args) => viewBroughtToFrontCounter++;
                 avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
                 avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
                 avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
@@ -435,6 +440,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.BringToFront(testView1);
 
                 // Assert
+                Assert.AreEqual(1, viewBroughtToFrontCounter);
                 Assert.AreEqual(0, activeDocumentViewChangingCounter);
                 Assert.AreEqual(0, activeDocumentViewChangedCounter);
                 Assert.AreEqual(0, activeViewChangedCounter);
@@ -709,11 +715,12 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void BringToFront_ActiveToolView_ActiveViewNotAffectedAndNoActiveViewEventsFired()
+        public void BringToFront_ActiveToolView_ViewBroughtToFrontFiredButActiveViewNotAffectedAndNoActiveViewEventsFired()
         {
             // Setup
             var testView1 = new TestView();
             var testView2 = new TestView();
+            var viewBroughtToFrontCounter = 0;
             var activeDocumentViewChangingCounter = 0;
             var activeDocumentViewChangedCounter = 0;
             var activeViewChangedCounter = 0;
@@ -724,6 +731,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddToolView(testView2, ToolViewLocation.Bottom);
                 SetActiveView(avalonDockViewHost, testView1);
 
+                avalonDockViewHost.ViewBroughtToFront += (sender, args) => viewBroughtToFrontCounter++;
                 avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
                 avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
                 avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
@@ -732,6 +740,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.BringToFront(testView1);
 
                 // Assert
+                Assert.AreEqual(1, viewBroughtToFrontCounter);
                 Assert.AreEqual(0, activeDocumentViewChangingCounter);
                 Assert.AreEqual(0, activeDocumentViewChangedCounter);
                 Assert.AreEqual(0, activeViewChangedCounter);
@@ -740,11 +749,12 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void BringToFront_NonActiveToolView_ActiveViewNotAffectedAndNoActiveViewEventsFired()
+        public void BringToFront_NonActiveToolView_ViewBroughtToFrontFiredButActiveViewNotAffectedAndNoActiveViewEventsFired()
         {
             // Setup
             var testView1 = new TestView();
             var testView2 = new TestView();
+            var viewBroughtToFrontCounter = 0;
             var activeDocumentViewChangingCounter = 0;
             var activeDocumentViewChangedCounter = 0;
             var activeViewChangedCounter = 0;
@@ -755,6 +765,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddToolView(testView2, ToolViewLocation.Bottom);
                 SetActiveView(avalonDockViewHost, testView2);
 
+                avalonDockViewHost.ViewBroughtToFront += (sender, args) => viewBroughtToFrontCounter++;
                 avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
                 avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
                 avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
@@ -763,6 +774,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.BringToFront(testView1);
 
                 // Assert
+                Assert.AreEqual(1, viewBroughtToFrontCounter);
                 Assert.AreEqual(0, activeDocumentViewChangingCounter);
                 Assert.AreEqual(0, activeDocumentViewChangedCounter);
                 Assert.AreEqual(0, activeViewChangedCounter);

@@ -61,6 +61,7 @@ namespace Core.Plugins.Map
 
             mapLegendController.ToggleView();
             Gui.ViewHost.ViewOpened += OnViewOpened;
+            Gui.ViewHost.ViewBroughtToFront += OnViewBroughtToFront;
             Gui.ViewHost.ViewClosed += OnViewClosed;
             Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
             activated = true;
@@ -94,6 +95,7 @@ namespace Core.Plugins.Map
             if (activated)
             {
                 Gui.ViewHost.ViewOpened -= OnViewOpened;
+                Gui.ViewHost.ViewBroughtToFront -= OnViewBroughtToFront;
                 Gui.ViewHost.ViewClosed -= OnViewClosed;
                 Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
             }
@@ -129,6 +131,11 @@ namespace Core.Plugins.Map
             view?.Map.ZoomToAllVisibleLayers();
 
             UpdateComponentsForView(view);
+        }
+
+        private void OnViewBroughtToFront(object sender, ViewChangeEventArgs e)
+        {
+            UpdateComponentsForView(e.View as IMapView);
         }
 
         private void OnViewClosed(object sender, ViewChangeEventArgs e)

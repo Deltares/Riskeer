@@ -93,6 +93,8 @@ namespace Core.Plugins.Chart.Test
                 viewHost.Expect(vm => vm.ActiveDocumentViewChanged -= null).IgnoreArguments();
                 viewHost.Expect(vm => vm.ViewOpened += null).IgnoreArguments();
                 viewHost.Expect(vm => vm.ViewOpened -= null).IgnoreArguments();
+                viewHost.Expect(vm => vm.ViewBroughtToFront += null).IgnoreArguments();
+                viewHost.Expect(vm => vm.ViewBroughtToFront -= null).IgnoreArguments();
                 viewHost.Expect(vm => vm.ViewClosed += null).IgnoreArguments();
                 viewHost.Expect(vm => vm.ViewClosed -= null).IgnoreArguments();
 
