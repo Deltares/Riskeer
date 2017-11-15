@@ -30,7 +30,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.IO.FileImporters;
@@ -66,7 +65,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                     FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
                 }
             };
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -124,7 +122,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -174,15 +171,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             mockRepository.VerifyAll();
         }
 
-        private static void AddSectionToAssessmentSection(AssessmentSection assessmentSection)
-        {
-            assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-        }
-
         private static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
         {
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -222,7 +210,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -299,7 +286,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -352,7 +338,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -418,7 +403,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -460,7 +444,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -511,7 +494,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -600,7 +582,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -659,7 +640,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -719,7 +699,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -779,7 +758,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -840,7 +818,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -887,7 +864,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -941,7 +917,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -1029,7 +1004,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -1088,7 +1062,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -1148,7 +1121,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -1208,7 +1180,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -1269,7 +1240,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -1316,7 +1286,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {

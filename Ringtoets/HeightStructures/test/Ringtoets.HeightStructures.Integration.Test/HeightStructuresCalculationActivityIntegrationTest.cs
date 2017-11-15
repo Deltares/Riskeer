@@ -23,13 +23,11 @@ using System;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
@@ -64,12 +62,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
@@ -108,12 +100,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
             }
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =
@@ -174,12 +160,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
             }
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =
@@ -223,12 +203,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
             }
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =
@@ -284,12 +258,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
             }
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 InputParameters =
@@ -339,12 +307,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =
@@ -387,12 +349,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =
@@ -435,12 +391,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =

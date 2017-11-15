@@ -122,7 +122,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Run_InvalidPreprocessorDirectory_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
-            const string invalidPreprocessorDirectory = "Preprocessor";
+            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
             const string locationName = "testLocation";
             var duneLocation = new TestDuneLocation(locationName);
 

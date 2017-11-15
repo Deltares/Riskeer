@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Service.Test
         public void Validate_InvalidPreprocessorDirectory_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string invalidPreprocessorDirectory = "Preprocessor";
+            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
             var valid = true;
 
             // Call

@@ -146,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             mockRepository.ReplayAll();
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
-            const string invalidPreprocessorDirectory = "Preprocessor";
+            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
 
             var isValid = true;
 

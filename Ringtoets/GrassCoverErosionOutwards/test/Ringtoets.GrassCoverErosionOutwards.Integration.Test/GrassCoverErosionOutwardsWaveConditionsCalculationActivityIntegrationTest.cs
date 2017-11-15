@@ -114,7 +114,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "InvalidPreprocessorDirectory")
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "NonExistingPreprocessorDirectory")
             };
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation

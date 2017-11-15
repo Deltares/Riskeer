@@ -112,7 +112,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Validate_InvalidPreprocessorDirectory_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string notValidPreprocessorDirectory = "Preprocessor";
+            const string notValidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
             var valid = true;
 
             // Call

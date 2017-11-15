@@ -139,7 +139,7 @@ namespace Ringtoets.Revetment.Service.Test
         {
             // Setup 
             var isValid = false;
-            const string invalidPreprocessorDirectory = "Preprocessor";
+            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(),

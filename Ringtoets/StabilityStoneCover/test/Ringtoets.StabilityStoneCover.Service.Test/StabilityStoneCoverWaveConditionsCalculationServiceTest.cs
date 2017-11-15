@@ -145,7 +145,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             mockRepository.ReplayAll();
 
             StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
-            const string invalidPreprocessorDirectory = "Preprocessor";
+            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
 
             var isValid = true;
 

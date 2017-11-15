@@ -23,13 +23,11 @@ using System;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
@@ -64,12 +62,6 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             };
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             var activity = new StabilityPointStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
@@ -108,12 +100,6 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             }
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
@@ -176,12 +162,6 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             }
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
@@ -227,12 +207,6 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             }
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
@@ -290,12 +264,6 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             }
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 InputParameters =
@@ -336,28 +304,12 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
-                    FilePath = validFilePath,
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                    }
+                    FilePath = validFilePath
                 }
             };
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new TestStabilityPointStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
-                }
-            };
+            var calculation = new TestStabilityPointStructuresCalculation();
 
             var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -384,28 +336,12 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
                 {
-                    FilePath = validFilePath,
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                    }
+                    FilePath = validFilePath
                 }
             };
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new TestStabilityPointStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
-                }
-            };
+            var calculation = new TestStabilityPointStructuresCalculation();
 
             var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -430,30 +366,14 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "NonExistingPreprocessorDirectory")
                 {
-                    FilePath = validFilePath,
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                    }
+                    FilePath = validFilePath
                 }
             };
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new TestStabilityPointStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
-                }
-            };
+            var calculation = new TestStabilityPointStructuresCalculation();
 
             var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

@@ -23,7 +23,6 @@ using System;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -32,7 +31,6 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
@@ -64,12 +62,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             };
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             var activity = new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
@@ -108,12 +100,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             }
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new TestClosingStructuresCalculation
             {
                 InputParameters =
@@ -175,12 +161,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             }
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new TestClosingStructuresCalculation
             {
                 InputParameters =
@@ -224,12 +204,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             }
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new TestClosingStructuresCalculation
             {
                 InputParameters =
@@ -286,12 +260,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             }
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
@@ -332,28 +300,12 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
-                    FilePath = validFilePath,
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                    }
+                    FilePath = validFilePath
                 }
             };
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new TestClosingStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
-                }
-            };
+            var calculation = new TestClosingStructuresCalculation();
 
             var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -380,28 +332,12 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
                 {
-                    FilePath = validFilePath,
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                    }
+                    FilePath = validFilePath
                 }
             };
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new TestClosingStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
-                }
-            };
+            var calculation = new TestClosingStructuresCalculation();
 
             var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -426,30 +362,14 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "NonExistingPreprocessorDirectory")
                 {
-                    FilePath = validFilePath,
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                    }
+                    FilePath = validFilePath
                 }
             };
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new TestClosingStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
-                }
-            };
+            var calculation = new TestClosingStructuresCalculation();
 
             var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

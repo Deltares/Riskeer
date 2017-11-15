@@ -145,7 +145,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             mockRepository.ReplayAll();
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
-            const string invalidPreprocessorDirectory = "Preprocessor";
+            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
 
             var isValid = true;
 

@@ -182,7 +182,7 @@ namespace Ringtoets.Common.Service.Test
         public void Run_InvalidPreprocessorDirectory_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
-            const string invalidPreprocessorDirectory = "Preprocessor";
+            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
             const string locationName = "testLocation";
             const string activityDescription = "activityDescription";
 

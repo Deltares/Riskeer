@@ -141,7 +141,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                                               mockRepository);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "Preprocessor")
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "NonExistingPreprocessorDirectory")
             {
                 FilePath = validFilePath,
                 Locations =
@@ -2824,7 +2824,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "NonExistingPreprocessorDirectory")
             {
                 FilePath = validFilePath,
                 Locations =
