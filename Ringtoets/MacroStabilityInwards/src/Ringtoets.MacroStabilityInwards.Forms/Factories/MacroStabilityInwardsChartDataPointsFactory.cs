@@ -419,7 +419,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             {
                 new Point2D(surfaceLine.LocalGeometry.First().X, tangentLine),
                 new Point2D(surfaceLine.LocalGeometry.Last().X, tangentLine)
-            });
+            }).ToArray();
         }
 
         /// <summary>
