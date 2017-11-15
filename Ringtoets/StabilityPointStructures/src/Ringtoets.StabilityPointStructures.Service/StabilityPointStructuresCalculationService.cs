@@ -98,7 +98,7 @@ namespace Ringtoets.StabilityPointStructures.Service
             return input;
         }
 
-        private StructuresStabilityPointLowSillLinearCalculationInput CreateLowSillLinearCalculationInput(
+        private static StructuresStabilityPointLowSillLinearCalculationInput CreateLowSillLinearCalculationInput(
             StabilityPointStructuresInput structureInput,
             GeneralStabilityPointStructuresInput generalInput)
         {
@@ -170,7 +170,7 @@ namespace Ringtoets.StabilityPointStructures.Service
             return structuresStabilityPointLowSillLinearCalculationInput;
         }
 
-        private StructuresStabilityPointLowSillQuadraticCalculationInput CreateLowSillQuadraticCalculationInput(
+        private static StructuresStabilityPointLowSillQuadraticCalculationInput CreateLowSillQuadraticCalculationInput(
             StabilityPointStructuresInput structureInput,
             GeneralStabilityPointStructuresInput generalInput)
         {
@@ -240,7 +240,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.WidthFlowApertures.StandardDeviation);
         }
 
-        private StructuresStabilityPointFloodedCulvertLinearCalculationInput CreateFloodedCulvertLinearCalculationInput(
+        private static StructuresStabilityPointFloodedCulvertLinearCalculationInput CreateFloodedCulvertLinearCalculationInput(
             StabilityPointStructuresInput structureInput,
             GeneralStabilityPointStructuresInput generalInput)
         {
@@ -310,7 +310,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.StabilityLinearLoadModel.CoefficientOfVariation);
         }
 
-        private StructuresStabilityPointFloodedCulvertQuadraticCalculationInput CreateFloodedCulvertQuadraticCalculationInput(
+        private static StructuresStabilityPointFloodedCulvertQuadraticCalculationInput CreateFloodedCulvertQuadraticCalculationInput(
             StabilityPointStructuresInput structureInput,
             GeneralStabilityPointStructuresInput generalInput)
         {

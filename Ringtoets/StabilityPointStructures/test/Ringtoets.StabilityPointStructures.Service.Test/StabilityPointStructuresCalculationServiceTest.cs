@@ -1149,7 +1149,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
                 StructuresStabilityPointCalculationInput actualInput = calculationInputs[0];
                 Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
-                Assert.IsFalse(calculator.IsCanceled);
             }
             mockRepository.VerifyAll();
         }

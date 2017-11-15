@@ -206,7 +206,7 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Calculate_ValidDesignWaterLevelCalculationWithPreprocessorDirectory_StartsCalculationWithRightParametersAndLogs(bool usePreprocessor)
+        public void Calculate_ValidWaveHeightCalculationWithPreprocessorDirectory_StartsCalculationWithRightParameters(bool usePreprocessor)
         {
             // Setup
             string preprocessorDirectory = usePreprocessor
@@ -242,7 +242,6 @@ namespace Ringtoets.Common.Service.Test
 
                 // Assert
                 Assert.AreEqual(usePreprocessor, calculator.ReceivedInputs.Single().PreprocessorSetting.RunPreprocessor);
-                Assert.IsFalse(calculator.IsCanceled);
             }
             mockRepository.VerifyAll();
         }

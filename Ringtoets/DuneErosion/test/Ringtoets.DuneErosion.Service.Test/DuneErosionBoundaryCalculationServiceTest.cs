@@ -192,7 +192,6 @@ namespace Ringtoets.DuneErosion.Service.Test
                 DunesBoundaryConditionsCalculationInput actualInput = calculator.ReceivedInputs.Single();
                 AssertInput(expectedInput, actualInput);
                 Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
-                Assert.IsFalse(calculator.IsCanceled);
             }
 
             mockRepository.VerifyAll();
