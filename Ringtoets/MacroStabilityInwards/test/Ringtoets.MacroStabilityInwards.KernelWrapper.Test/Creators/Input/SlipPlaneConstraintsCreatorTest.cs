@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        public void Create_SoilProfile_ExpectedLayersWithSoil()
+        public void Create_WithUpliftVanSlipPlaneConstraints_ReturnsExpectedSlipPlaneConstraints()
         {
             // Setup
             var random = new Random(39);

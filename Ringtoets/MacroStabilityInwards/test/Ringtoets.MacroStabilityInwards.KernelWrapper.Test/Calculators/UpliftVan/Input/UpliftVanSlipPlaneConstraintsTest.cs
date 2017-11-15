@@ -58,11 +58,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
             // Call
             var constraints = new UpliftVanSlipPlaneConstraints(createZones,
-                                                                        automaticForbiddenZones,
-                                                                        zoneBoundaryLeft,
-                                                                        zoneBoundaryRight,
-                                                                        slipPlaneMinimumDepth,
-                                                                        slipPlaneMinimumLength);
+                                                                automaticForbiddenZones,
+                                                                zoneBoundaryLeft,
+                                                                zoneBoundaryRight,
+                                                                slipPlaneMinimumDepth,
+                                                                slipPlaneMinimumLength);
 
             // Assert
             Assert.AreEqual(createZones, constraints.CreateZones);

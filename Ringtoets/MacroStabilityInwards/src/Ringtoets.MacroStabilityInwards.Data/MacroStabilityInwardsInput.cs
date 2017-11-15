@@ -688,6 +688,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
         /// <summary>
         /// Gets or sets the left zone boundary.
+        /// [m]
         /// </summary>
         public RoundedDouble ZoneBoundaryLeft
         {
@@ -703,6 +704,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
         /// <summary>
         /// Gets or sets the right zone boundary.
+        /// [m]
         /// </summary>
         public RoundedDouble ZoneBoundaryRight
         {

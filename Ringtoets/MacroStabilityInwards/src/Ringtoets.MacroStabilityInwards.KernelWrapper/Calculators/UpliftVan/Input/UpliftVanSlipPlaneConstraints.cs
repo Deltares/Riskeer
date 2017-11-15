@@ -26,6 +26,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
     /// </summary>
     public class UpliftVanSlipPlaneConstraints
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="UpliftVanSlipPlaneConstraints"/>.
+        /// </summary>
+        /// <remarks>The following values are set:
+        /// <list type="bullet">
+        /// <item><see cref="CreateZones"/> is set to <c>false</c>;</item>
+        /// <item><see cref="AutomaticForbiddenZones"/> is set to <c>false</c>;</item>
+        /// <item><see cref="ZoneBoundaryLeft"/> is set to <see cref="double.NaN"/>;</item>
+        /// <item><see cref="ZoneBoundaryRight"/> is set to <see cref="double.NaN"/>;</item>
+        /// <item><see cref="SlipPlaneMinimumLength"/> is set to <see cref="double.NaN"/>;</item>
+        /// <item><see cref="SlipPlaneMinimumDepth"/> is set to <see cref="double.NaN"/>.</item>
+        /// </list>
+        /// </remarks>
         public UpliftVanSlipPlaneConstraints()
         {
             CreateZones = false;
@@ -37,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="UpliftVanSlipPlane"/>.
+        /// Creates a new instance of <see cref="UpliftVanSlipPlaneConstraints"/>.
         /// </summary>
         /// <param name="createZones">Indicator whether zones should be created.</param>
         /// <param name="automaticForbiddenZones">Indicator whether forbidden zones
@@ -69,11 +82,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
 
         /// <summary>
         /// Gets the left zone boundary.
+        /// [m]
         /// </summary>
         public double ZoneBoundaryLeft { get; }
 
         /// <summary>
         /// Gets the right zone boundary.
+        /// [m]
         /// </summary>
         public double ZoneBoundaryRight { get; }
 

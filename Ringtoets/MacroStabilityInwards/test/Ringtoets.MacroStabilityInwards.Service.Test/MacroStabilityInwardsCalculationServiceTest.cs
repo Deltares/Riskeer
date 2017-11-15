@@ -592,6 +592,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             Assert.AreEqual(originalInput.CreateZones, actualConstraints.CreateZones);
             Assert.AreEqual(originalInput.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, actualConstraints.AutomaticForbiddenZones);
+            Assert.AreEqual(originalInput.ZoneBoundaryLeft, actualConstraints.ZoneBoundaryLeft);
+            Assert.AreEqual(originalInput.ZoneBoundaryRight, actualConstraints.ZoneBoundaryRight);
             Assert.AreEqual(originalInput.SlipPlaneMinimumDepth, actualConstraints.SlipPlaneMinimumDepth);
             Assert.AreEqual(originalInput.SlipPlaneMinimumLength, actualConstraints.SlipPlaneMinimumLength);
         }

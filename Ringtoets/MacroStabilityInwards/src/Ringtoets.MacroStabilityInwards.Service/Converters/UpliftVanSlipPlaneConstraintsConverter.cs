@@ -32,7 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
     internal static class UpliftVanSlipPlaneConstraintsConverter
     {
         /// <summary>
-        /// Converts <see cref="MacroStabilityInwardsInput"/> slip plane properties
+        /// Converts <see cref="MacroStabilityInwardsInput"/> slip plane constraints properties
         /// into <see cref="UpliftVanSlipPlaneConstraints"/>.
         /// </summary>
         /// <param name="input">The input to get the properties from.</param>
@@ -57,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
             }
 
             return new UpliftVanSlipPlaneConstraints(input.CreateZones,
-                                                     input.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic,
+                                                     false,
                                                      input.ZoneBoundaryLeft,
                                                      input.ZoneBoundaryRight,
                                                      input.SlipPlaneMinimumDepth,
