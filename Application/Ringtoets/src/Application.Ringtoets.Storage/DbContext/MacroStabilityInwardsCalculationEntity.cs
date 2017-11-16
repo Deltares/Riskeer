@@ -103,6 +103,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside { get; set; }
         public double? LocationInputDailyPhreaticLineOffsetDikeToeAtPolder { get; set; }
         public byte CreateZones { get; set; }
+        public byte ZoningBoundariesDeterminationType { get; set; }
         public double? ZoneBoundaryLeft { get; set; }
         public double? ZoneBoundaryRight { get; set; }
 
