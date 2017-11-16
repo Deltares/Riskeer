@@ -126,6 +126,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             CoreCloneAssert.AreObjectClones(original.RightGrid, clone.RightGrid, AreClones);
 
             Assert.AreEqual(original.CreateZones, clone.CreateZones);
+            Assert.AreEqual(original.ZoningBoundariesDeterminationType, clone.ZoningBoundariesDeterminationType);
+            Assert.AreEqual(original.ZoneBoundaryLeft, clone.ZoneBoundaryLeft);
+            Assert.AreEqual(original.ZoneBoundaryRight, clone.ZoneBoundaryRight);
         }
 
         /// <summary>
