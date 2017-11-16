@@ -74,7 +74,7 @@ namespace Core.Components.Gis.IO.Readers
         /// Determines whether the specified attribute has been defined in the shapefile attributes.
         /// </summary>
         /// <param name="attributeName">Name of the attribute.</param>
-        /// <returns><c>True</c> is the attribute is defined, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> is the attribute is defined, <c>false</c> otherwise.</returns>
         /// <remarks>This check is case-sensitive.</remarks>
         public bool HasAttribute(string attributeName)
         {

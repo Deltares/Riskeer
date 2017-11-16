@@ -40,7 +40,7 @@ namespace Core.Common.Gui.Commands
         /// Checks whether the current project has unsaved changes. If so, these unsaved changes
         /// will be handled.
         /// </summary>
-        /// <returns><c>True</c> if there were no unsaved changes or when the changes were
+        /// <returns><c>true</c> if there were no unsaved changes or when the changes were
         /// successfully handled, <c>false</c> if the unsaved changes were not handled.</returns>
         bool HandleUnsavedChanges();
 

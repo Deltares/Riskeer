@@ -51,7 +51,7 @@ namespace Core.Common.Gui.Commands
         /// Indicates if a there are any views available for the application's selection.
         /// </summary>
         /// <param name="viewData">The data object to open views for.</param>
-        /// <returns><c>True</c> if there are any views for <paramref name="viewData"/>, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if there are any views for <paramref name="viewData"/>, <c>false</c> otherwise.</returns>
         bool CanOpenViewFor(object viewData);
     }
 }

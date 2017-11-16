@@ -73,7 +73,7 @@ namespace Ringtoets.Revetment.Service
         /// <param name="waveConditionsInput">The input of the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
         /// <param name="designWaterLevelName">The name of the design water level property.</param>
-        /// <returns><c>True</c> if <paramref name="waveConditionsInput"/> has no validation errors; <c>False</c> otherwise.</returns>
+        /// <returns><c>true</c> if <paramref name="waveConditionsInput"/> has no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/>
         /// or <paramref name="designWaterLevelName"/> is <c>null</c>.</exception>
         protected static bool ValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput,

@@ -112,8 +112,8 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
-        /// Returns <c>true</c> when the <see cref="DataGridView.CurrentCell"/> is in edit mode.
-        /// <c>False</c> otherwise.
+        /// Returns <c>true</c> when the <see cref="DataGridView.CurrentCell"/> is in edit mode,
+        /// <c>false</c> otherwise.
         /// </summary>
         public bool IsCurrentCellInEditMode
         {

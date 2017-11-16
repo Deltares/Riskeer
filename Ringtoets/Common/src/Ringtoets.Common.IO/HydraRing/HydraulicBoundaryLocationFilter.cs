@@ -63,7 +63,7 @@ namespace Ringtoets.Common.IO.HydraRing
         /// should be imported.
         /// </summary>
         /// <param name="locationId">The name of the location.</param>
-        /// <returns><c>True</c> if the location should be imported, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the location should be imported, <c>false</c> otherwise.</returns>
         public bool ShouldInclude(long locationId)
         {
             int matchingIndex = locationsToFilterOut.BinarySearch(locationId);

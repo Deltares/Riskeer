@@ -106,8 +106,8 @@ namespace Core.Common.Base
         /// Removes the first occurrence of <paramref name="item"/> in the collection.
         /// </summary>
         /// <param name="item">The item of type <see cref="TElement"/> to be removed.</param>
-        /// <returns><c>True</c> if the <paramref name="item"/> was successfully removed from the collection;
-        /// <c>False</c> if otherwise or if the <paramref name="item"/> was not found in the collection. </returns>
+        /// <returns><c>true</c> if the <paramref name="item"/> was successfully removed from the collection;
+        /// <c>false</c> if otherwise or if the <paramref name="item"/> was not found in the collection. </returns>
         public bool Remove(TElement item)
         {
             bool remove = collection.Remove(item);

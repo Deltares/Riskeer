@@ -189,7 +189,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <returns><c>True</c> if the text matches a VERSIE key-value pair and has been
+        /// <returns><c>true</c> if the text matches a VERSIE key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the VERSIE key does
         /// not represent a valid version code or has already been defined or the version
@@ -266,7 +266,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="text">The text.</param>
         /// <param name="data">The data to be updated.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <returns><c>True</c> if the text matches an ID key-value pair and has been
+        /// <returns><c>true</c> if the text matches an ID key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the ID key does
         /// not represent an id or has already been defined.</exception>
@@ -326,7 +326,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="text">The text.</param>
         /// <param name="data">The data to be updated.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <returns><c>True</c> if the text matches a RICHTING key-value pair and has been
+        /// <returns><c>true</c> if the text matches a RICHTING key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the RICHTING key does
         /// not represent a valid number or has already been defined or the orientation value
@@ -403,7 +403,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="text">The text.</param>
         /// <param name="data">The data to be updated.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <returns><c>True</c> if the text matches a DAM key-value pair and has been
+        /// <returns><c>true</c> if the text matches a DAM key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the DAM key does
         /// not represent a valid <see cref="DamType"/> value or has already been defined.</exception>
@@ -468,7 +468,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="text">The text.</param>
         /// <param name="data">The data to be updated.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <returns><c>True</c> if the text matches a DAMWAND key-value pair and has been
+        /// <returns><c>true</c> if the text matches a DAMWAND key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the DAMWAND key
         /// does not represent a valid <see cref="SheetPileType"/> value or has already been defined.</exception>
@@ -533,7 +533,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="text">The text.</param>
         /// <param name="data">The data to be updated.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <returns><c>True</c> if the text matches a DAMHOOGTE key-value pair and has been
+        /// <returns><c>true</c> if the text matches a DAMHOOGTE key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the DAMHOOGTE key
         /// does not represent a valid number or has already been defined.</exception>
@@ -589,7 +589,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="text">The text.</param>
         /// <param name="data">The data to be updated.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <returns><c>True</c> if the text matches a KRUINHOOGTE key-value pair and has been
+        /// <returns><c>true</c> if the text matches a KRUINHOOGTE key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">The value after the KRUINHOOGTE key
         /// does not represent a valid number or has already been defined.</exception>
@@ -646,7 +646,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="data">The data to be updated.</param>
         /// <param name="reader">The reader of the file.</param>
         /// <param name="lineNumber">The line number.</param>
-        /// <returns><c>True</c> if the text matches a DIJK key-value pair and has been
+        /// <returns><c>true</c> if the text matches a DIJK key-value pair and has been
         /// validated successfully; <c>false</c> otherwise.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when
         /// <list type="bullet">

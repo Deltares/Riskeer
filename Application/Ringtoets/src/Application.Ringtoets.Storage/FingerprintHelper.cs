@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage
         /// </summary>
         /// <param name="array1">The first array, cannot be <c>null</c>.</param>
         /// <param name="array2">The second array, cannot be <c>null</c>.</param>
-        /// <returns><c>True</c> if the two fingerprints are equal, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the two fingerprints are equal, <c>false</c> otherwise.</returns>
         public static bool AreEqual(byte[] array1, byte[] array2)
         {
             if (array1.Length != array2.Length)
