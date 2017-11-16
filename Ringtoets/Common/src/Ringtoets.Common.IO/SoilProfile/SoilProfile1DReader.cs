@@ -165,22 +165,11 @@ namespace Ringtoets.Common.IO.SoilProfile
                 throw;
             }
 
-            try
-            {
-                MoveToNextProfile(criticalProperties.ProfileId);
-                return new SoilProfile1D(criticalProperties.ProfileId,
-                                         criticalProperties.ProfileName,
-                                         properties.Bottom,
-                                         soilLayers);
-            }
-            catch (ArgumentException exception)
-            {
-                MoveToNextProfile(criticalProperties.ProfileId);
-                throw new SoilProfileReadException(
-                    Resources.SoilProfile1DReader_ReadSoilProfile_Failed_to_construct_profile_from_read_data,
-                    criticalProperties.ProfileName,
-                    exception);
-            }
+            MoveToNextProfile(criticalProperties.ProfileId);
+            return new SoilProfile1D(criticalProperties.ProfileId,
+                                     criticalProperties.ProfileName,
+                                     properties.Bottom,
+                                     soilLayers);
         }
 
         private void PrepareReader()

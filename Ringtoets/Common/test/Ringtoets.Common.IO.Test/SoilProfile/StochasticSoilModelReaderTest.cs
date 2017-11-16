@@ -462,6 +462,32 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadStochasticSoilModel_ModelWithStochasticProfilesWith1DProfilesLastProfileEmpty_ReturnsModelWithStochasticProfiles()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "modelWith1dProfilesLastProfileEmpty.soil");
+
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                reader.Validate();
+
+                // Call
+                StochasticSoilModel model = reader.ReadStochasticSoilModel();
+
+                // Assert
+                Assert.AreEqual("43003_Piping", model.Name);
+                Assert.AreEqual(FailureMechanismType.Piping, model.FailureMechanismType);
+                Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+                var emptyProfile = (SoilProfile1D) model.StochasticSoilProfiles.First().SoilProfile;
+                var profileWithLayers = (SoilProfile1D) model.StochasticSoilProfiles.Last().SoilProfile;
+                CollectionAssert.IsEmpty(emptyProfile.Layers);
+                CollectionAssert.IsNotEmpty(profileWithLayers.Layers);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
         public void ReadStochasticSoilModel_ModelWithStochasticProfilesWith2DProfiles_ReturnsModelWithStochasticProfiles()
         {
             // Setup
@@ -491,6 +517,32 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     0.05
                 }.OrderBy(p => p), model.StochasticSoilProfiles.Select(profile => profile.Probability));
                 CollectionAssert.AllItemsAreInstancesOfType(model.StochasticSoilProfiles.Select(profile => profile.SoilProfile), typeof(SoilProfile2D));
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadStochasticSoilModel_ModelWithStochasticProfilesWith2DProfilesLastProfileEmpty_ReturnsModelWithStochasticProfiles()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "modelWith2dProfilesLastProfileEmpty.soil");
+
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                reader.Validate();
+
+                // Call
+                StochasticSoilModel model = reader.ReadStochasticSoilModel();
+
+                // Assert
+                Assert.AreEqual("43003_Stability", model.Name);
+                Assert.AreEqual(FailureMechanismType.Stability, model.FailureMechanismType);
+                Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+                var emptyProfile = (SoilProfile2D) model.StochasticSoilProfiles.First().SoilProfile;
+                var profileWithLayers = (SoilProfile2D) model.StochasticSoilProfiles.Last().SoilProfile;
+                CollectionAssert.IsEmpty(emptyProfile.Layers);
+                CollectionAssert.IsNotEmpty(profileWithLayers.Layers);
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));

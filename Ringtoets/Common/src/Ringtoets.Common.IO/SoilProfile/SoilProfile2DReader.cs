@@ -174,39 +174,31 @@ namespace Ringtoets.Common.IO.SoilProfile
             var soilLayerGeometryLookup = new Dictionary<SoilLayer2DGeometry, Layer2DProperties>();
 
             long soilProfileId = criticalProperties.ProfileId;
+            var properties = new RequiredProfileProperties(this, criticalProperties.ProfileName);
 
             try
             {
-                var properties = new RequiredProfileProperties(this, criticalProperties.ProfileName);
-
                 var geometryReader = new SoilLayer2DGeometryReader();
                 for (var i = 1; i <= criticalProperties.LayerCount; i++)
                 {
                     ReadSoilLayerGeometryFrom(this, geometryReader, criticalProperties.ProfileName, soilLayerGeometryLookup);
                     MoveNext();
                 }
-
-                return new SoilProfile2D(soilProfileId,
-                                         criticalProperties.ProfileName,
-                                         GetHierarchicallyOrderedSoilLayers(soilLayerGeometryLookup).ToArray(),
-                                         GetPreconsolidationStresses(soilProfileId).ToArray())
-                {
-                    IntersectionX = properties.IntersectionX
-                };
             }
             catch (SoilProfileReadException)
             {
                 MoveToNextProfile(soilProfileId);
                 throw;
             }
-            catch (ArgumentException exception)
+
+            MoveToNextProfile(soilProfileId);
+            return new SoilProfile2D(soilProfileId,
+                                     criticalProperties.ProfileName,
+                                     GetHierarchicallyOrderedSoilLayers(soilLayerGeometryLookup).ToArray(),
+                                     GetPreconsolidationStresses(soilProfileId).ToArray())
             {
-                MoveToNextProfile(soilProfileId);
-                throw new SoilProfileReadException(
-                    Resources.SoilProfile1DReader_ReadSoilProfile_Failed_to_construct_profile_from_read_data,
-                    criticalProperties.ProfileName,
-                    exception);
-            }
+                IntersectionX = properties.IntersectionX
+            };
         }
 
         /// <summary>
