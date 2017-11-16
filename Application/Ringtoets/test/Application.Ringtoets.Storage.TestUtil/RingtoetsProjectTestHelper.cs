@@ -1417,6 +1417,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 NumberOfVerticalPoints = 6
                             },
                             CreateZones = false,
+                            ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Manual,
                             ZoneBoundaryLeft = (RoundedDouble) 10,
                             ZoneBoundaryRight = (RoundedDouble) 12
                         },
@@ -1500,6 +1501,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 NumberOfVerticalPoints = 6
                             },
                             CreateZones = false,
+                            ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Manual,
                             ZoneBoundaryLeft = (RoundedDouble) 5.4,
                             ZoneBoundaryRight = (RoundedDouble) 6.5
                         },
@@ -1577,7 +1579,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                         ZTop = (RoundedDouble) 30.5,
                         ZBottom = (RoundedDouble) 30.4,
                         NumberOfVerticalPoints = 6
-                    }
+                    },
+                    ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic,
+                    ZoneBoundaryLeft = (RoundedDouble) 1,
+                    ZoneBoundaryRight = (RoundedDouble) 2
                 },
                 Output = null,
                 SemiProbabilisticOutput = null

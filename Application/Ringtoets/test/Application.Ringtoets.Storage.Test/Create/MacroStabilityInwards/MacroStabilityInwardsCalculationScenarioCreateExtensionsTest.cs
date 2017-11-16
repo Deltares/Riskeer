@@ -246,6 +246,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                         NumberOfVerticalPoints = random.Next(1, 100)
                     },
                     CreateZones = random.NextBoolean(),
+                    ZoningBoundariesDeterminationType = random.NextEnumValue<MacroStabilityInwardsZoningBoundariesDeterminationType>(),
                     ZoneBoundaryLeft = random.NextRoundedDouble(2, 5),
                     ZoneBoundaryRight = random.NextRoundedDouble(6, 10)
                 }
