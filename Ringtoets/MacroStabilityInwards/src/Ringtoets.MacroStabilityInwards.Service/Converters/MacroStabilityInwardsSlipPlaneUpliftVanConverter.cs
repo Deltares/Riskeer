@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Core.Common.Base.Data;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
@@ -50,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
             MacroStabilityInwardsGrid leftGrid = ConvertGrid(result.LeftGrid);
             MacroStabilityInwardsGrid rightGrid = ConvertGrid(result.RightGrid);
 
-            return new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, result.TangentLines);
+            return new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, result.TangentLines.Select(tangentLine => new RoundedDouble(2, tangentLine)));
         }
 
         private static MacroStabilityInwardsGrid ConvertGrid(UpliftVanGrid grid)

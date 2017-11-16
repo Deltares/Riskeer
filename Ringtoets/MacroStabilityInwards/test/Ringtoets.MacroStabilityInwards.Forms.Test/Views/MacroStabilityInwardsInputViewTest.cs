@@ -364,6 +364,55 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
+        public void Data_WithValidTangentLineParameters_TangentLinesDataSet()
+        {
+            // Setup
+            using (var view = new MacroStabilityInwardsInputView())
+            {
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual,
+                        TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
+                        TangentLineZTop = (RoundedDouble) 5.0,
+                        TangentLineZBottom = (RoundedDouble) 0.0,
+                        TangentLineNumber = 3
+                    }
+                };
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                ChartDataCollection chartData = view.Chart.Data;
+                List<ChartData> chartDataList = chartData.Collection.ToList();
+                var tangentLinesData = (ChartMultipleLineData) chartDataList[tangentLinesIndex];
+                CollectionAssert.AreEqual(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(0.0, 5.0),
+                        new Point2D(1.58, 5.0)
+                    },
+                    new[]
+                    {
+                        new Point2D(0.0, 2.5),
+                        new Point2D(1.58, 2.5)
+                    },
+                    new[]
+                    {
+                        new Point2D(0.0, 0),
+                        new Point2D(1.58, 0)
+                    }
+                }, tangentLinesData.Lines);
+            }
+        }
+
+        [Test]
         public void UpdateObserver_CalculationNameUpdated_ChartTitleUpdated()
         {
             // Setup
@@ -726,6 +775,53 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
+        public void UpdateObserver_CalculationInputTangentLineSettingsUpdated_TangentLineChartDataUpdated()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = GetSurfaceLineWithGeometry()
+                }
+            };
+
+            using (var view = new MacroStabilityInwardsInputView
+            {
+                Data = calculation
+            })
+            {
+                MacroStabilityInwardsInput input = calculation.InputParameters;
+                input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual;
+                input.TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified;
+                input.TangentLineZTop = (RoundedDouble) 10;
+                input.TangentLineZBottom = (RoundedDouble) 5;
+                input.TangentLineNumber = 2;
+
+                // Call
+                calculation.InputParameters.NotifyObservers();
+
+                // Assert
+                ChartDataCollection chartData = view.Chart.Data;
+                List<ChartData> chartDataList = chartData.Collection.ToList();
+                var tangentLinesData = (ChartMultipleLineData) chartDataList[tangentLinesIndex];
+                CollectionAssert.AreEqual(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(0.0, 10.0),
+                        new Point2D(1.58, 10.0)
+                    },
+                    new[]
+                    {
+                        new Point2D(0.0, 5.0),
+                        new Point2D(1.58, 5.0)
+                    }
+                }, tangentLinesData.Lines);
+            }
+        }
+
+        [Test]
         public void GivenViewWithStochasticSoilProfile_WhenStochasticSoilProfileUpdated_ThenDataTableUpdated()
         {
             // Given
@@ -831,8 +927,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     SurfaceLine = GetSurfaceLineWithGeometry(),
                     GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual,
                     TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
-                    TangentLineZTop = new RoundedDouble(2, 10.0),
-                    TangentLineZBottom = new RoundedDouble(2, 5.0),
+                    TangentLineZTop = (RoundedDouble) 10.0,
+                    TangentLineZBottom = (RoundedDouble) 5.0,
                     TangentLineNumber = 2
                 }
             };

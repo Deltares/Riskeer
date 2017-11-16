@@ -205,7 +205,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             MacroStabilityInwardsInput macroStabilityInwardsInput = data.InputParameters;
             MacroStabilityInwardsSurfaceLine surfaceLine = macroStabilityInwardsInput.SurfaceLine;
-            IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile = data.InputParameters.StochasticSoilProfile?.SoilProfile;
+            IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile = macroStabilityInwardsInput.StochasticSoilProfile?.SoilProfile;
 
             SetSurfaceLineChartData(surfaceLine);
             SetSoilProfileChartData(surfaceLine, soilProfile);
@@ -220,12 +220,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             leftGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(leftGrid, gridDeterminationType);
             rightGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(rightGrid, gridDeterminationType);
 
-            tangentLinesData.Lines = MacroStabilityInwardsChartDataPointsFactory.CreateInputTangentLines(data.InputParameters.GridDeterminationType,
-                                                                                                         data.InputParameters.TangentLineDeterminationType,
-                                                                                                         data.InputParameters.TangentLineZBottom,
-                                                                                                         data.InputParameters.TangentLineZTop,
-                                                                                                         data.InputParameters.TangentLineNumber,
-                                                                                                         data.InputParameters.SurfaceLine);
+            tangentLinesData.Lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(macroStabilityInwardsInput.GridDeterminationType,
+                                                                                                    macroStabilityInwardsInput.TangentLineDeterminationType,
+                                                                                                    macroStabilityInwardsInput.TangentLineZBottom,
+                                                                                                    macroStabilityInwardsInput.TangentLineZTop,
+                                                                                                    macroStabilityInwardsInput.TangentLineNumber,
+                                                                                                    macroStabilityInwardsInput.SurfaceLine);
         }
 
         private void SetWaternetExtremeChartData(MacroStabilityInwardsWaternet waternet, MacroStabilityInwardsSurfaceLine surfaceLine)

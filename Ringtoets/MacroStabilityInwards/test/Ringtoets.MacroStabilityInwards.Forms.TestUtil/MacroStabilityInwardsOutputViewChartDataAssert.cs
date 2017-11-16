@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
@@ -230,12 +231,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="tangentLines"/> and <paramref name="surfaceLine"/>.
         /// </exception>
-        private static void AssertTangentLinesChartData(IEnumerable<double> tangentLines,
+        private static void AssertTangentLinesChartData(IEnumerable<RoundedDouble> tangentLines,
                                                         MacroStabilityInwardsSurfaceLine surfaceLine,
                                                         ChartMultipleLineData actual)
         {
             CollectionAssert.IsNotEmpty(actual.Lines);
-            double[] tangentLinesArray = tangentLines.ToArray();
+            RoundedDouble[] tangentLinesArray = tangentLines.ToArray();
             for (var i = 0; i < tangentLinesArray.Length; i++)
             {
                 var expectedPoints = new[]

@@ -22,8 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
@@ -38,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlipPlaneUpliftVan(null, grid, Enumerable.Empty<double>());
+            TestDelegate call = () => new MacroStabilityInwardsSlipPlaneUpliftVan(null, grid, Enumerable.Empty<RoundedDouble>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -52,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlipPlaneUpliftVan(grid, null, Enumerable.Empty<double>());
+            TestDelegate call = () => new MacroStabilityInwardsSlipPlaneUpliftVan(grid, null, Enumerable.Empty<RoundedDouble>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -80,7 +83,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             MacroStabilityInwardsGrid leftGrid = MacroStabilityInwardsGridTestFactory.Create();
             MacroStabilityInwardsGrid rightGrid = MacroStabilityInwardsGridTestFactory.Create();
-            IEnumerable<double> tangentLines = Enumerable.Empty<double>();
+            IEnumerable<RoundedDouble> tangentLines = new[]
+            {
+                (RoundedDouble) 3.4,
+                (RoundedDouble) 0.1
+            };
 
             // Call
             var result = new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, tangentLines);
@@ -90,7 +97,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             Assert.AreSame(leftGrid, result.LeftGrid);
             Assert.AreSame(rightGrid, result.RightGrid);
-            Assert.AreSame(tangentLines, result.TangentLines);
+            Assert.AreEqual(tangentLines.Count(), result.TangentLines.Count());
+            for (var i = 0; i < tangentLines.Count(); i++)
+            {
+                RoundedDouble tangentLine = result.TangentLines.ElementAt(i);
+                Assert.AreEqual(2, tangentLine.NumberOfDecimalPlaces);
+                Assert.AreEqual(tangentLines.ElementAt(i), tangentLine, tangentLine.GetAccuracy());
+            }
         }
 
         [Test]
@@ -102,7 +115,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                                                                        MacroStabilityInwardsGridTestFactory.Create(),
                                                                        new[]
                                                                        {
-                                                                           random.NextDouble()
+                                                                           random.NextRoundedDouble()
                                                                        });
 
             // Call

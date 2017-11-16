@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Data;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
@@ -51,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                                                       Enumerable.Empty<MacroStabilityInwardsSlice>(), 0, 0),
                 new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
                                                             MacroStabilityInwardsGridTestFactory.Create(),
-                                                            new double[0]),
+                                                            new RoundedDouble[0]),
                 new MacroStabilityInwardsOutput.ConstructionProperties());
         }
 
@@ -76,9 +77,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                                                                                                MacroStabilityInwardsGridTestFactory.Create(),
                                                                                                new[]
                                                                                                {
-                                                                                                   -3.5,
-                                                                                                   0.0,
-                                                                                                   2.0
+                                                                                                   (RoundedDouble) (-3.5),
+                                                                                                   (RoundedDouble) 0.0,
+                                                                                                   (RoundedDouble) 2.0
                                                                                                }),
                                                    properties);
         }
