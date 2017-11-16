@@ -129,6 +129,8 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
             SetGridparametersToInput(inputParameters.LeftGrid, inputParameters.RightGrid, entity);
 
             inputParameters.CreateZones = Convert.ToBoolean(entity.CreateZones);
+            inputParameters.ZoneBoundaryLeft = (RoundedDouble) entity.ZoneBoundaryLeft.ToNullAsNaN();
+            inputParameters.ZoneBoundaryRight = (RoundedDouble) entity.ZoneBoundaryRight.ToNullAsNaN();
         }
 
         private static void SetSurfaceLineToInput(MacroStabilityInwardsInput inputParameters,

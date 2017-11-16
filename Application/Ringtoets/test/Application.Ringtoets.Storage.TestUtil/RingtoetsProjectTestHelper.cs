@@ -1416,7 +1416,9 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 ZBottom = (RoundedDouble) 3.4,
                                 NumberOfVerticalPoints = 6
                             },
-                            CreateZones = false
+                            CreateZones = false,
+                            ZoneBoundaryLeft = (RoundedDouble) 10,
+                            ZoneBoundaryRight = (RoundedDouble) 12
                         },
                         Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
                         SemiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(1, 0.7, 8.8, 0.9,
@@ -1497,7 +1499,9 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 ZBottom = (RoundedDouble) 3.4,
                                 NumberOfVerticalPoints = 6
                             },
-                            CreateZones = false
+                            CreateZones = false,
+                            ZoneBoundaryLeft = (RoundedDouble) 5.4,
+                            ZoneBoundaryRight = (RoundedDouble) 6.5
                         },
                         Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
                         SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()

@@ -106,6 +106,8 @@ namespace Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards
             AssertGridInputs(input.LeftGrid, input.RightGrid, entity);
 
             Assert.AreEqual(Convert.ToByte(input.CreateZones), entity.CreateZones);
+            AssertAreEqual(input.ZoneBoundaryLeft, entity.ZoneBoundaryLeft);
+            AssertAreEqual(input.ZoneBoundaryRight, entity.ZoneBoundaryRight);
         }
 
         private static void AssertGridInputs(MacroStabilityInwardsGrid leftGrid,

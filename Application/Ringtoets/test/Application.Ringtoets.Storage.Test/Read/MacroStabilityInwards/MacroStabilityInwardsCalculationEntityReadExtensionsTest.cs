@@ -115,7 +115,9 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 RightGridZTop = random.GetFromRange(2.0, 3.0),
                 RightGridZBottom = random.GetFromRange(0.0, 1.0),
                 RightGridNrOfVerticalPoints = random.Next(1, 100),
-                CreateZones = Convert.ToByte(random.NextBoolean())
+                CreateZones = Convert.ToByte(random.NextBoolean()),
+                ZoneBoundaryLeft = random.Next(2, 5),
+                ZoneBoundaryRight = random.Next(6, 10)
             };
 
             var collector = new ReadConversionCollector();
