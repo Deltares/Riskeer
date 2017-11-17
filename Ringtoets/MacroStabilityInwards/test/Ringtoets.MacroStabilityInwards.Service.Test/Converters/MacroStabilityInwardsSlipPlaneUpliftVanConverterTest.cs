@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
@@ -66,20 +64,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             MacroStabilityInwardsSlipPlaneUpliftVan output = MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(result);
 
             // Assert
-            AssertTangentLines(tangentLines, output.TangentLines);
+            CollectionAssert.AreEqual(tangentLines, output.TangentLines.Select(tl => tl.Value), new DoubleWithToleranceComparer(1e-2));
             AssertGrid(leftGrid, output.LeftGrid);
             AssertGrid(rightGrid, output.RightGrid);
-        }
-
-        private static void AssertTangentLines(IEnumerable<double> expectedTangentLines, IEnumerable<RoundedDouble> actualTangentLines)
-        {
-            Assert.AreEqual(expectedTangentLines.Count(), actualTangentLines.Count());
-            for (var i = 0; i < expectedTangentLines.Count(); i++)
-            {
-                RoundedDouble tangentLine = actualTangentLines.ElementAt(i);
-                Assert.AreEqual(2, tangentLine.NumberOfDecimalPlaces);
-                Assert.AreEqual(expectedTangentLines.ElementAt(i), tangentLine, tangentLine.GetAccuracy());
-            }
         }
 
         private static void AssertGrid(UpliftVanGrid expectedGrid, MacroStabilityInwardsGrid actualGrid)

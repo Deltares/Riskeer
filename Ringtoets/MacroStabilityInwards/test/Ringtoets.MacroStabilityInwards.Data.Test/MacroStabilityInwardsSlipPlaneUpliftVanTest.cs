@@ -85,8 +85,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             MacroStabilityInwardsGrid rightGrid = MacroStabilityInwardsGridTestFactory.Create();
             IEnumerable<RoundedDouble> tangentLines = new[]
             {
-                (RoundedDouble) 3.4,
-                (RoundedDouble) 0.1
+                (RoundedDouble) 3.4567,
+                (RoundedDouble) 0.1294
             };
 
             // Call
@@ -97,13 +97,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             Assert.AreSame(leftGrid, result.LeftGrid);
             Assert.AreSame(rightGrid, result.RightGrid);
-            Assert.AreEqual(tangentLines.Count(), result.TangentLines.Count());
-            for (var i = 0; i < tangentLines.Count(); i++)
+            CollectionAssert.AreEqual(new[]
             {
-                RoundedDouble tangentLine = result.TangentLines.ElementAt(i);
-                Assert.AreEqual(2, tangentLine.NumberOfDecimalPlaces);
-                Assert.AreEqual(tangentLines.ElementAt(i), tangentLine, tangentLine.GetAccuracy());
-            }
+                2, 2
+            }, result.TangentLines.Select(tl => tl.NumberOfDecimalPlaces));
+            CollectionAssert.AreEqual(tangentLines.Select(tl => tl.Value), result.TangentLines.Select(tl => tl.Value), new DoubleWithToleranceComparer(1e-2));
         }
 
         [Test]

@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
             MacroStabilityInwardsGrid leftGrid = ConvertGrid(result.LeftGrid);
             MacroStabilityInwardsGrid rightGrid = ConvertGrid(result.RightGrid);
 
-            return new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, result.TangentLines.Select(tangentLine => new RoundedDouble(2, tangentLine)));
+            return new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, result.TangentLines.Select(tangentLine => (RoundedDouble) tangentLine));
         }
 
         private static MacroStabilityInwardsGrid ConvertGrid(UpliftVanGrid grid)

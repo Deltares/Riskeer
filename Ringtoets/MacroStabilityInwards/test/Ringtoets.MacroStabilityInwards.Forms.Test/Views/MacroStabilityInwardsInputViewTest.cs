@@ -760,15 +760,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 SetGridValues(input.LeftGrid);
                 SetGridValues(input.RightGrid);
 
-                // Call
-                calculation.InputParameters.NotifyObservers();
-
-                // Assert
+                // Precondition
                 ChartDataCollection chartData = view.Chart.Data;
                 List<ChartData> chartDataList = chartData.Collection.ToList();
                 var actualLeftGridData = (ChartPointData) chartDataList[leftGridIndex];
                 var actualRightGridData = (ChartPointData) chartDataList[rightGridIndex];
+                CollectionAssert.IsEmpty(actualLeftGridData.Points);
+                CollectionAssert.IsEmpty(actualRightGridData.Points);
 
+                // Call
+                calculation.InputParameters.NotifyObservers();
+
+                // Assert
                 MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.LeftGrid, actualLeftGridData);
                 MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.RightGrid, actualRightGridData);
             }
@@ -798,13 +801,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 input.TangentLineZBottom = (RoundedDouble) 5;
                 input.TangentLineNumber = 2;
 
+                // Precondition
+                ChartDataCollection chartData = view.Chart.Data;
+                List<ChartData> chartDataList = chartData.Collection.ToList();
+                var tangentLinesData = (ChartMultipleLineData) chartDataList[tangentLinesIndex];
+                CollectionAssert.IsEmpty(tangentLinesData.Lines);
+
                 // Call
                 calculation.InputParameters.NotifyObservers();
 
                 // Assert
-                ChartDataCollection chartData = view.Chart.Data;
-                List<ChartData> chartDataList = chartData.Collection.ToList();
-                var tangentLinesData = (ChartMultipleLineData) chartDataList[tangentLinesIndex];
                 CollectionAssert.AreEqual(new[]
                 {
                     new[]

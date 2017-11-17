@@ -1535,8 +1535,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
                 MacroStabilityInwardsGridDeterminationType.Manual,
                 MacroStabilityInwardsTangentLineDeterminationType.Specified,
-                new RoundedDouble(2, bottom),
-                new RoundedDouble(2, top),
+                (RoundedDouble) bottom,
+                (RoundedDouble) top,
                 3,
                 GetSurfaceLineWithGeometry());
 
