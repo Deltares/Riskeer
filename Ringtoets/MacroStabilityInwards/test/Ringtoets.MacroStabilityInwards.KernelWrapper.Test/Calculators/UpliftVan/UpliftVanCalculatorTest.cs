@@ -313,7 +313,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
                 PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                 SlipPlane = new UpliftVanSlipPlane(),
-                SlipPlaneConstraints = new UpliftVanSlipPlaneConstraints()
+                SlipPlaneConstraints = new UpliftVanSlipPlaneConstraints(double.NaN, double.NaN, false)
             });
         }
 
@@ -332,7 +332,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
                 PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                 SlipPlane = new UpliftVanSlipPlane(),
-                SlipPlaneConstraints = new UpliftVanSlipPlaneConstraints(),
+                SlipPlaneConstraints = new UpliftVanSlipPlaneConstraints(random.NextDouble(), random.NextDouble(), random.NextBoolean()),
                 WaterLevelRiverAverage = random.NextDouble(),
                 WaterLevelPolderExtreme = random.NextDouble(),
                 WaterLevelPolderDaily = random.NextDouble(),

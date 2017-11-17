@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using Deltares.WTIStability;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
@@ -46,9 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         {
             // Setup
             var random = new Random(39);
-            var upliftVanSlipPlaneConstraints = new UpliftVanSlipPlaneConstraints(random.NextBoolean(),
-                                                                                  random.NextBoolean(),
-                                                                                  random.NextDouble(),
+            var upliftVanSlipPlaneConstraints = new UpliftVanSlipPlaneConstraints(random.NextDouble(),
                                                                                   random.NextDouble(),
                                                                                   random.NextDouble(),
                                                                                   random.NextDouble());

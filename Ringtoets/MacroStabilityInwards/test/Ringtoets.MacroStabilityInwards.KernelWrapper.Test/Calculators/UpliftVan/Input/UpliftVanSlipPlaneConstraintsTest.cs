@@ -30,43 +30,45 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
     public class UpliftVanSlipPlaneConstraintsTest
     {
         [Test]
-        public void ParameterlessConstructor_ExpectedValues()
+        public void Constructor_WithMinimumLengthDepthAndCreateZones_ExpectedValues()
         {
+            // Setup
+            var random = new Random(39);
+            bool createZones = random.NextBoolean();
+            double slipPlaneMinimumLength = random.NextDouble();
+            double slipPlaneMinimumDepth = random.NextDouble();
+
             // Call
-            var slipPlaneConstraints = new UpliftVanSlipPlaneConstraints();
+            var slipPlaneConstraints = new UpliftVanSlipPlaneConstraints(slipPlaneMinimumDepth, slipPlaneMinimumLength, createZones);
 
             // Assert
-            Assert.IsFalse(slipPlaneConstraints.CreateZones);
-            Assert.IsFalse(slipPlaneConstraints.AutomaticForbiddenZones);
-            Assert.IsNaN(slipPlaneConstraints.SlipPlaneMinimumLength);
-            Assert.IsNaN(slipPlaneConstraints.SlipPlaneMinimumDepth);
+            Assert.AreEqual(createZones, slipPlaneConstraints.CreateZones);
+            Assert.IsTrue(slipPlaneConstraints.AutomaticForbiddenZones);
+            Assert.AreEqual(slipPlaneMinimumLength, slipPlaneConstraints.SlipPlaneMinimumLength);
+            Assert.AreEqual(slipPlaneMinimumDepth, slipPlaneConstraints.SlipPlaneMinimumDepth);
             Assert.IsNaN(slipPlaneConstraints.ZoneBoundaryLeft);
             Assert.IsNaN(slipPlaneConstraints.ZoneBoundaryRight);
         }
 
         [Test]
-        public void Constructor_WithValues_ReturnsNewInstance()
+        public void Constructor_WithZoneBoundaries_ExpectedValues()
         {
             // Setup
             var random = new Random(39);
-            bool createZones = random.NextBoolean();
-            bool automaticForbiddenZones = random.NextBoolean();
             double slipPlaneMinimumLength = random.NextDouble();
             double slipPlaneMinimumDepth = random.NextDouble();
             double zoneBoundaryLeft = random.NextDouble();
             double zoneBoundaryRight = random.NextDouble();
 
             // Call
-            var constraints = new UpliftVanSlipPlaneConstraints(createZones,
-                                                                automaticForbiddenZones,
-                                                                zoneBoundaryLeft,
+            var constraints = new UpliftVanSlipPlaneConstraints(zoneBoundaryLeft,
                                                                 zoneBoundaryRight,
                                                                 slipPlaneMinimumDepth,
                                                                 slipPlaneMinimumLength);
 
             // Assert
-            Assert.AreEqual(createZones, constraints.CreateZones);
-            Assert.AreEqual(automaticForbiddenZones, constraints.AutomaticForbiddenZones);
+            Assert.IsTrue(constraints.CreateZones);
+            Assert.IsFalse(constraints.AutomaticForbiddenZones);
             Assert.AreEqual(slipPlaneMinimumDepth, constraints.SlipPlaneMinimumDepth);
             Assert.AreEqual(slipPlaneMinimumLength, constraints.SlipPlaneMinimumLength);
             Assert.AreEqual(zoneBoundaryLeft, constraints.ZoneBoundaryLeft);

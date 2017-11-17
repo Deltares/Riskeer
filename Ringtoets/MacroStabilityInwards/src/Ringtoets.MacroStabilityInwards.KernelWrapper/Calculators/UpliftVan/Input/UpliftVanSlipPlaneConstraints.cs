@@ -29,41 +29,44 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanSlipPlaneConstraints"/>.
         /// </summary>
+        /// <param name="slipPlaneMinimumDepth">The slip plane minimum depth.</param>
+        /// <param name="slipPlaneMinimumLength">The slip plane minimum length.</param>
+        /// <param name="createZones">Indicator whether zones should be created.</param>
         /// <remarks>The following values are set:
         /// <list type="bullet">
-        /// <item><see cref="CreateZones"/> is set to <c>false</c>;</item>
-        /// <item><see cref="AutomaticForbiddenZones"/> is set to <c>false</c>;</item>
+        /// <item><see cref="AutomaticForbiddenZones"/> is set to <c>true</c>;</item>
         /// <item><see cref="ZoneBoundaryLeft"/> is set to <see cref="double.NaN"/>;</item>
-        /// <item><see cref="ZoneBoundaryRight"/> is set to <see cref="double.NaN"/>;</item>
-        /// <item><see cref="SlipPlaneMinimumLength"/> is set to <see cref="double.NaN"/>;</item>
-        /// <item><see cref="SlipPlaneMinimumDepth"/> is set to <see cref="double.NaN"/>.</item>
+        /// <item><see cref="ZoneBoundaryRight"/> is set to <see cref="double.NaN"/>.</item>
         /// </list>
         /// </remarks>
-        public UpliftVanSlipPlaneConstraints()
+        public UpliftVanSlipPlaneConstraints(double slipPlaneMinimumDepth,
+                                             double slipPlaneMinimumLength,
+                                             bool createZones)
         {
-            CreateZones = false;
-            AutomaticForbiddenZones = false;
+            CreateZones = createZones;
+            AutomaticForbiddenZones = true;
             ZoneBoundaryLeft = double.NaN;
             ZoneBoundaryRight = double.NaN;
-            SlipPlaneMinimumLength = double.NaN;
-            SlipPlaneMinimumDepth = double.NaN;
+            SlipPlaneMinimumLength = slipPlaneMinimumLength;
+            SlipPlaneMinimumDepth = slipPlaneMinimumDepth;
         }
 
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanSlipPlaneConstraints"/>.
         /// </summary>
-        /// <param name="createZones">Indicator whether zones should be created.</param>
-        /// <param name="automaticForbiddenZones">Indicator whether forbidden zones
-        /// should be automatically determined.</param>
         /// <param name="zoneBoundaryLeft">The left zone boundary.</param>
         /// <param name="zoneBoundaryRight">The right zone boundary.</param>
         /// <param name="slipPlaneMinimumDepth">The slip plane minimum depth.</param>
         /// <param name="slipPlaneMinimumLength">The slip plane minimum length.</param>
-        public UpliftVanSlipPlaneConstraints(bool createZones, bool automaticForbiddenZones, double zoneBoundaryLeft,
-                                             double zoneBoundaryRight, double slipPlaneMinimumDepth, double slipPlaneMinimumLength)
+        /// <remarks><see cref="CreateZones"/> will be set to <c>true</c> and 
+        /// <see cref="AutomaticForbiddenZones"/> will be set to <c>false</c>.</remarks>
+        public UpliftVanSlipPlaneConstraints(double zoneBoundaryLeft,
+                                             double zoneBoundaryRight,
+                                             double slipPlaneMinimumDepth,
+                                             double slipPlaneMinimumLength)
         {
-            CreateZones = createZones;
-            AutomaticForbiddenZones = automaticForbiddenZones;
+            CreateZones = true;
+            AutomaticForbiddenZones = false;
             ZoneBoundaryLeft = zoneBoundaryLeft;
             ZoneBoundaryRight = zoneBoundaryRight;
             SlipPlaneMinimumDepth = slipPlaneMinimumDepth;

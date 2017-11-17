@@ -46,22 +46,17 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
                 throw new ArgumentNullException(nameof(input));
             }
 
-            if (!input.CreateZones || input.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic)
+            if (input.CreateZones && input.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Manual)
             {
-                return new UpliftVanSlipPlaneConstraints(input.CreateZones,
-                                                         true,
-                                                         double.NaN,
-                                                         double.NaN,
+                return new UpliftVanSlipPlaneConstraints(input.ZoneBoundaryLeft,
+                                                         input.ZoneBoundaryRight,
                                                          input.SlipPlaneMinimumDepth,
                                                          input.SlipPlaneMinimumLength);
             }
 
-            return new UpliftVanSlipPlaneConstraints(input.CreateZones,
-                                                     false,
-                                                     input.ZoneBoundaryLeft,
-                                                     input.ZoneBoundaryRight,
-                                                     input.SlipPlaneMinimumDepth,
-                                                     input.SlipPlaneMinimumLength);
+            return new UpliftVanSlipPlaneConstraints(input.SlipPlaneMinimumDepth,
+                                                     input.SlipPlaneMinimumLength,
+                                                     input.CreateZones);
         }
     }
 }
