@@ -33,7 +33,9 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.Gui.TestUtil;
+using Core.Common.Utils.Reflection;
 using Core.Components.Chart.Data;
+using Core.Components.Chart.Forms;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.Chart.Legend;
 using Core.Plugins.Chart.PropertyClasses;
@@ -195,6 +197,198 @@ namespace Core.Plugins.Chart.Test
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
             mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenConfiguredGui_WhenChartViewAdded_ThenComponentsUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                var plugin = new ChartPlugin
+                {
+                    Gui = gui
+                };
+
+                gui.Plugins.Add(plugin);
+                gui.Run();
+
+                var view = new TestChartView();
+                IViewHost guiViewHost = gui.ViewHost;
+                ChartLegendView chartLegendView = guiViewHost.ToolViews.OfType<ChartLegendView>().First();
+                var chartingRibbon = (ChartingRibbon) plugin.RibbonCommandHandler;
+
+                // Precondition
+                Assert.IsNull(GetChartControl(chartLegendView));
+                Assert.IsNull(GetChartControl(chartingRibbon));
+
+                // When
+                guiViewHost.AddDocumentView(view);
+
+                // Then
+                Assert.AreSame(view.Chart, GetChartControl(chartLegendView));
+                Assert.AreSame(view.Chart, GetChartControl(chartingRibbon));
+            }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenConfiguredGui_WhenChartViewBroughtToFront_ThenComponentsUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                var plugin = new ChartPlugin
+                {
+                    Gui = gui
+                };
+
+                gui.Plugins.Add(plugin);
+                gui.Run();
+
+                var view1 = new TestChartView();
+                var view2 = new TestChartView();
+                IViewHost guiViewHost = gui.ViewHost;
+                ChartLegendView chartLegendView = guiViewHost.ToolViews.OfType<ChartLegendView>().First();
+                var chartingRibbon = (ChartingRibbon) plugin.RibbonCommandHandler;
+
+                guiViewHost.AddDocumentView(view1);
+                guiViewHost.AddDocumentView(view2);
+
+                // Precondition
+                Assert.AreSame(view2.Chart, GetChartControl(chartLegendView));
+                Assert.AreSame(view2.Chart, GetChartControl(chartingRibbon));
+
+                // When
+                guiViewHost.BringToFront(view1);
+
+                // Then
+                Assert.AreSame(view1.Chart, GetChartControl(chartLegendView));
+                Assert.AreSame(view1.Chart, GetChartControl(chartingRibbon));
+            }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenConfiguredGui_WhenChartViewRemoved_ThenComponentsUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                var plugin = new ChartPlugin
+                {
+                    Gui = gui
+                };
+
+                gui.Plugins.Add(plugin);
+                gui.Run();
+
+                var view = new TestChartView();
+                IViewHost guiViewHost = gui.ViewHost;
+                ChartLegendView chartLegendView = guiViewHost.ToolViews.OfType<ChartLegendView>().First();
+                var chartingRibbon = (ChartingRibbon) plugin.RibbonCommandHandler;
+
+                guiViewHost.AddDocumentView(view);
+
+                // Precondition
+                Assert.AreSame(view.Chart, GetChartControl(chartLegendView));
+                Assert.AreSame(view.Chart, GetChartControl(chartingRibbon));
+
+                // When
+                guiViewHost.Remove(view);
+
+                // Then
+                Assert.IsNull(GetChartControl(chartLegendView));
+                Assert.IsNull(GetChartControl(chartingRibbon));
+            }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenConfiguredGui_WhenOtherChartViewRemoved_ThenComponentsNotUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                var plugin = new ChartPlugin
+                {
+                    Gui = gui
+                };
+
+                gui.Plugins.Add(plugin);
+                gui.Run();
+
+                var view1 = new TestChartView();
+                var view2 = new TestChartView();
+                IViewHost guiViewHost = gui.ViewHost;
+                ChartLegendView chartLegendView = guiViewHost.ToolViews.OfType<ChartLegendView>().First();
+                var chartingRibbon = (ChartingRibbon) plugin.RibbonCommandHandler;
+
+                guiViewHost.AddDocumentView(view1);
+                guiViewHost.AddDocumentView(view2);
+
+                // Precondition
+                Assert.AreSame(view2.Chart, GetChartControl(chartLegendView));
+                Assert.AreSame(view2.Chart, GetChartControl(chartingRibbon));
+
+                // When
+                guiViewHost.Remove(view1);
+
+                // Then
+                Assert.AreSame(view2.Chart, GetChartControl(chartLegendView));
+                Assert.AreSame(view2.Chart, GetChartControl(chartingRibbon));
+            }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
+            mocks.VerifyAll();
+        }
+
+        private static IChartControl GetChartControl(ChartingRibbon chartRibbon)
+        {
+            return TypeUtils.GetProperty<IChartControl>(chartRibbon, "Chart");
+        }
+
+        private static IChartControl GetChartControl(ChartLegendView chartLegendView)
+        {
+            return TypeUtils.GetProperty<IChartControl>(chartLegendView, "ChartControl");
         }
     }
 }
