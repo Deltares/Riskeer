@@ -283,7 +283,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_SurfaceLineNear2DProfile_ReturnsEmpty(MacroStabilityInwardsSoilProfile2D soilProfile)
         {
             // Setup
-
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
             surfaceLine.SetGeometry(new[]
             {
@@ -301,6 +300,42 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Assert
             CollectionAssert.IsEmpty(messages);
+        }
+
+        [Test]
+        public void Validate_ZoneBoundaryRightSmallerThanZoneBoundaryLeft_ReturnsError()
+        {
+            // Setup
+            input.ZoneBoundaryLeft = (RoundedDouble) 0.5;
+            input.ZoneBoundaryRight = (RoundedDouble) 0.2;
+
+            // Call
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input).ToArray();
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                "Zoneringsgrenzen moeten andersom liggen."
+            }, messages);
+        }
+
+        [Test]
+        [TestCase(0.1, 2)]
+        [TestCase(-2, 0.3)]
+        public void Validate_ZoneBoundariesOutsideSurfaceLine_ReturnsError(double zoneBoundaryLeft, double zoneBoundaryRight)
+        {
+            // Setup
+            input.ZoneBoundaryLeft = (RoundedDouble) zoneBoundaryLeft;
+            input.ZoneBoundaryRight = (RoundedDouble) zoneBoundaryRight;
+
+            // Call
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input).ToArray();
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                "Zoneringsgrenzen moeten binnen het profiel liggen."
+            }, messages);
         }
 
         private static IEnumerable<TestCaseData> SurfacelineNotOnMacroStabilityInwardsSoilProfile2D()

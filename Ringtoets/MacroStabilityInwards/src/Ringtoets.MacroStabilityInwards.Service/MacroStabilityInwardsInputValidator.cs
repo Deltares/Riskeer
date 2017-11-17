@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
@@ -60,6 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             if (!coreValidationError.Any())
             {
                 validationResults.AddRange(ValidateSoilLayers(inputParameters));
+                validationResults.AddRange(ValidateZoneBoundaries(inputParameters));
             }
 
             return validationResults;
@@ -84,6 +86,25 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 {
                     yield return Resources.MacroStabilityInwardsCalculationService_ValidateInput_SurfaceLine_must_be_on_SoilLayer;
                 }
+            }
+        }
+
+        private static IEnumerable<string> ValidateZoneBoundaries(MacroStabilityInwardsInput inputParameters)
+        {
+            RoundedDouble zoneBoundaryLeft = inputParameters.ZoneBoundaryLeft;
+            RoundedDouble zoneBoundaryRight = inputParameters.ZoneBoundaryRight;
+
+            if (zoneBoundaryLeft > zoneBoundaryRight)
+            {
+                yield return Resources.MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be_other_way_around;
+            }
+
+            double surfaceLineLeftBoundary = inputParameters.SurfaceLine.LocalGeometry.First().X;
+            double surfaceLineRightBoundary = inputParameters.SurfaceLine.LocalGeometry.Last().X;
+
+            if (zoneBoundaryLeft < surfaceLineLeftBoundary || zoneBoundaryRight > surfaceLineRightBoundary)
+            {
+                yield return Resources.MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be_on_SurfaceLine;
             }
         }
 

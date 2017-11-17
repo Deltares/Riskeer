@@ -169,5 +169,25 @@ namespace Ringtoets.MacroStabilityInwards.Service.Properties {
                         "Layer", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoneringsgrenzen moeten binnen het profiel liggen..
+        /// </summary>
+        internal static string MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be_on_SurfaceLine {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be" +
+                        "_on_SurfaceLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoneringsgrenzen moeten andersom liggen..
+        /// </summary>
+        internal static string MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be_other_way_around {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be" +
+                        "_other_way_around", resourceCulture);
+            }
+        }
     }
 }
