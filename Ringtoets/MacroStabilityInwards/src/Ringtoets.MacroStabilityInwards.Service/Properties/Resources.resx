@@ -144,10 +144,10 @@
   <data name="MacroStabilityInwardsCalculationService_ValidateInput_SurfaceLine_must_be_on_SoilLayer" xml:space="preserve">
     <value>De profielschematisatie moet op de ondergrondschematisatie liggen.</value>
   </data>
-  <data name="MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be_on_SurfaceLine" xml:space="preserve">
-    <value>Zoneringsgrenzen moeten binnen het profiel liggen.</value>
+  <data name="MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be_in_Range_0" xml:space="preserve">
+    <value>Zoneringsgrenzen moeten op het profiel liggen (bereik {0}).</value>
   </data>
-  <data name="MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be_other_way_around" xml:space="preserve">
-    <value>Zoneringsgrenzen moeten andersom liggen.</value>
+  <data name="MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_BoundaryLeft_should_be_smaller_than_or_equal_to_BoundaryRight" xml:space="preserve">
+    <value>Zoneringsgrens link moet kleiner zijn dan of gelijk zijn aan zoneringsgrens rechts.</value>
   </data>
 </root>

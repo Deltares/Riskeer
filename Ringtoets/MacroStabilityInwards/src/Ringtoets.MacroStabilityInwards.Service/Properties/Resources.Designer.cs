@@ -171,22 +171,22 @@ namespace Ringtoets.MacroStabilityInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zoneringsgrenzen moeten binnen het profiel liggen..
+        ///   Looks up a localized string similar to Zoneringsgrens link moet kleiner zijn dan of gelijk zijn aan zoneringsgrens rechts..
         /// </summary>
-        internal static string MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be_on_SurfaceLine {
+        internal static string MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_BoundaryLeft_should_be_smaller_than_or_equal_to_BoundaryRight {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be" +
-                        "_on_SurfaceLine", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_Boundar" +
+                        "yLeft_should_be_smaller_than_or_equal_to_BoundaryRight", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zoneringsgrenzen moeten andersom liggen..
+        ///   Looks up a localized string similar to Zoneringsgrenzen moeten op het profiel liggen (bereik {0})..
         /// </summary>
-        internal static string MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be_other_way_around {
+        internal static string MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be_in_Range_0 {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be" +
-                        "_other_way_around", resourceCulture);
+                        "_in_Range_0", resourceCulture);
             }
         }
     }

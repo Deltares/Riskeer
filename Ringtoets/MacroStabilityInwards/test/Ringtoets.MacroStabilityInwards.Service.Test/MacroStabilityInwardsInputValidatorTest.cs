@@ -315,11 +315,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                "Zoneringsgrenzen moeten andersom liggen."
+                "Zoneringsgrens link moet kleiner zijn dan of gelijk zijn aan zoneringsgrens rechts."
             }, messages);
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(0.1, 2)]
         [TestCase(-2, 0.3)]
         public void Validate_ZoneBoundariesOutsideSurfaceLine_ReturnsError(double zoneBoundaryLeft, double zoneBoundaryRight)
@@ -334,7 +335,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                "Zoneringsgrenzen moeten binnen het profiel liggen."
+                "Zoneringsgrenzen moeten op het profiel liggen (bereik [0,0, 0,5])."
             }, messages);
         }
 
