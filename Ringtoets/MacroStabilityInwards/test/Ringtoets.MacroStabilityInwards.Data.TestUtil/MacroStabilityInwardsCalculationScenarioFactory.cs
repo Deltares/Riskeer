@@ -296,8 +296,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     },
                     CreateZones = true,
                     ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Manual,
-                    ZoneBoundaryLeft = (RoundedDouble) 2,
-                    ZoneBoundaryRight = (RoundedDouble) 4
+                    ZoneBoundaryLeft = (RoundedDouble) 0.1,
+                    ZoneBoundaryRight = (RoundedDouble) 0.2
                 }
             };
         }

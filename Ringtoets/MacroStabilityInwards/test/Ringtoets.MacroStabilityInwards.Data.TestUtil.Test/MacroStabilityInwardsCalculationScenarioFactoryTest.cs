@@ -306,8 +306,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             Assert.IsTrue(inputParameters.CreateZones);
             Assert.AreEqual(MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, inputParameters.ZoningBoundariesDeterminationType);
-            Assert.AreEqual(2, inputParameters.ZoneBoundaryLeft, inputParameters.ZoneBoundaryLeft.GetAccuracy());
-            Assert.AreEqual(4, inputParameters.ZoneBoundaryRight, inputParameters.ZoneBoundaryRight.GetAccuracy());
+            Assert.AreEqual(0.1, inputParameters.ZoneBoundaryLeft, inputParameters.ZoneBoundaryLeft.GetAccuracy());
+            Assert.AreEqual(0.2, inputParameters.ZoneBoundaryRight, inputParameters.ZoneBoundaryRight.GetAccuracy());
 
             Assert.AreEqual(0, inputParameters.StochasticSoilProfile.Probability);
             Assert.AreEqual("Ondergrondschematisatie", inputParameters.StochasticSoilProfile.SoilProfile.Name);
