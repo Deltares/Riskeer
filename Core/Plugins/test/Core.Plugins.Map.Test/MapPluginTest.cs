@@ -33,8 +33,10 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.Gui.TestUtil;
+using Core.Common.Utils.Reflection;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Forms;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.PropertyClasses;
 using DotSpatial.Data;
@@ -234,6 +236,66 @@ namespace Core.Plugins.Map.Test
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenConfiguredGui_WhenMapViewBroughtToFront_ThenComponentsUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                var view1 = new TestMapView();
+                var view2 = new TestMapView();
+                var plugin = new MapPlugin
+                {
+                    Gui = gui
+                };
+
+                gui.Plugins.Add(plugin);
+                gui.Run();
+
+                // When
+                IViewHost guiViewHost = gui.ViewHost;
+
+                guiViewHost.AddDocumentView(view1);
+                guiViewHost.AddDocumentView(view2);
+
+                MapLegendView mapLegendView = guiViewHost.ToolViews.OfType<MapLegendView>().First();
+                var mapRibbon = (MapRibbon) plugin.RibbonCommandHandler;
+
+                // Precondition
+                Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
+                Assert.AreSame(view2.Map, GetMapControl(mapRibbon));
+
+                // When
+                guiViewHost.BringToFront(view1);
+
+                // Then
+                Assert.AreSame(view1.Map, GetMapControl(mapLegendView));
+                Assert.AreSame(view1.Map, GetMapControl(mapRibbon));
+
+                mocks.VerifyAll();
+            }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
+        }
+
+        private static IMapControl GetMapControl(MapRibbon mapRibbon)
+        {
+            return TypeUtils.GetProperty<IMapControl>(mapRibbon, "Map");
+        }
+
+        private static IMapControl GetMapControl(MapLegendView mapLegendView)
+        {
+            return TypeUtils.GetProperty<IMapControl>(mapLegendView, "MapControl");
         }
     }
 }
