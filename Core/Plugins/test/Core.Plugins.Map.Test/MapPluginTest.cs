@@ -240,6 +240,51 @@ namespace Core.Plugins.Map.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
+        public void GivenConfiguredGui_WhenMapViewAdded_ThenComponentsUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                var view = new TestMapView();
+                var plugin = new MapPlugin
+                {
+                    Gui = gui
+                };
+
+                gui.Plugins.Add(plugin);
+                gui.Run();
+
+                IViewHost guiViewHost = gui.ViewHost;
+
+                MapLegendView mapLegendView = guiViewHost.ToolViews.OfType<MapLegendView>().First();
+                var mapRibbon = (MapRibbon) plugin.RibbonCommandHandler;
+
+                // Precondition
+                Assert.IsNull(GetMapControl(mapLegendView));
+                Assert.IsNull(GetMapControl(mapRibbon));
+
+                // When
+                guiViewHost.AddDocumentView(view);
+
+                // Then
+                Assert.AreSame(view.Map, GetMapControl(mapLegendView));
+                Assert.AreSame(view.Map, GetMapControl(mapRibbon));
+
+                mocks.VerifyAll();
+            }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenConfiguredGui_WhenMapViewBroughtToFront_ThenComponentsUpdated()
         {
             // Given
@@ -262,7 +307,6 @@ namespace Core.Plugins.Map.Test
                 gui.Plugins.Add(plugin);
                 gui.Run();
 
-                // When
                 IViewHost guiViewHost = gui.ViewHost;
 
                 guiViewHost.AddDocumentView(view1);
@@ -281,6 +325,53 @@ namespace Core.Plugins.Map.Test
                 // Then
                 Assert.AreSame(view1.Map, GetMapControl(mapLegendView));
                 Assert.AreSame(view1.Map, GetMapControl(mapRibbon));
+
+                mocks.VerifyAll();
+            }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenConfiguredGui_WhenMapViewRemoved_ThenComponentsUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                var view = new TestMapView();
+                var plugin = new MapPlugin
+                {
+                    Gui = gui
+                };
+
+                gui.Plugins.Add(plugin);
+                gui.Run();
+
+                IViewHost guiViewHost = gui.ViewHost;
+
+                guiViewHost.AddDocumentView(view);
+
+                MapLegendView mapLegendView = guiViewHost.ToolViews.OfType<MapLegendView>().First();
+                var mapRibbon = (MapRibbon) plugin.RibbonCommandHandler;
+
+                // Precondition
+                Assert.AreSame(view.Map, GetMapControl(mapLegendView));
+                Assert.AreSame(view.Map, GetMapControl(mapRibbon));
+
+                // When
+                guiViewHost.Remove(view);
+
+                // Then
+                Assert.IsNull(GetMapControl(mapLegendView));
+                Assert.IsNull(GetMapControl(mapRibbon));
 
                 mocks.VerifyAll();
             }
