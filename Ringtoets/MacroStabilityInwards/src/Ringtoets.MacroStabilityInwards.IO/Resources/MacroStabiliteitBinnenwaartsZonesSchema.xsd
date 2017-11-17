@@ -29,7 +29,6 @@ All rights reserved.
       <xs:all>
         <!--Specificeert of zonering moet worden toegepast op het intredepunt van het glijvlak.-->
         <xs:element name="bepaling" type="xs:boolean" minOccurs="0"/>
-        
         <xs:element ref="methode" minOccurs="0"/>
         <xs:element ref="zoneringsgrenslinks" minOccurs="0"/>
         <xs:element ref="zoneringsgrensrechts" minOccurs="0"/>
