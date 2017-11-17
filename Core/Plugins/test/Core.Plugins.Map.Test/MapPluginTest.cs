@@ -379,6 +379,54 @@ namespace Core.Plugins.Map.Test
             Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenConfiguredGui_WhenOtherMapViewRemoved_ThenComponentsNotUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                var plugin = new MapPlugin
+                {
+                    Gui = gui
+                };
+
+                gui.Plugins.Add(plugin);
+                gui.Run();
+
+                var view1 = new TestMapView();
+                var view2 = new TestMapView();
+                IViewHost guiViewHost = gui.ViewHost;
+                MapLegendView mapLegendView = guiViewHost.ToolViews.OfType<MapLegendView>().First();
+                var mapRibbon = (MapRibbon) plugin.RibbonCommandHandler;
+
+                guiViewHost.AddDocumentView(view1);
+                guiViewHost.AddDocumentView(view2);
+
+                // Precondition
+                Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
+                Assert.AreSame(view2.Map, GetMapControl(mapRibbon));
+
+                // When
+                guiViewHost.Remove(view1);
+
+                // Then
+                Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
+                Assert.AreSame(view2.Map, GetMapControl(mapRibbon));
+
+                mocks.VerifyAll();
+            }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
+        }
+
         private static IMapControl GetMapControl(MapRibbon mapRibbon)
         {
             return TypeUtils.GetProperty<IMapControl>(mapRibbon, "Map");
