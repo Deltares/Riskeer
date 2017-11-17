@@ -40,6 +40,8 @@ namespace Core.Plugins.Map
         public MapRibbon()
         {
             InitializeComponent();
+
+            HideMapTab();
         }
 
         /// <summary>

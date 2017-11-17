@@ -87,7 +87,6 @@ namespace Core.Plugins.Chart.Test
                 var viewHost = mocks.Stub<IViewHost>();
 
                 gui.Stub(g => g.ViewHost).Return(viewHost);
-                viewHost.Expect(vm => vm.ToolViews).Return(new IView[0]);
                 viewHost.Expect(vm => vm.AddToolView(Arg<ChartLegendView>.Is.NotNull, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
                 viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
                 viewHost.Expect(vm => vm.ActiveDocumentView).Return(null);

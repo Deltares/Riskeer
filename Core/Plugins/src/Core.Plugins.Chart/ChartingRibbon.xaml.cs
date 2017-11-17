@@ -40,6 +40,8 @@ namespace Core.Plugins.Chart
         public ChartingRibbon()
         {
             InitializeComponent();
+
+            HideChartingTab();
         }
 
         /// <summary>

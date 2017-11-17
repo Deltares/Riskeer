@@ -144,10 +144,14 @@ namespace Core.Plugins.Chart
 
         private void UpdateComponentsForView(IChartView chartView)
         {
+            if (ReferenceEquals(currentChartView, chartView))
+            {
+                return;
+            }
+
             currentChartView = chartView;
 
             IChartControl chartControl = chartView?.Chart;
-
             chartLegendController.Update(chartControl);
             chartingRibbon.Chart = chartControl;
         }

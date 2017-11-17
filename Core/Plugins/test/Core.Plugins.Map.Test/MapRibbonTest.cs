@@ -38,13 +38,18 @@ namespace Core.Plugins.Map.Test
     {
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void DefaultContstructor_Always_CreatesControl()
+        public void DefaultConstructor_Always_CreatesControlWithContextualGroupCollapsed()
         {
-            // Setup
+            // Call
             var ribbon = new MapRibbon();
 
-            // Call & Assert
-            Assert.IsInstanceOf<Control>(ribbon.GetRibbonControl());
+            // Assert
+            Ribbon ribbonControl = ribbon.GetRibbonControl();
+            Assert.IsInstanceOf<Control>(ribbonControl);
+
+            var contextualGroup = ribbonControl.FindName("MapContextualGroup") as RibbonContextualTabGroup;
+            Assert.IsNotNull(contextualGroup);
+            Assert.AreEqual(Visibility.Collapsed, contextualGroup.Visibility);
         }
 
         [Test]

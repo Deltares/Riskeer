@@ -158,6 +158,11 @@ namespace Core.Plugins.Map
 
         private void UpdateComponentsForView(IMapView mapView)
         {
+            if (ReferenceEquals(currentMapView, mapView))
+            {
+                return;
+            }
+
             currentMapView = mapView;
 
             IMapControl mapControl = mapView?.Map;
