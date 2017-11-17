@@ -338,6 +338,26 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             }, messages);
         }
 
+        [Test]
+        [TestCase(MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, true)]
+        [TestCase(MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, false)]
+        public void Validate_ZoningBoundariesDeterminationTypeManualOrCreateZonesFalse_ReturnsEmpty(
+            MacroStabilityInwardsZoningBoundariesDeterminationType determinationType,
+            bool createZones)
+        {
+            // Setup
+            input.ZoneBoundaryLeft = (RoundedDouble) 1;
+            input.ZoneBoundaryRight = (RoundedDouble) 0.6;
+            input.ZoningBoundariesDeterminationType = determinationType;
+            input.CreateZones = createZones;
+
+            // Call
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input).ToArray();
+
+            // Assert
+            CollectionAssert.IsEmpty(messages);
+        }
+
         private static IEnumerable<TestCaseData> SurfacelineNotOnMacroStabilityInwardsSoilProfile2D()
         {
             yield return new TestCaseData(

@@ -91,6 +91,11 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
         private static IEnumerable<string> ValidateZoneBoundaries(MacroStabilityInwardsInput inputParameters)
         {
+            if (!inputParameters.CreateZones || inputParameters.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Manual)
+            {
+                yield break;
+            }
+
             RoundedDouble zoneBoundaryLeft = inputParameters.ZoneBoundaryLeft;
             RoundedDouble zoneBoundaryRight = inputParameters.ZoneBoundaryRight;
 
