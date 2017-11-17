@@ -306,6 +306,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_ZoneBoundaryRightSmallerThanZoneBoundaryLeft_ReturnsError()
         {
             // Setup
+            input.ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Manual;
             input.ZoneBoundaryLeft = (RoundedDouble) 0.5;
             input.ZoneBoundaryRight = (RoundedDouble) 0.2;
 
@@ -315,7 +316,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                "Zoneringsgrens link moet kleiner zijn dan of gelijk zijn aan zoneringsgrens rechts."
+                "Zoneringsgrens links moet kleiner zijn dan of gelijk zijn aan zoneringsgrens rechts."
             }, messages);
         }
 
@@ -326,6 +327,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_ZoneBoundariesOutsideSurfaceLine_ReturnsError(double zoneBoundaryLeft, double zoneBoundaryRight)
         {
             // Setup
+            input.ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Manual;
             input.ZoneBoundaryLeft = (RoundedDouble) zoneBoundaryLeft;
             input.ZoneBoundaryRight = (RoundedDouble) zoneBoundaryRight;
 
@@ -340,8 +342,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        [TestCase(MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, true)]
+        [TestCase(MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, false)]
         [TestCase(MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, false)]
+        [TestCase(MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, true)]
         public void Validate_ZoningBoundariesDeterminationTypeManualOrCreateZonesFalse_ReturnsEmpty(
             MacroStabilityInwardsZoningBoundariesDeterminationType determinationType,
             bool createZones)

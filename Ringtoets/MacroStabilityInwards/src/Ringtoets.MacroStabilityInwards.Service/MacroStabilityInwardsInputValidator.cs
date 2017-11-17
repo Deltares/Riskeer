@@ -94,7 +94,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         private static IEnumerable<string> ValidateZoneBoundaries(MacroStabilityInwardsInput inputParameters)
         {
             if (!inputParameters.CreateZones
-                || inputParameters.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Manual)
+                || inputParameters.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic)
             {
                 yield break;
             }

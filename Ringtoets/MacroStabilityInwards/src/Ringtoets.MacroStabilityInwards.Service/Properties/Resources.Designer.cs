@@ -171,7 +171,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zoneringsgrens link moet kleiner zijn dan of gelijk zijn aan zoneringsgrens rechts..
+        ///   Looks up a localized string similar to Zoneringsgrens links moet kleiner zijn dan of gelijk zijn aan zoneringsgrens rechts..
         /// </summary>
         internal static string MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_BoundaryLeft_should_be_smaller_than_or_equal_to_BoundaryRight {
             get {

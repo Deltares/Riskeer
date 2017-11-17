@@ -110,7 +110,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                         ZTop = RoundedDouble.NaN,
                         ZBottom = RoundedDouble.NaN
                     },
-                    CreateZones = true,
                     ZoneBoundaryLeft = RoundedDouble.NaN,
                     ZoneBoundaryRight = RoundedDouble.NaN
                 }
@@ -247,8 +246,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                     },
                     CreateZones = random.NextBoolean(),
                     ZoningBoundariesDeterminationType = random.NextEnumValue<MacroStabilityInwardsZoningBoundariesDeterminationType>(),
-                    ZoneBoundaryLeft = random.NextRoundedDouble(2, 5),
-                    ZoneBoundaryRight = random.NextRoundedDouble(6, 10)
+                    ZoneBoundaryLeft = random.NextRoundedDouble(),
+                    ZoneBoundaryRight = random.NextRoundedDouble()
                 }
             };
 

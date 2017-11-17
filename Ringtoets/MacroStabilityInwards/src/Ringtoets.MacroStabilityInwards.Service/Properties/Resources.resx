@@ -148,6 +148,6 @@
     <value>Zoneringsgrenzen moeten op het profiel liggen (bereik {0}).</value>
   </data>
   <data name="MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_BoundaryLeft_should_be_smaller_than_or_equal_to_BoundaryRight" xml:space="preserve">
-    <value>Zoneringsgrens link moet kleiner zijn dan of gelijk zijn aan zoneringsgrens rechts.</value>
+    <value>Zoneringsgrens links moet kleiner zijn dan of gelijk zijn aan zoneringsgrens rechts.</value>
   </data>
 </root>
