@@ -313,7 +313,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
                 PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                 SlipPlane = new UpliftVanSlipPlane(),
-                SlipPlaneConstraints = new UpliftVanSlipPlaneConstraints(double.NaN, double.NaN, false)
+                SlipPlaneConstraints = new UpliftVanSlipPlaneConstraints(random.NextDouble(), random.NextDouble(), random.NextBoolean())
             });
         }
 

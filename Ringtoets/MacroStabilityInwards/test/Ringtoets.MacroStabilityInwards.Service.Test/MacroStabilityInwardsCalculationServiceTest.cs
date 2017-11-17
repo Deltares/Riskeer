@@ -405,6 +405,41 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
+        [TestCase(true, MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic)]
+        [TestCase(false, MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic)]
+        [TestCase(false, MacroStabilityInwardsZoningBoundariesDeterminationType.Manual)]
+        public void Calculate_ZoningBoundariesDeterminationTypeAutomatic_SetsInputOnCalculator(bool createZones,
+                                                                                               MacroStabilityInwardsZoningBoundariesDeterminationType zoningBoundariesDeterminationType)
+        {
+            // Setup
+            var random = new Random(11);
+            MacroStabilityInwardsInput inputParameters = testCalculation.InputParameters;
+            inputParameters.CreateZones = createZones;
+            inputParameters.ZoningBoundariesDeterminationType = zoningBoundariesDeterminationType;
+
+            inputParameters.SlipPlaneMinimumDepth = random.NextRoundedDouble();
+            inputParameters.SlipPlaneMinimumLength = random.NextRoundedDouble();
+            inputParameters.ZoneBoundaryLeft = random.NextRoundedDouble();
+            inputParameters.ZoneBoundaryRight = random.NextRoundedDouble();
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation);
+
+                // Assert
+                UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
+                    .LastCreatedUpliftVanCalculator.Input;
+                Assert.IsTrue(actualInput.SlipPlaneConstraints.AutomaticForbiddenZones);
+                Assert.AreEqual(createZones, actualInput.SlipPlaneConstraints.CreateZones);
+                Assert.IsNaN(actualInput.SlipPlaneConstraints.ZoneBoundaryLeft);
+                Assert.IsNaN(actualInput.SlipPlaneConstraints.ZoneBoundaryRight);
+                Assert.AreEqual(inputParameters.SlipPlaneMinimumDepth, actualInput.SlipPlaneConstraints.SlipPlaneMinimumDepth);
+                Assert.AreEqual(inputParameters.SlipPlaneMinimumLength, actualInput.SlipPlaneConstraints.SlipPlaneMinimumLength);
+            }
+        }
+
+        [Test]
         public void Calculate_CalculationRan_SetOutput()
         {
             // Setup

@@ -279,8 +279,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
         private static void AssertIrrelevantValues(StabilityModel stabilityModel)
         {
-            Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMin); // Set during calculation
-            Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMax); // Set during calculation
             Assert.IsEmpty(stabilityModel.UniformLoads); // No traffic load for WBI
             Assert.AreEqual(0.0, stabilityModel.FileVersionAsRead); // Set by XML serialization
             Assert.IsNull(stabilityModel.MinimumSafetyCurve); // Output

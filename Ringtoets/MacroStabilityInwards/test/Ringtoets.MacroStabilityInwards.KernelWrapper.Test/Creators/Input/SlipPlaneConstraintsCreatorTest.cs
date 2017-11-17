@@ -45,10 +45,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         {
             // Setup
             var random = new Random(39);
-            var upliftVanSlipPlaneConstraints = new UpliftVanSlipPlaneConstraints(random.NextDouble(),
-                                                                                  random.NextDouble(),
-                                                                                  random.NextDouble(),
-                                                                                  random.NextDouble());
+            var upliftVanSlipPlaneConstraints = new UpliftVanSlipPlaneConstraints(random.NextDouble(), random.NextDouble(),
+                                                                                  random.NextDouble(), random.NextDouble());
 
             // Call
             SlipPlaneConstraints constraints = SlipPlaneConstraintsCreator.Create(upliftVanSlipPlaneConstraints);

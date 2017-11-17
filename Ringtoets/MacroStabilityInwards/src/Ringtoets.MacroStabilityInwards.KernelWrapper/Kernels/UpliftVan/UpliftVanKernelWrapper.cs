@@ -45,7 +45,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         {
             stabilityModel = new StabilityModel
             {
-                SlipPlaneConstraints = new SlipPlaneConstraints(),
                 GridOrientation = GridOrientation.Inwards,
                 SlipCircle = new SlipCircle(),
                 SearchAlgorithm = SearchAlgorithm.Grid,

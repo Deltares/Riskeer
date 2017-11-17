@@ -306,7 +306,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_ZoneBoundaryRightSmallerThanZoneBoundaryLeft_ReturnsError()
         {
             // Setup
-            input.ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Manual;
             input.ZoneBoundaryLeft = (RoundedDouble) 0.5;
             input.ZoneBoundaryRight = (RoundedDouble) 0.2;
 
@@ -327,7 +326,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_ZoneBoundariesOutsideSurfaceLine_ReturnsError(double zoneBoundaryLeft, double zoneBoundaryRight)
         {
             // Setup
-            input.ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Manual;
             input.ZoneBoundaryLeft = (RoundedDouble) zoneBoundaryLeft;
             input.ZoneBoundaryRight = (RoundedDouble) zoneBoundaryRight;
 

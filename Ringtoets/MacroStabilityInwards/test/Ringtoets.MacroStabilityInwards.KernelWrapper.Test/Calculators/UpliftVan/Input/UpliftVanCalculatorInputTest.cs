@@ -55,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var drainageConstruction = new DrainageConstruction();
             var phreaticLineOffsets = new PhreaticLineOffsets();
             var slipPlane = new UpliftVanSlipPlane();
-            var slipPlaneConstraints = new UpliftVanSlipPlaneConstraints(double.NaN, double.NaN, true);
+            var slipPlaneConstraints = new UpliftVanSlipPlaneConstraints(random.NextDouble(), random.NextDouble(), random.NextBoolean());
             var waternetCreationMode = random.NextEnumValue<WaternetCreationMode>();
             var plLineCreationMethod = random.NextEnumValue<PlLineCreationMethod>();
             var landwardDirection = random.NextEnumValue<LandwardDirection>();

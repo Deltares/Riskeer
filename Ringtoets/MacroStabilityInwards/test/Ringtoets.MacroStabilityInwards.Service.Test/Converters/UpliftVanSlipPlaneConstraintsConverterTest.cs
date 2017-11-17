@@ -44,40 +44,15 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         }
 
         [Test]
-        public void Convert_CreateZonesFalse_ReturnsExpectedUpliftVanSlipPlaneConstraints()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Convert_ZoningDeterminationTypeAutomatic_ReturnsExpectedUpliftVanSlipPlaneConstraints(bool createZones)
         {
             // Setup
             var random = new Random(39);
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
-                CreateZones = false,
-                ZoningBoundariesDeterminationType = random.NextEnumValue<MacroStabilityInwardsZoningBoundariesDeterminationType>(),
-                SlipPlaneMinimumDepth = random.NextRoundedDouble(),
-                SlipPlaneMinimumLength = random.NextRoundedDouble(),
-                ZoneBoundaryLeft = random.NextRoundedDouble(),
-                ZoneBoundaryRight = random.NextRoundedDouble()
-            };
-
-            // Call
-            UpliftVanSlipPlaneConstraints constraints = UpliftVanSlipPlaneConstraintsConverter.Convert(input);
-
-            // Assert
-            Assert.IsFalse(constraints.CreateZones);
-            Assert.IsTrue(constraints.AutomaticForbiddenZones);
-            Assert.AreEqual(input.SlipPlaneMinimumDepth, constraints.SlipPlaneMinimumDepth, input.SlipPlaneMinimumDepth.GetAccuracy());
-            Assert.AreEqual(input.SlipPlaneMinimumLength, constraints.SlipPlaneMinimumLength, input.SlipPlaneMinimumLength.GetAccuracy());
-            Assert.IsNaN(constraints.ZoneBoundaryLeft);
-            Assert.IsNaN(constraints.ZoneBoundaryRight);
-        }
-
-        [Test]
-        public void Convert_ZoningDeterminationTypeAutomatic_ReturnsExpectedUpliftVanSlipPlaneConstraints()
-        {
-            // Setup
-            var random = new Random(39);
-            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
-            {
-                CreateZones = true,
+                CreateZones = createZones,
                 ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic,
                 SlipPlaneMinimumDepth = random.NextRoundedDouble(),
                 SlipPlaneMinimumLength = random.NextRoundedDouble(),
@@ -89,7 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             UpliftVanSlipPlaneConstraints constraints = UpliftVanSlipPlaneConstraintsConverter.Convert(input);
 
             // Assert
-            Assert.IsTrue(constraints.CreateZones);
+            Assert.AreEqual(createZones, constraints.CreateZones);
             Assert.IsTrue(constraints.AutomaticForbiddenZones);
             Assert.AreEqual(input.SlipPlaneMinimumDepth, constraints.SlipPlaneMinimumDepth, input.SlipPlaneMinimumDepth.GetAccuracy());
             Assert.AreEqual(input.SlipPlaneMinimumLength, constraints.SlipPlaneMinimumLength, input.SlipPlaneMinimumLength.GetAccuracy());
@@ -98,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         }
 
         [Test]
-        public void Convert_ZoningDeterminationTypeManual_ReturnsExpectedUpliftVanSlipPlaneConstraints()
+        public void Convert_CreateZonesTrueAndZoningDeterminationTypeManual_ReturnsExpectedUpliftVanSlipPlaneConstraints()
         {
             // Setup
             var random = new Random(39);
