@@ -150,4 +150,7 @@
   <data name="MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_BoundaryLeft_should_be_smaller_than_or_equal_to_BoundaryRight" xml:space="preserve">
     <value>Zoneringsgrens links moet kleiner zijn dan of gelijk zijn aan zoneringsgrens rechts.</value>
   </data>
+  <data name="MacroStabilityInwardsInputValidator_ValidateTangentLines_TangentLineNumber_must_be_one_when_TangentLineTop_equals_TangentLineBottom" xml:space="preserve">
+    <value>Het aantal tangentlijnen moet 1 zijn wanneer tangentlijn Z-boven gelijk is aan tangentlijn Z-onder.</value>
+  </data>
 </root>

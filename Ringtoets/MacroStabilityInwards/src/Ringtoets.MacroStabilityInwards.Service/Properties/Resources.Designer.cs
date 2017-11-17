@@ -171,6 +171,16 @@ namespace Ringtoets.MacroStabilityInwards.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het aantal tangentlijnen moet 1 zijn wanneer tangentlijn Z-boven gelijk is aan tangentlijn Z-onder..
+        /// </summary>
+        internal static string MacroStabilityInwardsInputValidator_ValidateTangentLines_TangentLineNumber_must_be_one_when_TangentLineTop_equals_TangentLineBottom {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsInputValidator_ValidateTangentLines_TangentLineNumber_must_b" +
+                        "e_one_when_TangentLineTop_equals_TangentLineBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zoneringsgrens links moet kleiner zijn dan of gelijk zijn aan zoneringsgrens rechts..
         /// </summary>
         internal static string MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_BoundaryLeft_should_be_smaller_than_or_equal_to_BoundaryRight {

@@ -64,6 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 validationResults.AddRange(ValidateSoilLayers(inputParameters));
                 validationResults.AddRange(ValidateZoneBoundaries(inputParameters));
+                validationResults.AddRange(ValidateTangentLines(inputParameters));
             }
 
             return validationResults;
@@ -113,6 +114,15 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 var validityRange = new Range<double>(surfaceLine.LocalGeometry.First().X, surfaceLine.LocalGeometry.Last().X);
                 yield return string.Format(Resources.MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be_in_Range_0,
                                            validityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+            }
+        }
+
+        private static IEnumerable<string> ValidateTangentLines(MacroStabilityInwardsInput inputParameters)
+        {
+            if (inputParameters.TangentLineZTop == inputParameters.TangentLineZBottom
+                && inputParameters.TangentLineNumber != 1)
+            {
+                yield return Resources.MacroStabilityInwardsInputValidator_ValidateTangentLines_TangentLineNumber_must_be_one_when_TangentLineTop_equals_TangentLineBottom;
             }
         }
 

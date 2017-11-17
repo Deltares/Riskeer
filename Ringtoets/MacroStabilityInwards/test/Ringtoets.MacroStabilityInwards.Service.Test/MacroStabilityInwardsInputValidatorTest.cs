@@ -360,6 +360,54 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             CollectionAssert.IsEmpty(messages);
         }
 
+        [Test]
+        public void Validate_MultipleTangentLinesWithTangentLineTopAndBottomSame_ReturnsError()
+        {
+            // Setup
+            input.TangentLineNumber = 3;
+            input.TangentLineZTop = (RoundedDouble) 1.5;
+            input.TangentLineZBottom = (RoundedDouble) 1.5;
+
+            // Call
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input).ToArray();
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                "Het aantal tangentlijnen moet 1 zijn wanneer tangentlijn Z-boven gelijk is aan tangentlijn Z-onder."
+            }, messages);
+        }
+
+        [Test]
+        public void Validate_MultipleTangentLinesWithTangentLineTopAndBottomNotSame_ReturnsEmpty()
+        {
+            // Setup
+            input.TangentLineNumber = 4;
+            input.TangentLineZTop = (RoundedDouble) 1.5;
+            input.TangentLineZBottom = (RoundedDouble) 0.2;
+
+            // Call
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input).ToArray();
+
+            // Assert
+            CollectionAssert.IsEmpty(messages);
+        }
+
+        [Test]
+        public void Validate_SingleTangentLineWithTangentLineTopAndBottomSame_ReturnsEmpty()
+        {
+            // Setup
+            input.TangentLineNumber = 1;
+            input.TangentLineZTop = (RoundedDouble) 1.59;
+            input.TangentLineZBottom = (RoundedDouble) 1.59;
+
+            // Call
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input).ToArray();
+
+            // Assert
+            CollectionAssert.IsEmpty(messages);
+        }
+
         private static IEnumerable<TestCaseData> SurfacelineNotOnMacroStabilityInwardsSoilProfile2D()
         {
             yield return new TestCaseData(
