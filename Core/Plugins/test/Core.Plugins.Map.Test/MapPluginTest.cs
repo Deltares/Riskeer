@@ -197,10 +197,10 @@ namespace Core.Plugins.Map.Test
 
                 // Then
                 Assert.AreEqual(visible ? Visibility.Visible : Visibility.Collapsed, plugin.RibbonCommandHandler.GetRibbonControl().ContextualGroups[0].Visibility);
-                mocks.VerifyAll();
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -235,10 +235,10 @@ namespace Core.Plugins.Map.Test
 
                 // Then
                 Assert.AreNotEqual(initialExtents, map.ViewExtents);
-                mocks.VerifyAll();
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -278,11 +278,10 @@ namespace Core.Plugins.Map.Test
                 // Then
                 Assert.AreSame(view.Map, GetMapControl(mapLegendView));
                 Assert.AreSame(view.Map, GetMapControl(mapRibbon));
-
-                mocks.VerifyAll();
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -326,11 +325,10 @@ namespace Core.Plugins.Map.Test
                 // Then
                 Assert.AreSame(view1.Map, GetMapControl(mapLegendView));
                 Assert.AreSame(view1.Map, GetMapControl(mapRibbon));
-
-                mocks.VerifyAll();
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -372,11 +370,10 @@ namespace Core.Plugins.Map.Test
                 // Then
                 Assert.IsNull(GetMapControl(mapLegendView));
                 Assert.IsNull(GetMapControl(mapRibbon));
-
-                mocks.VerifyAll();
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -420,11 +417,10 @@ namespace Core.Plugins.Map.Test
                 // Then
                 Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
                 Assert.AreSame(view2.Map, GetMapControl(mapRibbon));
-
-                mocks.VerifyAll();
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
+            mocks.VerifyAll();
         }
 
         private static IMapControl GetMapControl(MapRibbon mapRibbon)

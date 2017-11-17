@@ -113,44 +113,6 @@ namespace Core.Plugins.Chart.Test
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        [Apartment(ApartmentState.STA)]
-        public void GivenConfiguredGui_WhenActiveDocumentViewChangesToViewWithChart_ThenRibbonSetVisibility(bool visible)
-        {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
-            mocks.ReplayAll();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                var plugin = new ChartPlugin();
-                var testChartView = new TestChartView();
-                var chart = new ChartControl();
-                IView view = visible ? (IView) testChartView : new TestView();
-
-                testChartView.Data = chart;
-
-                gui.Plugins.Add(plugin);
-                plugin.Gui = gui;
-                gui.Run();
-
-                // When
-                gui.ViewHost.AddDocumentView(view);
-
-                // Then
-                Assert.AreEqual(visible ? Visibility.Visible : Visibility.Collapsed, plugin.RibbonCommandHandler.GetRibbonControl().ContextualGroups[0].Visibility);
-                mocks.VerifyAll();
-            }
-
-            Dispatcher.CurrentDispatcher.InvokeShutdown();
-        }
-
-        [Test]
         public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
         {
             // Setup
@@ -192,6 +154,47 @@ namespace Core.Plugins.Chart.Test
                     typeof(ChartPointData),
                     typeof(ChartPointDataProperties));
             }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        [Apartment(ApartmentState.STA)]
+        public void GivenConfiguredGui_WhenActiveDocumentViewChangesToViewWithChart_ThenRibbonSetVisibility(bool visible)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                var plugin = new ChartPlugin
+                {
+                    Gui = gui
+                };
+
+                gui.Plugins.Add(plugin);
+                gui.Run();
+
+                var testChartView = new TestChartView
+                {
+                    Data = new ChartControl()
+                };
+                IView view = visible ? (IView) testChartView : new TestView();
+
+                // When
+                gui.ViewHost.AddDocumentView(view);
+
+                // Then
+                Assert.AreEqual(visible ? Visibility.Visible : Visibility.Collapsed, plugin.RibbonCommandHandler.GetRibbonControl().ContextualGroups[0].Visibility);
+            }
+
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
+            mocks.VerifyAll();
         }
     }
 }
