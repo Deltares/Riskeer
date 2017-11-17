@@ -182,13 +182,15 @@ namespace Core.Plugins.Map.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                var plugin = new MapPlugin();
-
-                IView view = visible ? (IView) new TestMapView() : new TestView();
+                var plugin = new MapPlugin
+                {
+                    Gui = gui
+                };
 
                 gui.Plugins.Add(plugin);
-                plugin.Gui = gui;
                 gui.Run();
+
+                IView view = visible ? (IView) new TestMapView() : new TestView();
 
                 // When
                 gui.ViewHost.AddDocumentView(view);
@@ -215,13 +217,14 @@ namespace Core.Plugins.Map.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                var plugin = new MapPlugin();
-                var testMapView = new TestMapView();
+                gui.Plugins.Add(new MapPlugin
+                {
+                    Gui = gui
+                });
 
-                gui.Plugins.Add(plugin);
-                plugin.Gui = gui;
                 gui.Run();
 
+                var testMapView = new TestMapView();
                 var map = (DotSpatialMap) ((MapControl) testMapView.Map).Controls[0];
 
                 // Precondition
@@ -252,7 +255,6 @@ namespace Core.Plugins.Map.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                var view = new TestMapView();
                 var plugin = new MapPlugin
                 {
                     Gui = gui
@@ -261,8 +263,8 @@ namespace Core.Plugins.Map.Test
                 gui.Plugins.Add(plugin);
                 gui.Run();
 
+                var view = new TestMapView();
                 IViewHost guiViewHost = gui.ViewHost;
-
                 MapLegendView mapLegendView = guiViewHost.ToolViews.OfType<MapLegendView>().First();
                 var mapRibbon = (MapRibbon) plugin.RibbonCommandHandler;
 
@@ -297,8 +299,6 @@ namespace Core.Plugins.Map.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                var view1 = new TestMapView();
-                var view2 = new TestMapView();
                 var plugin = new MapPlugin
                 {
                     Gui = gui
@@ -307,13 +307,14 @@ namespace Core.Plugins.Map.Test
                 gui.Plugins.Add(plugin);
                 gui.Run();
 
+                var view1 = new TestMapView();
+                var view2 = new TestMapView();
                 IViewHost guiViewHost = gui.ViewHost;
+                MapLegendView mapLegendView = guiViewHost.ToolViews.OfType<MapLegendView>().First();
+                var mapRibbon = (MapRibbon) plugin.RibbonCommandHandler;
 
                 guiViewHost.AddDocumentView(view1);
                 guiViewHost.AddDocumentView(view2);
-
-                MapLegendView mapLegendView = guiViewHost.ToolViews.OfType<MapLegendView>().First();
-                var mapRibbon = (MapRibbon) plugin.RibbonCommandHandler;
 
                 // Precondition
                 Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
@@ -346,7 +347,6 @@ namespace Core.Plugins.Map.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                var view = new TestMapView();
                 var plugin = new MapPlugin
                 {
                     Gui = gui
@@ -355,12 +355,12 @@ namespace Core.Plugins.Map.Test
                 gui.Plugins.Add(plugin);
                 gui.Run();
 
+                var view = new TestMapView();
                 IViewHost guiViewHost = gui.ViewHost;
-
-                guiViewHost.AddDocumentView(view);
-
                 MapLegendView mapLegendView = guiViewHost.ToolViews.OfType<MapLegendView>().First();
                 var mapRibbon = (MapRibbon) plugin.RibbonCommandHandler;
+
+                guiViewHost.AddDocumentView(view);
 
                 // Precondition
                 Assert.AreSame(view.Map, GetMapControl(mapLegendView));
