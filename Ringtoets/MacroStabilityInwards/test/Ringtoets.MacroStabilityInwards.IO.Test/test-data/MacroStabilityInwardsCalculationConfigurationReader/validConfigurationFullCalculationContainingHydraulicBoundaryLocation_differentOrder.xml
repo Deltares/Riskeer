@@ -38,6 +38,9 @@
     </grids>
     <zonering>
       <bepaling>true</bepaling>
+      <methode>handmatig</methode>
+      <zoneringsgrenslinks>10</zoneringsgrenslinks>
+      <zoneringsgrensrechts>43.5</zoneringsgrensrechts>
     </zonering>
     <maximalelamelbreedte>0.6</maximalelamelbreedte>
     <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>

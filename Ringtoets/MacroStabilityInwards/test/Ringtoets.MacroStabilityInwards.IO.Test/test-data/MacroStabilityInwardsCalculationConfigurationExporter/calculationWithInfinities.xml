@@ -57,6 +57,9 @@
     <maximalelamelbreedte>-INF</maximalelamelbreedte>
     <zonering>
       <bepaling>true</bepaling>
+      <methode>handmatig</methode>
+      <zoneringsgrenslinks>-INF</zoneringsgrenslinks>
+      <zoneringsgrensrechts>INF</zoneringsgrensrechts>
     </zonering>
     <grids>
       <verplaatsgrid>true</verplaatsgrid>

@@ -85,6 +85,9 @@
     <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
     <zonering>
       <bepaling>true</bepaling>
+      <methode>handmatig</methode>
+      <zoneringsgrenslinks>10</zoneringsgrenslinks>
+      <zoneringsgrensrechts>43.5</zoneringsgrensrechts>
     </zonering>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <toetspeil>1.1</toetspeil>

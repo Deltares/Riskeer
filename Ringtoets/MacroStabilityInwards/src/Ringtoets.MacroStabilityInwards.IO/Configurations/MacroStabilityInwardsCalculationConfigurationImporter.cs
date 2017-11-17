@@ -99,6 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 SetSimpleProperties(calculationConfiguration, calculation.InputParameters);
 
+                SetZonesParameters(calculationConfiguration, calculation.InputParameters);
                 SetDikeSoilScenario(calculationConfiguration, calculation.InputParameters);
                 SetGridDeterminationType(calculationConfiguration, calculation.InputParameters);
                 SetTangentLineDeterminationType(calculationConfiguration, calculation.InputParameters);
@@ -636,14 +637,40 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 input.MaximumSliceWidth = (RoundedDouble) calculationConfiguration.MaximumSliceWidth.Value;
             }
 
-            if (calculationConfiguration.CreateZones.HasValue)
-            {
-                input.CreateZones = calculationConfiguration.CreateZones.Value;
-            }
-
             if (calculationConfiguration.MoveGrid.HasValue)
             {
                 input.MoveGrid = calculationConfiguration.MoveGrid.Value;
+            }
+        }
+
+        /// <summary>
+        /// Assigns the zones parameters.
+        /// </summary>
+        /// <param name="configuration">The read calculation read.</param>
+        /// <param name="input">The calculation input to configure.</param>
+        private static void SetZonesParameters(MacroStabilityInwardsCalculationConfiguration configuration,
+                                                MacroStabilityInwardsInput input)
+        {
+            if (configuration.CreateZones.HasValue)
+            {
+                input.CreateZones = configuration.CreateZones.Value;
+            }
+
+            if (configuration.ZoningBoundariesDeterminationType.HasValue)
+            {
+                input.ZoningBoundariesDeterminationType = (MacroStabilityInwardsZoningBoundariesDeterminationType)
+                    new ConfigurationZoningBoundariesDeterminationTypeConverter().ConvertTo(configuration.ZoningBoundariesDeterminationType.Value,
+                                                                                            typeof(MacroStabilityInwardsZoningBoundariesDeterminationType));
+            }
+
+            if (configuration.ZoneBoundaryLeft.HasValue)
+            {
+                input.ZoneBoundaryLeft = (RoundedDouble) configuration.ZoneBoundaryLeft.Value;
+            }
+
+            if (configuration.ZoneBoundaryRight.HasValue)
+            {
+                input.ZoneBoundaryRight = (RoundedDouble) configuration.ZoneBoundaryRight.Value;
             }
         }
 

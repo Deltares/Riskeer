@@ -27,9 +27,37 @@ All rights reserved.
   <xs:element name="zonering">
     <xs:complexType>
       <xs:all>
-        <!--Specificeert of zonering automatisch moet worden toegepast op het intredepunt van het glijvlak.-->
+        <!--Specificeert of zonering moet worden toegepast op het intredepunt van het glijvlak.-->
         <xs:element name="bepaling" type="xs:boolean" minOccurs="0"/>
+        
+        <xs:element ref="methode" minOccurs="0"/>
+        <xs:element ref="zoneringsgrenslinks" minOccurs="0"/>
+        <xs:element ref="zoneringsgrensrechts" minOccurs="0"/>
       </xs:all>
     </xs:complexType>
+  </xs:element>
+
+  <!--Specificeert of de zoneringsgrenzen automatisch worden bepaald of handmatig moeten worden ingevoerd.-->
+  <xs:element name="methode">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="automatisch"/>
+        <xs:enumeration value="handmatig"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de linker zoneringsgrens.-->
+  <xs:element name="zoneringsgrenslinks">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de rechter zoneringsgrens.-->
+  <xs:element name="zoneringsgrensrechts">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
   </xs:element>
 </xs:schema>
