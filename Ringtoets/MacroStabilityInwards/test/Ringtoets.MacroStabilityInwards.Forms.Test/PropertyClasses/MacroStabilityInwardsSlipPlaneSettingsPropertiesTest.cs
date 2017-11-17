@@ -22,11 +22,13 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
@@ -94,14 +96,26 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues()
+        [TestCase(true, MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, false, true)]
+        [TestCase(true, MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, false, false)]
+        [TestCase(false, MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, true, true)]
+        [TestCase(false, MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, true, true)]
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues(
+            bool createZones,
+            MacroStabilityInwardsZoningBoundariesDeterminationType zoningBoundariesDeterminationType,
+            bool expectedDeterminationTypeReadOnly,
+            bool expectedZoneBoundariesReadOnly)
         {
             // Setup
             var mocks = new MockRepository();
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
+            {
+                CreateZones = createZones,
+                ZoningBoundariesDeterminationType = zoningBoundariesDeterminationType
+            };
 
             // Call
             var properties = new MacroStabilityInwardsSlipPlaneSettingsProperties(input, changeHandler);
@@ -126,7 +140,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 zoningBoundariesDeterminationTypeProperty,
                 category,
                 "Methode",
-                "Zoneringsgrenzen automatisch bepalen of handmatig invoeren?");
+                "Zoneringsgrenzen automatisch bepalen of handmatig invoeren?",
+                expectedDeterminationTypeReadOnly);
 
             PropertyDescriptor zoneBoundaryLeftProperty = dynamicProperties[expectedZoneBoundayrLeftPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -134,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 category,
                 "Zoneringsgrens links",
                 "Linker grens voor bepaling intredepunt van het glijvlak.",
-                true);
+                expectedZoneBoundariesReadOnly);
 
             PropertyDescriptor zoneBoundaryRightProperty = dynamicProperties[expectedZoneBoundaryRightPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -142,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 category,
                 "Zoneringsgrens rechts",
                 "Rechter grens voor bepaling intredepunt van het glijvlak.",
-                true);
+                expectedZoneBoundariesReadOnly);
 
             mocks.VerifyAll();
         }
@@ -180,12 +195,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var random = new Random(21);
             bool createZones = random.NextBoolean();
+            var determinationType = random.NextEnumValue<MacroStabilityInwardsZoningBoundariesDeterminationType>();
+            RoundedDouble boundaryLeft = random.NextRoundedDouble();
+            RoundedDouble boundaryRight = random.NextRoundedDouble();
 
             // When
             properties.CreateZones = createZones;
+            properties.ZoningBoundariesDeterminationType = determinationType;
+            properties.ZoneBoundaryLeft = boundaryLeft;
+            properties.ZoneBoundaryRight = boundaryRight;
 
             // Then
             Assert.AreEqual(createZones, input.CreateZones);
+            Assert.AreEqual(determinationType, input.ZoningBoundariesDeterminationType);
+            Assert.AreEqual(boundaryLeft, input.ZoneBoundaryLeft, input.ZoneBoundaryLeft.GetAccuracy());
+            Assert.AreEqual(boundaryRight, input.ZoneBoundaryRight, input.ZoneBoundaryRight.GetAccuracy());
         }
 
         [Test]

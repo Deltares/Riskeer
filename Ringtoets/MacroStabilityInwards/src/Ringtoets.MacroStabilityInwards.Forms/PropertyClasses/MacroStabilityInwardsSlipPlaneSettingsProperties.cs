@@ -136,14 +136,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [DynamicReadOnlyValidationMethod]
-        public bool DynamicReadOnlyValidationMethod(string param)
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            if (param == nameof(ZoningBoundariesDeterminationType))
+            if (propertyName == nameof(ZoningBoundariesDeterminationType))
             {
                 return CreateZones == false;
             }
 
-            if (param == nameof(ZoneBoundaryLeft) || param == nameof(ZoneBoundaryRight))
+            if (propertyName == nameof(ZoneBoundaryLeft) || propertyName == nameof(ZoneBoundaryRight))
             {
                 return CreateZones == false || ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic;
             }
