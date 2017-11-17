@@ -755,18 +755,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Data = calculation
             })
             {
-                MacroStabilityInwardsInput input = calculation.InputParameters;
-                input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual;
-                SetGridValues(input.LeftGrid);
-                SetGridValues(input.RightGrid);
-
-                // Precondition
                 ChartDataCollection chartData = view.Chart.Data;
                 List<ChartData> chartDataList = chartData.Collection.ToList();
                 var actualLeftGridData = (ChartPointData) chartDataList[leftGridIndex];
                 var actualRightGridData = (ChartPointData) chartDataList[rightGridIndex];
+
+                // Precondition
                 CollectionAssert.IsEmpty(actualLeftGridData.Points);
                 CollectionAssert.IsEmpty(actualRightGridData.Points);
+
+                MacroStabilityInwardsInput input = calculation.InputParameters;
+                input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual;
+                SetGridValues(input.LeftGrid);
+                SetGridValues(input.RightGrid);
 
                 // Call
                 calculation.InputParameters.NotifyObservers();
@@ -794,18 +795,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Data = calculation
             })
             {
+                ChartDataCollection chartData = view.Chart.Data;
+                List<ChartData> chartDataList = chartData.Collection.ToList();
+                var tangentLinesData = (ChartMultipleLineData) chartDataList[tangentLinesIndex];
+
+                // Precondition
+                CollectionAssert.IsEmpty(tangentLinesData.Lines);
+
                 MacroStabilityInwardsInput input = calculation.InputParameters;
                 input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual;
                 input.TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified;
                 input.TangentLineZTop = (RoundedDouble) 10;
                 input.TangentLineZBottom = (RoundedDouble) 5;
                 input.TangentLineNumber = 2;
-
-                // Precondition
-                ChartDataCollection chartData = view.Chart.Data;
-                List<ChartData> chartDataList = chartData.Collection.ToList();
-                var tangentLinesData = (ChartMultipleLineData) chartDataList[tangentLinesIndex];
-                CollectionAssert.IsEmpty(tangentLinesData.Lines);
 
                 // Call
                 calculation.InputParameters.NotifyObservers();
