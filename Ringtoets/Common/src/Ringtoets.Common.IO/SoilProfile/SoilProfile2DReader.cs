@@ -174,10 +174,12 @@ namespace Ringtoets.Common.IO.SoilProfile
             var soilLayerGeometryLookup = new Dictionary<SoilLayer2DGeometry, Layer2DProperties>();
 
             long soilProfileId = criticalProperties.ProfileId;
-            var properties = new RequiredProfileProperties(this, criticalProperties.ProfileName);
+            RequiredProfileProperties properties;
 
             try
             {
+                properties = new RequiredProfileProperties(this, criticalProperties.ProfileName);
+
                 var geometryReader = new SoilLayer2DGeometryReader();
                 for (var i = 1; i <= criticalProperties.LayerCount; i++)
                 {
