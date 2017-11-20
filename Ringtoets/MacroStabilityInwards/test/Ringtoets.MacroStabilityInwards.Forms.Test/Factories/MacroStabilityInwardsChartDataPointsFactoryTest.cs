@@ -1456,24 +1456,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateTangentLines_TangentLinesNull_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(null, new MacroStabilityInwardsSurfaceLine("line"));
+            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(null, new MacroStabilityInwardsSurfaceLine("line"));
 
             // Assert
-            CollectionAssert.IsEmpty(areas);
+            CollectionAssert.IsEmpty(lines);
         }
 
         [Test]
         public void CreateTangentLines_SurfaceLineNull_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(Enumerable.Empty<double>(), null);
+            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(Enumerable.Empty<RoundedDouble>(), null);
 
             // Assert
-            CollectionAssert.IsEmpty(areas);
+            CollectionAssert.IsEmpty(lines);
         }
 
         [Test]
-        public void CreateTangentLines_WithSlices_ReturnsLines()
+        public void CreateTangentLines_WithSurfaceLineAndTangentLines_ReturnsLines()
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("line");
@@ -1486,8 +1486,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Call
             IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(new[]
             {
-                2.5,
-                5.8
+                (RoundedDouble) 2.5,
+                (RoundedDouble) 5.8
             }, surfaceLine);
 
             // Assert
@@ -1502,6 +1502,209 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 {
                     new Point2D(0, 5.8),
                     new Point2D(15.0, 5.8)
+                }
+            }, lines);
+        }
+
+        [Test]
+        public void CreateTangentLines_WithBoundaryParametersSurfaceLineNull_ReturnsEmptyCollection()
+        {
+            // Call
+            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+                MacroStabilityInwardsGridDeterminationType.Manual,
+                MacroStabilityInwardsTangentLineDeterminationType.Specified,
+                (RoundedDouble) 0.0,
+                (RoundedDouble) 10.0,
+                3,
+                null);
+
+            // Assert
+            CollectionAssert.IsEmpty(lines);
+        }
+
+        [Test]
+        [TestCase(double.NaN, 10.0)]
+        [TestCase(10.0, double.NaN)]
+        [TestCase(double.NegativeInfinity, 10.0)]
+        [TestCase(double.PositiveInfinity, 10.0)]
+        [TestCase(0.0, double.NegativeInfinity)]
+        [TestCase(0.0, double.PositiveInfinity)]
+        public void CreateTangentLines_WithInvalidBoundaryParameters_ReturnsEmptyCollection(double bottom, double top)
+        {
+            // Call
+            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+                MacroStabilityInwardsGridDeterminationType.Manual,
+                MacroStabilityInwardsTangentLineDeterminationType.Specified,
+                (RoundedDouble) bottom,
+                (RoundedDouble) top,
+                3,
+                GetSurfaceLineWithGeometry());
+
+            // Assert
+            CollectionAssert.IsEmpty(lines);
+        }
+
+        [Test]
+        [TestCase(MacroStabilityInwardsGridDeterminationType.Automatic, MacroStabilityInwardsTangentLineDeterminationType.Specified)]
+        [TestCase(MacroStabilityInwardsGridDeterminationType.Manual, MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated)]
+        [TestCase(MacroStabilityInwardsGridDeterminationType.Automatic, MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated)]
+        public void CreateTangentLines_WithBoundaryParametersAndDeterminationTypeAutomatic_ReturnsEmptyCollection(
+            MacroStabilityInwardsGridDeterminationType gridDeterminationType,
+            MacroStabilityInwardsTangentLineDeterminationType tangentLineDeterminationType)
+        {
+            // Call
+            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+                gridDeterminationType,
+                tangentLineDeterminationType,
+                (RoundedDouble) 10.0,
+                (RoundedDouble) 30.0,
+                3,
+                GetSurfaceLineWithGeometry());
+
+            // Assert
+            CollectionAssert.IsEmpty(lines);
+        }
+
+        [Test]
+        public void CreateTangentLines_WithBoundaryParametersAndSingleTangentLine_ReturnsExpectedLine()
+        {
+            // Setup
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("line");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(-5, 2, 2),
+                new Point3D(10, 2, 2)
+            });
+
+            // Call
+            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+                MacroStabilityInwardsGridDeterminationType.Manual,
+                MacroStabilityInwardsTangentLineDeterminationType.Specified,
+                (RoundedDouble) 10.0,
+                (RoundedDouble) 20.0,
+                1,
+                surfaceLine);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0.0, 20.0),
+                    new Point2D(15.0, 20.0)
+                }
+            }, lines);
+        }
+
+        [Test]
+        public void CreateTangentLines_WithBoundaryParametersAndMultipleTangentLines_ReturnsExpectedLines()
+        {
+            // Setup
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("line");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(-5, 2, 2),
+                new Point3D(10, 2, 2)
+            });
+
+            // Call
+            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+                MacroStabilityInwardsGridDeterminationType.Manual,
+                MacroStabilityInwardsTangentLineDeterminationType.Specified,
+                (RoundedDouble) 10.0,
+                (RoundedDouble) 20.0,
+                3,
+                surfaceLine);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0.0, 20.0),
+                    new Point2D(15.0, 20.0)
+                },
+                new[]
+                {
+                    new Point2D(0, 15.0),
+                    new Point2D(15.0, 15.0)
+                },
+                new[]
+                {
+                    new Point2D(0, 10.0),
+                    new Point2D(15.0, 10.0)
+                }
+            }, lines);
+        }
+
+        [Test]
+        public void CreateTangentLines_WithBoundaryParametersAndMultipleTangentLinesWithTopAndBottomSame_ReturnsExpectedLines()
+        {
+            // Setup
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("line");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(-5, 2, 2),
+                new Point3D(10, 2, 2)
+            });
+
+            // Call
+            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+                MacroStabilityInwardsGridDeterminationType.Manual,
+                MacroStabilityInwardsTangentLineDeterminationType.Specified,
+                (RoundedDouble) 10.0,
+                (RoundedDouble) 10.0,
+                3,
+                surfaceLine);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 10.0),
+                    new Point2D(15.0, 10.0)
+                },
+                new[]
+                {
+                    new Point2D(0, 10.0),
+                    new Point2D(15.0, 10.0)
+                },
+                new[]
+                {
+                    new Point2D(0, 10.0),
+                    new Point2D(15.0, 10.0)
+                }
+            }, lines);
+        }
+
+        [Test]
+        public void CreateTangentLines_WithBoundaryParametersAndSingleTangentLineWithTopAndBottomSame_ReturnsExpectedLine()
+        {
+            // Setup
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("line");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(-5, 2, 2),
+                new Point3D(10, 2, 2)
+            });
+
+            // Call
+            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+                MacroStabilityInwardsGridDeterminationType.Manual,
+                MacroStabilityInwardsTangentLineDeterminationType.Specified,
+                (RoundedDouble) 10.0,
+                (RoundedDouble) 10.0,
+                1,
+                surfaceLine);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 10.0),
+                    new Point2D(15.0, 10.0)
                 }
             }, lines);
         }

@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
@@ -86,9 +87,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.IsNotNull(output.SlipPlane);
             CollectionAssert.AreEqual(new[]
             {
-                -3.5,
-                0.0,
-                2.0
+                (RoundedDouble) (-3.5),
+                (RoundedDouble) 0.0,
+                (RoundedDouble) 2.0
             }, output.SlipPlane.TangentLines);
         }
 

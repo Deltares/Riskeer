@@ -686,7 +686,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
         private static void AssertSlipPlaneOutput(UpliftVanCalculationGridResult expected, MacroStabilityInwardsSlipPlaneUpliftVan actual)
         {
-            CollectionAssert.AreEqual(expected.TangentLines, actual.TangentLines);
+            CollectionAssert.AreEqual(expected.TangentLines, actual.TangentLines.Select(tl => tl.Value), new DoubleWithToleranceComparer(1e-2));
             AssertGrid(expected.LeftGrid, actual.LeftGrid);
             AssertGrid(expected.RightGrid, actual.RightGrid);
         }

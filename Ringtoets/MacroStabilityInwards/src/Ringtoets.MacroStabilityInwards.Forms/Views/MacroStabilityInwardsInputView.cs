@@ -62,6 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartPointData surfaceLevelOutsideChartData;
         private readonly ChartPointData leftGridChartData;
         private readonly ChartPointData rightGridChartData;
+        private readonly ChartMultipleLineData tangentLinesData;
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
@@ -97,6 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             dikeToeAtRiverChartData = RingtoetsChartDataFactory.CreateDikeToeAtRiverChartData();
             dikeTopAtRiverChartData = MacroStabilityInwardsChartDataFactory.CreateDikeTopAtRiverChartData();
             surfaceLevelOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelOutsideChartData();
+            tangentLinesData = MacroStabilityInwardsChartDataFactory.CreateTangentLinesChartData();
             leftGridChartData = MacroStabilityInwardsChartDataFactory.CreateLeftGridChartData();
             rightGridChartData = MacroStabilityInwardsChartDataFactory.CreateRightGridChartData();
             waternetZonesExtremeChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZonesExtremeChartDataCollection();
@@ -116,6 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection.Add(dikeToeAtRiverChartData);
             chartDataCollection.Add(dikeTopAtRiverChartData);
             chartDataCollection.Add(surfaceLevelOutsideChartData);
+            chartDataCollection.Add(tangentLinesData);
             chartDataCollection.Add(leftGridChartData);
             chartDataCollection.Add(rightGridChartData);
             chartDataCollection.Add(waternetZonesExtremeChartData);
@@ -202,7 +205,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             MacroStabilityInwardsInput macroStabilityInwardsInput = data.InputParameters;
             MacroStabilityInwardsSurfaceLine surfaceLine = macroStabilityInwardsInput.SurfaceLine;
-            IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile = data.InputParameters.StochasticSoilProfile?.SoilProfile;
+            IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile = macroStabilityInwardsInput.StochasticSoilProfile?.SoilProfile;
 
             SetSurfaceLineChartData(surfaceLine);
             SetSoilProfileChartData(surfaceLine, soilProfile);
@@ -216,6 +219,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             leftGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(leftGrid, gridDeterminationType);
             rightGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(rightGrid, gridDeterminationType);
+
+            tangentLinesData.Lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(macroStabilityInwardsInput.GridDeterminationType,
+                                                                                                    macroStabilityInwardsInput.TangentLineDeterminationType,
+                                                                                                    macroStabilityInwardsInput.TangentLineZBottom,
+                                                                                                    macroStabilityInwardsInput.TangentLineZTop,
+                                                                                                    macroStabilityInwardsInput.TangentLineNumber,
+                                                                                                    macroStabilityInwardsInput.SurfaceLine);
         }
 
         private void SetWaternetExtremeChartData(MacroStabilityInwardsWaternet waternet, MacroStabilityInwardsSurfaceLine surfaceLine)

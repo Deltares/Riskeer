@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
@@ -236,7 +237,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         {
             // Setup
             var random = new Random(31);
-            var tangentLines = new double[0];
+            var tangentLines = new RoundedDouble[0];
             var slices = new MacroStabilityInwardsSlice[0];
 
             var calculationOutputEntity = new MacroStabilityInwardsCalculationOutputEntity

@@ -22,20 +22,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 
 namespace Application.Ringtoets.Storage.Serializers
 {
     /// <summary>
     /// Converter class that converts between tangent lines and an XML representation of that data.
     /// </summary>
-    internal class TangentLinesXmlSerializer : DataCollectionSerializer<double, TangentLinesXmlSerializer.SerializableTangentLine>
+    internal class TangentLinesXmlSerializer : DataCollectionSerializer<RoundedDouble, TangentLinesXmlSerializer.SerializableTangentLine>
     {
-        protected override SerializableTangentLine[] ToSerializableData(IEnumerable<double> elements)
+        protected override SerializableTangentLine[] ToSerializableData(IEnumerable<RoundedDouble> elements)
         {
             return elements.Select(e => new SerializableTangentLine(e)).ToArray();
         }
 
-        protected override double[] FromSerializableData(IEnumerable<SerializableTangentLine> serializedElements)
+        protected override RoundedDouble[] FromSerializableData(IEnumerable<SerializableTangentLine> serializedElements)
         {
             return serializedElements.Select(se => se.ToTangentLine()).ToArray();
         }
@@ -55,9 +56,9 @@ namespace Application.Ringtoets.Storage.Serializers
                 this.tangentLine = tangentLine;
             }
 
-            public double ToTangentLine()
+            public RoundedDouble ToTangentLine()
             {
-                return tangentLine;
+                return (RoundedDouble) tangentLine;
             }
         }
     }
