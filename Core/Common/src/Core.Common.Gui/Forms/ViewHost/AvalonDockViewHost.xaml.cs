@@ -48,6 +48,7 @@ namespace Core.Common.Gui.Forms.ViewHost
         public event EventHandler<EventArgs> ActiveDocumentViewChanged;
         public event EventHandler<ViewChangeEventArgs> ActiveViewChanged;
         public event EventHandler<ViewChangeEventArgs> ViewOpened;
+        public event EventHandler<ViewChangeEventArgs> ViewBroughtToFront;
         public event EventHandler<ViewChangeEventArgs> ViewClosed;
 
         /// <summary>
@@ -216,6 +217,8 @@ namespace Core.Common.Gui.Forms.ViewHost
                                                   : null;
 
             BringToFront(layoutContent);
+
+            OnViewBroughtToFront(view);
         }
 
         public void SetImage(IView view, Image image)
@@ -268,6 +271,11 @@ namespace Core.Common.Gui.Forms.ViewHost
         private void OnViewOpened(IView view)
         {
             ViewOpened?.Invoke(this, new ViewChangeEventArgs(view));
+        }
+
+        private void OnViewBroughtToFront(IView view)
+        {
+            ViewBroughtToFront?.Invoke(this, new ViewChangeEventArgs(view));
         }
 
         private void OnViewClosed(IView view)

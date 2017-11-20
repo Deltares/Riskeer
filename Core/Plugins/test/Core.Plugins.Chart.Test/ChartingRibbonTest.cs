@@ -38,13 +38,18 @@ namespace Core.Plugins.Chart.Test
     {
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void DefaultConstructor_Always_CreatesControl()
+        public void DefaultConstructor_Always_CreatesControlWithContextualGroupCollapsed()
         {
-            // Setup
+            // Call
             var ribbon = new ChartingRibbon();
 
-            // Call & Assert
-            Assert.IsInstanceOf<Control>(ribbon.GetRibbonControl());
+            // Assert
+            Ribbon ribbonControl = ribbon.GetRibbonControl();
+            Assert.IsInstanceOf<Control>(ribbonControl);
+
+            var contextualGroup = ribbonControl.FindName("ChartingContextualGroup") as RibbonContextualTabGroup;
+            Assert.IsNotNull(contextualGroup);
+            Assert.AreEqual(Visibility.Collapsed, contextualGroup.Visibility);
         }
 
         [Test]
