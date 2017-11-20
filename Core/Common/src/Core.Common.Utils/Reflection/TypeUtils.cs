@@ -60,7 +60,7 @@ namespace Core.Common.Utils.Reflection
         /// </summary>
         /// <typeparam name="T">The type to check for.</typeparam>
         /// <param name="thisType">Type to check.</param>
-        /// <returns><c>True</c> if <paramref name="thisType"/> is the same type as <typeparamref name="T"/>,
+        /// <returns><c>true</c> if <paramref name="thisType"/> is the same type as <typeparamref name="T"/>,
         /// or has that as (one of) its supertypes.</returns>
         /// <seealso cref="Implements(Type,Type)"/>
         public static bool Implements<T>(this Type thisType)
@@ -73,7 +73,7 @@ namespace Core.Common.Utils.Reflection
         /// </summary>
         /// <param name="thisType">Type to check.</param>
         /// <param name="type">The type to check for.</param>
-        /// <returns><c>True</c> if <paramref name="thisType"/> is the same type as <paramref name="type"/>,
+        /// <returns><c>true</c> if <paramref name="thisType"/> is the same type as <paramref name="type"/>,
         /// or has that as (one of) its supertypes.</returns>
         /// <seealso cref="Implements{T}"/>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="type"/> is <c>null</c>.</exception>

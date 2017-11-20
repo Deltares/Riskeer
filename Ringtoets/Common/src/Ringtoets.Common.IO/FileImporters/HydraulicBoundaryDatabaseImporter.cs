@@ -52,7 +52,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="targetItem"><see cref="IAssessmentSection"/> to set the newly 
         /// created <see cref="HydraulicBoundaryDatabase"/>.</param>
         /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
-        /// <returns><c>True</c> if the import was successful, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the import was successful, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="targetItem"/> is <c>null</c>.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">

@@ -46,7 +46,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         /// <param name="calculation">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> for which to validate the values.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
-        /// <returns><c>True</c> if there were no validation errors; <c>False</c> otherwise.</returns>
+        /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public static bool Validate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, string hydraulicBoundaryDatabaseFilePath, string preprocessorDirectory)
         {

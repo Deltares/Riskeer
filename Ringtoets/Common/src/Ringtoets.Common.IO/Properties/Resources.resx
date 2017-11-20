@@ -844,9 +844,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="StochasticSoilModelImporter_No_stochastic_soil_models_found_for_failure_mechanism" xml:space="preserve">
     <value>Er zijn geen stochastische ondergrondmodellen gevonden die horen bij het faalmechanisme.</value>
   </data>
-  <data name="SoilProfile1DReader_ReadSoilProfile_Failed_to_construct_profile_from_read_data" xml:space="preserve">
-    <value>Het uitlezen van de ondergrondschematisatie is mislukt.</value>
-  </data>
   <data name="IStochasticSoilModelTransformer_Cannot_transform_FailureMechanismType_0_Only_FailureMechanismType_1_supported" xml:space="preserve">
     <value>Het stochastische ondergrondmodel met '{0}' als faalmechanisme type is niet ondersteund. Alleen stochastische ondergrondmodellen met '{1}' als faalmechanisme type zijn ondersteund.</value>
   </data>

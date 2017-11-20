@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
-        /// <returns><c>True</c> if there were no validation errors; <c>False</c> otherwise.</returns>
+        /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         public static bool Validate(string hydraulicBoundaryDatabaseFilePath, string preprocessorDirectory)
         {
             var isValid = true;

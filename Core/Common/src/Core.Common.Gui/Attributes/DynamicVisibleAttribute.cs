@@ -44,7 +44,7 @@ namespace Core.Common.Gui.Attributes
         /// </summary>
         /// <param name="value">The object.</param>
         /// <param name="propertyName">The name of the property of <paramref name="value"/>.</param>
-        /// <returns><c>True</c> if the property is visible, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the property is visible, <c>false</c> otherwise.</returns>
         /// <exception cref="MissingMemberException">Thrown when <paramref name="propertyName"/>
         /// does not correspond to a public property of <paramref name="value"/>.</exception>
         /// <exception cref="MissingMethodException">Thrown when there isn't a single method

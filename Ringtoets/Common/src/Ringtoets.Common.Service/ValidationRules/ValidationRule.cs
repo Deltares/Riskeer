@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Service.ValidationRules
         /// Checks if a value is <c>NaN</c> or <c>Infinity</c>.
         /// </summary>
         /// <param name="value">The value which needs to be checked.</param>
-        /// <returns><c>True</c>if <paramref name="value"/>is not a concrete number, <c>false</c> if otherwise.</returns>
+        /// <returns><c>true</c>if <paramref name="value"/>is not a concrete number, <c>false</c> if otherwise.</returns>
         protected static bool IsNotConcreteNumber(double value)
         {
             return double.IsNaN(value) || double.IsInfinity(value);

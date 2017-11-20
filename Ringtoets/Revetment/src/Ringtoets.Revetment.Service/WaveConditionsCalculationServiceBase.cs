@@ -75,7 +75,7 @@ namespace Ringtoets.Revetment.Service
         /// database file which to validate.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
         /// <param name="designWaterLevelName">The name of the design water level property.</param>
-        /// <returns><c>True</c> if there were no validation errors; <c>False</c> otherwise.</returns>
+        /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/>
         /// or <paramref name="designWaterLevelName"/> is <c>null</c>.</exception>
         protected static bool ValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput,

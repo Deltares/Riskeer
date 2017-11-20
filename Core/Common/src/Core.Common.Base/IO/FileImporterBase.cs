@@ -133,7 +133,7 @@ namespace Core.Common.Base.IO
         /// <summary>
         /// This method returns the result of the import action.
         /// </summary>
-        /// <returns><c>True</c> if the import was successful, <c>false</c> if otherwise.</returns>
+        /// <returns><c>true</c> if the import was successful, <c>false</c> if otherwise.</returns>
         /// <remarks>Implementations of this method are allowed to throw exceptions of any kind.</remarks>
         protected abstract bool OnImport();
 

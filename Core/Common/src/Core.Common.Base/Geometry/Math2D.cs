@@ -158,7 +158,7 @@ namespace Core.Common.Base.Geometry
         /// </summary>
         /// <param name="point1">The first <see cref="Point2D"/> point.</param>
         /// <param name="point2">The second <see cref="Point2D"/> point.</param>
-        /// <returns><c>True</c> when the points are equal. <c>False</c> otherwise.</returns>
+        /// <returns><c>true</c> when the points are equal, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="point1"/> or 
         /// <paramref name="point2"/> is <c>null</c>.</exception>
         public static bool AreEqualPoints(Point2D point1, Point2D point2)
@@ -353,7 +353,7 @@ namespace Core.Common.Base.Geometry
         /// <param name="vector2">The second 2D vector.</param>
         /// <param name="tailsVector">The vector from the tail of <paramref name="vector2"/>
         /// to the tail of <paramref name="vector1"/>.</param>
-        /// <returns><c>True</c> if the vectors are collinear, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the vectors are collinear, <c>false</c> otherwise.</returns>
         private static bool AreCollinear(Vector<double> vector1, Vector<double> vector2, Vector<double> tailsVector)
         {
             return Math.Abs(PerpDotProduct(vector1, tailsVector)) < epsilonForComparisons &&
