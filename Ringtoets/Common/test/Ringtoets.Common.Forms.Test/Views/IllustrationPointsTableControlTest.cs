@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsFalse(closingSituationColumn.Visible);
 
             DataGridViewColumn calculatedProbabilityColumn = dataGridView.Columns[calculatedProbabilityColumnIndex];
-            Assert.AreEqual("Berekende kans [1/jaar]", calculatedProbabilityColumn.HeaderText);
+            Assert.AreEqual("Berekende kans [-]", calculatedProbabilityColumn.HeaderText);
             Assert.IsTrue(calculatedProbabilityColumn.ReadOnly);
 
             DataGridViewColumn calculatedReliabilityColumn = dataGridView.Columns[calculatedReliabilityColumnIndex];
