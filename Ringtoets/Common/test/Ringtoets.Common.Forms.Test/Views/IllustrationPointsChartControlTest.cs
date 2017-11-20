@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsInstanceOf<IStackChartControl>(chartControl.Controls[0]);
 
             Assert.AreEqual(400, chartControl.AutoScrollMinSize.Width);
-            Assert.AreEqual(300, chartControl.AutoScrollMinSize.Height);
+            Assert.AreEqual(320, chartControl.AutoScrollMinSize.Height);
         }
 
         [Test]
