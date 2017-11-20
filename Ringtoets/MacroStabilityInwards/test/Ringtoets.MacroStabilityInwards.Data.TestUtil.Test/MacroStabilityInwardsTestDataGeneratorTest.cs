@@ -201,6 +201,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.IsNaN(inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder);
             Assert.IsNaN(inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside);
             Assert.IsNaN(inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder);
+
+            Assert.IsNaN(input.ZoneBoundaryLeft);
+            Assert.IsNaN(input.ZoneBoundaryRight);
         }
 
         [Test]
@@ -260,6 +263,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(double.NegativeInfinity, inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder);
             Assert.AreEqual(double.PositiveInfinity, inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside);
             Assert.AreEqual(double.PositiveInfinity, inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder);
+
+            Assert.AreEqual(double.NegativeInfinity, input.ZoneBoundaryLeft);
+            Assert.AreEqual(double.PositiveInfinity, input.ZoneBoundaryRight);
         }
 
         private static void AssertCalculation(MacroStabilityInwardsCalculationScenario calculation,
@@ -356,6 +362,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(15.22, inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder, inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
             Assert.AreEqual(15.23, inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside, inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
             Assert.AreEqual(15.24, inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder, inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
+
+            Assert.IsTrue(input.CreateZones);
+            Assert.AreEqual(MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, input.ZoningBoundariesDeterminationType);
+            Assert.AreEqual(0.0, input.ZoneBoundaryLeft, input.ZoneBoundaryLeft.GetAccuracy());
+            Assert.AreEqual(100.0, input.ZoneBoundaryRight, input.ZoneBoundaryRight.GetAccuracy());
         }
 
         private static void AssertCalculationsHasSameHydraulicBoundaryLocation(CalculationGroup calculationGroup,

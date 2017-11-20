@@ -99,6 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 SetSimpleProperties(calculationConfiguration, calculation.InputParameters);
 
+                SetZoningBoundariesDeterminationType(calculationConfiguration, calculation.InputParameters);
                 SetDikeSoilScenario(calculationConfiguration, calculation.InputParameters);
                 SetGridDeterminationType(calculationConfiguration, calculation.InputParameters);
                 SetTangentLineDeterminationType(calculationConfiguration, calculation.InputParameters);
@@ -636,21 +637,48 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 input.MaximumSliceWidth = (RoundedDouble) calculationConfiguration.MaximumSliceWidth.Value;
             }
 
+            if (calculationConfiguration.MoveGrid.HasValue)
+            {
+                input.MoveGrid = calculationConfiguration.MoveGrid.Value;
+            }
+
             if (calculationConfiguration.CreateZones.HasValue)
             {
                 input.CreateZones = calculationConfiguration.CreateZones.Value;
             }
 
-            if (calculationConfiguration.MoveGrid.HasValue)
+            if (calculationConfiguration.ZoneBoundaryLeft.HasValue)
             {
-                input.MoveGrid = calculationConfiguration.MoveGrid.Value;
+                input.ZoneBoundaryLeft = (RoundedDouble) calculationConfiguration.ZoneBoundaryLeft.Value;
             }
+            if (calculationConfiguration.ZoneBoundaryRight.HasValue)
+            {
+                input.ZoneBoundaryRight = (RoundedDouble) calculationConfiguration.ZoneBoundaryRight.Value;
+            }
+        }
+
+        /// <summary>
+        /// Assigns the zoning boundary determination type.
+        /// </summary>
+        /// <param name="configuration">The read calculation configuration.</param>
+        /// <param name="input">The calculation input to configure.</param>
+        private static void SetZoningBoundariesDeterminationType(MacroStabilityInwardsCalculationConfiguration configuration,
+                                                                 MacroStabilityInwardsInput input)
+        {
+            if (!configuration.ZoningBoundariesDeterminationType.HasValue)
+            {
+                return;
+            }
+
+            input.ZoningBoundariesDeterminationType = (MacroStabilityInwardsZoningBoundariesDeterminationType)
+                new ConfigurationZoningBoundariesDeterminationTypeConverter().ConvertTo(configuration.ZoningBoundariesDeterminationType.Value,
+                                                                                        typeof(MacroStabilityInwardsZoningBoundariesDeterminationType));
         }
 
         /// <summary>
         /// Assigns the dike soil scenario.
         /// </summary>
-        /// <param name="configuration">The read calculation read.</param>
+        /// <param name="configuration">The read calculation configuration.</param>
         /// <param name="input">The calculation input to configure.</param>
         private static void SetDikeSoilScenario(MacroStabilityInwardsCalculationConfiguration configuration,
                                                 MacroStabilityInwardsInput input)
@@ -667,7 +695,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <summary>
         /// Assigns the grid determination type.
         /// </summary>
-        /// <param name="configuration">The read calculation read.</param>
+        /// <param name="configuration">The read calculation configuration.</param>
         /// <param name="input">The calculation input to configure.</param>
         private static void SetGridDeterminationType(MacroStabilityInwardsCalculationConfiguration configuration,
                                                      MacroStabilityInwardsInput input)
@@ -684,7 +712,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <summary>
         /// Assigns the tangent line determination type.
         /// </summary>
-        /// <param name="configuration">The read calculation read.</param>
+        /// <param name="configuration">The read calculation configuration.</param>
         /// <param name="input">The calculation input to configure.</param>
         private static void SetTangentLineDeterminationType(MacroStabilityInwardsCalculationConfiguration configuration,
                                                             MacroStabilityInwardsInput input)

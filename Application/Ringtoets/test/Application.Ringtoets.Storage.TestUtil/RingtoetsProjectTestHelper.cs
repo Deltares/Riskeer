@@ -1416,7 +1416,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 ZBottom = (RoundedDouble) 3.4,
                                 NumberOfVerticalPoints = 6
                             },
-                            CreateZones = false
+                            CreateZones = false,
+                            ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Manual,
+                            ZoneBoundaryLeft = (RoundedDouble) 10,
+                            ZoneBoundaryRight = (RoundedDouble) 12
                         },
                         Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
                         SemiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(1, 0.7, 8.8, 0.9,
@@ -1497,7 +1500,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 ZBottom = (RoundedDouble) 3.4,
                                 NumberOfVerticalPoints = 6
                             },
-                            CreateZones = false
+                            CreateZones = false,
+                            ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Manual,
+                            ZoneBoundaryLeft = (RoundedDouble) 5.4,
+                            ZoneBoundaryRight = (RoundedDouble) 6.5
                         },
                         Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
                         SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
@@ -1573,7 +1579,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                         ZTop = (RoundedDouble) 30.5,
                         ZBottom = (RoundedDouble) 30.4,
                         NumberOfVerticalPoints = 6
-                    }
+                    },
+                    ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic,
+                    ZoneBoundaryLeft = (RoundedDouble) 1,
+                    ZoneBoundaryRight = (RoundedDouble) 2
                 },
                 Output = null,
                 SemiProbabilisticOutput = null

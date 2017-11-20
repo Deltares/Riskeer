@@ -21,7 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
@@ -60,6 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             if (!coreValidationError.Any())
             {
                 validationResults.AddRange(ValidateSoilLayers(inputParameters));
+                validationResults.AddRange(ValidateZoneBoundaries(inputParameters));
                 validationResults.AddRange(ValidateTangentLines(inputParameters));
             }
 
@@ -85,6 +89,31 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 {
                     yield return Resources.MacroStabilityInwardsCalculationService_ValidateInput_SurfaceLine_must_be_on_SoilLayer;
                 }
+            }
+        }
+
+        private static IEnumerable<string> ValidateZoneBoundaries(MacroStabilityInwardsInput inputParameters)
+        {
+            if (!inputParameters.CreateZones
+                || inputParameters.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic)
+            {
+                yield break;
+            }
+
+            RoundedDouble zoneBoundaryLeft = inputParameters.ZoneBoundaryLeft;
+            RoundedDouble zoneBoundaryRight = inputParameters.ZoneBoundaryRight;
+
+            if (zoneBoundaryLeft > zoneBoundaryRight)
+            {
+                yield return Resources.MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_BoundaryLeft_should_be_smaller_than_or_equal_to_BoundaryRight;
+            }
+
+            MacroStabilityInwardsSurfaceLine surfaceLine = inputParameters.SurfaceLine;
+            if (!surfaceLine.ValidateInRange(zoneBoundaryLeft) || !surfaceLine.ValidateInRange(zoneBoundaryRight))
+            {
+                var validityRange = new Range<double>(surfaceLine.LocalGeometry.First().X, surfaceLine.LocalGeometry.Last().X);
+                yield return string.Format(Resources.MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be_in_Range_0,
+                                           validityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
             }
         }
 

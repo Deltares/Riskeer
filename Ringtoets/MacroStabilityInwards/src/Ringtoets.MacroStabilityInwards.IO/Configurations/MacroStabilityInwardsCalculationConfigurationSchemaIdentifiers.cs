@@ -61,15 +61,46 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public const string MaximumSliceWidthElement = "maximalelamelbreedte";
 
+        #region Zones
+
         /// <summary>
         /// The identifier for zones elements.
         /// </summary>
         public const string ZonesElement = "zonering";
 
         /// <summary>
-        /// The tag of the element containing the value indicating if zones should be created automatically.
+        /// The tag of the element containing the value indicating if zones should be created.
         /// </summary>
         public const string CreateZonesElement = "bepaling";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the method to determine the zones.
+        /// </summary>
+        public const string ZoningBoundariesDeterminationTypeElement = "methode";
+
+        /// <summary>
+        /// The possible content of the <see cref="ConfigurationZoningBoundariesDeterminationType"/> 
+        /// element indicating zoning boundary determination.
+        /// </summary>
+        public const string ZoningBoundariesDeterminationTypeAutomatic = "automatisch";
+
+        /// <summary>
+        /// The possible content of the <see cref="ConfigurationZoningBoundariesDeterminationType"/> 
+        /// element indicating manual zoning boundary determination.
+        /// </summary>
+        public const string ZoningBoundariesDeterminationTypeManual = "handmatig";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the left boundary of the zone.
+        /// </summary>
+        public const string ZoneBoundaryLeft = "zoneringsgrenslinks";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the right boundary of the zone.
+        /// </summary>
+        public const string ZoneBoundaryRight = "zoneringsgrensrechts";
+
+        #endregion
 
         #region Water stresses
 

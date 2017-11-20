@@ -108,25 +108,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the zone related properties in XML format to file.
-        /// </summary>
-        /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="configuration">The configuration to write.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
-        /// is closed.</exception>
-        private static void WriteZones(XmlWriter writer,
-                                       MacroStabilityInwardsCalculationConfiguration configuration)
-        {
-            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZonesElement);
-
-            WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.CreateZonesElement,
-                                             configuration.CreateZones);
-
-            writer.WriteEndElement();
-        }
-
-        /// <summary>
         /// Writes the <paramref name="dikeSoilScenario"/> in XML format to file when it has a value.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
@@ -149,6 +130,63 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             writer.WriteElementString(elementName,
                                       typeConverter.ConvertToInvariantString(dikeSoilScenario.Value));
         }
+
+        #region Zones
+
+        /// <summary>
+        /// Writes the zone related properties in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        private static void WriteZones(XmlWriter writer,
+                                       MacroStabilityInwardsCalculationConfiguration configuration)
+        {
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZonesElement);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.CreateZonesElement,
+                                             configuration.CreateZones);
+            WriteZoningBoundariesDeterminationTypeWhenContentAvailable(
+                writer,
+                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZoningBoundariesDeterminationTypeElement,
+                configuration.ZoningBoundariesDeterminationType);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZoneBoundaryLeft,
+                                             configuration.ZoneBoundaryLeft);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZoneBoundaryRight,
+                                             configuration.ZoneBoundaryRight);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes the <paramref name="zoningBoundariesDeterminationType"/> in XML format to file when it has a value.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="elementName">The XML element name.</param>
+        /// <param name="zoningBoundariesDeterminationType">The zoning boundaries determination type to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of
+        /// <paramref name="zoningBoundariesDeterminationType"/> cannot be performed.</exception>
+        private static void WriteZoningBoundariesDeterminationTypeWhenContentAvailable(XmlWriter writer,
+                                                                                       string elementName,
+                                                                                       ConfigurationZoningBoundariesDeterminationType? zoningBoundariesDeterminationType)
+        {
+            if (!zoningBoundariesDeterminationType.HasValue)
+            {
+                return;
+            }
+
+            var typeConverter = new ConfigurationZoningBoundariesDeterminationTypeConverter();
+            writer.WriteElementString(elementName,
+                                      typeConverter.ConvertToInvariantString(zoningBoundariesDeterminationType.Value));
+        }
+
+        #endregion
 
         #region Write water stresses
 

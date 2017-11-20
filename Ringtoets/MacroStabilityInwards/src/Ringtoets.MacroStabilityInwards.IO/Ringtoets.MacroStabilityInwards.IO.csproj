@@ -35,9 +35,11 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Configurations\ConfigurationDikeSoilScenario.cs" />
+    <Compile Include="Configurations\ConfigurationZoningBoundariesDeterminationType.cs" />
     <Compile Include="Configurations\ConfigurationGridDeterminationType.cs" />
     <Compile Include="Configurations\ConfigurationTangentLineDeterminationType.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationDikeSoilScenarioTypeConverter.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationZoningBoundariesDeterminationTypeConverter.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationGridDeterminationTypeConverter.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationTangentLineDeterminationTypeConverter.cs" />
     <Compile Include="Configurations\Helpers\MacroStabilityInwardsGridConversionExtensions.cs" />

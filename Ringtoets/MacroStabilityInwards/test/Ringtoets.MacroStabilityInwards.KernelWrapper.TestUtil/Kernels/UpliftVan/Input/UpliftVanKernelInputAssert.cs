@@ -46,6 +46,23 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
+        /// <param name="expected">The expected <see cref="SlipPlaneConstraints"/>.</param>
+        /// <param name="actual">The actual <see cref="SlipPlaneConstraints"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        public static void AssertSlipPlaneConstraints(SlipPlaneConstraints expected, SlipPlaneConstraints actual)
+        {
+            Assert.AreEqual(expected.CreateZones, actual.CreateZones);
+            Assert.AreEqual(expected.AutomaticForbiddenZones, actual.AutomaticForbiddenZones);
+            Assert.AreEqual(expected.SlipPlaneMinDepth, actual.SlipPlaneMinDepth);
+            Assert.AreEqual(expected.SlipPlaneMinLength, actual.SlipPlaneMinLength);
+            Assert.AreEqual(expected.XEntryMin, actual.XEntryMin);
+            Assert.AreEqual(expected.XEntryMax, actual.XEntryMax);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
         /// <param name="expected">The expected <see cref="SlipCircleGrid"/>.</param>
         /// <param name="actual">The actual <see cref="SlipCircleGrid"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>

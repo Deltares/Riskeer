@@ -40,6 +40,7 @@
     </Compile>
     <Compile Include="Converters\MacroStabilityInwardsSlidingCurveConverter.cs" />
     <Compile Include="Converters\MacroStabilityInwardsSlipPlaneUpliftVanConverter.cs" />
+    <Compile Include="Converters\UpliftVanSlipPlaneConstraintsConverter.cs" />
     <Compile Include="Converters\UpliftVanSlipPlaneConverter.cs" />
     <Compile Include="MacroStabilityInwardsCalculationActivity.cs" />
     <Compile Include="MacroStabilityInwardsCalculationService.cs" />

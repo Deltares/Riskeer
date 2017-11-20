@@ -45,7 +45,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         {
             stabilityModel = new StabilityModel
             {
-                SlipPlaneConstraints = new SlipPlaneConstraints(),
                 GridOrientation = GridOrientation.Inwards,
                 SlipCircle = new SlipCircle(),
                 SearchAlgorithm = SearchAlgorithm.Grid,
@@ -113,6 +112,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             }
         }
 
+        public SlipPlaneConstraints SlipPlaneConstraints
+        {
+            set
+            {
+                stabilityModel.SlipPlaneConstraints = value;
+            }
+        }
+
         public bool MoveGrid
         {
             set
@@ -142,38 +149,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             set
             {
                 stabilityModel.SlipCircle.Auto = value;
-            }
-        }
-
-        public bool CreateZones
-        {
-            set
-            {
-                stabilityModel.SlipPlaneConstraints.CreateZones = value;
-            }
-        }
-
-        public bool AutomaticForbiddenZones
-        {
-            set
-            {
-                stabilityModel.SlipPlaneConstraints.AutomaticForbiddenZones = value;
-            }
-        }
-
-        public double SlipPlaneMinimumDepth
-        {
-            set
-            {
-                stabilityModel.SlipPlaneConstraints.SlipPlaneMinDepth = value;
-            }
-        }
-
-        public double SlipPlaneMinimumLength
-        {
-            set
-            {
-                stabilityModel.SlipPlaneConstraints.SlipPlaneMinLength = value;
             }
         }
 

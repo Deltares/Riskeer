@@ -57,6 +57,9 @@
     <maximalelamelbreedte>NaN</maximalelamelbreedte>
     <zonering>
       <bepaling>true</bepaling>
+      <methode>handmatig</methode>
+      <zoneringsgrenslinks>NaN</zoneringsgrenslinks>
+      <zoneringsgrensrechts>NaN</zoneringsgrensrechts>
     </zonering>
     <grids>
       <verplaatsgrid>true</verplaatsgrid>

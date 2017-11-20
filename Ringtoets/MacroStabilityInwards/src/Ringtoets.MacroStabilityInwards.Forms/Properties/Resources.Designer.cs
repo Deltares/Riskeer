@@ -1878,6 +1878,42 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Linker grens voor bepaling intredepunt van het glijvlak..
+        /// </summary>
+        public static string ZoneBoundaryLeft_Description {
+            get {
+                return ResourceManager.GetString("ZoneBoundaryLeft_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoneringsgrens links.
+        /// </summary>
+        public static string ZoneBoundaryLeft_DisplayName {
+            get {
+                return ResourceManager.GetString("ZoneBoundaryLeft_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rechter grens voor bepaling intredepunt van het glijvlak..
+        /// </summary>
+        public static string ZoneBoundaryRight_Description {
+            get {
+                return ResourceManager.GetString("ZoneBoundaryRight_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoneringsgrens rechts.
+        /// </summary>
+        public static string ZoneBoundaryRight_DisplayName {
+            get {
+                return ResourceManager.GetString("ZoneBoundaryRight_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zoneringsgrenzen automatisch bepalen of handmatig invoeren?.
         /// </summary>
         public static string ZoningBoundariesDeterminationType_Description {

@@ -120,11 +120,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             upliftVanKernel.LocationDaily = UpliftVanStabilityLocationCreator.CreateDaily(input);
             upliftVanKernel.SurfaceLine = SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection);
             upliftVanKernel.SlipPlaneUpliftVan = SlipPlaneUpliftVanCreator.Create(input.SlipPlane);
+            upliftVanKernel.SlipPlaneConstraints = SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints);
             upliftVanKernel.GridAutomaticDetermined = input.SlipPlane.GridAutomaticDetermined;
-            upliftVanKernel.CreateZones = input.CreateZones;
-            upliftVanKernel.AutomaticForbiddenZones = input.AutomaticForbiddenZones;
-            upliftVanKernel.SlipPlaneMinimumDepth = input.SlipPlaneMinimumDepth;
-            upliftVanKernel.SlipPlaneMinimumLength = input.SlipPlaneMinimumLength;
 
             return upliftVanKernel;
         }

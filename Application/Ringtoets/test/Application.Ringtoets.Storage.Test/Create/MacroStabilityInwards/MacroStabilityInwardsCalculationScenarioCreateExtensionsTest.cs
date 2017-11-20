@@ -109,7 +109,9 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                         XRight = RoundedDouble.NaN,
                         ZTop = RoundedDouble.NaN,
                         ZBottom = RoundedDouble.NaN
-                    }
+                    },
+                    ZoneBoundaryLeft = RoundedDouble.NaN,
+                    ZoneBoundaryRight = RoundedDouble.NaN
                 }
             };
             var registry = new PersistenceRegistry();
@@ -164,6 +166,9 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.IsNull(entity.RightGridXRight);
             Assert.IsNull(entity.RightGridZTop);
             Assert.IsNull(entity.RightGridZBottom);
+
+            Assert.IsNull(entity.ZoneBoundaryLeft);
+            Assert.IsNull(entity.ZoneBoundaryRight);
         }
 
         [Test]
@@ -239,7 +244,10 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                         ZBottom = random.NextRoundedDouble(0.0, 1.0),
                         NumberOfVerticalPoints = random.Next(1, 100)
                     },
-                    CreateZones = random.NextBoolean()
+                    CreateZones = random.NextBoolean(),
+                    ZoningBoundariesDeterminationType = random.NextEnumValue<MacroStabilityInwardsZoningBoundariesDeterminationType>(),
+                    ZoneBoundaryLeft = random.NextRoundedDouble(),
+                    ZoneBoundaryRight = random.NextRoundedDouble()
                 }
             };
 

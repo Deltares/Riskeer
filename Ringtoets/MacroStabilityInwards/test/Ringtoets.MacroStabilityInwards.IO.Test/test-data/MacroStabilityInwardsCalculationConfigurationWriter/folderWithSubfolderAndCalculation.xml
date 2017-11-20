@@ -59,6 +59,9 @@
       <maximalelamelbreedte>0.6</maximalelamelbreedte>
       <zonering>
         <bepaling>true</bepaling>
+        <methode>handmatig</methode>
+        <zoneringsgrenslinks>20</zoneringsgrenslinks>
+        <zoneringsgrensrechts>60.7</zoneringsgrensrechts>
       </zonering>
       <grids>
         <verplaatsgrid>true</verplaatsgrid>

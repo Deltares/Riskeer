@@ -304,6 +304,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(1, inputParameters.RightGrid.NumberOfVerticalPoints);
             Assert.AreEqual(1, inputParameters.RightGrid.NumberOfHorizontalPoints);
 
+            Assert.IsTrue(inputParameters.CreateZones);
+            Assert.AreEqual(MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, inputParameters.ZoningBoundariesDeterminationType);
+            Assert.AreEqual(0.1, inputParameters.ZoneBoundaryLeft, inputParameters.ZoneBoundaryLeft.GetAccuracy());
+            Assert.AreEqual(0.2, inputParameters.ZoneBoundaryRight, inputParameters.ZoneBoundaryRight.GetAccuracy());
+
             Assert.AreEqual(0, inputParameters.StochasticSoilProfile.Probability);
             Assert.AreEqual("Ondergrondschematisatie", inputParameters.StochasticSoilProfile.SoilProfile.Name);
             Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile1D>(inputParameters.StochasticSoilProfile.SoilProfile);

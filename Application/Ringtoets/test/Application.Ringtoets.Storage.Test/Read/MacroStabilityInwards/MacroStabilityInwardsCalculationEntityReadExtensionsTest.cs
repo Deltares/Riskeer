@@ -98,8 +98,8 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 LeakageLengthInwardsPhreaticLine3 = random.NextDouble(),
                 PiezometricHeadPhreaticLine2Outwards = random.NextDouble(),
                 PiezometricHeadPhreaticLine2Inwards = random.NextDouble(),
-                GridDeterminationType = Convert.ToByte(random.NextBoolean()),
-                TangentLineDeterminationType = Convert.ToByte(random.NextBoolean()),
+                GridDeterminationType = Convert.ToByte(random.NextEnumValue<MacroStabilityInwardsGridDeterminationType>()),
+                TangentLineDeterminationType = Convert.ToByte(random.NextEnumValue<MacroStabilityInwardsTangentLineDeterminationType>()),
                 TangentLineZTop = random.GetFromRange(2.0, 3.0),
                 TangentLineZBottom = random.GetFromRange(0.0, 1.0),
                 TangentLineNumber = random.Next(1, 50),
@@ -115,7 +115,10 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 RightGridZTop = random.GetFromRange(2.0, 3.0),
                 RightGridZBottom = random.GetFromRange(0.0, 1.0),
                 RightGridNrOfVerticalPoints = random.Next(1, 100),
-                CreateZones = Convert.ToByte(random.NextBoolean())
+                CreateZones = Convert.ToByte(random.NextBoolean()),
+                ZoningBoundariesDeterminationType = Convert.ToByte(random.NextEnumValue<MacroStabilityInwardsZoningBoundariesDeterminationType>()),
+                ZoneBoundaryLeft = random.NextDouble(),
+                ZoneBoundaryRight = random.NextDouble()
             };
 
             var collector = new ReadConversionCollector();

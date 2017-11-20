@@ -144,6 +144,12 @@
   <data name="MacroStabilityInwardsCalculationService_ValidateInput_SurfaceLine_must_be_on_SoilLayer" xml:space="preserve">
     <value>De profielschematisatie moet op de ondergrondschematisatie liggen.</value>
   </data>
+  <data name="MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_must_be_in_Range_0" xml:space="preserve">
+    <value>Zoneringsgrenzen moeten op het profiel liggen (bereik {0}).</value>
+  </data>
+  <data name="MacroStabilityInwardsInputValidator_ValidateZoneBoundaries_ZoneBoundaries_BoundaryLeft_should_be_smaller_than_or_equal_to_BoundaryRight" xml:space="preserve">
+    <value>Zoneringsgrens links moet kleiner zijn dan of gelijk zijn aan zoneringsgrens rechts.</value>
+  </data>
   <data name="MacroStabilityInwardsInputValidator_ValidateTangentLines_TangentLineNumber_must_be_one_when_TangentLineTop_equals_TangentLineBottom" xml:space="preserve">
     <value>Het aantal tangentlijnen moet 1 zijn wanneer tangentlijn Z-boven gelijk is aan tangentlijn Z-onder.</value>
   </data>

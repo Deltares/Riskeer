@@ -111,6 +111,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.SlipPlaneMinimumLength);
             Assert.IsNull(configuration.MaximumSliceWidth);
             Assert.IsNull(configuration.CreateZones);
+            Assert.IsNull(configuration.ZoningBoundariesDeterminationType);
+            Assert.IsNull(configuration.ZoneBoundaryLeft);
+            Assert.IsNull(configuration.ZoneBoundaryRight);
             Assert.IsNull(configuration.GridDeterminationType);
             Assert.IsNull(configuration.MoveGrid);
             Assert.IsNull(configuration.TangentLineDeterminationType);
@@ -300,6 +303,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(0.6, configuration.MaximumSliceWidth);
 
             Assert.IsTrue(configuration.CreateZones);
+            Assert.AreEqual(ConfigurationZoningBoundariesDeterminationType.Manual, configuration.ZoningBoundariesDeterminationType);
+            Assert.AreEqual(10.0, configuration.ZoneBoundaryLeft);
+            Assert.AreEqual(43.5, configuration.ZoneBoundaryRight);
 
             Assert.IsTrue(configuration.MoveGrid);
             Assert.AreEqual(ConfigurationGridDeterminationType.Automatic, configuration.GridDeterminationType);
@@ -401,6 +407,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(0.6, configuration.MaximumSliceWidth);
 
             Assert.IsTrue(configuration.CreateZones);
+            Assert.AreEqual(ConfigurationZoningBoundariesDeterminationType.Manual, configuration.ZoningBoundariesDeterminationType);
+            Assert.AreEqual(10.0, configuration.ZoneBoundaryLeft);
+            Assert.AreEqual(43.5, configuration.ZoneBoundaryRight);
 
             Assert.IsTrue(configuration.MoveGrid);
             Assert.AreEqual(ConfigurationGridDeterminationType.Automatic, configuration.GridDeterminationType);
@@ -574,6 +583,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             yield return new NameAdapter("DikeSoilScenario", "dijktype");
             yield return new NameAdapter("GridDeterminationType", "bepaling");
             yield return new NameAdapter("TangentLineDeterminationType", "bepalingtangentlijnen");
+            yield return new NameAdapter("ZoningBoundariesDeterminationType", "methode");
         }
 
         private static IEnumerable<NameAdapter> GetNameAdaptersOfBoolProperties()
@@ -632,6 +642,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             yield return new NameAdapter("RightGridXRight", "xrechts");
             yield return new NameAdapter("RightGridZTop", "zboven");
             yield return new NameAdapter("RightGridZBottom", "zonder");
+
+            yield return new NameAdapter("ZoneBoundaryLeft", "zoneringsgrenslinks");
+            yield return new NameAdapter("ZoneBoundaryRight", "zoneringsgrensrechts");
         }
 
         private static IEnumerable<string> GetTagElements()
