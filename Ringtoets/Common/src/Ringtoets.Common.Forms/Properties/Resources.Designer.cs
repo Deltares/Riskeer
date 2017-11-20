@@ -1839,7 +1839,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tijdsduren [min].
+        ///   Looks up a localized string similar to Tijdsduren [uur].
         /// </summary>
         public static string IllustrationPoint_Durations_DisplayName {
             get {

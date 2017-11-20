@@ -1000,7 +1000,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Tijdsduren waarop de stochasten betrekking hebben.</value>
   </data>
   <data name="IllustrationPoint_Durations_DisplayName" xml:space="preserve">
-    <value>Tijdsduren [min]</value>
+    <value>Tijdsduren [uur]</value>
   </data>
   <data name="IllustrationPoint_GoverningWindDirection_Description" xml:space="preserve">
     <value>De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.</value>

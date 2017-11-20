@@ -289,7 +289,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Tijdsduren [min]",
+                                                                            "Tijdsduren [uur]",
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 

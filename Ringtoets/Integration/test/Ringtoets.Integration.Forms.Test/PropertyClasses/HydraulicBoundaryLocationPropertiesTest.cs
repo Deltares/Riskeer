@@ -236,7 +236,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             illustrationPointsCategory,
-                                                                            "Tijdsduren [min]",
+                                                                            "Tijdsduren [uur]",
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
