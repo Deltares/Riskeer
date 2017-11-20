@@ -111,7 +111,7 @@ namespace Core.Common.IO.Readers
         /// Moves to and reads the next result set in multiple row-returning SQL command. 
         /// </summary>
         /// <param name="sqliteDataReader">The <see cref="IDataReader"/> to process.</param>
-        /// <returns><c>True</c> if the command was successful and a new result set is available, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the command was successful and a new result set is available, <c>false</c> otherwise.</returns>
         protected static bool MoveNext(IDataReader sqliteDataReader)
         {
             return sqliteDataReader.Read() || sqliteDataReader.NextResult() && sqliteDataReader.Read();

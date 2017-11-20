@@ -33,7 +33,7 @@ namespace Core.Common.Utils.Extensions
         /// </summary>
         /// <param name="object1">The first object.</param>
         /// <param name="object2">The second object.</param>
-        /// <returns><c>True</c> if <paramref name="object1"/> is considered greater than <paramref name="object2"/>,
+        /// <returns><c>true</c> if <paramref name="object1"/> is considered greater than <paramref name="object2"/>,
         /// <c>false</c> otherwise.</returns>
         /// <remarks><c>null</c> is considered smaller than any other not-null value.</remarks>
         /// <exception cref="ArgumentException">Thrown when object type of <paramref name="object1"/>
@@ -57,7 +57,7 @@ namespace Core.Common.Utils.Extensions
         /// </summary>
         /// <param name="object1">The first object.</param>
         /// <param name="object2">The second object.</param>
-        /// <returns><c>True</c> if <paramref name="object1"/> is considered smaller than <paramref name="object2"/>,
+        /// <returns><c>true</c> if <paramref name="object1"/> is considered smaller than <paramref name="object2"/>,
         /// <c>false</c> otherwise.</returns>
         /// <remarks><c>null</c> is considered smaller than any not-null value.</remarks>
         /// <exception cref="ArgumentException">Thrown when object type of <paramref name="object1"/>
@@ -78,7 +78,7 @@ namespace Core.Common.Utils.Extensions
         /// <param name="value">Value to be checked.</param>
         /// <param name="limit1">First range value.</param>
         /// <param name="limit2">Second range value.</param>
-        /// <returns><c>True</c> if <paramref name="value"/> falls within the inclusive bounds, 
+        /// <returns><c>true</c> if <paramref name="value"/> falls within the inclusive bounds, 
         /// <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentException">Thrown when object type of <paramref name="value"/>
         /// is not the same as that of <paramref name="limit1"/> or <paramref name="limit2"/>.</exception>

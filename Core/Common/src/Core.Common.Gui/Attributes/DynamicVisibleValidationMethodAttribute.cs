@@ -39,7 +39,7 @@ namespace Core.Common.Gui.Attributes
         /// Required method signature when marking a method with <see cref="DynamicVisibleValidationMethodAttribute"/>.
         /// </summary>
         /// <param name="propertyName">The name of the property to be checked.</param>
-        /// <returns><c>True</c> if the referred property should be visible, <c>false</c> if it should be hidden.</returns>
+        /// <returns><c>true</c> if the referred property should be visible, <c>false</c> if it should be hidden.</returns>
         public delegate bool IsPropertyVisible(string propertyName);
 
         /// <summary>
