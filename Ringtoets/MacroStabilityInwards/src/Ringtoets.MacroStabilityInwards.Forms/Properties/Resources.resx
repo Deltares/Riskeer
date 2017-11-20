@@ -469,6 +469,9 @@
   <data name="PassiveCircleRadius_DisplayName" xml:space="preserve">
     <value>Radius passieve cirkel</value>
   </data>
+  <data name="TangentLines_DisplayName" xml:space="preserve">
+    <value>Tangentlijnen</value>
+  </data>
   <data name="TangentLineDeterminationType_Description" xml:space="preserve">
     <value>Bepaling raaklijnen op basis van grondlaagscheidingen of handmatig?</value>
   </data>

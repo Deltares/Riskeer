@@ -102,7 +102,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             {
                 Color = Color.Blue,
                 DashStyle = ChartLineDashStyle.Solid,
-                Width = 2
+                Width = 2,
+                IsEditable = true
             })
             {
                 IsVisible = isVisible
@@ -280,6 +281,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                                                  StrokeColor = Color.DarkGreen,
                                                  StrokeThickness = 2,
                                                  IsEditable = true
+                                             });
+        }
+
+        /// <summary>
+        /// Creates <see cref="ChartMultipleLineData"/> with default styling for the tangent lines.
+        /// </summary>
+        /// <returns>The created <see cref="ChartMultipleLineData"/>.</returns>
+        public static ChartMultipleLineData CreateTangentLinesChartData()
+        {
+            return new ChartMultipleLineData(Resources.TangentLines_DisplayName,
+                                             new ChartLineStyle
+                                             {
+                                                 Color = Color.Green,
+                                                 DashStyle = ChartLineDashStyle.Dash,
+                                                 IsEditable = true,
+                                                 Width = 1
                                              });
         }
 

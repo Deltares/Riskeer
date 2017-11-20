@@ -63,6 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartLineData slipPlaneChartData;
         private readonly ChartLineData leftCircleRadiusChartData;
         private readonly ChartLineData rightCircleRadiusChartData;
+        private readonly ChartMultipleLineData tangentLinesChartData;
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
 
@@ -101,6 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             surfaceLevelOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelOutsideChartData();
             waternetZonesExtremeChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZonesExtremeChartDataCollection();
             waternetZonesDailyChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZonesDailyChartDataCollection();
+            tangentLinesChartData = MacroStabilityInwardsChartDataFactory.CreateTangentLinesChartData();
             leftGridChartData = MacroStabilityInwardsChartDataFactory.CreateLeftGridChartData();
             rightGridChartData = MacroStabilityInwardsChartDataFactory.CreateRightGridChartData();
             slipPlaneChartData = MacroStabilityInwardsChartDataFactory.CreateSlipPlaneChartData();
@@ -124,6 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection.Add(surfaceLevelOutsideChartData);
             chartDataCollection.Add(waternetZonesExtremeChartData);
             chartDataCollection.Add(waternetZonesDailyChartData);
+            chartDataCollection.Add(tangentLinesChartData);
             chartDataCollection.Add(leftGridChartData);
             chartDataCollection.Add(rightGridChartData);
             chartDataCollection.Add(slicesChartData);
@@ -189,6 +192,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             leftCircleRadiusChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateLeftCircleRadiusPoints(output?.SlidingCurve);
             rightCircleRadiusChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateRightCircleRadiusPoints(output?.SlidingCurve);
             slicesChartData.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceAreas(output?.SlidingCurve.Slices);
+            tangentLinesChartData.Lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(output?.SlipPlane.TangentLines,
+                                                                                                         data.InputParameters.SurfaceLine);
         }
 
         private void UpdateInputChartData()

@@ -51,13 +51,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         private const int surfaceLevelOutsideIndex = 13;
         private const int waternetZonesExtremeIndex = 14;
         private const int waternetZonesDailyIndex = 15;
-        private const int leftGridIndex = 16;
-        private const int rightGridIndex = 17;
-        private const int slicesIndex = 18;
-        private const int slipPlaneIndex = 19;
-        private const int activeCircleRadiusIndex = 20;
-        private const int passiveCircleRadiusIndex = 21;
-        private const int nrOfChartData = 22;
+        private const int tangentLinesIndex = 16;
+        private const int leftGridIndex = 17;
+        private const int rightGridIndex = 18;
+        private const int slicesIndex = 19;
+        private const int slipPlaneIndex = 20;
+        private const int activeCircleRadiusIndex = 21;
+        private const int passiveCircleRadiusIndex = 22;
+        private const int nrOfChartData = 23;
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to the input of <paramref name="calculationScenario"/>.
@@ -97,6 +98,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(calculationScenario.Output.SlipPlane.RightGrid,
                                                                          (ChartPointData) actual.Collection.ElementAt(rightGridIndex));
 
+            AssertTangentLinesChartData(calculationScenario.Output.SlipPlane.TangentLines, calculationScenario.InputParameters.SurfaceLine,
+                                        (ChartMultipleLineData) actual.Collection.ElementAt(tangentLinesIndex));
+
             AssertSlicesChartData(calculationScenario.Output.SlidingCurve.Slices,
                                   (ChartMultipleAreaData) actual.Collection.ElementAt(slicesIndex));
 
@@ -135,6 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             ChartData[] chartDataArray = chartDataCollection.Collection.ToArray();
 
             Assert.AreEqual(nrOfChartData, chartDataArray.Length);
+            var tangentLinesData = (ChartMultipleLineData) chartDataArray[tangentLinesIndex];
             var leftGridData = (ChartPointData) chartDataArray[leftGridIndex];
             var rightGridData = (ChartPointData) chartDataArray[rightGridIndex];
             var slicesData = (ChartMultipleAreaData) chartDataArray[slicesIndex];
@@ -142,6 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             var activeCircleRadiusData = (ChartLineData) chartDataArray[activeCircleRadiusIndex];
             var passiveCircleRadiusData = (ChartLineData) chartDataArray[passiveCircleRadiusIndex];
 
+            CollectionAssert.IsEmpty(tangentLinesData.Lines);
             CollectionAssert.IsEmpty(leftGridData.Points);
             CollectionAssert.IsEmpty(rightGridData.Points);
             CollectionAssert.IsEmpty(slicesData.Areas);
@@ -149,6 +155,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             CollectionAssert.IsEmpty(activeCircleRadiusData.Points);
             CollectionAssert.IsEmpty(passiveCircleRadiusData.Points);
 
+            Assert.AreEqual("Tangentlijnen", tangentLinesData.Name);
             Assert.AreEqual("Linker grid", leftGridData.Name);
             Assert.AreEqual("Rechter grid", rightGridData.Name);
             Assert.AreEqual("Lamellen", slicesData.Name);
@@ -211,6 +218,33 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             MacroStabilityInwardsViewChartDataAssert.AssertEmptyWaternetChartData(chartDataCollection,
                                                                                   waternetZonesExtremeIndex,
                                                                                   waternetZonesDailyIndex);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="tangentLines"/>
+        /// and <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="tangentLines">The original tangent line Y-coordinates.</param>
+        /// <param name="surfaceLine">The original surface line.</param>
+        /// <param name="actual">The actual <see cref="ChartMultipleLineData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// does not correspond to <paramref name="tangentLines"/> and <paramref name="surfaceLine"/>.
+        /// </exception>
+        private static void AssertTangentLinesChartData(IEnumerable<double> tangentLines,
+                                                        MacroStabilityInwardsSurfaceLine surfaceLine,
+                                                        ChartMultipleLineData actual)
+        {
+            CollectionAssert.IsNotEmpty(actual.Lines);
+            double[] tangentLinesArray = tangentLines.ToArray();
+            for (var i = 0; i < tangentLinesArray.Length; i++)
+            {
+                var expectedPoints = new[]
+                {
+                    new Point2D(surfaceLine.LocalGeometry.First().X, tangentLinesArray[i]),
+                    new Point2D(surfaceLine.LocalGeometry.Last().X, tangentLinesArray[i])
+                };
+                CollectionAssert.AreEqual(expectedPoints, actual.Lines.ElementAt(i));
+            }
         }
 
         /// <summary>
