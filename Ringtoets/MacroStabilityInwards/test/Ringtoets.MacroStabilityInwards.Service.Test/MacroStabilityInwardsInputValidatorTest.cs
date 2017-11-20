@@ -364,7 +364,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_MultipleTangentLinesWithTangentLineTopAndBottomSame_ReturnsError()
         {
             // Setup
-            input.TangentLineNumber = 3;
+            var random = new Random(21);
+            input.TangentLineNumber = random.Next(2, 50);
             input.TangentLineZTop = (RoundedDouble) 1.5;
             input.TangentLineZBottom = (RoundedDouble) 1.5;
 
@@ -382,7 +383,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_MultipleTangentLinesWithTangentLineTopAndBottomNotSame_ReturnsEmpty()
         {
             // Setup
-            input.TangentLineNumber = 4;
+            var random = new Random(21);
+            input.TangentLineNumber = random.Next(2, 50);
             input.TangentLineZTop = (RoundedDouble) 1.5;
             input.TangentLineZBottom = (RoundedDouble) 0.2;
 
