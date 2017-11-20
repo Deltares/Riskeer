@@ -1452,6 +1452,60 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             }, areas);
         }
 
+        [Test]
+        public void CreateTangentLines_TangentLinesNull_ReturnsEmptyCollection()
+        {
+            // Call
+            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(null, new MacroStabilityInwardsSurfaceLine("line"));
+
+            // Assert
+            CollectionAssert.IsEmpty(areas);
+        }
+
+        [Test]
+        public void CreateTangentLines_SurfaceLineNull_ReturnsEmptyCollection()
+        {
+            // Call
+            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(Enumerable.Empty<double>(), null);
+
+            // Assert
+            CollectionAssert.IsEmpty(areas);
+        }
+
+        [Test]
+        public void CreateTangentLines_WithSlices_ReturnsLines()
+        {
+            // Setup
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("line");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(-5, 2, 2),
+                new Point3D(10, 2, 2)
+            });
+
+            // Call
+            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(new[]
+            {
+                2.5,
+                5.8
+            }, surfaceLine);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0.0, 2.5),
+                    new Point2D(15.0, 2.5)
+                },
+                new[]
+                {
+                    new Point2D(0, 5.8),
+                    new Point2D(15.0, 5.8)
+                }
+            }, lines);
+        }
+
         private static MacroStabilityInwardsWaternetLine CreateWaternetLine(IEnumerable<Point2D> waternetLineGeometry,
                                                                             IEnumerable<Point2D> phreaticLineGeometry)
         {
