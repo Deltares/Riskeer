@@ -1803,7 +1803,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alfa&apos;s [-].
+        ///   Looks up a localized string similar to Invloedscoëfficienten [-].
         /// </summary>
         public static string IllustrationPoint_AlphaValues_DisplayName {
             get {
@@ -1938,7 +1938,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alfa^2.
+        ///   Looks up a localized string similar to Invloedscoëfficient^2.
         /// </summary>
         public static string IllustrationPointsChartControl_StackChartControl_VerticalAxisTitle {
             get {

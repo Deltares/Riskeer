@@ -253,7 +253,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             generalCategory,
-                                                                            "Alfa's [-]",
+                                                                            "Invloedscoëfficienten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
@@ -340,7 +340,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             generalCategory,
-                                                                            "Alfa's [-]",
+                                                                            "Invloedscoëfficienten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 

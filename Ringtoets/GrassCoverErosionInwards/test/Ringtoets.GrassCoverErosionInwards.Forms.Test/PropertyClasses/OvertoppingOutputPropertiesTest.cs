@@ -324,7 +324,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesPropertyIndex - waveHeightNotPresentOffset];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Alfa's [-]",
+                                                                            "Invloedscoëfficienten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 

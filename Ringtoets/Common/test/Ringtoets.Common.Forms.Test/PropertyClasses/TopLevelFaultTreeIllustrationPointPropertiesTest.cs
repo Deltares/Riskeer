@@ -156,7 +156,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor alphasProperty = dynamicProperties[alphasPropertyIndex - 1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphasProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Alfa's [-]",
+                                                                            "Invloedscoëfficienten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
@@ -224,7 +224,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor alphasProperty = dynamicProperties[alphasPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphasProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Alfa's [-]",
+                                                                            "Invloedscoëfficienten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
