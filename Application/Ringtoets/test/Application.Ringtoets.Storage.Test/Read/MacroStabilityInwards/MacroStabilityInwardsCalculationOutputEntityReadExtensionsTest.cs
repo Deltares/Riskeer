@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -55,9 +56,9 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             {
                 MacroStabilityInwardsSliceTestFactory.CreateSlice()
             };
-            IEnumerable<double> tangentLines = new[]
+            IEnumerable<RoundedDouble> tangentLines = new[]
             {
-                random.NextDouble()
+                new RoundedDouble(2, random.NextDouble())
             };
 
             var entity = new MacroStabilityInwardsCalculationOutputEntity
@@ -156,7 +157,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             return new MacroStabilityInwardsCalculationOutputEntity
             {
                 SlidingCurveSliceXML = new MacroStabilityInwardsSliceXmlSerializer().ToXml(new MacroStabilityInwardsSlice[0]),
-                SlipPlaneTangentLinesXml = new TangentLinesXmlSerializer().ToXml(new double[0]),
+                SlipPlaneTangentLinesXml = new TangentLinesXmlSerializer().ToXml(new RoundedDouble[0]),
                 SlipPlaneLeftGridNrOfHorizontalPoints = random.Next(1, 100),
                 SlipPlaneLeftGridNrOfVerticalPoints = random.Next(1, 100),
                 SlipPlaneRightGridNrOfHorizontalPoints = random.Next(1, 100),

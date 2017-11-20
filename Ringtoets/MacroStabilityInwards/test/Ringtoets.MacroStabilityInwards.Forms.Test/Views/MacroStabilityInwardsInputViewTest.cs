@@ -57,11 +57,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int dikeToeAtRiverIndex = 11;
         private const int dikeTopAtRiverIndex = 12;
         private const int surfaceLevelOutsideIndex = 13;
-        private const int leftGridIndex = 14;
-        private const int rightGridIndex = 15;
-        private const int waternetZonesExtremeIndex = 16;
-        private const int waternetZonesDailyIndex = 17;
-        private const int nrOfChartData = 18;
+        private const int tangentLinesIndex = 14;
+        private const int leftGridIndex = 15;
+        private const int rightGridIndex = 16;
+        private const int waternetZonesExtremeIndex = 17;
+        private const int waternetZonesDailyIndex = 18;
+        private const int nrOfChartData = 19;
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -363,6 +364,55 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
+        public void Data_WithValidTangentLineParameters_TangentLinesDataSet()
+        {
+            // Setup
+            using (var view = new MacroStabilityInwardsInputView())
+            {
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual,
+                        TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
+                        TangentLineZTop = (RoundedDouble) 5.0,
+                        TangentLineZBottom = (RoundedDouble) 0.0,
+                        TangentLineNumber = 3
+                    }
+                };
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                ChartDataCollection chartData = view.Chart.Data;
+                List<ChartData> chartDataList = chartData.Collection.ToList();
+                var tangentLinesData = (ChartMultipleLineData) chartDataList[tangentLinesIndex];
+                CollectionAssert.AreEqual(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(0.0, 5.0),
+                        new Point2D(1.58, 5.0)
+                    },
+                    new[]
+                    {
+                        new Point2D(0.0, 2.5),
+                        new Point2D(1.58, 2.5)
+                    },
+                    new[]
+                    {
+                        new Point2D(0.0, 0),
+                        new Point2D(1.58, 0)
+                    }
+                }, tangentLinesData.Lines);
+            }
+        }
+
+        [Test]
         public void UpdateObserver_CalculationNameUpdated_ChartTitleUpdated()
         {
             // Setup
@@ -541,6 +591,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const int updatedDikeToeAtRiverIndex = dikeToeAtRiverIndex - 1;
             const int updatedDikeTopAtRiverIndex = dikeTopAtRiverIndex - 1;
             const int updatedSurfaceLevelOutsideIndex = surfaceLevelOutsideIndex - 1;
+            const int updatedTangentLinesIndex = tangentLinesIndex - 1;
             const int updatedLeftGridIndex = leftGridIndex - 1;
             const int updatedRightGridIndex = rightGridIndex - 1;
             const int updatedWaternetZonesExtremeIndex = waternetZonesExtremeIndex - 1;
@@ -575,6 +626,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var dikeToeAtRiverData = (ChartPointData) chartDataList[updatedDikeToeAtRiverIndex];
                 var dikeTopAtRiverData = (ChartPointData) chartDataList[updatedDikeTopAtRiverIndex];
                 var surfaceLevelOutsideData = (ChartPointData) chartDataList[updatedSurfaceLevelOutsideIndex];
+                var tangentLinesData = (ChartMultipleLineData) chartDataList[updatedTangentLinesIndex];
                 var leftGridData = (ChartPointData) chartDataList[updatedLeftGridIndex];
                 var rightGridData = (ChartPointData) chartDataList[updatedRightGridIndex];
                 var waternetZonesExtremeData = (ChartDataCollection) chartDataList[updatedWaternetZonesExtremeIndex];
@@ -594,6 +646,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
                 Assert.AreEqual("Kruin buitentalud", dikeTopAtRiverData.Name);
                 Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
+                Assert.AreEqual("Tangentlijnen", tangentLinesData.Name);
                 Assert.AreEqual("Linker grid", leftGridData.Name);
                 Assert.AreEqual("Rechter grid", rightGridData.Name);
                 Assert.AreEqual("Zones extreem", waternetZonesExtremeData.Name);
@@ -622,6 +675,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var actualDikeToeAtRiverData = (ChartPointData) chartDataList[updatedDikeToeAtRiverIndex];
                 var actualDikeTopAtRiverData = (ChartPointData) chartDataList[updatedDikeTopAtRiverIndex];
                 var actualSurfaceLevelOutsideData = (ChartPointData) chartDataList[updatedSurfaceLevelOutsideIndex];
+                var actualTangentLinesData = (ChartMultipleLineData) chartDataList[updatedTangentLinesIndex];
                 var actualLeftGridData = (ChartPointData) chartDataList[updatedLeftGridIndex];
                 var actualRightGridData = (ChartPointData) chartDataList[updatedRightGridIndex];
                 var actualWaternetZonesExtremeData = (ChartDataCollection) chartDataList[updatedWaternetZonesExtremeIndex];
@@ -641,6 +695,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Teen dijk buitenwaarts", actualDikeToeAtRiverData.Name);
                 Assert.AreEqual("Kruin buitentalud", actualDikeTopAtRiverData.Name);
                 Assert.AreEqual("Maaiveld buitenwaarts", actualSurfaceLevelOutsideData.Name);
+                Assert.AreEqual("Tangentlijnen", actualTangentLinesData.Name);
                 Assert.AreEqual("Linker grid", actualLeftGridData.Name);
                 Assert.AreEqual("Rechter grid", actualRightGridData.Name);
                 Assert.AreEqual("Zones extreem", actualWaternetZonesExtremeData.Name);
@@ -700,6 +755,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Data = calculation
             })
             {
+                ChartDataCollection chartData = view.Chart.Data;
+                List<ChartData> chartDataList = chartData.Collection.ToList();
+                var actualLeftGridData = (ChartPointData) chartDataList[leftGridIndex];
+                var actualRightGridData = (ChartPointData) chartDataList[rightGridIndex];
+
+                // Precondition
+                CollectionAssert.IsEmpty(actualLeftGridData.Points);
+                CollectionAssert.IsEmpty(actualRightGridData.Points);
+
                 MacroStabilityInwardsInput input = calculation.InputParameters;
                 input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual;
                 SetGridValues(input.LeftGrid);
@@ -709,13 +773,59 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 calculation.InputParameters.NotifyObservers();
 
                 // Assert
-                ChartDataCollection chartData = view.Chart.Data;
-                List<ChartData> chartDataList = chartData.Collection.ToList();
-                var actualLeftGridData = (ChartPointData) chartDataList[leftGridIndex];
-                var actualRightGridData = (ChartPointData) chartDataList[rightGridIndex];
-
                 MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.LeftGrid, actualLeftGridData);
                 MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.RightGrid, actualRightGridData);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_CalculationInputTangentLineSettingsUpdated_TangentLineChartDataUpdated()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = GetSurfaceLineWithGeometry()
+                }
+            };
+
+            using (var view = new MacroStabilityInwardsInputView
+            {
+                Data = calculation
+            })
+            {
+                ChartDataCollection chartData = view.Chart.Data;
+                List<ChartData> chartDataList = chartData.Collection.ToList();
+                var tangentLinesData = (ChartMultipleLineData) chartDataList[tangentLinesIndex];
+
+                // Precondition
+                CollectionAssert.IsEmpty(tangentLinesData.Lines);
+
+                MacroStabilityInwardsInput input = calculation.InputParameters;
+                input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual;
+                input.TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified;
+                input.TangentLineZTop = (RoundedDouble) 10;
+                input.TangentLineZBottom = (RoundedDouble) 5;
+                input.TangentLineNumber = 2;
+
+                // Call
+                calculation.InputParameters.NotifyObservers();
+
+                // Assert
+                CollectionAssert.AreEqual(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(0.0, 10.0),
+                        new Point2D(1.58, 10.0)
+                    },
+                    new[]
+                    {
+                        new Point2D(0.0, 5.0),
+                        new Point2D(1.58, 5.0)
+                    }
+                }, tangentLinesData.Lines);
             }
         }
 
@@ -806,6 +916,62 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var updatedRightGridData = (ChartPointData) chartDataList[rightGridIndex];
                 CollectionAssert.IsEmpty(updatedLeftGridData.Points);
                 CollectionAssert.IsEmpty(updatedRightGridData.Points);
+            }
+        }
+
+        [Test]
+        [TestCase(MacroStabilityInwardsGridDeterminationType.Manual, MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated)]
+        [TestCase(MacroStabilityInwardsGridDeterminationType.Automatic, MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated)]
+        [TestCase(MacroStabilityInwardsGridDeterminationType.Automatic, MacroStabilityInwardsTangentLineDeterminationType.Specified)]
+        public void GivenViewWithSpecifiedTangentLines_WhenTangentLineOrGridDeterminationTypeSetToManual_ThenNoTangentLines(
+            MacroStabilityInwardsGridDeterminationType gridDeterminationType,
+            MacroStabilityInwardsTangentLineDeterminationType tangentLineDeterminationType)
+        {
+            // Given
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = GetSurfaceLineWithGeometry(),
+                    GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual,
+                    TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
+                    TangentLineZTop = (RoundedDouble) 10.0,
+                    TangentLineZBottom = (RoundedDouble) 5.0,
+                    TangentLineNumber = 2
+                }
+            };
+            MacroStabilityInwardsInput input = calculation.InputParameters;
+
+            using (var view = new MacroStabilityInwardsInputView
+            {
+                Data = calculation
+            })
+            {
+                // Precondition
+                ChartDataCollection chartData = view.Chart.Data;
+                List<ChartData> chartDataList = chartData.Collection.ToList();
+                var tangentLinesData = (ChartMultipleLineData) chartDataList[tangentLinesIndex];
+                CollectionAssert.AreEqual(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(0.0, 10.0),
+                        new Point2D(1.58, 10.0)
+                    },
+                    new[]
+                    {
+                        new Point2D(0.0, 5.0),
+                        new Point2D(1.58, 5.0)
+                    }
+                }, tangentLinesData.Lines);
+
+                // When
+                input.GridDeterminationType = gridDeterminationType;
+                input.TangentLineDeterminationType = tangentLineDeterminationType;
+                input.NotifyObservers();
+
+                // Then
+                CollectionAssert.IsEmpty(tangentLinesData.Lines);
             }
         }
 

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -68,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsGrid rightGrid = MacroStabilityInwardsGridTestFactory.Create();
             var tangentLines = new[]
             {
-                random.NextDouble()
+                random.NextRoundedDouble()
             };
             var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, tangentLines);
 
@@ -102,7 +103,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
             var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(CreateGridWithNaNValues(),
                                                                         CreateGridWithNaNValues(),
-                                                                        new double[0]);
+                                                                        new RoundedDouble[0]);
 
             var output = new MacroStabilityInwardsOutput(slidingCurve, slipPlane, new MacroStabilityInwardsOutput.ConstructionProperties());
 

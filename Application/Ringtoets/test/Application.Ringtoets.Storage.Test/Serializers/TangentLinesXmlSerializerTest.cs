@@ -21,6 +21,8 @@
 
 using System;
 using Application.Ringtoets.Storage.Serializers;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.Test.Serializers
@@ -35,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Serializers
             var serializer = new TangentLinesXmlSerializer();
 
             // Assert
-            Assert.IsInstanceOf<DataCollectionSerializer<double, TangentLinesXmlSerializer.SerializableTangentLine>>(serializer);
+            Assert.IsInstanceOf<DataCollectionSerializer<RoundedDouble, TangentLinesXmlSerializer.SerializableTangentLine>>(serializer);
         }
 
         [Test]
@@ -45,14 +47,14 @@ namespace Application.Ringtoets.Storage.Test.Serializers
             var random = new Random(31);
             var original = new[]
             {
-                double.NaN,
-                random.NextDouble()
+                new RoundedDouble(2, double.NaN),
+                random.NextRoundedDouble()
             };
             var serializer = new TangentLinesXmlSerializer();
 
             // When
             string xml = serializer.ToXml(original);
-            double[] roundtripResult = serializer.FromXml(xml);
+            RoundedDouble[] roundtripResult = serializer.FromXml(xml);
 
             // Then
             CollectionAssert.AreEqual(original, roundtripResult);

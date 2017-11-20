@@ -402,11 +402,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create the tangent lines based on the provided <paramref name="tangentLines"/>
         /// and <paramref name="surfaceLine"/>.
         /// </summary>
-        /// <param name="tangentLines">The tangent line Y-coordinates.</param>
-        /// <param name="surfaceLine">The surface line that determines the boundaries of the tangent line.</param>
+        /// <param name="tangentLines">The tangent line Z-coordinates.</param>
+        /// <param name="surfaceLine">The surface line that determines the horizontal boundaries
+        /// of the tangent lines.</param>
         /// <returns>A collection of arrays of points in 2D space or an empty collection when <paramref name="surfaceLine"/>
         /// or <paramref name="tangentLines"/> is <c>null</c>.</returns>
-        public static IEnumerable<Point2D[]> CreateTangentLines(IEnumerable<double> tangentLines,
+        public static IEnumerable<Point2D[]> CreateTangentLines(IEnumerable<RoundedDouble> tangentLines,
                                                                 MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (surfaceLine == null || tangentLines == null)
@@ -419,6 +420,48 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 new Point2D(surfaceLine.LocalGeometry.First().X, tangentLine),
                 new Point2D(surfaceLine.LocalGeometry.Last().X, tangentLine)
             }).ToArray();
+        }
+
+        /// <summary>
+        /// Create tangent lines based on the provided amount <paramref name="tangentLineNumber"/> and
+        /// range between <paramref name="tangentLineBottom"/> and <paramref name="tangentLineTop"/>
+        /// within the boundaries of the <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="gridDeterminationType">The grid determination type.</param>
+        /// <param name="tangentLineDeterminationType">The tangent line determination type.</param>
+        /// <param name="tangentLineBottom">The bottom boundary for the tangent lines.</param>
+        /// <param name="tangentLineTop">The top boundary for the tangent lines.</param>
+        /// <param name="tangentLineNumber">The amount of tangent lines to display.</param>
+        /// <param name="surfaceLine">The surface line that determines the horizontal boundaries
+        /// of the tangent lines.</param>
+        /// <returns>A collection of arrays of points in 2D space or an empty collection when:
+        /// <list type="bullet">
+        /// <item><paramref name="gridDeterminationType"/> is <see cref="MacroStabilityInwardsGridDeterminationType.Automatic"/>;</item>
+        /// <item><paramref name="tangentLineDeterminationType"/> is <see cref="MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated"/>;</item>
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item><paramref name="tangentLineBottom"/> is <see cref="double.NaN"/> or infinity;</item>
+        /// <item><paramref name="tangentLineTop"/> is <see cref="double.NaN"/> or infinity.</item>
+        /// </list>
+        /// </returns>
+        public static IEnumerable<Point2D[]> CreateTangentLines(MacroStabilityInwardsGridDeterminationType gridDeterminationType,
+                                                                MacroStabilityInwardsTangentLineDeterminationType tangentLineDeterminationType,
+                                                                RoundedDouble tangentLineBottom,
+                                                                RoundedDouble tangentLineTop,
+                                                                int tangentLineNumber,
+                                                                MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            if (gridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic
+                || tangentLineDeterminationType == MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated
+                || double.IsNaN(tangentLineBottom)
+                || double.IsInfinity(tangentLineBottom)
+                || double.IsNaN(tangentLineTop)
+                || double.IsInfinity(tangentLineTop))
+            {
+                return Enumerable.Empty<Point2D[]>();
+            }
+
+            return CreateTangentLines(GetInterPolatedVerticalPositions(tangentLineTop, tangentLineBottom, tangentLineNumber),
+                                      surfaceLine);
         }
 
         /// <summary>
@@ -442,6 +485,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 slice.BottomLeftPoint
             });
         }
+
+        #region General Helpers
+
+        private static IEnumerable<RoundedDouble> GetInterPolatedVerticalPositions(RoundedDouble startPoint,
+                                                                                   RoundedDouble endPoint,
+                                                                                   int nrOfPoints)
+        {
+            if (nrOfPoints <= 1)
+            {
+                yield return startPoint;
+                yield break;
+            }
+
+            int nrofInterPolatedPoints = nrOfPoints - 1;
+            RoundedDouble deltaZ = endPoint - startPoint;
+            RoundedDouble deltaZBetweenPoints = nrOfPoints < 2
+                                                    ? (RoundedDouble) 0.0
+                                                    : (RoundedDouble) (deltaZ / nrofInterPolatedPoints);
+
+            RoundedDouble z = startPoint;
+            int nrOfRepetitions = nrofInterPolatedPoints < 0
+                                      ? 0
+                                      : nrofInterPolatedPoints;
+            for (var i = 0; i < nrOfRepetitions + 1; i++)
+            {
+                yield return z;
+                z += deltaZBetweenPoints;
+            }
+        }
+
+        #endregion
 
         #region SoilLayers and Surface Line Helpers
 
@@ -469,33 +543,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                    && !double.IsNaN(grid.XRight)
                    && !double.IsNaN(grid.ZTop)
                    && !double.IsNaN(grid.ZBottom);
-        }
-
-        private static IEnumerable<RoundedDouble> GetInterPolatedVerticalPositions(RoundedDouble startPoint,
-                                                                                   RoundedDouble endPoint,
-                                                                                   int nrOfPoints)
-        {
-            if (nrOfPoints <= 1)
-            {
-                yield return startPoint;
-                yield break;
-            }
-
-            int nrofInterPolatedPoints = nrOfPoints - 1;
-            RoundedDouble deltaZ = endPoint - startPoint;
-            RoundedDouble deltaZBetweenPoints = nrOfPoints < 2
-                                                    ? (RoundedDouble) 0.0
-                                                    : (RoundedDouble) (deltaZ / nrofInterPolatedPoints);
-
-            RoundedDouble z = startPoint;
-            int nrOfRepetitions = nrofInterPolatedPoints < 0
-                                      ? 0
-                                      : nrofInterPolatedPoints;
-            for (var i = 0; i < nrOfRepetitions + 1; i++)
-            {
-                yield return z;
-                z += deltaZBetweenPoints;
-            }
         }
 
         private static IEnumerable<Point2D> GetInterPolatedHorizontalPoints(RoundedDouble startPoint,

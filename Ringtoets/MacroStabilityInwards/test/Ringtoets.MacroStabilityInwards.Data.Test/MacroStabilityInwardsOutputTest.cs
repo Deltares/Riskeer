@@ -21,7 +21,9 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -37,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
                                                                         MacroStabilityInwardsGridTestFactory.Create(),
-                                                                        new double[0]);
+                                                                        new RoundedDouble[0]);
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsOutput(null, slipPlane, new MacroStabilityInwardsOutput.ConstructionProperties());
@@ -73,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
                                                                         MacroStabilityInwardsGridTestFactory.Create(),
-                                                                        new double[0]);
+                                                                        new RoundedDouble[0]);
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsOutput(slidingCurve, slipPlane, null);
@@ -93,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
                                                                         MacroStabilityInwardsGridTestFactory.Create(),
-                                                                        new double[0]);
+                                                                        new RoundedDouble[0]);
 
             // Call
             var output = new MacroStabilityInwardsOutput(slidingCurve, slipPlane, new MacroStabilityInwardsOutput.ConstructionProperties());
@@ -115,7 +117,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
                                                                         MacroStabilityInwardsGridTestFactory.Create(),
-                                                                        new double[0]);
+                                                                        new RoundedDouble[0]);
 
             var random = new Random(21);
             double factorOfStability = random.NextDouble();
@@ -165,7 +167,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                                                                         MacroStabilityInwardsGridTestFactory.Create(),
                                                                         new[]
                                                                         {
-                                                                            random.NextDouble()
+                                                                            random.NextRoundedDouble()
                                                                         });
 
             var properties = new MacroStabilityInwardsOutput.ConstructionProperties

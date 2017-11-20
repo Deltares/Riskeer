@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
@@ -39,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGrid leftGrid,
                                                        MacroStabilityInwardsGrid rightGrid,
-                                                       IEnumerable<double> tangentLines)
+                                                       IEnumerable<RoundedDouble> tangentLines)
         {
             if (leftGrid == null)
             {
@@ -56,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
             LeftGrid = leftGrid;
             RightGrid = rightGrid;
-            TangentLines = tangentLines;
+            TangentLines = tangentLines.Select(tangentLine => new RoundedDouble(2, tangentLine)).ToArray();
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the tangent lines result.
         /// </summary>
-        public IEnumerable<double> TangentLines { get; private set; }
+        public IEnumerable<RoundedDouble> TangentLines { get; private set; }
 
         public object Clone()
         {

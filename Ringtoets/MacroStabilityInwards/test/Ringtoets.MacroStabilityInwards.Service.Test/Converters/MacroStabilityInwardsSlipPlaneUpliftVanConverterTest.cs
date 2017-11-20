@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
@@ -62,7 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             MacroStabilityInwardsSlipPlaneUpliftVan output = MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(result);
 
             // Assert
-            CollectionAssert.AreEqual(tangentLines, output.TangentLines);
+            CollectionAssert.AreEqual(tangentLines, output.TangentLines.Select(tl => tl.Value), new DoubleWithToleranceComparer(1e-2));
             AssertGrid(leftGrid, output.LeftGrid);
             AssertGrid(rightGrid, output.RightGrid);
         }
