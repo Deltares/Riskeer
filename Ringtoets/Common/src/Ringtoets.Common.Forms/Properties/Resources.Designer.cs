@@ -1875,6 +1875,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waarden in het illustratiepunt.
+        /// </summary>
+        public static string IllustrationPoint_IllustrationPointValues_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_IllustrationPointValues_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Realisaties van de stochasten in het illustratiepunt..
         /// </summary>
         public static string IllustrationPoint_Realization_Description {

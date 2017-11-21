@@ -1244,4 +1244,7 @@ Pf = {1}</value>
   <data name="IllustrationPoint_CalculatedProbability_DisplayName" xml:space="preserve">
     <value>Berekende kans [-]</value>
   </data>
+  <data name="IllustrationPoint_IllustrationPointValues_DisplayName" xml:space="preserve">
+    <value>Waarden in het illustratiepunt</value>
+  </data>
 </root>

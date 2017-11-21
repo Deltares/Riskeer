@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidArgumentValues_ReturnsExpectedProperties()
+        public void Constructor_WithValidArgument_ReturnsExpectedProperties()
         {
             // Setup
             var random = new Random(21);
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_ValidData_ReturnsExpectedValues()
+        public void GetProperties_WithValidData_ReturnsExpectedValues()
         {
             // Setup
             var random = new Random(21);
@@ -100,7 +100,26 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_ValidData_ReturnsExpectedAttributeValues()
+        public void ToString_WithValidData_ReturnsEmptyString()
+        {
+            // Setup
+            var random = new Random(21);
+            var illustrationPoint = new SubMechanismIllustrationPoint("Not an empty string",
+                                                                      random.NextDouble(),
+                                                                      Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                      Enumerable.Empty<IllustrationPointResult>());
+
+            var properties = new IllustrationPointValuesProperties(illustrationPoint);
+
+            // Call
+            string toStringValue = properties.ToString();
+
+            // Assert
+            Assert.IsEmpty(toStringValue);
+        }
+
+        [Test]
+        public void GetProperties_WithValidData_ReturnsExpectedAttributeValues()
         {
             // Setup
             var random = new Random(21);

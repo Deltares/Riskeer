@@ -84,5 +84,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 return data.IllustrationPointResults.ToArray();
             }
         }
+
+        public override string ToString()
+        {
+            return string.Empty;
+        }
     }
 }
