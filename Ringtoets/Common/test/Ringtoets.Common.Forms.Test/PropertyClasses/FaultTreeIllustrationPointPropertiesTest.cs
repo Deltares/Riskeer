@@ -44,8 +44,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const int durationsPropertyIndex = 5;
         private const int illustrationPointPropertyIndex = 6;
 
-        private const string illustrationPointsCategoryName = "Illustratiepunten";
-
         [Test]
         public void Constructor_ChildNodesNull_ThrowsArgumentNullException()
         {
@@ -148,6 +146,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(7, dynamicProperties.Count);
 
+            const string illustrationPointsCategoryName = "Illustratiepunten";
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
                                                                             illustrationPointsCategoryName,

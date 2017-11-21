@@ -86,6 +86,7 @@
     </Compile>
     <Compile Include="PropertyClasses\DesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\IllustrationPointProperties.cs" />
+    <Compile Include="PropertyClasses\IllustrationPointValuesProperties.cs" />
     <Compile Include="PropertyClasses\SubMechanismIllustrationPointProperties.cs" />
     <Compile Include="PropertyClasses\FaultTreeIllustrationPointProperties.cs" />
     <Compile Include="PropertyClasses\TopLevelFaultTreeIllustrationPointProperties.cs" />

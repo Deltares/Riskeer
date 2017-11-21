@@ -1117,7 +1117,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Realisaties van de stochasten in het illustratiepunt.</value>
   </data>
   <data name="IllustrationPoint_Realization_DisplayName" xml:space="preserve">
-    <value>Realisaties in het illustratiepunt</value>
+    <value>Stochastwaarden</value>
   </data>
   <data name="IllustrationPointsChartControl_StackChartControl_VerticalAxisTitle" xml:space="preserve">
     <value>Invloedscoëfficient^2</value>
@@ -1210,7 +1210,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Waarden van variabelen in het illustratiepunt.</value>
   </data>
   <data name="IllustrationPoint_Result_DisplayName" xml:space="preserve">
-    <value>Waarden in het illustratiepunt</value>
+    <value>Afgeleide grootheden</value>
   </data>
   <data name="GraphNodeConverter_GraphNodeContent_Beta_0_Probability_1" xml:space="preserve">
     <value>

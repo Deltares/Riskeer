@@ -44,8 +44,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const int realizationsPropertyIndex = 6;
         private const int resultsPropertyIndex = 7;
 
-        private const string illustrationPointsCategoryName = "Illustratiepunten";
-
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -128,6 +126,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(subMechanismProperties);
             Assert.AreEqual(8, dynamicProperties.Count);
 
+            const string illustrationPointsCategoryName = "Illustratiepunten";
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
                                                                             illustrationPointsCategoryName,
@@ -173,14 +172,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor realizationsProperty = dynamicProperties[realizationsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(realizationsProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Realisaties in het illustratiepunt",
+                                                                            "Stochastwaarden",
                                                                             "Realisaties van de stochasten in het illustratiepunt.",
                                                                             true);
 
             PropertyDescriptor resultsProperty = dynamicProperties[resultsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(resultsProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Waarden in het illustratiepunt",
+                                                                            "Afgeleide grootheden",
                                                                             "Waarden van variabelen in het illustratiepunt.",
                                                                             true);
         }

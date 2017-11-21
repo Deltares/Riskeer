@@ -107,6 +107,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\BreakWaterPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignVariablePropertiesTest.cs" />
+    <Compile Include="PropertyClasses\IllustrationPointValuesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\SubMechanismIllustrationPointPropertiesTest.cs" />
     <Compile Include="PropertyClasses\IllustrationPointPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FaultTreeIllustrationPointPropertiesTest.cs" />

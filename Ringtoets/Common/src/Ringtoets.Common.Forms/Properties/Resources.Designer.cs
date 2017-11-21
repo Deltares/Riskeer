@@ -1884,7 +1884,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Realisaties in het illustratiepunt.
+        ///   Looks up a localized string similar to Stochastwaarden.
         /// </summary>
         public static string IllustrationPoint_Realization_DisplayName {
             get {
@@ -1902,7 +1902,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waarden in het illustratiepunt.
+        ///   Looks up a localized string similar to Afgeleide grootheden.
         /// </summary>
         public static string IllustrationPoint_Result_DisplayName {
             get {
