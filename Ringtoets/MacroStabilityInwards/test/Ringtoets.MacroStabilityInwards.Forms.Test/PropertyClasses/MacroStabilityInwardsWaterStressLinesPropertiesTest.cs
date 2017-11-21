@@ -123,8 +123,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertyDescriptor phreaticLinesProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(phreaticLinesProperty,
                                                                             waterStressesCategoryName,
-                                                                            "Freatische Lijnen",
-                                                                            "Eigenschappen van de freatische lijnen.",
+                                                                            "Stijghoogtelijnen",
+                                                                            "Eigenschappen van de stijghoogtelijnen.",
                                                                             true);
 
             PropertyDescriptor waternetLinesProperty = dynamicProperties[1];

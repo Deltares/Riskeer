@@ -56,8 +56,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(phreaticLinesPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PhreaticLines_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PhreaticLines_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Waternet_PiezometricLines_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Waternet_PiezometricLines_Description))]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
         public MacroStabilityInwardsPhreaticLineProperties[] PhreaticLines
         {
@@ -69,8 +69,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(waternetLinesPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaternetLines_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.WaternetLines_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Waternet_WaternetLines_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Waternet_WaternetLines_Description))]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
         public MacroStabilityInwardsWaternetLineProperties[] WaternetLines
         {
