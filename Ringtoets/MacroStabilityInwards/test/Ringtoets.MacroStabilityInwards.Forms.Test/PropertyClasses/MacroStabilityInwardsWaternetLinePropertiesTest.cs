@@ -135,8 +135,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertyDescriptor phreaticLineNameProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(phreaticLineNameProperty,
                                                                             waterStressesCategoryName,
-                                                                            "Freatische Lijn",
-                                                                            "De freatische lijn behorend bij de zone.",
+                                                                            "Stijghoogtelijn",
+                                                                            "De stijghoogtelijn behorend bij de zone.",
                                                                             true);
         }
     }

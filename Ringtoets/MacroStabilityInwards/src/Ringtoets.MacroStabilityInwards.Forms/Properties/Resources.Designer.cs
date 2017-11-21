@@ -1209,42 +1209,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De geometrie van de lijn..
-        /// </summary>
-        public static string PhreaticLine_Geometry_Description {
-            get {
-                return ResourceManager.GetString("PhreaticLine_Geometry_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De naam van de lijn..
-        /// </summary>
-        public static string PhreaticLine_Name_Description {
-            get {
-                return ResourceManager.GetString("PhreaticLine_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De freatische lijn behorend bij de zone..
-        /// </summary>
-        public static string PhreaticLineName_Description {
-            get {
-                return ResourceManager.GetString("PhreaticLineName_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Freatische Lijn.
-        /// </summary>
-        public static string PhreaticLineName_DisplayName {
-            get {
-                return ResourceManager.GetString("PhreaticLineName_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Waterstandsverschil tussen het maaiveld en de freatische lijn onder teen dijk binnenwaarts..
         /// </summary>
         public static string PhreaticLineOffsetBelowDikeToeAtPolder_Description {
@@ -1317,24 +1281,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eigenschappen van de freatische lijnen..
-        /// </summary>
-        public static string PhreaticLines_Description {
-            get {
-                return ResourceManager.GetString("PhreaticLines_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Freatische Lijnen.
-        /// </summary>
-        public static string PhreaticLines_DisplayName {
-            get {
-                return ResourceManager.GetString("PhreaticLines_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Stijghoogte in de indringingslaag binnenwaarts..
         /// </summary>
         public static string PiezometricHeadPhreaticLine2Inwards_Description {
@@ -1367,6 +1313,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string PiezometricHeadPhreaticLine2Outwards_DisplayName {
             get {
                 return ResourceManager.GetString("PiezometricHeadPhreaticLine2Outwards_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De geometrie van de lijn..
+        /// </summary>
+        public static string PiezometricLine_Geometry_Description {
+            get {
+                return ResourceManager.GetString("PiezometricLine_Geometry_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De naam van de lijn..
+        /// </summary>
+        public static string PiezometricLine_Name_Description {
+            get {
+                return ResourceManager.GetString("PiezometricLine_Name_Description", resourceCulture);
             }
         }
         
@@ -1680,6 +1644,42 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Eigenschappen van de stijghoogtelijnen..
+        /// </summary>
+        public static string Waternet_PiezometricLines_Description {
+            get {
+                return ResourceManager.GetString("Waternet_PiezometricLines_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stijghoogtelijnen.
+        /// </summary>
+        public static string Waternet_PiezometricLines_DisplayName {
+            get {
+                return ResourceManager.GetString("Waternet_PiezometricLines_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eigenschappen van de zones..
+        /// </summary>
+        public static string Waternet_WaternetLines_Description {
+            get {
+                return ResourceManager.GetString("Waternet_WaternetLines_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zones.
+        /// </summary>
+        public static string Waternet_WaternetLines_DisplayName {
+            get {
+                return ResourceManager.GetString("Waternet_WaternetLines_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De geometrie van de zone..
         /// </summary>
         public static string WaternetLine_Geometry_Description {
@@ -1698,20 +1698,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eigenschappen van de zones..
+        ///   Looks up a localized string similar to De stijghoogtelijn behorend bij de zone..
         /// </summary>
-        public static string WaternetLines_Description {
+        public static string WaternetLine_PiezometricLineName_Description {
             get {
-                return ResourceManager.GetString("WaternetLines_Description", resourceCulture);
+                return ResourceManager.GetString("WaternetLine_PiezometricLineName_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zones.
+        ///   Looks up a localized string similar to Stijghoogtelijn.
         /// </summary>
-        public static string WaternetLines_DisplayName {
+        public static string WaternetLine_PiezometricLineName_DisplayName {
             get {
-                return ResourceManager.GetString("WaternetLines_DisplayName", resourceCulture);
+                return ResourceManager.GetString("WaternetLine_PiezometricLineName_DisplayName", resourceCulture);
             }
         }
         

@@ -21,25 +21,22 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
-using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class MacroStabilityInwardsWaternetPropertiesTest
+    public class MacroStabilityInwardsWaterStressLinesPropertiesTest
     {
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsWaternetProperties(null);
+            TestDelegate test = () => new MacroStabilityInwardsWaterStressLinesProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -50,51 +47,42 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidWaternet_ExpectedValues()
         {
             // Setup
-            var waternet = new MacroStabilityInwardsWaternet(new[]
-            {
-                new TestMacroStabilityInwardsPhreaticLine()
-            }, new[]
-            {
-                new TestMacroStabilityInwardsWaternetLine()
-            });
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            var properties = new MacroStabilityInwardsWaternetProperties(waternet);
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsWaternet>>(properties);
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsWaternetProperties, ExpandableReadOnlyArrayConverter>(
-                nameof(MacroStabilityInwardsWaternetProperties.PhreaticLines));
-            Assert.AreSame(waternet, properties.Data);
+            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsInput>>(properties);
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressLinesProperties, ExpandableObjectConverter>(
+                nameof(MacroStabilityInwardsWaterStressLinesProperties.WaternetDaily));
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressLinesProperties, ExpandableObjectConverter>(
+                nameof(MacroStabilityInwardsWaterStressLinesProperties.WaternetExtreme));
+            Assert.AreSame(input, properties.Data);
         }
 
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var waternet = new MacroStabilityInwardsWaternet(new[]
-            {
-                new TestMacroStabilityInwardsPhreaticLine()
-            }, new[]
-            {
-                new TestMacroStabilityInwardsWaternetLine()
-            });
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            var properties = new MacroStabilityInwardsWaternetProperties(waternet);
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
 
             // Assert
-            Assert.AreSame(waternet.PhreaticLines.Single(), properties.PhreaticLines.Single().Data);
-            Assert.AreSame(waternet.WaternetLines.Single(), properties.WaternetLines.Single().Data);
+            CollectionAssert.IsEmpty(properties.WaternetExtreme.PhreaticLines);
+            CollectionAssert.IsEmpty(properties.WaternetExtreme.WaternetLines);
+            CollectionAssert.IsEmpty(properties.WaternetDaily.PhreaticLines);
+            CollectionAssert.IsEmpty(properties.WaternetDaily.WaternetLines);
         }
 
         [Test]
         public void ToString_Always_ReturnEmpty()
         {
             // Setup
-            var waternet = new MacroStabilityInwardsWaternet(Enumerable.Empty<MacroStabilityInwardsPhreaticLine>(),
-                                                             Enumerable.Empty<MacroStabilityInwardsWaternetLine>());
-            var properties = new MacroStabilityInwardsWaternetProperties(waternet);
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
 
             // Call
             string name = properties.ToString();
@@ -107,11 +95,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidData_PropertieshaveExpectedAttributeValues()
         {
             // Setup
-            var waternet = new MacroStabilityInwardsWaternet(Enumerable.Empty<MacroStabilityInwardsPhreaticLine>(),
-                                                             Enumerable.Empty<MacroStabilityInwardsWaternetLine>());
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            var properties = new MacroStabilityInwardsWaternetProperties(waternet);
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -120,18 +107,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             const string waterStressesCategoryName = "Waterspanningen";
 
-            PropertyDescriptor phreaticLinesProperty = dynamicProperties[0];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(phreaticLinesProperty,
+            PropertyDescriptor waternetExtremeProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waternetExtremeProperty,
                                                                             waterStressesCategoryName,
-                                                                            "Freatische Lijnen",
-                                                                            "Eigenschappen van de freatische lijnen.",
+                                                                            "Extreme omstandigheden",
+                                                                            "Eigenschappen van de waterspanningslijnen bij extreme omstandigheden.",
                                                                             true);
 
-            PropertyDescriptor waternetLinesProperty = dynamicProperties[1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waternetLinesProperty,
+            PropertyDescriptor waternetDailyProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waternetDailyProperty,
                                                                             waterStressesCategoryName,
-                                                                            "Zones",
-                                                                            "Eigenschappen van de zones.",
+                                                                            "Dagelijkse omstandigheden",
+                                                                            "Eigenschappen van de waterspanningslijnen bij dagelijkse omstandigheden.",
                                                                             true);
         }
     }

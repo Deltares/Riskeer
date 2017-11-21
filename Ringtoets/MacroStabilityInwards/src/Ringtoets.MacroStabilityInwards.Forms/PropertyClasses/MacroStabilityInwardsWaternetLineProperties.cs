@@ -84,8 +84,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(phreaticLineNamePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PhreaticLineName_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PhreaticLineName_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaternetLine_PiezometricLineName_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaternetLine_PiezometricLineName_Description))]
         public string PhreaticLineName
         {
             get
