@@ -78,6 +78,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.SlipPlaneMinimumLength);
             Assert.IsNull(configuration.MaximumSliceWidth);
             Assert.IsNull(configuration.CreateZones);
+            Assert.IsNull(configuration.ZoningBoundariesDeterminationType);
+            Assert.IsNull(configuration.ZoneBoundaryLeft);
+            Assert.IsNull(configuration.ZoneBoundaryRight);
             Assert.IsNull(configuration.GridDeterminationType);
             Assert.IsNull(configuration.MoveGrid);
             Assert.IsNull(configuration.TangentLineDeterminationType);
@@ -122,7 +125,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             double slipPlaneMinimumDepth = random.NextDouble();
             double slipPlaneMinimumLength = random.NextDouble();
             double maximumSliceWidth = random.NextDouble();
+
             bool createZones = random.NextBoolean();
+            var zoningBoundariesDeterminationType = ConfigurationZoningBoundariesDeterminationType.Manual;
+            double zoneBoundaryLeft = random.NextDouble();
+            double zoneBoundaryRight = random.NextDouble();
 
             var scenarioConfiguration = new ScenarioConfiguration();
             bool movegrid = random.NextBoolean();
@@ -163,6 +170,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 SlipPlaneMinimumLength = slipPlaneMinimumLength,
                 MaximumSliceWidth = maximumSliceWidth,
                 CreateZones = createZones,
+                ZoningBoundariesDeterminationType = zoningBoundariesDeterminationType,
+                ZoneBoundaryLeft = zoneBoundaryLeft,
+                ZoneBoundaryRight = zoneBoundaryRight,
                 MoveGrid = movegrid,
                 GridDeterminationType = gridDeterminationType,
                 TangentLineDeterminationType = tangentLineDeterminationType,
@@ -201,6 +211,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(slipPlaneMinimumLength, configuration.SlipPlaneMinimumLength);
             Assert.AreEqual(maximumSliceWidth, configuration.MaximumSliceWidth);
             Assert.AreEqual(createZones, configuration.CreateZones);
+            Assert.AreEqual(zoningBoundariesDeterminationType, configuration.ZoningBoundariesDeterminationType);
+            Assert.AreEqual(zoneBoundaryLeft, configuration.ZoneBoundaryLeft);
+            Assert.AreEqual(zoneBoundaryRight, configuration.ZoneBoundaryRight);
             Assert.AreEqual(movegrid, configuration.MoveGrid);
             Assert.AreEqual(gridDeterminationType, configuration.GridDeterminationType);
             Assert.AreEqual(tangentLineDeterminationType, configuration.TangentLineDeterminationType);

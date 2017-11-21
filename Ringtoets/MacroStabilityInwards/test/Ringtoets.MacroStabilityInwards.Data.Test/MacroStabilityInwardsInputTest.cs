@@ -143,6 +143,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsTrue(inputParameters.CreateZones);
             Assert.AreEqual(MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, inputParameters.ZoningBoundariesDeterminationType);
 
+            Assert.IsNaN(inputParameters.ZoneBoundaryLeft);
+            Assert.AreEqual(2, inputParameters.ZoneBoundaryLeft.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.ZoneBoundaryRight);
+            Assert.AreEqual(2, inputParameters.ZoneBoundaryRight.NumberOfDecimalPlaces);
+
             Assert.IsNotNull(inputParameters.WaternetExtreme);
             Assert.IsNotNull(inputParameters.WaternetDaily);
         }
@@ -234,6 +240,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double tangentLineZTop = random.GetFromRange(1.0, 2.0);
             double tangentLineZBottom = random.GetFromRange(0.0, 1.0);
             int tangentLineNumber = random.Next(1, 51);
+            double zoneBoundaryLeft = random.NextDouble();
+            double zoneBoundaryRight = random.NextDouble();
 
             // Call
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
@@ -254,7 +262,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) piezometricHeadPhreaticLine2Inwards,
                 TangentLineZTop = (RoundedDouble) tangentLineZTop,
                 TangentLineZBottom = (RoundedDouble) tangentLineZBottom,
-                TangentLineNumber = tangentLineNumber
+                TangentLineNumber = tangentLineNumber,
+                ZoneBoundaryLeft = (RoundedDouble) zoneBoundaryLeft,
+                ZoneBoundaryRight = (RoundedDouble) zoneBoundaryRight
             };
 
             // Assert
@@ -301,6 +311,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(tangentLineZBottom, input.TangentLineZBottom, input.TangentLineZBottom.GetAccuracy());
 
             Assert.AreEqual(tangentLineNumber, input.TangentLineNumber);
+
+            Assert.AreEqual(2, input.ZoneBoundaryLeft.NumberOfDecimalPlaces);
+            Assert.AreEqual(zoneBoundaryLeft, input.ZoneBoundaryLeft, input.ZoneBoundaryLeft.GetAccuracy());
+
+            Assert.AreEqual(2, input.ZoneBoundaryRight.NumberOfDecimalPlaces);
+            Assert.AreEqual(zoneBoundaryRight, input.ZoneBoundaryRight, input.ZoneBoundaryRight.GetAccuracy());
         }
 
         [Test]

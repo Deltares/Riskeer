@@ -283,7 +283,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_SurfaceLineNear2DProfile_ReturnsEmpty(MacroStabilityInwardsSoilProfile2D soilProfile)
         {
             // Setup
-
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
             surfaceLine.SetGeometry(new[]
             {
@@ -295,6 +294,64 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0,
                                                                                          soilProfile);
             input.SurfaceLine = surfaceLine;
+
+            // Call
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input).ToArray();
+
+            // Assert
+            CollectionAssert.IsEmpty(messages);
+        }
+
+        [Test]
+        public void Validate_ZoneBoundaryRightSmallerThanZoneBoundaryLeft_ReturnsError()
+        {
+            // Setup
+            input.ZoneBoundaryLeft = (RoundedDouble) 0.5;
+            input.ZoneBoundaryRight = (RoundedDouble) 0.2;
+
+            // Call
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input).ToArray();
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                "Zoneringsgrens links moet kleiner zijn dan of gelijk zijn aan zoneringsgrens rechts."
+            }, messages);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(0.1, 2)]
+        [TestCase(-2, 0.3)]
+        public void Validate_ZoneBoundariesOutsideSurfaceLine_ReturnsError(double zoneBoundaryLeft, double zoneBoundaryRight)
+        {
+            // Setup
+            input.ZoneBoundaryLeft = (RoundedDouble) zoneBoundaryLeft;
+            input.ZoneBoundaryRight = (RoundedDouble) zoneBoundaryRight;
+
+            // Call
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input).ToArray();
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                "Zoneringsgrenzen moeten op het profiel liggen (bereik [0,0, 0,5])."
+            }, messages);
+        }
+
+        [Test]
+        [TestCase(MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, false)]
+        [TestCase(MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, false)]
+        [TestCase(MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, true)]
+        public void Validate_ZoningBoundariesDeterminationTypeManualOrCreateZonesFalse_ReturnsEmpty(
+            MacroStabilityInwardsZoningBoundariesDeterminationType determinationType,
+            bool createZones)
+        {
+            // Setup
+            input.ZoneBoundaryLeft = (RoundedDouble) 1;
+            input.ZoneBoundaryRight = (RoundedDouble) 0.6;
+            input.ZoningBoundariesDeterminationType = determinationType;
+            input.CreateZones = createZones;
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input).ToArray();

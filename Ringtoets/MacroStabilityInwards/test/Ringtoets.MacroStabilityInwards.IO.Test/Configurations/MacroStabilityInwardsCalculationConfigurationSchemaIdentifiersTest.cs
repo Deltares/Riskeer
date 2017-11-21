@@ -75,6 +75,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             Assert.AreEqual("zonering", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZonesElement);
             Assert.AreEqual("bepaling", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.CreateZonesElement);
+            Assert.AreEqual("methode", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZoningBoundariesDeterminationTypeElement);
+            Assert.AreEqual("automatisch", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZoningBoundariesDeterminationTypeAutomatic);
+            Assert.AreEqual("handmatig", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZoningBoundariesDeterminationTypeManual);
+            Assert.AreEqual("zoneringsgrenslinks", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZoneBoundaryLeft);
+            Assert.AreEqual("zoneringsgrensrechts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZoneBoundaryRight);
 
             Assert.AreEqual("grids", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridsElement);
             Assert.AreEqual("verplaatsgrid", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MoveGridElement);

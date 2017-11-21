@@ -88,6 +88,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             PhreaticLineOffsetsExtreme = properties.PhreaticLineOffsetsExtreme;
             PhreaticLineOffsetsDaily = properties.PhreaticLineOffsetsDaily;
             SlipPlane = properties.SlipPlane;
+            SlipPlaneConstraints = properties.SlipPlaneConstraints;
             WaterLevelRiverAverage = properties.WaterLevelRiverAverage;
             WaterLevelPolderExtreme = properties.WaterLevelPolderExtreme;
             WaterLevelPolderDaily = properties.WaterLevelPolderDaily;
@@ -105,10 +106,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             DikeSoilScenario = properties.DikeSoilScenario;
             MoveGrid = properties.MoveGrid;
             MaximumSliceWidth = properties.MaximumSliceWidth;
-            CreateZones = properties.CreateZones;
-            AutomaticForbiddenZones = properties.AutomaticForbiddenZones;
-            SlipPlaneMinimumDepth = properties.SlipPlaneMinimumDepth;
-            SlipPlaneMinimumLength = properties.SlipPlaneMinimumLength;
         }
 
         /// <summary>
@@ -140,8 +137,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
                 PenetrationLengthDaily = double.NaN;
                 DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay;
                 MaximumSliceWidth = double.NaN;
-                SlipPlaneMinimumDepth = double.NaN;
-                SlipPlaneMinimumLength = double.NaN;
             }
 
             #region Properties
@@ -196,6 +191,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// Gets or sets the slip plane.
             /// </summary>
             public UpliftVanSlipPlane SlipPlane { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the slip plane constraints.
+            /// </summary>
+            public UpliftVanSlipPlaneConstraints SlipPlaneConstraints { internal get; set; }
 
             /// <summary>
             /// Gets or sets the dike soil scenario.
@@ -296,28 +296,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// </summary>
             public double MaximumSliceWidth { internal get; set; }
 
-            /// <summary>
-            /// Gets or sets whether zones should be created.
-            /// </summary>
-            public bool CreateZones { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets whether forbidden zones are automatically determined or not.
-            /// </summary>
-            public bool AutomaticForbiddenZones { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the minimum depth of the slip plane.
-            /// [m]
-            /// </summary>
-            public double SlipPlaneMinimumDepth { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the minimum length of the slip plane.
-            /// [m]
-            /// </summary>
-            public double SlipPlaneMinimumLength { internal get; set; }
-
             #endregion
         }
 
@@ -373,6 +351,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// Gets the slip plane.
         /// </summary>
         public UpliftVanSlipPlane SlipPlane { get; }
+
+        /// <summary>
+        /// Gets the slip plane constraints.
+        /// </summary>
+        public UpliftVanSlipPlaneConstraints SlipPlaneConstraints { get; }
 
         /// <summary>
         /// Gets the dike soil scenario.
@@ -472,28 +455,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// [m]
         /// </summary>
         public double MaximumSliceWidth { get; }
-
-        /// <summary>
-        /// Gets whether zones should be created.
-        /// </summary>
-        public bool CreateZones { get; }
-
-        /// <summary>
-        /// Gets whether forbidden zones are automatically determined or not.
-        /// </summary>
-        public bool AutomaticForbiddenZones { get; }
-
-        /// <summary>
-        /// Gets the minimum depth of the slip plane.
-        /// [m]
-        /// </summary>
-        public double SlipPlaneMinimumDepth { get; }
-
-        /// <summary>
-        /// Gets the minimum length of the slip plane.
-        /// [m]
-        /// </summary>
-        public double SlipPlaneMinimumLength { get; }
 
         #endregion
     }

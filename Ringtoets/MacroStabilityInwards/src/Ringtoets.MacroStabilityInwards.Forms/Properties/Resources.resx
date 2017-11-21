@@ -724,4 +724,16 @@
   <data name="Slices_DisplayName" xml:space="preserve">
     <value>Lamellen</value>
   </data>
+  <data name="ZoneBoundaryLeft_Description" xml:space="preserve">
+    <value>Linker grens voor bepaling intredepunt van het glijvlak.</value>
+  </data>
+  <data name="ZoneBoundaryLeft_DisplayName" xml:space="preserve">
+    <value>Zoneringsgrens links</value>
+  </data>
+  <data name="ZoneBoundaryRight_Description" xml:space="preserve">
+    <value>Rechter grens voor bepaling intredepunt van het glijvlak.</value>
+  </data>
+  <data name="ZoneBoundaryRight_DisplayName" xml:space="preserve">
+    <value>Zoneringsgrens rechts</value>
+  </data>
 </root>

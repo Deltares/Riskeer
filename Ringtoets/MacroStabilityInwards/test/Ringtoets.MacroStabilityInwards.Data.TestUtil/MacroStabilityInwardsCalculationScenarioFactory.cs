@@ -293,7 +293,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                         ZBottom = (RoundedDouble) 1.0,
                         NumberOfVerticalPoints = 1,
                         NumberOfHorizontalPoints = 1
-                    }
+                    },
+                    CreateZones = true,
+                    ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Manual,
+                    ZoneBoundaryLeft = (RoundedDouble) 0.1,
+                    ZoneBoundaryRight = (RoundedDouble) 0.2
                 }
             };
         }

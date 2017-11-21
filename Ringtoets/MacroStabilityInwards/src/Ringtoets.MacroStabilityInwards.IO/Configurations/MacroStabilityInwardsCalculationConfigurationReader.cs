@@ -249,6 +249,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
             configuration.CreateZones = zonesElement.GetBoolValueFromDescendantElement(
                 MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.CreateZonesElement);
+            configuration.ZoningBoundariesDeterminationType = (ConfigurationZoningBoundariesDeterminationType?) zonesElement.GetConvertedValueFromDescendantStringElement<ConfigurationZoningBoundariesDeterminationTypeConverter>(
+                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZoningBoundariesDeterminationTypeElement);
+            configuration.ZoneBoundaryLeft = zonesElement.GetDoubleValueFromDescendantElement(
+                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZoneBoundaryLeft);
+            configuration.ZoneBoundaryRight = zonesElement.GetDoubleValueFromDescendantElement(
+                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZoneBoundaryRight);
         }
 
         /// <summary>

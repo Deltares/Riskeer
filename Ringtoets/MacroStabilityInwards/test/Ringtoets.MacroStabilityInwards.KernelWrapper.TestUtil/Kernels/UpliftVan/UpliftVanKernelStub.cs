@@ -79,15 +79,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
 
         public SlipPlaneUpliftVan SlipPlaneUpliftVan { get; set; }
 
+        public SlipPlaneConstraints SlipPlaneConstraints { get; set; }
+
         public bool GridAutomaticDetermined { get; set; }
-
-        public bool CreateZones { get; set; }
-
-        public bool AutomaticForbiddenZones { get; set; }
-
-        public double SlipPlaneMinimumDepth { get; set; }
-
-        public double SlipPlaneMinimumLength { get; set; }
 
         public double FactorOfStability { get; set; }
 

@@ -22,11 +22,13 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
@@ -40,6 +42,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
     {
         private const int expectedCreateZonesPropertyIndex = 0;
         private const int expectedZoningBoundariesDeterminationTypePropertyIndex = 1;
+        private const int expectedZoneBoundayrLeftPropertyIndex = 2;
+        private const int expectedZoneBoundaryRightPropertyIndex = 3;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -92,14 +96,26 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues()
+        [TestCase(true, MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, false, true)]
+        [TestCase(true, MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, false, false)]
+        [TestCase(false, MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, true, true)]
+        [TestCase(false, MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, true, true)]
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues(
+            bool createZones,
+            MacroStabilityInwardsZoningBoundariesDeterminationType zoningBoundariesDeterminationType,
+            bool expectedDeterminationTypeReadOnly,
+            bool expectedZoneBoundariesReadOnly)
         {
             // Setup
             var mocks = new MockRepository();
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
+            {
+                CreateZones = createZones,
+                ZoningBoundariesDeterminationType = zoningBoundariesDeterminationType
+            };
 
             // Call
             var properties = new MacroStabilityInwardsSlipPlaneSettingsProperties(input, changeHandler);
@@ -107,7 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(2, dynamicProperties.Count);
+            Assert.AreEqual(4, dynamicProperties.Count);
 
             const string category = "Zonering glijvlak";
 
@@ -125,7 +141,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 category,
                 "Methode",
                 "Zoneringsgrenzen automatisch bepalen of handmatig invoeren?",
-                true);
+                expectedDeterminationTypeReadOnly);
+
+            PropertyDescriptor zoneBoundaryLeftProperty = dynamicProperties[expectedZoneBoundayrLeftPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                zoneBoundaryLeftProperty,
+                category,
+                "Zoneringsgrens links",
+                "Linker grens voor bepaling intredepunt van het glijvlak.",
+                expectedZoneBoundariesReadOnly);
+
+            PropertyDescriptor zoneBoundaryRightProperty = dynamicProperties[expectedZoneBoundaryRightPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                zoneBoundaryRightProperty,
+                category,
+                "Zoneringsgrens rechts",
+                "Rechter grens voor bepaling intredepunt van het glijvlak.",
+                expectedZoneBoundariesReadOnly);
 
             mocks.VerifyAll();
         }
@@ -146,6 +178,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(input.CreateZones, properties.CreateZones);
             Assert.AreEqual(input.ZoningBoundariesDeterminationType, properties.ZoningBoundariesDeterminationType);
+            Assert.AreEqual(input.ZoneBoundaryLeft, properties.ZoneBoundaryLeft);
+            Assert.AreEqual(input.ZoneBoundaryRight, properties.ZoneBoundaryRight);
             mocks.VerifyAll();
         }
 
@@ -161,38 +195,49 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var random = new Random(21);
             bool createZones = random.NextBoolean();
+            var determinationType = random.NextEnumValue<MacroStabilityInwardsZoningBoundariesDeterminationType>();
+            RoundedDouble boundaryLeft = random.NextRoundedDouble();
+            RoundedDouble boundaryRight = random.NextRoundedDouble();
 
             // When
             properties.CreateZones = createZones;
+            properties.ZoningBoundariesDeterminationType = determinationType;
+            properties.ZoneBoundaryLeft = boundaryLeft;
+            properties.ZoneBoundaryRight = boundaryRight;
 
             // Then
             Assert.AreEqual(createZones, input.CreateZones);
+            Assert.AreEqual(determinationType, input.ZoningBoundariesDeterminationType);
+            Assert.AreEqual(boundaryLeft, input.ZoneBoundaryLeft, input.ZoneBoundaryLeft.GetAccuracy());
+            Assert.AreEqual(boundaryRight, input.ZoneBoundaryRight, input.ZoneBoundaryRight.GetAccuracy());
         }
 
         [Test]
         public void CreateZones_SetValidValue_SetsValueAndUpdatesObservers()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
+            // Call & Assert
+            SetPropertyAndVerifyNotifications(properties => properties.CreateZones = false);
+        }
 
-            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+        [Test]
+        public void ZoningBoundariesDeterminationType_SetValidValue_SetsValueAndUpdatesObservers()
+        {
+            // Call & Assert
+            SetPropertyAndVerifyNotifications(properties => properties.ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Manual);
+        }
 
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
-            {
-                observable
-            });
+        [Test]
+        public void ZoneBoundaryLeft_SetValidValue_SetsValueAndUpdatesObservers()
+        {
+            // Call & Assert
+            SetPropertyAndVerifyNotifications(properties => properties.ZoneBoundaryLeft = new Random(39).NextRoundedDouble());
+        }
 
-            var properties = new MacroStabilityInwardsSlipPlaneSettingsProperties(input, handler);
-
-            // Call
-            properties.CreateZones = false;
-
-            // Assert
-            Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
+        [Test]
+        public void ZoneBoundaryRight_SetValidValue_SetsValueAndUpdatesObservers()
+        {
+            // Call & Assert
+            SetPropertyAndVerifyNotifications(properties => properties.ZoneBoundaryRight = new Random(39).NextRoundedDouble());
         }
 
         [Test]
@@ -211,6 +256,85 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(string.Empty, toString);
+        }
+
+        [Test]
+        [TestCase(true, MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, false, true)]
+        [TestCase(true, MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, false, false)]
+        [TestCase(false, MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, true, true)]
+        [TestCase(false, MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, true, true)]
+        public void DynamicReadOnlyValidationMethod_WithCreateZonesAndZoningBoundariesDeterminationType_ReturnsExpectedValues(
+            bool createZones,
+            MacroStabilityInwardsZoningBoundariesDeterminationType zoningBoundariesDeterminationType,
+            bool expectedDeterminationTypeReadOnly,
+            bool expectedZoneBoundariesReadOnly)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
+            {
+                CreateZones = createZones,
+                ZoningBoundariesDeterminationType = zoningBoundariesDeterminationType
+            };
+
+            var properties = new MacroStabilityInwardsSlipPlaneSettingsProperties(input, changeHandler);
+
+            // Call
+            bool isZoningBoundariesDeterminationTypeReadOnly = properties.DynamicReadOnlyValidationMethod(nameof(properties.ZoningBoundariesDeterminationType));
+            bool isZoneBoundaryLeftReadOnly = properties.DynamicReadOnlyValidationMethod(nameof(properties.ZoneBoundaryLeft));
+            bool isZoneBoundaryRightReadOnly = properties.DynamicReadOnlyValidationMethod(nameof(properties.ZoneBoundaryRight));
+
+            // Assert
+            Assert.AreEqual(expectedDeterminationTypeReadOnly, isZoningBoundariesDeterminationTypeReadOnly);
+            Assert.AreEqual(expectedZoneBoundariesReadOnly, isZoneBoundaryLeftReadOnly);
+            Assert.AreEqual(expectedZoneBoundariesReadOnly, isZoneBoundaryRightReadOnly);
+        }
+
+        [Test]
+        public void DynamicReadOnlyValidationMethod_AnyOtherParameter_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+
+            var properties = new MacroStabilityInwardsSlipPlaneSettingsProperties(input, changeHandler);
+
+            // Call
+            bool isReadOnly = properties.DynamicReadOnlyValidationMethod("test parameter name 123");
+
+            // Assert
+            Assert.IsFalse(isReadOnly);
+        }
+
+        private static void SetPropertyAndVerifyNotifications(Action<MacroStabilityInwardsSlipPlaneSettingsProperties> setProperty)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
+
+            var properties = new MacroStabilityInwardsSlipPlaneSettingsProperties(input, handler);
+
+            // Call
+            setProperty(properties);
+
+            // Assert
+            Assert.IsTrue(handler.Called);
+            mocks.VerifyAll();
         }
     }
 }

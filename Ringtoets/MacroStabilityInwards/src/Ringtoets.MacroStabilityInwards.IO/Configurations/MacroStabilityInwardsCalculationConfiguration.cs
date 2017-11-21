@@ -92,11 +92,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public double? MaximumSliceWidth { get; set; }
 
         /// <summary>
-        /// Gets or sets whether zones should be created.
-        /// </summary>
-        public bool? CreateZones { get; set; }
-
-        /// <summary>
         /// Gets or sets the name for the calculation.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
@@ -115,6 +110,30 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 name = value;
             }
         }
+
+        #region Zoning
+
+        /// <summary>
+        /// Gets or sets whether zones should be created.
+        /// </summary>
+        public bool? CreateZones { get; set; }
+
+        /// <summary>
+        /// Gets or sets the zoning boundaries determination type.
+        /// </summary>
+        public ConfigurationZoningBoundariesDeterminationType? ZoningBoundariesDeterminationType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the left zone boundary.
+        /// </summary>
+        public double? ZoneBoundaryLeft { get; set; }
+
+        /// <summary>
+        /// Gets or sets the right zone boundary.
+        /// </summary>
+        public double? ZoneBoundaryRight { get; set; }
+
+        #endregion
 
         #region Water stresses
 

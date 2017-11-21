@@ -189,7 +189,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     MaximumSliceWidth = (RoundedDouble) 0.6,
                     TangentLineZTop = (RoundedDouble) 10,
                     TangentLineZBottom = (RoundedDouble) 1,
-                    TangentLineNumber = 5
+                    TangentLineNumber = 5,
+                    CreateZones = true,
+                    ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Manual,
+                    ZoneBoundaryLeft = (RoundedDouble) 0,
+                    ZoneBoundaryRight = (RoundedDouble) 100
                 }
             };
 
@@ -253,6 +257,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder = RoundedDouble.NaN;
             inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside = RoundedDouble.NaN;
             inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder = RoundedDouble.NaN;
+
+            input.ZoneBoundaryLeft = RoundedDouble.NaN;
+            input.ZoneBoundaryRight = RoundedDouble.NaN;
 
             return calculation;
         }
@@ -322,6 +329,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             inputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) double.NegativeInfinity;
             inputExtreme.PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) double.PositiveInfinity;
             inputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) double.PositiveInfinity;
+
+            input.ZoneBoundaryLeft = (RoundedDouble) double.NegativeInfinity;
+            input.ZoneBoundaryRight = (RoundedDouble) double.PositiveInfinity;
 
             return calculation;
         }
@@ -586,6 +596,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             input.RightGrid.NumberOfVerticalPoints = random.Next(1, 100);
 
             input.CreateZones = random.NextBoolean();
+            input.ZoningBoundariesDeterminationType = random.NextEnumValue<MacroStabilityInwardsZoningBoundariesDeterminationType>();
+            input.ZoneBoundaryLeft = random.NextRoundedDouble();
+            input.ZoneBoundaryRight = random.NextRoundedDouble();
         }
     }
 }

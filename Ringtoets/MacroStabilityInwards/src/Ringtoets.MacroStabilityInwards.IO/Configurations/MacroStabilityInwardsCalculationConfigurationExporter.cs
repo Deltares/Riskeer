@@ -80,6 +80,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 SlipPlaneMinimumLength = input.SlipPlaneMinimumLength,
                 MaximumSliceWidth = input.MaximumSliceWidth,
                 CreateZones = input.CreateZones,
+                ZoneBoundaryLeft = input.ZoneBoundaryLeft,
+                ZoneBoundaryRight = input.ZoneBoundaryRight,
                 TangentLineZTop = input.TangentLineZTop,
                 TangentLineZBottom = input.TangentLineZBottom,
                 TangentLineNumber = input.TangentLineNumber,
@@ -124,6 +126,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 calculationConfiguration.TangentLineDeterminationType = (ConfigurationTangentLineDeterminationType?)
                     new ConfigurationTangentLineDeterminationTypeConverter().ConvertFrom(input.TangentLineDeterminationType);
+            }
+
+            if (Enum.IsDefined(typeof(MacroStabilityInwardsZoningBoundariesDeterminationType), input.ZoningBoundariesDeterminationType))
+            {
+                calculationConfiguration.ZoningBoundariesDeterminationType = (ConfigurationZoningBoundariesDeterminationType?)
+                    new ConfigurationZoningBoundariesDeterminationTypeConverter().ConvertFrom(input.ZoningBoundariesDeterminationType);
             }
 
             return calculationConfiguration;

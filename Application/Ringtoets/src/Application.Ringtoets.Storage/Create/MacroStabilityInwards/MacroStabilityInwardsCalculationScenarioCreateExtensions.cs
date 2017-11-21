@@ -118,6 +118,9 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             SetGridParametersToEntity(entity, inputParameters.LeftGrid, inputParameters.RightGrid);
 
             entity.CreateZones = Convert.ToByte(inputParameters.CreateZones);
+            entity.ZoningBoundariesDeterminationType = Convert.ToByte(inputParameters.ZoningBoundariesDeterminationType);
+            entity.ZoneBoundaryLeft = inputParameters.ZoneBoundaryLeft.ToNaNAsNull();
+            entity.ZoneBoundaryRight = inputParameters.ZoneBoundaryRight.ToNaNAsNull();
         }
 
         private static void SetGridParametersToEntity(MacroStabilityInwardsCalculationEntity entity,

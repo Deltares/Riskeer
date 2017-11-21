@@ -896,6 +896,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     SlipPlaneMinimumLength = (RoundedDouble) 0.5,
                     MaximumSliceWidth = (RoundedDouble) 0.6,
                     CreateZones = true,
+                    ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Manual,
+                    ZoneBoundaryLeft = (RoundedDouble) 10.0,
+                    ZoneBoundaryRight = (RoundedDouble) 43.5,
                     MoveGrid = true,
                     DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
                     TangentLineZTop = (RoundedDouble) 10,
@@ -998,6 +1001,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(expectedInput.SlipPlaneMinimumLength, actualInput.SlipPlaneMinimumLength);
             Assert.AreEqual(expectedInput.MaximumSliceWidth, actualInput.MaximumSliceWidth);
 
+            Assert.AreEqual(expectedInput.ZoneBoundaryLeft, actualInput.ZoneBoundaryLeft);
+            Assert.AreEqual(expectedInput.ZoneBoundaryRight, actualInput.ZoneBoundaryRight);
+
             Assert.AreEqual(expectedInput.CreateZones, actualInput.CreateZones);
             Assert.AreEqual(expectedInput.MoveGrid, actualInput.MoveGrid);
 
@@ -1008,6 +1014,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             Assert.AreEqual(expectedInput.GridDeterminationType, actualInput.GridDeterminationType);
             Assert.AreEqual(expectedInput.TangentLineDeterminationType, actualInput.TangentLineDeterminationType);
+            Assert.AreEqual(expectedInput.ZoningBoundariesDeterminationType, actualInput.ZoningBoundariesDeterminationType);
 
             AssertMacroStabilityInwardsGrid(expectedInput.LeftGrid, actualInput.LeftGrid);
             AssertMacroStabilityInwardsGrid(expectedInput.RightGrid, actualInput.RightGrid);

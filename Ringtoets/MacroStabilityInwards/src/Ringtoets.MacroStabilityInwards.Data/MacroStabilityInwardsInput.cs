@@ -56,6 +56,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         private RoundedDouble piezometricHeadPhreaticLine2Inwards;
         private RoundedDouble tangentLineZTop;
         private RoundedDouble tangentLineZBottom;
+        private RoundedDouble zoneBoundaryLeft;
+        private RoundedDouble zoneBoundaryRight;
         private int tangentLineNumber;
 
         /// <summary>
@@ -132,6 +134,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
                                                       properties.RightGridZBottom);
 
             CreateZones = true;
+            ZoningBoundariesDeterminationType = MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic;
+            zoneBoundaryLeft = new RoundedDouble(2, double.NaN);
+            zoneBoundaryRight = new RoundedDouble(2, double.NaN);
         }
 
         /// <summary>
@@ -677,13 +682,39 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public bool CreateZones { get; set; }
 
         /// <summary>
-        /// Gets the zoning boundaries determination type.
+        /// Gets or sets the zoning boundaries determination type.
         /// </summary>
-        public MacroStabilityInwardsZoningBoundariesDeterminationType ZoningBoundariesDeterminationType
+        public MacroStabilityInwardsZoningBoundariesDeterminationType ZoningBoundariesDeterminationType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the left zone boundary.
+        /// [m]
+        /// </summary>
+        public RoundedDouble ZoneBoundaryLeft
         {
             get
             {
-                return MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic;
+                return zoneBoundaryLeft;
+            }
+            set
+            {
+                zoneBoundaryLeft = value.ToPrecision(zoneBoundaryLeft.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the right zone boundary.
+        /// [m]
+        /// </summary>
+        public RoundedDouble ZoneBoundaryRight
+        {
+            get
+            {
+                return zoneBoundaryRight;
+            }
+            set
+            {
+                zoneBoundaryRight = value.ToPrecision(zoneBoundaryRight.NumberOfDecimalPlaces);
             }
         }
 

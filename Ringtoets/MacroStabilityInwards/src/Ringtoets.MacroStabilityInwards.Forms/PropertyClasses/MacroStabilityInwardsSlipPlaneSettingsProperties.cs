@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
@@ -40,6 +41,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     {
         private const int createZonesPropertyIndex = 1;
         private const int zoningBoundariesDeterminationTypePropertyIndex = 2;
+        private const int zoneBoundaryLeftPropertyIndex = 3;
+        private const int zoneBoundaryRightPropertyIndex = 4;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -80,6 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(zoningBoundariesDeterminationTypePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.SlipPlaneSettings_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ZoningBoundariesDeterminationType_DisplayName))]
@@ -91,6 +95,60 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             {
                 return data.ZoningBoundariesDeterminationType;
             }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.ZoningBoundariesDeterminationType = value, propertyChangeHandler);
+            }
+        }
+
+        [DynamicReadOnly]
+        [PropertyOrder(zoneBoundaryLeftPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.SlipPlaneSettings_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ZoneBoundaryLeft_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ZoneBoundaryLeft_Description))]
+        public RoundedDouble ZoneBoundaryLeft
+        {
+            get
+            {
+                return data.ZoneBoundaryLeft;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.ZoneBoundaryLeft = value, propertyChangeHandler);
+            }
+        }
+
+        [DynamicReadOnly]
+        [PropertyOrder(zoneBoundaryRightPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.SlipPlaneSettings_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ZoneBoundaryRight_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ZoneBoundaryRight_Description))]
+        public RoundedDouble ZoneBoundaryRight
+        {
+            get
+            {
+                return data.ZoneBoundaryRight;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.ZoneBoundaryRight = value, propertyChangeHandler);
+            }
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            if (propertyName == nameof(ZoningBoundariesDeterminationType))
+            {
+                return CreateZones == false;
+            }
+
+            if (propertyName == nameof(ZoneBoundaryLeft) || propertyName == nameof(ZoneBoundaryRight))
+            {
+                return CreateZones == false || ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic;
+            }
+
+            return false;
         }
 
         public override string ToString()
