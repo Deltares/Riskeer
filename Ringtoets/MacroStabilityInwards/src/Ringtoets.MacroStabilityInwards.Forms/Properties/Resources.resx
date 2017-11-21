@@ -598,13 +598,13 @@
   <data name="Line_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
-  <data name="PhreaticLineName_DisplayName" xml:space="preserve">
-    <value>Freatische Lijn</value>
+  <data name="WaternetLine_PiezometricLineName_DisplayName" xml:space="preserve">
+    <value>Stijghoogtelijn</value>
   </data>
-  <data name="PhreaticLines_DisplayName" xml:space="preserve">
-    <value>Freatische Lijnen</value>
+  <data name="Waternet_PiezometricLines_DisplayName" xml:space="preserve">
+    <value>Stijghoogtelijnen</value>
   </data>
-  <data name="WaternetLines_DisplayName" xml:space="preserve">
+  <data name="Waternet_WaternetLines_DisplayName" xml:space="preserve">
     <value>Zones</value>
   </data>
   <data name="WaterStressLines_DisplayName" xml:space="preserve">
@@ -616,19 +616,19 @@
   <data name="WaternetLine_Name_Description" xml:space="preserve">
     <value>De naam van de zone.</value>
   </data>
-  <data name="PhreaticLineName_Description" xml:space="preserve">
-    <value>De freatische lijn behorend bij de zone.</value>
+  <data name="WaternetLine_PiezometricLineName_Description" xml:space="preserve">
+    <value>De stijghoogtelijn behorend bij de zone.</value>
   </data>
-  <data name="PhreaticLines_Description" xml:space="preserve">
-    <value>Eigenschappen van de freatische lijnen.</value>
+  <data name="Waternet_PiezometricLines_Description" xml:space="preserve">
+    <value>Eigenschappen van de stijghoogtelijnen.</value>
   </data>
-  <data name="WaternetLines_Description" xml:space="preserve">
+  <data name="Waternet_WaternetLines_Description" xml:space="preserve">
     <value>Eigenschappen van de zones.</value>
   </data>
-  <data name="PhreaticLine_Geometry_Description" xml:space="preserve">
+  <data name="PiezometricLine_Geometry_Description" xml:space="preserve">
     <value>De geometrie van de lijn.</value>
   </data>
-  <data name="PhreaticLine_Name_Description" xml:space="preserve">
+  <data name="PiezometricLine_Name_Description" xml:space="preserve">
     <value>De naam van de lijn.</value>
   </data>
   <data name="WaterStressLines_Daily_Description" xml:space="preserve">
