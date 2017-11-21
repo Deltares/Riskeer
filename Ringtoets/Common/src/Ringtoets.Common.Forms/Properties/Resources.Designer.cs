@@ -1821,7 +1821,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het sluitscenario waarvoor dit illustratiepunt is berekend..
+        ///   Looks up a localized string similar to De keringsituatie waarvoor dit illustratiepunt is berekend..
         /// </summary>
         public static string IllustrationPoint_ClosingSituation_Description {
             get {
@@ -1830,7 +1830,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sluitscenario.
+        ///   Looks up a localized string similar to Keringsituatie.
         /// </summary>
         public static string IllustrationPoint_ClosingSituation_DisplayName {
             get {

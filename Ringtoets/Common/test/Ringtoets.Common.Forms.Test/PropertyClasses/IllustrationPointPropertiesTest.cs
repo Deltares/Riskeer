@@ -148,8 +148,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor closingScenarioProperty = dynamicProperties[closingScenarioPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(closingScenarioProperty,
                                                                             illustrationPointCategoryName,
-                                                                            "Sluitscenario",
-                                                                            "Het sluitscenario waarvoor dit illustratiepunt is berekend.",
+                                                                            "Keringsituatie",
+                                                                            "De keringsituatie waarvoor dit illustratiepunt is berekend.",
                                                                             true);
         }
 

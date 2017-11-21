@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsTrue(windDirectionColumn.ReadOnly);
 
             DataGridViewColumn closingSituationColumn = dataGridView.Columns[closingScenarioColumnIndex];
-            Assert.AreEqual("Sluitscenario", closingSituationColumn.HeaderText);
+            Assert.AreEqual("Keringsituatie", closingSituationColumn.HeaderText);
             Assert.IsTrue(closingSituationColumn.ReadOnly);
             Assert.IsFalse(closingSituationColumn.Visible);
 

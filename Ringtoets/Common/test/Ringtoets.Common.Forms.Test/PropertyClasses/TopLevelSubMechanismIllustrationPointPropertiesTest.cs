@@ -244,8 +244,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[4],
                                                                             generalCategory,
-                                                                            "Sluitscenario",
-                                                                            "Het sluitscenario waarvoor dit illustratiepunt is berekend.",
+                                                                            "Keringsituatie",
+                                                                            "De keringsituatie waarvoor dit illustratiepunt is berekend.",
                                                                             true);
 
             TestHelper.AssertTypeConverter<TopLevelSubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(nameof(TopLevelSubMechanismIllustrationPointProperties.AlphaValues));

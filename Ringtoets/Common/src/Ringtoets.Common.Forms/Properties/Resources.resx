@@ -1015,10 +1015,10 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Invloedscoëfficienten [-]</value>
   </data>
   <data name="IllustrationPoint_ClosingSituation_Description" xml:space="preserve">
-    <value>Het sluitscenario waarvoor dit illustratiepunt is berekend.</value>
+    <value>De keringsituatie waarvoor dit illustratiepunt is berekend.</value>
   </data>
   <data name="IllustrationPoint_ClosingSituation_DisplayName" xml:space="preserve">
-    <value>Sluitscenario</value>
+    <value>Keringsituatie</value>
   </data>
   <data name="IllustrationPoint_WindDirection_Description" xml:space="preserve">
     <value>De windrichting waarvoor dit illlustratiepunt is berekend.</value>
