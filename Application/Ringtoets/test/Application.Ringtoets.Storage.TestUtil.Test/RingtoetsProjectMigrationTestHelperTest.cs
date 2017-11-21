@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Utils;
-using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.TestUtil.Test
 {
@@ -49,21 +48,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             string actualTestProjectVersion = versionedFile.GetVersion();
             string assertionMessage = $"Database version {actualTestProjectVersion} of the testproject must match with the current database version {currentDatabaseVersion}.";
             Assert.AreEqual(currentDatabaseVersion, actualTestProjectVersion, assertionMessage);
-        }
-
-        [Test]
-        public void GetLatestProjectFilePath_Always_ReturnsProjectThatCanBeLoaded()
-        {
-            // Setup
-            string latestProjectfilePath = RingtoetsProjectMigrationTestHelper.GetLatestProjectFilePath();
-
-            var storage = new StorageSqLite();
-
-            // Call
-            var project = (RingtoetsProject) storage.LoadProject(latestProjectfilePath);
-
-            // Assert
-            Assert.IsNotNull(project);
         }
 
         [Test]
