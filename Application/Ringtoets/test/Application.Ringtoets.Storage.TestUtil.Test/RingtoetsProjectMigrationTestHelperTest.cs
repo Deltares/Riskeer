@@ -23,11 +23,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Application.Ringtoets.Migration.Core;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Utils;
-using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.TestUtil.Test
 {
@@ -57,10 +57,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             // Setup
             string latestProjectfilePath = RingtoetsProjectMigrationTestHelper.GetLatestProjectFilePath();
 
-            var storage = new StorageSqLite();
-
             // Call
-            var project = (RingtoetsProject) storage.LoadProject(latestProjectfilePath);
+            IProject project = new StorageSqLite().LoadProject(latestProjectfilePath);
 
             // Assert
             Assert.IsNotNull(project);
