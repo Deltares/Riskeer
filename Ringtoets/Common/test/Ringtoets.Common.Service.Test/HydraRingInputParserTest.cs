@@ -83,10 +83,10 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        [TestCase(BreakWaterType.Wall)]
-        [TestCase(BreakWaterType.Caisson)]
-        [TestCase(BreakWaterType.Dam)]
-        public void ParseBreakWater_Use_ReturnHydraRingBreakWater(BreakWaterType breakWaterType)
+        [TestCase(BreakWaterType.Caisson, 1)]
+        [TestCase(BreakWaterType.Wall, 2)]
+        [TestCase(BreakWaterType.Dam, 3)]
+        public void ParseBreakWater_Use_ReturnHydraRingBreakWater(BreakWaterType breakWaterType, int expectedBreakWaterType)
         {
             // Setup
             var random = new Random(22);
@@ -103,14 +103,14 @@ namespace Ringtoets.Common.Service.Test
             HydraRingBreakWater parsedBreakWater = HydraRingInputParser.ParseBreakWater(breakWater);
 
             // Assert 
-            Assert.AreEqual((int) expectedBreakWater.Type, parsedBreakWater.Type);
+            Assert.AreEqual(expectedBreakWaterType, parsedBreakWater.Type);
             Assert.AreEqual(expectedBreakWater.Height, parsedBreakWater.Height, expectedBreakWater.Height.GetAccuracy());
             mockRepository.VerifyAll();
         }
 
         [Test]
-        [TestCase(BreakWaterType.Wall)]
         [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
         [TestCase(BreakWaterType.Dam)]
         public void ParseBreakWater_DoesNotUse_ReturnNull(BreakWaterType breakWaterType)
         {
