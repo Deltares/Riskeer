@@ -189,7 +189,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual("Ongeldige waarde voor parameter 'Gebruik POP'.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                "Ongeldige waarde voor parameter 'Gebruik POP'.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -222,7 +224,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.AreEqual("Er is geen schuifsterkte model opgegeven.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                "Er is geen schuifsterkte model opgegeven.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -237,7 +241,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual("Ongeldige waarde voor parameter 'Schuifsterkte model'.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                "Ongeldige waarde voor parameter 'Schuifsterkte model'.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -271,7 +277,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.AreEqual("Ongeldige waarde voor parameter 'Is aquifer'.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                "Ongeldige waarde voor parameter 'Is aquifer'.");
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
         }
 
         [Test]
@@ -298,7 +307,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Parameter '{parameter}' moet verschoven lognormaal verdeeld zijn.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                $"Parameter '{parameter}' moet verschoven lognormaal verdeeld zijn.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -310,7 +321,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Parameter '{parameter}' moet lognormaal verdeeld zijn.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                $"Parameter '{parameter}' moet lognormaal verdeeld zijn.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -322,7 +335,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                $"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -407,7 +422,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual("Ongeldige waarde voor parameter 'Gebruik POP'.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                "Ongeldige waarde voor parameter 'Gebruik POP'.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -441,7 +458,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.AreEqual("Er is geen schuifsterkte model opgegeven.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                "Er is geen schuifsterkte model opgegeven.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -456,7 +475,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual("Ongeldige waarde voor parameter 'Schuifsterkte model'.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                "Ongeldige waarde voor parameter 'Schuifsterkte model'.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -490,7 +511,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.AreEqual("Ongeldige waarde voor parameter 'Is aquifer'.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                "Ongeldige waarde voor parameter 'Is aquifer'.");
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
         }
 
         [Test]
@@ -518,7 +542,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Parameter '{parameter}' moet verschoven lognormaal verdeeld zijn.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                $"Parameter '{parameter}' moet verschoven lognormaal verdeeld zijn.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -530,7 +556,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Parameter '{parameter}' moet lognormaal verdeeld zijn.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                $"Parameter '{parameter}' moet lognormaal verdeeld zijn.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -542,7 +570,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
+                                                                $"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -554,7 +584,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.AreEqual("De laag bevat een ongeldige geometrie.", exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(soilLayer.MaterialName,
+                                                                "De laag bevat een ongeldige geometrie.");
+            Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
 
@@ -596,6 +628,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             layer.StrengthIncreaseExponentCoefficientOfVariation = random.NextDouble();
             layer.PopMean = random.NextDouble();
             layer.PopCoefficientOfVariation = random.NextDouble();
+        }
+
+        private static string CreateExpectedErrorMessage(string materialName, string errorMessage)
+        {
+            return $"Er is een fout opgetreden bij het inlezen van grondlaag '{materialName}': {errorMessage}";
         }
 
         private static void AssertSoilLayer(SoilLayer2D original, MacroStabilityInwardsSoilLayer2D actual)
