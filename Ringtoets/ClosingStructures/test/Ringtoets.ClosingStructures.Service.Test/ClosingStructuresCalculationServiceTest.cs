@@ -455,10 +455,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
         }
 
         [Test]
-        [TestCase(BreakWaterType.Caisson, 1)]
-        [TestCase(BreakWaterType.Wall, 2)]
-        [TestCase(BreakWaterType.Dam, 3)]
-        public void Calculate_VariousVerticalWallCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType, int expectedBreakWaterType)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_VariousVerticalWallCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType)
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -508,7 +508,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     1300001,
                     input.StructureNormalOrientation,
                     input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
-                    new HydraRingBreakWater(expectedBreakWaterType, input.BreakWater.Height),
+                    new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                     generalInput.GravitationalAcceleration,
                     input.FactorStormDurationOpenStructure,
                     input.FailureProbabilityOpenStructure,
@@ -618,10 +618,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
         }
 
         [Test]
-        [TestCase(BreakWaterType.Caisson, 1)]
-        [TestCase(BreakWaterType.Wall, 2)]
-        [TestCase(BreakWaterType.Dam, 3)]
-        public void Calculate_VariousLowSillCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType, int expectedBreakWaterType)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_VariousLowSillCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType)
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -672,7 +672,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     1300001,
                     input.StructureNormalOrientation,
                     input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
-                    new HydraRingBreakWater(expectedBreakWaterType, input.BreakWater.Height),
+                    new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                     generalInput.GravitationalAcceleration,
                     input.FactorStormDurationOpenStructure,
                     input.FailureProbabilityOpenStructure,
@@ -778,10 +778,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
         }
 
         [Test]
-        [TestCase(BreakWaterType.Caisson, 1)]
-        [TestCase(BreakWaterType.Wall, 2)]
-        [TestCase(BreakWaterType.Dam, 3)]
-        public void Calculate_VariousFloodedCulvertCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType, int expectedBreakWaterType)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_VariousFloodedCulvertCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType)
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -831,7 +831,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     1300001,
                     input.StructureNormalOrientation,
                     input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
-                    new HydraRingBreakWater(expectedBreakWaterType, input.BreakWater.Height),
+                    new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                     generalInput.GravitationalAcceleration,
                     input.FactorStormDurationOpenStructure,
                     input.FailureProbabilityOpenStructure,

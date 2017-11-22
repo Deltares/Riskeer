@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Data;
 
 namespace Ringtoets.Common.Service.Test
@@ -85,10 +86,10 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        [TestCase(BreakWaterType.Caisson, 1)]
-        [TestCase(BreakWaterType.Wall, 2)]
-        [TestCase(BreakWaterType.Dam, 3)]
-        public void ParseBreakWater_Use_ReturnHydraRingBreakWater(BreakWaterType breakWaterType, int expectedBreakWaterType)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void ParseBreakWater_Use_ReturnHydraRingBreakWater(BreakWaterType breakWaterType)
         {
             // Setup
             var random = new Random(22);
@@ -105,7 +106,7 @@ namespace Ringtoets.Common.Service.Test
             HydraRingBreakWater parsedBreakWater = HydraRingInputParser.ParseBreakWater(breakWater);
 
             // Assert 
-            Assert.AreEqual(expectedBreakWaterType, parsedBreakWater.Type);
+            Assert.AreEqual(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), parsedBreakWater.Type);
             Assert.AreEqual(expectedBreakWater.Height, parsedBreakWater.Height, expectedBreakWater.Height.GetAccuracy());
             mockRepository.VerifyAll();
         }
