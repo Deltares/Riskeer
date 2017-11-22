@@ -120,33 +120,33 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                                                                     soilLayer.AbovePhreaticLevelCoefficientOfVariation,
                                                                     soilLayer.AbovePhreaticLevelShift,
                                                                     soilLayerName,
-                                                                    "Onverzadigd gewicht"),
+                                                                    Resources.SoilLayerData_AbovePhreaticLevelDistribution_Description),
                 BelowPhreaticLevel = TransformLogNormalDistribution(soilLayer.BelowPhreaticLevelMean,
                                                                     soilLayer.BelowPhreaticLevelCoefficientOfVariation,
                                                                     soilLayer.BelowPhreaticLevelShift,
                                                                     soilLayerName,
-                                                                    "Verzadigd gewicht"),
+                                                                    Resources.SoilLayerData_BelowPhreaticLevelDistribution_DisplayName),
 
                 Cohesion = TransformLogNormalDistribution(soilLayer.CohesionMean,
                                                           soilLayer.CohesionCoefficientOfVariation,
                                                           soilLayerName,
-                                                          "Cohesie"),
+                                                          Resources.SoilLayerData_CohesionDistribution_DisplayName),
                 FrictionAngle = TransformLogNormalDistribution(soilLayer.FrictionAngleMean,
                                                                soilLayer.FrictionAngleCoefficientOfVariation,
                                                                soilLayerName,
-                                                               "Wrijvingshoek"),
+                                                               Resources.SoilLayerData_FrictionAngleDistribution_DisplayName),
                 ShearStrengthRatio = TransformLogNormalDistribution(soilLayer.ShearStrengthRatioMean,
                                                                     soilLayer.ShearStrengthRatioCoefficientOfVariation,
                                                                     soilLayerName,
-                                                                    "Schuifsterkte ratio (S)"),
+                                                                    Resources.SoilLayerData_ShearStrengthRatioDistribution_DisplayName),
                 StrengthIncreaseExponent = TransformLogNormalDistribution(soilLayer.StrengthIncreaseExponentMean,
                                                                           soilLayer.StrengthIncreaseExponentCoefficientOfVariation,
                                                                           soilLayerName,
-                                                                          "Sterkte toename exp (m)"),
+                                                                          Resources.SoilLayerData_StrengthIncreaseExponentDistribution_DisplayName),
                 Pop = TransformLogNormalDistribution(soilLayer.PopMean,
                                                      soilLayer.PopCoefficientOfVariation,
                                                      soilLayerName,
-                                                     "POP")
+                                                     Resources.SoilLayerData_PopDistribution_DisplayName)
             };
         }
 
@@ -201,7 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
             catch (ArgumentOutOfRangeException e)
             {
-                string exceptionMessage = string.Format("Er is een fout opgetreden bij het inlezen van grondlaag '{0}' voor parameter '{1}': {2}",
+                string exceptionMessage = string.Format(Resources.Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_,
                                                         soilLayerName,
                                                         parameterName,
                                                         e.Message);
@@ -373,7 +373,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
         private static string CreateErrorMessage(string soilLayerName, string errorMessage)
         {
-            return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_errorMessage_1,
+            return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1,
                                  soilLayerName,
                                  errorMessage);
         }

@@ -174,9 +174,8 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
             catch (ImportedDataTransformException e)
             {
-                string errorMessage = string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_errorMessage_1,
-                                                    soilLayer.MaterialName,
-                                                    e.Message);
+                string errorMessage = CreateExceptionMessage(soilLayer.MaterialName,
+                                                             e.Message);
                 throw new ImportedDataTransformException(errorMessage, e);
             }
         }
@@ -257,7 +256,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
 
         private static string CreateExceptionMessage(string soilLayerName, string errorMessage)
         {
-            return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_errorMessage_1,
+            return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1,
                                  soilLayerName,
                                  errorMessage);
         }

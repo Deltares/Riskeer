@@ -1032,7 +1032,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
             string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
-                                     $"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
+                                                                $"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 

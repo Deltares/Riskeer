@@ -399,5 +399,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
                         "ry", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden bij het inlezen van grondlaag &apos;{0}&apos; voor parameter &apos;{1}&apos;: {2}.
+        /// </summary>
+        public static string Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_ {
+            get {
+                return ResourceManager.GetString("Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessa" +
+                        "ge_2_", resourceCulture);
+            }
+        }
     }
 }
