@@ -412,9 +412,9 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        [Combinatorial]
-        public void Calculate_WithoutBreakWater_StartsCalculationWithRightParameters(
-            [Values(true, false)] bool useForeshore)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_WithoutBreakWater_StartsCalculationWithRightParameters(bool useForeshore)
         {
             // Setup
             var waterLevel = (RoundedDouble) 4.20;
@@ -463,11 +463,10 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        [Combinatorial]
-        public void Calculate_WithBreakWater_StartsCalculationWithRightParameters(
-            [Values(BreakWaterType.Caisson,
-                BreakWaterType.Wall,
-                BreakWaterType.Dam)] BreakWaterType breakWaterType)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_WithBreakWater_StartsCalculationWithRightParameters(BreakWaterType breakWaterType)
         {
             // Setup
             var waterLevel = (RoundedDouble) 4.20;

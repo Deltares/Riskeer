@@ -217,10 +217,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         #region Overtopping calculations
 
         [Test]
-        public void Run_ValidOvertoppingCalculation_InputPropertiesCorrectlySendToService(
-            [Values(BreakWaterType.Caisson,
-                BreakWaterType.Wall,
-                BreakWaterType.Dam)] BreakWaterType breakWaterType)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Run_ValidOvertoppingCalculation_InputPropertiesCorrectlySendToService(BreakWaterType breakWaterType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
