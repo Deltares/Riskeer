@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Resources = Ringtoets.Common.Data.Properties.Resources;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Hydraulics
 {

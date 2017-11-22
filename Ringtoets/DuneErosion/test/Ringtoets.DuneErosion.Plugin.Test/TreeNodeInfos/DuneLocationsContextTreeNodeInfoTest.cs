@@ -480,6 +480,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         [Test]
         public void CalculateDuneLocationsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
+            // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var duneLocation = new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
@@ -517,7 +518,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
-            // Setup
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
@@ -553,6 +553,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         [Test]
         public void CalculateDuneLocationsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService()
         {
+            // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
 
@@ -591,7 +592,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
-            // Setup
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
@@ -627,6 +627,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         [Test]
         public void CalculateDuneLocationsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
+            // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var duneLocation = new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
@@ -664,7 +665,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
-            // Setup
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();

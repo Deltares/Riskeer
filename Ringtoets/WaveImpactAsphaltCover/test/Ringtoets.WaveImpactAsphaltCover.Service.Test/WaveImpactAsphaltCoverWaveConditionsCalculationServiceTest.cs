@@ -839,6 +839,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         [Test]
         public void Calculate_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_ExpectedPreprocessorDirectorySetToCalculator()
         {
+            // Setup
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation();
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
@@ -873,6 +874,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         [Test]
         public void Calculate_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_ExpectedPreprocessorDirectorySetToCalculator()
         {
+            // Setup
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation();
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
@@ -907,6 +909,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         [Test]
         public void Calculate_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_ExpectedPreprocessorDirectorySetToCalculator()
         {
+            // Setup
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation();
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 

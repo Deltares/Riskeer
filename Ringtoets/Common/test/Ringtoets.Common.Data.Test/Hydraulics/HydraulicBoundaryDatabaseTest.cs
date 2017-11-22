@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 
@@ -65,9 +66,10 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void UsePreprocessor_SetValueWithCanUsePreprocessorTrue_ExpectedValueSet([Values(true, false)] bool usePreprocessor)
+        public void UsePreprocessor_SetValueWithCanUsePreprocessorTrue_ExpectedValueSet()
         {
             // Setup
+            bool usePreprocessor = new Random(11).NextBoolean();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(!usePreprocessor, "Preprocessor");
 
             // Call
@@ -78,9 +80,10 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void UsePreprocessor_SetValueWithCanUsePreprocessorFalse_ThrowsInvalidOperationException([Values(true, false)] bool usePreprocessor)
+        public void UsePreprocessor_SetValueWithCanUsePreprocessorFalse_ThrowsInvalidOperationException()
         {
             // Setup
+            bool usePreprocessor = new Random(11).NextBoolean();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
