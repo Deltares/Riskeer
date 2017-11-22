@@ -851,16 +851,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath,
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                }
+                FilePath = validFilePath
             };
-
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -891,16 +885,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
             {
-                FilePath = validFilePath,
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                }
+                FilePath = validFilePath
             };
-
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -931,16 +919,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
             {
-                FilePath = validFilePath,
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                }
+                FilePath = validFilePath
             };
-
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
