@@ -156,14 +156,14 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// stochastic parameters is not defined as lognormal or is shifted when it should not be.</exception>
         private static void ValidateStochasticParameters(SoilLayerBase soilLayer)
         {
-            DistributionHelper.ValidateIsLogNormal(
+            DistributionHelper.ValidateShiftedLogNormalDistribution(
                 soilLayer.BelowPhreaticLevelDistributionType,
                 Resources.SoilLayer_BelowPhreaticLevelDistribution_DisplayName);
-            DistributionHelper.ValidateIsNonShiftedLogNormal(
+            DistributionHelper.ValidateLogNormalDistribution(
                 soilLayer.DiameterD70DistributionType,
                 soilLayer.DiameterD70Shift,
                 Resources.SoilLayer_DiameterD70Distribution_DisplayName);
-            DistributionHelper.ValidateIsNonShiftedLogNormal(
+            DistributionHelper.ValidateLogNormalDistribution(
                 soilLayer.PermeabilityDistributionType,
                 soilLayer.PermeabilityShift,
                 Resources.SoilLayer_PermeabilityDistribution_DisplayName);

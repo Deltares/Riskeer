@@ -261,34 +261,34 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// stochastic parameters is not defined as log normal or is shifted when it should not be.</exception>
         private static void ValidateStochasticParameters(SoilLayerBase soilLayer)
         {
-            DistributionHelper.ValidateIsLogNormal(soilLayer.AbovePhreaticLevelDistributionType,
+            DistributionHelper.ValidateShiftedLogNormalDistribution(soilLayer.AbovePhreaticLevelDistributionType,
                                                    Resources.SoilLayerData_AbovePhreaticLevelDistribution_Description);
 
-            DistributionHelper.ValidateIsLogNormal(
+            DistributionHelper.ValidateShiftedLogNormalDistribution(
                 soilLayer.BelowPhreaticLevelDistributionType,
                 Resources.SoilLayerData_BelowPhreaticLevelDistribution_DisplayName);
 
-            DistributionHelper.ValidateIsNonShiftedLogNormal(
+            DistributionHelper.ValidateLogNormalDistribution(
                 soilLayer.CohesionDistributionType,
                 soilLayer.CohesionShift,
                 Resources.SoilLayerData_CohesionDistribution_DisplayName);
 
-            DistributionHelper.ValidateIsNonShiftedLogNormal(
+            DistributionHelper.ValidateLogNormalDistribution(
                 soilLayer.FrictionAngleDistributionType,
                 soilLayer.FrictionAngleShift,
                 Resources.SoilLayerData_FrictionAngleDistribution_DisplayName);
 
-            DistributionHelper.ValidateIsNonShiftedLogNormal(
+            DistributionHelper.ValidateLogNormalDistribution(
                 soilLayer.ShearStrengthRatioDistributionType,
                 soilLayer.ShearStrengthRatioShift,
                 Resources.SoilLayerData_ShearStrengthRatioDistribution_DisplayName);
 
-            DistributionHelper.ValidateIsNonShiftedLogNormal(
+            DistributionHelper.ValidateLogNormalDistribution(
                 soilLayer.StrengthIncreaseExponentDistributionType,
                 soilLayer.StrengthIncreaseExponentShift,
                 Resources.SoilLayerData_StrengthIncreaseExponentDistribution_DisplayName);
 
-            DistributionHelper.ValidateIsNonShiftedLogNormal(
+            DistributionHelper.ValidateLogNormalDistribution(
                 soilLayer.PopDistributionType,
                 soilLayer.PopShift,
                 Resources.SoilLayerData_PopDistribution_DisplayName);

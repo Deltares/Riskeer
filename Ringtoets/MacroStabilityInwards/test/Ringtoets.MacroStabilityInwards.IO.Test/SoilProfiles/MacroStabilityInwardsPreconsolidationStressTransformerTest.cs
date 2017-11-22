@@ -101,38 +101,47 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.AreEqual("Parameter 'Grensspanning' is niet lognormaal verdeeld.", exception.Message);
-            Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentOutOfRangeException>(innerException);
+            Assert.AreEqual(innerException.Message, exception.Message);
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidStochastConfiguration))]
-        public void Transform_InvalidStochasticDistributionProperties_ThrowsImportedDataTransformException(
-            PreconsolidationStress preconsolidationStress)
+        public void Transform_InvalidStochasticDistributionType_ThrowsImportedDataTransformException()
         {
+            // Setup
+            var random = new Random(21);
+            var preconsolidationStress = new PreconsolidationStress
+            {
+                StressDistributionType = random.Next(3, int.MaxValue),
+                StressShift = 0
+            };
+
             // Call
             TestDelegate call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.AreEqual("Parameter 'Grensspanning' is niet lognormaal verdeeld.", exception.Message);
+            Assert.AreEqual("Parameter 'Grensspanning' moet lognormaal verdeeld zijn.", exception.Message);
         }
 
-        private static IEnumerable<TestCaseData> GetInvalidStochastConfiguration()
+        [Test]
+        public void Transform_InvalidStochasticDistributionShift_ThrowsImportedDataTransformException()
         {
+            // Setup
             var random = new Random(21);
-
-            yield return new TestCaseData(new PreconsolidationStress
-            {
-                StressDistributionType = random.Next(3, int.MaxValue),
-                StressShift = 0
-            }).SetName("Invalid DistributionType");
-
-            yield return new TestCaseData(new PreconsolidationStress
+            var preconsolidationStress = new PreconsolidationStress
             {
                 StressDistributionType = 3,
                 StressShift = random.NextDouble()
-            }).SetName("Invalid Shift");
+            };
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            Assert.AreEqual("Parameter 'Grensspanning' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
         }
 
         private static IEnumerable<TestCaseData> GetPreconsolidationStressInvalidDistributionValues()

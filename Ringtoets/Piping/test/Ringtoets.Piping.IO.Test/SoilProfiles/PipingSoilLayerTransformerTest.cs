@@ -203,19 +203,31 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual("Parameter 'Verzadigd gewicht' is niet verschoven lognormaal verdeeld.", exception.Message);
+            Assert.AreEqual("Parameter 'Verzadigd gewicht' moet verschoven lognormaal verdeeld zijn.", exception.Message);
         }
 
         [Test]
-        [TestCaseSource(nameof(IncorrectLogNormalDistributionsSoilLayer1D))]
-        public void SoilLayer1DTransform_IncorrectLogNormalDistribution_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameter)
+        [TestCaseSource(nameof(IncorrectLogNormalDistributionsTypeSoilLayer1D))]
+        public void SoilLayer1DTransform_IncorrectLogNormalDistributionType_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameter)
         {
             // Call
             TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Parameter '{parameter}' is niet lognormaal verdeeld.", exception.Message);
+            Assert.AreEqual($"Parameter '{parameter}' moet lognormaal verdeeld zijn.", exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(IncorrectLogNormalDistributionsShiftSoilLayer1D))]
+        public void SoilLayer1DTransform_IncorrectLogNormalDistributionShift_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameter)
+        {
+            // Call
+            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual($"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
         }
 
         [Test]
@@ -969,12 +981,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual("Parameter 'Verzadigd gewicht' is niet verschoven lognormaal verdeeld.", exception.Message);
+            Assert.AreEqual("Parameter 'Verzadigd gewicht' moet verschoven lognormaal verdeeld zijn.", exception.Message);
         }
 
         [Test]
-        [TestCaseSource(nameof(IncorrectLogNormalDistributionsSoilLayer2D))]
-        public void SoilLayer2DTransform_IncorrectLogNormalDistribution_ThrowsImportedDataTransformException(SoilLayer2D layer, string parameter)
+        [TestCaseSource(nameof(IncorrectLogNormalDistributionsTypeSoilLayer2D))]
+        public void SoilLayer2DTransform_IncorrectLogNormalDistributionType_ThrowsImportedDataTransformException(SoilLayer2D layer, string parameter)
         {
             // Setup
             double bottom;
@@ -984,7 +996,22 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Parameter '{parameter}' is niet lognormaal verdeeld.", exception.Message);
+            Assert.AreEqual($"Parameter '{parameter}' moet lognormaal verdeeld zijn.", exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(IncorrectLogNormalDistributionsShiftSoilLayer2D))]
+        public void SoilLayer2DTransform_IncorrectLogNormalDistributionShift_ThrowsImportedDataTransformException(SoilLayer2D layer, string parameter)
+        {
+            // Setup
+            double bottom;
+
+            // Call
+            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer, 0, out bottom);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual($"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
         }
 
         private static SoilLayer2D CreateValidConfiguredSoilLayer2D(double x1, double x3)
@@ -1007,19 +1034,29 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             return SoilLayer2DTestFactory.CreateSoilLayer2D(Enumerable.Empty<IEnumerable<Segment2D>>(), outerLoop);
         }
 
-        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsSoilLayer1D()
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsTypeSoilLayer1D()
         {
-            return IncorrectLogNormalDistributions(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
+            return IncorrectLogNormalDistributionsType(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
         }
 
-        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsSoilLayer2D()
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsShiftSoilLayer1D()
         {
-            return IncorrectLogNormalDistributions(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+            return IncorrectLogNormalDistributionsShift(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
         }
 
-        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsTypeSoilLayer2D()
         {
-            const string testNameFormat = "{0}Transform_Incorrect{1}{{1}}_ThrowsImportedDataTransformException";
+            return IncorrectLogNormalDistributionsType(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsShiftSoilLayer2D()
+        {
+            return IncorrectLogNormalDistributionsShift(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsType(Func<SoilLayerBase> soilLayer, string typeName)
+        {
+            const string testNameFormat = "{0}Transform_IncorrectDistribution{{1}}_ThrowsImportedDataTransformException";
             const long validDistributionType = SoilLayerConstants.LogNormalDistributionValue;
             const double validShift = 0.0;
 
@@ -1031,17 +1068,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             invalidDiameterD70Distribution.PermeabilityShift = validShift;
 
             yield return new TestCaseData(invalidDiameterD70Distribution, "Korrelgrootte"
-            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
-
-            SoilLayerBase invalidDiameterD70Shift = soilLayer();
-            invalidDiameterD70Shift.BelowPhreaticLevelDistributionType = validDistributionType;
-            invalidDiameterD70Shift.DiameterD70DistributionType = validDistributionType;
-            invalidDiameterD70Shift.DiameterD70Shift = -1;
-            invalidDiameterD70Shift.PermeabilityDistributionType = validDistributionType;
-            invalidDiameterD70Shift.PermeabilityShift = validShift;
-
-            yield return new TestCaseData(invalidDiameterD70Shift, "Korrelgrootte"
-            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
+            ).SetName(string.Format(testNameFormat, typeName));
 
             SoilLayerBase invalidPermeabilityDistribution = soilLayer();
             invalidPermeabilityDistribution.BelowPhreaticLevelDistributionType = validDistributionType;
@@ -1051,7 +1078,24 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             invalidPermeabilityDistribution.PermeabilityShift = validShift;
 
             yield return new TestCaseData(invalidPermeabilityDistribution, "Doorlatendheid"
-            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
+            ).SetName(string.Format(testNameFormat, typeName));
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsShift(Func<SoilLayerBase> soilLayer, string typeName)
+        {
+            const string testNameFormat = "{0}Transform_IncorrectShift{{1}}_ThrowsImportedDataTransformException";
+            const long validDistributionType = SoilLayerConstants.LogNormalDistributionValue;
+            const double validShift = 0.0;
+
+            SoilLayerBase invalidDiameterD70Shift = soilLayer();
+            invalidDiameterD70Shift.BelowPhreaticLevelDistributionType = validDistributionType;
+            invalidDiameterD70Shift.DiameterD70DistributionType = validDistributionType;
+            invalidDiameterD70Shift.DiameterD70Shift = -1;
+            invalidDiameterD70Shift.PermeabilityDistributionType = validDistributionType;
+            invalidDiameterD70Shift.PermeabilityShift = validShift;
+
+            yield return new TestCaseData(invalidDiameterD70Shift, "Korrelgrootte"
+            ).SetName(string.Format(testNameFormat, typeName));
 
             SoilLayerBase invalidPermeabilityShift = soilLayer();
             invalidPermeabilityShift.BelowPhreaticLevelDistributionType = validDistributionType;
@@ -1061,7 +1105,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             invalidPermeabilityShift.PermeabilityShift = -1;
 
             yield return new TestCaseData(invalidPermeabilityShift, "Doorlatendheid"
-            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
+            ).SetName(string.Format(testNameFormat, typeName));
         }
 
         private static IEnumerable<TestCaseData> GetColorCases()

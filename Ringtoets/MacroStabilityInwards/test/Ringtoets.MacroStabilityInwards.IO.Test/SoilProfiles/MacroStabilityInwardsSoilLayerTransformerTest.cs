@@ -298,19 +298,31 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Parameter '{parameter}' is niet verschoven lognormaal verdeeld.", exception.Message);
+            Assert.AreEqual($"Parameter '{parameter}' moet verschoven lognormaal verdeeld zijn.", exception.Message);
         }
 
         [Test]
-        [TestCaseSource(nameof(IncorrectNonShiftedLogNormalDistributionsSoilLayer1D))]
-        public void SoilLayer1DTransform_IncorrectLogNormalDistribution_ThrowImportedDataTransformException(SoilLayer1D layer, string parameter)
+        [TestCaseSource(nameof(IncorrectNonShiftedLogNormalDistributionsTypeSoilLayer1D))]
+        public void SoilLayer1DTransform_IncorrectLogNormalDistributionType_ThrowImportedDataTransformException(SoilLayer1D layer, string parameter)
         {
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Parameter '{parameter}' is niet lognormaal verdeeld.", exception.Message);
+            Assert.AreEqual($"Parameter '{parameter}' moet lognormaal verdeeld zijn.", exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(IncorrectNonShiftedLogNormalDistributionsShiftSoilLayer1D))]
+        public void SoilLayer1DTransform_IncorrectLogNormalDistributionShift_ThrowImportedDataTransformException(SoilLayer1D layer, string parameter)
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual($"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
         }
 
         [Test]
@@ -497,7 +509,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        [TestCaseSource(nameof(IncorrectShiftedLogNormalDistributionsSoilLayer2D))]
+        [TestCaseSource(nameof(IncorrectShiftedLogNormalDistributionsTypeSoilLayer2D))]
         public void SoilLayer2DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException(
             SoilLayer2D layer, string parameter)
         {
@@ -506,19 +518,31 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Parameter '{parameter}' is niet verschoven lognormaal verdeeld.", exception.Message);
+            Assert.AreEqual($"Parameter '{parameter}' moet verschoven lognormaal verdeeld zijn.", exception.Message);
         }
 
         [Test]
-        [TestCaseSource(nameof(IncorrectNonShiftedLogNormalDistributionsSoilLayer2D))]
-        public void SoilLayer2DTransform_IncorrectLogNormalDistribution_ThrowImportedDataTransformException(SoilLayer2D layer, string parameter)
+        [TestCaseSource(nameof(IncorrectNonShiftedLogNormalDistributionsTypeSoilLayer2D))]
+        public void SoilLayer2DTransform_IncorrectLogNormalDistributionType_ThrowImportedDataTransformException(SoilLayer2D layer, string parameter)
         {
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Parameter '{parameter}' is niet lognormaal verdeeld.", exception.Message);
+            Assert.AreEqual($"Parameter '{parameter}' moet lognormaal verdeeld zijn.", exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(IncorrectNonShiftedLogNormalDistributionsShiftSoilLayer2D))]
+        public void SoilLayer2DTransform_IncorrectLogNormalDistributionShift_ThrowImportedDataTransformException(SoilLayer2D layer, string parameter)
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual($"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
         }
 
         [Test]
@@ -702,105 +726,120 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             return IncorrectShiftedLogNormalDistributions(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
         }
 
-        private static IEnumerable<TestCaseData> IncorrectShiftedLogNormalDistributionsSoilLayer2D()
+        private static IEnumerable<TestCaseData> IncorrectShiftedLogNormalDistributionsTypeSoilLayer2D()
         {
             return IncorrectShiftedLogNormalDistributions(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
         }
 
         private static IEnumerable<TestCaseData> IncorrectShiftedLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)
         {
-            const string testNameFormat = "{0}Transform_Incorrect{1}{{1}}_ThrowsImportedDataTransformException";
+            const string testNameFormat = "{0}Transform_IncorrectDistribution{{1}}_ThrowsImportedDataTransformException";
 
             SoilLayerBase invalidBelowPhreaticLevel = soilLayer();
             invalidBelowPhreaticLevel.BelowPhreaticLevelDistributionType = -1;
             yield return new TestCaseData(invalidBelowPhreaticLevel, "Verzadigd gewicht")
-                .SetName(string.Format(testNameFormat, typeName, "Distribution"));
+                .SetName(string.Format(testNameFormat, typeName));
 
             SoilLayerBase invalidAbovePhreaticLevel = soilLayer();
             invalidAbovePhreaticLevel.AbovePhreaticLevelDistributionType = -1;
             yield return new TestCaseData(invalidAbovePhreaticLevel, "Onverzadigd gewicht")
-                .SetName(string.Format(testNameFormat, typeName, "Distribution"));
+                .SetName(string.Format(testNameFormat, typeName));
         }
 
         #endregion
 
         #region Test Data: NonShifted Log Normal Distributions
 
-        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsSoilLayer1D()
+        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsTypeSoilLayer1D()
         {
-            return IncorrectNonShiftedLogNormalDistributions(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
+            return IncorrectNonShiftedLogNormalDistributionsType(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
         }
 
-        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsSoilLayer2D()
+        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsShiftSoilLayer1D()
         {
-            return IncorrectNonShiftedLogNormalDistributions(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+            return IncorrectNonShiftedLogNormalDistributionsShift(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
         }
 
-        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)
+        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsTypeSoilLayer2D()
         {
-            const string testNameFormat = "{0}Transform_Incorrect{1}{{1}}_ThrowsImportedDataTransformException";
-            const long validDistributionType = SoilLayerConstants.LogNormalDistributionValue;
+            return IncorrectNonShiftedLogNormalDistributionsType(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsShiftSoilLayer2D()
+        {
+            return IncorrectNonShiftedLogNormalDistributionsShift(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsType(Func<SoilLayerBase> soilLayer, string typeName)
+        {
+            const string testNameFormat = "{0}Transform_IncorrectDistribution{{1}}_ThrowsImportedDataTransformException";
             const double validShift = 0.0;
-
-            SoilLayerBase invalidCohesionShift = soilLayer();
-            invalidCohesionShift.CohesionDistributionType = validDistributionType;
-            invalidCohesionShift.CohesionShift = -1;
-            yield return new TestCaseData(invalidCohesionShift, "Cohesie"
-            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
 
             SoilLayerBase invalidCohesionDistribution = soilLayer();
             invalidCohesionDistribution.CohesionDistributionType = -1;
             invalidCohesionDistribution.CohesionShift = validShift;
             yield return new TestCaseData(invalidCohesionDistribution, "Cohesie"
-            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
-
-            SoilLayerBase invalidFrictionAngleShift = soilLayer();
-            invalidFrictionAngleShift.FrictionAngleDistributionType = validDistributionType;
-            invalidFrictionAngleShift.FrictionAngleShift = -1;
-            yield return new TestCaseData(invalidFrictionAngleShift, "Wrijvingshoek"
-            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
+            ).SetName(string.Format(testNameFormat, typeName));
 
             SoilLayerBase invalidFrictionAngleDistribution = soilLayer();
             invalidFrictionAngleDistribution.FrictionAngleDistributionType = -1;
             invalidFrictionAngleDistribution.FrictionAngleShift = validShift;
             yield return new TestCaseData(invalidFrictionAngleDistribution, "Wrijvingshoek"
-            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
-
-            SoilLayerBase invalidShearStrengthRatioShift = soilLayer();
-            invalidShearStrengthRatioShift.ShearStrengthRatioDistributionType = validDistributionType;
-            invalidShearStrengthRatioShift.ShearStrengthRatioShift = -1;
-            yield return new TestCaseData(invalidShearStrengthRatioShift, "Schuifsterkte ratio (S)"
-            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
+            ).SetName(string.Format(testNameFormat, typeName));
 
             SoilLayerBase invalidShearStrengthRatioDistribution = soilLayer();
             invalidShearStrengthRatioDistribution.ShearStrengthRatioDistributionType = -1;
             invalidShearStrengthRatioDistribution.ShearStrengthRatioShift = validShift;
             yield return new TestCaseData(invalidShearStrengthRatioDistribution, "Schuifsterkte ratio (S)"
-            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
-
-            SoilLayerBase invalidStrengthIncreaseExponentShift = soilLayer();
-            invalidStrengthIncreaseExponentShift.StrengthIncreaseExponentDistributionType = validDistributionType;
-            invalidStrengthIncreaseExponentShift.StrengthIncreaseExponentShift = -1;
-            yield return new TestCaseData(invalidStrengthIncreaseExponentShift, "Sterkte toename exp (m)"
-            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
+            ).SetName(string.Format(testNameFormat, typeName));
 
             SoilLayerBase invalidStrengthIncreaseExponentDistribution = soilLayer();
             invalidStrengthIncreaseExponentDistribution.StrengthIncreaseExponentDistributionType = -1;
             invalidStrengthIncreaseExponentDistribution.StrengthIncreaseExponentShift = validShift;
             yield return new TestCaseData(invalidStrengthIncreaseExponentDistribution, "Sterkte toename exp (m)"
-            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
-
-            SoilLayerBase invalidPopShift = soilLayer();
-            invalidPopShift.PopDistributionType = validDistributionType;
-            invalidPopShift.PopShift = -1;
-            yield return new TestCaseData(invalidPopShift, "POP"
-            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
+            ).SetName(string.Format(testNameFormat, typeName));
 
             SoilLayerBase invalidPopDistribution = soilLayer();
             invalidPopDistribution.PopDistributionType = -1;
             invalidPopDistribution.PopShift = validShift;
             yield return new TestCaseData(invalidPopDistribution, "POP"
-            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
+            ).SetName(string.Format(testNameFormat, typeName));
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsShift(Func<SoilLayerBase> soilLayer, string typeName)
+        {
+            const string testNameFormat = "{0}Transform_IncorrectShift{{1}}_ThrowsImportedDataTransformException";
+            const long validDistributionType = SoilLayerConstants.LogNormalDistributionValue;
+
+            SoilLayerBase invalidCohesionShift = soilLayer();
+            invalidCohesionShift.CohesionDistributionType = validDistributionType;
+            invalidCohesionShift.CohesionShift = -1;
+            yield return new TestCaseData(invalidCohesionShift, "Cohesie"
+            ).SetName(string.Format(testNameFormat, typeName));
+
+            SoilLayerBase invalidFrictionAngleShift = soilLayer();
+            invalidFrictionAngleShift.FrictionAngleDistributionType = validDistributionType;
+            invalidFrictionAngleShift.FrictionAngleShift = -1;
+            yield return new TestCaseData(invalidFrictionAngleShift, "Wrijvingshoek"
+            ).SetName(string.Format(testNameFormat, typeName));
+
+            SoilLayerBase invalidShearStrengthRatioShift = soilLayer();
+            invalidShearStrengthRatioShift.ShearStrengthRatioDistributionType = validDistributionType;
+            invalidShearStrengthRatioShift.ShearStrengthRatioShift = -1;
+            yield return new TestCaseData(invalidShearStrengthRatioShift, "Schuifsterkte ratio (S)"
+            ).SetName(string.Format(testNameFormat, typeName));
+
+            SoilLayerBase invalidStrengthIncreaseExponentShift = soilLayer();
+            invalidStrengthIncreaseExponentShift.StrengthIncreaseExponentDistributionType = validDistributionType;
+            invalidStrengthIncreaseExponentShift.StrengthIncreaseExponentShift = -1;
+            yield return new TestCaseData(invalidStrengthIncreaseExponentShift, "Sterkte toename exp (m)"
+            ).SetName(string.Format(testNameFormat, typeName));
+
+            SoilLayerBase invalidPopShift = soilLayer();
+            invalidPopShift.PopDistributionType = validDistributionType;
+            invalidPopShift.PopShift = -1;
+            yield return new TestCaseData(invalidPopShift, "POP"
+            ).SetName(string.Format(testNameFormat, typeName));
         }
 
         #endregion
