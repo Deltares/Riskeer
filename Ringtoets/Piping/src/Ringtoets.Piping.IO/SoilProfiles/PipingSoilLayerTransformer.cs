@@ -52,28 +52,18 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 throw new ArgumentNullException(nameof(soilLayer));
             }
 
-            try
+            ValidateStochasticParameters(soilLayer);
+
+            var pipingSoilLayer = new PipingSoilLayer(soilLayer.Top)
             {
-                ValidateStochasticParameters(soilLayer);
+                IsAquifer = TransformIsAquifer(soilLayer.IsAquifer, soilLayer.MaterialName),
+                MaterialName = soilLayer.MaterialName,
+                Color = SoilLayerColorConverter.Convert(soilLayer.Color)
+            };
 
-                var pipingSoilLayer = new PipingSoilLayer(soilLayer.Top)
-                {
-                    IsAquifer = TransformIsAquifer(soilLayer.IsAquifer),
-                    MaterialName = soilLayer.MaterialName,
-                    Color = SoilLayerColorConverter.Convert(soilLayer.Color)
-                };
+            SetStochasticParameters(pipingSoilLayer, soilLayer);
 
-                SetStochasticParameters(pipingSoilLayer, soilLayer);
-
-                return pipingSoilLayer;
-            }
-            catch (ImportedDataTransformException e)
-            {
-                string errorMessage = string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_errorMessage_1,
-                                                    soilLayer.MaterialName,
-                                                    e.Message);
-                throw new ImportedDataTransformException(errorMessage, e);
-            }
+            return pipingSoilLayer;
         }
 
         /// <summary>
@@ -88,20 +78,10 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// in a valid transformed instance.</exception>
         public static IEnumerable<PipingSoilLayer> Transform(SoilLayer2D soilLayer, double atX, out double bottom)
         {
-            try
-            {
-                bottom = double.MaxValue;
-                var soilLayers = new Collection<PipingSoilLayer>();
-                Transform(soilLayer, atX, soilLayers, ref bottom);
-                return soilLayers;
-            }
-            catch (ImportedDataTransformException e)
-            {
-                string errorMessage = string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_errorMessage_1,
-                                                    soilLayer.MaterialName,
-                                                    e.Message);
-                throw new ImportedDataTransformException(errorMessage, e);
-            }
+            bottom = double.MaxValue;
+            var soilLayers = new Collection<PipingSoilLayer>();
+            Transform(soilLayer, atX, soilLayers, ref bottom);
+            return soilLayers;
         }
 
         /// <summary>
@@ -129,14 +109,17 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 return;
             }
 
-            double[] outerLoopIntersectionHeights = GetLoopIntersectionHeights(soilLayer.OuterLoop.Segments, atX).ToArray();
+            string soilLayerName = soilLayer.MaterialName;
+            double[] outerLoopIntersectionHeights = GetLoopIntersectionHeights(soilLayer.OuterLoop.Segments, atX, soilLayerName).ToArray();
 
             if (!outerLoopIntersectionHeights.Any())
             {
                 return;
             }
 
-            IEnumerable<IEnumerable<double>> innerLoopsIntersectionHeights = soilLayer.NestedLayers.Select(l => GetLoopIntersectionHeights(l.OuterLoop.Segments, atX));
+            IEnumerable<IEnumerable<double>> innerLoopsIntersectionHeights = soilLayer.NestedLayers.Select(l => GetLoopIntersectionHeights(l.OuterLoop.Segments,
+                                                                                                                                           atX,
+                                                                                                                                           soilLayerName));
             IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(innerLoopsIntersectionHeights).ToList();
             IEnumerable<Tuple<double, double>> outerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(outerLoopIntersectionHeights).ToList();
 
@@ -149,7 +132,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             {
                 var pipingSoilLayer = new PipingSoilLayer(height)
                 {
-                    IsAquifer = TransformIsAquifer(soilLayer.IsAquifer),
+                    IsAquifer = TransformIsAquifer(soilLayer.IsAquifer, soilLayerName),
                     MaterialName = soilLayer.MaterialName,
                     Color = SoilLayerColorConverter.Convert(soilLayer.Color)
                 };
@@ -175,17 +158,27 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// stochastic parameters is not defined as lognormal or is shifted when it should not be.</exception>
         private static void ValidateStochasticParameters(SoilLayerBase soilLayer)
         {
-            DistributionHelper.ValidateShiftedLogNormalDistribution(
-                soilLayer.BelowPhreaticLevelDistributionType,
-                Resources.SoilLayer_BelowPhreaticLevelDistribution_DisplayName);
-            DistributionHelper.ValidateLogNormalDistribution(
-                soilLayer.DiameterD70DistributionType,
-                soilLayer.DiameterD70Shift,
-                Resources.SoilLayer_DiameterD70Distribution_DisplayName);
-            DistributionHelper.ValidateLogNormalDistribution(
-                soilLayer.PermeabilityDistributionType,
-                soilLayer.PermeabilityShift,
-                Resources.SoilLayer_PermeabilityDistribution_DisplayName);
+            try
+            {
+                DistributionHelper.ValidateShiftedLogNormalDistribution(
+                    soilLayer.BelowPhreaticLevelDistributionType,
+                    Resources.SoilLayer_BelowPhreaticLevelDistribution_DisplayName);
+                DistributionHelper.ValidateLogNormalDistribution(
+                    soilLayer.DiameterD70DistributionType,
+                    soilLayer.DiameterD70Shift,
+                    Resources.SoilLayer_DiameterD70Distribution_DisplayName);
+                DistributionHelper.ValidateLogNormalDistribution(
+                    soilLayer.PermeabilityDistributionType,
+                    soilLayer.PermeabilityShift,
+                    Resources.SoilLayer_PermeabilityDistribution_DisplayName);
+            }
+            catch (ImportedDataTransformException e)
+            {
+                string errorMessage = string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_errorMessage_1,
+                                                    soilLayer.MaterialName,
+                                                    e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
+            }
         }
 
         /// <summary>
@@ -243,19 +236,30 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// </summary>
         /// <param name="loop">The sequence of <see cref="Segment2D"/> which together create a loop.</param>
         /// <param name="atX">The point on the x-axis where the vertical line is constructed do determine intersections with.</param>
+        /// <param name="soilLayerName">The name of the soil layer.</param>
         /// <returns>A <see cref="Collection{T}"/> of <see cref="double"/>, representing the height at which the 
         /// <paramref name="loop"/> intersects the vertical line at <paramref name="atX"/>.</returns>
         /// <exception cref="ImportedDataTransformException">Thrown when a segment is vertical at <see cref="atX"/> and thus
         /// no deterministic intersection points can be determined.</exception>
-        private static IEnumerable<double> GetLoopIntersectionHeights(IEnumerable<Segment2D> loop, double atX)
+        private static IEnumerable<double> GetLoopIntersectionHeights(IEnumerable<Segment2D> loop,
+                                                                      double atX,
+                                                                      string soilLayerName)
         {
             Segment2D[] segment2Ds = loop.ToArray();
             if (segment2Ds.Any(segment => IsVerticalAtX(segment, atX)))
             {
-                string message = string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX);
+                string message = CreateExceptionMessage(soilLayerName,
+                                                        string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX));
                 throw new ImportedDataTransformException(message);
             }
             return Math2D.SegmentsIntersectionWithVerticalLine(segment2Ds, atX).Select(p => p.Y);
+        }
+
+        private static string CreateExceptionMessage(string soilLayerName, string errorMessage)
+        {
+            return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_errorMessage_1,
+                                 soilLayerName,
+                                 errorMessage);
         }
 
         private static bool IsVerticalAtX(Segment2D segment, double atX)
@@ -268,19 +272,22 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// <see cref="PipingSoilLayer.IsAquifer"/>.
         /// </summary>
         /// <param name="isAquifer">The value to transform.</param>
+        /// <param name="soilLayerName">The name of the soil layer.</param>
         /// <returns>A <see cref="bool"/> based on <paramref name="isAquifer"/>.</returns>
         /// <exception cref="ImportedDataTransformException">Thrown when
         /// <paramref name="isAquifer"/> could not be transformed.</exception>
-        private static bool TransformIsAquifer(double? isAquifer)
+        private static bool TransformIsAquifer(double? isAquifer, string soilLayerName)
         {
             try
             {
                 return SoilLayerIsAquiferConverter.Convert(isAquifer);
             }
-            catch (NotSupportedException)
+            catch (NotSupportedException e)
             {
-                throw new ImportedDataTransformException(string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                       RingtoetsCommonIOResources.SoilLayerData_IsAquifer_DisplayName));
+                string message = CreateExceptionMessage(soilLayerName,
+                                                        string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
+                                                                      RingtoetsCommonIOResources.SoilLayerData_IsAquifer_DisplayName));
+                throw new ImportedDataTransformException(message, e);
             }
         }
     }

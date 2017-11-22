@@ -98,6 +98,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
                                                                 "Ongeldige waarde voor parameter 'Is aquifer'.");
             Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
         }
 
         [Test]
@@ -397,7 +398,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
                                                                 "Ongeldige waarde voor parameter 'Is aquifer'.");
             Assert.AreEqual(expectedMessage, exception.Message);
-
+            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
             Assert.IsNull(pipingSoilLayers);
         }
 
