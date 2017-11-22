@@ -21,9 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -125,6 +127,28 @@ namespace Ringtoets.Common.Service.Test
 
             // Assert
             Assert.IsNull(parsedBreakWater);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ParseBreakWater_InvalidBreakWaterType_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            var random = new Random(22);
+            var mockRepository = new MockRepository();
+            var breakWater = mockRepository.Stub<IUseBreakWater>();
+            breakWater.UseBreakWater = true;
+            var expectedBreakWater = new BreakWater((BreakWaterType) 99, random.NextDouble());
+            breakWater.Stub(call => call.BreakWater).Return(expectedBreakWater);
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => HydraRingInputParser.ParseBreakWater(breakWater);
+
+            // Assert
+            string message = $"The value of argument 'type' ({99}) is invalid for Enum type '{typeof(BreakWaterType).Name}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+
             mockRepository.VerifyAll();
         }
     }
