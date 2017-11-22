@@ -153,7 +153,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
-            string message = "Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D " +
+            string message = $"Er is een fout opgetreden bij het inlezen van grondlaag '{layer.MaterialName}': " +
+                             "Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D " +
                              $"laag verticaal lopen op de gekozen positie: x = {atX}.";
             Assert.AreEqual(message, exception.Message);
         }

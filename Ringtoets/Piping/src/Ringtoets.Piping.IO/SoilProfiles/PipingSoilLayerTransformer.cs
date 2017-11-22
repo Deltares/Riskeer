@@ -52,18 +52,28 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 throw new ArgumentNullException(nameof(soilLayer));
             }
 
-            ValidateStochasticParameters(soilLayer);
-
-            var pipingSoilLayer = new PipingSoilLayer(soilLayer.Top)
+            try
             {
-                IsAquifer = TransformIsAquifer(soilLayer.IsAquifer),
-                MaterialName = soilLayer.MaterialName,
-                Color = SoilLayerColorConverter.Convert(soilLayer.Color)
-            };
+                ValidateStochasticParameters(soilLayer);
 
-            SetStochasticParameters(pipingSoilLayer, soilLayer);
+                var pipingSoilLayer = new PipingSoilLayer(soilLayer.Top)
+                {
+                    IsAquifer = TransformIsAquifer(soilLayer.IsAquifer),
+                    MaterialName = soilLayer.MaterialName,
+                    Color = SoilLayerColorConverter.Convert(soilLayer.Color)
+                };
 
-            return pipingSoilLayer;
+                SetStochasticParameters(pipingSoilLayer, soilLayer);
+
+                return pipingSoilLayer;
+            }
+            catch (ImportedDataTransformException e)
+            {
+                string errorMessage = string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_errorMessage_1,
+                                                    soilLayer.MaterialName,
+                                                    e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
+            }
         }
 
         /// <summary>
@@ -78,11 +88,20 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// in a valid transformed instance.</exception>
         public static IEnumerable<PipingSoilLayer> Transform(SoilLayer2D soilLayer, double atX, out double bottom)
         {
-            bottom = double.MaxValue;
-
-            var soilLayers = new Collection<PipingSoilLayer>();
-            Transform(soilLayer, atX, soilLayers, ref bottom);
-            return soilLayers;
+            try
+            {
+                bottom = double.MaxValue;
+                var soilLayers = new Collection<PipingSoilLayer>();
+                Transform(soilLayer, atX, soilLayers, ref bottom);
+                return soilLayers;
+            }
+            catch (ImportedDataTransformException e)
+            {
+                string errorMessage = string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_errorMessage_1,
+                                                    soilLayer.MaterialName,
+                                                    e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
+            }
         }
 
         /// <summary>
@@ -173,18 +192,18 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// Sets the values of the stochastic parameters for the given <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="pipingSoilLayer">The <see cref="PipingSoilLayer"/> to set the property values for.</param>
-        /// <param name="soilLayer1D">The <see cref="SoilLayerBase"/> to get the properties from.</param>
+        /// <param name="soilLayer">The <see cref="SoilLayerBase"/> to get the properties from.</param>
         /// <remarks>This method does not perform validation. Use <see cref="ValidateStochasticParameters"/> to 
         /// verify whether the distributions for the stochastic parameters are correctly defined.</remarks>
-        private static void SetStochasticParameters(PipingSoilLayer pipingSoilLayer, SoilLayerBase soilLayer1D)
+        private static void SetStochasticParameters(PipingSoilLayer pipingSoilLayer, SoilLayerBase soilLayer)
         {
-            pipingSoilLayer.BelowPhreaticLevelMean = soilLayer1D.BelowPhreaticLevelMean;
-            pipingSoilLayer.BelowPhreaticLevelDeviation = soilLayer1D.BelowPhreaticLevelDeviation;
-            pipingSoilLayer.BelowPhreaticLevelShift = soilLayer1D.BelowPhreaticLevelShift;
-            pipingSoilLayer.DiameterD70Mean = soilLayer1D.DiameterD70Mean;
-            pipingSoilLayer.DiameterD70CoefficientOfVariation = soilLayer1D.DiameterD70CoefficientOfVariation;
-            pipingSoilLayer.PermeabilityMean = soilLayer1D.PermeabilityMean;
-            pipingSoilLayer.PermeabilityCoefficientOfVariation = soilLayer1D.PermeabilityCoefficientOfVariation;
+            pipingSoilLayer.BelowPhreaticLevelMean = soilLayer.BelowPhreaticLevelMean;
+            pipingSoilLayer.BelowPhreaticLevelDeviation = soilLayer.BelowPhreaticLevelDeviation;
+            pipingSoilLayer.BelowPhreaticLevelShift = soilLayer.BelowPhreaticLevelShift;
+            pipingSoilLayer.DiameterD70Mean = soilLayer.DiameterD70Mean;
+            pipingSoilLayer.DiameterD70CoefficientOfVariation = soilLayer.DiameterD70CoefficientOfVariation;
+            pipingSoilLayer.PermeabilityMean = soilLayer.PermeabilityMean;
+            pipingSoilLayer.PermeabilityCoefficientOfVariation = soilLayer.PermeabilityCoefficientOfVariation;
         }
 
         private static bool HeightInInnerLoop(Tuple<double, double> tuple, double height)
