@@ -380,11 +380,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = filePath,
-                Locations =
-                {
-                    hydraulicBoundaryLocation
-                }
+                FilePath = filePath
             };
 
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
@@ -446,11 +442,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, preprocessorDirectory)
             {
-                FilePath = filePath,
-                Locations =
-                {
-                    hydraulicBoundaryLocation
-                }
+                FilePath = filePath
             };
 
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
@@ -511,11 +503,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
             {
-                FilePath = filePath,
-                Locations =
-                {
-                    hydraulicBoundaryLocation
-                }
+                FilePath = filePath
             };
 
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
