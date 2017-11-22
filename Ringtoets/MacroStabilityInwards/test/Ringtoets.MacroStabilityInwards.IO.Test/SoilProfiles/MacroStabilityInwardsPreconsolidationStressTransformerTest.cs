@@ -101,9 +101,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Exception innerException = exception.InnerException;
-            Assert.IsInstanceOf<ArgumentOutOfRangeException>(innerException);
-            Assert.AreEqual(innerException.Message, exception.Message);
+            Assert.AreEqual("Parameter 'Grensspanning' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
+            Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
         }
 
         [Test]

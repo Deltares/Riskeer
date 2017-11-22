@@ -158,7 +158,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// <param name="soilLayerName">The name of the soil layer.</param>
         /// <param name="parameterName">The name of the parameter to create a distribution for.</param>
         /// <returns>A <see cref="VariationCoefficientLogNormalDistribution"/> based on the input arguments.</returns>
-        /// <exception cref="ImportedDataTransformException"></exception>
+        /// <exception cref="ImportedDataTransformException">Thrown when a <see cref="VariationCoefficientLogNormalDistribution"/>
+        /// cannot be created due to invalid values for <paramref name="mean"/>, <paramref name="coefficientOfVariation"/>.</exception>
         private static VariationCoefficientLogNormalDistribution TransformLogNormalDistribution(double mean,
                                                                                                 double coefficientOfVariation,
                                                                                                 string soilLayerName,
@@ -180,7 +181,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// <param name="soilLayerName">The name of the soil layer.</param>
         /// <param name="parameterName">The name of the parameter to create a distribution for.</param>
         /// <returns>A <see cref="VariationCoefficientLogNormalDistribution"/> based on the input arguments.</returns>
-        /// <exception cref="ImportedDataTransformException"></exception>
+        /// <exception cref="ImportedDataTransformException">Thrown when a <see cref="VariationCoefficientLogNormalDistribution"/>
+        /// cannot be created due to invalid values for <paramref name="mean"/>, <paramref name="coefficientOfVariation"/>
+        /// or <paramref name="shift"/>.</exception>
         private static VariationCoefficientLogNormalDistribution TransformLogNormalDistribution(double mean,
                                                                                                 double coefficientOfVariation,
                                                                                                 double shift,
