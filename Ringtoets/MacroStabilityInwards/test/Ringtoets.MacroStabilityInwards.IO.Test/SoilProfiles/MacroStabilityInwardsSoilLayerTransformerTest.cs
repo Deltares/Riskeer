@@ -341,6 +341,22 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
+        [TestCaseSource(nameof(InvalidStochasticDistributionValuesSoilLayer1D))]
+        public void SoilLayer1DTransform_InvalidStochasticDistributionValues_ThrowImportedDataTransformException(SoilLayer1D layer, string parameter)
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentOutOfRangeException>(innerException);
+            string expectedMessage = $"Er is een fout opgetreden bij het inlezen van grondlaag '{layer.MaterialName}' voor parameter '{parameter}': {innerException.Message}";
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
         public void SoilLayer2DTransform_SoilLayer2DNull_ThrowsArgumentNullException()
         {
             // Call
@@ -590,6 +606,22 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
 
+        [Test]
+        [TestCaseSource(nameof(InvalidStochasticDistributionValuesSoilLayer2D))]
+        public void SoilLayer2DTransform_InvalidStochasticDistributionValues_ThrowImportedDataTransformException(SoilLayer2D layer, string parameter)
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentOutOfRangeException>(innerException);
+            string expectedMessage = $"Er is een fout opgetreden bij het inlezen van grondlaag '{layer.MaterialName}' voor parameter '{parameter}': {innerException.Message}";
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
         private static SoilLayer2DLoop CreateRandomLoop(int seed)
         {
             var random = new Random(seed);
@@ -752,6 +784,65 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                                                                                    },
                                                                                    validGeometry))
                 .SetName("Innerloop_ContainsCollectionWithElementWithNoSegments");
+        }
+
+        #endregion
+
+        #region Distribution properties
+
+        private static IEnumerable<TestCaseData> InvalidStochasticDistributionValuesSoilLayer1D()
+        {
+            return InvalidStochasticDistributionValues(() => SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer(), nameof(SoilLayer1D));
+        }
+
+        private static IEnumerable<TestCaseData> InvalidStochasticDistributionValuesSoilLayer2D()
+        {
+            return InvalidStochasticDistributionValues(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+        }
+
+        private static IEnumerable<TestCaseData> InvalidStochasticDistributionValues(Func<SoilLayerBase> soilLayer, string typeName)
+        {
+            const string testNameFormat = "{0}Transform_InvalidStochasticDistributionValues{{1}}_ThrowsImportedDataTransformException";
+            const double invalidMean = 0;
+
+            SoilLayerBase invalidCohesion = soilLayer();
+            invalidCohesion.CohesionMean = invalidMean;
+            yield return new TestCaseData(invalidCohesion, "Cohesie"
+            ).SetName(string.Format(testNameFormat, typeName));
+
+            SoilLayerBase invalidFrictionAngle = soilLayer();
+            invalidFrictionAngle.FrictionAngleMean = invalidMean;
+            yield return new TestCaseData(invalidFrictionAngle, "Wrijvingshoek"
+            ).SetName(string.Format(testNameFormat, typeName));
+
+            SoilLayerBase invalidShearStrengthRatio = soilLayer();
+            invalidShearStrengthRatio.ShearStrengthRatioMean = invalidMean;
+            yield return new TestCaseData(invalidShearStrengthRatio, "Schuifsterkte ratio (S)"
+            ).SetName(string.Format(testNameFormat, typeName));
+
+            SoilLayerBase invalidStrengthIncreaseExponent = soilLayer();
+            invalidStrengthIncreaseExponent.StrengthIncreaseExponentMean = invalidMean;
+            yield return new TestCaseData(invalidStrengthIncreaseExponent, "Sterkte toename exp (m)"
+            ).SetName(string.Format(testNameFormat, typeName));
+
+            SoilLayerBase invalidPop = soilLayer();
+            invalidPop.PopMean = invalidMean;
+            yield return new TestCaseData(invalidPop, "POP"
+            ).SetName(string.Format(testNameFormat, typeName));
+
+            const double validMean = 1;
+            const double invalidShift = 2;
+            SoilLayerBase invalidBelowPhreaticLevel = soilLayer();
+            invalidBelowPhreaticLevel.BelowPhreaticLevelMean = validMean;
+            invalidBelowPhreaticLevel.BelowPhreaticLevelShift = invalidShift;
+            yield return new TestCaseData(invalidBelowPhreaticLevel, "Verzadigd gewicht")
+                .SetName(string.Format(testNameFormat, typeName));
+
+            SoilLayerBase invalidAbovePhreaticLevel = soilLayer();
+            invalidAbovePhreaticLevel.AbovePhreaticLevelMean = validMean;
+            invalidAbovePhreaticLevel.AbovePhreaticLevelShift = invalidShift;
+            yield return new TestCaseData(invalidAbovePhreaticLevel, "Onverzadigd gewicht")
+                .SetName(string.Format(testNameFormat, typeName));
         }
 
         #endregion

@@ -106,54 +106,104 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// in a valid transformed instance.</exception>
         private static MacroStabilityInwardsSoilLayerData ConvertSoilLayerData(SoilLayerBase soilLayer)
         {
-            string soilLayerMaterialName = soilLayer.MaterialName;
+            string soilLayerName = soilLayer.MaterialName;
             return new MacroStabilityInwardsSoilLayerData
             {
-                ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel, soilLayerMaterialName),
-                UsePop = TransformUsePop(soilLayer.UsePop, soilLayerMaterialName),
+                ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel, soilLayerName),
+                UsePop = TransformUsePop(soilLayer.UsePop, soilLayerName),
 
-                MaterialName = soilLayerMaterialName,
-                IsAquifer = TransformIsAquifer(soilLayer.IsAquifer, soilLayerMaterialName),
+                MaterialName = soilLayerName,
+                IsAquifer = TransformIsAquifer(soilLayer.IsAquifer, soilLayerName),
                 Color = SoilLayerColorConverter.Convert(soilLayer.Color),
 
-                AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = (RoundedDouble) soilLayer.AbovePhreaticLevelMean,
-                    CoefficientOfVariation = (RoundedDouble) soilLayer.AbovePhreaticLevelCoefficientOfVariation,
-                    Shift = (RoundedDouble) soilLayer.AbovePhreaticLevelShift
-                },
-                BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = (RoundedDouble) soilLayer.BelowPhreaticLevelMean,
-                    CoefficientOfVariation = (RoundedDouble) soilLayer.BelowPhreaticLevelCoefficientOfVariation,
-                    Shift = (RoundedDouble) soilLayer.BelowPhreaticLevelShift
-                },
-                Cohesion = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = (RoundedDouble) soilLayer.CohesionMean,
-                    CoefficientOfVariation = (RoundedDouble) soilLayer.CohesionCoefficientOfVariation
-                },
-                FrictionAngle = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = (RoundedDouble) soilLayer.FrictionAngleMean,
-                    CoefficientOfVariation = (RoundedDouble) soilLayer.FrictionAngleCoefficientOfVariation
-                },
-                ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = (RoundedDouble) soilLayer.ShearStrengthRatioMean,
-                    CoefficientOfVariation = (RoundedDouble) soilLayer.ShearStrengthRatioCoefficientOfVariation
-                },
-                StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = (RoundedDouble) soilLayer.StrengthIncreaseExponentMean,
-                    CoefficientOfVariation = (RoundedDouble) soilLayer.StrengthIncreaseExponentCoefficientOfVariation
-                },
-                Pop = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = (RoundedDouble) soilLayer.PopMean,
-                    CoefficientOfVariation = (RoundedDouble) soilLayer.PopCoefficientOfVariation
-                }
+                AbovePhreaticLevel = TransformLogNormalDistribution(soilLayer.AbovePhreaticLevelMean,
+                                                                    soilLayer.AbovePhreaticLevelCoefficientOfVariation,
+                                                                    soilLayer.AbovePhreaticLevelShift,
+                                                                    soilLayerName,
+                                                                    "Onverzadigd gewicht"),
+                BelowPhreaticLevel = TransformLogNormalDistribution(soilLayer.BelowPhreaticLevelMean,
+                                                                    soilLayer.BelowPhreaticLevelCoefficientOfVariation,
+                                                                    soilLayer.BelowPhreaticLevelShift,
+                                                                    soilLayerName,
+                                                                    "Verzadigd gewicht"),
+
+                Cohesion = TransformLogNormalDistribution(soilLayer.CohesionMean,
+                                                          soilLayer.CohesionCoefficientOfVariation,
+                                                          soilLayerName,
+                                                          "Cohesie"),
+                FrictionAngle = TransformLogNormalDistribution(soilLayer.FrictionAngleMean,
+                                                               soilLayer.FrictionAngleCoefficientOfVariation,
+                                                               soilLayerName,
+                                                               "Wrijvingshoek"),
+                ShearStrengthRatio = TransformLogNormalDistribution(soilLayer.ShearStrengthRatioMean,
+                                                                    soilLayer.ShearStrengthRatioCoefficientOfVariation,
+                                                                    soilLayerName,
+                                                                    "Schuifsterkte ratio (S)"),
+                StrengthIncreaseExponent = TransformLogNormalDistribution(soilLayer.StrengthIncreaseExponentMean,
+                                                                          soilLayer.StrengthIncreaseExponentCoefficientOfVariation,
+                                                                          soilLayerName,
+                                                                          "Sterkte toename exp (m)"),
+                Pop = TransformLogNormalDistribution(soilLayer.PopMean,
+                                                     soilLayer.PopCoefficientOfVariation,
+                                                     soilLayerName,
+                                                     "POP")
             };
+        }
+
+        /// <summary>
+        /// Transforms the input arguments into a log normal distribution for a parameter of a soil layer.
+        /// </summary>
+        /// <param name="mean">The mean of the distribution.</param>
+        /// <param name="coefficientOfVariation">The coefficient of variation of the distribution.</param>
+        /// <param name="soilLayerName">The name of the soil layer.</param>
+        /// <param name="parameterName">The name of the parameter to create a distribution for.</param>
+        /// <returns>A <see cref="VariationCoefficientLogNormalDistribution"/> based on the input arguments.</returns>
+        /// <exception cref="ImportedDataTransformException"></exception>
+        private static VariationCoefficientLogNormalDistribution TransformLogNormalDistribution(double mean,
+                                                                                                double coefficientOfVariation,
+                                                                                                string soilLayerName,
+                                                                                                string parameterName)
+        {
+            return TransformLogNormalDistribution(mean,
+                                                  coefficientOfVariation,
+                                                  new VariationCoefficientLogNormalDistribution().Shift,
+                                                  soilLayerName,
+                                                  parameterName);
+        }
+
+        /// <summary>
+        /// Transforms the input arguments into a log normal distribution for a parameter of a soil layer.
+        /// </summary>
+        /// <param name="mean">The mean of the distribution.</param>
+        /// <param name="coefficientOfVariation">The coefficient of variation of the distribution.</param>
+        /// <param name="shift">The shift of the distribution.</param>
+        /// <param name="soilLayerName">The name of the soil layer.</param>
+        /// <param name="parameterName">The name of the parameter to create a distribution for.</param>
+        /// <returns>A <see cref="VariationCoefficientLogNormalDistribution"/> based on the input arguments.</returns>
+        /// <exception cref="ImportedDataTransformException"></exception>
+        private static VariationCoefficientLogNormalDistribution TransformLogNormalDistribution(double mean,
+                                                                                                double coefficientOfVariation,
+                                                                                                double shift,
+                                                                                                string soilLayerName,
+                                                                                                string parameterName)
+        {
+            try
+            {
+                return new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) mean,
+                    CoefficientOfVariation = (RoundedDouble) coefficientOfVariation,
+                    Shift = (RoundedDouble) shift
+                };
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                string exceptionMessage = string.Format("Er is een fout opgetreden bij het inlezen van grondlaag '{0}' voor parameter '{1}': {2}",
+                                                        soilLayerName,
+                                                        parameterName,
+                                                        e.Message);
+                throw new ImportedDataTransformException(exceptionMessage, e);
+            }
         }
 
         /// <summary>
@@ -175,7 +225,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             {
                 string exceptionMessage = CreateErrorMessage(soilLayerName,
                                                              string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                            RingtoetsCommonIOResources.SoilLayerData_IsAquifer_DisplayName));
+                                                                           RingtoetsCommonIOResources.SoilLayerData_IsAquifer_DisplayName));
                 throw new ImportedDataTransformException(exceptionMessage, e);
             }
         }
