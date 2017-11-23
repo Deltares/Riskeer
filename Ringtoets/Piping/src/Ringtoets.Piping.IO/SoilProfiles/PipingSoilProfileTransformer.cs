@@ -112,7 +112,8 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
             catch (ArgumentException e)
             {
-                throw new ImportedDataTransformException(e.Message, e);
+                string message = CreateErrorMessage(soilProfile2D.Name, e.Message);
+                throw new ImportedDataTransformException(message, e);
             }
         }
 
@@ -136,8 +137,14 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
             catch (ArgumentException e)
             {
-                throw new ImportedDataTransformException(e.Message, e);
+                string message = CreateErrorMessage(soilProfile1D.Name, e.Message);
+                throw new ImportedDataTransformException(message, e);
             }
+        }
+
+        private static string CreateErrorMessage(string soilProfileName, string errorMessage)
+        {
+            return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilProfile_0_ErrorMessage_1_, soilProfileName, errorMessage);
         }
     }
 }

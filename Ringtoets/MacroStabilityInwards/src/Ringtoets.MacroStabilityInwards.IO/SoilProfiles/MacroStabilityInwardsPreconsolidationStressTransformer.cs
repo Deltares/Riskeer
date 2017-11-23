@@ -27,7 +27,6 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 {
@@ -57,9 +56,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 throw new ArgumentNullException(nameof(preconsolidationStress));
             }
 
-            DistributionHelper.ValidateIsNonShiftedLogNormal(preconsolidationStress.StressDistributionType,
-                                                             preconsolidationStress.StressShift,
-                                                             Resources.PreconsolidationStress_DisplayName);
+            var location = new Point2D(preconsolidationStress.XCoordinate,
+                                       preconsolidationStress.ZCoordinate);
+
+            ValidateDistribution(preconsolidationStress, location);
 
             try
             {
@@ -69,20 +69,46 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                     CoefficientOfVariation = (RoundedDouble) preconsolidationStress.StressCoefficientOfVariation
                 };
 
-                var location = new Point2D(preconsolidationStress.XCoordinate,
-                                           preconsolidationStress.ZCoordinate);
-
                 return new MacroStabilityInwardsPreconsolidationStress(location, distribution);
             }
             catch (ArgumentOutOfRangeException e)
             {
-                string errorMessage = string.Format(RingtoetsCommonIOResources.Stochastic_parameter_0_has_no_lognormal_distribution,
-                                                    Resources.PreconsolidationStress_DisplayName);
+                string errorMessage = CreateErrorMessage(location, e.Message);
                 throw new ImportedDataTransformException(errorMessage, e);
             }
             catch (ArgumentException e)
             {
                 throw new ImportedDataTransformException(e.Message, e);
+            }
+        }
+
+        private static string CreateErrorMessage(Point2D location, string errorMessage)
+        {
+            return string.Format(Resources.Transform_PreconsolidationStressLocation_0_has_invalid_configuration_ErrorMessage_1_,
+                                 location,
+                                 errorMessage);
+        }
+
+        /// <summary>
+        /// Validates whether the values of the <paramref name="preconsolidationStress"/>
+        /// are correct for creating the log normal distribution of a reconsolidation stress.
+        /// </summary>
+        /// <param name="preconsolidationStress">The <see cref="PreconsolidationStress"/> to validate.</param>
+        /// <param name="location">The location of the <see cref="PreconsolidationStress"/></param>
+        /// <exception cref="ImportedDataTransformException">Thrown when the stochastic parameters
+        /// are not defined as a log normal distribution.</exception>
+        private static void ValidateDistribution(PreconsolidationStress preconsolidationStress, Point2D location)
+        {
+            try
+            {
+                DistributionHelper.ValidateLogNormalDistribution(preconsolidationStress.StressDistributionType,
+                                                                 preconsolidationStress.StressShift,
+                                                                 Resources.PreconsolidationStress_DisplayName);
+            }
+            catch (ImportedDataTransformException e)
+            {
+                string errorMessage = CreateErrorMessage(location, e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
             }
         }
     }
