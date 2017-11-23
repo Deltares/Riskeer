@@ -373,7 +373,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
         private static string CreateErrorMessage(string soilLayerName, string errorMessage)
         {
-            return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1,
+            return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1_,
                                  soilLayerName,
                                  errorMessage);
         }

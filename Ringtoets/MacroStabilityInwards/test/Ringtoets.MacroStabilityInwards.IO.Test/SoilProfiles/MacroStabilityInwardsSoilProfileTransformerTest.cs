@@ -82,7 +82,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             Exception innerException = exception.InnerException;
             Assert.IsInstanceOf<ArgumentException>(innerException);
-            Assert.AreEqual(innerException.Message, exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(profile.Name, innerException.Message);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -117,8 +118,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var exception = Assert.Throws<ImportedDataTransformException>(call);
 
             Exception innerException = exception.InnerException;
-            Assert.IsInstanceOf<ArgumentException>(innerException);
-            Assert.AreEqual(innerException.Message, exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(profile.Name, innerException.Message);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -149,7 +150,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             {
                 XCoordinate = random.NextDouble(),
                 ZCoordinate = random.NextDouble(),
-                StressDistributionType = 3,
+                StressDistributionType = SoilLayerConstants.LogNormalDistributionValue,
                 StressMean = random.NextDouble(),
                 StressCoefficientOfVariation = random.NextDouble(),
                 StressShift = 0
@@ -168,6 +169,46 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             AssertPreconsolidationStress(preconsolidationStress, transformedProfile.PreconsolidationStresses.Single());
+        }
+
+        [Test]
+        public void Transform_SoilProfile2DWithInvalidPreconsolidationStress_ThrowsImportedDataException()
+        {
+            var random = new Random(21);
+            var preconsolidationStress = new PreconsolidationStress
+            {
+                XCoordinate = double.NaN,
+                ZCoordinate = random.NextDouble(),
+                StressDistributionType = SoilLayerConstants.LogNormalDistributionValue,
+                StressMean = random.NextDouble(),
+                StressCoefficientOfVariation = random.NextDouble(),
+                StressShift = 0
+            };
+
+            var profile = new SoilProfile2D(1, "test", new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2D()
+            }, new[]
+            {
+                preconsolidationStress
+            });
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ImportedDataTransformException>(innerException);
+            string expectedMessage = CreateExpectedErrorMessage(profile.Name, innerException.Message);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        private static string CreateExpectedErrorMessage(string soilProfileName, string errorMessage)
+        {
+            return $"Er is een fout opgetreden bij het inlezen van ondergrondschematisatie '{soilProfileName}': " +
+                   $"{errorMessage}";
         }
 
         private static void AssertPreconsolidationStress(PreconsolidationStress preconsolidationStress,

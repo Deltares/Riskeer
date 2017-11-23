@@ -2547,9 +2547,18 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden bij het inlezen van grondlaag &apos;{0}&apos;: {1}.
         /// </summary>
-        public static string Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1 {
+        public static string Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1_ {
             get {
-                return ResourceManager.GetString("Transform_Error_occurred_when_transforming_SoilLayer_0_errorMessage_1", resourceCulture);
+                return ResourceManager.GetString("Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden bij het inlezen van ondergrondschematisatie &apos;{0}&apos;: {1}.
+        /// </summary>
+        public static string Transform_Error_occurred_when_transforming_SoilProfile_0_ErrorMessage_1_ {
+            get {
+                return ResourceManager.GetString("Transform_Error_occurred_when_transforming_SoilProfile_0_ErrorMessage_1_", resourceCulture);
             }
         }
         

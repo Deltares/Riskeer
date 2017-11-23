@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
@@ -89,7 +90,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
             catch (ArgumentException e)
             {
-                throw new ImportedDataTransformException(e.Message, e);
+                string message = CreateErrorMessage(soilProfile.Name, e.Message);
+                throw new ImportedDataTransformException(message, e);
             }
         }
 
@@ -109,14 +111,41 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                                                               soilProfile.Layers
                                                                          .Select(MacroStabilityInwardsSoilLayerTransformer.Transform)
                                                                          .ToArray(),
-                                                              soilProfile.PreconsolidationStresses
-                                                                         .Select(MacroStabilityInwardsPreconsolidationStressTransformer.Transform)
-                                                                         .ToArray());
+                                                              TransformPreconsolidationStresses(soilProfile.Name, soilProfile.PreconsolidationStresses));
             }
             catch (ArgumentException e)
             {
-                throw new ImportedDataTransformException(e.Message, e);
+                string message = CreateErrorMessage(soilProfile.Name, e.Message);
+                throw new ImportedDataTransformException(message, e);
             }
+        }
+
+        /// <summary>
+        /// Transforms the generic collection of <see cref="PreconsolidationStress"/> into a <see cref="MacroStabilityInwardsPreconsolidationStress"/>.
+        /// </summary>
+        /// <param name="soilProfileName">The name of the soil profile.</param>
+        /// <param name="preconsolidationStresses">The collection of <see cref="PreconsolidationStress"/> to transform.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> based on <paramref name="preconsolidationStresses"/>.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when the <paramref name="preconsolidationStresses"/>
+        /// could not be transformed into valid <see cref="MacroStabilityInwardsPreconsolidationStress"/>.</exception>
+        private static IEnumerable<MacroStabilityInwardsPreconsolidationStress> TransformPreconsolidationStresses(string soilProfileName,
+                                                                                                                  IEnumerable<PreconsolidationStress> preconsolidationStresses)
+        {
+            try
+            {
+                return preconsolidationStresses.Select(MacroStabilityInwardsPreconsolidationStressTransformer.Transform)
+                                               .ToArray();
+            }
+            catch (ImportedDataTransformException e)
+            {
+                string message = CreateErrorMessage(soilProfileName, e.Message);
+                throw new ImportedDataTransformException(message, e);
+            }
+        }
+
+        private static string CreateErrorMessage(string soilProfileName, string errorMessage)
+        {
+            return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilProfile_0_ErrorMessage_1_, soilProfileName, errorMessage);
         }
     }
 }

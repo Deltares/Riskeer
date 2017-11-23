@@ -880,7 +880,10 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="Stochastic_parameter_0_must_be_a_lognormal_distribution_with_zero_shift" xml:space="preserve">
     <value>Parameter '{0}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.</value>
   </data>
-  <data name="Transform_Error_occurred_when_transforming_SoilLayer_0_errorMessage_1" xml:space="preserve">
+  <data name="Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1_" xml:space="preserve">
     <value>Er is een fout opgetreden bij het inlezen van grondlaag '{0}': {1}</value>
+  </data>
+  <data name="Transform_Error_occurred_when_transforming_SoilProfile_0_ErrorMessage_1_" xml:space="preserve">
+    <value>Er is een fout opgetreden bij het inlezen van ondergrondschematisatie '{0}': {1}</value>
   </data>
 </root>
