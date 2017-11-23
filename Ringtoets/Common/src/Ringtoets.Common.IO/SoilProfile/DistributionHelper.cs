@@ -43,31 +43,24 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when the parameter is not a 
         /// log normal distribution with a zero shift.</exception>
-        public static void ValidateLogNormalDistribution(long? distributionType, double shift, string parameterName)
+        public static void ValidateIsNonShiftedLogNormal(long? distributionType, double shift, string parameterName)
         {
             if (parameterName == null)
             {
                 throw new ArgumentNullException(nameof(parameterName));
             }
 
-            if (distributionType.HasValue)
+            if (distributionType.HasValue && (distributionType.Value != SoilLayerConstants.LogNormalDistributionValue
+                                              || Math.Abs(shift) > tolerance))
             {
-                if (distributionType.Value != SoilLayerConstants.LogNormalDistributionValue)
-                    throw new ImportedDataTransformException(string.Format(
-                                                                 Resources.Stochastic_parameter_0_must_be_a_lognormal_distribution,
-                                                                 parameterName));
-
-                if (Math.Abs(shift) > tolerance)
-                {
-                    throw new ImportedDataTransformException(string.Format(
-                                                                 Resources.Stochastic_parameter_0_must_be_a_lognormal_distribution_with_zero_shift,
-                                                                 parameterName));
-                }
+                throw new ImportedDataTransformException(string.Format(
+                                                             Resources.Stochastic_parameter_0_has_no_lognormal_distribution,
+                                                             parameterName));
             }
         }
 
         /// <summary>
-        /// Validates that the distribution is a (shifted) log normal distribution.
+        /// Validates that the distribution is a log normal distribution.
         /// </summary>
         /// <param name="distributionType">The distribution type.</param>
         /// <param name="parameterName">The name of the parameter to be validated.</param>
@@ -75,7 +68,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when the parameter is not a 
         /// log normal distribution.</exception>
-        public static void ValidateShiftedLogNormalDistribution(long? distributionType, string parameterName)
+        public static void ValidateIsLogNormal(long? distributionType, string parameterName)
         {
             if (parameterName == null)
             {
@@ -85,7 +78,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             if (distributionType.HasValue && distributionType != SoilLayerConstants.LogNormalDistributionValue)
             {
                 throw new ImportedDataTransformException(string.Format(
-                                                             Resources.Stochastic_parameter_0_has_no_shifted_lognormal_distribution,
+                                                             Resources.SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution,
                                                              parameterName));
             }
         }
