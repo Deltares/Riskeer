@@ -208,4 +208,7 @@
   <data name="Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_" xml:space="preserve">
     <value>Er is een fout opgetreden bij het inlezen van grondlaag '{0}' voor parameter '{1}': {2}</value>
   </data>
+  <data name="Transform_PreconsolidationStressLocation_0_has_invalid_configuration_ErrorMessage_1_" xml:space="preserve">
+    <value>Grensspanning op locatie {0} heeft een ongeldige configuratie. {1}</value>
+  </data>
 </root>
