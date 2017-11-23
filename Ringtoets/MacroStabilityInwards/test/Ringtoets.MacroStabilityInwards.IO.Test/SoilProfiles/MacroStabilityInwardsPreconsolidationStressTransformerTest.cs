@@ -157,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
         private static string CreateExpectedErrorMessage(Point2D location, string errorMessage)
         {
-            return $"Grensspanning op locatie {location} heeft een ongeldige configuratie. {errorMessage}";
+            return $"Grensspanning op locatie {location} heeft een ongeldige waarde. {errorMessage}";
         }
 
         #region Test data

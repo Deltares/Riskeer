@@ -411,7 +411,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grensspanning op locatie {0} heeft een ongeldige configuratie. {1}.
+        ///   Looks up a localized string similar to Grensspanning op locatie {0} heeft een ongeldige waarde. {1}.
         /// </summary>
         public static string Transform_PreconsolidationStressLocation_0_has_invalid_configuration_ErrorMessage_1_ {
             get {
