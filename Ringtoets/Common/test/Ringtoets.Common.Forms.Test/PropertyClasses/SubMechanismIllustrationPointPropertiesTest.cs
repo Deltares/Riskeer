@@ -96,8 +96,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             CollectionAssert.AreEqual(illustrationPoint.Stochasts, properties.Durations);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, ExpandableObjectConverter>(
-                nameof(SubMechanismIllustrationPointProperties.IllustrationPointValuesProperties));
-            Assert.AreSame(illustrationPoint, properties.IllustrationPointValuesProperties.Data);
+                nameof(SubMechanismIllustrationPointProperties.SubMechanismIllustrationPointValues));
+            Assert.AreSame(illustrationPoint, properties.SubMechanismIllustrationPointValues.Data);
         }
 
         [Test]
@@ -147,7 +147,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor alphasProperty = dynamicProperties[alphasPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphasProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Invloedscoëfficienten [-]",
+                                                                            "Invloedscoëfficiënten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 

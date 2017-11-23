@@ -146,7 +146,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedProbability, topLevelProperties.CalculatedProbability);
             CollectionAssert.AreEqual(subMechanismIllustrationPoint.Stochasts, topLevelProperties.AlphaValues);
             CollectionAssert.AreEqual(subMechanismIllustrationPoint.Stochasts, topLevelProperties.Durations);
-            Assert.AreSame(subMechanismIllustrationPoint, topLevelProperties.IllustrationPointValuesProperties.Data);
+            Assert.AreSame(subMechanismIllustrationPoint, topLevelProperties.SubMechanismIllustrationPointValues.Data);
         }
 
         [Test]
@@ -227,7 +227,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             illustrationPointsCategory,
-                                                                            "Invloedscoëfficienten [-]",
+                                                                            "Invloedscoëfficiënten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 

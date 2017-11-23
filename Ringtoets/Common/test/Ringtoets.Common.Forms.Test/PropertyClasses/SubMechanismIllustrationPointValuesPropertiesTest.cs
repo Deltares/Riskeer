@@ -32,7 +32,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class IllustrationPointValuesPropertiesTest
+    public class SubMechanismIllustrationPointValuesPropertiesTest
     {
         private const int realizationsPropertyIndex = 0;
         private const int resultsPropertyIndex = 1;
@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_SubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new IllustrationPointValuesProperties(null);
+            TestDelegate call = () => new SubMechanismIllustrationPointValuesProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                       Enumerable.Empty<IllustrationPointResult>());
 
             // Call
-            var properties = new IllustrationPointValuesProperties(illustrationPoint);
+            var properties = new SubMechanismIllustrationPointValuesProperties(illustrationPoint);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<SubMechanismIllustrationPoint>>(properties);
@@ -68,8 +68,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
-            TestHelper.AssertTypeConverter<IllustrationPointValuesProperties, KeyValueExpandableArrayConverter>(nameof(IllustrationPointValuesProperties.Realizations));
-            TestHelper.AssertTypeConverter<IllustrationPointValuesProperties, KeyValueExpandableArrayConverter>(nameof(IllustrationPointValuesProperties.Results));
+            TestHelper.AssertTypeConverter<SubMechanismIllustrationPointValuesProperties, KeyValueExpandableArrayConverter>(nameof(SubMechanismIllustrationPointValuesProperties.Realizations));
+            TestHelper.AssertTypeConverter<SubMechanismIllustrationPointValuesProperties, KeyValueExpandableArrayConverter>(nameof(SubMechanismIllustrationPointValuesProperties.Results));
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                       illustrationPointResults);
 
             // Call
-            var properties = new IllustrationPointValuesProperties(illustrationPoint);
+            var properties = new SubMechanismIllustrationPointValuesProperties(illustrationPoint);
 
             // Assert
             CollectionAssert.AreEqual(illustrationPoint.Stochasts, properties.Realizations);
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                       Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                                       Enumerable.Empty<IllustrationPointResult>());
 
-            var properties = new IllustrationPointValuesProperties(illustrationPoint);
+            var properties = new SubMechanismIllustrationPointValuesProperties(illustrationPoint);
 
             // Call
             string toStringValue = properties.ToString();
@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                       Enumerable.Empty<IllustrationPointResult>());
 
             // Call
-            var properties = new IllustrationPointValuesProperties(illustrationPoint);
+            var properties = new SubMechanismIllustrationPointValuesProperties(illustrationPoint);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

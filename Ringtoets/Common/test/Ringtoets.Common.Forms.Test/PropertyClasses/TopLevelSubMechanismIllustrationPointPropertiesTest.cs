@@ -184,7 +184,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             CollectionAssert.AreEqual(submechanismIllustrationPoint.Stochasts, properties.Durations);
 
             Assert.AreSame(illustrationPoint.SubMechanismIllustrationPoint,
-                           properties.IllustrationPointValuesProperties.Data);
+                           properties.SubMechanismIllustrationPointValues.Data);
         }
 
         [Test]
@@ -253,7 +253,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             generalCategory,
-                                                                            "Invloedscoëfficienten [-]",
+                                                                            "Invloedscoëfficiënten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
@@ -329,7 +329,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             generalCategory,
-                                                                            "Invloedscoëfficienten [-]",
+                                                                            "Invloedscoëfficiënten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 

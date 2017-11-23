@@ -80,38 +80,38 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             });
 
             // Call
-            var faultTree = new TopLevelFaultTreeIllustrationPointProperties(topLevel, random.NextBoolean());
+            var properties = new TopLevelFaultTreeIllustrationPointProperties(topLevel, random.NextBoolean());
 
             // Assert
-            Assert.AreEqual("N", faultTree.WindDirection);
+            Assert.AreEqual(topLevel.WindDirection.Name, properties.WindDirection);
 
             TestHelper.AssertTypeConverter<TopLevelFaultTreeIllustrationPointProperties, NoValueRoundedDoubleConverter>(
                 nameof(TopLevelFaultTreeIllustrationPointProperties.Reliability));
-            Assert.AreEqual(3.14, faultTree.Reliability.Value);
-            Assert.AreEqual(5, faultTree.Reliability.NumberOfDecimalPlaces);
+            Assert.AreEqual(3.14, properties.Reliability.Value);
+            Assert.AreEqual(5, properties.Reliability.NumberOfDecimalPlaces);
 
             TestHelper.AssertTypeConverter<TopLevelFaultTreeIllustrationPointProperties, NoProbabilityValueDoubleConverter>(
                 nameof(TopLevelFaultTreeIllustrationPointProperties.CalculatedProbability));
-            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), faultTree.CalculatedProbability);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), properties.CalculatedProbability);
 
-            Assert.AreEqual("closing situation", faultTree.ClosingSituation);
+            Assert.AreEqual(topLevel.ClosingSituation, properties.ClosingSituation);
 
             TestHelper.AssertTypeConverter<TopLevelFaultTreeIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(TopLevelFaultTreeIllustrationPointProperties.AlphaValues));
-            Assert.IsNotNull(faultTree.AlphaValues);
-            Assert.AreEqual(1, faultTree.AlphaValues.Length);
-            Assert.AreEqual(5.5, faultTree.AlphaValues[0].Alpha);
+            Assert.IsNotNull(properties.AlphaValues);
+            Assert.AreEqual(1, properties.AlphaValues.Length);
+            Assert.AreEqual(5.5, properties.AlphaValues[0].Alpha);
 
             TestHelper.AssertTypeConverter<TopLevelFaultTreeIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(TopLevelFaultTreeIllustrationPointProperties.Durations));
-            Assert.IsNotNull(faultTree.Durations);
-            Assert.AreEqual(1, faultTree.Durations.Length);
-            Assert.AreEqual(2.5, faultTree.Durations[0].Duration);
+            Assert.IsNotNull(properties.Durations);
+            Assert.AreEqual(1, properties.Durations.Length);
+            Assert.AreEqual(2.5, properties.Durations[0].Duration);
 
             TestHelper.AssertTypeConverter<TopLevelFaultTreeIllustrationPointProperties, ExpandableArrayConverter>(
                 nameof(TopLevelFaultTreeIllustrationPointProperties.IllustrationPoints));
-            Assert.IsNotNull(faultTree.IllustrationPoints);
-            Assert.AreEqual(2, faultTree.IllustrationPoints.Length);
+            Assert.IsNotNull(properties.IllustrationPoints);
+            Assert.AreEqual(2, properties.IllustrationPoints.Length);
         }
 
         [Test]
@@ -124,12 +124,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 new IllustrationPointNode(new TestFaultTreeIllustrationPoint()));
 
             // Call
-            var topLevelFaultTree = new TopLevelFaultTreeIllustrationPointProperties(topLevel, true);
+            var properties = new TopLevelFaultTreeIllustrationPointProperties(topLevel, true);
 
             // Assert
             const string illustrationPointsCategoryName = "Illustratiepunten";
 
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(topLevelFaultTree);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(6, dynamicProperties.Count);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
@@ -156,7 +156,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor alphasProperty = dynamicProperties[alphasPropertyIndex - 1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphasProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Invloedscoëfficienten [-]",
+                                                                            "Invloedscoëfficiënten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
@@ -185,12 +185,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 new IllustrationPointNode(new TestFaultTreeIllustrationPoint()));
 
             // Call
-            var topLevelFaultTree = new TopLevelFaultTreeIllustrationPointProperties(topLevel, false);
+            var properties = new TopLevelFaultTreeIllustrationPointProperties(topLevel, false);
 
             // Assert
             const string illustrationPointsCategoryName = "Illustratiepunten";
 
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(topLevelFaultTree);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(7, dynamicProperties.Count);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
@@ -224,7 +224,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor alphasProperty = dynamicProperties[alphasPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphasProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Invloedscoëfficienten [-]",
+                                                                            "Invloedscoëfficiënten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 

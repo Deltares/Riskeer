@@ -35,16 +35,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// Properties of the values in the sub mechanism illustration point.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class IllustrationPointValuesProperties : ObjectProperties<SubMechanismIllustrationPoint>
+    public class SubMechanismIllustrationPointValuesProperties : ObjectProperties<SubMechanismIllustrationPoint>
     {
         /// <summary>
-        /// Creates a new instance of the <see cref="IllustrationPointValuesProperties"/>.
+        /// Creates a new instance of the <see cref="SubMechanismIllustrationPointValuesProperties"/>.
         /// </summary>
         /// <param name="illustrationPoint">The sub mechanism illustration point 
         /// to create the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="illustrationPoint"/>
         /// is <c>null</c>.</exception>
-        public IllustrationPointValuesProperties(SubMechanismIllustrationPoint illustrationPoint)
+        public SubMechanismIllustrationPointValuesProperties(SubMechanismIllustrationPoint illustrationPoint)
         {
             if (illustrationPoint == null)
             {
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             Data = illustrationPoint;
         }
 
-        [PropertyOrder(0)]
+        [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_Description))]
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(1)]
+        [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Result_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Result_Description))]

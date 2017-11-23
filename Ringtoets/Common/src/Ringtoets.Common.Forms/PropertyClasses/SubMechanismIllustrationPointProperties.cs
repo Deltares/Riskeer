@@ -89,11 +89,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_IllustrationPointValues_DisplayName))]
-        public IllustrationPointValuesProperties IllustrationPointValuesProperties
+        public SubMechanismIllustrationPointValuesProperties SubMechanismIllustrationPointValues
         {
             get
             {
-                return new IllustrationPointValuesProperties(subMechanismIllustrationPoint);
+                return new SubMechanismIllustrationPointValuesProperties(subMechanismIllustrationPoint);
             }
         }
     }
