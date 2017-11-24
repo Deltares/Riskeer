@@ -217,19 +217,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         #region Overtopping calculations
 
         [Test]
-        public void Run_ValidOvertoppingCalculation_InputPropertiesCorrectlySendToService()
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Run_ValidOvertoppingCalculation_InputPropertiesCorrectlySendToService(BreakWaterType breakWaterType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
             AddSectionToAssessmentSection(assessmentSection);
 
+            DikeProfile dikeProfile = CreateDikeProfile();
+            dikeProfile.BreakWater.Type = breakWaterType;
+
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = CreateDikeProfile()
+                    DikeProfile = dikeProfile
                 }
             };
 
@@ -258,7 +264,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                                                                     calculation.InputParameters.Orientation,
                                                                     calculation.InputParameters.DikeGeometry.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness)),
                                                                     input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
-                                                                    new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
+                                                                    new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                     calculation.InputParameters.DikeHeight,
                                                                     generalInput.CriticalOvertoppingModelFactor,
                                                                     generalInput.FbFactor.Mean,
@@ -496,9 +502,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         #region Dike height calculations
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_ValidDikeHeight_InputPropertiesCorrectlySendToService(Norm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_ValidDikeHeight_InputPropertiesCorrectlySendToService(RequiredProbability)")]
-        public void Run_ValidDikeHeightCalculation_InputPropertiesCorrectlySendToService(DikeHeightCalculationType dikeHeightCalculationType)
+        public void Run_ValidDikeHeightCalculation_InputPropertiesCorrectlySendToService(
+            [Values(BreakWaterType.Caisson,
+                BreakWaterType.Wall,
+                BreakWaterType.Dam)] BreakWaterType breakWaterType,
+            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
@@ -513,12 +522,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             ImportHydraulicBoundaryDatabase(assessmentSection);
             AddSectionToAssessmentSection(assessmentSection);
 
+            DikeProfile dikeProfile = CreateDikeProfile();
+            dikeProfile.BreakWater.Type = breakWaterType;
+
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = CreateDikeProfile(),
+                    DikeProfile = dikeProfile,
                     DikeHeightCalculationType = dikeHeightCalculationType
                 }
             };
@@ -551,7 +563,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                                                                    calculation.InputParameters.Orientation,
                                                                    calculation.InputParameters.DikeGeometry.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness)),
                                                                    input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
-                                                                   new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
+                                                                   new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                    generalInput.CriticalOvertoppingModelFactor,
                                                                    generalInput.FbFactor.Mean,
                                                                    generalInput.FbFactor.StandardDeviation,
@@ -926,9 +938,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         #region Overtopping rate calculations
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_ValidOvertoppingRate_InputPropertiesCorrectlySendToService(Norm)")]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_ValidOvertoppingRate_InputPropertiesCorrectlySendToService(RequiredProbability)")]
-        public void Run_ValidOvertoppingRateCalculation_InputPropertiesCorrectlySendToService(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        public void Run_ValidOvertoppingRateCalculation_InputPropertiesCorrectlySendToService(
+            [Values(BreakWaterType.Caisson,
+                BreakWaterType.Wall,
+                BreakWaterType.Dam)] BreakWaterType breakWaterType,
+            [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
+                OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)] OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             // Setup
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
@@ -943,12 +958,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             ImportHydraulicBoundaryDatabase(assessmentSection);
             AddSectionToAssessmentSection(assessmentSection);
 
+            DikeProfile dikeProfile = CreateDikeProfile();
+            dikeProfile.BreakWater.Type = breakWaterType;
+
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = CreateDikeProfile(),
+                    DikeProfile = dikeProfile,
                     OvertoppingRateCalculationType = overtoppingRateCalculationType
                 }
             };
@@ -981,7 +999,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                                                                         calculation.InputParameters.Orientation,
                                                                         calculation.InputParameters.DikeGeometry.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness)),
                                                                         input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
-                                                                        new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
+                                                                        new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                         calculation.InputParameters.DikeHeight,
                                                                         generalInput.CriticalOvertoppingModelFactor,
                                                                         generalInput.FbFactor.Mean,

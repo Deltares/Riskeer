@@ -375,10 +375,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
         }
 
         [Test]
-        [TestCase(true, false)]
-        [TestCase(true, true)]
-        [TestCase(false, false)]
-        public void Calculate_VariousVerticalWallCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_VariousVerticalWallCalculationsWithoutBreakWater_InputPropertiesCorrectlySentToCalculator(bool useForeshore)
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -403,7 +402,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
             }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -426,7 +425,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     1300001,
                     input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
-                    useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
+                    null,
                     generalInput.GravitationalAcceleration,
                     input.FactorStormDurationOpenStructure,
                     input.FailureProbabilityOpenStructure,
@@ -456,10 +455,92 @@ namespace Ringtoets.ClosingStructures.Service.Test
         }
 
         [Test]
-        [TestCase(true, false)]
-        [TestCase(true, true)]
-        [TestCase(false, false)]
-        public void Calculate_VariousLowSillCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_VariousVerticalWallCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
+
+            var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath))
+                             .Return(calculator);
+            mockRepository.ReplayAll();
+
+            var calculation = new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                    {
+                        BreakWater =
+                        {
+                            Type = breakWaterType
+                        }
+                    }
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new ClosingStructuresCalculationService().Calculate(calculation,
+                                                                    failureMechanism.GeneralInput,
+                                                                    failureMechanism.GeneralInput.N,
+                                                                    assessmentSection.FailureMechanismContribution.Norm,
+                                                                    failureMechanism.Contribution,
+                                                                    validFilePath);
+
+                // Assert
+                StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, calculationInputs.Length);
+
+                GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
+                ClosingStructuresInput input = calculation.InputParameters;
+                var expectedInput = new StructuresClosureVerticalWallCalculationInput(
+                    1300001,
+                    input.StructureNormalOrientation,
+                    input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
+                    new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
+                    generalInput.GravitationalAcceleration,
+                    input.FactorStormDurationOpenStructure,
+                    input.FailureProbabilityOpenStructure,
+                    input.FailureProbabilityReparation,
+                    input.IdenticalApertures,
+                    input.AllowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.StandardDeviation,
+                    generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
+                    input.StorageStructureArea.Mean, input.StorageStructureArea.CoefficientOfVariation,
+                    generalInput.ModelFactorInflowVolume,
+                    input.FlowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.StandardDeviation,
+                    input.CriticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                    input.FailureProbabilityStructureWithErosion,
+                    input.StormDuration.Mean, input.StormDuration.CoefficientOfVariation,
+                    input.ProbabilityOrFrequencyOpenStructureBeforeFlooding,
+                    generalInput.ModelFactorOvertoppingFlow.Mean, generalInput.ModelFactorOvertoppingFlow.StandardDeviation,
+                    input.StructureNormalOrientation,
+                    input.ModelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    input.LevelCrestStructureNotClosing.Mean, input.LevelCrestStructureNotClosing.StandardDeviation,
+                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation,
+                    input.DeviationWaveDirection);
+
+                var actualInput = (StructuresClosureVerticalWallCalculationInput) calculationInputs[0];
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.IsFalse(calculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_VariousLowSillCalculationsWithoutBreakWater_InputPropertiesCorrectlySentToCalculator(bool useForeshore)
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -485,7 +566,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
             }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -508,7 +589,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     1300001,
                     input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
-                    useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
+                    null,
                     generalInput.GravitationalAcceleration,
                     input.FactorStormDurationOpenStructure,
                     input.FailureProbabilityOpenStructure,
@@ -537,10 +618,92 @@ namespace Ringtoets.ClosingStructures.Service.Test
         }
 
         [Test]
-        [TestCase(true, false)]
-        [TestCase(true, true)]
-        [TestCase(false, false)]
-        public void Calculate_VariousFloodedCulvertCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_VariousLowSillCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
+
+            var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath))
+                             .Return(calculator);
+            mockRepository.ReplayAll();
+
+            var calculation = new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    InflowModelType = ClosingStructureInflowModelType.LowSill,
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                    {
+                        BreakWater =
+                        {
+                            Type = breakWaterType
+                        }
+                    }
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new ClosingStructuresCalculationService().Calculate(calculation,
+                                                                    failureMechanism.GeneralInput,
+                                                                    failureMechanism.GeneralInput.N,
+                                                                    assessmentSection.FailureMechanismContribution.Norm,
+                                                                    failureMechanism.Contribution,
+                                                                    validFilePath);
+
+                // Assert
+                StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, calculationInputs.Length);
+
+                GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
+                ClosingStructuresInput input = calculation.InputParameters;
+                var expectedInput = new StructuresClosureLowSillCalculationInput(
+                    1300001,
+                    input.StructureNormalOrientation,
+                    input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
+                    new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
+                    generalInput.GravitationalAcceleration,
+                    input.FactorStormDurationOpenStructure,
+                    input.FailureProbabilityOpenStructure,
+                    input.FailureProbabilityReparation,
+                    input.IdenticalApertures,
+                    input.AllowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.StandardDeviation,
+                    generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
+                    input.StorageStructureArea.Mean, input.StorageStructureArea.CoefficientOfVariation,
+                    generalInput.ModelFactorInflowVolume,
+                    input.FlowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.StandardDeviation,
+                    input.CriticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                    input.FailureProbabilityStructureWithErosion,
+                    input.StormDuration.Mean, input.StormDuration.CoefficientOfVariation,
+                    input.ProbabilityOrFrequencyOpenStructureBeforeFlooding,
+                    input.ModelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    generalInput.ModelFactorSubCriticalFlow.Mean, generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
+                    input.ThresholdHeightOpenWeir.Mean, input.ThresholdHeightOpenWeir.StandardDeviation,
+                    input.InsideWaterLevel.Mean, input.InsideWaterLevel.StandardDeviation,
+                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation);
+
+                var actualInput = (StructuresClosureLowSillCalculationInput) calculationInputs[0];
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.IsFalse(calculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_VariousFloodedCulvertCalculationsWithoutBreakWater_InputPropertiesCorrectlySentToCalculator(bool useForeshore)
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -565,7 +728,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
             }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -588,7 +751,87 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     1300001,
                     input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
-                    useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
+                    null,
+                    generalInput.GravitationalAcceleration,
+                    input.FactorStormDurationOpenStructure,
+                    input.FailureProbabilityOpenStructure,
+                    input.FailureProbabilityReparation,
+                    input.IdenticalApertures,
+                    input.AllowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.StandardDeviation,
+                    generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
+                    input.StorageStructureArea.Mean, input.StorageStructureArea.CoefficientOfVariation,
+                    generalInput.ModelFactorInflowVolume,
+                    input.FlowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.StandardDeviation,
+                    input.CriticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                    input.FailureProbabilityStructureWithErosion,
+                    input.StormDuration.Mean, input.StormDuration.CoefficientOfVariation,
+                    input.ProbabilityOrFrequencyOpenStructureBeforeFlooding,
+                    input.DrainCoefficient.Mean, input.DrainCoefficient.StandardDeviation,
+                    input.AreaFlowApertures.Mean, input.AreaFlowApertures.StandardDeviation,
+                    input.InsideWaterLevel.Mean, input.InsideWaterLevel.StandardDeviation);
+
+                var actualInput = (StructuresClosureFloodedCulvertCalculationInput) calculationInputs[0];
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.IsFalse(calculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_VariousFloodedCulvertCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
+            var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath))
+                             .Return(calculator);
+            mockRepository.ReplayAll();
+
+            var calculation = new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    InflowModelType = ClosingStructureInflowModelType.FloodedCulvert,
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                    {
+                        BreakWater =
+                        {
+                            Type = breakWaterType
+                        }
+                    }
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new ClosingStructuresCalculationService().Calculate(calculation,
+                                                                    failureMechanism.GeneralInput,
+                                                                    failureMechanism.GeneralInput.N,
+                                                                    assessmentSection.FailureMechanismContribution.Norm,
+                                                                    failureMechanism.Contribution,
+                                                                    validFilePath);
+
+                // Assert
+                StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, calculationInputs.Length);
+
+                GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
+                ClosingStructuresInput input = calculation.InputParameters;
+                var expectedInput = new StructuresClosureFloodedCulvertCalculationInput(
+                    1300001,
+                    input.StructureNormalOrientation,
+                    input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
+                    new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                     generalInput.GravitationalAcceleration,
                     input.FactorStormDurationOpenStructure,
                     input.FailureProbabilityOpenStructure,

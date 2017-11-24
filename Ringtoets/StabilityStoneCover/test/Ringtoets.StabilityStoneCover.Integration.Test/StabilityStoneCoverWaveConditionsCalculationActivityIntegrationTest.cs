@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -147,12 +148,16 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         }
 
         [Test]
-        public void Run_Always_InputPropertiesCorrectlySendToService()
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Run_Always_InputPropertiesCorrectlySendToService(BreakWaterType breakWaterType)
         {
             // Setup
             const int nrOfCalculators = 6;
             var mockRepository = new MockRepository();
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
+            calculation.InputParameters.BreakWater.Type = breakWaterType;
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(stabilityStoneCoverFailureMechanism,
@@ -190,7 +195,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                  input.HydraulicBoundaryLocation.Id,
                                                                                  assessmentSection.FailureMechanismContribution.Norm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
-                                                                                 new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
+                                                                                 new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  input.WaterLevels.ElementAt(waterLevelIndex++),
                                                                                  generalInput.GeneralBlocksWaveConditionsInput.A,
                                                                                  generalInput.GeneralBlocksWaveConditionsInput.B,
@@ -207,7 +212,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                                                                                  input.HydraulicBoundaryLocation.Id,
                                                                                  assessmentSection.FailureMechanismContribution.Norm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
-                                                                                 new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
+                                                                                 new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  input.WaterLevels.ElementAt(waterLevelIndex++),
                                                                                  generalInput.GeneralColumnsWaveConditionsInput.A,
                                                                                  generalInput.GeneralColumnsWaveConditionsInput.B,
