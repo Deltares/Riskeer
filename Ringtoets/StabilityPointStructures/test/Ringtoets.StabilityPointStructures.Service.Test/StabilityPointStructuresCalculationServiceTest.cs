@@ -590,10 +590,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        [TestCase(true, false)]
-        [TestCase(true, true)]
-        [TestCase(false, false)]
-        public void Calculate_VariousLowSillLinearCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_VariousLowSillLinearCalculationsWithoutBreakWater_InputPropertiesCorrectlySentToCalculator(bool useForeshore)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -619,7 +618,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
             }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -643,7 +642,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     1300001,
                     input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
-                    useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
+                    null,
                     input.VolumicWeightWater,
                     generalInput.GravitationalAcceleration,
                     input.LevelCrestStructure.Mean,
@@ -712,10 +711,133 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        [TestCase(true, false)]
-        [TestCase(true, true)]
-        [TestCase(false, false)]
-        public void Calculate_VariousLowSillQuadraticCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_VariousLowSillLinearCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+
+            var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, validPreprocessorDirectory))
+                             .Return(calculator);
+            mockRepository.ReplayAll();
+
+            var calculation = new TestStabilityPointStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                    LoadSchematizationType = LoadSchematizationType.Linear,
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                    {
+                        BreakWater =
+                        {
+                            Type = breakWaterType
+                        }
+                    }
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new StabilityPointStructuresCalculationService().Calculate(calculation,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.GeneralInput.N,
+                                                                           assessmentSection.FailureMechanismContribution.Norm,
+                                                                           failureMechanism.Contribution,
+                                                                           validFilePath,
+                                                                           validPreprocessorDirectory);
+
+                // Assert
+                StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, calculationInputs.Length);
+
+                GeneralStabilityPointStructuresInput generalInput = failureMechanism.GeneralInput;
+                StabilityPointStructuresInput input = calculation.InputParameters;
+                var expectedInput = new StructuresStabilityPointLowSillLinearCalculationInput(
+                    1300001,
+                    input.StructureNormalOrientation,
+                    input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
+                    new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
+                    input.VolumicWeightWater,
+                    generalInput.GravitationalAcceleration,
+                    input.LevelCrestStructure.Mean,
+                    input.LevelCrestStructure.StandardDeviation,
+                    input.StructureNormalOrientation,
+                    input.FactorStormDurationOpenStructure,
+                    generalInput.ModelFactorSubCriticalFlow.Mean,
+                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
+                    input.ThresholdHeightOpenWeir.Mean,
+                    input.ThresholdHeightOpenWeir.StandardDeviation,
+                    input.InsideWaterLevelFailureConstruction.Mean,
+                    input.InsideWaterLevelFailureConstruction.StandardDeviation,
+                    input.FailureProbabilityRepairClosure,
+                    input.FailureCollisionEnergy.Mean,
+                    input.FailureCollisionEnergy.CoefficientOfVariation,
+                    generalInput.ModelFactorCollisionLoad.Mean,
+                    generalInput.ModelFactorCollisionLoad.CoefficientOfVariation,
+                    input.ShipMass.Mean,
+                    input.ShipMass.CoefficientOfVariation,
+                    input.ShipVelocity.Mean,
+                    input.ShipVelocity.CoefficientOfVariation,
+                    input.LevellingCount,
+                    input.ProbabilityCollisionSecondaryStructure,
+                    input.FlowVelocityStructureClosable.Mean,
+                    input.FlowVelocityStructureClosable.CoefficientOfVariation,
+                    input.InsideWaterLevel.Mean,
+                    input.InsideWaterLevel.StandardDeviation,
+                    input.AllowedLevelIncreaseStorage.Mean,
+                    input.AllowedLevelIncreaseStorage.StandardDeviation,
+                    generalInput.ModelFactorStorageVolume.Mean,
+                    generalInput.ModelFactorStorageVolume.StandardDeviation,
+                    input.StorageStructureArea.Mean,
+                    input.StorageStructureArea.CoefficientOfVariation,
+                    generalInput.ModelFactorInflowVolume,
+                    input.FlowWidthAtBottomProtection.Mean,
+                    input.FlowWidthAtBottomProtection.StandardDeviation,
+                    input.CriticalOvertoppingDischarge.Mean,
+                    input.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                    input.FailureProbabilityStructureWithErosion,
+                    input.StormDuration.Mean,
+                    input.StormDuration.CoefficientOfVariation,
+                    input.BankWidth.Mean,
+                    input.BankWidth.StandardDeviation,
+                    input.EvaluationLevel,
+                    generalInput.ModelFactorLoadEffect.Mean,
+                    generalInput.ModelFactorLoadEffect.StandardDeviation,
+                    generalInput.WaveRatioMaxHN,
+                    generalInput.WaveRatioMaxHStandardDeviation,
+                    input.VerticalDistance,
+                    generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
+                    generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
+                    input.ModelFactorSuperCriticalFlow.Mean,
+                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    input.ConstructiveStrengthLinearLoadModel.Mean,
+                    input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
+                    input.StabilityLinearLoadModel.Mean,
+                    input.StabilityLinearLoadModel.CoefficientOfVariation,
+                    input.WidthFlowApertures.Mean,
+                    input.WidthFlowApertures.StandardDeviation);
+
+                var actualInput = (StructuresStabilityPointLowSillLinearCalculationInput) calculationInputs[0];
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.IsFalse(calculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_VariousLowSillQuadraticCalculationsWithoutBreakWater_InputPropertiesCorrectlySentToCalculator(bool useForeshore)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -741,7 +863,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
             }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -765,7 +887,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     1300001,
                     input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
-                    useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
+                    null,
                     input.VolumicWeightWater,
                     generalInput.GravitationalAcceleration,
                     input.LevelCrestStructure.Mean,
@@ -834,10 +956,133 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        [TestCase(true, false)]
-        [TestCase(true, true)]
-        [TestCase(false, false)]
-        public void Calculate_VariousFloodedCulvertLinearCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_VariousLowSillQuadraticCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+
+            var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, validPreprocessorDirectory))
+                             .Return(calculator);
+            mockRepository.ReplayAll();
+
+            var calculation = new TestStabilityPointStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                    LoadSchematizationType = LoadSchematizationType.Quadratic,
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                    {
+                        BreakWater =
+                        {
+                            Type = breakWaterType
+                        }
+                    }
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new StabilityPointStructuresCalculationService().Calculate(calculation,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.GeneralInput.N,
+                                                                           assessmentSection.FailureMechanismContribution.Norm,
+                                                                           failureMechanism.Contribution,
+                                                                           validFilePath,
+                                                                           validPreprocessorDirectory);
+
+                // Assert
+                StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, calculationInputs.Length);
+
+                GeneralStabilityPointStructuresInput generalInput = failureMechanism.GeneralInput;
+                StabilityPointStructuresInput input = calculation.InputParameters;
+                var expectedInput = new StructuresStabilityPointLowSillQuadraticCalculationInput(
+                    1300001,
+                    input.StructureNormalOrientation,
+                    input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
+                    new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
+                    input.VolumicWeightWater,
+                    generalInput.GravitationalAcceleration,
+                    input.LevelCrestStructure.Mean,
+                    input.LevelCrestStructure.StandardDeviation,
+                    input.StructureNormalOrientation,
+                    input.FactorStormDurationOpenStructure,
+                    generalInput.ModelFactorSubCriticalFlow.Mean,
+                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
+                    input.ThresholdHeightOpenWeir.Mean,
+                    input.ThresholdHeightOpenWeir.StandardDeviation,
+                    input.InsideWaterLevelFailureConstruction.Mean,
+                    input.InsideWaterLevelFailureConstruction.StandardDeviation,
+                    input.FailureProbabilityRepairClosure,
+                    input.FailureCollisionEnergy.Mean,
+                    input.FailureCollisionEnergy.CoefficientOfVariation,
+                    generalInput.ModelFactorCollisionLoad.Mean,
+                    generalInput.ModelFactorCollisionLoad.CoefficientOfVariation,
+                    input.ShipMass.Mean,
+                    input.ShipMass.CoefficientOfVariation,
+                    input.ShipVelocity.Mean,
+                    input.ShipVelocity.CoefficientOfVariation,
+                    input.LevellingCount,
+                    input.ProbabilityCollisionSecondaryStructure,
+                    input.FlowVelocityStructureClosable.Mean,
+                    input.FlowVelocityStructureClosable.CoefficientOfVariation,
+                    input.InsideWaterLevel.Mean,
+                    input.InsideWaterLevel.StandardDeviation,
+                    input.AllowedLevelIncreaseStorage.Mean,
+                    input.AllowedLevelIncreaseStorage.StandardDeviation,
+                    generalInput.ModelFactorStorageVolume.Mean,
+                    generalInput.ModelFactorStorageVolume.StandardDeviation,
+                    input.StorageStructureArea.Mean,
+                    input.StorageStructureArea.CoefficientOfVariation,
+                    generalInput.ModelFactorInflowVolume,
+                    input.FlowWidthAtBottomProtection.Mean,
+                    input.FlowWidthAtBottomProtection.StandardDeviation,
+                    input.CriticalOvertoppingDischarge.Mean,
+                    input.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                    input.FailureProbabilityStructureWithErosion,
+                    input.StormDuration.Mean,
+                    input.StormDuration.CoefficientOfVariation,
+                    input.BankWidth.Mean,
+                    input.BankWidth.StandardDeviation,
+                    input.EvaluationLevel,
+                    generalInput.ModelFactorLoadEffect.Mean,
+                    generalInput.ModelFactorLoadEffect.StandardDeviation,
+                    generalInput.WaveRatioMaxHN,
+                    generalInput.WaveRatioMaxHStandardDeviation,
+                    input.VerticalDistance,
+                    generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
+                    generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
+                    input.ModelFactorSuperCriticalFlow.Mean,
+                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    input.ConstructiveStrengthQuadraticLoadModel.Mean,
+                    input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
+                    input.StabilityQuadraticLoadModel.Mean,
+                    input.StabilityQuadraticLoadModel.CoefficientOfVariation,
+                    input.WidthFlowApertures.Mean,
+                    input.WidthFlowApertures.StandardDeviation);
+
+                var actualInput = (StructuresStabilityPointLowSillQuadraticCalculationInput) calculationInputs[0];
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.IsFalse(calculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_VariousFloodedCulvertLinearCalculationsWithoutBreakWater_InputPropertiesCorrectlySentToCalculator(bool useForeshore)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -863,7 +1108,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
             }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -887,7 +1132,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     1300001,
                     input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
-                    useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
+                    null,
                     input.VolumicWeightWater,
                     generalInput.GravitationalAcceleration,
                     input.LevelCrestStructure.Mean,
@@ -956,10 +1201,133 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        [TestCase(true, false)]
-        [TestCase(true, true)]
-        [TestCase(false, false)]
-        public void Calculate_VariousFloodedCulvertQuadraticCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_VariousFloodedCulvertLinearCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+
+            var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, validPreprocessorDirectory))
+                             .Return(calculator);
+            mockRepository.ReplayAll();
+
+            var calculation = new TestStabilityPointStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
+                    LoadSchematizationType = LoadSchematizationType.Linear,
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                    {
+                        BreakWater =
+                        {
+                            Type = breakWaterType
+                        }
+                    }
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new StabilityPointStructuresCalculationService().Calculate(calculation,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.GeneralInput.N,
+                                                                           assessmentSection.FailureMechanismContribution.Norm,
+                                                                           failureMechanism.Contribution,
+                                                                           validFilePath,
+                                                                           validPreprocessorDirectory);
+
+                // Assert
+                StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, calculationInputs.Length);
+
+                GeneralStabilityPointStructuresInput generalInput = failureMechanism.GeneralInput;
+                StabilityPointStructuresInput input = calculation.InputParameters;
+                var expectedInput = new StructuresStabilityPointFloodedCulvertLinearCalculationInput(
+                    1300001,
+                    input.StructureNormalOrientation,
+                    input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
+                    new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
+                    input.VolumicWeightWater,
+                    generalInput.GravitationalAcceleration,
+                    input.LevelCrestStructure.Mean,
+                    input.LevelCrestStructure.StandardDeviation,
+                    input.StructureNormalOrientation,
+                    input.FactorStormDurationOpenStructure,
+                    generalInput.ModelFactorSubCriticalFlow.Mean,
+                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
+                    input.ThresholdHeightOpenWeir.Mean,
+                    input.ThresholdHeightOpenWeir.StandardDeviation,
+                    input.InsideWaterLevelFailureConstruction.Mean,
+                    input.InsideWaterLevelFailureConstruction.StandardDeviation,
+                    input.FailureProbabilityRepairClosure,
+                    input.FailureCollisionEnergy.Mean,
+                    input.FailureCollisionEnergy.CoefficientOfVariation,
+                    generalInput.ModelFactorCollisionLoad.Mean,
+                    generalInput.ModelFactorCollisionLoad.CoefficientOfVariation,
+                    input.ShipMass.Mean,
+                    input.ShipMass.CoefficientOfVariation,
+                    input.ShipVelocity.Mean,
+                    input.ShipVelocity.CoefficientOfVariation,
+                    input.LevellingCount,
+                    input.ProbabilityCollisionSecondaryStructure,
+                    input.FlowVelocityStructureClosable.Mean,
+                    input.FlowVelocityStructureClosable.CoefficientOfVariation,
+                    input.InsideWaterLevel.Mean,
+                    input.InsideWaterLevel.StandardDeviation,
+                    input.AllowedLevelIncreaseStorage.Mean,
+                    input.AllowedLevelIncreaseStorage.StandardDeviation,
+                    generalInput.ModelFactorStorageVolume.Mean,
+                    generalInput.ModelFactorStorageVolume.StandardDeviation,
+                    input.StorageStructureArea.Mean,
+                    input.StorageStructureArea.CoefficientOfVariation,
+                    generalInput.ModelFactorInflowVolume,
+                    input.FlowWidthAtBottomProtection.Mean,
+                    input.FlowWidthAtBottomProtection.StandardDeviation,
+                    input.CriticalOvertoppingDischarge.Mean,
+                    input.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                    input.FailureProbabilityStructureWithErosion,
+                    input.StormDuration.Mean,
+                    input.StormDuration.CoefficientOfVariation,
+                    input.BankWidth.Mean,
+                    input.BankWidth.StandardDeviation,
+                    input.EvaluationLevel,
+                    generalInput.ModelFactorLoadEffect.Mean,
+                    generalInput.ModelFactorLoadEffect.StandardDeviation,
+                    generalInput.WaveRatioMaxHN,
+                    generalInput.WaveRatioMaxHStandardDeviation,
+                    input.VerticalDistance,
+                    generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
+                    generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
+                    input.DrainCoefficient.Mean,
+                    input.DrainCoefficient.StandardDeviation,
+                    input.AreaFlowApertures.Mean,
+                    input.AreaFlowApertures.StandardDeviation,
+                    input.ConstructiveStrengthLinearLoadModel.Mean,
+                    input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
+                    input.StabilityLinearLoadModel.Mean,
+                    input.StabilityLinearLoadModel.CoefficientOfVariation);
+
+                var actualInput = (StructuresStabilityPointFloodedCulvertLinearCalculationInput) calculationInputs[0];
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.IsFalse(calculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_VariousFloodedCulvertQuadraticCalculationsWithoutBreakWater_InputPropertiesCorrectlySentToCalculator(bool useForeshore)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -985,7 +1353,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
             }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -1009,7 +1377,131 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     1300001,
                     input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
-                    useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
+                    null,
+                    input.VolumicWeightWater,
+                    generalInput.GravitationalAcceleration,
+                    input.LevelCrestStructure.Mean,
+                    input.LevelCrestStructure.StandardDeviation,
+                    input.StructureNormalOrientation,
+                    input.FactorStormDurationOpenStructure,
+                    generalInput.ModelFactorSubCriticalFlow.Mean,
+                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
+                    input.ThresholdHeightOpenWeir.Mean,
+                    input.ThresholdHeightOpenWeir.StandardDeviation,
+                    input.InsideWaterLevelFailureConstruction.Mean,
+                    input.InsideWaterLevelFailureConstruction.StandardDeviation,
+                    input.FailureProbabilityRepairClosure,
+                    input.FailureCollisionEnergy.Mean,
+                    input.FailureCollisionEnergy.CoefficientOfVariation,
+                    generalInput.ModelFactorCollisionLoad.Mean,
+                    generalInput.ModelFactorCollisionLoad.CoefficientOfVariation,
+                    input.ShipMass.Mean,
+                    input.ShipMass.CoefficientOfVariation,
+                    input.ShipVelocity.Mean,
+                    input.ShipVelocity.CoefficientOfVariation,
+                    input.LevellingCount,
+                    input.ProbabilityCollisionSecondaryStructure,
+                    input.FlowVelocityStructureClosable.Mean,
+                    input.FlowVelocityStructureClosable.CoefficientOfVariation,
+                    input.InsideWaterLevel.Mean,
+                    input.InsideWaterLevel.StandardDeviation,
+                    input.AllowedLevelIncreaseStorage.Mean,
+                    input.AllowedLevelIncreaseStorage.StandardDeviation,
+                    generalInput.ModelFactorStorageVolume.Mean,
+                    generalInput.ModelFactorStorageVolume.StandardDeviation,
+                    input.StorageStructureArea.Mean,
+                    input.StorageStructureArea.CoefficientOfVariation,
+                    generalInput.ModelFactorInflowVolume,
+                    input.FlowWidthAtBottomProtection.Mean,
+                    input.FlowWidthAtBottomProtection.StandardDeviation,
+                    input.CriticalOvertoppingDischarge.Mean,
+                    input.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                    input.FailureProbabilityStructureWithErosion,
+                    input.StormDuration.Mean,
+                    input.StormDuration.CoefficientOfVariation,
+                    input.BankWidth.Mean,
+                    input.BankWidth.StandardDeviation,
+                    input.EvaluationLevel,
+                    generalInput.ModelFactorLoadEffect.Mean,
+                    generalInput.ModelFactorLoadEffect.StandardDeviation,
+                    generalInput.WaveRatioMaxHN,
+                    generalInput.WaveRatioMaxHStandardDeviation,
+                    input.VerticalDistance,
+                    generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
+                    generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
+                    input.DrainCoefficient.Mean,
+                    input.DrainCoefficient.StandardDeviation,
+                    input.AreaFlowApertures.Mean,
+                    input.AreaFlowApertures.StandardDeviation,
+                    input.ConstructiveStrengthQuadraticLoadModel.Mean,
+                    input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
+                    input.StabilityQuadraticLoadModel.Mean,
+                    input.StabilityQuadraticLoadModel.CoefficientOfVariation);
+
+                var actualInput = (StructuresStabilityPointFloodedCulvertQuadraticCalculationInput) calculationInputs[0];
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.IsFalse(calculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_VariousFloodedCulvertQuadraticCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+
+            var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, validPreprocessorDirectory))
+                             .Return(calculator);
+            mockRepository.ReplayAll();
+
+            var calculation = new TestStabilityPointStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
+                    LoadSchematizationType = LoadSchematizationType.Quadratic,
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                    {
+                        BreakWater =
+                        {
+                            Type = breakWaterType
+                        }
+                    }
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new StabilityPointStructuresCalculationService().Calculate(calculation,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.GeneralInput.N,
+                                                                           assessmentSection.FailureMechanismContribution.Norm,
+                                                                           failureMechanism.Contribution,
+                                                                           validFilePath,
+                                                                           validPreprocessorDirectory);
+
+                // Assert
+                StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, calculationInputs.Length);
+
+                GeneralStabilityPointStructuresInput generalInput = failureMechanism.GeneralInput;
+                StabilityPointStructuresInput input = calculation.InputParameters;
+                var expectedInput = new StructuresStabilityPointFloodedCulvertQuadraticCalculationInput(
+                    1300001,
+                    input.StructureNormalOrientation,
+                    input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
+                    new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                     input.VolumicWeightWater,
                     generalInput.GravitationalAcceleration,
                     input.LevelCrestStructure.Mean,

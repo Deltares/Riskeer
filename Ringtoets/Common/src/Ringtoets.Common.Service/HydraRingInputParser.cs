@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -49,9 +51,38 @@ namespace Ringtoets.Common.Service
         /// <param name="input">A calculation input object that implements <see cref="IUseBreakWater"/>.</param>
         /// <returns>A <see cref="HydraRingBreakWater"/> object, <c>null</c> if <see cref="IUseBreakWater.UseBreakWater"/>
         /// is <c>false</c></returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the break water type is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the break water type is a valid value but unsupported.</exception>
         public static HydraRingBreakWater ParseBreakWater(IUseBreakWater input)
         {
-            return input.UseBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null;
+            return input.UseBreakWater ? new HydraRingBreakWater(ConvertBreakWaterType(input.BreakWater.Type), input.BreakWater.Height) : null;
+        }
+
+        /// <summary>
+        /// Converts <paramref name="type"/> into an integer value to be used by Hydra-Ring.
+        /// </summary>
+        /// <param name="type">The <see cref="BreakWaterType"/> to convert.</param>
+        /// <returns>The integer value to be used by Hydra-Ring.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="type"/> is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="type"/> is a valid value but unsupported.</exception>
+        private static int ConvertBreakWaterType(BreakWaterType type)
+        {
+            if (!Enum.IsDefined(type.GetType(), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(type), (int) type, type.GetType());
+            }
+
+            switch (type)
+            {
+                case BreakWaterType.Caisson:
+                    return 1;
+                case BreakWaterType.Wall:
+                    return 2;
+                case BreakWaterType.Dam:
+                    return 3;
+                default:
+                    throw new NotSupportedException($"Value '{type}' is not supported.");
+            }
         }
     }
 }
