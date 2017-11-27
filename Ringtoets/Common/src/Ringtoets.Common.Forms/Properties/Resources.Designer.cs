@@ -1803,7 +1803,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alfa&apos;s [-].
+        ///   Looks up a localized string similar to Invloedscoëfficiënten [-].
         /// </summary>
         public static string IllustrationPoint_AlphaValues_DisplayName {
             get {
@@ -1812,7 +1812,16 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het sluitscenario waarvoor dit illustratiepunt is berekend..
+        ///   Looks up a localized string similar to Berekende kans [-].
+        /// </summary>
+        public static string IllustrationPoint_CalculatedProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_CalculatedProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De keringsituatie waarvoor dit illustratiepunt is berekend..
         /// </summary>
         public static string IllustrationPoint_ClosingSituation_Description {
             get {
@@ -1821,7 +1830,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sluitscenario.
+        ///   Looks up a localized string similar to Keringsituatie.
         /// </summary>
         public static string IllustrationPoint_ClosingSituation_DisplayName {
             get {
@@ -1839,7 +1848,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tijdsduren [min].
+        ///   Looks up a localized string similar to Tijdsduren [uur].
         /// </summary>
         public static string IllustrationPoint_Durations_DisplayName {
             get {
@@ -1866,6 +1875,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waarden in het illustratiepunt.
+        /// </summary>
+        public static string IllustrationPoint_IllustrationPointValues_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPoint_IllustrationPointValues_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Realisaties van de stochasten in het illustratiepunt..
         /// </summary>
         public static string IllustrationPoint_Realization_Description {
@@ -1875,7 +1893,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Realisaties in het illustratiepunt.
+        ///   Looks up a localized string similar to Stochastwaarden.
         /// </summary>
         public static string IllustrationPoint_Realization_DisplayName {
             get {
@@ -1884,7 +1902,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waarden van variabelen in het illustratiepunt..
+        ///   Looks up a localized string similar to Waarden van afgeleide variabelen in het illustratiepunt..
         /// </summary>
         public static string IllustrationPoint_Result_Description {
             get {
@@ -1893,7 +1911,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waarden in het illustratiepunt.
+        ///   Looks up a localized string similar to Afgeleide variabelen.
         /// </summary>
         public static string IllustrationPoint_Result_DisplayName {
             get {
@@ -1938,7 +1956,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alfa^2.
+        ///   Looks up a localized string similar to Invloedscoëfficiënt^2.
         /// </summary>
         public static string IllustrationPointsChartControl_StackChartControl_VerticalAxisTitle {
             get {

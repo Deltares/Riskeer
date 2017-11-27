@@ -86,34 +86,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(7)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_Description))]
-        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueAsRoundedDoubleWithoutTrailingZeroesElement(
-            nameof(SubMechanismIllustrationPointStochast.Name),
-            nameof(SubMechanismIllustrationPointStochast.Realization))]
-        public SubMechanismIllustrationPointStochast[] Realizations
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_IllustrationPointValues_DisplayName))]
+        public SubMechanismIllustrationPointValuesProperties SubMechanismIllustrationPointValues
         {
             get
             {
-                return subMechanismIllustrationPoint.Stochasts.ToArray();
-            }
-        }
-
-        [PropertyOrder(8)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Result_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Result_Description))]
-        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueAsRoundedDoubleWithoutTrailingZeroesElement(
-            nameof(IllustrationPointResult.Description),
-            nameof(IllustrationPointResult.Value))]
-        public IllustrationPointResult[] Results
-        {
-            get
-            {
-                return subMechanismIllustrationPoint.IllustrationPointResults.ToArray();
+                return new SubMechanismIllustrationPointValuesProperties(subMechanismIllustrationPoint);
             }
         }
     }

@@ -41,8 +41,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const int windDirectionNamePropertyIndex = 3;
         private const int alphaValuesPropertyIndex = 4;
         private const int durationsPropertyIndex = 5;
-        private const int illustrationPointRealizationsPropertyIndex = 6;
-        private const int illustrationPointResultsPropertyIndex = 7;
+        private const int illustrationPointValuesPropertyIndex = 6;
 
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
@@ -170,12 +169,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             const string closingSituation = "closingSituation";
             const string windDirectionName = "windDirection";
-            var context = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(windDirectionName),
-                                                                    closingSituation,
-                                                                    submechanismIllustrationPoint);
+            var illustrationPoint = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(windDirectionName),
+                                                                              closingSituation,
+                                                                              submechanismIllustrationPoint);
 
             // Call
-            var properties = new TopLevelSubMechanismIllustrationPointProperties(context, Enumerable.Empty<string>());
+            var properties = new TopLevelSubMechanismIllustrationPointProperties(illustrationPoint, Enumerable.Empty<string>());
 
             // Assert
             Assert.AreEqual(illustrationPointName, properties.Name);
@@ -183,8 +182,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(closingSituation, properties.ClosingSituation);
             CollectionAssert.AreEqual(submechanismIllustrationPoint.Stochasts, properties.AlphaValues);
             CollectionAssert.AreEqual(submechanismIllustrationPoint.Stochasts, properties.Durations);
-            CollectionAssert.AreEqual(submechanismIllustrationPoint.Stochasts, properties.Realizations);
-            CollectionAssert.AreEqual(submechanismIllustrationPoint.IllustrationPointResults, properties.Results);
+
+            Assert.AreSame(illustrationPoint.SubMechanismIllustrationPoint,
+                           properties.SubMechanismIllustrationPointValues.Data);
         }
 
         [Test]
@@ -215,7 +215,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[namePropertyIndex],
@@ -226,7 +226,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[calculatedProbabilityPropertyIndex],
                                                                             generalCategory,
-                                                                            "Berekende kans [1/jaar]",
+                                                                            "Berekende kans [-]",
                                                                             "De berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
@@ -244,8 +244,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[4],
                                                                             generalCategory,
-                                                                            "Sluitscenario",
-                                                                            "Het sluitscenario waarvoor dit illustratiepunt is berekend.",
+                                                                            "Keringsituatie",
+                                                                            "De keringsituatie waarvoor dit illustratiepunt is berekend.",
                                                                             true);
 
             TestHelper.AssertTypeConverter<TopLevelSubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(nameof(TopLevelSubMechanismIllustrationPointProperties.AlphaValues));
@@ -253,7 +253,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             generalCategory,
-                                                                            "Alfa's [-]",
+                                                                            "Invloedscoëfficiënten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
@@ -262,26 +262,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             generalCategory,
-                                                                            "Tijdsduren [min]",
+                                                                            "Tijdsduren [uur]",
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<TopLevelSubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(nameof(TopLevelSubMechanismIllustrationPointProperties.Realizations));
-            PropertyDescriptor illustrationPointRealizationsProperty = dynamicProperties[illustrationPointRealizationsPropertyIndex + 1];
-            Assert.NotNull(illustrationPointRealizationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointRealizationsProperty,
-                                                                            generalCategory,
-                                                                            "Realisaties in het illustratiepunt",
-                                                                            "Realisaties van de stochasten in het illustratiepunt.",
-                                                                            true);
-
-            TestHelper.AssertTypeConverter<TopLevelSubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(nameof(TopLevelSubMechanismIllustrationPointProperties.Results));
-            PropertyDescriptor illustrationPointResultsProperty = dynamicProperties[illustrationPointResultsPropertyIndex + 1];
-            Assert.NotNull(illustrationPointResultsProperty.Attributes[typeof(KeyValueElementAttribute)]);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointResultsProperty,
+            PropertyDescriptor illustrationPointValuesProperties = dynamicProperties[illustrationPointValuesPropertyIndex + 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointValuesProperties,
                                                                             generalCategory,
                                                                             "Waarden in het illustratiepunt",
-                                                                            "Waarden van variabelen in het illustratiepunt.",
+                                                                            "",
                                                                             true);
         }
 
@@ -308,9 +297,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
-            const string generalCategory = "Algemeen";
+            Assert.AreEqual(7, dynamicProperties.Count);
 
+            const string generalCategory = "Algemeen";
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[namePropertyIndex],
                                                                             generalCategory,
                                                                             "Naam",
@@ -319,7 +308,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[calculatedProbabilityPropertyIndex],
                                                                             generalCategory,
-                                                                            "Berekende kans [1/jaar]",
+                                                                            "Berekende kans [-]",
                                                                             "De berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
@@ -340,7 +329,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             generalCategory,
-                                                                            "Alfa's [-]",
+                                                                            "Invloedscoëfficiënten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
@@ -349,26 +338,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             generalCategory,
-                                                                            "Tijdsduren [min]",
+                                                                            "Tijdsduren [uur]",
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<TopLevelSubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(nameof(TopLevelSubMechanismIllustrationPointProperties.Realizations));
-            PropertyDescriptor illustrationPointRealizationsProperty = dynamicProperties[illustrationPointRealizationsPropertyIndex];
-            Assert.NotNull(illustrationPointRealizationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointRealizationsProperty,
-                                                                            generalCategory,
-                                                                            "Realisaties in het illustratiepunt",
-                                                                            "Realisaties van de stochasten in het illustratiepunt.",
-                                                                            true);
-
-            TestHelper.AssertTypeConverter<TopLevelSubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(nameof(TopLevelSubMechanismIllustrationPointProperties.Results));
-            PropertyDescriptor illustrationPointResultsProperty = dynamicProperties[illustrationPointResultsPropertyIndex];
-            Assert.NotNull(illustrationPointResultsProperty.Attributes[typeof(KeyValueElementAttribute)]);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointResultsProperty,
+            PropertyDescriptor illustrationPointValuesProperties = dynamicProperties[illustrationPointValuesPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointValuesProperties,
                                                                             generalCategory,
                                                                             "Waarden in het illustratiepunt",
-                                                                            "Waarden van variabelen in het illustratiepunt.",
+                                                                            "",
                                                                             true);
         }
     }

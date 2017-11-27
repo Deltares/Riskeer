@@ -385,7 +385,7 @@
     <value>Een of meerdere stochasten hebben dezelfde naam.</value>
   </data>
   <data name="GeneralResult_ValidateTopLevelIllustrationPoints_ClosingSituation_or_windDirection_not_unique" xml:space="preserve">
-    <value>Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting.</value>
+    <value>Een of meerdere illustratiepunten hebben dezelfde combinatie van keringsituatie en windrichting.</value>
   </data>
   <data name="SubMechanismIllustrationPoint_ValidateResults_Results_not_unique" xml:space="preserve">
     <value>Een of meerdere uitvoer variabelen hebben dezelfde naam.</value>

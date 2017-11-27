@@ -149,7 +149,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                                                                                        topLevelIllustrationPoints);
 
             // Assert
-            const string expectedMessage = "Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting.";
+            const string expectedMessage = "Een of meerdere illustratiepunten hebben dezelfde combinatie van keringsituatie en windrichting.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 

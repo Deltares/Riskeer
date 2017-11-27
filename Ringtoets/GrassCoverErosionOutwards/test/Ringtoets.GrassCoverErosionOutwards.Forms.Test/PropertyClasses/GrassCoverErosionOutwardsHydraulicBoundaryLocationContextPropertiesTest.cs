@@ -154,17 +154,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             TopLevelSubMechanismIllustrationPointProperties topLevelProperties =
                 locationProperties.IllustrationPoints.Single();
-            Assert.AreEqual(topLevelIllustrationPoint.SubMechanismIllustrationPoint.Name, topLevelProperties.Name);
+            SubMechanismIllustrationPoint subMechanismIllustrationPoint = topLevelIllustrationPoint.SubMechanismIllustrationPoint;
+            Assert.AreEqual(subMechanismIllustrationPoint.Name, topLevelProperties.Name);
             Assert.AreEqual(topLevelIllustrationPoint.WindDirection.Name, topLevelProperties.WindDirection);
             Assert.AreEqual(topLevelIllustrationPoint.ClosingSituation, topLevelProperties.ClosingSituation);
-            Assert.AreEqual(topLevelIllustrationPoint.SubMechanismIllustrationPoint.Beta, topLevelProperties.CalculatedReliability);
+            Assert.AreEqual(subMechanismIllustrationPoint.Beta, topLevelProperties.CalculatedReliability);
             double expectedProbability = StatisticsConverter.ReliabilityToProbability(
-                topLevelIllustrationPoint.SubMechanismIllustrationPoint.Beta);
+                subMechanismIllustrationPoint.Beta);
             Assert.AreEqual(expectedProbability, topLevelProperties.CalculatedProbability);
-            CollectionAssert.IsEmpty(topLevelProperties.AlphaValues);
-            CollectionAssert.IsEmpty(topLevelProperties.Durations);
-            CollectionAssert.IsEmpty(topLevelProperties.Results);
-            CollectionAssert.IsEmpty(topLevelProperties.Realizations);
+            CollectionAssert.AreEqual(subMechanismIllustrationPoint.Stochasts, topLevelProperties.AlphaValues);
+            CollectionAssert.AreEqual(subMechanismIllustrationPoint.Stochasts, topLevelProperties.Durations);
+            Assert.AreSame(subMechanismIllustrationPoint, topLevelProperties.SubMechanismIllustrationPointValues.Data);
         }
 
         [Test]
@@ -254,7 +254,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             illustrationPointsCategory,
-                                                                            "Alfa's [-]",
+                                                                            "Invloedscoëfficiënten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
@@ -264,7 +264,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             illustrationPointsCategory,
-                                                                            "Tijdsduren [min]",
+                                                                            "Tijdsduren [uur]",
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
