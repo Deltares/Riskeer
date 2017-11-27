@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedProbability_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_CalculatedProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedProbability_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double CalculatedProbability
@@ -159,30 +159,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(8)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_Description))]
-        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueElement(nameof(SubMechanismIllustrationPointStochast.Name), nameof(SubMechanismIllustrationPointStochast.Realization))]
-        public SubMechanismIllustrationPointStochast[] Realizations
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_IllustrationPointValues_DisplayName))]
+        public SubMechanismIllustrationPointValuesProperties SubMechanismIllustrationPointValues
         {
             get
             {
-                return data.SubMechanismIllustrationPoint.Stochasts.ToArray();
-            }
-        }
-
-        [PropertyOrder(9)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Result_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Result_Description))]
-        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueElement(nameof(IllustrationPointResult.Description), nameof(IllustrationPointResult.Value))]
-        public IllustrationPointResult[] Results
-        {
-            get
-            {
-                return data.SubMechanismIllustrationPoint.IllustrationPointResults.ToArray();
+                return new SubMechanismIllustrationPointValuesProperties(data.SubMechanismIllustrationPoint);
             }
         }
 

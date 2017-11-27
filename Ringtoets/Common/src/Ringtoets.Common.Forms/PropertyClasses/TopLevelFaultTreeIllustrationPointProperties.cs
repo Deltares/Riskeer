@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedProbability_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_CalculatedProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedProbability_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double CalculatedProbability

@@ -204,14 +204,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Alfa's [-]",
+                                                                            "Invloedscoëfficiënten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
             PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Tijdsduren [min]",
+                                                                            "Tijdsduren [uur]",
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 

@@ -84,12 +84,12 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsTrue(windDirectionColumn.ReadOnly);
 
             DataGridViewColumn closingSituationColumn = dataGridView.Columns[closingScenarioColumnIndex];
-            Assert.AreEqual("Sluitscenario", closingSituationColumn.HeaderText);
+            Assert.AreEqual("Keringsituatie", closingSituationColumn.HeaderText);
             Assert.IsTrue(closingSituationColumn.ReadOnly);
             Assert.IsFalse(closingSituationColumn.Visible);
 
             DataGridViewColumn calculatedProbabilityColumn = dataGridView.Columns[calculatedProbabilityColumnIndex];
-            Assert.AreEqual("Berekende kans [1/jaar]", calculatedProbabilityColumn.HeaderText);
+            Assert.AreEqual("Berekende kans [-]", calculatedProbabilityColumn.HeaderText);
             Assert.IsTrue(calculatedProbabilityColumn.ReadOnly);
 
             DataGridViewColumn calculatedReliabilityColumn = dataGridView.Columns[calculatedReliabilityColumnIndex];

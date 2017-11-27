@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsInstanceOf<IStackChartControl>(chartControl.Controls[0]);
 
             Assert.AreEqual(400, chartControl.AutoScrollMinSize.Width);
-            Assert.AreEqual(300, chartControl.AutoScrollMinSize.Height);
+            Assert.AreEqual(320, chartControl.AutoScrollMinSize.Height);
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Assert
                 var stackChartControl = (StackChartControl) new ControlTester("stackChartControl").TheObject;
-                Assert.AreEqual("Alfa^2", stackChartControl.VerticalAxisTitle);
+                Assert.AreEqual("Invloedscoëfficiënt^2", stackChartControl.VerticalAxisTitle);
             }
         }
 
