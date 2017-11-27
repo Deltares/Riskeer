@@ -1911,7 +1911,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Afgeleide grootheden.
+        ///   Looks up a localized string similar to Afgeleide variabelen.
         /// </summary>
         public static string IllustrationPoint_Result_DisplayName {
             get {

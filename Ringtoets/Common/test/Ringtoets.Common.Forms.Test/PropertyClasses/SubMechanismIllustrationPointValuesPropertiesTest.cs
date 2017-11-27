@@ -149,7 +149,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.NotNull(resultsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(resultsProperty,
                                                                             category,
-                                                                            "Afgeleide grootheden",
+                                                                            "Afgeleide variabelen",
                                                                             "Waarden van variabelen in het illustratiepunt.",
                                                                             true);
         }

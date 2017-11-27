@@ -1210,7 +1210,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Waarden van variabelen in het illustratiepunt.</value>
   </data>
   <data name="IllustrationPoint_Result_DisplayName" xml:space="preserve">
-    <value>Afgeleide grootheden</value>
+    <value>Afgeleide variabelen</value>
   </data>
   <data name="GraphNodeConverter_GraphNodeContent_Beta_0_Probability_1" xml:space="preserve">
     <value>

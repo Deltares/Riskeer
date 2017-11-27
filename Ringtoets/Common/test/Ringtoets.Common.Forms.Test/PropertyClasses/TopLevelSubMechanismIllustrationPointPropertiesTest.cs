@@ -226,7 +226,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[calculatedProbabilityPropertyIndex],
                                                                             generalCategory,
-                                                                            "Berekende kans [1/jaar]",
+                                                                            "Berekende kans [-]",
                                                                             "De berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
@@ -308,7 +308,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[calculatedProbabilityPropertyIndex],
                                                                             generalCategory,
-                                                                            "Berekende kans [1/jaar]",
+                                                                            "Berekende kans [-]",
                                                                             "De berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
