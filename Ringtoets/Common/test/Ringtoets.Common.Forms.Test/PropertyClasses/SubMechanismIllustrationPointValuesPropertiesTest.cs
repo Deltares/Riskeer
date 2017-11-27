@@ -150,7 +150,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(resultsProperty,
                                                                             category,
                                                                             "Afgeleide variabelen",
-                                                                            "Waarden van variabelen in het illustratiepunt.",
+                                                                            "Waarden van afgeleide variabelen in het illustratiepunt.",
                                                                             true);
         }
     }

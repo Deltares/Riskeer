@@ -1902,7 +1902,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waarden van variabelen in het illustratiepunt..
+        ///   Looks up a localized string similar to Waarden van afgeleide variabelen in het illustratiepunt..
         /// </summary>
         public static string IllustrationPoint_Result_Description {
             get {
