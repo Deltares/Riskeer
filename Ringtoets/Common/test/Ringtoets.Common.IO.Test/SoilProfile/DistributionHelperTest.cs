@@ -48,7 +48,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ValidateLogNormalDistribution_InvalidDistributionType_ThrowsImportedDataException()
+        public void ValidateLogNormalDistribution_InvalidDistributionType_ThrowsInvalidDistributionSettingException()
         {
             // Setup
             const long distributionType = -1;
@@ -63,12 +63,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                                                                        parameterName);
 
             // Assert
-            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            var exception = Assert.Throws<InvalidDistributionSettingsException>(call);
             Assert.AreEqual($"Parameter '{parameterName}' moet lognormaal verdeeld zijn.", exception.Message);
         }
 
         [Test]
-        public void ValidateLogNormalDistribution_ShiftNonZero_ThrowsImportedDataTransformException()
+        public void ValidateLogNormalDistribution_ShiftNonZero_ThrowsInvalidDistributionSettingException()
         {
             // Setup
             const long distributionType = SoilLayerConstants.LogNormalDistributionValue;
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                                                                        parameterName);
 
             // Assert
-            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            var exception = Assert.Throws<InvalidDistributionSettingsException>(call);
             Assert.AreEqual($"Parameter '{parameterName}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
         }
 
@@ -137,7 +137,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ValidateShiftedLogNormalDistribution_InvalidDistributionType_ThrowsImportedDataException()
+        public void ValidateShiftedLogNormalDistribution_InvalidDistributionType_ThrowsInvalidDistributionSettingException()
         {
             // Setup
             const long invalidDistributionType = -1;
@@ -148,7 +148,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                                                                               parameterName);
 
             // Assert
-            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            var exception = Assert.Throws<InvalidDistributionSettingsException>(call);
             Assert.AreEqual($"Parameter '{parameterName}' moet verschoven lognormaal verdeeld zijn.", exception.Message);
         }
 

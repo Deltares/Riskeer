@@ -273,7 +273,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         private static MacroStabilityInwardsShearStrengthModel TransformShearStrengthModel(double? shearStrengthModel,
                                                                                            string soilLayerName)
         {
-            string exceptionMessage;
             if (!shearStrengthModel.HasValue)
             {
                 return MacroStabilityInwardsShearStrengthModel.CPhi;
@@ -286,16 +285,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             {
                 return MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated;
             }
+
+            string exceptionMessage;
             if (Math.Abs(shearStrengthModel.Value - 1) < tolerance)
             {
                 exceptionMessage = CreateErrorMessage(soilLayerName,
                                                       Resources.MacroStabilityInwardsSoilLayerTransformer_TransformShearStrengthModel_No_MacroStabilityInwardsShearStrengthModel);
-                throw new ImportedDataTransformException(exceptionMessage);
+            }
+            else
+            {
+                exceptionMessage = CreateErrorMessage(soilLayerName,
+                                                      string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
+                                                                    Resources.SoilLayerData_ShearStrengthModel_Description));
             }
 
-            exceptionMessage = CreateErrorMessage(soilLayerName,
-                                                  string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                Resources.SoilLayerData_ShearStrengthModel_Description));
             throw new ImportedDataTransformException(exceptionMessage);
         }
 
@@ -364,10 +367,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                     soilLayer.PopShift,
                     Resources.SoilLayerData_PopDistribution_DisplayName);
             }
-            catch (ImportedDataTransformException e)
+            catch (InvalidDistributionSettingsException e)
             {
-                string errorMessage = CreateErrorMessage(soilLayer.MaterialName, e.Message);
-                throw new ImportedDataTransformException(errorMessage, e);
+                string exceptionMessage = CreateErrorMessage(soilLayer.MaterialName, e.Message);
+                throw new ImportedDataTransformException(exceptionMessage, e);
             }
         }
 

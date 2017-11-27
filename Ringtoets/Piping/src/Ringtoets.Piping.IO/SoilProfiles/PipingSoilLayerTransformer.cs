@@ -172,7 +172,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                     soilLayer.PermeabilityShift,
                     Resources.SoilLayer_PermeabilityDistribution_DisplayName);
             }
-            catch (ImportedDataTransformException e)
+            catch (InvalidDistributionSettingsException e)
             {
                 string errorMessage = CreateExceptionMessage(soilLayer.MaterialName,
                                                              e.Message);

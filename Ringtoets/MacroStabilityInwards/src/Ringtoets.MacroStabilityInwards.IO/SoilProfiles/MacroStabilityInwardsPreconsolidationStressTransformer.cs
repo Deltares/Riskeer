@@ -59,10 +59,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             var location = new Point2D(preconsolidationStress.XCoordinate,
                                        preconsolidationStress.ZCoordinate);
 
-            ValidateDistribution(preconsolidationStress, location);
-
             try
             {
+                ValidateDistribution(preconsolidationStress);
+
                 var distribution = new VariationCoefficientLogNormalDistribution
                 {
                     Mean = (RoundedDouble) preconsolidationStress.StressMean,
@@ -70,6 +70,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 };
 
                 return new MacroStabilityInwardsPreconsolidationStress(location, distribution);
+            }
+            catch (InvalidDistributionSettingsException e)
+            {
+                string errorMessage = CreateErrorMessage(location, e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
             }
             catch (ArgumentOutOfRangeException e)
             {
@@ -91,25 +96,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
         /// <summary>
         /// Validates whether the values of the <paramref name="preconsolidationStress"/>
-        /// are correct for creating the log normal distribution of a reconsolidation stress.
+        /// are correct for creating the log normal distribution of a preconsolidation stress.
         /// </summary>
         /// <param name="preconsolidationStress">The <see cref="PreconsolidationStress"/> to validate.</param>
-        /// <param name="location">The location of the <see cref="PreconsolidationStress"/></param>
-        /// <exception cref="ImportedDataTransformException">Thrown when the stochastic parameters
+        /// <exception cref="InvalidDistributionSettingsException">Thrown when the stochastic parameters
         /// are not defined as a log normal distribution.</exception>
-        private static void ValidateDistribution(PreconsolidationStress preconsolidationStress, Point2D location)
+        private static void ValidateDistribution(PreconsolidationStress preconsolidationStress)
         {
-            try
-            {
-                DistributionHelper.ValidateLogNormalDistribution(preconsolidationStress.StressDistributionType,
-                                                                 preconsolidationStress.StressShift,
-                                                                 Resources.PreconsolidationStress_DisplayName);
-            }
-            catch (ImportedDataTransformException e)
-            {
-                string errorMessage = CreateErrorMessage(location, e.Message);
-                throw new ImportedDataTransformException(errorMessage, e);
-            }
+            DistributionHelper.ValidateLogNormalDistribution(preconsolidationStress.StressDistributionType,
+                                                             preconsolidationStress.StressShift,
+                                                             Resources.PreconsolidationStress_DisplayName);
         }
     }
 }
