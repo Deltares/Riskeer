@@ -78,46 +78,46 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                              $"{Resources.FrictionAngle_DisplayName} {Resources.Unit_Degree}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.Cohesion),
-                             $"{Resources.Cohesion_DisplayName} {Resources.Unit_kNm2}",
+                             $"{Resources.Cohesion_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.EffectiveStress),
-                             $"{Resources.MacroStabilityInwardsSlice_EffectiveStress_DisplayName} {Resources.Unit_kNm2}",
+                             $"{Resources.MacroStabilityInwardsSlice_EffectiveStress_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.EffectiveStressDaily),
-                             $"{Resources.MacroStabilityInwardsSlice_EffectiveStressDaily_DisplayName} {Resources.Unit_kNm2}",
+                             $"{Resources.MacroStabilityInwardsSlice_EffectiveStressDaily_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.TotalPorePressure),
-                             $"{Resources.MacroStabilityInwardsSlice_TotalPorePressure_DisplayName} {Resources.Unit_kNm2}",
+                             $"{Resources.MacroStabilityInwardsSlice_TotalPorePressure_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.Weight),
-                             $"{Resources.MacroStabilityInwardsSlice_Weight_DisplayName} {Resources.Unit_kNm}",
+                             $"{Resources.MacroStabilityInwardsSlice_Weight_DisplayName} {Resources.Unit_KiloNewtonPerMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.PiezometricPorePressure),
-                             $"{Resources.MacroStabilityInwardsSlice_PiezometricPorePressure_DisplayName} {Resources.Unit_kNm2}",
+                             $"{Resources.MacroStabilityInwardsSlice_PiezometricPorePressure_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.PorePressure),
-                             $"{Resources.MacroStabilityInwardsSlice_PorePressure_DisplayName} {Resources.Unit_kNm2}",
+                             $"{Resources.MacroStabilityInwardsSlice_PorePressure_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.VerticalPorePressure),
-                             $"{Resources.MacroStabilityInwardsSlice_VerticalPorePressure_DisplayName} {Resources.Unit_kNm2}",
+                             $"{Resources.MacroStabilityInwardsSlice_VerticalPorePressure_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.HorizontalPorePressure),
-                             $"{Resources.MacroStabilityInwardsSlice_HorizontalPorePressure_DisplayName} {Resources.Unit_kNm2}",
+                             $"{Resources.MacroStabilityInwardsSlice_HorizontalPorePressure_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.OverConsolidationRatio),
                              $"{Resources.MacroStabilityInwardsSlice_OverConsolidationRatio_DisplayName} {Resources.Unit_None}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.Pop),
-                             $"{Resources.Pop_DisplayName} {Resources.Unit_kNm2}",
+                             $"{Resources.Pop_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.NormalStress),
-                             $"{Resources.MacroStabilityInwardsSlice_NormalStress_DisplayName} {Resources.Unit_kNm2}",
+                             $"{Resources.MacroStabilityInwardsSlice_NormalStress_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.ShearStress),
-                             $"{Resources.MacroStabilityInwardsSlice_ShearStress_DisplayName} {Resources.Unit_kNm2}",
+                             $"{Resources.MacroStabilityInwardsSlice_ShearStress_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.LoadStress),
-                             $"{Resources.MacroStabilityInwardsSlice_LoadStress_DisplayName} {Resources.Unit_kNm2}",
+                             $"{Resources.MacroStabilityInwardsSlice_LoadStress_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
         }
     }

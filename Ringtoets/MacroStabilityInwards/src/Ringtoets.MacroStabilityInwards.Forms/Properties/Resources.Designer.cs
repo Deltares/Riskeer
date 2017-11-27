@@ -1608,29 +1608,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [kN/m³].
+        /// </summary>
+        public static string Unit_KiloNewtonPerCubicMeter {
+            get {
+                return ResourceManager.GetString("Unit_KiloNewtonPerCubicMeter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [kN/m].
         /// </summary>
-        public static string Unit_kNm {
+        public static string Unit_KiloNewtonPerMeter {
             get {
-                return ResourceManager.GetString("Unit_kNm", resourceCulture);
+                return ResourceManager.GetString("Unit_KiloNewtonPerMeter", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to [kN/m²].
         /// </summary>
-        public static string Unit_kNm2 {
+        public static string Unit_KiloNewtonPerSquareMeter {
             get {
-                return ResourceManager.GetString("Unit_kNm2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to [kN/m³].
-        /// </summary>
-        public static string Unit_kNm3 {
-            get {
-                return ResourceManager.GetString("Unit_kNm3", resourceCulture);
+                return ResourceManager.GetString("Unit_KiloNewtonPerSquareMeter", resourceCulture);
             }
         }
         

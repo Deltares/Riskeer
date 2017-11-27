@@ -742,13 +742,13 @@
   <data name="Unit_Degree" xml:space="preserve">
     <value>[°]</value>
   </data>
-  <data name="Unit_kNm" xml:space="preserve">
+  <data name="Unit_KiloNewtonPerMeter" xml:space="preserve">
     <value>[kN/m]</value>
   </data>
-  <data name="Unit_kNm2" xml:space="preserve">
+  <data name="Unit_KiloNewtonPerSquareMeter" xml:space="preserve">
     <value>[kN/m²]</value>
   </data>
-  <data name="Unit_kNm3" xml:space="preserve">
+  <data name="Unit_KiloNewtonPerCubicMeter" xml:space="preserve">
     <value>[kN/m³]</value>
   </data>
   <data name="Unit_Meter" xml:space="preserve">
