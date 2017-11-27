@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
@@ -260,13 +261,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         }
 
         [Test]
-        public void Run_Always_InputPropertiesCorrectlySendToService()
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Run_Always_InputPropertiesCorrectlySendToService(BreakWaterType breakWaterType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
+            calculation.InputParameters.BreakWater.Type = breakWaterType;
 
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
                                                                                           validFilePath,
@@ -309,7 +314,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                  input.HydraulicBoundaryLocation.Id,
                                                                                  mechanismSpecificNorm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
-                                                                                 new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
+                                                                                 new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  calculation.InputParameters.WaterLevels.ElementAt(waterLevelIndex++),
                                                                                  generalInput.GeneralWaveConditionsInput.A,
                                                                                  generalInput.GeneralWaveConditionsInput.B,

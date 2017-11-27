@@ -524,10 +524,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void Calculate_Always_InputPropertiesCorrectlySendToCalculator()
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_Always_InputPropertiesCorrectlySendToCalculator(BreakWaterType breakWaterType)
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation();
+            calculation.InputParameters.BreakWater.Type = breakWaterType;
+
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 20
@@ -569,7 +574,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                                                  input.HydraulicBoundaryLocation.Id,
                                                                                  mechanismSpecificNorm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
-                                                                                 new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
+                                                                                 new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  calculation.InputParameters.WaterLevels.ElementAt(waterLevelIndex++),
                                                                                  generalInput.GeneralWaveConditionsInput.A,
                                                                                  generalInput.GeneralWaveConditionsInput.B,

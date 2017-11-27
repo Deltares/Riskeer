@@ -519,10 +519,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
-        public void Calculate_Always_InputPropertiesCorrectlySendToCalculator()
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_Always_InputPropertiesCorrectlySendToCalculator(BreakWaterType breakWaterType)
         {
             // Setup
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation();
+            calculation.InputParameters.BreakWater.Type = breakWaterType;
+
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var calculator = new TestWaveConditionsCosineCalculator();
@@ -557,7 +562,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                                                                                  input.HydraulicBoundaryLocation.Id,
                                                                                  assessmentSection.FailureMechanismContribution.Norm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
-                                                                                 new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
+                                                                                 new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  calculation.InputParameters.WaterLevels.ElementAt(waterLevelIndex++),
                                                                                  generalInput.A,
                                                                                  generalInput.B,

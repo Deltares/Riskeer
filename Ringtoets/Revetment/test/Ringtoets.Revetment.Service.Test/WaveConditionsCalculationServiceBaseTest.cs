@@ -443,10 +443,9 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        [Combinatorial]
-        public void Calculate_Always_StartsCalculationWithRightParameters(
-            [Values(true, false)] bool useForeshore,
-            [Values(true, false)] bool useBreakWater)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_WithoutBreakWater_StartsCalculationWithRightParameters(bool useForeshore)
         {
             // Setup
             var waterLevel = (RoundedDouble) 4.20;
@@ -461,7 +460,7 @@ namespace Ringtoets.Revetment.Service.Test
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
                 StepSize = WaveConditionsInputStepSize.Two,
-                UseBreakWater = useBreakWater,
+                UseBreakWater = false,
                 UseForeshore = useForeshore,
                 Orientation = (RoundedDouble) 0
             };
@@ -487,7 +486,63 @@ namespace Ringtoets.Revetment.Service.Test
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
                 {
-                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(input.WaterLevels.ElementAt(i), a, b, c, norm, input, useForeshore, useBreakWater);
+                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(input.WaterLevels.ElementAt(i), a, b, c, norm, input, useForeshore, false);
+                    HydraRingDataEqualityHelper.AreEqual(expectedInput, calculator.ReceivedInputs[i]);
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_WithBreakWater_StartsCalculationWithRightParameters(BreakWaterType breakWaterType)
+        {
+            // Setup
+            var waterLevel = (RoundedDouble) 4.20;
+            var a = (RoundedDouble) 1.0;
+            var b = (RoundedDouble) 0.8;
+            var c = (RoundedDouble) 0.4;
+            const double norm = 0.2;
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(waterLevel),
+                ForeshoreProfile = new TestForeshoreProfile(true),
+                UpperBoundaryRevetment = (RoundedDouble) 4,
+                LowerBoundaryRevetment = (RoundedDouble) 3,
+                StepSize = WaveConditionsInputStepSize.Two,
+                UseBreakWater = true,
+                UseForeshore = true,
+                Orientation = (RoundedDouble) 0,
+                BreakWater =
+                {
+                    Type = breakWaterType
+                }
+            };
+
+            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+
+            var calculator = new TestWaveConditionsCosineCalculator();
+            int nrOfCalculators = input.WaterLevels.Count();
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, validPreprocessorDirectory))
+                             .Return(calculator)
+                             .Repeat
+                             .Times(nrOfCalculators);
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, validPreprocessorDirectory);
+
+                // Assert
+                for (var i = 0; i < nrOfCalculators; i++)
+                {
+                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(input.WaterLevels.ElementAt(i), a, b, c, norm, input, true, true);
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, calculator.ReceivedInputs[i]);
                 }
             }
@@ -778,7 +833,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                 ? input.ForeshoreGeometry.Select(coordinate => new HydraRingForelandPoint(coordinate.X, coordinate.Y))
                                                                 : new HydraRingForelandPoint[0],
                                                             useBreakWater
-                                                                ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height)
+                                                                ? new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(input.BreakWater.Type), input.BreakWater.Height)
                                                                 : null,
                                                             waterLevel,
                                                             a,

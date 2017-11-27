@@ -484,10 +484,9 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        [TestCase(true, false)]
-        [TestCase(true, true)]
-        [TestCase(false, false)]
-        public void Calculate_VariousCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_VariousCalculationsWithoutBreakWater_InputPropertiesCorrectlySentToCalculator(bool useForeshore)
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -511,7 +510,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
             }
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -535,7 +534,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                     1300001,
                     input.StructureNormalOrientation,
                     useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
-                    useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
+                    null,
                     generalInput.GravitationalAcceleration,
                     generalInput.ModelFactorOvertoppingFlow.Mean, generalInput.ModelFactorOvertoppingFlow.StandardDeviation,
                     input.LevelCrestStructure.Mean, input.LevelCrestStructure.StandardDeviation,
@@ -560,22 +559,20 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        [Combinatorial]
-        public void Calculate_PreprocessorDirectorySet_InputPropertiesCorrectlySentToCalculator([Values(true, false)] bool usePreprocessor)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam)]
+        public void Calculate_VariousCalculationsWithBreakWater_InputPropertiesCorrectlySentToCalculator(BreakWaterType breakWaterType)
         {
             // Setup
-            string preprocessorDirectory = usePreprocessor
-                                               ? validPreprocessorDirectory
-                                               : string.Empty;
-
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, preprocessorDirectory))
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, validPreprocessorDirectory))
                              .Return(calculator);
             mockRepository.ReplayAll();
 
@@ -583,7 +580,14 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                    {
+                        BreakWater =
+                        {
+                            Type = breakWaterType
+                        }
+                    }
                 }
             };
 
@@ -596,14 +600,38 @@ namespace Ringtoets.HeightStructures.Service.Test
                                                                    assessmentSection.FailureMechanismContribution.Norm,
                                                                    failureMechanism.Contribution,
                                                                    validFilePath,
-                                                                   preprocessorDirectory);
+                                                                   validPreprocessorDirectory);
 
                 // Assert
-                StructuresOvertoppingCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
-                Assert.AreEqual(1, calculationInputs.Length);
+                StructuresOvertoppingCalculationInput[] overtoppingCalculationInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, overtoppingCalculationInputs.Length);
 
-                StructuresOvertoppingCalculationInput actualInput = calculationInputs[0];
-                Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
+                GeneralHeightStructuresInput generalInput = failureMechanism.GeneralInput;
+                HeightStructuresInput input = calculation.InputParameters;
+                var expectedInput = new StructuresOvertoppingCalculationInput(
+                    1300001,
+                    input.StructureNormalOrientation,
+                    input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
+                    new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
+                    generalInput.GravitationalAcceleration,
+                    generalInput.ModelFactorOvertoppingFlow.Mean, generalInput.ModelFactorOvertoppingFlow.StandardDeviation,
+                    input.LevelCrestStructure.Mean, input.LevelCrestStructure.StandardDeviation,
+                    input.StructureNormalOrientation,
+                    input.ModelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    input.AllowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.StandardDeviation,
+                    generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
+                    input.StorageStructureArea.Mean, input.StorageStructureArea.CoefficientOfVariation,
+                    generalInput.ModelFactorInflowVolume,
+                    input.FlowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.StandardDeviation,
+                    input.CriticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                    input.FailureProbabilityStructureWithErosion,
+                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation,
+                    input.DeviationWaveDirection,
+                    input.StormDuration.Mean, input.StormDuration.CoefficientOfVariation);
+
+                StructuresOvertoppingCalculationInput actualInput = overtoppingCalculationInputs[0];
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.IsFalse(calculator.IsCanceled);
             }
             mockRepository.VerifyAll();
         }
@@ -806,6 +834,54 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Combinatorial]
+        public void Calculate_PreprocessorDirectorySet_InputPropertiesCorrectlySentToCalculator([Values(true, false)] bool usePreprocessor)
+        {
+            // Setup
+            string preprocessorDirectory = usePreprocessor
+                                               ? validPreprocessorDirectory
+                                               : string.Empty;
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
+            var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, preprocessorDirectory))
+                             .Return(calculator);
+            mockRepository.ReplayAll();
+
+            var calculation = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                new HeightStructuresCalculationService().Calculate(calculation,
+                                                                   failureMechanism.GeneralInput,
+                                                                   failureMechanism.GeneralInput.N,
+                                                                   assessmentSection.FailureMechanismContribution.Norm,
+                                                                   failureMechanism.Contribution,
+                                                                   validFilePath,
+                                                                   preprocessorDirectory);
+
+                // Assert
+                StructuresOvertoppingCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, calculationInputs.Length);
+
+                StructuresOvertoppingCalculationInput actualInput = calculationInputs[0];
+                Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
             }
             mockRepository.VerifyAll();
         }
