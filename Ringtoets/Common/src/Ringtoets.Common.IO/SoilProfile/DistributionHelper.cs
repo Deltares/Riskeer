@@ -67,7 +67,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Validates that the distribution is a (shifted) log normal distribution.
+        /// Validates that the distribution is a shifted log normal distribution.
         /// </summary>
         /// <param name="distributionType">The distribution type.</param>
         /// <param name="parameterName">The name of the parameter to be validated.</param>

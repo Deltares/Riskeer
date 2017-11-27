@@ -74,6 +74,7 @@
     <Compile Include="DikeProfiles\SheetPileType.cs" />
     <Compile Include="Exceptions\CriticalFileValidationException.cs" />
     <Compile Include="Configurations\Import\CalculationConfigurationImporter.cs" />
+    <Compile Include="Exceptions\InvalidDistributionSettingsException.cs" />
     <Compile Include="FileImporters\DikeProfilesImporter.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionsImporter.cs" />
     <Compile Include="FileImporters\ForeshoreProfilesImporter.cs" />
