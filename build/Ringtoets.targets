@@ -6,12 +6,12 @@
 	<Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputPath>$(SolutionDir)\bin\$(Configuration)\</OutputPath>
     <OutDir>$(OutputPath)</OutDir>
-    <!-- <UseCommonOutputDirectory>True</UseCommonOutputDirectory> -->
 	<PlatformTarget>x86</PlatformTarget>
 	<WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-	
-	<!-- <IntermediateOutputPath>$(SolutionDir)\obj\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath> -->
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+	<TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
