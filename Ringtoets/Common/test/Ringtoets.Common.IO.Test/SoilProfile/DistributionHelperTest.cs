@@ -63,7 +63,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                                                                        parameterName);
 
             // Assert
-            var exception = Assert.Throws<InvalidDistributionSettingsException>(call);
+            var exception = Assert.Throws<InvalidDistributionSettingException>(call);
             Assert.AreEqual($"Parameter '{parameterName}' moet lognormaal verdeeld zijn.", exception.Message);
         }
 
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                                                                        parameterName);
 
             // Assert
-            var exception = Assert.Throws<InvalidDistributionSettingsException>(call);
+            var exception = Assert.Throws<InvalidDistributionSettingException>(call);
             Assert.AreEqual($"Parameter '{parameterName}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
         }
 
@@ -148,7 +148,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                                                                               parameterName);
 
             // Assert
-            var exception = Assert.Throws<InvalidDistributionSettingsException>(call);
+            var exception = Assert.Throws<InvalidDistributionSettingException>(call);
             Assert.AreEqual($"Parameter '{parameterName}' moet verschoven lognormaal verdeeld zijn.", exception.Message);
         }
 

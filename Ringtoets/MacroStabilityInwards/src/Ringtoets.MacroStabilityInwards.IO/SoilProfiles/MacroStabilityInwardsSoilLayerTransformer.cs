@@ -367,7 +367,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                     soilLayer.PopShift,
                     Resources.SoilLayerData_PopDistribution_DisplayName);
             }
-            catch (InvalidDistributionSettingsException e)
+            catch (InvalidDistributionSettingException e)
             {
                 string exceptionMessage = CreateErrorMessage(soilLayer.MaterialName, e.Message);
                 throw new ImportedDataTransformException(exceptionMessage, e);

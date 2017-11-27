@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <param name="parameterName">The name of the parameter to be validated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="parameterName"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="InvalidDistributionSettingsException">Thrown when the parameter is not a 
+        /// <exception cref="InvalidDistributionSettingException">Thrown when the parameter is not a 
         /// log normal distribution with a zero shift.</exception>
         public static void ValidateLogNormalDistribution(long? distributionType, double shift, string parameterName)
         {
@@ -53,13 +53,13 @@ namespace Ringtoets.Common.IO.SoilProfile
             if (distributionType.HasValue)
             {
                 if (distributionType.Value != SoilLayerConstants.LogNormalDistributionValue)
-                    throw new InvalidDistributionSettingsException(string.Format(
+                    throw new InvalidDistributionSettingException(string.Format(
                                                                        Resources.Stochastic_parameter_0_must_be_a_lognormal_distribution,
                                                                        parameterName));
 
                 if (Math.Abs(shift) > tolerance)
                 {
-                    throw new InvalidDistributionSettingsException(string.Format(
+                    throw new InvalidDistributionSettingException(string.Format(
                                                                        Resources.Stochastic_parameter_0_must_be_a_lognormal_distribution_with_zero_shift,
                                                                        parameterName));
                 }
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <param name="parameterName">The name of the parameter to be validated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="parameterName"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="InvalidDistributionSettingsException">Thrown when the parameter is not a 
+        /// <exception cref="InvalidDistributionSettingException">Thrown when the parameter is not a 
         /// log normal distribution.</exception>
         public static void ValidateShiftedLogNormalDistribution(long? distributionType, string parameterName)
         {
@@ -84,7 +84,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
             if (distributionType.HasValue && distributionType != SoilLayerConstants.LogNormalDistributionValue)
             {
-                throw new InvalidDistributionSettingsException(string.Format(
+                throw new InvalidDistributionSettingException(string.Format(
                                                                    Resources.Stochastic_parameter_0_has_no_shifted_lognormal_distribution,
                                                                    parameterName));
             }

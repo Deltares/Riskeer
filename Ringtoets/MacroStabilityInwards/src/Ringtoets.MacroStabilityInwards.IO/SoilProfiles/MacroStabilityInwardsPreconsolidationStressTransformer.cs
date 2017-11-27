@@ -71,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
                 return new MacroStabilityInwardsPreconsolidationStress(location, distribution);
             }
-            catch (InvalidDistributionSettingsException e)
+            catch (InvalidDistributionSettingException e)
             {
                 string errorMessage = CreateErrorMessage(location, e.Message);
                 throw new ImportedDataTransformException(errorMessage, e);
@@ -99,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// are correct for creating the log normal distribution of a preconsolidation stress.
         /// </summary>
         /// <param name="preconsolidationStress">The <see cref="PreconsolidationStress"/> to validate.</param>
-        /// <exception cref="InvalidDistributionSettingsException">Thrown when the stochastic parameters
+        /// <exception cref="InvalidDistributionSettingException">Thrown when the stochastic parameters
         /// are not defined as a log normal distribution.</exception>
         private static void ValidateDistribution(PreconsolidationStress preconsolidationStress)
         {
