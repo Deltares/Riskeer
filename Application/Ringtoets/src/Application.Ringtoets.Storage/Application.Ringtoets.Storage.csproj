@@ -4,11 +4,8 @@
   <PropertyGroup>
     <ProjectGuid>{50963F12-448C-41BA-A62C-CDB0AB8D21E0}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Application.Ringtoets.Storage</RootNamespace>
     <AssemblyName>Application.Ringtoets.Storage</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -702,9 +699,6 @@
       <DependentUpon>RingtoetsEntities.edmx</DependentUpon>
       <LastGenOutput>RingtoetsEntities.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

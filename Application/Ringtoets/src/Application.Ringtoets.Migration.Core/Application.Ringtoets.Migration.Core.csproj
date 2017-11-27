@@ -4,11 +4,8 @@
   <PropertyGroup>
     <ProjectGuid>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Application.Ringtoets.Migration.Core</RootNamespace>
     <AssemblyName>Application.Ringtoets.Migration.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
