@@ -78,6 +78,10 @@ namespace Core.Components.Gis
             {
                 return true;
             }
+            if (GetType() != other.GetType())
+            {
+                return false;
+            }
             return string.Equals(Name, other.Name) && string.Equals(Url, other.Url);
         }
 
