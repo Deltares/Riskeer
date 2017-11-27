@@ -58,6 +58,40 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Create a <see cref="ChartDataCollection"/> for the slice output parameters.
+        /// </summary>
+        public static ChartDataCollection CreateSliceParametersChartDataCollection()
+        {
+            return new ChartDataCollection(Resources.SliceParameters);
+        }
+
+        /// <summary>
+        /// Create a <see cref="ChartMultipleAreaData"/> for a slice parameter.
+        /// </summary>
+        /// <param name="name">The display name of the parameter.</param>
+        /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>.</exception>
+        public static ChartMultipleAreaData CreateSliceParameterChartData(string name)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            return new ChartMultipleAreaData(name, new ChartAreaStyle
+            {
+                StrokeThickness = 1,
+                StrokeColor = Color.Black,
+                FillColor = Color.FromArgb(150, Color.Red),
+                IsEditable = true
+            })
+            {
+                IsVisible = false
+            };
+        }
+
+        /// <summary>
         /// Create a <see cref="ChartMultipleAreaData"/> for a waternet zone.
         /// </summary>
         /// <param name="name">The name of the zone.</param>

@@ -54,39 +54,39 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private void AddColumns()
         {
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.MaterialName),
-                             Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_MaterialName,
+                             Resources.MacroStabilityInwardsSoilLayerData_MaterialName_DisplayName,
                              true);
             AddColorColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.Color),
-                           Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Color);
+                           Resources.MacroStabilityInwardsSoilLayerData_Color_DisplayName);
             AddCheckBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.IsAquifer),
-                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_IsAquifer,
+                              Resources.MacroStabilityInwardsSoilLayerData_IsAquifer_DisplayName,
                               true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.AbovePhreaticLevel),
-                             Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_AbovePhreaticLevel,
+                             $"{Resources.MacroStabilityInwardsSoilLayerData_AbovePhreaticLevel_DisplayName} {Resources.Unit_kNm3}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.BelowPhreaticLevel),
-                             Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_BelowPhreaticLevel,
+                             $"{Resources.MacroStabilityInwardsSoilLayerData_BelowPhreaticLevel_DisplayName} {Resources.Unit_kNm3}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.ShearStrengthModel),
-                             Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthModel,
+                             Resources.MacroStabilityInwardsSoilLayerData_ShearStrengthModel_DisplayName,
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.Cohesion),
-                             Resources.MacroStabilityInwardsTable_ColumnHeader_Cohesion,
+                             $"{Resources.Cohesion_DisplayName} {Resources.Unit_kNm2}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.FrictionAngle),
-                             Resources.MacroStabilityInwardsTable_ColumnHeader_FrictionAngle,
+                             $"{Resources.FrictionAngle_DisplayName} {Resources.Unit_Degree}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.ShearStrengthRatio),
-                             Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthRatio,
+                             $"{Resources.MacroStabilityInwardsSoilLayerData_ShearStrengthRatio_DisplayName} {Resources.Unit_None}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.StrengthIncreaseExponent),
-                             Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_StrengthIncreaseExponent,
+                             $"{Resources.MacroStabilityInwardsSoilLayerData_StrengthIncreaseExponent_DisplayName} {Resources.Unit_None}",
                              true);
             AddCheckBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.UsePop),
-                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_UsePop,
+                              Resources.MacroStabilityInwardsSoilLayerData_UsePop_DisplayName,
                               true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.Pop),
-                             Resources.MacroStabilityInwardsTable_ColumnHeader_Pop,
+                             $"{Resources.Pop_DisplayName} {Resources.Unit_kNm2}",
                              true);
         }
     }

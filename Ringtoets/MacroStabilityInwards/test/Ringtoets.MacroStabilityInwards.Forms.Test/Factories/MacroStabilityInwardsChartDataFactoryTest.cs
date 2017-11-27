@@ -58,6 +58,44 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateSliceParametersChartDataCollection_ReturnsEmptyChartDataCollection()
+        {
+            // Call
+            ChartDataCollection data = MacroStabilityInwardsChartDataFactory.CreateSliceParametersChartDataCollection();
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Collection);
+            Assert.AreEqual("Uitvoer per lamel", data.Name);
+        }
+
+        [Test]
+        public void CreateSliceParameterChartData_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateSliceParameterChartData_WithName_ReturnsEmptyChartAreaDataWithExpectedStyling()
+        {
+            // Setup
+            const string name = "Cohesie";
+
+            // Call
+            ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(name);
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Areas);
+            Assert.AreEqual(name, data.Name);
+            Assert.IsFalse(data.IsVisible);
+            AssertEqualStyle(data.Style, Color.FromArgb(150, Color.Red), Color.Black, 1, true);
+        }
+
+        [Test]
         public void CreateWaternetZoneChartData_NameNull_ThrowsArgumentNullException()
         {
             // Call

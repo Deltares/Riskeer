@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -59,7 +60,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         private const int slipPlaneIndex = 20;
         private const int activeCircleRadiusIndex = 21;
         private const int passiveCircleRadiusIndex = 22;
-        private const int nrOfChartData = 23;
+        private const int sliceParameterIndex = 23;
+        private const int nrOfChartData = 24;
+
+        private const int sliceParameterCohesionIndex = 0;
+        private const int sliceParameterEffectiveStressIndex = 1;
+        private const int sliceParameterEffectiveStressDailyIndex = 2;
+        private const int sliceParameterTotalPorePressureIndex = 3;
+        private const int sliceParameterWeightIndex = 4;
+        private const int sliceParameterPiezometricPorePressureIndex = 5;
+        private const int sliceParameterPorePressureIndex = 6;
+        private const int sliceParameterVerticalPorePressureIndex = 7;
+        private const int sliceParameterHorizontalPorePressureIndex = 8;
+        private const int sliceParameterOverConsolidationRatioIndex = 9;
+        private const int sliceParameterPopIndex = 10;
+        private const int sliceParameterNormalStressIndex = 11;
+        private const int sliceParameterShearStressIndex = 12;
+        private const int sliceParameterLoadStressIndex = 13;
+        private const int sliceParameterNrOfChartData = 14;
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to the input of <paramref name="calculationScenario"/>.
@@ -104,6 +122,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
 
             AssertSlicesChartData(calculationScenario.Output.SlidingCurve.Slices,
                                   (ChartMultipleAreaData) actual.Collection.ElementAt(slicesIndex));
+
+            AssertSliceParametersChartData(calculationScenario.Output.SlidingCurve.Slices,
+                                           (ChartDataCollection) actual.Collection.ElementAt(sliceParameterIndex));
 
             AssertSlipPlaneChartData(calculationScenario.Output.SlidingCurve,
                                      (ChartLineData) actual.Collection.ElementAt(slipPlaneIndex));
@@ -163,6 +184,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.AreEqual("Glijvlak", slipPlaneData.Name);
             Assert.AreEqual("Radius actieve cirkel", activeCircleRadiusData.Name);
             Assert.AreEqual("Radius passieve cirkel", passiveCircleRadiusData.Name);
+
+            AssertEmptySliceParameterChartData((ChartDataCollection) chartDataArray[sliceParameterIndex]);
         }
 
         /// <summary>
@@ -222,6 +245,92 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         }
 
         /// <summary>
+        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="slices"/>.
+        /// </summary>
+        /// <param name="slices">The original slices.</param>
+        /// <param name="actual">The actual <see cref="ChartMultipleAreaData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// does not correspond to <paramref name="slices"/>.</exception>
+        public static void AssertSliceParametersChartData(IEnumerable<MacroStabilityInwardsSlice> slices, ChartDataCollection actual)
+        {
+            MacroStabilityInwardsSlice[] macroStabilityInwardsSlices = slices.ToArray();
+            CollectionAssert.IsNotEmpty(macroStabilityInwardsSlices);
+
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.Cohesion), 8),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterCohesionIndex)).Areas);
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.EffectiveStress), 8),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterEffectiveStressIndex)).Areas);
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.EffectiveStressDaily), 8),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterEffectiveStressDailyIndex)).Areas);
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.TotalPorePressure), 8),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterTotalPorePressureIndex)).Areas);
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.Weight), 8),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterWeightIndex)).Areas);
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.PiezometricPorePressure), 8),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterPiezometricPorePressureIndex)).Areas);
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.PorePressure), 8),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterPorePressureIndex)).Areas);
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.VerticalPorePressure), 8),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterVerticalPorePressureIndex)).Areas);
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.HorizontalPorePressure), 8),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterHorizontalPorePressureIndex)).Areas);
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.OverConsolidationRatio), 20),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterOverConsolidationRatioIndex)).Areas);
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.Pop), 8),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterPopIndex)).Areas);
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.NormalStress), 8),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterNormalStressIndex)).Areas);
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.ShearStress), 8),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterShearStressIndex)).Areas);
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.LoadStress), 8),
+                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterLoadStressIndex)).Areas);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="chartDataCollection"/> contains no slice values chart data.
+        /// </summary>
+        /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when a slice value area is present.</exception>
+        private static void AssertEmptySliceParameterChartData(ChartDataCollection chartDataCollection)
+        {
+            Assert.AreEqual("Uitvoer per lamel", chartDataCollection.Name);
+
+            ChartData[] chartDataArray = chartDataCollection.Collection.ToArray();
+            Assert.AreEqual(sliceParameterNrOfChartData, chartDataArray.Length);
+            var cohesionSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterCohesionIndex];
+            var effectiveStressSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterEffectiveStressIndex];
+            var effectiveStressDailySliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterEffectiveStressDailyIndex];
+            var totalPorePressureSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterTotalPorePressureIndex];
+            var weightSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterWeightIndex];
+            var piezometricPorePressureSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterPiezometricPorePressureIndex];
+            var porePressureSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterPorePressureIndex];
+            var verticalPorePressureSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterVerticalPorePressureIndex];
+            var horizontalPorePressureSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterHorizontalPorePressureIndex];
+            var overConsolidationRatioSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterOverConsolidationRatioIndex];
+            var popSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterPopIndex];
+            var normalStressSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterNormalStressIndex];
+            var shearStressSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterShearStressIndex];
+            var loadStressSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterLoadStressIndex];
+
+            CollectionAssert.IsEmpty(cohesionSliceData.Areas);
+
+            Assert.AreEqual("Cohesie", cohesionSliceData.Name);
+            Assert.AreEqual("Effectieve spanning", effectiveStressSliceData.Name);
+            Assert.AreEqual("Effectieve spanning (dagelijks)", effectiveStressDailySliceData.Name);
+            Assert.AreEqual("Totale waterspanning", totalPorePressureSliceData.Name);
+            Assert.AreEqual("Gewicht", weightSliceData.Name);
+            Assert.AreEqual("Piezometrische waterspanning", piezometricPorePressureSliceData.Name);
+            Assert.AreEqual("Waterspanning op maaiveld", porePressureSliceData.Name);
+            Assert.AreEqual("Verticale waterspanning op maaiveld", verticalPorePressureSliceData.Name);
+            Assert.AreEqual("Horizontale waterspanning op maaiveld", horizontalPorePressureSliceData.Name);
+            Assert.AreEqual("OCR", overConsolidationRatioSliceData.Name);
+            Assert.AreEqual("POP", popSliceData.Name);
+            Assert.AreEqual("Normaalspanning", normalStressSliceData.Name);
+            Assert.AreEqual("Schuifspanning", shearStressSliceData.Name);
+            Assert.AreEqual("Spanning belasting", loadStressSliceData.Name);
+        }
+
+        /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="tangentLines"/>
         /// and <paramref name="surfaceLine"/>.
         /// </summary>
@@ -271,6 +380,31 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
                 };
                 CollectionAssert.AreEqual(expectedPoints, actual.Areas.ElementAt(i));
             }
+        }
+
+        private static IEnumerable<Point2D[]> CreateExpectedSliceParameterAreas(IEnumerable<MacroStabilityInwardsSlice> slices,
+                                                                                string propertyName,
+                                                                                int scaleFactor)
+        {
+            var areas = new List<Point2D[]>();
+            foreach (MacroStabilityInwardsSlice slice in slices)
+            {
+                var value = (RoundedDouble?) slice.GetType().GetProperty(propertyName)?.GetValue(slice, null);
+                double offset = value.Value / scaleFactor;
+                double length = Math.Sqrt(Math.Pow(slice.BottomLeftPoint.X - slice.BottomRightPoint.X, 2) +
+                                          Math.Pow(slice.BottomLeftPoint.Y - slice.BottomRightPoint.Y, 2));
+
+                areas.Add(new[]
+                {
+                    slice.BottomLeftPoint,
+                    slice.BottomRightPoint,
+                    new Point2D(slice.BottomRightPoint.X + offset * (slice.BottomRightPoint.Y - slice.BottomLeftPoint.Y) / length,
+                                slice.BottomRightPoint.Y + offset * (slice.BottomLeftPoint.X - slice.BottomRightPoint.X) / length),
+                    new Point2D(slice.BottomLeftPoint.X + offset * (slice.BottomRightPoint.Y - slice.BottomLeftPoint.Y) / length,
+                                slice.BottomLeftPoint.Y + offset * (slice.BottomLeftPoint.X - slice.BottomRightPoint.X) / length)
+                });
+            }
+            return areas;
         }
 
         /// <summary>
