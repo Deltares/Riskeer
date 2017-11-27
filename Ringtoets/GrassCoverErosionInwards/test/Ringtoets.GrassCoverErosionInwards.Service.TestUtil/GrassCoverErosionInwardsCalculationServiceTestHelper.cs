@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil
         public static void AssertGeneralResultWithDuplicateIllustrationPoints(string calculationDescription, string calculationName, string actual)
         {
             Assert.AreEqual($"Fout bij het uitlezen van de illustratiepunten voor berekening {calculationName} ({calculationDescription}): " +
-                            "Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen.", actual);
+                            "Een of meerdere illustratiepunten hebben dezelfde combinatie van keringsituatie en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen.", actual);
         }
 
         public static void AssertGeneralResultWithDuplicateIllustrationPointResults(string calculationDescription, string calculationName, string actual)

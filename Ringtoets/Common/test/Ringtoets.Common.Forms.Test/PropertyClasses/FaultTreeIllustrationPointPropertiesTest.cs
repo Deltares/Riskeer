@@ -44,8 +44,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const int durationsPropertyIndex = 5;
         private const int illustrationPointPropertyIndex = 6;
 
-        private const string illustrationPointsCategoryName = "Illustratiepunten";
-
         [Test]
         public void Constructor_ChildNodesNull_ThrowsArgumentNullException()
         {
@@ -148,10 +146,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(7, dynamicProperties.Count);
 
+            const string illustrationPointsCategoryName = "Illustratiepunten";
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Berekende kans [1/jaar]",
+                                                                            "Berekende kans [-]",
                                                                             "De berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
@@ -172,21 +171,21 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor closingScenarioProperty = dynamicProperties[closingScenarioPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(closingScenarioProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Sluitscenario",
-                                                                            "Het sluitscenario waarvoor dit illustratiepunt is berekend.",
+                                                                            "Keringsituatie",
+                                                                            "De keringsituatie waarvoor dit illustratiepunt is berekend.",
                                                                             true);
 
             PropertyDescriptor alphasProperty = dynamicProperties[alphasPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphasProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Alfa's [-]",
+                                                                            "Invloedscoëfficiënten [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
             PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             illustrationPointsCategoryName,
-                                                                            "Tijdsduren [min]",
+                                                                            "Tijdsduren [uur]",
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 

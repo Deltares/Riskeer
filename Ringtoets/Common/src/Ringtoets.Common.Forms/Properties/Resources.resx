@@ -1000,7 +1000,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Tijdsduren waarop de stochasten betrekking hebben.</value>
   </data>
   <data name="IllustrationPoint_Durations_DisplayName" xml:space="preserve">
-    <value>Tijdsduren [min]</value>
+    <value>Tijdsduren [uur]</value>
   </data>
   <data name="IllustrationPoint_GoverningWindDirection_Description" xml:space="preserve">
     <value>De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.</value>
@@ -1012,13 +1012,13 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Berekende invloedscoëfficiënten voor alle beschouwde stochasten.</value>
   </data>
   <data name="IllustrationPoint_AlphaValues_DisplayName" xml:space="preserve">
-    <value>Alfa's [-]</value>
+    <value>Invloedscoëfficiënten [-]</value>
   </data>
   <data name="IllustrationPoint_ClosingSituation_Description" xml:space="preserve">
-    <value>Het sluitscenario waarvoor dit illustratiepunt is berekend.</value>
+    <value>De keringsituatie waarvoor dit illustratiepunt is berekend.</value>
   </data>
   <data name="IllustrationPoint_ClosingSituation_DisplayName" xml:space="preserve">
-    <value>Sluitscenario</value>
+    <value>Keringsituatie</value>
   </data>
   <data name="IllustrationPoint_WindDirection_Description" xml:space="preserve">
     <value>De windrichting waarvoor dit illlustratiepunt is berekend.</value>
@@ -1117,10 +1117,10 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Realisaties van de stochasten in het illustratiepunt.</value>
   </data>
   <data name="IllustrationPoint_Realization_DisplayName" xml:space="preserve">
-    <value>Realisaties in het illustratiepunt</value>
+    <value>Stochastwaarden</value>
   </data>
   <data name="IllustrationPointsChartControl_StackChartControl_VerticalAxisTitle" xml:space="preserve">
-    <value>Alfa^2</value>
+    <value>Invloedscoëfficiënt^2</value>
   </data>
   <data name="Duplicate" xml:space="preserve">
     <value>D&amp;upliceren</value>
@@ -1207,10 +1207,10 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>2D profiel</value>
   </data>
   <data name="IllustrationPoint_Result_Description" xml:space="preserve">
-    <value>Waarden van variabelen in het illustratiepunt.</value>
+    <value>Waarden van afgeleide variabelen in het illustratiepunt.</value>
   </data>
   <data name="IllustrationPoint_Result_DisplayName" xml:space="preserve">
-    <value>Waarden in het illustratiepunt</value>
+    <value>Afgeleide variabelen</value>
   </data>
   <data name="GraphNodeConverter_GraphNodeContent_Beta_0_Probability_1" xml:space="preserve">
     <value>
@@ -1240,5 +1240,11 @@ Pf = {1}</value>
   </data>
   <data name="VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2_Shift_3" xml:space="preserve">
     <value>{0} (Verwachtingswaarde = {1}, Variatiecoëfficiënt = {2}, Verschuiving = {3})</value>
+  </data>
+  <data name="IllustrationPoint_CalculatedProbability_DisplayName" xml:space="preserve">
+    <value>Berekende kans [-]</value>
+  </data>
+  <data name="IllustrationPoint_IllustrationPointValues_DisplayName" xml:space="preserve">
+    <value>Waarden in het illustratiepunt</value>
   </data>
 </root>

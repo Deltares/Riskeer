@@ -113,7 +113,7 @@ namespace Ringtoets.Common.Forms.Views
                                                                    Resources.IllustrationPoint_ClosingSituation_DisplayName,
                                                                    true);
             illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.Probability),
-                                                                   Resources.CalculationOutput_CalculatedProbability_DisplayName,
+                                                                   Resources.IllustrationPoint_CalculatedProbability_DisplayName,
                                                                    true);
             illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.Reliability),
                                                                    Resources.CalculationOutput_CalculatedReliability_DisplayName,

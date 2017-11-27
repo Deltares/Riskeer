@@ -555,7 +555,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting..
+        ///   Looks up a localized string similar to Een of meerdere illustratiepunten hebben dezelfde combinatie van keringsituatie en windrichting..
         /// </summary>
         public static string GeneralResult_ValidateTopLevelIllustrationPoints_ClosingSituation_or_windDirection_not_unique {
             get {

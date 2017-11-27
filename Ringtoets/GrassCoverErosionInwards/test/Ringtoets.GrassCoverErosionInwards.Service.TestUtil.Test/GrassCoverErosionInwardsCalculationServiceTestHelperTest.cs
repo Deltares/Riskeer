@@ -234,7 +234,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
                     description,
                     name,
                     $"Fout bij het uitlezen van de illustratiepunten voor berekening {name} ({description}): " +
-                    "Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. " +
+                    "Een of meerdere illustratiepunten hebben dezelfde combinatie van keringsituatie en windrichting. " +
                     "Het uitlezen van illustratiepunten wordt overgeslagen.");
 
             // Assert
@@ -243,10 +243,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
 
         [Test]
         [TestCase("out bij het uitlezen van de illustratiepunten voor berekening  ( ): " +
-                  "Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. " +
+                  "Een of meerdere illustratiepunten hebben dezelfde combinatie van keringsituatie en windrichting. " +
                   "Het uitlezen van illustratiepunten wordt overgeslagen.")]
         [TestCase("out bij het uitlezen van de illustratiepunten voor berekening  ( ): " +
-                  "Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. " +
+                  "Een of meerdere illustratiepunten hebben dezelfde combinatie van keringsituatie en windrichting. " +
                   "Het uitlezen van illustratiepunten wordt overgeslage")]
         [TestCase("")]
         [TestCase(null)]
