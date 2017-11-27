@@ -4,11 +4,8 @@
   <PropertyGroup>
     <ProjectGuid>{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Core.Components.Gis.Forms</RootNamespace>
     <AssemblyName>Core.Components.Gis.Forms</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>

@@ -4,11 +4,8 @@
   <PropertyGroup>
     <ProjectGuid>{E02482C7-F12B-42F0-BB2B-C7EC17503A72}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Core.Components.BruTile</RootNamespace>
     <AssemblyName>Core.Components.BruTile</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
