@@ -69,10 +69,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a <see cref="ChartMultipleAreaData"/> for a slice parameter.
         /// </summary>
         /// <param name="name">The display name of the parameter.</param>
+        /// <param name="isVisible">The default visibility of the chart data.</param>
         /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
-        public static ChartMultipleAreaData CreateSliceParameterChartData(string name)
+        public static ChartMultipleAreaData CreateSliceParameterChartData(string name, bool isVisible)
         {
             if (name == null)
             {
@@ -87,7 +88,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 IsEditable = true
             })
             {
-                IsVisible = false
+                IsVisible = isVisible
             };
         }
 

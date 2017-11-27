@@ -63,20 +63,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         private const int sliceParameterIndex = 23;
         private const int nrOfChartData = 24;
 
-        private const int sliceParameterCohesionIndex = 0;
-        private const int sliceParameterEffectiveStressIndex = 1;
-        private const int sliceParameterEffectiveStressDailyIndex = 2;
-        private const int sliceParameterTotalPorePressureIndex = 3;
-        private const int sliceParameterWeightIndex = 4;
-        private const int sliceParameterPiezometricPorePressureIndex = 5;
-        private const int sliceParameterPorePressureIndex = 6;
-        private const int sliceParameterVerticalPorePressureIndex = 7;
-        private const int sliceParameterHorizontalPorePressureIndex = 8;
-        private const int sliceParameterOverConsolidationRatioIndex = 9;
-        private const int sliceParameterPopIndex = 10;
-        private const int sliceParameterNormalStressIndex = 11;
-        private const int sliceParameterShearStressIndex = 12;
-        private const int sliceParameterLoadStressIndex = 13;
+        private const int sliceParameterLoadStressIndex = 0;
+        private const int sliceParameterShearStressIndex = 1;
+        private const int sliceParameterNormalStressIndex = 2;
+        private const int sliceParameterPopIndex = 3;
+        private const int sliceParameterOverConsolidationRatioIndex = 4;
+        private const int sliceParameterHorizontalPorePressureIndex = 5;
+        private const int sliceParameterVerticalPorePressureIndex = 6;
+        private const int sliceParameterPorePressureIndex = 7;
+        private const int sliceParameterPiezometricPorePressureIndex = 8;
+        private const int sliceParameterWeightIndex = 9;
+        private const int sliceParameterTotalPorePressureIndex = 10;
+        private const int sliceParameterEffectiveStressDailyIndex = 11;
+        private const int sliceParameterEffectiveStressIndex = 12;
+        private const int sliceParameterCohesionIndex = 13;
         private const int sliceParameterNrOfChartData = 14;
 
         /// <summary>

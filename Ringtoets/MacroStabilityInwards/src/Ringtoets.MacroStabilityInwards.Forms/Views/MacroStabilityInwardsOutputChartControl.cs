@@ -129,33 +129,33 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             sliceParametersChartDataCollection = MacroStabilityInwardsChartDataFactory.CreateSliceParametersChartDataCollection();
             sliceCohesionChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.Cohesion_DisplayName);
+                Resources.Cohesion_DisplayName, false);
             sliceEffectiveStressChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.MacroStabilityInwardsSlice_EffectiveStress_DisplayName);
+                Resources.MacroStabilityInwardsSlice_EffectiveStress_DisplayName, true);
             sliceEffectiveStressDailyChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.MacroStabilityInwardsSlice_EffectiveStressDaily_DisplayName);
+                Resources.MacroStabilityInwardsSlice_EffectiveStressDaily_DisplayName, false);
             sliceTotalPorePressureChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.MacroStabilityInwardsSlice_TotalPorePressure_DisplayName);
+                Resources.MacroStabilityInwardsSlice_TotalPorePressure_DisplayName, false);
             sliceWeightChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.MacroStabilityInwardsSlice_Weight_DisplayName);
+                Resources.MacroStabilityInwardsSlice_Weight_DisplayName, false);
             slicePiezometricPorePressureChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.MacroStabilityInwardsSlice_PiezometricPorePressure_DisplayName);
+                Resources.MacroStabilityInwardsSlice_PiezometricPorePressure_DisplayName, false);
             slicePorePressureChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.MacroStabilityInwardsSlice_PorePressure_DisplayName);
+                Resources.MacroStabilityInwardsSlice_PorePressure_DisplayName, false);
             sliceVerticalPorePressureChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.MacroStabilityInwardsSlice_VerticalPorePressure_DisplayName);
+                Resources.MacroStabilityInwardsSlice_VerticalPorePressure_DisplayName, false);
             sliceHorizontalPorePressureChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.MacroStabilityInwardsSlice_HorizontalPorePressure_DisplayName);
+                Resources.MacroStabilityInwardsSlice_HorizontalPorePressure_DisplayName, false);
             sliceOverConsolidationRatioChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.MacroStabilityInwardsSlice_OverConsolidationRatio_DisplayName);
+                Resources.MacroStabilityInwardsSlice_OverConsolidationRatio_DisplayName, false);
             slicePopChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.Pop_DisplayName);
+                Resources.Pop_DisplayName, false);
             sliceNormalStressChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.MacroStabilityInwardsSlice_NormalStress_DisplayName);
+                Resources.MacroStabilityInwardsSlice_NormalStress_DisplayName, false);
             sliceShearStressChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.MacroStabilityInwardsSlice_ShearStress_DisplayName);
+                Resources.MacroStabilityInwardsSlice_ShearStress_DisplayName, false);
             sliceLoadStressChartData = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(
-                Resources.MacroStabilityInwardsSlice_LoadStress_DisplayName);
+                Resources.MacroStabilityInwardsSlice_LoadStress_DisplayName, false);
 
             chartDataCollection.Add(soilProfileChartData);
             chartDataCollection.Add(surfaceLineChartData);
@@ -182,20 +182,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection.Add(rightCircleRadiusChartData);
 
             chartDataCollection.Add(sliceParametersChartDataCollection);
-            sliceParametersChartDataCollection.Add(sliceCohesionChartData);
-            sliceParametersChartDataCollection.Add(sliceEffectiveStressChartData);
-            sliceParametersChartDataCollection.Add(sliceEffectiveStressDailyChartData);
-            sliceParametersChartDataCollection.Add(sliceTotalPorePressureChartData);
-            sliceParametersChartDataCollection.Add(sliceWeightChartData);
-            sliceParametersChartDataCollection.Add(slicePiezometricPorePressureChartData);
-            sliceParametersChartDataCollection.Add(slicePorePressureChartData);
-            sliceParametersChartDataCollection.Add(sliceVerticalPorePressureChartData);
-            sliceParametersChartDataCollection.Add(sliceHorizontalPorePressureChartData);
-            sliceParametersChartDataCollection.Add(sliceOverConsolidationRatioChartData);
-            sliceParametersChartDataCollection.Add(slicePopChartData);
-            sliceParametersChartDataCollection.Add(sliceNormalStressChartData);
-            sliceParametersChartDataCollection.Add(sliceShearStressChartData);
             sliceParametersChartDataCollection.Add(sliceLoadStressChartData);
+            sliceParametersChartDataCollection.Add(sliceShearStressChartData);
+            sliceParametersChartDataCollection.Add(sliceNormalStressChartData);
+            sliceParametersChartDataCollection.Add(slicePopChartData);
+            sliceParametersChartDataCollection.Add(sliceOverConsolidationRatioChartData);
+            sliceParametersChartDataCollection.Add(sliceHorizontalPorePressureChartData);
+            sliceParametersChartDataCollection.Add(sliceVerticalPorePressureChartData);
+            sliceParametersChartDataCollection.Add(slicePorePressureChartData);
+            sliceParametersChartDataCollection.Add(slicePiezometricPorePressureChartData);
+            sliceParametersChartDataCollection.Add(sliceWeightChartData);
+            sliceParametersChartDataCollection.Add(sliceTotalPorePressureChartData);
+            sliceParametersChartDataCollection.Add(sliceEffectiveStressDailyChartData);
+            sliceParametersChartDataCollection.Add(sliceEffectiveStressChartData);
+            sliceParametersChartDataCollection.Add(sliceCohesionChartData);
 
             soilLayerChartDataLookup = new List<ChartMultipleAreaData>();
 
