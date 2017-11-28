@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Forms
                                                                IEnumerable<PipingStochasticSoilModel> soilModels,
                                                                GeneralPipingInput generalInput)
         {
-            var calculationGroup = new CalculationGroup(surfaceLine.Name, true);
+            var calculationGroup = new CalculationGroup(surfaceLine.Name);
             IEnumerable<PipingStochasticSoilModel> stochasticSoilModels = GetStochasticSoilModelsForSurfaceLine(surfaceLine, soilModels);
             foreach (PipingStochasticSoilModel stochasticSoilModel in stochasticSoilModels)
             {

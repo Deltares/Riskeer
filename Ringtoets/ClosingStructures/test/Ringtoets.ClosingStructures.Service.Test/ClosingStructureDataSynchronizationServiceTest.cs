@@ -351,7 +351,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     Children =
                     {
                         calculation1,
-                        new CalculationGroup("B", true)
+                        new CalculationGroup("B")
                         {
                             Children =
                             {

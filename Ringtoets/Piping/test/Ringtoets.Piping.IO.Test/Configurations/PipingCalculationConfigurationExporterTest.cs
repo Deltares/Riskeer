@@ -71,12 +71,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "folderWithSubfolderAndCalculation",
-                        new CalculationGroup("PK001_0001", false)
+                        new CalculationGroup("PK001_0001")
                         {
                             Children =
                             {
                                 PipingTestDataGenerator.GetPipingCalculationScenario(),
-                                new CalculationGroup("PK001_0002", false)
+                                new CalculationGroup("PK001_0002")
                                 {
                                     Children =
                                     {

@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Integration.Test
                 Assert.AreEqual(19, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[hydraulicBoundaryLocationsColumnIndex]).Items.Count);
 
                 // Add group and ensure the data grid view is not changed
-                var nestedPipingCalculationGroup = new CalculationGroup("New group", false);
+                var nestedPipingCalculationGroup = new CalculationGroup("New group");
                 assessmentSection.Piping.CalculationsGroup.Children.Add(nestedPipingCalculationGroup);
                 assessmentSection.Piping.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual(1, dataGridView.Rows.Count);

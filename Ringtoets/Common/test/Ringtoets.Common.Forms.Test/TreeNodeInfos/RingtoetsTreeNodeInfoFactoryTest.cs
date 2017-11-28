@@ -692,13 +692,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CanRemoveCalculationContextTreeNodeInfo_ParentIsCalculationGroupWithCalculation_ReturnTrue(bool groupNameEditable)
+        public void CanRemoveCalculationContextTreeNodeInfo_ParentIsCalculationGroupWithCalculation_ReturnTrue()
         {
             // Setup
             var calculationToBeRemoved = new TestCalculation();
-            var group = new CalculationGroup("", groupNameEditable);
+            var group = new CalculationGroup("");
             group.Children.Add(calculationToBeRemoved);
 
             var mocks = new MockRepository();
@@ -719,13 +717,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CanRemoveCalculationContextTreeNodeInfo_ParentIsCalculationGroupWithoutCalculation_ReturnFalse(bool groupNameEditable)
+        public void CanRemoveCalculationContextTreeNodeInfo_ParentIsCalculationGroupWithoutCalculation_ReturnFalse()
         {
             // Setup
             var calculationToBeRemoved = new TestCalculation();
-            var group = new CalculationGroup("", groupNameEditable);
+            var group = new CalculationGroup("");
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();

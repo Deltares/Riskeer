@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Reflection;
 using Core.Common.Base;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
@@ -37,14 +39,33 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
     public class CalculationGroupContextPropertiesTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_CalculationGroupContextNull_ThrowsArgumentNullException()
         {
             // Call
-            var properties = new CalculationGroupContextProperties();
+            TestDelegate call = () => new CalculationGroupContextProperties(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("calculationContext", paramName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var calculationGroupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
+
+            // Call
+            var properties = new CalculationGroupContextProperties(calculationGroupContext);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ICalculationContext<CalculationGroup, IFailureMechanism>>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreEqual(calculationGroupContext, properties.Data);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -57,10 +78,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var calculationGroup = new CalculationGroup();
 
-            var properties = new CalculationGroupContextProperties
-            {
-                Data = new TestCalculationGroupContext(calculationGroup, new CalculationGroup(), failureMechanism)
-            };
+            var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(calculationGroup, new CalculationGroup(), failureMechanism));
 
             // Call & Assert
             Assert.AreEqual(calculationGroup.Name, properties.Name);
@@ -82,10 +100,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             calculationGroup.Attach(projectObserver);
 
-            var properties = new CalculationGroupContextProperties
-            {
-                Data = testCalculationGroupContext
-            };
+            var properties = new CalculationGroupContextProperties(testCalculationGroupContext);
 
             // Call & Assert
             const string name = "cool new name!";
@@ -95,34 +110,65 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Name_GroupHasEditableName_NameShouldNotBeReadonly(bool nameIsEditable)
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var properties = new CalculationGroupContextProperties
-            {
-                Data = new TestCalculationGroupContext(new CalculationGroup("A", nameIsEditable),
-                                                       new CalculationGroup(),
-                                                       failureMechanism)
-            };
-
-            string propertyName = nameof(CalculationGroupContextProperties.Name);
-            PropertyInfo nameProperty = properties.GetType().GetProperty(propertyName);
-
             // Call
-            Attribute dynamicReadOnlyAttribute = Attribute.GetCustomAttribute(nameProperty,
-                                                                              typeof(DynamicReadOnlyAttribute),
-                                                                              true);
+            var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup("A"),
+                                                                                                   new CalculationGroup(),
+                                                                                                   failureMechanism));
 
             // Assert
-            Assert.IsNotNull(dynamicReadOnlyAttribute);
-            Assert.AreEqual(!nameIsEditable, DynamicReadOnlyAttribute.IsReadOnly(properties, propertyName));
-            mocks.VerifyAll();
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(1, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            "Algemeen",
+                                                                            "Naam",
+                                                                            "Naam van de map met berekeningen.");
+        }
+
+        [Test]
+        public void DynamicReadOnlyValidator_WithParentCalculationGroup_ReturnsExpectedResult()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup("A"),
+                                                                                                   new CalculationGroup(),
+                                                                                                   failureMechanism));
+
+            // Call
+            bool isReadOnly = properties.DynamicReadOnlyValidator(string.Empty);
+
+            // Assert
+            Assert.IsFalse(isReadOnly);
+        }
+
+        [Test]
+        public void DynamicReadOnlyValidator_WithoutParentCalculationGroup_ReturnsExpectedResult()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup("A"),
+                                                                                                   null,
+                                                                                                   failureMechanism));
+
+            // Call
+            bool isReadOnly = properties.DynamicReadOnlyValidator(string.Empty);
+
+            // Assert
+            Assert.IsTrue(isReadOnly);
         }
 
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>

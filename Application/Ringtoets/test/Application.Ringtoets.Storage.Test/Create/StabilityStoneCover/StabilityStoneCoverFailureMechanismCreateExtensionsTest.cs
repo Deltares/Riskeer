@@ -201,8 +201,8 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup("A", true));
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup("B", true));
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup("A"));
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup("B"));
 
             var registry = new PersistenceRegistry();
 

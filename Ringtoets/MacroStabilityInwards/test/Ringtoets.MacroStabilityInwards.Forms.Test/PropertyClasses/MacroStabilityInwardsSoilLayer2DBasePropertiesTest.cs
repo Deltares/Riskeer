@@ -142,7 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidData_PropertieshaveExpectedAttributeValues()
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             MacroStabilityInwardsSoilLayer2D layer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();

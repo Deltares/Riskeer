@@ -130,7 +130,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidData_PropertieshaveExpectedAttributeValues()
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             var layer = new PipingSoilLayer(-2.9);

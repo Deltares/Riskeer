@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
@@ -43,63 +41,22 @@ namespace Ringtoets.Common.Data.Test.Calculation
             Assert.IsInstanceOf<ICalculationBase>(group);
             Assert.IsInstanceOf<CloneableObservable>(group);
 
-            Assert.IsTrue(group.IsNameEditable);
             Assert.AreEqual("Nieuwe map", group.Name);
             CollectionAssert.IsEmpty(group.Children);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ParameteredConstructor_ExpectedValues(bool isNameEditable)
+        public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
             const string newName = "new Name";
 
             // Call
-            var group = new CalculationGroup(newName, isNameEditable);
+            var group = new CalculationGroup(newName);
 
             // Assert
-            Assert.AreEqual(isNameEditable, group.IsNameEditable);
             Assert.AreEqual(newName, group.Name);
             CollectionAssert.IsEmpty(group.Children);
-        }
-
-        [Test]
-        public void Name_SettingValueWhileNameEditable_ChangeName()
-        {
-            // Setup
-            var group = new CalculationGroup("a", true);
-
-            // Precondition
-            Assert.IsTrue(group.IsNameEditable);
-
-            // Call
-            const string newName = "new Name";
-            group.Name = newName;
-
-            // Assert
-            Assert.AreEqual(newName, group.Name);
-        }
-
-        [Test]
-        public void Name_SettingValueWhileNameNotEditable_ThrowInvalidOperationException()
-        {
-            // Setup
-            const string originalName = "a";
-            var group = new CalculationGroup(originalName, false);
-
-            // Precondition
-            Assert.IsFalse(group.IsNameEditable);
-
-            // Call
-            const string newName = "new Name";
-            TestDelegate call = () => group.Name = newName;
-
-            // Assert
-            var exception = Assert.Throws<InvalidOperationException>(call);
-            Assert.AreEqual("Kan de naam van deze groep niet aanpassen, omdat 'IsNameEditable' op 'false' staat.", exception.Message);
-            Assert.AreEqual(originalName, group.Name);
         }
 
         [Test]
@@ -230,8 +187,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var random = new Random(21);
-            var original = new CalculationGroup("Random group name", random.NextBoolean())
+            var original = new CalculationGroup("Random group name")
             {
                 Children =
                 {

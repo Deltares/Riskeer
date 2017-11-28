@@ -766,9 +766,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void OnNodeRemoved_ParentIsPipingCalculationGroupContext_RemoveCalculationFromGroup(bool groupNameEditable)
+        public void OnNodeRemoved_ParentIsPipingCalculationGroupContext_RemoveCalculationFromGroup()
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -776,7 +774,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             var elementToBeRemoved = new PipingCalculationScenario(new GeneralPipingInput());
 
-            var group = new CalculationGroup("", groupNameEditable);
+            var group = new CalculationGroup("");
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
             group.Attach(observer);
@@ -811,9 +809,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void OnNodeRemoved_ParentIsPipingCalculationGroupContext_RemoveCalculationFromSectionResult(bool groupNameEditable)
+        public void OnNodeRemoved_ParentIsPipingCalculationGroupContext_RemoveCalculationFromSectionResult()
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -830,7 +826,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var group = new CalculationGroup("", groupNameEditable);
+            var group = new CalculationGroup("");
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
             group.Attach(observer);

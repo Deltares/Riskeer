@@ -71,12 +71,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     .SetName(testNameFormat);
                 yield return new TestCaseData(
                         "folderWithSubfolderAndCalculation",
-                        new CalculationGroup("PK001_0001", false)
+                        new CalculationGroup("PK001_0001")
                         {
                             Children =
                             {
                                 MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenario(),
-                                new CalculationGroup("PK001_0002", false)
+                                new CalculationGroup("PK001_0002")
                                 {
                                     Children =
                                     {

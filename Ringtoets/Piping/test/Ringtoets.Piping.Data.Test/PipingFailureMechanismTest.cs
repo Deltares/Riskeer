@@ -54,7 +54,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<GeneralPipingInput>(failureMechanism.GeneralInput);
 
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
-            Assert.IsFalse(failureMechanism.CalculationsGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);

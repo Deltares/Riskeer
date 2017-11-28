@@ -48,7 +48,6 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsInstanceOf<GeneralHeightStructuresInput>(failureMechanism.GeneralInput);
 
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
-            Assert.IsFalse(failureMechanism.CalculationsGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             CollectionAssert.IsEmpty(failureMechanism.HeightStructures);

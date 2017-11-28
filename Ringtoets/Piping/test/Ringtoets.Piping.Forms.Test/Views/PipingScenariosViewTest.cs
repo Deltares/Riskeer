@@ -343,7 +343,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             PipingScenariosView pipingScenarioView = ShowPipingScenarioView();
 
-            pipingScenarioView.Data = new CalculationGroup("Group", true)
+            pipingScenarioView.Data = new CalculationGroup("Group")
             {
                 Children =
                 {

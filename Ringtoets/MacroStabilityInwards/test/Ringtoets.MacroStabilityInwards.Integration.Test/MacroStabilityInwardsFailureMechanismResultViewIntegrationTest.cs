@@ -97,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Add group and ensure the data grid view is not changed
-                var nestedCalculationGroup = new CalculationGroup("New group", false);
+                var nestedCalculationGroup = new CalculationGroup("New group");
                 assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(nestedCalculationGroup);
                 assessmentSection.MacroStabilityInwards.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);

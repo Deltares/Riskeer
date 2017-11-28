@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(generalPipingInput));
             }
 
-            var group = new CalculationGroup(entity.Name, true);
+            var group = new CalculationGroup(entity.Name);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
@@ -101,7 +101,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var group = new CalculationGroup(entity.Name, true);
+            var group = new CalculationGroup(entity.Name);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
@@ -137,7 +137,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var group = new CalculationGroup(entity.Name, true);
+            var group = new CalculationGroup(entity.Name);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
@@ -173,7 +173,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var group = new CalculationGroup(entity.Name, true);
+            var group = new CalculationGroup(entity.Name);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
@@ -209,7 +209,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var group = new CalculationGroup(entity.Name, true);
+            var group = new CalculationGroup(entity.Name);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
@@ -245,7 +245,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var group = new CalculationGroup(entity.Name, true);
+            var group = new CalculationGroup(entity.Name);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
@@ -281,7 +281,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var group = new CalculationGroup(entity.Name, true);
+            var group = new CalculationGroup(entity.Name);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
@@ -317,7 +317,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var group = new CalculationGroup(entity.Name, true);
+            var group = new CalculationGroup(entity.Name);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
@@ -353,7 +353,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var group = new CalculationGroup(entity.Name, true);
+            var group = new CalculationGroup(entity.Name);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {

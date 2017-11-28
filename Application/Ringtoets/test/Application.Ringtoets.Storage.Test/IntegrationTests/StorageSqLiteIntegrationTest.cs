@@ -509,7 +509,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                    CalculationGroup actualRootCalculationGroup)
         {
             Assert.AreEqual(expectedRootCalculationGroup.Name, actualRootCalculationGroup.Name);
-            Assert.AreEqual(expectedRootCalculationGroup.IsNameEditable, actualRootCalculationGroup.IsNameEditable);
 
             Assert.AreEqual(expectedRootCalculationGroup.Children.Count, actualRootCalculationGroup.Children.Count);
             for (var i = 0; i < expectedRootCalculationGroup.Children.Count; i++)

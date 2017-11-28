@@ -75,12 +75,12 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                     .SetName("Calculation configuration with use breakwater true");
                 yield return new TestCaseData("folderWithSubfolderAndCalculation", new[]
                     {
-                        new CalculationGroup("Testmap", false)
+                        new CalculationGroup("Testmap")
                         {
                             Children =
                             {
                                 CreateFullCalculation(),
-                                new CalculationGroup("Nested", false)
+                                new CalculationGroup("Nested")
                                 {
                                     Children =
                                     {

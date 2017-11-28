@@ -64,7 +64,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
                 }
             };
 
-            var calculationGroup2 = new CalculationGroup("PK001_0002", false)
+            var calculationGroup2 = new CalculationGroup("PK001_0002")
             {
                 Children =
                 {
@@ -72,7 +72,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Test.Exporters
                 }
             };
 
-            var calculationGroup = new CalculationGroup("PK001_0001", false)
+            var calculationGroup = new CalculationGroup("PK001_0001")
             {
                 Children =
                 {

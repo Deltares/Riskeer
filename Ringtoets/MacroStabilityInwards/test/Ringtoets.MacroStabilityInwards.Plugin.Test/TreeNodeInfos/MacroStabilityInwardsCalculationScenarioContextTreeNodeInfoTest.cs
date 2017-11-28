@@ -362,9 +362,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup(bool groupNameEditable)
+        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup()
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -372,7 +370,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var elementToBeRemoved = new MacroStabilityInwardsCalculationScenario();
 
-            var group = new CalculationGroup("", groupNameEditable);
+            var group = new CalculationGroup("");
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new MacroStabilityInwardsCalculationScenario());
             group.Attach(observer);
@@ -407,9 +405,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromSectionResult(bool groupNameEditable)
+        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromSectionResult()
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -426,7 +422,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var group = new CalculationGroup("", groupNameEditable);
+            var group = new CalculationGroup("");
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new MacroStabilityInwardsCalculationScenario());
             group.Attach(observer);

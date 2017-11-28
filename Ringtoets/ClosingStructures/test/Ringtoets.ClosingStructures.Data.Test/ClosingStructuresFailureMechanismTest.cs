@@ -49,7 +49,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.IsInstanceOf<GeneralClosingStructuresInput>(failureMechanism.GeneralInput);
 
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
-            Assert.IsFalse(failureMechanism.CalculationsGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             CollectionAssert.IsEmpty(failureMechanism.Sections);

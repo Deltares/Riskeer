@@ -387,7 +387,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
         /// to parse is not valid.</exception>
         private CalculationGroup ParseReadCalculationGroup(CalculationGroupConfiguration readCalculationGroup)
         {
-            var calculationGroup = new CalculationGroup(readCalculationGroup.Name, true);
+            var calculationGroup = new CalculationGroup(readCalculationGroup.Name);
 
             foreach (IConfigurationItem item in readCalculationGroup.Items)
             {

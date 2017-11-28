@@ -891,11 +891,11 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
 
         private static CalculationGroup GetExpectedNestedData()
         {
-            return new CalculationGroup("Root", false)
+            return new CalculationGroup("Root")
             {
                 Children =
                 {
-                    new CalculationGroup("Group 1", false)
+                    new CalculationGroup("Group 1")
                     {
                         Children =
                         {
@@ -909,11 +909,11 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
                     {
                         Name = "Calculation 1"
                     },
-                    new CalculationGroup("Group 2", false)
+                    new CalculationGroup("Group 2")
                     {
                         Children =
                         {
-                            new CalculationGroup("Group 4", false)
+                            new CalculationGroup("Group 4")
                             {
                                 Children =
                                 {
@@ -933,7 +933,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
                     {
                         Name = "Calculation 2"
                     },
-                    new CalculationGroup("Group 3", false)
+                    new CalculationGroup("Group 3")
                 }
             };
         }
@@ -941,7 +941,6 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
         private static void AssertCalculationGroup(CalculationGroup expectedCalculationGroup, CalculationGroup actualCalculationGroup)
         {
             Assert.AreEqual(expectedCalculationGroup.Children.Count, actualCalculationGroup.Children.Count);
-            Assert.IsTrue(actualCalculationGroup.IsNameEditable);
 
             for (var i = 0; i < expectedCalculationGroup.Children.Count; i++)
             {

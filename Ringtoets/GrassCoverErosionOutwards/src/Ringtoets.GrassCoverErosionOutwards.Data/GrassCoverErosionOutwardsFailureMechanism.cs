@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         {
             sectionResults = new List<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
             GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
-            WaveConditionsCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
+            WaveConditionsCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName);
             HydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }

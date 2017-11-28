@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -36,6 +37,23 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationGroupContextProperties_DisplayName))]
     public class CalculationGroupContextProperties : ObjectProperties<ICalculationContext<CalculationGroup, IFailureMechanism>>
     {
+        private readonly bool isNameEditable;
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="CalculationGroupContextProperties"/> class.
+        /// </summary>
+        /// <param name="calculationContext">The calculation context to use for the properties.</param>
+        public CalculationGroupContextProperties(ICalculationContext<CalculationGroup, IFailureMechanism> calculationContext)
+        {
+            if (calculationContext == null)
+            {
+                throw new ArgumentNullException(nameof(calculationContext));
+            }
+
+            Data = calculationContext;
+            isNameEditable = calculationContext.Parent != null;
+        }
+
         [DynamicReadOnly]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationGroup_Name_DisplayName))]
@@ -54,9 +72,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [DynamicReadOnlyValidationMethod]
-        public bool DynamicReadonlyValidator(string propertyName)
+        public bool DynamicReadOnlyValidator(string propertyName)
         {
-            return !data.WrappedData.IsNameEditable;
+            return !isNameEditable;
         }
     }
 }

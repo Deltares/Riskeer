@@ -221,8 +221,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup("A", true));
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup("B", true));
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup("A"));
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup("B"));
 
             var registry = new PersistenceRegistry();
 

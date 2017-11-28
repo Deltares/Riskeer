@@ -51,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
                 Name = "Berekening 2"
             };
 
-            var calculationGroup2 = new CalculationGroup("Nested", false)
+            var calculationGroup2 = new CalculationGroup("Nested")
             {
                 Children =
                 {
@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
                 }
             };
 
-            var calculationGroup = new CalculationGroup("Testmap", false)
+            var calculationGroup = new CalculationGroup("Testmap")
             {
                 Children =
                 {

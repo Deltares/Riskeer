@@ -339,7 +339,6 @@ namespace Ringtoets.Common.Data.TestUtil
         public static void AreClones(CalculationGroup original, CalculationGroup clone)
         {
             AreClones((ICalculationBase) original, clone);
-            Assert.AreEqual(original.IsNameEditable, clone.IsNameEditable);
 
             CoreCloneAssert.AreEnumerationClones(original.Children, clone.Children, AreClones);
         }

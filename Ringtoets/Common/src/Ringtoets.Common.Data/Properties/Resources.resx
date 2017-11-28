@@ -159,9 +159,6 @@
   <data name="CalculationGroup_DefaultName" xml:space="preserve">
     <value>Nieuwe map</value>
   </data>
-  <data name="CalculationGroup_Setting_readonly_name_error_message" xml:space="preserve">
-    <value>Kan de naam van deze groep niet aanpassen, omdat 'IsNameEditable' op 'false' staat.</value>
-  </data>
   <data name="OtherFailureMechanism_Code" xml:space="preserve">
     <value>-</value>
   </data>

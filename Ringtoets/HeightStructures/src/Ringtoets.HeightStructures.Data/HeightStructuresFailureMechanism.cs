@@ -45,7 +45,7 @@ namespace Ringtoets.HeightStructures.Data
             : base(Resources.HeightStructuresFailureMechanism_DisplayName, Resources.HeightStructuresFailureMechanism_Code)
         {
             sectionResults = new List<HeightStructuresFailureMechanismSectionResult>();
-            CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
+            CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName);
             GeneralInput = new GeneralHeightStructuresInput();
             HeightStructures = new StructureCollection<HeightStructure>();
             ForeshoreProfiles = new ForeshoreProfileCollection();

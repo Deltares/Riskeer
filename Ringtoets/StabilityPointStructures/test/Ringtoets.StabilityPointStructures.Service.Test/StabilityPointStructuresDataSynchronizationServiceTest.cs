@@ -267,7 +267,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     Children =
                     {
                         calculation1,
-                        new CalculationGroup("B", true)
+                        new CalculationGroup("B")
                         {
                             Children =
                             {

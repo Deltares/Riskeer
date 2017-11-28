@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Data.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -259,15 +259,6 @@ namespace Ringtoets.Common.Data.Properties {
         public static string CalculationGroup_DefaultName {
             get {
                 return ResourceManager.GetString("CalculationGroup_DefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan de naam van deze groep niet aanpassen, omdat &apos;IsNameEditable&apos; op &apos;false&apos; staat..
-        /// </summary>
-        public static string CalculationGroup_Setting_readonly_name_error_message {
-            get {
-                return ResourceManager.GetString("CalculationGroup_Setting_readonly_name_error_message", resourceCulture);
             }
         }
         

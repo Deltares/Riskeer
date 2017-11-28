@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidData_PropertieshaveExpectedAttributeValues()
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             var waternet = new MacroStabilityInwardsWaternet(Enumerable.Empty<MacroStabilityInwardsPhreaticLine>(),

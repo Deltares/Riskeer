@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
@@ -32,51 +31,28 @@ namespace Ringtoets.Common.Data.Calculation
     /// </summary>
     public class CalculationGroup : CloneableObservable, ICalculationBase
     {
-        private string name;
-
         /// <summary>
         /// Creates a new instance of the <see cref="CalculationGroup"/> class
-        /// with an editable name.
+        /// with a default name.
         /// </summary>
-        public CalculationGroup() : this(Resources.CalculationGroup_DefaultName, true) {}
+        public CalculationGroup() : this(Resources.CalculationGroup_DefaultName) {}
 
         /// <summary>
         /// Creates a new instance of the <see cref="CalculationGroup"/> class.
         /// </summary>
         /// <param name="newName">The name of the group.</param>
-        /// <param name="canEditName">Determines if the name of the group is editable (<c>true</c>) or not.</param>
-        public CalculationGroup(string newName, bool canEditName)
+        public CalculationGroup(string newName)
         {
-            name = newName;
-            IsNameEditable = canEditName;
+            Name = newName;
             Children = new List<ICalculationBase>();
         }
-
-        /// <summary>
-        /// Gets a value indicating whether or not <see cref="ICalculationBase.Name"/> is editable.
-        /// </summary>
-        public bool IsNameEditable { get; }
 
         /// <summary>
         /// Gets the children that define this group.
         /// </summary>
         public List<ICalculationBase> Children { get; private set; }
 
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                if (!IsNameEditable)
-                {
-                    throw new InvalidOperationException(Resources.CalculationGroup_Setting_readonly_name_error_message);
-                }
-                name = value;
-            }
-        }
+        public string Name { get; set; }
 
         public override object Clone()
         {

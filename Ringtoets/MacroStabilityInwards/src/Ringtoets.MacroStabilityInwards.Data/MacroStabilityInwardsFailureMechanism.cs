@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             MacroStabilityInwardsProbabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput();
             SurfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
             StochasticSoilModels = new MacroStabilityInwardsStochasticSoilModelCollection();
-            CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
+            CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName);
 
             sectionResults = new List<MacroStabilityInwardsFailureMechanismSectionResult>();
         }
