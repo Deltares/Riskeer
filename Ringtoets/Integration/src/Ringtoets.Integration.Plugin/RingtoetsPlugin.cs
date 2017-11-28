@@ -305,7 +305,10 @@ namespace Ringtoets.Integration.Plugin
                     new AssessmentSectionCompositionChangeHandler(Gui.ViewCommands))
             };
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>();
-            yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>();
+            yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>
+            {
+                CreateInstance = context => new CalculationGroupContextProperties(context)
+            };
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<StructuresOutputContext, StructuresOutputProperties>
             {
