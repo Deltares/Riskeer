@@ -28,88 +28,110 @@ using Ringtoets.Common.Data.DikeProfiles;
 namespace Ringtoets.Common.Data.TestUtil
 {
     /// <summary>
-    /// Simple dike profile that can be used for testing.
+    /// Factory that creates simple <see cref="DikeProfile"/> instances
+    /// which can be used for testing.
     /// </summary>
-    public class TestDikeProfile : DikeProfile
+    public class DikeProfileTestFactory
     {
         /// <summary>
-        /// Initializes default <see cref="DikeProfile"/> at the world origin.
+        /// Creates a default <see cref="DikeProfile"/> at the world origin.
         /// </summary>
-        public TestDikeProfile() : this(new Point2D(0, 0)) {}
+        public static DikeProfile CreateDikeProfile()
+        {
+            return CreateDikeProfile(new Point2D(0, 0));
+        }
 
         /// <summary>
-        /// Initializes default <see cref="DikeProfile"/> at the world origin 
+        /// Creates a default <see cref="DikeProfile"/> at the world origin 
         /// with a specified name.
         /// </summary>
         /// <param name="name">The name of the dike profile.</param>
-        public TestDikeProfile(string name) : this(name, new Point2D(0, 0)) {}
+        public static DikeProfile CreateDikeProfile(string name)
+        {
+            return CreateDikeProfile(name, new Point2D(0, 0));
+        }
 
         /// <summary>
-        /// Initializes default <see cref="DikeProfile"/> at the world origin
+        /// Creates a default <see cref="DikeProfile"/> at the world origin
         /// with a specified name and ID.
         /// </summary>
         /// <param name="name">The name of the dike profile.</param>
         /// <param name="id">The ID of the dike profile.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is
         /// <c>null</c>, empty, or consists of whitespace. </exception>
-        public TestDikeProfile(string name, string id)
-            : this(id, name, new Point2D(0, 0), Enumerable.Empty<RoughnessPoint>(), Enumerable.Empty<Point2D>()) {}
+        public static DikeProfile CreateDikeProfile(string name, string id)
+        {
+            return CreateDikeProfile(id, name, new Point2D(0, 0), Enumerable.Empty<RoughnessPoint>(), Enumerable.Empty<Point2D>());
+        }
 
         /// <summary>
-        /// Initializes default <see cref="DikeProfile"/> at a specified world 
+        /// Creates a default <see cref="DikeProfile"/> at a specified world 
         /// location.
         /// </summary>
         /// <param name="point">The world coordinate of the dike profile.</param>
-        public TestDikeProfile(Point2D point) : this(null, point) {}
+        public static DikeProfile CreateDikeProfile(Point2D point)
+        {
+            return CreateDikeProfile(null, point);
+        }
 
         /// <summary>
-        /// Initializes default <see cref="DikeProfile"/> at a specified world 
+        /// Creates a default <see cref="DikeProfile"/> at a specified world 
         /// location and ID.
         /// </summary>
         /// <param name="point">The world coordinate of the dike profile.</param>
         /// <param name="id">The ID of the dike profile.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is
         /// <c>null</c>, empty, or consists of whitespace. </exception>
-        public TestDikeProfile(Point2D point, string id)
-            : this(id, "name", point, Enumerable.Empty<RoughnessPoint>(), Enumerable.Empty<Point2D>()) {}
+        public static DikeProfile CreateDikeProfile(Point2D point, string id)
+        {
+            return CreateDikeProfile(id, "name", point, Enumerable.Empty<RoughnessPoint>(), Enumerable.Empty<Point2D>());
+        }
 
         /// <summary>
-        /// Initializes default <see cref="DikeProfile"/> at the world origin with 
+        /// Creates a default <see cref="DikeProfile"/> at the world origin with 
         /// a specified foreshore profile geometry.
         /// </summary>
         /// <param name="foreshoreProfileGeometry">The geometry of the <see cref="ForeshoreProfile"/>.</param>
-        public TestDikeProfile(IEnumerable<Point2D> foreshoreProfileGeometry)
-            : this("id", "name", new Point2D(0, 0), Enumerable.Empty<RoughnessPoint>(), foreshoreProfileGeometry) {}
+        public static DikeProfile CreateDikeProfile(IEnumerable<Point2D> foreshoreProfileGeometry)
+        {
+            return CreateDikeProfile("id", "name", new Point2D(0, 0), Enumerable.Empty<RoughnessPoint>(), foreshoreProfileGeometry);
+        }
 
         /// <summary>
-        /// Initializes default <see cref="DikeProfile"/> at the world origin with 
+        /// Creates a default <see cref="DikeProfile"/> at the world origin with 
         /// a specified foreshore profile geometry and ID.
         /// </summary>
         /// <param name="foreshoreProfileGeometry">The geometry of the <see cref="ForeshoreProfile"/>.</param>
         /// <param name="id">The ID of the dike profile.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is
         /// <c>null</c>, empty, or consists of whitespace. </exception>
-        public TestDikeProfile(IEnumerable<Point2D> foreshoreProfileGeometry, string id)
-            : this(id, "name", new Point2D(0, 0), Enumerable.Empty<RoughnessPoint>(), foreshoreProfileGeometry) {}
+        public static DikeProfile CreateDikeProfile(IEnumerable<Point2D> foreshoreProfileGeometry, string id)
+        {
+            return CreateDikeProfile(id, "name", new Point2D(0, 0), Enumerable.Empty<RoughnessPoint>(), foreshoreProfileGeometry);
+        }
 
         /// <summary>
-        /// Initializes default <see cref="DikeProfile"/> at the world origin with 
+        /// Creates a default <see cref="DikeProfile"/> at the world origin with 
         /// a specified dike profile geometry.
         /// </summary>
         /// <param name="dikeGeometry">The geometry of the <see cref="ForeshoreProfile"/>.</param>
-        public TestDikeProfile(IEnumerable<RoughnessPoint> dikeGeometry)
-            : this("id", "name", new Point2D(0, 0), dikeGeometry, Enumerable.Empty<Point2D>()) {}
+        public static DikeProfile CreateDikeProfile(IEnumerable<RoughnessPoint> dikeGeometry)
+        {
+            return CreateDikeProfile("id", "name", new Point2D(0, 0), dikeGeometry, Enumerable.Empty<Point2D>());
+        }
 
         /// <summary>
-        /// Initializes default <see cref="DikeProfile"/> at the world location.
+        /// Creates a default <see cref="DikeProfile"/> at the world location.
         /// </summary>
         /// <param name="name">The name of the dike profile.</param>
         /// <param name="point">The world coordinate of the dike profile.</param>
-        public TestDikeProfile(string name, Point2D point)
-            : this("id", name, point, Enumerable.Empty<RoughnessPoint>(), Enumerable.Empty<Point2D>()) {}
+        public static DikeProfile CreateDikeProfile(string name, Point2D point)
+        {
+            return CreateDikeProfile("id", name, point, Enumerable.Empty<RoughnessPoint>(), Enumerable.Empty<Point2D>());
+        }
 
         /// <summary>
-        /// Initializes default <see cref="DikeProfile"/>at the world location with 
+        /// Creates a default <see cref="DikeProfile"/>at the world location with 
         /// a specified foreshore profile geometry.
         /// </summary>
         /// <param name="id">The ID of the dike profile.</param>
@@ -119,11 +141,17 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="foreshoreProfileGeometry">The geometry of the <see cref="ForeshoreProfile"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is
         /// <c>null</c>, empty, or consists of whitespace. </exception>
-        private TestDikeProfile(string id, string name, Point2D point, IEnumerable<RoughnessPoint> dikeGeometry, IEnumerable<Point2D> foreshoreProfileGeometry)
-            : base(point, dikeGeometry, foreshoreProfileGeometry, null, new ConstructionProperties
+        private static DikeProfile CreateDikeProfile(string id,
+                                                     string name,
+                                                     Point2D point,
+                                                     IEnumerable<RoughnessPoint> dikeGeometry,
+                                                     IEnumerable<Point2D> foreshoreProfileGeometry)
+        {
+            return new DikeProfile(point, dikeGeometry, foreshoreProfileGeometry, null, new DikeProfile.ConstructionProperties
             {
                 Id = id,
                 Name = name
-            }) {}
+            });
+        }
     }
 }

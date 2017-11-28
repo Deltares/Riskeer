@@ -171,7 +171,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         public void Read_ValidEntityWithAlreadyReadDikeProfileEntity_ReturnCalculationWithReadDikeProfile()
         {
             // Setup
-            DikeProfile dikeProfile = new TestDikeProfile();
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var dikeProfileEntity = new DikeProfileEntity();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {

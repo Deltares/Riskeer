@@ -134,7 +134,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.DikeProfiles.AddRange(new[]
             {
-                new TestDikeProfile()
+                DikeProfileTestFactory.CreateDikeProfile()
             }, "path");
 
             // Precondition
@@ -158,8 +158,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            DikeProfile dikeProfile1 = new TestDikeProfile(string.Empty, "id1");
-            DikeProfile dikeProfile2 = new TestDikeProfile(string.Empty, "id2");
+            DikeProfile dikeProfile1 = DikeProfileTestFactory.CreateDikeProfile(string.Empty, "id1");
+            DikeProfile dikeProfile2 = DikeProfileTestFactory.CreateDikeProfile(string.Empty, "id2");
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.DikeProfiles.AddRange(new[]
             {

@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const string profileName = "Random profile name";
-            DikeProfile dikeProfile = new TestDikeProfile(profileName);
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(profileName);
 
             // Call
             string text = info.Text(dikeProfile);

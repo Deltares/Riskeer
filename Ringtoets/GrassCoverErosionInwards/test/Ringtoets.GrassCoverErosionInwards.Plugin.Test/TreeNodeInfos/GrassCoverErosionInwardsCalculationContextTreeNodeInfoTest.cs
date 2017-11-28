@@ -313,7 +313,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 InputParameters =
                 {
-                    DikeProfile = new TestDikeProfile()
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
@@ -348,13 +348,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            var testDikeProfile = new TestDikeProfile();
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    DikeProfile = testDikeProfile
+                    DikeProfile = dikeProfile
                 }
             };
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
@@ -369,7 +369,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                ChangeDikeProfile(testDikeProfile);
+                ChangeDikeProfile(dikeProfile);
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
@@ -389,7 +389,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var dikeProfile = new TestDikeProfile();
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -438,7 +438,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var dikeProfile = new TestDikeProfile();
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -502,7 +502,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            var dikeProfile = new TestDikeProfile();
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -882,7 +882,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = new TestDikeProfile()
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
 
@@ -961,7 +961,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = new TestDikeProfile()
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
 
@@ -1045,7 +1045,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 new Point2D(0.0, 0.0),
                 new Point2D(1.0, 1.0)
             }));
-            DikeProfile dikeProfile = new TestDikeProfile(new Point2D(0.5, 0.5));
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.5, 0.5));
             failureMechanism.DikeProfiles.AddRange(new[]
             {
                 dikeProfile

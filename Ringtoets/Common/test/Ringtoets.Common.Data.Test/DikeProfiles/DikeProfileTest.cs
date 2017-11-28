@@ -369,17 +369,17 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         }
 
         [Test]
-        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
+        public void Equals_DerivedClassWithEqualProperties_ReturnsFalse()
         {
             // Setup
             DikeProfile profile = CreateFullyDefinedDikeProfile();
-            var derivedLayer = new TestDikeProfile(profile);
+            var derivedProfile = new TestDikeProfile(profile);
 
             // Call
-            bool areEqual = profile.Equals(derivedLayer);
+            bool areEqual = profile.Equals(derivedProfile);
 
             // Assert
-            Assert.IsTrue(areEqual);
+            Assert.IsFalse(areEqual);
         }
 
         [Test]

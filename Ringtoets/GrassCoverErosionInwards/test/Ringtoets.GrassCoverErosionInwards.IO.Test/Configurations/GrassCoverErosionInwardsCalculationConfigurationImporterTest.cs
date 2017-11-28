@@ -124,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 new[]
                 {
-                    new TestDikeProfile("Dijkprofiel", "Dijkprofiel ID")
+                    DikeProfileTestFactory.CreateDikeProfile("Dijkprofiel", "Dijkprofiel ID")
                 },
                 new GrassCoverErosionInwardsFailureMechanism());
 
@@ -328,7 +328,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             string filePath = Path.Combine(path, "validConfigurationCalculationUseForeshoreWithoutGeometry.xml");
 
             var calculationGroup = new CalculationGroup();
-            var dikeProfile = new TestDikeProfile("Dijkprofiel", "Dijkprofiel ID");
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile("Dijkprofiel", "Dijkprofiel ID");
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -358,7 +358,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
-            var dikeProfile = new TestDikeProfile("Dijkprofiel", "Dijkprofiel ID");
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile("Dijkprofiel", "Dijkprofiel ID");
 
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
                 filePath,
@@ -591,7 +591,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             {
                 InputParameters =
                 {
-                    DikeProfile = new TestDikeProfile(new Point2D(5, 5))
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(5, 5))
                 }
             };
             failureMechanism.CalculationsGroup.Children.Add(

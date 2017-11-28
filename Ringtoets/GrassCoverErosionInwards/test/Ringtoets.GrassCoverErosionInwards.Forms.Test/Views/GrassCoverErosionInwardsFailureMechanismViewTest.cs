@@ -219,8 +219,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     ReferenceLine = referenceLine
                 };
 
-                var dikeProfileA = new TestDikeProfile(new Point2D(1.3, 1.3));
-                var dikeProfileB = new TestDikeProfile(new Point2D(1.5, 1.5));
+                DikeProfile dikeProfileA = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.3, 1.3));
+                DikeProfile dikeProfileB = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.5, 1.5));
 
                 var calculationA = new GrassCoverErosionInwardsCalculation
                 {
@@ -246,12 +246,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 failureMechanism.DikeProfiles.AddRange(new[]
                 {
-                    new TestDikeProfile(new[]
+                    DikeProfileTestFactory.CreateDikeProfile(new[]
                     {
                         new Point2D(0, 0),
                         new Point2D(1, 1)
                     }, "id1"),
-                    new TestDikeProfile(new[]
+                    DikeProfileTestFactory.CreateDikeProfile(new[]
                     {
                         new Point2D(2, 2),
                         new Point2D(3, 3)
@@ -565,7 +565,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 failureMechanism.DikeProfiles.AddRange(new[]
                 {
-                    new TestDikeProfile(string.Empty, "id1")
+                    DikeProfileTestFactory.CreateDikeProfile(string.Empty, "id1")
                 }, "path");
 
                 view.Data = failureMechanismContext;
@@ -583,7 +583,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // When
                 failureMechanism.DikeProfiles.AddRange(new[]
                 {
-                    new TestDikeProfile(string.Empty, "id2")
+                    DikeProfileTestFactory.CreateDikeProfile(string.Empty, "id2")
                 }, "path");
                 failureMechanism.DikeProfiles.NotifyObservers();
 
@@ -604,7 +604,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                var dikeProfile = new TestDikeProfile(string.Empty, "id1");
+                DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(string.Empty, "id1");
                 failureMechanism.DikeProfiles.AddRange(new[]
                 {
                     dikeProfile
@@ -624,7 +624,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
 
                 // When
-                var dikeProfileToUpdateFrom = new TestDikeProfile("A new name", "id1");
+                DikeProfile dikeProfileToUpdateFrom = DikeProfileTestFactory.CreateDikeProfile("A new name", "id1");
                 dikeProfile.CopyProperties(dikeProfileToUpdateFrom);
                 dikeProfile.NotifyObservers();
 
@@ -645,7 +645,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                var dikeProfile = new TestDikeProfile(new[]
+                DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
@@ -669,7 +669,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
 
                 // When
-                var dikeProfileToUpdateFrom = new TestDikeProfile(new[]
+                DikeProfile dikeProfileToUpdateFrom = DikeProfileTestFactory.CreateDikeProfile(new[]
                 {
                     new Point2D(2, 2),
                     new Point2D(3, 3)
@@ -694,8 +694,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                var dikeProfileA = new TestDikeProfile(new Point2D(1.3, 1.3));
-                var dikeProfileB = new TestDikeProfile(new Point2D(1.5, 1.5));
+                DikeProfile dikeProfileA = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.3, 1.3));
+                DikeProfile dikeProfileB = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.5, 1.5));
 
                 var calculationA = new GrassCoverErosionInwardsCalculation
                 {
@@ -741,8 +741,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var dikeProfileA = new TestDikeProfile(new Point2D(1.3, 1.3));
-                var dikeProfileB = new TestDikeProfile(new Point2D(1.5, 1.5));
+                DikeProfile dikeProfileA = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.3, 1.3));
+                DikeProfile dikeProfileB = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.5, 1.5));
 
                 var calculationA = new GrassCoverErosionInwardsCalculation
                 {
@@ -783,7 +783,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var dikeProfileA = new TestDikeProfile(new Point2D(1.3, 1.3));
+                DikeProfile dikeProfileA = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.3, 1.3));
 
                 var calculationA = new GrassCoverErosionInwardsCalculation
                 {

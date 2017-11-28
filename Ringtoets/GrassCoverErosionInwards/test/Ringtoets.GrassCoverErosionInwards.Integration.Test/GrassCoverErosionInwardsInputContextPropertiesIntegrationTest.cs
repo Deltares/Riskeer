@@ -54,8 +54,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            DikeProfile dikeProfile1 = new TestDikeProfile(new Point2D(0.51, 0.51), "id1");
-            DikeProfile dikeProfile2 = new TestDikeProfile(new Point2D(1.51, 1.51), "id2");
+            DikeProfile dikeProfile1 = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.51, 0.51), "id1");
+            DikeProfile dikeProfile2 = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.51, 1.51), "id2");
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -110,8 +110,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            DikeProfile dikeProfile1 = new TestDikeProfile(new Point2D(0.51, 0.51), "id1");
-            DikeProfile dikeProfile2 = new TestDikeProfile(new Point2D(1.51, 1.51), "id2");
+            DikeProfile dikeProfile1 = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.51, 0.51), "id1");
+            DikeProfile dikeProfile2 = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.51, 1.51), "id2");
 
             var calculation1 = new GrassCoverErosionInwardsCalculation
             {

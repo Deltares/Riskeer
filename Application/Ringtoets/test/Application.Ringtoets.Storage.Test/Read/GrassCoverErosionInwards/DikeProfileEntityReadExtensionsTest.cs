@@ -220,7 +220,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         {
             // Setup
             var registeredEntity = new DikeProfileEntity();
-            DikeProfile registeredProfile = new TestDikeProfile();
+            DikeProfile registeredProfile = DikeProfileTestFactory.CreateDikeProfile();
             var collector = new ReadConversionCollector();
             collector.Read(registeredEntity, registeredProfile);
 

@@ -198,7 +198,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_CalculationWithAlreadySavedDikeProfile_ReturnEntityWithDikeProfileEntity()
         {
             // Setup
-            DikeProfile dikeProfile = new TestDikeProfile();
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =

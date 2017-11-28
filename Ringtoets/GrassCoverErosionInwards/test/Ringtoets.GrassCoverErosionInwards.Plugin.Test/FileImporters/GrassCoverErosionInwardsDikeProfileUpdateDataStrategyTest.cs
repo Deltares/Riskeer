@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         public void UpdateDikeProfilesWithImportedData_DikeProfilePropertiesChanged_UpdateRelevantProperties()
         {
             // Setup
-            var dikeProfileToUpdate = new TestDikeProfile("name", "ID A");
+            DikeProfile dikeProfileToUpdate = DikeProfileTestFactory.CreateDikeProfile("name", "ID A");
             DikeProfile dikeProfileToUpdateFrom = DeepCloneAndModify(dikeProfileToUpdate);
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -129,8 +129,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         {
             // Setup
             const string duplicateId = "A duplicated ID";
-            var dikeProfileOne = new TestDikeProfile("name one", duplicateId);
-            var dikeProfileTwo = new TestDikeProfile("Another dike profile", duplicateId);
+            DikeProfile dikeProfileOne = DikeProfileTestFactory.CreateDikeProfile("name one", duplicateId);
+            DikeProfile dikeProfileTwo = DikeProfileTestFactory.CreateDikeProfile("Another dike profile", duplicateId);
 
             var targetCollection = new DikeProfileCollection();
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
@@ -156,7 +156,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         {
             // Setup
             const string duplicateId = "A duplicated ID";
-            var expectedDikeProfile = new TestDikeProfile("expectedName", duplicateId);
+            DikeProfile expectedDikeProfile = DikeProfileTestFactory.CreateDikeProfile("expectedName", duplicateId);
 
             var targetCollection = new DikeProfileCollection();
             var expectedTargetCollection = new[]
@@ -191,7 +191,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         {
             // Setup
             const string id = "Just an ID";
-            var targetDikeProfile = new TestDikeProfile("name", id);
+            DikeProfile targetDikeProfile = DikeProfileTestFactory.CreateDikeProfile("name", id);
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             DikeProfileCollection targetCollection = failureMechanism.DikeProfiles;
@@ -229,10 +229,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         {
             // Setup
             const string currentDikeProfileId = "Current ID";
-            var targetDikeProfile = new TestDikeProfile(string.Empty, currentDikeProfileId);
+            DikeProfile targetDikeProfile = DikeProfileTestFactory.CreateDikeProfile(string.Empty, currentDikeProfileId);
 
             const string readDikeProfileId = "Read ID";
-            var readDikeProfile = new TestDikeProfile(string.Empty, readDikeProfileId);
+            DikeProfile readDikeProfile = DikeProfileTestFactory.CreateDikeProfile(string.Empty, readDikeProfileId);
             var readDikeProfiles = new[]
             {
                 readDikeProfile
@@ -270,8 +270,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             const string updatedDikeProfileId = "ID C";
             const string commonName = "Just a name for dike profile";
 
-            var dikeProfileToBeRemoved = new TestDikeProfile(commonName, removedDikeProfileId);
-            var dikeProfileToBeUpdated = new TestDikeProfile(commonName, updatedDikeProfileId);
+            DikeProfile dikeProfileToBeRemoved = DikeProfileTestFactory.CreateDikeProfile(commonName, removedDikeProfileId);
+            DikeProfile dikeProfileToBeUpdated = DikeProfileTestFactory.CreateDikeProfile(commonName, updatedDikeProfileId);
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             DikeProfileCollection dikeProfiles = failureMechanism.DikeProfiles;
@@ -282,7 +282,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             DikeProfile dikeProfileToUpdateFrom = DeepCloneAndModify(dikeProfileToBeUpdated);
-            var dikeProfileToBeAdded = new TestDikeProfile(commonName, addedDikeProfileId);
+            DikeProfile dikeProfileToBeAdded = DikeProfileTestFactory.CreateDikeProfile(commonName, addedDikeProfileId);
             var readDikeProfiles = new[]
             {
                 dikeProfileToBeAdded,
@@ -323,7 +323,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         public void UpdateDikeProfilesWithImportedData_CalculationWithOutputAssignedToRemovedProfile_UpdatesCalculation()
         {
             // Setup
-            var profileToBeRemoved = new TestDikeProfile("Removed profile", "removed profile ID");
+            DikeProfile profileToBeRemoved = DikeProfileTestFactory.CreateDikeProfile("Removed profile", "removed profile ID");
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -363,7 +363,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         public void UpdateDikeProfilesWithImportedData_MultipleCalculationWithAssignedProfile_OnlyUpdatesCalculationWithUpdatedProfile()
         {
             // Setup
-            var affectedProfile = new TestDikeProfile("Profile to be updated", "ID of updated profile");
+            DikeProfile affectedProfile = DikeProfileTestFactory.CreateDikeProfile("Profile to be updated", "ID of updated profile");
             var affectedCalculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -375,7 +375,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
 
             const string unaffectedProfileName = "Unaffected Profile";
             const string unaffectedProfileId = "unaffected profile Id";
-            var unaffectedProfile = new TestDikeProfile(unaffectedProfileName, unaffectedProfileId);
+            DikeProfile unaffectedProfile = DikeProfileTestFactory.CreateDikeProfile(unaffectedProfileName, unaffectedProfileId);
             var unaffectedCalculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -396,7 +396,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             failureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
 
             DikeProfile importedAffectedProfile = DeepCloneAndModify(affectedProfile);
-            var importedUnaffectedProfile = new TestDikeProfile(unaffectedProfileName, unaffectedProfileId);
+            DikeProfile importedUnaffectedProfile = DikeProfileTestFactory.CreateDikeProfile(unaffectedProfileName, unaffectedProfileId);
 
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
@@ -430,7 +430,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         public void UpdateDikeProfilesWithImportedData_MultipleCalculationWithAssignedProfileOneRemovedProfile_OnlyUpdatesCalculationWithRemovedProfile()
         {
             // Setup
-            var removedProfile = new TestDikeProfile("Profile to be removed", "ID of removed profile");
+            DikeProfile removedProfile = DikeProfileTestFactory.CreateDikeProfile("Profile to be removed", "ID of removed profile");
             var affectedCalculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -442,7 +442,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
 
             const string unaffectedProfileName = "Unaffected Profile";
             const string unaffectedProfileId = "unaffected profile Id";
-            var unaffectedProfile = new TestDikeProfile(unaffectedProfileName, unaffectedProfileId);
+            DikeProfile unaffectedProfile = DikeProfileTestFactory.CreateDikeProfile(unaffectedProfileName, unaffectedProfileId);
             var unaffectedCalculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -462,7 +462,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
             failureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
 
-            var importedUnaffectedProfile = new TestDikeProfile(unaffectedProfileName, unaffectedProfileId);
+            DikeProfile importedUnaffectedProfile = DikeProfileTestFactory.CreateDikeProfile(unaffectedProfileName, unaffectedProfileId);
 
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
@@ -492,7 +492,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         public void UpdateDikeProfilesWithImportedData_CalculationWithSameReference_OnlyReturnsDistinctCalculation()
         {
             // Setup
-            var affectedProfile = new TestDikeProfile("Profile to be updated", "ID of updated profile");
+            DikeProfile affectedProfile = DikeProfileTestFactory.CreateDikeProfile("Profile to be updated", "ID of updated profile");
             var affectedCalculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -537,7 +537,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             const string dikeProfileId = "ID of updated profile";
 
             var originalMatchingPoint = new Point2D(0, 0);
-            var affectedProfile = new TestDikeProfile(originalMatchingPoint, dikeProfileId);
+            DikeProfile affectedProfile = DikeProfileTestFactory.CreateDikeProfile(originalMatchingPoint, dikeProfileId);
             var affectedCalculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -579,7 +579,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             Assert.AreSame(affectedCalculation, sectionResults[0].Calculation);
             Assert.IsNull(sectionResults[1].Calculation);
 
-            DikeProfile profileToUpdateFrom = new TestDikeProfile(updatedMatchingPoint, dikeProfileId);
+            DikeProfile profileToUpdateFrom = DikeProfileTestFactory.CreateDikeProfile(updatedMatchingPoint, dikeProfileId);
 
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
@@ -611,7 +611,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             const string dikeProfileId = "ID of removed profile";
 
             var matchingPoint = new Point2D(0, 0);
-            var removedProfile = new TestDikeProfile(matchingPoint, dikeProfileId);
+            DikeProfile removedProfile = DikeProfileTestFactory.CreateDikeProfile(matchingPoint, dikeProfileId);
             var affectedCalculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -675,7 +675,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
                 new Point2D(3, 4)
             };
 
-            var affectedProfile = new TestDikeProfile(geometry, id);
+            DikeProfile affectedProfile = DikeProfileTestFactory.CreateDikeProfile(geometry, id);
             var affectedCalculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -686,7 +686,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             };
             affectedCalculation.InputParameters.UseForeshore = true;
 
-            var profileToUpdateFrom = new TestDikeProfile(Enumerable.Empty<Point2D>(), id);
+            DikeProfile profileToUpdateFrom = DikeProfileTestFactory.CreateDikeProfile(Enumerable.Empty<Point2D>(), id);
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {

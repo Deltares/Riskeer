@@ -299,7 +299,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             protected override DikeProfile CreateDataModel()
             {
-                return new TestDikeProfile();
+                return DikeProfileTestFactory.CreateDikeProfile();
             }
         }
 

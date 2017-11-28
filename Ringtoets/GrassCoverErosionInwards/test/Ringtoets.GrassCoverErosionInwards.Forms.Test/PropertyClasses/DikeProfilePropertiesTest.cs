@@ -94,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            DikeProfile dikeProfile = new TestDikeProfile();
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
 
             // Call
             var properties = new DikeProfileProperties

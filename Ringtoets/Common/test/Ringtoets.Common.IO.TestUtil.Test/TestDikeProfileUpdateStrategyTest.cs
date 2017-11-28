@@ -51,9 +51,9 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             const string filePath = "path/to/dikeprofiles";
             var readDikeProfiles = new[]
             {
-                new TestDikeProfile("Dike One"),
-                new TestDikeProfile("Dike Two"),
-                new TestDikeProfile("Dike Three")
+                DikeProfileTestFactory.CreateDikeProfile("Dike One"),
+                DikeProfileTestFactory.CreateDikeProfile("Dike Two"),
+                DikeProfileTestFactory.CreateDikeProfile("Dike Three")
             };
 
             // Call

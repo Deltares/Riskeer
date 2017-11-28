@@ -74,7 +74,7 @@
     <Compile Include="TestBackgroundDataConfiguration.cs" />
     <Compile Include="TestCalculation.cs" />
     <Compile Include="TestCalculationWithForeshoreProfile.cs" />
-    <Compile Include="TestDikeProfile.cs" />
+    <Compile Include="DikeProfileTestFactory.cs" />
     <Compile Include="TestFailureMechanism.cs" />
     <Compile Include="TestFailureMechanismSectionResult.cs" />
     <Compile Include="TestForeshoreProfile.cs" />

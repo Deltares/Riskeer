@@ -218,8 +218,11 @@ namespace Ringtoets.Common.Data.DikeProfiles
             {
                 return true;
             }
-            var other = obj as DikeProfile;
-            return other != null && Equals(other);
+            if (GetType() != obj.GetType())
+            {
+                return false;
+            }
+            return Equals((DikeProfile) obj);
         }
 
         public override int GetHashCode()

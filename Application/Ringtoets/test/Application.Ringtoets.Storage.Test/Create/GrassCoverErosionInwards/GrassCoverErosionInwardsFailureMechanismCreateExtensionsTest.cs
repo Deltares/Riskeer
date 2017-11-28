@@ -183,8 +183,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.DikeProfiles.AddRange(new[]
             {
-                new TestDikeProfile(string.Empty, "id1"),
-                new TestDikeProfile(string.Empty, "id2")
+                DikeProfileTestFactory.CreateDikeProfile(string.Empty, "id1"),
+                DikeProfileTestFactory.CreateDikeProfile(string.Empty, "id2")
             }, sourcePath);
 
             var registry = new PersistenceRegistry();

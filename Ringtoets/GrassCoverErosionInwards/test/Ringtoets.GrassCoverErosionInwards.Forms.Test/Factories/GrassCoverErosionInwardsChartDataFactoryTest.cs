@@ -73,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
         {
             // Setup
             var chartData = new ChartLineData("test name");
-            DikeProfile dikeProfile = new TestDikeProfile("dike profile name");
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile("dike profile name");
 
             // Call
             GrassCoverErosionInwardsChartDataFactory.UpdateDikeGeometryChartDataName(chartData, dikeProfile);
@@ -120,7 +120,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             var chartData = new ChartLineData("test name");
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile("dike profile name"),
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile("dike profile name"),
                 UseForeshore = false
             };
 
@@ -138,7 +138,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             var chartData = new ChartLineData("test name");
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile("dike profile name"),
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile("dike profile name"),
                 UseForeshore = true
             };
 

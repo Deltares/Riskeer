@@ -253,7 +253,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         {
             InputParameters =
             {
-                DikeProfile = new TestDikeProfile(new Point2D(1.1, 2.2))
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.1, 2.2))
             }
         };
 
@@ -261,7 +261,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         {
             InputParameters =
             {
-                DikeProfile = new TestDikeProfile(new Point2D(50.0, 66.0))
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(50.0, 66.0))
             }
         };
 

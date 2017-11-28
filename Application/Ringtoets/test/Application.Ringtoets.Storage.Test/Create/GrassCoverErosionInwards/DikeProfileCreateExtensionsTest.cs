@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_RegistryIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var dikeProfile = new TestDikeProfile();
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
 
             // Call
             TestDelegate call = () => dikeProfile.Create(null, 0);
@@ -180,7 +180,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_DikeProfileAlreadyRegistered_ReturnRegisteredEntity()
         {
             // Setup
-            var dikeProfile = new TestDikeProfile();
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var registry = new PersistenceRegistry();
             DikeProfileEntity entity1 = dikeProfile.Create(registry, 0);
 

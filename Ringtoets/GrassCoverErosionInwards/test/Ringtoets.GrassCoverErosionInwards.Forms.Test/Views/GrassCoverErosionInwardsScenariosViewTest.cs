@@ -358,7 +358,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Name = "CalculationA",
                 InputParameters =
                 {
-                    DikeProfile = new TestDikeProfile(matchingPointA)
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(matchingPointA)
                 }
             };
             var calculationB = new GrassCoverErosionInwardsCalculation
@@ -366,7 +366,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Name = "CalculationB",
                 InputParameters =
                 {
-                    DikeProfile = new TestDikeProfile(matchingPointB)
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(matchingPointB)
                 }
             };
             var connectionPoint = new Point2D(10, 10);

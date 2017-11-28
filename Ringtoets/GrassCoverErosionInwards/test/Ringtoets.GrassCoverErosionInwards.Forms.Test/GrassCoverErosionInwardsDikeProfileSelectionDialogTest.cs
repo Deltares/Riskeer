@@ -117,9 +117,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
 
             // Call
             using (var viewParent = new Form())
-            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, new DikeProfile[]
+            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, new[]
             {
-                new TestDikeProfile(testname)
+                DikeProfileTestFactory.CreateDikeProfile(testname)
             }))
             {
                 // Assert

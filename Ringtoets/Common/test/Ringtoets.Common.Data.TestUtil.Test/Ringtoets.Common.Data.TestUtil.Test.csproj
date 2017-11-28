@@ -69,7 +69,7 @@
     <Compile Include="TestBackgroundDataConfigurationTest.cs" />
     <Compile Include="TestCalculationTest.cs" />
     <Compile Include="TestCalculationWithForeshoreProfileTest.cs" />
-    <Compile Include="TestDikeProfileTest.cs" />
+    <Compile Include="DikeProfileTestFactoryTest.cs" />
     <Compile Include="TestFailureMechanismSectionResultTest.cs" />
     <Compile Include="TestFailureMechanismTest.cs" />
     <Compile Include="DistributionAssertTest.cs" />

@@ -301,7 +301,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         {
             // Setup
             var locationRemovedProfile = new Point2D(0, 0);
-            var removedProfile = new TestDikeProfile(locationRemovedProfile, "RemovedProfileId");
+            DikeProfile removedProfile = DikeProfileTestFactory.CreateDikeProfile(locationRemovedProfile, "RemovedProfileId");
 
             var calculationWitRemovedProfile = new GrassCoverErosionInwardsCalculation
             {
@@ -374,7 +374,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         {
             // Call
             TestDelegate call = () =>
-                GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(new TestDikeProfile(),
+                GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(DikeProfileTestFactory.CreateDikeProfile(),
                                                                                      null,
                                                                                      new DikeProfileCollection(),
                                                                                      Enumerable.Empty<GrassCoverErosionInwardsFailureMechanismSectionResult>());
@@ -389,7 +389,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         {
             // Call
             TestDelegate call = () =>
-                GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(new TestDikeProfile(),
+                GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(DikeProfileTestFactory.CreateDikeProfile(),
                                                                                      Enumerable.Empty<GrassCoverErosionInwardsCalculation>(),
                                                                                      null,
                                                                                      Enumerable.Empty<GrassCoverErosionInwardsFailureMechanismSectionResult>());
@@ -404,7 +404,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         {
             // Call
             TestDelegate call = () =>
-                GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(new TestDikeProfile(),
+                GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(DikeProfileTestFactory.CreateDikeProfile(),
                                                                                      Enumerable.Empty<GrassCoverErosionInwardsCalculation>(),
                                                                                      new DikeProfileCollection(),
                                                                                      null);
@@ -471,7 +471,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             const string profileToKeepId = "UnaffectedProfileId";
 
             var locationRemovedProfile = new Point2D(0, 0);
-            var removedProfile = new TestDikeProfile(locationRemovedProfile, profileToBeRemovedId);
+            DikeProfile removedProfile = DikeProfileTestFactory.CreateDikeProfile(locationRemovedProfile, profileToBeRemovedId);
 
             var calculationWitRemovedProfile = new GrassCoverErosionInwardsCalculation
             {
@@ -482,7 +482,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             };
 
             var locationUnaffectedProfile = new Point2D(5, 5);
-            var unaffectedProfile = new TestDikeProfile(locationUnaffectedProfile, profileToKeepId);
+            DikeProfile unaffectedProfile = DikeProfileTestFactory.CreateDikeProfile(locationUnaffectedProfile, profileToKeepId);
             var calculationWithProfileToKeep = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -553,14 +553,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
         private static GrassCoverErosionInwardsFailureMechanism CreateFullyConfiguredFailureMechanism()
         {
-            var testDikeProfile1 = new TestDikeProfile("Profile 1", "ID 1");
-            var testDikeProfile2 = new TestDikeProfile("Profile 2", "ID 2");
+            DikeProfile dikeProfile1 = DikeProfileTestFactory.CreateDikeProfile("Profile 1", "ID 1");
+            DikeProfile dikeProfile2 = DikeProfileTestFactory.CreateDikeProfile("Profile 2", "ID 2");
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.DikeProfiles.AddRange(new[]
             {
-                testDikeProfile1,
-                testDikeProfile2
+                dikeProfile1,
+                dikeProfile2
             }, "some/path/to/dikeprofiles");
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
@@ -594,14 +594,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = testDikeProfile1
+                    DikeProfile = dikeProfile1
                 }
             };
             var calculationWithDikeProfile = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    DikeProfile = testDikeProfile2
+                    DikeProfile = dikeProfile2
                 }
             };
             var calculationWithOutputHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation
@@ -609,7 +609,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = testDikeProfile1
+                    DikeProfile = dikeProfile1
                 },
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -641,14 +641,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = testDikeProfile1
+                    DikeProfile = dikeProfile1
                 }
             };
             var subCalculationWithDikeProfile = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    DikeProfile = testDikeProfile2
+                    DikeProfile = dikeProfile2
                 }
             };
             var subCalculationWithOutputHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation
@@ -656,7 +656,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = testDikeProfile1
+                    DikeProfile = dikeProfile1
                 },
                 Output = new TestGrassCoverErosionInwardsOutput()
             };

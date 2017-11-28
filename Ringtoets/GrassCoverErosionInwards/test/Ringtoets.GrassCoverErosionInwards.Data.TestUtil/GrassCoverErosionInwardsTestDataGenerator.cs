@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
             input.ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean();
             input.ShouldOvertoppingRateIllustrationPointsBeCalculated = random.NextBoolean();
             input.ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean();
-            input.DikeProfile = new TestDikeProfile();
+            input.DikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             input.UseBreakWater = random.NextBoolean();
             input.BreakWater.Type = random.NextEnumValue<BreakWaterType>();
             input.BreakWater.Height = random.NextRoundedDouble();

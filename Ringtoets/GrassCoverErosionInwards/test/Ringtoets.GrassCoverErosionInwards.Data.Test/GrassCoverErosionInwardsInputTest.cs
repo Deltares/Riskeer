@@ -293,7 +293,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile(new[]
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
                 {
                     new Point2D(3.3, 4.4),
                     new Point2D(5.5, 6.6)

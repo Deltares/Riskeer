@@ -191,7 +191,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile(new Point2D(12.34, 56.78)),
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(12.34, 56.78)),
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0)
             };
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
@@ -256,7 +256,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         [Test]
         public void DikeProfile_Always_InputChangedAndObservablesNotified()
         {
-            var dikeProfile = new TestDikeProfile();
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             SetPropertyAndVerifyNotificationsAndOutput(properties => properties.DikeProfile = dikeProfile);
         }
 
@@ -365,7 +365,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile(new Point2D(200620.173572981, 503401.652985217))
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(200620.173572981, 503401.652985217))
             };
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -402,7 +402,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var input = new GrassCoverErosionInwardsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                DikeProfile = new TestDikeProfile(new Point2D(200620.173572981, 503401.652985217))
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(200620.173572981, 503401.652985217))
             };
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -443,7 +443,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var input = new GrassCoverErosionInwardsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                DikeProfile = new TestDikeProfile(new Point2D(200620.173572981, 503401.652985217))
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(200620.173572981, 503401.652985217))
             };
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -519,7 +519,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile()
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
             };
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -561,9 +561,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile()
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
             };
-            var otherProfile = new TestDikeProfile(new Point2D(0.0, 190.0));
+            DikeProfile otherProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 190.0));
 
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -606,7 +606,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.DikeProfiles.AddRange(new[]
             {
-                new TestDikeProfile()
+                DikeProfileTestFactory.CreateDikeProfile()
             }, "path");
 
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
@@ -635,7 +635,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             if (withDikeProfile)
             {
-                input.DikeProfile = new TestDikeProfile();
+                input.DikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             }
 
             if (calculationsEnabled)
@@ -826,7 +826,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = hasDikeProfile
-                                  ? new TestDikeProfile()
+                                  ? DikeProfileTestFactory.CreateDikeProfile()
                                   : null
             };
 
@@ -857,7 +857,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = hasDikeProfile
-                                  ? new TestDikeProfile()
+                                  ? DikeProfileTestFactory.CreateDikeProfile()
                                   : null
             };
 
@@ -884,7 +884,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var calculation = new GrassCoverErosionInwardsCalculation();
             GrassCoverErosionInwardsInput input = calculation.InputParameters;
-            input.DikeProfile = new TestDikeProfile();
+            input.DikeProfile = DikeProfileTestFactory.CreateDikeProfile();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 

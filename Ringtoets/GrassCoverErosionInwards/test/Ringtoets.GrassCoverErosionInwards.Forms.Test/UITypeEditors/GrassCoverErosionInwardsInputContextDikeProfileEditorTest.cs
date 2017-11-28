@@ -54,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.DikeProfiles.AddRange(new[]
             {
-                new TestDikeProfile()
+                DikeProfileTestFactory.CreateDikeProfile()
             }, "path");
             var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
@@ -93,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            DikeProfile dikeProfile = new TestDikeProfile();
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.DikeProfiles.AddRange(new[]
             {

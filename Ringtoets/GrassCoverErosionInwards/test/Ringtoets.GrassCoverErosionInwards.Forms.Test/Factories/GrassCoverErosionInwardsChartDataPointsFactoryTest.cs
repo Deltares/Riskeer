@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
                 new RoughnessPoint(new Point2D(1.1, 2.2), 0.5),
                 new RoughnessPoint(new Point2D(3.3, 4.4), 0.6)
             };
-            var dikeProfile = new TestDikeProfile(roughnessPoints);
+            var dikeProfile = DikeProfileTestFactory.CreateDikeProfile(roughnessPoints);
 
             // Call
             Point2D[] points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeGeometryPoints(dikeProfile);
@@ -93,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             // Setup
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile(new[]
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
                 {
                     new Point2D(1.1, 2.2),
                     new Point2D(3.3, 4.4)
@@ -119,7 +119,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             };
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile(foreshoreGeometry),
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile(foreshoreGeometry),
                 UseForeshore = true
             };
 
@@ -146,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             // Setup
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile(new[]
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
                 {
                     new RoughnessPoint(new Point2D(1.1, 2.2), 0.5),
                     new RoughnessPoint(new Point2D(3.3, 4.4), 0.6)
@@ -167,7 +167,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             // Setup
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile(new[]
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
                 {
                     new RoughnessPoint(new Point2D(1.1, 2.2), 0.5)
                 }),
@@ -187,7 +187,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             // Setup
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile(
+                DikeProfile = DikeProfileTestFactory.CreateDikeProfile(
                     new[]
                     {
                         new RoughnessPoint(new Point2D(1.1, 2.2), 0.5),

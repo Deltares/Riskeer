@@ -317,7 +317,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             protected override DikeProfile CreateDataModel()
             {
-                return new TestDikeProfile();
+                return DikeProfileTestFactory.CreateDikeProfile();
             }
         }
 

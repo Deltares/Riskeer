@@ -1329,7 +1329,7 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = null;
-            DikeProfile profile = new TestDikeProfile();
+            DikeProfile profile = DikeProfileTestFactory.CreateDikeProfile();
 
             // Call
             TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile);
