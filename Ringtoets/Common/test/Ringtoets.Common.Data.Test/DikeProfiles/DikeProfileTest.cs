@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -328,410 +329,6 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         }
 
         [Test]
-        public void Equals_ToItself_ReturnsTrue()
-        {
-            // Setup
-            DikeProfile dikeProfile = CreateFullyDefinedDikeProfile();
-
-            // Call
-            bool isEqualToItself = dikeProfile.Equals(dikeProfile);
-
-            // Assert
-            Assert.IsTrue(isEqualToItself);
-        }
-
-        [Test]
-        public void Equals_ToNull_ReturnsFalse()
-        {
-            // Setup
-            DikeProfile dikeProfile = CreateFullyDefinedDikeProfile();
-
-            // Call
-            bool isDikeProfileEqualToNull = dikeProfile.Equals(null);
-
-            // Assert
-            Assert.IsFalse(isDikeProfileEqualToNull);
-        }
-
-        [Test]
-        public void Equals_ToDifferentType_ReturnsFalse()
-        {
-            // Setup
-            DikeProfile dikeProfile = CreateFullyDefinedDikeProfile();
-
-            var differentType = new object();
-
-            // Call
-            bool isDikeProfileEqualToDifferentObject = dikeProfile.Equals(differentType);
-
-            // Assert
-            Assert.IsFalse(isDikeProfileEqualToDifferentObject);
-        }
-
-        [Test]
-        public void Equals_DerivedClassWithEqualProperties_ReturnsFalse()
-        {
-            // Setup
-            DikeProfile profile = CreateFullyDefinedDikeProfile();
-            var derivedProfile = new TestDikeProfile(profile);
-
-            // Call
-            bool areEqual = profile.Equals(derivedProfile);
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        public void Equals_DifferentWorldReferencePoints_ReturnsFalse()
-        {
-            // Setup
-            DikeProfile dikeProfileOne = CreateFullyDefinedDikeProfile();
-
-            var dikeProfileTwo = new DikeProfile(new Point2D(500, 1000),
-                                                 dikeProfileOne.DikeGeometry,
-                                                 dikeProfileOne.ForeshoreGeometry,
-                                                 dikeProfileOne.BreakWater,
-                                                 new DikeProfile.ConstructionProperties
-                                                 {
-                                                     Name = dikeProfileOne.Name,
-                                                     Id = dikeProfileOne.Id,
-                                                     Orientation = dikeProfileOne.Orientation,
-                                                     DikeHeight = dikeProfileOne.DikeHeight,
-                                                     X0 = dikeProfileOne.DikeHeight
-                                                 });
-
-            // Call
-            bool isDikeProfileOneEqualToTwo = dikeProfileOne.Equals(dikeProfileTwo);
-            bool isDikeProfileTwoEqualToOne = dikeProfileTwo.Equals(dikeProfileOne);
-
-            // Assert
-            Assert.IsFalse(isDikeProfileOneEqualToTwo);
-            Assert.IsFalse(isDikeProfileTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_DifferentDikeGeometry_ReturnsFalse()
-        {
-            // Setup
-            DikeProfile dikeProfileOne = CreateFullyDefinedDikeProfile();
-
-            var dikeGeometry = new[]
-            {
-                new RoughnessPoint(new Point2D(1, 0), 1),
-                new RoughnessPoint(new Point2D(2, 1), 3)
-            };
-            var dikeProfileTwo = new DikeProfile(dikeProfileOne.WorldReferencePoint,
-                                                 dikeGeometry,
-                                                 dikeProfileOne.ForeshoreGeometry,
-                                                 dikeProfileOne.BreakWater,
-                                                 new DikeProfile.ConstructionProperties
-                                                 {
-                                                     Name = dikeProfileOne.Name,
-                                                     Id = dikeProfileOne.Id,
-                                                     Orientation = dikeProfileOne.Orientation,
-                                                     DikeHeight = dikeProfileOne.DikeHeight,
-                                                     X0 = dikeProfileOne.DikeHeight
-                                                 });
-
-            // Call
-            bool isDikeProfileOneEqualToTwo = dikeProfileOne.Equals(dikeProfileTwo);
-            bool isDikeProfileTwoEqualToOne = dikeProfileTwo.Equals(dikeProfileOne);
-
-            // Assert
-            Assert.IsFalse(isDikeProfileOneEqualToTwo);
-            Assert.IsFalse(isDikeProfileTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_DifferentForeshoreGeometry_ReturnsFalse()
-        {
-            // Setup
-            DikeProfile dikeProfileOne = CreateFullyDefinedDikeProfile();
-
-            var foreshoreGeometry = new[]
-            {
-                new Point2D(50, 100),
-                new Point2D(100, 50)
-            };
-            var dikeProfileTwo = new DikeProfile(dikeProfileOne.WorldReferencePoint,
-                                                 dikeProfileOne.DikeGeometry,
-                                                 foreshoreGeometry,
-                                                 dikeProfileOne.BreakWater,
-                                                 new DikeProfile.ConstructionProperties
-                                                 {
-                                                     Name = dikeProfileOne.Name,
-                                                     Id = dikeProfileOne.Id,
-                                                     Orientation = dikeProfileOne.Orientation,
-                                                     DikeHeight = dikeProfileOne.DikeHeight,
-                                                     X0 = dikeProfileOne.DikeHeight
-                                                 });
-
-            // Call
-            bool isDikeProfileOneEqualToTwo = dikeProfileOne.Equals(dikeProfileTwo);
-            bool isDikeProfileTwoEqualToOne = dikeProfileTwo.Equals(dikeProfileOne);
-
-            // Assert
-            Assert.IsFalse(isDikeProfileOneEqualToTwo);
-            Assert.IsFalse(isDikeProfileTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_DifferentBreakWater_ReturnsFalse()
-        {
-            // Setup
-            DikeProfile dikeProfileOne = CreateFullyDefinedDikeProfile();
-
-            var dikeProfileTwo = new DikeProfile(dikeProfileOne.WorldReferencePoint,
-                                                 dikeProfileOne.DikeGeometry,
-                                                 dikeProfileOne.ForeshoreGeometry,
-                                                 null,
-                                                 new DikeProfile.ConstructionProperties
-                                                 {
-                                                     Name = dikeProfileOne.Name,
-                                                     Id = dikeProfileOne.Id,
-                                                     Orientation = dikeProfileOne.Orientation,
-                                                     DikeHeight = dikeProfileOne.DikeHeight,
-                                                     X0 = dikeProfileOne.DikeHeight
-                                                 });
-
-            // Call
-            bool isDikeProfileOneEqualToTwo = dikeProfileOne.Equals(dikeProfileTwo);
-            bool isDikeProfileTwoEqualToOne = dikeProfileTwo.Equals(dikeProfileOne);
-
-            // Assert
-            Assert.IsFalse(isDikeProfileOneEqualToTwo);
-            Assert.IsFalse(isDikeProfileTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_DifferentIds_ReturnsFalse()
-        {
-            // Setup
-            DikeProfile dikeProfileOne = CreateFullyDefinedDikeProfile();
-
-            var dikeProfileTwo = new DikeProfile(dikeProfileOne.WorldReferencePoint,
-                                                 dikeProfileOne.DikeGeometry,
-                                                 dikeProfileOne.ForeshoreGeometry,
-                                                 dikeProfileOne.BreakWater,
-                                                 new DikeProfile.ConstructionProperties
-                                                 {
-                                                     Name = dikeProfileOne.Name,
-                                                     Id = "Different ID",
-                                                     Orientation = dikeProfileOne.Orientation,
-                                                     DikeHeight = dikeProfileOne.DikeHeight,
-                                                     X0 = dikeProfileOne.DikeHeight
-                                                 });
-
-            // Call
-            bool isDikeProfileOneEqualToTwo = dikeProfileOne.Equals(dikeProfileTwo);
-            bool isDikeProfileTwoEqualToOne = dikeProfileTwo.Equals(dikeProfileOne);
-
-            // Assert
-            Assert.IsFalse(isDikeProfileOneEqualToTwo);
-            Assert.IsFalse(isDikeProfileTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_DifferentNames_ReturnsFalse()
-        {
-            // Setup
-            DikeProfile dikeProfileOne = CreateFullyDefinedDikeProfile();
-
-            var dikeProfileTwo = new DikeProfile(dikeProfileOne.WorldReferencePoint,
-                                                 dikeProfileOne.DikeGeometry,
-                                                 dikeProfileOne.ForeshoreGeometry,
-                                                 dikeProfileOne.BreakWater,
-                                                 new DikeProfile.ConstructionProperties
-                                                 {
-                                                     Name = "Different Name",
-                                                     Id = dikeProfileOne.Id,
-                                                     Orientation = dikeProfileOne.Orientation,
-                                                     DikeHeight = dikeProfileOne.DikeHeight,
-                                                     X0 = dikeProfileOne.DikeHeight
-                                                 });
-
-            // Call
-            bool isDikeProfileOneEqualToTwo = dikeProfileOne.Equals(dikeProfileTwo);
-            bool isDikeProfileTwoEqualToOne = dikeProfileTwo.Equals(dikeProfileOne);
-
-            // Assert
-            Assert.IsFalse(isDikeProfileOneEqualToTwo);
-            Assert.IsFalse(isDikeProfileTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_DifferentX0_ReturnsFalse()
-        {
-            // Setup
-            const string id = "ID";
-            const string name = "Just a name";
-            const double orientation = 179;
-            const double dikeHeight = 0.5;
-            DikeProfile dikeProfileOne = CreateDikeProfile(new DikeProfile.ConstructionProperties
-            {
-                Id = id,
-                Name = name,
-                X0 = 10.0,
-                Orientation = orientation,
-                DikeHeight = dikeHeight
-            });
-
-            DikeProfile dikeProfileTwo = CreateDikeProfile(new DikeProfile.ConstructionProperties
-            {
-                Id = id,
-                Name = name,
-                X0 = 11.0,
-                Orientation = orientation,
-                DikeHeight = dikeHeight
-            });
-
-            // Call
-            bool isDikeProfileOneEqualToTwo = dikeProfileOne.Equals(dikeProfileTwo);
-            bool isDikeProfileTwoEqualToOne = dikeProfileTwo.Equals(dikeProfileOne);
-
-            // Assert
-            Assert.IsFalse(isDikeProfileOneEqualToTwo);
-            Assert.IsFalse(isDikeProfileTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_DifferentOrientation_ReturnsFalse()
-        {
-            // Setup
-            const string id = "ID";
-            const string name = "Just a name";
-            const double x0 = 179;
-            const double dikeHeight = 0.5;
-            DikeProfile dikeProfileOne = CreateDikeProfile(new DikeProfile.ConstructionProperties
-            {
-                Id = id,
-                Name = name,
-                X0 = x0,
-                Orientation = 180,
-                DikeHeight = dikeHeight
-            });
-
-            DikeProfile dikeProfileTwo = CreateDikeProfile(new DikeProfile.ConstructionProperties
-            {
-                Id = id,
-                Name = name,
-                X0 = x0,
-                Orientation = 170,
-                DikeHeight = dikeHeight
-            });
-
-            // Call
-            bool isDikeProfileOneEqualToTwo = dikeProfileOne.Equals(dikeProfileTwo);
-            bool isDikeProfileTwoEqualToOne = dikeProfileTwo.Equals(dikeProfileOne);
-
-            // Assert
-            Assert.IsFalse(isDikeProfileOneEqualToTwo);
-            Assert.IsFalse(isDikeProfileTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_DifferentDikeHeight_ReturnsFalse()
-        {
-            // Setup
-            const string id = "ID";
-            const string name = "Just a name";
-            const double orientation = 179;
-            const double x0 = 0.5;
-            DikeProfile dikeProfileOne = CreateDikeProfile(new DikeProfile.ConstructionProperties
-            {
-                Id = id,
-                Name = name,
-                X0 = x0,
-                Orientation = orientation,
-                DikeHeight = 0.5
-            });
-
-            DikeProfile dikeProfileTwo = CreateDikeProfile(new DikeProfile.ConstructionProperties
-            {
-                Id = id,
-                Name = name,
-                X0 = x0,
-                Orientation = orientation,
-                DikeHeight = 0.3
-            });
-
-            // Call
-            bool isDikeProfileOneEqualToTwo = dikeProfileOne.Equals(dikeProfileTwo);
-            bool isDikeProfileTwoEqualToOne = dikeProfileTwo.Equals(dikeProfileOne);
-
-            // Assert
-            Assert.IsFalse(isDikeProfileOneEqualToTwo);
-            Assert.IsFalse(isDikeProfileTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_AllPropertiesEqual_ReturnsTrue()
-        {
-            // Setup
-            DikeProfile dikeProfileOne = CreateFullyDefinedDikeProfile();
-            DikeProfile dikeProfileTwo = CreateFullyDefinedDikeProfile();
-
-            // Call
-            bool isDikeProfileOneEqualToTwo = dikeProfileOne.Equals(dikeProfileTwo);
-            bool isDikeProfileTwoEqualToOne = dikeProfileTwo.Equals(dikeProfileOne);
-
-            // Assert
-            Assert.IsTrue(isDikeProfileOneEqualToTwo);
-            Assert.IsTrue(isDikeProfileTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_TransitivePropertyAllPropertiesEqual_ReturnsTrue()
-        {
-            // Setup
-            DikeProfile dikeProfileOne = CreateFullyDefinedDikeProfile();
-            DikeProfile dikeProfileTwo = CreateFullyDefinedDikeProfile();
-            DikeProfile dikeProfileThree = CreateFullyDefinedDikeProfile();
-
-            // Call
-            bool isDikeProfileOneEqualToTwo = dikeProfileOne.Equals(dikeProfileTwo);
-            bool isDikeProfileTwoEqualToThree = dikeProfileTwo.Equals(dikeProfileThree);
-            bool isDikeProfileOneEqualToThree = dikeProfileOne.Equals(dikeProfileThree);
-
-            // Assert
-            Assert.IsTrue(isDikeProfileOneEqualToTwo);
-            Assert.IsTrue(isDikeProfileTwoEqualToThree);
-            Assert.IsTrue(isDikeProfileOneEqualToThree);
-        }
-
-        [Test]
-        public void Equals_SameReference_ReturnsTrue()
-        {
-            // Setup
-            DikeProfile dikeProfileOne = CreateFullyDefinedDikeProfile();
-            DikeProfile dikeProfileTwo = dikeProfileOne;
-
-            // Call
-            bool isDikeProfileOneEqualToTwo = dikeProfileOne.Equals(dikeProfileTwo);
-            bool isDikeProfileTwoEqualToOne = dikeProfileTwo.Equals(dikeProfileOne);
-
-            // Assert
-            Assert.IsTrue(isDikeProfileOneEqualToTwo);
-            Assert.IsTrue(isDikeProfileTwoEqualToOne);
-        }
-
-        [Test]
-        public void GetHashCode_EqualDikeProfiles_ReturnsSameHashCode()
-        {
-            // Setup
-            DikeProfile dikeProfileOne = CreateFullyDefinedDikeProfile();
-            DikeProfile dikeProfileTwo = CreateFullyDefinedDikeProfile();
-
-            // Call
-            int hashCodeOne = dikeProfileOne.GetHashCode();
-            int hashCodeTwo = dikeProfileTwo.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
-        }
-
-        [Test]
         public void CopyProperties_FromDikeProfileNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -804,6 +401,153 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             Assert.AreEqual(expectedX0, dikeProfileToUpdate.X0);
             Assert.AreEqual(expectedOrientation, dikeProfileToUpdate.Orientation);
             Assert.AreEqual(expectedDikeHeight, dikeProfileToUpdate.DikeHeight);
+        }
+
+        [TestFixture]
+        private class DikeProfileEqualGuideLines : EqualsGuidelinesTestFixture<DikeProfile, TestDikeProfile>
+        {
+            protected override DikeProfile CreateObject()
+            {
+                return CreateFullyDefinedDikeProfile();
+            }
+
+            protected override TestDikeProfile CreateDerivedObject()
+            {
+                DikeProfile baseProfile = CreateFullyDefinedDikeProfile();
+                return new TestDikeProfile(baseProfile);
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                DikeProfile baseProfile = CreateFullyDefinedDikeProfile();
+
+                yield return new TestCaseData(new DikeProfile(new Point2D(500, 1000),
+                                                              baseProfile.DikeGeometry,
+                                                              baseProfile.ForeshoreGeometry,
+                                                              baseProfile.BreakWater,
+                                                              new DikeProfile.ConstructionProperties
+                                                              {
+                                                                  Name = baseProfile.Name,
+                                                                  Id = baseProfile.Id,
+                                                                  Orientation = baseProfile.Orientation,
+                                                                  DikeHeight = baseProfile.DikeHeight,
+                                                                  X0 = baseProfile.X0
+                                                              }))
+                    .SetName("WorldReferencePoint");
+                yield return new TestCaseData(new DikeProfile(baseProfile.WorldReferencePoint,
+                                                              new[]
+                                                              {
+                                                                  new RoughnessPoint(new Point2D(1, 0), 1),
+                                                                  new RoughnessPoint(new Point2D(2, 1), 3)
+                                                              },
+                                                              baseProfile.ForeshoreGeometry,
+                                                              baseProfile.BreakWater,
+                                                              new DikeProfile.ConstructionProperties
+                                                              {
+                                                                  Name = baseProfile.Name,
+                                                                  Id = baseProfile.Id,
+                                                                  Orientation = baseProfile.Orientation,
+                                                                  DikeHeight = baseProfile.DikeHeight,
+                                                                  X0 = baseProfile.X0
+                                                              }))
+                    .SetName("DikeGeometry");
+                yield return new TestCaseData(new DikeProfile(baseProfile.WorldReferencePoint,
+                                                              baseProfile.DikeGeometry,
+                                                              new[]
+                                                              {
+                                                                  new Point2D(50, 100),
+                                                                  new Point2D(100, 50)
+                                                              },
+                                                              baseProfile.BreakWater,
+                                                              new DikeProfile.ConstructionProperties
+                                                              {
+                                                                  Name = baseProfile.Name,
+                                                                  Id = baseProfile.Id,
+                                                                  Orientation = baseProfile.Orientation,
+                                                                  DikeHeight = baseProfile.DikeHeight,
+                                                                  X0 = baseProfile.X0
+                                                              }))
+                    .SetName("ForeshoreGeometry");
+                yield return new TestCaseData(new DikeProfile(baseProfile.WorldReferencePoint,
+                                                              baseProfile.DikeGeometry,
+                                                              baseProfile.ForeshoreGeometry,
+                                                              null,
+                                                              new DikeProfile.ConstructionProperties
+                                                              {
+                                                                  Name = baseProfile.Name,
+                                                                  Id = baseProfile.Id,
+                                                                  Orientation = baseProfile.Orientation,
+                                                                  DikeHeight = baseProfile.DikeHeight,
+                                                                  X0 = baseProfile.X0
+                                                              }))
+                    .SetName("Breakwater");
+                yield return new TestCaseData(new DikeProfile(baseProfile.WorldReferencePoint,
+                                                              baseProfile.DikeGeometry,
+                                                              baseProfile.ForeshoreGeometry,
+                                                              baseProfile.BreakWater,
+                                                              new DikeProfile.ConstructionProperties
+                                                              {
+                                                                  Name = baseProfile.Name,
+                                                                  Id = "Different Id",
+                                                                  Orientation = baseProfile.Orientation,
+                                                                  DikeHeight = baseProfile.DikeHeight,
+                                                                  X0 = baseProfile.X0
+                                                              }))
+                    .SetName("Id");
+
+                yield return new TestCaseData(new DikeProfile(baseProfile.WorldReferencePoint,
+                                                              baseProfile.DikeGeometry,
+                                                              baseProfile.ForeshoreGeometry,
+                                                              baseProfile.BreakWater,
+                                                              new DikeProfile.ConstructionProperties
+                                                              {
+                                                                  Name = "Different Name",
+                                                                  Id = baseProfile.Id,
+                                                                  Orientation = baseProfile.Orientation,
+                                                                  DikeHeight = baseProfile.DikeHeight,
+                                                                  X0 = baseProfile.X0
+                                                              }))
+                    .SetName("Name");
+                yield return new TestCaseData(new DikeProfile(baseProfile.WorldReferencePoint,
+                                                              baseProfile.DikeGeometry,
+                                                              baseProfile.ForeshoreGeometry,
+                                                              baseProfile.BreakWater,
+                                                              new DikeProfile.ConstructionProperties
+                                                              {
+                                                                  Name = baseProfile.Name,
+                                                                  Id = baseProfile.Id,
+                                                                  Orientation = baseProfile.Orientation + 10,
+                                                                  DikeHeight = baseProfile.DikeHeight,
+                                                                  X0 = baseProfile.X0
+                                                              }))
+                    .SetName("Orientation");
+                yield return new TestCaseData(new DikeProfile(baseProfile.WorldReferencePoint,
+                                                              baseProfile.DikeGeometry,
+                                                              baseProfile.ForeshoreGeometry,
+                                                              baseProfile.BreakWater,
+                                                              new DikeProfile.ConstructionProperties
+                                                              {
+                                                                  Name = baseProfile.Name,
+                                                                  Id = baseProfile.Id,
+                                                                  Orientation = baseProfile.Orientation,
+                                                                  DikeHeight = baseProfile.DikeHeight + 10,
+                                                                  X0 = baseProfile.X0
+                                                              }))
+                    .SetName("DikeHeight");
+                yield return new TestCaseData(new DikeProfile(baseProfile.WorldReferencePoint,
+                                                              baseProfile.DikeGeometry,
+                                                              baseProfile.ForeshoreGeometry,
+                                                              baseProfile.BreakWater,
+                                                              new DikeProfile.ConstructionProperties
+                                                              {
+                                                                  Name = baseProfile.Name,
+                                                                  Id = baseProfile.Id,
+                                                                  Orientation = baseProfile.Orientation,
+                                                                  DikeHeight = baseProfile.DikeHeight,
+                                                                  X0 = baseProfile.X0 + 10
+                                                              }))
+                    .SetName("X0");
+            }
         }
 
         /// <summary>
