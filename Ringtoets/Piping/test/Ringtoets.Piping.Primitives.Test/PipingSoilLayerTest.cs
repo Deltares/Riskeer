@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.TestUtil;
@@ -88,101 +89,166 @@ namespace Ringtoets.Piping.Primitives.Test
             Assert.AreEqual(materialName, layer.MaterialName);
         }
 
-        [Test]
-        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
+        [TestFixture]
+        private class PipingSoilLayerEqualsGuideLines : EqualsGuidelinesTestFixture<PipingSoilLayer, TestLayer>
         {
-            // Setup
-            PipingSoilLayer layer = CreateRandomLayer(2);
-            var derivedLayer = new TestLayer(layer);
+            private const int seed = 21;
 
-            // Call
-            bool areEqual = layer.Equals(derivedLayer);
-
-            // Assert
-            Assert.IsTrue(areEqual);
-        }
-
-        [Test]
-        public void Equals_DifferentType_ReturnsFalse()
-        {
-            // Setup
-            PipingSoilLayer layer = CreateRandomLayer(21);
-
-            // Call
-            bool areEqual = layer.Equals(new object());
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        public void Equals_Null_ReturnsFalse()
-        {
-            // Setup
-            PipingSoilLayer layer = CreateRandomLayer(21);
-
-            // Call
-            bool areEqual = layer.Equals(null);
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(LayerCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(PipingSoilLayer layer, PipingSoilLayer otherLayer, bool expectedEqual)
-        {
-            // Call
-            bool areEqualOne = layer.Equals(otherLayer);
-            bool areEqualTwo = otherLayer.Equals(layer);
-
-            // Assert
-            Assert.AreEqual(expectedEqual, areEqualOne);
-            Assert.AreEqual(expectedEqual, areEqualTwo);
-        }
-
-        private static TestCaseData[] LayerCombinations()
-        {
-            PipingSoilLayer layerA = CreateRandomLayer(21);
-            PipingSoilLayer layerB = CreateRandomLayer(21);
-            PipingSoilLayer layerC = CreateRandomLayer(73);
-
-            PipingSoilLayer layerD = CreateNaNLayer("C", Color.Aqua, true);
-            PipingSoilLayer layerE = CreateNaNLayer("C", Color.Aqua, false);
-            PipingSoilLayer layerF = CreateNaNLayer("C", Color.AliceBlue, false);
-            PipingSoilLayer layerG = CreateNaNLayer("A", Color.Aqua, false);
-
-            return new[]
+            protected override PipingSoilLayer CreateObject()
             {
-                new TestCaseData(layerA, layerA, true)
+                return CreateRandomLayer(seed);
+            }
+
+            protected override TestLayer CreateDerivedObject()
+            {
+                PipingSoilLayer baseLayer = CreateRandomLayer(21);
+                return new TestLayer(baseLayer);
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                PipingSoilLayer baseLayer = CreateRandomLayer(seed);
+
+                yield return new TestCaseData(new PipingSoilLayer(double.NaN)
                 {
-                    TestName = "Equals_LayerALayerA_True"
-                },
-                new TestCaseData(layerA, layerB, true)
+                    MaterialName = "Different Name",
+                    Color = baseLayer.Color,
+                    IsAquifer = baseLayer.IsAquifer,
+                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
+                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
+                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
+                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
+                    DiameterD70Mean = baseLayer.DiameterD70Mean,
+                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
+                    PermeabilityMean = baseLayer.PermeabilityMean
+                }).SetName("Name");
+
+                yield return new TestCaseData(new PipingSoilLayer(double.NaN)
                 {
-                    TestName = "Equals_LayerALayerB_True"
-                },
-                new TestCaseData(layerB, layerC, false)
+                    MaterialName = baseLayer.MaterialName,
+                    Color = baseLayer.Color.ToArgb().Equals(Color.Aqua.ToArgb()) ? Color.Bisque : Color.Aqua,
+                    IsAquifer = baseLayer.IsAquifer,
+                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
+                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
+                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
+                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
+                    DiameterD70Mean = baseLayer.DiameterD70Mean,
+                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
+                    PermeabilityMean = baseLayer.PermeabilityMean
+                }).SetName("Color");
+
+                yield return new TestCaseData(new PipingSoilLayer(double.NaN)
                 {
-                    TestName = "Equals_LayerBLayerC_False"
-                },
-                new TestCaseData(layerC, layerC, true)
+                    MaterialName = baseLayer.MaterialName,
+                    Color = baseLayer.Color,
+                    IsAquifer = !baseLayer.IsAquifer,
+                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
+                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
+                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
+                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
+                    DiameterD70Mean = baseLayer.DiameterD70Mean,
+                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
+                    PermeabilityMean = baseLayer.PermeabilityMean
+                }).SetName("IsAquifer");
+
+                yield return new TestCaseData(new PipingSoilLayer(double.NaN)
                 {
-                    TestName = "Equals_LayerCLayerC_True"
-                },
-                new TestCaseData(layerD, layerE, false)
+                    MaterialName = baseLayer.MaterialName,
+                    Color = baseLayer.Color,
+                    IsAquifer = baseLayer.IsAquifer,
+                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation + 10,
+                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
+                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
+                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
+                    DiameterD70Mean = baseLayer.DiameterD70Mean,
+                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
+                    PermeabilityMean = baseLayer.PermeabilityMean
+                }).SetName("BelowPhreaticLevelDeviation");
+
+                yield return new TestCaseData(new PipingSoilLayer(double.NaN)
                 {
-                    TestName = "Equals_LayerDLayerE_False"
-                },
-                new TestCaseData(layerD, layerF, false)
+                    MaterialName = baseLayer.MaterialName,
+                    Color = baseLayer.Color,
+                    IsAquifer = baseLayer.IsAquifer,
+                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
+                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean + 10,
+                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
+                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
+                    DiameterD70Mean = baseLayer.DiameterD70Mean,
+                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
+                    PermeabilityMean = baseLayer.PermeabilityMean
+                }).SetName("BelowPhreaticLevelMean");
+
+                yield return new TestCaseData(new PipingSoilLayer(double.NaN)
                 {
-                    TestName = "Equals_LayerDLayerF_False"
-                },
-                new TestCaseData(layerD, layerG, false)
+                    MaterialName = baseLayer.MaterialName,
+                    Color = baseLayer.Color,
+                    IsAquifer = baseLayer.IsAquifer,
+                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
+                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
+                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift + 10,
+                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
+                    DiameterD70Mean = baseLayer.DiameterD70Mean,
+                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
+                    PermeabilityMean = baseLayer.PermeabilityMean
+                }).SetName("BelowPhreaticLevelShift");
+
+                yield return new TestCaseData(new PipingSoilLayer(double.NaN)
                 {
-                    TestName = "Equals_LayerDLayerG_False"
-                }
-            };
+                    MaterialName = baseLayer.MaterialName,
+                    Color = baseLayer.Color,
+                    IsAquifer = baseLayer.IsAquifer,
+                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
+                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
+                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
+                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation + 70,
+                    DiameterD70Mean = baseLayer.DiameterD70Mean,
+                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
+                    PermeabilityMean = baseLayer.PermeabilityMean
+                }).SetName("DiameterD70CoefficientOfVariation");
+
+                yield return new TestCaseData(new PipingSoilLayer(double.NaN)
+                {
+                    MaterialName = baseLayer.MaterialName,
+                    Color = baseLayer.Color,
+                    IsAquifer = baseLayer.IsAquifer,
+                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
+                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
+                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
+                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
+                    DiameterD70Mean = baseLayer.DiameterD70Mean + 70,
+                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
+                    PermeabilityMean = baseLayer.PermeabilityMean
+                }).SetName("DiameterD70Mean");
+
+                yield return new TestCaseData(new PipingSoilLayer(double.NaN)
+                {
+                    MaterialName = baseLayer.MaterialName,
+                    Color = baseLayer.Color,
+                    IsAquifer = baseLayer.IsAquifer,
+                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
+                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
+                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
+                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
+                    DiameterD70Mean = baseLayer.DiameterD70Mean,
+                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation + 10,
+                    PermeabilityMean = baseLayer.PermeabilityMean
+                }).SetName("PermeabilityCoefficientOfVariation");
+
+                yield return new TestCaseData(new PipingSoilLayer(double.NaN)
+                {
+                    MaterialName = baseLayer.MaterialName,
+                    Color = baseLayer.Color,
+                    IsAquifer = baseLayer.IsAquifer,
+                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
+                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
+                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
+                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
+                    DiameterD70Mean = baseLayer.DiameterD70Mean,
+                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
+                    PermeabilityMean = baseLayer.PermeabilityMean + 10
+                }).SetName("PermeabilityMean");
+            }
         }
 
         private static PipingSoilLayer CreateRandomLayer(int randomSeed)
