@@ -144,402 +144,110 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             AssertPropertiesUpdated(surfaceLineToUpdateFrom, surfaceLine);
         }
 
-        [Test]
-        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
+        [TestFixture]
+        private class MacroStabilityInwardsEqualGuideLines : EqualsGuidelinesTestFixture<MacroStabilityInwardsSurfaceLine, TestSurfaceLine>
         {
-            // Setup
-            MacroStabilityInwardsSurfaceLine profile = CreateSurfaceLineWithCharacteristicPoints();
-            var derivedLayer = new TestSurfaceLine(profile);
-
-            // Call
-            bool areEqual = profile.Equals(derivedLayer);
-
-            // Assert
-            Assert.IsTrue(areEqual);
-        }
-
-        [Test]
-        public void Equals_ToItself_ReturnsTrue()
-        {
-            // Setup
-            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine(string.Empty);
-
-            // Call
-            bool isLineOneEqualToLineOne = surfaceLineOne.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsTrue(isLineOneEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_SameReference_ReturnsTrue()
-        {
-            // Setup
-            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = surfaceLineOne;
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsTrue(isLineOneEqualToLineTwo);
-            Assert.IsTrue(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_ToNull_ReturnsFalse()
-        {
-            // Setup
-            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine("Name A");
-
-            // Call
-            bool isLineOneEqualToNull = surfaceLineOne.Equals(null);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToNull);
-        }
-
-        [Test]
-        public void Equals_ToDifferentType_ReturnsFalse()
-        {
-            // Setup
-            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine("Name A");
-            var differentType = new object();
-
-            // Call
-            bool isSurfaceLineEqualToDifferentType = surfaceLineOne.Equals(differentType);
-            bool isDifferentTypeEqualToSurfaceLine = differentType.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isSurfaceLineEqualToDifferentType);
-            Assert.IsFalse(isDifferentTypeEqualToSurfaceLine);
-        }
-
-        [Test]
-        public void Equals_DifferentNames_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints("Name one");
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints("Name two");
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentGeometries_ReturnsFalse()
-        {
-            // Setup
-            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine("Name A");
-            surfaceLineOne.SetGeometry(new[]
+            protected override MacroStabilityInwardsSurfaceLine CreateObject()
             {
-                new Point3D(1, 2, 3)
-            });
+                return CreateSurfaceLineWithCharacteristicPoints();
+            }
 
-            var surfaceLineTwo = new MacroStabilityInwardsSurfaceLine("Name A");
-            surfaceLineTwo.SetGeometry(new[]
+            protected override TestSurfaceLine CreateDerivedObject()
             {
-                new Point3D(3, 4, 5)
-            });
+                MacroStabilityInwardsSurfaceLine baseLine = CreateSurfaceLineWithCharacteristicPoints();
+                return new TestSurfaceLine(baseLine);
+            }
 
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                MacroStabilityInwardsSurfaceLine differentName = CreateSurfaceLineWithCharacteristicPoints("Different Name");
+                yield return new TestCaseData(differentName).SetName("Name");
 
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
+                MacroStabilityInwardsSurfaceLine differentGeometry = CreateSurfaceLineWithCharacteristicPoints();
+                differentGeometry.SetGeometry(new[]
+                {
+                    new Point3D(3, 4, 5)
+                });
+                yield return new TestCaseData(differentGeometry)
+                    .SetName("Geometry");
 
-        [Test]
-        public void Equals_DifferentReferenceLineIntersectionWorldPoint_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            surfaceLineOne.ReferenceLineIntersectionWorldPoint = new Point2D(0, 0);
+                MacroStabilityInwardsSurfaceLine differentReferenceLineIntersectionWorldPoint = CreateSurfaceLineWithCharacteristicPoints();
+                differentReferenceLineIntersectionWorldPoint.ReferenceLineIntersectionWorldPoint = new Point2D(1, 1);
+                yield return new TestCaseData(differentReferenceLineIntersectionWorldPoint)
+                    .SetName("WorldIntersectionPoint");
 
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            surfaceLineTwo.ReferenceLineIntersectionWorldPoint = new Point2D(1, 1);
+                MacroStabilityInwardsSurfaceLine differentSurfaceLevelInside = CreateSurfaceLineWithCharacteristicPoints();
+                Point3D[] points = differentSurfaceLevelInside.Points.ToArray();
+                differentSurfaceLevelInside.SetSurfaceLevelInsideAt(points[5]);
+                yield return new TestCaseData(differentSurfaceLevelInside)
+                    .SetName("SurfaceLevelInside");
 
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+                MacroStabilityInwardsSurfaceLine differentDikeTopAtPolder = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentDikeTopAtPolder.Points.ToArray();
+                differentDikeTopAtPolder.SetDikeTopAtPolderAt(points[5]);
+                yield return new TestCaseData(differentDikeTopAtPolder)
+                    .SetName("DikeTopAtPolder");
 
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
+                MacroStabilityInwardsSurfaceLine differentDikeTopAtRiver = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentDikeTopAtRiver.Points.ToArray();
+                differentDikeTopAtRiver.SetDikeTopAtRiverAt(points[5]);
+                yield return new TestCaseData(differentDikeTopAtRiver)
+                    .SetName("DikeTopAtRiver");
 
-        [Test]
-        public void Equals_DifferentSurfaceLevelInside_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetSurfaceLevelInsideAt(points[5]);
+                MacroStabilityInwardsSurfaceLine differentShoulderBaseInside = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentShoulderBaseInside.Points.ToArray();
+                differentShoulderBaseInside.SetShoulderBaseInsideAt(points[1]);
+                yield return new TestCaseData(differentShoulderBaseInside)
+                    .SetName("ShoulderBaseInside");
 
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+                MacroStabilityInwardsSurfaceLine differentShoulderTopInside = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentShoulderTopInside.Points.ToArray();
+                differentShoulderTopInside.SetShoulderTopInsideAt(points[7]);
+                yield return new TestCaseData(differentShoulderTopInside)
+                    .SetName("ShoulderBaseTop");
 
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
+                MacroStabilityInwardsSurfaceLine differentSurfaceLevelOutside = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentSurfaceLevelOutside.Points.ToArray();
+                differentSurfaceLevelOutside.SetSurfaceLevelOutsideAt(points[5]);
+                yield return new TestCaseData(differentSurfaceLevelOutside)
+                    .SetName("SurfaceLevelOutside");
 
-        [Test]
-        public void Equals_DifferentDikeTopAtPolder_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetDikeTopAtPolderAt(points[5]);
+                MacroStabilityInwardsSurfaceLine differentBottomDitchDikeSide = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentBottomDitchDikeSide.Points.ToArray();
+                differentBottomDitchDikeSide.SetBottomDitchDikeSideAt(points[4]);
+                yield return new TestCaseData(differentBottomDitchDikeSide)
+                    .SetName("BottomDitchDikeSide");
 
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+                MacroStabilityInwardsSurfaceLine differentBottomDitchPolderSide = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentBottomDitchPolderSide.Points.ToArray();
+                differentBottomDitchPolderSide.SetBottomDitchPolderSideAt(points[5]);
+                yield return new TestCaseData(differentBottomDitchPolderSide)
+                    .SetName("BottomDitchPolderSide");
 
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
+                MacroStabilityInwardsSurfaceLine differentDikeToeAtPolder = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentDikeToeAtPolder.Points.ToArray();
+                differentDikeToeAtPolder.SetDikeToeAtPolderAt(points[5]);
+                yield return new TestCaseData(differentDikeToeAtPolder)
+                    .SetName("DikeToeAtPolder");
 
-        [Test]
-        public void Equals_DifferentDikeTopAtRiver_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetDikeTopAtRiverAt(points[5]);
+                MacroStabilityInwardsSurfaceLine differentDikeToeAtRiver = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentDikeToeAtRiver.Points.ToArray();
+                differentDikeToeAtRiver.SetDikeToeAtRiverAt(points[5]);
+                yield return new TestCaseData(differentDikeToeAtRiver)
+                    .SetName("DikeToeAtRiver");
 
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+                MacroStabilityInwardsSurfaceLine differentDitchDikeSide = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentDitchDikeSide.Points.ToArray();
+                differentDitchDikeSide.SetDitchDikeSideAt(points[1]);
+                yield return new TestCaseData(differentDitchDikeSide)
+                    .SetName("DitchDikeSide");
 
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentShoulderBaseInside_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetShoulderBaseInsideAt(points[1]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentShoulderTopInside_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetShoulderTopInsideAt(points[7]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentSurfaceLevelOutside_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetSurfaceLevelOutsideAt(points[5]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentBottomDitchDikeSide_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetBottomDitchDikeSideAt(points[4]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentBottomDitchPolderSide_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetBottomDitchPolderSideAt(points[5]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentDikeToeAtPolder_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetDikeToeAtPolderAt(points[5]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentDikeToeAtRiver_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetDikeToeAtRiverAt(points[5]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentDitchDikeSide_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetDitchDikeSideAt(points[1]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentDitchPolderSide_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetDitchPolderSideAt(points[1]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_NamesGeometriesAndReferenceLineIntersectionWorldPointAndCharacteristicPointsEqual_ReturnsTrue()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsTrue(isLineOneEqualToLineTwo);
-            Assert.IsTrue(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_TransitivePropertyWithSameNamesAndGeometry_ReturnsTrue()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineThree = CreateSurfaceLineWithCharacteristicPoints();
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineThree = surfaceLineTwo.Equals(surfaceLineThree);
-            bool isLineOneEqualToLineThree = surfaceLineOne.Equals(surfaceLineThree);
-
-            // Assert
-            Assert.IsTrue(isLineOneEqualToLineTwo);
-            Assert.IsTrue(isLineTwoEqualToLineThree);
-            Assert.IsTrue(isLineOneEqualToLineThree);
-        }
-
-        [Test]
-        public void GetHashCode_EqualSurfaceLines_ReturnSameHashCode()
-        {
-            // Setup
-            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            var surfaceLineTwo = new MacroStabilityInwardsSurfaceLine(string.Empty);
-
-            // Call
-            int hashCodeOne = surfaceLineOne.GetHashCode();
-            int hashCodeTwo = surfaceLineTwo.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
+                MacroStabilityInwardsSurfaceLine differentDitchPolderSide = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentDitchPolderSide.Points.ToArray();
+                differentDitchPolderSide.SetDitchPolderSideAt(points[1]);
+                yield return new TestCaseData(differentDitchPolderSide)
+                    .SetName("DitchPolderSide");
+            }
         }
 
         public abstract class SetCharacteristicPointTest
@@ -828,9 +536,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         private class TestSurfaceLine : MacroStabilityInwardsSurfaceLine
         {
-            public TestSurfaceLine(MacroStabilityInwardsSurfaceLine profile) : base(string.Empty)
+            public TestSurfaceLine(MacroStabilityInwardsSurfaceLine surfaceLine) : base(string.Empty)
             {
-                CopyProperties(profile);
+                CopyProperties(surfaceLine);
             }
         }
 
