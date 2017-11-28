@@ -127,7 +127,6 @@
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParserTest.cs" />
     <Compile Include="Parsers\ReliabilityIndexCalculationParserTest.cs" />
     <Compile Include="Parsers\WaveConditionsCalculationParserTest.cs" />
-    <Compile Include="Readers\ReadPreprocessorSettingTest.cs" />
     <Compile Include="Services\HydraRingConfigurationServiceTest.cs" />
     <Compile Include="Data\HydraRingSectionTest.cs" />
     <Compile Include="Data\HydraRingProfilePointTest.cs" />

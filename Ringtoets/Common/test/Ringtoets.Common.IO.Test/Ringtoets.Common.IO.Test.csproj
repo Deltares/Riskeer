@@ -92,6 +92,7 @@
     <Compile Include="HydraRing\HydraRingSettingsDatabaseReaderTest.cs" />
     <Compile Include="HydraRing\HydraulicBoundaryDatabaseHelperTest.cs" />
     <Compile Include="HydraRing\PreprocessorSettingsProviderTest.cs" />
+    <Compile Include="HydraRing\ReadPreprocessorSettingTest.cs" />
     <Compile Include="HydraRing\TimeIntegrationSettingsProviderTest.cs" />
     <Compile Include="HydraRing\NumericsSettingsProviderTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsExporterTest.cs" />

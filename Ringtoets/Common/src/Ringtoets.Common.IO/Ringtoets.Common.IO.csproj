@@ -90,6 +90,7 @@
     <Compile Include="FileImporters\StructuresImporter.cs" />
     <Compile Include="HydraRing\HydraulicBoundaryDatabaseHelper.cs" />
     <Compile Include="HydraRing\PreprocessorSettingsProvider.cs" />
+    <Compile Include="HydraRing\ReadPreprocessorSetting.cs" />
     <Compile Include="HydraRing\TimeIntegrationSettingsProvider.cs" />
     <Compile Include="HydraRing\NumericsSettingsProvider.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationsExporter.cs" />

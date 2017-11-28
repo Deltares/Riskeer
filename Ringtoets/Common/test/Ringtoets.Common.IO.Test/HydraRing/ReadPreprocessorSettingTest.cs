@@ -21,9 +21,9 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Readers;
+using Ringtoets.Common.IO.HydraRing;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Readers
+namespace Ringtoets.Common.IO.Test.HydraRing
 {
     [TestFixture]
     public class ReadPreprocessorSettingTest
