@@ -413,8 +413,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 AddRange(illustrationPointResults, subMechanismResults[dataKey]);
             }
 
-            string submechanismIllustrationPointName = subMechanisms[subMechanismId];
-            var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
+            string subMechanismIllustrationPointName = subMechanisms[subMechanismId];
+            var illustrationPoint = new SubMechanismIllustrationPoint(subMechanismIllustrationPointName,
                                                                       illustrationPointStochasts,
                                                                       illustrationPointResults,
                                                                       subMechanismIllustrationPointBeta);

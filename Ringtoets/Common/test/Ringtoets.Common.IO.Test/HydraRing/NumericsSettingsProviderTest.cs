@@ -150,7 +150,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void GetNumericsSettingForPreprocessor_PreprocessorSubmechanismIdKnown_ReturnExpectedNumericsSetting()
+        public void GetNumericsSettingForPreprocessor_PreprocessorSubMechanismIdKnown_ReturnExpectedNumericsSetting()
         {
             // Setup
             using (var numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))
@@ -177,7 +177,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void GetNumericsSettingForPreprocessor_PreprocessorSubmechanismIdUnknownDefaultSubmechanismIdKnown_ReturnExpectedNumericsSetting()
+        public void GetNumericsSettingForPreprocessor_PreprocessorSubMechanismIdUnknownDefaultSubMechanismIdKnown_ReturnExpectedNumericsSetting()
         {
             // Setup
             using (var numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))

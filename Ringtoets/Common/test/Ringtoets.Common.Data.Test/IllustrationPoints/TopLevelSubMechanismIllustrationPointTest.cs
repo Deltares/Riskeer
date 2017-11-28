@@ -35,11 +35,11 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var submechanismIllustrationPoint = new TestSubMechanismIllustrationPoint();
+            var subMechanismIllustrationPoint = new TestSubMechanismIllustrationPoint();
 
             // Call
             TestDelegate call = () =>
-                new TopLevelSubMechanismIllustrationPoint(null, "closing situation", submechanismIllustrationPoint);
+                new TopLevelSubMechanismIllustrationPoint(null, "closing situation", subMechanismIllustrationPoint);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,11 +51,11 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         {
             // Setup
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
-            var submechanismIllustrationPoint = new TestSubMechanismIllustrationPoint();
+            var subMechanismIllustrationPoint = new TestSubMechanismIllustrationPoint();
 
             // Call
             TestDelegate call = () =>
-                new TopLevelSubMechanismIllustrationPoint(windDirection, null, submechanismIllustrationPoint);
+                new TopLevelSubMechanismIllustrationPoint(windDirection, null, subMechanismIllustrationPoint);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -83,17 +83,17 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             // Setup
             const string closingScenario = "closing scenario";
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
-            var submechanismIllustrationPoint = new TestSubMechanismIllustrationPoint();
+            var subMechanismIllustrationPoint = new TestSubMechanismIllustrationPoint();
 
             // Call
             var windDirectionClosingScenarioIllustrationPoint =
-                new TopLevelSubMechanismIllustrationPoint(windDirection, closingScenario, submechanismIllustrationPoint);
+                new TopLevelSubMechanismIllustrationPoint(windDirection, closingScenario, subMechanismIllustrationPoint);
 
             // Assert
             Assert.IsInstanceOf<TopLevelIllustrationPointBase>(windDirectionClosingScenarioIllustrationPoint);
             Assert.AreEqual(closingScenario, windDirectionClosingScenarioIllustrationPoint.ClosingSituation);
             Assert.AreSame(windDirection, windDirectionClosingScenarioIllustrationPoint.WindDirection);
-            Assert.AreSame(submechanismIllustrationPoint, windDirectionClosingScenarioIllustrationPoint.SubMechanismIllustrationPoint);
+            Assert.AreSame(subMechanismIllustrationPoint, windDirectionClosingScenarioIllustrationPoint.SubMechanismIllustrationPoint);
         }
 
         [Test]

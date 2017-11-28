@@ -97,12 +97,12 @@ namespace Ringtoets.Common.IO.HydraRing
         {
             FailureMechanismDefaults failureMechanismDefaults = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(HydraRingFailureMechanismType.AssessmentLevel);
             int mechanismId = failureMechanismDefaults.MechanismId;
-            const int preprocessorSubmechanismId = 7;
-            const int defaultSubmechanismId = 1;
+            const int preprocessorSubMechanismId = 7;
+            const int defaultSubMechanismId = 1;
 
-            return numericsSettingsReader.ReadNumericsSetting(locationId, mechanismId, preprocessorSubmechanismId)
-                   ?? (numericsSettingsReader.ReadNumericsSetting(locationId, mechanismId, defaultSubmechanismId)
-                       ?? defaultNumericsSettings[HydraRingFailureMechanismType.AssessmentLevel][defaultSubmechanismId]);
+            return numericsSettingsReader.ReadNumericsSetting(locationId, mechanismId, preprocessorSubMechanismId)
+                   ?? numericsSettingsReader.ReadNumericsSetting(locationId, mechanismId, defaultSubMechanismId)
+                   ?? defaultNumericsSettings[HydraRingFailureMechanismType.AssessmentLevel][defaultSubMechanismId];
         }
 
         public void Dispose()

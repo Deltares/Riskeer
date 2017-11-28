@@ -256,7 +256,7 @@ namespace Ringtoets.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Read a preprocessor setting for a given location.
+        /// Reads a preprocessor setting for a given location.
         /// </summary>
         /// <param name="locationId">The id of a hydraulic boundary location.</param>
         /// <returns>A new <see cref="ReadPreprocessorSetting"/> containing values read from the database.</returns>

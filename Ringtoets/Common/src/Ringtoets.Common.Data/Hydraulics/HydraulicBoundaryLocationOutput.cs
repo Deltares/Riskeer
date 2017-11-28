@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <param name="calculatedProbability">the calculated probability.</param>
         /// <param name="calculatedReliability">The calculated reliability.</param>
         /// <param name="calculationConvergence">The convergence status of the calculation.</param>
-        /// <param name="generalResult">The general result of this output with submechanism illustration points.</param>
+        /// <param name="generalResult">The general result of this output with sub mechanism illustration points.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         public HydraulicBoundaryLocationOutput(double result,

@@ -129,10 +129,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                           22, 23, 24, 25);
 
             // Call
-            int? actualSubmechanismModelId = input.GetSubMechanismModelId(subMechanismModelId);
+            int? actualSubMechanismModelId = input.GetSubMechanismModelId(subMechanismModelId);
 
             // Assert
-            Assert.AreEqual(expectedSubMechanismModelId, actualSubmechanismModelId);
+            Assert.AreEqual(expectedSubMechanismModelId, actualSubMechanismModelId);
         }
 
         private static IEnumerable<HydraRingVariable> GetDefaultVariables()
