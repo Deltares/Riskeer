@@ -64,32 +64,19 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void GetNumericsSetting_KnownLocationId_ReturnsExpectedNumericsSetting()
+        public void GetNumericsSettings_KnownLocationId_ReturnsExpectedNumericsSetting()
         {
             // Setup
             using (var numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))
             {
-                NumericsSetting expectedValues = GetExpectedNumericsSetting();
-
                 // Call
                 Dictionary<int, NumericsSetting> numericsSettings = numericsSettingsProvider.GetNumericsSettings(700132, HydraRingFailureMechanismType.AssessmentLevel);
 
                 // Assert
-                NumericsSetting numericsSetting = numericsSettings[1];
-                Assert.AreEqual(expectedValues.CalculationTechniqueId, numericsSetting.CalculationTechniqueId);
-                Assert.AreEqual(expectedValues.FormStartMethod, numericsSetting.FormStartMethod);
-                Assert.AreEqual(expectedValues.FormNumberOfIterations, numericsSetting.FormNumberOfIterations);
-                Assert.AreEqual(expectedValues.FormRelaxationFactor, numericsSetting.FormRelaxationFactor);
-                Assert.AreEqual(expectedValues.FormEpsBeta, numericsSetting.FormEpsBeta);
-                Assert.AreEqual(expectedValues.FormEpsHoh, numericsSetting.FormEpsHoh);
-                Assert.AreEqual(expectedValues.FormEpsZFunc, numericsSetting.FormEpsZFunc);
-                Assert.AreEqual(expectedValues.DsStartMethod, numericsSetting.DsStartMethod);
-                Assert.AreEqual(expectedValues.DsMinNumberOfIterations, numericsSetting.DsMinNumberOfIterations);
-                Assert.AreEqual(expectedValues.DsMaxNumberOfIterations, numericsSetting.DsMaxNumberOfIterations);
-                Assert.AreEqual(expectedValues.DsVarCoefficient, numericsSetting.DsVarCoefficient);
-                Assert.AreEqual(expectedValues.NiNumberSteps, numericsSetting.NiNumberSteps);
-                Assert.AreEqual(expectedValues.NiUMin, numericsSetting.NiUMin);
-                Assert.AreEqual(expectedValues.NiUMax, numericsSetting.NiUMax);
+                Assert.IsTrue(numericsSettings.ContainsKey(1));
+
+                NumericsSetting expected = GetExpectedNumericsSetting();
+                AssertNumericsSetting(expected, numericsSettings[1]);
             }
         }
 
@@ -120,7 +107,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         [TestCase(HydraRingFailureMechanismType.DunesBoundaryConditions, 6, 1, 4, 10000, 40000)]
         [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 102, 11, 4, 10000, 40000)]
         [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 103, 11, 4, 10000, 40000)]
-        public void GetNumericsSetting_UnknownLocationId_ReturnsExpectedDefaultNumericsSetting(
+        public void GetNumericsSettings_UnknownLocationId_ReturnsExpectedDefaultNumericsSetting(
             HydraRingFailureMechanismType failureMechanismType, int subMechanismId, int expectedCalculationTechniqueId,
             int expectedFormStartMethod, int expectedDsMinNumberOfIterations, int expectedDsMaxNumberOfIterations)
         {
@@ -131,21 +118,15 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                 Dictionary<int, NumericsSetting> numericsSettings = numericsSettingsProvider.GetNumericsSettings(-1, failureMechanismType);
 
                 // Assert
-                NumericsSetting numericsSetting = numericsSettings[subMechanismId];
-                Assert.AreEqual(expectedCalculationTechniqueId, numericsSetting.CalculationTechniqueId);
-                Assert.AreEqual(expectedFormStartMethod, numericsSetting.FormStartMethod);
-                Assert.AreEqual(150, numericsSetting.FormNumberOfIterations);
-                Assert.AreEqual(0.15, numericsSetting.FormRelaxationFactor);
-                Assert.AreEqual(0.005, numericsSetting.FormEpsBeta);
-                Assert.AreEqual(0.005, numericsSetting.FormEpsHoh);
-                Assert.AreEqual(0.005, numericsSetting.FormEpsZFunc);
-                Assert.AreEqual(2, numericsSetting.DsStartMethod);
-                Assert.AreEqual(expectedDsMinNumberOfIterations, numericsSetting.DsMinNumberOfIterations);
-                Assert.AreEqual(expectedDsMaxNumberOfIterations, numericsSetting.DsMaxNumberOfIterations);
-                Assert.AreEqual(0.1, numericsSetting.DsVarCoefficient);
-                Assert.AreEqual(-6.0, numericsSetting.NiUMin);
-                Assert.AreEqual(6.0, numericsSetting.NiUMax);
-                Assert.AreEqual(25, numericsSetting.NiNumberSteps);
+                Assert.IsTrue(numericsSettings.ContainsKey(subMechanismId));
+
+                var expected = new NumericsSetting(expectedCalculationTechniqueId,
+                                                   expectedFormStartMethod,
+                                                   150, 0.15, 0.005, 0.005, 0.005, 2,
+                                                   expectedDsMinNumberOfIterations,
+                                                   expectedDsMaxNumberOfIterations,
+                                                   0.1, -6.0, 6.0, 25);
+                AssertNumericsSetting(expected, numericsSettings[subMechanismId]);
             }
         }
 
@@ -159,20 +140,8 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                 NumericsSetting numericsSetting = numericsSettingsProvider.GetNumericsSettingForPreprocessor(700131);
 
                 // Assert
-                Assert.AreEqual(2, numericsSetting.CalculationTechniqueId);
-                Assert.AreEqual(3, numericsSetting.FormStartMethod);
-                Assert.AreEqual(20, numericsSetting.FormNumberOfIterations);
-                Assert.AreEqual(0.2, numericsSetting.FormRelaxationFactor);
-                Assert.AreEqual(0.1, numericsSetting.FormEpsBeta);
-                Assert.AreEqual(0.1, numericsSetting.FormEpsHoh);
-                Assert.AreEqual(0.1, numericsSetting.FormEpsZFunc);
-                Assert.AreEqual(3, numericsSetting.DsStartMethod);
-                Assert.AreEqual(4, numericsSetting.DsMinNumberOfIterations);
-                Assert.AreEqual(15000, numericsSetting.DsMaxNumberOfIterations);
-                Assert.AreEqual(90000, numericsSetting.DsVarCoefficient);
-                Assert.AreEqual(0.2, numericsSetting.NiUMin);
-                Assert.AreEqual(-4, numericsSetting.NiUMax);
-                Assert.AreEqual(5, numericsSetting.NiNumberSteps);
+                var expected = new NumericsSetting(2, 3, 20, 0.2, 0.1, 0.1, 0.1, 3, 4, 15000, 90000, 0.2, -4, 5);
+                AssertNumericsSetting(expected, numericsSetting);
             }
         }
 
@@ -186,21 +155,8 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                 NumericsSetting numericsSetting = numericsSettingsProvider.GetNumericsSettingForPreprocessor(700138);
 
                 // Assert
-                NumericsSetting expectedValues = GetExpectedNumericsSetting();
-                Assert.AreEqual(expectedValues.CalculationTechniqueId, numericsSetting.CalculationTechniqueId);
-                Assert.AreEqual(expectedValues.FormStartMethod, numericsSetting.FormStartMethod);
-                Assert.AreEqual(expectedValues.FormNumberOfIterations, numericsSetting.FormNumberOfIterations);
-                Assert.AreEqual(expectedValues.FormRelaxationFactor, numericsSetting.FormRelaxationFactor);
-                Assert.AreEqual(expectedValues.FormEpsBeta, numericsSetting.FormEpsBeta);
-                Assert.AreEqual(expectedValues.FormEpsHoh, numericsSetting.FormEpsHoh);
-                Assert.AreEqual(expectedValues.FormEpsZFunc, numericsSetting.FormEpsZFunc);
-                Assert.AreEqual(expectedValues.DsStartMethod, numericsSetting.DsStartMethod);
-                Assert.AreEqual(expectedValues.DsMinNumberOfIterations, numericsSetting.DsMinNumberOfIterations);
-                Assert.AreEqual(expectedValues.DsMaxNumberOfIterations, numericsSetting.DsMaxNumberOfIterations);
-                Assert.AreEqual(expectedValues.DsVarCoefficient, numericsSetting.DsVarCoefficient);
-                Assert.AreEqual(expectedValues.NiNumberSteps, numericsSetting.NiNumberSteps);
-                Assert.AreEqual(expectedValues.NiUMin, numericsSetting.NiUMin);
-                Assert.AreEqual(expectedValues.NiUMax, numericsSetting.NiUMax);
+                NumericsSetting expected = GetExpectedNumericsSetting();
+                AssertNumericsSetting(expected, numericsSetting);
             }
         }
 
@@ -214,26 +170,32 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                 NumericsSetting numericsSetting = numericsSettingsProvider.GetNumericsSettingForPreprocessor(700139);
 
                 // Assert
-                Assert.AreEqual(11, numericsSetting.CalculationTechniqueId);
-                Assert.AreEqual(4, numericsSetting.FormStartMethod);
-                Assert.AreEqual(150, numericsSetting.FormNumberOfIterations);
-                Assert.AreEqual(0.15, numericsSetting.FormRelaxationFactor);
-                Assert.AreEqual(0.005, numericsSetting.FormEpsBeta);
-                Assert.AreEqual(0.005, numericsSetting.FormEpsHoh);
-                Assert.AreEqual(0.005, numericsSetting.FormEpsZFunc);
-                Assert.AreEqual(2, numericsSetting.DsStartMethod);
-                Assert.AreEqual(10000, numericsSetting.DsMinNumberOfIterations);
-                Assert.AreEqual(40000, numericsSetting.DsMaxNumberOfIterations);
-                Assert.AreEqual(0.1, numericsSetting.DsVarCoefficient);
-                Assert.AreEqual(-6.0, numericsSetting.NiUMin);
-                Assert.AreEqual(6.0, numericsSetting.NiUMax);
-                Assert.AreEqual(25, numericsSetting.NiNumberSteps);
+                var expected = new NumericsSetting(11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6.0, 6.0, 25);
+                AssertNumericsSetting(expected, numericsSetting);
             }
         }
 
         private static NumericsSetting GetExpectedNumericsSetting()
         {
             return new NumericsSetting(1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000, 0.1, -6, 6);
+        }
+
+        private static void AssertNumericsSetting(NumericsSetting expectedNumericsSetting, NumericsSetting actualNumericsSetting)
+        {
+            Assert.AreEqual(expectedNumericsSetting.CalculationTechniqueId, actualNumericsSetting.CalculationTechniqueId);
+            Assert.AreEqual(expectedNumericsSetting.FormStartMethod, actualNumericsSetting.FormStartMethod);
+            Assert.AreEqual(expectedNumericsSetting.FormNumberOfIterations, actualNumericsSetting.FormNumberOfIterations);
+            Assert.AreEqual(expectedNumericsSetting.FormRelaxationFactor, actualNumericsSetting.FormRelaxationFactor);
+            Assert.AreEqual(expectedNumericsSetting.FormEpsBeta, actualNumericsSetting.FormEpsBeta);
+            Assert.AreEqual(expectedNumericsSetting.FormEpsHoh, actualNumericsSetting.FormEpsHoh);
+            Assert.AreEqual(expectedNumericsSetting.FormEpsZFunc, actualNumericsSetting.FormEpsZFunc);
+            Assert.AreEqual(expectedNumericsSetting.DsStartMethod, actualNumericsSetting.DsStartMethod);
+            Assert.AreEqual(expectedNumericsSetting.DsMinNumberOfIterations, actualNumericsSetting.DsMinNumberOfIterations);
+            Assert.AreEqual(expectedNumericsSetting.DsMaxNumberOfIterations, actualNumericsSetting.DsMaxNumberOfIterations);
+            Assert.AreEqual(expectedNumericsSetting.DsVarCoefficient, actualNumericsSetting.DsVarCoefficient);
+            Assert.AreEqual(expectedNumericsSetting.NiNumberSteps, actualNumericsSetting.NiNumberSteps);
+            Assert.AreEqual(expectedNumericsSetting.NiUMin, actualNumericsSetting.NiUMin);
+            Assert.AreEqual(expectedNumericsSetting.NiUMax, actualNumericsSetting.NiUMax);
         }
     }
 }

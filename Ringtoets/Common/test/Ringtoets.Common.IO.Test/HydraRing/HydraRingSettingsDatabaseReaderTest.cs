@@ -384,7 +384,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void ReadExcludedLocations_EmptyTable_ReturnsEmptyList()
+        public void ReadExcludedLocations_EmptyTable_ReturnsEmptyEnumerable()
         {
             // Setup
             using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabasePath))
@@ -478,7 +478,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void ReadExcludedPreprocessorLocations_EmptyTable_ReturnsEmptyList()
+        public void ReadExcludedPreprocessorLocations_EmptyTable_ReturnsEmptyEnumerable()
         {
             // Setup
             using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabasePath))
