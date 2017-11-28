@@ -23,6 +23,7 @@ using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
@@ -354,6 +355,19 @@ namespace Ringtoets.Common.Data.TestUtil
         private static void AreClones(ICalculationBase original, ICalculationBase clone)
         {
             Assert.AreEqual(original.Name, clone.Name);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(HydraulicBoundaryLocationCalculationInput original, HydraulicBoundaryLocationCalculationInput clone)
+        {
+            Assert.AreEqual(original.ShouldIllustrationPointsBeCalculated, clone.ShouldIllustrationPointsBeCalculated);
         }
     }
 }

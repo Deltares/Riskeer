@@ -184,7 +184,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             true);
         }
 
-        private void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
+        private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
             Action<UseForeshoreProperties> setProperty,
             TestUseForeshore input)
         {
@@ -209,7 +209,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
-        private class TestUseForeshore : Observable, ICalculationInput, IUseForeshore
+        private class TestUseForeshore : CloneableObservable, ICalculationInput, IUseForeshore
         {
             public bool UseForeshore { get; set; }
             public RoundedPoint2DCollection ForeshoreGeometry { get; set; }

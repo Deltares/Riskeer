@@ -212,7 +212,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                      new TestUseBreakWater());
         }
 
-        private class TestUseBreakWater : Observable, ICalculationInput, IUseBreakWater
+        private class TestUseBreakWater : CloneableObservable, ICalculationInput, IUseBreakWater
         {
             public TestUseBreakWater()
             {
@@ -223,7 +223,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             public BreakWater BreakWater { get; set; }
         }
 
-        private void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
+        private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
             Action<UseBreakWaterProperties> setProperty,
             TestUseBreakWater input)
         {

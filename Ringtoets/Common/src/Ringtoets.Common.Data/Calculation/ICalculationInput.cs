@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 
 namespace Ringtoets.Common.Data.Calculation
@@ -26,5 +27,5 @@ namespace Ringtoets.Common.Data.Calculation
     /// <summary>
     /// Interface describing an object that is the input to a <see cref="ICalculation"/>.
     /// </summary>
-    public interface ICalculationInput : IObservable {}
+    public interface ICalculationInput : IObservable, ICloneable {}
 }

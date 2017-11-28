@@ -149,6 +149,11 @@ namespace Ringtoets.Common.Data.TestUtil
             {
                 throw new NotImplementedException();
             }
+
+            public object Clone()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

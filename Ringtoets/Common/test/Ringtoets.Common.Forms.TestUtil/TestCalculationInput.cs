@@ -27,5 +27,5 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// <summary>
     /// Creates a simple <see cref="ICalculationInput"/> implementation.
     /// </summary>
-    public class TestCalculationInput : Observable, ICalculationInput {}
+    public class TestCalculationInput : CloneableObservable, ICalculationInput {}
 }

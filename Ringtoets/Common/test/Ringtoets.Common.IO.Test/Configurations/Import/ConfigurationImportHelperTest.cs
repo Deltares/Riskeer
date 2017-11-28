@@ -212,7 +212,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             mocks.VerifyAll();
         }
 
-        private class TestInputWithStochasts : Observable, ICalculationInput
+        private class TestInputWithStochasts : CloneableObservable, ICalculationInput
         {
             public TestInputWithStochasts()
             {

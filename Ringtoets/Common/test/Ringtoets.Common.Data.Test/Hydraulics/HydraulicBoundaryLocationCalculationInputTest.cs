@@ -19,10 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
+using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Hydraulics
 {
@@ -37,8 +41,24 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
             // Assert
             Assert.IsInstanceOf<ICalculationInput>(input);
-            Assert.IsInstanceOf<Observable>(input);
+            Assert.IsInstanceOf<CloneableObservable>(input);
             Assert.IsFalse(input.ShouldIllustrationPointsBeCalculated);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new HydraulicBoundaryLocationCalculationInput
+            {
+                ShouldIllustrationPointsBeCalculated = new Random(39).NextBoolean()
+            };
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
         }
     }
 }

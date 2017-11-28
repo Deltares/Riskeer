@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.Hydraulics
     /// <summary>
     /// Class that holds all hydraulic boundary calculation specific input parameters.
     /// </summary>
-    public class HydraulicBoundaryLocationCalculationInput : Observable, ICalculationInput
+    public class HydraulicBoundaryLocationCalculationInput : CloneableObservable, ICalculationInput
     {
         /// <summary>
         /// Gets or sets if the illustration points should be calculated.

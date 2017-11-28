@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             var input = new TestCalculationInput();
 
             // Assert
-            Assert.IsInstanceOf<Observable>(input);
+            Assert.IsInstanceOf<CloneableObservable>(input);
             Assert.IsInstanceOf<ICalculationInput>(input);
         }
     }
