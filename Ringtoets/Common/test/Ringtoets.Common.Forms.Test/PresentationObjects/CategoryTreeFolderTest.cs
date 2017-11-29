@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Collections;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.PresentationObjects;
 
@@ -69,119 +71,52 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             CollectionAssert.AreEqual(contents, treeFolder.Contents);
         }
 
-        [Test]
-        public void Equals_ObjectToEqualToIsNull_ResultShouldBeNotEqual()
+        [TestFixture]
+        private class CategoryTreeFolderEqualsTest : EqualsGuidelinesTestFixture<CategoryTreeFolder, TestCategoryTreeFolder>
         {
-            // Setup
-            var treeFolder = new CategoryTreeFolder("<name>", new object[0]);
-
-            // Call & Assert
-            Assert.AreNotEqual(treeFolder, null);
-        }
-
-        [Test]
-        public void Equals_ObjectToEqualToIsOfDifferentType_ResultShouldBeNotEqual()
-        {
-            // Setup
-            var enumerable = new object[0];
-            var treeFolder = new CategoryTreeFolder("<name>", enumerable);
-
-            // Call & Assert
-            Assert.AreNotEqual(treeFolder, new TestCategoryTreeFolder("<name>", enumerable));
-        }
-
-        [Test]
-        public void Equals_ObjectToEqualToIsSameObject_ResultShouldBeEqual()
-        {
-            // Setup
-            var treeFolder = new CategoryTreeFolder("<name>", new object[0]);
-
-            // Call & Assert
-            Assert.AreEqual(treeFolder, treeFolder);
-        }
-
-        [Test]
-        public void Equals_ObjectToEqualToIsCategoryTreeFolderWithDifferentName_ResultShouldNotBeEqual()
-        {
-            // Setup
-            var enumerable = new object[0];
-            var treeFolder1 = new CategoryTreeFolder("<name 1>", enumerable);
-            var treeFolder2 = new CategoryTreeFolder("<name 2>", enumerable);
-
-            // Call & Assert
-            Assert.AreNotEqual(treeFolder1, treeFolder2);
-        }
-
-        [Test]
-        public void Equals_ObjectToEqualToIsCategoryTreeFolderWithDifferentAmountOfContents_ResultShouldNotBeEqual()
-        {
-            // Setup
-            var treeFolder1 = new CategoryTreeFolder("<name>", new object[0]);
-            var treeFolder2 = new CategoryTreeFolder("<name>", new[]
+            protected override CategoryTreeFolder CreateObject()
             {
-                new object()
-            });
+                return CreateConfiguredCategoryTreeFolder();
+            }
 
-            // Call & Assert
-            Assert.AreNotEqual(treeFolder1, treeFolder2);
+            protected override TestCategoryTreeFolder CreateDerivedObject()
+            {
+                CategoryTreeFolder baseFolder = CreateConfiguredCategoryTreeFolder();
+                return new TestCategoryTreeFolder(baseFolder.Name,
+                                                  baseFolder.Contents,
+                                                  baseFolder.Category);
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                CategoryTreeFolder baseFolder = CreateConfiguredCategoryTreeFolder();
+                yield return new TestCaseData(new CategoryTreeFolder(baseFolder.Name, new[]
+                    {
+                        1,
+                        3
+                    }))
+                    .SetName("Different Content");
+
+                yield return new TestCaseData(new CategoryTreeFolder(baseFolder.Name, new object[0]))
+                    .SetName("Different Content Count");
+
+                yield return new TestCaseData(new CategoryTreeFolder("Different name", baseFolder.Contents))
+                    .SetName("Different name");
+            }
         }
 
-        [Test]
-        public void Equals_ObjectToEqualToIsCategoryTreeFolderWithDifferentContents_ResultShouldNotBeEqual()
+        private static CategoryTreeFolder CreateConfiguredCategoryTreeFolder()
         {
-            // Setup
-            var treeFolder1 = new CategoryTreeFolder("<name>", new[]
+            return new CategoryTreeFolder("name", new[]
             {
                 1,
                 2
             });
-            var treeFolder2 = new CategoryTreeFolder("<name>", new[]
-            {
-                1,
-                3
-            });
-
-            // Call & Assert
-            Assert.AreNotEqual(treeFolder1, treeFolder2);
-        }
-
-        [Test]
-        public void Equals_ObjectToEqualToIsCategoryTreeFolderWithSameNameAndSameContents_ResultShouldBeEqual()
-        {
-            // Setup
-            var enumerable = new object[0];
-            var treeFolder1 = new CategoryTreeFolder("<name>", enumerable);
-            var treeFolder2 = new CategoryTreeFolder("<name>", enumerable);
-
-            // Call & Assert
-            Assert.AreEqual(treeFolder1, treeFolder2);
-        }
-
-        [Test]
-        public void GetHashCode_EqualCategoryTreeFolders_AreEqual()
-        {
-            // Setup
-            var enumerable = new[]
-            {
-                1,
-                2,
-                new object()
-            };
-            var treeFolder1 = new CategoryTreeFolder("<name>", enumerable);
-            var treeFolder2 = new CategoryTreeFolder("<name>", enumerable);
-
-            // Precondition
-            Assert.AreEqual(treeFolder1, treeFolder1);
-            Assert.AreEqual(treeFolder1, treeFolder2);
-
-            // Call & Assert
-            Assert.AreEqual(treeFolder1.GetHashCode(), treeFolder1.GetHashCode());
-            Assert.AreEqual(treeFolder1.GetHashCode(), treeFolder2.GetHashCode());
         }
 
         private class TestCategoryTreeFolder : CategoryTreeFolder
         {
-            public TestCategoryTreeFolder(string name, IList contents, TreeFolderCategory category = TreeFolderCategory.General) : base(name, contents, category) {}
+            public TestCategoryTreeFolder(string name, IEnumerable contents, TreeFolderCategory category = TreeFolderCategory.General) : base(name, contents, category) {}
         }
     }
 }
