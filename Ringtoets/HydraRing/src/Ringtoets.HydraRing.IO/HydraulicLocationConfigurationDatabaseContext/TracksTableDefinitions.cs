@@ -29,5 +29,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
     {
         public const string TableName = "Tracks";
         public const string TrackId = "TrackId";
+        public const string RegionId = "RegionId";
     }
 }

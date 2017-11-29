@@ -30,8 +30,6 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
-using Ringtoets.HydraRing.IO.Properties;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseContext
 {
@@ -53,7 +51,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
             };
 
             // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build("Het bestand bestaat niet.");
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -75,7 +73,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         [Test]
         [TestCase(18169, 1000, 1801000)]
         [TestCase(6, 1000, 0)]
-        public void GetLocationsIdByTrackId_ValidFile_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
+        public void GetLocationIdsByTrackId_ValidFile_ExpectedValues(int trackId, int hrdLocationId, int expectedLocationId)
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "complete.sqlite");
@@ -83,7 +81,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
             using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
             {
                 // Call
-                Dictionary<long, long> locationIdDictionary = hydraulicBoundarySqLiteDatabaseReader.GetLocationsIdByTrackId(trackId);
+                Dictionary<long, long> locationIdDictionary = hydraulicBoundarySqLiteDatabaseReader.GetLocationIdsByTrackId(trackId);
 
                 // Assert
                 long locationId;
@@ -93,7 +91,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         }
 
         [Test]
-        public void GetLocationsIdByTrackId_AmbigousLocations_ReturnsFirstAndLogsWarning()
+        public void GetLocationIdsByTrackId_AmbigousLocations_ReturnsFirstAndLogsWarning()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "ambigousLocation.sqlite");
@@ -104,7 +102,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
             using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
             {
                 // Call
-                Action call = () => locationIdDictionary = hydraulicBoundarySqLiteDatabaseReader.GetLocationsIdByTrackId(trackId);
+                Action call = () => locationIdDictionary = hydraulicBoundarySqLiteDatabaseReader.GetLocationIdsByTrackId(trackId);
 
                 // Assert
                 const int expectedLocationId = 1800001;
@@ -117,7 +115,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         }
 
         [Test]
-        public void GetLocationsIdByTrackId_InvalidColumns_ThrowsLineParseException()
+        public void GetLocationIdsByTrackId_InvalidColumns_ThrowsLineParseException()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
@@ -126,10 +124,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
             using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetLocationsIdByTrackId(trackId);
+                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetLocationIdsByTrackId(trackId);
 
                 // Assert
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
                 var exception = Assert.Throws<LineParseException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
@@ -137,7 +135,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
         }
 
         [Test]
-        public void GetLocationsIdByTrackId_EmptyFile_ThrowsCriticalFileReadException()
+        public void GetLocationIdsByTrackId_EmptyFile_ThrowsCriticalFileReadException()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "empty.sqlite");
@@ -146,10 +144,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
             using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetLocationsIdByTrackId(trackId);
+                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetLocationIdsByTrackId(trackId);
 
                 // Assert
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bevragen van de database is mislukt.");
                 var exception = Assert.Throws<CriticalFileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
@@ -204,7 +202,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
                 TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
 
                 // Assert
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bevragen van de database is mislukt.");
                 var exception = Assert.Throws<CriticalFileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsNull(exception.InnerException);
@@ -224,7 +222,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
                 TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
 
                 // Assert
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bevragen van de database is mislukt.");
                 var exception = Assert.Throws<CriticalFileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
@@ -244,7 +242,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
                 TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
 
                 // Assert
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
                 var exception = Assert.Throws<LineParseException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<FormatException>(exception.InnerException);

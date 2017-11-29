@@ -30,8 +30,6 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
-using Ringtoets.HydraRing.IO.Properties;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
 {
@@ -45,7 +43,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         {
             // Setup
             string testFile = Path.Combine(testDataPath, "none.sqlite");
-            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build("Het bestand bestaat niet.");
 
             // Call
             TestDelegate test = () => new HydraulicBoundarySqLiteDatabaseReader(testFile).Dispose();
@@ -98,7 +96,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "empty.sqlite");
-            string expectedException = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
+            string expectedException = new FileReaderErrorMessageBuilder(dbFile).Build("Kon geen locaties verkrijgen van de database.");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -154,7 +152,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "empty.sqlite");
-            string expectedException = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
+            string expectedException = new FileReaderErrorMessageBuilder(dbFile).Build("Kon geen locaties verkrijgen van de database.");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -214,7 +212,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "empty.sqlite");
-            string expectedException = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
+            string expectedException = new FileReaderErrorMessageBuilder(dbFile).Build("Kon geen locaties verkrijgen van de database.");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -236,7 +234,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
-            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -259,7 +257,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
-            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");

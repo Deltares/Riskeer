@@ -329,7 +329,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ImportingToValidTargetWithValidFileUsePreprocessorTrue_ImportHydraulicBoundaryLocationsToCollectionAndAssessmentSectionNotified()
+        public void Import_ImportingToValidTargetWithValidFileCanUsePreprocessorTrue_ImportHydraulicBoundaryLocationsToCollectionAndAssessmentSectionNotified()
         {
             // Setup
             var mocks = new MockRepository();
@@ -355,6 +355,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             });
             Assert.IsTrue(importResult);
             Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor);
             Assert.AreEqual(directory, assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory);
             ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(106, importedLocations.Count);
@@ -364,7 +365,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ImportingToValidTargetWithValidFileUsePreprocessorFalse_ImportHydraulicBoundaryLocationsToCollectionAndAssessmentSectionNotified()
+        public void Import_ImportingToValidTargetWithValidFileCanUsePreprocessorFalse_ImportHydraulicBoundaryLocationsToCollectionAndAssessmentSectionNotified()
         {
             // Setup
             var mocks = new MockRepository();
@@ -389,7 +390,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             });
             Assert.IsTrue(importResult);
             Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory);
             ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(9, importedLocations.Count);
             CollectionAssert.AllItemsAreNotNull(importedLocations);
