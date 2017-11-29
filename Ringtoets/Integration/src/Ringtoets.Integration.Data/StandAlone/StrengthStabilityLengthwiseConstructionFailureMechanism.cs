@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class StrengthStabilityLengthwiseConstructionFailureMechanism : FailureMechanismBase, IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
     {
-        private readonly IList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults;
+        private readonly List<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/> class.

@@ -36,7 +36,7 @@ namespace Ringtoets.HeightStructures.Data
     /// </summary>
     public class HeightStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<HeightStructuresFailureMechanismSectionResult>
     {
-        private readonly IList<HeightStructuresFailureMechanismSectionResult> sectionResults;
+        private readonly List<HeightStructuresFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.

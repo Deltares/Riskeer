@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Forms.GuiServices
                                                                                                 messageProvider)).ToArray());
         }
 
-        private bool RunActivities<TActivity>(string hydraulicBoundaryDatabasePath, IList<TActivity> activities) where TActivity : Activity
+        private bool RunActivities<TActivity>(string hydraulicBoundaryDatabasePath, IEnumerable<TActivity> activities) where TActivity : Activity
         {
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabasePath);
             if (string.IsNullOrEmpty(validationProblem))

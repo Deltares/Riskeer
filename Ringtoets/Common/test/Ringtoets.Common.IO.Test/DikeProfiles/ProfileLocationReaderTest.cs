@@ -202,7 +202,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", fileName));
-            IList<ProfileLocation> dikeProfileLocations = new List<ProfileLocation>();
+            var dikeProfileLocations = new List<ProfileLocation>();
 
             using (var reader = new ProfileLocationReader(validFilePath))
             {
@@ -283,7 +283,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                 Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyName.shp"));
-            IList<ProfileLocation> dikeProfileLocations = new List<ProfileLocation>();
+            var dikeProfileLocations = new List<ProfileLocation>();
 
             using (var reader = new ProfileLocationReader(invalidFilePath))
             {
@@ -305,7 +305,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
-            IList<ProfileLocation> dikeProfileLocations = new List<ProfileLocation>();
+            var dikeProfileLocations = new List<ProfileLocation>();
 
             using (var reader = new ProfileLocationReader(validFilePath))
             {
@@ -343,7 +343,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
-            IList<ProfileLocation> dikeProfileLocations = new List<ProfileLocation>();
+            var dikeProfileLocations = new List<ProfileLocation>();
 
             using (var reader = new ProfileLocationReader(validFilePath))
             {
@@ -369,7 +369,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
-            IList<ProfileLocation> dikeProfileLocations = new List<ProfileLocation>();
+            var dikeProfileLocations = new List<ProfileLocation>();
 
             using (var reader = new ProfileLocationReader(validFilePath))
             {
@@ -401,7 +401,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "BinaryX0", "PROF63_GE_D0.shp"));
-            IList<ProfileLocation> dikeProfileLocations = new List<ProfileLocation>();
+            var dikeProfileLocations = new List<ProfileLocation>();
 
             using (var reader = new ProfileLocationReader(validFilePath))
             {

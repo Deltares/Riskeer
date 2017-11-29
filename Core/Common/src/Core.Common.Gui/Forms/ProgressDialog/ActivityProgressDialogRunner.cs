@@ -49,7 +49,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         /// <typeparam name="TActivity">The activity type.</typeparam>
         /// <param name="dialogParent">The dialog parent for which the progress dialog should be shown on top.</param>
         /// <param name="activities">The activities to be executed.</param>
-        public static void Run<TActivity>(IWin32Window dialogParent, IList<TActivity> activities)
+        public static void Run<TActivity>(IWin32Window dialogParent, IEnumerable<TActivity> activities)
             where TActivity : Activity
         {
             using (var activityProgressDialog = new ActivityProgressDialog(dialogParent, activities))

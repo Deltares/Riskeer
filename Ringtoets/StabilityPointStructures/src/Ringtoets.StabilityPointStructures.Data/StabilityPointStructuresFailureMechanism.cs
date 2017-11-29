@@ -37,7 +37,7 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// </summary>
     public class StabilityPointStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>
     {
-        private readonly IList<StabilityPointStructuresFailureMechanismSectionResult> sectionResults;
+        private readonly List<StabilityPointStructuresFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityPointStructuresFailureMechanism"/> class.

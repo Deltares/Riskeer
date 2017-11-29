@@ -217,7 +217,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private static IEnumerable<FailureMechanismSection> SnapReadSectionsToReferenceLine(IEnumerable<FailureMechanismSection> readSections, ReferenceLine referenceLine)
         {
-            IList<FailureMechanismSection> orderedReadSections = OrderSections(readSections, referenceLine);
+            IEnumerable<FailureMechanismSection> orderedReadSections = OrderSections(readSections, referenceLine);
 
             double[] orderedSectionLengths = GetReferenceLineCutoffLengths(referenceLine, orderedReadSections);
 
@@ -226,7 +226,7 @@ namespace Ringtoets.Common.IO.FileImporters
             return CreateFailureMechanismSectionsSnappedOnReferenceLine(orderedReadSections, splitResults);
         }
 
-        private static IList<FailureMechanismSection> OrderSections(IEnumerable<FailureMechanismSection> unorderedSections, ReferenceLine referenceLine)
+        private static IEnumerable<FailureMechanismSection> OrderSections(IEnumerable<FailureMechanismSection> unorderedSections, ReferenceLine referenceLine)
         {
             List<FailureMechanismSection> sourceList = unorderedSections.ToList();
 
@@ -243,7 +243,7 @@ namespace Ringtoets.Common.IO.FileImporters
             return resultList;
         }
 
-        private static FailureMechanismSection GetStart(List<FailureMechanismSection> sourceList, ReferenceLine referenceLine)
+        private static FailureMechanismSection GetStart(IEnumerable<FailureMechanismSection> sourceList, ReferenceLine referenceLine)
         {
             double shortestDistance = double.MaxValue;
             FailureMechanismSection closestSectionToReferenceLineStart = null;
@@ -293,7 +293,7 @@ namespace Ringtoets.Common.IO.FileImporters
             }
         }
 
-        private static double[] GetReferenceLineCutoffLengths(ReferenceLine referenceLine, IList<FailureMechanismSection> orderedReadSections)
+        private static double[] GetReferenceLineCutoffLengths(ReferenceLine referenceLine, IEnumerable<FailureMechanismSection> orderedReadSections)
         {
             double[] orderedSectionLengths = orderedReadSections.Select(GetSectionLength).ToArray();
 
@@ -319,7 +319,7 @@ namespace Ringtoets.Common.IO.FileImporters
             return Math2D.ConvertLinePointsToLineSegments(linePoints);
         }
 
-        private static List<FailureMechanismSection> CreateFailureMechanismSectionsSnappedOnReferenceLine(IList<FailureMechanismSection> orderedReadSections, Point2D[][] splitResults)
+        private static IEnumerable<FailureMechanismSection> CreateFailureMechanismSectionsSnappedOnReferenceLine(IEnumerable<FailureMechanismSection> orderedReadSections, IList<Point2D[]> splitResults)
         {
             return orderedReadSections.Select((t, i) => new FailureMechanismSection(t.Name, splitResults[i])).ToList();
         }

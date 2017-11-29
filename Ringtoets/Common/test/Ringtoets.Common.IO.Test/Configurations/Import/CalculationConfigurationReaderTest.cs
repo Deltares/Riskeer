@@ -265,7 +265,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             var calculationConfigurationReader = new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Call
-            IList<IConfigurationItem> readConfigurationItems = calculationConfigurationReader.Read().ToList();
+            List<IConfigurationItem> readConfigurationItems = calculationConfigurationReader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -284,7 +284,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             var calculationConfigurationReader = new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Call
-            IList<IConfigurationItem> readConfigurationItems = calculationConfigurationReader.Read().ToList();
+            List<IConfigurationItem> readConfigurationItems = calculationConfigurationReader.Read().ToList();
 
             // Assert
             Assert.AreEqual(5, readConfigurationItems.Count);

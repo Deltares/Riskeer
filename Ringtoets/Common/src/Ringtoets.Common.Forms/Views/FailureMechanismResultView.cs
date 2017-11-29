@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.Views
     public abstract partial class FailureMechanismResultView<T> : UserControl, IView where T : FailureMechanismSectionResult
     {
         protected const int AssessmentLayerOneColumnIndex = 1;
-        private readonly IList<Observer> failureMechanismSectionResultObservers;
+        private readonly List<Observer> failureMechanismSectionResultObservers;
         private readonly Observer failureMechanismObserver;
 
         private IEnumerable<T> failureMechanismSectionResult;

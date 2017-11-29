@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.TestUtil
     {
         private const string defaultName = "Test failure mechanism";
         private const string defaultCode = "TFM";
-        private readonly IList<FailureMechanismSectionResult> sectionResults;
+        private readonly List<FailureMechanismSectionResult> sectionResults;
 
         public TestFailureMechanism()
             : this(defaultName, defaultCode) {}

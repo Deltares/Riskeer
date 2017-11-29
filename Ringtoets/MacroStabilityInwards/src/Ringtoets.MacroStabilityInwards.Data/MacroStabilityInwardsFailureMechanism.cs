@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// </summary>
     public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResult>
     {
-        private readonly IList<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults;
+        private readonly List<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsFailureMechanism"/> class.

@@ -36,7 +36,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
     /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>
     {
-        private readonly IList<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults;
+        private readonly List<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/> class.

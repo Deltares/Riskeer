@@ -539,7 +539,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private static IEnumerable GetInputs(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IList GetInputs(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -549,7 +549,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private static IEnumerable GetOutputs(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private static IList GetOutputs(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             return new ArrayList
             {
@@ -753,7 +753,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private void UpdateDikeProfileDependentDataOfAllCalculations(IList<GrassCoverErosionInwardsCalculation> calculations)
+        private void UpdateDikeProfileDependentDataOfAllCalculations(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (DikeProfileDependentDataShouldUpdate(calculations, message))

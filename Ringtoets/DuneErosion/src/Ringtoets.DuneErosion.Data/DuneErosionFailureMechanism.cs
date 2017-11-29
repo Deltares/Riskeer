@@ -33,7 +33,7 @@ namespace Ringtoets.DuneErosion.Data
     /// </summary>
     public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<DuneErosionFailureMechanismSectionResult>
     {
-        private readonly IList<DuneErosionFailureMechanismSectionResult> sectionResults;
+        private readonly List<DuneErosionFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DuneErosionFailureMechanism"/> class.

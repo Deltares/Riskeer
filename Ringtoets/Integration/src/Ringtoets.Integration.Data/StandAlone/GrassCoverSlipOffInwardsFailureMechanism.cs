@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class GrassCoverSlipOffInwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>
     {
-        private readonly IList<GrassCoverSlipOffInwardsFailureMechanismSectionResult> sectionResults;
+        private readonly List<GrassCoverSlipOffInwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverSlipOffInwardsFailureMechanism"/> class.

@@ -64,7 +64,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private const double defaultHydraRingValue = 0.0;
 
         private readonly double? defaultHydraRingNullValue = null;
-        private readonly IList<HydraRingCalculationInput> hydraRingInputs = new List<HydraRingCalculationInput>();
+        private readonly List<HydraRingCalculationInput> hydraRingInputs = new List<HydraRingCalculationInput>();
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
         private readonly VariableDefaultsProvider variableDefaultsProvider = new VariableDefaultsProvider();
 

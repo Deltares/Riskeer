@@ -227,7 +227,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <param name="structureParameterRows">The <see cref="StructuresParameterRow"/> objects to validate.</param>
         /// <returns>A <see cref="ValidationResult"/> object containing the validation result.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/> is <c>null</c>.</exception>
-        public static ValidationResult ValidateHeightStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
+        public static ValidationResult ValidateHeightStructuresParameters(IEnumerable<StructuresParameterRow> structureParameterRows)
         {
             return ValidateStructuresParameters(structureParameterRows, heightStructuresRules);
         }
@@ -238,7 +238,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <param name="structureParameterRows">The <see cref="StructuresParameterRow"/> objects to validate.</param>
         /// <returns>A <see cref="ValidationResult"/> object containing the validation result.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/> is <c>null</c>.</exception>
-        public static ValidationResult ValidateClosingStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
+        public static ValidationResult ValidateClosingStructuresParameters(IEnumerable<StructuresParameterRow> structureParameterRows)
         {
             return ValidateStructuresParameters(structureParameterRows, closingStructuresRules);
         }
@@ -249,7 +249,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <param name="structureParameterRows">The <see cref="StructuresParameterRow"/> objects to validate.</param>
         /// <returns>A <see cref="ValidationResult"/> object containing the validation result.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/> is <c>null</c>.</exception>
-        public static ValidationResult ValidateStabilityPointStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
+        public static ValidationResult ValidateStabilityPointStructuresParameters(IEnumerable<StructuresParameterRow> structureParameterRows)
         {
             return ValidateStructuresParameters(structureParameterRows, stabilityPointStructuresRules);
         }
@@ -265,9 +265,9 @@ namespace Ringtoets.Common.IO.Structures
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="structureParameterRows"/>
         /// contains duplicate elements.</exception>
-        public static IEnumerable<StructuresParameterRow> GetRelevantHeightStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
+        public static IEnumerable<StructuresParameterRow> GetRelevantHeightStructuresParameters(IEnumerable<StructuresParameterRow> structureParameterRows)
         {
-            return GetStructuresParameters(structureParameterRows, heightStructuresRules);
+            return GetStructuresParameters(structureParameterRows, heightStructuresRules).ToArray();
         }
 
         /// <summary>
@@ -281,9 +281,9 @@ namespace Ringtoets.Common.IO.Structures
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="structureParameterRows"/>
         /// contains duplicate elements.</exception>
-        public static IEnumerable<StructuresParameterRow> GetRelevantClosingStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
+        public static IEnumerable<StructuresParameterRow> GetRelevantClosingStructuresParameters(IEnumerable<StructuresParameterRow> structureParameterRows)
         {
-            return GetStructuresParameters(structureParameterRows, closingStructuresRules);
+            return GetStructuresParameters(structureParameterRows, closingStructuresRules).ToArray();
         }
 
         /// <summary>
@@ -297,9 +297,9 @@ namespace Ringtoets.Common.IO.Structures
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="structureParameterRows"/>
         /// contains duplicate elements.</exception>
-        public static IEnumerable<StructuresParameterRow> GetRelevantStabilityPointStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
+        public static IEnumerable<StructuresParameterRow> GetRelevantStabilityPointStructuresParameters(IEnumerable<StructuresParameterRow> structureParameterRows)
         {
-            return GetStructuresParameters(structureParameterRows, stabilityPointStructuresRules);
+            return GetStructuresParameters(structureParameterRows, stabilityPointStructuresRules).ToArray();
         }
 
         /// <summary>
@@ -314,7 +314,7 @@ namespace Ringtoets.Common.IO.Structures
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="structureParameterRows"/>
         /// contains duplicate elements.</exception>
-        private static IEnumerable<StructuresParameterRow> GetStructuresParameters(IList<StructuresParameterRow> structureParameterRows,
+        private static IEnumerable<StructuresParameterRow> GetStructuresParameters(IEnumerable<StructuresParameterRow> structureParameterRows,
                                                                                    Dictionary<string, Func<StructuresParameterRow, List<string>>> rules)
         {
             if (structureParameterRows == null)
@@ -322,7 +322,6 @@ namespace Ringtoets.Common.IO.Structures
                 throw new ArgumentNullException(nameof(structureParameterRows));
             }
 
-            var parameters = new List<StructuresParameterRow>();
             foreach (string parameterName in rules.Keys)
             {
                 int count = structureParameterRows.Count(row => GetMatchingStructuresParameterRow(row.ParameterId, parameterName));
@@ -333,11 +332,9 @@ namespace Ringtoets.Common.IO.Structures
                 }
                 if (count == 1)
                 {
-                    parameters.Add(structureParameterRows.Single(row => GetMatchingStructuresParameterRow(row.ParameterId, parameterName)));
+                    yield return structureParameterRows.Single(row => GetMatchingStructuresParameterRow(row.ParameterId, parameterName));
                 }
             }
-
-            return parameters;
         }
 
         /// <summary>
@@ -350,7 +347,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <returns>A <see cref="ValidationResult"/> containing the validation result.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/>
         /// is <c>null</c>.</exception>
-        private static ValidationResult ValidateStructuresParameters(IList<StructuresParameterRow> structureParameterRows,
+        private static ValidationResult ValidateStructuresParameters(IEnumerable<StructuresParameterRow> structureParameterRows,
                                                                      Dictionary<string, Func<StructuresParameterRow, List<string>>> rules)
         {
             if (structureParameterRows == null)
@@ -544,9 +541,7 @@ namespace Ringtoets.Common.IO.Structures
             var messages = new List<string>();
 
             const string numericalValueColumn = StructureFilesKeywords.NumericalValueColumnName;
-            messages.AddRange(meanMustBeGreaterThanZero ?
-                                  ValidateGreaterThanZeroDoubleParameter(row, numericalValueColumn) :
-                                  ValidateDoubleParameter(row, numericalValueColumn));
+            messages.AddRange(meanMustBeGreaterThanZero ? ValidateGreaterThanZeroDoubleParameter(row, numericalValueColumn) : ValidateDoubleParameter(row, numericalValueColumn));
             return messages;
         }
 

@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class PipingStructureFailureMechanism : FailureMechanismBase, IHasSectionResults<PipingStructureFailureMechanismSectionResult>
     {
-        private readonly IList<PipingStructureFailureMechanismSectionResult> sectionResults;
+        private readonly List<PipingStructureFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingStructureFailureMechanism"/> class.

@@ -193,7 +193,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("Structures", "StructuresWithoutKWKNAAM", "Kunstwerken.shp"));
-            IList<StructureLocation> structures = new List<StructureLocation>();
+            var structures = new List<StructureLocation>();
 
             using (var reader = new StructureLocationReader(validFilePath))
             {
@@ -220,7 +220,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("Structures", "StructuresSomeWithEmptyKWKNAAM", "Kunstwerken.shp"));
-            IList<StructureLocation> structures = new List<StructureLocation>();
+            var structures = new List<StructureLocation>();
 
             using (var reader = new StructureLocationReader(validFilePath))
             {
@@ -267,7 +267,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
-            IList<StructureLocation> structures = new List<StructureLocation>();
+            var structures = new List<StructureLocation>();
 
             using (var reader = new StructureLocationReader(validFilePath))
             {

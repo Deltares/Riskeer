@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class TechnicalInnovationFailureMechanism : FailureMechanismBase, IHasSectionResults<TechnicalInnovationFailureMechanismSectionResult>
     {
-        private readonly IList<TechnicalInnovationFailureMechanismSectionResult> sectionResults;
+        private readonly List<TechnicalInnovationFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TechnicalInnovationFailureMechanism"/> class.

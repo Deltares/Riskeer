@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class WaterPressureAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>
     {
-        private readonly IList<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults;
+        private readonly List<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WaterPressureAsphaltCoverFailureMechanism"/> class.

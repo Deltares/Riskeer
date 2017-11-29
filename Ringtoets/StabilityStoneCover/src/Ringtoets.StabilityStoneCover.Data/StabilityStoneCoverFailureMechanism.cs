@@ -35,7 +35,7 @@ namespace Ringtoets.StabilityStoneCover.Data
     /// </summary>
     public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResult>
     {
-        private readonly IList<StabilityStoneCoverFailureMechanismSectionResult> sectionResults;
+        private readonly List<StabilityStoneCoverFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityStoneCoverFailureMechanism"/> class.

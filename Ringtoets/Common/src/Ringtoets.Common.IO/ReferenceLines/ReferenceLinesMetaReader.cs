@@ -118,7 +118,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// <exception cref="CriticalFileReadException">Thrown when the shape file lacks one of the mandatory attributes.</exception>
         private static void ValidateExistenceOfRequiredAttributes(PolylineShapeFileReader polylineShapeFileReader, string shapeFilePath)
         {
-            IList<string> missingAttributes = GetMissingAttributes(polylineShapeFileReader);
+            string[] missingAttributes = GetMissingAttributes(polylineShapeFileReader).ToArray();
             if (missingAttributes.Any())
             {
                 string message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_,
@@ -127,22 +127,20 @@ namespace Ringtoets.Common.IO.ReferenceLines
             }
         }
 
-        private static IList<string> GetMissingAttributes(PolylineShapeFileReader polylineShapeFileReader)
+        private static IEnumerable<string> GetMissingAttributes(PolylineShapeFileReader polylineShapeFileReader)
         {
-            var list = new List<string>(3);
             if (!polylineShapeFileReader.HasAttribute(assessmentsectionIdAttributeKey))
             {
-                list.Add(assessmentsectionIdAttributeKey);
+                yield return assessmentsectionIdAttributeKey;
             }
             if (!polylineShapeFileReader.HasAttribute(signalingValueAttributeKey))
             {
-                list.Add(signalingValueAttributeKey);
+                yield return signalingValueAttributeKey;
             }
             if (!polylineShapeFileReader.HasAttribute(lowerLimitValueAttributeKey))
             {
-                list.Add(lowerLimitValueAttributeKey);
+                yield return lowerLimitValueAttributeKey;
             }
-            return list;
         }
 
         /// <summary>
@@ -211,7 +209,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
                 return Enumerable.Empty<Point2D>();
             }
 
-            return mapGeometries[0].PointCollections.First().Select(p => new Point2D(p));
+            return mapGeometries[0].PointCollections.First().Select(p => new Point2D(p)).ToArray();
         }
 
         private static string GetAssessmentSectionId(MapFeature lineFeature)

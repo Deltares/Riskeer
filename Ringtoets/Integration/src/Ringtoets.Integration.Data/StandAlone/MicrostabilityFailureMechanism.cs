@@ -29,11 +29,11 @@ namespace Ringtoets.Integration.Data.StandAlone
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the
-    /// Microstability failure mechanism.
+    /// micro stability failure mechanism.
     /// </summary>
     public class MicrostabilityFailureMechanism : FailureMechanismBase, IHasSectionResults<MicrostabilityFailureMechanismSectionResult>
     {
-        private readonly IList<MicrostabilityFailureMechanismSectionResult> sectionResults;
+        private readonly List<MicrostabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MicrostabilityFailureMechanism"/> class.

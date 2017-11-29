@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase,
                                                              IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
-        private readonly IList<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults;
+        private readonly List<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> class.

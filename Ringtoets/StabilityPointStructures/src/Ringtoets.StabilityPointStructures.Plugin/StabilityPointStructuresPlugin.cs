@@ -387,8 +387,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             };
         }
 
-        private static IEnumerable GetInputs(StabilityPointStructuresFailureMechanism failureMechanism,
-                                          IAssessmentSection assessmentSection)
+        private static IList GetInputs(StabilityPointStructuresFailureMechanism failureMechanism,
+                                       IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -399,7 +399,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             };
         }
 
-        private static IEnumerable GetOutputs(StabilityPointStructuresFailureMechanism failureMechanism)
+        private static IList GetOutputs(StabilityPointStructuresFailureMechanism failureMechanism)
         {
             return new ArrayList
             {
