@@ -1,32 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <PropertyGroup>
     <ProjectGuid>{2344A7BD-7E25-4A1A-982E-6C674AF5167A}</ProjectGuid>
-    <OutputType>Library</OutputType>
     <RootNamespace>Core.Components.OxyPlot</RootNamespace>
     <AssemblyName>Core.Components.OxyPlot</AssemblyName>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
-    <DefineConstants>TRACE</DefineConstants>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
     <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\OxyPlot.Core.1.0.0\lib\net40\OxyPlot.dll</HintPath>
@@ -37,9 +16,6 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
-      <Link>Properties\GlobalAssembly.cs</Link>
-    </Compile>
     <Compile Include="Converter\Chart\ChartAreaDataConverter.cs" />
     <Compile Include="Converter\ChartDataHelper.cs" />
     <Compile Include="Converter\Chart\ChartMultipleAreaDataConverter.cs" />
@@ -85,7 +61,6 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

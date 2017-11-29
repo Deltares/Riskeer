@@ -1,32 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <PropertyGroup>
     <ProjectGuid>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</ProjectGuid>
-    <OutputType>Library</OutputType>
     <RootNamespace>Core.Common.Gui</RootNamespace>
     <AssemblyName>Core.Common.Gui</AssemblyName>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
-    <DefineConstants>TRACE</DefineConstants>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
     <Reference Include="Fluent">
       <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Fluent.dll</HintPath>
@@ -51,9 +30,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Core.Common.Version\GlobalAssembly.cs">
-      <Link>Properties\GlobalAssembly.cs</Link>
-    </Compile>
     <Compile Include="Appenders\RingtoetsUserDataFolderConverter.cs" />
     <Compile Include="Attributes\DynamicPropertyOrderEvaluationMethodAttribute.cs" />
     <Compile Include="Attributes\DynamicPropertyOrderAttribute.cs" />
@@ -322,7 +298,6 @@
     <None Include="Resources\bug-exclamation.ico" />
     <Content Include="Resources\textfield_rename.png" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
