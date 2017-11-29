@@ -130,8 +130,11 @@ namespace Ringtoets.Piping.Primitives
             {
                 return true;
             }
-            var other = obj as PipingSoilProfile;
-            return other != null && Equals(other);
+            if (GetType() != obj.GetType())
+            {
+                return false;
+            }
+            return Equals((PipingSoilProfile) obj);
         }
 
         public override int GetHashCode()

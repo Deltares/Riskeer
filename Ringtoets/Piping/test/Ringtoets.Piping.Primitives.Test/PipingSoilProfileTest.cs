@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -200,143 +199,52 @@ namespace Ringtoets.Piping.Primitives.Test
             Assert.AreEqual(name, text);
         }
 
-        [Test]
-        public void GetHashCode_EqualProfiles_AreEqual()
+        [TestFixture]
+        private class PipingSoilProfileEqualsGuideLines : EqualsGuidelinesTestFixture<PipingSoilProfile, TestProfile>
         {
-            // Setup
-            PipingSoilProfile profileA = CreateRandomProfile(21);
-            PipingSoilProfile profileB = CreateRandomProfile(21);
+            private const string name = "Profile name";
+            private const double bottom = 3.14;
+            private const SoilProfileType type = SoilProfileType.SoilProfile1D;
 
-            // Precondition
-            Assert.AreEqual(profileA, profileB);
-            Assert.AreEqual(profileB, profileA);
-
-            // Call & Assert
-            Assert.AreEqual(profileA.GetHashCode(), profileB.GetHashCode());
-            Assert.AreEqual(profileB.GetHashCode(), profileA.GetHashCode());
-        }
-
-        [Test]
-        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
-        {
-            // Setup
-            PipingSoilProfile profile = CreateRandomProfile(2);
-            var derivedProfile = new TestProfile(profile);
-
-            // Call
-            bool areEqual = profile.Equals(derivedProfile);
-
-            // Assert
-            Assert.IsTrue(areEqual);
-        }
-
-        [Test]
-        public void Equals_DifferentType_ReturnsFalse()
-        {
-            // Setup
-            PipingSoilProfile profile = CreateRandomProfile(2);
-
-            // Call
-            bool areEqual = profile.Equals(new object());
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        public void Equals_Null_ReturnsFalse()
-        {
-            // Setup
-            var profile = new PipingSoilProfile("name", 0, new[]
+            protected override PipingSoilProfile CreateObject()
             {
-                CreateRandomLayer(new Random(21))
-            }, SoilProfileType.SoilProfile1D);
+                return CreateSingleLayerProfile(name, bottom, type);
+            }
 
-            // Call
-            bool areEqual = profile.Equals(null);
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(ProfileCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(PipingSoilProfile profile, PipingSoilProfile otherProfile, bool expectedEqual)
-        {
-            // Call
-            bool areEqualOne = profile.Equals(otherProfile);
-            bool areEqualTwo = otherProfile.Equals(profile);
-
-            // Assert
-            Assert.AreEqual(expectedEqual, areEqualOne);
-            Assert.AreEqual(expectedEqual, areEqualTwo);
-        }
-
-        private static TestCaseData[] ProfileCombinations()
-        {
-            PipingSoilProfile profileA = CreateRandomProfile(21);
-            PipingSoilProfile profileB = CreateRandomProfile(21);
-            PipingSoilProfile profileC = CreateRandomProfile(73);
-
-            PipingSoilProfile profileD = CreateSingleLayerProfile("A", -3, SoilProfileType.SoilProfile1D);
-            PipingSoilProfile profileE = CreateSingleLayerProfile("A", -3, SoilProfileType.SoilProfile2D);
-            PipingSoilProfile profileF = CreateSingleLayerProfile("A", -2, SoilProfileType.SoilProfile1D);
-            PipingSoilProfile profileG = CreateSingleLayerProfile("B", -3, SoilProfileType.SoilProfile1D);
-
-            const int seed = 78;
-            var random = new Random(seed);
-            var profileH = new PipingSoilProfile(GetRandomName(random), -random.NextDouble(), new[]
+            protected override TestProfile CreateDerivedObject()
             {
-                CreateRandomLayer(random)
-            }, random.NextEnumValue<SoilProfileType>());
+                PipingSoilProfile baseProfile = CreateSingleLayerProfile(name, bottom, type);
+                return new TestProfile(baseProfile);
+            }
 
-            random = new Random(seed);
-            var profileI = new PipingSoilProfile(GetRandomName(random), -random.NextDouble(), new[]
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                CreateRandomLayer(random),
-                CreateRandomLayer(random)
-            }, random.NextEnumValue<SoilProfileType>());
+                PipingSoilProfile baseProfile = CreateSingleLayerProfile(name, bottom, type);
 
-            var profileJ = new PipingSoilProfile("A", -3, new[]
-            {
-                new PipingSoilLayer(-2)
-            }, SoilProfileType.SoilProfile1D);
-            var profileK = new PipingSoilProfile("A", -3, new[]
-            {
-                new PipingSoilLayer(-2)
-            }, SoilProfileType.SoilProfile1D);
+                yield return new TestCaseData(CreateSingleLayerProfile("Different name",
+                                                                       baseProfile.Bottom,
+                                                                       baseProfile.SoilProfileSourceType))
+                    .SetName("Name");
 
-            return new[]
-            {
-                new TestCaseData(profileA, profileB, true)
-                {
-                    TestName = "Equals_ProfileAProfileB_True"
-                },
-                new TestCaseData(profileB, profileC, false)
-                {
-                    TestName = "Equals_ProfileBProfileC_False"
-                },
-                new TestCaseData(profileD, profileE, false)
-                {
-                    TestName = "Equals_ProfileDProfileE_False"
-                },
-                new TestCaseData(profileD, profileF, false)
-                {
-                    TestName = "Equals_ProfileDProfileF_False"
-                },
-                new TestCaseData(profileD, profileG, false)
-                {
-                    TestName = "Equals_ProfileDProfileG_False"
-                },
-                new TestCaseData(profileH, profileI, false)
-                {
-                    TestName = "Equals_ProfileHProfileI_False"
-                },
-                new TestCaseData(profileJ, profileK, true)
-                {
-                    TestName = "Equals_DifferentIds_True"
-                }
-            };
+                yield return new TestCaseData(CreateSingleLayerProfile(baseProfile.Name,
+                                                                       baseProfile.Bottom + 10,
+                                                                       baseProfile.SoilProfileSourceType))
+                    .SetName("Bottom");
+
+                yield return new TestCaseData(CreateSingleLayerProfile(baseProfile.Name,
+                                                                       baseProfile.Bottom,
+                                                                       SoilProfileType.SoilProfile2D))
+                    .SetName("SoilProfileType");
+
+                yield return new TestCaseData(new PipingSoilProfile(baseProfile.Name,
+                                                                    baseProfile.Bottom,
+                                                                    new[]
+                                                                    {
+                                                                        new PipingSoilLayer(baseProfile.Bottom + 10)
+                                                                    },
+                                                                    baseProfile.SoilProfileSourceType))
+                    .SetName("Layers");
+            }
         }
 
         private static PipingSoilProfile CreateSingleLayerProfile(string name, double bottom, SoilProfileType type)
@@ -345,39 +253,6 @@ namespace Ringtoets.Piping.Primitives.Test
             {
                 new PipingSoilLayer(bottom + 1.0)
             }, type);
-        }
-
-        private static PipingSoilProfile CreateRandomProfile(int randomSeed)
-        {
-            var random = new Random(randomSeed);
-            var layers = new Collection<PipingSoilLayer>();
-            for (var i = 0; i < random.Next(2, 6); i++)
-            {
-                layers.Add(CreateRandomLayer(random));
-            }
-            return new PipingSoilProfile(GetRandomName(random), -1.0 - random.NextDouble(), layers, random.NextEnumValue<SoilProfileType>());
-        }
-
-        private static PipingSoilLayer CreateRandomLayer(Random random)
-        {
-            return new PipingSoilLayer(random.NextDouble())
-            {
-                MaterialName = GetRandomName(random),
-                Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
-                IsAquifer = random.NextBoolean(),
-                BelowPhreaticLevelDeviation = random.NextDouble(),
-                BelowPhreaticLevelMean = random.NextDouble(),
-                BelowPhreaticLevelShift = random.NextDouble(),
-                DiameterD70CoefficientOfVariation = random.NextDouble(),
-                DiameterD70Mean = random.NextDouble(),
-                PermeabilityCoefficientOfVariation = random.NextDouble(),
-                PermeabilityMean = random.NextDouble()
-            };
-        }
-
-        private static string GetRandomName(Random random)
-        {
-            return new string('x', random.Next(0, 40));
         }
 
         private class TestProfile : PipingSoilProfile

@@ -24,7 +24,7 @@ using NUnit.Framework;
 namespace Core.Common.TestUtil
 {
     /// <summary>
-    /// Testfixture that asserts overrides of the <c>Equals()</c> function 
+    /// Testfixture that asserts overrides of the <see cref="object.Equals(object)"/> function 
     /// which follows the guidelines specified at 
     /// https://msdn.microsoft.com/en-us/library/ms173147(v=vs.90).aspx
     /// </summary>
