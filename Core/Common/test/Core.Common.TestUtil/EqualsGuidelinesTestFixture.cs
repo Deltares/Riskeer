@@ -72,7 +72,7 @@ namespace Core.Common.TestUtil
         }
 
         [Test]
-        public void Equals_ToItself_ReturnsTrue()
+        public void Equals_ToSameReference_ReturnsTrue()
         {
             // Setup
             T item1 = CreateObject();
@@ -85,6 +85,19 @@ namespace Core.Common.TestUtil
             // Assert
             Assert.IsTrue(item1EqualToItem2);
             Assert.IsTrue(item2EqualToItem1);
+        }
+
+        [Test]
+        public void Equals_ToItself_ReturnsTrue()
+        {
+            // Setup
+            T item = CreateObject();
+
+            // Call
+            bool itemEqualToItself = item.Equals(item);
+
+            // Assert
+            Assert.IsTrue(itemEqualToItself);
         }
 
         [Test]

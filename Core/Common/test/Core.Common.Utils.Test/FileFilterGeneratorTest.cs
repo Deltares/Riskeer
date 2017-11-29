@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
@@ -117,91 +118,35 @@ namespace Core.Common.Utils.Test
             Assert.AreEqual($"{description} (*.{extension})|*.{extension}", generator.Filter);
         }
 
-        [Test]
-        public void Equals_WithNull_ReturnsFalse()
+        [TestFixture]
+        private class FileFilterGeneratorEqualsTest : EqualsGuidelinesTestFixture<FileFilterGenerator, DerivedFileFilterGenerator>
         {
-            // Setup
-            var generator = new FileFilterGenerator("txt", "descriptionA");
+            private const string description = "description";
+            private const string extension = "txt";
 
-            // Call
-            bool result = generator.Equals(null);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Equals_DifferentType_ReturnsFalse()
-        {
-            // Setup
-            var generator = new FileFilterGenerator("txt", "descriptionA");
-
-            // Call
-            bool result = generator.Equals(new object());
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GeneratorCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(FileFilterGenerator generator,
-                                                                    FileFilterGenerator otherGenerator,
-                                                                    bool expectedEqual)
-        {
-            // Call
-            bool areEqualOne = generator.Equals(otherGenerator);
-            bool areEqualTwo = otherGenerator.Equals(generator);
-
-            // Assert
-            Assert.AreEqual(expectedEqual, areEqualOne);
-            Assert.AreEqual(expectedEqual, areEqualTwo);
-        }
-
-        [Test]
-        public void GetHashCode_FiltersAreEqual_FiltersHashesEqual()
-        {
-            // Setup
-            const string extension = "txt";
-            const string description = "text files";
-
-            var generator = new FileFilterGenerator(extension, description);
-            var otherGenerator = new FileFilterGenerator(extension, description);
-
-            // Call
-            int result = generator.GetHashCode();
-            int otherResult = otherGenerator.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(result, otherResult);
-        }
-
-        private static TestCaseData[] GeneratorCombinations()
-        {
-            var generatorA = new FileFilterGenerator("txt", "descriptionA");
-            var generatorB = new FileFilterGenerator("txt", "descriptionA");
-            var generatorC = new FileFilterGenerator("ext", "descriptionA");
-            var generatorD = new FileFilterGenerator("txt", "descriptionB");
-
-            return new[]
+            protected override FileFilterGenerator CreateObject()
             {
-                new TestCaseData(generatorA, generatorA, true)
-                {
-                    TestName = "Equals_FileFilterGeneratorAFileFilterGeneratorA_True"
-                },
-                new TestCaseData(generatorA, generatorB, true)
-                {
-                    TestName = "Equals_FileFilterGeneratorAFileFilterGeneratorB_True"
-                },
-                new TestCaseData(generatorB, generatorC, false)
-                {
-                    TestName = "Equals_FileFilterGeneratorBFileFilterGeneratorC_False"
-                },
-                new TestCaseData(generatorA, generatorD, false)
-                {
-                    TestName = "Equals_FileFilterGeneratorAFileFilterGeneratorD_False"
-                }
-            };
+                return new FileFilterGenerator(extension, description);
+            }
+
+            protected override DerivedFileFilterGenerator CreateDerivedObject()
+            {
+                return new DerivedFileFilterGenerator(extension, description);
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new FileFilterGenerator("ext", description))
+                    .SetName("Extension");
+                yield return new TestCaseData(new FileFilterGenerator(extension, "Different Description"))
+                    .SetName("Description");
+            }
+        }
+
+        private class DerivedFileFilterGenerator : FileFilterGenerator
+        {
+            public DerivedFileFilterGenerator(string extension, string description)
+                : base(extension, description) {}
         }
     }
 }
