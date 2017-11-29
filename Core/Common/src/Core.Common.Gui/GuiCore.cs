@@ -713,7 +713,7 @@ namespace Core.Common.Gui
 
         #region Implementation: IPluginHost
 
-        public IList<PluginBase> Plugins { get; private set; }
+        public List<PluginBase> Plugins { get; private set; }
 
         public IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {

@@ -35,7 +35,7 @@ namespace Core.Common.Gui
         /// <summary>
         /// Gets the list of plugins.
         /// </summary>
-        IList<PluginBase> Plugins { get; }
+        List<PluginBase> Plugins { get; }
 
         /// <summary>
         /// Queries the plugins to get all data with view definitions recursively, given a

@@ -52,7 +52,7 @@ using Xceed.Wpf.AvalonDock.Layout;
 namespace Core.Common.Gui.Test
 {
     [TestFixture]
-    public class GuiCoreTests
+    public class GuiCoreTest
     {
         private MessageWindowLogAppender originalMessageWindowLogAppender;
         private IViewCommands originalViewPropertyEditor;
