@@ -179,7 +179,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 hydraulicBoundaryDatabase.Version = hydraulicBoundaryDatabaseReader.GetVersion();
 
                 // Locations directory of HLCD location ids and HRD location ids
-                Dictionary<long, long> locationidsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationsIdByTrackId(trackId);
+                Dictionary<long, long> locationIdsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationIdsByTrackId(trackId);
 
                 var filter = new HydraulicBoundaryLocationFilter(
                     HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabase.FilePath));
@@ -191,7 +191,7 @@ namespace Ringtoets.Common.IO.FileImporters
                     HrdLocation hrdLocation = hydraulicBoundaryDatabaseReader.ReadLocation();
 
                     long locationId;
-                    locationidsDictionary.TryGetValue(hrdLocation.HrdLocationId, out locationId);
+                    locationIdsDictionary.TryGetValue(hrdLocation.HrdLocationId, out locationId);
 
                     if (filter.ShouldInclude(locationId))
                     {

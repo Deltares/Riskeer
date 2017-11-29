@@ -34,7 +34,7 @@ using Ringtoets.HydraRing.IO.Properties;
 namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
 {
     /// <summary>
-    /// This class reads an HLCD database file and reads location ids from this database.
+    /// Class for reading information from a hydraulic location configuration database (HLCD).
     /// </summary>
     public class HydraulicLocationConfigurationSqLiteDatabaseReader : SqLiteDatabaseReaderBase
     {
@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        public Dictionary<long, long> GetLocationsIdByTrackId(long trackId)
+        public Dictionary<long, long> GetLocationIdsByTrackId(long trackId)
         {
             var trackParameter = new SQLiteParameter
             {
