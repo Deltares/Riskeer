@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
@@ -79,20 +80,21 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         [Test]
         [TestCaseSource(nameof(GetPreconsolidationStressCombinationWithNaNValues))]
         public void Transform_PreconsolidationStressValuesNaN_ThrowsImportedDataTransformException(
-            PreconsolidationStress preconsolidationStress,
-            string parameterName)
+            PreconsolidationStress preconsolidationStress)
         {
             // Call
             TestDelegate call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            string expectedMessage = $"De waarde voor parameter '{parameterName}' voor de grensspanning moet een concreet getal zijn.";
-            Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentException>(innerException);
+            Assert.AreEqual(innerException.Message, exception.Message);
         }
 
         [Test]
+        [SetCulture("NL-nl")]
         [TestCaseSource(nameof(GetPreconsolidationStressInvalidDistributionValues))]
         public void Transform_InvalidPreconsolidationStressDistributionValues_ThrowsImportedDataTransformException(PreconsolidationStress preconsolidationStress)
         {
@@ -101,39 +103,64 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.AreEqual("Parameter 'Grensspanning' is niet lognormaal verdeeld.", exception.Message);
-            Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentOutOfRangeException>(innerException);
+            var coordinate = new Point2D(preconsolidationStress.XCoordinate, preconsolidationStress.ZCoordinate);
+            string expectedMessage = CreateExpectedErrorMessage(coordinate, innerException.Message);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidStochastConfiguration))]
-        public void Transform_InvalidStochasticDistributionProperties_ThrowsImportedDataTransformException(
-            PreconsolidationStress preconsolidationStress)
+        public void Transform_InvalidStochasticDistributionType_ThrowsImportedDataTransformException()
         {
+            // Setup
+            var random = new Random(21);
+            var preconsolidationStress = new PreconsolidationStress
+            {
+                StressDistributionType = random.Next(3, int.MaxValue),
+                StressShift = 0
+            };
+
             // Call
             TestDelegate call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.AreEqual("Parameter 'Grensspanning' is niet lognormaal verdeeld.", exception.Message);
+            var coordinate = new Point2D(preconsolidationStress.XCoordinate, preconsolidationStress.ZCoordinate);
+            string expectedMessage = CreateExpectedErrorMessage(coordinate,
+                                                                "Parameter 'Grensspanning' moet lognormaal verdeeld zijn.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
-        private static IEnumerable<TestCaseData> GetInvalidStochastConfiguration()
+        [Test]
+        public void Transform_InvalidStochasticDistributionShift_ThrowsImportedDataTransformException()
         {
+            // Setup
             var random = new Random(21);
-
-            yield return new TestCaseData(new PreconsolidationStress
+            var preconsolidationStress = new PreconsolidationStress
             {
-                StressDistributionType = random.Next(3, int.MaxValue),
-                StressShift = 0
-            }).SetName("Invalid DistributionType");
-
-            yield return new TestCaseData(new PreconsolidationStress
-            {
-                StressDistributionType = 3,
+                StressDistributionType = SoilLayerConstants.LogNormalDistributionValue,
                 StressShift = random.NextDouble()
-            }).SetName("Invalid Shift");
+            };
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            var coordinate = new Point2D(preconsolidationStress.XCoordinate, preconsolidationStress.ZCoordinate);
+            string expectedMessage = CreateExpectedErrorMessage(coordinate,
+                                                                "Parameter 'Grensspanning' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
+
+        private static string CreateExpectedErrorMessage(Point2D location, string errorMessage)
+        {
+            return $"Grensspanning op locatie {location} heeft een ongeldige waarde. {errorMessage}";
+        }
+
+        #region Test data
 
         private static IEnumerable<TestCaseData> GetPreconsolidationStressInvalidDistributionValues()
         {
@@ -170,14 +197,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 ZCoordinate = zCoordinate,
                 StressMean = preconsolidationStressMean,
                 StressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
-            }, "X-coördinaat").SetName("XCoordinate NaN");
+            }).SetName("XCoordinate NaN");
             yield return new TestCaseData(new PreconsolidationStress
             {
                 XCoordinate = xCoordinate,
                 ZCoordinate = double.NaN,
                 StressMean = preconsolidationStressMean,
                 StressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
-            }, "Z-coördinaat").SetName("ZCoordinate NaN");
+            }).SetName("ZCoordinate NaN");
         }
+
+        #endregion
     }
 }

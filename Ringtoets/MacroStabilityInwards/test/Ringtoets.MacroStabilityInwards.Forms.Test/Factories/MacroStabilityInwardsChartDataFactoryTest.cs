@@ -58,6 +58,46 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateSliceParametersChartDataCollection_ReturnsEmptyChartDataCollection()
+        {
+            // Call
+            ChartDataCollection data = MacroStabilityInwardsChartDataFactory.CreateSliceParametersChartDataCollection();
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Collection);
+            Assert.AreEqual("Uitvoer per lamel", data.Name);
+        }
+
+        [Test]
+        public void CreateSliceParameterChartData_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(null, new Random(39).NextBoolean());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateSliceParameterChartData_WithNameAndVisibility_ReturnsEmptyChartAreaDataWithExpectedStylingAndVisibility(bool isVisible)
+        {
+            // Setup
+            const string name = "Cohesie";
+
+            // Call
+            ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSliceParameterChartData(name, isVisible);
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Areas);
+            Assert.AreEqual(name, data.Name);
+            Assert.AreEqual(isVisible, data.IsVisible);
+            AssertEqualStyle(data.Style, Color.FromArgb(150, Color.Red), Color.Black, 1, true);
+        }
+
+        [Test]
         public void CreateWaternetZoneChartData_NameNull_ThrowsArgumentNullException()
         {
             // Call
@@ -71,7 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateWaternetZoneChartData_WithVisibility_ReturnsEmptyChartLineDataWithExpectedVisibility(bool isVisible)
+        public void CreateWaternetZoneChartData_WithVisibility_ReturnsEmptyChartLineDataWithExpectedStylingAndVisibility(bool isVisible)
         {
             // Setup
             const string name = "zone";
@@ -100,7 +140,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreatePhreaticLineChartData_WithVisibility_ReturnsEmptyChartLineDataWithExpectedVisibility(bool isVisible)
+        public void CreatePhreaticLineChartData_WithVisibility_ReturnsEmptyChartLineDataWithExpectedStylingAndVisibility(bool isVisible)
         {
             // Setup
             const string name = "zone";

@@ -79,6 +79,7 @@
     <Compile Include="DikeProfiles\ProfileLocationTest.cs" />
     <Compile Include="Exceptions\CriticalFileValidationExceptionTest.cs" />
     <Compile Include="Configurations\Import\CalculationConfigurationImporterTest.cs" />
+    <Compile Include="Exceptions\InvalidDistributionSettingExceptionTest.cs" />
     <Compile Include="FileImporters\DikeProfilesImporterTest.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionsImporterTest.cs" />
     <Compile Include="FileImporters\ForeshoreProfilesImporterTest.cs" />

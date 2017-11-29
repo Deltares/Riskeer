@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
@@ -484,6 +485,60 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 slice.BottomRightPoint,
                 slice.BottomLeftPoint
             });
+        }
+
+        /// <summary>
+        /// Creates the areas for a parameter in the slices present 
+        /// in <paramref name="slidingCurve"/>.
+        /// </summary>
+        /// <param name="slidingCurve">The sliding curve to get the slices from.</param>
+        /// <param name="parameterName">The name of the property in <see cref="MacroStabilityInwardsSlice"/>.</param>
+        /// <param name="scaleFactor">The factor to decrease the parameter value by when determining
+        /// the bar height.</param>
+        /// <returns>A collection of <see cref="ChartMultipleAreaData"/> containing areas representing the
+        /// slice output values, or an empty collection when:
+        /// <list type="bullet">
+        /// <item><paramref name="slidingCurve"/> or <paramref name="parameterName"/> is null;</item>
+        /// <item>The property with the name <paramref name="parameterName"/> does not exist on the
+        /// <see cref="MacroStabilityInwardsSlice"/>.</item>
+        /// </list>
+        /// </returns>
+        /// <exception cref="AmbiguousMatchException">Thrown when more than one property is found with 
+        /// the specified name.</exception>
+        public static IEnumerable<Point2D[]> CreateSliceParameterAreas(MacroStabilityInwardsSlidingCurve slidingCurve,
+                                                                       string parameterName,
+                                                                       int scaleFactor)
+        {
+            if (slidingCurve == null || parameterName == null)
+            {
+                return Enumerable.Empty<Point2D[]>();
+            }
+
+            var areas = new List<Point2D[]>();
+            foreach (MacroStabilityInwardsSlice slice in slidingCurve.Slices)
+            {
+                var value = (RoundedDouble?) slice.GetType().GetProperty(parameterName)?.GetValue(slice, null);
+                if (value.HasValue)
+                {
+                    double offset = value.Value / scaleFactor;
+                    double xLength = slice.BottomLeftPoint.X - slice.BottomRightPoint.X;
+                    double yLength = slice.BottomLeftPoint.Y - slice.BottomRightPoint.Y;
+
+                    double length = Math.Sqrt(Math.Pow(xLength, 2) +
+                                              Math.Pow(yLength, 2));
+
+                    areas.Add(new[]
+                    {
+                        slice.BottomLeftPoint,
+                        slice.BottomRightPoint,
+                        new Point2D(slice.BottomRightPoint.X + offset * -yLength / length,
+                                    slice.BottomRightPoint.Y + offset * xLength / length),
+                        new Point2D(slice.BottomLeftPoint.X + offset * -yLength / length,
+                                    slice.BottomLeftPoint.Y + offset * xLength / length)
+                    });
+                }
+            }
+            return areas;
         }
 
         #region General Helpers

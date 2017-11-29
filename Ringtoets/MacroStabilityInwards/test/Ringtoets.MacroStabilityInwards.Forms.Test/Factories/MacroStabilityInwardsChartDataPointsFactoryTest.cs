@@ -1709,6 +1709,126 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             }, lines);
         }
 
+        [Test]
+        public void CreateSliceParameterAreas_SlidingCurveNull_ReturnsEmptyCollection()
+        {
+            // Call
+            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(null,
+                                                                                                                 "parameter",
+                                                                                                                 new Random(39).Next());
+
+            // Assert
+            CollectionAssert.IsEmpty(areas);
+        }
+
+        [Test]
+        public void CreateSliceParameterAreas_PropertyNameNull_ReturnsEmptyCollection()
+        {
+            // Setup
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(
+                new MacroStabilityInwardsSlidingCircle(new Point2D(10, 10), 0.0, true, 0.0, 0.0, 0.0, 0.0),
+                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                new[]
+                {
+                    new MacroStabilityInwardsSlice(new Point2D(0, 1),
+                                                   new Point2D(1, 1),
+                                                   new Point2D(0, 0),
+                                                   new Point2D(1, 0),
+                                                   new MacroStabilityInwardsSlice.ConstructionProperties())
+                },
+                0.0,
+                0.0);
+
+            // Call
+            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(slidingCurve,
+                                                                                                                 null,
+                                                                                                                 new Random(39).Next());
+
+            // Assert
+            CollectionAssert.IsEmpty(areas);
+        }
+
+        [Test]
+        public void CreateSliceParameterAreas_PropertyNameDoesNotExist_ReturnsEmptyCollection()
+        {
+            // Setup
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(
+                new MacroStabilityInwardsSlidingCircle(new Point2D(10, 10), 0.0, true, 0.0, 0.0, 0.0, 0.0),
+                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                new[]
+                {
+                    new MacroStabilityInwardsSlice(new Point2D(0, 1),
+                                                   new Point2D(1, 1),
+                                                   new Point2D(0, 0),
+                                                   new Point2D(1, 0),
+                                                   new MacroStabilityInwardsSlice.ConstructionProperties())
+                },
+                0.0,
+                0.0);
+
+            // Call
+            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(slidingCurve,
+                                                                                                                 "property that does not exist",
+                                                                                                                 new Random(39).Next());
+
+            // Assert
+            CollectionAssert.IsEmpty(areas);
+        }
+
+        [Test]
+        public void CreateSliceParameterAreas_ValidParameters_ReturnsExpectedAreas()
+        {
+            // Setup
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(
+                new MacroStabilityInwardsSlidingCircle(new Point2D(10, 10), 0.0, true, 0.0, 0.0, 0.0, 0.0),
+                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                new[]
+                {
+                    new MacroStabilityInwardsSlice(new Point2D(0, 1),
+                                                   new Point2D(1, 1),
+                                                   new Point2D(0, 0),
+                                                   new Point2D(1, 0),
+                                                   new MacroStabilityInwardsSlice.ConstructionProperties
+                                                   {
+                                                       Cohesion = 30.0
+                                                   }),
+                    new MacroStabilityInwardsSlice(new Point2D(1, 2),
+                                                   new Point2D(2, 2),
+                                                   new Point2D(1, 1),
+                                                   new Point2D(2, 1),
+                                                   new MacroStabilityInwardsSlice.ConstructionProperties
+                                                   {
+                                                       Cohesion = 60.0
+                                                   })
+                },
+                0.0,
+                0.0);
+
+            // Call
+            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(slidingCurve,
+                                                                                                                 nameof(MacroStabilityInwardsSlice.Cohesion),
+                                                                                                                 3);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -10),
+                    new Point2D(0, -10)
+                },
+                new[]
+                {
+                    new Point2D(1, 1),
+                    new Point2D(2, 1),
+                    new Point2D(2, -19),
+                    new Point2D(1, -19)
+                }
+            }, areas);
+        }
+
         private static MacroStabilityInwardsWaternetLine CreateWaternetLine(IEnumerable<Point2D> waternetLineGeometry,
                                                                             IEnumerable<Point2D> phreaticLineGeometry)
         {

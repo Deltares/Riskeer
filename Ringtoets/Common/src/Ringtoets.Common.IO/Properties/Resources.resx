@@ -850,14 +850,14 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="SoilProfileReader_Profile_Name_0_has_invalid_value_on_Column_1" xml:space="preserve">
     <value>Het lezen van de ondergrondschematisatie '{0}' is mislukt. Geen geldige waarde in kolom '{1}'.</value>
   </data>
-  <data name="Stochastic_parameter_0_has_no_lognormal_distribution" xml:space="preserve">
-    <value>Parameter '{0}' is niet lognormaal verdeeld.</value>
+  <data name="Stochastic_parameter_0_must_be_a_lognormal_distribution" xml:space="preserve">
+    <value>Parameter '{0}' moet lognormaal verdeeld zijn.</value>
   </data>
   <data name="SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported" xml:space="preserve">
     <value>De ondergrondschematisatie van het type '{0}' is niet ondersteund. Alleen ondergrondschematisaties van het type '{1}' of '{2}' zijn ondersteund.</value>
   </data>
-  <data name="SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution" xml:space="preserve">
-    <value>Parameter '{0}' is niet verschoven lognormaal verdeeld.</value>
+  <data name="Stochastic_parameter_0_has_no_shifted_lognormal_distribution" xml:space="preserve">
+    <value>Parameter '{0}' moet verschoven lognormaal verdeeld zijn.</value>
   </data>
   <data name="SoilLayerData_IsAquifer_DisplayName" xml:space="preserve">
     <value>Is aquifer</value>
@@ -870,6 +870,15 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   </data>
   <data name="StochasticSoilProfileHelper_GetUniqueStochasticSoilProfiles_StochasticSoilProfile_0_has_multiple_occurences_in_SoilModel_1_Probability_Summed" xml:space="preserve">
     <value>Ondergrondschematisatie '{0}' is meerdere keren gevonden in ondergrondmodel '{1}'. Kansen van voorkomen worden opgeteld.</value>
+  </data>
+  <data name="Stochastic_parameter_0_must_be_a_lognormal_distribution_with_zero_shift" xml:space="preserve">
+    <value>Parameter '{0}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.</value>
+  </data>
+  <data name="Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1_" xml:space="preserve">
+    <value>Er is een fout opgetreden bij het inlezen van grondlaag '{0}': {1}</value>
+  </data>
+  <data name="Transform_Error_occurred_when_transforming_SoilProfile_0_ErrorMessage_1_" xml:space="preserve">
+    <value>Er is een fout opgetreden bij het inlezen van ondergrondschematisatie '{0}': {1}</value>
   </data>
   <data name="HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Invalid_path" xml:space="preserve">
     <value>De bestandsmap waar de preprocessor bestanden opslaat is ongeldig.</value>

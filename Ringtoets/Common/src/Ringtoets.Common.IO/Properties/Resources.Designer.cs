@@ -1659,15 +1659,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; is niet verschoven lognormaal verdeeld..
-        /// </summary>
-        public static string SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution {
-            get {
-                return ResourceManager.GetString("SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Coördinaat van een punt bevat ongeldige waarde..
         /// </summary>
         public static string SoilLayer2DGeometryReader_Could_not_parse_point_location {
@@ -1768,11 +1759,29 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; is niet lognormaal verdeeld..
+        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; moet verschoven lognormaal verdeeld zijn..
         /// </summary>
-        public static string Stochastic_parameter_0_has_no_lognormal_distribution {
+        public static string Stochastic_parameter_0_has_no_shifted_lognormal_distribution {
             get {
-                return ResourceManager.GetString("Stochastic_parameter_0_has_no_lognormal_distribution", resourceCulture);
+                return ResourceManager.GetString("Stochastic_parameter_0_has_no_shifted_lognormal_distribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; moet lognormaal verdeeld zijn..
+        /// </summary>
+        public static string Stochastic_parameter_0_must_be_a_lognormal_distribution {
+            get {
+                return ResourceManager.GetString("Stochastic_parameter_0_must_be_a_lognormal_distribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0..
+        /// </summary>
+        public static string Stochastic_parameter_0_must_be_a_lognormal_distribution_with_zero_shift {
+            get {
+                return ResourceManager.GetString("Stochastic_parameter_0_must_be_a_lognormal_distribution_with_zero_shift", resourceCulture);
             }
         }
         
@@ -2532,6 +2541,24 @@ namespace Ringtoets.Common.IO.Properties {
         public static string SurfaceLinesCsvReader_SurfaceLineName_0_ {
             get {
                 return ResourceManager.GetString("SurfaceLinesCsvReader_SurfaceLineName_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden bij het inlezen van grondlaag &apos;{0}&apos;: {1}.
+        /// </summary>
+        public static string Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1_ {
+            get {
+                return ResourceManager.GetString("Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden bij het inlezen van ondergrondschematisatie &apos;{0}&apos;: {1}.
+        /// </summary>
+        public static string Transform_Error_occurred_when_transforming_SoilProfile_0_ErrorMessage_1_ {
+            get {
+                return ResourceManager.GetString("Transform_Error_occurred_when_transforming_SoilProfile_0_ErrorMessage_1_", resourceCulture);
             }
         }
         

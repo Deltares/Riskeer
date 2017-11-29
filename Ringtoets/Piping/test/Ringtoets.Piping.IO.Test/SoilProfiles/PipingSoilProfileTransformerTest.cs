@@ -153,7 +153,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
-            string message = "Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D " +
+            string message = $"Er is een fout opgetreden bij het inlezen van grondlaag '{layer.MaterialName}': " +
+                             "Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D " +
                              $"laag verticaal lopen op de gekozen positie: x = {atX}.";
             Assert.AreEqual(message, exception.Message);
         }
@@ -182,7 +183,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             // Setup
             var random = new Random(21);
-            var profile = new SoilProfile2D(0, string.Empty, Enumerable.Empty<SoilLayer2D>(), Enumerable.Empty<PreconsolidationStress>())
+            var profile = new SoilProfile2D(0, "A profile name", Enumerable.Empty<SoilLayer2D>(), Enumerable.Empty<PreconsolidationStress>())
             {
                 IntersectionX = random.NextDouble()
             };
@@ -195,7 +196,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             Exception innerException = exception.InnerException;
             Assert.IsInstanceOf<ArgumentException>(innerException);
-            Assert.AreEqual(innerException.Message, exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(profile.Name, innerException.Message);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -393,7 +395,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             Exception innerException = exception.InnerException;
             Assert.IsInstanceOf<ArgumentException>(innerException);
-            Assert.AreEqual(innerException.Message, exception.Message);
+            string expectedMessage = CreateExpectedErrorMessage(profileName, innerException.Message);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -456,6 +459,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             Assert.AreEqual(profileName, transformed.Name);
             Assert.AreEqual(2, transformed.Layers.Count());
             Assert.AreEqual(bottom, transformed.Bottom);
+        }
+
+        private static string CreateExpectedErrorMessage(string soilProfileName, string errorMessage)
+        {
+            return $"Er is een fout opgetreden bij het inlezen van ondergrondschematisatie '{soilProfileName}': " +
+                   $"{errorMessage}";
         }
 
         private static void AssertPipingSoilLayers(IEnumerable<PipingSoilLayer> expectedSoilLayer2Ds,
