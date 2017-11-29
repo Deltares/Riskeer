@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.IO;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
-using Ringtoets.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.Common.IO.HydraRing
 {
