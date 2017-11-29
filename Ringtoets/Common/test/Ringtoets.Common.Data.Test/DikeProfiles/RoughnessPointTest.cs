@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 
@@ -58,139 +60,6 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         }
 
         [Test]
-        public void Equals_ToItself_ReturnsTrue()
-        {
-            // Setup
-            var roughnessPoint = new RoughnessPoint(new Point2D(0, 0), 0);
-
-            // Call
-            bool isRougnessPointEqualToItself = roughnessPoint.Equals(roughnessPoint);
-
-            // Assert
-            Assert.IsTrue(isRougnessPointEqualToItself);
-        }
-
-        [Test]
-        public void Equals_ToSameReference_ReturnsTrue()
-        {
-            // Setup
-            var roughnessPointOne = new RoughnessPoint(new Point2D(0, 0), 0);
-            RoughnessPoint roughnessPointTwo = roughnessPointOne;
-
-            // Call
-            bool isRoughnessPointOneEqualToTwo = roughnessPointOne.Equals(roughnessPointTwo);
-            bool isRoughnessPointTwoEqualToOne = roughnessPointTwo.Equals(roughnessPointOne);
-
-            // Assert
-            Assert.IsTrue(isRoughnessPointOneEqualToTwo);
-            Assert.IsTrue(isRoughnessPointTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_PropertiesEqual_ReturnsTrue()
-        {
-            // Setup
-            var geometryPoint = new Point2D(0, 0);
-            const double roughness = 3.14;
-
-            var roughnessPointOne = new RoughnessPoint(geometryPoint, roughness);
-            var roughnessPointTwo = new RoughnessPoint(geometryPoint, roughness);
-
-            // Call
-            bool isRoughnessPointOneEqualToTwo = roughnessPointOne.Equals(roughnessPointTwo);
-            bool isRoughnessPointTwoEqualToOne = roughnessPointTwo.Equals(roughnessPointOne);
-
-            // Assert
-            Assert.IsTrue(isRoughnessPointOneEqualToTwo);
-            Assert.IsTrue(isRoughnessPointTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_TransitivePropertyPropertiesEqual_ReturnsTrue()
-        {
-            // Setup
-            var geometryPoint = new Point2D(0, 0);
-            const double roughness = 3.14;
-
-            var roughnessPointOne = new RoughnessPoint(geometryPoint, roughness);
-            var roughnessPointTwo = new RoughnessPoint(geometryPoint, roughness);
-            var roughnessPointThree = new RoughnessPoint(geometryPoint, roughness);
-
-            // Call
-            bool isRoughnessPointOneEqualToTwo = roughnessPointOne.Equals(roughnessPointTwo);
-            bool isRoughnessPointTwoEqualToThree = roughnessPointTwo.Equals(roughnessPointThree);
-            bool isRoughnessPointOneEqualToThree = roughnessPointOne.Equals(roughnessPointThree);
-
-            // Assert
-            Assert.IsTrue(isRoughnessPointOneEqualToTwo);
-            Assert.IsTrue(isRoughnessPointTwoEqualToThree);
-            Assert.IsTrue(isRoughnessPointOneEqualToThree);
-        }
-
-        [Test]
-        public void Equals_DifferentGeometryPoint_ReturnsTrue()
-        {
-            // Setup
-            const double roughness = 3.14;
-
-            var roughnessPointOne = new RoughnessPoint(new Point2D(0, 0), roughness);
-            var roughnessPointTwo = new RoughnessPoint(new Point2D(1, 1), roughness);
-
-            // Call
-            bool isRoughnessPointOneEqualToTwo = roughnessPointOne.Equals(roughnessPointTwo);
-            bool isRoughnessPointTwoEqualToOne = roughnessPointTwo.Equals(roughnessPointOne);
-
-            // Assert
-            Assert.IsFalse(isRoughnessPointOneEqualToTwo);
-            Assert.IsFalse(isRoughnessPointTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_DifferentRoughness_ReturnsFalse()
-        {
-            // Setup
-            var geometryPoint = new Point2D(0, 0);
-
-            var roughnessPointOne = new RoughnessPoint(geometryPoint, 3.14);
-            var roughnessPointTwo = new RoughnessPoint(geometryPoint, 3.00);
-
-            // Call
-            bool isRoughnessPointOneEqualToTwo = roughnessPointOne.Equals(roughnessPointTwo);
-            bool isRoughnessPointTwoEqualToOne = roughnessPointTwo.Equals(roughnessPointOne);
-
-            // Assert
-            Assert.IsFalse(isRoughnessPointOneEqualToTwo);
-            Assert.IsFalse(isRoughnessPointTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_ToNull_ReturnsTrue()
-        {
-            // Setup
-            var roughnessPoint = new RoughnessPoint(new Point2D(0, 0), 0);
-
-            // Call
-            bool isRougnessPointEqualToNull = roughnessPoint.Equals(null);
-
-            // Assert
-            Assert.IsFalse(isRougnessPointEqualToNull);
-        }
-
-        [Test]
-        public void Equals_ToDifferentType_ReturnsFalse()
-        {
-            // Setup
-            var roughnessPoint = new RoughnessPoint(new Point2D(0, 0), 0);
-            var differentType = new object();
-
-            // Call
-            bool isRougnessPointEqualToDifferentType = roughnessPoint.Equals(differentType);
-
-            // Assert
-            Assert.IsFalse(isRougnessPointEqualToDifferentType);
-        }
-
-        [Test]
         public void GetHashCode_EqualRoughnessPoint_ReturnsSameHashCode()
         {
             // Setup
@@ -206,6 +75,44 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        [TestFixture]
+        private class RoughnessPointEqualsTest : EqualsGuidelinesTestFixture<RoughnessPoint, DerivedRoughnessPoint>
+        {
+            protected override RoughnessPoint CreateObject()
+            {
+                return CreateRoughnessPoint();
+            }
+
+            protected override DerivedRoughnessPoint CreateDerivedObject()
+            {
+                RoughnessPoint basePoint = CreateRoughnessPoint();
+                return new DerivedRoughnessPoint(basePoint);
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                RoughnessPoint basePoint = CreateRoughnessPoint();
+
+                yield return new TestCaseData(new RoughnessPoint(basePoint.Point,
+                                                                 basePoint.Roughness + 10))
+                    .SetName("Roughness");
+                yield return new TestCaseData(new RoughnessPoint(new Point2D(1, 1),
+                                                                 basePoint.Roughness))
+                    .SetName("Point");
+            }
+        }
+
+        private static RoughnessPoint CreateRoughnessPoint()
+        {
+            return new RoughnessPoint(new Point2D(0, 0), 3.14);
+        }
+
+        private class DerivedRoughnessPoint : RoughnessPoint
+        {
+            public DerivedRoughnessPoint(RoughnessPoint roughnessPoint)
+                : base(roughnessPoint.Point, roughnessPoint.Roughness) {}
         }
     }
 }
