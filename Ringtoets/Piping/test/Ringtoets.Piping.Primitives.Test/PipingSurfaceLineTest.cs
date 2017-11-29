@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.Primitives.Test
         }
 
         [TestFixture]
-        private class PipingSurfaceLineEqualsGuideLines : EqualsGuidelinesTestFixture<PipingSurfaceLine, TestSurfaceLine>
+        private class PipingSurfaceLineEqualsTest : EqualsGuidelinesTestFixture<PipingSurfaceLine, TestSurfaceLine>
         {
             protected override PipingSurfaceLine CreateObject()
             {
