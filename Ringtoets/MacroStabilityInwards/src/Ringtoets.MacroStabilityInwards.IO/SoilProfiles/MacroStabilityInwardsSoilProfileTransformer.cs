@@ -63,11 +63,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 return Transform(soilProfile2D);
             }
 
-            string message = string.Format(RingtoetsCommonIOResources.SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported,
-                                           soilProfile.GetType().Name,
-                                           nameof(SoilProfile1D),
-                                           nameof(SoilProfile2D));
-            throw new ImportedDataTransformException(message);
+            string errorMessage = string.Format(RingtoetsCommonIOResources.SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported,
+                                                soilProfile.GetType().Name,
+                                                nameof(SoilProfile1D),
+                                                nameof(SoilProfile2D));
+            throw new ImportedDataTransformException(errorMessage);
         }
 
         /// <summary>
@@ -90,8 +90,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
             catch (ArgumentException e)
             {
-                string message = CreateErrorMessage(soilProfile.Name, e.Message);
-                throw new ImportedDataTransformException(message, e);
+                string errorMessage = CreateErrorMessage(soilProfile.Name, e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
             }
         }
 
@@ -115,8 +115,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
             catch (ArgumentException e)
             {
-                string message = CreateErrorMessage(soilProfile.Name, e.Message);
-                throw new ImportedDataTransformException(message, e);
+                string errorMessage = CreateErrorMessage(soilProfile.Name, e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
             }
         }
 
@@ -138,8 +138,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
             catch (ImportedDataTransformException e)
             {
-                string message = CreateErrorMessage(soilProfileName, e.Message);
-                throw new ImportedDataTransformException(message, e);
+                string errorMessage = CreateErrorMessage(soilProfileName, e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
             }
         }
 

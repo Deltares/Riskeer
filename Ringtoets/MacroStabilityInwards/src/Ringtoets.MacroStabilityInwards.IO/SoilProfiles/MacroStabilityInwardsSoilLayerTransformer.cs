@@ -201,11 +201,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
             catch (ArgumentOutOfRangeException e)
             {
-                string exceptionMessage = string.Format(Resources.Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_,
-                                                        soilLayerName,
-                                                        parameterName,
-                                                        e.Message);
-                throw new ImportedDataTransformException(exceptionMessage, e);
+                string errorMessage = string.Format(Resources.Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_,
+                                                    soilLayerName,
+                                                    parameterName,
+                                                    e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
             }
         }
 
@@ -226,10 +226,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
             catch (NotSupportedException e)
             {
-                string exceptionMessage = CreateErrorMessage(soilLayerName,
-                                                             string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                           RingtoetsCommonIOResources.SoilLayerData_IsAquifer_DisplayName));
-                throw new ImportedDataTransformException(exceptionMessage, e);
+                string errorMessage = CreateErrorMessage(soilLayerName,
+                                                         string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
+                                                                       RingtoetsCommonIOResources.SoilLayerData_IsAquifer_DisplayName));
+                throw new ImportedDataTransformException(errorMessage, e);
             }
         }
 
@@ -254,10 +254,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 return false;
             }
 
-            string exceptionMessage = CreateErrorMessage(soilLayerName,
-                                                         string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                       Resources.SoilLayerData_UsePop_Description));
-            throw new ImportedDataTransformException(exceptionMessage);
+            string errorMessage = CreateErrorMessage(soilLayerName,
+                                                     string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
+                                                                   Resources.SoilLayerData_UsePop_Description));
+            throw new ImportedDataTransformException(errorMessage);
         }
 
         /// <summary>
@@ -286,20 +286,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 return MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated;
             }
 
-            string exceptionMessage;
+            string errorMessage;
             if (Math.Abs(shearStrengthModel.Value - 1) < tolerance)
             {
-                exceptionMessage = CreateErrorMessage(soilLayerName,
-                                                      Resources.MacroStabilityInwardsSoilLayerTransformer_TransformShearStrengthModel_No_MacroStabilityInwardsShearStrengthModel);
+                errorMessage = CreateErrorMessage(soilLayerName,
+                                                  Resources.MacroStabilityInwardsSoilLayerTransformer_TransformShearStrengthModel_No_MacroStabilityInwardsShearStrengthModel);
             }
             else
             {
-                exceptionMessage = CreateErrorMessage(soilLayerName,
-                                                      string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                    Resources.SoilLayerData_ShearStrengthModel_Description));
+                errorMessage = CreateErrorMessage(soilLayerName,
+                                                  string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
+                                                                Resources.SoilLayerData_ShearStrengthModel_Description));
             }
 
-            throw new ImportedDataTransformException(exceptionMessage);
+            throw new ImportedDataTransformException(errorMessage);
         }
 
         /// <summary>
@@ -318,9 +318,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
             catch (ArgumentException e)
             {
-                string exceptionMessage = CreateErrorMessage(soilLayerName,
-                                                             Resources.MacroStabilityInwardsSoilLayerTransformer_TransformSegmentToRing_Invalid_geometry_for_Ring);
-                throw new ImportedDataTransformException(exceptionMessage, e);
+                string errorMessage = CreateErrorMessage(soilLayerName,
+                                                         Resources.MacroStabilityInwardsSoilLayerTransformer_TransformSegmentToRing_Invalid_geometry_for_Ring);
+                throw new ImportedDataTransformException(errorMessage, e);
             }
         }
 
@@ -367,10 +367,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                     soilLayer.PopShift,
                     Resources.SoilLayerData_PopDistribution_DisplayName);
             }
-            catch (InvalidDistributionSettingException e)
+            catch (DistributionValidationException e)
             {
-                string exceptionMessage = CreateErrorMessage(soilLayer.MaterialName, e.Message);
-                throw new ImportedDataTransformException(exceptionMessage, e);
+                string errorMessage = CreateErrorMessage(soilLayer.MaterialName, e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
             }
         }
 

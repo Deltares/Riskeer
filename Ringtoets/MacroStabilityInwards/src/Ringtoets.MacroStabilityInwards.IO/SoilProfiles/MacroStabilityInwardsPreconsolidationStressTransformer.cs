@@ -61,7 +61,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
             try
             {
-                ValidateDistribution(preconsolidationStress);
+                DistributionHelper.ValidateLogNormalDistribution(preconsolidationStress.StressDistributionType,
+                                                                 preconsolidationStress.StressShift,
+                                                                 Resources.PreconsolidationStress_DisplayName);
 
                 var distribution = new VariationCoefficientLogNormalDistribution
                 {
@@ -71,12 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
                 return new MacroStabilityInwardsPreconsolidationStress(location, distribution);
             }
-            catch (InvalidDistributionSettingException e)
-            {
-                string errorMessage = CreateErrorMessage(location, e.Message);
-                throw new ImportedDataTransformException(errorMessage, e);
-            }
-            catch (ArgumentOutOfRangeException e)
+            catch (Exception e) when (e is DistributionValidationException || e is ArgumentOutOfRangeException)
             {
                 string errorMessage = CreateErrorMessage(location, e.Message);
                 throw new ImportedDataTransformException(errorMessage, e);
@@ -92,20 +89,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             return string.Format(Resources.Transform_PreconsolidationStressLocation_0_has_invalid_configuration_ErrorMessage_1_,
                                  location,
                                  errorMessage);
-        }
-
-        /// <summary>
-        /// Validates whether the values of the <paramref name="preconsolidationStress"/>
-        /// are correct for creating the log normal distribution of a preconsolidation stress.
-        /// </summary>
-        /// <param name="preconsolidationStress">The <see cref="PreconsolidationStress"/> to validate.</param>
-        /// <exception cref="InvalidDistributionSettingException">Thrown when the stochastic parameters
-        /// are not defined as a log normal distribution.</exception>
-        private static void ValidateDistribution(PreconsolidationStress preconsolidationStress)
-        {
-            DistributionHelper.ValidateLogNormalDistribution(preconsolidationStress.StressDistributionType,
-                                                             preconsolidationStress.StressShift,
-                                                             Resources.PreconsolidationStress_DisplayName);
         }
     }
 }

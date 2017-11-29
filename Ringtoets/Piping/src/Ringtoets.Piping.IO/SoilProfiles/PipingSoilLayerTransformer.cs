@@ -172,10 +172,10 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                     soilLayer.PermeabilityShift,
                     Resources.SoilLayer_PermeabilityDistribution_DisplayName);
             }
-            catch (InvalidDistributionSettingException e)
+            catch (DistributionValidationException e)
             {
-                string errorMessage = CreateExceptionMessage(soilLayer.MaterialName,
-                                                             e.Message);
+                string errorMessage = CreateErrorMessage(soilLayer.MaterialName,
+                                                         e.Message);
                 throw new ImportedDataTransformException(errorMessage, e);
             }
         }
@@ -247,14 +247,14 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             Segment2D[] segment2Ds = loop.ToArray();
             if (segment2Ds.Any(segment => IsVerticalAtX(segment, atX)))
             {
-                string message = CreateExceptionMessage(soilLayerName,
-                                                        string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX));
-                throw new ImportedDataTransformException(message);
+                string errorMessage = CreateErrorMessage(soilLayerName,
+                                                         string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX));
+                throw new ImportedDataTransformException(errorMessage);
             }
             return Math2D.SegmentsIntersectionWithVerticalLine(segment2Ds, atX).Select(p => p.Y);
         }
 
-        private static string CreateExceptionMessage(string soilLayerName, string errorMessage)
+        private static string CreateErrorMessage(string soilLayerName, string errorMessage)
         {
             return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_ErrorMessage_1_,
                                  soilLayerName,
@@ -283,10 +283,10 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
             catch (NotSupportedException e)
             {
-                string message = CreateExceptionMessage(soilLayerName,
-                                                        string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                      RingtoetsCommonIOResources.SoilLayerData_IsAquifer_DisplayName));
-                throw new ImportedDataTransformException(message, e);
+                string errorMessage = CreateErrorMessage(soilLayerName,
+                                                         string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
+                                                                       RingtoetsCommonIOResources.SoilLayerData_IsAquifer_DisplayName));
+                throw new ImportedDataTransformException(errorMessage, e);
             }
         }
     }

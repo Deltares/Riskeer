@@ -63,11 +63,11 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 return CreatePipingSoilProfile(soilProfile2D);
             }
 
-            string message = string.Format(RingtoetsCommonIOResources.SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported,
-                                           soilProfile.GetType().Name,
-                                           nameof(SoilProfile1D),
-                                           nameof(SoilProfile2D));
-            throw new ImportedDataTransformException(message);
+            string errorMessage = string.Format(RingtoetsCommonIOResources.SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported,
+                                                soilProfile.GetType().Name,
+                                                nameof(SoilProfile1D),
+                                                nameof(SoilProfile2D));
+            throw new ImportedDataTransformException(errorMessage);
         }
 
         /// <summary>
@@ -112,8 +112,8 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
             catch (ArgumentException e)
             {
-                string message = CreateErrorMessage(soilProfile2D.Name, e.Message);
-                throw new ImportedDataTransformException(message, e);
+                string errorMessage = CreateErrorMessage(soilProfile2D.Name, e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
             }
         }
 
@@ -137,8 +137,8 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
             catch (ArgumentException e)
             {
-                string message = CreateErrorMessage(soilProfile1D.Name, e.Message);
-                throw new ImportedDataTransformException(message, e);
+                string errorMessage = CreateErrorMessage(soilProfile1D.Name, e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
             }
         }
 

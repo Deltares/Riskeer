@@ -27,6 +27,6 @@ using Ringtoets.Common.IO.Exceptions;
 namespace Ringtoets.Common.IO.Test.Exceptions
 {
     [TestFixture]
-    public class InvalidDistributionSettingExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<InvalidDistributionSettingException, Exception> {}
+    public class DistributionValidationExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<DistributionValidationException, Exception> {}
 }
