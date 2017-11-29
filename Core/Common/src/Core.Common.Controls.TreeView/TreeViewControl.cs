@@ -606,7 +606,7 @@ namespace Core.Common.Controls.TreeView
 
         private void RefreshChildNodes(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
         {
-            IList<TreeNode> newlyAddedChildNodes = new List<TreeNode>();
+            var newlyAddedChildNodes = new List<TreeNode>();
             object[] expectedChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
                                                     ? treeNodeInfo.ChildNodeObjects(treeNode.Tag)
                                                     : new object[0];

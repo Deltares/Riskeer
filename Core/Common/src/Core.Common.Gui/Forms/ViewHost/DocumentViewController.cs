@@ -182,7 +182,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             return view;
         }
 
-        private ViewInfo GetViewInfoUsingDialog(object data, IList<ViewInfo> viewInfoList)
+        private ViewInfo GetViewInfoUsingDialog(object data, IEnumerable<ViewInfo> viewInfoList)
         {
             Type defaultViewTypeForData = GetDefaultViewTypeForData(data);
             string defaultViewName = defaultViewTypeForData != null

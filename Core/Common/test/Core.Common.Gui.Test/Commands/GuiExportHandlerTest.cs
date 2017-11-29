@@ -253,7 +253,7 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.ReplayAll();
 
             var dialogText = "";
-            IList<TestListViewItem> listViewItems = null;
+            List<TestListViewItem> listViewItems = null;
 
             ModalFormHandler = (name, wnd, form) =>
             {
@@ -370,7 +370,7 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.ReplayAll();
 
             var dialogText = "";
-            IList<TestListViewItem> listViewItems = null;
+            List<TestListViewItem> listViewItems = null;
 
             ModalFormHandler = (name, wnd, form) =>
             {

@@ -420,20 +420,20 @@ namespace Core.Common.Base.Geometry
                 if (segment2IsPointDegenerate)
                 {
                     // Both segments can be considered Point2D
-                    return segment1.FirstPoint.Equals(segment2.FirstPoint) ?
-                               Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment1.FirstPoint) :
-                               Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
+                    return segment1.FirstPoint.Equals(segment2.FirstPoint)
+                               ? Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment1.FirstPoint)
+                               : Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
                 }
                 {
-                    return IsPointInCollinearSegment(segment1.FirstPoint, segment2) ?
-                               Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment1.FirstPoint) :
-                               Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
+                    return IsPointInCollinearSegment(segment1.FirstPoint, segment2)
+                               ? Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment1.FirstPoint)
+                               : Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
                 }
             }
 
-            return IsPointInCollinearSegment(segment2.FirstPoint, segment1) ?
-                       Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment2.FirstPoint) :
-                       Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
+            return IsPointInCollinearSegment(segment2.FirstPoint, segment1)
+                       ? Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment2.FirstPoint)
+                       : Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
         }
 
         private static bool IsPointInCollinearSegment(Point2D point, Segment2D colinearSegment)
@@ -523,7 +523,7 @@ namespace Core.Common.Base.Geometry
             return splitResults;
         }
 
-        private static void EnsureLastSplitResultHasEndPointOfLine(ICollection<Point2D> subLine, IList<Segment2D> lineSegments)
+        private static void EnsureLastSplitResultHasEndPointOfLine(List<Point2D> subLine, IList<Segment2D> lineSegments)
         {
             int lastSegmentIndex = lineSegments.Count - 1;
             if (!subLine.Contains(lineSegments[lastSegmentIndex].SecondPoint))
