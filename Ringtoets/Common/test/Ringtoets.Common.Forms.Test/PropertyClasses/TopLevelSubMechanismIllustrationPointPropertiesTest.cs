@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             string illustrationPointName = string.Empty;
-            var submechanismIllustrationPoint =
+            var subMechanismIllustrationPoint =
                 new SubMechanismIllustrationPoint(illustrationPointName,
                                                   3,
                                                   Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             var context = new TopLevelSubMechanismIllustrationPoint(windDirection,
                                                                     closingSituation,
-                                                                    submechanismIllustrationPoint);
+                                                                    subMechanismIllustrationPoint);
 
             // Call
             var properties = new TopLevelSubMechanismIllustrationPointProperties(
@@ -121,7 +121,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             string illustrationPointName = string.Empty;
-            var submechanismIllustrationPoint =
+            var subMechanismIllustrationPoint =
                 new SubMechanismIllustrationPoint(illustrationPointName,
                                                   3,
                                                   Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
@@ -131,7 +131,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             var context = new TopLevelSubMechanismIllustrationPoint(windDirection,
                                                                     closingSituation,
-                                                                    submechanismIllustrationPoint);
+                                                                    subMechanismIllustrationPoint);
 
             // Call
             var properties = new TopLevelSubMechanismIllustrationPointProperties(
@@ -162,7 +162,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             const string illustrationPointName = "name";
-            var submechanismIllustrationPoint = new SubMechanismIllustrationPoint(illustrationPointName,
+            var subMechanismIllustrationPoint = new SubMechanismIllustrationPoint(illustrationPointName,
                                                                                   beta,
                                                                                   stochasts,
                                                                                   illustrationPointResults);
@@ -171,7 +171,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             const string windDirectionName = "windDirection";
             var illustrationPoint = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(windDirectionName),
                                                                               closingSituation,
-                                                                              submechanismIllustrationPoint);
+                                                                              subMechanismIllustrationPoint);
 
             // Call
             var properties = new TopLevelSubMechanismIllustrationPointProperties(illustrationPoint, Enumerable.Empty<string>());
@@ -180,8 +180,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(illustrationPointName, properties.Name);
             Assert.AreEqual(windDirectionName, properties.WindDirection);
             Assert.AreEqual(closingSituation, properties.ClosingSituation);
-            CollectionAssert.AreEqual(submechanismIllustrationPoint.Stochasts, properties.AlphaValues);
-            CollectionAssert.AreEqual(submechanismIllustrationPoint.Stochasts, properties.Durations);
+            CollectionAssert.AreEqual(subMechanismIllustrationPoint.Stochasts, properties.AlphaValues);
+            CollectionAssert.AreEqual(subMechanismIllustrationPoint.Stochasts, properties.Durations);
 
             Assert.AreSame(illustrationPoint.SubMechanismIllustrationPoint,
                            properties.SubMechanismIllustrationPointValues.Data);
@@ -191,7 +191,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GetProperties_DifferentClosingSituations_ReturnsExpectedAttributeValues()
         {
             // Setup
-            var submechanismIllustrationPoint =
+            var subMechanismIllustrationPoint =
                 new SubMechanismIllustrationPoint(string.Empty,
                                                   3,
                                                   Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
@@ -201,7 +201,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             var data = new TopLevelSubMechanismIllustrationPoint(windDirection,
                                                                  closingSituation,
-                                                                 submechanismIllustrationPoint);
+                                                                 subMechanismIllustrationPoint);
 
             // Call
             var properties = new TopLevelSubMechanismIllustrationPointProperties(

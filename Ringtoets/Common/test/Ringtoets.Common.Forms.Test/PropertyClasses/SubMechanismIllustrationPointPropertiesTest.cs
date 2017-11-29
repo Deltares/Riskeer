@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             const string windDirection = "N";
             const string closingSituation = "closing situation";
-            var illustrationPoint = new SubMechanismIllustrationPoint("Submechanism A",
+            var illustrationPoint = new SubMechanismIllustrationPoint("Sub mechanism A",
                                                                       5.4,
                                                                       new[]
                                                                       {

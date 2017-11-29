@@ -55,25 +55,9 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void AssignSettingsFromDatabase_FileWithEmptySettingsDatabase_DefaultsSettingsAdded()
-        {
-            // Setup
-            var input = new TestHydraRingCalculationInput();
-
-            // Call
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, Path.Combine(testDataPath, "hrd.sqlite"), false);
-
-            // Assert
-            Assert.NotNull(input.PreprocessorSetting);
-            Assert.NotNull(input.DesignTablesSetting);
-            Assert.NotNull(input.NumericsSettings);
-            Assert.NotNull(input.TimeIntegrationSetting);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AssignSettingsFromDatabase_UsePreprocessor_SettingsAdded(bool usePreprocessor)
+        public void AssignSettingsFromDatabase_FileWithEmptySettingsDatabase_DefaultsSettingsAdded(bool usePreprocessor)
         {
             // Setup
             var input = new TestHydraRingCalculationInput();
@@ -82,6 +66,9 @@ namespace Ringtoets.Common.Service.Test
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, Path.Combine(testDataPath, "hrd.sqlite"), usePreprocessor);
 
             // Assert
+            Assert.NotNull(input.DesignTablesSetting);
+            Assert.NotNull(input.NumericsSettings);
+            Assert.NotNull(input.TimeIntegrationSetting);
             Assert.NotNull(input.PreprocessorSetting);
             Assert.AreEqual(usePreprocessor, input.PreprocessorSetting.RunPreprocessor);
         }

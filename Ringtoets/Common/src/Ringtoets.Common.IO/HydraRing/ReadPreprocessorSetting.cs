@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Readers
+namespace Ringtoets.Common.IO.HydraRing
 {
     /// <summary>
     /// Container for read preprocessor settings.

@@ -59,9 +59,11 @@ namespace Ringtoets.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Gets <see cref="PreprocessorSetting"/> based on the provided failure mechanism type and location id.
+        /// Gets <see cref="PreprocessorSetting"/> based on the provided location id.
         /// </summary>
-        /// <returns>The <see cref="PreprocessorSetting"/> .</returns>
+        /// <param name="locationId">The location id to obtain the <see cref="PreprocessorSetting"/> for.</param>
+        /// <param name="usePreprocessor">Indicator whether the preprocessor must be taken into account.</param>
+        /// <returns>The <see cref="PreprocessorSetting"/>.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
         /// contain expected type.</exception>
         public PreprocessorSetting GetPreprocessorSetting(long locationId, bool usePreprocessor)
@@ -73,7 +75,7 @@ namespace Ringtoets.Common.IO.HydraRing
 
             ReadPreprocessorSetting readSetting = preprocessorSettingsReader.ReadPreprocessorSetting(locationId) ?? defaultPreprocessorSetting;
 
-            return new PreprocessorSetting(readSetting.ValueMin, readSetting.ValueMax, GetNumericSetting(locationId));
+            return new PreprocessorSetting(readSetting.ValueMin, readSetting.ValueMax, GetNumericsSetting(locationId));
         }
 
         public void Dispose()
@@ -81,6 +83,13 @@ namespace Ringtoets.Common.IO.HydraRing
             preprocessorSettingsReader.Dispose();
         }
 
+        /// <summary>
+        /// Checks whether the location corresponding to the provided id is an excluded location.
+        /// </summary>
+        /// <param name="locationId">The location id to check exclusion for.</param>
+        /// <returns><c>true</c> when <paramref name="locationId"/> is excluded; <c>false</c> otherwise.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
+        /// contain expected type.</exception>
         private bool LocationExcluded(long locationId)
         {
             IEnumerable<long> excludedIds = preprocessorSettingsReader.ReadExcludedPreprocessorLocations();
@@ -88,7 +97,14 @@ namespace Ringtoets.Common.IO.HydraRing
             return excludedIds.Contains(locationId);
         }
 
-        private NumericsSetting GetNumericSetting(long locationId)
+        /// <summary>
+        /// Returns <see cref="NumericsSetting"/> based on the provided location id.
+        /// </summary>
+        /// <param name="locationId">The location id to obtain the <see cref="NumericsSetting"/> for.</param>
+        /// <returns>A new <see cref="NumericsSetting"/> containing values corresponding to the provided location id.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when a column that is being read doesn't
+        /// contain expected type.</exception>
+        private NumericsSetting GetNumericsSetting(long locationId)
         {
             using (var numericsSettingsProvider = new NumericsSettingsProvider(databaseFilePath))
             {

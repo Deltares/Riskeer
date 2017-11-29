@@ -56,8 +56,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                 PreprocessorSetting setting = provider.GetPreprocessorSetting(700131, false);
 
                 // Assert
-                Assert.IsNaN(setting.ValueMin);
-                Assert.IsNaN(setting.ValueMax);
+                Assert.IsFalse(setting.RunPreprocessor);
             }
         }
 
@@ -71,8 +70,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                 PreprocessorSetting setting = provider.GetPreprocessorSetting(700136, true);
 
                 // Assert
-                Assert.IsNaN(setting.ValueMin);
-                Assert.IsNaN(setting.ValueMax);
+                Assert.IsFalse(setting.RunPreprocessor);
             }
         }
 
@@ -86,6 +84,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                 PreprocessorSetting setting = provider.GetPreprocessorSetting(700131, true);
 
                 // Assert
+                Assert.IsTrue(setting.RunPreprocessor);
                 Assert.AreEqual(2, setting.ValueMin);
                 Assert.AreEqual(8, setting.ValueMax);
                 NumericsSetting numericsSetting = setting.NumericsSetting;
@@ -116,6 +115,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                 PreprocessorSetting setting = provider.GetPreprocessorSetting(700139, true);
 
                 // Assert
+                Assert.IsTrue(setting.RunPreprocessor);
                 Assert.AreEqual(1, setting.ValueMin);
                 Assert.AreEqual(6, setting.ValueMax);
                 NumericsSetting numericsSetting = setting.NumericsSetting;
