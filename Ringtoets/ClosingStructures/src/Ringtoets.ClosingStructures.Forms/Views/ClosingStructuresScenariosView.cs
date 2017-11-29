@@ -128,7 +128,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             {
                 ICalculation[] calculations = data.GetCalculations().ToArray();
 
-                Dictionary<string, IList<ICalculation>> calculationsPerSegment =
+                IDictionary<string, List<ICalculation>> calculationsPerSegment =
                     StructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections,
                                                                    calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
 

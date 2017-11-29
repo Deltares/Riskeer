@@ -41,14 +41,14 @@ namespace Ringtoets.Common.Utils
         /// </summary>
         /// <param name="sections">The <see cref="FailureMechanismSection"/> objects.</param>
         /// <param name="calculations">The <see cref="CalculationWithLocation"/> objects.</param>
-        /// <returns>A <see cref="Dictionary{K, V}"/> containing a <see cref="IList{T}"/> 
+        /// <returns>A <see cref="Dictionary{K, V}"/> containing a <see cref="List{T}"/> 
         /// of <see cref="FailureMechanismSectionResult"/> objects 
         /// for each section which has calculations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>
         /// or when an element in <paramref name="calculations"/> is <c>null</c></exception>
         /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is 
         /// <c>null</c>.</exception>
-        public static Dictionary<string, IList<ICalculation>> CollectCalculationsPerSection<T>(IEnumerable<FailureMechanismSection> sections,
+        public static IDictionary<string, List<ICalculation>> CollectCalculationsPerSection<T>(IEnumerable<FailureMechanismSection> sections,
                                                                                                IEnumerable<StructuresCalculation<T>> calculations)
             where T : IStructuresCalculationInput<StructureBase>, new()
         {

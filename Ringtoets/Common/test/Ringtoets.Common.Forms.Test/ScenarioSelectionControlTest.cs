@@ -157,16 +157,16 @@ namespace Ringtoets.Common.Forms.Test
                 {
                     rowA,
                     rowB
-                }, new Dictionary<string, IList<ICalculation>>
+                }, new Dictionary<string, List<ICalculation>>
                 {
                     {
-                        sectionNameA, new[]
+                        sectionNameA, new List<ICalculation>
                         {
                             calculationA
                         }
                     },
                     {
-                        sectionNameB, new[]
+                        sectionNameB, new List<ICalculation>
                         {
                             calculationB
                         }
@@ -220,10 +220,10 @@ namespace Ringtoets.Common.Forms.Test
                 }, new[]
                 {
                     row
-                }, new Dictionary<string, IList<ICalculation>>
+                }, new Dictionary<string, List<ICalculation>>
                 {
                     {
-                        sectionName, new[]
+                        sectionName, new List<ICalculation>
                         {
                             calculation
                         }
@@ -265,10 +265,10 @@ namespace Ringtoets.Common.Forms.Test
                 }, new[]
                 {
                     row
-                }, new Dictionary<string, IList<ICalculation>>
+                }, new Dictionary<string, List<ICalculation>>
                 {
                     {
-                        sectionName, new[]
+                        sectionName, new List<ICalculation>
                         {
                             calculation
                         }

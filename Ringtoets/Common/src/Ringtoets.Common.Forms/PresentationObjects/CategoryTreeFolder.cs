@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -36,10 +37,10 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <param name="name">The name of the category folder.</param>
         /// <param name="contents">The contents of the folder.</param>
         /// <param name="category">Optional: The category descriptor of the folder. Default: <see cref="TreeFolderCategory.General"/>.</param>
-        public CategoryTreeFolder(string name, IList contents, TreeFolderCategory category = TreeFolderCategory.General)
+        public CategoryTreeFolder(string name, IEnumerable contents, TreeFolderCategory category = TreeFolderCategory.General)
         {
             Name = name;
-            Contents = contents.OfType<object>().ToArray();
+            Contents = contents.OfType<object>().ToList();
             Category = category;
         }
 
@@ -51,7 +52,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the contents of the folder.
         /// </summary>
-        public IList Contents { get; }
+        public List<object> Contents { get; }
 
         /// <summary>
         /// Gets the category of the folder.
@@ -80,7 +81,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
 
         public override int GetHashCode()
         {
-            return Contents.Cast<object>().Aggregate(Name?.GetHashCode() ?? 0, (current, content) => current ^ content.GetHashCode());
+            return Contents.Aggregate(Name?.GetHashCode() ?? 0, (current, content) => current ^ content.GetHashCode());
         }
 
         private bool Equals(CategoryTreeFolder other)

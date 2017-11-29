@@ -368,7 +368,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
-        private static IList GetInputs(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable GetInputs(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -379,7 +379,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
-        private static IList GetOutputs(ClosingStructuresFailureMechanism failureMechanism)
+        private static IEnumerable GetOutputs(ClosingStructuresFailureMechanism failureMechanism)
         {
             return new ArrayList
             {
@@ -595,7 +595,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
-        private void UpdateStructureDependentDataOfCalculations(IList<StructuresCalculation<ClosingStructuresInput>> calculations)
+        private void UpdateStructureDependentDataOfCalculations(IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (StructureDependentDataShouldUpdate(calculations, message))

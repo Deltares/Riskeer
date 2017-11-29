@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Utils
 
             SectionResultWithCalculationAssignment[] sectionResultsArray = sectionResults.ToArray();
 
-            Dictionary<string, IList<ICalculation>> calculationsPerSegmentName =
+            IDictionary<string, List<ICalculation>> calculationsPerSegmentName =
                 CollectCalculationsPerSection(sectionResultsArray.Select(sr => sr.Result.Section), calculations);
 
             return UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(
@@ -68,13 +68,13 @@ namespace Ringtoets.Common.Utils
         /// </summary>
         /// <param name="sections">The <see cref="FailureMechanismSection"/> objects.</param>
         /// <param name="calculations">The <see cref="CalculationWithLocation"/> objects.</param>
-        /// <returns>A <see cref="Dictionary{K, V}"/> containing a <see cref="IList{T}"/> 
+        /// <returns>A <see cref="Dictionary{K, V}"/> containing a <see cref="List{T}"/> 
         /// of <see cref="FailureMechanismSectionResult"/> objects 
         /// for each section name which has calculations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="sections"/> or <paramref name="calculations"/>
         /// contains a <c>null</c> element.</exception>
-        public static Dictionary<string, IList<ICalculation>> CollectCalculationsPerSection(
+        public static IDictionary<string, List<ICalculation>> CollectCalculationsPerSection(
             IEnumerable<FailureMechanismSection> sections,
             IEnumerable<CalculationWithLocation> calculations)
         {
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Utils
 
             SectionSegments[] sectionSegments = SectionSegmentsHelper.MakeSectionSegments(sections);
 
-            var calculationsPerSegment = new Dictionary<string, IList<ICalculation>>();
+            var calculationsPerSegment = new Dictionary<string, List<ICalculation>>();
 
             foreach (CalculationWithLocation calculationWithLocation in calculations)
             {
@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Utils
 
         private static IEnumerable<FailureMechanismSectionResult> UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(
             IEnumerable<SectionResultWithCalculationAssignment> sectionResults,
-            Dictionary<string, IList<ICalculation>> calculationsPerSegmentName)
+            IDictionary<string, List<ICalculation>> calculationsPerSegmentName)
         {
             var affectedObjects = new Collection<FailureMechanismSectionResult>();
             foreach (SectionResultWithCalculationAssignment sectionResult in sectionResults)
@@ -162,7 +162,7 @@ namespace Ringtoets.Common.Utils
             return SectionSegmentsHelper.GetSectionForPoint(sectionSegmentsCollection, location);
         }
 
-        private static void UpdateCalculationsOfSegment(Dictionary<string, IList<ICalculation>> calculationsPerSegment,
+        private static void UpdateCalculationsOfSegment(IDictionary<string, List<ICalculation>> calculationsPerSegment,
                                                         string sectionName, ICalculation calculation)
         {
             if (!calculationsPerSegment.ContainsKey(sectionName))

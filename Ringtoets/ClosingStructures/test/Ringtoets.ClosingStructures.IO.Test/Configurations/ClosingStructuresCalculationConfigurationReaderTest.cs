@@ -305,7 +305,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -339,7 +339,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -397,7 +397,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -453,7 +453,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -509,7 +509,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);
@@ -560,7 +560,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);

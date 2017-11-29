@@ -268,7 +268,7 @@ namespace Ringtoets.Common.Utils.Test
             mockRepository.ReplayAll();
 
             // Call
-            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
+            IDictionary<string, List<ICalculation>> collectCalculationsPerSegment =
                 AssignUnassignCalculations.CollectCalculationsPerSection(Enumerable.Empty<FailureMechanismSection>(), twoCalculationsInFirstSection);
 
             // Assert
@@ -280,7 +280,7 @@ namespace Ringtoets.Common.Utils.Test
         public void CollectCalculationsPerSegment_ValidEmptyCalculations_EmptyDictionary()
         {
             // Call
-            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
+            IDictionary<string, List<ICalculation>> collectCalculationsPerSegment =
                 AssignUnassignCalculations.CollectCalculationsPerSection(oneSection, Enumerable.Empty<CalculationWithLocation>());
 
             // Assert
@@ -296,7 +296,7 @@ namespace Ringtoets.Common.Utils.Test
             mockRepository.ReplayAll();
 
             // Call
-            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
+            IDictionary<string, List<ICalculation>> collectCalculationsPerSegment =
                 AssignUnassignCalculations.CollectCalculationsPerSection(twoSections, twoCalculationsInFirstSection);
 
             // Assert
@@ -314,7 +314,7 @@ namespace Ringtoets.Common.Utils.Test
             mockRepository.ReplayAll();
 
             // Call
-            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
+            IDictionary<string, List<ICalculation>> collectCalculationsPerSegment =
                 AssignUnassignCalculations.CollectCalculationsPerSection(twoSections, oneCalculationInEachSection);
 
             // Assert

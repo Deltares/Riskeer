@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms
         /// <param name="calculationsPerSection">The allowed calculations grouped by the name of the failure mechanism sections.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public void UpdateDataGridViewDataSource<T>(
-            IEnumerable<ICalculation> calculations, IEnumerable<T> scenarioRows, Dictionary<string, IList<ICalculation>> calculationsPerSection)
+            IEnumerable<ICalculation> calculations, IEnumerable<T> scenarioRows, IDictionary<string, List<ICalculation>> calculationsPerSection)
             where T : IScenarioRow<ICalculation>
         {
             if (calculations == null)
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Forms
             dataGridViewControl.EndEdit();
         }
 
-        private void UpdateDataGridViewDataComboBoxesContent(Dictionary<string, IList<ICalculation>> calculationsPerSegmentName)
+        private void UpdateDataGridViewDataComboBoxesContent(IDictionary<string, List<ICalculation>> calculationsPerSegmentName)
         {
             foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
             {
@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Forms
                 nameof(DataGridViewComboBoxItemWrapper<ICalculation>.DisplayName));
         }
 
-        private void FillAvailableCalculationsList(DataGridViewRow dataGridViewRow, Dictionary<string, IList<ICalculation>> calculationsPerSegmentName)
+        private static void FillAvailableCalculationsList(DataGridViewRow dataGridViewRow, IDictionary<string, List<ICalculation>> calculationsPerSegmentName)
         {
             var rowData = (IScenarioRow<ICalculation>) dataGridViewRow.DataBoundItem;
             string sectionName = rowData.Name;
