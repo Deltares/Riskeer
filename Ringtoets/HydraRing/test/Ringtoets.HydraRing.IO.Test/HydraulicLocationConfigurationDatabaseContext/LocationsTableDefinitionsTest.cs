@@ -33,6 +33,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
             Assert.AreEqual("Locations", LocationsTableDefinitions.TableName);
             Assert.AreEqual("HRDLocationId", LocationsTableDefinitions.HrdLocationId);
             Assert.AreEqual("LocationId", LocationsTableDefinitions.LocationId);
+            Assert.AreEqual("TrackId", LocationsTableDefinitions.TrackId);
         }
     }
 }

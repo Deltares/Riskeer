@@ -30,5 +30,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         public const string TableName = "Locations";
         public const string LocationId = "LocationId";
         public const string HrdLocationId = "HRDLocationId";
+        public const string TrackId = "TrackId";
     }
 }

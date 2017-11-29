@@ -27,26 +27,26 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
     public static class HydraulicLocationConfigurationDatabaseQueryBuilder
     {
         /// <summary>
-        /// Gets the query to get the LocationIds from the database.
+        /// Gets the query to get location ids from the database.
         /// </summary>
-        /// <returns>The query to get the locationIds from the database.</returns>
-        public static string GetLocationsIdByTrackIdQuery()
+        /// <returns>The query to get location ids from the database.</returns>
+        public static string GetLocationIdsByTrackIdQuery()
         {
             return $"SELECT {LocationsTableDefinitions.LocationId}, {LocationsTableDefinitions.HrdLocationId} " +
                    $"FROM {LocationsTableDefinitions.TableName} " +
-                   $"WHERE {TracksTableDefinitions.TrackId} = @{TracksTableDefinitions.TrackId} " +
+                   $"WHERE {LocationsTableDefinitions.TrackId} = @{LocationsTableDefinitions.TrackId} " +
                    $"ORDER BY {LocationsTableDefinitions.HrdLocationId};";
         }
 
         /// <summary>
-        /// Gets the query to get the UsePreprocessor indicator from the database.
+        /// Gets the query to get region information from the database.
         /// </summary>
-        /// <returns>The query to get the UsePreprocessor indicator from the database.</returns>
-        public static string GetUsePreprocessorByTrackIdQuery()
+        /// <returns>The query to get region information from the database.</returns>
+        public static string GetRegionByTrackIdQuery()
         {
             return $"SELECT * FROM {RegionsTableDefinitions.TableName} " +
                    $"LEFT JOIN {TracksTableDefinitions.TableName} " +
-                   $"ON {RegionsTableDefinitions.TableName}.{RegionsTableDefinitions.RegionId} = {TracksTableDefinitions.TableName}.{RegionsTableDefinitions.RegionId} " +
+                   $"ON {RegionsTableDefinitions.TableName}.{RegionsTableDefinitions.RegionId} = {TracksTableDefinitions.TableName}.{TracksTableDefinitions.RegionId} " +
                    $"WHERE {TracksTableDefinitions.TableName}.{TracksTableDefinitions.TrackId} = @{TracksTableDefinitions.TrackId}";
         }
     }

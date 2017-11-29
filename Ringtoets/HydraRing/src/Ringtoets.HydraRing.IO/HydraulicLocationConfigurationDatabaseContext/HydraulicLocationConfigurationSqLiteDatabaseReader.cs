@@ -66,7 +66,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
             var trackParameter = new SQLiteParameter
             {
                 DbType = DbType.String,
-                ParameterName = TracksTableDefinitions.TrackId,
+                ParameterName = LocationsTableDefinitions.TrackId,
                 Value = trackId
             };
 
@@ -131,8 +131,8 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         private Dictionary<long, long> GetLocationIdsFromDatabase(SQLiteParameter trackParameter)
         {
             var dictionary = new Dictionary<long, long>();
-            string locationIdQuery = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsIdByTrackIdQuery();
-            using (IDataReader dataReader = CreateDataReader(locationIdQuery, trackParameter))
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdsByTrackIdQuery();
+            using (IDataReader dataReader = CreateDataReader(query, trackParameter))
             {
                 while (MoveNext(dataReader))
                 {
@@ -165,7 +165,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         /// <exception cref="CriticalFileReadException">Thrown when no results could be found.</exception>
         private bool GetCanUsePreprocessorFromDatabase(SQLiteParameter trackParameter)
         {
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetUsePreprocessorByTrackIdQuery();
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetRegionByTrackIdQuery();
             using (IDataReader dataReader = CreateDataReader(query, trackParameter))
             {
                 DataTable schemaTable = dataReader.GetSchemaTable();
