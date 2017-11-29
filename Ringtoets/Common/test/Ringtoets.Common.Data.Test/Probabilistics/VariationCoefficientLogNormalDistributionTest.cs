@@ -224,7 +224,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             CoreCloneAssert.AreObjectClones(original, clone, DistributionAssert.AreEqual);
         }
 
-
         private static VariationCoefficientLogNormalDistribution CreateFullyDefinedDistribution()
         {
             return new VariationCoefficientLogNormalDistribution(5)
