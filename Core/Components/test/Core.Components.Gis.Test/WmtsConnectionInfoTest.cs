@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
@@ -64,109 +65,34 @@ namespace Core.Components.Gis.Test
             Assert.AreEqual(url, connectionInfo.Url);
         }
 
-        [Test]
-        public void Equals_ToNull_ReturnFalse()
+        [TestFixture]
+        private class WmtsConnectionInfoEqualsTest : EqualsGuidelinesTestFixture<WmtsConnectionInfo, DerivedWmtsConnectionInfo>
         {
-            // Setup
-            var info = new WmtsConnectionInfo("name", "url");
+            private const string name = "name";
+            private const string url = "url";
 
-            // Call
-            bool isEqual = info.Equals(null);
+            protected override WmtsConnectionInfo CreateObject()
+            {
+                return new WmtsConnectionInfo(name, url);
+            }
 
-            // Assert
-            Assert.IsFalse(isEqual);
+            protected override DerivedWmtsConnectionInfo CreateDerivedObject()
+            {
+                return new DerivedWmtsConnectionInfo(name, url);
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new WmtsConnectionInfo("Different name", url))
+                    .SetName("Name");
+                yield return new TestCaseData(new WmtsConnectionInfo(name, "Different url"))
+                    .SetName("URL");
+            }
         }
 
-        [Test]
-        public void Equals_ToOtherObject_ReturnFalse()
+        private class DerivedWmtsConnectionInfo : WmtsConnectionInfo
         {
-            // Setup
-            var info = new WmtsConnectionInfo("name", "url");
-
-            // Call
-            bool isEqual = info.Equals(new object());
-
-            // Assert
-            Assert.IsFalse(isEqual);
-        }
-
-        [Test]
-        public void Equals_ToItself_ReturnTrue()
-        {
-            // Setup
-            var info = new WmtsConnectionInfo("name", "url");
-
-            // Call
-            bool isEqual = info.Equals(info);
-
-            // Assert
-            Assert.IsTrue(isEqual);
-        }
-
-        [Test]
-        public void Equals_ToOtherWithSameNameDifferentUrl_ReturnsFalse()
-        {
-            // Setup
-            var info = new WmtsConnectionInfo("name", "url");
-            var other = new WmtsConnectionInfo("name", "otherUrl");
-
-            // Call
-            bool isEqual = info.Equals(other);
-            bool otherIsEqual = info.Equals(other);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-            Assert.IsFalse(otherIsEqual);
-        }
-
-        [Test]
-        public void Equals_ToOtherWithDifferentNameSameUrl_ReturnsFalse()
-        {
-            // Setup
-            var info = new WmtsConnectionInfo("name", "url");
-            var other = new WmtsConnectionInfo("otherName", "url");
-
-            // Call
-            bool isEqual = info.Equals(other);
-            bool otherIsEqual = info.Equals(other);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-            Assert.IsFalse(otherIsEqual);
-        }
-
-        [Test]
-        public void Equals_ToOtherWithSameData_ReturnsTrue()
-        {
-            // Setup
-            var info = new WmtsConnectionInfo("name", "url");
-            var other = new WmtsConnectionInfo("name", "url");
-
-            // Call
-            bool isEqual = info.Equals(other);
-            bool otherIsEqual = info.Equals(other);
-
-            // Assert
-            Assert.IsTrue(isEqual);
-            Assert.IsTrue(otherIsEqual);
-        }
-
-        [Test]
-        public void GetHashCode_EqualObjects_ReturnSameHashCode()
-        {
-            // Setup
-            var info = new WmtsConnectionInfo("name", "url");
-            var other = new WmtsConnectionInfo("name", "url");
-
-            // Precondition
-            Assert.AreEqual(info, other);
-
-            // Call
-            int hashCode = info.GetHashCode();
-            int otherHashCode = other.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCode, otherHashCode);
+            public DerivedWmtsConnectionInfo(string name, string url) : base(name, url) {}
         }
     }
 }
