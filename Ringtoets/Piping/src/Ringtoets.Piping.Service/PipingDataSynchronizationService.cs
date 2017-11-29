@@ -168,7 +168,7 @@ namespace Ringtoets.Piping.Service
                                 .Cast<PipingCalculation>()
                                 .Where(pcs => ReferenceEquals(pcs.InputParameters.SurfaceLine, surfaceLine));
 
-            IList<IObservable> changedObservables = RemoveSurfaceLineDependentData(pipingCalculationScenarios).ToList();
+            List<IObservable> changedObservables = RemoveSurfaceLineDependentData(pipingCalculationScenarios).ToList();
 
             failureMechanism.SurfaceLines.Remove(surfaceLine);
             changedObservables.Add(failureMechanism.SurfaceLines);

@@ -328,21 +328,31 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 existingModel
             }, sourceFilePath);
 
-            IList<MacroStabilityInwardsStochasticSoilProfile> readStochasticSoilProfiles = CreateStochasticSoilProfiles();
+            List<MacroStabilityInwardsStochasticSoilProfile> readStochasticSoilProfiles = CreateStochasticSoilProfiles();
             MacroStabilityInwardsStochasticSoilProfile changedProfile = CloneAndSlightlyModify1DProfile(readStochasticSoilProfiles[0]);
             readStochasticSoilProfiles[0] = changedProfile;
             MacroStabilityInwardsStochasticSoilModel readModel =
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(modelsName, readStochasticSoilProfiles);
 
-            var calculationWithUpdatedProfile = new MacroStabilityInwardsCalculationScenario();
-            calculationWithUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
-            calculationWithUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(0);
-            calculationWithUpdatedProfile.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
+            var calculationWithUpdatedProfile = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    StochasticSoilModel = existingModel,
+                    StochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(0)
+                },
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            };
 
-            var calculationWithNotUpdatedProfile = new MacroStabilityInwardsCalculationScenario();
-            calculationWithNotUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
-            calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(1);
-            calculationWithNotUpdatedProfile.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
+            var calculationWithNotUpdatedProfile = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    StochasticSoilModel = existingModel,
+                    StochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(1)
+                },
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            };
 
             failureMechanism.CalculationsGroup.Children.Add(calculationWithNotUpdatedProfile);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithUpdatedProfile);
@@ -396,7 +406,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 existingModel
             }, sourceFilePath);
 
-            IList<MacroStabilityInwardsStochasticSoilProfile> readStochasticSoilProfiles = CreateStochasticSoilProfiles();
+            List<MacroStabilityInwardsStochasticSoilProfile> readStochasticSoilProfiles = CreateStochasticSoilProfiles();
             MacroStabilityInwardsStochasticSoilProfile changedProfile = CloneAndSlightlyModify2DProfile(readStochasticSoilProfiles[1]);
             readStochasticSoilProfiles[1] = changedProfile;
             MacroStabilityInwardsStochasticSoilModel readModel =
@@ -500,7 +510,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             MacroStabilityInwardsStochasticSoilProfile removedProfile = existingModel.StochasticSoilProfiles.ElementAt(0);
             MacroStabilityInwardsStochasticSoilProfile unaffectedProfile = existingModel.StochasticSoilProfiles.ElementAt(1);
 
-            IList<MacroStabilityInwardsStochasticSoilProfile> readStochasticSoilProfiles = CreateStochasticSoilProfiles();
+            List<MacroStabilityInwardsStochasticSoilProfile> readStochasticSoilProfiles = CreateStochasticSoilProfiles();
             readStochasticSoilProfiles.RemoveAt(0);
             MacroStabilityInwardsStochasticSoilModel readModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(modelsName, readStochasticSoilProfiles);
 
@@ -551,7 +561,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         /// with all the supported <see cref="IMacroStabilityInwardsSoilProfile{T}"/>.
         /// </summary>
         /// <returns>A collection of <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.</returns>
-        private static IList<MacroStabilityInwardsStochasticSoilProfile> CreateStochasticSoilProfiles()
+        private static List<MacroStabilityInwardsStochasticSoilProfile> CreateStochasticSoilProfiles()
         {
             return new List<MacroStabilityInwardsStochasticSoilProfile>
             {

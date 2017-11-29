@@ -125,7 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             Point3D surfaceLinePoint = surfaceLine.Points[index];
             GeometryPoint geometryPoint = geometryPoints[index];
 
-            IList<CharacteristicPoint> characteristicPoints = new List<CharacteristicPoint>();
+            var characteristicPoints = new List<CharacteristicPoint>();
 
             if (ReferenceEquals(surfaceLine.DitchPolderSide, surfaceLinePoint))
             {

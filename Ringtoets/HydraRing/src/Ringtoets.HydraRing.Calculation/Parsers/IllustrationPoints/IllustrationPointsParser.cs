@@ -35,12 +35,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
     /// </summary>
     public class IllustrationPointsParser : IHydraRingFileParser
     {
-        private readonly Dictionary<ThreeKeyIndex, IList<Stochast>> faultTreeStochasts = new Dictionary<ThreeKeyIndex, IList<Stochast>>();
+        private readonly Dictionary<ThreeKeyIndex, List<Stochast>> faultTreeStochasts = new Dictionary<ThreeKeyIndex, List<Stochast>>();
         private readonly Dictionary<ThreeKeyIndex, double> faultTreeBetaValues = new Dictionary<ThreeKeyIndex, double>();
 
-        private readonly Dictionary<ThreeKeyIndex, IList<SubMechanismIllustrationPointStochast>> subMechanismStochasts = new Dictionary<ThreeKeyIndex, IList<SubMechanismIllustrationPointStochast>>();
+        private readonly Dictionary<ThreeKeyIndex, List<SubMechanismIllustrationPointStochast>> subMechanismStochasts = new Dictionary<ThreeKeyIndex, List<SubMechanismIllustrationPointStochast>>();
         private readonly Dictionary<ThreeKeyIndex, double> subMechanismBetaValues = new Dictionary<ThreeKeyIndex, double>();
-        private readonly Dictionary<ThreeKeyIndex, IList<IllustrationPointResult>> subMechanismResults = new Dictionary<ThreeKeyIndex, IList<IllustrationPointResult>>();
+        private readonly Dictionary<ThreeKeyIndex, List<IllustrationPointResult>> subMechanismResults = new Dictionary<ThreeKeyIndex, List<IllustrationPointResult>>();
 
         private double beta = double.NaN;
         private WindDirection governingWindDirection;
@@ -326,7 +326,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             return rootIllustrationPoints;
         }
 
-        private static List<Tuple<int?, int, Type, CombinationType>> CreateResultTuples(Dictionary<string, object>[] readFaultTrees)
+        private static List<Tuple<int?, int, Type, CombinationType>> CreateResultTuples(IEnumerable<Dictionary<string, object>> readFaultTrees)
         {
             var results = new List<Tuple<int?, int, Type, CombinationType>>();
 

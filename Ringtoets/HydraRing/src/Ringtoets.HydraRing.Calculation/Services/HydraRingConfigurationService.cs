@@ -115,37 +115,38 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <exception cref="UnauthorizedAccessException">Thrown when the path can't be accessed due to missing permissions.</exception>
         public void WriteDatabaseCreationScript(string databaseFilePath)
         {
-            var configurationDictionary = new Dictionary<string, IList<OrderedDictionary>>();
-
-            configurationDictionary["HydraulicModels"] = GetHydraulicModelsConfiguration();
-            configurationDictionary["Sections"] = GetSectionsConfiguration();
-            configurationDictionary["SectionCalculationSchemes"] = GetSectionCalculationSchemesConfiguration();
-            configurationDictionary["DesignTables"] = GetDesignTablesConfiguration();
-            configurationDictionary["PreprocessorSettings"] = GetPreprocessorSettingsConfiguration();
-            configurationDictionary["Numerics"] = GetNumericsConfiguration();
-            configurationDictionary["VariableDatas"] = GetVariableDatasConfiguration();
-            configurationDictionary["CalculationProfiles"] = GetCalculationProfilesConfiguration();
-            configurationDictionary["SectionFaultTreeModels"] = GetSectionFaultTreeModelsConfiguration();
-            configurationDictionary["SectionSubMechanismModels"] = GetSectionSubMechanismModelsConfiguration();
-            configurationDictionary["Fetches"] = new List<OrderedDictionary>();
-            configurationDictionary["AreaPoints"] = new List<OrderedDictionary>();
-            configurationDictionary["PresentationSections"] = new List<OrderedDictionary>();
-            configurationDictionary["Profiles"] = GetProfilesConfiguration();
-            configurationDictionary["ForelandModels"] = GetForlandModelsConfiguration();
-            configurationDictionary["Forelands"] = GetForelandsConfiguration();
-            configurationDictionary["ProbabilityAlternatives"] = new List<OrderedDictionary>();
-            configurationDictionary["SetUpHeights"] = new List<OrderedDictionary>();
-            configurationDictionary["CalcWindDirections"] = new List<OrderedDictionary>();
-            configurationDictionary["Swells"] = new List<OrderedDictionary>();
-            configurationDictionary["WaveReductions"] = new List<OrderedDictionary>();
-            configurationDictionary["Areas"] = GetAreasConfiguration();
-            configurationDictionary["Projects"] = GetProjectsConfiguration();
-            configurationDictionary["Breakwaters"] = GetBreakWatersConfiguration();
+            var configurationDictionary = new Dictionary<string, IEnumerable<OrderedDictionary>>
+            {
+                ["HydraulicModels"] = GetHydraulicModelsConfiguration(),
+                ["Sections"] = GetSectionsConfiguration(),
+                ["SectionCalculationSchemes"] = GetSectionCalculationSchemesConfiguration(),
+                ["DesignTables"] = GetDesignTablesConfiguration(),
+                ["PreprocessorSettings"] = GetPreprocessorSettingsConfiguration(),
+                ["Numerics"] = GetNumericsConfiguration(),
+                ["VariableDatas"] = GetVariableDatasConfiguration(),
+                ["CalculationProfiles"] = GetCalculationProfilesConfiguration(),
+                ["SectionFaultTreeModels"] = GetSectionFaultTreeModelsConfiguration(),
+                ["SectionSubMechanismModels"] = GetSectionSubMechanismModelsConfiguration(),
+                ["Fetches"] = new List<OrderedDictionary>(),
+                ["AreaPoints"] = new List<OrderedDictionary>(),
+                ["PresentationSections"] = new List<OrderedDictionary>(),
+                ["Profiles"] = GetProfilesConfiguration(),
+                ["ForelandModels"] = GetForlandModelsConfiguration(),
+                ["Forelands"] = GetForelandsConfiguration(),
+                ["ProbabilityAlternatives"] = new List<OrderedDictionary>(),
+                ["SetUpHeights"] = new List<OrderedDictionary>(),
+                ["CalcWindDirections"] = new List<OrderedDictionary>(),
+                ["Swells"] = new List<OrderedDictionary>(),
+                ["WaveReductions"] = new List<OrderedDictionary>(),
+                ["Areas"] = GetAreasConfiguration(),
+                ["Projects"] = GetProjectsConfiguration(),
+                ["Breakwaters"] = GetBreakWatersConfiguration()
+            };
 
             File.WriteAllText(databaseFilePath, GenerateDatabaseCreationScript(configurationDictionary));
         }
 
-        private IList<OrderedDictionary> GetHydraulicModelsConfiguration()
+        private IEnumerable<OrderedDictionary> GetHydraulicModelsConfiguration()
         {
             return new List<OrderedDictionary>
             {
@@ -164,7 +165,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             };
         }
 
-        private IList<OrderedDictionary> GetSectionsConfiguration()
+        private IEnumerable<OrderedDictionary> GetSectionsConfiguration()
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
@@ -222,7 +223,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderedDictionaries;
         }
 
-        private IList<OrderedDictionary> GetSectionCalculationSchemesConfiguration()
+        private IEnumerable<OrderedDictionary> GetSectionCalculationSchemesConfiguration()
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
@@ -248,7 +249,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderedDictionaries;
         }
 
-        private IList<OrderedDictionary> GetDesignTablesConfiguration()
+        private IEnumerable<OrderedDictionary> GetDesignTablesConfiguration()
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
@@ -304,7 +305,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderedDictionaries;
         }
 
-        private IList<OrderedDictionary> GetPreprocessorSettingsConfiguration()
+        private IEnumerable<OrderedDictionary> GetPreprocessorSettingsConfiguration()
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
@@ -332,7 +333,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderedDictionaries;
         }
 
-        private IList<OrderedDictionary> GetNumericsConfiguration()
+        private IEnumerable<OrderedDictionary> GetNumericsConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
 
@@ -429,7 +430,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             };
         }
 
-        private IList<OrderedDictionary> GetVariableDatasConfiguration()
+        private IEnumerable<OrderedDictionary> GetVariableDatasConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
 
@@ -492,7 +493,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderDictionaries;
         }
 
-        private IList<OrderedDictionary> GetProfilesConfiguration()
+        private IEnumerable<OrderedDictionary> GetProfilesConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
 
@@ -523,7 +524,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderDictionaries;
         }
 
-        private IList<OrderedDictionary> GetCalculationProfilesConfiguration()
+        private IEnumerable<OrderedDictionary> GetCalculationProfilesConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
 
@@ -557,7 +558,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderDictionaries;
         }
 
-        private IList<OrderedDictionary> GetForlandModelsConfiguration()
+        private IEnumerable<OrderedDictionary> GetForlandModelsConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
             foreach (HydraRingCalculationInput input in hydraRingInputs.Where(i => i.ForelandsPoints.Any() || i.BreakWater != null))
@@ -579,7 +580,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderDictionaries;
         }
 
-        private IList<OrderedDictionary> GetForelandsConfiguration()
+        private IEnumerable<OrderedDictionary> GetForelandsConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
             foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
@@ -608,7 +609,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderDictionaries;
         }
 
-        private IList<OrderedDictionary> GetBreakWatersConfiguration()
+        private IEnumerable<OrderedDictionary> GetBreakWatersConfiguration()
         {
             var orderedDictionaries = new List<OrderedDictionary>();
             foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
@@ -632,7 +633,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderedDictionaries;
         }
 
-        private IList<OrderedDictionary> GetSectionFaultTreeModelsConfiguration()
+        private IEnumerable<OrderedDictionary> GetSectionFaultTreeModelsConfiguration()
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
@@ -677,7 +678,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             };
         }
 
-        private IList<OrderedDictionary> GetSectionSubMechanismModelsConfiguration()
+        private IEnumerable<OrderedDictionary> GetSectionSubMechanismModelsConfiguration()
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
@@ -716,7 +717,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderedDictionaries;
         }
 
-        private static IList<OrderedDictionary> GetAreasConfiguration()
+        private static IEnumerable<OrderedDictionary> GetAreasConfiguration()
         {
             return new List<OrderedDictionary>
             {
@@ -735,7 +736,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             };
         }
 
-        private static IList<OrderedDictionary> GetProjectsConfiguration()
+        private static IEnumerable<OrderedDictionary> GetProjectsConfiguration()
         {
             return new List<OrderedDictionary>
             {
@@ -754,7 +755,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             };
         }
 
-        private static string GenerateDatabaseCreationScript(Dictionary<string, IList<OrderedDictionary>> configurationDictionary)
+        private static string GenerateDatabaseCreationScript(Dictionary<string, IEnumerable<OrderedDictionary>> configurationDictionary)
         {
             var lines = new List<string>();
 
@@ -762,7 +763,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             {
                 lines.Add("DELETE FROM [" + tableName + "];");
 
-                if (configurationDictionary[tableName].Count <= 0)
+                if (!configurationDictionary[tableName].Any())
                 {
                     lines.Add("");
 

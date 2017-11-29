@@ -338,7 +338,7 @@ namespace Ringtoets.Piping.Data
             return distribution.Mean.NumberOfDecimalPlaces;
         }
 
-        private static bool HasCorrectSaturatedWeightDistributionParameterDefinition(IList<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
+        private static bool HasCorrectSaturatedWeightDistributionParameterDefinition(IEnumerable<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
         {
             if (!consecutiveAquitardLayers.Any())
             {
@@ -362,7 +362,7 @@ namespace Ringtoets.Piping.Data
                                          distributions[0]));
         }
 
-        private static bool HasCorrectDarcyPermeabilityWeightDistributionParameterDefinition(IList<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
+        private static bool HasCorrectDarcyPermeabilityWeightDistributionParameterDefinition(IEnumerable<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
         {
             if (!consecutiveAquitardLayers.Any())
             {
@@ -386,7 +386,7 @@ namespace Ringtoets.Piping.Data
                                          distributions[0]));
         }
 
-        private static LogNormalDistribution[] GetLayerSaturatedVolumicWeightDistributionDefinitions(IList<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
+        private static LogNormalDistribution[] GetLayerSaturatedVolumicWeightDistributionDefinitions(IEnumerable<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
         {
             try
             {
@@ -403,7 +403,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private static VariationCoefficientLogNormalDistribution[] GetLayerPermeabilityDistributionDefinitions(IList<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
+        private static VariationCoefficientLogNormalDistribution[] GetLayerPermeabilityDistributionDefinitions(IEnumerable<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
         {
             try
             {

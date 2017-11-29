@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.KernelWrapper.Creators
             Point3D surfaceLinePoint = line.Points[index];
             Point2D projectedPoint = projectedPoints[index];
 
-            IList<PipingPoint> pipingPoints = new List<PipingPoint>();
+            var pipingPoints = new List<PipingPoint>();
 
             if (ReferenceEquals(line.DitchPolderSide, surfaceLinePoint))
             {

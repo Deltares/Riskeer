@@ -1066,7 +1066,7 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private void UpdateEntryAndExitPointsOfAllCalculations(IList<PipingCalculationScenario> calculations)
+        private void UpdateEntryAndExitPointsOfAllCalculations(IEnumerable<PipingCalculationScenario> calculations)
         {
             string message = RingtoetsCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (VerifyEntryAndExitPointUpdates(calculations, message))

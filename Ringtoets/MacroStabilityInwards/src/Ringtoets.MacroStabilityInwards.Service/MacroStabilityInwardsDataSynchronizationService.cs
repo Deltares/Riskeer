@@ -167,7 +167,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                                 .Cast<MacroStabilityInwardsCalculation>()
                                 .Where(pcs => ReferenceEquals(pcs.InputParameters.SurfaceLine, surfaceLine));
 
-            IList<IObservable> changedObservables = RemoveSurfaceLineDependentData(calculationScenarios).ToList();
+            List<IObservable> changedObservables = RemoveSurfaceLineDependentData(calculationScenarios).ToList();
 
             failureMechanism.SurfaceLines.Remove(surfaceLine);
             changedObservables.Add(failureMechanism.SurfaceLines);

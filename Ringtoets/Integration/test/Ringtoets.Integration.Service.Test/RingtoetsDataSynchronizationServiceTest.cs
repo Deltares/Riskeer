@@ -607,7 +607,7 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
-            IList<object> expectedRemovedObjects = GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection);
+            IEnumerable<object> expectedRemovedObjects = GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection);
 
             // Call
             ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLine(assessmentSection);
@@ -707,7 +707,7 @@ namespace Ringtoets.Integration.Service.Test
             ReferenceLine originalReferenceLine = assessmentSection.ReferenceLine;
             assessmentSection.ReferenceLine = null;
 
-            IList<object> expectedRemovedObjects = GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection);
+            IEnumerable<object> expectedRemovedObjects = GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection);
 
             // Call
             ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLine(assessmentSection);
@@ -1405,7 +1405,7 @@ namespace Ringtoets.Integration.Service.Test
                             "Other section results with a different calculation/dikeprofile should still have their association.");
         }
 
-        private IList<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(AssessmentSection assessmentSection)
+        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(AssessmentSection assessmentSection)
         {
             var expectedRemovedObjects = new List<object>();
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.Piping));

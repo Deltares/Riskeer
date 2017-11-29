@@ -503,7 +503,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 IEnumerable<object> childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(project);
 
                 // Assert
-                IList<AssessmentSection> expectedResult = project.AssessmentSections;
+                List<AssessmentSection> expectedResult = project.AssessmentSections;
                 CollectionAssert.AreEquivalent(expectedResult, childrenWithViewDefinitions);
             }
         }
