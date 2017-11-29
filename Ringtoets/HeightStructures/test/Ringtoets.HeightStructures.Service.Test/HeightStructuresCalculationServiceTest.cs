@@ -838,6 +838,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             mockRepository.VerifyAll();
         }
 
+        [Test]
         [Combinatorial]
         public void Calculate_PreprocessorDirectorySet_InputPropertiesCorrectlySentToCalculator([Values(true, false)] bool usePreprocessor)
         {
