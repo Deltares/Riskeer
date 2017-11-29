@@ -144,295 +144,74 @@ namespace Ringtoets.Piping.Primitives.Test
             AssertPropertiesUpdated(surfaceLineToUpdateFrom, surfaceLine);
         }
 
-        [Test]
-        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
+        [TestFixture]
+        private class PipingSurfaceLineEqualsGuideLines : EqualsGuidelinesTestFixture<PipingSurfaceLine, TestSurfaceLine>
         {
-            // Setup
-            PipingSurfaceLine profile = CreateSurfaceLineWithCharacteristicPoints();
-            var derivedLayer = new TestSurfaceLine(profile);
-
-            // Call
-            bool areEqual = profile.Equals(derivedLayer);
-
-            // Assert
-            Assert.IsTrue(areEqual);
-        }
-
-        [Test]
-        public void Equals_ToItself_ReturnsTrue()
-        {
-            // Setup
-            var surfaceLineOne = new PipingSurfaceLine(string.Empty);
-
-            // Call
-            bool isLineOneEqualToLineOne = surfaceLineOne.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsTrue(isLineOneEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_SameReference_ReturnsTrue()
-        {
-            // Setup
-            var surfaceLineOne = new PipingSurfaceLine(string.Empty);
-            PipingSurfaceLine surfaceLineTwo = surfaceLineOne;
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsTrue(isLineOneEqualToLineTwo);
-            Assert.IsTrue(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_ToNull_ReturnsFalse()
-        {
-            // Setup
-            var surfaceLineOne = new PipingSurfaceLine("Name A");
-
-            // Call
-            bool isLineOneEqualToNull = surfaceLineOne.Equals(null);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToNull);
-        }
-
-        [Test]
-        public void Equals_ToDifferentType_ReturnsFalse()
-        {
-            // Setup
-            var surfaceLineOne = new PipingSurfaceLine("Name A");
-
-            var differentType = new object();
-
-            // Call
-            bool isSurfaceLineEqualToDifferentType = surfaceLineOne.Equals(differentType);
-            bool isDifferentTypeEqualToSurfaceLine = differentType.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isSurfaceLineEqualToDifferentType);
-            Assert.IsFalse(isDifferentTypeEqualToSurfaceLine);
-        }
-
-        [Test]
-        public void Equals_DifferentNames_ReturnsFalse()
-        {
-            // Setup
-            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints("Name one");
-            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints("Name two");
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentGeometries_ReturnsFalse()
-        {
-            // Setup
-            var surfaceLineOne = new PipingSurfaceLine("Name A");
-            surfaceLineOne.SetGeometry(new[]
+            protected override PipingSurfaceLine CreateObject()
             {
-                new Point3D(1, 2, 3)
-            });
+                return CreateSurfaceLineWithCharacteristicPoints();
+            }
 
-            var surfaceLineTwo = new PipingSurfaceLine("Name A");
-            surfaceLineTwo.SetGeometry(new[]
+            protected override TestSurfaceLine CreateDerivedObject()
             {
-                new Point3D(3, 4, 5)
-            });
+                PipingSurfaceLine baseLine = CreateSurfaceLineWithCharacteristicPoints();
+                return new TestSurfaceLine(baseLine);
+            }
 
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                PipingSurfaceLine differentName = CreateSurfaceLineWithCharacteristicPoints("Different Name");
+                yield return new TestCaseData(differentName).SetName("Name");
 
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
+                PipingSurfaceLine differentGeometry = CreateSurfaceLineWithCharacteristicPoints();
+                differentGeometry.SetGeometry(new[]
+                {
+                    new Point3D(3, 4, 5)
+                });
+                yield return new TestCaseData(differentGeometry)
+                    .SetName("Geometry");
 
-        [Test]
-        public void Equals_DifferentReferenceLineIntersectionWorldPoint_ReturnsFalse()
-        {
-            // Setup
-            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            surfaceLineOne.ReferenceLineIntersectionWorldPoint = new Point2D(0, 0);
+                PipingSurfaceLine differentReferenceLineIntersectionWorldPoint = CreateSurfaceLineWithCharacteristicPoints();
+                differentReferenceLineIntersectionWorldPoint.ReferenceLineIntersectionWorldPoint = new Point2D(1, 1);
+                yield return new TestCaseData(differentReferenceLineIntersectionWorldPoint)
+                    .SetName("WorldIntersectionPoint");
 
-            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            surfaceLineTwo.ReferenceLineIntersectionWorldPoint = new Point2D(1, 1);
+                PipingSurfaceLine differentBottomDitchDikeSide = CreateSurfaceLineWithCharacteristicPoints();
+                Point3D[] points = differentBottomDitchDikeSide.Points.ToArray();
+                differentBottomDitchDikeSide.SetBottomDitchDikeSideAt(points[4]);
+                yield return new TestCaseData(differentBottomDitchDikeSide)
+                    .SetName("BottomDitchDikeSide");
 
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+                PipingSurfaceLine differentBottomDitchPolderSide = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentBottomDitchPolderSide.Points.ToArray();
+                differentBottomDitchPolderSide.SetBottomDitchPolderSideAt(points[5]);
+                yield return new TestCaseData(differentBottomDitchPolderSide)
+                    .SetName("BottomDitchPolderSide");
 
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
+                PipingSurfaceLine differentDikeToeAtPolder = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentDikeToeAtPolder.Points.ToArray();
+                differentDikeToeAtPolder.SetDikeToeAtPolderAt(points[5]);
+                yield return new TestCaseData(differentDikeToeAtPolder)
+                    .SetName("DikeToeAtPolder");
 
-        [Test]
-        public void Equals_DifferentBottomDitchDikeSide_ReturnsFalse()
-        {
-            // Setup
-            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetBottomDitchDikeSideAt(points[5]);
+                PipingSurfaceLine differentDikeToeAtRiver = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentDikeToeAtRiver.Points.ToArray();
+                differentDikeToeAtRiver.SetDikeToeAtRiverAt(points[5]);
+                yield return new TestCaseData(differentDikeToeAtRiver)
+                    .SetName("DikeToeAtRiver");
 
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+                PipingSurfaceLine differentDitchDikeSide = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentDitchDikeSide.Points.ToArray();
+                differentDitchDikeSide.SetDitchDikeSideAt(points[1]);
+                yield return new TestCaseData(differentDitchDikeSide)
+                    .SetName("DitchDikeSide");
 
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentBottomDitchPolderSide_ReturnsFalse()
-        {
-            // Setup
-            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetBottomDitchPolderSideAt(points[5]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentDikeToeAtPolder_ReturnsFalse()
-        {
-            // Setup
-            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetDikeToeAtPolderAt(points[5]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentDikeToeAtRiver_ReturnsFalse()
-        {
-            // Setup
-            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetDikeToeAtRiverAt(points[5]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentDitchDikeSide_ReturnsFalse()
-        {
-            // Setup
-            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetDitchDikeSideAt(points[1]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentDitchPolderSide_ReturnsFalse()
-        {
-            // Setup
-            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetDitchPolderSideAt(points[1]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_NamesGeometriesAndReferenceLineIntersectionWorldPointAndCharacteristicPointsEqual_ReturnsTrue()
-        {
-            // Setup
-            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsTrue(isLineOneEqualToLineTwo);
-            Assert.IsTrue(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_TransitivePropertyWithSameNamesAndGeometry_ReturnsTrue()
-        {
-            // Setup
-            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            PipingSurfaceLine surfaceLineThree = CreateSurfaceLineWithCharacteristicPoints();
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineThree = surfaceLineTwo.Equals(surfaceLineThree);
-            bool isLineOneEqualToLineThree = surfaceLineOne.Equals(surfaceLineThree);
-
-            // Assert
-            Assert.IsTrue(isLineOneEqualToLineTwo);
-            Assert.IsTrue(isLineTwoEqualToLineThree);
-            Assert.IsTrue(isLineOneEqualToLineThree);
-        }
-
-        [Test]
-        public void GetHashCode_EqualSurfaceLines_ReturnSameHashCode()
-        {
-            // Setup
-            var surfaceLineOne = new PipingSurfaceLine(string.Empty);
-            var surfaceLineTwo = new PipingSurfaceLine(string.Empty);
-
-            // Call
-            int hashCodeOne = surfaceLineOne.GetHashCode();
-            int hashCodeTwo = surfaceLineTwo.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
+                PipingSurfaceLine differentDitchPolderSide = CreateSurfaceLineWithCharacteristicPoints();
+                points = differentDitchPolderSide.Points.ToArray();
+                differentDitchPolderSide.SetDitchPolderSideAt(points[1]);
+                yield return new TestCaseData(differentDitchPolderSide)
+                    .SetName("DitchPolderSide");
+            }
         }
 
         public abstract class SetCharacteristicPointTest
