@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Controls.DataGrid;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Controls.Test.DataGrid
@@ -82,93 +84,33 @@ namespace Core.Common.Controls.Test.DataGrid
             Assert.AreEqual(dataGridViewComboBoxItemWrapper.DisplayName, text);
         }
 
-        [Test]
-        public void Equals_EqualsWithItself_ReturnTrue()
+        [TestFixture]
+        private class DataGridViewComboBoxItemWrapperEqualsTest
+            : EqualsGuidelinesTestFixture<DataGridViewComboBoxItemWrapper<TestClass>, DerivedDataGridViewComboBoxItemWrapper<TestClass>>
         {
-            // Setup
-            var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(new TestClass());
+            private TestClass wrappedObject;
 
-            // Call
-            bool isEqual = dataGridViewComboBoxItemWrapper.Equals(dataGridViewComboBoxItemWrapper);
+            [SetUp]
+            public void Setup()
+            {
+                wrappedObject = new TestClass();
+            }
 
-            // Assert
-            Assert.IsTrue(isEqual);
-        }
+            protected override DataGridViewComboBoxItemWrapper<TestClass> CreateObject()
+            {
+                return new DataGridViewComboBoxItemWrapper<TestClass>(wrappedObject);
+            }
 
-        [Test]
-        public void Equals_EqualsWithNull_ReturnFalse()
-        {
-            // Setup
-            var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(new TestClass());
+            protected override DerivedDataGridViewComboBoxItemWrapper<TestClass> CreateDerivedObject()
+            {
+                return new DerivedDataGridViewComboBoxItemWrapper<TestClass>(wrappedObject);
+            }
 
-            // Call
-            bool isEqual = dataGridViewComboBoxItemWrapper.Equals(null);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-        }
-
-        [Test]
-        public void Equals_EqualsWithOtherTypeOfObject_ReturnFalse()
-        {
-            // Setup
-            var objectOfDifferentType = new object();
-            var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(new TestClass());
-
-            // Call
-            bool isEqual = dataGridViewComboBoxItemWrapper.Equals(objectOfDifferentType);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-        }
-
-        [Test]
-        public void Equals_EqualsWithOtherEqualWrappedObject_ReturnTrue()
-        {
-            // Setup
-            var testClass = new TestClass();
-            var dataGridViewComboBoxItemWrapper1 = new DataGridViewComboBoxItemWrapper<TestClass>(testClass);
-            var dataGridViewComboBoxItemWrapper2 = new DataGridViewComboBoxItemWrapper<TestClass>(testClass);
-
-            // Call
-            bool isEqual1 = dataGridViewComboBoxItemWrapper1.Equals(dataGridViewComboBoxItemWrapper2);
-            bool isEqual2 = dataGridViewComboBoxItemWrapper2.Equals(dataGridViewComboBoxItemWrapper1);
-
-            // Assert
-            Assert.IsTrue(isEqual1);
-            Assert.IsTrue(isEqual2);
-        }
-
-        [Test]
-        public void Equals_TwoUnequalWrappedObjectInstances_ReturnFalse()
-        {
-            // Setup
-            var dataGridViewComboBoxItemWrapper1 = new DataGridViewComboBoxItemWrapper<TestClass>(new TestClass());
-            var dataGridViewComboBoxItemWrapper2 = new DataGridViewComboBoxItemWrapper<TestClass>(new TestClass());
-
-            // Call
-            bool isEqual1 = dataGridViewComboBoxItemWrapper1.Equals(dataGridViewComboBoxItemWrapper2);
-            bool isEqual2 = dataGridViewComboBoxItemWrapper2.Equals(dataGridViewComboBoxItemWrapper1);
-
-            // Assert
-            Assert.IsFalse(isEqual1);
-            Assert.IsFalse(isEqual2);
-        }
-
-        [Test]
-        public void GetHashCode_TwoEqualWrappedObjectInstances_ReturnSameHash()
-        {
-            // Setup
-            var testClass = new TestClass();
-            var dataGridViewComboBoxItemWrapper1 = new DataGridViewComboBoxItemWrapper<TestClass>(testClass);
-            var dataGridViewComboBoxItemWrapper2 = new DataGridViewComboBoxItemWrapper<TestClass>(testClass);
-
-            // Call
-            int hash1 = dataGridViewComboBoxItemWrapper1.GetHashCode();
-            int hash2 = dataGridViewComboBoxItemWrapper2.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hash1, hash2);
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new DataGridViewComboBoxItemWrapper<TestClass>(new TestClass()))
+                    .SetName("Different wrapped object");
+            }
         }
 
         private class TestClass
@@ -177,6 +119,11 @@ namespace Core.Common.Controls.Test.DataGrid
             {
                 return "Test class";
             }
+        }
+
+        private class DerivedDataGridViewComboBoxItemWrapper<T> : DataGridViewComboBoxItemWrapper<T>
+        {
+            public DerivedDataGridViewComboBoxItemWrapper(T wrappedObject) : base(wrappedObject) {}
         }
     }
 }

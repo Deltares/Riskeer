@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Controls.PresentationObjects;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -56,123 +55,33 @@ namespace Core.Common.Controls.Test.PresentationObjects
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
-        [Test]
-        public void Equals_ToNull_ReturnFalse()
+        [TestFixture]
+        private class WrappedObjectContext : EqualsGuidelinesTestFixture<WrappedObjectContextBase<SimpleEquatable>>
         {
-            // Setup
-            var context = new SimpleWrappedObjectContext<object>(new object());
+            private static object sourceObject;
 
-            // Call
-            bool isEqual = context.Equals(null);
+            [SetUp]
+            public void SetUp()
+            {
+                sourceObject = new object();
+            }
 
-            // Assert
-            Assert.IsFalse(isEqual);
-        }
+            protected override WrappedObjectContextBase<SimpleEquatable> CreateObject()
+            {
+                var wrappedObject = new SimpleEquatable(sourceObject);
+                return new SimpleWrappedObjectContext<SimpleEquatable>(wrappedObject);
+            }
 
-        [Test]
-        public void Equals_ToItself_ReturnTrue()
-        {
-            // Setup
-            var context = new SimpleWrappedObjectContext<object>(new object());
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                var wrappedObject = new SimpleEquatable(sourceObject);
+                yield return new TestCaseData(new AnotherSimpleWrappedObjectContext<SimpleEquatable>(wrappedObject))
+                    .SetName("Different ContextType");
 
-            // Call
-            bool isEqual = context.Equals(context);
-
-            // Assert
-            Assert.IsTrue(isEqual);
-        }
-
-        [Test]
-        public void Equals_ToOtherWithDifferentWrappedType_ReturnFalse()
-        {
-            // Setup
-            var context1 = new SimpleWrappedObjectContext<object>(new object());
-            var context2 = new SimpleWrappedObjectContext<IEnumerable<object>>(Enumerable.Empty<object>());
-
-            // Call
-            bool isEqual1 = context1.Equals(context2);
-            bool isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsFalse(isEqual1);
-            Assert.IsFalse(isEqual2);
-        }
-
-        [Test]
-        public void Equals_ToOtherWithDifferentWrappedData_ReturnFalse()
-        {
-            // Setup
-            var sourceObject1 = new SimpleEquatable(new object());
-            var sourceObject2 = new SimpleEquatable(new object());
-
-            // Precondition:
-            Assert.IsFalse(sourceObject1.Equals(sourceObject2));
-
-            var context1 = new SimpleWrappedObjectContext<SimpleEquatable>(sourceObject1);
-            object context2 = new SimpleWrappedObjectContext<SimpleEquatable>(sourceObject2);
-
-            // Call
-            bool isEqual1 = context1.Equals(context2);
-            bool isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsFalse(isEqual1);
-            Assert.IsFalse(isEqual2);
-        }
-
-        [Test]
-        public void Equals_ToOtherWithDifferentContextType_ReturnFalse()
-        {
-            // Setup
-            var sourceObject = new object();
-            var context1 = new SimpleWrappedObjectContext<object>(sourceObject);
-            object context2 = new AnotherSimpleWrappedObjectContext<object>(sourceObject);
-
-            // Call
-            bool isEqual1 = context1.Equals(context2);
-            bool isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsFalse(isEqual1);
-            Assert.IsFalse(isEqual2);
-        }
-
-        [Test]
-        public void Equals_ToOtherWithSameWrappedData_ReturnTrue()
-        {
-            // Setup
-            var sourceObject = new object();
-            var context1 = new SimpleWrappedObjectContext<object>(sourceObject);
-            object context2 = new SimpleWrappedObjectContext<object>(sourceObject);
-
-            // Call
-            bool isEqual1 = context1.Equals(context2);
-            bool isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsTrue(isEqual1);
-            Assert.IsTrue(isEqual2);
-        }
-
-        [Test]
-        public void GetHashCode_EqualObjects_ReturnSameHashCode()
-        {
-            // Setup
-            var sourceObject = new object();
-            var sourceObject1 = new SimpleEquatable(sourceObject);
-            var sourceObject2 = new SimpleEquatable(sourceObject);
-            var context1 = new SimpleWrappedObjectContext<SimpleEquatable>(sourceObject1);
-            object context2 = new SimpleWrappedObjectContext<SimpleEquatable>(sourceObject2);
-
-            // Precondition:
-            Assert.AreEqual(context1, context2);
-
-            // Call
-            int hashCode1 = context1.GetHashCode();
-            int hashCode2 = context2.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCode1, hashCode2);
+                var differentWrappedObject = new SimpleEquatable(new object());
+                yield return new TestCaseData(new SimpleWrappedObjectContext<SimpleEquatable>(differentWrappedObject))
+                    .SetName("Different wrapped data");
+            }
         }
 
         private class SimpleWrappedObjectContext<T> : WrappedObjectContextBase<T>
