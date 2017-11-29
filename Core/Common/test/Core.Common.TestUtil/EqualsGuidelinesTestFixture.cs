@@ -25,12 +25,10 @@ namespace Core.Common.TestUtil
 {
     /// <summary>
     /// Testfixture that asserts overrides of the <see cref="object.Equals(object)"/> function 
-    /// which follows the guidelines specified at 
+    /// of classes that cannot be derived (sealed) following the guidelines specified at 
     /// https://msdn.microsoft.com/en-us/library/ms173147(v=vs.90).aspx
     /// </summary>
     /// <typeparam name="T">The class to assert.</typeparam>
-    /// <typeparam name="TDerived">The directly derived class from <typeparamref name="T"/>
-    /// without any modifications.</typeparam>
     /// <remarks>Derived classes must implement a static function named <c>GetUnequalTestCases</c> 
     /// which returns object configurations that are different from the values in <see cref="CreateObject"/>.</remarks>
     /// <example>
@@ -41,11 +39,6 @@ namespace Core.Common.TestUtil
     ///     {
     ///         // Returns a base configuration
     ///     }
-    ///
-    ///     protected override TDerived CreateDerivedObject()
-    ///     {
-    ///         // Returns a derived object with the same properties and values as CreateObject()
-    ///     }
     /// 
     ///     private static IEnumerable&lt;TestCaseData&gt; GetUnequalTestCases()
     ///     {
@@ -55,8 +48,7 @@ namespace Core.Common.TestUtil
     /// </code>
     /// </example>
     [TestFixture]
-    public abstract class EqualsGuidelinesTestFixture<T, TDerived> where T : class
-                                                                   where TDerived : T
+    public abstract class EqualsGuidelinesTestFixture<T> where T : class
     {
         [Test]
         public void Equals_ToNull_ReturnsFalse()
@@ -111,20 +103,6 @@ namespace Core.Common.TestUtil
 
             // Assert
             Assert.IsFalse(itemEqualToDifferentObject);
-        }
-
-        [Test]
-        public void Equals_ToDerivedObject_ReturnsFalse()
-        {
-            // Setup
-            T item1 = CreateObject();
-            TDerived deriveditem = CreateDerivedObject();
-
-            // Call
-            bool itemEqualToDerivedItem = item1.Equals(deriveditem);
-
-            // Assert
-            Assert.IsFalse(itemEqualToDerivedItem);
         }
 
         [Test]
@@ -202,10 +180,61 @@ namespace Core.Common.TestUtil
         /// </summary>
         /// <returns>A fully configured object of type <typeparamref name="T"/></returns>
         protected abstract T CreateObject();
+    }
+
+    /// <summary>
+    /// Testfixture that asserts overrides of the <see cref="object.Equals(object)"/> function 
+    /// which follows the guidelines specified at 
+    /// https://msdn.microsoft.com/en-us/library/ms173147(v=vs.90).aspx
+    /// </summary>
+    /// <typeparam name="T">The class to assert.</typeparam>
+    /// <typeparam name="TDerived">The directly derived class from <typeparamref name="T"/>
+    /// without any modifications.</typeparam>
+    /// <remarks>Derived classes must implement a static function named <c>GetUnequalTestCases</c> 
+    /// which returns object configurations that are different from the values in 
+    /// <see cref="EqualsGuidelinesTestFixture{T}.CreateObject"/>.</remarks>
+    /// <example>
+    /// <code>
+    /// private class ConcreteEqualGuideLines : EqualsGuidelinesTestFixture&lt;T, TDerived&gt;
+    /// {
+    ///     protected override T CreateObject()
+    ///     {
+    ///         // Returns a base configuration
+    ///     }
+    ///
+    ///     protected override TDerived CreateDerivedObject()
+    ///     {
+    ///         // Returns a derived object with the same properties and values as CreateObject()
+    ///     }
+    /// 
+    ///     private static IEnumerable&lt;TestCaseData&gt; GetUnequalTestCases()
+    ///     {
+    ///         // Returns object configurations that differ from CreateObject()
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
+    public abstract class EqualsGuidelinesTestFixture<T, TDerived> : EqualsGuidelinesTestFixture<T>
+        where T : class
+        where TDerived : T
+    {
+        [Test]
+        public void Equals_ToDerivedObject_ReturnsFalse()
+        {
+            // Setup
+            T item1 = CreateObject();
+            TDerived deriveditem = CreateDerivedObject();
+
+            // Call
+            bool itemEqualToDerivedItem = item1.Equals(deriveditem);
+
+            // Assert
+            Assert.IsFalse(itemEqualToDerivedItem);
+        }
 
         /// <summary>
         /// Creates a fully configured derived object with the same properties and values as 
-        /// <see cref="CreateObject"/>.
+        /// <see cref="EqualsGuidelinesTestFixture{T}.CreateObject"/>.
         /// </summary>
         /// <returns>A fully configured derived object of <typeparamref name="TDerived"/></returns>
         protected abstract TDerived CreateDerivedObject();
