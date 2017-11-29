@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Base.Test.Geometry
@@ -161,57 +163,6 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void Equals_SameSegment_ReturnsTrue()
-        {
-            // Setup
-            var random = new Random(22);
-            double x1 = random.NextDouble();
-            double x2 = random.NextDouble();
-            double y1 = random.NextDouble();
-            double y2 = random.NextDouble();
-            var point1 = new Point2D(x1, y1);
-            var point2 = new Point2D(x2, y2);
-            var segment = new Segment2D(point1, point2);
-
-            // Assert
-            bool isEqual = segment.Equals(segment);
-
-            // Assert
-            Assert.IsTrue(isEqual);
-        }
-
-        [Test]
-        public void Equals_WithNull_ReturnsFalse()
-        {
-            // Setup
-            var random = new Random(22);
-            double x1 = random.NextDouble();
-            double x2 = random.NextDouble();
-            double y1 = random.NextDouble();
-            double y2 = random.NextDouble();
-            var point1 = new Point2D(x1, y1);
-            var point2 = new Point2D(x2, y2);
-            var segment = new Segment2D(point1, point2);
-
-            // Call & Assert
-            Assert.IsFalse(segment.Equals(null));
-        }
-
-        [Test]
-        public void Equals_WithOtherObjectType_ReturnsFalse()
-        {
-            // Setup
-            var random = new Random(22);
-            var segment = new Segment2D(new Point2D(random.NextDouble(), random.NextDouble()), new Point2D(random.NextDouble(), random.NextDouble()));
-
-            // Call
-            bool isEqual = segment.Equals(new Point2D(0.0, 0.0));
-
-            // Assert
-            Assert.IsFalse(isEqual);
-        }
-
-        [Test]
         public void Equals_SegmentWithTwoPointsWithSameXY_ReturnsTrue()
         {
             // Setup
@@ -229,57 +180,6 @@ namespace Core.Common.Base.Test.Geometry
             // Call & Assert
             Assert.IsTrue(segment1.Equals(segment2));
             Assert.IsTrue(segment1.Equals(segment3));
-        }
-
-        [Test]
-        public void Equals_SegmentWithTwoPointsWithDifferentXY_ReturnsFalse()
-        {
-            // Setup
-            var random = new Random(22);
-            double x1 = random.NextDouble();
-            double x2 = random.NextDouble();
-            double x3 = random.NextDouble();
-            double x4 = random.NextDouble();
-            double y1 = random.NextDouble();
-            double y2 = random.NextDouble();
-            double y3 = random.NextDouble();
-            double y4 = random.NextDouble();
-            var point1 = new Point2D(x1, y1);
-            var point2 = new Point2D(x2, y2);
-            var point3 = new Point2D(x3, y3);
-            var point4 = new Point2D(x4, y4);
-            var segment1 = new Segment2D(point1, point2);
-            var segment2 = new Segment2D(point3, point4);
-
-            // Call & Assert
-            Assert.IsFalse(segment1.Equals(segment2));
-            Assert.IsFalse(segment2.Equals(segment1));
-        }
-
-        [Test]
-        public void GetHashCode_EqualSegments_AreEqual()
-        {
-            // Setup
-            var random = new Random(22);
-            double x1 = random.NextDouble();
-            double x2 = random.NextDouble();
-            double y1 = random.NextDouble();
-            double y2 = random.NextDouble();
-            var point1 = new Point2D(x1, y1);
-            var point2 = new Point2D(x2, y2);
-            var segment1 = new Segment2D(point1, point2);
-            var segment2 = new Segment2D(point1, point2);
-            var segment3 = new Segment2D(point2, point1);
-
-            // Precondition
-            Assert.AreEqual(segment1, segment1);
-            Assert.AreEqual(segment1, segment2);
-            Assert.AreEqual(segment1, segment3);
-
-            // Call & Assert
-            Assert.AreEqual(segment1.GetHashCode(), segment1.GetHashCode());
-            Assert.AreEqual(segment1.GetHashCode(), segment2.GetHashCode());
-            Assert.AreEqual(segment1.GetHashCode(), segment3.GetHashCode());
         }
 
         [Test]
@@ -379,6 +279,38 @@ namespace Core.Common.Base.Test.Geometry
             // Assert
             double expectedDistance = point.GetEuclideanDistanceTo(segment.SecondPoint);
             Assert.AreEqual(expectedDistance, actualDistance);
+        }
+
+        [TestFixture]
+        private class Segment2DEqualsTest : EqualsGuidelinesTestFixture<Segment2D>
+        {
+            protected override Segment2D CreateObject()
+            {
+                return new Segment2D(CreatePoint2D(22),
+                                     CreatePoint2D(23));
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                const double offset = 1e-6;
+                Point2D firstPoint = CreatePoint2D(22);
+                Point2D secondPoint = CreatePoint2D(23);
+
+                yield return new TestCaseData(new Segment2D(firstPoint,
+                                                            new Point2D(secondPoint.X + offset, secondPoint.Y)))
+                    .SetName("One Point different");
+
+                yield return new TestCaseData(new Segment2D(
+                                                  new Point2D(firstPoint.X + offset, secondPoint.Y),
+                                                  new Point2D(secondPoint.X + offset, secondPoint.Y)))
+                    .SetName("Two Points different");
+            }
+        }
+
+        private static Point2D CreatePoint2D(int seed)
+        {
+            var random = new Random(seed);
+            return new Point2D(random.NextDouble(), random.NextDouble());
         }
     }
 }

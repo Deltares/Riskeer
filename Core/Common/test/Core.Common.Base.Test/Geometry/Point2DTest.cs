@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.Data.TestUtil;
@@ -77,100 +78,6 @@ namespace Core.Common.Base.Test.Geometry
             // Assert
             Assert.AreEqual(x, point.X);
             Assert.AreEqual(y, point.Y);
-        }
-
-        [Test]
-        public void Equals_ToNull_ReturnsFalse()
-        {
-            // Setup
-            var point = new Point2D(0, 0);
-
-            // Call
-            bool result = point.Equals(null);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Equals_ToOtherType_ReturnsFalse()
-        {
-            // Setup
-            var point = new Point2D(0, 0);
-
-            // Call
-            bool result = point.Equals(new Point3D(0, 0, 0));
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Equals_ToItself_ReturnsTrue()
-        {
-            // Setup
-            var point = new Point2D(0, 0);
-
-            // Call
-            bool result = point.Equals(point);
-
-            // Assert
-            Assert.IsTrue(result);
-        }
-
-        [Test]
-        [TestCase(0, 0)]
-        [TestCase(1, 2)]
-        public void Equals_OtherWithSameCoordinates_ReturnsTrue(double x, double y)
-        {
-            // Setup
-            var point = new Point2D(x, y);
-            var otherPoint = new Point2D(x, y);
-
-            // Call
-            bool result = point.Equals(otherPoint);
-
-            // Assert
-            Assert.IsTrue(result);
-        }
-
-        [Test]
-        [TestCase(1e-6, 0)]
-        [TestCase(0, 1e-6)]
-        public void Equals_CloseToOtherPoint_ReturnsFalse(double deltaX, double deltaY)
-        {
-            // Setup
-            var random = new Random(22);
-            double x = random.NextDouble();
-            double y = random.NextDouble();
-
-            var point = new Point2D(x, y);
-            var otherPoint = new Point2D(x + deltaX, y + deltaY);
-
-            // Call
-            bool result = point.Equals(otherPoint);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void GetHashCode_PointsAreEqual_PointsHashesEqual()
-        {
-            // Setup
-            var random = new Random(22);
-            double x = random.NextDouble();
-            double y = random.NextDouble();
-
-            var point = new Point2D(x, y);
-            var otherPoint = new Point2D(x, y);
-
-            // Call
-            int result = point.GetHashCode();
-            int otherResult = otherPoint.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(result, otherResult);
         }
 
         [Test]
@@ -420,6 +327,31 @@ namespace Core.Common.Base.Test.Geometry
             // Assert
             string expectedText = $"({point.X}, {point.Y})";
             Assert.AreEqual(expectedText, stringRepresentation);
+        }
+
+        [TestFixture]
+        private class Point2DEqualsTest : EqualsGuidelinesTestFixture<Point2D>
+        {
+            protected override Point2D CreateObject()
+            {
+                return CreatePoint2D();
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                Point2D basePoint = CreatePoint2D();
+                const double offset = 1e-6;
+
+                yield return new TestCaseData(new Point2D(basePoint.X + offset, basePoint.Y)).SetName("X");
+                yield return new TestCaseData(new Point2D(basePoint.X, basePoint.Y + offset)).SetName("Y");
+            }
+        }
+
+        private static Point2D CreatePoint2D()
+        {
+            var random = new Random(21);
+            return new Point2D(random.NextDouble(),
+                               random.NextDouble());
         }
     }
 }
