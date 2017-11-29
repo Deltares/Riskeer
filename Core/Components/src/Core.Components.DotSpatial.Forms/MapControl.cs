@@ -49,7 +49,7 @@ namespace Core.Components.DotSpatial.Forms
         private readonly Cursor defaultCursor = Cursors.Default;
         private readonly RecursiveObserver<MapDataCollection, MapDataCollection> mapDataCollectionObserver;
         private readonly Observer backGroundMapDataObserver;
-        private readonly IList<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
+        private readonly List<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
         private readonly MapControlBackgroundLayerStatus backgroundLayerStatus = new MapControlBackgroundLayerStatus();
 
         private Map map;

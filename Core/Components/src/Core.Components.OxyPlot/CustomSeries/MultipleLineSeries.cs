@@ -47,7 +47,7 @@ namespace Core.Components.OxyPlot.CustomSeries
         /// <summary>
         /// Gets the lines.
         /// </summary>
-        public IList<DataPoint[]> Lines { get; }
+        public List<DataPoint[]> Lines { get; }
 
         /// <summary>
         /// Gets or sets the stroke thickness of the lines.

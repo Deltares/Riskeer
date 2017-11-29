@@ -38,8 +38,8 @@ namespace Core.Common.Base
     {
         private readonly Action updateObserverAction;
         private readonly Func<TContainer, IEnumerable<object>> getChildren;
-        private readonly IList<TContainer> observedContainers = new List<TContainer>();
-        private readonly IList<TObservable> observedChildren = new List<TObservable>();
+        private readonly List<TContainer> observedContainers = new List<TContainer>();
+        private readonly List<TObservable> observedChildren = new List<TObservable>();
         private readonly Observer containerObserver;
         private TContainer rootContainer;
 

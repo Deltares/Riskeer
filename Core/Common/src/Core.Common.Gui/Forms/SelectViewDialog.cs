@@ -33,7 +33,7 @@ namespace Core.Common.Gui.Forms
     /// </summary>
     public partial class SelectViewDialog : DialogBase
     {
-        private IList<string> items;
+        private List<string> items;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SelectViewDialog"/> class.
@@ -57,7 +57,7 @@ namespace Core.Common.Gui.Forms
         /// <summary>
         /// Gets or sets the items to select from.
         /// </summary>
-        public IList<string> Items
+        public List<string> Items
         {
             get
             {

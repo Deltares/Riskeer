@@ -29,7 +29,7 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public class MapDataCollection : MapData
     {
-        private readonly IList<MapData> mapDataList;
+        private readonly List<MapData> mapDataList;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapDataCollection"/>.

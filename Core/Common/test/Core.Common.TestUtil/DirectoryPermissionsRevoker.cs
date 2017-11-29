@@ -34,7 +34,7 @@ namespace Core.Common.TestUtil
     /// </summary>
     public class DirectoryPermissionsRevoker : IDisposable
     {
-        private readonly IList<FileSystemAccessRule> appliedFileSystemAccessRules = new List<FileSystemAccessRule>();
+        private readonly List<FileSystemAccessRule> appliedFileSystemAccessRules = new List<FileSystemAccessRule>();
         private readonly string folderPath;
         private readonly DirectoryInfo directoryInfo;
         private bool disposed;

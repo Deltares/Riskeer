@@ -572,7 +572,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         public void OpenViewForData_OpeningViewForAlreadyOpenedButInactiveView_ActivateDocumentView()
         {
             // Setup
-            IList<IView> viewList = new List<IView>();
+            var viewList = new List<IView>();
             var data = new object();
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();

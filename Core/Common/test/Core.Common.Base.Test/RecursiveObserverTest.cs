@@ -294,12 +294,12 @@ namespace Core.Common.Base.Test
 
         private class TestContainer : Observable
         {
-            public IList<object> Children { get; } = new List<object>();
+            public List<object> Children { get; } = new List<object>();
         }
 
         private class TestObservable : Observable {}
 
-        private IEnumerable<object> GetChildren(TestContainer container)
+        private static IEnumerable<object> GetChildren(TestContainer container)
         {
             return container.Children;
         }

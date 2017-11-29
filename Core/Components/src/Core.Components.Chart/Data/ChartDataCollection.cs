@@ -30,7 +30,7 @@ namespace Core.Components.Chart.Data
     /// </summary>
     public class ChartDataCollection : ChartData
     {
-        private readonly IList<ChartData> chartDataList;
+        private readonly List<ChartData> chartDataList;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartDataCollection"/>.

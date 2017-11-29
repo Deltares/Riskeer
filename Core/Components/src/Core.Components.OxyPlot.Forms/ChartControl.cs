@@ -38,7 +38,7 @@ namespace Core.Components.OxyPlot.Forms
     public sealed class ChartControl : Control, IChartControl
     {
         private readonly RecursiveObserver<ChartDataCollection, ChartDataCollection> chartDataCollectionObserver;
-        private readonly IList<DrawnChartData> drawnChartDataList = new List<DrawnChartData>();
+        private readonly List<DrawnChartData> drawnChartDataList = new List<DrawnChartData>();
 
         private LinearPlotView plotView;
         private DynamicPlotController plotController;

@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
 using log4net.Appender;
@@ -43,7 +42,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
         /// and sent to <see cref="IMessageWindow"/> upon the next message arriving while an
         /// instance of <see cref="IMessageWindow"/> has been set.
         /// </summary>
-        private readonly IList<LoggingEvent> messageBackLog = new List<LoggingEvent>();
+        private readonly List<LoggingEvent> messageBackLog = new List<LoggingEvent>();
 
         private bool enabled;
         private IMessageWindow messageWindow;

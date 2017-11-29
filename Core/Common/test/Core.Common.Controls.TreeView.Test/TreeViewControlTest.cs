@@ -1879,14 +1879,12 @@ namespace Core.Common.Controls.TreeView.Test
             yield return new TestCaseData(new DataModifier(CreateListWithElements(3),
                                                            list =>
                                                            {
-                                                               List<object> reversedItems = list.Reverse().ToList();
-                                                               list.Clear();
-                                                               reversedItems.ForEach(list.Add);
+                                                               list.Reverse();
                                                            }))
                 .SetName("ItemsReversed");
         }
 
-        private static IList<object> CreateListWithElements(int numberOfElements)
+        private static List<object> CreateListWithElements(int numberOfElements)
         {
             var list = new List<object>();
 
@@ -1903,15 +1901,15 @@ namespace Core.Common.Controls.TreeView.Test
         /// </summary>
         public class DataModifier
         {
-            private readonly IList<object> data;
-            private readonly Action<IList<object>> modificationAction;
+            private readonly List<object> data;
+            private readonly Action<List<object>> modificationAction;
 
             /// <summary>
             /// Creates a new instance of <see cref="DataModifier"/>.
             /// </summary>
             /// <param name="data">The data to modify.</param>
             /// <param name="modificationAction">The modification action to perform.</param>
-            public DataModifier(IList<object> data, Action<IList<object>> modificationAction)
+            public DataModifier(List<object> data, Action<List<object>> modificationAction)
             {
                 this.data = data;
                 this.modificationAction = modificationAction;

@@ -33,7 +33,7 @@ namespace Core.Common.TestUtil
     public partial class WindowsFormsTestHelper : Form
     {
         private static string nonModalControlsTestName; // current unit test name
-        private static readonly IList<Control> nonModalControls = new List<Control>();
+        private static readonly List<Control> nonModalControls = new List<Control>();
         private Action<Form> formShown;
         private bool wasShown;
 
