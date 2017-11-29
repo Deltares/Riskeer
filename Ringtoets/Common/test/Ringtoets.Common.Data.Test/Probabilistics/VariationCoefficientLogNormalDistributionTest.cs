@@ -33,34 +33,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
     [TestFixture]
     public class VariationCoefficientLogNormalDistributionTest
     {
-        private static IEnumerable<TestCaseData> DistributionCombinations
-        {
-            get
-            {
-                VariationCoefficientLogNormalDistribution distribution = CreateFullyDefinedDistribution();
-
-                yield return new TestCaseData(distribution, distribution, true)
-                    .SetName("SameDistribution");
-                yield return new TestCaseData(distribution, CreateFullyDefinedDistribution(), true)
-                    .SetName("EqualDistribution");
-
-                VariationCoefficientLogNormalDistribution otherMean = CreateFullyDefinedDistribution();
-                otherMean.Mean = (RoundedDouble) 987;
-                yield return new TestCaseData(distribution, otherMean, false)
-                    .SetName(nameof(otherMean));
-
-                VariationCoefficientLogNormalDistribution otherCoefficientOfVariation = CreateFullyDefinedDistribution();
-                otherCoefficientOfVariation.CoefficientOfVariation = (RoundedDouble) 0.987;
-                yield return new TestCaseData(distribution, otherCoefficientOfVariation, false)
-                    .SetName(nameof(otherCoefficientOfVariation));
-
-                VariationCoefficientLogNormalDistribution otherShift = CreateFullyDefinedDistribution();
-                otherShift.Shift = (RoundedDouble) 0.987;
-                yield return new TestCaseData(distribution, otherShift, false)
-                    .SetName(nameof(otherShift));
-            }
-        }
-
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -252,69 +224,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             CoreCloneAssert.AreObjectClones(original, clone, DistributionAssert.AreEqual);
         }
 
-        [Test]
-        [TestCase(null)]
-        [TestCase("string")]
-        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
-        {
-            // Setup
-            VariationCoefficientLogNormalDistribution distribution = CreateFullyDefinedDistribution();
-
-            // Call
-            bool isEqual = distribution.Equals(other);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-        }
-
-        [Test]
-        public void Equals_TransitivePropertyAllPropertiesEqual_ReturnsTrue()
-        {
-            // Setup
-            VariationCoefficientLogNormalDistribution distributionX = CreateFullyDefinedDistribution();
-            VariationCoefficientLogNormalDistribution distributionY = CreateFullyDefinedDistribution();
-            VariationCoefficientLogNormalDistribution distributionZ = CreateFullyDefinedDistribution();
-
-            // Call
-            bool isXEqualToY = distributionX.Equals(distributionY);
-            bool isYEqualToZ = distributionY.Equals(distributionZ);
-            bool isXEqualToZ = distributionX.Equals(distributionZ);
-
-            // Assert
-            Assert.IsTrue(isXEqualToY);
-            Assert.IsTrue(isYEqualToZ);
-            Assert.IsTrue(isXEqualToZ);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(DistributionCombinations))]
-        public void Equals_DifferentProperty_ReturnsIsEqual(VariationCoefficientLogNormalDistribution distribution,
-                                                            VariationCoefficientLogNormalDistribution otherDistribution,
-                                                            bool expectedToBeEqual)
-        {
-            // Call
-            bool isDistributionEqualToOther = distribution.Equals(otherDistribution);
-            bool isOtherEqualToDistribution = otherDistribution.Equals(distribution);
-
-            // Assert
-            Assert.AreEqual(expectedToBeEqual, isDistributionEqualToOther);
-            Assert.AreEqual(expectedToBeEqual, isOtherEqualToDistribution);
-        }
-
-        [Test]
-        public void GetHashCode_EqualDistributions_ReturnsSameHashCode()
-        {
-            // Setup
-            VariationCoefficientLogNormalDistribution distribution = CreateFullyDefinedDistribution();
-            VariationCoefficientLogNormalDistribution otherDistribution = CreateFullyDefinedDistribution();
-
-            // Call
-            int hashCodeOne = distribution.GetHashCode();
-            int hashCodeTwo = otherDistribution.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
-        }
 
         private static VariationCoefficientLogNormalDistribution CreateFullyDefinedDistribution()
         {
@@ -324,6 +233,50 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
                 CoefficientOfVariation = (RoundedDouble) 0.1,
                 Shift = (RoundedDouble) 0.2
             };
+        }
+
+        [TestFixture]
+        private class NormalDistributionEqualsTest : EqualsGuidelinesTestFixture<VariationCoefficientLogNormalDistribution,
+            DerivedVariationCoefficientLogNormalDistribution>
+        {
+            protected override VariationCoefficientLogNormalDistribution CreateObject()
+            {
+                return CreateFullyDefinedDistribution();
+            }
+
+            protected override DerivedVariationCoefficientLogNormalDistribution CreateDerivedObject()
+            {
+                VariationCoefficientLogNormalDistribution baseDistribution = CreateFullyDefinedDistribution();
+                return new DerivedVariationCoefficientLogNormalDistribution(baseDistribution);
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                VariationCoefficientLogNormalDistribution otherMean = CreateFullyDefinedDistribution();
+                otherMean.Mean = (RoundedDouble) 987;
+                yield return new TestCaseData(otherMean)
+                    .SetName(nameof(otherMean));
+
+                VariationCoefficientLogNormalDistribution otherStandardDeviation = CreateFullyDefinedDistribution();
+                otherStandardDeviation.CoefficientOfVariation = (RoundedDouble) 0.987;
+                yield return new TestCaseData(otherStandardDeviation)
+                    .SetName(nameof(otherStandardDeviation));
+
+                VariationCoefficientLogNormalDistribution otherShift = CreateFullyDefinedDistribution();
+                otherShift.Shift = (RoundedDouble) 0.987;
+                yield return new TestCaseData(otherShift)
+                    .SetName(nameof(otherShift));
+            }
+        }
+
+        private class DerivedVariationCoefficientLogNormalDistribution : VariationCoefficientLogNormalDistribution
+        {
+            public DerivedVariationCoefficientLogNormalDistribution(VariationCoefficientLogNormalDistribution distribution)
+            {
+                Mean = distribution.Mean;
+                CoefficientOfVariation = distribution.CoefficientOfVariation;
+                Shift = distribution.Shift;
+            }
         }
     }
 }

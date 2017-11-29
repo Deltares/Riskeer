@@ -33,34 +33,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
     [TestFixture]
     public class LogNormalDistributionTest
     {
-        private static IEnumerable<TestCaseData> DistributionCombinations
-        {
-            get
-            {
-                LogNormalDistribution distribution = CreateFullyDefinedDistribution();
-
-                yield return new TestCaseData(distribution, distribution, true)
-                    .SetName("SameDistribution");
-                yield return new TestCaseData(distribution, CreateFullyDefinedDistribution(), true)
-                    .SetName("EqualDistribution");
-
-                LogNormalDistribution otherMean = CreateFullyDefinedDistribution();
-                otherMean.Mean = (RoundedDouble) 987;
-                yield return new TestCaseData(distribution, otherMean, false)
-                    .SetName(nameof(otherMean));
-
-                LogNormalDistribution otherStandardDeviation = CreateFullyDefinedDistribution();
-                otherStandardDeviation.StandardDeviation = (RoundedDouble) 0.987;
-                yield return new TestCaseData(distribution, otherStandardDeviation, false)
-                    .SetName(nameof(otherStandardDeviation));
-
-                LogNormalDistribution otherShift = CreateFullyDefinedDistribution();
-                otherShift.Shift = (RoundedDouble) 0.987;
-                yield return new TestCaseData(distribution, otherShift, false)
-                    .SetName(nameof(otherShift));
-            }
-        }
-
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -256,68 +228,37 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             CoreCloneAssert.AreObjectClones(original, clone, DistributionAssert.AreEqual);
         }
 
-        [Test]
-        [TestCase(null)]
-        [TestCase("string")]
-        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
+        [TestFixture]
+        private class LogNormalDistributionEqualsTest : EqualsGuidelinesTestFixture<LogNormalDistribution, DerivedLogNormalDistribution>
         {
-            // Setup
-            LogNormalDistribution distribution = CreateFullyDefinedDistribution();
+            protected override LogNormalDistribution CreateObject()
+            {
+                return CreateFullyDefinedDistribution();
+            }
 
-            // Call
-            bool isEqual = distribution.Equals(other);
+            protected override DerivedLogNormalDistribution CreateDerivedObject()
+            {
+                LogNormalDistribution baseDistribution = CreateFullyDefinedDistribution();
+                return new DerivedLogNormalDistribution(baseDistribution);
+            }
 
-            // Assert
-            Assert.IsFalse(isEqual);
-        }
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                LogNormalDistribution otherMean = CreateFullyDefinedDistribution();
+                otherMean.Mean = (RoundedDouble) 987;
+                yield return new TestCaseData(otherMean)
+                    .SetName(nameof(otherMean));
 
-        [Test]
-        public void Equals_TransitivePropertyAllPropertiesEqual_ReturnsTrue()
-        {
-            // Setup
-            LogNormalDistribution distributionX = CreateFullyDefinedDistribution();
-            LogNormalDistribution distributionY = CreateFullyDefinedDistribution();
-            LogNormalDistribution distributionZ = CreateFullyDefinedDistribution();
+                LogNormalDistribution otherStandardDeviation = CreateFullyDefinedDistribution();
+                otherStandardDeviation.StandardDeviation = (RoundedDouble) 0.987;
+                yield return new TestCaseData(otherStandardDeviation)
+                    .SetName(nameof(otherStandardDeviation));
 
-            // Call
-            bool isXEqualToY = distributionX.Equals(distributionY);
-            bool isYEqualToZ = distributionY.Equals(distributionZ);
-            bool isXEqualToZ = distributionX.Equals(distributionZ);
-
-            // Assert
-            Assert.IsTrue(isXEqualToY);
-            Assert.IsTrue(isYEqualToZ);
-            Assert.IsTrue(isXEqualToZ);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(DistributionCombinations))]
-        public void Equals_DifferentProperty_ReturnsIsEqual(LogNormalDistribution distribution,
-                                                            LogNormalDistribution otherDistribution,
-                                                            bool expectedToBeEqual)
-        {
-            // Call
-            bool isDistributionEqualToOther = distribution.Equals(otherDistribution);
-            bool isOtherEqualToDistribution = otherDistribution.Equals(distribution);
-
-            // Assert
-            Assert.AreEqual(expectedToBeEqual, isDistributionEqualToOther);
-            Assert.AreEqual(expectedToBeEqual, isOtherEqualToDistribution);
-        }
-
-        [Test]
-        public void GetHashCode_EqualDistributions_ReturnsSameHashCode()
-        {
-            // Setup
-            LogNormalDistribution distribution = CreateFullyDefinedDistribution();
-            LogNormalDistribution otherDistribution = CreateFullyDefinedDistribution();
-
-            // Call
-            int hashCodeOne = distribution.GetHashCode();
-            int hashCodeTwo = otherDistribution.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
+                LogNormalDistribution otherShift = CreateFullyDefinedDistribution();
+                otherShift.Shift = (RoundedDouble) 0.987;
+                yield return new TestCaseData(otherShift)
+                    .SetName(nameof(otherShift));
+            }
         }
 
         private static LogNormalDistribution CreateFullyDefinedDistribution()
@@ -328,6 +269,16 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
                 StandardDeviation = (RoundedDouble) 0.1,
                 Shift = (RoundedDouble) 0.2
             };
+        }
+
+        private class DerivedLogNormalDistribution : LogNormalDistribution
+        {
+            public DerivedLogNormalDistribution(LogNormalDistribution distribution)
+            {
+                Mean = distribution.Mean;
+                StandardDeviation = distribution.StandardDeviation;
+                Shift = distribution.Shift;
+            }
         }
     }
 }
