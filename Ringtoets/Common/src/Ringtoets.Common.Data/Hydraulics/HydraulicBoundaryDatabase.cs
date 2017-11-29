@@ -59,12 +59,12 @@ namespace Ringtoets.Common.Data.Hydraulics
         }
 
         /// <summary>
-        /// The path to the hydraulic boundary database file.
+        /// Gets or sets the path to the hydraulic boundary database file.
         /// </summary>
         public string FilePath { get; set; }
 
         /// <summary>
-        /// The version of the hydraulic boundary database.
+        /// Gets or sets the version of the hydraulic boundary database.
         /// </summary>
         public string Version { get; set; }
 
