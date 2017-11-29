@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
@@ -82,157 +83,6 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         }
 
         [Test]
-        public void Equals_ToItself_ReturnsTrue()
-        {
-            // Setup
-            var breakWater = new BreakWater(BreakWaterType.Caisson, 100.10);
-
-            // Call
-            bool isBreakWaterEqualToItself = breakWater.Equals(breakWater);
-
-            // Assert
-            Assert.IsTrue(isBreakWaterEqualToItself);
-        }
-
-        [Test]
-        public void Equals_AllPropertiesEqual_ReturnsTrue()
-        {
-            // Setup 
-            const BreakWaterType type = BreakWaterType.Caisson;
-            const double height = 100.10;
-
-            var breakWaterOne = new BreakWater(type, height);
-            var breakWaterTwo = new BreakWater(type, height);
-
-            // Call
-            bool isBreakWaterOneEqualToTwo = breakWaterOne.Equals(breakWaterTwo);
-            bool isBreakWaterTwoEqualToOne = breakWaterTwo.Equals(breakWaterOne);
-
-            // Assert
-            Assert.IsTrue(isBreakWaterOneEqualToTwo);
-            Assert.IsTrue(isBreakWaterTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_ToSameReference_ReturnsTrue()
-        {
-            // Setup
-            var breakWaterOne = new BreakWater(BreakWaterType.Caisson, 100.10);
-            BreakWater breakWaterTwo = breakWaterOne;
-
-            // Call
-            bool isBreakWaterOneEqualToTwo = breakWaterOne.Equals(breakWaterTwo);
-            bool isBreakWaterTwoEqualToOne = breakWaterTwo.Equals(breakWaterOne);
-
-            // Assert
-            Assert.IsTrue(isBreakWaterOneEqualToTwo);
-            Assert.IsTrue(isBreakWaterTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_TransitivePropertyEqualBreakWater_ReturnsTrue()
-        {
-            // Setup 
-            const BreakWaterType type = BreakWaterType.Caisson;
-            const double height = 100.10;
-
-            var breakWaterOne = new BreakWater(type, height);
-            var breakWaterTwo = new BreakWater(type, height);
-            var breakWaterThree = new BreakWater(type, height);
-
-            // Call
-            bool isBreakWaterOneEqualToTwo = breakWaterOne.Equals(breakWaterTwo);
-            bool isBreakWaterTwoEqualToThree = breakWaterTwo.Equals(breakWaterThree);
-            bool isBreakWaterOneEqualToThree = breakWaterOne.Equals(breakWaterThree);
-
-            // Assert
-            Assert.IsTrue(isBreakWaterOneEqualToTwo);
-            Assert.IsTrue(isBreakWaterTwoEqualToThree);
-            Assert.IsTrue(isBreakWaterOneEqualToThree);
-        }
-
-        [Test]
-        public void Equals_ToNull_ReturnsFalse()
-        {
-            // Setup
-            var breakWater = new BreakWater(BreakWaterType.Caisson, 100.10);
-
-            // Call
-            bool isBreakWaterEqualToNull = breakWater.Equals(null);
-
-            // Assert
-            Assert.IsFalse(isBreakWaterEqualToNull);
-        }
-
-        [Test]
-        public void Equals_ToDifferentType_ReturnsFalse()
-        {
-            // Setup
-            var breakWater = new BreakWater(BreakWaterType.Caisson, 100.10);
-            var differentType = new object();
-
-            // Call
-            bool isBreakWaterEqualToDifferentType = breakWater.Equals(differentType);
-
-            // Assert
-            Assert.IsFalse(isBreakWaterEqualToDifferentType);
-        }
-
-        [Test]
-        public void Equals_DifferentBreakWaterType_ReturnsFalse()
-        {
-            // Setup 
-            const double height = 100.10;
-
-            var breakWaterOne = new BreakWater(BreakWaterType.Caisson, height);
-            var breakWaterTwo = new BreakWater(BreakWaterType.Wall, height);
-
-            // Call
-            bool isBreakWaterOneEqualToTwo = breakWaterOne.Equals(breakWaterTwo);
-            bool isBreakWaterTwoEqualToOne = breakWaterTwo.Equals(breakWaterOne);
-
-            // Assert
-            Assert.IsFalse(isBreakWaterOneEqualToTwo);
-            Assert.IsFalse(isBreakWaterTwoEqualToOne);
-        }
-
-        [Test]
-        public void Equals_DifferentHeight_ReturnsFalse()
-        {
-            // Setup 
-            const BreakWaterType type = BreakWaterType.Caisson;
-
-            var breakWaterOne = new BreakWater(type, 100.10);
-            var breakWaterTwo = new BreakWater(type, 100.20);
-
-            // Call
-            bool isBreakWaterOneEqualToTwo = breakWaterOne.Equals(breakWaterTwo);
-            bool isBreakWaterTwoEqualToOne = breakWaterTwo.Equals(breakWaterOne);
-
-            // Assert
-            Assert.IsFalse(isBreakWaterOneEqualToTwo);
-            Assert.IsFalse(isBreakWaterTwoEqualToOne);
-        }
-
-        [Test]
-        public void GetHashCode_EqualBreakWater_ReturnsSameHashCode()
-        {
-            // Setup 
-            const BreakWaterType type = BreakWaterType.Caisson;
-            const double height = 100.10;
-
-            var breakWaterOne = new BreakWater(type, height);
-            var breakWaterTwo = new BreakWater(type, height);
-
-            // Call
-            int hashCodeOne = breakWaterOne.GetHashCode();
-            int hashCodeTwo = breakWaterTwo.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
-        }
-
-        [Test]
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
@@ -244,6 +94,36 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
+        }
+
+        [TestFixture]
+        private class BreakWaterEqualsTest : EqualsGuidelinesTestFixture<BreakWater, DerivedBreakWater>
+        {
+            private const double height = 3.14;
+            private const BreakWaterType type = BreakWaterType.Caisson;
+
+            protected override BreakWater CreateObject()
+            {
+                return new BreakWater(type, height);
+            }
+
+            protected override DerivedBreakWater CreateDerivedObject()
+            {
+                return new DerivedBreakWater(type, height);
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new BreakWater(BreakWaterType.Dam, height))
+                    .SetName("Type");
+                yield return new TestCaseData(new BreakWater(type, height + 10))
+                    .SetName("Height");
+            }
+        }
+
+        private class DerivedBreakWater : BreakWater
+        {
+            public DerivedBreakWater(BreakWaterType type, double height) : base(type, height) {}
         }
     }
 }
