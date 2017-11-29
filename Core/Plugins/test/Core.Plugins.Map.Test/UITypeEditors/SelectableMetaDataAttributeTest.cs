@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
 using Core.Plugins.Map.UITypeEditors;
 using NUnit.Framework;
 
@@ -53,100 +55,6 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         }
 
         [Test]
-        public void Equals_ToItself_ReturnTrue()
-        {
-            // Setup
-            const string attribute = "Test";
-            var selectableAttribute = new SelectableMetaDataAttribute(attribute);
-
-            // Call
-            bool areEqual = selectableAttribute.Equals(selectableAttribute);
-
-            // Assert
-            Assert.IsTrue(areEqual);
-        }
-
-        [Test]
-        public void Equals_Null_ReturnFalse()
-        {
-            // Setup 
-            var attribute = new SelectableMetaDataAttribute(string.Empty);
-
-            // Call
-            bool equals = attribute.Equals(null);
-
-            // Assert
-            Assert.IsFalse(equals);
-        }
-
-        [Test]
-        public void Equals_ToOtherWithSameAttribute_ReturnTrue()
-        {
-            // Setup
-            const string attribute = "Test";
-            var selectableAttribute1 = new SelectableMetaDataAttribute(attribute);
-            var selectableAttribute2 = new SelectableMetaDataAttribute(attribute);
-
-            // Call
-            bool equals1 = selectableAttribute1.Equals(selectableAttribute2);
-            bool equals2 = selectableAttribute2.Equals(selectableAttribute1);
-
-            // Assert
-            Assert.IsTrue(equals1);
-            Assert.IsTrue(equals2);
-        }
-
-        [Test]
-        public void Equals_ToOtherWithOtherAttribute_ReturnFalse()
-        {
-            // Setup
-            var selectableAttribute1 = new SelectableMetaDataAttribute("Test");
-            var selectableAttribute2 = new SelectableMetaDataAttribute("Test2");
-
-            // Call
-            bool equals1 = selectableAttribute1.Equals(selectableAttribute2);
-            bool equals2 = selectableAttribute2.Equals(selectableAttribute1);
-
-            // Assert
-            Assert.IsFalse(equals1);
-            Assert.IsFalse(equals2);
-        }
-
-        [Test]
-        public void Equals_OtherObject_ReturnFalse()
-        {
-            // Setup
-            var attribute = new SelectableMetaDataAttribute(string.Empty);
-
-            var otherObject = new object();
-
-            // Call
-            bool equals = attribute.Equals(otherObject);
-
-            // Assert
-            Assert.IsFalse(equals);
-        }
-
-        [Test]
-        public void GetHashCode_EqualObjects_ReturnSameHashCode()
-        {
-            // Setup
-            const string attribute = "Test";
-            var selectableAttribute1 = new SelectableMetaDataAttribute(attribute);
-            var selectableAttribute2 = new SelectableMetaDataAttribute(attribute);
-
-            // Precondition
-            Assert.IsTrue(selectableAttribute1.Equals(selectableAttribute2));
-
-            // Call
-            int hashCode1 = selectableAttribute1.GetHashCode();
-            int hashCode2 = selectableAttribute2.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCode1, hashCode2);
-        }
-
-        [Test]
         public void ToString_Always_ReturnMetaDataAttribute()
         {
             // Setup
@@ -158,6 +66,32 @@ namespace Core.Plugins.Map.Test.UITypeEditors
 
             // Assert
             Assert.AreEqual(metaDataAttribute, toString);
+        }
+
+        [TestFixture]
+        private class SelectableMetaDataAttributeEqualsTest : EqualsGuidelinesTestFixture<SelectableMetaDataAttribute, DerivedSelectableMetaDataAttribute>
+        {
+            private const string attribute = "attribute";
+
+            protected override SelectableMetaDataAttribute CreateObject()
+            {
+                return new SelectableMetaDataAttribute(attribute);
+            }
+
+            protected override DerivedSelectableMetaDataAttribute CreateDerivedObject()
+            {
+                return new DerivedSelectableMetaDataAttribute(attribute);
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new SelectableMetaDataAttribute("Different attribute"));
+            }
+        }
+
+        private class DerivedSelectableMetaDataAttribute : SelectableMetaDataAttribute
+        {
+            public DerivedSelectableMetaDataAttribute(string metaDataAttribute) : base(metaDataAttribute) {}
         }
     }
 }
