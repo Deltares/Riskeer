@@ -172,7 +172,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 bool canUsePreprocessor = hydraulicLocationConfigurationDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
 
                 HydraulicBoundaryDatabase hydraulicBoundaryDatabase = canUsePreprocessor
-                                                                          ? new HydraulicBoundaryDatabase(true, Path.Combine(Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath)))
+                                                                          ? new HydraulicBoundaryDatabase(true, Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath))
                                                                           : new HydraulicBoundaryDatabase();
 
                 hydraulicBoundaryDatabase.FilePath = hydraulicBoundaryDatabaseFilePath;

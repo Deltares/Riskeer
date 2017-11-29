@@ -56,8 +56,8 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         /// <summary>
         /// Gets the location ids from the database, based upon <paramref name="trackId"/>.
         /// </summary>
-        /// <param name="trackId">Hydraulic boundary track id.</param>
-        /// <returns>List of location id and Hrd location id found in the database.</returns>
+        /// <param name="trackId">The hydraulic boundary track id.</param>
+        /// <returns>A dictionary with pairs of Hrd location id (key) and location id (value) as found in the database.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
@@ -89,10 +89,10 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         /// <summary>
         /// Gets whether the preprocessor can be used for the given <paramref name="trackId"/>.
         /// </summary>
-        /// <param name="trackId">Hydraulic boundary track id.</param>
+        /// <param name="trackId">The hydraulic boundary track id.</param>
         /// <returns>The value found in the database; or <c>false</c> when the database
-        /// is valid but outdated (no usePreprocessor column present).</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
+        /// is valid but outdated (no UsePreprocessor column present).</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the database query failed or when no results could be found.</exception>
         /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
         public bool GetCanUsePreprocessorByTrackId(long trackId)
@@ -123,8 +123,8 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         /// <summary>
         /// Gets the location ids from the database, based upon <paramref name="trackParameter"/>.
         /// </summary>
-        /// <param name="trackParameter">Hydraulic boundary track id.</param>
-        /// <returns>List of location id and Hrd location id found in the database.</returns>
+        /// <param name="trackParameter">A parameter containing the hydraulic boundary track id.</param>
+        /// <returns>A dictionary with pairs of Hrd location id (key) and location id (value) as found in the database.</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
@@ -156,9 +156,9 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         /// <summary>
         /// Gets whether the preprocessor can be used for the given <paramref name="trackParameter"/>.
         /// </summary>
-        /// <param name="trackParameter">Hydraulic boundary track id.</param>
+        /// <param name="trackParameter">A parameter containing the hydraulic boundary track id.</param>
         /// <returns>The value found in the database; or <c>false</c> when the database
-        /// is valid but outdated (no usePreprocessor column present).</returns>
+        /// is valid but outdated (no UsePreprocessor column present).</returns>
         /// <exception cref="SQLiteException">Thrown when the database query failed.</exception>
         /// <exception cref="FormatException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
