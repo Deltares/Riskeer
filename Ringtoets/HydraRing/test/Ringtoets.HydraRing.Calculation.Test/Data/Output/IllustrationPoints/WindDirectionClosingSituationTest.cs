@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
@@ -67,96 +69,45 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             Assert.AreSame(windDirection, instance.WindDirection);
         }
 
-        [Test]
-        public void Equals_WithNull_ReturnsFalse()
+        [TestFixture]
+        private class WindDirectionClosingSituationEqualsTest : EqualsGuidelinesTestFixture<WindDirectionClosingSituation, DerivedWindDirectionClosingSituation>
         {
-            // Setup
-            var instance = new WindDirectionClosingSituation(new TestWindDirection(), string.Empty);
-
-            // Call
-            bool result = instance.Equals(null);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Equals_DifferentType_ReturnsFalse()
-        {
-            // Setup
-            var instance = new WindDirectionClosingSituation(new TestWindDirection(), string.Empty);
-
-            // Call
-            bool result = instance.Equals(new object());
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(Combinations))]
-        public void Equals_DifferentScenarios_ReturnExpectedValue(WindDirectionClosingSituation instance,
-                                                                  WindDirectionClosingSituation otherInstance,
-                                                                  bool expectedEqual)
-        {
-            // Call
-            bool areEqualOne = instance.Equals(otherInstance);
-            bool areEqualTwo = otherInstance.Equals(instance);
-
-            // Assert
-            Assert.AreEqual(expectedEqual, areEqualOne);
-            Assert.AreEqual(expectedEqual, areEqualTwo);
-        }
-
-        [Test]
-        public void GetHashCode_InstancesAreEqual_FiltersHashesEqual()
-        {
-            // Setup
-            const string windDirectionName = "SSE";
-
-            var random = new Random(21);
-            double windDirectionAngle = random.NextDouble();
-            var windDirection = new WindDirection(windDirectionName, windDirectionAngle);
-
-            const string closingSituation = "general";
-
-            var instance = new WindDirectionClosingSituation(windDirection, closingSituation);
-            var otherInstance = new WindDirectionClosingSituation(windDirection, closingSituation);
-
-            // Call
-            int result = instance.GetHashCode();
-            int otherResult = otherInstance.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(result, otherResult);
-        }
-
-        private static TestCaseData[] Combinations()
-        {
-            var instanceA = new WindDirectionClosingSituation(new WindDirection("a", 123.2), "situationA");
-            var instanceB = new WindDirectionClosingSituation(new WindDirection("a", 123.2), "situationA");
-            var instanceC = new WindDirectionClosingSituation(new WindDirection("a", 3.2), "situationA");
-            var instanceD = new WindDirectionClosingSituation(new WindDirection("a", 123.2), "situationB");
-
-            return new[]
+            protected override WindDirectionClosingSituation CreateObject()
             {
-                new TestCaseData(instanceA, instanceA, true)
-                {
-                    TestName = "Equals_InstanceAInstanceA_True"
-                },
-                new TestCaseData(instanceA, instanceB, true)
-                {
-                    TestName = "Equals_InstanceAInstanceB_True"
-                },
-                new TestCaseData(instanceB, instanceC, false)
-                {
-                    TestName = "Equals_InstanceBInstanceC_False"
-                },
-                new TestCaseData(instanceA, instanceD, false)
-                {
-                    TestName = "Equals_InstanceAInstanceD_False"
-                }
-            };
+                return CreateWindDirectionClosingSituation();
+            }
+
+            protected override DerivedWindDirectionClosingSituation CreateDerivedObject()
+            {
+                return new DerivedWindDirectionClosingSituation(CreateWindDirectionClosingSituation());
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                WindDirectionClosingSituation baseCombination = CreateWindDirectionClosingSituation();
+
+                yield return new TestCaseData(new WindDirectionClosingSituation(CreateWindDirection(30), baseCombination.ClosingSituation))
+                    .SetName("WindDirection");
+                yield return new TestCaseData(new WindDirectionClosingSituation(baseCombination.WindDirection, "Different closing situation"))
+                    .SetName("ClosingSituation");
+            }
+
+            private static WindDirectionClosingSituation CreateWindDirectionClosingSituation()
+            {
+                return new WindDirectionClosingSituation(CreateWindDirection(21), "WDC");
+            }
+
+            private static WindDirection CreateWindDirection(int seed)
+            {
+                var random = new Random(seed);
+                return new WindDirection("Name", random.NextDouble());
+            }
+        }
+
+        private class DerivedWindDirectionClosingSituation : WindDirectionClosingSituation
+        {
+            public DerivedWindDirectionClosingSituation(WindDirectionClosingSituation wind)
+                : base(wind.WindDirection, wind.ClosingSituation) {}
         }
     }
 }

@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
@@ -60,99 +62,42 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             Assert.AreEqual(windDirectionAngle, direction.Angle);
         }
 
-        [Test]
-        public void Equals_WithNull_ReturnsFalse()
+        [TestFixture]
+        private class WindDirectionEqualsTest : EqualsGuidelinesTestFixture<WindDirection, DerivedWindDirection>
         {
-            // Setup
-            const string windDirectionName = "SSE";
-
-            var random = new Random(21);
-            double windDirectionAngle = random.NextDouble();
-            var direction = new WindDirection(windDirectionName, windDirectionAngle);
-
-            // Call
-            bool result = direction.Equals(null);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Equals_DifferentType_ReturnsFalse()
-        {
-            // Setup
-            const string windDirectionName = "SSE";
-
-            var random = new Random(21);
-            double windDirectionAngle = random.NextDouble();
-            var direction = new WindDirection(windDirectionName, windDirectionAngle);
-
-            // Call
-            bool result = direction.Equals(new object());
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(Combinations))]
-        public void Equals_DifferentScenarios_ReturnExpectedValue(WindDirection windDirection,
-                                                                  WindDirection otherWindDirection,
-                                                                  bool expectedEqual)
-        {
-            // Call
-            bool areEqualOne = windDirection.Equals(otherWindDirection);
-            bool areEqualTwo = otherWindDirection.Equals(windDirection);
-
-            // Assert
-            Assert.AreEqual(expectedEqual, areEqualOne);
-            Assert.AreEqual(expectedEqual, areEqualTwo);
-        }
-
-        [Test]
-        public void GetHashCode_WindDirectionsAreEqual_FiltersHashesEqual()
-        {
-            // Setup
-            const string name = "general";
-            const double angle = 3.4;
-
-            var generator = new WindDirection(name, angle);
-            var otherGenerator = new WindDirection(name, angle);
-
-            // Call
-            int result = generator.GetHashCode();
-            int otherResult = otherGenerator.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(result, otherResult);
-        }
-
-        private static TestCaseData[] Combinations()
-        {
-            var windDirectionA = new WindDirection("a", 123.2);
-            var windDirectionB = new WindDirection("a", 123.2);
-            var windDirectionC = new WindDirection("a", 3.2);
-            var windDirectionD = new WindDirection("d", 123.2);
-
-            return new[]
+            protected override WindDirection CreateObject()
             {
-                new TestCaseData(windDirectionA, windDirectionA, true)
-                {
-                    TestName = "Equals_WindDirectionAWindDirectionA_True"
-                },
-                new TestCaseData(windDirectionA, windDirectionB, true)
-                {
-                    TestName = "Equals_WindDirectionAWindDirectionB_True"
-                },
-                new TestCaseData(windDirectionB, windDirectionC, false)
-                {
-                    TestName = "Equals_WindDirectionBWindDirectionC_False"
-                },
-                new TestCaseData(windDirectionC, windDirectionD, false)
-                {
-                    TestName = "Equals_WindDirectionAWindDirectionD_False"
-                }
-            };
+                return CreateWindDirection();
+            }
+
+            protected override DerivedWindDirection CreateDerivedObject()
+            {
+                return new DerivedWindDirection(CreateWindDirection());
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                WindDirection baseDirection = CreateWindDirection();
+
+                var random = new Random(21);
+                double offset = random.NextDouble();
+
+                yield return new TestCaseData(new WindDirection("Different Name", baseDirection.Angle))
+                    .SetName("Name");
+                yield return new TestCaseData(new WindDirection(baseDirection.Name, baseDirection.Angle + offset))
+                    .SetName("Angle");
+            }
+
+            private static WindDirection CreateWindDirection()
+            {
+                var random = new Random(21);
+                return new WindDirection("Name", random.NextDouble());
+            }
+        }
+
+        private class DerivedWindDirection : WindDirection
+        {
+            public DerivedWindDirection(WindDirection windDirection) : base(windDirection.Name, windDirection.Angle) {}
         }
     }
 }
