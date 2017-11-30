@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -110,263 +111,68 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.VerifyAll();
         }
 
-        [Test]
-        public void Equals_ToNull_ReturnFalse()
+        [TestFixture]
+        private class PipingCalculationScenarioContextEqualsTest
+            : EqualsGuidelinesTestFixture<PipingCalculationScenarioContext, DerivedPipingCalculationScenarioContext>
         {
-            // Setup
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
+            private static readonly MockRepository mocks = new MockRepository();
 
-            var calculationScenario = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-            var parent = new CalculationGroup();
-            var context = new PipingCalculationScenarioContext(calculationScenario,
-                                                               parent,
-                                                               new PipingSurfaceLine[0],
-                                                               new PipingStochasticSoilModel[0],
-                                                               failureMechanism,
-                                                               assessmentSection);
+            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            private static readonly IEnumerable<PipingSurfaceLine> surfaceLines = new PipingSurfaceLine[0];
+            private static readonly IEnumerable<PipingStochasticSoilModel> stochasticSoilModels = new PipingStochasticSoilModel[0];
+            private static readonly PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            private static readonly CalculationGroup parent = new CalculationGroup();
 
-            // Call
-            bool isEqual = context.Equals(null);
+            [SetUp]
+            public void SetUp()
+            {
+                mocks.ReplayAll();
+            }
 
-            // Assert
-            Assert.IsFalse(isEqual);
+            [TearDown]
+            public void TearDown()
+            {
+                mocks.VerifyAll();
+            }
 
-            mocksRepository.VerifyAll();
-        }
+            protected override PipingCalculationScenarioContext CreateObject()
+            {
+                return new PipingCalculationScenarioContext(calculation,
+                                                            parent,
+                                                            surfaceLines,
+                                                            stochasticSoilModels,
+                                                            failureMechanism,
+                                                            assessmentSection);
+            }
 
-        [Test]
-        public void Equals_ToItself_ReturnTrue()
-        {
-            // Setup
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
+            protected override DerivedPipingCalculationScenarioContext CreateDerivedObject()
+            {
+                return new DerivedPipingCalculationScenarioContext(calculation,
+                                                                   parent,
+                                                                   surfaceLines,
+                                                                   stochasticSoilModels,
+                                                                   failureMechanism,
+                                                                   assessmentSection);
+            }
 
-            var calculationScenario = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-            var parent = new CalculationGroup();
-            var context = new PipingCalculationScenarioContext(calculationScenario,
-                                                               parent,
-                                                               new PipingSurfaceLine[0],
-                                                               new PipingStochasticSoilModel[0],
-                                                               failureMechanism,
-                                                               assessmentSection);
-            // Call
-            bool isEqual = context.Equals(context);
-
-            // Assert
-            Assert.IsTrue(isEqual);
-
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherWithDifferentType_ReturnFalse()
-        {
-            // Setup
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
-            var calculationScenario = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-            var parent = new CalculationGroup();
-            var context = new PipingCalculationScenarioContext(calculationScenario,
-                                                               parent,
-                                                               new PipingSurfaceLine[0],
-                                                               new PipingStochasticSoilModel[0],
-                                                               failureMechanism,
-                                                               assessmentSection);
-            // Call
-            bool isEqual = context.Equals(new object());
-
-            // Assert
-            Assert.IsFalse(isEqual);
-
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToDerivedObject_ReturnsFalse()
-        {
-            // Setup
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
-            var calculationScenario = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-            var parent = new CalculationGroup();
-            var surfaceLines = new PipingSurfaceLine[0];
-            var soilModels = new PipingStochasticSoilModel[0];
-            var context = new PipingCalculationScenarioContext(calculationScenario,
-                                                               parent,
-                                                               surfaceLines,
-                                                               soilModels,
-                                                               failureMechanism,
-                                                               assessmentSection);
-            var derivedContext = new DerivedPipingCalculationScenarioContext(calculationScenario,
-                                                                             parent,
-                                                                             surfaceLines,
-                                                                             soilModels,
-                                                                             failureMechanism,
-                                                                             assessmentSection);
-
-            // Call
-            bool isEqual = context.Equals(derivedContext);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherWithDifferentWrappedData_ReturnFalse()
-        {
-            // Setup
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
-            var calculationScenario1 = new PipingCalculationScenario(new GeneralPipingInput());
-            var calculationScenario2 = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-            var parent = new CalculationGroup();
-            var context1 = new PipingCalculationScenarioContext(calculationScenario1,
-                                                                parent,
-                                                                new PipingSurfaceLine[0],
-                                                                new PipingStochasticSoilModel[0],
-                                                                failureMechanism,
-                                                                assessmentSection);
-            var context2 = new PipingCalculationScenarioContext(calculationScenario2,
-                                                                parent,
-                                                                new PipingSurfaceLine[0],
-                                                                new PipingStochasticSoilModel[0],
-                                                                failureMechanism,
-                                                                assessmentSection);
-            // Precondition
-            Assert.IsFalse(calculationScenario1.Equals(calculationScenario2));
-
-            // Call
-            bool isEqual1 = context1.Equals(context2);
-            bool isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsFalse(isEqual1);
-            Assert.IsFalse(isEqual2);
-
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherWithDifferentParent_ReturnFalse()
-        {
-            // Setup
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
-            var calculationScenario = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-            var parent1 = new CalculationGroup();
-            var parent2 = new CalculationGroup();
-            var context1 = new PipingCalculationScenarioContext(calculationScenario,
-                                                                parent1,
-                                                                new PipingSurfaceLine[0],
-                                                                new PipingStochasticSoilModel[0],
-                                                                failureMechanism,
-                                                                assessmentSection);
-            var context2 = new PipingCalculationScenarioContext(calculationScenario,
-                                                                parent2,
-                                                                new PipingSurfaceLine[0],
-                                                                new PipingStochasticSoilModel[0],
-                                                                failureMechanism,
-                                                                assessmentSection);
-            // Precondition
-            Assert.IsFalse(parent1.Equals(parent2));
-
-            // Call
-            bool isEqual1 = context1.Equals(context2);
-            bool isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsFalse(isEqual1);
-            Assert.IsFalse(isEqual2);
-
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherWithSameWrappedDataAndParent_ReturnTrue()
-        {
-            // Setup
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
-            var calculationScenario = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-            var parent = new CalculationGroup();
-            var context1 = new PipingCalculationScenarioContext(calculationScenario,
-                                                                parent,
-                                                                new PipingSurfaceLine[0],
-                                                                new PipingStochasticSoilModel[0],
-                                                                failureMechanism,
-                                                                assessmentSection);
-            var context2 = new PipingCalculationScenarioContext(calculationScenario,
-                                                                parent,
-                                                                new PipingSurfaceLine[0],
-                                                                new PipingStochasticSoilModel[0],
-                                                                failureMechanism,
-                                                                assessmentSection);
-            // Call
-            bool isEqual1 = context1.Equals(context2);
-            bool isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsTrue(isEqual1);
-            Assert.IsTrue(isEqual2);
-
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void GetHashCode_EqualObjects_ReturnSameHashCode()
-        {
-            // Setup
-            var mocksRepository = new MockRepository();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
-            var calculationScenario = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-            var parent = new CalculationGroup();
-            var context1 = new PipingCalculationScenarioContext(calculationScenario,
-                                                                parent,
-                                                                new PipingSurfaceLine[0],
-                                                                new PipingStochasticSoilModel[0],
-                                                                failureMechanism,
-                                                                assessmentSection);
-            var context2 = new PipingCalculationScenarioContext(calculationScenario,
-                                                                parent,
-                                                                new PipingSurfaceLine[0],
-                                                                new PipingStochasticSoilModel[0],
-                                                                failureMechanism,
-                                                                assessmentSection);
-            // Precondition
-            Assert.AreEqual(context1, context2);
-
-            // Call
-            int hashCode1 = context1.GetHashCode();
-            int hashCode2 = context2.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCode1, hashCode2);
-
-            mocksRepository.VerifyAll();
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new PipingCalculationScenarioContext(new PipingCalculationScenario(new GeneralPipingInput()),
+                                                                                   parent,
+                                                                                   surfaceLines,
+                                                                                   stochasticSoilModels,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection))
+                    .SetName("Calculation");
+                yield return new TestCaseData(new PipingCalculationScenarioContext(calculation,
+                                                                                   new CalculationGroup(),
+                                                                                   surfaceLines,
+                                                                                   stochasticSoilModels,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection))
+                    .SetName("Parent");
+            }
         }
 
         private class DerivedPipingCalculationScenarioContext : PipingCalculationScenarioContext

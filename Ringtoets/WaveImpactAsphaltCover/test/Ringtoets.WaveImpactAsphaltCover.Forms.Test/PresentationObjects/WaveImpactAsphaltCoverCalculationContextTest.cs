@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -275,6 +277,55 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             Assert.AreEqual(hashCode1, hashCode2);
 
             mocks.VerifyAll();
+        }
+
+        [TestFixture]
+        private class WaveImpactAsphaltCoverWaveConditionsCalculationContextEqualsTest
+            : EqualsGuidelinesTestFixture<WaveImpactAsphaltCoverWaveConditionsCalculationContext,
+                DerivedWaveImpactAsphaltCoverWaveConditionsCalculationContext>
+        {
+            private static readonly MockRepository mocks = new MockRepository();
+
+            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly WaveImpactAsphaltCoverWaveConditionsCalculation calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            private static readonly WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            private static readonly CalculationGroup parent = new CalculationGroup();
+
+            [SetUp]
+            public void SetUp()
+            {
+                mocks.ReplayAll();
+            }
+
+            [TearDown]
+            public void TearDown()
+            {
+                mocks.VerifyAll();
+            }
+
+            protected override WaveImpactAsphaltCoverWaveConditionsCalculationContext CreateObject()
+            {
+                return new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            }
+
+            protected override DerivedWaveImpactAsphaltCoverWaveConditionsCalculationContext CreateDerivedObject()
+            {
+                return new DerivedWaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
+                                                                                                         parent,
+                                                                                                         failureMechanism,
+                                                                                                         assessmentSection))
+                    .SetName("Calculation");
+                yield return new TestCaseData(new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                                         new CalculationGroup(),
+                                                                                                         failureMechanism,
+                                                                                                         assessmentSection))
+                    .SetName("Parent");
+            }
         }
 
         private class DerivedWaveImpactAsphaltCoverWaveConditionsCalculationContext : WaveImpactAsphaltCoverWaveConditionsCalculationContext

@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -111,273 +111,69 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             mocks.VerifyAll();
         }
 
-        [Test]
-        public void Equals_ToNull_ReturnsFalse()
+        [TestFixture]
+        private class PipingCalculationScenarioContextEqualsTest
+            : EqualsGuidelinesTestFixture<MacroStabilityInwardsCalculationScenarioContext,
+                DerivedMacroStabilityInwardsCalculationScenarioContext>
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            private static readonly MockRepository mocks = new MockRepository();
 
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly MacroStabilityInwardsCalculationScenario calculation = new MacroStabilityInwardsCalculationScenario();
+            private static readonly IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
+            private static readonly IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels = new MacroStabilityInwardsStochasticSoilModel[0];
+            private static readonly MacroStabilityInwardsFailureMechanism failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            private static readonly CalculationGroup parent = new CalculationGroup();
 
-            var context = new MacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                              new CalculationGroup(),
-                                                                              Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                              Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                                                                              failureMechanism,
-                                                                              assessmentSection);
+            [SetUp]
+            public void SetUp()
+            {
+                mocks.ReplayAll();
+            }
 
-            // Call
-            bool isContextEqualToNull = context.Equals(null);
+            [TearDown]
+            public void TearDown()
+            {
+                mocks.VerifyAll();
+            }
 
-            // Assert
-            Assert.IsFalse(isContextEqualToNull);
-            mocks.VerifyAll();
-        }
+            protected override MacroStabilityInwardsCalculationScenarioContext CreateObject()
+            {
+                return new MacroStabilityInwardsCalculationScenarioContext(calculation,
+                                                                           parent,
+                                                                           surfaceLines,
+                                                                           stochasticSoilModels,
+                                                                           failureMechanism,
+                                                                           assessmentSection);
+            }
 
-        [Test]
-        public void Equals_ToDifferentObject_ReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            protected override DerivedMacroStabilityInwardsCalculationScenarioContext CreateDerivedObject()
+            {
+                return new DerivedMacroStabilityInwardsCalculationScenarioContext(calculation,
+                                                                                  parent,
+                                                                                  surfaceLines,
+                                                                                  stochasticSoilModels,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+            }
 
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            var context = new MacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                              new CalculationGroup(),
-                                                                              Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                              Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                                                                              failureMechanism,
-                                                                              assessmentSection);
-
-            // Call
-            bool isContextEqualToDifferentObject = context.Equals(new object());
-
-            // Assert
-            Assert.IsFalse(isContextEqualToDifferentObject);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToDerivedObject_ReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var calculationGroup = new CalculationGroup();
-            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
-            var stochasticSoilModels = new MacroStabilityInwardsStochasticSoilModel[0];
-
-            var context = new MacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                              calculationGroup,
-                                                                              surfaceLines,
-                                                                              stochasticSoilModels,
-                                                                              failureMechanism,
-                                                                              assessmentSection);
-
-            var derivedContext = new DerivedMacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                                            calculationGroup,
-                                                                                            surfaceLines,
-                                                                                            stochasticSoilModels,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
-
-            // Call
-            bool isContextEqualToDerivedContext = context.Equals(derivedContext);
-
-            // Assert
-            Assert.IsFalse(isContextEqualToDerivedContext);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToItself_ReturnsTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var calculationGroup = new CalculationGroup();
-            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
-            var stochasticSoilModels = new MacroStabilityInwardsStochasticSoilModel[0];
-
-            var context1 = new MacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                               calculationGroup,
-                                                                               surfaceLines,
-                                                                               stochasticSoilModels,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-            MacroStabilityInwardsCalculationScenarioContext context2 = context1;
-
-            // Call
-            bool isContext1EqualTo2 = context1.Equals(context2);
-            bool isContext2EqualTo1 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsTrue(isContext1EqualTo2);
-            Assert.IsTrue(isContext2EqualTo1);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherWithSameWrappedDataAndParent_ReturnsTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var parent = new CalculationGroup();
-            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
-            var stochasticSoilModels = new MacroStabilityInwardsStochasticSoilModel[0];
-
-            var context1 = new MacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                               parent,
-                                                                               surfaceLines,
-                                                                               stochasticSoilModels,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-
-            var context2 = new MacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                               parent,
-                                                                               surfaceLines,
-                                                                               stochasticSoilModels,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-
-            // Call
-            bool isContext1EqualTo2 = context1.Equals(context2);
-            bool isContext2EqualTo1 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsTrue(isContext1EqualTo2);
-            Assert.IsTrue(isContext2EqualTo1);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherWithDifferentWrappedData_ReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var calculationGroup = new CalculationGroup();
-            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
-            var stochasticSoilModels = new MacroStabilityInwardsStochasticSoilModel[0];
-
-            var context1 = new MacroStabilityInwardsCalculationScenarioContext(new MacroStabilityInwardsCalculationScenario(),
-                                                                               calculationGroup,
-                                                                               surfaceLines,
-                                                                               stochasticSoilModels,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-
-            var context2 = new MacroStabilityInwardsCalculationScenarioContext(new MacroStabilityInwardsCalculationScenario(),
-                                                                               calculationGroup,
-                                                                               surfaceLines,
-                                                                               stochasticSoilModels,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-
-            // Call
-            bool isContext1EqualTo2 = context1.Equals(context2);
-            bool isContext2EqualTo1 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsFalse(isContext1EqualTo2);
-            Assert.IsFalse(isContext2EqualTo1);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherWithDifferentParent_ReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
-            var stochasticSoilModels = new MacroStabilityInwardsStochasticSoilModel[0];
-
-            var context1 = new MacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                               new CalculationGroup(),
-                                                                               surfaceLines,
-                                                                               stochasticSoilModels,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-
-            var context2 = new MacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                               new CalculationGroup(),
-                                                                               surfaceLines,
-                                                                               stochasticSoilModels,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-
-            // Call
-            bool isContext1EqualTo2 = context1.Equals(context2);
-            bool isContext2EqualTo1 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsFalse(isContext1EqualTo2);
-            Assert.IsFalse(isContext2EqualTo1);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetHashCode_EqualObjects_ReturnSameHashCode()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var parent = new CalculationGroup();
-            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
-            var stochasticSoilModels = new MacroStabilityInwardsStochasticSoilModel[0];
-
-            var context1 = new MacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                               parent,
-                                                                               surfaceLines,
-                                                                               stochasticSoilModels,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-
-            var context2 = new MacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                               parent,
-                                                                               surfaceLines,
-                                                                               stochasticSoilModels,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-
-            // Call
-            int hashCode1 = context1.GetHashCode();
-            int hashCode2 = context2.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCode1, hashCode2);
-            mocks.VerifyAll();
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new MacroStabilityInwardsCalculationScenarioContext(new MacroStabilityInwardsCalculationScenario(),
+                                                                                                  parent,
+                                                                                                  surfaceLines,
+                                                                                                  stochasticSoilModels,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSection))
+                    .SetName("Calculation");
+                yield return new TestCaseData(new MacroStabilityInwardsCalculationScenarioContext(calculation,
+                                                                                                  new CalculationGroup(),
+                                                                                                  surfaceLines,
+                                                                                                  stochasticSoilModels,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSection))
+                    .SetName("Parent");
+            }
         }
 
         private class DerivedMacroStabilityInwardsCalculationScenarioContext : MacroStabilityInwardsCalculationScenarioContext

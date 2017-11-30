@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -78,202 +80,53 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             mockRepository.VerifyAll();
         }
 
-        [Test]
-        public void Equals_ToNull_ReturnFalse()
+        [TestFixture]
+        private class StabilityStoneCoverWaveConditionsCalculationContextEqualsTest
+            : EqualsGuidelinesTestFixture<StabilityStoneCoverWaveConditionsCalculationContext,
+                DerivedStabilityStoneCoverWaveConditionsCalculationContext>
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            private static readonly MockRepository mocks = new MockRepository();
 
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var parent = new CalculationGroup();
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly StabilityStoneCoverWaveConditionsCalculation calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            private static readonly StabilityStoneCoverFailureMechanism failureMechanism = new StabilityStoneCoverFailureMechanism();
+            private static readonly CalculationGroup parent = new CalculationGroup();
 
-            // Call
-            bool isEqual = context.Equals(null);
+            [SetUp]
+            public void SetUp()
+            {
+                mocks.ReplayAll();
+            }
 
-            // Assert
-            Assert.IsFalse(isEqual);
+            [TearDown]
+            public void TearDown()
+            {
+                mocks.VerifyAll();
+            }
 
-            mocks.VerifyAll();
-        }
+            protected override StabilityStoneCoverWaveConditionsCalculationContext CreateObject()
+            {
+                return new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            }
 
-        [Test]
-        public void Equals_ToItself_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            protected override DerivedStabilityStoneCoverWaveConditionsCalculationContext CreateDerivedObject()
+            {
+                return new DerivedStabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            }
 
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var parent = new CalculationGroup();
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-
-            // Call
-            bool isEqual = context.Equals(context);
-
-            // Assert
-            Assert.IsTrue(isEqual);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherWithDifferentType_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var parent = new CalculationGroup();
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-
-            // Call
-            bool isEqual = context.Equals(new object());
-
-            // Assert
-            Assert.IsFalse(isEqual);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToDerivedObject_ReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var parent = new CalculationGroup();
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-            var derivedContext = new DerivedStabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-
-            // Call
-            bool isEqual = context.Equals(derivedContext);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherWithDifferentWrappedData_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation1 = new StabilityStoneCoverWaveConditionsCalculation();
-            var calculation2 = new StabilityStoneCoverWaveConditionsCalculation();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var parent = new CalculationGroup();
-            var context1 = new StabilityStoneCoverWaveConditionsCalculationContext(calculation1, parent, failureMechanism, assessmentSection);
-            var context2 = new StabilityStoneCoverWaveConditionsCalculationContext(calculation2, parent, failureMechanism, assessmentSection);
-
-            // Call
-            bool isEqual1 = context1.Equals(context2);
-            bool isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsFalse(isEqual1);
-            Assert.IsFalse(isEqual2);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherWithDifferentParent_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation1 = new StabilityStoneCoverWaveConditionsCalculation();
-            var calculation2 = new StabilityStoneCoverWaveConditionsCalculation();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var parent1 = new CalculationGroup();
-            var parent2 = new CalculationGroup();
-            var context1 = new StabilityStoneCoverWaveConditionsCalculationContext(calculation1, parent1, failureMechanism, assessmentSection);
-            var context2 = new StabilityStoneCoverWaveConditionsCalculationContext(calculation2, parent2, failureMechanism, assessmentSection);
-
-            // Precondition
-            Assert.IsFalse(parent1.Equals(parent2));
-
-            // Call
-            bool isEqual1 = context1.Equals(context2);
-            bool isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsFalse(isEqual1);
-            Assert.IsFalse(isEqual2);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Equals_ToOtherWithSameWrappedDataAndParent_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var parent = new CalculationGroup();
-            var context1 = new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-            var context2 = new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-
-            // Call
-            bool isEqual1 = context1.Equals(context2);
-            bool isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsTrue(isEqual1);
-            Assert.IsTrue(isEqual2);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetHashCode_EqualObjects_ReturnSameHashCode()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var parent = new CalculationGroup();
-            var context1 = new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-            var context2 = new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-
-            // Precondition
-            Assert.AreEqual(context1, context2);
-
-            // Call
-            int hashCode1 = context1.GetHashCode();
-            int hashCode2 = context2.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCode1, hashCode2);
-
-            mocks.VerifyAll();
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
+                                                                                                      parent,
+                                                                                                      failureMechanism,
+                                                                                                      assessmentSection))
+                    .SetName("Calculation");
+                yield return new TestCaseData(new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                                      new CalculationGroup(),
+                                                                                                      failureMechanism,
+                                                                                                      assessmentSection))
+                    .SetName("Parent");
+            }
         }
 
         private class DerivedStabilityStoneCoverWaveConditionsCalculationContext : StabilityStoneCoverWaveConditionsCalculationContext
