@@ -33,7 +33,7 @@ using HydraRingResources = Ringtoets.HydraRing.IO.Properties.Resources;
 namespace Ringtoets.Common.IO.HydraRing
 {
     /// <summary>
-    /// This class defines helper methods for obtaining meta data from hyraulic boundary databases.
+    /// This class defines helper methods for obtaining meta data from hydraulic boundary databases.
     /// </summary>
     public static class HydraulicBoundaryDatabaseHelper
     {
