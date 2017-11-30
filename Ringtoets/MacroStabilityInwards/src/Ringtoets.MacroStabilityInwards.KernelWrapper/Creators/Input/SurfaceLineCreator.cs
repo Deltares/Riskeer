@@ -112,7 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         {
             var characteristicPoints = new List<CharacteristicPoint>();
 
-            for (var i = 0; i < surfaceLine.Points.Length; i++)
+            for (var i = 0; i < surfaceLine.Points.Count(); i++)
             {
                 characteristicPoints.AddRange(CreateCharacteristicPoint(surfaceLine, geometryPoints, i));
             }
@@ -122,7 +122,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 
         private static IEnumerable<CharacteristicPoint> CreateCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, GeometryPoint[] geometryPoints, int index)
         {
-            Point3D surfaceLinePoint = surfaceLine.Points[index];
+            Point3D surfaceLinePoint = surfaceLine.Points.ElementAt(index);
             GeometryPoint geometryPoint = geometryPoints[index];
 
             var characteristicPoints = new List<CharacteristicPoint>();

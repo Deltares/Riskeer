@@ -323,19 +323,19 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             });
             if (missingType != 0)
             {
-                input.SurfaceLine.SetDitchDikeSideAt(input.SurfaceLine.Points[0]);
+                input.SurfaceLine.SetDitchDikeSideAt(input.SurfaceLine.Points.ElementAt(0));
             }
             if (missingType != 1)
             {
-                input.SurfaceLine.SetBottomDitchDikeSideAt(input.SurfaceLine.Points[1]);
+                input.SurfaceLine.SetBottomDitchDikeSideAt(input.SurfaceLine.Points.ElementAt(1));
             }
             if (missingType != 2)
             {
-                input.SurfaceLine.SetBottomDitchPolderSideAt(input.SurfaceLine.Points[2]);
+                input.SurfaceLine.SetBottomDitchPolderSideAt(input.SurfaceLine.Points.ElementAt(2));
             }
             if (missingType != 3)
             {
-                input.SurfaceLine.SetDitchPolderSideAt(input.SurfaceLine.Points[3]);
+                input.SurfaceLine.SetDitchPolderSideAt(input.SurfaceLine.Points.ElementAt(3));
             }
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
@@ -370,10 +370,10 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 new Point3D(2, 0, -4),
                 new Point3D(3, 0, 3)
             });
-            input.SurfaceLine.SetDitchDikeSideAt(input.SurfaceLine.Points[ditchDikeSidePosition]);
-            input.SurfaceLine.SetBottomDitchDikeSideAt(input.SurfaceLine.Points[bottomDitchDikeSidePosition]);
-            input.SurfaceLine.SetBottomDitchPolderSideAt(input.SurfaceLine.Points[bottomDitchPolderSidePosition]);
-            input.SurfaceLine.SetDitchPolderSideAt(input.SurfaceLine.Points[ditchPolderSidePosition]);
+            input.SurfaceLine.SetDitchDikeSideAt(input.SurfaceLine.Points.ElementAt(ditchDikeSidePosition));
+            input.SurfaceLine.SetBottomDitchDikeSideAt(input.SurfaceLine.Points.ElementAt(bottomDitchDikeSidePosition));
+            input.SurfaceLine.SetBottomDitchPolderSideAt(input.SurfaceLine.Points.ElementAt(bottomDitchPolderSidePosition));
+            input.SurfaceLine.SetDitchPolderSideAt(input.SurfaceLine.Points.ElementAt(ditchPolderSidePosition));
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 

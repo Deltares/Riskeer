@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.KernelWrapper.Creators
             Point2D[] projectedPoints = line.LocalGeometry.ToArray();
             var pipingPoints = new List<PipingPoint>();
 
-            for (var i = 0; i < line.Points.Length; i++)
+            for (var i = 0; i < line.Points.Count(); i++)
             {
                 IEnumerable<PipingPoint> newPoints = CreatePoint(line, projectedPoints, i);
                 pipingPoints.AddRange(newPoints);
@@ -64,10 +64,10 @@ namespace Ringtoets.Piping.KernelWrapper.Creators
             return pipingPoints;
         }
 
-        private static IEnumerable<PipingPoint> CreatePoint(RingtoetsPipingSurfaceLine line, Point2D[] projectedPoints, int index)
+        private static IEnumerable<PipingPoint> CreatePoint(RingtoetsPipingSurfaceLine line, IEnumerable<Point2D> projectedPoints, int index)
         {
-            Point3D surfaceLinePoint = line.Points[index];
-            Point2D projectedPoint = projectedPoints[index];
+            Point3D surfaceLinePoint = line.Points.ElementAt(index);
+            Point2D projectedPoint = projectedPoints.ElementAt(index);
 
             var pipingPoints = new List<PipingPoint>();
 

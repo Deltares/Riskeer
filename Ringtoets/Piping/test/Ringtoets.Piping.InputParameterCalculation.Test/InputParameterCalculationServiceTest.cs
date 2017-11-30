@@ -82,12 +82,12 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
                 new Point3D(0, 0, 10),
                 new Point3D(20, 0, 10)
             });
-            surfaceLine.SetDikeToeAtRiverAt(surfaceLine.Points[0]);
-            surfaceLine.SetDikeToeAtPolderAt(surfaceLine.Points[0]);
-            surfaceLine.SetDitchDikeSideAt(surfaceLine.Points[0]);
-            surfaceLine.SetBottomDitchPolderSideAt(surfaceLine.Points[1]);
-            surfaceLine.SetBottomDitchDikeSideAt(surfaceLine.Points[1]);
-            surfaceLine.SetDitchPolderSideAt(surfaceLine.Points[1]);
+            surfaceLine.SetDikeToeAtRiverAt(surfaceLine.Points.ElementAt(0));
+            surfaceLine.SetDikeToeAtPolderAt(surfaceLine.Points.ElementAt(0));
+            surfaceLine.SetDitchDikeSideAt(surfaceLine.Points.ElementAt(0));
+            surfaceLine.SetBottomDitchPolderSideAt(surfaceLine.Points.ElementAt(1));
+            surfaceLine.SetBottomDitchDikeSideAt(surfaceLine.Points.ElementAt(1));
+            surfaceLine.SetDitchPolderSideAt(surfaceLine.Points.ElementAt(1));
 
             var stochasticSoilProfile = new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile(string.Empty, 0, new[]
@@ -253,10 +253,10 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             AssertPointsAreEqual(pipingSurfaceLine.DitchPolderSide, otherSurfaceLine.DitchPolderSide);
             AssertPointsAreEqual(pipingSurfaceLine.DikeToeAtPolder, otherSurfaceLine.DikeToeAtPolder);
 
-            Assert.AreEqual(pipingSurfaceLine.Points.Length, otherSurfaceLine.Points.Count);
-            for (var i = 0; i < pipingSurfaceLine.Points.Length; i++)
+            Assert.AreEqual(pipingSurfaceLine.Points.Count(), otherSurfaceLine.Points.Count);
+            for (var i = 0; i < pipingSurfaceLine.Points.Count(); i++)
             {
-                AssertPointsAreEqual(pipingSurfaceLine.Points[i], otherSurfaceLine.Points[i]);
+                AssertPointsAreEqual(pipingSurfaceLine.Points.ElementAt(i), otherSurfaceLine.Points[i]);
             }
         }
 

@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.Creators
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.X).ToArray(), actual.Points.Select(p => p.X).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Y).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Length), actual.Points.Select(p => p.Type));
+            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Count()), actual.Points.Select(p => p.Type));
         }
 
         [Test]
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.Creators
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Y).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Length), actual.Points.Select(p => p.Type));
+            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Count()), actual.Points.Select(p => p.Type));
         }
 
         [Test]
@@ -110,9 +110,9 @@ namespace Ringtoets.Piping.KernelWrapper.Test.Creators
             };
             Assert.AreEqual(name, actual.Name);
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
-            CollectionAssert.AreEqual(Enumerable.Repeat(0, surfaceLine.Points.Length).ToArray(), actual.Points.Select(p => p.Y).ToArray());
+            CollectionAssert.AreEqual(Enumerable.Repeat(0, surfaceLine.Points.Count()).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Length), actual.Points.Select(p => p.Type));
+            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Count()), actual.Points.Select(p => p.Type));
         }
 
         [Test]
@@ -136,9 +136,9 @@ namespace Ringtoets.Piping.KernelWrapper.Test.Creators
             };
             Assert.AreEqual(name, actual.Name);
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(0, surfaceLine.Points.Length).ToArray(), actual.Points.Select(p => p.Y).ToArray());
+            CollectionAssert.AreEqual(Enumerable.Repeat(0, surfaceLine.Points.Count()).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Length), actual.Points.Select(p => p.Type));
+            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Count()), actual.Points.Select(p => p.Type));
         }
 
         [Test]

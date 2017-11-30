@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.IsInstanceOf<ChartLineData>(actual);
             var surfaceLineChartData = (ChartLineData) actual;
 
-            Assert.AreEqual(original.Points.Length, surfaceLineChartData.Points.Length);
+            Assert.AreEqual(original.Points.Count(), surfaceLineChartData.Points.Length);
             Assert.AreEqual(original.Name, actual.Name);
             CollectionAssert.AreEqual(original.LocalGeometry, surfaceLineChartData.Points);
         }

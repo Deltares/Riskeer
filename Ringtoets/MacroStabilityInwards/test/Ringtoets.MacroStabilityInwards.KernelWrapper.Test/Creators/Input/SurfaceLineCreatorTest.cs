@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             AssertGeneralValues(name, actual);
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.X).ToArray(), actual.Geometry.Points.Select(p => p.X).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Geometry.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(CharacteristicPointType.None, surfaceLine.Points.Length), actual.CharacteristicPoints.Select(p => p.CharacteristicPointType));
+            CollectionAssert.AreEqual(Enumerable.Repeat(CharacteristicPointType.None, surfaceLine.Points.Count()), actual.CharacteristicPoints.Select(p => p.CharacteristicPointType));
         }
 
         [Test]
@@ -109,7 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Geometry.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Geometry.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(CharacteristicPointType.None, surfaceLine.Points.Length), actual.CharacteristicPoints.Select(p => p.CharacteristicPointType));
+            CollectionAssert.AreEqual(Enumerable.Repeat(CharacteristicPointType.None, surfaceLine.Points.Count()), actual.CharacteristicPoints.Select(p => p.CharacteristicPointType));
         }
 
         [Test]
@@ -142,7 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Geometry.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Geometry.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(CharacteristicPointType.None, surfaceLine.Points.Length), actual.CharacteristicPoints.Select(p => p.CharacteristicPointType));
+            CollectionAssert.AreEqual(Enumerable.Repeat(CharacteristicPointType.None, surfaceLine.Points.Count()), actual.CharacteristicPoints.Select(p => p.CharacteristicPointType));
         }
 
         [Test]
@@ -169,7 +169,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Geometry.Points.Select(p => p.X).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Geometry.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(CharacteristicPointType.None, surfaceLine.Points.Length), actual.CharacteristicPoints.Select(p => p.CharacteristicPointType));
+            CollectionAssert.AreEqual(Enumerable.Repeat(CharacteristicPointType.None, surfaceLine.Points.Count()), actual.CharacteristicPoints.Select(p => p.CharacteristicPointType));
         }
 
         [Test]

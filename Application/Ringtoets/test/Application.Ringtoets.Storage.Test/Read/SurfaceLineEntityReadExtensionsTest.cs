@@ -197,12 +197,12 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             CollectionAssert.AreEqual(points, surfaceLine.Points);
 
-            Assert.AreSame(surfaceLine.Points[1], surfaceLine.BottomDitchDikeSide);
-            Assert.AreSame(surfaceLine.Points[2], surfaceLine.BottomDitchPolderSide);
-            Assert.AreSame(surfaceLine.Points[3], surfaceLine.DikeToeAtPolder);
-            Assert.AreSame(surfaceLine.Points[4], surfaceLine.DikeToeAtRiver);
-            Assert.AreSame(surfaceLine.Points[5], surfaceLine.DitchDikeSide);
-            Assert.AreSame(surfaceLine.Points[6], surfaceLine.DitchPolderSide);
+            Assert.AreSame(surfaceLine.Points.ElementAt(1), surfaceLine.BottomDitchDikeSide);
+            Assert.AreSame(surfaceLine.Points.ElementAt(2), surfaceLine.BottomDitchPolderSide);
+            Assert.AreSame(surfaceLine.Points.ElementAt(3), surfaceLine.DikeToeAtPolder);
+            Assert.AreSame(surfaceLine.Points.ElementAt(4), surfaceLine.DikeToeAtRiver);
+            Assert.AreSame(surfaceLine.Points.ElementAt(5), surfaceLine.DitchDikeSide);
+            Assert.AreSame(surfaceLine.Points.ElementAt(6), surfaceLine.DitchPolderSide);
         }
 
         [Test]
@@ -488,18 +488,18 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             CollectionAssert.AreEqual(points, surfaceLine.Points);
 
-            Assert.AreSame(surfaceLine.Points[0], surfaceLine.SurfaceLevelOutside);
-            Assert.AreSame(surfaceLine.Points[1], surfaceLine.DikeToeAtRiver);
-            Assert.AreSame(surfaceLine.Points[2], surfaceLine.DikeTopAtPolder);
-            Assert.AreSame(surfaceLine.Points[3], surfaceLine.DikeTopAtRiver);
-            Assert.AreSame(surfaceLine.Points[4], surfaceLine.ShoulderBaseInside);
-            Assert.AreSame(surfaceLine.Points[5], surfaceLine.ShoulderTopInside);
-            Assert.AreSame(surfaceLine.Points[6], surfaceLine.DikeToeAtPolder);
-            Assert.AreSame(surfaceLine.Points[7], surfaceLine.DitchDikeSide);
-            Assert.AreSame(surfaceLine.Points[8], surfaceLine.BottomDitchDikeSide);
-            Assert.AreSame(surfaceLine.Points[9], surfaceLine.BottomDitchPolderSide);
-            Assert.AreSame(surfaceLine.Points[10], surfaceLine.DitchPolderSide);
-            Assert.AreSame(surfaceLine.Points[11], surfaceLine.SurfaceLevelInside);
+            Assert.AreSame(surfaceLine.Points.ElementAt(0), surfaceLine.SurfaceLevelOutside);
+            Assert.AreSame(surfaceLine.Points.ElementAt(1), surfaceLine.DikeToeAtRiver);
+            Assert.AreSame(surfaceLine.Points.ElementAt(2), surfaceLine.DikeTopAtPolder);
+            Assert.AreSame(surfaceLine.Points.ElementAt(3), surfaceLine.DikeTopAtRiver);
+            Assert.AreSame(surfaceLine.Points.ElementAt(4), surfaceLine.ShoulderBaseInside);
+            Assert.AreSame(surfaceLine.Points.ElementAt(5), surfaceLine.ShoulderTopInside);
+            Assert.AreSame(surfaceLine.Points.ElementAt(6), surfaceLine.DikeToeAtPolder);
+            Assert.AreSame(surfaceLine.Points.ElementAt(7), surfaceLine.DitchDikeSide);
+            Assert.AreSame(surfaceLine.Points.ElementAt(8), surfaceLine.BottomDitchDikeSide);
+            Assert.AreSame(surfaceLine.Points.ElementAt(9), surfaceLine.BottomDitchPolderSide);
+            Assert.AreSame(surfaceLine.Points.ElementAt(10), surfaceLine.DitchPolderSide);
+            Assert.AreSame(surfaceLine.Points.ElementAt(11), surfaceLine.SurfaceLevelInside);
         }
 
         [Test]

@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Data
         /// <summary>
         /// Gets the 3D points describing the geometry of the surface line.
         /// </summary>
-        public Point3D[] Points { get; private set; }
+        public IEnumerable<Point3D> Points { get; private set; }
 
         /// <summary>
         /// Gets the first 3D geometry point defining the surface line in world coordinates.
@@ -103,10 +103,10 @@ namespace Ringtoets.Common.Data
             }
             Points = points.Select(p => new Point3D(p)).ToArray();
 
-            if (Points.Length > 0)
+            if (Points.Any())
             {
-                StartingWorldPoint = Points[0];
-                EndingWorldPoint = Points[Points.Length - 1];
+                StartingWorldPoint = Points.First();
+                EndingWorldPoint = Points.Last();
             }
 
             LocalGeometry = new RoundedPoint2DCollection(numberOfDecimalPlaces, Points.ProjectToLZ().ToArray());
@@ -119,8 +119,7 @@ namespace Ringtoets.Common.Data
         /// <returns>The local coordinate.</returns>
         public Point2D GetLocalPointFromGeometry(Point3D worldCoordinate)
         {
-            int count = Points.Length;
-            if (count <= 1)
+            if (Points.Count() <= 1)
             {
                 return new Point2D(double.NaN, double.NaN);
             }

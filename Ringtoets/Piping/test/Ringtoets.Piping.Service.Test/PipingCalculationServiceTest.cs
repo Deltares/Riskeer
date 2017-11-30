@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -241,11 +242,11 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_WithSurfaceLineOneOutOfFourDitchPoints_LogsErrorAndReturnsFalse()
         {
             // Setup
-            Point3D[] geometry = testCalculation.InputParameters.SurfaceLine.Points;
+            IEnumerable<Point3D> geometry = testCalculation.InputParameters.SurfaceLine.Points;
             const string surfaceLineName = "surfaceLineA";
             var surfaceLineMissingCharacteristicPoint = new PipingSurfaceLine(surfaceLineName);
             surfaceLineMissingCharacteristicPoint.SetGeometry(geometry);
-            surfaceLineMissingCharacteristicPoint.SetDitchDikeSideAt(geometry[2]);
+            surfaceLineMissingCharacteristicPoint.SetDitchDikeSideAt(geometry.ElementAt(2));
 
             testCalculation.InputParameters.SurfaceLine = surfaceLineMissingCharacteristicPoint;
             testCalculation.InputParameters.ExitPointL = (RoundedDouble) 0.9;

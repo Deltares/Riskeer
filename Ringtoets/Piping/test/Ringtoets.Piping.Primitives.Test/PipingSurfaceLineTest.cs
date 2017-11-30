@@ -438,7 +438,7 @@ namespace Ringtoets.Piping.Primitives.Test
             CollectionAssert.AreEqual(expectedSurfaceLine.Points, actualSurfaceLine.Points);
             TestHelper.AssertCollectionAreNotSame(expectedSurfaceLine.Points, actualSurfaceLine.Points);
 
-            Point3D[] actualSurfaceLinePoints = actualSurfaceLine.Points;
+            IEnumerable<Point3D> actualSurfaceLinePoints = actualSurfaceLine.Points;
             AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
             AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
             AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
@@ -447,7 +447,7 @@ namespace Ringtoets.Piping.Primitives.Test
             AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
         }
 
-        private static void AssertAreEqualAndFromSurfaceLine(Point3D[] actualSurfaceLinePoints, Point3D expectedPoint, Point3D actualPoint)
+        private static void AssertAreEqualAndFromSurfaceLine(IEnumerable<Point3D> actualSurfaceLinePoints, Point3D expectedPoint, Point3D actualPoint)
         {
             Assert.AreEqual(expectedPoint, actualPoint);
             if (actualPoint != null)

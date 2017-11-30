@@ -134,12 +134,12 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
                 new Point3D(3.0, 6.0, 0.5)
             };
             CollectionAssert.AreEqual(geometryPoints, surfaceLine.Points);
-            Assert.AreSame(surfaceLine.Points[1], surfaceLine.DikeToeAtRiver);
-            Assert.AreSame(surfaceLine.Points[4], surfaceLine.DikeToeAtPolder);
-            Assert.AreSame(surfaceLine.Points[5], surfaceLine.DitchDikeSide);
-            Assert.AreSame(surfaceLine.Points[6], surfaceLine.BottomDitchDikeSide);
-            Assert.AreSame(surfaceLine.Points[7], surfaceLine.BottomDitchPolderSide);
-            Assert.AreSame(surfaceLine.Points[8], surfaceLine.DitchPolderSide);
+            Assert.AreSame(surfaceLine.Points.ElementAt(1), surfaceLine.DikeToeAtRiver);
+            Assert.AreSame(surfaceLine.Points.ElementAt(4), surfaceLine.DikeToeAtPolder);
+            Assert.AreSame(surfaceLine.Points.ElementAt(5), surfaceLine.DitchDikeSide);
+            Assert.AreSame(surfaceLine.Points.ElementAt(6), surfaceLine.BottomDitchDikeSide);
+            Assert.AreSame(surfaceLine.Points.ElementAt(7), surfaceLine.BottomDitchPolderSide);
+            Assert.AreSame(surfaceLine.Points.ElementAt(8), surfaceLine.DitchPolderSide);
 
             Assert.NotNull(failureMechanism.CalculationsGroup);
             Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
@@ -203,18 +203,18 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             };
             CollectionAssert.AreEqual(geometryPoints, surfaceLine.Points);
 
-            Assert.AreEqual(surfaceLine.Points[12], surfaceLine.SurfaceLevelOutside);
-            Assert.AreEqual(surfaceLine.Points[11], surfaceLine.DikeToeAtRiver);
-            Assert.AreEqual(surfaceLine.Points[10], surfaceLine.DikeTopAtPolder);
-            Assert.AreEqual(surfaceLine.Points[9], surfaceLine.DikeTopAtRiver);
-            Assert.AreEqual(surfaceLine.Points[8], surfaceLine.ShoulderBaseInside);
-            Assert.AreEqual(surfaceLine.Points[7], surfaceLine.ShoulderTopInside);
-            Assert.AreEqual(surfaceLine.Points[6], surfaceLine.DikeToeAtPolder);
-            Assert.AreEqual(surfaceLine.Points[5], surfaceLine.DitchDikeSide);
-            Assert.AreEqual(surfaceLine.Points[4], surfaceLine.BottomDitchDikeSide);
-            Assert.AreEqual(surfaceLine.Points[3], surfaceLine.BottomDitchPolderSide);
-            Assert.AreEqual(surfaceLine.Points[2], surfaceLine.DitchPolderSide);
-            Assert.AreEqual(surfaceLine.Points[1], surfaceLine.SurfaceLevelInside);
+            Assert.AreEqual(surfaceLine.Points.ElementAt(12), surfaceLine.SurfaceLevelOutside);
+            Assert.AreEqual(surfaceLine.Points.ElementAt(11), surfaceLine.DikeToeAtRiver);
+            Assert.AreEqual(surfaceLine.Points.ElementAt(10), surfaceLine.DikeTopAtPolder);
+            Assert.AreEqual(surfaceLine.Points.ElementAt(9), surfaceLine.DikeTopAtRiver);
+            Assert.AreEqual(surfaceLine.Points.ElementAt(8), surfaceLine.ShoulderBaseInside);
+            Assert.AreEqual(surfaceLine.Points.ElementAt(7), surfaceLine.ShoulderTopInside);
+            Assert.AreEqual(surfaceLine.Points.ElementAt(6), surfaceLine.DikeToeAtPolder);
+            Assert.AreEqual(surfaceLine.Points.ElementAt(5), surfaceLine.DitchDikeSide);
+            Assert.AreEqual(surfaceLine.Points.ElementAt(4), surfaceLine.BottomDitchDikeSide);
+            Assert.AreEqual(surfaceLine.Points.ElementAt(3), surfaceLine.BottomDitchPolderSide);
+            Assert.AreEqual(surfaceLine.Points.ElementAt(2), surfaceLine.DitchPolderSide);
+            Assert.AreEqual(surfaceLine.Points.ElementAt(1), surfaceLine.SurfaceLevelInside);
 
             Assert.NotNull(failureMechanism.CalculationsGroup);
             Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);

@@ -780,7 +780,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsInstanceOf<ChartLineData>(chartData);
             var surfaceLineChartData = (ChartLineData) chartData;
 
-            Assert.AreEqual(surfaceLine.Points.Length, surfaceLineChartData.Points.Length);
+            Assert.AreEqual(surfaceLine.Points.Count(), surfaceLineChartData.Points.Length);
             CollectionAssert.AreEqual(surfaceLine.LocalGeometry, surfaceLineChartData.Points);
             Assert.AreEqual(surfaceLine.Name, chartData.Name);
         }

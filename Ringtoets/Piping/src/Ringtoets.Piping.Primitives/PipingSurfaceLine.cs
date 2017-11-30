@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -295,17 +297,18 @@ namespace Ringtoets.Piping.Primitives
                    && Equals(BottomDitchPolderSide, other.BottomDitchPolderSide);
         }
 
-        private bool EqualGeometricPoints(Point3D[] otherPoints)
+        private bool EqualGeometricPoints(IEnumerable<Point3D> otherPoints)
         {
-            int nrOfOtherPoints = otherPoints.Length;
-            if (Points.Length != nrOfOtherPoints)
+            int nrOfOtherPoints = otherPoints.Count();
+            int nrOfPoints = Points.Count();
+            if (nrOfPoints != nrOfOtherPoints)
             {
                 return false;
             }
 
-            for (var index = 0; index < Points.Length; index++)
+            for (var index = 0; index < nrOfPoints; index++)
             {
-                if (!Points[index].Equals(otherPoints[index]))
+                if (!Points.ElementAt(index).Equals(otherPoints.ElementAt(index)))
                 {
                     return false;
                 }
