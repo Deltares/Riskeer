@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
 
@@ -107,98 +109,43 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
         }
 
-        [Test]
-        public void GetHashCode_EqualLoops_AreEqual()
+        [TestFixture]
+        private class SoilLayer2DLoopEqualsTest : EqualsGuidelinesTestFixture<SoilLayer2DLoop, DerivedSoilLayer2DLoop>
         {
-            // Setup
-            SoilLayer2DLoop loopA = CreateValidLoop(1.0);
-            SoilLayer2DLoop loopB = CreateValidLoop(1.0);
-
-            // Precondition
-            Assert.AreEqual(loopA, loopB);
-            Assert.AreEqual(loopB, loopA);
-
-            // Call & Assert
-            Assert.AreEqual(loopA.GetHashCode(), loopB.GetHashCode());
-            Assert.AreEqual(loopB.GetHashCode(), loopA.GetHashCode());
-        }
-
-        [Test]
-        public void Equals_DifferentType_ReturnsFalse()
-        {
-            // Setup
-            SoilLayer2DLoop loop = CreateValidLoop(1.0);
-
-            // Call
-            bool areEqual = loop.Equals(new object());
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        public void Equals_Null_ReturnsFalse()
-        {
-            // Setup
-            SoilLayer2DLoop loop = CreateValidLoop(1.0);
-
-            // Call
-            bool areEqual = loop.Equals(null);
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(LoopCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(SoilLayer2DLoop loop,
-                                                                    SoilLayer2DLoop otherLoop,
-                                                                    bool expectedEqual)
-        {
-            // Call
-            bool areEqualOne = loop.Equals(otherLoop);
-            bool areEqualTwo = otherLoop.Equals(loop);
-
-            // Assert
-            Assert.AreEqual(expectedEqual, areEqualOne);
-            Assert.AreEqual(expectedEqual, areEqualTwo);
-        }
-
-        private static SoilLayer2DLoop CreateValidLoop(double x)
-        {
-            var pointA = new Point2D(0.0, 0.0);
-            var pointB = new Point2D(x, 0.0);
-
-            var segments = new[]
+            protected override SoilLayer2DLoop CreateObject()
             {
-                new Segment2D(pointA, pointB),
-                new Segment2D(pointB, pointA)
-            };
+                return CreateValidLoop(1.0);
+            }
 
-            return new SoilLayer2DLoop(segments);
+            protected override DerivedSoilLayer2DLoop CreateDerivedObject()
+            {
+                return new DerivedSoilLayer2DLoop(CreateValidLoop(1.0));
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(CreateValidLoop(2.0))
+                    .SetName("Segment");
+            }
+
+            private static SoilLayer2DLoop CreateValidLoop(double x)
+            {
+                var pointA = new Point2D(0.0, 0.0);
+                var pointB = new Point2D(x, 0.0);
+
+                var segments = new[]
+                {
+                    new Segment2D(pointA, pointB),
+                    new Segment2D(pointB, pointA)
+                };
+
+                return new SoilLayer2DLoop(segments);
+            }
         }
 
-        private static TestCaseData[] LoopCombinations()
+        private class DerivedSoilLayer2DLoop : SoilLayer2DLoop
         {
-            SoilLayer2DLoop loopA = CreateValidLoop(1.0);
-            SoilLayer2DLoop loopB = CreateValidLoop(1.0);
-            SoilLayer2DLoop loopC = CreateValidLoop(2.0);
-
-            return new[]
-            {
-                new TestCaseData(loopA, loopA, true)
-                {
-                    TestName = "Equals_LoopALoopA_True"
-                },
-                new TestCaseData(loopA, loopB, true)
-                {
-                    TestName = "Equals_LoopALoopB_True"
-                },
-                new TestCaseData(loopA, loopC, false)
-                {
-                    TestName = "Equals_LoopALoopC_False"
-                }
-            };
+            public DerivedSoilLayer2DLoop(SoilLayer2DLoop loop) : base(loop.Segments) {}
         }
     }
 }
