@@ -19,17 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
+using NUnit.Framework;
+using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
+
+namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
 {
-    /// <summary>
-    /// Defines the table and column names of the table 'Locations' in the hydraulic location
-    /// configuration database.
-    /// </summary>
-    internal static class LocationsTableDefinitions
+    [TestFixture]
+    public class HrdLocationsTableDefinitionsTest
     {
-        public const string TableName = "Locations";
-        public const string LocationId = "LocationId";
-        public const string HrdLocationId = "HRDLocationId";
-        public const string TrackId = "TrackId";
+        [Test]
+        public void Constants_Always_ExpectedValues()
+        {
+            Assert.AreEqual("HRDLocations", HrdLocationsTableDefinitions.TableName);
+            Assert.AreEqual("HRDLocationId", HrdLocationsTableDefinitions.HrdLocationId);
+            Assert.AreEqual("LocationTypeId", HrdLocationsTableDefinitions.LocationTypeId);
+            Assert.AreEqual("Name", HrdLocationsTableDefinitions.Name);
+            Assert.AreEqual("XCoordinate", HrdLocationsTableDefinitions.XCoordinate);
+            Assert.AreEqual("YCoordinate", HrdLocationsTableDefinitions.YCoordinate);
+            Assert.AreEqual("nrOfRows", HrdLocationsTableDefinitions.Count);
+        }
     }
 }

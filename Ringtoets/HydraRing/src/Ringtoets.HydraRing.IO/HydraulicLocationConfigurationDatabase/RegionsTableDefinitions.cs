@@ -22,7 +22,7 @@
 namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
 {
     /// <summary>
-    /// Defines the table and column names of the table 'Regions' in the hydraulic location 
+    /// Defines the table and column names of the table 'Regions' in the hydraulic location
     /// configuration database.
     /// </summary>
     internal static class RegionsTableDefinitions

@@ -20,6 +20,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HydraulicBoundaryDatabase\GeneralTableDefinitionsTest.cs" />
+    <Compile Include="HydraulicBoundaryDatabase\HrdLocationsTableDefinitionsTest.cs" />
     <Compile Include="HydraulicBoundaryDatabase\HydraulicBoundaryDatabaseQueryBuilderTest.cs" />
     <Compile Include="HydraulicBoundaryDatabase\HydraulicBoundarySqLiteDatabaseReaderTest.cs" />
     <Compile Include="HydraulicBoundaryDatabase\ReadHydraulicBoundaryLocationTest.cs" />
