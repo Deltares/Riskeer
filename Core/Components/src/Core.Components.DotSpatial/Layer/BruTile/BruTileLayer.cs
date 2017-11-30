@@ -217,9 +217,9 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         {
             if (targetProjectionInfo != null)
             {
-                targetProjection = targetProjectionInfo.Equals(sourceProjection) ?
-                                       null :
-                                       targetProjectionInfo;
+                targetProjection = targetProjectionInfo.Equals(sourceProjection)
+                                       ? null
+                                       : targetProjectionInfo;
             }
             else
             {
@@ -236,9 +236,9 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 return;
             }
 
-            IEnumerable<DotSpatialExtent> regionsToDraw = regions.Any() ?
-                                                              (IEnumerable<DotSpatialExtent>) regions :
-                                                              new[]
+            IEnumerable<DotSpatialExtent> regionsToDraw = regions.Any()
+                                                              ? (IEnumerable<DotSpatialExtent>) regions
+                                                              : new[]
                                                               {
                                                                   args.GeographicExtents
                                                               };
@@ -285,7 +285,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
                     tileFetcher.DropAllPendingTileRequests();
 
-                    IList<TileInfo> tiles = Sort(schema.GetTileInfos(extent, level), geoExtent.Center);
+                    IEnumerable<TileInfo> tiles = Sort(schema.GetTileInfos(extent, level), geoExtent.Center);
                     DrawTilesAtCurrentLevel(args, tiles, schema);
                 }
             }
@@ -350,9 +350,9 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 {
                     // For WMTS, 'spatialReferenceSystemString' might be some crude value (urn-string):
                     string authorityCode = ToAuthorityCode(spatialReferenceSystemString);
-                    projectionInfo = !string.IsNullOrWhiteSpace(authorityCode) ?
-                                         AuthorityCodeHandler.Instance[authorityCode] :
-                                         null;
+                    projectionInfo = !string.IsNullOrWhiteSpace(authorityCode)
+                                         ? AuthorityCodeHandler.Instance[authorityCode]
+                                         : null;
                 }
             }
 
@@ -486,7 +486,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// <param name="focusPoint">The point used to order based on distance.</param>
         /// <returns></returns>
         /// <remarks>Subsequent equidistant tiles are ordered to occur first.</remarks>
-        private static IList<TileInfo> Sort(IEnumerable<TileInfo> tileInfos, Coordinate focusPoint)
+        private static IEnumerable<TileInfo> Sort(IEnumerable<TileInfo> tileInfos, Coordinate focusPoint)
         {
             var sortResult = new SortedList<double, TileInfo>();
             foreach (TileInfo tileInfo in tileInfos)

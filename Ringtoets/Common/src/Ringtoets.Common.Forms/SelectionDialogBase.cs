@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms
         /// <summary>
         /// Sets the datasource on the <see cref="DataGridView"/>.
         /// </summary>
-        protected void SetDataSource(IList data)
+        protected void SetDataSource(IEnumerable data)
         {
             DataGridViewControl.SetDataSource(data);
         }

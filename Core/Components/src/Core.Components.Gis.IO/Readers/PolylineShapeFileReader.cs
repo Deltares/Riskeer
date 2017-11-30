@@ -147,13 +147,14 @@ namespace Core.Components.Gis.IO.Readers
             };
         }
 
-        private MapLineData ConvertMultiLineFeatureToMapLineData(IList<IFeature> lineFeatures, string name)
+        private MapLineData ConvertMultiLineFeatureToMapLineData(IEnumerable<IFeature> lineFeatures, string name)
         {
-            var mapFeatureList = new MapFeature[lineFeatures.Count];
+            int lineFeaturesCount = lineFeatures.Count();
+            var mapFeatureList = new MapFeature[lineFeaturesCount];
 
-            for (var featureIndex = 0; featureIndex < lineFeatures.Count; featureIndex++)
+            for (var featureIndex = 0; featureIndex < lineFeaturesCount; featureIndex++)
             {
-                IFeature lineFeature = lineFeatures[featureIndex];
+                IFeature lineFeature = lineFeatures.ElementAt(featureIndex);
                 MapFeature feature = CreateMapFeatureForLineFeature(lineFeature);
 
                 CopyMetaDataIntoFeature(feature, featureIndex);

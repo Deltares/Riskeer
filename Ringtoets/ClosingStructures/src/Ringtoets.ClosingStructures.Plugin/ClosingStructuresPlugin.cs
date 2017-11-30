@@ -368,7 +368,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
-        private static IList GetInputs(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable GetInputs(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -379,7 +379,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
-        private static IList GetOutputs(ClosingStructuresFailureMechanism failureMechanism)
+        private static IEnumerable GetOutputs(ClosingStructuresFailureMechanism failureMechanism)
         {
             return new ArrayList
             {

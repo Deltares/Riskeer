@@ -350,7 +350,7 @@ namespace Core.Common.Controls.DataGrid
         /// <param name="dataSource">The data source to set.</param>
         /// <remarks>Providing a value of <c>null</c> for <paramref name="dataSource"/>
         /// will clear the grid view.</remarks>
-        public void SetDataSource(IList dataSource)
+        public void SetDataSource(IEnumerable dataSource)
         {
             dataGridView.DataSource = dataSource;
         }

@@ -136,13 +136,13 @@ namespace Ringtoets.Common.Utils
                 }
                 if (calculationsPerSegmentName.ContainsKey(sectionName))
                 {
-                    IList<ICalculation> calculationsInCurrentSection = calculationsPerSegmentName[sectionName];
+                    IEnumerable<ICalculation> calculationsInCurrentSection = calculationsPerSegmentName[sectionName];
                     if (!calculationsInCurrentSection.Contains(sectionResult.Calculation))
                     {
                         sectionResult.Calculation = null;
                         affected = true;
                     }
-                    if (sectionResult.Calculation == null && calculationsInCurrentSection.Count == 1)
+                    if (sectionResult.Calculation == null && calculationsInCurrentSection.Count() == 1)
                     {
                         sectionResult.Calculation = calculationsInCurrentSection.Single();
                         affected = true;

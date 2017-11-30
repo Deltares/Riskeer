@@ -269,9 +269,9 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <param name="tokenizedString">The tokenized string from which the name should be extracted.</param>
         /// <returns>The name of the surface line.</returns>
         /// <exception cref="LineParseException">Thrown when id value is null or empty.</exception>
-        private string GetSurfaceLineName(IList<string> tokenizedString)
+        private string GetSurfaceLineName(IEnumerable<string> tokenizedString)
         {
-            string name = tokenizedString.Any() ? tokenizedString[idNameColumnIndex].Trim() : string.Empty;
+            string name = tokenizedString.Any() ? tokenizedString.ElementAt(idNameColumnIndex).Trim() : string.Empty;
             if (string.IsNullOrEmpty(name))
             {
                 throw CreateLineParseException(lineNumber, Resources.SurfaceLinesCsvReader_ReadLine_Line_lacks_ID);

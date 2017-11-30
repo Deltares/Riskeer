@@ -262,7 +262,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             };
         }
 
-        private static IList GetInputs(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable GetInputs(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -272,7 +272,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             };
         }
 
-        private static IList GetOutputs(StabilityStoneCoverFailureMechanism failureMechanism)
+        private static IEnumerable GetOutputs(StabilityStoneCoverFailureMechanism failureMechanism)
         {
             return new ArrayList
             {

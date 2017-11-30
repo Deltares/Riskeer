@@ -813,14 +813,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Uittredepunt", exitPointChartData.Name);
         }
 
-        private static void AssertCharacteristicPoints(PipingSurfaceLine surfaceLine, IList<ChartData> characteristicPoints)
+        private static void AssertCharacteristicPoints(PipingSurfaceLine surfaceLine, IEnumerable<ChartData> characteristicPoints)
         {
             Point3D first = surfaceLine.Points.First();
             Point3D last = surfaceLine.Points.Last();
             var firstPoint = new Point2D(first.X, first.Y);
             var lastPoint = new Point2D(last.X, last.Y);
 
-            var ditchDikeSideData = (ChartPointData) characteristicPoints[ditchDikeSideIndex];
+            var ditchDikeSideData = (ChartPointData) characteristicPoints.ElementAt(ditchDikeSideIndex);
             Assert.AreEqual(1, ditchDikeSideData.Points.Length);
             CollectionAssert.AreEqual(new[]
             {
@@ -828,7 +828,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, ditchDikeSideData.Points);
             Assert.AreEqual("Insteek sloot dijkzijde", ditchDikeSideData.Name);
 
-            var bottomDitchDikeSideData = (ChartPointData) characteristicPoints[bottomDitchDikeSideIndex];
+            var bottomDitchDikeSideData = (ChartPointData) characteristicPoints.ElementAt(bottomDitchDikeSideIndex);
             Assert.AreEqual(1, bottomDitchDikeSideData.Points.Length);
             CollectionAssert.AreEqual(new[]
             {
@@ -836,7 +836,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, bottomDitchDikeSideData.Points);
             Assert.AreEqual("Slootbodem dijkzijde", bottomDitchDikeSideData.Name);
 
-            var ditchPolderSideData = (ChartPointData) characteristicPoints[ditchPolderSideIndex];
+            var ditchPolderSideData = (ChartPointData) characteristicPoints.ElementAt(ditchPolderSideIndex);
             Assert.AreEqual(1, ditchPolderSideData.Points.Length);
             CollectionAssert.AreEqual(new[]
             {
@@ -844,7 +844,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, ditchPolderSideData.Points);
             Assert.AreEqual("Insteek sloot polderzijde", ditchPolderSideData.Name);
 
-            var bottomDitchPolderSideData = (ChartPointData) characteristicPoints[bottomDitchPolderSideIndex];
+            var bottomDitchPolderSideData = (ChartPointData) characteristicPoints.ElementAt(bottomDitchPolderSideIndex);
             Assert.AreEqual(1, bottomDitchPolderSideData.Points.Length);
             CollectionAssert.AreEqual(new[]
             {
@@ -852,7 +852,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, bottomDitchPolderSideData.Points);
             Assert.AreEqual("Slootbodem polderzijde", bottomDitchPolderSideData.Name);
 
-            var dikeToeAtPolderData = (ChartPointData) characteristicPoints[dikeToeAtPolderIndex];
+            var dikeToeAtPolderData = (ChartPointData) characteristicPoints.ElementAt(dikeToeAtPolderIndex);
             Assert.AreEqual(1, dikeToeAtPolderData.Points.Length);
             CollectionAssert.AreEqual(new[]
             {
@@ -860,7 +860,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, dikeToeAtPolderData.Points);
             Assert.AreEqual("Teen dijk binnenwaarts", dikeToeAtPolderData.Name);
 
-            var dikeToeAtRiverData = (ChartPointData) characteristicPoints[dikeToeAtRiverIndex];
+            var dikeToeAtRiverData = (ChartPointData) characteristicPoints.ElementAt(dikeToeAtRiverIndex);
             Assert.AreEqual(1, dikeToeAtRiverData.Points.Length);
             CollectionAssert.AreEqual(new[]
             {

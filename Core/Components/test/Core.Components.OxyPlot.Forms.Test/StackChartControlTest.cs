@@ -294,25 +294,26 @@ namespace Core.Components.OxyPlot.Forms.Test
             }
         }
 
-        private static void AssertSeries(IList<string> expectedSeriesTitles, CategoryPlotView plotView)
+        private static void AssertSeries(IEnumerable<string> expectedSeriesTitles, CategoryPlotView plotView)
         {
             ElementCollection<Series> series = plotView.Model.Series;
-            Assert.AreEqual(expectedSeriesTitles.Count, series.Count);
+            Assert.AreEqual(expectedSeriesTitles.Count(), series.Count);
 
-            for (var i = 0; i < expectedSeriesTitles.Count; i++)
+            for (var i = 0; i < expectedSeriesTitles.Count(); i++)
             {
-                Assert.AreEqual(expectedSeriesTitles[i], series[i].Title);
+                Assert.AreEqual(expectedSeriesTitles.ElementAt(i), series[i].Title);
             }
         }
 
-        private static void AssertColumns(IList<string> expectedColumnTitles, CategoryPlotView plotView)
+        private static void AssertColumns(IEnumerable<string> expectedColumnTitles, CategoryPlotView plotView)
         {
             CategoryAxis axis = plotView.Model.Axes.OfType<CategoryAxis>().First();
-            Assert.AreEqual(expectedColumnTitles.Count, axis.Labels.Count);
+            int expectedColumnTitlesCount = expectedColumnTitles.Count();
+            Assert.AreEqual(expectedColumnTitlesCount, axis.Labels.Count);
 
-            for (var i = 0; i < expectedColumnTitles.Count; i++)
+            for (var i = 0; i < expectedColumnTitlesCount; i++)
             {
-                Assert.AreEqual(expectedColumnTitles[i], axis.Labels[i]);
+                Assert.AreEqual(expectedColumnTitles.ElementAt(i), axis.Labels[i]);
             }
         }
     }

@@ -447,9 +447,9 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <param name="tokenizedString">The tokenized string from which the name should be extracted.</param>
         /// <returns>The name of the location.</returns>
         /// <exception cref="LineParseException">Thrown when id value is <c>null</c> or empty.</exception>
-        private string GetLocationName(IList<string> tokenizedString)
+        private string GetLocationName(IEnumerable<string> tokenizedString)
         {
-            string name = tokenizedString.Any() ? tokenizedString[columnsInFile[locationIdKey]].Trim() : null;
+            string name = tokenizedString.Any() ? tokenizedString.ElementAt(columnsInFile[locationIdKey]).Trim() : null;
             if (string.IsNullOrEmpty(name))
             {
                 throw CreateLineParseException(lineNumber, Resources.CharacteristicPointsCsvReader_ReadLine_Line_lacks_ID);

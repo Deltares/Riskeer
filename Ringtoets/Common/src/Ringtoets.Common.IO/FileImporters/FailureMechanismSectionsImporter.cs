@@ -319,9 +319,9 @@ namespace Ringtoets.Common.IO.FileImporters
             return Math2D.ConvertLinePointsToLineSegments(linePoints);
         }
 
-        private static IEnumerable<FailureMechanismSection> CreateFailureMechanismSectionsSnappedOnReferenceLine(IEnumerable<FailureMechanismSection> orderedReadSections, IList<Point2D[]> splitResults)
+        private static IEnumerable<FailureMechanismSection> CreateFailureMechanismSectionsSnappedOnReferenceLine(IEnumerable<FailureMechanismSection> orderedReadSections, IEnumerable<Point2D[]> splitResults)
         {
-            return orderedReadSections.Select((t, i) => new FailureMechanismSection(t.Name, splitResults[i])).ToList();
+            return orderedReadSections.Select((t, i) => new FailureMechanismSection(t.Name, splitResults.ElementAt(i))).ToList();
         }
     }
 }

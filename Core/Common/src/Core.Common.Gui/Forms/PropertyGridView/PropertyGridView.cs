@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Security.Permissions;
@@ -173,7 +173,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                     root = root.Parent;
                 }
                 // Find all expanded items and put them in a list.
-                var items = new ArrayList();
+                var items = new List<GridItem>();
                 AddExpandedItems(root, items);
 
                 // Find selectedItem.
@@ -185,7 +185,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                     {
                         foundIndex = items.Count - 1;
                     }
-                    SelectedGridItem = (GridItem) items[foundIndex];
+                    SelectedGridItem = items[foundIndex];
                     if (SelectedGridItem.GridItems.Count > 0)
                     {
                         SelectedGridItem.Expanded = false;
@@ -200,7 +200,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                         {
                             foundIndex = 0;
                         }
-                        SelectedGridItem = (GridItem) items[foundIndex];
+                        SelectedGridItem = items[foundIndex];
                     }
                     if (SelectedGridItem.GridItems.Count > 0)
                     {
@@ -213,7 +213,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private static void AddExpandedItems(GridItem parent, IList items)
+        private static void AddExpandedItems(GridItem parent, List<GridItem> items)
         {
             if (parent.PropertyDescriptor != null)
             {

@@ -107,7 +107,7 @@ namespace Core.Components.OxyPlot.CustomSeries
             foreach (DataPoint[] area in Areas)
             {
                 int n0 = area.Length;
-                IList<ScreenPoint> pts0 = new ScreenPoint[n0];
+                var pts0 = new ScreenPoint[n0];
                 TransformToScreenCoordinates(n0, pts0, area);
 
                 renderContext.DrawClippedPolygon(clippingRect, pts0, 1, GetSelectableFillColor(Fill), Color, StrokeThickness);
@@ -139,7 +139,7 @@ namespace Core.Components.OxyPlot.CustomSeries
             YAxis.Include(MaxY);
         }
 
-        private void TransformToScreenCoordinates(int n0, IList<ScreenPoint> pts0, DataPoint[] actualPoints)
+        private void TransformToScreenCoordinates(int n0, ScreenPoint[] pts0, DataPoint[] actualPoints)
         {
             for (var i = 0; i < n0; i++)
             {

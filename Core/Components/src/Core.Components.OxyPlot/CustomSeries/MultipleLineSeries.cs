@@ -101,7 +101,7 @@ namespace Core.Components.OxyPlot.CustomSeries
             foreach (DataPoint[] line in Lines)
             {
                 int n0 = line.Length;
-                IList<ScreenPoint> pts0 = new ScreenPoint[n0];
+                var pts0 = new ScreenPoint[n0];
                 TransformToScreenCoordinates(n0, pts0, line);
 
                 renderContext.DrawLine(pts0, Color, StrokeThickness, Dashes ?? LineStyle.GetDashArray());
@@ -134,7 +134,7 @@ namespace Core.Components.OxyPlot.CustomSeries
             YAxis.Include(MaxY);
         }
 
-        private void TransformToScreenCoordinates(int n0, IList<ScreenPoint> pts0, DataPoint[] actualPoints)
+        private void TransformToScreenCoordinates(int n0, ScreenPoint[] pts0, DataPoint[] actualPoints)
         {
             for (var i = 0; i < n0; i++)
             {

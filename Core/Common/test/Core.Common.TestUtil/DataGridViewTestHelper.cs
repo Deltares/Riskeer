@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
@@ -41,13 +41,14 @@ namespace Core.Common.TestUtil
         /// <param name="actualDataGridView">The view.</param>
         /// <exception cref="AssertionException">Thrown when a column does not have the
         /// expected header text or there is a mismatch in the number of columns.</exception>
-        public static void AssertExpectedHeaders(IList<string> expectedHeaderNames, DataGridView actualDataGridView)
+        public static void AssertExpectedHeaders(IEnumerable<string> expectedHeaderNames, DataGridView actualDataGridView)
         {
-            Assert.AreEqual(expectedHeaderNames.Count, actualDataGridView.ColumnCount);
-            for (var i = 0; i < expectedHeaderNames.Count; i++)
+            int expectedHeaderNamesCount = expectedHeaderNames.Count();
+            Assert.AreEqual(expectedHeaderNamesCount, actualDataGridView.ColumnCount);
+            for (var i = 0; i < expectedHeaderNamesCount; i++)
             {
                 DataGridViewColumn column = actualDataGridView.Columns[i];
-                Assert.AreEqual(expectedHeaderNames[i], column.HeaderText);
+                Assert.AreEqual(expectedHeaderNames.ElementAt(i), column.HeaderText);
             }
         }
 
@@ -58,15 +59,17 @@ namespace Core.Common.TestUtil
         /// <param name="actualDataGridView">The view.</param>
         /// <exception cref="AssertionException">Thrown when a column is not of the
         /// expected class or there is a mismatch in the number of columns.</exception>
-        public static void AssertColumnTypes(IList<Type> expectedColumnTypes, DataGridView actualDataGridView)
+        public static void AssertColumnTypes(IEnumerable<Type> expectedColumnTypes, DataGridView actualDataGridView)
         {
-            Assert.AreEqual(expectedColumnTypes.Count, actualDataGridView.ColumnCount);
-            for (var i = 0; i < expectedColumnTypes.Count; i++)
+            int expectedColumnTypesCount = expectedColumnTypes.Count();
+            Assert.AreEqual(expectedColumnTypesCount, actualDataGridView.ColumnCount);
+            for (var i = 0; i < expectedColumnTypesCount; i++)
             {
                 DataGridViewColumn column = actualDataGridView.Columns[i];
-                Assert.True(column.GetType().Implements(expectedColumnTypes[i]),
+                Type expectedColumnType = expectedColumnTypes.ElementAt(i);
+                Assert.True(column.GetType().Implements(expectedColumnType),
                             "Column type mismatch." + Environment.NewLine +
-                            $"Expected: {expectedColumnTypes[i].FullName}" + Environment.NewLine +
+                            $"Expected: {expectedColumnType.FullName}" + Environment.NewLine +
                             $"Actual: {column.GetType().FullName}");
             }
         }
@@ -78,14 +81,15 @@ namespace Core.Common.TestUtil
         /// <param name="actualRow">The row.</param>
         /// <exception cref="AssertionException">Thrown when a cell does not have the
         /// expected formatted value or there is a mismatch in the number of cells in the row.</exception>
-        public static void AssertExpectedRowFormattedValues(IList expectedFormattedValues, DataGridViewRow actualRow)
+        public static void AssertExpectedRowFormattedValues(IEnumerable<object> expectedFormattedValues, DataGridViewRow actualRow)
         {
             DataGridViewCellCollection rowCells = actualRow.Cells;
-            Assert.AreEqual(expectedFormattedValues.Count, rowCells.Count);
-            for (var i = 0; i < expectedFormattedValues.Count; i++)
+            int expectedFormattedValuesCount = expectedFormattedValues.Count();
+            Assert.AreEqual(expectedFormattedValuesCount, rowCells.Count);
+            for (var i = 0; i < expectedFormattedValuesCount; i++)
             {
                 DataGridViewCell cell = rowCells[i];
-                Assert.AreEqual(expectedFormattedValues[i], cell.FormattedValue);
+                Assert.AreEqual(expectedFormattedValues.ElementAt(i), cell.FormattedValue);
             }
         }
 

@@ -219,14 +219,11 @@ namespace Core.Common.TestUtil
 
         private void InitializeTree(Control control)
         {
-            IList itemsToShow = new ArrayList
+            var itemsToShow = new List<object>
             {
                 control
             };
-            foreach (object o in PropertyObjects)
-            {
-                itemsToShow.Add(o);
-            }
+            itemsToShow.AddRange(PropertyObjects);
 
             treeView1.ImageList = new ImageList
             {
@@ -240,7 +237,7 @@ namespace Core.Common.TestUtil
             treeView1.NodeMouseClick += delegate { PropertyGrid.SelectedObject = treeView1.SelectedNode.Tag; };
         }
 
-        private void AddAllNodes(TreeNodeCollection nodes, IEnumerable itemsToShow)
+        private static void AddAllNodes(TreeNodeCollection nodes, IEnumerable itemsToShow)
         {
             foreach (object item in itemsToShow.Cast<object>().Where(i => i != null))
             {

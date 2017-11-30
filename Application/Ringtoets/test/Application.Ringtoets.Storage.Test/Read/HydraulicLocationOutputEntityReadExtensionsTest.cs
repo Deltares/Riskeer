@@ -167,13 +167,14 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         private static void AssertIllustrationPoints(
-            IList<TopLevelSubMechanismIllustrationPointEntity> entities,
-            IList<TopLevelSubMechanismIllustrationPoint> illustrationPoints)
+            IEnumerable<TopLevelSubMechanismIllustrationPointEntity> entities,
+            IEnumerable<TopLevelSubMechanismIllustrationPoint> illustrationPoints)
         {
-            Assert.AreEqual(entities.Count, illustrationPoints.Count);
-            for (var i = 0; i < entities.Count; i++)
+            int expectedEntitiesCount = entities.Count();
+            Assert.AreEqual(expectedEntitiesCount, illustrationPoints.Count());
+            for (var i = 0; i < expectedEntitiesCount; i++)
             {
-                AssertTopLevelSubMechanismIllustrationPoint(entities[i], illustrationPoints[i]);
+                AssertTopLevelSubMechanismIllustrationPoint(entities.ElementAt(i), illustrationPoints.ElementAt(i));
             }
         }
 
@@ -190,12 +191,13 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNotNull(readTopLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint);
         }
 
-        private static void AssertStochasts(IList<StochastEntity> entities, IList<Stochast> stochasts)
+        private static void AssertStochasts(IEnumerable<StochastEntity> entities, IEnumerable<Stochast> stochasts)
         {
-            Assert.AreEqual(entities.Count, stochasts.Count);
-            for (var i = 0; i < entities.Count; i++)
+            int expectedEntitiesCount = entities.Count();
+            Assert.AreEqual(expectedEntitiesCount, stochasts.Count());
+            for (var i = 0; i < expectedEntitiesCount; i++)
             {
-                AssertStochast(entities[i], stochasts[i]);
+                AssertStochast(entities.ElementAt(i), stochasts.ElementAt(i));
             }
         }
 

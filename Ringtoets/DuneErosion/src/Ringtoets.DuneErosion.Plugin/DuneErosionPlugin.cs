@@ -172,7 +172,7 @@ namespace Ringtoets.DuneErosion.Plugin
             };
         }
 
-        private static IList GetInputs(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable GetInputs(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -181,7 +181,7 @@ namespace Ringtoets.DuneErosion.Plugin
             };
         }
 
-        private static IList GetOutputs(DuneErosionFailureMechanism failureMechanism)
+        private static IEnumerable GetOutputs(DuneErosionFailureMechanism failureMechanism)
         {
             return new ArrayList
             {

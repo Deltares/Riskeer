@@ -686,7 +686,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             };
         }
 
-        private static IList GetInputs(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable GetInputs(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -697,7 +697,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             };
         }
 
-        private static IList GetOutputs(MacroStabilityInwardsFailureMechanism failureMechanism)
+        private static IEnumerable GetOutputs(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             return new ArrayList
             {

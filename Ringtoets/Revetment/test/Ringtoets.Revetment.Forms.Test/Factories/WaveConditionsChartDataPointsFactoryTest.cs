@@ -971,15 +971,17 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             AssertWaterLevelGeometries(expectedLines, lines);
         }
 
-        private static void AssertWaterLevelGeometries(IList<Point2D[]> expectedLines, IList<Point2D[]> lines)
+        private static void AssertWaterLevelGeometries(IEnumerable<Point2D[]> expectedLines, IList<Point2D[]> lines)
         {
-            Assert.AreEqual(expectedLines.Count, lines.Count);
-            for (var i = 0; i < expectedLines.Count; i++)
+            int expectedLinesCount = expectedLines.Count();
+            Assert.AreEqual(expectedLinesCount, lines.Count);
+            for (var i = 0; i < expectedLinesCount; i++)
             {
-                Assert.AreEqual(expectedLines[i].Length, lines[i].Length);
-                for (var j = 0; j < expectedLines[i].Length; j++)
+                Point2D[] expectedLineGeometry = expectedLines.ElementAt(i);
+                Assert.AreEqual(expectedLineGeometry.Length, lines[i].Length);
+                for (var j = 0; j < expectedLineGeometry.Length; j++)
                 {
-                    Point2D expectedPoint = expectedLines[i][j];
+                    Point2D expectedPoint = expectedLineGeometry[j];
                     Point2D actualPoint = lines[i][j];
 
                     Assert.AreEqual(expectedPoint.X, actualPoint.X, 1e-6);

@@ -680,7 +680,7 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private static IList GetInputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable GetInputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -691,7 +691,7 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private static IList GetOutputs(PipingFailureMechanism failureMechanism)
+        private static IEnumerable GetOutputs(PipingFailureMechanism failureMechanism)
         {
             return new ArrayList
             {

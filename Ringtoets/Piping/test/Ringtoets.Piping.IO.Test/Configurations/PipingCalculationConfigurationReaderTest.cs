@@ -297,7 +297,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
 
             // Assert
             Assert.AreEqual(1, readConfigurationItems.Count);

@@ -539,7 +539,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private static IList GetInputs(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable GetInputs(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -549,7 +549,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private static IList GetOutputs(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private static IEnumerable GetOutputs(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             return new ArrayList
             {

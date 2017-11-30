@@ -1194,7 +1194,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private static IList GetInputs(IFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable GetInputs(IFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -1203,7 +1203,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private static IList GetOutputs(IFailureMechanism nodeData)
+        private static IEnumerable GetOutputs(IFailureMechanism nodeData)
         {
             var duneErosion = nodeData as IHasSectionResults<DuneErosionFailureMechanismSectionResult>;
             var grassCoverSlipOffInwards = nodeData as IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>;

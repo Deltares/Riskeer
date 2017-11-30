@@ -211,17 +211,17 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             // Update the areas of all soil layer chart data
-            IList<PipingSoilLayer> soilLayers = GetSoilLayers();
+            IEnumerable<PipingSoilLayer> soilLayers = GetSoilLayers();
 
-            for (var i = 0; i < soilLayers.Count; i++)
+            for (var i = 0; i < soilLayers.Count(); i++)
             {
                 ChartMultipleAreaData soilLayerData = soilLayerChartDataLookup[i];
 
-                soilLayerData.Areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayers[i], currentSoilProfile, data.InputParameters.SurfaceLine);
+                soilLayerData.Areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayers.ElementAt(i), currentSoilProfile, data.InputParameters.SurfaceLine);
             }
         }
 
-        private IList<PipingSoilLayer> GetSoilLayers()
+        private IEnumerable<PipingSoilLayer> GetSoilLayers()
         {
             return data?.InputParameters.StochasticSoilProfile?.SoilProfile.Layers.ToList() ?? new List<PipingSoilLayer>();
         }

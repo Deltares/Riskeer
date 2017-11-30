@@ -381,7 +381,7 @@ namespace Ringtoets.HeightStructures.Plugin
             };
         }
 
-        private static IList GetInputs(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable GetInputs(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -392,7 +392,7 @@ namespace Ringtoets.HeightStructures.Plugin
             };
         }
 
-        private static IList GetOutputs(HeightStructuresFailureMechanism failureMechanism)
+        private static IEnumerable GetOutputs(HeightStructuresFailureMechanism failureMechanism)
         {
             return new ArrayList
             {

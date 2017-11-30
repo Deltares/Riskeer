@@ -264,7 +264,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private static IList GetInputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable GetInputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -274,7 +274,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private static IList GetOutputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        private static IEnumerable GetOutputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
             return new ArrayList
             {

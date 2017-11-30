@@ -523,12 +523,12 @@ namespace Core.Common.Base.Geometry
             return splitResults;
         }
 
-        private static void EnsureLastSplitResultHasEndPointOfLine(List<Point2D> subLine, IList<Segment2D> lineSegments)
+        private static void EnsureLastSplitResultHasEndPointOfLine(List<Point2D> subLine, IEnumerable<Segment2D> lineSegments)
         {
-            int lastSegmentIndex = lineSegments.Count - 1;
-            if (!subLine.Contains(lineSegments[lastSegmentIndex].SecondPoint))
+            int lastSegmentIndex = lineSegments.Count() - 1;
+            if (!subLine.Contains(lineSegments.ElementAt(lastSegmentIndex).SecondPoint))
             {
-                subLine.Add(lineSegments[lastSegmentIndex].SecondPoint);
+                subLine.Add(lineSegments.ElementAt(lastSegmentIndex).SecondPoint);
             }
         }
 

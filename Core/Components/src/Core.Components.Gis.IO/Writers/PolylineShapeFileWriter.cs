@@ -65,7 +65,7 @@ namespace Core.Components.Gis.IO.Writers
 
             IEnumerable<Point2D> mapGeometryPointCollection = geometry.PointCollections.First();
 
-            IList<Coordinate> coordinates = mapGeometryPointCollection.Select(p => new Coordinate(p.X, p.Y)).ToList();
+            List<Coordinate> coordinates = mapGeometryPointCollection.Select(p => new Coordinate(p.X, p.Y)).ToList();
 
             return new LineString(coordinates);
         }
