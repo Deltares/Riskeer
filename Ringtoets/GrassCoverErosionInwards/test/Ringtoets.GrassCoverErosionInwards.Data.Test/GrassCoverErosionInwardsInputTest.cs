@@ -45,7 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             {
                 DikeProfile defaultDikeProfile = CreateTestDikeProfile();
                 Point2D defaultLocation = defaultDikeProfile.WorldReferencePoint;
-                RoughnessPoint[] defaultRoughnessPoints = defaultDikeProfile.DikeGeometry;
+                IEnumerable<RoughnessPoint> defaultRoughnessPoints = defaultDikeProfile.DikeGeometry;
                 RoundedDouble defaultDikeHeight = defaultDikeProfile.DikeHeight;
                 RoundedPoint2DCollection defaultForeshoreGeometry = defaultDikeProfile.ForeshoreGeometry;
                 RoundedDouble defaultBreakWaterHeight = defaultDikeProfile.BreakWater.Height;

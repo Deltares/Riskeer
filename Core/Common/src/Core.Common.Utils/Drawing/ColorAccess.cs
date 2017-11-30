@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Core.Common.Utils.Properties;
 
@@ -63,12 +65,14 @@ namespace Core.Common.Utils.Drawing
         private readonly ColorPalette palette;
         private readonly Rectangle validRange;
 
+        private readonly byte[] buffer;
+
         private ColorAccess(BitmapData data, ColorPalette palette, Rectangle validRange)
         {
             stride = data.Stride;
 
-            Buffer = new byte[stride * data.Height];
-            Marshal.Copy(data.Scan0, Buffer, 0, Buffer.Length);
+            buffer = new byte[stride * data.Height];
+            Marshal.Copy(data.Scan0, buffer, 0, buffer.Length);
             format = data.PixelFormat;
             bitsPerPixel = GetPixelSize(format);
             this.palette = palette;
@@ -93,10 +97,10 @@ namespace Core.Common.Utils.Drawing
                 switch (format)
                 {
                     case PixelFormat.Format1bppIndexed:
-                        return palette.Entries[(Buffer[index] & bitMask[mod]) == 0 ? 0 : 1];
+                        return palette.Entries[(Buffer.ElementAt(index) & bitMask[mod]) == 0 ? 0 : 1];
 
                     case PixelFormat.Format4bppIndexed:
-                        pIndex = Buffer[index];
+                        pIndex = Buffer.ElementAt(index);
                         mod /= 4;
                         if (mod != 0)
                         {
@@ -105,17 +109,17 @@ namespace Core.Common.Utils.Drawing
                         return palette.Entries[pIndex & 0x7];
 
                     case PixelFormat.Format8bppIndexed:
-                        pIndex = Buffer[index];
+                        pIndex = Buffer.ElementAt(index);
                         return palette.Entries[pIndex];
 
                     case PixelFormat.Format24bppRgb:
-                        return Color.FromArgb(Buffer[index + 2], Buffer[index + 1],
-                                              Buffer[index]);
+                        return Color.FromArgb(Buffer.ElementAt(index + 2), Buffer.ElementAt(index + 1),
+                                              Buffer.ElementAt(index));
 
                     case PixelFormat.Format32bppArgb:
                     case PixelFormat.Format32bppRgb:
-                        return Color.FromArgb(Buffer[index + 3], Buffer[index + 2],
-                                              Buffer[index + 1], Buffer[index]);
+                        return Color.FromArgb(Buffer.ElementAt(index + 3), Buffer.ElementAt(index + 2),
+                                              Buffer.ElementAt(index + 1), Buffer.ElementAt(index));
                     default:
                         throw new InvalidOperationException($"Indexing image for image format '{format}' isn't supported.");
                 }
@@ -130,10 +134,10 @@ namespace Core.Common.Utils.Drawing
 
                 int mod;
                 int index = GetIndex(x, y, out mod);
-                Buffer[index++] = value.B;
-                Buffer[index++] = value.G;
-                Buffer[index++] = value.R;
-                Buffer[index] = value.A;
+                buffer[index++] = value.B;
+                buffer[index++] = value.G;
+                buffer[index++] = value.R;
+                buffer[index] = value.A;
             }
         }
 
@@ -142,7 +146,13 @@ namespace Core.Common.Utils.Drawing
         /// can be used to create a new image with the changed data (for example using
         /// <see cref="SetBufferToImageAtOriginalLocation"/>).
         /// </summary>
-        public byte[] Buffer { get; }
+        public IEnumerable<byte> Buffer
+        {
+            get
+            {
+                return buffer;
+            }
+        }
 
         /// <summary>
         /// Sets the current image <see cref="Buffer"/> back at the original location in
@@ -160,7 +170,7 @@ namespace Core.Common.Utils.Drawing
             }
 
             BitmapData bitmapData = bitmap.LockBits(validRange, ImageLockMode.WriteOnly, bitmap.PixelFormat);
-            Marshal.Copy(Buffer, 0, bitmapData.Scan0, Buffer.Length);
+            Marshal.Copy(Buffer.ToArray(), 0, bitmapData.Scan0, Buffer.Count());
             bitmap.UnlockBits(bitmapData);
         }
 

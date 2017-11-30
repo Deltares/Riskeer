@@ -529,8 +529,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.IsInstanceOf<ChartLineData>(chartData);
             var dikeProfileChartData = (ChartLineData) chartData;
 
-            RoughnessPoint[] dikeGeometry = dikeProfile.DikeGeometry;
-            Assert.AreEqual(dikeGeometry.Length, dikeProfileChartData.Points.Length);
+            IEnumerable<RoughnessPoint> dikeGeometry = dikeProfile.DikeGeometry;
+            Assert.AreEqual(dikeGeometry.Count(), dikeProfileChartData.Points.Length);
             CollectionAssert.AreEqual(dikeGeometry.Select(dg => dg.Point), dikeProfileChartData.Points);
 
             string expectedName = $"{dikeProfile.Name} - Dijkprofiel";

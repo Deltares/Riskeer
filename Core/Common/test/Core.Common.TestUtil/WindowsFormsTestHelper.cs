@@ -49,7 +49,7 @@ namespace Core.Common.TestUtil
             InitializeComponent();
         }
 
-        public static object[] PropertyObjects { get; set; }
+        public static IEnumerable<object> PropertyObjects { get; set; }
 
         public PropertyGrid PropertyGrid { get; private set; }
 

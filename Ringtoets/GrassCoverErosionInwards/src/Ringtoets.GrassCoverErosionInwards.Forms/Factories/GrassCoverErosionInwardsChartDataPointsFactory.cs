@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
@@ -75,13 +76,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
         /// </returns>
         public static Point2D[] CreateDikeHeightPoints(GrassCoverErosionInwardsInput input)
         {
-            if (input?.DikeProfile == null || double.IsNaN(input.DikeHeight) || input.DikeProfile.DikeGeometry.Length < 2)
+            if (input?.DikeProfile == null || double.IsNaN(input.DikeHeight) || input.DikeProfile.DikeGeometry.Count() < 2)
             {
                 return new Point2D[0];
             }
 
             DikeProfile dikeProfile = input.DikeProfile;
-            RoughnessPoint[] roughnessPoints = dikeProfile.DikeGeometry;
+            IEnumerable<RoughnessPoint> roughnessPoints = dikeProfile.DikeGeometry;
 
             return new[]
             {

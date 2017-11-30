@@ -176,7 +176,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// and the succeeding <see cref="RoughnessPoint"/>. The roughness of the last
         /// point is irrelevant.
         /// </remarks>
-        public RoughnessPoint[] DikeGeometry { get; private set; }
+        public IEnumerable<RoughnessPoint> DikeGeometry { get; private set; }
 
         /// <summary>
         /// Gets or sets the height of the dike [m+NAP].
@@ -277,17 +277,17 @@ namespace Ringtoets.Common.Data.DikeProfiles
             DikeGeometry = points.Select(p => new RoughnessPoint(p.Point, p.Roughness)).ToArray();
         }
 
-        private bool EqualDikeGeometry(RoughnessPoint[] otherPoints)
+        private bool EqualDikeGeometry(IEnumerable<RoughnessPoint> otherPoints)
         {
-            int nrOfPoints = DikeGeometry.Length;
-            if (otherPoints.Length != nrOfPoints)
+            int nrOfPoints = DikeGeometry.Count();
+            if (otherPoints.Count() != nrOfPoints)
             {
                 return false;
             }
 
             for (var i = 0; i < nrOfPoints; i++)
             {
-                if (!DikeGeometry[i].Equals(otherPoints[i]))
+                if (!DikeGeometry.ElementAt(i).Equals(otherPoints.ElementAt(i)))
                 {
                     return false;
                 }

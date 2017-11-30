@@ -21,6 +21,7 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Drawing;
 using Core.Common.Utils.Test.Properties;
@@ -116,10 +117,10 @@ namespace Core.Common.Utils.Test.Drawing
 
                 // Assert
                 const int expectedBufferStartIndex = 544;
-                Assert.AreEqual(Color.AliceBlue.B, colorAccess.Buffer[expectedBufferStartIndex]);
-                Assert.AreEqual(Color.AliceBlue.G, colorAccess.Buffer[expectedBufferStartIndex + 1]);
-                Assert.AreEqual(Color.AliceBlue.R, colorAccess.Buffer[expectedBufferStartIndex + 2]);
-                Assert.AreEqual(Color.AliceBlue.A, colorAccess.Buffer[expectedBufferStartIndex + 3]);
+                Assert.AreEqual(Color.AliceBlue.B, colorAccess.Buffer.ElementAt(expectedBufferStartIndex));
+                Assert.AreEqual(Color.AliceBlue.G, colorAccess.Buffer.ElementAt(expectedBufferStartIndex + 1));
+                Assert.AreEqual(Color.AliceBlue.R, colorAccess.Buffer.ElementAt(expectedBufferStartIndex + 2));
+                Assert.AreEqual(Color.AliceBlue.A, colorAccess.Buffer.ElementAt(expectedBufferStartIndex + 3));
 
                 // ColorAccess should not be capable of changing the source image:
                 TestHelper.AssertImagesAreEqual(Resources.acorn, image);
