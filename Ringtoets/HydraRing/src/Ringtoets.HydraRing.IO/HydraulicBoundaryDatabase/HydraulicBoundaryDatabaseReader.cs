@@ -124,7 +124,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         /// Gets the track id from the hydraulic boundary database.
         /// </summary>
         /// <returns>The track id found in the database, or 0 if the track id cannot be found.</returns>
-        /// <exception cref="InvalidCastException">Thrown when the database contains incorrect values for required properties.</exception>
+        /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
         public long GetTrackId()
         {

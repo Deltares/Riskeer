@@ -58,10 +58,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // Call is done in SetUp
-
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryDatabaseImporter>(importer);
             Assert.IsInstanceOf<IDisposable>(importer);
         }
 
@@ -80,42 +77,21 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ExistingFile_DoesNotThrowException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers());
-            mocks.ReplayAll();
-
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            // Call
-            TestDelegate test = () => importer.Import(assessmentSection, validFilePath);
-
-            // Assert
-            Assert.DoesNotThrow(test);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Import_NonExistingFile_ThrowsCriticalFileReadException()
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            string filePath = Path.Combine(testDataPath, "nonexisting.sqlite");
-            string expectedExceptionMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet.";
+            string filePath = Path.Combine(testDataPath, "doesNotExist.sqlite");
 
             // Call
             TestDelegate test = () => importer.Import(assessmentSection, filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
+            string expectedExceptionMessage = $"Fout bij het lezen van bestand '{filePath}': het bestand bestaat niet.";
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -126,8 +102,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             string invalidPath = Path.Combine(testDataPath, "complete.sqlite");
@@ -137,9 +112,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestDelegate test = () => importer.Import(assessmentSection, invalidPath);
 
             // Assert
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             string expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
                 .Build("Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
-            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
 
@@ -151,18 +126,17 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "/");
-            string expectedExceptionMessage = $"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
 
             // Call
             TestDelegate test = () => importer.Import(assessmentSection, filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
+            string expectedExceptionMessage = $"Fout bij het lezen van bestand '{filePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
 
@@ -174,8 +148,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");
@@ -184,8 +157,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestDelegate test = () => importer.Import(assessmentSection, validFilePath);
 
             // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build("Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.");
             var exception = Assert.Throws<CriticalFileReadException>(test);
+            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build("Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -196,8 +169,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, "withoutSettings", "complete.sqlite");
@@ -218,8 +190,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite");
@@ -237,7 +208,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ImportingToValidTargetWithValidFileWithoutUsePreprocessor_ImportHydraulicBoundaryLocationsToCollectionAndAssessmentSectionNotified()
+        public void Import_ValidFileWithCanUsePreprocessorFalse_DataImportedAndAssessmentSectionNotified()
         {
             // Setup
             var mocks = new MockRepository();
@@ -245,10 +216,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             assessmentSection.Expect(section => section.NotifyObservers());
             mocks.ReplayAll();
 
-            string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
-
-            // Precondition
-            Assert.IsTrue(File.Exists(validFilePath), $"Precondition failed. File does not exist: {validFilePath}");
+            string directory = Path.Combine(testDataPath, "WithUsePreprocessor");
+            string validFilePath = Path.Combine(directory, "completeUsePreprocessorFalse.sqlite");
 
             // Call
             var importResult = false;
@@ -270,6 +239,39 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void Import_ValidFileWithCanUsePreprocessorTrue_DataImportedAndAssessmentSectionNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers());
+            mocks.ReplayAll();
+
+            string directory = Path.Combine(testDataPath, "WithUsePreprocessor");
+            string validFilePath = Path.Combine(directory, "completeUsePreprocessorTrue.sqlite");
+
+            // Call
+            var importResult = false;
+            Action call = () => importResult = importer.Import(assessmentSection, validFilePath);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                StringAssert.EndsWith("De hydraulische randvoorwaardenlocaties zijn ingelezen.", messageArray[0]);
+            });
+            Assert.IsTrue(importResult);
+            Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor);
+            Assert.AreEqual(directory, assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory);
+            List<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            Assert.AreEqual(106, importedLocations.Count);
+            CollectionAssert.AllItemsAreNotNull(importedLocations);
+            CollectionAssert.AllItemsAreUnique(importedLocations);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_ImportingToSameDatabaseOnDifferentPath_FilePathUpdatedAndAssessmentSectionNotified()
         {
             // Setup
@@ -280,9 +282,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
             string copyValidFilePath = Path.Combine(testDataPath, "copyOfCompleteWithLocationsToBeFilteredOut.sqlite");
-
-            // Precondition
-            Assert.IsTrue(File.Exists(validFilePath), $"Precondition failed. File does not exist: {validFilePath}");
 
             importer.Import(assessmentSection, validFilePath);
 
@@ -310,9 +309,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
 
-            // Precondition
-            Assert.IsTrue(File.Exists(validFilePath), $"Precondition failed. File does not exist: {validFilePath}");
-
             importer.Import(assessmentSection, validFilePath);
 
             // Call
@@ -329,76 +325,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ImportingToValidTargetWithValidFileCanUsePreprocessorTrue_ImportHydraulicBoundaryLocationsToCollectionAndAssessmentSectionNotified()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers());
-            mocks.ReplayAll();
-
-            string directory = Path.Combine(testDataPath, "WithUsePreprocessor");
-            string validFilePath = Path.Combine(directory, "completeUsePreprocessorTrue.sqlite");
-
-            // Precondition
-            Assert.IsTrue(File.Exists(validFilePath), $"Precondition failed. File does not exist: {validFilePath}");
-
-            // Call
-            var importResult = false;
-            Action call = () => importResult = importer.Import(assessmentSection, validFilePath);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] messageArray = messages.ToArray();
-                StringAssert.EndsWith("De hydraulische randvoorwaardenlocaties zijn ingelezen.", messageArray[0]);
-            });
-            Assert.IsTrue(importResult);
-            Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.AreEqual(directory, assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory);
-            List<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            Assert.AreEqual(106, importedLocations.Count);
-            CollectionAssert.AllItemsAreNotNull(importedLocations);
-            CollectionAssert.AllItemsAreUnique(importedLocations);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Import_ImportingToValidTargetWithValidFileCanUsePreprocessorFalse_ImportHydraulicBoundaryLocationsToCollectionAndAssessmentSectionNotified()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers());
-            mocks.ReplayAll();
-
-            string validFilePath = Path.Combine(testDataPath, "WithUsePreprocessor", "completeUsePreprocessorFalse.sqlite");
-
-            // Precondition
-            Assert.IsTrue(File.Exists(validFilePath), $"Precondition failed. File does not exist: {validFilePath}");
-
-            // Call
-            var importResult = false;
-            Action call = () => importResult = importer.Import(assessmentSection, validFilePath);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] messageArray = messages.ToArray();
-                StringAssert.EndsWith("De hydraulische randvoorwaardenlocaties zijn ingelezen.", messageArray[0]);
-            });
-            Assert.IsTrue(importResult);
-            Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor);
-            List<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            Assert.AreEqual(9, importedLocations.Count);
-            CollectionAssert.AllItemsAreNotNull(importedLocations);
-            CollectionAssert.AllItemsAreUnique(importedLocations);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Import_ImportingFileWithCorruptSchema_AbortAndLog()
+        public void Import_ImportingFileWithCorruptSchema_ReturnsFalseAndLogsErrorMessages()
         {
             // Setup
             var mocks = new MockRepository();
@@ -428,38 +355,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.IsFalse(importResult);
             Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase, "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Import_CorruptSchemaFile_ReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
-            mocks.ReplayAll();
-
-            string validFilePath = Path.Combine(testDataPath, "corruptschema.sqlite");
-            var importResult = true;
-
-            // Call
-            Action call = () => importResult = importer.Import(assessmentSection, validFilePath);
-
-            // Assert
-            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
-            {
-                Assert.AreEqual(1, messages.Count());
-                Tuple<string, Level, Exception> expectedLog = messages.ElementAt(0);
-
-                Assert.AreEqual(Level.Error, expectedLog.Item2);
-
-                Exception loggedException = expectedLog.Item3;
-                Assert.IsInstanceOf<LineParseException>(loggedException);
-                Assert.AreEqual(loggedException.Message, expectedLog.Item1);
-            });
-            Assert.IsFalse(importResult);
-            Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase, "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
             mocks.VerifyAll();
         }
     }

@@ -42,17 +42,17 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
         public void Constructor_InvalidFile_ThrowsCriticalFileReadException()
         {
             // Setup
-            string testFile = Path.Combine(testDataPath, "none.sqlite");
+            string dbFile = Path.Combine(testDataPath, "none.sqlite");
 
             // Call
             TestDelegate test = () =>
             {
-                using (new HydraulicLocationConfigurationDatabaseReader(testFile)) {}
+                using (new HydraulicLocationConfigurationDatabaseReader(dbFile)) {}
             };
 
             // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build("Het bestand bestaat niet.");
             var exception = Assert.Throws<CriticalFileReadException>(test);
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bestand bestaat niet.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
