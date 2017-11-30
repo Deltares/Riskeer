@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Components.OxyPlot.Test")]
 [assembly: AssemblyProduct("Core.Components.OxyPlot.Test")]
-[assembly: Guid("0181e263-f7cc-4a86-aa69-094036252e9a")]

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Plugins.Map")]
 [assembly: AssemblyProduct("Core.Plugins.Map")]
-[assembly: Guid("610E0A9C-1997-4C43-A10E-39D4C66ADA93")]

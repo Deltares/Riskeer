@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Common.Version")]
 [assembly: AssemblyCompany("Deltares")]
 [assembly: AssemblyProduct("Core.Common.Version")]
 [assembly: AssemblyCopyright("Copyright © Deltares 2017")]
-[assembly: Guid("c270ac05-b3cf-429d-8aae-f8cc424f3250")]

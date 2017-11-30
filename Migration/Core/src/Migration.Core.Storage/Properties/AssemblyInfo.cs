@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Migration.Core.Storage")]
 [assembly: AssemblyProduct("Migration.Core.Storage")]
-[assembly: Guid("efd7e662-5b69-4b71-a448-565b64e9c033")]

@@ -21,9 +21,7 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Common.Controls.TreeView")]
 [assembly: AssemblyProduct("Core.Common.Controls.TreeView")]
-[assembly: Guid("e0f7a7cc-de07-4b0a-b72e-7bc923810fde")]
 [assembly: InternalsVisibleTo("Core.Common.Controls.TreeView.Test")]

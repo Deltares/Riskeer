@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Components.PointedTree.Forms")]
 [assembly: AssemblyProduct("Core.Components.PointedTree.Forms")]
-[assembly: Guid("dbf5a590-2a11-4eb4-a8cc-f3036475e4d5")]

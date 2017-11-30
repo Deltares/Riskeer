@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.Revetment.Forms.Test")]
 [assembly: AssemblyProduct("Ringtoets.Revetment.Forms.Test")]
-[assembly: Guid("ff5e2f3b-2eab-4ab5-95e7-28abe833c641")]

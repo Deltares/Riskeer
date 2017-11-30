@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.HeightStructures.Plugin")]
 [assembly: AssemblyProduct("Ringtoets.HeightStructures.Plugin")]
-[assembly: Guid("770d7b35-51fb-4a14-b6c0-7bb81b09f1c2")]

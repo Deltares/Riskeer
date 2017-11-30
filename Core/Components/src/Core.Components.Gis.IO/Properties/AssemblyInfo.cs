@@ -21,9 +21,7 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Components.Gis.IO")]
 [assembly: AssemblyProduct("Core.Components.Gis.IO")]
-[assembly: Guid("FD264FAD-E6F9-47CC-97CD-770199A8E629")]
 [assembly: InternalsVisibleTo("Core.Components.Gis.IO.Test")]

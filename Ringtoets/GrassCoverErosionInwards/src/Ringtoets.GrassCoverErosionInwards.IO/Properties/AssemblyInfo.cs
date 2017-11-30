@@ -21,9 +21,7 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.GrassCoverErosionInwards.IO")]
 [assembly: AssemblyProduct("Ringtoets.GrassCoverErosionInwards.IO")]
-[assembly: Guid("aa3ab46f-1664-40c4-a620-a12513184bd4")]
 [assembly: InternalsVisibleTo("Ringtoets.GrassCoverErosionInwards.IO.Test")]

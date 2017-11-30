@@ -21,11 +21,9 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.MacroStabilityInwards.KernelWrapper")]
 [assembly: AssemblyProduct("Ringtoets.MacroStabilityInwards.KernelWrapper")]
-[assembly: Guid("b5f16494-0810-4343-9e2e-7fc996c5f8d4")]
 [assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.KernelWrapper.Test")]
 [assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil")]
 [assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.Service.Test")]

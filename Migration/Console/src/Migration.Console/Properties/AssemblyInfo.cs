@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Migration.Console")]
 [assembly: AssemblyProduct("Migration.Console")]
-[assembly: Guid("2e2c9b96-e72a-4c10-aa54-a5381fe30b0d")]

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Components.GraphSharp.Test")]
 [assembly: AssemblyProduct("Core.Components.GraphSharp.Test")]
-[assembly: Guid("2e3214a5-e2a2-44fa-ab0e-28200a2439dc")]

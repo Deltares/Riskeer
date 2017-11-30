@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.MacroStabilityInwards.Data.Test")]
 [assembly: AssemblyProduct("Ringtoets.MacroStabilityInwards.Data.Test")]
-[assembly: Guid("25927cc1-ad67-4d5f-b213-3e4a6699b905")]

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.ClosingStructures.Data")]
 [assembly: AssemblyProduct("Ringtoets.ClosingStructures.Data")]
-[assembly: Guid("d07db0e7-fc37-473c-8277-d2e59712c23f")]

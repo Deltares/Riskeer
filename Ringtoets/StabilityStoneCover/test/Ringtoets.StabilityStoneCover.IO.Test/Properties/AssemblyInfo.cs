@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.StabilityStoneCover.IO.Test")]
 [assembly: AssemblyProduct("Ringtoets.StabilityStoneCover.IO.Test")]
-[assembly: Guid("c818595f-5bab-4d99-977e-97f743106b1d")]

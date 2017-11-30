@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Migration.Console.TestUtil.Test")]
 [assembly: AssemblyProduct("Migration.Console.TestUtil.Test")]
-[assembly: Guid("420712bc-8c50-4033-9261-19c7d5641657")]

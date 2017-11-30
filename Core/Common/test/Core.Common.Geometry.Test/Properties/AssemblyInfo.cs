@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Common.Geometry.Test")]
 [assembly: AssemblyProduct("Core.Common.Geometry.Test")]
-[assembly: Guid("df8ad118-f614-49c8-b17d-9c0a747b7b94")]

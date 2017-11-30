@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Components.GraphSharp.Forms")]
 [assembly: AssemblyProduct("Core.Components.GraphSharp.Forms")]
-[assembly: Guid("4e575459-ad64-4f5f-b313-9f8e0ec8c03f")]

@@ -21,9 +21,7 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.WaveImpactAsphaltCover.Forms")]
 [assembly: AssemblyProduct("Ringtoets.WaveImpactAsphaltCover.Forms")]
-[assembly: Guid("6dc6d875-73f7-4851-b853-f6337fb7adb8")]
 [assembly: InternalsVisibleTo("Ringtoets.WaveImpactAsphaltCover.Forms.Test")]

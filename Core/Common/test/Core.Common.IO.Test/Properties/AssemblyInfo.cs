@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Common.IO.Test")]
 [assembly: AssemblyProduct("Core.Common.IO.Test")]
-[assembly: Guid("06EAFA1E-707B-488A-B360-ECE0F870CACF")]

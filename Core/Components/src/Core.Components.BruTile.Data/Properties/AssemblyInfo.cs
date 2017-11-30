@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Components.BruTile.Data")]
 [assembly: AssemblyProduct("Core.Components.BruTile.Data")]
-[assembly: Guid("3dcef8f6-cb6d-435c-9539-50143dacd86c")]

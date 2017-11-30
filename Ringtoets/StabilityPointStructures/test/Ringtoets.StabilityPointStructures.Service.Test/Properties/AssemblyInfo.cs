@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.StabilityPointStructures.Service.Test")]
 [assembly: AssemblyProduct("Ringtoets.StabilityPointStructures.Service.Test")]
-[assembly: Guid("39c70608-28dc-4f51-834b-c8e1fe0899bb")]

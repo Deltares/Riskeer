@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.Common.Plugin")]
 [assembly: AssemblyProduct("Ringtoets.Common.Plugin")]
-[assembly: Guid("8513b8d6-79c8-4173-b663-59c91ac65e5f")]

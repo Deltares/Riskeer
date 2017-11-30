@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Components.Gis.Forms.Test")]
 [assembly: AssemblyProduct("Core.Components.Gis.Forms.Test")]
-[assembly: Guid("fc8f3315-e129-44ad-8a0e-f7979094ee4c")]

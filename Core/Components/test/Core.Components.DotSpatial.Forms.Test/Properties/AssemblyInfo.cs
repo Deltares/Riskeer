@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Components.DotSpatial.Forms.Test")]
 [assembly: AssemblyProduct("Core.Components.DotSpatial.Forms.Test")]
-[assembly: Guid("525c25e0-dcef-4b09-8234-c9d001b47bfa")]

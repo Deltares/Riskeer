@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.WaveImpactAsphaltCover.IO.Test")]
 [assembly: AssemblyProduct("Ringtoets.WaveImpactAsphaltCover.IO.Test")]
-[assembly: Guid("0d3fd1b3-8118-416f-89ae-1966738e73a5")]

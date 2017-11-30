@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Components.Stack")]
 [assembly: AssemblyProduct("Core.Components.Stack")]
-[assembly: Guid("6a146889-a3c4-48bf-af53-c0b0cd355be4")]

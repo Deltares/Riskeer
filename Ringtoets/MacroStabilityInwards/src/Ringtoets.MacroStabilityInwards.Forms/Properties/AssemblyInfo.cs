@@ -21,9 +21,7 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.MacroStabilityInwards.Forms")]
 [assembly: AssemblyProduct("Ringtoets.MacroStabilityInwards.Forms")]
-[assembly: Guid("972ec5a1-029c-4bad-8831-ec0af96c2ff2")]
 [assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.Forms.Test")]

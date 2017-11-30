@@ -21,9 +21,7 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.HeightStructures.Service")]
 [assembly: AssemblyProduct("Ringtoets.HeightStructures.Service")]
-[assembly: Guid("c0d946bb-5532-4ad7-83de-faaaa9a71f60")]
 [assembly: InternalsVisibleTo("Ringtoets.HeightStructures.Service.Test")]

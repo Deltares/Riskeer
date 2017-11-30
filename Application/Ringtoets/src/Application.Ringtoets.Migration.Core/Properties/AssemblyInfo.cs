@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Application.Ringtoets.Migration.Core")]
 [assembly: AssemblyProduct("Application.Ringtoets.Migration.Core")]
-[assembly: Guid("fac55b92-e259-43d6-b9a1-5bda6c834359")]

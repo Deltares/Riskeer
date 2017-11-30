@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Plugins.ProjectExplorer.Test")]
 [assembly: AssemblyProduct("Core.Plugins.ProjectExplorer.Test")]
-[assembly: Guid("ce6076e6-1a9c-4057-ab4f-9ce0640585f4")]

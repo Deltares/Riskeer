@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Components.BruTile.TestUtil")]
 [assembly: AssemblyProduct("Core.Components.BruTile.TestUtil")]
-[assembly: Guid("1081336c-d919-4249-ab33-9af15f4d19ec")]

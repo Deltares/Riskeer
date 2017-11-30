@@ -21,9 +21,7 @@
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.Integration.Forms")]
 [assembly: AssemblyProduct("Ringtoets.Integration.Forms")]
-[assembly: Guid("29efee41-4016-4661-82b1-932c89986d24")]
 [assembly: InternalsVisibleTo("Ringtoets.Integration.Forms.Test")]

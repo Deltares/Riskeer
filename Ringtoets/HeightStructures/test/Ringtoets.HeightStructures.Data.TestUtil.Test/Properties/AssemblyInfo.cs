@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.HeightStructures.Data.TestUtil.Test")]
 [assembly: AssemblyProduct("Ringtoets.HeightStructures.Data.TestUtil.Test")]
-[assembly: Guid("6eb1114d-1249-425f-8a93-7d71209ee7fb")]

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.GrassCoverErosionOutwards.Data.Test")]
 [assembly: AssemblyProduct("Ringtoets.GrassCoverErosionOutwards.Data.Test")]
-[assembly: Guid("1b0c58b1-95db-43f7-aa2d-185aaeb1a77b")]

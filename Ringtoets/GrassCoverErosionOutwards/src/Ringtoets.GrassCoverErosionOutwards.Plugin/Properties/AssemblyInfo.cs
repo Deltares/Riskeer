@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.GrassCoverErosionOutwards.Plugin")]
 [assembly: AssemblyProduct("Ringtoets.GrassCoverErosionOutwards.Plugin")]
-[assembly: Guid("b2d8db7d-1acb-4dc7-a468-aa842065a982")]

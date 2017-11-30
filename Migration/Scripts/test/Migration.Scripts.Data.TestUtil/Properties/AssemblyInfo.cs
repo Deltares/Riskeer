@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Migration.Scripts.Data.TestUtil")]
 [assembly: AssemblyProduct("Migration.Scripts.Data.TestUtil")]
-[assembly: Guid("e4b36055-a984-4d40-9a70-34354054fe46")]

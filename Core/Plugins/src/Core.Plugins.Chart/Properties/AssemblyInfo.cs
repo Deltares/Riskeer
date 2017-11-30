@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Plugins.Chart")]
 [assembly: AssemblyProduct("Core.Plugins.Chart")]
-[assembly: Guid("008e702b-a124-422e-9fb5-cd65fc85e49a")]

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.HydraRing.Calculation.Test")]
 [assembly: AssemblyProduct("Ringtoets.HydraRing.Calculation.Test")]
-[assembly: Guid("175406DB-C0DA-42A7-968C-0C17CF2257B1")]

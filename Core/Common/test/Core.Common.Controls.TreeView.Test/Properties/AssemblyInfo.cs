@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Common.Controls.TreeView.Test")]
 [assembly: AssemblyProduct("Core.Common.Controls.TreeView.Test")]
-[assembly: Guid("fac9e3ce-a494-4ab9-bfa3-d2401dbead8a")]

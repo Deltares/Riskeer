@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.Piping.IO.TestUtil")]
 [assembly: AssemblyProduct("Ringtoets.Piping.IO.TestUtil")]
-[assembly: Guid("58e2d4fd-9dfa-4a05-99c6-5a2e8adcf90a")]
