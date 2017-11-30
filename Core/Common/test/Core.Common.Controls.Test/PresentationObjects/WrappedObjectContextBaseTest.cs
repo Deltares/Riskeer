@@ -57,7 +57,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
         }
 
         [TestFixture]
-        private class WrappedObjectContext : EqualsGuidelinesTestFixture<WrappedObjectContextBase<SimpleEquatable>>
+        private class WrappedObjectContextEqualsTest : EqualsGuidelinesTestFixture<WrappedObjectContextBase<SimpleEquatable>>
         {
             private static readonly object sourceObject = new object();
 
