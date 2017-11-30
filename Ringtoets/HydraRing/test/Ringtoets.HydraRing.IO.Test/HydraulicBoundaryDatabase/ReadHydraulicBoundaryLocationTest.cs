@@ -21,9 +21,9 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
+using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 
-namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
+namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
 {
     [TestFixture]
     public class ReadHydraulicBoundaryLocationTest

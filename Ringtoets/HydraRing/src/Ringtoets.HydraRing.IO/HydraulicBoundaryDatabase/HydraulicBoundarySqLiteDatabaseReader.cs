@@ -28,7 +28,7 @@ using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.HydraRing.IO.Properties;
 
-namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
+namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
 {
     /// <summary>
     /// This class reads a SqLite database file and constructs <see cref="ReadHydraulicBoundaryLocation"/>

@@ -19,19 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
+namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
 {
     /// <summary>
-    /// Defines the table and column names of the table 'HRDLocations' in the hydraulic boundary database.
+    /// Defines the table and column names of the table 'General' in the hydraulic boundary database.
     /// </summary>
-    public static class HrdLocationsTableDefinitions
+    internal static class GeneralTableDefinitions
     {
-        internal const string TableName = "HRDLocations";
-        internal const string HrdLocationId = "HRDLocationId";
-        internal const string LocationTypeId = "LocationTypeId";
-        internal const string Name = "Name";
-        internal const string XCoordinate = "XCoordinate";
-        internal const string YCoordinate = "YCoordinate";
-        internal const string Count = "nrOfRows";
+        internal const string TableName = "General";
+        internal const string RegionName = "NameRegion";
+        internal const string TrackId = "TrackId";
+        internal const string CreationDate = "CreationDate";
+        internal const string GeneratedVersion = "GeneratedVersion";
     }
 }
