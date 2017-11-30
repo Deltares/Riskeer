@@ -59,9 +59,9 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         }
 
         /// <summary>
-        /// Returns the query to get the all relevant locations from the database.
+        /// Returns the query to get all relevant locations from the database.
         /// </summary>
-        /// <returns>The query to get the all relevant locations from the database.</returns>
+        /// <returns>The query to get all relevant locations from the database.</returns>
         public static string GetRelevantLocationsQuery()
         {
             return $"SELECT {HrdLocationsTableDefinitions.HrdLocationId}, {HrdLocationsTableDefinitions.Name}, " +

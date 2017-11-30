@@ -30,52 +30,44 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
         [Test]
         public void GetVersionQuery_Always_ReturnsExpectedValues()
         {
-            // Setup
-            const string expectedQuery = "SELECT (NameRegion || CreationDate || TrackId) as GeneratedVersion FROM General LIMIT 0,1;";
-
             // Call
             string query = HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery();
 
             // Assert
+            const string expectedQuery = "SELECT (NameRegion || CreationDate || TrackId) as GeneratedVersion FROM General LIMIT 0,1;";
             Assert.AreEqual(expectedQuery, query);
         }
 
         [Test]
         public void GetTrackIdQuery_Always_ReturnsExpectedValues()
         {
-            // Setup
-            const string expectedQuery = "SELECT TrackId FROM General LIMIT 0,1;";
-
             // Call
             string query = HydraulicBoundaryDatabaseQueryBuilder.GetTrackIdQuery();
 
             // Assert
+            const string expectedQuery = "SELECT TrackId FROM General LIMIT 0,1;";
             Assert.AreEqual(expectedQuery, query);
         }
 
         [Test]
         public void GetRelevantLocationsCountQuery_Always_ReturnsExpectedValues()
         {
-            // Setup
-            const string expectedQuery = "SELECT count(HRDLocationId) as nrOfRows FROM HRDLocations WHERE LocationTypeId > 1;";
-
             // Call
             string query = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsCountQuery();
 
             // Assert
+            const string expectedQuery = "SELECT count(HRDLocationId) as nrOfRows FROM HRDLocations WHERE LocationTypeId > 1;";
             Assert.AreEqual(expectedQuery, query);
         }
 
         [Test]
         public void GetRelevantLocationsQuery_Always_ReturnsExpectedValues()
         {
-            // Setup
-            const string expectedQuery = "SELECT HRDLocationId, Name, XCoordinate, YCoordinate FROM HRDLocations WHERE LocationTypeId > 1;";
-
             // Call
             string query = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsQuery();
 
             // Assert
+            const string expectedQuery = "SELECT HRDLocationId, Name, XCoordinate, YCoordinate FROM HRDLocations WHERE LocationTypeId > 1;";
             Assert.AreEqual(expectedQuery, query);
         }
     }
