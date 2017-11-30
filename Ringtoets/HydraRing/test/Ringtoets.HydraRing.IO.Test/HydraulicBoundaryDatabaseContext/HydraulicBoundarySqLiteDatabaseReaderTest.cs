@@ -286,10 +286,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             {
                 // Call
                 hydraulicBoundarySqLiteDatabaseReader.PrepareReadLocation();
-                HrdLocation location = hydraulicBoundarySqLiteDatabaseReader.ReadLocation();
+                ReadHydraulicBoundaryLocation location = hydraulicBoundarySqLiteDatabaseReader.ReadLocation();
 
                 // Assert
-                Assert.IsInstanceOf<HrdLocation>(location);
+                Assert.IsNotNull(location);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -300,7 +300,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             // Setup
             const int nrOfLocations = 18;
             string dbFile = Path.Combine(testDataPath, "complete.sqlite");
-            var boundaryLocations = new List<HrdLocation>();
+            var boundaryLocations = new List<ReadHydraulicBoundaryLocation>();
             CollectionAssert.IsEmpty(boundaryLocations);
 
             using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
@@ -317,7 +317,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
                 Assert.IsNull(hydraulicBoundarySqLiteDatabaseReader.ReadLocation());
             }
 
-            CollectionAssert.AllItemsAreInstancesOfType(boundaryLocations, typeof(HrdLocation));
+            CollectionAssert.AllItemsAreInstancesOfType(boundaryLocations, typeof(ReadHydraulicBoundaryLocation));
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
@@ -372,7 +372,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition failed: The file should be writable to begin with.");
 
             HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = null;
-            HrdLocation boundaryLocation;
+            ReadHydraulicBoundaryLocation boundaryLocation;
             try
             {
                 hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile);

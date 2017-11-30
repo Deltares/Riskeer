@@ -179,17 +179,17 @@ namespace Ringtoets.Common.IO.FileImporters
 
                 while (hydraulicBoundaryDatabaseReader.HasNext)
                 {
-                    HrdLocation hrdLocation = hydraulicBoundaryDatabaseReader.ReadLocation();
+                    ReadHydraulicBoundaryLocation location = hydraulicBoundaryDatabaseReader.ReadLocation();
 
                     long locationId;
-                    locationIdsDictionary.TryGetValue(hrdLocation.HrdLocationId, out locationId);
+                    locationIdsDictionary.TryGetValue(location.Id, out locationId);
 
                     if (filter.ShouldInclude(locationId))
                     {
                         hydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(locationId,
-                                                                                     hrdLocation.Name,
-                                                                                     hrdLocation.LocationX,
-                                                                                     hrdLocation.LocationY));
+                                                                                     location.Name,
+                                                                                     location.CoordinateX,
+                                                                                     location.CoordinateY));
                     }
                 }
                 return new ReadHydraulicBoundaryDatabase(version, hydraulicBoundaryLocations, canUsePreprocessor);

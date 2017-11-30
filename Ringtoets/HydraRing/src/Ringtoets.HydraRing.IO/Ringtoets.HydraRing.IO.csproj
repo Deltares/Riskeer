@@ -22,9 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HydraulicBoundaryDatabaseContext\GeneralTableDefinitions.cs" />
-    <Compile Include="HydraulicBoundaryDatabaseContext\HrdLocation.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="HydraulicBoundaryDatabaseContext\HrdLocationsTableDefinitions.cs" />
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundaryDatabaseQueryBuilder.cs" />
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundarySqLiteDatabaseReader.cs" />

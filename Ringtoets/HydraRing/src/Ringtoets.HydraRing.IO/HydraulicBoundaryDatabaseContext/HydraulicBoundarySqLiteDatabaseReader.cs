@@ -31,7 +31,7 @@ using Ringtoets.HydraRing.IO.Properties;
 namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
 {
     /// <summary>
-    /// This class reads a SqLite database file and constructs <see cref="HrdLocation"/> 
+    /// This class reads a SqLite database file and constructs <see cref="ReadHydraulicBoundaryLocation"/>
     /// instances from this database.
     /// </summary>
     public class HydraulicBoundarySqLiteDatabaseReader : SqLiteDatabaseReaderBase
@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         private IDataReader sqliteDataReader;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundarySqLiteDatabaseReader"/>, 
+        /// Creates a new instance of <see cref="HydraulicBoundarySqLiteDatabaseReader"/>,
         /// which will use the <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
@@ -62,19 +62,17 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             CloseDataReader();
             HasNext = false;
 
-            string locationsQuery = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsQuery();
-            sqliteDataReader = CreateDataReader(locationsQuery);
+            sqliteDataReader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsQuery());
             MoveNext();
         }
 
         /// <summary>
         /// Reads the next location from the database.
         /// </summary>
-        /// <returns>New instance of <see cref="HrdLocation"/>, based on the  data read from
+        /// <returns>A new instance of <see cref="ReadHydraulicBoundaryLocation"/> based on the data read from
         /// the database or <c>null</c> if no data is available.</returns>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect 
-        /// values for required properties.</exception>
-        public HrdLocation ReadLocation()
+        /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
+        public ReadHydraulicBoundaryLocation ReadLocation()
         {
             if (!HasNext)
             {
@@ -83,12 +81,21 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
 
             try
             {
-                return ReadHrdLocation();
+                var id = sqliteDataReader.Read<long>(HrdLocationsTableDefinitions.HrdLocationId);
+                var name = sqliteDataReader.Read<string>(HrdLocationsTableDefinitions.Name);
+                var x = sqliteDataReader.Read<double>(HrdLocationsTableDefinitions.XCoordinate);
+                var y = sqliteDataReader.Read<double>(HrdLocationsTableDefinitions.YCoordinate);
+
+                return new ReadHydraulicBoundaryLocation(id, name, x, y);
             }
             catch (ConversionException e)
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 throw new LineParseException(message, e);
+            }
+            finally
+            {
+                MoveNext();
             }
         }
 
@@ -192,30 +199,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         private void MoveNext()
         {
             HasNext = MoveNext(sqliteDataReader);
-        }
-
-        /// <summary>
-        /// Reads the current row into a new instance of <see cref="HrdLocation"/>.
-        /// </summary>
-        /// <returns>A new instance of <see cref="HrdLocation"/>, based upon the current row.</returns>
-        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
-        private HrdLocation ReadHrdLocation()
-        {
-            try
-            {
-                var id = sqliteDataReader.Read<long>(HrdLocationsTableDefinitions.HrdLocationId);
-                var name = sqliteDataReader.Read<string>(HrdLocationsTableDefinitions.Name);
-                var x = sqliteDataReader.Read<double>(HrdLocationsTableDefinitions.XCoordinate);
-                var y = sqliteDataReader.Read<double>(HrdLocationsTableDefinitions.YCoordinate);
-                MoveNext();
-                return new HrdLocation(id, name, x, y);
-            }
-            catch (InvalidCastException)
-            {
-                MoveNext();
-                throw;
-            }
         }
 
         private void CloseDataReader()
