@@ -82,6 +82,26 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
             // Call
             using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
+                hydraulicBoundaryDatabaseReader.PrepareReadLocation();
+
+                // Assert
+                Assert.AreEqual(hydraulicBoundaryDatabaseFile, hydraulicBoundaryDatabaseReader.Path);
+                Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(hydraulicBoundaryDatabaseReader);
+                Assert.IsTrue(hydraulicBoundaryDatabaseReader.HasNext);
+            }
+        }
+
+        [Test]
+        public void Constructor_EmptyDatabase_HasNextFalse()
+        {
+            // Setup
+            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "emptyschema.sqlite");
+
+            // Call
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
+            {
+                hydraulicBoundaryDatabaseReader.PrepareReadLocation();
+
                 // Assert
                 Assert.IsFalse(hydraulicBoundaryDatabaseReader.HasNext);
             }
@@ -216,16 +236,17 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
         {
             // Setup
             string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "corruptschema.sqlite");
-            string expectedMessage = new FileReaderErrorMessageBuilder(hydraulicBoundaryDatabaseFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
 
             using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
-                // Call
                 hydraulicBoundaryDatabaseReader.PrepareReadLocation();
+
+                // Call
                 TestDelegate test = () => hydraulicBoundaryDatabaseReader.ReadLocation();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(test);
+                string expectedMessage = new FileReaderErrorMessageBuilder(hydraulicBoundaryDatabaseFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<ConversionException>(exception.InnerException);
             }
@@ -239,28 +260,33 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
 
             using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
-                // Call
                 hydraulicBoundaryDatabaseReader.PrepareReadLocation();
+
+                // Call
                 ReadHydraulicBoundaryLocation location = hydraulicBoundaryDatabaseReader.ReadLocation();
 
                 // Assert
                 Assert.IsNotNull(location);
+                Assert.AreEqual(1, location.Id);
+                Assert.AreEqual("punt_flw_ 1", location.Name);
+                Assert.AreEqual(52697.5, location.CoordinateX);
+                Assert.AreEqual(427567.0, location.CoordinateY);
             }
         }
 
         [Test]
-        public void ReadLocation_ValidFilereadAllLocations_ExpectedValues()
+        public void ReadLocation_ValidFileReadAllLocations_ExpectedValues()
         {
             // Setup
             const int nrOfLocations = 18;
             string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "complete.sqlite");
             var boundaryLocations = new List<ReadHydraulicBoundaryLocation>();
-            CollectionAssert.IsEmpty(boundaryLocations);
 
             using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
             {
-                // Call
                 hydraulicBoundaryDatabaseReader.PrepareReadLocation();
+
+                // Call
                 for (var i = 0; i < nrOfLocations; i++)
                 {
                     boundaryLocations.Add(hydraulicBoundaryDatabaseReader.ReadLocation());
@@ -271,75 +297,19 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
                 Assert.IsNull(hydraulicBoundaryDatabaseReader.ReadLocation());
             }
 
-            CollectionAssert.AllItemsAreInstancesOfType(boundaryLocations, typeof(ReadHydraulicBoundaryLocation));
+            CollectionAssert.AllItemsAreNotNull(boundaryLocations);
         }
 
         [Test]
-        public void ParameteredConstructor_PathToExistingFile_ExpectedValues()
-        {
-            // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "emptyschema.sqlite");
-
-            // Call
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
-            {
-                // Assert
-                Assert.AreEqual(hydraulicBoundaryDatabaseFile, hydraulicBoundaryDatabaseReader.Path);
-                Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(hydraulicBoundaryDatabaseReader);
-            }
-        }
-
-        [Test]
-        public void Constructor_EmptyDatabase_HasNextFalse()
-        {
-            // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "emptyschema.sqlite");
-
-            // Call
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
-            {
-                // Assert
-                Assert.IsFalse(hydraulicBoundaryDatabaseReader.HasNext);
-            }
-        }
-
-        [Test]
-        public void Dispose_AfterConstruction_CorrectlyReleasesFile()
+        public void Dispose_Always_CorrectlyReleasesFile()
         {
             // Setup
             string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "complete.sqlite");
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(hydraulicBoundaryDatabaseFile), "Precondition failed: The file should be writable to begin with.");
 
             // Call
-            new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile).Dispose();
+            using (new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile)) {}
 
             // Assert
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(hydraulicBoundaryDatabaseFile));
-        }
-
-        [Test]
-        public void Dispose_WhenReadLocation_CorrectlyReleasesFile()
-        {
-            // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "complete.sqlite");
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(hydraulicBoundaryDatabaseFile), "Precondition failed: The file should be writable to begin with.");
-
-            HydraulicBoundaryDatabaseReader hydraulicBoundaryDatabaseReader = null;
-            ReadHydraulicBoundaryLocation boundaryLocation;
-            try
-            {
-                hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile);
-                hydraulicBoundaryDatabaseReader.PrepareReadLocation();
-                boundaryLocation = hydraulicBoundaryDatabaseReader.ReadLocation();
-            }
-            finally
-            {
-                // Call
-                hydraulicBoundaryDatabaseReader?.Dispose();
-            }
-
-            // Assert
-            Assert.NotNull(boundaryLocation);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(hydraulicBoundaryDatabaseFile));
         }
     }
