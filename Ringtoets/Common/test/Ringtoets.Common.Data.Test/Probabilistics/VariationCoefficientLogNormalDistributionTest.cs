@@ -224,16 +224,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             CoreCloneAssert.AreObjectClones(original, clone, DistributionAssert.AreEqual);
         }
 
-        private static VariationCoefficientLogNormalDistribution CreateFullyDefinedDistribution()
-        {
-            return new VariationCoefficientLogNormalDistribution(5)
-            {
-                Mean = (RoundedDouble) 1,
-                CoefficientOfVariation = (RoundedDouble) 0.1,
-                Shift = (RoundedDouble) 0.2
-            };
-        }
-
         [TestFixture]
         private class NormalDistributionEqualsTest : EqualsGuidelinesTestFixture<VariationCoefficientLogNormalDistribution,
             DerivedVariationCoefficientLogNormalDistribution>
@@ -265,6 +255,16 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
                 otherShift.Shift = (RoundedDouble) 0.987;
                 yield return new TestCaseData(otherShift)
                     .SetName(nameof(otherShift));
+            }
+
+            private static VariationCoefficientLogNormalDistribution CreateFullyDefinedDistribution()
+            {
+                return new VariationCoefficientLogNormalDistribution(5)
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 0.1,
+                    Shift = (RoundedDouble) 0.2
+                };
             }
         }
 

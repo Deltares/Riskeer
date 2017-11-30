@@ -59,24 +59,6 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             Assert.AreEqual("point", exception.ParamName);
         }
 
-        [Test]
-        public void GetHashCode_EqualRoughnessPoint_ReturnsSameHashCode()
-        {
-            // Setup
-            var geometryPoint = new Point2D(0, 0);
-            const double roughness = 3.14;
-
-            var roughnessPointOne = new RoughnessPoint(geometryPoint, roughness);
-            var roughnessPointTwo = new RoughnessPoint(geometryPoint, roughness);
-
-            // Call
-            int hashCodeOne = roughnessPointOne.GetHashCode();
-            int hashCodeTwo = roughnessPointTwo.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
-        }
-
         [TestFixture]
         private class RoughnessPointEqualsTest : EqualsGuidelinesTestFixture<RoughnessPoint, DerivedRoughnessPoint>
         {
@@ -102,11 +84,11 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                                  basePoint.Roughness))
                     .SetName("Point");
             }
-        }
 
-        private static RoughnessPoint CreateRoughnessPoint()
-        {
-            return new RoughnessPoint(new Point2D(0, 0), 3.14);
+            private static RoughnessPoint CreateRoughnessPoint()
+            {
+                return new RoughnessPoint(new Point2D(0, 0), 3.14);
+            }
         }
 
         private class DerivedRoughnessPoint : RoughnessPoint

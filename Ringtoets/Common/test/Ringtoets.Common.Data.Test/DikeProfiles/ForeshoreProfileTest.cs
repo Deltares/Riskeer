@@ -368,6 +368,9 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             {
                 ForeshoreProfile baseProfile = CreateFullyDefinedForeshoreProfile();
 
+                var random = new Random(21);
+                double offset = random.NextDouble();
+
                 yield return new TestCaseData(new ForeshoreProfile(new Point2D(500, 1000),
                                                                    baseProfile.Geometry,
                                                                    baseProfile.BreakWater,
@@ -435,7 +438,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                                    {
                                                                        Name = baseProfile.Name,
                                                                        Id = baseProfile.Id,
-                                                                       Orientation = baseProfile.Orientation + 10,
+                                                                       Orientation = baseProfile.Orientation + offset,
                                                                        X0 = baseProfile.X0
                                                                    }))
                     .SetName("Orientation");
@@ -447,7 +450,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                                        Name = baseProfile.Name,
                                                                        Id = baseProfile.Id,
                                                                        Orientation = baseProfile.Orientation,
-                                                                       X0 = baseProfile.X0 + 10
+                                                                       X0 = baseProfile.X0 + offset
                                                                    }))
                     .SetName("X0");
             }

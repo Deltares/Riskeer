@@ -421,6 +421,9 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             {
                 DikeProfile baseProfile = CreateFullyDefinedDikeProfile();
 
+                var random = new Random(21);
+                double offset = random.NextDouble();
+                
                 yield return new TestCaseData(new DikeProfile(new Point2D(500, 1000),
                                                               baseProfile.DikeGeometry,
                                                               baseProfile.ForeshoreGeometry,
@@ -516,7 +519,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                               {
                                                                   Name = baseProfile.Name,
                                                                   Id = baseProfile.Id,
-                                                                  Orientation = baseProfile.Orientation + 10,
+                                                                  Orientation = baseProfile.Orientation + offset,
                                                                   DikeHeight = baseProfile.DikeHeight,
                                                                   X0 = baseProfile.X0
                                                               }))
@@ -530,7 +533,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                                   Name = baseProfile.Name,
                                                                   Id = baseProfile.Id,
                                                                   Orientation = baseProfile.Orientation,
-                                                                  DikeHeight = baseProfile.DikeHeight + 10,
+                                                                  DikeHeight = baseProfile.DikeHeight + offset,
                                                                   X0 = baseProfile.X0
                                                               }))
                     .SetName("DikeHeight");
@@ -544,7 +547,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                                   Id = baseProfile.Id,
                                                                   Orientation = baseProfile.Orientation,
                                                                   DikeHeight = baseProfile.DikeHeight,
-                                                                  X0 = baseProfile.X0 + 10
+                                                                  X0 = baseProfile.X0 + offset
                                                               }))
                     .SetName("X0");
             }

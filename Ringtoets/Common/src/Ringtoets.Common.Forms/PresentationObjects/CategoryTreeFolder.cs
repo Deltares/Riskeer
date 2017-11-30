@@ -86,8 +86,25 @@ namespace Ringtoets.Common.Forms.PresentationObjects
 
         private bool Equals(CategoryTreeFolder other)
         {
-            return Equals(Name, other.Name)
-                   && Contents.SequenceEqual(other.Contents);
+            if (Name != other.Name)
+            {
+                return false;
+            }
+
+            if (Contents.Count != other.Contents.Count)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < Contents.Count; i++)
+            {
+                if (!Contents[i].Equals(other.Contents[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

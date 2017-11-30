@@ -345,13 +345,13 @@ namespace Core.Common.Base.Test.Geometry
                 yield return new TestCaseData(new Point2D(basePoint.X + offset, basePoint.Y)).SetName("X");
                 yield return new TestCaseData(new Point2D(basePoint.X, basePoint.Y + offset)).SetName("Y");
             }
-        }
 
-        private static Point2D CreatePoint2D()
-        {
-            var random = new Random(21);
-            return new Point2D(random.NextDouble(),
-                               random.NextDouble());
+            private static Point2D CreatePoint2D()
+            {
+                var random = new Random(21);
+                return new Point2D(random.NextDouble(),
+                                   random.NextDouble());
+            }
         }
     }
 }

@@ -221,13 +221,16 @@ namespace Ringtoets.Piping.Primitives.Test
             {
                 PipingSoilProfile baseProfile = CreateSingleLayerProfile(name, bottom, type);
 
+                var random = new Random(21);
+                double offset = random.NextDouble();
+
                 yield return new TestCaseData(CreateSingleLayerProfile("Different name",
                                                                        baseProfile.Bottom,
                                                                        baseProfile.SoilProfileSourceType))
                     .SetName("Name");
 
                 yield return new TestCaseData(CreateSingleLayerProfile(baseProfile.Name,
-                                                                       baseProfile.Bottom + 10,
+                                                                       baseProfile.Bottom + offset,
                                                                        baseProfile.SoilProfileSourceType))
                     .SetName("Bottom");
 
@@ -240,19 +243,19 @@ namespace Ringtoets.Piping.Primitives.Test
                                                                     baseProfile.Bottom,
                                                                     new[]
                                                                     {
-                                                                        new PipingSoilLayer(baseProfile.Bottom + 10)
+                                                                        new PipingSoilLayer(baseProfile.Bottom + offset)
                                                                     },
                                                                     baseProfile.SoilProfileSourceType))
                     .SetName("Layers");
             }
-        }
 
-        private static PipingSoilProfile CreateSingleLayerProfile(string name, double bottom, SoilProfileType type)
-        {
-            return new PipingSoilProfile(name, bottom, new[]
+            private static PipingSoilProfile CreateSingleLayerProfile(string name, double bottom, SoilProfileType type)
             {
-                new PipingSoilLayer(bottom + 1.0)
-            }, type);
+                return new PipingSoilProfile(name, bottom, new[]
+                {
+                    new PipingSoilLayer(bottom + 1.0)
+                }, type);
+            }
         }
 
         private class TestProfile : PipingSoilProfile

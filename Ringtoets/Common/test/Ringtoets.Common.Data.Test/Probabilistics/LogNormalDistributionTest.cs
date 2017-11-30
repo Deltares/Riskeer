@@ -259,16 +259,16 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
                 yield return new TestCaseData(otherShift)
                     .SetName(nameof(otherShift));
             }
-        }
 
-        private static LogNormalDistribution CreateFullyDefinedDistribution()
-        {
-            return new LogNormalDistribution(5)
+            private static LogNormalDistribution CreateFullyDefinedDistribution()
             {
-                Mean = (RoundedDouble) 1,
-                StandardDeviation = (RoundedDouble) 0.1,
-                Shift = (RoundedDouble) 0.2
-            };
+                return new LogNormalDistribution(5)
+                {
+                    Mean = (RoundedDouble) 1,
+                    StandardDeviation = (RoundedDouble) 0.1,
+                    Shift = (RoundedDouble) 0.2
+                };
+            }
         }
 
         private class DerivedLogNormalDistribution : LogNormalDistribution

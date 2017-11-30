@@ -120,14 +120,14 @@ namespace Core.Common.Base.Test.Geometry
                 yield return new TestCaseData(new Point3D(basePoint.X, basePoint.Y + offset, basePoint.Z)).SetName("Y");
                 yield return new TestCaseData(new Point3D(basePoint.X, basePoint.Y, basePoint.Z + offset)).SetName("Z");
             }
-        }
 
-        private static Point3D CreatePoint3D()
-        {
-            var random = new Random(21);
-            return new Point3D(random.NextDouble(),
-                               random.NextDouble(),
-                               random.NextDouble());
+            private static Point3D CreatePoint3D()
+            {
+                var random = new Random(21);
+                return new Point3D(random.NextDouble(),
+                                   random.NextDouble(),
+                                   random.NextDouble());
+            }
         }
     }
 }

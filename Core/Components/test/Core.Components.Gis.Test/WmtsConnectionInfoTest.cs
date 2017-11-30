@@ -68,31 +68,37 @@ namespace Core.Components.Gis.Test
         [TestFixture]
         private class WmtsConnectionInfoEqualsTest : EqualsGuidelinesTestFixture<WmtsConnectionInfo, DerivedWmtsConnectionInfo>
         {
-            private const string name = "name";
-            private const string url = "url";
-
             protected override WmtsConnectionInfo CreateObject()
             {
-                return new WmtsConnectionInfo(name, url);
+                return CreateWmtsConnectionInfo();
             }
 
             protected override DerivedWmtsConnectionInfo CreateDerivedObject()
             {
-                return new DerivedWmtsConnectionInfo(name, url);
+                return new DerivedWmtsConnectionInfo(CreateWmtsConnectionInfo());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new WmtsConnectionInfo("Different name", url))
+                WmtsConnectionInfo baseConnectionInfo = CreateWmtsConnectionInfo();
+                yield return new TestCaseData(new WmtsConnectionInfo("Different name", baseConnectionInfo.Url))
                     .SetName("Name");
-                yield return new TestCaseData(new WmtsConnectionInfo(name, "Different url"))
+                yield return new TestCaseData(new WmtsConnectionInfo(baseConnectionInfo.Name, "Different url"))
                     .SetName("URL");
+            }
+
+            private static WmtsConnectionInfo CreateWmtsConnectionInfo()
+            {
+                const string name = "name";
+                const string url = "url";
+                return new WmtsConnectionInfo(name, url);
             }
         }
 
         private class DerivedWmtsConnectionInfo : WmtsConnectionInfo
         {
-            public DerivedWmtsConnectionInfo(string name, string url) : base(name, url) {}
+            public DerivedWmtsConnectionInfo(WmtsConnectionInfo connectionInfo)
+                : base(connectionInfo.Name, connectionInfo.Url) {}
         }
     }
 }

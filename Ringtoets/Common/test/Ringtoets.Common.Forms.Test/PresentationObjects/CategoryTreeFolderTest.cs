@@ -103,15 +103,15 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
                 yield return new TestCaseData(new CategoryTreeFolder("Different name", baseFolder.Contents))
                     .SetName("Different name");
             }
-        }
 
-        private static CategoryTreeFolder CreateConfiguredCategoryTreeFolder()
-        {
-            return new CategoryTreeFolder("name", new[]
+            private static CategoryTreeFolder CreateConfiguredCategoryTreeFolder()
             {
-                1,
-                2
-            });
+                return new CategoryTreeFolder("name", new[]
+                {
+                    1,
+                    2
+                });
+            }
         }
 
         private class TestCategoryTreeFolder : CategoryTreeFolder

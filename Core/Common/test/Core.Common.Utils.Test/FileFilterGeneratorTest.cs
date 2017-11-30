@@ -121,32 +121,38 @@ namespace Core.Common.Utils.Test
         [TestFixture]
         private class FileFilterGeneratorEqualsTest : EqualsGuidelinesTestFixture<FileFilterGenerator, DerivedFileFilterGenerator>
         {
-            private const string description = "description";
-            private const string extension = "txt";
-
             protected override FileFilterGenerator CreateObject()
             {
-                return new FileFilterGenerator(extension, description);
+                return CreateFileFilterGenerator();
             }
 
             protected override DerivedFileFilterGenerator CreateDerivedObject()
             {
-                return new DerivedFileFilterGenerator(extension, description);
+                return new DerivedFileFilterGenerator(CreateFileFilterGenerator());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new FileFilterGenerator("ext", description))
+                FileFilterGenerator baseGenerator = CreateFileFilterGenerator();
+
+                yield return new TestCaseData(new FileFilterGenerator("ext", baseGenerator.Description))
                     .SetName("Extension");
-                yield return new TestCaseData(new FileFilterGenerator(extension, "Different Description"))
+                yield return new TestCaseData(new FileFilterGenerator(baseGenerator.Extension, "Different Description"))
                     .SetName("Description");
+            }
+
+            private static FileFilterGenerator CreateFileFilterGenerator()
+            {
+                const string description = "description";
+                const string extension = "txt";
+                return new FileFilterGenerator(extension, description);
             }
         }
 
         private class DerivedFileFilterGenerator : FileFilterGenerator
         {
-            public DerivedFileFilterGenerator(string extension, string description)
-                : base(extension, description) {}
+            public DerivedFileFilterGenerator(FileFilterGenerator generator)
+                : base(generator.Extension, generator.Description) {}
         }
     }
 }

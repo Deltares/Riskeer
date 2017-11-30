@@ -225,24 +225,24 @@ namespace Ringtoets.Common.Data.Test
                 yield return new TestCaseData(new OtherTestStructureBase(CreateFullyConfiguredConstructionProperties()))
                     .SetName("Other derived class");
             }
-        }
 
-        private static StructureBase CreateFullyDefinedStructure()
-        {
-            return new TestStructureBase(CreateFullyConfiguredConstructionProperties());
-        }
-
-        private static StructureBase.ConstructionProperties CreateFullyConfiguredConstructionProperties()
-        {
-            const string id = "structure id";
-            const string name = "Structure name";
-            return new StructureBase.ConstructionProperties
+            private static StructureBase CreateFullyDefinedStructure()
             {
-                Id = id,
-                Name = name,
-                Location = new Point2D(1, 1),
-                StructureNormalOrientation = (RoundedDouble) 25
-            };
+                return new TestStructureBase(CreateFullyConfiguredConstructionProperties());
+            }
+
+            private static StructureBase.ConstructionProperties CreateFullyConfiguredConstructionProperties()
+            {
+                const string id = "structure id";
+                const string name = "Structure name";
+                return new StructureBase.ConstructionProperties
+                {
+                    Id = id,
+                    Name = name,
+                    Location = new Point2D(1, 1),
+                    StructureNormalOrientation = (RoundedDouble) 25
+                };
+            }
         }
 
         private class TestStructureBase : StructureBase

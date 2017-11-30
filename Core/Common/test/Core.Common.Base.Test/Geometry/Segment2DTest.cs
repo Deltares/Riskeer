@@ -305,12 +305,12 @@ namespace Core.Common.Base.Test.Geometry
                                                   new Point2D(secondPoint.X + offset, secondPoint.Y)))
                     .SetName("Two Points different");
             }
-        }
 
-        private static Point2D CreatePoint2D(int seed)
-        {
-            var random = new Random(seed);
-            return new Point2D(random.NextDouble(), random.NextDouble());
+            private static Point2D CreatePoint2D(int seed)
+            {
+                var random = new Random(seed);
+                return new Point2D(random.NextDouble(), random.NextDouble());
+            }
         }
     }
 }

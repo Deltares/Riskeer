@@ -171,6 +171,15 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
                 yield return new TestCaseData(otherStandardDeviation)
                     .SetName(nameof(otherStandardDeviation));
             }
+
+            private static VariationCoefficientNormalDistribution CreateFullyDefinedDistribution()
+            {
+                return new VariationCoefficientNormalDistribution(5)
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 0.1
+                };
+            }
         }
 
         private class DerivedVariationCoefficientNormalDistribution : VariationCoefficientNormalDistribution
@@ -180,15 +189,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
                 Mean = distribution.Mean;
                 CoefficientOfVariation = distribution.CoefficientOfVariation;
             }
-        }
-
-        private static VariationCoefficientNormalDistribution CreateFullyDefinedDistribution()
-        {
-            return new VariationCoefficientNormalDistribution(5)
-            {
-                Mean = (RoundedDouble) 1,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
         }
     }
 }

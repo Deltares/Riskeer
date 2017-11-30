@@ -135,15 +135,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             CoreCloneAssert.AreObjectClones(original, clone, DistributionAssert.AreEqual);
         }
 
-        private static NormalDistribution CreateFullyDefinedDistribution()
-        {
-            return new NormalDistribution(5)
-            {
-                Mean = (RoundedDouble) 1,
-                StandardDeviation = (RoundedDouble) 0.1
-            };
-        }
-
         [TestFixture]
         private class NormalDistributionEqualsTest : EqualsGuidelinesTestFixture<NormalDistribution, DerivedNormalDistribution>
         {
@@ -169,6 +160,15 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
                 otherStandardDeviation.StandardDeviation = (RoundedDouble) 0.987;
                 yield return new TestCaseData(otherStandardDeviation)
                     .SetName(nameof(otherStandardDeviation));
+            }
+
+            private static NormalDistribution CreateFullyDefinedDistribution()
+            {
+                return new NormalDistribution(5)
+                {
+                    Mean = (RoundedDouble) 1,
+                    StandardDeviation = (RoundedDouble) 0.1
+                };
             }
         }
 

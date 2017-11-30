@@ -99,31 +99,41 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         [TestFixture]
         private class BreakWaterEqualsTest : EqualsGuidelinesTestFixture<BreakWater, DerivedBreakWater>
         {
-            private const double height = 3.14;
-            private const BreakWaterType type = BreakWaterType.Caisson;
-
             protected override BreakWater CreateObject()
             {
-                return new BreakWater(type, height);
+                return CreateBreakWater();
             }
 
             protected override DerivedBreakWater CreateDerivedObject()
             {
-                return new DerivedBreakWater(type, height);
+                return new DerivedBreakWater(CreateBreakWater());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new BreakWater(BreakWaterType.Dam, height))
+                BreakWater baseBreakWater = CreateBreakWater();
+
+                var random = new Random(21);
+                double offset = random.NextDouble();
+
+                yield return new TestCaseData(new BreakWater(BreakWaterType.Dam, baseBreakWater.Height))
                     .SetName("Type");
-                yield return new TestCaseData(new BreakWater(type, height + 10))
+                yield return new TestCaseData(new BreakWater(baseBreakWater.Type, baseBreakWater.Height + offset))
                     .SetName("Height");
+            }
+
+            private static BreakWater CreateBreakWater()
+            {
+                const double height = 3.14;
+                const BreakWaterType type = BreakWaterType.Caisson;
+                return new BreakWater(type, height);
             }
         }
 
         private class DerivedBreakWater : BreakWater
         {
-            public DerivedBreakWater(BreakWaterType type, double height) : base(type, height) {}
+            public DerivedBreakWater(BreakWater breakWater)
+                : base(breakWater.Type, breakWater.Height) {}
         }
     }
 }
