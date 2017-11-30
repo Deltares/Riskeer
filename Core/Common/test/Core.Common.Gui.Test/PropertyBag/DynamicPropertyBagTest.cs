@@ -70,7 +70,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
 
             // Assert
-            Assert.AreEqual(4, dynamicPropertyBag.Properties.Count, "Expected property count wrong");
+            Assert.AreEqual(4, dynamicPropertyBag.Properties.Count(), "Expected property count wrong");
         }
 
         [Test]
@@ -428,7 +428,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             PropertyDescriptorCollection properties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(propertyObject);
 
             // Assert
-            Assert.Less(properties.Count, dynamicPropertyBag.Properties.Count);
+            Assert.Less(properties.Count, dynamicPropertyBag.Properties.Count());
             Assert.IsNull(properties.Find("Name", false),
                           "Name is dynamically not browsable, therefore should not be returned.");
             Assert.IsNotNull(properties.Find("Description", false));
@@ -454,7 +454,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             });
 
             // Assert
-            Assert.Less(properties.Count, dynamicPropertyBag.Properties.Count);
+            Assert.Less(properties.Count, dynamicPropertyBag.Properties.Count());
             Assert.IsNotNull(properties.Find("Name", false),
                              "Name is dynamically not browsable, therefore should be returned.");
             Assert.IsNull(properties.Find("Description", false));

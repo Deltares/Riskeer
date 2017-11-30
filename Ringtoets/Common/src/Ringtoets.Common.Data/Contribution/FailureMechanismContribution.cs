@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Data.Contribution
     {
         private static readonly Range<double> normValidityRange = new Range<double>(1.0 / 1000000, 1.0 / 10);
 
-        private readonly ICollection<FailureMechanismContributionItem> distribution = new List<FailureMechanismContributionItem>();
+        private readonly List<FailureMechanismContributionItem> distribution = new List<FailureMechanismContributionItem>();
         private readonly OtherFailureMechanism otherFailureMechanism = new OtherFailureMechanism();
         private double lowerLimitNorm;
         private double signalingNorm;

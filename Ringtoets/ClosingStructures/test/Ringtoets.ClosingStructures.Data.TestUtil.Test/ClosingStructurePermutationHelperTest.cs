@@ -76,17 +76,17 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             AssertParameters(testCaseDatas, false, false, false);
         }
 
-        private static void AssertTestNames(ICollection<TestCaseData> testCaseDatas, string targetName, string testResultDescription)
+        private static void AssertTestNames(IEnumerable<TestCaseData> testCaseDatas, string targetName, string testResultDescription)
         {
             IEnumerable<string> testNames = testCaseDatas
                 .Select(tcd => tcd.TestName)
                 .ToList();
-            Assert.AreEqual(testCaseDatas.Count, testNames.Distinct().Count());
+            Assert.AreEqual(testCaseDatas.Count(), testNames.Distinct().Count());
             Assert.IsTrue(testNames.All(tn => tn.StartsWith($"{targetName}_")));
             Assert.IsTrue(testNames.All(tn => tn.EndsWith($"_{testResultDescription}")));
         }
 
-        private static void AssertParameters(ICollection<TestCaseData> testCaseDatas, bool idUnique, bool nameUnique, bool locationUnique)
+        private static void AssertParameters(IEnumerable<TestCaseData> testCaseDatas, bool idUnique, bool nameUnique, bool locationUnique)
         {
             var differentStructures = new List<ClosingStructure>();
             var referenceStructure = new TestClosingStructure();
@@ -96,7 +96,8 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
                 .OfType<ClosingStructure>()
                 .ToList();
 
-            Assert.AreEqual(testCaseDatas.Count, structures.Count());
+            int expectedTestDataCount = testCaseDatas.Count();
+            Assert.AreEqual(expectedTestDataCount, structures.Count());
 
             if (idUnique)
             {
@@ -149,7 +150,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             differentStructures.Add(structures.Single(s => !s.InflowModelType.Equals(referenceStructure.InflowModelType)));
             differentStructures.Add(structures.Single(s => !s.ProbabilityOrFrequencyOpenStructureBeforeFlooding.Equals(referenceStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding)));
             differentStructures.Add(structures.Single(s => !s.StructureNormalOrientation.Equals(referenceStructure.StructureNormalOrientation)));
-            Assert.AreEqual(testCaseDatas.Count, differentStructures.Distinct().Count());
+            Assert.AreEqual(expectedTestDataCount, differentStructures.Distinct().Count());
         }
     }
 }

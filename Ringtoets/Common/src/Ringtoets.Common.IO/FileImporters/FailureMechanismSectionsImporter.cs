@@ -77,7 +77,7 @@ namespace Ringtoets.Common.IO.FileImporters
             }
 
             NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections, 2, 3);
-            ICollection<FailureMechanismSection> readFailureMechanismSections = readResults.Items;
+            IEnumerable<FailureMechanismSection> readFailureMechanismSections = readResults.Items;
             if (HasStartOrEndPointsTooFarFromReferenceLine(referenceLine, readFailureMechanismSections))
             {
                 LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_too_far_from_current_referenceline);
@@ -175,7 +175,7 @@ namespace Ringtoets.Common.IO.FileImporters
             Log.Error(errorMessage);
         }
 
-        private static bool HasStartOrEndPointsTooFarFromReferenceLine(ReferenceLine referenceLine, ICollection<FailureMechanismSection> mechanismSections)
+        private static bool HasStartOrEndPointsTooFarFromReferenceLine(ReferenceLine referenceLine, IEnumerable<FailureMechanismSection> mechanismSections)
         {
             foreach (FailureMechanismSection failureMechanismSection in mechanismSections)
             {
@@ -197,7 +197,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 .Min(segment => segment.GetEuclideanDistanceToPoint(point));
         }
 
-        private static bool IsTotalLengthOfSectionsTooDifferentFromReferenceLineLength(ReferenceLine referenceLine, ICollection<FailureMechanismSection> mechanismSections)
+        private static bool IsTotalLengthOfSectionsTooDifferentFromReferenceLineLength(ReferenceLine referenceLine, IEnumerable<FailureMechanismSection> mechanismSections)
         {
             double totalSectionsLength = mechanismSections.Sum(s => GetSectionLength(s));
             double referenceLineLength = GetLengthOfLine(referenceLine.Points);

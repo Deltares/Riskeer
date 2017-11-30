@@ -262,7 +262,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             });
             Assert.IsTrue(importResult);
             Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor);
-            ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            List<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(9, importedLocations.Count);
             CollectionAssert.AllItemsAreNotNull(importedLocations);
             CollectionAssert.AllItemsAreUnique(importedLocations);
@@ -292,7 +292,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             Assert.IsTrue(importResult);
             Assert.AreEqual(copyValidFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
-            ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            List<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(9, importedLocations.Count);
             CollectionAssert.AllItemsAreNotNull(importedLocations);
             CollectionAssert.AllItemsAreUnique(importedLocations);
@@ -321,7 +321,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             Assert.IsTrue(importResult);
             Assert.AreEqual(validFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
-            ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            List<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(9, importedLocations.Count);
             CollectionAssert.AllItemsAreNotNull(importedLocations);
             CollectionAssert.AllItemsAreUnique(importedLocations);
@@ -357,7 +357,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor);
             Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor);
             Assert.AreEqual(directory, assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory);
-            ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            List<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(106, importedLocations.Count);
             CollectionAssert.AllItemsAreNotNull(importedLocations);
             CollectionAssert.AllItemsAreUnique(importedLocations);
@@ -390,7 +390,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             });
             Assert.IsTrue(importResult);
             Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor);
-            ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            List<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(9, importedLocations.Count);
             CollectionAssert.AllItemsAreNotNull(importedLocations);
             CollectionAssert.AllItemsAreUnique(importedLocations);

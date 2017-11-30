@@ -386,7 +386,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
         /// </list></exception>
-        private void AddNextStructureLocation(StructureLocationReader structureLocationReader, ICollection<StructureLocation> structureLocations)
+        private void AddNextStructureLocation(StructureLocationReader structureLocationReader, Collection<StructureLocation> structureLocations)
         {
             StructureLocation structureLocation = structureLocationReader.GetNextStructureLocation();
             double distanceToReferenceLine = GetDistanceToReferenceLine(structureLocation.Point);

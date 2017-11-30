@@ -237,14 +237,14 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 
         public class ChangePropertyTestCase
         {
-            public ChangePropertyTestCase(ICollection<ICalculation> calculations)
+            public ChangePropertyTestCase(IEnumerable<ICalculation> calculations)
             {
                 Calculations = calculations;
                 ExpectedAffectedCalculations = calculations.Where(c => c.HasOutput).ToArray();
             }
 
-            public ICollection<ICalculation> Calculations { get; }
-            public ICollection<ICalculation> ExpectedAffectedCalculations { get; }
+            public IEnumerable<ICalculation> Calculations { get; }
+            public IEnumerable<ICalculation> ExpectedAffectedCalculations { get; }
         }
 
         private static IEnumerable ChangePropertyTestCases()

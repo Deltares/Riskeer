@@ -33,7 +33,7 @@ namespace Core.Common.Base
         /// <summary>
         /// The observers that are attached.
         /// </summary>
-        protected ICollection<IObserver> observers = new Collection<IObserver>();
+        protected Collection<IObserver> observers = new Collection<IObserver>();
 
         public IEnumerable<IObserver> Observers
         {

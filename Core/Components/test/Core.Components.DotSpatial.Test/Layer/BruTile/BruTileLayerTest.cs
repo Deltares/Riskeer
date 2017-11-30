@@ -961,7 +961,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                 Level = level;
             }
 
-            public ICollection<TileInfoConfig> TileInfoConfigurations { get; }
+            public IEnumerable<TileInfoConfig> TileInfoConfigurations { get; }
             public int Level { get; }
         }
 

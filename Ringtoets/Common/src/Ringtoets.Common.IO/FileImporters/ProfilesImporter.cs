@@ -244,7 +244,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
         /// <item>The read <see cref="ProfileLocation"/> is outside the reference line.</item>
         /// </list></exception>
-        private void AddNextProfileLocation(ProfileLocationReader profileLocationReader, ICollection<ProfileLocation> profileLocations)
+        private void AddNextProfileLocation(ProfileLocationReader profileLocationReader, Collection<ProfileLocation> profileLocations)
         {
             ProfileLocation profileLocation = profileLocationReader.GetNextProfileLocation();
             double distanceToReferenceLine = GetDistanceToReferenceLine(profileLocation.Point);

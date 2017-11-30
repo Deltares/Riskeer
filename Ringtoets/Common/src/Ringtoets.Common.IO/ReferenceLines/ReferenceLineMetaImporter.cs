@@ -73,7 +73,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// </list></exception>
         public IEnumerable<ReferenceLineMeta> GetReferenceLineMetas()
         {
-            ICollection<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(shapeFilePath);
+            List<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(shapeFilePath);
 
             ValidateReferenceLineMetas(referenceLineMetas);
 
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
             }
         }
 
-        private void ValidateReferenceLineMetas(ICollection<ReferenceLineMeta> referenceLineMetas)
+        private void ValidateReferenceLineMetas(IEnumerable<ReferenceLineMeta> referenceLineMetas)
         {
             if (referenceLineMetas.Any(rlm => string.IsNullOrEmpty(rlm.AssessmentSectionId)))
             {
@@ -136,7 +136,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
                 throw new CriticalFileValidationException(message);
             }
 
-            int referenceLineMetasCount = referenceLineMetas.Count;
+            int referenceLineMetasCount = referenceLineMetas.Count();
             int referenceLineMetasDistinctCount = referenceLineMetas.Select(rlm => rlm.AssessmentSectionId).Distinct().Count();
             if (referenceLineMetasCount != referenceLineMetasDistinctCount)
             {

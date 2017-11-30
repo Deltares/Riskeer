@@ -60,20 +60,23 @@ namespace Core.Common.Gui.PropertyBag
                 throw new ArgumentNullException(nameof(propertyObject));
             }
 
-            Properties = new HashSet<PropertySpec>();
-            WrappedObject = propertyObject;
-
+            var properties = new HashSet<PropertySpec>();
             foreach (PropertyInfo propertyInfo in propertyObject.GetType().GetProperties()
                                                                 .OrderBy(x => x.MetadataToken))
             {
-                Properties.Add(new PropertySpec(propertyInfo));
+                properties.Add(new PropertySpec(propertyInfo));
             }
+
+            Properties = properties;
+            WrappedObject = propertyObject;
+
+            
         }
 
         /// <summary>
-        /// Gets the collection of properties contained within this <see cref="DynamicPropertyBag"/>.
+        /// Gets the set of properties contained within this <see cref="DynamicPropertyBag"/>.
         /// </summary>
-        public ICollection<PropertySpec> Properties { get; }
+        public IEnumerable<PropertySpec> Properties { get; }
 
         /// <summary>
         /// Gets the object wrapped inside this <see cref="DynamicPropertyBag"/>.
@@ -133,7 +136,7 @@ namespace Core.Common.Gui.PropertyBag
 
         public PropertyDescriptor GetDefaultProperty()
         {
-            return Properties.Count > 0 ? new PropertySpecDescriptor(Properties.First(), WrappedObject) : null;
+            return Properties.Any() ? new PropertySpecDescriptor(Properties.First(), WrappedObject) : null;
         }
 
         public PropertyDescriptorCollection GetProperties()

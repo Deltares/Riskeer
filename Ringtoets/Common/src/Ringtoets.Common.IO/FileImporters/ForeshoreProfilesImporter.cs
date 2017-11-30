@@ -105,7 +105,7 @@ namespace Ringtoets.Common.IO.FileImporters
         }
 
         private static IEnumerable<ForeshoreProfile> CreateForeshoreProfiles(IEnumerable<ProfileLocation> dikeProfileLocationCollection,
-                                                                             ICollection<DikeProfileData> dikeProfileDataCollection)
+                                                                             IEnumerable<DikeProfileData> dikeProfileDataCollection)
         {
             var foreshoreProfiles = new List<ForeshoreProfile>();
             foreach (ProfileLocation dikeProfileLocation in dikeProfileLocationCollection)

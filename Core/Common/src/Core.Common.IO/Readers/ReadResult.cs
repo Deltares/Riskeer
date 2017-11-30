@@ -27,7 +27,7 @@ namespace Core.Common.IO.Readers
     /// This class can be used in importers to return a result from a method where some critical error
     /// may have occurred. The type of items which are collected is supplied by <typeparamref name="T"/>.
     /// </summary>
-    /// <typeparam name="T">The type of the items which are returned in this result as <see cref="ICollection{T}"/>.</typeparam>
+    /// <typeparam name="T">The type of the items which are returned in this result as <see cref="IEnumerable{T}"/>.</typeparam>
     public class ReadResult<T>
     {
         /// <summary>
@@ -43,9 +43,9 @@ namespace Core.Common.IO.Readers
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="ICollection{T}"/> of items that were read.
+        /// Gets or sets the <see cref="IEnumerable{T}"/> of items that were read.
         /// </summary>
-        public ICollection<T> Items { get; set; }
+        public IEnumerable<T> Items { get; set; }
 
         /// <summary>
         /// Gets the <see cref="bool"/> representing whether an critical error has occurred during

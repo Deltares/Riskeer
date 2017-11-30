@@ -666,7 +666,7 @@ namespace Core.Common.Controls.TreeView
             parentNode.Nodes.Insert(newChildNodeIndex, existingTreeNode);
         }
 
-        private void InsertNewChildNodeAtIndex(TreeNode parentNode, int childNodeIndex, object expectedChildNodeData, ICollection<TreeNode> newlyAddedTreeNodes)
+        private void InsertNewChildNodeAtIndex(TreeNode parentNode, int childNodeIndex, object expectedChildNodeData, List<TreeNode> newlyAddedTreeNodes)
         {
             TreeNode newTreeNode = CreateTreeNode(parentNode, expectedChildNodeData);
 

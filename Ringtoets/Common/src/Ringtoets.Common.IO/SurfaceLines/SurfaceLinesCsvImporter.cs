@@ -155,7 +155,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <returns>Returns a collection of mechanism specific surface lines.</returns>
         /// <exception cref="ImportedDataTransformException">Thrown when transforming a surface
         /// line with characteristic points failed.</exception>
-        private IEnumerable<T> GetTransformedSurfaceLines(ICollection<SurfaceLine> surfaceLines, ICollection<CharacteristicPoints> characteristicPointsCollection)
+        private IEnumerable<T> GetTransformedSurfaceLines(IEnumerable<SurfaceLine> surfaceLines, IEnumerable<CharacteristicPoints> characteristicPointsCollection)
         {
             LogMissingSurfaceLinesOrCharacteristicPoints(surfaceLines, characteristicPointsCollection);
             Tuple<SurfaceLine, CharacteristicPoints>[] surfaceLinesWithCharacteristicPoints = surfaceLines.Select(sl => Tuple.Create(sl, characteristicPointsCollection.FirstOrDefault(cp => cp.Name == sl.Name))).ToArray();
@@ -181,7 +181,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             }
         }
 
-        private void LogMissingSurfaceLinesOrCharacteristicPoints(ICollection<SurfaceLine> readSurfaceLines, ICollection<CharacteristicPoints> readCharacteristicPointsLocations)
+        private void LogMissingSurfaceLinesOrCharacteristicPoints(IEnumerable<SurfaceLine> readSurfaceLines, IEnumerable<CharacteristicPoints> readCharacteristicPointsLocations)
         {
             string[] surfaceLinesWithCharacteristicPoints = readSurfaceLines.Select(sl => sl.Name).Intersect(readCharacteristicPointsLocations.Select(cp => cp.Name)).ToArray();
             if (readCharacteristicPointsLocations.Any())
@@ -285,7 +285,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             }
         }
 
-        private bool IsSurfaceLineAlreadyDefined(ICollection<SurfaceLine> readSurfaceLineIdentifiers, SurfaceLine surfaceLine)
+        private bool IsSurfaceLineAlreadyDefined(IEnumerable<SurfaceLine> readSurfaceLineIdentifiers, SurfaceLine surfaceLine)
         {
             if (readSurfaceLineIdentifiers.Any(i => i.Name == surfaceLine.Name))
             {
@@ -419,7 +419,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <param name="reader">The reader to read the <see cref="CharacteristicPoints"/> from.</param>
         /// <exception cref="CriticalFileReadException">Thrown when <paramref name="list"/> already contains a <see cref="CharacteristicPoints"/>
         /// with the same name as the new <see cref="CharacteristicPoints"/>.</exception>
-        private void AddValidCharacteristicPointsLocationToCollection(ICollection<CharacteristicPoints> list, CharacteristicPointsCsvReader reader)
+        private void AddValidCharacteristicPointsLocationToCollection(List<CharacteristicPoints> list, CharacteristicPointsCsvReader reader)
         {
             try
             {

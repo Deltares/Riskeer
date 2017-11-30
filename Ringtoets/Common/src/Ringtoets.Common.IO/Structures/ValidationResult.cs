@@ -39,7 +39,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="errorMessages"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when any message in <paramref name="errorMessages"/> is <c>null</c>, 
         /// empty or consists of whitespace.</exception>
-        public ValidationResult(ICollection<string> errorMessages)
+        public ValidationResult(IEnumerable<string> errorMessages)
         {
             if (errorMessages == null)
             {
@@ -50,7 +50,7 @@ namespace Ringtoets.Common.IO.Structures
                 throw new ArgumentException("Invalid error message string.");
             }
 
-            IsValid = errorMessages.Count < 1;
+            IsValid = !errorMessages.Any();
             this.errorMessages.AddRange(errorMessages);
         }
 

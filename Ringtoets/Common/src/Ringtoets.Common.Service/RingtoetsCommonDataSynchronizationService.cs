@@ -142,7 +142,7 @@ namespace Ringtoets.Common.Service
                 .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                 .ToArray();
 
-            ICollection<IObservable> changedObservables = ClearStructureDependentData(
+            List<IObservable> changedObservables = ClearStructureDependentData(
                 sectionResults,
                 calculationWithRemovedStructure,
                 calculations);
@@ -188,7 +188,7 @@ namespace Ringtoets.Common.Service
                 .Where(c => c.InputParameters.Structure != null)
                 .ToArray();
 
-            ICollection<IObservable> changedObservables = ClearStructureDependentData(
+            List<IObservable> changedObservables = ClearStructureDependentData(
                 sectionResults,
                 calculationWithRemovedStructure,
                 calculations);
@@ -199,7 +199,7 @@ namespace Ringtoets.Common.Service
             return changedObservables;
         }
 
-        private static ICollection<IObservable> ClearStructureDependentData<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
+        private static List<IObservable> ClearStructureDependentData<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
                                                                                IEnumerable<StructuresCalculation<T>> calculationWithRemovedStructure,
                                                                                IEnumerable<StructuresCalculation<T>> structureCalculations)
             where T : IStructuresCalculationInput<StructureBase>, new()
