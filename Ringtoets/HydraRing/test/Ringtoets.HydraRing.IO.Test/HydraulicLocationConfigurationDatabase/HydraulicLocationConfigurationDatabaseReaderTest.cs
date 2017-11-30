@@ -34,7 +34,7 @@ using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 {
     [TestFixture]
-    public class HydraulicLocationConfigurationSqLiteDatabaseReaderTest
+    public class HydraulicLocationConfigurationDatabaseReaderTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicLocationConfigurationDatabase");
 
@@ -47,7 +47,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             // Call
             TestDelegate test = () =>
             {
-                using (new HydraulicLocationConfigurationSqLiteDatabaseReader(testFile)) {}
+                using (new HydraulicLocationConfigurationDatabaseReader(testFile)) {}
             };
 
             // Assert
@@ -63,10 +63,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             string dbFile = Path.Combine(testDataPath, "complete.sqlite");
 
             // Call
-            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Assert
-                Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(hydraulicBoundarySqLiteDatabaseReader);
+                Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(hydraulicBoundaryDatabaseReader);
             }
         }
 
@@ -78,10 +78,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             // Setup
             string dbFile = Path.Combine(testDataPath, "complete.sqlite");
 
-            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                Dictionary<long, long> locationIdDictionary = hydraulicBoundarySqLiteDatabaseReader.GetLocationIdsByTrackId(trackId);
+                Dictionary<long, long> locationIdDictionary = hydraulicBoundaryDatabaseReader.GetLocationIdsByTrackId(trackId);
 
                 // Assert
                 long locationId;
@@ -99,10 +99,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             const int hrdLocationId = 1;
             var locationIdDictionary = new Dictionary<long, long>();
 
-            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                Action call = () => locationIdDictionary = hydraulicBoundarySqLiteDatabaseReader.GetLocationIdsByTrackId(trackId);
+                Action call = () => locationIdDictionary = hydraulicBoundaryDatabaseReader.GetLocationIdsByTrackId(trackId);
 
                 // Assert
                 const int expectedLocationId = 1800001;
@@ -121,10 +121,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             string dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
             const int trackId = 1;
 
-            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetLocationIdsByTrackId(trackId);
+                TestDelegate test = () => hydraulicBoundaryDatabaseReader.GetLocationIdsByTrackId(trackId);
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
@@ -141,10 +141,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             string dbFile = Path.Combine(testDataPath, "empty.sqlite");
             const int trackId = 1;
 
-            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetLocationIdsByTrackId(trackId);
+                TestDelegate test = () => hydraulicBoundaryDatabaseReader.GetLocationIdsByTrackId(trackId);
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bevragen van de database is mislukt.");
@@ -162,10 +162,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             // Setup
             string dbFile = Path.Combine(testDataPath, "complete.sqlite");
 
-            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                bool usePreprocessor = hydraulicBoundarySqLiteDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
+                bool usePreprocessor = hydraulicBoundaryDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
 
                 // Assert
                 Assert.AreEqual(expectedUsePreprocessor, usePreprocessor);
@@ -179,10 +179,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             string dbFile = Path.Combine(testDataPath, "noUsePreprocessorColumn.sqlite");
             const int trackId = 1000;
 
-            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                bool usePreprocessor = hydraulicBoundarySqLiteDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
+                bool usePreprocessor = hydraulicBoundaryDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
 
                 // Assert
                 Assert.IsFalse(usePreprocessor);
@@ -196,10 +196,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             string dbFile = Path.Combine(testDataPath, "complete.sqlite");
             const int trackId = 1;
 
-            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
+                TestDelegate test = () => hydraulicBoundaryDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bevragen van de database is mislukt.");
@@ -216,10 +216,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             string dbFile = Path.Combine(testDataPath, "empty.sqlite");
             const int trackId = 1;
 
-            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
+                TestDelegate test = () => hydraulicBoundaryDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Het bevragen van de database is mislukt.");
@@ -236,10 +236,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             string dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
             const int trackId = 1000;
 
-            using (var hydraulicBoundarySqLiteDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(dbFile))
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
+                TestDelegate test = () => hydraulicBoundaryDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
 
                 // Assert
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");

@@ -34,12 +34,12 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
     /// This class reads a SqLite database file and constructs <see cref="ReadHydraulicBoundaryLocation"/>
     /// instances from this database.
     /// </summary>
-    public class HydraulicBoundarySqLiteDatabaseReader : SqLiteDatabaseReaderBase
+    public class HydraulicBoundaryDatabaseReader : SqLiteDatabaseReaderBase
     {
         private IDataReader sqliteDataReader;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundarySqLiteDatabaseReader"/>,
+        /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseReader"/>,
         /// which will use the <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
@@ -49,11 +49,11 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
         /// </list>
         /// </exception>
-        public HydraulicBoundarySqLiteDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
+        public HydraulicBoundaryDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
         /// Gets a value indicating whether or not more hydraulic boundary locations can
-        /// be read using the <see cref="HydraulicBoundarySqLiteDatabaseReader"/>.
+        /// be read using the <see cref="HydraulicBoundaryDatabaseReader"/>.
         /// </summary>
         public bool HasNext { get; private set; }
 

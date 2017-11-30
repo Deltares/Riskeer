@@ -36,12 +36,12 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
     /// <summary>
     /// Class for reading information from a hydraulic location configuration database (HLCD).
     /// </summary>
-    public class HydraulicLocationConfigurationSqLiteDatabaseReader : SqLiteDatabaseReaderBase
+    public class HydraulicLocationConfigurationDatabaseReader : SqLiteDatabaseReaderBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicLocationConfigurationSqLiteDatabaseReader));
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicLocationConfigurationDatabaseReader));
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicLocationConfigurationSqLiteDatabaseReader"/>, 
+        /// Creates a new instance of <see cref="HydraulicLocationConfigurationDatabaseReader"/>, 
         /// which will use the <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
@@ -51,7 +51,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
         /// </list>
         /// </exception>
-        public HydraulicLocationConfigurationSqLiteDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
+        public HydraulicLocationConfigurationDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
         /// Gets the location ids from the database, based upon <paramref name="trackId"/>.
@@ -76,7 +76,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
             }
             catch (SQLiteException exception)
             {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
                 throw new CriticalFileReadException(message, exception);
             }
             catch (InvalidCastException exception)
@@ -110,7 +110,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
             }
             catch (SQLiteException exception)
             {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
                 throw new CriticalFileReadException(message, exception);
             }
             catch (FormatException exception)
@@ -142,7 +142,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
                     // Must be unique
                     if (dictionary.ContainsKey(key))
                     {
-                        log.Warn(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_GetLocationIdFromDatabase_Ambiguous_Row_Found_Take_First);
+                        log.Warn(Resources.HydraulicLocationConfigurationDatabaseReader_GetLocationIdFromDatabase_Ambiguous_Row_Found_Take_First);
                     }
                     else
                     {
@@ -181,7 +181,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
                     return Convert.ToBoolean(dataReader[RegionsTableDefinitions.UsePreprocessor]);
                 }
 
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicLocationConfigurationDatabaseReader_Critical_Unexpected_Exception);
                 throw new CriticalFileReadException(message);
             }
         }

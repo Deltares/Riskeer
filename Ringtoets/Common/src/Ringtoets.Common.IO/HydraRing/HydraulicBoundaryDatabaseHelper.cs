@@ -72,12 +72,12 @@ namespace Ringtoets.Common.IO.HydraRing
             string settingsDatabaseFileName = GetHydraulicBoundarySettingsDatabase(filePath);
             try
             {
-                using (var db = new HydraulicBoundarySqLiteDatabaseReader(filePath))
+                using (var db = new HydraulicBoundaryDatabaseReader(filePath))
                 {
                     db.GetVersion();
                 }
                 string hlcdFilePath = Path.Combine(directoryName, hlcdFileName);
-                using (new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath)) {}
+                using (new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath)) {}
                 using (new DesignTablesSettingsProvider(settingsDatabaseFileName)) {}
                 using (new TimeIntegrationSettingsProvider(settingsDatabaseFileName)) {}
                 using (new NumericsSettingsProvider(settingsDatabaseFileName)) {}
@@ -164,7 +164,7 @@ namespace Ringtoets.Common.IO.HydraRing
         /// boundary database could be created.</exception>
         private static string GetVersion(string filePath)
         {
-            using (var db = new HydraulicBoundarySqLiteDatabaseReader(filePath))
+            using (var db = new HydraulicBoundaryDatabaseReader(filePath))
             {
                 return db.GetVersion();
             }

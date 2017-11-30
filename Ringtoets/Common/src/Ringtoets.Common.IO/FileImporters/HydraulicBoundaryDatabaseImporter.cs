@@ -42,8 +42,8 @@ namespace Ringtoets.Common.IO.FileImporters
     public class HydraulicBoundaryDatabaseImporter : IDisposable
     {
         private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryDatabaseImporter));
-        private HydraulicBoundarySqLiteDatabaseReader hydraulicBoundaryDatabaseReader;
-        private HydraulicLocationConfigurationSqLiteDatabaseReader hydraulicLocationConfigurationDatabaseReader;
+        private HydraulicBoundaryDatabaseReader hydraulicBoundaryDatabaseReader;
+        private HydraulicLocationConfigurationDatabaseReader hydraulicLocationConfigurationDatabaseReader;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>, based upon the data read from 
@@ -120,12 +120,12 @@ namespace Ringtoets.Common.IO.FileImporters
         /// </exception>
         private void ValidateAndConnectTo(string filePath)
         {
-            hydraulicBoundaryDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(filePath);
+            hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(filePath);
 
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
             try
             {
-                hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath);
+                hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath);
             }
             catch (CriticalFileReadException)
             {
