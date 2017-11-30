@@ -21,13 +21,24 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
 
-namespace Ringtoets.Common.IO.Test.FileImporters
+namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
 {
     [TestFixture]
     public class ReadHydraulicBoundaryLocationTest
     {
+        [Test]
+        public void Constructor_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ReadHydraulicBoundaryLocation(1, null, 2, 3);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("name", paramName);
+        }
+
         [Test]
         public void Constructor_Always_ExpectedValues()
         {

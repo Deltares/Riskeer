@@ -22,6 +22,7 @@
   <ItemGroup>
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundaryDatabaseQueryBuilderTest.cs" />
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundarySqLiteDatabaseReaderTest.cs" />
+    <Compile Include="HydraulicBoundaryDatabaseContext\ReadHydraulicBoundaryLocationTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabaseContext\HydraulicLocationConfigurationDatabaseQueryBuilderTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabaseContext\HydraulicLocationConfigurationSqLiteDatabaseReaderTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabaseContext\LocationsTableDefinitionsTest.cs" />

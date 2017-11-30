@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.IO.FileImporters
+using System;
+
+namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
 {
     /// <summary>
     /// Location that is read from a hydraulic boundary database file.
@@ -33,8 +35,14 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="name">The name of the read hydraulic boundary location.</param>
         /// <param name="coordinateX">The x coordinate of the read hydraulic boundary location.</param>
         /// <param name="coordinateY">The y coordinate of the read hydraulic boundary location.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public ReadHydraulicBoundaryLocation(long id, string name, double coordinateX, double coordinateY)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
             Id = id;
             Name = name;
             CoordinateX = coordinateX;

@@ -28,6 +28,7 @@
     <Compile Include="HydraulicBoundaryDatabaseContext\HrdLocationsTableDefinitions.cs" />
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundaryDatabaseQueryBuilder.cs" />
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundarySqLiteDatabaseReader.cs" />
+    <Compile Include="HydraulicBoundaryDatabaseContext\ReadHydraulicBoundaryLocation.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabaseContext\HydraulicLocationConfigurationSqLiteDatabaseReader.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabaseContext\HydraulicLocationConfigurationDatabaseQueryBuilder.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabaseContext\LocationsTableDefinitions.cs" />
