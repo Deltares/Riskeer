@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -62,155 +63,6 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Equals_ToItself_ReturnsTrue()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 0, 1);
-            var inputItem = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
-
-            // Call
-            bool areEqualObjects = inputItem.Equals(inputItem);
-
-            // Assert
-            Assert.IsTrue(areEqualObjects);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(EqualityReferencePoints))]
-        public void Equals_ToOtherWithSameHydraulicBoundaryLocationsAndVaryingReferencePoints_ReturnsTrue(Point2D referencePoint1,
-                                                                                                          Point2D referencePoint2)
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 0, 1);
-            var inputItem1 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint1);
-            var inputItem2 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint2);
-
-            // Call
-            bool areEqualObjects12 = inputItem1.Equals(inputItem2);
-            bool areEqualObjects21 = inputItem2.Equals(inputItem1);
-
-            // Assert
-            Assert.IsTrue(areEqualObjects12);
-            Assert.IsTrue(areEqualObjects21);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(EqualityReferencePoints))]
-        public void Equals_ToOtherWithDifferentHydraulicBoundaryLocationsAndVaryingReferencePoints_ReturnsTrue(Point2D referencePoint1,
-                                                                                                               Point2D referencePoint2)
-        {
-            // Setup
-            var inputItem1 = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "Name", 0, 1),
-                                                                     referencePoint1);
-            var inputItem2 = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "Name", 0, 1),
-                                                                     referencePoint2);
-
-            // Call
-            bool areEqualObjects12 = inputItem1.Equals(inputItem2);
-            bool areEqualObjects21 = inputItem2.Equals(inputItem1);
-
-            // Assert
-            Assert.IsFalse(areEqualObjects12);
-            Assert.IsFalse(areEqualObjects21);
-        }
-
-        [Test]
-        public void Equals_Null_ReturnsFalse()
-        {
-            // Setup 
-            var inputWithRefPoint = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "Name", 0, 1),
-                                                                            new Point2D(0, 0));
-            var inputWithoutRefPoint = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "Name", 0, 1),
-                                                                               null);
-
-            // Call
-            bool areEqualObjectWithRefPoint = inputWithRefPoint.Equals(null);
-            bool areEqualObjectsWithoutRefPoint = inputWithoutRefPoint.Equals(null);
-
-            // Assert
-            Assert.IsFalse(areEqualObjectWithRefPoint);
-            Assert.IsFalse(areEqualObjectsWithoutRefPoint);
-        }
-
-        [Test]
-        public void Equals_OtherObject_ReturnsFalse()
-        {
-            // Setup
-            var calculationInput = new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "Name", 0, 1), null);
-            var otherObject = new object();
-
-            // Call
-            bool areEqualObjects12 = calculationInput.Equals(otherObject);
-            bool areEqualObjects21 = otherObject.Equals(calculationInput);
-
-            // Assert
-            Assert.IsFalse(areEqualObjects12);
-            Assert.IsFalse(areEqualObjects21);
-        }
-
-        [Test]
-        public void Equals_TransitivePropertyWithoutReferencePoint_ReturnsTrue()
-        {
-            // Setup 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 0, 1);
-            var calculationInput1 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
-            var calculationInput2 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
-            var calculationInput3 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
-
-            // Call
-            bool areEqualObjects12 = calculationInput1.Equals(calculationInput2);
-            bool areEqualObjects23 = calculationInput2.Equals(calculationInput3);
-            bool areEqualObjects13 = calculationInput1.Equals(calculationInput3);
-
-            // Assert
-            Assert.IsTrue(areEqualObjects12);
-            Assert.IsTrue(areEqualObjects23);
-            Assert.IsTrue(areEqualObjects13);
-        }
-
-        [Test]
-        public void Equals_TransitivePropertyWithDifferentReferencePoints_ReturnsTrue()
-        {
-            // Setup 
-            var referencePoint = new Point2D(0, 0);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 0, 1);
-            var calculationInput1 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint);
-            var calculationInput2 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
-            var calculationInput3 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint);
-
-            // Call
-            bool areEqualObjects12 = calculationInput1.Equals(calculationInput2);
-            bool areEqualObjects23 = calculationInput2.Equals(calculationInput3);
-            bool areEqualObjects13 = calculationInput1.Equals(calculationInput3);
-
-            // Assert
-            Assert.IsTrue(areEqualObjects12);
-            Assert.IsTrue(areEqualObjects23);
-            Assert.IsTrue(areEqualObjects13);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(EqualityReferencePoints))]
-        public void GetHashCode_EqualObjects_ReturnsSameHashCode(Point2D referencePoint1,
-                                                                 Point2D referencePoint2)
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 0, 1);
-            var inputItem1 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint1);
-            var inputItem2 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint2);
-
-            // Precondition
-            Assert.AreEqual(inputItem1, inputItem2);
-
-            // Call
-            int hashCodeItem1 = inputItem1.GetHashCode();
-            int hashCodeItem2 = inputItem2.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeItem1, hashCodeItem2);
-        }
-
-        [Test]
         [TestCaseSource(nameof(StringRepresentations))]
         public void ToString_DifferentReferencePoints_ReturnsExpectedString(HydraulicBoundaryLocation location,
                                                                             Point2D referencePoint, string expectedString)
@@ -223,6 +75,72 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
             // Assert
             Assert.AreEqual(expectedString, stringRepresentation);
+        }
+
+        [TestFixture]
+        private class SelectableHydraulicBoundaryLocationEqualsTest : EqualsGuidelinesTestFixture<SelectableHydraulicBoundaryLocation, DerivedSelectableHydraulicBOundaryLocation>
+        {
+            private HydraulicBoundaryLocation location;
+
+            [SetUp]
+            public void SetUp()
+            {
+                location = new HydraulicBoundaryLocation(1, "Name", 0, 1);
+            }
+
+            [Test]
+            [TestCaseSource(nameof(EqualityReferencePoints))]
+            public void Equals_ToOtherWithSameHydraulicBoundaryLocationsAndDifferentReferencePoints_ReturnsTrue(Point2D referencePoint1,
+                                                                                                                Point2D referencePoint2)
+            {
+                // Setup
+                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 0, 1);
+                var inputItem1 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint1);
+                var inputItem2 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint2);
+
+                // Call
+                bool areEqualObjects12 = inputItem1.Equals(inputItem2);
+                bool areEqualObjects21 = inputItem2.Equals(inputItem1);
+
+                // Assert
+                Assert.IsTrue(areEqualObjects12);
+                Assert.IsTrue(areEqualObjects21);
+            }
+
+            protected override SelectableHydraulicBoundaryLocation CreateObject()
+            {
+                return new SelectableHydraulicBoundaryLocation(location, CreateReferencePoint());
+            }
+
+            protected override DerivedSelectableHydraulicBOundaryLocation CreateDerivedObject()
+            {
+                return new DerivedSelectableHydraulicBOundaryLocation(location,
+                                                                      CreateReferencePoint());
+            }
+
+            private static Point2D CreateReferencePoint()
+            {
+                var random = new Random(21);
+                return new Point2D(random.NextDouble(), random.NextDouble());
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(10, "Name 2", 0, 1),
+                                                                                      CreateReferencePoint()))
+                    .SetName("Hydraulic Boundary Location");
+            }
+
+            private static IEnumerable<TestCaseData> EqualityReferencePoints()
+            {
+                var referencePoint1 = new Point2D(0, 0);
+                var referencePoint2 = new Point2D(1, 1);
+
+                yield return new TestCaseData(null, null);
+                yield return new TestCaseData(null, referencePoint1);
+                yield return new TestCaseData(referencePoint1, referencePoint1);
+                yield return new TestCaseData(referencePoint1, referencePoint2);
+            }
         }
 
         private static IEnumerable<TestCaseData> ReferencePointLocations()
@@ -247,17 +165,6 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             yield return new TestCaseData(hydraulicBoundaryLocation, kilometers, GetStringRepresentation(hydraulicBoundaryLocation, kilometers));
         }
 
-        private static IEnumerable<TestCaseData> EqualityReferencePoints()
-        {
-            var referencePoint1 = new Point2D(0, 0);
-            var referencePoint2 = new Point2D(1, 1);
-
-            yield return new TestCaseData(null, null);
-            yield return new TestCaseData(null, referencePoint1);
-            yield return new TestCaseData(referencePoint1, referencePoint1);
-            yield return new TestCaseData(referencePoint1, referencePoint2);
-        }
-
         private static string GetStringRepresentation(HydraulicBoundaryLocation location, Point2D referencePoint)
         {
             if (referencePoint == null)
@@ -270,6 +177,12 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             return distance / 1000 < 1
                        ? $"{location.Name} ({distance:f0} m)"
                        : $"{location.Name} ({distance / 1000:f1} km)";
+        }
+
+        private class DerivedSelectableHydraulicBOundaryLocation : SelectableHydraulicBoundaryLocation
+        {
+            public DerivedSelectableHydraulicBOundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, Point2D referencePoint)
+                : base(hydraulicBoundaryLocation, referencePoint) {}
         }
     }
 }

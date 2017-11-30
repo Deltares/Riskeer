@@ -163,26 +163,6 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void Equals_SegmentWithTwoPointsWithSameXY_ReturnsTrue()
-        {
-            // Setup
-            var random = new Random(22);
-            double x1 = random.NextDouble();
-            double x2 = random.NextDouble();
-            double y1 = random.NextDouble();
-            double y2 = random.NextDouble();
-            var point1 = new Point2D(x1, y1);
-            var point2 = new Point2D(x2, y2);
-            var segment1 = new Segment2D(point1, point2);
-            var segment2 = new Segment2D(point1, point2);
-            var segment3 = new Segment2D(point2, point1);
-
-            // Call & Assert
-            Assert.IsTrue(segment1.Equals(segment2));
-            Assert.IsTrue(segment1.Equals(segment3));
-        }
-
-        [Test]
         public void GetEuclideanDistanceToPoint_PointOnFirstPoint_ReturnZero()
         {
             // Setup
@@ -284,6 +264,30 @@ namespace Core.Common.Base.Test.Geometry
         [TestFixture]
         private class Segment2DEqualsTest : EqualsGuidelinesTestFixture<Segment2D>
         {
+            [Test]
+            public void Equals_SegmentWithTwoPointsWithSameXY_ReturnsTrue()
+            {
+                // Setup
+                var random = new Random(22);
+                double x1 = random.NextDouble();
+                double x2 = random.NextDouble();
+                double y1 = random.NextDouble();
+                double y2 = random.NextDouble();
+                var point1 = new Point2D(x1, y1);
+                var point2 = new Point2D(x2, y2);
+                var segment1 = new Segment2D(point1, point2);
+                var segment2 = new Segment2D(point1, point2);
+                var segment3 = new Segment2D(point2, point1);
+
+                // Call
+                bool segment1Equals2 = segment1.Equals(segment2);
+                bool segment1Equals3 = segment1.Equals(segment3);
+
+                // Assert
+                Assert.IsTrue(segment1Equals2);
+                Assert.IsTrue(segment1Equals3);
+            }
+
             protected override Segment2D CreateObject()
             {
                 return new Segment2D(CreatePoint2D(22),
