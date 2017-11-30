@@ -83,22 +83,16 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         [TestFixture]
         private class StructuresCalculationContextEqualsTest : EqualsGuidelinesTestFixture<TestStructuresCalculationContext, DerivedTestStructuresCalculationContext>
         {
-            private MockRepository mocks;
+            private static readonly MockRepository mocks = new MockRepository();
 
-            private IAssessmentSection assessmentSection;
-            private TestStructuresCalculation calculation;
-            private TestFailureMechanism failureMechanism;
-            private CalculationGroup parent;
+            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly TestStructuresCalculation calculation = new TestStructuresCalculation();
+            private static readonly TestFailureMechanism failureMechanism = new TestFailureMechanism();
+            private static readonly CalculationGroup parent = new CalculationGroup();
 
             [SetUp]
             public void SetUp()
             {
-                calculation = new TestStructuresCalculation();
-                failureMechanism = new TestFailureMechanism();
-                parent = new CalculationGroup();
-
-                mocks = new MockRepository();
-                assessmentSection = mocks.Stub<IAssessmentSection>();
                 mocks.ReplayAll();
             }
 
@@ -106,46 +100,6 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             public void TearDown()
             {
                 mocks.VerifyAll();
-            }
-
-            [Test]
-            public void Equals_ToOtherWithDifferentWrappedData_ReturnFalse()
-            {
-                // Setup
-                var differentCalculation = new TestStructuresCalculation();
-                var context1 = new TestStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-                var context2 = new TestStructuresCalculationContext(differentCalculation, parent, failureMechanism, assessmentSection);
-
-                // Precondition:
-                Assert.IsFalse(calculation.Equals(differentCalculation));
-
-                // Call
-                bool isEqual1 = context1.Equals(context2);
-                bool isEqual2 = context2.Equals(context1);
-
-                // Assert
-                Assert.IsFalse(isEqual1);
-                Assert.IsFalse(isEqual2);
-            }
-
-            [Test]
-            public void Equals_ToOtherWithDifferentParent_ReturnFalse()
-            {
-                // Setup
-                var differentParent = new CalculationGroup();
-                var context1 = new TestStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-                var context2 = new TestStructuresCalculationContext(calculation, differentParent, failureMechanism, assessmentSection);
-
-                // Precondition:
-                Assert.IsFalse(parent.Equals(differentParent));
-
-                // Call
-                bool isEqual1 = context1.Equals(context2);
-                bool isEqual2 = context2.Equals(context1);
-
-                // Assert
-                Assert.IsFalse(isEqual1);
-                Assert.IsFalse(isEqual2);
             }
 
             protected override TestStructuresCalculationContext CreateObject()
@@ -160,7 +114,16 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield break;
+                yield return new TestCaseData(new TestStructuresCalculationContext(new TestStructuresCalculation(),
+                                                                                   parent,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection))
+                    .SetName("Calculation");
+                yield return new TestCaseData(new TestStructuresCalculationContext(calculation,
+                                                                                   new CalculationGroup(),
+                                                                                   failureMechanism,
+                                                                                   assessmentSection))
+                    .SetName("Parent");
             }
         }
 

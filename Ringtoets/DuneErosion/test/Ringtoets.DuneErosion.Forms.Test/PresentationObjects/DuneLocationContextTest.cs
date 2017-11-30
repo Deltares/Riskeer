@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
+using Core.Common.Gui.Forms.MessageWindow;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
@@ -62,112 +65,34 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
             Assert.AreSame(location, context.DuneLocation);
         }
 
-        [Test]
-        public void Equals_ToNull_ReturnFalse()
+        [TestFixture]
+        private class DuneLocationContextEqualsTest : EqualsGuidelinesTestFixture<DuneLocationContext, DerivedDuneLocationContext>
         {
-            // Setup
-            var duneLocations = new ObservableList<DuneLocation>();
-            var duneLocation = new TestDuneLocation();
+            private static readonly ObservableList<DuneLocation> duneLocations = new ObservableList<DuneLocation>();
+            private static readonly DuneLocation duneLocation = new TestDuneLocation();
 
-            var context = new DuneLocationContext(duneLocations, duneLocation);
+            protected override DuneLocationContext CreateObject()
+            {
+                return new DuneLocationContext(duneLocations, duneLocation);
+            }
 
-            // Call
-            bool isEqual = context.Equals(null);
+            protected override DerivedDuneLocationContext CreateDerivedObject()
+            {
+                return new DerivedDuneLocationContext(duneLocations, duneLocation);
+            }
 
-            // Assert
-            Assert.IsFalse(isEqual);
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new DuneLocationContext(new ObservableList<DuneLocation>(), duneLocation))
+                    .SetName("LocationsList");
+                yield return new TestCaseData(new DuneLocationContext(duneLocations, new TestDuneLocation()))
+                    .SetName("Locations");
+            }
         }
 
-        [Test]
-        public void Equals_ToItself_ReturnTrue()
+        private class DerivedDuneLocationContext : DuneLocationContext
         {
-            // Setup
-            var duneLocations = new ObservableList<DuneLocation>();
-            var duneLocation = new TestDuneLocation();
-
-            var context = new DuneLocationContext(duneLocations, duneLocation);
-
-            // Call
-            bool isEqual = context.Equals(context);
-
-            // Assert
-            Assert.IsTrue(isEqual);
-        }
-
-        [Test]
-        public void Equals_ToOtherWithDifferentLocationListAndSameLocation_ReturnFalse()
-        {
-            // Setup
-            var duneLocations1 = new ObservableList<DuneLocation>();
-            var duneLocations2 = new ObservableList<DuneLocation>();
-            var duneLocation = new TestDuneLocation();
-            var context1 = new DuneLocationContext(duneLocations1, duneLocation);
-            var context2 = new DuneLocationContext(duneLocations2, duneLocation);
-
-            // Call
-            bool isEqual1 = context1.Equals(context2);
-            bool isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsFalse(isEqual1);
-            Assert.IsFalse(isEqual2);
-        }
-
-        [Test]
-        public void Equals_ToOtherWithSameLocationListAndDifferentLocation_ReturnFalse()
-        {
-            // Setup
-            var duneLocations = new ObservableList<DuneLocation>();
-            var duneLocation1 = new TestDuneLocation();
-            var duneLocation2 = new TestDuneLocation();
-            var context1 = new DuneLocationContext(duneLocations, duneLocation1);
-            var context2 = new DuneLocationContext(duneLocations, duneLocation2);
-
-            // Call
-            bool isEqual1 = context1.Equals(context2);
-            bool isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsFalse(isEqual1);
-            Assert.IsFalse(isEqual2);
-        }
-
-        [Test]
-        public void Equals_ToOtherWithSameLocationListAndSameLocation_ReturnTrue()
-        {
-            // Setup
-            var duneLocations = new ObservableList<DuneLocation>();
-            var duneLocation = new TestDuneLocation();
-            var context1 = new DuneLocationContext(duneLocations, duneLocation);
-            var context2 = new DuneLocationContext(duneLocations, duneLocation);
-
-            // Call
-            bool isEqual1 = context1.Equals(context2);
-            bool isEqual2 = context2.Equals(context1);
-
-            // Assert
-            Assert.IsTrue(isEqual1);
-            Assert.IsTrue(isEqual2);
-        }
-
-        [Test]
-        public void GetHashCode_EqualObjects_ReturnSameHashCode()
-        {
-            // Setup
-            var duneLocations = new ObservableList<DuneLocation>();
-            var duneLocation = new TestDuneLocation();
-            var context1 = new DuneLocationContext(duneLocations, duneLocation);
-            var context2 = new DuneLocationContext(duneLocations, duneLocation);
-
-            // Precondition
-            Assert.AreEqual(context1, context2);
-
-            // Call
-            int hashCode1 = context1.GetHashCode();
-            int hashCode2 = context2.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCode1, hashCode2);
+            public DerivedDuneLocationContext(ObservableList<DuneLocation> wrappedList, DuneLocation duneLocation) : base(wrappedList, duneLocation) {}
         }
     }
 }
