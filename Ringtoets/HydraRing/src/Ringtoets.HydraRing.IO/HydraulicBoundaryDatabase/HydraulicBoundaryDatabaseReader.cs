@@ -100,17 +100,15 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         }
 
         /// <summary>
-        /// Gets the database version from the metadata table.
+        /// Gets the version of the hydraulic boundary database.
         /// </summary>
-        /// <returns>The version found in the database, or <see cref="string.Empty"/> if the version
-        /// cannot be found.</returns>
+        /// <returns>The version found in the database, or <see cref="string.Empty"/> if the version cannot be found.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
         public string GetVersion()
         {
-            string versionQuery = HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery();
             try
             {
-                using (IDataReader dataReader = CreateDataReader(versionQuery, null))
+                using (IDataReader dataReader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery(), null))
                 {
                     return !dataReader.Read() ? string.Empty : Convert.ToString(dataReader[GeneralTableDefinitions.GeneratedVersion]);
                 }
@@ -123,23 +121,20 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         }
 
         /// <summary>
-        /// Gets the track id from the metadata table.
+        /// Gets the track id from the hydraulic boundary database.
         /// </summary>
-        /// <returns>The track id found in the database, or 0 if the track id
-        /// cannot be found.</returns>
-        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect 
-        /// values for required properties.</exception>
+        /// <returns>The track id found in the database, or 0 if the track id cannot be found.</returns>
+        /// <exception cref="InvalidCastException">Thrown when the database contains incorrect values for required properties.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
         public long GetTrackId()
         {
-            string trackQuery = HydraulicBoundaryDatabaseQueryBuilder.GetTrackIdQuery();
-            var sqliteParameter = new SQLiteParameter
-            {
-                DbType = DbType.String
-            };
             try
             {
-                using (IDataReader dataReader = CreateDataReader(trackQuery, sqliteParameter))
+                using (IDataReader dataReader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetTrackIdQuery(),
+                                                                 new SQLiteParameter
+                                                                 {
+                                                                     DbType = DbType.String
+                                                                 }))
                 {
                     return !dataReader.Read() ? 0 : Convert.ToInt64(dataReader[GeneralTableDefinitions.TrackId]);
                 }
@@ -157,21 +152,19 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         }
 
         /// <summary>
-        /// Gets the amount of locations that can be read from the database.
+        /// Gets the amount of locations that can be read from the hydraulic boundary database.
         /// </summary>
-        /// <returns>The amount of locations that can be read.</returns>
+        /// <returns>The amount of locations that can be read, or 0 if no locations could be found.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
         public int GetLocationCount()
         {
-            string locationCountQuery = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsCountQuery();
-            var sqliteParameter = new SQLiteParameter
-            {
-                DbType = DbType.String
-            };
-
             try
             {
-                using (IDataReader dataReader = CreateDataReader(locationCountQuery, sqliteParameter))
+                using (IDataReader dataReader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsCountQuery(),
+                                                                 new SQLiteParameter
+                                                                 {
+                                                                     DbType = DbType.String
+                                                                 }))
                 {
                     return !dataReader.Read() ? 0 : Convert.ToInt32(dataReader[HrdLocationsTableDefinitions.Count]);
                 }
