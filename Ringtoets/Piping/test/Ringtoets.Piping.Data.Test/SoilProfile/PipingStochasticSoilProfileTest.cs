@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -111,64 +111,6 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Equals_OtherType_ReturnsFalse()
-        {
-            // Setup
-            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
-            var stochasticProfile = new PipingStochasticSoilProfile(0.0, profile);
-
-            // Call
-            bool areEqual = stochasticProfile.Equals(new object());
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        public void Equals_Null_ReturnsFalse()
-        {
-            // Setup
-            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
-            var stochasticProfile = new PipingStochasticSoilProfile(0.0, profile);
-
-            // Call
-            bool areEqual = stochasticProfile.Equals(null);
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(StochasticProfileCombinations))]
-        public void Equals_DifferentScenarios_ReturnsTrue(PipingStochasticSoilProfile profile,
-                                                          PipingStochasticSoilProfile otherProfile,
-                                                          bool expectedEqual)
-        {
-            // Call
-            bool areEqualOne = profile.Equals(otherProfile);
-            bool areEqualTwo = otherProfile.Equals(profile);
-
-            // Assert
-            Assert.AreEqual(expectedEqual, areEqualOne);
-            Assert.AreEqual(expectedEqual, areEqualTwo);
-        }
-
-        [Test]
-        public void GetHashCode_EqualPipingStochasticSoilProfiles_ReturnSameHashCode()
-        {
-            // Setup
-            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
-            var stochasticSoilProfileA = new PipingStochasticSoilProfile(0.2, profile);
-            var stochasticSoilProfileB = new PipingStochasticSoilProfile(0.2, profile);
-
-            // Call
-            int hashCodeOne = stochasticSoilProfileA.GetHashCode();
-            int hashCodeTwo = stochasticSoilProfileB.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
-        }
-
         private static TestCaseData[] PipingStochasticProfileUnequalCombinations()
         {
             const string profileName = "newProfile";
@@ -195,62 +137,43 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             };
         }
 
-        private static TestCaseData[] StochasticProfileCombinations()
+        [TestFixture]
+        private class PipingStochasticSoilProfileEqualsTest : EqualsGuidelinesTestFixture<PipingStochasticSoilProfile, DerivedPipingStochasticSoilProfile>
         {
-            PipingStochasticSoilProfile profileA = CreateRandomStochasticProfile(21);
-            PipingStochasticSoilProfile profileB = CreateRandomStochasticProfile(21);
-            PipingStochasticSoilProfile profileC = CreateRandomStochasticProfile(73);
-
-            return new[]
+            protected override PipingStochasticSoilProfile CreateObject()
             {
-                new TestCaseData(profileA, profileA, true)
-                {
-                    TestName = "Equals_SameProfile_ReturnsTrue"
-                },
-                new TestCaseData(profileA, profileB, true)
-                {
-                    TestName = "Equals_ProfileAProfileB_ReturnsTrue"
-                },
-                new TestCaseData(profileB, profileC, false)
-                {
-                    TestName = "Equals_ProfileBProfileC_ReturnsFalse"
-                },
-                new TestCaseData(profileA, profileC, false)
-                {
-                    TestName = "Equals_ProfileAProfileC_ReturnsFalse"
-                }
-            };
-        }
+                return CreateStochasticSoilProfile();
+            }
 
-        private static PipingStochasticSoilProfile CreateRandomStochasticProfile(int randomSeed)
-        {
-            var random = new Random(randomSeed);
-            return new PipingStochasticSoilProfile(random.NextDouble(), CreateRandomProfile(random));
-        }
-
-        private static PipingSoilProfile CreateRandomProfile(Random random)
-        {
-            return new PipingSoilProfile(GetRandomName(random), -1.0 - random.NextDouble(), new[]
+            protected override DerivedPipingStochasticSoilProfile CreateDerivedObject()
             {
-                new PipingSoilLayer(random.NextDouble())
-                {
-                    MaterialName = GetRandomName(random),
-                    Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
-                    IsAquifer = random.NextBoolean(),
-                    BelowPhreaticLevelDeviation = random.NextDouble(),
-                    BelowPhreaticLevelMean = random.NextDouble(),
-                    BelowPhreaticLevelShift = random.NextDouble(),
-                    DiameterD70CoefficientOfVariation = random.NextDouble(),
-                    DiameterD70Mean = random.NextDouble(),
-                    PermeabilityCoefficientOfVariation = random.NextDouble(),
-                    PermeabilityMean = random.NextDouble()
-                }
-            }, random.NextEnumValue<SoilProfileType>());
+                return new DerivedPipingStochasticSoilProfile(CreateStochasticSoilProfile());
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                PipingStochasticSoilProfile baseProfile = CreateStochasticSoilProfile();
+
+                yield return new TestCaseData(new PipingStochasticSoilProfile(0.5,
+                                                                              baseProfile.SoilProfile))
+                    .SetName("Probability");
+                yield return new TestCaseData(new PipingStochasticSoilProfile(baseProfile.Probability,
+                                                                              PipingSoilProfileTestFactory.CreatePipingSoilProfile("Different Name")))
+                    .SetName("SoilProfile");
+            }
+
+            private static PipingStochasticSoilProfile CreateStochasticSoilProfile()
+            {
+                var random = new Random(21);
+                return new PipingStochasticSoilProfile(random.NextDouble(),
+                                                       PipingSoilProfileTestFactory.CreatePipingSoilProfile("Name"));
+            }
         }
 
-        private static string GetRandomName(Random random)
+        private class DerivedPipingStochasticSoilProfile : PipingStochasticSoilProfile
         {
-            return new string('x', random.Next(0, 40));
+            public DerivedPipingStochasticSoilProfile(PipingStochasticSoilProfile profile)
+                : base(profile.Probability, profile.SoilProfile) {}
         }
     }
 }
