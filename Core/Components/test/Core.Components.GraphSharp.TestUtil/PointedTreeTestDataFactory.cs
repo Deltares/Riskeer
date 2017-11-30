@@ -41,14 +41,14 @@ namespace Core.Components.GraphSharp.TestUtil
             var random = new Random(21);
 
             return new PointedTreeElementVertex("<text>test</text>",
-                                                Color.FromArgb((byte) random.Next(0, 265),
-                                                               (byte) random.Next(0, 265),
-                                                               (byte) random.Next(0, 265),
-                                                               (byte) random.Next(0, 265)),
-                                                Color.FromArgb((byte) random.Next(0, 265),
-                                                               (byte) random.Next(0, 265),
-                                                               (byte) random.Next(0, 265),
-                                                               (byte) random.Next(0, 265)),
+                                                Color.FromArgb((byte) random.Next(0, 255),
+                                                               (byte) random.Next(0, 255),
+                                                               (byte) random.Next(0, 255),
+                                                               (byte) random.Next(0, 255)),
+                                                Color.FromArgb((byte) random.Next(0, 255),
+                                                               (byte) random.Next(0, 255),
+                                                               (byte) random.Next(0, 255),
+                                                               (byte) random.Next(0, 255)),
                                                 random.Next(0, int.MaxValue),
                                                 random.NextEnumValue<PointedTreeVertexType>(),
                                                 isSelectable);
