@@ -19,17 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
+namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
 {
     /// <summary>
-    /// Defines the table and column names of the table 'Locations' in the hydraulic location 
+    /// Defines the table and column names of the table 'Tracks' in the hydraulic location 
     /// configuration database.
     /// </summary>
-    internal static class LocationsTableDefinitions
+    internal static class TracksTableDefinitions
     {
-        public const string TableName = "Locations";
-        public const string LocationId = "LocationId";
-        public const string HrdLocationId = "HRDLocationId";
+        public const string TableName = "Tracks";
         public const string TrackId = "TrackId";
+        public const string RegionId = "RegionId";
     }
 }

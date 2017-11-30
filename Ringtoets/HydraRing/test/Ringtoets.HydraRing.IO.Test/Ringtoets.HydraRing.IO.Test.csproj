@@ -23,11 +23,11 @@
     <Compile Include="HydraulicBoundaryDatabase\HydraulicBoundaryDatabaseQueryBuilderTest.cs" />
     <Compile Include="HydraulicBoundaryDatabase\HydraulicBoundarySqLiteDatabaseReaderTest.cs" />
     <Compile Include="HydraulicBoundaryDatabase\ReadHydraulicBoundaryLocationTest.cs" />
-    <Compile Include="HydraulicLocationConfigurationDatabaseContext\HydraulicLocationConfigurationDatabaseQueryBuilderTest.cs" />
-    <Compile Include="HydraulicLocationConfigurationDatabaseContext\HydraulicLocationConfigurationSqLiteDatabaseReaderTest.cs" />
-    <Compile Include="HydraulicLocationConfigurationDatabaseContext\LocationsTableDefinitionsTest.cs" />
-    <Compile Include="HydraulicLocationConfigurationDatabaseContext\RegionsTableDefinitionsTest.cs" />
-    <Compile Include="HydraulicLocationConfigurationDatabaseContext\TracksTableDefinitionsTest.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationDatabaseQueryBuilderTest.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationSqLiteDatabaseReaderTest.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\LocationsTableDefinitionsTest.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\RegionsTableDefinitionsTest.cs" />
+    <Compile Include="HydraulicLocationConfigurationDatabase\TracksTableDefinitionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

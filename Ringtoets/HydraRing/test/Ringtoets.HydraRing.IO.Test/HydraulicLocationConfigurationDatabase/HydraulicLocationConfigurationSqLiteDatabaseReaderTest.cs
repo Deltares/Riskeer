@@ -29,9 +29,9 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
-using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
+using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
-namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseContext
+namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 {
     [TestFixture]
     public class HydraulicLocationConfigurationSqLiteDatabaseReaderTest

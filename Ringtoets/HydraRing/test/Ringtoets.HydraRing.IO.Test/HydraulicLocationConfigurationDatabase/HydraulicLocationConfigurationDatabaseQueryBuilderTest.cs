@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
+using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
-namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseContext
+namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 {
     [TestFixture]
     public class HydraulicLocationConfigurationDatabaseQueryBuilderTest

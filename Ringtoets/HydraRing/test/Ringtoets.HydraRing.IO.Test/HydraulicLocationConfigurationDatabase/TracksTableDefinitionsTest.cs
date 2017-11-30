@@ -20,20 +20,19 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
+using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
-namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseContext
+namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
 {
     [TestFixture]
-    public class LocationsTableDefinitionsTest
+    public class TracksTableDefinitionsTest
     {
         [Test]
         public void Constants_Always_ExpectedValues()
         {
-            Assert.AreEqual("Locations", LocationsTableDefinitions.TableName);
-            Assert.AreEqual("HRDLocationId", LocationsTableDefinitions.HrdLocationId);
-            Assert.AreEqual("LocationId", LocationsTableDefinitions.LocationId);
-            Assert.AreEqual("TrackId", LocationsTableDefinitions.TrackId);
+            Assert.AreEqual("Tracks", TracksTableDefinitions.TableName);
+            Assert.AreEqual("TrackId", TracksTableDefinitions.TrackId);
+            Assert.AreEqual("RegionId", TracksTableDefinitions.RegionId);
         }
     }
 }

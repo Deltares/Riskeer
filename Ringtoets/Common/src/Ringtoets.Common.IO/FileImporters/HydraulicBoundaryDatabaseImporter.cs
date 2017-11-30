@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
-using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
+using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
 namespace Ringtoets.Common.IO.FileImporters
 {

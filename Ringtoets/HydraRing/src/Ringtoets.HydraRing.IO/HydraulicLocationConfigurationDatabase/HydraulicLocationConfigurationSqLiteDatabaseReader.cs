@@ -31,7 +31,7 @@ using Core.Common.Utils.Builders;
 using log4net;
 using Ringtoets.HydraRing.IO.Properties;
 
-namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
+namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
 {
     /// <summary>
     /// Class for reading information from a hydraulic location configuration database (HLCD).
