@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 
@@ -30,7 +31,7 @@ namespace Core.Components.Chart.Data
     /// </summary>
     public abstract class PointBasedChartData : ChartData
     {
-        private Point2D[] points;
+        private IEnumerable<Point2D> points;
 
         /// <summary>
         /// Creates a new instance of <see cref="PointBasedChartData"/>.
@@ -55,7 +56,7 @@ namespace Core.Components.Chart.Data
         /// Gets or sets an array of points in 2D space.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
-        public Point2D[] Points
+        public IEnumerable<Point2D> Points
         {
             get
             {

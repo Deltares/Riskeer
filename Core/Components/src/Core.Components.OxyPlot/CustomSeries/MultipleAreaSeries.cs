@@ -41,12 +41,12 @@ namespace Core.Components.OxyPlot.CustomSeries
         /// </summary>
         public MultipleAreaSeries()
         {
-            Areas = new List<DataPoint[]>();
+            Areas = new List<IEnumerable<DataPoint>>();
             Fill = OxyColors.Automatic;
             Color = OxyColors.Automatic;
         }
 
-        public List<DataPoint[]> Areas { get; }
+        public List<IEnumerable<DataPoint>> Areas { get; }
 
         /// <summary>
         /// Gets or sets the color of the curve.

@@ -100,9 +100,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             return layersWithSoil;
         }
 
-        private static IEnumerable<Point2D[]> GetInnerLoopsRecursively(SoilLayer layer)
+        private static IEnumerable<IEnumerable<Point2D>> GetInnerLoopsRecursively(SoilLayer layer)
         {
-            var innerLoops = new List<Point2D[]>();
+            var innerLoops = new List<IEnumerable<Point2D>>();
 
             foreach (SoilLayer nestedLayer in layer.NestedLayers)
             {

@@ -240,7 +240,7 @@ namespace Core.Components.Gis.IO.Test.Readers
 
                 // Assert
                 Assert.IsNotNull(pointData);
-                Assert.AreEqual(1, pointData.Features.Length);
+                Assert.AreEqual(1, pointData.Features.Count());
 
                 MapGeometry[] mapGeometries = pointData.Features.First().MapGeometries.ToArray();
                 Assert.AreEqual(1, mapGeometries.Length);

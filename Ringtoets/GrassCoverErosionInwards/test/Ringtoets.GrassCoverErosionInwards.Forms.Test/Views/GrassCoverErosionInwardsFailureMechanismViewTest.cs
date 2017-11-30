@@ -953,11 +953,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             DikeProfile[] dikeProfileArray = dikeProfiles.ToArray();
 
             Assert.IsInstanceOf<MapLineData>(mapData);
-            Assert.AreEqual(dikeProfileArray.Length, dikeProfilesData.Features.Length);
+            Assert.AreEqual(dikeProfileArray.Length, dikeProfilesData.Features.Count());
 
             for (var i = 0; i < dikeProfileArray.Length; i++)
             {
-                MapGeometry profileDataA = dikeProfilesData.Features[i].MapGeometries.First();
+                MapGeometry profileDataA = dikeProfilesData.Features.ElementAt(i).MapGeometries.First();
                 CollectionAssert.AreEquivalent(dikeProfileArray[0].DikeGeometry, profileDataA.PointCollections.First());
             }
 

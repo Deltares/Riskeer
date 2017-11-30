@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -35,7 +36,7 @@ namespace Core.Components.DotSpatial.Layer
         private readonly MapPointData mapPointData;
         private readonly MapPointDataConverter converter = new MapPointDataConverter();
 
-        private MapFeature[] drawnFeatures;
+        private IEnumerable<MapFeature> drawnFeatures;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapPointDataLayer"/>.

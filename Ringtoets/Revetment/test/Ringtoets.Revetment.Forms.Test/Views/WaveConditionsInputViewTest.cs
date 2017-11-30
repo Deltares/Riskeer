@@ -610,7 +610,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             var foreshoreChartData = (ChartLineData) chartData;
 
             RoundedPoint2DCollection foreshoreGeometry = foreshoreProfile.Geometry;
-            Assert.AreEqual(foreshoreGeometry.Count(), foreshoreChartData.Points.Length);
+            Assert.AreEqual(foreshoreGeometry.Count(), foreshoreChartData.Points.Count());
             CollectionAssert.AreEqual(foreshoreGeometry, foreshoreChartData.Points);
 
             string expectedName = $"{foreshoreProfile.Name} - Voorlandprofiel";

@@ -70,7 +70,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             converter.ConvertLayerFeatures(mapPolygonData, mapPolygonLayer);
 
             // Assert
-            Assert.AreEqual(mapPolygonData.Features.Length, mapPolygonLayer.DataSet.Features.Count);
+            Assert.AreEqual(mapPolygonData.Features.Count(), mapPolygonLayer.DataSet.Features.Count);
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             IFeature feature = mapPolygonLayer.DataSet.Features[0];
-            Assert.AreEqual(mapPolygonData.Features.Length, mapPolygonLayer.DataSet.Features.Count);
+            Assert.AreEqual(mapPolygonData.Features.Count(), mapPolygonLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
 
             IEnumerable<Coordinate> expectedCoordinates = mapPolygonData.Features.First().MapGeometries.First().PointCollections.First().Select(p => new Coordinate(p.X, p.Y));
@@ -136,7 +136,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             IFeature feature = mapPolygonLayer.DataSet.Features[0];
-            Assert.AreEqual(mapPolygonData.Features.Length, mapPolygonLayer.DataSet.Features.Count);
+            Assert.AreEqual(mapPolygonData.Features.Count(), mapPolygonLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<MultiPolygon>(feature.BasicGeometry);
 
             IEnumerable<Coordinate> expectedCoordinates = mapFeature.MapGeometries.SelectMany(mg => mg.PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y)));
@@ -170,7 +170,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             IFeature feature = mapPolygonLayer.DataSet.Features[0];
-            Assert.AreEqual(mapPolygonData.Features.Length, mapPolygonLayer.DataSet.Features.Count);
+            Assert.AreEqual(mapPolygonData.Features.Count(), mapPolygonLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
 
             var polygonGeometry = (Polygon) mapPolygonLayer.FeatureSet.Features[0].BasicGeometry;
@@ -210,7 +210,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             IFeature feature = mapPolygonLayer.DataSet.Features[0];
-            Assert.AreEqual(mapPolygonData.Features.Length, mapPolygonLayer.DataSet.Features.Count);
+            Assert.AreEqual(mapPolygonData.Features.Count(), mapPolygonLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
 
             var polygonGeometry = (Polygon) mapPolygonLayer.FeatureSet.Features[0].BasicGeometry;

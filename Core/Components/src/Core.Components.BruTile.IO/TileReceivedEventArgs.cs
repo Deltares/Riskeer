@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using BruTile;
 
 namespace Core.Components.BruTile.IO
@@ -62,6 +63,6 @@ namespace Core.Components.BruTile.IO
         /// <summary>
         /// Gets the actual tile data.
         /// </summary>
-        public byte[] Tile { get; }
+        public IEnumerable<byte> Tile { get; }
     }
 }

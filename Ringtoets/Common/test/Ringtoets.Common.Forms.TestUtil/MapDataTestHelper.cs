@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             {
                 HydraulicBoundaryLocation[] hydraulicBoundaryLocationsArray = hydraulicBoundaryLocations.ToArray();
 
-                Assert.AreEqual(hydraulicBoundaryLocationsArray.Length, hydraulicLocationsMapData.Features.Length);
+                Assert.AreEqual(hydraulicBoundaryLocationsArray.Length, hydraulicLocationsMapData.Features.Count());
                 CollectionAssert.AreEqual(hydraulicBoundaryLocationsArray.Select(hrp => hrp.Location),
                                           hydraulicLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
             }
@@ -131,7 +131,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             }
             else
             {
-                Assert.AreEqual(1, referenceLineData.Features.Length);
+                Assert.AreEqual(1, referenceLineData.Features.Count());
                 CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
             }
         }
@@ -155,7 +155,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual("Vakindeling (startpunten)", mapData.Name);
 
             var sectionsStartPointData = (MapPointData) mapData;
-            Assert.AreEqual(1, sectionsStartPointData.Features.Length);
+            Assert.AreEqual(1, sectionsStartPointData.Features.Count());
             CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
         }
 
@@ -178,7 +178,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
 
             var sectionsEndPointData = (MapPointData) mapData;
-            Assert.AreEqual(1, sectionsEndPointData.Features.Length);
+            Assert.AreEqual(1, sectionsEndPointData.Features.Count());
             CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsEndPointData.Features.First().MapGeometries.First().PointCollections.First());
         }
 
@@ -203,12 +203,12 @@ namespace Ringtoets.Common.Forms.TestUtil
             var foreshoreProfilesData = (MapLineData) mapData;
             ForeshoreProfile[] foreshoreProfileArray = foreshoreProfiles.ToArray();
 
-            Assert.AreEqual(foreshoreProfileArray.Length, foreshoreProfilesData.Features.Length);
+            Assert.AreEqual(foreshoreProfileArray.Length, foreshoreProfilesData.Features.Count());
 
             for (var i = 0; i < foreshoreProfileArray.Length; i++)
             {
                 Point2D[] expectedGeometry = GetWorldPoints(foreshoreProfileArray[i]);
-                MapGeometry profileDataA = foreshoreProfilesData.Features[i].MapGeometries.First();
+                MapGeometry profileDataA = foreshoreProfilesData.Features.ElementAt(i).MapGeometries.First();
                 CollectionAssert.AreEquivalent(expectedGeometry, profileDataA.PointCollections.First());
             }
         }
@@ -285,7 +285,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             var structuresData = (MapPointData) mapData;
             StructureBase[] structuresArray = structures.ToArray();
 
-            Assert.AreEqual(structuresArray.Length, structuresData.Features.Length);
+            Assert.AreEqual(structuresArray.Length, structuresData.Features.Count());
             CollectionAssert.AreEqual(structuresArray.Select(hrp => hrp.Location),
                                       structuresData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
         }

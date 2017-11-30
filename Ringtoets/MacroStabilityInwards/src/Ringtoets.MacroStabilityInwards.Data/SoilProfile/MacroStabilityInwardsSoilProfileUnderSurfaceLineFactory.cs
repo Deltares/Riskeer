@@ -133,13 +133,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
         private class TempSoilLayerGeometry
         {
-            public TempSoilLayerGeometry(Point2D[] outerLoop, MacroStabilityInwardsSoilLayerData data)
+            public TempSoilLayerGeometry(IEnumerable<Point2D> outerLoop, MacroStabilityInwardsSoilLayerData data)
             {
                 OuterLoop = outerLoop;
                 Data = data;
             }
 
-            public Point2D[] OuterLoop { get; }
+            public IEnumerable<Point2D> OuterLoop { get; }
 
             public MacroStabilityInwardsSoilLayerData Data { get; }
         }

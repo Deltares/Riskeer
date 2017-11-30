@@ -32,7 +32,7 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public abstract class FeatureBasedMapData : MapData
     {
-        private MapFeature[] features;
+        private IEnumerable<MapFeature> features;
 
         /// <summary>
         /// Creates a new instance of <see cref="FeatureBasedMapData"/>.
@@ -52,7 +52,7 @@ namespace Core.Components.Gis.Data
         /// <remarks>Calls <see cref="ValidateFeatures"/> when setting a new array and so
         /// can throw all corresponding exceptions. This collection will not contain <c>null</c>
         /// elements.</remarks>
-        public MapFeature[] Features
+        public IEnumerable<MapFeature> Features
         {
             get
             {
@@ -96,7 +96,7 @@ namespace Core.Components.Gis.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="featuresToValidate"/>
         /// is <c>null</c> or contains <c>null</c>.</exception>
         /// <seealso cref="Features"/>
-        protected virtual void ValidateFeatures(MapFeature[] featuresToValidate)
+        protected virtual void ValidateFeatures(IEnumerable<MapFeature> featuresToValidate)
         {
             if (featuresToValidate == null || featuresToValidate.Any(e => e == null))
             {

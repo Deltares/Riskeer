@@ -101,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             return surface;
         }
 
-        private static GeometryLoop CreateGeometryLoop(Point2D[] points, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves, List<GeometryLoop> alreadyCreatedLoops)
+        private static GeometryLoop CreateGeometryLoop(IEnumerable<Point2D> points, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves, List<GeometryLoop> alreadyCreatedLoops)
         {
             GeometryCurve[] geometryCurves = CreateGeometryCurves(points, alreadyCreatedPoints, alreadyCreatedCurves);
             GeometryLoop loop = alreadyCreatedLoops.FirstOrDefault(l => l.CurveList.SequenceEqual(geometryCurves));
@@ -118,7 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             return loop;
         }
 
-        private static GeometryCurve[] CreateGeometryCurves(Point2D[] points, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves)
+        private static GeometryCurve[] CreateGeometryCurves(IEnumerable<Point2D> points, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves)
         {
             var curves = new List<GeometryCurve>();
 

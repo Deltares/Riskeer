@@ -565,7 +565,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 DuneLocation[] duneLocationsArray = duneLocations.ToArray();
 
-                Assert.AreEqual(duneLocationsArray.Length, duneLocationsMapData.Features.Length);
+                Assert.AreEqual(duneLocationsArray.Length, duneLocationsMapData.Features.Count());
                 CollectionAssert.AreEqual(duneLocationsArray.Select(hrp => hrp.Location),
                                           duneLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
             }

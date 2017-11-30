@@ -60,7 +60,7 @@ namespace Core.Components.Gis.IO.Writers
                 throw new ArgumentNullException(nameof(featureBasedMapData));
             }
 
-            if (featureBasedMapData.Features.Length != 1)
+            if (featureBasedMapData.Features.Count() != 1)
             {
                 throw new ArgumentException(Resources.ShapeFileWriterBase_CopyToFeature_Mapdata_can_only_contain_one_feature);
             }

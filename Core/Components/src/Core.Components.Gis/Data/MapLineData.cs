@@ -72,7 +72,7 @@ namespace Core.Components.Gis.Data
         /// <exception cref="ArgumentException">Thrown when any feature in <paramref name="featuresToValidate"/> 
         /// contains multiple point-collections.</exception>
         /// <seealso cref="Features"/>
-        protected override void ValidateFeatures(MapFeature[] featuresToValidate)
+        protected override void ValidateFeatures(IEnumerable<MapFeature> featuresToValidate)
         {
             base.ValidateFeatures(featuresToValidate);
 

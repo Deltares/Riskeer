@@ -72,7 +72,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             converter.ConvertLayerFeatures(mapLineData, mapLineLayer);
 
             // Assert
-            Assert.AreEqual(mapLineData.Features.Length, mapLineLayer.DataSet.Features.Count);
+            Assert.AreEqual(mapLineData.Features.Count(), mapLineLayer.DataSet.Features.Count);
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             IFeature feature = mapLineLayer.DataSet.Features[0];
-            Assert.AreEqual(mapLineData.Features.Length, mapLineLayer.DataSet.Features.Count);
+            Assert.AreEqual(mapLineData.Features.Count(), mapLineLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<LineString>(feature.BasicGeometry);
 
             IEnumerable<Coordinate> expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0)
@@ -158,7 +158,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             IFeature feature = mapLineLayer.DataSet.Features[0];
-            Assert.AreEqual(mapLineData.Features.Length, mapLineLayer.DataSet.Features.Count);
+            Assert.AreEqual(mapLineData.Features.Count(), mapLineLayer.DataSet.Features.Count);
             Assert.IsInstanceOf<MultiLineString>(feature.BasicGeometry);
 
             IEnumerable<Coordinate> expectedCoordinates = mapFeature.MapGeometries.SelectMany(mg => mg.PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y)));
