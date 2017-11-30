@@ -197,7 +197,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
                 yield return new TestCaseData(new TestGrassCoverErosionOutwardsLocationContext(hydraulicLocation, new ObservableList<HydraulicBoundaryLocation>()))
                     .SetName("LocationsList");
                 yield return new TestCaseData(new TestGrassCoverErosionOutwardsLocationContext(new TestHydraulicBoundaryLocation(), hydraulicLocations))
-                    .SetName("Locations");
+                    .SetName("Location");
             }
         }
 

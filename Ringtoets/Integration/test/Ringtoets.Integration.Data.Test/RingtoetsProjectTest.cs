@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -79,100 +82,6 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
-        public void Equals_NewProject_ReturnsTrue()
-        {
-            // Setup
-            var newProjectA = new RingtoetsProject();
-            var newProjectB = new RingtoetsProject();
-
-            // Call
-            bool result = newProjectA.Equals(newProjectB);
-            bool result2 = newProjectB.Equals(newProjectA);
-
-            // Assert
-            Assert.IsTrue(result);
-            Assert.IsTrue(result2);
-        }
-
-        [Test]
-        public void Equals_ProjectNameChanged_ReturnsFalse()
-        {
-            // Setup
-            var newProject = new RingtoetsProject();
-            var changedProject = new RingtoetsProject
-            {
-                Name = "<some name>"
-            };
-
-            // Call
-            bool result = newProject.Equals(changedProject);
-            bool result2 = changedProject.Equals(newProject);
-
-            // Assert
-            Assert.IsFalse(result);
-            Assert.IsFalse(result2);
-        }
-
-        [Test]
-        public void Equals_ProjectDescriptionChanged_ReturnsFalse()
-        {
-            // Setup
-            var newProject = new RingtoetsProject();
-            var changedProject = new RingtoetsProject
-            {
-                Description = "<some description>"
-            };
-
-            // Call
-            bool result = newProject.Equals(changedProject);
-            bool result2 = changedProject.Equals(newProject);
-
-            // Assert
-            Assert.IsFalse(result);
-            Assert.IsFalse(result2);
-        }
-
-        [Test]
-        public void Equals_ProjectAssessmentSectionsChanged_ReturnsFalse()
-        {
-            // Setup
-            var newProject = new RingtoetsProject();
-            var changedProject = new RingtoetsProject();
-            newProject.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
-
-            // Call
-            bool result = newProject.Equals(changedProject);
-            bool result2 = changedProject.Equals(newProject);
-
-            // Assert
-            Assert.IsFalse(result);
-            Assert.IsFalse(result2);
-        }
-
-        [Test]
-        public void GetHashCode_ProjectsAreEqual_ReturnsEqualHashes()
-        {
-            // Setup
-            const string name = "Some name";
-            const string desctiption = "Some desctiption";
-            var project = new RingtoetsProject(name)
-            {
-                Description = desctiption
-            };
-            var otherProject = new RingtoetsProject(name)
-            {
-                Description = desctiption
-            };
-
-            // Call
-            int result = project.GetHashCode();
-            int otherResult = otherProject.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(result, otherResult);
-        }
-
-        [Test]
         public void NotifyObservers_WithObserverAttached_ObserverIsNotified()
         {
             // Setup
@@ -210,6 +119,58 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             mockRepository.VerifyAll();
+        }
+
+        [TestFixture]
+        private class RingtoetsProjectEqualsTest : EqualsGuidelinesTestFixture<RingtoetsProject, DerivedRingtoetsProject>
+        {
+            protected override RingtoetsProject CreateObject()
+            {
+                return CreateProject();
+            }
+
+            protected override DerivedRingtoetsProject CreateDerivedObject()
+            {
+                return new DerivedRingtoetsProject(CreateProject());
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                RingtoetsProject baseProject = CreateProject();
+
+                yield return new TestCaseData(new RingtoetsProject("Different name")
+                {
+                    Description = baseProject.Description
+                }).SetName("Name");
+
+                yield return new TestCaseData(new RingtoetsProject(baseProject.Name))
+                    .SetName("Description");
+
+                var random = new Random(21);
+                var differentAsessmentSections = CreateProject();
+                differentAsessmentSections.AssessmentSections.Add(new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
+                yield return new TestCaseData(differentAsessmentSections)
+                    .SetName("AssessmentSections");
+            }
+
+            private static RingtoetsProject CreateProject()
+            {
+                const string name = "Some name";
+                const string description = "Some desctiption";
+                return new RingtoetsProject(name)
+                {
+                    Description = description
+                };
+            }
+        }
+
+        private class DerivedRingtoetsProject : RingtoetsProject
+        {
+            public DerivedRingtoetsProject(RingtoetsProject project)
+            {
+                Name = project.Name;
+                Description = project.Description;
+            }
         }
     }
 }
