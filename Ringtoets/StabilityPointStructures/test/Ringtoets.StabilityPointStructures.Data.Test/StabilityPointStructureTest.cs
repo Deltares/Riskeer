@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -27,7 +28,6 @@ using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
 namespace Ringtoets.StabilityPointStructures.Data.Test
 {
@@ -607,83 +607,248 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(otherStructure.InflowModelType, structure.InflowModelType);
         }
 
-        [Test]
-        [TestCase(null)]
-        [TestCase("string")]
-        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
+        [TestFixture]
+        private class StabilityPointStructureEqualsTest : EqualsGuidelinesTestFixture<StabilityPointStructure, DerivedStabilityPointStructure>
         {
-            // Setup
-            StabilityPointStructure structure = new TestStabilityPointStructure();
-
-            // Call
-            bool isEqual = structure.Equals(other);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-        }
-
-        [Test]
-        public void Equals_ToItself_ReturnsTrue()
-        {
-            // Setup
-            StabilityPointStructure structure = new TestStabilityPointStructure();
-
-            // Call
-            bool isEqual = structure.Equals(structure);
-
-            // Assert
-            Assert.IsTrue(isEqual);
-        }
-
-        [Test]
-        public void Equals_TransitivePropertyAllPropertiesEqual_ReturnsTrue()
-        {
-            // Setup
-            StabilityPointStructure structureX = new TestStabilityPointStructure();
-            StabilityPointStructure structureY = new TestStabilityPointStructure();
-            StabilityPointStructure structureZ = new TestStabilityPointStructure();
-
-            // Call
-            bool isXEqualToY = structureX.Equals(structureY);
-            bool isYEqualToZ = structureY.Equals(structureZ);
-            bool isXEqualToZ = structureX.Equals(structureZ);
-
-            // Assert
-            Assert.IsTrue(isXEqualToY);
-            Assert.IsTrue(isYEqualToZ);
-            Assert.IsTrue(isXEqualToZ);
-        }
-
-        [Test]
-        [TestCaseSource(typeof(StabilityPointStructurePermutationHelper),
-            nameof(StabilityPointStructurePermutationHelper.DifferentStabilityPointStructures),
-            new object[]
+            protected override StabilityPointStructure CreateObject()
             {
-                "Equals",
-                "ReturnsFalse"
-            })]
-        public void Equals_DifferentProperty_ReturnsFalse(StabilityPointStructure structure)
-        {
-            // Call
-            bool isEqual = structure.Equals(new TestStabilityPointStructure());
+                return new StabilityPointStructure(CreateConstructionProperties());
+            }
 
-            // Assert
-            Assert.IsFalse(isEqual);
+            protected override DerivedStabilityPointStructure CreateDerivedObject()
+            {
+                return new DerivedStabilityPointStructure(CreateConstructionProperties());
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                foreach (ChangePropertyData<StabilityPointStructure.ConstructionProperties> changeSingleDataProperty in ChangeSingleDataProperties())
+                {
+                    StabilityPointStructure.ConstructionProperties differentConstructionProperties = CreateConstructionProperties();
+                    changeSingleDataProperty.ActionToChangeProperty(differentConstructionProperties);
+
+                    yield return new TestCaseData(new StabilityPointStructure(differentConstructionProperties))
+                        .SetName(changeSingleDataProperty.PropertyName);
+                }
+            }
+
+            private static IEnumerable<ChangePropertyData<StabilityPointStructure.ConstructionProperties>> ChangeSingleDataProperties()
+            {
+                var random = new Random(21);
+                RoundedDouble offset = random.NextRoundedDouble();
+
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.Name = "Different Name",
+                                                                                                    "Name");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.Id = "Different Id",
+                                                                                                    "Id");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.Location = new Point2D(random.NextDouble(), random.NextDouble()),
+                                                                                                    "Location");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.StructureNormalOrientation = random.NextRoundedDouble(),
+                                                                                                    "NormalOrientation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.StorageStructureArea.Mean = cp.StorageStructureArea.Mean + offset,
+                                                                                                    "StorageStructureAreaMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.StorageStructureArea.CoefficientOfVariation = cp.StorageStructureArea.CoefficientOfVariation + offset,
+                                                                                                    "StorageStructureAreaCoefficientOfVariation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.AllowedLevelIncreaseStorage.Mean = cp.AllowedLevelIncreaseStorage.Mean + offset,
+                                                                                                    "AllowedLevelIncreaseStorageMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.AllowedLevelIncreaseStorage.StandardDeviation = cp.AllowedLevelIncreaseStorage.StandardDeviation + offset,
+                                                                                                    "AllowedLevelIncreaseStorageStandardDeviation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.WidthFlowApertures.Mean = cp.WidthFlowApertures.Mean + offset,
+                                                                                                    "WidthFlowAperturesMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.WidthFlowApertures.StandardDeviation = cp.WidthFlowApertures.StandardDeviation + offset,
+                                                                                                    "WidthFlowAperturesStandardDeviation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.InsideWaterLevel.Mean = cp.InsideWaterLevel.Mean + offset,
+                                                                                                    "InsideWaterLevelMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.InsideWaterLevel.StandardDeviation = cp.InsideWaterLevel.StandardDeviation + offset,
+                                                                                                    "InsideWaterLevelStandardDeviation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.ThresholdHeightOpenWeir.Mean = cp.ThresholdHeightOpenWeir.Mean + offset,
+                                                                                                    "ThresholdHeightOpenWeirMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.ThresholdHeightOpenWeir.StandardDeviation = cp.ThresholdHeightOpenWeir.StandardDeviation + offset,
+                                                                                                    "ThresholdHeightOpenWeirStandardDeviation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.CriticalOvertoppingDischarge.Mean = cp.CriticalOvertoppingDischarge.Mean + offset,
+                                                                                                    "CriticalOvertoppingDischargeMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.CriticalOvertoppingDischarge.CoefficientOfVariation = cp.CriticalOvertoppingDischarge.CoefficientOfVariation + offset,
+                                                                                                    "CriticalOvertoppingDischargeCoefficientOfVariation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.FlowWidthAtBottomProtection.Mean = cp.FlowWidthAtBottomProtection.Mean + offset,
+                                                                                                    "FlowWidthAtBottomProtectionMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.FlowWidthAtBottomProtection.StandardDeviation = cp.FlowWidthAtBottomProtection.StandardDeviation + offset,
+                                                                                                    "FlowWidthAtBottomProtectionStandardDeviation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.ConstructiveStrengthLinearLoadModel.Mean = cp.ConstructiveStrengthLinearLoadModel.Mean + offset,
+                                                                                                    "ConstructiveStrengthLinearLoadModelMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation = cp.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation + offset,
+                                                                                                    "ConstructiveStrengthLinearLoadModelCoefficientOfVariation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.ConstructiveStrengthQuadraticLoadModel.Mean = cp.ConstructiveStrengthQuadraticLoadModel.Mean + offset,
+                                                                                                    "ConstructiveStrengthQuadraticLoadModelMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation = cp.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation + offset,
+                                                                                                    "ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.BankWidth.Mean = cp.BankWidth.Mean + offset,
+                                                                                                    "BankWidthMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.BankWidth.StandardDeviation = cp.BankWidth.StandardDeviation + offset,
+                                                                                                    "BankWidthStandardDeviation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.InsideWaterLevelFailureConstruction.Mean = cp.InsideWaterLevelFailureConstruction.Mean + offset,
+                                                                                                    "InsideWaterLevelFailureConstructionMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.InsideWaterLevelFailureConstruction.StandardDeviation = cp.InsideWaterLevelFailureConstruction.StandardDeviation + offset,
+                                                                                                    "InsideWaterLevelFailureConstructionStandardDeviation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.EvaluationLevel = cp.EvaluationLevel + offset,
+                                                                                                    "EvaluationLevel");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.LevelCrestStructure.Mean = cp.LevelCrestStructure.Mean + offset,
+                                                                                                    "LevelCrestStructureMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.LevelCrestStructure.StandardDeviation = cp.LevelCrestStructure.StandardDeviation + offset,
+                                                                                                    "LevelCrestStructureStandardDeviation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.VerticalDistance = cp.VerticalDistance + offset,
+                                                                                                    "VerticalDistance");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.FailureProbabilityRepairClosure = random.NextDouble(),
+                                                                                                    "FailureProbabilityRepairClosure");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.FailureCollisionEnergy.Mean = cp.FailureCollisionEnergy.Mean + offset,
+                                                                                                    "FailureCollisionEnergyMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.FailureCollisionEnergy.CoefficientOfVariation = cp.FailureCollisionEnergy.CoefficientOfVariation + offset,
+                                                                                                    "FailureCollisionEnergyCoefficientOfVariation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.ShipMass.Mean = cp.ShipMass.Mean + offset,
+                                                                                                    "ShipMassMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.ShipMass.CoefficientOfVariation = cp.ShipMass.CoefficientOfVariation + offset,
+                                                                                                    "ShipMassCoefficientOfVariation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.ShipVelocity.Mean = cp.ShipVelocity.Mean + offset,
+                                                                                                    "ShipVelocityMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.ShipVelocity.CoefficientOfVariation = cp.ShipVelocity.CoefficientOfVariation + offset,
+                                                                                                    "ShipVelocityCoefficientOfVariation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.LevellingCount = random.Next(43, int.MaxValue),
+                                                                                                    "LevellingCount");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.ProbabilityCollisionSecondaryStructure = random.NextDouble(),
+                                                                                                    "ProbabilityCollisionSecondaryStructure");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.FlowVelocityStructureClosable.Mean = cp.FlowVelocityStructureClosable.Mean + offset,
+                                                                                                    "FlowVelocityStructureClosableMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.StabilityLinearLoadModel.Mean = cp.StabilityLinearLoadModel.Mean + offset,
+                                                                                                    "StabilityLinearLoadModelMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.StabilityLinearLoadModel.CoefficientOfVariation = cp.StabilityLinearLoadModel.CoefficientOfVariation + offset,
+                                                                                                    "StabilityLinearLoadModelCoefficientOfVariation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.StabilityQuadraticLoadModel.Mean = cp.StabilityQuadraticLoadModel.Mean + offset,
+                                                                                                    "StabilityQuadraticLoadModelMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.StabilityQuadraticLoadModel.CoefficientOfVariation = cp.StabilityQuadraticLoadModel.CoefficientOfVariation + offset,
+                                                                                                    "StabilityQuadraticLoadModelCoefficientOfVariation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.AreaFlowApertures.Mean = cp.AreaFlowApertures.Mean + offset,
+                                                                                                    "AreaFlowAperturesMean");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.AreaFlowApertures.StandardDeviation = cp.AreaFlowApertures.StandardDeviation + offset,
+                                                                                                    "AreaFlowAperturesStandardDeviation");
+                yield return new ChangePropertyData<StabilityPointStructure.ConstructionProperties>(cp => cp.InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                                                                                                    "InflowModelType");
+            }
+
+            private static StabilityPointStructure.ConstructionProperties CreateConstructionProperties()
+            {
+                return new StabilityPointStructure.ConstructionProperties
+                {
+                    Name = "Name",
+                    Id = "id",
+                    Location = new Point2D(1.234, 2.3456),
+                    StructureNormalOrientation = (RoundedDouble) 123.456,
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) 234.567,
+                        CoefficientOfVariation = (RoundedDouble) 0.234
+                    },
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) 345.678,
+                        StandardDeviation = (RoundedDouble) 0.345
+                    },
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 456.789,
+                        StandardDeviation = (RoundedDouble) 0.456
+                    },
+                    InsideWaterLevel =
+                    {
+                        Mean = (RoundedDouble) 567.890,
+                        StandardDeviation = (RoundedDouble) 0.567
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        Mean = (RoundedDouble) 678.901,
+                        StandardDeviation = (RoundedDouble) 0.678
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) 789.012,
+                        CoefficientOfVariation = (RoundedDouble) 0.789
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) 890.123,
+                        StandardDeviation = (RoundedDouble) 0.890
+                    },
+                    ConstructiveStrengthLinearLoadModel =
+                    {
+                        Mean = (RoundedDouble) 901.234,
+                        CoefficientOfVariation = (RoundedDouble) 0.901
+                    },
+                    ConstructiveStrengthQuadraticLoadModel =
+                    {
+                        Mean = (RoundedDouble) 123.456,
+                        CoefficientOfVariation = (RoundedDouble) 0.123
+                    },
+                    BankWidth =
+                    {
+                        Mean = (RoundedDouble) 234.567,
+                        StandardDeviation = (RoundedDouble) 0.234
+                    },
+                    InsideWaterLevelFailureConstruction =
+                    {
+                        Mean = (RoundedDouble) 345.678,
+                        StandardDeviation = (RoundedDouble) 0.345
+                    },
+                    EvaluationLevel = 555.555,
+                    LevelCrestStructure =
+                    {
+                        Mean = (RoundedDouble) 456.789,
+                        StandardDeviation = (RoundedDouble) 0.456
+                    },
+                    VerticalDistance = 555.55,
+                    FailureProbabilityRepairClosure = 0.55,
+                    FailureCollisionEnergy =
+                    {
+                        Mean = (RoundedDouble) 567.890,
+                        CoefficientOfVariation = (RoundedDouble) 0.567
+                    },
+                    ShipMass =
+                    {
+                        Mean = (RoundedDouble) 7777777.777,
+                        CoefficientOfVariation = (RoundedDouble) 0.777
+                    },
+                    ShipVelocity =
+                    {
+                        Mean = (RoundedDouble) 567.890,
+                        CoefficientOfVariation = (RoundedDouble) 0.567
+                    },
+                    LevellingCount = 42,
+                    ProbabilityCollisionSecondaryStructure = 0.55,
+                    FlowVelocityStructureClosable =
+                    {
+                        Mean = (RoundedDouble) 678.901,
+                        CoefficientOfVariation = (RoundedDouble) 0.2
+                    },
+                    StabilityLinearLoadModel =
+                    {
+                        Mean = (RoundedDouble) 789.012,
+                        CoefficientOfVariation = (RoundedDouble) 0.789
+                    },
+                    StabilityQuadraticLoadModel =
+                    {
+                        Mean = (RoundedDouble) 890.123,
+                        CoefficientOfVariation = (RoundedDouble) 0.890
+                    },
+                    AreaFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 901.234,
+                        StandardDeviation = (RoundedDouble) 0.901
+                    },
+                    InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert
+                };
+            }
         }
 
-        [Test]
-        public void GetHashCode_EqualStructures_ReturnsSameHashCode()
+        private class DerivedStabilityPointStructure : StabilityPointStructure
         {
-            // Setup
-            StabilityPointStructure structureOne = new TestStabilityPointStructure();
-            StabilityPointStructure structureTwo = new TestStabilityPointStructure();
-
-            // Call
-            int hashCodeOne = structureOne.GetHashCode();
-            int hashCodeTwo = structureTwo.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
+            public DerivedStabilityPointStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
         }
     }
 }
