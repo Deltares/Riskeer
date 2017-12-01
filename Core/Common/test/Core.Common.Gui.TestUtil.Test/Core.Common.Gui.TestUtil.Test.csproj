@@ -19,9 +19,7 @@
   <ItemGroup>
     <Compile Include="ContextMenu\CustomItemsOnlyContextMenuBuilderTest.cs" />
     <Compile Include="PluginTestHelperTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">

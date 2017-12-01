@@ -38,9 +38,7 @@
     <Compile Include="PresentationObjects\ForeshoreProfilesContext.cs" />
     <Compile Include="PresentationObjects\ICalculationContext.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolder.cs" />
-    <Compile Include="PresentationObjects\FailureMechanismContext.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="PresentationObjects\FailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\FailureMechanismContributionContext.cs" />
     <Compile Include="PresentationObjects\FailureMechanismSectionResultContext.cs" />
     <Compile Include="PresentationObjects\FailureMechanismSectionsContext.cs" />

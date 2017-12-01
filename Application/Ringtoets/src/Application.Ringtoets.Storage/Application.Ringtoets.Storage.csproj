@@ -63,9 +63,7 @@
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilModelCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSurfaceLineCreateExtensions.cs" />
-    <Compile Include="Create\StructuresCalculationCreateExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Create\StructuresCalculationCreateExtensions.cs" />
     <Compile Include="Create\ProbabilityAssessmentOutputCreateExtensions.cs" />
     <Compile Include="Create\StabilityPointStructures\StabilityPointStructureCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationCreateExtensions.cs" />
@@ -484,9 +482,7 @@
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\DikeProfileEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationEntityReadExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsSectionResultEntityReadExtensions.cs" />
