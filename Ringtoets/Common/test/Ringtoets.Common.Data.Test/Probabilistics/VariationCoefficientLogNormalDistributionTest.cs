@@ -225,7 +225,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         }
 
         [TestFixture]
-        private class NormalDistributionEqualsTest : EqualsGuidelinesTestFixture<VariationCoefficientLogNormalDistribution,
+        private class VariationCoefficientLogNormalDistributionEqualsTest : EqualsGuidelinesTestFixture<VariationCoefficientLogNormalDistribution,
             DerivedVariationCoefficientLogNormalDistribution>
         {
             protected override VariationCoefficientLogNormalDistribution CreateObject()

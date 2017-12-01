@@ -112,7 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
         }
 
         [TestFixture]
-        private class PipingCalculationScenarioContextEqualsTest
+        private class MacroStabilityInwardsCalculationScenarioContextEqualsTest
             : EqualsGuidelinesTestFixture<MacroStabilityInwardsCalculationScenarioContext,
                 DerivedMacroStabilityInwardsCalculationScenarioContext>
         {
