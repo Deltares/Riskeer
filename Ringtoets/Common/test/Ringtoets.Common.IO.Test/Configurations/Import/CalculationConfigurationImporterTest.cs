@@ -891,12 +891,14 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
 
         private static CalculationGroup GetExpectedNestedData()
         {
-            return new CalculationGroup("Root")
+            return new CalculationGroup
             {
+                Name = "Root",
                 Children =
                 {
-                    new CalculationGroup("Group 1")
+                    new CalculationGroup
                     {
+                        Name = "Group 1",
                         Children =
                         {
                             new TestCalculation
@@ -909,12 +911,14 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
                     {
                         Name = "Calculation 1"
                     },
-                    new CalculationGroup("Group 2")
+                    new CalculationGroup
                     {
+                        Name = "Group 2",
                         Children =
                         {
-                            new CalculationGroup("Group 4")
+                            new CalculationGroup
                             {
+                                Name = "Group 4",
                                 Children =
                                 {
                                     new TestCalculation
@@ -933,7 +937,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
                     {
                         Name = "Calculation 2"
                     },
-                    new CalculationGroup("Group 3")
+                    new CalculationGroup
+                    {
+                        Name = "Group 3"
+                    }
                 }
             };
         }

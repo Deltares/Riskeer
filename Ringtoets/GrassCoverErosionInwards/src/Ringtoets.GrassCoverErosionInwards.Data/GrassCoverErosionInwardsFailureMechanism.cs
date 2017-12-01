@@ -42,7 +42,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public GrassCoverErosionInwardsFailureMechanism()
             : base(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode)
         {
-            CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName);
+            CalculationsGroup = new CalculationGroup
+            {
+                Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
+            };
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
             sectionResults = new List<GrassCoverErosionInwardsFailureMechanismSectionResult>();
             DikeProfiles = new DikeProfileCollection();

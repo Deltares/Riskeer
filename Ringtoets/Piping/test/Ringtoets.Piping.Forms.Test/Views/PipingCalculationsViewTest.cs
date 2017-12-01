@@ -1355,7 +1355,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView();
 
-            pipingCalculationsView.Data = new CalculationGroup("Group")
+            pipingCalculationsView.Data = new CalculationGroup
             {
                 Children =
                 {
@@ -1409,7 +1409,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView();
 
-            pipingCalculationsView.Data = new CalculationGroup("Group")
+            pipingCalculationsView.Data = new CalculationGroup
             {
                 Children =
                 {
@@ -1502,7 +1502,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private static CalculationGroup ConfigureCalculationGroup(IAssessmentSection assessmentSection, PipingFailureMechanism failureMechanism)
         {
             PipingStochasticSoilModel stochasticSoilModelForCalculation2 = failureMechanism.StochasticSoilModels.Last();
-            return new CalculationGroup("Group")
+            return new CalculationGroup
             {
                 Children =
                 {

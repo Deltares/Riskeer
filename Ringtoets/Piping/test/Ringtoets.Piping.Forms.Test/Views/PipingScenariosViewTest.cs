@@ -52,20 +52,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private const int failureProbabilitySellmeijerColumnIndex = 6;
         private Form testForm;
 
-        public override void Setup()
-        {
-            base.Setup();
-
-            testForm = new Form();
-        }
-
-        public override void TearDown()
-        {
-            base.TearDown();
-
-            testForm.Dispose();
-        }
-
         [Test]
         public void Constructor_DefaultValues()
         {
@@ -272,6 +258,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
         }
 
+        public override void Setup()
+        {
+            base.Setup();
+
+            testForm = new Form();
+        }
+
+        public override void TearDown()
+        {
+            base.TearDown();
+
+            testForm.Dispose();
+        }
+
         [TestCase(isRelevantColumnIndex, true)]
         [TestCase(contributionColumnIndex, 30.0)]
         public void PipingScenarioView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue)
@@ -343,7 +343,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             PipingScenariosView pipingScenarioView = ShowPipingScenarioView();
 
-            pipingScenarioView.Data = new CalculationGroup("Group")
+            pipingScenarioView.Data = new CalculationGroup
             {
                 Children =
                 {

@@ -37,8 +37,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationGroupContextProperties_DisplayName))]
     public class CalculationGroupContextProperties : ObjectProperties<ICalculationContext<CalculationGroup, IFailureMechanism>>
     {
-        private readonly bool isNameEditable;
-
         /// <summary>
         /// Creates a new instance of the <see cref="CalculationGroupContextProperties"/> class.
         /// </summary>
@@ -51,7 +49,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
 
             Data = calculationContext;
-            isNameEditable = calculationContext.Parent != null;
         }
 
         [DynamicReadOnly]
@@ -74,7 +71,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidator(string propertyName)
         {
-            return !isNameEditable;
+            return data.Parent == null;
         }
     }
 }

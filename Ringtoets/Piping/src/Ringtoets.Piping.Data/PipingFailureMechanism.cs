@@ -45,7 +45,10 @@ namespace Ringtoets.Piping.Data
             GeneralInput = new GeneralPipingInput();
             SurfaceLines = new PipingSurfaceLineCollection();
             StochasticSoilModels = new PipingStochasticSoilModelCollection();
-            CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName);
+            CalculationsGroup = new CalculationGroup
+            {
+                Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
+            };
 
             sectionResults = new List<PipingFailureMechanismSectionResult>();
         }

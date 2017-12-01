@@ -696,7 +696,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var calculationToBeRemoved = new TestCalculation();
-            var group = new CalculationGroup("");
+            var group = new CalculationGroup();
             group.Children.Add(calculationToBeRemoved);
 
             var mocks = new MockRepository();
@@ -721,7 +721,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var calculationToBeRemoved = new TestCalculation();
-            var group = new CalculationGroup("");
+            var group = new CalculationGroup();
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();

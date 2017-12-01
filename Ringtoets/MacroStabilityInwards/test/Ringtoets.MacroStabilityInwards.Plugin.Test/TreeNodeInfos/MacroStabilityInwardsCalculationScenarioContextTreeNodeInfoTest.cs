@@ -370,7 +370,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var elementToBeRemoved = new MacroStabilityInwardsCalculationScenario();
 
-            var group = new CalculationGroup("");
+            var group = new CalculationGroup();
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new MacroStabilityInwardsCalculationScenario());
             group.Attach(observer);
@@ -422,7 +422,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var group = new CalculationGroup("");
+            var group = new CalculationGroup();
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new MacroStabilityInwardsCalculationScenario());
             group.Attach(observer);

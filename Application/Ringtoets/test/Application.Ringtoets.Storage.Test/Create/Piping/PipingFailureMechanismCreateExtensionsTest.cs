@@ -221,7 +221,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithCalculationGroup_ReturnFailureMechanismEntityWithCalculationGroupEntities()
         {
             // Setup
-            var calculationGroup = new CalculationGroup("A");
+            var calculationGroup = new CalculationGroup();
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             var failureMechanism = new PipingFailureMechanism();

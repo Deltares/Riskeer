@@ -45,7 +45,10 @@ namespace Ringtoets.ClosingStructures.Data
         public ClosingStructuresFailureMechanism()
             : base(Resources.ClosingStructuresFailureMechanism_DisplayName, Resources.ClosingStructuresFailureMechanism_Code)
         {
-            CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName);
+            CalculationsGroup = new CalculationGroup
+            {
+                Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
+            };
             GeneralInput = new GeneralClosingStructuresInput();
             ClosingStructures = new StructureCollection<ClosingStructure>();
             sectionResults = new List<ClosingStructuresFailureMechanismSectionResult>();

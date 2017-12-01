@@ -259,7 +259,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_WithCalculationGroup_ReturnFailureMechanismWithCalculationGroupEntities()
         {
             // Setup
-            var calculationGroup = new CalculationGroup("A");
+            var calculationGroup = new CalculationGroup();
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();

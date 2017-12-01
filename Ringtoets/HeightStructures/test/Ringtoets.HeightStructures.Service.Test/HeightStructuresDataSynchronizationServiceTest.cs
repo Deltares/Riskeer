@@ -353,7 +353,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                     Children =
                     {
                         calculation1,
-                        new CalculationGroup("B")
+                        new CalculationGroup
                         {
                             Children =
                             {

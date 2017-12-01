@@ -32,18 +32,11 @@ namespace Ringtoets.Common.Data.Calculation
     public class CalculationGroup : CloneableObservable, ICalculationBase
     {
         /// <summary>
-        /// Creates a new instance of the <see cref="CalculationGroup"/> class
-        /// with a default name.
-        /// </summary>
-        public CalculationGroup() : this(Resources.CalculationGroup_DefaultName) {}
-
-        /// <summary>
         /// Creates a new instance of the <see cref="CalculationGroup"/> class.
         /// </summary>
-        /// <param name="newName">The name of the group.</param>
-        public CalculationGroup(string newName)
+        public CalculationGroup()
         {
-            Name = newName;
+            Name = Resources.CalculationGroup_DefaultName;
             Children = new List<ICalculationBase>();
         }
 

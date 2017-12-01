@@ -774,7 +774,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             var elementToBeRemoved = new PipingCalculationScenario(new GeneralPipingInput());
 
-            var group = new CalculationGroup("");
+            var group = new CalculationGroup();
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
             group.Attach(observer);
@@ -826,7 +826,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var group = new CalculationGroup("");
+            var group = new CalculationGroup();
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
             group.Attach(observer);

@@ -334,7 +334,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             MacroStabilityInwardsScenariosView macroStabilityInwardsScenarioView = ShowMacroStabilityInwardsScenarioView();
 
-            macroStabilityInwardsScenarioView.Data = new CalculationGroup("Group")
+            macroStabilityInwardsScenarioView.Data = new CalculationGroup
             {
                 Children =
                 {

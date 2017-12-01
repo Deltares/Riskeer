@@ -60,13 +60,15 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     .SetName("Calculation configuration with all parameters set");
                 yield return new TestCaseData("folderWithSubfolderAndCalculation", new[]
                     {
-                        new CalculationGroup("Testmap")
+                        new CalculationGroup
                         {
+                            Name = "Testmap",
                             Children =
                             {
                                 CreateFullCalculation(),
-                                new CalculationGroup("Nested")
+                                new CalculationGroup
                                 {
+                                    Name = "Nested",
                                     Children =
                                     {
                                         CreateSparseCalculation()

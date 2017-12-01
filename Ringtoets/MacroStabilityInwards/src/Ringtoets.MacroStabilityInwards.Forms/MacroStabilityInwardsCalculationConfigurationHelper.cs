@@ -105,7 +105,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms
 
         private static CalculationGroup CreateCalculationGroup(MacroStabilityInwardsSurfaceLine surfaceLine, IEnumerable<MacroStabilityInwardsStochasticSoilModel> soilModels)
         {
-            var calculationGroup = new CalculationGroup(surfaceLine.Name);
+            var calculationGroup = new CalculationGroup
+            {
+                Name = surfaceLine.Name
+            };
             IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels = GetStochasticSoilModelsForSurfaceLine(surfaceLine, soilModels);
             foreach (MacroStabilityInwardsStochasticSoilModel stochasticSoilModel in stochasticSoilModels)
             {

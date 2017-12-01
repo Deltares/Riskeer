@@ -44,7 +44,10 @@ namespace Ringtoets.StabilityStoneCover.Data
             : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code)
         {
             sectionResults = new List<StabilityStoneCoverFailureMechanismSectionResult>();
-            WaveConditionsCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
+            WaveConditionsCalculationGroup = new CalculationGroup
+            {
+                Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName
+            };
             GeneralInput = new GeneralStabilityStoneCoverWaveConditionsInput();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }

@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
     public class CalculationGroupTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var group = new CalculationGroup();
@@ -42,20 +42,6 @@ namespace Ringtoets.Common.Data.Test.Calculation
             Assert.IsInstanceOf<CloneableObservable>(group);
 
             Assert.AreEqual("Nieuwe map", group.Name);
-            CollectionAssert.IsEmpty(group.Children);
-        }
-
-        [Test]
-        public void ParameteredConstructor_ExpectedValues()
-        {
-            // Setup
-            const string newName = "new Name";
-
-            // Call
-            var group = new CalculationGroup(newName);
-
-            // Assert
-            Assert.AreEqual(newName, group.Name);
             CollectionAssert.IsEmpty(group.Children);
         }
 
@@ -187,8 +173,9 @@ namespace Ringtoets.Common.Data.Test.Calculation
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new CalculationGroup("Random group name")
+            var original = new CalculationGroup
             {
+                Name = "Random group name",
                 Children =
                 {
                     new TestCalculationBase

@@ -21,9 +21,7 @@
 
 using System;
 using System.ComponentModel;
-using System.Reflection;
 using Core.Common.Base;
-using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -78,9 +76,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var calculationGroup = new CalculationGroup();
 
+            // Call
             var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(calculationGroup, new CalculationGroup(), failureMechanism));
 
-            // Call & Assert
+            // Assert
             Assert.AreEqual(calculationGroup.Name, properties.Name);
             mocks.VerifyAll();
         }
@@ -100,9 +99,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             calculationGroup.Attach(projectObserver);
 
+            // Call
             var properties = new CalculationGroupContextProperties(testCalculationGroupContext);
 
-            // Call & Assert
+            // Assert
             const string name = "cool new name!";
             properties.Name = name;
             Assert.AreEqual(name, calculationGroup.Name);
@@ -118,7 +118,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup("A"),
+            var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup(),
                                                                                                    new CalculationGroup(),
                                                                                                    failureMechanism));
 
@@ -134,38 +134,38 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void DynamicReadOnlyValidator_WithParentCalculationGroup_ReturnsExpectedResult()
+        public void DynamicReadOnlyValidator_WithParentCalculationGroup_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup("A"),
+            var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup(),
                                                                                                    new CalculationGroup(),
                                                                                                    failureMechanism));
 
             // Call
-            bool isReadOnly = properties.DynamicReadOnlyValidator(string.Empty);
+            bool isReadOnly = properties.DynamicReadOnlyValidator(null);
 
             // Assert
             Assert.IsFalse(isReadOnly);
         }
 
         [Test]
-        public void DynamicReadOnlyValidator_WithoutParentCalculationGroup_ReturnsExpectedResult()
+        public void DynamicReadOnlyValidator_WithoutParentCalculationGroup_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup("A"),
+            var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup(),
                                                                                                    null,
                                                                                                    failureMechanism));
 
             // Call
-            bool isReadOnly = properties.DynamicReadOnlyValidator(string.Empty);
+            bool isReadOnly = properties.DynamicReadOnlyValidator(null);
 
             // Assert
             Assert.IsTrue(isReadOnly);

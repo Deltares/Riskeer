@@ -51,16 +51,18 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
                 Name = "Berekening 2"
             };
 
-            var calculationGroup2 = new CalculationGroup("Nested")
+            var calculationGroup2 = new CalculationGroup
             {
+                Name = "Nested",
                 Children =
                 {
                     calculation2
                 }
             };
 
-            var calculationGroup = new CalculationGroup("Testmap")
+            var calculationGroup = new CalculationGroup
             {
+                Name = "Testmap",
                 Children =
                 {
                     calculation,

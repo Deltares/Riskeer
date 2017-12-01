@@ -244,7 +244,10 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             calculation.InputParameters.HydraulicBoundaryLocation = null;
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup("A"));
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "A"
+            });
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var registry = new PersistenceRegistry();

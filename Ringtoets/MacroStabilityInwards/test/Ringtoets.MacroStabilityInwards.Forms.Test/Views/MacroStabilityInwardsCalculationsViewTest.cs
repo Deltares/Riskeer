@@ -1181,7 +1181,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             MacroStabilityInwardsCalculationsView macroStabilityInwardsCalculationsView = ShowMacroStabilityInwardsCalculationsView();
 
-            macroStabilityInwardsCalculationsView.Data = new CalculationGroup("Group")
+            macroStabilityInwardsCalculationsView.Data = new CalculationGroup
             {
                 Children =
                 {
@@ -1235,7 +1235,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             MacroStabilityInwardsCalculationsView macroStabilityInwardsCalculationsView = ShowMacroStabilityInwardsCalculationsView();
 
-            macroStabilityInwardsCalculationsView.Data = new CalculationGroup("Group")
+            macroStabilityInwardsCalculationsView.Data = new CalculationGroup
             {
                 Children =
                 {
@@ -1324,7 +1324,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private static CalculationGroup ConfigureCalculationGroup(IAssessmentSection assessmentSection, MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             MacroStabilityInwardsStochasticSoilModel stochasticSoilModelForCalculation2 = failureMechanism.StochasticSoilModels.Last();
-            return new CalculationGroup("Group")
+            return new CalculationGroup
             {
                 Children =
                 {

@@ -200,8 +200,14 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup("A"));
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup("B"));
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "A"
+            });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "B"
+            });
 
             var registry = new PersistenceRegistry();
 

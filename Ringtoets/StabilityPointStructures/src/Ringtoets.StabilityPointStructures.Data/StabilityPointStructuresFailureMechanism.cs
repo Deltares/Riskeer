@@ -45,7 +45,10 @@ namespace Ringtoets.StabilityPointStructures.Data
         public StabilityPointStructuresFailureMechanism()
             : base(Resources.StabilityPointStructuresFailureMechanism_DisplayName, Resources.StabilityPointStructuresFailureMechanism_Code)
         {
-            CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName);
+            CalculationsGroup = new CalculationGroup
+            {
+                Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
+            };
             GeneralInput = new GeneralStabilityPointStructuresInput();
             StabilityPointStructures = new StructureCollection<StabilityPointStructure>();
             sectionResults = new List<StabilityPointStructuresFailureMechanismSectionResult>();

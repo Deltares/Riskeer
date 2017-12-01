@@ -62,7 +62,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             const string name = "blaballab";
-            var group = new CalculationGroup(name);
+            var group = new CalculationGroup
+            {
+                Name = name
+            };
 
             var registry = new PersistenceRegistry();
 
@@ -104,16 +107,29 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             const string name = "blaballab";
-            var group = new CalculationGroup(name);
-            group.Children.Add(new CalculationGroup("A")
+            var group = new CalculationGroup
             {
+                Name = name
+            };
+            group.Children.Add(new CalculationGroup
+            {
+                Name = "A",
                 Children =
                 {
-                    new CalculationGroup("AA"),
-                    new CalculationGroup("AB")
+                    new CalculationGroup
+                    {
+                        Name = "AA"
+                    },
+                    new CalculationGroup
+                    {
+                        Name = "AB"
+                    }
                 }
             });
-            group.Children.Add(new CalculationGroup("B"));
+            group.Children.Add(new CalculationGroup
+            {
+                Name = "B"
+            });
 
             var registry = new PersistenceRegistry();
 
@@ -151,7 +167,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
@@ -188,16 +204,22 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
-                    new CalculationGroup("A"),
+                    new CalculationGroup
+                    {
+                        Name = "A"
+                    },
                     new PipingCalculationScenario(generalInputParameters)
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C"),
+                    new CalculationGroup
+                    {
+                        Name = "C"
+                    },
                     new PipingCalculationScenario(generalInputParameters)
                     {
                         Name = "D"
@@ -239,7 +261,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithMacroStabilityInwardsCalculations_CreatesEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
@@ -276,16 +298,22 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildMacroStabilityInwardsCalculationsAndChildCalculationGroups_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
-                    new CalculationGroup("A"),
+                    new CalculationGroup
+                    {
+                        Name = "A"
+                    },
                     new MacroStabilityInwardsCalculationScenario
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C"),
+                    new CalculationGroup
+                    {
+                        Name = "C"
+                    },
                     new MacroStabilityInwardsCalculationScenario
                     {
                         Name = "D"
@@ -327,7 +355,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildGrassCoverErosionInwardsCalculations_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
@@ -363,16 +391,22 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildGrassCoverErosionInwardCalculationsAndChildCalculationGroups_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
-                    new CalculationGroup("A"),
+                    new CalculationGroup
+                    {
+                        Name = "A"
+                    },
                     new GrassCoverErosionInwardsCalculation
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C"),
+                    new CalculationGroup
+                    {
+                        Name = "C"
+                    },
                     new GrassCoverErosionInwardsCalculation
                     {
                         Name = "D"
@@ -414,7 +448,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildGrassCoverErosionOutwardsWaveConditionsCalculations_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
@@ -450,16 +484,22 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildGrassCoverErosionOutwardsWaveConditionsCalculationsAndChildCalculationGroups_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
-                    new CalculationGroup("A"),
+                    new CalculationGroup
+                    {
+                        Name = "A"
+                    },
                     new GrassCoverErosionOutwardsWaveConditionsCalculation
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C"),
+                    new CalculationGroup
+                    {
+                        Name = "C"
+                    },
                     new GrassCoverErosionOutwardsWaveConditionsCalculation
                     {
                         Name = "D"
@@ -501,7 +541,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildHeightStructuresCalculations_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
@@ -537,16 +577,22 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildHeightStructuresCalculationsAndChildCalculationGroups_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
-                    new CalculationGroup("A"),
+                    new CalculationGroup
+                    {
+                        Name = "A"
+                    },
                     new StructuresCalculation<HeightStructuresInput>
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C"),
+                    new CalculationGroup
+                    {
+                        Name = "C"
+                    },
                     new StructuresCalculation<HeightStructuresInput>
                     {
                         Name = "D"
@@ -588,7 +634,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildStabilityStoneCoverWaveConditionsCalculations_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
@@ -624,16 +670,22 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildStabilityStoneCoverWaveConditionsCalculationsAndChildCalculationGroups_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
-                    new CalculationGroup("A"),
+                    new CalculationGroup
+                    {
+                        Name = "A"
+                    },
                     new StabilityStoneCoverWaveConditionsCalculation
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C"),
+                    new CalculationGroup
+                    {
+                        Name = "C"
+                    },
                     new StabilityStoneCoverWaveConditionsCalculation
                     {
                         Name = "D"
@@ -675,7 +727,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildWaveImpactAsphaltCoverWaveConditionsCalculations_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
@@ -711,16 +763,22 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildWaveImpactAsphaltCoverWaveConditionsCalculationsAndChildCalculationGroups_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
-                    new CalculationGroup("A"),
+                    new CalculationGroup
+                    {
+                        Name = "A"
+                    },
                     new WaveImpactAsphaltCoverWaveConditionsCalculation
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C"),
+                    new CalculationGroup
+                    {
+                        Name = "C"
+                    },
                     new WaveImpactAsphaltCoverWaveConditionsCalculation
                     {
                         Name = "D"
@@ -762,7 +820,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildClosingStructuresCalculations_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
@@ -798,16 +856,22 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildClosingStructuresCalculationsAndChildCalculationGroups_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
-                    new CalculationGroup("A"),
+                    new CalculationGroup
+                    {
+                        Name = "A"
+                    },
                     new StructuresCalculation<ClosingStructuresInput>
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C"),
+                    new CalculationGroup
+                    {
+                        Name = "C"
+                    },
                     new StructuresCalculation<ClosingStructuresInput>
                     {
                         Name = "D"
@@ -849,7 +913,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildStabilityPointStructuresCalculations_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
@@ -885,16 +949,22 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_GroupWithChildStabilityPointStructuresCalculationsAndChildCalculationGroups_CreateEntities()
         {
             // Setup
-            var group = new CalculationGroup("root")
+            var group = new CalculationGroup
             {
                 Children =
                 {
-                    new CalculationGroup("A"),
+                    new CalculationGroup
+                    {
+                        Name = "A"
+                    },
                     new StructuresCalculation<StabilityPointStructuresInput>
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C"),
+                    new CalculationGroup
+                    {
+                        Name = "C"
+                    },
                     new StructuresCalculation<StabilityPointStructuresInput>
                     {
                         Name = "D"

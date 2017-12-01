@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Integration.Test
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Add group and ensure the data grid view is not changed
-                var nestedPipingCalculationGroup = new CalculationGroup("New group");
+                var nestedPipingCalculationGroup = new CalculationGroup();
                 assessmentSection.Piping.CalculationsGroup.Children.Add(nestedPipingCalculationGroup);
                 assessmentSection.Piping.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);

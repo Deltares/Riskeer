@@ -45,7 +45,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
             : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code)
         {
             sectionResults = new List<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
-            WaveConditionsCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
+            WaveConditionsCalculationGroup = new CalculationGroup
+            {
+                Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName
+            };
             ForeshoreProfiles = new ForeshoreProfileCollection();
             GeneralInput = new GeneralWaveConditionsInput(1.0, 0.0, 0.0);
         }

@@ -64,16 +64,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
                 }
             };
 
-            var calculationGroup2 = new CalculationGroup("PK001_0002")
+            var calculationGroup2 = new CalculationGroup
             {
+                Name = "PK001_0002",
                 Children =
                 {
                     calculation2
                 }
             };
 
-            var calculationGroup = new CalculationGroup("PK001_0001")
+            var calculationGroup = new CalculationGroup
             {
+                Name = "PK001_0001",
                 Children =
                 {
                     calculation1,
