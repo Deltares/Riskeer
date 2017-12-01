@@ -110,7 +110,6 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             Assert.AreSame(otherStochasticProfile.SoilProfile, stochasticProfile.SoilProfile);
         }
 
-        [Test]
         private static TestCaseData[] PipingStochasticProfileUnequalCombinations()
         {
             const string profileName = "newProfile";
