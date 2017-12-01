@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 {
@@ -56,62 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Equals_DifferentType_ReturnsFalse()
-        {
-            // Setup
-            Ring layer = RingTestFactory.CreateRandomRing();
-
-            // Call
-            bool areEqual = layer.Equals(new object());
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        public void Equals_WithNull_ReturnsFalse()
-        {
-            // Setup
-            Ring ring = RingTestFactory.CreateRandomRing();
-
-            // Call
-            bool equal = ring.Equals(null);
-
-            // Assert
-            Assert.IsFalse(equal);
-        }
-
-        [Test]
-        public void GetHashCode_EqualInstances_ReturnEqualHashes()
-        {
-            // Setup
-            Ring ringA = RingTestFactory.CreateRandomRing(21);
-            Ring ringB = RingTestFactory.CreateRandomRing(21);
-
-            // Precondition
-            Assert.AreEqual(ringA, ringB);
-            Assert.AreEqual(ringB, ringA);
-
-            // Call & Assert
-            Assert.AreEqual(ringA.GetHashCode(), ringB.GetHashCode());
-            Assert.AreEqual(ringB.GetHashCode(), ringA.GetHashCode());
-        }
-
-        [Test]
-        [TestCaseSource(nameof(RingCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(Ring ring, Ring otherRing, bool expectedEqual)
-        {
-            // Call
-            bool areEqualOne = ring.Equals(otherRing);
-            bool areEqualTwo = otherRing.Equals(ring);
-
-            // Assert
-            Assert.AreEqual(expectedEqual, areEqualOne);
-            Assert.AreEqual(expectedEqual, areEqualTwo);
-        }
-
-        [Test]
-        public void Points_RingWithPointSet_PointSetCopiedToNewCollection()
+        public void Constructor_WithValidPointsArray_PointSetCopiedToNewCollection()
         {
             // Setup
             var points = new[]
@@ -130,40 +74,50 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             TestHelper.AssertAreEqualButNotSame(points, ringPoints);
         }
 
-        private static TestCaseData[] RingCombinations()
+        [TestFixture]
+        private class RingEqualsTest : EqualsGuidelinesTestFixture<Ring, DerivedRing>
         {
-            Ring ringA = RingTestFactory.CreateRandomRing(21);
-            Ring ringB = RingTestFactory.CreateRandomRing(21);
-            Ring ringC = RingTestFactory.CreateRandomRing(73);
-            Ring ringD = RingTestFactory.CreateRandomRing(21);
-
-            return new[]
+            protected override Ring CreateObject()
             {
-                new TestCaseData(ringA, ringA, true)
+                return CreateRing();
+            }
+
+            protected override DerivedRing CreateDerivedObject()
+            {
+                return new DerivedRing(CreateRing());
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                Ring baseRing = CreateRing();
+                List<Point2D> differentNrOfPoints = baseRing.Points.ToList();
+                differentNrOfPoints.RemoveAt(0);
+                yield return new TestCaseData(new Ring(differentNrOfPoints))
+                    .SetName("Different Nr of Points");
+
+                baseRing = CreateRing();
+                Point2D[] differentPoints = baseRing.Points.ToArray();
+                differentPoints[0] = new Point2D(0, 0);
+                yield return new TestCaseData(new Ring(differentPoints))
+                    .SetName("Different Points");
+            }
+
+            private static Ring CreateRing()
+            {
+                var random = new Random(30);
+                return new Ring(new[]
                 {
-                    TestName = "Equals_RingARingA_True"
-                },
-                new TestCaseData(ringA, ringB, true)
-                {
-                    TestName = "Equals_RingARingB_True"
-                },
-                new TestCaseData(ringB, ringD, true)
-                {
-                    TestName = "Equals_RingBRingD_True"
-                },
-                new TestCaseData(ringA, ringD, true)
-                {
-                    TestName = "Equals_RingARingD_True"
-                },
-                new TestCaseData(ringB, ringC, false)
-                {
-                    TestName = "Equals_RingBRingC_False"
-                },
-                new TestCaseData(ringA, ringC, false)
-                {
-                    TestName = "Equals_RingARingC_False"
-                }
-            };
+                    new Point2D(random.NextDouble(), random.NextDouble()),
+                    new Point2D(random.NextDouble(), random.NextDouble()),
+                    new Point2D(random.NextDouble(), random.NextDouble()),
+                    new Point2D(random.NextDouble(), random.NextDouble())
+                });
+            }
+        }
+
+        private class DerivedRing : Ring
+        {
+            public DerivedRing(Ring ring) : base(ring.Points) {}
         }
     }
 }

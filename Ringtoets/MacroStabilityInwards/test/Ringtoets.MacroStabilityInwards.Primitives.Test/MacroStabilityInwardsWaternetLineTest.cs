@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
@@ -91,113 +92,74 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             CollectionAssert.IsEmpty(waternetLine.PhreaticLine.Geometry);
         }
 
-        [Test]
-        [TestCase(null)]
-        [TestCase("string")]
-        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
+        private class DerivedMacroStabilityInwardsWaternetLine : MacroStabilityInwardsWaternetLine
         {
-            // Setup
-            MacroStabilityInwardsWaternetLine waternetLine = CreateWaternetLine();
-
-            // Call
-            bool isEqualToDifferentObject = waternetLine.Equals(other);
-
-            // Assert
-            Assert.IsFalse(isEqualToDifferentObject);
+            public DerivedMacroStabilityInwardsWaternetLine(MacroStabilityInwardsWaternetLine waternetLine)
+                : base(waternetLine.Name, waternetLine.Geometry, waternetLine.PhreaticLine) {}
         }
 
-        [Test]
-        public void Equals_AllPropertiesEqual_ReturnsTrue()
+        [TestFixture]
+        private class MacroStabilityInwardsWaternetLineEqualsTest
+            : EqualsGuidelinesTestFixture<MacroStabilityInwardsWaternetLine, DerivedMacroStabilityInwardsWaternetLine>
         {
-            // Setup
-            MacroStabilityInwardsWaternetLine waternetLineX = CreateWaternetLine();
-            MacroStabilityInwardsWaternetLine waternetLineY = CreateWaternetLine();
+            protected override MacroStabilityInwardsWaternetLine CreateObject()
+            {
+                return CreateWaternetLine();
+            }
 
-            // Call
-            bool isXEqualToY = waternetLineX.Equals(waternetLineY);
-            bool isYEqualToZ = waternetLineY.Equals(waternetLineX);
+            protected override DerivedMacroStabilityInwardsWaternetLine CreateDerivedObject()
+            {
+                return new DerivedMacroStabilityInwardsWaternetLine(CreateWaternetLine());
+            }
 
-            // Assert
-            Assert.IsTrue(isXEqualToY);
-            Assert.IsTrue(isYEqualToZ);
-        }
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new MacroStabilityInwardsWaternetLine("Other name", new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1)
+                    }, new TestMacroStabilityInwardsPhreaticLine()))
+                    .SetName("Other name");
 
-        [Test]
-        [TestCaseSource(nameof(GetWaternetLineCombinations))]
-        public void Equals_DifferentProperty_ReturnsFalse(MacroStabilityInwardsWaternetLine waternetLine,
-                                                          MacroStabilityInwardsWaternetLine otherWaternetLine)
-        {
-            // Call
-            bool isWaternetLineEqualToOther = waternetLine.Equals(otherWaternetLine);
-            bool isOtherEqualToWaternetLine = otherWaternetLine.Equals(waternetLine);
+                yield return new TestCaseData(new MacroStabilityInwardsWaternetLine("Test", new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1),
+                        new Point2D(1, 1)
+                    }, new TestMacroStabilityInwardsPhreaticLine()))
+                    .SetName("Geometry other count");
 
-            // Assert
-            Assert.IsFalse(isWaternetLineEqualToOther);
-            Assert.IsFalse(isOtherEqualToWaternetLine);
-        }
+                yield return new TestCaseData(new MacroStabilityInwardsWaternetLine("Test", new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(2, 2)
+                    }, new TestMacroStabilityInwardsPhreaticLine()))
+                    .SetName("Geometry not same coordinates");
 
-        [Test]
-        public void GetHashCode_EqualWaternetLines_ReturnsSameHashCode()
-        {
-            // Setup
-            MacroStabilityInwardsWaternetLine waternetLineX = CreateWaternetLine();
-            MacroStabilityInwardsWaternetLine waternetLineY = CreateWaternetLine();
+                yield return new TestCaseData(new MacroStabilityInwardsWaternetLine("Test", new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1)
+                    }, new MacroStabilityInwardsPhreaticLine(
+                        "Test",
+                        new[]
+                        {
+                            new Point2D(0, 0)
+                        })))
+                    .SetName("Other phreatic line");
+            }
 
-            // Call
-            int hashCodeOne = waternetLineX.GetHashCode();
-            int hashCodeTwo = waternetLineY.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
-        }
-
-        private static IEnumerable<TestCaseData> GetWaternetLineCombinations()
-        {
-            yield return new TestCaseData(CreateWaternetLine(),
-                                          new MacroStabilityInwardsWaternetLine("Other name", new[]
-                                          {
-                                              new Point2D(0, 0),
-                                              new Point2D(1, 1)
-                                          }, new TestMacroStabilityInwardsPhreaticLine())).SetName("Other name");
-
-            yield return new TestCaseData(CreateWaternetLine(),
-                                          new MacroStabilityInwardsWaternetLine("Test", new[]
-                                          {
-                                              new Point2D(0, 0),
-                                              new Point2D(1, 1),
-                                              new Point2D(1, 1)
-                                          }, new TestMacroStabilityInwardsPhreaticLine())).SetName("Geometry not same length");
-
-            yield return new TestCaseData(CreateWaternetLine(),
-                                          new MacroStabilityInwardsWaternetLine("Test", new[]
-                                          {
-                                              new Point2D(0, 0),
-                                              new Point2D(2, 2)
-                                          }, new TestMacroStabilityInwardsPhreaticLine())).SetName("Geometry not same coordinates");
-
-            yield return new TestCaseData(CreateWaternetLine(),
-                                          new MacroStabilityInwardsWaternetLine("Test", new[]
-                                          {
-                                              new Point2D(0, 0),
-                                              new Point2D(1, 1)
-                                          }, new MacroStabilityInwardsPhreaticLine(
-                                              "Test",
-                                              new[]
-                                              {
-                                                  new Point2D(0, 0)
-                                              }))).SetName("Other phreatic line");
-        }
-
-        private static MacroStabilityInwardsWaternetLine CreateWaternetLine()
-        {
-            return new MacroStabilityInwardsWaternetLine(
-                "Test",
-                new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                },
-                new TestMacroStabilityInwardsPhreaticLine());
+            private static MacroStabilityInwardsWaternetLine CreateWaternetLine()
+            {
+                return new MacroStabilityInwardsWaternetLine(
+                    "Test",
+                    new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1)
+                    },
+                    new TestMacroStabilityInwardsPhreaticLine());
+            }
         }
     }
 }

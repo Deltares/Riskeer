@@ -118,206 +118,70 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.AreSame(nestedLayers, layer.NestedLayers);
         }
 
-        [Test]
-        public void GetHashCode_EqualLayers_AreEqual()
+
+        [TestFixture]
+        private class MacroStabilityInwardsSoilLayer2DEqualsTest
+            : EqualsGuidelinesTestFixture<MacroStabilityInwardsSoilLayer2D, DerivedMacroStabilityInwardsSoilLayer2D>
         {
-            // Setup
-            MacroStabilityInwardsSoilLayer2D layerA = CreateRandomLayer(21);
-            MacroStabilityInwardsSoilLayer2D layerB = CreateRandomLayer(21);
-
-            // Precondition
-            Assert.AreEqual(layerA, layerB);
-            Assert.AreEqual(layerB, layerA);
-
-            // Call & Assert
-            Assert.AreEqual(layerA.GetHashCode(), layerB.GetHashCode());
-            Assert.AreEqual(layerB.GetHashCode(), layerA.GetHashCode());
-        }
-
-        [Test]
-        public void Equals_DifferentType_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSoilLayer2D layer = CreateRandomLayer(21);
-
-            // Call
-            bool areEqual = layer.Equals(new object());
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        public void Equals_Null_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSoilLayer2D layer = CreateRandomLayer(21);
-
-            // Call
-            bool areEqual = layer.Equals(null);
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(LayerCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilLayer2D layer, MacroStabilityInwardsSoilLayer2D otherLayer, bool expectedEqual)
-        {
-            // Call
-            bool areEqualOne = layer.Equals(otherLayer);
-            bool areEqualTwo = otherLayer.Equals(layer);
-
-            // Assert
-            Assert.AreEqual(expectedEqual, areEqualOne);
-            Assert.AreEqual(expectedEqual, areEqualTwo);
-        }
-
-        private static TestCaseData[] LayerCombinations()
-        {
-            MacroStabilityInwardsSoilLayer2D layerA = CreateRandomLayer(21);
-            MacroStabilityInwardsSoilLayer2D layerB = CreateRandomLayer(21);
-            MacroStabilityInwardsSoilLayer2D layerC = CreateRandomLayer(73);
-            MacroStabilityInwardsSoilLayer2D layerD = CreateRandomLayer(21);
-
-            var layerE = new MacroStabilityInwardsSoilLayer2D(
-                RingTestFactory.CreateRandomRing(21),
-                new MacroStabilityInwardsSoilLayerData
-                {
-                    Color = Color.Blue
-                },
-                new[]
-                {
-                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22))
-                });
-
-            var layerF = new MacroStabilityInwardsSoilLayer2D(
-                RingTestFactory.CreateRandomRing(31),
-                new MacroStabilityInwardsSoilLayerData
-                {
-                    Color = Color.Blue
-                },
-                new[]
-                {
-                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22))
-                });
-
-            var layerG = new MacroStabilityInwardsSoilLayer2D(
-                RingTestFactory.CreateRandomRing(21),
-                new MacroStabilityInwardsSoilLayerData
-                {
-                    Color = Color.Gold
-                },
-                new[]
-                {
-                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22))
-                });
-
-            var layerH = new MacroStabilityInwardsSoilLayer2D(
-                RingTestFactory.CreateRandomRing(21),
-                new MacroStabilityInwardsSoilLayerData
-                {
-                    Color = Color.Blue
-                },
-                new[]
-                {
-                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(32))
-                });
-
-            var layerI = new MacroStabilityInwardsSoilLayer2D(
-                RingTestFactory.CreateRandomRing(21),
-                new MacroStabilityInwardsSoilLayerData
-                {
-                    Color = Color.Blue
-                },
-                new[]
-                {
-                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22)),
-                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22))
-                });
-
-            var layerJ = new MacroStabilityInwardsSoilLayer2D(
-                RingTestFactory.CreateRandomRing(21),
-                new MacroStabilityInwardsSoilLayerData
-                {
-                    Color = Color.Blue
-                },
-                new[]
-                {
-                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22),
-                                                         new MacroStabilityInwardsSoilLayerData(),
-                                                         new[]
-                                                         {
-                                                             new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22))
-                                                         })
-                });
-
-            return new[]
+            protected override MacroStabilityInwardsSoilLayer2D CreateObject()
             {
-                new TestCaseData(layerA, layerA, true)
-                {
-                    TestName = "Equals_LayerALayerA_True"
-                },
-                new TestCaseData(layerA, layerB, true)
-                {
-                    TestName = "Equals_LayerALayerB_True"
-                },
-                new TestCaseData(layerB, layerD, true)
-                {
-                    TestName = "Equals_LayerBLayerD_True"
-                },
-                new TestCaseData(layerA, layerD, true)
-                {
-                    TestName = "Equals_LayerALayerD_True"
-                },
-                new TestCaseData(layerB, layerC, false)
-                {
-                    TestName = "Equals_LayerBLayerC_False"
-                },
-                new TestCaseData(layerA, layerC, false)
-                {
-                    TestName = "Equals_LayerALayerC_False"
-                },
-                new TestCaseData(layerC, layerC, true)
-                {
-                    TestName = "Equals_LayerCLayerC_True"
-                },
-                new TestCaseData(layerE, layerF, false)
-                {
-                    TestName = "Equals_DifferentOuterRing_False"
-                },
-                new TestCaseData(layerE, layerG, false)
-                {
-                    TestName = "Equals_DifferentProperties_False"
-                },
-                new TestCaseData(layerE, layerH, false)
-                {
-                    TestName = "Equals_DifferentNestedLayers1False"
-                },
-                new TestCaseData(layerE, layerI, false)
-                {
-                    TestName = "Equals_DifferentNestedLayers2_False"
-                },
-                new TestCaseData(layerE, layerJ, false)
-                {
-                    TestName = "Equals_DifferentNestedLayers3_False"
-                }
-            };
+                return CreateRandomLayer(21);
+            }
+
+            protected override DerivedMacroStabilityInwardsSoilLayer2D CreateDerivedObject()
+            {
+                return new DerivedMacroStabilityInwardsSoilLayer2D(CreateRandomLayer(21));
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                MacroStabilityInwardsSoilLayer2D baseLayer = CreateRandomLayer(21);
+
+                yield return new TestCaseData(new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(30),
+                                                                                   baseLayer.Data,
+                                                                                   baseLayer.NestedLayers))
+                    .SetName("OuterRing");
+                yield return new TestCaseData(new MacroStabilityInwardsSoilLayer2D(baseLayer.OuterRing,
+                                                                                   new MacroStabilityInwardsSoilLayerData(), 
+                                                                                   baseLayer.NestedLayers))
+                    .SetName("Data");
+                yield return new TestCaseData(new MacroStabilityInwardsSoilLayer2D(baseLayer.OuterRing,
+                                                                                   baseLayer.Data, 
+                                                                                   new []
+                                                                                   {
+                                                                                       baseLayer.NestedLayers.First(),
+                                                                                       new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(21))
+                                                                                   }))
+                    .SetName("Different Nested Layer Count");
+                yield return new TestCaseData(new MacroStabilityInwardsSoilLayer2D(baseLayer.OuterRing,
+                                                                                   baseLayer.Data, 
+                                                                                   new []
+                                                                                   {
+                                                                                       new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(30))
+                                                                                   }))
+                    .SetName("Different Nested Layer");
+            }
+
+            private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(int randomSeed)
+            {
+                var random = new Random(randomSeed);
+
+                return new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(randomSeed),
+                                                            new MacroStabilityInwardsSoilLayerData
+                                                            {
+                                                                Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
+                                                            },
+                                                            new[]
+                                                            {
+                                                                new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(randomSeed))
+                                                            });
+            }
         }
 
-        private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(int randomSeed)
+        private class DerivedMacroStabilityInwardsSoilLayer2D : MacroStabilityInwardsSoilLayer2D
         {
-            var random = new Random(randomSeed);
-
-            return new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(randomSeed),
-                                                        new MacroStabilityInwardsSoilLayerData
-                                                        {
-                                                            Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
-                                                        },
-                                                        new[]
-                                                        {
-                                                            new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(randomSeed))
-                                                        });
+            public DerivedMacroStabilityInwardsSoilLayer2D(MacroStabilityInwardsSoilLayer2D layer)
+                : base(layer.OuterRing, layer.Data, layer.NestedLayers) {}
         }
     }
 }

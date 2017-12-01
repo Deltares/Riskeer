@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
@@ -73,100 +74,59 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             }, phreaticLine.Geometry);
         }
 
-        [Test]
-        [TestCase(null)]
-        [TestCase("string")]
-        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
+        private class DerivedMacroStabilityInwardsPhreaticLine : MacroStabilityInwardsPhreaticLine
         {
-            // Setup
-            MacroStabilityInwardsPhreaticLine phreaticLine = CreatePhreaticLine();
-
-            // Call
-            bool isEqualToDifferentObject = phreaticLine.Equals(other);
-
-            // Assert
-            Assert.IsFalse(isEqualToDifferentObject);
+            public DerivedMacroStabilityInwardsPhreaticLine(MacroStabilityInwardsPhreaticLine line)
+                : base(line.Name, line.Geometry) {}
         }
 
-        [Test]
-        public void Equals_AllPropertiesEqual_ReturnsTrue()
+        [TestFixture]
+        private class MacroStabilityInwardsPhreaticLineEqualsTest
+            : EqualsGuidelinesTestFixture<MacroStabilityInwardsPhreaticLine, DerivedMacroStabilityInwardsPhreaticLine>
         {
-            // Setup
-            MacroStabilityInwardsPhreaticLine phreaticLineX = CreatePhreaticLine();
-            MacroStabilityInwardsPhreaticLine phreaticLineY = CreatePhreaticLine();
+            protected override MacroStabilityInwardsPhreaticLine CreateObject()
+            {
+                return CreatePhreaticLine();
+            }
 
-            // Call
-            bool isXEqualToY = phreaticLineX.Equals(phreaticLineY);
-            bool isYEqualToZ = phreaticLineY.Equals(phreaticLineX);
+            protected override DerivedMacroStabilityInwardsPhreaticLine CreateDerivedObject()
+            {
+                return new DerivedMacroStabilityInwardsPhreaticLine(CreatePhreaticLine());
+            }
 
-            // Assert
-            Assert.IsTrue(isXEqualToY);
-            Assert.IsTrue(isYEqualToZ);
-        }
+            public static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                MacroStabilityInwardsPhreaticLine baseLine = CreatePhreaticLine();
 
-        [Test]
-        [TestCaseSource(nameof(GetPhreaticLineCombinations))]
-        public void Equals_DifferentProperty_ReturnsFalse(MacroStabilityInwardsPhreaticLine phreaticLine,
-                                                          MacroStabilityInwardsPhreaticLine otherPhreaticLine)
-        {
-            // Call
-            bool isPhreaticLineEqualToOther = phreaticLine.Equals(otherPhreaticLine);
-            bool isOtherEqualToPhreaticLine = otherPhreaticLine.Equals(phreaticLine);
+                yield return new TestCaseData(new MacroStabilityInwardsPhreaticLine("Other name", baseLine.Geometry))
+                    .SetName("Other name");
 
-            // Assert
-            Assert.IsFalse(isPhreaticLineEqualToOther);
-            Assert.IsFalse(isOtherEqualToPhreaticLine);
-        }
+                yield return new TestCaseData(new MacroStabilityInwardsPhreaticLine(baseLine.Name, new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1),
+                        new Point2D(1, 1)
+                    }))
+                    .SetName("Geometry point count");
 
-        [Test]
-        public void GetHashCode_EqualPhreaticLines_ReturnsSameHashCode()
-        {
-            // Setup
-            MacroStabilityInwardsPhreaticLine phreaticLineX = CreatePhreaticLine();
-            MacroStabilityInwardsPhreaticLine phreaticLineY = CreatePhreaticLine();
+                yield return new TestCaseData(new MacroStabilityInwardsPhreaticLine(baseLine.Name, new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(2, 2)
+                    }))
+                    .SetName("Geometry coordinates");
+            }
 
-            // Call
-            int hashCodeOne = phreaticLineX.GetHashCode();
-            int hashCodeTwo = phreaticLineY.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
-        }
-
-        private static IEnumerable<TestCaseData> GetPhreaticLineCombinations()
-        {
-            yield return new TestCaseData(CreatePhreaticLine(),
-                                          new MacroStabilityInwardsPhreaticLine("Other name", new[]
-                                          {
-                                              new Point2D(0, 0),
-                                              new Point2D(1, 1)
-                                          })).SetName("Other name");
-
-            yield return new TestCaseData(CreatePhreaticLine(),
-                                          new MacroStabilityInwardsPhreaticLine("Test", new[]
-                                          {
-                                              new Point2D(0, 0),
-                                              new Point2D(1, 1),
-                                              new Point2D(1, 1)
-                                          })).SetName("Geometry not same length");
-
-            yield return new TestCaseData(CreatePhreaticLine(),
-                                          new MacroStabilityInwardsPhreaticLine("Test", new[]
-                                          {
-                                              new Point2D(0, 0),
-                                              new Point2D(2, 2)
-                                          })).SetName("Geometry not same coordinates");
-        }
-
-        private static MacroStabilityInwardsPhreaticLine CreatePhreaticLine()
-        {
-            return new MacroStabilityInwardsPhreaticLine(
-                "Test",
-                new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                });
+            public static MacroStabilityInwardsPhreaticLine CreatePhreaticLine()
+            {
+                return new MacroStabilityInwardsPhreaticLine(
+                    "Test",
+                    new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1)
+                    });
+            }
         }
     }
 }

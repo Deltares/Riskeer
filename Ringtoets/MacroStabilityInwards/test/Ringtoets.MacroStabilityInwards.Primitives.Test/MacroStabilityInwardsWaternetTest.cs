@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
@@ -73,130 +74,87 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.AreSame(waternetLine, waternet.WaternetLines.Single());
         }
 
-        [Test]
-        [TestCase(null)]
-        [TestCase("string")]
-        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
+        private class DerivedMacroStabilityInwardsWaternet : MacroStabilityInwardsWaternet
         {
-            // Setup
-            MacroStabilityInwardsWaternet waternet = CreateWaternet();
-
-            // Call
-            bool isEqualToDifferentObject = waternet.Equals(other);
-
-            // Assert
-            Assert.IsFalse(isEqualToDifferentObject);
+            public DerivedMacroStabilityInwardsWaternet(MacroStabilityInwardsWaternet waternet)
+                : base(waternet.PhreaticLines, waternet.WaternetLines) {}
         }
 
-        [Test]
-        public void Equals_AllPropertiesEqual_ReturnsTrue()
+        [TestFixture]
+        private class MacroStabilityInwardsWaternetEqualsTest
+            : EqualsGuidelinesTestFixture<MacroStabilityInwardsWaternet, DerivedMacroStabilityInwardsWaternet>
         {
-            // Setup
-            MacroStabilityInwardsWaternet waternetX = CreateWaternet();
-            MacroStabilityInwardsWaternet waternetY = CreateWaternet();
+            protected override MacroStabilityInwardsWaternet CreateObject()
+            {
+                return CreateWaternet();
+            }
 
-            // Call
-            bool isXEqualToY = waternetX.Equals(waternetY);
-            bool isYEqualToZ = waternetY.Equals(waternetX);
+            protected override DerivedMacroStabilityInwardsWaternet CreateDerivedObject()
+            {
+                return new DerivedMacroStabilityInwardsWaternet(CreateWaternet());
+            }
 
-            // Assert
-            Assert.IsTrue(isXEqualToY);
-            Assert.IsTrue(isYEqualToZ);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetWaternetCombinations))]
-        public void Equals_DifferentProperty_ReturnsFalse(MacroStabilityInwardsWaternet waternet,
-                                                          MacroStabilityInwardsWaternet otherWaternet)
-        {
-            // Call
-            bool isWaternetEqualToOther = waternet.Equals(otherWaternet);
-            bool isOtherEqualToWaternet = otherWaternet.Equals(waternet);
-
-            // Assert
-            Assert.IsFalse(isWaternetEqualToOther);
-            Assert.IsFalse(isOtherEqualToWaternet);
-        }
-
-        [Test]
-        public void GetHashCode_EqualWaternet_ReturnsSameHashCode()
-        {
-            // Setup
-            MacroStabilityInwardsWaternet waternetLineX = CreateWaternet();
-            MacroStabilityInwardsWaternet waternetLineY = CreateWaternet();
-
-            // Call
-            int hashCodeOne = waternetLineX.GetHashCode();
-            int hashCodeTwo = waternetLineY.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
-        }
-
-        private static IEnumerable<TestCaseData> GetWaternetCombinations()
-        {
-            yield return new TestCaseData(
-                CreateWaternet(),
-                new MacroStabilityInwardsWaternet(
-                    new[]
+            public static MacroStabilityInwardsWaternet CreateWaternet()
+            {
+                return new MacroStabilityInwardsWaternet(
+                    new MacroStabilityInwardsPhreaticLine[]
                     {
-                        new MacroStabilityInwardsPhreaticLine("Test", new Point2D[0])
-                    },
-                    new MacroStabilityInwardsWaternetLine[]
-                    {
-                        new TestMacroStabilityInwardsWaternetLine()
-                    })).SetName("Other phreatic line");
-
-            yield return new TestCaseData(
-                CreateWaternet(),
-                new MacroStabilityInwardsWaternet(
-                    new[]
-                    {
-                        new TestMacroStabilityInwardsPhreaticLine(),
                         new TestMacroStabilityInwardsPhreaticLine()
                     },
                     new MacroStabilityInwardsWaternetLine[]
                     {
                         new TestMacroStabilityInwardsWaternetLine()
-                    })).SetName("Other phreatic line count");
+                    });
+            }
 
-            yield return new TestCaseData(
-                CreateWaternet(),
-                new MacroStabilityInwardsWaternet(
-                    new[]
-                    {
-                        new TestMacroStabilityInwardsPhreaticLine()
-                    },
-                    new[]
-                    {
-                        new MacroStabilityInwardsWaternetLine("Test", new Point2D[0], new TestMacroStabilityInwardsPhreaticLine())
-                    })).SetName("Other waternet line");
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new MacroStabilityInwardsWaternet(
+                                                  new[]
+                                                  {
+                                                      new MacroStabilityInwardsPhreaticLine("Test", new Point2D[0])
+                                                  },
+                                                  new MacroStabilityInwardsWaternetLine[]
+                                                  {
+                                                      new TestMacroStabilityInwardsWaternetLine()
+                                                  }))
+                    .SetName("Other phreatic line");
 
-            yield return new TestCaseData(
-                CreateWaternet(),
-                new MacroStabilityInwardsWaternet(
-                    new[]
-                    {
-                        new TestMacroStabilityInwardsPhreaticLine()
-                    },
-                    new MacroStabilityInwardsWaternetLine[]
-                    {
-                        new TestMacroStabilityInwardsWaternetLine(),
-                        new TestMacroStabilityInwardsWaternetLine()
-                    })).SetName("Other waternet line count");
-        }
+                yield return new TestCaseData(new MacroStabilityInwardsWaternet(
+                                                  new[]
+                                                  {
+                                                      new TestMacroStabilityInwardsPhreaticLine(),
+                                                      new TestMacroStabilityInwardsPhreaticLine()
+                                                  },
+                                                  new MacroStabilityInwardsWaternetLine[]
+                                                  {
+                                                      new TestMacroStabilityInwardsWaternetLine()
+                                                  }))
+                    .SetName("Other phreatic line count");
 
-        private static MacroStabilityInwardsWaternet CreateWaternet()
-        {
-            return new MacroStabilityInwardsWaternet(
-                new MacroStabilityInwardsPhreaticLine[]
-                {
-                    new TestMacroStabilityInwardsPhreaticLine()
-                },
-                new MacroStabilityInwardsWaternetLine[]
-                {
-                    new TestMacroStabilityInwardsWaternetLine()
-                });
+                yield return new TestCaseData(new MacroStabilityInwardsWaternet(
+                                                  new[]
+                                                  {
+                                                      new TestMacroStabilityInwardsPhreaticLine()
+                                                  },
+                                                  new[]
+                                                  {
+                                                      new MacroStabilityInwardsWaternetLine("Test", new Point2D[0], new TestMacroStabilityInwardsPhreaticLine())
+                                                  }))
+                    .SetName("Other waternet line");
+
+                yield return new TestCaseData(new MacroStabilityInwardsWaternet(
+                                                  new[]
+                                                  {
+                                                      new TestMacroStabilityInwardsPhreaticLine()
+                                                  },
+                                                  new MacroStabilityInwardsWaternetLine[]
+                                                  {
+                                                      new TestMacroStabilityInwardsWaternetLine(),
+                                                      new TestMacroStabilityInwardsWaternetLine()
+                                                  }))
+                    .SetName("Other waternet line count");
+            }
         }
     }
 }
