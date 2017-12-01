@@ -188,7 +188,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                foreach (ChangePropertyTestCase changeSingleDataProperty in ChangeSingleDataProperties())
+                foreach (ChangePropertyData<MacroStabilityInwardsSoilLayerData> changeSingleDataProperty in ChangeSingleDataProperties())
                 {
                     MacroStabilityInwardsSoilLayerData baseData = CreateRandomData(21);
                     changeSingleDataProperty.ActionToChangeProperty(baseData);
@@ -196,42 +196,29 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 }
             }
 
-            private static IEnumerable<ChangePropertyTestCase> ChangeSingleDataProperties()
+            private static IEnumerable<ChangePropertyData<MacroStabilityInwardsSoilLayerData>> ChangeSingleDataProperties()
             {
-                yield return new ChangePropertyTestCase(lp => lp.ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 9, "ShearStrengthModel");
-                yield return new ChangePropertyTestCase(lp => lp.MaterialName = "interesting", "MaterialName");
-                yield return new ChangePropertyTestCase(lp => lp.IsAquifer = !lp.IsAquifer, "IsAquifer");
-                yield return new ChangePropertyTestCase(lp => lp.UsePop = !lp.UsePop, "UsePoP");
-                yield return new ChangePropertyTestCase(lp => lp.Color = lp.Color.ToArgb().Equals(Color.Aqua.ToArgb()) ? Color.Bisque : Color.Aqua, "Color");
-                yield return new ChangePropertyTestCase(lp => lp.AbovePhreaticLevel.Mean = (RoundedDouble) (11.0 - lp.AbovePhreaticLevel.Mean), "AbovePhreaticLevelMean");
-                yield return new ChangePropertyTestCase(lp => lp.AbovePhreaticLevel.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.AbovePhreaticLevel.CoefficientOfVariation), "AbovePhreaticLevelCoefficientOfVariation");
-                yield return new ChangePropertyTestCase(lp => lp.AbovePhreaticLevel.Shift = (RoundedDouble) (1.0 - lp.AbovePhreaticLevel.Shift), "AbovePhreaticLevelShift");
-                yield return new ChangePropertyTestCase(lp => lp.BelowPhreaticLevel.Mean = (RoundedDouble) (12.0 - lp.BelowPhreaticLevel.Mean), "BelowPhreaticLevelMean");
-                yield return new ChangePropertyTestCase(lp => lp.BelowPhreaticLevel.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.BelowPhreaticLevel.CoefficientOfVariation), "BelowPhreaticLevelCoefficientOFVariation");
-                yield return new ChangePropertyTestCase(lp => lp.BelowPhreaticLevel.Shift = (RoundedDouble) (1.0 - lp.BelowPhreaticLevel.Shift), "BelowPhreaticLevelShift");
-                yield return new ChangePropertyTestCase(lp => lp.Cohesion.Mean = (RoundedDouble) (11.0 - lp.Cohesion.Mean), "CohesionMean");
-                yield return new ChangePropertyTestCase(lp => lp.Cohesion.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.Cohesion.CoefficientOfVariation), "CohesionCoefficientOfVariation");
-                yield return new ChangePropertyTestCase(lp => lp.FrictionAngle.Mean = (RoundedDouble) (11.0 - lp.FrictionAngle.Mean), "FrictionAngleMean");
-                yield return new ChangePropertyTestCase(lp => lp.FrictionAngle.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.FrictionAngle.CoefficientOfVariation), "FrictionAngleCoefficientOfVariation");
-                yield return new ChangePropertyTestCase(lp => lp.ShearStrengthRatio.Mean = (RoundedDouble) (11.0 - lp.ShearStrengthRatio.Mean), "ShearStrengthRatioMean");
-                yield return new ChangePropertyTestCase(lp => lp.ShearStrengthRatio.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.ShearStrengthRatio.CoefficientOfVariation), "ShearStrengthRatioCoefficientOfVariation");
-                yield return new ChangePropertyTestCase(lp => lp.StrengthIncreaseExponent.Mean = (RoundedDouble) (11.0 - lp.StrengthIncreaseExponent.Mean), "StrengthIncreaseExponentMean");
-                yield return new ChangePropertyTestCase(lp => lp.StrengthIncreaseExponent.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.StrengthIncreaseExponent.CoefficientOfVariation), "StrengthIncreaseExponentCoefficientOfVariation");
-                yield return new ChangePropertyTestCase(lp => lp.Pop.Mean = (RoundedDouble) (11.0 - lp.Pop.Mean), "PoMean");
-                yield return new ChangePropertyTestCase(lp => lp.Pop.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.Pop.CoefficientOfVariation), "PopCoefficientOfVariation");
-            }
-
-            private class ChangePropertyTestCase
-            {
-                public ChangePropertyTestCase(Action<MacroStabilityInwardsSoilLayerData> actionToChangeProperty,
-                                              string propertyName)
-                {
-                    ActionToChangeProperty = actionToChangeProperty;
-                    PropertyName = propertyName;
-                }
-
-                public Action<MacroStabilityInwardsSoilLayerData> ActionToChangeProperty { get; }
-                public string PropertyName { get; }
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 9, "ShearStrengthModel");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.MaterialName = "interesting", "MaterialName");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.IsAquifer = !lp.IsAquifer, "IsAquifer");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.UsePop = !lp.UsePop, "UsePoP");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.Color = lp.Color.ToArgb().Equals(Color.Aqua.ToArgb()) ? Color.Bisque : Color.Aqua, "Color");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.AbovePhreaticLevel.Mean = (RoundedDouble) (11.0 - lp.AbovePhreaticLevel.Mean), "AbovePhreaticLevelMean");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.AbovePhreaticLevel.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.AbovePhreaticLevel.CoefficientOfVariation), "AbovePhreaticLevelCoefficientOfVariation");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.AbovePhreaticLevel.Shift = (RoundedDouble) (1.0 - lp.AbovePhreaticLevel.Shift), "AbovePhreaticLevelShift");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.BelowPhreaticLevel.Mean = (RoundedDouble) (12.0 - lp.BelowPhreaticLevel.Mean), "BelowPhreaticLevelMean");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.BelowPhreaticLevel.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.BelowPhreaticLevel.CoefficientOfVariation), "BelowPhreaticLevelCoefficientOFVariation");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.BelowPhreaticLevel.Shift = (RoundedDouble) (1.0 - lp.BelowPhreaticLevel.Shift), "BelowPhreaticLevelShift");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.Cohesion.Mean = (RoundedDouble) (11.0 - lp.Cohesion.Mean), "CohesionMean");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.Cohesion.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.Cohesion.CoefficientOfVariation), "CohesionCoefficientOfVariation");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.FrictionAngle.Mean = (RoundedDouble) (11.0 - lp.FrictionAngle.Mean), "FrictionAngleMean");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.FrictionAngle.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.FrictionAngle.CoefficientOfVariation), "FrictionAngleCoefficientOfVariation");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.ShearStrengthRatio.Mean = (RoundedDouble) (11.0 - lp.ShearStrengthRatio.Mean), "ShearStrengthRatioMean");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.ShearStrengthRatio.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.ShearStrengthRatio.CoefficientOfVariation), "ShearStrengthRatioCoefficientOfVariation");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.StrengthIncreaseExponent.Mean = (RoundedDouble) (11.0 - lp.StrengthIncreaseExponent.Mean), "StrengthIncreaseExponentMean");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.StrengthIncreaseExponent.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.StrengthIncreaseExponent.CoefficientOfVariation), "StrengthIncreaseExponentCoefficientOfVariation");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.Pop.Mean = (RoundedDouble) (11.0 - lp.Pop.Mean), "PoMean");
+                yield return new ChangePropertyData<MacroStabilityInwardsSoilLayerData>(lp => lp.Pop.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.Pop.CoefficientOfVariation), "PopCoefficientOfVariation");
             }
         }
 

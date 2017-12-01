@@ -25,6 +25,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangePropertyDataTest.cs" />
     <Compile Include="ControlsTestHelperTest.cs" />
     <Compile Include="DataGridViewTestHelperTest.cs" />
     <Compile Include="DirectoryDisposeHelperTest.cs" />

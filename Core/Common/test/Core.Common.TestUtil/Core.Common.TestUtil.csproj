@@ -28,6 +28,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangePropertyData.cs" />
     <Compile Include="ControlsTestHelper.cs" />
     <Compile Include="CustomExceptionDesignGuidelinesTestFixture.cs" />
     <Compile Include="DataGridViewTestHelper.cs" />
