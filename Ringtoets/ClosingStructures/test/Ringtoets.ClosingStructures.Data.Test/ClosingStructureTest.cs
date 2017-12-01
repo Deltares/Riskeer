@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
@@ -370,83 +370,157 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestHelper.AssertAreEqualButNotSame(otherStructure.WidthFlowApertures, structure.WidthFlowApertures);
         }
 
-        [Test]
-        [TestCase(null)]
-        [TestCase("string")]
-        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
+        [TestFixture]
+        private class ClosingStructureEqualsTest : EqualsGuidelinesTestFixture<ClosingStructure, DerivedClosingStructures>
         {
-            // Setup
-            ClosingStructure structure = new TestClosingStructure();
-
-            // Call
-            bool isEqual = structure.Equals(other);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-        }
-
-        [Test]
-        public void Equals_ToItself_ReturnsTrue()
-        {
-            // Setup
-            ClosingStructure structure = new TestClosingStructure();
-
-            // Call
-            bool isEqual = structure.Equals(structure);
-
-            // Assert
-            Assert.IsTrue(isEqual);
-        }
-
-        [Test]
-        public void Equals_TransitivePropertyAllPropertiesEqual_ReturnsTrue()
-        {
-            // Setup
-            ClosingStructure structureX = new TestClosingStructure();
-            ClosingStructure structureY = new TestClosingStructure();
-            ClosingStructure structureZ = new TestClosingStructure();
-
-            // Call
-            bool isXEqualToY = structureX.Equals(structureY);
-            bool isYEqualToZ = structureY.Equals(structureZ);
-            bool isXEqualToZ = structureX.Equals(structureZ);
-
-            // Assert
-            Assert.IsTrue(isXEqualToY);
-            Assert.IsTrue(isYEqualToZ);
-            Assert.IsTrue(isXEqualToZ);
-        }
-
-        [Test]
-        [TestCaseSource(typeof(ClosingStructurePermutationHelper),
-            nameof(ClosingStructurePermutationHelper.DifferentClosingStructures),
-            new object[]
+            protected override ClosingStructure CreateObject()
             {
-                "Equals",
-                "ReturnsFalse"
-            })]
-        public void Equals_DifferentProperty_ReturnsFalse(ClosingStructure structure)
-        {
-            // Call
-            bool isEqual = structure.Equals(new TestClosingStructure());
+                return CreateClosingStructure(CreateConstructionProperties());
+            }
 
-            // Assert
-            Assert.IsFalse(isEqual);
+            protected override DerivedClosingStructures CreateDerivedObject()
+            {
+                return new DerivedClosingStructures(CreateConstructionProperties());
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                foreach (ChangePropertyData<ClosingStructure.ConstructionProperties> changeSingleDataProperty in ChangeSingleDataProperties())
+                {
+                    ClosingStructure.ConstructionProperties differentConstructionProperties = CreateConstructionProperties();
+                    changeSingleDataProperty.ActionToChangeProperty(differentConstructionProperties);
+
+                    yield return new TestCaseData(CreateClosingStructure(differentConstructionProperties))
+                        .SetName(changeSingleDataProperty.PropertyName);
+                }
+            }
+
+            private static IEnumerable<ChangePropertyData<ClosingStructure.ConstructionProperties>> ChangeSingleDataProperties()
+            {
+                var random = new Random(21);
+                RoundedDouble offset = random.NextRoundedDouble();
+
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.Name = "Different Name", "Name");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.Id = "Different Id", "Id");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.Location = new Point2D(random.NextDouble(), random.NextDouble()), "Location");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.StorageStructureArea.Mean = cp.StorageStructureArea.Mean + offset,
+                                                                                             "StorageStructureAreaMean");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.StorageStructureArea.CoefficientOfVariation = cp.StorageStructureArea.CoefficientOfVariation + offset,
+                                                                                             "StorageStructureAreaCoefficientOfVariation");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.AllowedLevelIncreaseStorage.Mean = cp.AllowedLevelIncreaseStorage.Mean + offset,
+                                                                                             "AllowedLevelIncreaseStorageMean");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.AllowedLevelIncreaseStorage.StandardDeviation = cp.AllowedLevelIncreaseStorage.StandardDeviation + offset,
+                                                                                             "AllowedLevelIncreaseStorageStandardDeviation");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.StructureNormalOrientation = random.NextRoundedDouble(),
+                                                                                             "NormalOrientation");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.WidthFlowApertures.Mean = cp.WidthFlowApertures.Mean + offset,
+                                                                                             "WidthFlowAperturesMean");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.WidthFlowApertures.StandardDeviation = cp.WidthFlowApertures.StandardDeviation + offset,
+                                                                                             "WidthFlowAperturesStandardDeviation");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.LevelCrestStructureNotClosing.Mean = cp.LevelCrestStructureNotClosing.Mean + offset,
+                                                                                             "LevelCrestStructureNotClosingMean");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.LevelCrestStructureNotClosing.StandardDeviation = cp.LevelCrestStructureNotClosing.StandardDeviation + offset,
+                                                                                             "LevelCrestStructureNotClosingStandardDeviation");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.InsideWaterLevel.Mean = cp.InsideWaterLevel.Mean + offset,
+                                                                                             "InsideWaterLevelMean");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.InsideWaterLevel.StandardDeviation = cp.InsideWaterLevel.StandardDeviation + offset,
+                                                                                             "InsideWaterLevelStandardDeviation");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.ThresholdHeightOpenWeir.Mean = cp.ThresholdHeightOpenWeir.Mean + offset,
+                                                                                             "ThresholdHeightOpenWeirMean");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.ThresholdHeightOpenWeir.StandardDeviation = cp.ThresholdHeightOpenWeir.StandardDeviation + offset,
+                                                                                             "ThresholdHeightOpenWeirStandardDeviation");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.AreaFlowApertures.Mean = cp.AreaFlowApertures.Mean + offset,
+                                                                                             "AreaFlowAperturesMean");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.AreaFlowApertures.StandardDeviation = cp.AreaFlowApertures.StandardDeviation + offset,
+                                                                                             "AreaFlowAperturesStandardDeviation");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.CriticalOvertoppingDischarge.Mean = cp.CriticalOvertoppingDischarge.Mean + offset,
+                                                                                             "CriticalOvertoppingDischargeMean");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.CriticalOvertoppingDischarge.CoefficientOfVariation = cp.CriticalOvertoppingDischarge.CoefficientOfVariation + offset,
+                                                                                             "CriticalOvertoppingDischargeCoefficientOfVariation");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.FlowWidthAtBottomProtection.Mean = cp.FlowWidthAtBottomProtection.Mean + offset,
+                                                                                             "FlowWidthAtBottomProtectionMean");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble(),
+                                                                                             "ProbabilityOrFrequencyOpenStructureBeforeFlooding");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.FailureProbabilityOpenStructure = random.NextDouble(),
+                                                                                             "FailureProbabilityOpenStructure");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.IdenticalApertures = random.Next(5, int.MaxValue),
+                                                                                             "IdenticalApertures");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.FailureProbabilityReparation = random.NextDouble(),
+                                                                                             "FailureProbabilityReparation");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.InflowModelType = ClosingStructureInflowModelType.FloodedCulvert,
+                                                                                             "InflowModelType");
+            }
+
+            private static ClosingStructure CreateClosingStructure(ClosingStructure.ConstructionProperties properties)
+            {
+                return new ClosingStructure(properties);
+            }
+
+            private static ClosingStructure.ConstructionProperties CreateConstructionProperties()
+            {
+                return new ClosingStructure.ConstructionProperties
+                {
+                    Name = "name",
+                    Id = "id",
+                    Location = new Point2D(12345.56789, 9876.54321),
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) 20000,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) 0.2,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    StructureNormalOrientation = (RoundedDouble) 10.0,
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 21,
+                        StandardDeviation = (RoundedDouble) 0.05
+                    },
+                    LevelCrestStructureNotClosing =
+                    {
+                        Mean = (RoundedDouble) 4.95,
+                        StandardDeviation = (RoundedDouble) 0.05
+                    },
+                    InsideWaterLevel =
+                    {
+                        Mean = (RoundedDouble) 0.5,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        Mean = (RoundedDouble) 4.95,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    AreaFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 31.5,
+                        StandardDeviation = (RoundedDouble) 0.01
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) 1.0,
+                        CoefficientOfVariation = (RoundedDouble) 0.15
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) 25.0,
+                        StandardDeviation = (RoundedDouble) 0.05
+                    },
+                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = 1.0,
+                    FailureProbabilityOpenStructure = 0.1,
+                    IdenticalApertures = 4,
+                    FailureProbabilityReparation = 1.0,
+                    InflowModelType = ClosingStructureInflowModelType.VerticalWall
+                };
+            }
         }
 
-        [Test]
-        public void GetHashCode_EqualStructures_ReturnsSameHashCode()
+        private class DerivedClosingStructures : ClosingStructure
         {
-            // Setup
-            ClosingStructure structureOne = new TestClosingStructure();
-            ClosingStructure structureTwo = new TestClosingStructure();
-
-            // Call
-            int hashCodeOne = structureOne.GetHashCode();
-            int hashCodeTwo = structureTwo.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
+            public DerivedClosingStructures(ConstructionProperties properties) : base(properties) {}
         }
     }
 }
