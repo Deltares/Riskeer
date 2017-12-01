@@ -40,14 +40,14 @@ namespace Core.Components.OxyPlot.CustomSeries
         /// </summary>
         public MultipleLineSeries()
         {
-            Lines = new List<DataPoint[]>();
+            Lines = new List<IEnumerable<DataPoint>>();
             Color = OxyColors.Automatic;
         }
 
         /// <summary>
         /// Gets the lines.
         /// </summary>
-        public List<DataPoint[]> Lines { get; }
+        public List<IEnumerable<DataPoint>> Lines { get; }
 
         /// <summary>
         /// Gets or sets the stroke thickness of the lines.

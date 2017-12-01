@@ -763,7 +763,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                              converged, generalResult);
         }
 
-        private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(RoughnessPoint[] roughnessProfilePoints)
+        private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(IEnumerable<RoughnessPoint> roughnessProfilePoints)
         {
             return roughnessProfilePoints.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness));
         }

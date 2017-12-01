@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -113,11 +114,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// and the succeeding <see cref="RoughnessPoint"/>. The roughness of the last
         /// point is irrelevant.
         /// </remarks>
-        public RoughnessPoint[] DikeGeometry
+        public IEnumerable<RoughnessPoint> DikeGeometry
         {
             get
             {
-                return dikeProfile?.DikeGeometry.ToArray() ?? new RoughnessPoint[0];
+                return dikeProfile?.DikeGeometry ?? new RoughnessPoint[0];
             }
         }
 

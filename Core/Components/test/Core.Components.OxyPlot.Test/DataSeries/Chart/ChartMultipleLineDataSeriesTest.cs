@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
@@ -110,7 +110,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Chart
             };
 
             var chartMultipleLineDataSeries = new ChartMultipleLineDataSeries(chartMultipleLineData);
-            DataPoint[][] drawnLines = chartMultipleLineDataSeries.Lines.ToArray();
+            IEnumerable<DataPoint>[] drawnLines = chartMultipleLineDataSeries.Lines.ToArray();
 
             // When
             chartMultipleLineData.Lines = new[]
@@ -142,7 +142,7 @@ namespace Core.Components.OxyPlot.Test.DataSeries.Chart
             };
 
             var chartMultipleLineDataSeries = new ChartMultipleLineDataSeries(chartMultipleLineData);
-            DataPoint[][] drawnLines = chartMultipleLineDataSeries.Lines.ToArray();
+            IEnumerable<DataPoint>[] drawnLines = chartMultipleLineDataSeries.Lines.ToArray();
 
             // When
             chartMultipleLineDataSeries.Update();

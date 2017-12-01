@@ -38,7 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
         /// <param name="properties">The object containing the values for
         /// the soil data properties of the new <see cref="SoilLayer"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public SoilLayer(Point2D[] outerRing, ConstructionProperties properties, IEnumerable<SoilLayer> nestedLayers)
+        public SoilLayer(IEnumerable<Point2D> outerRing, ConstructionProperties properties, IEnumerable<SoilLayer> nestedLayers)
         {
             if (outerRing == null)
             {
