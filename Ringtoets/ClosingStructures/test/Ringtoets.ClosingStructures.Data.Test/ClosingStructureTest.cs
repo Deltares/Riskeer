@@ -375,7 +375,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             protected override ClosingStructure CreateObject()
             {
-                return CreateClosingStructure(CreateConstructionProperties());
+                return new ClosingStructure(CreateConstructionProperties());
             }
 
             protected override DerivedClosingStructures CreateDerivedObject()
@@ -390,7 +390,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                     ClosingStructure.ConstructionProperties differentConstructionProperties = CreateConstructionProperties();
                     changeSingleDataProperty.ActionToChangeProperty(differentConstructionProperties);
 
-                    yield return new TestCaseData(CreateClosingStructure(differentConstructionProperties))
+                    yield return new TestCaseData(new ClosingStructure(differentConstructionProperties))
                         .SetName(changeSingleDataProperty.PropertyName);
                 }
             }
@@ -400,9 +400,12 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 var random = new Random(21);
                 RoundedDouble offset = random.NextRoundedDouble();
 
-                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.Name = "Different Name", "Name");
-                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.Id = "Different Id", "Id");
-                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.Location = new Point2D(random.NextDouble(), random.NextDouble()), "Location");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.Name = "Different Name",
+                                                                                             "Name");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.Id = "Different Id",
+                                                                                             "Id");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.Location = new Point2D(random.NextDouble(), random.NextDouble()),
+                                                                                             "Location");
                 yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.StorageStructureArea.Mean = cp.StorageStructureArea.Mean + offset,
                                                                                              "StorageStructureAreaMean");
                 yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.StorageStructureArea.CoefficientOfVariation = cp.StorageStructureArea.CoefficientOfVariation + offset,
@@ -439,6 +442,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
                                                                                              "CriticalOvertoppingDischargeCoefficientOfVariation");
                 yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.FlowWidthAtBottomProtection.Mean = cp.FlowWidthAtBottomProtection.Mean + offset,
                                                                                              "FlowWidthAtBottomProtectionMean");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.FlowWidthAtBottomProtection.StandardDeviation = cp.FlowWidthAtBottomProtection.StandardDeviation + offset,
+                                                                                             "FlowWidthAtBottomProtectionStandardDeviation");
                 yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble(),
                                                                                              "ProbabilityOrFrequencyOpenStructureBeforeFlooding");
                 yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.FailureProbabilityOpenStructure = random.NextDouble(),
@@ -449,11 +454,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
                                                                                              "FailureProbabilityReparation");
                 yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.InflowModelType = ClosingStructureInflowModelType.FloodedCulvert,
                                                                                              "InflowModelType");
-            }
-
-            private static ClosingStructure CreateClosingStructure(ClosingStructure.ConstructionProperties properties)
-            {
-                return new ClosingStructure(properties);
             }
 
             private static ClosingStructure.ConstructionProperties CreateConstructionProperties()

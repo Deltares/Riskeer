@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.HeightStructures.Data.TestUtil;
 
 namespace Ringtoets.HeightStructures.Data.Test
 {
@@ -282,83 +282,118 @@ namespace Ringtoets.HeightStructures.Data.Test
             TestHelper.AssertAreEqualButNotSame(otherStructure.WidthFlowApertures, structure.WidthFlowApertures);
         }
 
-        [Test]
-        [TestCase(null)]
-        [TestCase("string")]
-        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
+        [TestFixture]
+        private class HeightStructureEqualsTest : EqualsGuidelinesTestFixture<HeightStructure, DerivedHeightStructure>
         {
-            // Setup
-            HeightStructure structure = new TestHeightStructure();
-
-            // Call
-            bool isEqual = structure.Equals(other);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-        }
-
-        [Test]
-        public void Equals_ToItself_ReturnsTrue()
-        {
-            // Setup
-            HeightStructure structure = new TestHeightStructure();
-
-            // Call
-            bool isEqual = structure.Equals(structure);
-
-            // Assert
-            Assert.IsTrue(isEqual);
-        }
-
-        [Test]
-        public void Equals_TransitivePropertyAllPropertiesEqual_ReturnsTrue()
-        {
-            // Setup
-            HeightStructure structureX = new TestHeightStructure();
-            HeightStructure structureY = new TestHeightStructure();
-            HeightStructure structureZ = new TestHeightStructure();
-
-            // Call
-            bool isXEqualToY = structureX.Equals(structureY);
-            bool isYEqualToZ = structureY.Equals(structureZ);
-            bool isXEqualToZ = structureX.Equals(structureZ);
-
-            // Assert
-            Assert.IsTrue(isXEqualToY);
-            Assert.IsTrue(isYEqualToZ);
-            Assert.IsTrue(isXEqualToZ);
-        }
-
-        [Test]
-        [TestCaseSource(typeof(HeightStructurePermutationHelper),
-            nameof(HeightStructurePermutationHelper.DifferentHeightStructures),
-            new object[]
+            protected override HeightStructure CreateObject()
             {
-                "Equals",
-                "ReturnsFalse"
-            })]
-        public void Equals_DifferentProperty_ReturnsFalse(HeightStructure structure)
-        {
-            // Call
-            bool isEqual = structure.Equals(new TestHeightStructure());
+                return new HeightStructure(CreateConstructionProperties());
+            }
 
-            // Assert
-            Assert.IsFalse(isEqual);
+            protected override DerivedHeightStructure CreateDerivedObject()
+            {
+                return new DerivedHeightStructure(CreateConstructionProperties());
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                foreach (ChangePropertyData<HeightStructure.ConstructionProperties> changeSingleDataProperty in ChangeSingleDataProperties())
+                {
+                    HeightStructure.ConstructionProperties differentConstructionProperties = CreateConstructionProperties();
+                    changeSingleDataProperty.ActionToChangeProperty(differentConstructionProperties);
+
+                    yield return new TestCaseData(new HeightStructure(differentConstructionProperties))
+                        .SetName(changeSingleDataProperty.PropertyName);
+                }
+            }
+
+            private static IEnumerable<ChangePropertyData<HeightStructure.ConstructionProperties>> ChangeSingleDataProperties()
+            {
+                var random = new Random(21);
+                RoundedDouble offset = random.NextRoundedDouble();
+
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.Name = "Different Name",
+                                                                                            "Name");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.Id = "Different Id",
+                                                                                            "Id");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.Location = new Point2D(random.NextDouble(), random.NextDouble()),
+                                                                                            "Location");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.StructureNormalOrientation = random.NextRoundedDouble(),
+                                                                                            "NormalOrientation");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.LevelCrestStructure.Mean = cp.LevelCrestStructure.Mean + offset,
+                                                                                            "LevelCrestStructureMean");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.LevelCrestStructure.StandardDeviation = cp.LevelCrestStructure.StandardDeviation + offset,
+                                                                                            "LevelCrestStructureStandardDeviation");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.FlowWidthAtBottomProtection.Mean = cp.FlowWidthAtBottomProtection.Mean + offset,
+                                                                                            "FlowWidthAtBottomProtectionMean");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.FlowWidthAtBottomProtection.StandardDeviation = cp.FlowWidthAtBottomProtection.StandardDeviation + offset,
+                                                                                            "FlowWidthAtBottomProtectionStandardDeviation");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.CriticalOvertoppingDischarge.Mean = cp.CriticalOvertoppingDischarge.Mean + offset,
+                                                                                            "CriticalOvertoppingDischargeMean");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.CriticalOvertoppingDischarge.CoefficientOfVariation = cp.CriticalOvertoppingDischarge.CoefficientOfVariation + offset,
+                                                                                            "CriticalOvertoppingDischargeCoefficientofVariation");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.WidthFlowApertures.Mean = cp.WidthFlowApertures.Mean + offset,
+                                                                                            "WidthFlowAperturesMean");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.WidthFlowApertures.StandardDeviation = cp.WidthFlowApertures.StandardDeviation + offset,
+                                                                                            "WidthFlowAperturesStandardDeviation");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.FailureProbabilityStructureWithErosion = random.NextDouble(),
+                                                                                            "FailureProbabilityStructureWithErosion");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.StorageStructureArea.Mean = cp.StorageStructureArea.Mean + offset,
+                                                                                            "StorageStructureAreaMean");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.StorageStructureArea.CoefficientOfVariation = cp.StorageStructureArea.CoefficientOfVariation + offset,
+                                                                                            "StorageStructureAreaCoefficientOfVariation");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.AllowedLevelIncreaseStorage.Mean = cp.AllowedLevelIncreaseStorage.Mean + offset,
+                                                                                            "AllowedLevelIncreaseStorageMean");
+                yield return new ChangePropertyData<HeightStructure.ConstructionProperties>(cp => cp.AllowedLevelIncreaseStorage.StandardDeviation = cp.AllowedLevelIncreaseStorage.StandardDeviation + offset,
+                                                                                            "AllowedLevelIncreaseStorageStandardDeviation");
+            }
+
+            private static HeightStructure.ConstructionProperties CreateConstructionProperties()
+            {
+                return new HeightStructure.ConstructionProperties
+                {
+                    Name = "Name",
+                    Id = "Id",
+                    Location = new Point2D(0.0, 0.0),
+                    StructureNormalOrientation = (RoundedDouble) 0.12345,
+                    LevelCrestStructure =
+                    {
+                        Mean = (RoundedDouble) 234.567,
+                        StandardDeviation = (RoundedDouble) 0.23456
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) 345.68,
+                        StandardDeviation = (RoundedDouble) 0.35
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) 456.79,
+                        CoefficientOfVariation = (RoundedDouble) 0.46
+                    },
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 567.89,
+                        StandardDeviation = (RoundedDouble) 0.57
+                    },
+                    FailureProbabilityStructureWithErosion = 0.67890,
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) 112.22,
+                        CoefficientOfVariation = (RoundedDouble) 0.11
+                    },
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) 225.34,
+                        StandardDeviation = (RoundedDouble) 0.23
+                    }
+                };
+            }
         }
 
-        [Test]
-        public void GetHashCode_EqualStructures_ReturnsSameHashCode()
+        private class DerivedHeightStructure : HeightStructure
         {
-            // Setup
-            HeightStructure structureOne = new TestHeightStructure();
-            HeightStructure structureTwo = new TestHeightStructure();
-
-            // Call
-            int hashCodeOne = structureOne.GetHashCode();
-            int hashCodeTwo = structureTwo.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeOne, hashCodeTwo);
+            public DerivedHeightStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
         }
     }
 }
