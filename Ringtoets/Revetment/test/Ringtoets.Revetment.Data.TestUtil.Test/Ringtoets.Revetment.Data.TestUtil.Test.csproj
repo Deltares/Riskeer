@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}</ProjectGuid>
     <RootNamespace>Ringtoets.Revetment.Data.TestUtil.Test</RootNamespace>

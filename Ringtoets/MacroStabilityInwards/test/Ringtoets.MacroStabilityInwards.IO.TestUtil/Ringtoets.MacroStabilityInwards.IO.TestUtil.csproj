@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{C83B2091-339A-4F35-A874-A4C807F55CAE}</ProjectGuid>
     <RootNamespace>Ringtoets.MacroStabilityInwards.IO.TestUtil</RootNamespace>

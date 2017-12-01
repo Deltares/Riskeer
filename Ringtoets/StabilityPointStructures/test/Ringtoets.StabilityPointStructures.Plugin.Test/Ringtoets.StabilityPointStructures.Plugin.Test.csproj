@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{3C0BB78E-A008-4F3F-B119-1657BAF9C85F}</ProjectGuid>
     <RootNamespace>Ringtoets.StabilityPointStructures.Plugin.Test</RootNamespace>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{F67E8AE8-1FF0-4680-9817-99E025CD9FF6}</ProjectGuid>
     <RootNamespace>Ringtoets.HeightStructures.Data.TestUtil</RootNamespace>

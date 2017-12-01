@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{69F3FC1D-2218-4FA7-BF8B-7DDAB355794F}</ProjectGuid>
     <RootNamespace>Ringtoets.MacroStabilityInwards.KernelWrapper.Test</RootNamespace>

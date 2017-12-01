@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{802FACE1-E059-4DA8-A5BF-C3BC356670CB}</ProjectGuid>
     <RootNamespace>Ringtoets.WaveImpactAsphaltCover.Service.Test</RootNamespace>
