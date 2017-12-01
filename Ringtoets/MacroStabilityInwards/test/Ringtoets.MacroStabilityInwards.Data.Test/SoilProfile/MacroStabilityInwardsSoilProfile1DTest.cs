@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
@@ -196,143 +196,66 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.AreEqual(name, text);
         }
 
-        [Test]
-        public void GetHashCode_EqualProfiles_AreEqual()
+        [TestFixture]
+        private class MacroStabilityInwardsSoilProfile1DEqualsTest
+            : EqualsGuidelinesTestFixture<MacroStabilityInwardsSoilProfile1D, DerivedMacroStabilityInwardsSoilProfile1D>
         {
-            // Setup
-            MacroStabilityInwardsSoilProfile1D profileA = CreateRandomProfile(21);
-            MacroStabilityInwardsSoilProfile1D profileB = CreateRandomProfile(21);
-
-            // Precondition
-            Assert.AreEqual(profileA, profileB);
-            Assert.AreEqual(profileB, profileA);
-
-            // Call & Assert
-            Assert.AreEqual(profileA.GetHashCode(), profileB.GetHashCode());
-            Assert.AreEqual(profileB.GetHashCode(), profileA.GetHashCode());
-        }
-
-        [Test]
-        public void Equals_Null_ReturnsFalse()
-        {
-            // Setup
-            var profile = new MacroStabilityInwardsSoilProfile1D("name", 0, new[]
+            protected override MacroStabilityInwardsSoilProfile1D CreateObject()
             {
-                CreateRandomLayer(new Random(21))
-            });
-
-            // Call
-            bool areEqual = profile.Equals(null);
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(ProfileCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilProfile1D profile, MacroStabilityInwardsSoilProfile1D otherProfile, bool expectedEqual)
-        {
-            // Call
-            bool areEqualOne = profile.Equals(otherProfile);
-            bool areEqualTwo = otherProfile.Equals(profile);
-
-            // Assert
-            Assert.AreEqual(expectedEqual, areEqualOne);
-            Assert.AreEqual(expectedEqual, areEqualTwo);
-        }
-
-        private static TestCaseData[] ProfileCombinations()
-        {
-            MacroStabilityInwardsSoilProfile1D profileA = CreateRandomProfile(21);
-            MacroStabilityInwardsSoilProfile1D profileB = CreateRandomProfile(21);
-            MacroStabilityInwardsSoilProfile1D profileC = CreateRandomProfile(73);
-
-            MacroStabilityInwardsSoilProfile1D profileD = CreateSingleLayerProfile("A", -3);
-            MacroStabilityInwardsSoilProfile1D profileE = CreateSingleLayerProfile("A", -2);
-            MacroStabilityInwardsSoilProfile1D profileF = CreateSingleLayerProfile("B", -3);
-
-            const int seed = 78;
-            var random = new Random(seed);
-            var profileG = new MacroStabilityInwardsSoilProfile1D(GetRandomName(random), -random.NextDouble(), new[]
-            {
-                CreateRandomLayer(random)
-            });
-
-            random = new Random(seed);
-            var profileH = new MacroStabilityInwardsSoilProfile1D(GetRandomName(random), -random.NextDouble(), new[]
-            {
-                CreateRandomLayer(random),
-                CreateRandomLayer(random)
-            });
-
-            var profileI = new MacroStabilityInwardsSoilProfile1D("A", -3, new[]
-            {
-                new MacroStabilityInwardsSoilLayer1D(-2)
-            });
-            return new[]
-            {
-                new TestCaseData(profileA, profileB, true)
-                {
-                    TestName = "Equals_ProfileAProfileB_True"
-                },
-                new TestCaseData(profileB, profileC, false)
-                {
-                    TestName = "Equals_ProfileBProfileC_False"
-                },
-                new TestCaseData(profileD, profileE, false)
-                {
-                    TestName = "Equals_ProfileDProfileE_False"
-                },
-                new TestCaseData(profileD, profileF, false)
-                {
-                    TestName = "Equals_ProfileDProfileF_False"
-                },
-                new TestCaseData(profileD, profileG, false)
-                {
-                    TestName = "Equals_ProfileDProfileG_False"
-                },
-                new TestCaseData(profileH, profileI, false)
-                {
-                    TestName = "Equals_ProfileHProfileI_False"
-                }
-            };
-        }
-
-        private static MacroStabilityInwardsSoilProfile1D CreateSingleLayerProfile(string name, double bottom)
-        {
-            return new MacroStabilityInwardsSoilProfile1D(name, bottom, new[]
-            {
-                new MacroStabilityInwardsSoilLayer1D(bottom + 1.0)
-            });
-        }
-
-        private static MacroStabilityInwardsSoilProfile1D CreateRandomProfile(int randomSeed)
-        {
-            var random = new Random(randomSeed);
-            var layers = new Collection<MacroStabilityInwardsSoilLayer1D>();
-            for (var i = 0; i < random.Next(2, 6); i++)
-            {
-                layers.Add(CreateRandomLayer(random));
+                return CreateSoilProfile();
             }
-            return new MacroStabilityInwardsSoilProfile1D(GetRandomName(random), -1.0 - random.NextDouble(), layers);
-        }
 
-        private static MacroStabilityInwardsSoilLayer1D CreateRandomLayer(Random random)
-        {
-            return new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
+            protected override DerivedMacroStabilityInwardsSoilProfile1D CreateDerivedObject()
             {
-                Data =
+                return new DerivedMacroStabilityInwardsSoilProfile1D(CreateSoilProfile());
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                var random = new Random(21);
+                MacroStabilityInwardsSoilProfile1D baseProfile = CreateSoilProfile();
+
+                yield return new TestCaseData(new MacroStabilityInwardsSoilProfile1D("Different name",
+                                                                                     baseProfile.Bottom,
+                                                                                     baseProfile.Layers))
+                    .SetName("Name");
+                yield return new TestCaseData(new MacroStabilityInwardsSoilProfile1D(baseProfile.Name,
+                                                                                     baseProfile.Bottom - random.NextDouble(),
+                                                                                     baseProfile.Layers))
+                    .SetName("Bottom");
+                yield return new TestCaseData(new MacroStabilityInwardsSoilProfile1D(baseProfile.Name,
+                                                                                     baseProfile.Bottom,
+                                                                                     new[]
+                                                                                     {
+                                                                                         MacroStabilityInwardsSoilLayer1DTestFactory.CreateMacroStabilityInwardsSoilLayer1D(random.NextDouble())
+                                                                                     }))
+                    .SetName("Layer");
+                yield return new TestCaseData(new MacroStabilityInwardsSoilProfile1D(baseProfile.Name,
+                                                                                     baseProfile.Bottom,
+                                                                                     new[]
+                                                                                     {
+                                                                                         MacroStabilityInwardsSoilLayer1DTestFactory.CreateMacroStabilityInwardsSoilLayer1D(random.NextDouble()),
+                                                                                         MacroStabilityInwardsSoilLayer1DTestFactory.CreateMacroStabilityInwardsSoilLayer1D(random.NextDouble())
+                                                                                     }))
+                    .SetName("Layer Count");
+            }
+
+            private static MacroStabilityInwardsSoilProfile1D CreateSoilProfile()
+            {
+                var random = new Random(21);
+                double bottom = -random.NextDouble();
+
+                return new MacroStabilityInwardsSoilProfile1D("Profile Name", bottom, new[]
                 {
-                    MaterialName = GetRandomName(random),
-                    Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
-                    IsAquifer = random.NextBoolean()
-                }
-            };
+                    MacroStabilityInwardsSoilLayer1DTestFactory.CreateMacroStabilityInwardsSoilLayer1D()
+                });
+            }
         }
 
-        private static string GetRandomName(Random random)
+        private class DerivedMacroStabilityInwardsSoilProfile1D : MacroStabilityInwardsSoilProfile1D
         {
-            return new string('x', random.Next(0, 40));
+            public DerivedMacroStabilityInwardsSoilProfile1D(MacroStabilityInwardsSoilProfile1D profile)
+                : base(profile.Name, profile.Bottom, profile.Layers) {}
         }
     }
 }

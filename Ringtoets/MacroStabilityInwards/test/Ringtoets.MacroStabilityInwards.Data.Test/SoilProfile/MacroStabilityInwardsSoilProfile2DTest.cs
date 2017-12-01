@@ -141,173 +141,84 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.AreEqual(name, text);
         }
 
-        [Test]
-        public void Equals_Null_ReturnsFalse()
+        [TestFixture]
+        private class MacroStabilityInwardsSoilProfile2DEqualsTest
+            : EqualsGuidelinesTestFixture<MacroStabilityInwardsSoilProfile2D, DerivedMacroStabilityInwardsSoilProfile2D>
         {
-            // Setup
-            var profile = new MacroStabilityInwardsSoilProfile2D("name", new[]
+            protected override MacroStabilityInwardsSoilProfile2D CreateObject()
             {
-                CreateRandomLayer(new Random(21))
-            }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
-
-            // Call
-            bool areEqual = profile.Equals(null);
-
-            // Assert
-            Assert.IsFalse(areEqual);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(ProfileCombinationsResultFalse))]
-        public void Equals_DifferentPropertyValue_ReturnsFalse(MacroStabilityInwardsSoilProfile2D profile,
-                                                               MacroStabilityInwardsSoilProfile2D otherProfile)
-        {
-            // Call
-            bool areEqualOne = profile.Equals(otherProfile);
-            bool areEqualTwo = otherProfile.Equals(profile);
-
-            // Assert
-            Assert.IsFalse(areEqualOne);
-            Assert.IsFalse(areEqualTwo);
-        }
-
-        [Test]
-        public void GetHashCode_AllPropertiesEqual_ReturnsSameHashCode()
-        {
-            // Setup
-            MacroStabilityInwardsSoilProfile2D profileA = CreateRandomProfile(21);
-            MacroStabilityInwardsSoilProfile2D profileB = CreateRandomProfile(21);
-
-            // Call
-            int hashCodeA = profileA.GetHashCode();
-            int hashCodeB = profileB.GetHashCode();
-
-            // Assert
-            Assert.AreEqual(hashCodeA, hashCodeB);
-        }
-
-        [Test]
-        public void Equals_ToItself_ReturnsTrue()
-        {
-            // Setup
-            MacroStabilityInwardsSoilProfile2D profileA = CreateRandomProfile(21);
-            MacroStabilityInwardsSoilProfile2D profileB = profileA;
-
-            // Call
-            bool profileAEqualB = profileA.Equals(profileB);
-            bool profileBEqualA = profileB.Equals(profileA);
-
-            // Assert
-            Assert.IsTrue(profileAEqualB);
-            Assert.IsTrue(profileBEqualA);
-        }
-
-        [Test]
-        public void Equals_ToDerivedClass_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSoilProfile2D profile = CreateRandomProfile(21);
-            var derivedProfile = new DerivedSoilProfile(profile.Name, profile.Layers, profile.PreconsolidationStresses);
-
-            // Call
-            bool profileEqualsDerivedProfile = profile.Equals(derivedProfile);
-
-            // Assert
-            Assert.IsFalse(profileEqualsDerivedProfile);
-        }
-
-        [Test]
-        public void Equals_TransitiveProperty_ReturnsTrue()
-        {
-            // Setup
-            MacroStabilityInwardsSoilProfile2D profileA = CreateRandomProfile(21);
-            MacroStabilityInwardsSoilProfile2D profileB = CreateRandomProfile(21);
-            MacroStabilityInwardsSoilProfile2D profileC = CreateRandomProfile(21);
-
-            // Call
-            bool aEqualsB = profileA.Equals(profileB);
-            bool bEqualsC = profileB.Equals(profileC);
-            bool aEqualsC = profileA.Equals(profileC);
-
-            // Assert
-            Assert.IsTrue(aEqualsB);
-            Assert.IsTrue(bEqualsC);
-            Assert.IsTrue(aEqualsC);
-        }
-
-        private static IEnumerable<TestCaseData> ProfileCombinationsResultFalse()
-        {
-            const int seed = 78;
-            var random = new Random(seed);
-            var baseProfile = new MacroStabilityInwardsSoilProfile2D(GetRandomName(random), new[]
-            {
-                CreateRandomLayer(seed),
-                CreateRandomLayer(seed)
-            }, new[]
-            {
-                CreateRandomPreconsolidationStress(seed),
-                CreateRandomPreconsolidationStress(seed)
-            });
-
-            yield return new TestCaseData(baseProfile,
-                                          new MacroStabilityInwardsSoilProfile2D("Different Name",
-                                                                                 baseProfile.Layers,
-                                                                                 baseProfile.PreconsolidationStresses))
-                .SetName("Different Name");
-
-            yield return new TestCaseData(baseProfile,
-                                          new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
-                                                                                 new[]
-                                                                                 {
-                                                                                     CreateRandomLayer(seed)
-                                                                                 },
-                                                                                 baseProfile.PreconsolidationStresses))
-                .SetName("Different SoilLayer count");
-
-            var differentLayers = new[]
-            {
-                CreateRandomLayer(seed),
-                CopyAndModifySoilLayer(CreateRandomLayer(seed))
-            };
-            yield return new TestCaseData(baseProfile,
-                                          new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
-                                                                                 differentLayers,
-                                                                                 baseProfile.PreconsolidationStresses))
-                .SetName("Different SoilLayers");
-
-            yield return new TestCaseData(baseProfile,
-                                          new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
-                                                                                 baseProfile.Layers,
-                                                                                 Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()))
-                .SetName("Different Stress count");
-
-            var differentStresses = new[]
-            {
-                CreateRandomPreconsolidationStress(seed),
-                CopyAndModifyPreconsolidationsStress(CreateRandomPreconsolidationStress(seed))
-            };
-            yield return new TestCaseData(baseProfile,
-                                          new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
-                                                                                 baseProfile.Layers,
-                                                                                 differentStresses))
-                .SetName("Different Stresses");
-        }
-
-        private static MacroStabilityInwardsSoilProfile2D CreateRandomProfile(int randomSeed)
-        {
-            var random = new Random(randomSeed);
-            var layers = new Collection<MacroStabilityInwardsSoilLayer2D>();
-            for (var i = 0; i < random.Next(2, 6); i++)
-            {
-                layers.Add(CreateRandomLayer(random));
+                return CreateRandomProfile();
             }
 
-            var stresses = new Collection<MacroStabilityInwardsPreconsolidationStress>();
-            for (var i = 0; i < random.Next(2, 6); i++)
+            protected override DerivedMacroStabilityInwardsSoilProfile2D CreateDerivedObject()
             {
-                stresses.Add(CreateRandomPreconsolidationStress(i));
+                return new DerivedMacroStabilityInwardsSoilProfile2D(CreateRandomProfile());
             }
-            return new MacroStabilityInwardsSoilProfile2D(GetRandomName(random), layers, stresses);
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                const int differentSeed = 30;
+                MacroStabilityInwardsSoilProfile2D baseProfile = CreateRandomProfile();
+
+                yield return new TestCaseData(new MacroStabilityInwardsSoilProfile2D("Different Name",
+                                                                                     baseProfile.Layers,
+                                                                                     baseProfile.PreconsolidationStresses))
+                    .SetName("Different Name");
+
+                yield return new TestCaseData(new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
+                                                                                     new[]
+                                                                                     {
+                                                                                         CreateRandomLayer(differentSeed)
+                                                                                     },
+                                                                                     baseProfile.PreconsolidationStresses))
+                    .SetName("Different SoilLayer count");
+
+                var differentLayers = new[]
+                {
+                    CreateRandomLayer(differentSeed),
+                    CopyAndModifySoilLayer(CreateRandomLayer(differentSeed))
+                };
+                yield return new TestCaseData(new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
+                                                                                     differentLayers,
+                                                                                     baseProfile.PreconsolidationStresses))
+                    .SetName("Different SoilLayers");
+
+                yield return new TestCaseData(new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
+                                                                                     baseProfile.Layers,
+                                                                                     Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()))
+                    .SetName("Different Stress count");
+
+                var differentStresses = new[]
+                {
+                    CreateRandomPreconsolidationStress(differentSeed),
+                    CopyAndModifyPreconsolidationsStress(CreateRandomPreconsolidationStress(differentSeed))
+                };
+                yield return new TestCaseData(new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
+                                                                                     baseProfile.Layers,
+                                                                                     differentStresses))
+                    .SetName("Different Stresses");
+            }
+
+            private static MacroStabilityInwardsSoilProfile2D CreateRandomProfile()
+            {
+                const int seed = 78;
+                var random = new Random(seed);
+                return new MacroStabilityInwardsSoilProfile2D(GetRandomName(random), new[]
+                {
+                    CreateRandomLayer(seed),
+                    CreateRandomLayer(seed)
+                }, new[]
+                {
+                    CreateRandomPreconsolidationStress(seed),
+                    CreateRandomPreconsolidationStress(seed)
+                });
+            }
+        }
+
+        private class DerivedMacroStabilityInwardsSoilProfile2D : MacroStabilityInwardsSoilProfile2D
+        {
+            public DerivedMacroStabilityInwardsSoilProfile2D(MacroStabilityInwardsSoilProfile2D profile)
+                : base(profile.Name, profile.Layers, profile.PreconsolidationStresses) {}
         }
 
         private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(int seed)
@@ -373,14 +284,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         private static string GetRandomName(Random random)
         {
             return new string('x', random.Next(0, 40));
-        }
-
-        private class DerivedSoilProfile : MacroStabilityInwardsSoilProfile2D
-        {
-            public DerivedSoilProfile(string name,
-                                      IEnumerable<MacroStabilityInwardsSoilLayer2D> layers,
-                                      IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
-                : base(name, layers, preconsolidationStresses) {}
         }
     }
 }
