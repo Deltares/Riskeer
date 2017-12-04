@@ -124,6 +124,20 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
+        public void ConstructorWithoutPreprocessorParameters_LocationsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Call
+            TestDelegate test = () => hydraulicBoundaryDatabase.SetParameters(null, "filePath", "version");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("locations", exception.ParamName);
+        }
+
+        [Test]
         public void GivenDefaultHydraulicBoundaryDatabase_WhenSettingValidParametersWithoutPreprocessorValues_ThenExpectedValuesSet()
         {
             // Given
@@ -169,6 +183,20 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
             Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
             Assert.IsEmpty(hydraulicBoundaryDatabase.PreprocessorDirectory);
+        }
+
+        [Test]
+        public void ConstructorWithPreprocessorParameters_LocationsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Call
+            TestDelegate test = () => hydraulicBoundaryDatabase.SetParameters(null, "filePath", "version", true, "preprocessorDirectory");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("locations", exception.ParamName);
         }
 
         [TestCase(true)]
