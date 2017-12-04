@@ -135,7 +135,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <param name="version">The version indicator of the hydraulic boundary database.</param>
         /// <remarks><see cref="CanUsePreprocessor"/> is set to <c>false</c>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
-        public void SetParameters(IEnumerable<HydraulicBoundaryLocation> locations,
+        public void SetParameters(List<HydraulicBoundaryLocation> locations,
                                   string filePath,
                                   string version)
         {
@@ -144,9 +144,12 @@ namespace Ringtoets.Common.Data.Hydraulics
                 throw new ArgumentNullException(nameof(locations));
             }
 
-            Locations = locations.ToList();
+            Locations = locations;
             FilePath = filePath;
             Version = version;
+            CanUsePreprocessor = false;
+            usePreprocessor = false;
+            preprocessorDirectory = string.Empty;
         }
 
         /// <summary>
@@ -159,7 +162,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <param name="preprocessorDirectoryValue">The Hydra-Ring preprocessor directory.</param>
         /// <remarks><see cref="CanUsePreprocessor"/> is set to <c>true</c>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
-        public void SetParameters(IEnumerable<HydraulicBoundaryLocation> locations,
+        public void SetParameters(List<HydraulicBoundaryLocation> locations,
                                   string filePath,
                                   string version,
                                   bool usePreprocessorValue,
@@ -170,7 +173,7 @@ namespace Ringtoets.Common.Data.Hydraulics
                 throw new ArgumentNullException(nameof(locations));
             }
 
-            Locations = locations.ToList();
+            Locations = locations;
             FilePath = filePath;
             Version = version;
             CanUsePreprocessor = true;
