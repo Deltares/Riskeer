@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
@@ -336,16 +337,16 @@ namespace Ringtoets.HeightStructures.Integration.Test
                              .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
             mockRepository.ReplayAll();
 
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>
+                                                    {
+                                                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                                                    },
+                                                    validFilePath, "", true, validPreprocessorDirectory);
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
-                {
-                    FilePath = validFilePath,
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                    }
-                }
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -378,16 +379,16 @@ namespace Ringtoets.HeightStructures.Integration.Test
                              .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
             mockRepository.ReplayAll();
 
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>
+                                                    {
+                                                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                                                    },
+                                                    validFilePath, "", false, "InvalidPreprocessorDirectory");
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
-                {
-                    FilePath = validFilePath,
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                    }
-                }
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
 
             var failureMechanism = new HeightStructuresFailureMechanism();

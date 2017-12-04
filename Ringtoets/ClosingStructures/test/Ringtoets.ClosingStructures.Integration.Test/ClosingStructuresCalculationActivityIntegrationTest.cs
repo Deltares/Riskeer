@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
@@ -328,12 +329,12 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                              .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
             mockRepository.ReplayAll();
 
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), validFilePath, "", true, validPreprocessorDirectory);
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
-                {
-                    FilePath = validFilePath
-                }
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -360,12 +361,12 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                              .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
             mockRepository.ReplayAll();
 
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), validFilePath, "", false, "NonExistingPreprocessorDirectory");
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "NonExistingPreprocessorDirectory")
-                {
-                    FilePath = validFilePath
-                }
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
