@@ -95,13 +95,13 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
                         1,
                         3
                     }))
-                    .SetName("Different Content");
+                    .SetName("Content");
 
                 yield return new TestCaseData(new CategoryTreeFolder(baseFolder.Name, new object[0]))
-                    .SetName("Different Content Count");
+                    .SetName("Content Count");
 
                 yield return new TestCaseData(new CategoryTreeFolder("Different name", baseFolder.Contents))
-                    .SetName("Different name");
+                    .SetName("Name");
             }
 
             private static CategoryTreeFolder CreateConfiguredCategoryTreeFolder()

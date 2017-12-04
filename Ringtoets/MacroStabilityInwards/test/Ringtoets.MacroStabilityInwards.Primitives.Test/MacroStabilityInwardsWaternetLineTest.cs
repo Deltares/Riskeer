@@ -127,14 +127,14 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                         new Point2D(1, 1),
                         new Point2D(1, 1)
                     }, new TestMacroStabilityInwardsPhreaticLine()))
-                    .SetName("Geometry other count");
+                    .SetName("Geometry Count");
 
                 yield return new TestCaseData(new MacroStabilityInwardsWaternetLine("Test", new[]
                     {
                         new Point2D(0, 0),
                         new Point2D(2, 2)
                     }, new TestMacroStabilityInwardsPhreaticLine()))
-                    .SetName("Geometry not same coordinates");
+                    .SetName("Geometry content");
 
                 yield return new TestCaseData(new MacroStabilityInwardsWaternetLine("Test", new[]
                     {

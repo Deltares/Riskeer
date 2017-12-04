@@ -247,17 +247,17 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
                 LogNormalDistribution otherMean = CreateFullyDefinedDistribution();
                 otherMean.Mean = (RoundedDouble) 987;
                 yield return new TestCaseData(otherMean)
-                    .SetName(nameof(otherMean));
+                    .SetName("Mean");
 
                 LogNormalDistribution otherStandardDeviation = CreateFullyDefinedDistribution();
                 otherStandardDeviation.StandardDeviation = (RoundedDouble) 0.987;
                 yield return new TestCaseData(otherStandardDeviation)
-                    .SetName(nameof(otherStandardDeviation));
+                    .SetName("StandardDeviation");
 
                 LogNormalDistribution otherShift = CreateFullyDefinedDistribution();
                 otherShift.Shift = (RoundedDouble) 0.987;
                 yield return new TestCaseData(otherShift)
-                    .SetName(nameof(otherShift));
+                    .SetName("Shift");
             }
 
             private static LogNormalDistribution CreateFullyDefinedDistribution()

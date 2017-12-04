@@ -80,13 +80,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         [TestFixture]
         private class SelectableHydraulicBoundaryLocationEqualsTest : EqualsGuidelinesTestFixture<SelectableHydraulicBoundaryLocation, DerivedSelectableHydraulicBOundaryLocation>
         {
-            private HydraulicBoundaryLocation location;
-
-            [SetUp]
-            public void SetUp()
-            {
-                location = new HydraulicBoundaryLocation(1, "Name", 0, 1);
-            }
+            private readonly HydraulicBoundaryLocation location = new HydraulicBoundaryLocation(1, "Name", 0, 1);
 
             [Test]
             [TestCaseSource(nameof(EqualityReferencePoints))]
@@ -94,9 +88,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
                                                                                                                 Point2D referencePoint2)
             {
                 // Setup
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 0, 1);
-                var inputItem1 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint1);
-                var inputItem2 = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, referencePoint2);
+                var inputItem1 = new SelectableHydraulicBoundaryLocation(location, referencePoint1);
+                var inputItem2 = new SelectableHydraulicBoundaryLocation(location, referencePoint2);
 
                 // Call
                 bool areEqualObjects12 = inputItem1.Equals(inputItem2);

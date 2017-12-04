@@ -202,25 +202,13 @@ namespace Ringtoets.Common.Data.Test
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                StructureBase.ConstructionProperties differentId = CreateFullyConfiguredConstructionProperties();
-                differentId.Id = "differentId";
-                yield return new TestCaseData(new TestStructureBase(differentId))
-                    .SetName(nameof(differentId));
-
-                StructureBase.ConstructionProperties differentName = CreateFullyConfiguredConstructionProperties();
-                differentName.Name = "differentName";
-                yield return new TestCaseData(new TestStructureBase(differentName))
-                    .SetName(nameof(differentName));
-
-                StructureBase.ConstructionProperties differentLocation = CreateFullyConfiguredConstructionProperties();
-                differentLocation.Location = new Point2D(9, 9);
-                yield return new TestCaseData(new TestStructureBase(differentLocation))
-                    .SetName(nameof(differentLocation));
-
-                StructureBase.ConstructionProperties differentOrientation = CreateFullyConfiguredConstructionProperties();
-                differentOrientation.StructureNormalOrientation = (RoundedDouble) 90;
-                yield return new TestCaseData(new TestStructureBase(differentOrientation))
-                    .SetName(nameof(differentOrientation));
+                foreach (ChangePropertyData<StructureBase.ConstructionProperties> changeSingleDataProperty in ChangeSingleDataProperties())
+                {
+                    StructureBase.ConstructionProperties differentConstructionProperties = CreateFullyConfiguredConstructionProperties();
+                    changeSingleDataProperty.ActionToChangeProperty(differentConstructionProperties);
+                    yield return new TestCaseData(new TestStructureBase(differentConstructionProperties))
+                        .SetName(changeSingleDataProperty.PropertyName);
+                }
 
                 yield return new TestCaseData(new OtherTestStructureBase(CreateFullyConfiguredConstructionProperties()))
                     .SetName("Other derived class");
@@ -233,15 +221,26 @@ namespace Ringtoets.Common.Data.Test
 
             private static StructureBase.ConstructionProperties CreateFullyConfiguredConstructionProperties()
             {
-                const string id = "structure id";
-                const string name = "Structure name";
                 return new StructureBase.ConstructionProperties
                 {
-                    Id = id,
-                    Name = name,
+                    Id = "structure id",
+                    Name = "Structure name",
                     Location = new Point2D(1, 1),
                     StructureNormalOrientation = (RoundedDouble) 25
                 };
+            }
+
+            private static IEnumerable<ChangePropertyData<StructureBase.ConstructionProperties>> ChangeSingleDataProperties()
+            {
+                var random = new Random(21);
+                RoundedDouble offset = random.NextRoundedDouble();
+
+                yield return new ChangePropertyData<StructureBase.ConstructionProperties>(cs => cs.Id = "Different Id", "Id");
+                yield return new ChangePropertyData<StructureBase.ConstructionProperties>(cs => cs.Name = "Different Name", "Name");
+                yield return new ChangePropertyData<StructureBase.ConstructionProperties>(cs => cs.Location = new Point2D(cs.Location.X + offset, cs.Location.Y),
+                                                                                          "Location");
+                yield return new ChangePropertyData<StructureBase.ConstructionProperties>(cs => cs.StructureNormalOrientation = cs.StructureNormalOrientation + offset,
+                                                                                          "Orientation");
             }
         }
 

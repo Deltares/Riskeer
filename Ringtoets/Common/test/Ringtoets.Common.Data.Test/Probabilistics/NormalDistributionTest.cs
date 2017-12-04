@@ -154,12 +154,12 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
                 NormalDistribution otherMean = CreateFullyDefinedDistribution();
                 otherMean.Mean = (RoundedDouble) 987;
                 yield return new TestCaseData(otherMean)
-                    .SetName(nameof(otherMean));
+                    .SetName("Mean");
 
                 NormalDistribution otherStandardDeviation = CreateFullyDefinedDistribution();
                 otherStandardDeviation.StandardDeviation = (RoundedDouble) 0.987;
                 yield return new TestCaseData(otherStandardDeviation)
-                    .SetName(nameof(otherStandardDeviation));
+                    .SetName("Standard Deviation");
             }
 
             private static NormalDistribution CreateFullyDefinedDistribution()

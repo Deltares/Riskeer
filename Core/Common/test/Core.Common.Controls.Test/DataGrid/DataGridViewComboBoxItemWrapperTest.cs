@@ -88,13 +88,7 @@ namespace Core.Common.Controls.Test.DataGrid
         private class DataGridViewComboBoxItemWrapperEqualsTest
             : EqualsGuidelinesTestFixture<DataGridViewComboBoxItemWrapper<TestClass>, DerivedDataGridViewComboBoxItemWrapper<TestClass>>
         {
-            private TestClass wrappedObject;
-
-            [SetUp]
-            public void Setup()
-            {
-                wrappedObject = new TestClass();
-            }
+            private readonly TestClass wrappedObject = new TestClass();
 
             protected override DataGridViewComboBoxItemWrapper<TestClass> CreateObject()
             {
@@ -109,7 +103,7 @@ namespace Core.Common.Controls.Test.DataGrid
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
                 yield return new TestCaseData(new DataGridViewComboBoxItemWrapper<TestClass>(new TestClass()))
-                    .SetName("Different wrapped object");
+                    .SetName("Wrapped object");
             }
         }
 

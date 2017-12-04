@@ -124,9 +124,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             private static BreakWater CreateBreakWater()
             {
-                const double height = 3.14;
-                const BreakWaterType type = BreakWaterType.Caisson;
-                return new BreakWater(type, height);
+                return new BreakWater(BreakWaterType.Caisson, 3.14);
             }
         }
 

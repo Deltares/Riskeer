@@ -302,12 +302,12 @@ namespace Core.Common.Base.Test.Geometry
 
                 yield return new TestCaseData(new Segment2D(firstPoint,
                                                             new Point2D(secondPoint.X + offset, secondPoint.Y)))
-                    .SetName("One Point different");
+                    .SetName("One Point");
 
                 yield return new TestCaseData(new Segment2D(
                                                   new Point2D(firstPoint.X + offset, secondPoint.Y),
                                                   new Point2D(secondPoint.X + offset, secondPoint.Y)))
-                    .SetName("Two Points different");
+                    .SetName("Two Points");
             }
 
             private static Point2D CreatePoint2D(int seed)

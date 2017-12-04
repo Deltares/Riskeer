@@ -202,24 +202,24 @@ namespace Ringtoets.Piping.Primitives.Test
         [TestFixture]
         private class PipingSoilProfileEqualsTest : EqualsGuidelinesTestFixture<PipingSoilProfile, TestProfile>
         {
-            private const string name = "Profile name";
-            private const double bottom = 3.14;
+            private const string baseName = "Profile name";
+            private const double baseBottom = 3.14;
             private const SoilProfileType type = SoilProfileType.SoilProfile1D;
 
             protected override PipingSoilProfile CreateObject()
             {
-                return CreateSingleLayerProfile(name, bottom, type);
+                return CreateSingleLayerProfile(baseName, baseBottom, type);
             }
 
             protected override TestProfile CreateDerivedObject()
             {
-                PipingSoilProfile baseProfile = CreateSingleLayerProfile(name, bottom, type);
+                PipingSoilProfile baseProfile = CreateSingleLayerProfile(baseName, baseBottom, type);
                 return new TestProfile(baseProfile);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                PipingSoilProfile baseProfile = CreateSingleLayerProfile(name, bottom, type);
+                PipingSoilProfile baseProfile = CreateSingleLayerProfile(baseName, baseBottom, type);
 
                 var random = new Random(21);
                 double offset = random.NextDouble();

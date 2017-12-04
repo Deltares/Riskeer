@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Primitives.Test
 
             protected override TestLayer CreateDerivedObject()
             {
-                PipingSoilLayer baseLayer = CreateRandomLayer(21);
+                PipingSoilLayer baseLayer = CreateRandomLayer(seed);
                 return new TestLayer(baseLayer);
             }
 
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Primitives.Test
             {
                 PipingSoilLayer baseLayer = CreateRandomLayer(seed);
 
-                var random = new Random(21);
+                var random = new Random(seed);
                 double offset = random.NextDouble();
 
                 yield return new TestCaseData(new PipingSoilLayer(double.NaN)

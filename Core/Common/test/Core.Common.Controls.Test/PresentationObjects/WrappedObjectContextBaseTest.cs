@@ -71,11 +71,11 @@ namespace Core.Common.Controls.Test.PresentationObjects
             {
                 var wrappedObject = new SimpleEquatable(sourceObject);
                 yield return new TestCaseData(new AnotherSimpleWrappedObjectContext<SimpleEquatable>(wrappedObject))
-                    .SetName("Different ContextType");
+                    .SetName("ContextType");
 
                 var differentWrappedObject = new SimpleEquatable(new object());
                 yield return new TestCaseData(new SimpleWrappedObjectContext<SimpleEquatable>(differentWrappedObject))
-                    .SetName("Different wrapped data");
+                    .SetName("Wrapped data");
             }
         }
 

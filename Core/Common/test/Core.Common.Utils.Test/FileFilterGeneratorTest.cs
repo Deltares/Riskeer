@@ -143,9 +143,7 @@ namespace Core.Common.Utils.Test
 
             private static FileFilterGenerator CreateFileFilterGenerator()
             {
-                const string description = "description";
-                const string extension = "txt";
-                return new FileFilterGenerator(extension, description);
+                return new FileFilterGenerator("txt", "description");
             }
         }
 

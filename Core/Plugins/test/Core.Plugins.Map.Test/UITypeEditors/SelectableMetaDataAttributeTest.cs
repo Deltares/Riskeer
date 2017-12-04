@@ -85,7 +85,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new SelectableMetaDataAttribute("Different attribute"));
+                yield return new TestCaseData(new SelectableMetaDataAttribute("Different attribute name")).SetName("Attribute");
             }
         }
 

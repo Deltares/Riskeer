@@ -89,9 +89,7 @@ namespace Core.Components.Gis.Test
 
             private static WmtsConnectionInfo CreateWmtsConnectionInfo()
             {
-                const string name = "name";
-                const string url = "url";
-                return new WmtsConnectionInfo(name, url);
+                return new WmtsConnectionInfo("name", "url");
             }
         }
 

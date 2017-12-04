@@ -117,7 +117,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                     .SetName("Geometry coordinates");
             }
 
-            public static MacroStabilityInwardsPhreaticLine CreatePhreaticLine()
+            private static MacroStabilityInwardsPhreaticLine CreatePhreaticLine()
             {
                 return new MacroStabilityInwardsPhreaticLine(
                     "Test",

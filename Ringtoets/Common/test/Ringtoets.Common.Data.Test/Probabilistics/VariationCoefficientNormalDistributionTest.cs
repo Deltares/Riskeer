@@ -164,12 +164,12 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
                 VariationCoefficientNormalDistribution otherMean = CreateFullyDefinedDistribution();
                 otherMean.Mean = (RoundedDouble) 987;
                 yield return new TestCaseData(otherMean)
-                    .SetName(nameof(otherMean));
+                    .SetName("Mean");
 
                 VariationCoefficientNormalDistribution otherStandardDeviation = CreateFullyDefinedDistribution();
                 otherStandardDeviation.CoefficientOfVariation = (RoundedDouble) 0.987;
                 yield return new TestCaseData(otherStandardDeviation)
-                    .SetName(nameof(otherStandardDeviation));
+                    .SetName("CoefficientOfVariation");
             }
 
             private static VariationCoefficientNormalDistribution CreateFullyDefinedDistribution()

@@ -75,12 +75,14 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
+                var random = new Random(21);
+                double offset = random.NextDouble();
                 RoughnessPoint basePoint = CreateRoughnessPoint();
 
                 yield return new TestCaseData(new RoughnessPoint(basePoint.Point,
-                                                                 basePoint.Roughness + 10))
+                                                                 basePoint.Roughness + offset))
                     .SetName("Roughness");
-                yield return new TestCaseData(new RoughnessPoint(new Point2D(1, 1),
+                yield return new TestCaseData(new RoughnessPoint(new Point2D(basePoint.Point.X + offset, basePoint.Point.Y),
                                                                  basePoint.Roughness))
                     .SetName("Point");
             }

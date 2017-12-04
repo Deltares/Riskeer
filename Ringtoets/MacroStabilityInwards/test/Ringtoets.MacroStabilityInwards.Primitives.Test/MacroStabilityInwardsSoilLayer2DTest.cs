@@ -152,14 +152,14 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                                                                                        baseLayer.NestedLayers.First(),
                                                                                        new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(21))
                                                                                    }))
-                    .SetName("Different Nested Layer Count");
+                    .SetName("Nested Layer Count");
                 yield return new TestCaseData(new MacroStabilityInwardsSoilLayer2D(baseLayer.OuterRing,
                                                                                    baseLayer.Data, 
                                                                                    new []
                                                                                    {
                                                                                        new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(30))
                                                                                    }))
-                    .SetName("Different Nested Layer");
+                    .SetName("Nested Layer content");
             }
 
             private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(int randomSeed)

@@ -165,7 +165,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 yield return new TestCaseData(new MacroStabilityInwardsPreconsolidationStress(new Point2D(random.NextDouble(),
                                                                                                           random.NextDouble()),
                                                                                               baseDistribution))
-                    .SetName("Different Location");
+                    .SetName("Location");
 
                 yield return new TestCaseData(new MacroStabilityInwardsPreconsolidationStress(baseStress.Location,
                                                                                               new VariationCoefficientLogNormalDistribution
@@ -173,7 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                                                                                                   Mean = baseDistribution.Mean + random.NextRoundedDouble(),
                                                                                                   CoefficientOfVariation = baseDistribution.CoefficientOfVariation
                                                                                               }))
-                    .SetName("Different Distribution");
+                    .SetName("Distribution");
             }
 
             private static MacroStabilityInwardsPreconsolidationStress CreatePreconsolidationStress()

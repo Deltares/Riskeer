@@ -94,7 +94,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 return new DerivedMacroStabilityInwardsWaternet(CreateWaternet());
             }
 
-            public static MacroStabilityInwardsWaternet CreateWaternet()
+            private static MacroStabilityInwardsWaternet CreateWaternet()
             {
                 return new MacroStabilityInwardsWaternet(
                     new MacroStabilityInwardsPhreaticLine[]

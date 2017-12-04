@@ -147,7 +147,7 @@ namespace Ringtoets.Integration.Data.Test
                     .SetName("Description");
 
                 var random = new Random(21);
-                var differentAsessmentSections = CreateProject();
+                RingtoetsProject differentAsessmentSections = CreateProject();
                 differentAsessmentSections.AssessmentSections.Add(new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
                 yield return new TestCaseData(differentAsessmentSections)
                     .SetName("AssessmentSections");
@@ -155,11 +155,9 @@ namespace Ringtoets.Integration.Data.Test
 
             private static RingtoetsProject CreateProject()
             {
-                const string name = "Some name";
-                const string description = "Some desctiption";
-                return new RingtoetsProject(name)
+                return new RingtoetsProject("Some name")
                 {
-                    Description = description
+                    Description = "Some desctiption"
                 };
             }
         }

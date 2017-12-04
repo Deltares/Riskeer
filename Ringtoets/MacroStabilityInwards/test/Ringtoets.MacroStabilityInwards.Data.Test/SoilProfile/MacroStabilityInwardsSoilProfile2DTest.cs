@@ -163,7 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 yield return new TestCaseData(new MacroStabilityInwardsSoilProfile2D("Different Name",
                                                                                      baseProfile.Layers,
                                                                                      baseProfile.PreconsolidationStresses))
-                    .SetName("Different Name");
+                    .SetName("Name");
 
                 yield return new TestCaseData(new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
                                                                                      new[]
@@ -171,7 +171,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                                                                                          CreateRandomLayer(differentSeed)
                                                                                      },
                                                                                      baseProfile.PreconsolidationStresses))
-                    .SetName("Different SoilLayer count");
+                    .SetName("SoilLayers count");
 
                 var differentLayers = new[]
                 {
@@ -181,12 +181,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 yield return new TestCaseData(new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
                                                                                      differentLayers,
                                                                                      baseProfile.PreconsolidationStresses))
-                    .SetName("Different SoilLayers");
+                    .SetName("SoilLayers content");
 
                 yield return new TestCaseData(new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
                                                                                      baseProfile.Layers,
                                                                                      Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()))
-                    .SetName("Different Stress count");
+                    .SetName("PreconsolidationStresses count");
 
                 var differentStresses = new[]
                 {
@@ -196,7 +196,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 yield return new TestCaseData(new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
                                                                                      baseProfile.Layers,
                                                                                      differentStresses))
-                    .SetName("Different Stresses");
+                    .SetName("PreconsolidationStresses content");
             }
 
             private static MacroStabilityInwardsSoilProfile2D CreateRandomProfile()
@@ -223,11 +223,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
         private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(int seed)
         {
-            return CreateRandomLayer(new Random(seed));
-        }
-
-        private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(Random random)
-        {
+            var random = new Random(seed);
             return new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(random.Next()),
                                                         new MacroStabilityInwardsSoilLayerData
                                                         {
