@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Properties;
 
@@ -71,12 +72,12 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Gets the hydraulic boundary locations.
         /// </summary>
-        public List<HydraulicBoundaryLocation> Locations { get; }
+        public List<HydraulicBoundaryLocation> Locations { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether the Hydra-Ring preprocessor can be used.
         /// </summary>
-        public bool CanUsePreprocessor { get; }
+        public bool CanUsePreprocessor { get; private set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the Hydra-Ring preprocessor must be used.
@@ -124,6 +125,57 @@ namespace Ringtoets.Common.Data.Hydraulics
 
                 preprocessorDirectory = value;
             }
+        }
+
+        /// <summary>
+        /// Sets all parameters of the hydraulic boundary database.
+        /// </summary>
+        /// <param name="locations">The locations of the hydraulic boundary database.</param>
+        /// <param name="filePath">The file path of the hydraulic boundary database.</param>
+        /// <param name="version">The version indicator of the hydraulic boundary database.</param>
+        /// <remarks><see cref="CanUsePreprocessor"/> is set to <c>false</c>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
+        public void SetParameters(IEnumerable<HydraulicBoundaryLocation> locations,
+                                  string filePath,
+                                  string version)
+        {
+            if (locations == null)
+            {
+                throw new ArgumentNullException(nameof(locations));
+            }
+
+            Locations = locations.ToList();
+            FilePath = filePath;
+            Version = version;
+        }
+
+        /// <summary>
+        /// Sets all parameters of the hydraulic boundary database.
+        /// </summary>
+        /// <param name="locations">The locations of the hydraulic boundary database.</param>
+        /// <param name="filePath">The file path of the hydraulic boundary database.</param>
+        /// <param name="version">The version indicator of the hydraulic boundary database.</param>
+        /// <param name="usePreprocessorValue">A value indicating whether the Hydra-Ring preprocessor must be used.</param>
+        /// <param name="preprocessorDirectoryValue">The Hydra-Ring preprocessor directory.</param>
+        /// <remarks><see cref="CanUsePreprocessor"/> is set to <c>true</c>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
+        public void SetParameters(IEnumerable<HydraulicBoundaryLocation> locations,
+                                  string filePath,
+                                  string version,
+                                  bool usePreprocessorValue,
+                                  string preprocessorDirectoryValue)
+        {
+            if (locations == null)
+            {
+                throw new ArgumentNullException(nameof(locations));
+            }
+
+            Locations = locations.ToList();
+            FilePath = filePath;
+            Version = version;
+            CanUsePreprocessor = true;
+            UsePreprocessor = usePreprocessorValue;
+            preprocessorDirectory = preprocessorDirectoryValue;
         }
     }
 }
