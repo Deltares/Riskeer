@@ -152,237 +152,237 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HydraRing\DelftTools.Utils.dll">
+    <None Include="HydraRing\DelftTools.Utils.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.Geographic.dll">
+    </None>
+    <None Include="HydraRing\Deltares.Geographic.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.Geometry.dll">
+    </None>
+    <None Include="HydraRing\Deltares.Geometry.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.Geotechnics.dll">
+    </None>
+    <None Include="HydraRing\Deltares.Geotechnics.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.Mathematics.dll">
+    </None>
+    <None Include="HydraRing\Deltares.Mathematics.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.Probabilistic.dll">
+    </None>
+    <None Include="HydraRing\Deltares.Probabilistic.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.Standard.dll">
+    </None>
+    <None Include="HydraRing\Deltares.Standard.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.WaternetCreator.dll">
+    </None>
+    <None Include="HydraRing\Deltares.WaternetCreator.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.WTIPiping.dll">
+    </None>
+    <None Include="HydraRing\Deltares.WTIPiping.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.WTIStability.Calculation.dll">
+    </None>
+    <None Include="HydraRing\Deltares.WTIStability.Calculation.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.WTIStability.Calculation.Wrapper.dll">
+    </None>
+    <None Include="HydraRing\Deltares.WTIStability.Calculation.Wrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.WTIStability.dll">
+    </None>
+    <None Include="HydraRing\Deltares.WTIStability.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.WTIStability.IO.dll">
+    </None>
+    <None Include="HydraRing\Deltares.WTIStability.IO.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.WTIStability.Levenberg.dll">
+    </None>
+    <None Include="HydraRing\Deltares.WTIStability.Levenberg.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\Deltares.WTIStructuralFailure.dll">
+    </None>
+    <None Include="HydraRing\Deltares.WTIStructuralFailure.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\DeltaShell.Plugins.MorphAn.Domain.dll">
+    </None>
+    <None Include="HydraRing\DeltaShell.Plugins.MorphAn.Domain.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\DeltaShell.Plugins.MorphAn.TRDA.dll">
+    </None>
+    <None Include="HydraRing\DeltaShell.Plugins.MorphAn.TRDA.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\dikesOverflow.dll">
+    </None>
+    <None Include="HydraRing\dikesOverflow.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\DikesOvertopping.dll">
+    </None>
+    <None Include="HydraRing\DikesOvertopping.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\dllDikesOvertopping.dll">
+    </None>
+    <None Include="HydraRing\dllDikesOvertopping.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\dllHydraulicDunes.dll">
+    </None>
+    <None Include="HydraRing\dllHydraulicDunes.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\DllLinearizedBetaAlpha.dll">
+    </None>
+    <None Include="HydraRing\DllLinearizedBetaAlpha.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\dllStructuresClosure2017.dll">
+    </None>
+    <None Include="HydraRing\dllStructuresClosure2017.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\dllStructuresConstFailure2017.dll">
+    </None>
+    <None Include="HydraRing\dllStructuresConstFailure2017.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\dllStructuresOvertopping2017.dll">
+    </None>
+    <None Include="HydraRing\dllStructuresOvertopping2017.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\duneErosion.Native.dll">
+    </None>
+    <None Include="HydraRing\duneErosion.Native.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\DynamicLib-DaF.dll">
+    </None>
+    <None Include="HydraRing\DynamicLib-DaF.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\exeRingComputation.exe">
+    </None>
+    <None Include="HydraRing\exeRingComputation.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\feedbackDLL.dll">
+    </None>
+    <None Include="HydraRing\feedbackDLL.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\HydraRing.Database.dll">
+    </None>
+    <None Include="HydraRing\HydraRing.Database.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\HydraRing.Database.Test.dll">
+    </None>
+    <None Include="HydraRing\HydraRing.Database.Test.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\HydraRing.Database.TestUtils.dll">
+    </None>
+    <None Include="HydraRing\HydraRing.Database.TestUtils.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\HydraRing.DuneErosionWrapper.dll">
+    </None>
+    <None Include="HydraRing\HydraRing.DuneErosionWrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\HydraRing.DuneErosionWrapper.Tests.dll">
+    </None>
+    <None Include="HydraRing\HydraRing.DuneErosionWrapper.Tests.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\HydraRing.IO.Native.dll">
+    </None>
+    <None Include="HydraRing\HydraRing.IO.Native.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\HydraRing.IO.TestUtils.Native.dll">
+    </None>
+    <None Include="HydraRing\HydraRing.IO.TestUtils.Native.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\HydraRing.MacroStability.Wrapper.dll">
+    </None>
+    <None Include="HydraRing\HydraRing.MacroStability.Wrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\HydraRing.Piping2017Wrapper.dll">
+    </None>
+    <None Include="HydraRing\HydraRing.Piping2017Wrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\HydraRing.PluginShared.dll">
+    </None>
+    <None Include="HydraRing\HydraRing.PluginShared.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\hydraring_computation.dll">
+    </None>
+    <None Include="HydraRing\hydraring_computation.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\ICSharpCode.SharpZipLib.dll">
+    </None>
+    <None Include="HydraRing\ICSharpCode.SharpZipLib.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\libifcoremd.dll">
+    </None>
+    <None Include="HydraRing\libifcoremd.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\libifcorert.dll">
+    </None>
+    <None Include="HydraRing\libifcorert.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\libifportmd.dll">
+    </None>
+    <None Include="HydraRing\libifportmd.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\libiomp5md.dll">
+    </None>
+    <None Include="HydraRing\libiomp5md.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\libiompstubs5md.dll">
+    </None>
+    <None Include="HydraRing\libiompstubs5md.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\libmmd.dll">
+    </None>
+    <None Include="HydraRing\libmmd.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\LicenseAGPL.txt">
+    </None>
+    <None Include="HydraRing\LicenseAGPL.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\linearizedBetaAlpha.dll">
+    </None>
+    <None Include="HydraRing\linearizedBetaAlpha.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\log4net.dll">
+    </None>
+    <None Include="HydraRing\log4net.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\LumenWorks.Framework.IO.dll">
+    </None>
+    <None Include="HydraRing\LumenWorks.Framework.IO.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\macroStability.Native.dll">
+    </None>
+    <None Include="HydraRing\macroStability.Native.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\MathNet.Numerics.dll">
+    </None>
+    <None Include="HydraRing\MathNet.Numerics.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\MechanismComputation.exe">
+    </None>
+    <None Include="HydraRing\MechanismComputation.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\mfc110.dll">
+    </None>
+    <None Include="HydraRing\mfc110.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\mfc110u.dll">
+    </None>
+    <None Include="HydraRing\mfc110u.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\mfcm110.dll">
+    </None>
+    <None Include="HydraRing\mfcm110.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\mfcm110u.dll">
+    </None>
+    <None Include="HydraRing\mfcm110u.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\msvcp110.dll">
+    </None>
+    <None Include="HydraRing\msvcp110.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\msvcr110.dll">
+    </None>
+    <None Include="HydraRing\msvcr110.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\msvcrt.dll">
+    </None>
+    <None Include="HydraRing\msvcrt.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\NDepend.Helpers.FileDirectoryPath.dll">
+    </None>
+    <None Include="HydraRing\NDepend.Helpers.FileDirectoryPath.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\nunit.framework.dll">
+    </None>
+    <None Include="HydraRing\nunit.framework.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\piping2017.Native.dll">
+    </None>
+    <None Include="HydraRing\piping2017.Native.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\PostSharp.dll">
+    </None>
+    <None Include="HydraRing\PostSharp.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\protobuf-net.dll">
+    </None>
+    <None Include="HydraRing\protobuf-net.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\ProtoBufRemote.dll">
+    </None>
+    <None Include="HydraRing\ProtoBufRemote.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\structuresClosure2017.dll">
+    </None>
+    <None Include="HydraRing\structuresClosure2017.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\structuresOvertopping2017.dll">
+    </None>
+    <None Include="HydraRing\structuresOvertopping2017.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\structuresStructuralFailure2017.Native.dll">
+    </None>
+    <None Include="HydraRing\structuresStructuralFailure2017.Native.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\StructuresStructuralFailure2017wrapper.dll">
+    </None>
+    <None Include="HydraRing\StructuresStructuralFailure2017wrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\svml_dispmd.dll">
+    </None>
+    <None Include="HydraRing\svml_dispmd.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\System.Data.SQLite.dll">
+    </None>
+    <None Include="HydraRing\System.Data.SQLite.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\System.Data.SQLite.Linq.dll">
+    </None>
+    <None Include="HydraRing\System.Data.SQLite.Linq.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\winapi.dll">
+    </None>
+    <None Include="HydraRing\winapi.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\x64\SQLite.Interop.dll">
+    </None>
+    <None Include="HydraRing\x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HydraRing\x86\SQLite.Interop.dll">
+    </None>
+    <None Include="HydraRing\x86\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
