@@ -265,9 +265,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\chart_bar.png" />
-    <Content Include="Resources\chart_line.png" />
+    <None Include="Resources\chart_line.png" />
     <None Include="Resources\chart_organisation.png" />
-    <Content Include="Resources\folder-horizontal.png" />
-    <Content Include="Resources\folder-horizontal_large.png" />
+    <None Include="Resources\folder-horizontal.png" />
+    <None Include="Resources\folder-horizontal_large.png" />
   </ItemGroup>
 </Project>

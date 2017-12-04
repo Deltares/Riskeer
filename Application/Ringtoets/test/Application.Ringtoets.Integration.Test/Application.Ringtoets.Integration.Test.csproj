@@ -25,9 +25,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="UnusedResourceSearcher\UnusedResourceSearcher.exe">
+    <None Include="UnusedResourceSearcher\UnusedResourceSearcher.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
