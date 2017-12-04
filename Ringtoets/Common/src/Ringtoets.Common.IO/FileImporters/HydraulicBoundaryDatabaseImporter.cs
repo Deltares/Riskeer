@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
@@ -214,13 +215,22 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private static HydraulicBoundaryDatabase CreateHydraulicBoundaryDatabase(ReadHydraulicBoundaryDatabase readData, string filePath)
         {
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = readData.CanUsePreprocessor
-                                                                      ? new HydraulicBoundaryDatabase(true, Path.GetDirectoryName(filePath))
-                                                                      : new HydraulicBoundaryDatabase();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
-            hydraulicBoundaryDatabase.Locations.AddRange(readData.Locations);
-            hydraulicBoundaryDatabase.Version = readData.Version;
-            hydraulicBoundaryDatabase.FilePath = filePath;
+            if (readData.CanUsePreprocessor)
+            {
+                hydraulicBoundaryDatabase.SetParameters(readData.Locations.ToList(),
+                                                        filePath,
+                                                        readData.Version,
+                                                        true,
+                                                        Path.GetDirectoryName(filePath));
+            }
+            else
+            {
+                hydraulicBoundaryDatabase.SetParameters(readData.Locations.ToList(),
+                                                        filePath,
+                                                        readData.Version);
+            }
 
             return hydraulicBoundaryDatabase;
         }

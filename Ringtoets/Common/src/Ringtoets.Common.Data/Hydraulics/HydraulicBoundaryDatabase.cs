@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Properties;
 
@@ -149,7 +148,7 @@ namespace Ringtoets.Common.Data.Hydraulics
             Version = version;
             CanUsePreprocessor = false;
             usePreprocessor = false;
-            preprocessorDirectory = string.Empty;
+            preprocessorDirectory = null;
         }
 
         /// <summary>

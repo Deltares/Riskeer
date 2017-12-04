@@ -155,7 +155,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual(version, hydraulicBoundaryDatabase.Version);
             Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
             Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.IsEmpty(hydraulicBoundaryDatabase.PreprocessorDirectory);
+            Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
         }
 
         [Test]
@@ -182,7 +182,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual(version, hydraulicBoundaryDatabase.Version);
             Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
             Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.IsEmpty(hydraulicBoundaryDatabase.PreprocessorDirectory);
+            Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
         }
 
         [Test]
