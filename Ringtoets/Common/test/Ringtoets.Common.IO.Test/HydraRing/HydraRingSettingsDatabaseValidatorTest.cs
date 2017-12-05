@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
@@ -36,13 +37,27 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             TestDataPath.Ringtoets.Common.IO, testDataSubDirectory);
 
         [Test]
+        public void Constructor_PreprocessorDirectoryNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            string completeDatabasePath = Path.Combine(directoryPath, "withoutPreprocessor.config.sqlite");
+
+            // Call
+            TestDelegate call = () => new HydraRingSettingsDatabaseValidator(completeDatabasePath, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("preprocessorDirectory", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             string completeDatabasePath = Path.Combine(directoryPath, "withoutPreprocessor.config.sqlite");
 
             // Call
-            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath))
+            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath, string.Empty))
             {
                 // Assert
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(validator);
@@ -50,12 +65,14 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void ValidateSchema_ValidDatabase_ReturnTrue()
+        [TestCase("withoutPreprocessor")]
+        [TestCase("withPreprocessor")]
+        public void ValidateSchema_NoPreprocessorValidDatabase_ReturnTrue(string databaseName)
         {
             // Setup
-            string completeDatabasePath = Path.Combine(directoryPath, "withoutPreprocessor.config.sqlite");
+            string completeDatabasePath = Path.Combine(directoryPath, $"{databaseName}.config.sqlite");
 
-            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath))
+            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath, string.Empty))
             {
                 // Call
                 bool valid = validator.ValidateSchema();
@@ -66,12 +83,46 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void ValidateSchema_InvalidDatabase_ReturnFalse()
+        public void ValidateSchema_NoPreprocessorInvalidDatabase_ReturnFalse()
         {
             // Setup
             string completeDatabasePath = Path.Combine(directoryPath, "invalid-settings-schema.config.sqlite");
 
-            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath))
+            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath, string.Empty))
+            {
+                // Call
+                bool valid = validator.ValidateSchema();
+
+                // Assert
+                Assert.IsFalse(valid);
+            }
+        }
+
+        [Test]
+        public void ValidateSchema_PreprocessorValidDatabase_ReturnTrue()
+        {
+            // Setup
+            string completeDatabasePath = Path.Combine(directoryPath, "withPreprocessor.config.sqlite");
+
+            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath, directoryPath))
+            {
+                // Call
+                bool valid = validator.ValidateSchema();
+
+                // Assert
+                Assert.IsTrue(valid);
+            }
+        }
+
+        [Test]
+        [TestCase("invalid-settings-schema")]
+        [TestCase("withoutPreprocessor")]
+        public void ValidateSchema_PreprocessorInvalidDatabase_ReturnFalse(string databaseName)
+        {
+            // Setup
+            string completeDatabasePath = Path.Combine(directoryPath, $"{databaseName}.config.sqlite");
+
+            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath, directoryPath))
             {
                 // Call
                 bool valid = validator.ValidateSchema();

@@ -35,10 +35,13 @@ namespace Ringtoets.Common.IO.HydraRing
     /// </summary>
     internal class HydraRingSettingsDatabaseValidator : SqLiteDatabaseReaderBase
     {
+        private readonly bool usePreprocessor;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingSettingsDatabaseValidator"/>.
         /// </summary>
         /// <param name="databaseFilePath">The full path to the database file to use when reading settings.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
@@ -46,7 +49,18 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <item>Unable to open database file.</item>
         /// </list>
         /// </exception>
-        public HydraRingSettingsDatabaseValidator(string databaseFilePath) : base(databaseFilePath) {}
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="preprocessorDirectory"/>
+        /// is <c>null</c>.</exception>
+        public HydraRingSettingsDatabaseValidator(string databaseFilePath, string preprocessorDirectory)
+            : base(databaseFilePath)
+        {
+            if (preprocessorDirectory == null)
+            {
+                throw new ArgumentNullException(nameof(preprocessorDirectory));
+            }
+
+            usePreprocessor = preprocessorDirectory != string.Empty;
+        }
 
         /// <summary>
         /// Verifies that the schema of the opened settings database is valid.
@@ -57,18 +71,20 @@ namespace Ringtoets.Common.IO.HydraRing
             return ContainsRequiredTables(GetColumnDefinitions(Connection));
         }
 
-        private static bool ContainsRequiredTables(List<Tuple<string, string>> definitions)
+        private bool ContainsRequiredTables(List<Tuple<string, string>> definitions)
         {
             return GetValidSchema().All(definitions.Contains);
         }
 
-        private static List<Tuple<string, string>> GetValidSchema()
+        private List<Tuple<string, string>> GetValidSchema()
         {
             using (var validSchemaConnection = new SQLiteConnection("Data Source=:memory:"))
             using (SQLiteCommand command = validSchemaConnection.CreateCommand())
             {
                 validSchemaConnection.Open();
-                command.CommandText = Resources.settings_schema;
+                command.CommandText = usePreprocessor
+                    ? Resources.settings_schema_preprocessor
+                    : Resources.settings_schema;
                 command.ExecuteNonQuery();
                 return GetColumnDefinitions(validSchemaConnection);
             }
