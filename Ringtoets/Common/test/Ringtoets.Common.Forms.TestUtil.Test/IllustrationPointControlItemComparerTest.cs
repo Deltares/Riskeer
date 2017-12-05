@@ -114,13 +114,13 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         {
             yield return new TestCaseData(new object(),
                                           new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(), "SSE", "Regular", Enumerable.Empty<Stochast>(), RoundedDouble.NaN))
-                .SetName("x unsupported");
+                .SetName("x");
             yield return new TestCaseData(new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(), "SSE", "Regular", Enumerable.Empty<Stochast>(), RoundedDouble.NaN),
                                           new object())
-                .SetName("y unsupported");
+                .SetName("y");
             yield return new TestCaseData(new object(),
                                           new object())
-                .SetName("x and y unsupported");
+                .SetName("x and y");
         }
 
         private static IEnumerable<TestCaseData> GetUnequalItems()
@@ -133,19 +133,19 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             yield return new TestCaseData(new IllustrationPointControlItem(source, windDirectionName, closingSituation, stochasts, beta),
                                           new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(), windDirectionName, closingSituation, stochasts, beta))
-                .SetName("Different source reference");
+                .SetName("Source reference");
             yield return new TestCaseData(new IllustrationPointControlItem(source, windDirectionName, closingSituation, stochasts, beta),
                                           new IllustrationPointControlItem(source, "A different name", closingSituation, stochasts, beta))
-                .SetName("Different wind direction name");
+                .SetName("Wind direction name");
             yield return new TestCaseData(new IllustrationPointControlItem(source, windDirectionName, closingSituation, stochasts, beta),
                                           new IllustrationPointControlItem(source, windDirectionName, "A different closing situation", stochasts, beta))
-                .SetName("Different closing situation");
+                .SetName("Closing situation");
             yield return new TestCaseData(new IllustrationPointControlItem(source, windDirectionName, closingSituation, stochasts, beta),
                                           new IllustrationPointControlItem(source, windDirectionName, closingSituation, new Stochast[0], beta))
-                .SetName("Different stochasts reference");
+                .SetName("Stochasts reference");
             yield return new TestCaseData(new IllustrationPointControlItem(source, windDirectionName, closingSituation, stochasts, beta),
                                           new IllustrationPointControlItem(source, windDirectionName, closingSituation, stochasts, (RoundedDouble) 30))
-                .SetName("Different beta");
+                .SetName("Beta");
         }
     }
 }

@@ -93,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 List<Point2D> differentNrOfPoints = baseRing.Points.ToList();
                 differentNrOfPoints.RemoveAt(0);
                 yield return new TestCaseData(new Ring(differentNrOfPoints))
-                    .SetName("Nr of Points");
+                    .SetName("Points count");
 
                 baseRing = CreateRing();
                 Point2D[] differentPoints = baseRing.Points.ToArray();

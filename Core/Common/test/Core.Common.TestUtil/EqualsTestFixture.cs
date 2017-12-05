@@ -33,7 +33,7 @@ namespace Core.Common.TestUtil
     /// which returns object configurations that are different from the values in <see cref="CreateObject"/>.</remarks>
     /// <example>
     /// <code>
-    /// private class ConcreteEqualGuideLines : EqualsGuidelinesTestFixture&lt;T, TDerived&gt;
+    /// private class ConcreteEqualsTest : EqualsTestFixture&lt;T, TDerived&gt;
     /// {
     ///     protected override T CreateObject()
     ///     {
@@ -195,7 +195,7 @@ namespace Core.Common.TestUtil
     /// <see cref="EqualsTestFixture{T}.CreateObject"/>.</remarks>
     /// <example>
     /// <code>
-    /// private class ConcreteEqualGuideLines : EqualsGuidelinesTestFixture&lt;T, TDerived&gt;
+    /// private class ConcreteEqualsTest : EqualsTestFixture&lt;T, TDerived&gt;
     /// {
     ///     protected override T CreateObject()
     ///     {
