@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -1082,10 +1083,10 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
-            {
-                FilePath = validFilePath
-            };
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), validFilePath, "", true, validPreprocessorDirectory);
+
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1115,10 +1116,10 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
-            {
-                FilePath = validFilePath
-            };
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), validFilePath, "", false, "InvalidPreprocessorDirectory");
+
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
