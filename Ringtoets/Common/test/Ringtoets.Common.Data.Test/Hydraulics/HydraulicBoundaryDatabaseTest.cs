@@ -48,25 +48,6 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void Constructor_WithParameters_ExpectedValues([Values(true, false)] bool usePreprocessor)
-        {
-            // Setup
-            const string preprocessorDirectory = "Preprocessor";
-
-            // Call
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, preprocessorDirectory);
-
-            // Assert
-            Assert.IsInstanceOf<Observable>(hydraulicBoundaryDatabase);
-            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
-            Assert.IsNull(hydraulicBoundaryDatabase.Version);
-            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
-            Assert.IsTrue(hydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.AreEqual(usePreprocessor, hydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.AreEqual(preprocessorDirectory, hydraulicBoundaryDatabase.PreprocessorDirectory);
-        }
-
-        [Test]
         public void UsePreprocessor_SetValueWithCanUsePreprocessorTrue_ExpectedValueSet()
         {
             // Setup
