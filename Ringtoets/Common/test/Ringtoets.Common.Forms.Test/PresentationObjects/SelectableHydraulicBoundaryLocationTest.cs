@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         }
 
         [TestFixture]
-        private class SelectableHydraulicBoundaryLocationEqualsTest : EqualsGuidelinesTestFixture<SelectableHydraulicBoundaryLocation, DerivedSelectableHydraulicBOundaryLocation>
+        private class SelectableHydraulicBoundaryLocationEqualsTest : EqualsTestFixture<SelectableHydraulicBoundaryLocation, DerivedSelectableHydraulicBOundaryLocation>
         {
             private readonly HydraulicBoundaryLocation location = new HydraulicBoundaryLocation(1, "Name", 0, 1);
 

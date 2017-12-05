@@ -608,7 +608,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [TestFixture]
-        private class StabilityPointStructureEqualsTest : EqualsGuidelinesTestFixture<StabilityPointStructure, DerivedStabilityPointStructure>
+        private class StabilityPointStructureEqualsTest : EqualsTestFixture<StabilityPointStructure, DerivedStabilityPointStructure>
         {
             protected override StabilityPointStructure CreateObject()
             {

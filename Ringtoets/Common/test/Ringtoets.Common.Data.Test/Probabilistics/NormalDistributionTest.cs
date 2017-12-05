@@ -136,7 +136,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         }
 
         [TestFixture]
-        private class NormalDistributionEqualsTest : EqualsGuidelinesTestFixture<NormalDistribution, DerivedNormalDistribution>
+        private class NormalDistributionEqualsTest : EqualsTestFixture<NormalDistribution, DerivedNormalDistribution>
         {
             protected override NormalDistribution CreateObject()
             {

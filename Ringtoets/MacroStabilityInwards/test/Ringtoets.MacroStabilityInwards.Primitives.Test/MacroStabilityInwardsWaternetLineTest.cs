@@ -100,7 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         [TestFixture]
         private class MacroStabilityInwardsWaternetLineEqualsTest
-            : EqualsGuidelinesTestFixture<MacroStabilityInwardsWaternetLine, DerivedMacroStabilityInwardsWaternetLine>
+            : EqualsTestFixture<MacroStabilityInwardsWaternetLine, DerivedMacroStabilityInwardsWaternetLine>
         {
             protected override MacroStabilityInwardsWaternetLine CreateObject()
             {

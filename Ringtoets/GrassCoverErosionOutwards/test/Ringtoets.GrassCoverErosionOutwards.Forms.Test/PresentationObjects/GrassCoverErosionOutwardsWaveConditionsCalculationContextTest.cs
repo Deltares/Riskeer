@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 
         [TestFixture]
         private class GrassCoverErosionOutwardsCalculationContextEqualsTest
-            : EqualsGuidelinesTestFixture<GrassCoverErosionOutwardsWaveConditionsCalculationContext,
+            : EqualsTestFixture<GrassCoverErosionOutwardsWaveConditionsCalculationContext,
                 DerivedGrassCoverErosionOutwardsWaveConditionsCalculationContext>
         {
             private static readonly MockRepository mocks = new MockRepository();

@@ -66,7 +66,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
 
         [TestFixture]
         private class ClosingStructuresCalculationGroupContextEqualsTest
-            : EqualsGuidelinesTestFixture<ClosingStructuresCalculationGroupContext,
+            : EqualsTestFixture<ClosingStructuresCalculationGroupContext,
                 DerivedClosingStructuresCalculationGroupContext>
         {
             private static readonly MockRepository mocks = new MockRepository();

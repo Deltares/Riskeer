@@ -69,7 +69,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
         }
 
         [TestFixture]
-        private class SelectableMetaDataAttributeEqualsTest : EqualsGuidelinesTestFixture<SelectableMetaDataAttribute, DerivedSelectableMetaDataAttribute>
+        private class SelectableMetaDataAttributeEqualsTest : EqualsTestFixture<SelectableMetaDataAttribute, DerivedSelectableMetaDataAttribute>
         {
             private const string attribute = "attribute";
 

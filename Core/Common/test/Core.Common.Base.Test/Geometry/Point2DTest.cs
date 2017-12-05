@@ -330,7 +330,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [TestFixture]
-        private class Point2DEqualsTest : EqualsGuidelinesTestFixture<Point2D>
+        private class Point2DEqualsTest : EqualsTestFixture<Point2D>
         {
             protected override Point2D CreateObject()
             {

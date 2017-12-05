@@ -110,7 +110,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [TestFixture]
-        private class SoilLayer2DLoopEqualsTest : EqualsGuidelinesTestFixture<SoilLayer2DLoop, DerivedSoilLayer2DLoop>
+        private class SoilLayer2DLoopEqualsTest : EqualsTestFixture<SoilLayer2DLoop, DerivedSoilLayer2DLoop>
         {
             protected override SoilLayer2DLoop CreateObject()
             {

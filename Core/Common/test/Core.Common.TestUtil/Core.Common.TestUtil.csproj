@@ -36,7 +36,7 @@
     <Compile Include="DoubleWithToleranceComparer.cs" />
     <Compile Include="EnumValuesTestFixture.cs" />
     <Compile Include="EnumWithDisplayNameTestFixture.cs" />
-    <Compile Include="EqualsGuidelinesTestFixture.cs" />
+    <Compile Include="EqualsTestFixture.cs" />
     <Compile Include="FileDisposeHelper.cs" />
     <Compile Include="DirectoryPermissionsRevoker.cs" />
     <Compile Include="GuiTestHelper.cs" />

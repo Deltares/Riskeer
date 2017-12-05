@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [TestFixture]
-        private class RingtoetsProjectEqualsTest : EqualsGuidelinesTestFixture<RingtoetsProject, DerivedRingtoetsProject>
+        private class RingtoetsProjectEqualsTest : EqualsTestFixture<RingtoetsProject, DerivedRingtoetsProject>
         {
             protected override RingtoetsProject CreateObject()
             {

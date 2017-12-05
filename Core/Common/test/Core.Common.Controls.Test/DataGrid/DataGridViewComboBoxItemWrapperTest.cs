@@ -86,7 +86,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
         [TestFixture]
         private class DataGridViewComboBoxItemWrapperEqualsTest
-            : EqualsGuidelinesTestFixture<DataGridViewComboBoxItemWrapper<TestClass>, DerivedDataGridViewComboBoxItemWrapper<TestClass>>
+            : EqualsTestFixture<DataGridViewComboBoxItemWrapper<TestClass>, DerivedDataGridViewComboBoxItemWrapper<TestClass>>
         {
             private readonly TestClass wrappedObject = new TestClass();
 

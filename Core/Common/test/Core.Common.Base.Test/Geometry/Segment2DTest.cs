@@ -262,7 +262,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [TestFixture]
-        private class Segment2DEqualsTest : EqualsGuidelinesTestFixture<Segment2D>
+        private class Segment2DEqualsTest : EqualsTestFixture<Segment2D>
         {
             [Test]
             public void Equals_SegmentWithTwoPointsWithSameXY_ReturnsTrue()

@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         }
 
         [TestFixture]
-        private class StructuresCalculationContextEqualsTest : EqualsGuidelinesTestFixture<TestStructuresCalculationContext, DerivedTestStructuresCalculationContext>
+        private class StructuresCalculationContextEqualsTest : EqualsTestFixture<TestStructuresCalculationContext, DerivedTestStructuresCalculationContext>
         {
             private static readonly MockRepository mocks = new MockRepository();
 

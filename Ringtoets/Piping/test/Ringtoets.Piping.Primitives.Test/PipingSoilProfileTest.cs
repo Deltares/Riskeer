@@ -200,7 +200,7 @@ namespace Ringtoets.Piping.Primitives.Test
         }
 
         [TestFixture]
-        private class PipingSoilProfileEqualsTest : EqualsGuidelinesTestFixture<PipingSoilProfile, TestProfile>
+        private class PipingSoilProfileEqualsTest : EqualsTestFixture<PipingSoilProfile, TestProfile>
         {
             private const string baseName = "Profile name";
             private const double baseBottom = 3.14;

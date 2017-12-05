@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Primitives.Test
         }
 
         [TestFixture]
-        private class PipingSoilLayerEqualsTest : EqualsGuidelinesTestFixture<PipingSoilLayer, TestLayer>
+        private class PipingSoilLayerEqualsTest : EqualsTestFixture<PipingSoilLayer, TestLayer>
         {
             private const int seed = 21;
 

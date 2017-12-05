@@ -283,7 +283,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [TestFixture]
-        private class HeightStructureEqualsTest : EqualsGuidelinesTestFixture<HeightStructure, DerivedHeightStructure>
+        private class HeightStructureEqualsTest : EqualsTestFixture<HeightStructure, DerivedHeightStructure>
         {
             protected override HeightStructure CreateObject()
             {

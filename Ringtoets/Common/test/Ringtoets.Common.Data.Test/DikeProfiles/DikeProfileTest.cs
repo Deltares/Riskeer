@@ -404,7 +404,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         }
 
         [TestFixture]
-        private class DikeProfileEqualsTest : EqualsGuidelinesTestFixture<DikeProfile, TestDikeProfile>
+        private class DikeProfileEqualsTest : EqualsTestFixture<DikeProfile, TestDikeProfile>
         {
             protected override DikeProfile CreateObject()
             {

@@ -48,7 +48,7 @@ namespace Core.Common.TestUtil
     /// </code>
     /// </example>
     [TestFixture]
-    public abstract class EqualsGuidelinesTestFixture<T> where T : class
+    public abstract class EqualsTestFixture<T> where T : class
     {
         [Test]
         public void Equals_ToNull_ReturnsFalse()
@@ -192,7 +192,7 @@ namespace Core.Common.TestUtil
     /// without any modifications.</typeparam>
     /// <remarks>Derived classes must implement a static function named <c>GetUnequalTestCases</c> 
     /// which returns object configurations that are different from the values in 
-    /// <see cref="EqualsGuidelinesTestFixture{T}.CreateObject"/>.</remarks>
+    /// <see cref="EqualsTestFixture{T}.CreateObject"/>.</remarks>
     /// <example>
     /// <code>
     /// private class ConcreteEqualGuideLines : EqualsGuidelinesTestFixture&lt;T, TDerived&gt;
@@ -214,7 +214,7 @@ namespace Core.Common.TestUtil
     /// }
     /// </code>
     /// </example>
-    public abstract class EqualsGuidelinesTestFixture<T, TDerived> : EqualsGuidelinesTestFixture<T>
+    public abstract class EqualsTestFixture<T, TDerived> : EqualsTestFixture<T>
         where T : class
         where TDerived : T
     {
@@ -234,7 +234,7 @@ namespace Core.Common.TestUtil
 
         /// <summary>
         /// Creates a fully configured derived object with the same properties and values as 
-        /// <see cref="EqualsGuidelinesTestFixture{T}.CreateObject"/>.
+        /// <see cref="EqualsTestFixture{T}.CreateObject"/>.
         /// </summary>
         /// <returns>A fully configured derived object of <typeparamref name="TDerived"/></returns>
         protected abstract TDerived CreateDerivedObject();

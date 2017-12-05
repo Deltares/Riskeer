@@ -65,7 +65,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 
         [TestFixture]
         private class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextEqualsTest
-            : EqualsGuidelinesTestFixture<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext,
+            : EqualsTestFixture<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext,
                 DerivedWaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>
         {
             private static readonly MockRepository mocks = new MockRepository();

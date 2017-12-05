@@ -75,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [TestFixture]
-        private class RingEqualsTest : EqualsGuidelinesTestFixture<Ring, DerivedRing>
+        private class RingEqualsTest : EqualsTestFixture<Ring, DerivedRing>
         {
             protected override Ring CreateObject()
             {

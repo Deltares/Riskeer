@@ -66,7 +66,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 
         [TestFixture]
         private class HeightStructuresCalculationGroupContextEqualsTest
-            : EqualsGuidelinesTestFixture<HeightStructuresCalculationGroupContext,
+            : EqualsTestFixture<HeightStructuresCalculationGroupContext,
                 DerivedHeightStructuresCalculationGroupContext>
         {
             private static readonly MockRepository mocks = new MockRepository();

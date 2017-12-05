@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         }
 
         [TestFixture]
-        private class PipingStochasticSoilProfileEqualsTest : EqualsGuidelinesTestFixture<PipingStochasticSoilProfile, DerivedPipingStochasticSoilProfile>
+        private class PipingStochasticSoilProfileEqualsTest : EqualsTestFixture<PipingStochasticSoilProfile, DerivedPipingStochasticSoilProfile>
         {
             protected override PipingStochasticSoilProfile CreateObject()
             {

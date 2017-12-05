@@ -66,7 +66,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
 
         [TestFixture]
         private class StabilityPointStructuresCalculationGroupContextEqualsTest
-            : EqualsGuidelinesTestFixture<StabilityPointStructuresCalculationGroupContext,
+            : EqualsTestFixture<StabilityPointStructuresCalculationGroupContext,
                 DerivedStabilityPointStructuresCalculationGroupContext>
         {
             private static readonly MockRepository mocks = new MockRepository();

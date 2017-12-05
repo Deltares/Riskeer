@@ -143,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
         [TestFixture]
         private class MacroStabilityInwardsPreconsolidationStressEqualsTest :
-            EqualsGuidelinesTestFixture<MacroStabilityInwardsPreconsolidationStress,
+            EqualsTestFixture<MacroStabilityInwardsPreconsolidationStress,
                 DerivedMacroStabilityInwardsPreconsolidationStress>
         {
             protected override MacroStabilityInwardsPreconsolidationStress CreateObject()

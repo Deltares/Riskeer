@@ -64,7 +64,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
 
         [TestFixture]
         private class StabilityStoneCoverWaveConditionsCalculationGroupContextEqualsTest
-            : EqualsGuidelinesTestFixture<StabilityStoneCoverWaveConditionsCalculationGroupContext,
+            : EqualsTestFixture<StabilityStoneCoverWaveConditionsCalculationGroupContext,
                 DerivedStabilityStoneCoverWaveConditionsCalculationGroupContext>
         {
             private static readonly MockRepository mocks = new MockRepository();

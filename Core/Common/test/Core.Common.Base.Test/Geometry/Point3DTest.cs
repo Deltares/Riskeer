@@ -104,7 +104,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [TestFixture]
-        private class Point3DEqualsTest : EqualsGuidelinesTestFixture<Point3D>
+        private class Point3DEqualsTest : EqualsTestFixture<Point3D>
         {
             protected override Point3D CreateObject()
             {

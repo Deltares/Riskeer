@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         }
 
         [TestFixture]
-        private class CategoryTreeFolderEqualsTest : EqualsGuidelinesTestFixture<CategoryTreeFolder, TestCategoryTreeFolder>
+        private class CategoryTreeFolderEqualsTest : EqualsTestFixture<CategoryTreeFolder, TestCategoryTreeFolder>
         {
             protected override CategoryTreeFolder CreateObject()
             {

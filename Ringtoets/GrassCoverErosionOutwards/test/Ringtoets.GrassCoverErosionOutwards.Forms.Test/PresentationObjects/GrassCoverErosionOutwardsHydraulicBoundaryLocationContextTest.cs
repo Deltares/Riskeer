@@ -69,7 +69,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 
         [TestFixture]
         private class GrassCoverErosionOutwardsHydraulicBoundaryLocationContextEqualsTest
-            : EqualsGuidelinesTestFixture<TestGrassCoverErosionOutwardsLocationContext, DerivedTestGrassCoverErosionOutwardsLocationContext>
+            : EqualsTestFixture<TestGrassCoverErosionOutwardsLocationContext, DerivedTestGrassCoverErosionOutwardsLocationContext>
         {
             private static readonly ObservableList<HydraulicBoundaryLocation> hydraulicLocations = new ObservableList<HydraulicBoundaryLocation>();
             private static readonly HydraulicBoundaryLocation hydraulicLocation = new TestHydraulicBoundaryLocation();

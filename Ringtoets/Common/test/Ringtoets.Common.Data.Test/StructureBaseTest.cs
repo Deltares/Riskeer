@@ -193,7 +193,7 @@ namespace Ringtoets.Common.Data.Test
         }
 
         [TestFixture]
-        private class StructureBaseEqualsTest : EqualsGuidelinesTestFixture<StructureBase>
+        private class StructureBaseEqualsTest : EqualsTestFixture<StructureBase>
         {
             protected override StructureBase CreateObject()
             {

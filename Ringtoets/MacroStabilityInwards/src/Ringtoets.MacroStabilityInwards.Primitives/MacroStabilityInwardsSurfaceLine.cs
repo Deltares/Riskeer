@@ -351,7 +351,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return true;
             }
-            return GetType() == obj.GetType() && Equals((MacroStabilityInwardsSurfaceLine) obj);
+            if (GetType() != obj.GetType())
+            {
+                return false;
+            }
+            return Equals((MacroStabilityInwardsSurfaceLine) obj);
         }
 
         public override int GetHashCode()

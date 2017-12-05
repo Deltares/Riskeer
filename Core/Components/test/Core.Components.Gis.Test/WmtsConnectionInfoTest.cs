@@ -66,7 +66,7 @@ namespace Core.Components.Gis.Test
         }
 
         [TestFixture]
-        private class WmtsConnectionInfoEqualsTest : EqualsGuidelinesTestFixture<WmtsConnectionInfo, DerivedWmtsConnectionInfo>
+        private class WmtsConnectionInfoEqualsTest : EqualsTestFixture<WmtsConnectionInfo, DerivedWmtsConnectionInfo>
         {
             protected override WmtsConnectionInfo CreateObject()
             {

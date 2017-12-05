@@ -124,7 +124,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         [TestFixture]
         private class MacroStabilityInwardsSoilLayerDataEqualsTest
-            : EqualsGuidelinesTestFixture<MacroStabilityInwardsSoilLayerData, DerivedMacroStabilityInwardsSoilLayerData>
+            : EqualsTestFixture<MacroStabilityInwardsSoilLayerData, DerivedMacroStabilityInwardsSoilLayerData>
         {
             protected override MacroStabilityInwardsSoilLayerData CreateObject()
             {

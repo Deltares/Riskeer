@@ -70,7 +70,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
             {
                 return true;
             }
-            return obj.GetType() == GetType() && Equals((WindDirectionClosingSituation) obj);
+            if (GetType() != obj.GetType())
+            {
+                return false;
+            }
+            return Equals((WindDirectionClosingSituation) obj);
         }
 
         public override int GetHashCode()

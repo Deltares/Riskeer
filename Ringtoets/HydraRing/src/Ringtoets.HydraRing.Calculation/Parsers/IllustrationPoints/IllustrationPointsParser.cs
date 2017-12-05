@@ -573,8 +573,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 {
                     return false;
                 }
-                return obj.GetType() == GetType()
-                       && Equals((ThreeKeyIndex) obj);
+                if (GetType() != obj.GetType())
+                {
+                    return false;
+                }
+                return Equals((ThreeKeyIndex) obj);
             }
 
             public override int GetHashCode()

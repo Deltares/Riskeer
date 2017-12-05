@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         [TestFixture]
         private class MacroStabilityInwardsPhreaticLineEqualsTest
-            : EqualsGuidelinesTestFixture<MacroStabilityInwardsPhreaticLine, DerivedMacroStabilityInwardsPhreaticLine>
+            : EqualsTestFixture<MacroStabilityInwardsPhreaticLine, DerivedMacroStabilityInwardsPhreaticLine>
         {
             protected override MacroStabilityInwardsPhreaticLine CreateObject()
             {

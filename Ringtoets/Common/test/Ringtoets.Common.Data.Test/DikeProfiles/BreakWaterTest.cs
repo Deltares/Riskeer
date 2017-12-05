@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         }
 
         [TestFixture]
-        private class BreakWaterEqualsTest : EqualsGuidelinesTestFixture<BreakWater, DerivedBreakWater>
+        private class BreakWaterEqualsTest : EqualsTestFixture<BreakWater, DerivedBreakWater>
         {
             protected override BreakWater CreateObject()
             {

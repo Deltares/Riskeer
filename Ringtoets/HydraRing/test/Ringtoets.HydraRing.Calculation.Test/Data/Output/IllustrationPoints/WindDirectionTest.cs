@@ -63,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         }
 
         [TestFixture]
-        private class WindDirectionEqualsTest : EqualsGuidelinesTestFixture<WindDirection, DerivedWindDirection>
+        private class WindDirectionEqualsTest : EqualsTestFixture<WindDirection, DerivedWindDirection>
         {
             protected override WindDirection CreateObject()
             {

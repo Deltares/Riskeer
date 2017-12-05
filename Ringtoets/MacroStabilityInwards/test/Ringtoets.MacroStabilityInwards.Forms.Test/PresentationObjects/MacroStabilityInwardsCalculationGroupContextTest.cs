@@ -83,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
         [TestFixture]
         private class MacroStabilityInwardsCalculationGroupContextEqualsTest
-            : EqualsGuidelinesTestFixture<MacroStabilityInwardsCalculationGroupContext, DerivedMacroStabilityInwardsCalculationGroupContext>
+            : EqualsTestFixture<MacroStabilityInwardsCalculationGroupContext, DerivedMacroStabilityInwardsCalculationGroupContext>
         {
             private static readonly MockRepository mocks = new MockRepository();
 

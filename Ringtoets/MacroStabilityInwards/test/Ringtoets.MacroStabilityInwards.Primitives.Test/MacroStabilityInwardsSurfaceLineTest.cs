@@ -145,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsSurfaceLineEqualsTest : EqualsGuidelinesTestFixture<MacroStabilityInwardsSurfaceLine, TestSurfaceLine>
+        private class MacroStabilityInwardsSurfaceLineEqualsTest : EqualsTestFixture<MacroStabilityInwardsSurfaceLine, TestSurfaceLine>
         {
             protected override MacroStabilityInwardsSurfaceLine CreateObject()
             {

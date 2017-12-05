@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         }
 
         [TestFixture]
-        private class RoughnessPointEqualsTest : EqualsGuidelinesTestFixture<RoughnessPoint, DerivedRoughnessPoint>
+        private class RoughnessPointEqualsTest : EqualsTestFixture<RoughnessPoint, DerivedRoughnessPoint>
         {
             protected override RoughnessPoint CreateObject()
             {

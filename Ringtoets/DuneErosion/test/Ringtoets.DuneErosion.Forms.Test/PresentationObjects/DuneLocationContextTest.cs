@@ -66,7 +66,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
         }
 
         [TestFixture]
-        private class DuneLocationContextEqualsTest : EqualsGuidelinesTestFixture<DuneLocationContext, DerivedDuneLocationContext>
+        private class DuneLocationContextEqualsTest : EqualsTestFixture<DuneLocationContext, DerivedDuneLocationContext>
         {
             private static readonly ObservableList<DuneLocation> duneLocations = new ObservableList<DuneLocation>();
             private static readonly DuneLocation duneLocation = new TestDuneLocation();

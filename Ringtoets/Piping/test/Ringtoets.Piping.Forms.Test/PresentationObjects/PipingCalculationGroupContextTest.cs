@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
         [TestFixture]
         private class PipingCalculationGroupContextEqualsTest
-            : EqualsGuidelinesTestFixture<PipingCalculationGroupContext, DerivedPipingCalculationGroupContext>
+            : EqualsTestFixture<PipingCalculationGroupContext, DerivedPipingCalculationGroupContext>
         {
             private static readonly MockRepository mocks = new MockRepository();
 

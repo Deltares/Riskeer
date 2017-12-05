@@ -351,7 +351,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         }
 
         [TestFixture]
-        private class ForeshoreProfileEqualsTest : EqualsGuidelinesTestFixture<ForeshoreProfile, DerivedForeshoreProfile>
+        private class ForeshoreProfileEqualsTest : EqualsTestFixture<ForeshoreProfile, DerivedForeshoreProfile>
         {
             protected override ForeshoreProfile CreateObject()
             {

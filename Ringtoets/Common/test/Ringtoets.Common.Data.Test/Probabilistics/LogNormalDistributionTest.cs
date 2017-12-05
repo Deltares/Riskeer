@@ -229,7 +229,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         }
 
         [TestFixture]
-        private class LogNormalDistributionEqualsTest : EqualsGuidelinesTestFixture<LogNormalDistribution, DerivedLogNormalDistribution>
+        private class LogNormalDistributionEqualsTest : EqualsTestFixture<LogNormalDistribution, DerivedLogNormalDistribution>
         {
             protected override LogNormalDistribution CreateObject()
             {

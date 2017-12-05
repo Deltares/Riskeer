@@ -119,7 +119,7 @@ namespace Core.Common.Utils.Test
         }
 
         [TestFixture]
-        private class FileFilterGeneratorEqualsTest : EqualsGuidelinesTestFixture<FileFilterGenerator, DerivedFileFilterGenerator>
+        private class FileFilterGeneratorEqualsTest : EqualsTestFixture<FileFilterGenerator, DerivedFileFilterGenerator>
         {
             protected override FileFilterGenerator CreateObject()
             {

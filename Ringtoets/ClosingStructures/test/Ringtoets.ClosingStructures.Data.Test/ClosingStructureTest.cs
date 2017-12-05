@@ -371,7 +371,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [TestFixture]
-        private class ClosingStructureEqualsTest : EqualsGuidelinesTestFixture<ClosingStructure, DerivedClosingStructures>
+        private class ClosingStructureEqualsTest : EqualsTestFixture<ClosingStructure, DerivedClosingStructures>
         {
             protected override ClosingStructure CreateObject()
             {

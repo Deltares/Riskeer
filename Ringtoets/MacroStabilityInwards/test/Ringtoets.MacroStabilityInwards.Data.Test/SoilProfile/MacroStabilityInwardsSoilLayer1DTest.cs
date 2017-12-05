@@ -79,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
         [TestFixture]
         private class MacroStabilityInwardsSoilLayer1DEqualsTest
-            : EqualsGuidelinesTestFixture<MacroStabilityInwardsSoilLayer1D, DerivedMacroStabilityInwardsSoilLayer1D>
+            : EqualsTestFixture<MacroStabilityInwardsSoilLayer1D, DerivedMacroStabilityInwardsSoilLayer1D>
         {
             protected override MacroStabilityInwardsSoilLayer1D CreateObject()
             {
