@@ -31,6 +31,7 @@ namespace Ringtoets.Common.Data.Hydraulics
     /// </summary>
     public class HydraulicBoundaryDatabase : Observable
     {
+        private bool canUsePreprocessor;
         private bool usePreprocessor;
         private string preprocessorDirectory;
 
@@ -74,9 +75,27 @@ namespace Ringtoets.Common.Data.Hydraulics
         public List<HydraulicBoundaryLocation> Locations { get; }
 
         /// <summary>
-        /// Gets a value indicating whether the Hydra-Ring preprocessor can be used.
+        /// Gets or sets a value indicating whether the Hydra-Ring preprocessor can be used.
         /// </summary>
-        public bool CanUsePreprocessor { get; }
+        /// <remarks>When setting this property to <c>false</c>, both <see cref="UsePreprocessor"/>
+        /// and <see cref="PreprocessorDirectory"/> are reset.</remarks>
+        public bool CanUsePreprocessor
+        {
+            get
+            {
+                return canUsePreprocessor;
+            }
+            set
+            {
+                canUsePreprocessor = value;
+
+                if (!canUsePreprocessor)
+                {
+                    usePreprocessor = false;
+                    preprocessorDirectory = null;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether the Hydra-Ring preprocessor must be used.
