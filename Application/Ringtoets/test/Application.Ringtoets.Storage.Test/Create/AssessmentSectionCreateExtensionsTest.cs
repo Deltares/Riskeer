@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
@@ -224,16 +223,17 @@ namespace Application.Ringtoets.Storage.Test.Create
             const bool usePreprocessor = true;
             const string preprocessorDirectory = "directory";
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>
-                                                    {
-                                                        new HydraulicBoundaryLocation(-1, "name", 1, 2)
-                                                    },
-                                                    testFilePath, testVersion, usePreprocessor, preprocessorDirectory);
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, preprocessorDirectory)
+                {
+                    FilePath = testFilePath,
+                    Version = testVersion,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(-1, "name", 1, 2)
+                    }
+                }
             };
             var registry = new PersistenceRegistry();
 

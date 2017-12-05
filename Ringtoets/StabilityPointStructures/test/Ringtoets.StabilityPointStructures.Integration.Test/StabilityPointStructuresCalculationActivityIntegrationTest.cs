@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
@@ -333,12 +332,12 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                              .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), validFilePath, "", true, validPreprocessorDirectory);
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
+                {
+                    FilePath = validFilePath
+                }
             };
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -365,12 +364,12 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                              .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), validFilePath, "", false, "NonExistingPreprocessorDirectory");
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "NonExistingPreprocessorDirectory")
+                {
+                    FilePath = validFilePath
+                }
             };
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();

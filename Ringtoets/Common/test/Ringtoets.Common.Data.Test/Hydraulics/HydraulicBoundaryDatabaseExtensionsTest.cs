@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 
@@ -60,8 +59,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                                                                                                string expectedEffectivePreprocessorDirectory)
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", usePreprocessor, preprocessorDirectory);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, preprocessorDirectory);
 
             // Call
             string effectivePreprocessorDirectory = hydraulicBoundaryDatabase.EffectivePreprocessorDirectory();

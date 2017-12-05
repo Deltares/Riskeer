@@ -545,18 +545,44 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase
         {
-            public TestHydraulicBoundaryDatabase(bool usePreprocessor, string preprocessorDirectory)
+            public TestHydraulicBoundaryDatabase(bool usePreprocessor, string preprocessorDirectory) : base(usePreprocessor, preprocessorDirectory)
             {
-                SetParameters(CreateLocations(), "", "", usePreprocessor, preprocessorDirectory);
+                AddLocations();
             }
 
             public TestHydraulicBoundaryDatabase()
             {
-                SetParameters(CreateLocations(), "", "");
+                AddLocations();
             }
 
-            private static List<HydraulicBoundaryLocation> CreateLocations()
+            private void AddLocations()
             {
+                Locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
+                Locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
+                {
+                    DesignWaterLevelCalculation =
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(1.23)
+                    }
+                });
+                Locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
+                {
+                    WaveHeightCalculation =
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(2.45)
+                    }
+                });
+                Locations.Add(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
+                {
+                    DesignWaterLevelCalculation =
+                    {
+                        InputParameters =
+                        {
+                            ShouldIllustrationPointsBeCalculated = true
+                        }
+                    }
+                });
+
                 var topLevelIllustrationPoints = new[]
                 {
                     new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
@@ -570,45 +596,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
                 var output = new TestHydraulicBoundaryLocationOutput(1.01, generalResult);
 
-                return new List<HydraulicBoundaryLocation>
+                Locations.Add(new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
                 {
-                    new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
-                    new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
+                    DesignWaterLevelCalculation =
                     {
-                        DesignWaterLevelCalculation =
+                        InputParameters =
                         {
-                            Output = new TestHydraulicBoundaryLocationOutput(1.23)
-                        }
-                    },
-                    new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
-                    {
-                        WaveHeightCalculation =
-                        {
-                            Output = new TestHydraulicBoundaryLocationOutput(2.45)
-                        }
-                    },
-                    new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
-                    {
-                        DesignWaterLevelCalculation =
-                        {
-                            InputParameters =
-                            {
-                                ShouldIllustrationPointsBeCalculated = true
-                            }
-                        }
-                    },
-                    new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
-                    {
-                        DesignWaterLevelCalculation =
-                        {
-                            InputParameters =
-                            {
-                                ShouldIllustrationPointsBeCalculated = true
-                            },
-                            Output = output
-                        }
+                            ShouldIllustrationPointsBeCalculated = true
+                        },
+                        Output = output
                     }
-                };
+                });
             }
         }
 

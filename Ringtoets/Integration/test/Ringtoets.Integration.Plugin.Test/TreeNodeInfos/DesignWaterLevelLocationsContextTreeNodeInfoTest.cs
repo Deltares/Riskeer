@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -329,16 +328,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>
-                                                    {
-                                                        hydraulicBoundaryLocation
-                                                    },
-                                                    Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"), "", true, preprocessorDirectory);
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, preprocessorDirectory)
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    },
+                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                }
             };
 
             var context = new DesignWaterLevelLocationsContext(assessmentSection);
@@ -392,16 +391,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>
-                                                    {
-                                                        hydraulicBoundaryLocation
-                                                    },
-                                                    Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"), "", false, "InvalidPreprocessorDirectory");
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    },
+                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                }
             };
 
             var context = new DesignWaterLevelLocationsContext(assessmentSection);

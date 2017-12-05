@@ -113,12 +113,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         public void Run_CalculationWithInvalidPreprocessorDirectory_DoesNotPerformCalculationAndLogsError()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", true, "NonExistingPreprocessorDirectory");
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "NonExistingPreprocessorDirectory")
             };
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -562,17 +559,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             // Setup
             var mockRepository = new MockRepository();
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
+                {
+                    FilePath = validFilePath,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                    }
+                }
             };
-
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>
-                                                    {
-                                                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                                                    },
-                                                    validFilePath, "", true, validPreprocessorDirectory);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
@@ -605,17 +602,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             // Setup
             var mockRepository = new MockRepository();
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+                {
+                    FilePath = validFilePath,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                    }
+                }
             };
-
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>
-                                                    {
-                                                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                                                    },
-                                                    validFilePath, "", false, "InvalidPreprocessorDirectory");
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 

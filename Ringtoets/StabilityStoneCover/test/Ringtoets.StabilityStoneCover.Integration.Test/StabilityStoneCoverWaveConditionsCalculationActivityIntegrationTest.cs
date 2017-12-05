@@ -123,11 +123,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(stabilityStoneCoverFailureMechanism, mockRepository);
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", true, "InvalidPreprocessorDirectory");
-
-            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "InvalidPreprocessorDirectory");
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
                                                                                     validFilePath,
@@ -601,10 +597,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 stabilityStoneCoverFailureMechanism,
                 mockRepository);
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), validFilePath, "", true, validPreprocessorDirectory);
-
-            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
+            {
+                FilePath = validFilePath
+            };
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
                                                                                     validFilePath,
@@ -642,10 +638,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 stabilityStoneCoverFailureMechanism,
                 mockRepository);
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), validFilePath, "", false, "InvalidPreprocessorDirectory");
-
-            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            {
+                FilePath = validFilePath
+            };
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
                                                                                     validFilePath,

@@ -45,6 +45,20 @@ namespace Ringtoets.Common.Data.Hydraulics
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.
+        /// </summary>
+        /// <param name="usePreprocessor">A value indicating whether the Hydra-Ring preprocessor must be used.</param>
+        /// <param name="preprocessorDirectory">The Hydra-Ring preprocessor directory.</param>
+        /// <remarks><see cref="CanUsePreprocessor"/> is set to <c>true</c>.</remarks>
+        public HydraulicBoundaryDatabase(bool usePreprocessor, string preprocessorDirectory)
+        {
+            CanUsePreprocessor = true;
+            Locations = new List<HydraulicBoundaryLocation>();
+            UsePreprocessor = usePreprocessor;
+            PreprocessorDirectory = preprocessorDirectory;
+        }
+
+        /// <summary>
         /// Gets or sets the path to the hydraulic boundary database file.
         /// </summary>
         public string FilePath { get; set; }
@@ -57,12 +71,12 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Gets the hydraulic boundary locations.
         /// </summary>
-        public List<HydraulicBoundaryLocation> Locations { get; private set; }
+        public List<HydraulicBoundaryLocation> Locations { get; }
 
         /// <summary>
         /// Gets a value indicating whether the Hydra-Ring preprocessor can be used.
         /// </summary>
-        public bool CanUsePreprocessor { get; private set; }
+        public bool CanUsePreprocessor { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the Hydra-Ring preprocessor must be used.
@@ -110,60 +124,6 @@ namespace Ringtoets.Common.Data.Hydraulics
 
                 preprocessorDirectory = value;
             }
-        }
-
-        /// <summary>
-        /// Sets all parameters of the hydraulic boundary database.
-        /// </summary>
-        /// <param name="locations">The locations of the hydraulic boundary database.</param>
-        /// <param name="filePath">The file path of the hydraulic boundary database.</param>
-        /// <param name="version">The version indicator of the hydraulic boundary database.</param>
-        /// <remarks><see cref="CanUsePreprocessor"/> is set to <c>false</c>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
-        public void SetParameters(List<HydraulicBoundaryLocation> locations,
-                                  string filePath,
-                                  string version)
-        {
-            if (locations == null)
-            {
-                throw new ArgumentNullException(nameof(locations));
-            }
-
-            Locations = locations;
-            FilePath = filePath;
-            Version = version;
-            CanUsePreprocessor = false;
-            usePreprocessor = false;
-            preprocessorDirectory = null;
-        }
-
-        /// <summary>
-        /// Sets all parameters of the hydraulic boundary database.
-        /// </summary>
-        /// <param name="locations">The locations of the hydraulic boundary database.</param>
-        /// <param name="filePath">The file path of the hydraulic boundary database.</param>
-        /// <param name="version">The version indicator of the hydraulic boundary database.</param>
-        /// <param name="usePreprocessorValue">A value indicating whether the Hydra-Ring preprocessor must be used.</param>
-        /// <param name="preprocessorDirectoryValue">The Hydra-Ring preprocessor directory.</param>
-        /// <remarks><see cref="CanUsePreprocessor"/> is set to <c>true</c>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
-        public void SetParameters(List<HydraulicBoundaryLocation> locations,
-                                  string filePath,
-                                  string version,
-                                  bool usePreprocessorValue,
-                                  string preprocessorDirectoryValue)
-        {
-            if (locations == null)
-            {
-                throw new ArgumentNullException(nameof(locations));
-            }
-
-            Locations = locations;
-            FilePath = filePath;
-            Version = version;
-            CanUsePreprocessor = true;
-            UsePreprocessor = usePreprocessorValue;
-            preprocessorDirectory = preprocessorDirectoryValue;
         }
     }
 }

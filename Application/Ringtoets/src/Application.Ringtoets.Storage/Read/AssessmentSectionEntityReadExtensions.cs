@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
@@ -125,29 +124,21 @@ namespace Application.Ringtoets.Storage.Read
             {
                 HydraRingPreprocessorEntity preprocessorEntity = entity.HydraRingPreprocessorEntities.FirstOrDefault();
 
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = preprocessorEntity != null
+                                                                          ? new HydraulicBoundaryDatabase(
+                                                                              Convert.ToBoolean(preprocessorEntity.UsePreprocessor),
+                                                                              preprocessorEntity.PreprocessorDirectory)
+                                                                          : new HydraulicBoundaryDatabase();
 
-                List<HydraulicBoundaryLocation> locations = entity.HydraulicLocationEntities
-                                                                  .OrderBy(hl => hl.Order)
-                                                                  .Select(hl => hl.Read(collector))
-                                                                  .ToList();
-
-                if (preprocessorEntity != null)
-                {
-                    hydraulicBoundaryDatabase.SetParameters(locations,
-                                                            entity.HydraulicDatabaseLocation,
-                                                            entity.HydraulicDatabaseVersion,
-                                                            Convert.ToBoolean(preprocessorEntity.UsePreprocessor),
-                                                            preprocessorEntity.PreprocessorDirectory);
-                }
-                else
-                {
-                    hydraulicBoundaryDatabase.SetParameters(locations,
-                                                            entity.HydraulicDatabaseLocation,
-                                                            entity.HydraulicDatabaseVersion);
-                }
+                hydraulicBoundaryDatabase.FilePath = entity.HydraulicDatabaseLocation;
+                hydraulicBoundaryDatabase.Version = entity.HydraulicDatabaseVersion;
 
                 assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+                foreach (HydraulicLocationEntity hydraulicLocationEntity in entity.HydraulicLocationEntities.OrderBy(hl => hl.Order))
+                {
+                    assessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicLocationEntity.Read(collector));
+                }
             }
         }
 

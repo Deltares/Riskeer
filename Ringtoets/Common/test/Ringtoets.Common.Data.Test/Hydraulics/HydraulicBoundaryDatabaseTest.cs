@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -48,12 +47,30 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
+        public void Constructor_WithParameters_ExpectedValues([Values(true, false)] bool usePreprocessor)
+        {
+            // Setup
+            const string preprocessorDirectory = "Preprocessor";
+
+            // Call
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, preprocessorDirectory);
+
+            // Assert
+            Assert.IsInstanceOf<Observable>(hydraulicBoundaryDatabase);
+            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
+            Assert.IsNull(hydraulicBoundaryDatabase.Version);
+            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+            Assert.IsTrue(hydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.AreEqual(usePreprocessor, hydraulicBoundaryDatabase.UsePreprocessor);
+            Assert.AreEqual(preprocessorDirectory, hydraulicBoundaryDatabase.PreprocessorDirectory);
+        }
+
+        [Test]
         public void UsePreprocessor_SetValueWithCanUsePreprocessorTrue_ExpectedValueSet()
         {
             // Setup
             bool usePreprocessor = new Random(11).NextBoolean();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", !usePreprocessor, "Preprocessor");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(!usePreprocessor, "Preprocessor");
 
             // Call
             hydraulicBoundaryDatabase.UsePreprocessor = usePreprocessor;
@@ -82,9 +99,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         {
             // Setup
             const string preprocessorDirectory = "OtherPreprocessor";
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", true, "Preprocessor");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "Preprocessor");
 
             // Call
             hydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorDirectory;
@@ -107,140 +122,13 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual($"{nameof(HydraulicBoundaryDatabase.CanUsePreprocessor)} is false.", message);
         }
 
-        [Test]
-        public void ConstructorWithoutPreprocessorParameters_LocationsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-            // Call
-            TestDelegate test = () => hydraulicBoundaryDatabase.SetParameters(null, "filePath", "version");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("locations", exception.ParamName);
-        }
-
-        [Test]
-        public void GivenDefaultHydraulicBoundaryDatabase_WhenSettingValidParametersWithoutPreprocessorValues_ThenExpectedValuesSet()
-        {
-            // Given
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var hydraulicBoundaryLocations = new List<HydraulicBoundaryLocation>();
-            const string filePath = "filePath";
-            const string version = "version";
-
-            // When
-            hydraulicBoundaryDatabase.SetParameters(hydraulicBoundaryLocations, filePath, version);
-
-            // Then
-            Assert.AreSame(hydraulicBoundaryLocations, hydraulicBoundaryDatabase.Locations);
-            Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(version, hydraulicBoundaryDatabase.Version);
-            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
-        }
-
-        [Test]
-        public void GivenConfiguredHydraulicBoundaryDatabase_WhenSettingValidParametersWithoutPreprocessorValues_ThenExpectedValuesSet()
-        {
-            // Given
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var hydraulicBoundaryLocations = new List<HydraulicBoundaryLocation>();
-            const string filePath = "filePath";
-            const string version = "version";
-
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(),
-                                                    "otherFilePath",
-                                                    "otherVersion",
-                                                    true,
-                                                    "preprocessorDirectory");
-
-            // When
-            hydraulicBoundaryDatabase.SetParameters(hydraulicBoundaryLocations, filePath, version);
-
-            // Then
-            Assert.AreSame(hydraulicBoundaryLocations, hydraulicBoundaryDatabase.Locations);
-            Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(version, hydraulicBoundaryDatabase.Version);
-            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
-        }
-
-        [Test]
-        public void ConstructorWithPreprocessorParameters_LocationsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-            // Call
-            TestDelegate test = () => hydraulicBoundaryDatabase.SetParameters(null, "filePath", "version", true, "preprocessorDirectory");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("locations", exception.ParamName);
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenDefaultHydraulicBoundaryDatabase_WhenSettingValidParametersWithPreprocessorValues_ThenExpectedValuesSet(bool usePreprocessor)
-        {
-            // Given
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var hydraulicBoundaryLocations = new List<HydraulicBoundaryLocation>();
-            const string filePath = "filePath";
-            const string version = "version";
-            const string preprocessorDirectory = "preprocessorDirectory";
-
-            // When
-            hydraulicBoundaryDatabase.SetParameters(hydraulicBoundaryLocations, filePath, version, usePreprocessor, preprocessorDirectory);
-
-            // Then
-            Assert.AreSame(hydraulicBoundaryLocations, hydraulicBoundaryDatabase.Locations);
-            Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(version, hydraulicBoundaryDatabase.Version);
-            Assert.IsTrue(hydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.AreEqual(usePreprocessor, hydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.AreEqual(preprocessorDirectory, hydraulicBoundaryDatabase.PreprocessorDirectory);
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenConfiguredHydraulicBoundaryDatabase_WhenSettingValidParametersWithPreprocessorValues_ThenExpectedValuesSet(bool usePreprocessor)
-        {
-            // Given
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var hydraulicBoundaryLocations = new List<HydraulicBoundaryLocation>();
-            const string filePath = "filePath";
-            const string version = "version";
-            const string preprocessorDirectory = "preprocessorDirectory";
-
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(),
-                                                    "otherFilePath",
-                                                    "otherVersion");
-
-            // When
-            hydraulicBoundaryDatabase.SetParameters(hydraulicBoundaryLocations, filePath, version, usePreprocessor, preprocessorDirectory);
-
-            // Then
-            Assert.AreSame(hydraulicBoundaryLocations, hydraulicBoundaryDatabase.Locations);
-            Assert.AreEqual(filePath, hydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(version, hydraulicBoundaryDatabase.Version);
-            Assert.IsTrue(hydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.AreEqual(usePreprocessor, hydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.AreEqual(preprocessorDirectory, hydraulicBoundaryDatabase.PreprocessorDirectory);
-        }
-
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
         public void PreprocessorDirectory_SetInvalidValueWithCanUsePreprocessorTrue_ThrowsArgumentException(string preprocessorDirectory)
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", true, "Preprocessor");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "Preprocessor");
 
             // Call
             TestDelegate test = () => hydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorDirectory;

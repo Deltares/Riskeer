@@ -117,12 +117,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         public void Run_CalculationWithInvalidPreprocessorDirectory_DoesNotPerformCalculationAndLogsError()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", true, "InvalidPreprocessorDirectory");
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "InvalidPreprocessorDirectory")
             };
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
@@ -473,17 +470,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             // Setup
             var mockRepository = new MockRepository();
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
+                {
+                    FilePath = validFilePath,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                    }
+                }
             };
-
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>
-                                                    {
-                                                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                                                    },
-                                                    validFilePath, "", true, validPreprocessorDirectory);
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
@@ -516,17 +513,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             // Setup
             var mockRepository = new MockRepository();
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "NonExistingPreprocessorDirectory")
+                {
+                    FilePath = validFilePath,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                    }
+                }
             };
-
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>
-                                                    {
-                                                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                                                    },
-                                                    validFilePath, "", false, "NonExistingPreprocessorDirectory");
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 

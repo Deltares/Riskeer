@@ -50,7 +50,6 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
-using System.Collections.Generic;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 {
@@ -1024,12 +1023,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"), "", false, "InvalidPreprocessorDirectory");
-
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 failureMechanism, mocks);
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                            failureMechanism.WaveConditionsCalculationGroup,
@@ -1095,12 +1095,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"), "", true, TestHelper.GetScratchPadPath());
-
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 failureMechanism, mocks);
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, TestHelper.GetScratchPadPath())
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                            failureMechanism.WaveConditionsCalculationGroup,
@@ -1166,12 +1167,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"), "", true, "InvalidPreprocessorDirectory");
-
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 failureMechanism, mocks);
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "InvalidPreprocessorDirectory")
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                            failureMechanism.WaveConditionsCalculationGroup,

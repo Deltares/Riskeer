@@ -369,13 +369,16 @@ namespace Application.Ringtoets.Storage.TestUtil
                 }
             };
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>
-                                                    {
-                                                        hydraulicBoundaryLocation,
-                                                        hydraulicBoundaryLocationWithIllustrationPoints
-                                                    },
-                                                    "/temp/test", "1.0", true, "/temp/preprocessor");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "/temp/preprocessor")
+            {
+                FilePath = "/temp/test",
+                Version = "1.0",
+                Locations =
+                {
+                    hydraulicBoundaryLocation,
+                    hydraulicBoundaryLocationWithIllustrationPoints
+                }
+            };
 
             return hydraulicBoundaryDatabase;
         }
