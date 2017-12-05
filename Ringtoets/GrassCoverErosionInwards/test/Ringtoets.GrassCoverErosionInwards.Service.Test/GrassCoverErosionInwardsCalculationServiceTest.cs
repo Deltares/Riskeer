@@ -141,9 +141,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                                               mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "NonExistingPreprocessorDirectory")
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath
+                FilePath = validFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = "NonExistingPreprocessorDirectory"
             };
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -466,9 +469,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                                               mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, testDataPath)
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath
+                FilePath = validFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = testDataPath
             };
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -508,9 +514,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                                               mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath
+                FilePath = validFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = false,
+                PreprocessorDirectory = "InvalidPreprocessorDirectory"
             };
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -2749,13 +2758,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 Locations =
                 {
                     new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                }
+                },
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = validPreprocessorDirectory
             };
 
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
@@ -2806,13 +2818,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "NonExistingPreprocessorDirectory")
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 Locations =
                 {
                     new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                }
+                },
+                CanUsePreprocessor = true,
+                UsePreprocessor = false,
+                PreprocessorDirectory = "NonExistingPreprocessorDirectory"
             };
 
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
