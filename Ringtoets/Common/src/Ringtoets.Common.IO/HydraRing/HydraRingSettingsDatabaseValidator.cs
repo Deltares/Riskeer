@@ -19,8 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
+using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.HydraRing
 {
@@ -41,5 +47,48 @@ namespace Ringtoets.Common.IO.HydraRing
         /// </list>
         /// </exception>
         public HydraRingSettingsDatabaseValidator(string databaseFilePath) : base(databaseFilePath) {}
+
+        /// <summary>
+        /// Verifies that the schema of the opened settings database is valid.
+        /// </summary>
+        /// <returns><c>true</c> when the schema is valid; <c>false</c> otherwise.</returns>
+        public bool ValidateSchema()
+        {
+            return ContainsRequiredTables(GetColumnDefinitions(Connection));
+        }
+
+        private static bool ContainsRequiredTables(List<Tuple<string, string>> definitions)
+        {
+            return GetValidSchema().All(definitions.Contains);
+        }
+
+        private static List<Tuple<string, string>> GetValidSchema()
+        {
+            using (var validSchemaConnection = new SQLiteConnection("Data Source=:memory:"))
+            using (SQLiteCommand command = validSchemaConnection.CreateCommand())
+            {
+                validSchemaConnection.Open();
+                command.CommandText = Resources.settings_schema;
+                command.ExecuteNonQuery();
+                return GetColumnDefinitions(validSchemaConnection);
+            }
+        }
+
+        private static List<Tuple<string, string>> GetColumnDefinitions(SQLiteConnection connection)
+        {
+            DataTable columns = connection.GetSchema("COLUMNS");
+
+            var definitions = new List<Tuple<string, string>>();
+            for (var i = 0; i < columns.Rows.Count; i++)
+            {
+                DataRow dataRow = columns.Rows[i];
+                definitions.Add(
+                    Tuple.Create(
+                        ((string) dataRow["TABLE_NAME"]).ToLower(),
+                        ((string) dataRow["COLUMN_NAME"]).ToLower()
+                    ));
+            }
+            return definitions;
+        }
     }
 }

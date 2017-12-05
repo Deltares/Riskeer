@@ -31,7 +31,6 @@ using Core.Common.IO.Readers;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
-using Ringtoets.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.Common.IO.HydraRing
 {

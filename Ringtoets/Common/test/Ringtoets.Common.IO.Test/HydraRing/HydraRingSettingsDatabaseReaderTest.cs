@@ -30,7 +30,6 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
-using Ringtoets.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.Common.IO.Test.HydraRing
 {

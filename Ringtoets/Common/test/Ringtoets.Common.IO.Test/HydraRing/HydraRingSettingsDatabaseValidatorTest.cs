@@ -48,5 +48,37 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(validator);
             }
         }
+
+        [Test]
+        public void ValidateSchema_ValidDatabase_ReturnTrue()
+        {
+            // Setup
+            string completeDatabasePath = Path.Combine(directoryPath, "withoutPreprocessor.config.sqlite");
+
+            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath))
+            {
+                // Call
+                bool valid = validator.ValidateSchema();
+
+                // Assert
+                Assert.IsTrue(valid);
+            }
+        }
+
+        [Test]
+        public void ValidateSchema_InvalidDatabase_ReturnFalse()
+        {
+            // Setup
+            string completeDatabasePath = Path.Combine(directoryPath, "invalid-settings-schema.config.sqlite");
+
+            using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath))
+            {
+                // Call
+                bool valid = validator.ValidateSchema();
+
+                // Assert
+                Assert.IsFalse(valid);
+            }
+        }
     }
 }
