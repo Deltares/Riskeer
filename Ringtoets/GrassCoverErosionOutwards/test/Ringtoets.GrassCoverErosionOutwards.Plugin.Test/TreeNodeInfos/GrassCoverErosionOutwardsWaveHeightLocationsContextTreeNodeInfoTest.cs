@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -489,11 +490,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             };
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, preprocessorDirectory)
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>
             {
-                FilePath = filePath
-            };
+                hydraulicBoundaryLocation
+            }, filePath, "", true, preprocessorDirectory);
+
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
@@ -550,11 +554,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             };
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>
             {
-                FilePath = filePath
-            };
+                hydraulicBoundaryLocation
+            }, filePath, "", false, "InvalidPreprocessorDirectory");
+
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {

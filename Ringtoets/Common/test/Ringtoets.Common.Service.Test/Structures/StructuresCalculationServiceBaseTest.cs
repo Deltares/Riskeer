@@ -354,15 +354,15 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 failureMechanism, mocks);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "NonExistingPreprocessorDirectory")
-            {
-                FilePath = validFilePath
-            };
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
+
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), validFilePath, "", false, "NonExistingPreprocessorDirectory");
 
             var calculation = new TestStructuresCalculation
             {
@@ -397,15 +397,15 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 failureMechanism, mocks);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, TestHelper.GetScratchPadPath())
-            {
-                FilePath = validFilePath
-            };
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
+
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), validFilePath, "", true, TestHelper.GetScratchPadPath());
 
             var calculation = new TestStructuresCalculation
             {

@@ -52,7 +52,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         {
             // Setup
             bool usePreprocessor = new Random(11).NextBoolean();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(!usePreprocessor, "Preprocessor");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", !usePreprocessor, "Preprocessor");
 
             // Call
             hydraulicBoundaryDatabase.UsePreprocessor = usePreprocessor;
@@ -81,7 +82,9 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         {
             // Setup
             const string preprocessorDirectory = "OtherPreprocessor";
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "Preprocessor");
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", true, "Preprocessor");
 
             // Call
             hydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorDirectory;
@@ -236,7 +239,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         public void PreprocessorDirectory_SetInvalidValueWithCanUsePreprocessorTrue_ThrowsArgumentException(string preprocessorDirectory)
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "Preprocessor");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", true, "Preprocessor");
 
             // Call
             TestDelegate test = () => hydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorDirectory;

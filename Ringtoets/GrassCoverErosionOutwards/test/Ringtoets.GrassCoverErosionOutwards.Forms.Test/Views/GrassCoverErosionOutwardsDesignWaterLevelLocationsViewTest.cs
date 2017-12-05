@@ -489,11 +489,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             const string databaseFilePath = "DatabaseFilePath";
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
 
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), databaseFilePath, "", true, preprocessorDirectory);
+
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, preprocessorDirectory)
-            {
-                FilePath = databaseFilePath
-            };
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSection.Stub(ass => ass.FailureMechanismContribution)
@@ -558,11 +557,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
 
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), databaseFilePath, "", false, "InvalidPreprocessorDirectory");
+
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
-            {
-                FilePath = databaseFilePath
-            };
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSection.Stub(ass => ass.FailureMechanismContribution)

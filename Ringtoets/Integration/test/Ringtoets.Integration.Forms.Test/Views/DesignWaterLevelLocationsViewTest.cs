@@ -545,7 +545,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase
         {
-            public TestHydraulicBoundaryDatabase(bool usePreprocessor, string preprocessorDirectory) : base(usePreprocessor, preprocessorDirectory)
+            public TestHydraulicBoundaryDatabase(bool usePreprocessor, string preprocessorDirectory)
             {
                 SetParameters(CreateLocations(), "", "", usePreprocessor, preprocessorDirectory);
             }
