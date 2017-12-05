@@ -225,14 +225,17 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, preprocessorDirectory)
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     FilePath = testFilePath,
                     Version = testVersion,
                     Locations =
                     {
                         new HydraulicBoundaryLocation(-1, "name", 1, 2)
-                    }
+                    },
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = usePreprocessor,
+                    PreprocessorDirectory = preprocessorDirectory
                 }
             };
             var registry = new PersistenceRegistry();

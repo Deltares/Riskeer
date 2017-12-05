@@ -369,7 +369,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                 }
             };
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "/temp/preprocessor")
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = "/temp/test",
                 Version = "1.0",
@@ -377,7 +377,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                 {
                     hydraulicBoundaryLocation,
                     hydraulicBoundaryLocationWithIllustrationPoints
-                }
+                },
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = "/temp/preprocessor"
             };
 
             return hydraulicBoundaryDatabase;
@@ -926,7 +929,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                         Contribution = (RoundedDouble) 1.0,
                         Comments =
                         {
-                            Body = "Calculation with hydraulic boundary location and output",
+                            Body = "Calculation with hydraulic boundary location and output"
                         },
                         InputParameters =
                         {
@@ -978,7 +981,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                         Contribution = (RoundedDouble) 1.0,
                         Comments =
                         {
-                            Body = "Calculation with manual assessment level and output",
+                            Body = "Calculation with manual assessment level and output"
                         },
                         InputParameters =
                         {
