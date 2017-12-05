@@ -40,7 +40,7 @@ namespace Ringtoets.Common.IO.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -1577,6 +1577,23 @@ namespace Ringtoets.Common.IO.Properties {
         public static string settings_schema {
             get {
                 return ResourceManager.GetString("settings_schema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BEGIN TRANSACTION;
+        ///CREATE TABLE &quot;TimeIntegrationSettings&quot; (
+        ///                &quot;LocationID&quot; INTEGER NOT NULL,
+        ///                &quot;CalculationTypeID&quot; INTEGER NOT NULL,
+        ///                &quot;TimeIntegrationSchemeID&quot; INTEGER NOT NULL,
+        ///	CONSTRAINT timeintegrationsettings_pk PRIMARY KEY (&quot;LocationID&quot;, &quot;CalculationTypeID&quot;),
+        ///	CONSTRAINT calculationtypes_timeintegrationsettings_fk FOREIGN KEY (&quot;CalculationTypeID&quot;) REFERENCES CalculationTypes (&quot;CalculationTypeID&quot;) ON DELETE NO ACTION ON UPDATE NO ACTION
+        ///);
+        ///CREATE TABLE [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string settings_schema_preprocessor {
+            get {
+                return ResourceManager.GetString("settings_schema_preprocessor", resourceCulture);
             }
         }
         
