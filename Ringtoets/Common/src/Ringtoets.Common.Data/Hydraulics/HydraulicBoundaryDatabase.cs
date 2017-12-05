@@ -45,20 +45,6 @@ namespace Ringtoets.Common.Data.Hydraulics
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.
-        /// </summary>
-        /// <param name="usePreprocessor">A value indicating whether the Hydra-Ring preprocessor must be used.</param>
-        /// <param name="preprocessorDirectory">The Hydra-Ring preprocessor directory.</param>
-        /// <remarks><see cref="CanUsePreprocessor"/> is set to <c>true</c>.</remarks>
-        public HydraulicBoundaryDatabase(bool usePreprocessor, string preprocessorDirectory)
-        {
-            CanUsePreprocessor = true;
-            Locations = new List<HydraulicBoundaryLocation>();
-            UsePreprocessor = usePreprocessor;
-            PreprocessorDirectory = preprocessorDirectory;
-        }
-
-        /// <summary>
         /// Gets or sets the path to the hydraulic boundary database file.
         /// </summary>
         public string FilePath { get; set; }
