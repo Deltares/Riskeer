@@ -379,9 +379,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             const string preprocessorDirectory = "PreprocessorDirectory";
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase(true, preprocessorDirectory)
+            var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase
             {
-                FilePath = databaseFilePath
+                FilePath = databaseFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = preprocessorDirectory
             };
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
@@ -438,9 +441,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             const string databaseFilePath = "DatabaseFilePath";
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase
             {
-                FilePath = databaseFilePath
+                FilePath = databaseFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = false,
+                PreprocessorDirectory = "InvalidPreprocessorDirectory"
             };
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
@@ -545,11 +551,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase
         {
-            public TestHydraulicBoundaryDatabase(bool usePreprocessor, string preprocessorDirectory) : base(usePreprocessor, preprocessorDirectory)
-            {
-                AddLocations();
-            }
-
             public TestHydraulicBoundaryDatabase()
             {
                 AddLocations();

@@ -489,9 +489,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, preprocessorDirectory)
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = databaseFilePath
+                FilePath = databaseFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = preprocessorDirectory
             };
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
@@ -558,9 +561,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             const string databaseFilePath = "DatabaseFilePath";
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = databaseFilePath
+                FilePath = databaseFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = false,
+                PreprocessorDirectory = "InvalidPreprocessorDirectory"
             };
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);

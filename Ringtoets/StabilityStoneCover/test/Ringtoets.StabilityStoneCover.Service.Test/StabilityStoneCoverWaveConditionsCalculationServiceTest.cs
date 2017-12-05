@@ -1082,9 +1082,12 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath
+                FilePath = validFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = "InvalidPreprocessorDirectory"
             };
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -1115,9 +1118,12 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "InvalidPreprocessorDirectory")
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath
+                FilePath = validFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = false,
+                PreprocessorDirectory = "InvalidPreprocessorDirectory"
             };
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
