@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
@@ -56,19 +57,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
             const string filePath = @"C:\file.sqlite";
             const bool usePreprocessor = true;
             const string preprocessorDirectory = @"C:\preprocessor";
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), filePath, "", usePreprocessor, preprocessorDirectory);
+
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection)
             {
                 WrappedData =
                 {
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, preprocessorDirectory)
-                    {
-                        FilePath = filePath
-                    }
+                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
                 }
             };
 
@@ -87,11 +88,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_CanUsePreprocessorTrue_PropertiesHaveExpectedAttributesValues(bool usePreprocessor)
         {
             // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", usePreprocessor, "Preprocessor");
+
             var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike))
             {
                 WrappedData =
                 {
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, "Preprocessor")
+                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
                 }
             };
 
@@ -175,7 +179,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void UsePreprocessor_SetNewValue_ValueSetToHydraulicBoundaryDataBase([Values(true, false)] bool usePreprocessor)
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(!usePreprocessor, "Preprocessor");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", !usePreprocessor, "Preprocessor");
+
             var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike))
             {
                 WrappedData =
@@ -197,7 +203,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             const string newPreprocessorDirectory = @"C:/path";
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "Preprocessor");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", true, "Preprocessor");
+
             var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike))
             {
                 WrappedData =
@@ -220,11 +228,20 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnCanUsePreprocessor_ReturnExpectedVisibility(bool canUsePreprocessor)
         {
             // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            if (canUsePreprocessor)
+            {
+                hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", true, "Preprocessor");
+            }
+            else
+            {
+                hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "");
+            }
+
             var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = canUsePreprocessor
-                                                ? new HydraulicBoundaryDatabase(true, "Preprocessor")
-                                                : new HydraulicBoundaryDatabase()
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             });
 
             // Call
@@ -257,9 +274,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void DynamicReadOnlyValidationMethod_DependingOnUsePreprocessor_ReturnExpectedValue(bool usePreprocessor)
         {
             // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.SetParameters(new List<HydraulicBoundaryLocation>(), "", "", usePreprocessor, "Preprocessor");
+
             var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, "Preprocessor")
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             });
 
             // Call

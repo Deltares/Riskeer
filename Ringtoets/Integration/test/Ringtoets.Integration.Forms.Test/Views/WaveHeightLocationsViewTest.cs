@@ -547,42 +547,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             public TestHydraulicBoundaryDatabase(bool usePreprocessor, string preprocessorDirectory) : base(usePreprocessor, preprocessorDirectory)
             {
-                AddLocations();
+                SetParameters(CreateLocations(), "", "", usePreprocessor, preprocessorDirectory);
             }
 
             public TestHydraulicBoundaryDatabase()
             {
-                AddLocations();
+                SetParameters(CreateLocations(), "", "");
             }
 
-            private void AddLocations()
+            private static List<HydraulicBoundaryLocation> CreateLocations()
             {
-                Locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
-                Locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
-                {
-                    WaveHeightCalculation =
-                    {
-                        Output = new TestHydraulicBoundaryLocationOutput(1.23)
-                    }
-                });
-                Locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
-                {
-                    DesignWaterLevelCalculation =
-                    {
-                        Output = new TestHydraulicBoundaryLocationOutput(2.45)
-                    }
-                });
-                Locations.Add(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
-                {
-                    WaveHeightCalculation =
-                    {
-                        InputParameters =
-                        {
-                            ShouldIllustrationPointsBeCalculated = true
-                        }
-                    }
-                });
-
                 var topLevelIllustrationPoints = new[]
                 {
                     new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
@@ -596,17 +570,45 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
                 var output = new TestHydraulicBoundaryLocationOutput(1.01, generalResult);
 
-                Locations.Add(new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
+                return new List<HydraulicBoundaryLocation>
                 {
-                    WaveHeightCalculation =
+                    new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
+                    new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                     {
-                        InputParameters =
+                        WaveHeightCalculation =
                         {
-                            ShouldIllustrationPointsBeCalculated = true
-                        },
-                        Output = output
+                            Output = new TestHydraulicBoundaryLocationOutput(1.23)
+                        }
+                    },
+                    new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
+                    {
+                        DesignWaterLevelCalculation =
+                        {
+                            Output = new TestHydraulicBoundaryLocationOutput(2.45)
+                        }
+                    },
+                    new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
+                    {
+                        WaveHeightCalculation =
+                        {
+                            InputParameters =
+                            {
+                                ShouldIllustrationPointsBeCalculated = true
+                            }
+                        }
+                    },
+                    new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
+                    {
+                        WaveHeightCalculation =
+                        {
+                            InputParameters =
+                            {
+                                ShouldIllustrationPointsBeCalculated = true
+                            },
+                            Output = output
+                        }
                     }
-                });
+                };
             }
         }
 
