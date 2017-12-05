@@ -330,9 +330,12 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
-                    FilePath = validFilePath
+                    FilePath = validFilePath,
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = true,
+                    PreprocessorDirectory = validPreprocessorDirectory
                 }
             };
 
@@ -362,9 +365,12 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "NonExistingPreprocessorDirectory")
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
-                    FilePath = validFilePath
+                    FilePath = validFilePath,
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = false,
+                    PreprocessorDirectory = "NonExistingPreprocessorDirectory"
                 }
             };
 
