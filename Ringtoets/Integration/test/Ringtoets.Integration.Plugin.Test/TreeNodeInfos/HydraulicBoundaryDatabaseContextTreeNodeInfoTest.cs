@@ -470,55 +470,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenNoFilePathIsSet_WhenOpeneningValidFileWithInvalidSettingsDatabaseFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
-        {
-            // Given
-            string testFile = Path.Combine(testDataPathInvalidSettings, "HRD dutch coast south.sqlite");
-
-            const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            using (var plugin = new RingtoetsPlugin())
-            {
-                var mainWindow = mocks.Stub<IMainWindow>();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var tester = new OpenFileDialogTester(wnd);
-                    tester.OpenFile(testFile);
-                };
-
-                TreeNodeInfo info = GetInfo(plugin);
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl))
-                {
-                    // When
-                    Action action = () => contextMenuStrip.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
-
-                    // Then
-                    string expectedMessage =
-                        $"Fout bij het lezen van bestand '{testFile}': kon het rekeninstellingen bestand niet openen. De rekeninstellingen database heeft niet het juiste schema.";
-                    TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
-
-                    Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
-                }
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenFilePathIsSet_WhenOpeningSameFileFromContextMenu_ThenCalculationsWillNotBeClearedAndNoNotifyObservers()
         {
             // Given

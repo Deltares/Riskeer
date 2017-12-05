@@ -66,18 +66,6 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void Validate_InvalidSchema_ReturnsFalseFileNotLocked()
-        {
-            // Call
-            TestDelegate test = () => new HydraRingSettingsDatabaseReader(invalidSchemaDatabasePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(test).Message;
-            Assert.AreEqual("De rekeninstellingen database heeft niet het juiste schema.", message);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(invalidSchemaDatabasePath));
-        }
-
-        [Test]
         [TestCase(-1)]
         [TestCase(12)]
         [TestCase(15)]
