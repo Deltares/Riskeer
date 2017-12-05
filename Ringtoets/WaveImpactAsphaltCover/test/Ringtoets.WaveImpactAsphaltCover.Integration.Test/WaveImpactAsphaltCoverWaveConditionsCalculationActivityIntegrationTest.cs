@@ -119,7 +119,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "InvalidPreprocessorDirectory")
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = true,
+                    PreprocessorDirectory = "InvalidPreprocessorDirectory"
+                }
             };
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
@@ -472,13 +477,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, validPreprocessorDirectory)
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath,
                     Locations =
                     {
                         new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                    }
+                    },
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = true,
+                    PreprocessorDirectory = validPreprocessorDirectory
                 }
             };
 
@@ -515,13 +523,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "NonExistingPreprocessorDirectory")
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath,
                     Locations =
                     {
                         new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                    }
+                    },
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = false,
+                    PreprocessorDirectory = "NonExistingPreprocessorDirectory"
                 }
             };
 
