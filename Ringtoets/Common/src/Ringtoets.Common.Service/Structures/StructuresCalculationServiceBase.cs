@@ -339,13 +339,15 @@ namespace Ringtoets.Common.Service.Structures
         {
             var validationResults = new List<string>();
 
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                                                  preprocessorDirectory);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
                 validationResults.Add(databaseFilePathValidationProblem);
             }
 
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
             if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
             {
                 validationResults.Add(preprocessorDirectoryValidationProblem);

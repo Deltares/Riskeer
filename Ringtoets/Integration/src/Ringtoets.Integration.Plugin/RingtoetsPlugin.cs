@@ -836,8 +836,8 @@ namespace Ringtoets.Integration.Plugin
             IEnumerable<AssessmentSection> sectionsWithDatabase = ringtoetsProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase != null);
             foreach (AssessmentSection section in sectionsWithDatabase)
             {
-                string selectedFile = section.HydraulicBoundaryDatabase.FilePath;
-                string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(selectedFile);
+                string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(section.HydraulicBoundaryDatabase.FilePath,
+                                                                                                      section.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
                 if (validationProblem != null)
                 {
                     log.WarnFormat(

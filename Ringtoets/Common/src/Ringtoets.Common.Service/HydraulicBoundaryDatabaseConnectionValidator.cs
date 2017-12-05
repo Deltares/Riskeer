@@ -42,7 +42,8 @@ namespace Ringtoets.Common.Service
                 return Resources.HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported;
             }
 
-            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(database.FilePath);
+            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(database.FilePath,
+                                                                                                  database.EffectivePreprocessorDirectory());
             if (!string.IsNullOrEmpty(validationProblem))
             {
                 return string.Format(Resources.Hydraulic_boundary_database_connection_failed_0_,

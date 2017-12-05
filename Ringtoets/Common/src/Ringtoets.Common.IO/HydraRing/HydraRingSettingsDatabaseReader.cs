@@ -153,7 +153,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                     catch (ConversionException)
                     {
-                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema);
                     }
                 }
             }
@@ -195,7 +195,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                     catch (ConversionException)
                     {
-                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema);
                     }
                 }
             }
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                     catch (ConversionException)
                     {
-                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema);
                     }
                 }
             }
@@ -275,7 +275,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                     catch (ConversionException)
                     {
-                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema);
                     }
                 }
             }
@@ -314,7 +314,7 @@ namespace Ringtoets.Common.IO.HydraRing
             }
             catch (ConversionException)
             {
-                throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                throw new CriticalFileReadException(Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema);
             }
         }
 
@@ -328,7 +328,7 @@ namespace Ringtoets.Common.IO.HydraRing
             if (!ContainsRequiredTables(GetColumnDefinitions(Connection)))
             {
                 CloseConnection();
-                throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                throw new CriticalFileReadException(Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema);
             }
         }
 

@@ -62,7 +62,8 @@ namespace Ringtoets.Common.Service
 
             CalculationServiceHelper.LogValidationBegin();
 
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath,
+                                                                                                                  preprocessorDirectory);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
                 CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_boundary_database_connection_failed_0_,

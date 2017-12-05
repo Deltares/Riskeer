@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(validFilePath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(validFilePath, "");
 
             // Assert
             Assert.IsNull(result);
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string filePath = Path.Combine(testDataPath, nonexistingSqlite);
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(filePath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(filePath, "");
 
             // Assert
             StringAssert.StartsWith($"Fout bij het lezen van bestand '{filePath}':", result);
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             invalidPath = invalidPath.Replace('c', Path.GetInvalidPathChars()[0]);
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(invalidPath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(invalidPath, testDataPath);
 
             // Assert
             StringAssert.StartsWith($"Fout bij het lezen van bestand '{invalidPath}':", result);
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string filePath = Path.Combine(testDataPath, "/");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(filePath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(filePath, testDataPath);
 
             // Assert
             StringAssert.StartsWith($"Fout bij het lezen van bestand '{filePath}':", result);
@@ -96,7 +96,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string validFilePath = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(validFilePath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(validFilePath, testDataPath);
 
             // Assert
             StringAssert.StartsWith($"Fout bij het lezen van bestand '{validFilePath}':", result);
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string validFilePath = Path.Combine(testDataPath, "withoutSettings", "empty.sqlite");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(validFilePath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(validFilePath, testDataPath);
 
             // Assert
             StringAssert.StartsWith($"Fout bij het lezen van bestand '{validFilePath}':", result);
@@ -122,7 +122,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             string validFilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(validFilePath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(validFilePath, testDataPath);
 
             // Assert
             Assert.AreEqual("De rekeninstellingen database heeft niet het juiste schema.", result);
@@ -138,7 +138,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                                            "\\followedbythefile";
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(invalidFilePath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(invalidFilePath, testDataPath);
 
             // Assert
             Assert.AreEqual($"Het opgegeven bestandspad ({invalidFilePath}) is niet geldig.", result);

@@ -902,10 +902,10 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De rekeninstellingen database heeft niet het juiste schema..
         /// </summary>
-        public static string HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema {
+        public static string HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema {
             get {
-                return ResourceManager.GetString("HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_dat" +
-                        "abase_has_invalid_schema", resourceCulture);
+                return ResourceManager.GetString("HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_sch" +
+                        "ema", resourceCulture);
             }
         }
         

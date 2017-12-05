@@ -74,6 +74,7 @@ namespace Ringtoets.Common.Forms.GuiServices
             }
 
             return RunActivities(hydraulicBoundaryDatabaseFilePath,
+                                 preprocessorDirectory,
                                  locations.Select(location => new DesignWaterLevelCalculationActivity(new DesignWaterLevelCalculation(location),
                                                                                                       hydraulicBoundaryDatabaseFilePath,
                                                                                                       preprocessorDirectory,
@@ -98,6 +99,7 @@ namespace Ringtoets.Common.Forms.GuiServices
             }
 
             return RunActivities(hydraulicBoundaryDatabaseFilePath,
+                                 preprocessorDirectory,
                                  locations.Select(location => new WaveHeightCalculationActivity(new WaveHeightCalculation(location),
                                                                                                 hydraulicBoundaryDatabaseFilePath,
                                                                                                 preprocessorDirectory,
@@ -105,9 +107,11 @@ namespace Ringtoets.Common.Forms.GuiServices
                                                                                                 messageProvider)).ToArray());
         }
 
-        private bool RunActivities<TActivity>(string hydraulicBoundaryDatabasePath, IList<TActivity> activities) where TActivity : Activity
+        private bool RunActivities<TActivity>(string hydraulicBoundaryDatabasePath, string preprocessorDirectory,
+                                              IList<TActivity> activities) where TActivity : Activity
         {
-            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabasePath);
+            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabasePath,
+                                                                                                  preprocessorDirectory);
             if (string.IsNullOrEmpty(validationProblem))
             {
                 ActivityProgressDialogRunner.Run(viewParent, activities);
