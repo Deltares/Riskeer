@@ -79,19 +79,20 @@ namespace Ringtoets.Common.IO.HydraRing
                 }
                 string hlcdFilePath = Path.Combine(directoryName, hlcdFileName);
                 using (new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath)) {}
+
+                using (var validator = new HydraRingSettingsDatabaseValidator(settingsDatabaseFileName, preprocessorDirectory))
+                {
+                    if (!validator.ValidateSchema())
+                    {
+                        return Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema;
+                    }
+                }
             }
             catch (CriticalFileReadException e)
             {
                 return e.Message;
             }
 
-            using (var validator = new HydraRingSettingsDatabaseValidator(settingsDatabaseFileName, preprocessorDirectory))
-            {
-                if (!validator.ValidateSchema())
-                {
-                    return Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema;
-                }
-            }
             return null;
         }
 
