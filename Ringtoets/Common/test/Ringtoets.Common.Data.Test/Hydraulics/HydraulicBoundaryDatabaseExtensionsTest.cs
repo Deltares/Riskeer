@@ -59,7 +59,12 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                                                                                                string expectedEffectivePreprocessorDirectory)
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, preprocessorDirectory);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                CanUsePreprocessor = true,
+                UsePreprocessor = usePreprocessor,
+                PreprocessorDirectory = preprocessorDirectory
+            };
 
             // Call
             string effectivePreprocessorDirectory = hydraulicBoundaryDatabase.EffectivePreprocessorDirectory();

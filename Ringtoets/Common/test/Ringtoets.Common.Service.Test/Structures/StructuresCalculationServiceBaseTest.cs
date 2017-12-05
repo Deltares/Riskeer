@@ -131,9 +131,12 @@ namespace Ringtoets.Common.Service.Test.Structures
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(new TestFailureMechanism(), mocks);
             mocks.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, "NonExistingPreprocessorDirectory")
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath
+                FilePath = validFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = "NonExistingPreprocessorDirectory"
             };
 
             var calculation = new TestStructuresCalculation();
@@ -357,9 +360,12 @@ namespace Ringtoets.Common.Service.Test.Structures
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 failureMechanism, mocks);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(false, "NonExistingPreprocessorDirectory")
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath
+                FilePath = validFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = false,
+                PreprocessorDirectory = "NonExistingPreprocessorDirectory"
             };
             mocks.ReplayAll();
 
@@ -400,9 +406,12 @@ namespace Ringtoets.Common.Service.Test.Structures
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 failureMechanism, mocks);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(true, TestHelper.GetScratchPadPath())
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath
+                FilePath = validFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = TestHelper.GetScratchPadPath()
             };
             mocks.ReplayAll();
 
