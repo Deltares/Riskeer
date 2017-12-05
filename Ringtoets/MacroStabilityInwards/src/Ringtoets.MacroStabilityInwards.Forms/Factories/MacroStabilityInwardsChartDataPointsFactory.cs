@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
@@ -32,7 +31,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="Point2D"/> to use in <see cref="ChartData"/>
+    /// Factory for creating collections of points in 2D space to use in <see cref="ChartData"/>
     /// (created via <see cref="MacroStabilityInwardsChartDataFactory"/>).
     /// </summary>
     internal static class MacroStabilityInwardsChartDataPointsFactory
@@ -41,8 +40,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create surface line points in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to create the surface line points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when <paramref name="surfaceLine"/> is <c>null</c>.</returns>
-        public static Point2D[] CreateSurfaceLinePoints(MacroStabilityInwardsSurfaceLine surfaceLine)
+        /// <returns>A collection of points in 2D space or an empty collection when <paramref name="surfaceLine"/> is <c>null</c>.</returns>
+        public static IEnumerable<Point2D> CreateSurfaceLinePoints(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return surfaceLine?.LocalGeometry.ToArray() ?? new Point2D[0];
         }
@@ -51,13 +50,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a surface level outside point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the surface level outside point for.</param>
-        /// <returns>An array with a surface level outside point in 2D space or an empty array when:
+        /// <returns>A collection with a surface level outside point in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the surface level outside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateSurfaceLevelOutsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D> CreateSurfaceLevelOutsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.SurfaceLevelOutside);
         }
@@ -66,13 +65,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a dike top at river point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the dike top at river point for.</param>
-        /// <returns>An array with a dike top at river point in 2D space or an empty array when:
+        /// <returns>A collection with a dike top at river point in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the dike top at river point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDikeTopAtRiverPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D> CreateDikeTopAtRiverPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DikeTopAtRiver);
         }
@@ -81,13 +80,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a dike toe at river point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the dike toe at river point for.</param>
-        /// <returns>An array with a dike toe at river point in 2D space or an empty array when:
+        /// <returns>A collection with a dike toe at river point in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the dike toe at river point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDikeToeAtRiverPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D> CreateDikeToeAtRiverPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DikeToeAtRiver);
         }
@@ -96,13 +95,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a dike top at polder point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the dike top at polder point for.</param>
-        /// <returns>An array with a dike top at polder point in 2D space or an empty array when:
+        /// <returns>A collection with a dike top at polder point in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the dike top at polder point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDikeTopAtPolderPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D> CreateDikeTopAtPolderPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DikeTopAtPolder);
         }
@@ -111,13 +110,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a shoulder base inside point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the shoulder base inside point for.</param>
-        /// <returns>An array with a shoulder base inside point in 2D space or an empty array when:
+        /// <returns>A collection with a shoulder base inside point in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the shoulder base inside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateShoulderBaseInsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D> CreateShoulderBaseInsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.ShoulderBaseInside);
         }
@@ -126,13 +125,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a shoulder top inside point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the shoulder top inside point for.</param>
-        /// <returns>An array with a shoulder top inside point in 2D space or an empty array when:
+        /// <returns>A collection with a shoulder top inside point in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the shoulder top inside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateShoulderTopInsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D> CreateShoulderTopInsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.ShoulderTopInside);
         }
@@ -141,13 +140,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a dike toe at polder point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the dike toe at polder point for.</param>
-        /// <returns>An array with a dike toe at polder point in 2D space or an empty array when:
+        /// <returns>A collection with a dike toe at polder point in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the dike toe at polder point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDikeToeAtPolderPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D> CreateDikeToeAtPolderPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DikeToeAtPolder);
         }
@@ -156,13 +155,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a ditch dike side point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the ditch dike side point for.</param>
-        /// <returns>An array with a ditch dike side point in 2D space or an empty array when:
+        /// <returns>A collection with a ditch dike side point in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the ditch dike side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDitchDikeSidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D> CreateDitchDikeSidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DitchDikeSide);
         }
@@ -171,13 +170,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a bottom ditch dike side point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the bottom ditch dike side point for.</param>
-        /// <returns>An array with a bottom ditch dike side point in 2D space or an empty array when:
+        /// <returns>A collection with a bottom ditch dike side point in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the bottom ditch dike side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateBottomDitchDikeSidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D> CreateBottomDitchDikeSidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.BottomDitchDikeSide);
         }
@@ -186,13 +185,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a bottom ditch polder side point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the bottom ditch polder side point for.</param>
-        /// <returns>An array with a bottom ditch polder side point in 2D space or an empty array when:
+        /// <returns>A collection with a bottom ditch polder side point in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the bottom ditch polder side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateBottomDitchPolderSidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D> CreateBottomDitchPolderSidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.BottomDitchPolderSide);
         }
@@ -201,13 +200,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a surface level inside point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the surface level inside point for.</param>
-        /// <returns>An array with a surface level inside point in 2D space or an empty array when:
+        /// <returns>A collection with a surface level inside point in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the surface level inside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateSurfaceLevelInsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D> CreateSurfaceLevelInsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.SurfaceLevelInside);
         }
@@ -216,13 +215,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create a ditch polder side point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the ditch polder side point for.</param>
-        /// <returns>An array with a ditch polder side point in 2D space or an empty array when:
+        /// <returns>A collection with a ditch polder side point in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the ditch polder side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDitchPolderSidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D> CreateDitchPolderSidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DitchPolderSide);
         }
@@ -231,25 +230,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create an area of the outer ring in 2D space based on the provided <paramref name="soilLayer"/>.
         /// </summary>
         /// <param name="soilLayer">The soil layer to create the outer ring for.</param>
-        /// <returns>A collection containing a single array of points in 2D space 
+        /// <returns>A collection containing a single collection of points in 2D space 
         /// or an empty collection when <paramref name="soilLayer"/> is <c>null</c>.</returns>
-        public static IEnumerable<Point2D[]> CreateOuterRingArea(MacroStabilityInwardsSoilLayer2D soilLayer)
+        public static IEnumerable<IEnumerable<Point2D>> CreateOuterRingArea(MacroStabilityInwardsSoilLayer2D soilLayer)
         {
             return soilLayer != null
-                       ? new List<Point2D[]>
+                       ? new List<IEnumerable<Point2D>>
                        {
                            soilLayer.OuterRing.Points.ToArray()
                        }
-                       : Enumerable.Empty<Point2D[]>();
+                       : Enumerable.Empty<IEnumerable<Point2D>>();
         }
 
         /// <summary>
         /// Create points of the phreatic line in 2D space based on the provided <paramref name="phreaticLine"/>.
         /// </summary>
         /// <param name="phreaticLine">The phreatic line to create the points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when <paramref name="phreaticLine"/>
+        /// <returns>A collection of points in 2D space or an empty collection when <paramref name="phreaticLine"/>
         /// is <c>null</c>.</returns>
-        public static Point2D[] CreatePhreaticLinePoints(MacroStabilityInwardsPhreaticLine phreaticLine)
+        public static IEnumerable<Point2D> CreatePhreaticLinePoints(MacroStabilityInwardsPhreaticLine phreaticLine)
         {
             return phreaticLine?.Geometry.ToArray() ?? new Point2D[0];
         }
@@ -261,7 +260,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> that may intersect with 
         /// the <see cref="MacroStabilityInwardsWaternetLine.PhreaticLine"/> and by doing that restricts the
         /// drawn height of it.</param>
-        /// <returns>An array of points in 2D space or an empty array when:
+        /// <returns>A collection of points in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="waternetLine"/> is <c>null</c>;</item>
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
@@ -269,8 +268,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>The geometry of the <see cref="MacroStabilityInwardsWaternetLine.PhreaticLine"/> is <c>empty</c>.</item>
         /// </list>
         /// </returns>
-        public static IEnumerable<Point2D[]> CreateWaternetZonePoints(MacroStabilityInwardsWaternetLine waternetLine,
-                                                                      MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<IEnumerable<Point2D>> CreateWaternetZonePoints(MacroStabilityInwardsWaternetLine waternetLine,
+                                                                                 MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (waternetLine == null || surfaceLine == null
                 || !waternetLine.Geometry.Any() || !waternetLine.PhreaticLine.Geometry.Any())
@@ -278,9 +277,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 return new Point2D[0][];
             }
 
-            Point2D[] surfaceLineLocalGeometry = surfaceLine.LocalGeometry.ToArray();
-            Point2D[] phreaticLineGeometry = new RoundedPoint2DCollection(2, waternetLine.PhreaticLine.Geometry).ToArray();
-            Point2D[] waternetLineGeometry = new RoundedPoint2DCollection(2, waternetLine.Geometry).ToArray();
+            IEnumerable<Point2D> surfaceLineLocalGeometry = surfaceLine.LocalGeometry.ToArray();
+            IEnumerable<Point2D> phreaticLineGeometry = new RoundedPoint2DCollection(2, waternetLine.PhreaticLine.Geometry).ToArray();
+            IEnumerable<Point2D> waternetLineGeometry = new RoundedPoint2DCollection(2, waternetLine.Geometry).ToArray();
 
             return IsSurfaceLineAboveWaternetZone(surfaceLineLocalGeometry, waternetLineGeometry, phreaticLineGeometry)
                        ? CreateZoneAreas(waternetLineGeometry, phreaticLineGeometry).ToArray()
@@ -292,15 +291,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </summary>
         /// <param name="grid">The grid to create the grid points for.</param>
         /// <param name="gridDeterminationType">The grid determination type.</param>
-        /// <returns>An array of interpolated points in 2D space based on the provided 
-        /// <paramref name="grid"/> or an empty array when:
+        /// <returns>A collection of interpolated points in 2D space based on the provided 
+        /// <paramref name="grid"/> or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="grid"/> is <c>null</c>;</item>
         /// <item><paramref name="gridDeterminationType"/> is <see cref="MacroStabilityInwardsGridDeterminationType.Automatic"/>;</item>
         /// <item>The grid boundaries are <see cref="double.NaN"/>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid, MacroStabilityInwardsGridDeterminationType gridDeterminationType)
+        public static IEnumerable<Point2D> CreateGridPoints(MacroStabilityInwardsGrid grid, MacroStabilityInwardsGridDeterminationType gridDeterminationType)
         {
             return gridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic
                        ? new Point2D[0]
@@ -311,14 +310,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Creates grid points in 2D space based on the provided <paramref name="grid"/>.
         /// </summary>
         /// <param name="grid">The grid to create the grid points for.</param>
-        /// <returns>An array of interpolated points in 2D space based on the provided 
-        /// <paramref name="grid"/> or an empty array when:
+        /// <returns>A collection of interpolated points in 2D space based on the provided 
+        /// <paramref name="grid"/> or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="grid"/> is <c>null</c>;</item>
         /// <item>The grid boundaries are <see cref="double.NaN"/>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid)
+        public static IEnumerable<Point2D> CreateGridPoints(MacroStabilityInwardsGrid grid)
         {
             if (grid == null || !AreGridSettingsValid(grid))
             {
@@ -344,9 +343,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create points of the slip plane in 2D space based on the provided <paramref name="slidingCurve"/>.
         /// </summary>
         /// <param name="slidingCurve">The sliding curve to create the points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when <paramref name="slidingCurve"/>
+        /// <returns>A collection of points in 2D space or an empty collection when <paramref name="slidingCurve"/>
         /// is <c>null</c> or doesn't contain any slices.</returns>
-        public static Point2D[] CreateSlipPlanePoints(MacroStabilityInwardsSlidingCurve slidingCurve)
+        public static IEnumerable<Point2D> CreateSlipPlanePoints(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
             if (slidingCurve == null || !slidingCurve.Slices.Any())
             {
@@ -363,9 +362,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create points of the left circle radius in 2D space based on the provided <paramref name="slidingCurve"/>.
         /// </summary>
         /// <param name="slidingCurve">The sliding curve to create the points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when <paramref name="slidingCurve"/>
+        /// <returns>A collection of points in 2D space or an empty collection when <paramref name="slidingCurve"/>
         /// is <c>null</c> or doesn't contain any slices.</returns>
-        public static Point2D[] CreateLeftCircleRadiusPoints(MacroStabilityInwardsSlidingCurve slidingCurve)
+        public static IEnumerable<Point2D> CreateLeftCircleRadiusPoints(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
             if (slidingCurve == null || !slidingCurve.Slices.Any())
             {
@@ -383,9 +382,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create points of the right circle radius in 2D space based on the provided <paramref name="slidingCurve"/>.
         /// </summary>
         /// <param name="slidingCurve">The sliding curve to create the points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when <paramref name="slidingCurve"/>
+        /// <returns>A collection of points in 2D space or an empty collection when <paramref name="slidingCurve"/>
         /// is <c>null</c> or doesn't contain any slices.</returns>
-        public static Point2D[] CreateRightCircleRadiusPoints(MacroStabilityInwardsSlidingCurve slidingCurve)
+        public static IEnumerable<Point2D> CreateRightCircleRadiusPoints(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
             if (slidingCurve == null || !slidingCurve.Slices.Any())
             {
@@ -406,14 +405,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="tangentLines">The tangent line Z-coordinates.</param>
         /// <param name="surfaceLine">The surface line that determines the horizontal boundaries
         /// of the tangent lines.</param>
-        /// <returns>A collection of arrays of points in 2D space or an empty collection when <paramref name="surfaceLine"/>
+        /// <returns>A collection of collections of points in 2D space or an empty collection when <paramref name="surfaceLine"/>
         /// or <paramref name="tangentLines"/> is <c>null</c>.</returns>
-        public static IEnumerable<Point2D[]> CreateTangentLines(IEnumerable<RoundedDouble> tangentLines,
-                                                                MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<IEnumerable<Point2D>> CreateTangentLines(IEnumerable<RoundedDouble> tangentLines,
+                                                                           MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (surfaceLine == null || tangentLines == null)
             {
-                return Enumerable.Empty<Point2D[]>();
+                return Enumerable.Empty<IEnumerable<Point2D>>();
             }
 
             return tangentLines.Select(tangentLine => new[]
@@ -435,7 +434,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="tangentLineNumber">The amount of tangent lines to display.</param>
         /// <param name="surfaceLine">The surface line that determines the horizontal boundaries
         /// of the tangent lines.</param>
-        /// <returns>A collection of arrays of points in 2D space or an empty collection when:
+        /// <returns>A collection of collections of points in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="gridDeterminationType"/> is <see cref="MacroStabilityInwardsGridDeterminationType.Automatic"/>;</item>
         /// <item><paramref name="tangentLineDeterminationType"/> is <see cref="MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated"/>;</item>
@@ -444,12 +443,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item><paramref name="tangentLineTop"/> is <see cref="double.NaN"/> or infinity.</item>
         /// </list>
         /// </returns>
-        public static IEnumerable<Point2D[]> CreateTangentLines(MacroStabilityInwardsGridDeterminationType gridDeterminationType,
-                                                                MacroStabilityInwardsTangentLineDeterminationType tangentLineDeterminationType,
-                                                                RoundedDouble tangentLineBottom,
-                                                                RoundedDouble tangentLineTop,
-                                                                int tangentLineNumber,
-                                                                MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<IEnumerable<Point2D>> CreateTangentLines(MacroStabilityInwardsGridDeterminationType gridDeterminationType,
+                                                                           MacroStabilityInwardsTangentLineDeterminationType tangentLineDeterminationType,
+                                                                           RoundedDouble tangentLineBottom,
+                                                                           RoundedDouble tangentLineTop,
+                                                                           int tangentLineNumber,
+                                                                           MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (gridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic
                 || tangentLineDeterminationType == MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated
@@ -458,87 +457,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 || double.IsNaN(tangentLineTop)
                 || double.IsInfinity(tangentLineTop))
             {
-                return Enumerable.Empty<Point2D[]>();
+                return Enumerable.Empty<IEnumerable<Point2D>>();
             }
 
             return CreateTangentLines(GetInterPolatedVerticalPositions(tangentLineTop, tangentLineBottom, tangentLineNumber),
                                       surfaceLine);
-        }
-
-        /// <summary>
-        /// Create lines of the slices based on the provided <paramref name="slices"/>.
-        /// </summary>
-        /// <param name="slices">The slices to create the areas for.</param>
-        /// <returns>A collection of arrays of points in 2D space or an empty collection when <paramref name="slices"/>
-        /// is <c>null</c>.</returns>
-        public static IEnumerable<Point2D[]> CreateSliceAreas(IEnumerable<MacroStabilityInwardsSlice> slices)
-        {
-            if (slices == null)
-            {
-                return Enumerable.Empty<Point2D[]>();
-            }
-
-            return slices.Select(slice => new[]
-            {
-                slice.TopLeftPoint,
-                slice.TopRightPoint,
-                slice.BottomRightPoint,
-                slice.BottomLeftPoint
-            });
-        }
-
-        /// <summary>
-        /// Creates the areas for a parameter in the slices present 
-        /// in <paramref name="slidingCurve"/>.
-        /// </summary>
-        /// <param name="slidingCurve">The sliding curve to get the slices from.</param>
-        /// <param name="parameterName">The name of the property in <see cref="MacroStabilityInwardsSlice"/>.</param>
-        /// <param name="scaleFactor">The factor to decrease the parameter value by when determining
-        /// the bar height.</param>
-        /// <returns>A collection of <see cref="ChartMultipleAreaData"/> containing areas representing the
-        /// slice output values, or an empty collection when:
-        /// <list type="bullet">
-        /// <item><paramref name="slidingCurve"/> or <paramref name="parameterName"/> is null;</item>
-        /// <item>The property with the name <paramref name="parameterName"/> does not exist on the
-        /// <see cref="MacroStabilityInwardsSlice"/>.</item>
-        /// </list>
-        /// </returns>
-        /// <exception cref="AmbiguousMatchException">Thrown when more than one property is found with 
-        /// the specified name.</exception>
-        public static IEnumerable<Point2D[]> CreateSliceParameterAreas(MacroStabilityInwardsSlidingCurve slidingCurve,
-                                                                       string parameterName,
-                                                                       int scaleFactor)
-        {
-            if (slidingCurve == null || parameterName == null)
-            {
-                return Enumerable.Empty<Point2D[]>();
-            }
-
-            var areas = new List<Point2D[]>();
-            foreach (MacroStabilityInwardsSlice slice in slidingCurve.Slices)
-            {
-                var value = (RoundedDouble?) slice.GetType().GetProperty(parameterName)?.GetValue(slice, null);
-                if (value.HasValue)
-                {
-                    double offset = value.Value / scaleFactor;
-                    double xLength = slice.BottomLeftPoint.X - slice.BottomRightPoint.X;
-                    double yLength = slice.BottomLeftPoint.Y - slice.BottomRightPoint.Y;
-
-                    double length = Math.Sqrt(Math.Pow(xLength, 2) +
-                                              Math.Pow(yLength, 2));
-
-                    areas.Add(new[]
-                    {
-                        slice.BottomLeftPoint,
-                        slice.BottomRightPoint,
-                        new Point2D(slice.BottomRightPoint.X + offset * -yLength / length,
-                                    slice.BottomRightPoint.Y + offset * xLength / length),
-                        new Point2D(slice.BottomLeftPoint.X + offset * -yLength / length,
-                                    slice.BottomLeftPoint.Y + offset * xLength / length)
-                    });
-                }
-            }
-            return areas;
         }
 
         #region General Helpers
@@ -574,8 +497,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 
         #region SoilLayers and Surface Line Helpers
 
-        private static Point2D[] GetLocalPointsFromGeometry(MacroStabilityInwardsSurfaceLine surfaceLine,
-                                                            Point3D worldCoordinate)
+        private static IEnumerable<Point2D> GetLocalPointsFromGeometry(MacroStabilityInwardsSurfaceLine surfaceLine,
+                                                                       Point3D worldCoordinate)
         {
             if (surfaceLine == null || worldCoordinate == null)
             {
@@ -632,15 +555,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 
         #region Waternet Helpers
 
-        private static IEnumerable<Point2D[]> GetWaternetZoneWithSurfaceLineIntersection(Point2D[] surfaceLineLocalGeometry,
-                                                                                         Point2D[] waternetLineGeometry,
-                                                                                         Point2D[] phreaticLineGeometry)
+        private static IEnumerable<IEnumerable<Point2D>> GetWaternetZoneWithSurfaceLineIntersection(IEnumerable<Point2D> surfaceLineLocalGeometry,
+                                                                                                    IEnumerable<Point2D> waternetLineGeometry,
+                                                                                                    IEnumerable<Point2D> phreaticLineGeometry)
         {
-            IEnumerable<Point2D[]> waternetZoneAsPolygons = CreateZoneAreas(waternetLineGeometry, phreaticLineGeometry);
+            IEnumerable<IEnumerable<Point2D>> waternetZoneAsPolygons = CreateZoneAreas(waternetLineGeometry, phreaticLineGeometry);
 
-            foreach (Point2D[] waternetZoneAsPolygon in waternetZoneAsPolygons)
+            foreach (IEnumerable<Point2D> waternetZoneAsPolygon in waternetZoneAsPolygons)
             {
-                Point2D[] areaPoints = ClipWaternetZoneToSurfaceLine(surfaceLineLocalGeometry, waternetZoneAsPolygon);
+                IEnumerable<Point2D> areaPoints = ClipWaternetZoneToSurfaceLine(surfaceLineLocalGeometry, waternetZoneAsPolygon);
                 if (areaPoints.Any())
                 {
                     yield return areaPoints;
@@ -648,7 +571,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             }
         }
 
-        private static Point2D[] ClipWaternetZoneToSurfaceLine(Point2D[] surfaceLineLocalGeometry, Point2D[] waternetZoneAsPolygon)
+        private static IEnumerable<Point2D> ClipWaternetZoneToSurfaceLine(IEnumerable<Point2D> surfaceLineLocalGeometry, IEnumerable<Point2D> waternetZoneAsPolygon)
         {
             double leftX = waternetZoneAsPolygon.Min(p => p.X);
             double rightX = waternetZoneAsPolygon.Max(p => p.X);
@@ -684,7 +607,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             foreach (double xCoordinate in allXCoordinates)
             {
                 Point2D surfaceLineIntersection = Math2D.SegmentsIntersectionWithVerticalLine(surfaceLineSegments, xCoordinate).First();
-                Point2D[] waternetZoneIntersection = Math2D.SegmentsIntersectionWithVerticalLine(waternetZoneSegments, xCoordinate).Distinct().ToArray();
+                IEnumerable<Point2D> waternetZoneIntersection = Math2D.SegmentsIntersectionWithVerticalLine(waternetZoneSegments, xCoordinate).Distinct().ToArray();
 
                 if (waternetZoneIntersection.Any())
                 {
@@ -727,17 +650,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             return area.ToArray();
         }
 
-        private static bool AreaIsNotFlatLine(List<Point2D> topLine, List<Point2D> bottomLine)
+        private static bool AreaIsNotFlatLine(IEnumerable<Point2D> topLine, IEnumerable<Point2D> bottomLine)
         {
-            Point2D[] topLineCoordinates = topLine.ToArray();
-            Point2D[] bottomLineCoordinates = bottomLine.ToArray();
-
-            return topLineCoordinates.Length != bottomLineCoordinates.Length
-                   || topLineCoordinates.Where((t, i) => !(Math.Abs(t.X - bottomLineCoordinates[i].X) < 1e-6)
-                                                         || !(Math.Abs(t.Y - bottomLineCoordinates[i].Y) < 1e-6)).Any();
+            return topLine.Count() != bottomLine.Count()
+                   || topLine.Where((t, i) => !(Math.Abs(t.X - bottomLine.ElementAt(i).X) < 1e-6)
+                                              || !(Math.Abs(t.Y - bottomLine.ElementAt(i).Y) < 1e-6)).Any();
         }
 
-        private static bool IsSurfaceLineAboveWaternetZone(Point2D[] surfaceLineLocalGeometry, Point2D[] waternetLineGeometry, Point2D[] phreaticLineGeometry)
+        private static bool IsSurfaceLineAboveWaternetZone(IEnumerable<Point2D> surfaceLineLocalGeometry,
+                                                           IEnumerable<Point2D> waternetLineGeometry,
+                                                           IEnumerable<Point2D> phreaticLineGeometry)
         {
             double surfaceLineLowestPointY = surfaceLineLocalGeometry.Min(p => p.Y);
             double waternetZoneHeighestPointY = Math.Max(waternetLineGeometry.Max(p => p.Y), phreaticLineGeometry.Max(p => p.Y));
@@ -745,9 +667,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             return surfaceLineLowestPointY >= waternetZoneHeighestPointY;
         }
 
-        private static IEnumerable<Point2D[]> CreateZoneAreas(Point2D[] waternetLineGeometry, Point2D[] phreaticLineGeometry)
+        private static IEnumerable<IEnumerable<Point2D>> CreateZoneAreas(IEnumerable<Point2D> waternetLineGeometry, IEnumerable<Point2D> phreaticLineGeometry)
         {
-            var areas = new List<Point2D[]>();
+            var areas = new List<IEnumerable<Point2D>>();
 
             Segment2D[] phreaticLineSegments = Math2D.ConvertLinePointsToLineSegments(phreaticLineGeometry).ToArray();
             Segment2D[] waternetLineSegments = Math2D.ConvertLinePointsToLineSegments(waternetLineGeometry).ToArray();

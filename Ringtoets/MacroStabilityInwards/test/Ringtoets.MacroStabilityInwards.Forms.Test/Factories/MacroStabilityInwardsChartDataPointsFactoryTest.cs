@@ -38,53 +38,53 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
     public class MacroStabilityInwardsChartDataPointsFactoryTest
     {
         [Test]
-        public void CreateSurfaceLinePoints_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateSurfaceLinePoints_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLinePoints(null);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLinePoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateSurfaceLinePoints_GivenSurfaceLine_ReturnsSurfaceLinePointsArray()
+        public void CreateSurfaceLinePoints_GivenSurfaceLine_ReturnsSurfaceLinePointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLinePoints(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLinePoints(surfaceLine);
 
             // Assert
             AssertEqualPointCollection(surfaceLine.LocalGeometry, points);
         }
 
         [Test]
-        public void CreateSurfaceLevelOutsidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateSurfaceLevelOutsidePoint_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(null);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateSurfaceLevelOutsidePoint_SurfaceLevelOutsideNull_ReturnsEmptyPointsArray()
+        public void CreateSurfaceLevelOutsidePoint_SurfaceLevelOutsideNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateSurfaceLevelOutsidePoint_GivenSurfaceLineWithSurfaceLevelOutside_ReturnsSurfaceLevelOutsideArray()
+        public void CreateSurfaceLevelOutsidePoint_GivenSurfaceLineWithSurfaceLevelOutside_ReturnsSurfaceLevelOutsideCollection()
         {
             // Setup
             var surfaceLevelOutside = new Point3D(1.2, 2.3, 4.0);
@@ -93,37 +93,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             surfaceLine.SetSurfaceLevelOutsideAt(surfaceLevelOutside);
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(surfaceLine);
 
             // Assert
             AssertEqualLocalPointCollection(surfaceLevelOutside, surfaceLine, points);
         }
 
         [Test]
-        public void CreateDikeToeAtRiverPoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateDikeToeAtRiverPoint_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtRiverPoint(null);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtRiverPoint(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDikeToeAtRiverPoint_SurfaceLevelOutsideNull_ReturnsEmptyPointsArray()
+        public void CreateDikeToeAtRiverPoint_SurfaceLevelOutsideNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDikeToeAtRiverPoint_GivenSurfaceLineWithDikeToeAtRiver_ReturnsDikeToeAtRiverPointsArray()
+        public void CreateDikeToeAtRiverPoint_GivenSurfaceLineWithDikeToeAtRiver_ReturnsDikeToeAtRiverPointsCollection()
         {
             // Setup
             var dikeToeAtRiver = new Point3D(1.2, 2.3, 4.0);
@@ -132,37 +132,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             surfaceLine.SetDikeToeAtRiverAt(dikeToeAtRiver);
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine);
 
             // Assert
             AssertEqualLocalPointCollection(dikeToeAtRiver, surfaceLine, points);
         }
 
         [Test]
-        public void CreateDikeTopAtPolderPoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateDikeTopAtPolderPoint_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtPolderPoint(null);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtPolderPoint(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDikeTopAtPolderPoint_DikeTopAtPolderNull_ReturnsEmptyPointsArray()
+        public void CreateDikeTopAtPolderPoint_DikeTopAtPolderNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtPolderPoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtPolderPoint(surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDikeTopAtPolderPoint_GivenSurfaceLineWithDikeTopAtPolder_ReturnsDikeTopAtPolderPointsArray()
+        public void CreateDikeTopAtPolderPoint_GivenSurfaceLineWithDikeTopAtPolder_ReturnsDikeTopAtPolderPointsCollection()
         {
             // Setup
             var dikeTopAtPolder = new Point3D(1.2, 2.3, 4.0);
@@ -171,37 +171,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             surfaceLine.SetDikeTopAtPolderAt(dikeTopAtPolder);
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtPolderPoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtPolderPoint(surfaceLine);
 
             // Assert
             AssertEqualLocalPointCollection(dikeTopAtPolder, surfaceLine, points);
         }
 
         [Test]
-        public void CreateShoulderBaseInsidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateShoulderBaseInsidePoint_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderBaseInsidePoint(null);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderBaseInsidePoint(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateShoulderBaseInsidePoint_ShoulderBaseInsideNull_ReturnsEmptyPointsArray()
+        public void CreateShoulderBaseInsidePoint_ShoulderBaseInsideNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderBaseInsidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderBaseInsidePoint(surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateShoulderBaseInsidePoint_GivenSurfaceLineWithShoulderBaseInside_ReturnsShoulderBaseInsidePointsArray()
+        public void CreateShoulderBaseInsidePoint_GivenSurfaceLineWithShoulderBaseInside_ReturnsShoulderBaseInsidePointsCollection()
         {
             // Setup
             var shoulderBaseInside = new Point3D(1.2, 2.3, 4.0);
@@ -210,37 +210,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             surfaceLine.SetShoulderBaseInsideAt(shoulderBaseInside);
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderBaseInsidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderBaseInsidePoint(surfaceLine);
 
             // Assert
             AssertEqualLocalPointCollection(shoulderBaseInside, surfaceLine, points);
         }
 
         [Test]
-        public void CreateShoulderTopInsidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateShoulderTopInsidePoint_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(null);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateShoulderTopInsidePoint_ShoulderTopInsideNull_ReturnsEmptyPointsArray()
+        public void CreateShoulderTopInsidePoint_ShoulderTopInsideNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateShoulderTopInsidePoint_GivenSurfaceLineWithShoulderTopInside_ReturnsShoulderTopInsidePointsArray()
+        public void CreateShoulderTopInsidePoint_GivenSurfaceLineWithShoulderTopInside_ReturnsShoulderTopInsidePointsCollection()
         {
             // Setup
             var shoulderTopInside = new Point3D(1.2, 2.3, 4.0);
@@ -249,37 +249,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             surfaceLine.SetShoulderTopInsideAt(shoulderTopInside);
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(surfaceLine);
 
             // Assert
             AssertEqualLocalPointCollection(shoulderTopInside, surfaceLine, points);
         }
 
         [Test]
-        public void CreateDikeToeAtPolderPoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateDikeToeAtPolderPoint_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtPolderPoint(null);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtPolderPoint(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDikeToeAtPolderPoint_DikeToeAtPolderNull_ReturnsEmptyPointsArray()
+        public void CreateDikeToeAtPolderPoint_DikeToeAtPolderNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtPolderPoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtPolderPoint(surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDikeToeAtPolderPoint_GivenSurfaceLineWithDikeToeAtPolder_ReturnsDikeToeAtPolderPointsArray()
+        public void CreateDikeToeAtPolderPoint_GivenSurfaceLineWithDikeToeAtPolder_ReturnsDikeToeAtPolderPointsCollection()
         {
             // Setup
             var dikeToeAtPolder = new Point3D(1.2, 2.3, 4.0);
@@ -288,37 +288,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             surfaceLine.SetDikeToeAtPolderAt(dikeToeAtPolder);
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtPolderPoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtPolderPoint(surfaceLine);
 
             // Assert
             AssertEqualLocalPointCollection(dikeToeAtPolder, surfaceLine, points);
         }
 
         [Test]
-        public void CreateDikeTopAtRiverPoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateDikeTopAtRiverPoint_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtRiverPoint(null);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtRiverPoint(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDikeTopAtRiverPoint_DikeTopAtRiverNull_ReturnsEmptyPointsArray()
+        public void CreateDikeTopAtRiverPoint_DikeTopAtRiverNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtRiverPoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtRiverPoint(surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDikeTopAtRiverPoint_GivenSurfaceLineWithDikeTopAtRiver_ReturnsDikeTopAtRiverPointsArray()
+        public void CreateDikeTopAtRiverPoint_GivenSurfaceLineWithDikeTopAtRiver_ReturnsDikeTopAtRiverPointsCollection()
         {
             // Setup
             var dikeTopAtRiver = new Point3D(1.2, 2.3, 4.0);
@@ -327,37 +327,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             surfaceLine.SetDikeTopAtRiverAt(dikeTopAtRiver);
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtRiverPoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtRiverPoint(surfaceLine);
 
             // Assert
             AssertEqualLocalPointCollection(dikeTopAtRiver, surfaceLine, points);
         }
 
         [Test]
-        public void CreateDitchDikeSidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateDitchDikeSidePoint_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchDikeSidePoint(null);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchDikeSidePoint(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDitchDikeSidePoint_DitchDikeSideNull_ReturnsEmptyPointsArray()
+        public void CreateDitchDikeSidePoint_DitchDikeSideNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchDikeSidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchDikeSidePoint(surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDitchDikeSidePoint_GivenSurfaceLineWithDitchDikeSide_ReturnsDitchDikeSidePointsArray()
+        public void CreateDitchDikeSidePoint_GivenSurfaceLineWithDitchDikeSide_ReturnsDitchDikeSidePointsCollection()
         {
             // Setup
             var ditchDikeSide = new Point3D(1.2, 2.3, 4.0);
@@ -366,37 +366,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             surfaceLine.SetDitchDikeSideAt(ditchDikeSide);
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchDikeSidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchDikeSidePoint(surfaceLine);
 
             // Assert
             AssertEqualLocalPointCollection(ditchDikeSide, surfaceLine, points);
         }
 
         [Test]
-        public void CreateBottomDitchDikeSidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateBottomDitchDikeSidePoint_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchDikeSidePoint(null);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchDikeSidePoint(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateBottomDitchDikeSidePoint_BottomDitchDikeSideNull_ReturnsEmptyPointsArray()
+        public void CreateBottomDitchDikeSidePoint_BottomDitchDikeSideNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateBottomDitchDikeSidePoint_GivenSurfaceLineWithBottomDitchDikeSide_ReturnsBottomDitchDikeSidePointsArray()
+        public void CreateBottomDitchDikeSidePoint_GivenSurfaceLineWithBottomDitchDikeSide_ReturnsBottomDitchDikeSidePointsCollection()
         {
             // Setup
             var bottomDitchDikeSide = new Point3D(1.2, 2.3, 4.0);
@@ -405,37 +405,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             surfaceLine.SetBottomDitchDikeSideAt(bottomDitchDikeSide);
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine);
 
             // Assert
             AssertEqualLocalPointCollection(bottomDitchDikeSide, surfaceLine, points);
         }
 
         [Test]
-        public void CreateBottomDitchPolderSidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateBottomDitchPolderSidePoint_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchPolderSidePoint(null);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchPolderSidePoint(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateBottomDitchPolderSidePoint_BottomDitchPolderSideNull_ReturnsEmptyPointsArray()
+        public void CreateBottomDitchPolderSidePoint_BottomDitchPolderSideNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateBottomDitchPolderSidePoint_GivenSurfaceLineWithBottomDitchPolderSide_ReturnsBottomDitchPolderSidePointsArray()
+        public void CreateBottomDitchPolderSidePoint_GivenSurfaceLineWithBottomDitchPolderSide_ReturnsBottomDitchPolderSidePointsCollection()
         {
             // Setup
             var bottomDitchPolderSide = new Point3D(1.2, 2.3, 4.0);
@@ -444,37 +444,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             surfaceLine.SetBottomDitchPolderSideAt(bottomDitchPolderSide);
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine);
 
             // Assert
             AssertEqualLocalPointCollection(bottomDitchPolderSide, surfaceLine, points);
         }
 
         [Test]
-        public void CreateDitchPolderSidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateDitchPolderSidePoint_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(null);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDitchPolderSidePoint_DitchPolderSideNull_ReturnsEmptyPointsArray()
+        public void CreateDitchPolderSidePoint_DitchPolderSideNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDitchPolderSidePoint_GivenSurfaceLineWithDitchPolderSide_ReturnsDitchPolderSidePointsArray()
+        public void CreateDitchPolderSidePoint_GivenSurfaceLineWithDitchPolderSide_ReturnsDitchPolderSidePointsCollection()
         {
             // Setup
             var ditchPolderSide = new Point3D(1.2, 2.3, 4.0);
@@ -483,37 +483,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             surfaceLine.SetDitchPolderSideAt(ditchPolderSide);
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine);
 
             // Assert
             AssertEqualLocalPointCollection(ditchPolderSide, surfaceLine, points);
         }
 
         [Test]
-        public void CreateSurfaceLevelInsidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateSurfaceLevelInsidePoint_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelInsidePoint(null);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelInsidePoint(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateSurfaceLevelInsidePoint_SurfaceLevelInsideNull_ReturnsEmptyPointsArray()
+        public void CreateSurfaceLevelInsidePoint_SurfaceLevelInsideNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelInsidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelInsidePoint(surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateSurfaceLevelInsidePoint_GivenSurfaceLineWithSurfaceLevelInside_ReturnsSurfaceLevelInsidePointsArray()
+        public void CreateSurfaceLevelInsidePoint_GivenSurfaceLineWithSurfaceLevelInside_ReturnsSurfaceLevelInsidePointsCollection()
         {
             // Setup
             var surfaceLevelInside = new Point3D(1.2, 2.3, 4.0);
@@ -522,7 +522,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             surfaceLine.SetSurfaceLevelInsideAt(surfaceLevelInside);
 
             // Call
-            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelInsidePoint(surfaceLine);
+            IEnumerable<Point2D> points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelInsidePoint(surfaceLine);
 
             // Assert
             AssertEqualLocalPointCollection(surfaceLevelInside, surfaceLine, points);
@@ -532,7 +532,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsGridNull_ReturnsEmptyPoints()
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(null, MacroStabilityInwardsGridDeterminationType.Manual);
+            IEnumerable<Point2D> gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(null, MacroStabilityInwardsGridDeterminationType.Manual);
 
             // Assert
             CollectionAssert.IsEmpty(gridPoints);
@@ -553,7 +553,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Automatic);
+            IEnumerable<Point2D> gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Automatic);
 
             // Assert
             CollectionAssert.IsEmpty(gridPoints);
@@ -567,7 +567,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsGridNumberOfPointsNoGrid_ReturnsEmptyPoints(MacroStabilityInwardsGrid grid)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
+            IEnumerable<Point2D> gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
 
             // Assert
             CollectionAssert.IsEmpty(gridPoints);
@@ -582,7 +582,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             MacroStabilityInwardsGrid grid)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
+            IEnumerable<Point2D> gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
 
             // Assert
             AssertEqualPointCollection(new[]
@@ -597,10 +597,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             "CreateGridPointsWithGridDeterminationType"
         })]
         public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsGridSettingsOnlyHorizontalPoints_ReturnsGridPointsAtBottomSide(
-            MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
+            MacroStabilityInwardsGrid grid, IEnumerable<Point2D> expectedPoints)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
+            IEnumerable<Point2D> gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
 
             // Assert
             AssertEqualPointCollection(expectedPoints, gridPoints);
@@ -612,10 +612,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             "CreateGridPointsWithGridDeterminationType"
         })]
         public void CreateGridPointsWithGridDeterminationType_CreateGridPoints_MacroStabilityInwardsGridSettingsOnlyVerticallPoints_ReturnsGridPointsAtLeftSide
-            (MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
+            (MacroStabilityInwardsGrid grid, IEnumerable<Point2D> expectedPoints)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
+            IEnumerable<Point2D> gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
 
             // Assert
             AssertEqualPointCollection(expectedPoints, gridPoints);
@@ -627,10 +627,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             "CreateGridPointsWithGridDeterminationType"
         })]
         public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsWellDefinedGrid_ReturnsExpectedGridPoints(
-            MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
+            MacroStabilityInwardsGrid grid, IEnumerable<Point2D> expectedPoints)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
+            IEnumerable<Point2D> gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
 
             // Assert
             AssertEqualPointCollection(expectedPoints, gridPoints);
@@ -640,7 +640,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateGridPoints_MacroStabilityInwardsGridNull_ReturnsEmptyPoints()
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(null);
+            IEnumerable<Point2D> gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(gridPoints);
@@ -654,7 +654,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateGridPoints_MacroStabilityInwardsGridNumberOfPointsNoGrid_ReturnsEmptyPoints(MacroStabilityInwardsGrid grid)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
+            IEnumerable<Point2D> gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
 
             // Assert
             CollectionAssert.IsEmpty(gridPoints);
@@ -669,7 +669,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             MacroStabilityInwardsGrid grid)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
+            IEnumerable<Point2D> gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
 
             // Assert
             AssertEqualPointCollection(new[]
@@ -684,10 +684,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             "CreateGridPoints"
         })]
         public void CreateGridPoints_MacroStabilityInwardsGridSettingsOnlyHorizontalPoints_ReturnsGridPointsAtBottomSide(
-            MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
+            MacroStabilityInwardsGrid grid, IEnumerable<Point2D> expectedPoints)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
+            IEnumerable<Point2D> gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
 
             // Assert
             AssertEqualPointCollection(expectedPoints, gridPoints);
@@ -699,10 +699,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             "CreateGridPoints"
         })]
         public void CreateGridPoints_CreateGridPoints_MacroStabilityInwardsGridSettingsOnlyVerticallPoints_ReturnsGridPointsAtLeftSide
-            (MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
+            (MacroStabilityInwardsGrid grid, IEnumerable<Point2D> expectedPoints)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
+            IEnumerable<Point2D> gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
 
             // Assert
             AssertEqualPointCollection(expectedPoints, gridPoints);
@@ -714,10 +714,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             "CreateGridPoints"
         })]
         public void CreateGridPoints_MacroStabilityInwardsWellDefinedGrid_ReturnsExpectedGridPoints(
-            MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
+            MacroStabilityInwardsGrid grid, IEnumerable<Point2D> expectedPoints)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
+            IEnumerable<Point2D> gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
 
             // Assert
             AssertEqualPointCollection(expectedPoints, gridPoints);
@@ -727,7 +727,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateOuterRingArea_SoilLayerNull_ReturnsEmptyAreaCollection()
         {
             // Call
-            IEnumerable<Point2D[]> outerRing = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingArea(null);
+            IEnumerable<IEnumerable<Point2D>> outerRing = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingArea(null);
 
             // Assert
             CollectionAssert.IsEmpty(outerRing);
@@ -747,7 +747,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             var layer = new MacroStabilityInwardsSoilLayer2D(outerRing);
 
             // Call
-            IEnumerable<Point2D[]> outerRingChartData = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingArea(layer);
+            IEnumerable<IEnumerable<Point2D>> outerRingChartData = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingArea(layer);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -757,17 +757,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreatePhreaticLinePoints_PhreaticLineNull_ReturnsEmptyPointsArray()
+        public void CreatePhreaticLinePoints_PhreaticLineNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreatePhreaticLinePoints(null);
+            IEnumerable<Point2D> line = MacroStabilityInwardsChartDataPointsFactory.CreatePhreaticLinePoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(line);
         }
 
         [Test]
-        public void CreatePhreaticLinePoints_WithPhreaticLine_ReturnsPointsArray()
+        public void CreatePhreaticLinePoints_WithPhreaticLine_ReturnsPointsCollection()
         {
             // Setup
             var points = new[]
@@ -778,41 +778,41 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreatePhreaticLinePoints(new MacroStabilityInwardsPhreaticLine("Test",
-                                                                                                                                        points));
+            IEnumerable<Point2D> line = MacroStabilityInwardsChartDataPointsFactory.CreatePhreaticLinePoints(new MacroStabilityInwardsPhreaticLine("Test",
+                                                                                                                                                   points));
 
             // Assert
             CollectionAssert.AreEqual(points, line);
         }
 
         [Test]
-        public void CreateWaternetZonePoints_WaternetLineNull_ReturnsEmptyPointsArray()
+        public void CreateWaternetZonePoints_WaternetLineNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            IEnumerable<Point2D[]> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(null, surfaceLine);
+            IEnumerable<IEnumerable<Point2D>> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(null, surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(zone);
         }
 
         [Test]
-        public void CreateWaternetZonePoints_SurfaceLineNull_ReturnsEmptyPointsArray()
+        public void CreateWaternetZonePoints_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             var waternetLine = new TestMacroStabilityInwardsWaternetLine();
 
             // Call
-            IEnumerable<Point2D[]> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, null);
+            IEnumerable<IEnumerable<Point2D>> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, null);
 
             // Assert
             CollectionAssert.IsEmpty(zone);
         }
 
         [Test]
-        public void CreateWaternetZonePoints_WaternetLineGeometryEmpty_ReturnsEmptyPointsArray()
+        public void CreateWaternetZonePoints_WaternetLineGeometryEmpty_ReturnsEmptyPointsCollection()
         {
             // Setup
             var phreaticLineGeometry = new[]
@@ -834,14 +834,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
 
             // Call
-            Point2D[][] zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine).ToArray();
+            IEnumerable<IEnumerable<Point2D>> zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(zones);
         }
 
         [Test]
-        public void CreateWaternetZonePoints_PhreaticLineGeometryEmpty_ReturnsEmptyPointsArray()
+        public void CreateWaternetZonePoints_PhreaticLineGeometryEmpty_ReturnsEmptyPointsCollection()
         {
             // Setup
             var waternetLineGeometry = new[]
@@ -863,7 +863,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
 
             // Call
-            Point2D[][] zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine).ToArray();
+            IEnumerable<IEnumerable<Point2D>> zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(zones);
@@ -871,24 +871,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
         [Test]
         [TestCaseSource(nameof(GetPhreaticLineAndWaternetLineConfigurationsBelowSurfaceLine))]
-        public void CreateWaternetZonePoints_DifferentWaternetLineAndPhreaticLineBelowSurfaceLineConfigurations_ReturnsPointsArray(
+        public void CreateWaternetZonePoints_DifferentWaternetLineAndPhreaticLineBelowSurfaceLineConfigurations_ReturnsPointsCollection(
             MacroStabilityInwardsSurfaceLine surfaceLine,
             MacroStabilityInwardsWaternetLine waternetLine,
-            Point2D[][] expectedZones)
+            IEnumerable<IEnumerable<Point2D>> expectedZones)
         {
             // Call
-            Point2D[][] zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine).ToArray();
+            IEnumerable<IEnumerable<Point2D>> zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert
-            Assert.AreEqual(expectedZones.Length, zones.Length);
-            for (var i = 0; i < expectedZones.Length; i++)
+            Assert.AreEqual(expectedZones.Count(), zones.Count());
+            for (var i = 0; i < expectedZones.Count(); i++)
             {
-                CollectionAssert.AreEqual(expectedZones[i], zones[i]);
+                CollectionAssert.AreEqual(expectedZones.ElementAt(i), zones.ElementAt(i));
             }
         }
 
         [Test]
-        public void CreateWaternetZonePoints_PhreaticLineAboveSurfaceLineBeforeIntersectionPointWithSurfaceLine_ReturnsPointsArray()
+        public void CreateWaternetZonePoints_PhreaticLineAboveSurfaceLineBeforeIntersectionPointWithSurfaceLine_ReturnsPointsCollection()
         {
             // Setup
             var phreaticLineGeometry = new[]
@@ -915,10 +915,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
 
             // Call
-            Point2D[][] zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine).ToArray();
+            IEnumerable<IEnumerable<Point2D>> zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert
-            Assert.AreEqual(1, zones.Length);
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0, 2),
@@ -934,11 +933,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(1.09, -2),
                 new Point2D(0, -2),
                 new Point2D(0, 2)
-            }, zones[0], new Point2DComparerWithTolerance(1e-2));
+            }, zones.Single(), new Point2DComparerWithTolerance(1e-2));
         }
 
         [Test]
-        public void CreateWaternetZonePoints_PhreaticLineBelowSurfaceLineBeforeIntersectionPointWithSurfaceLine_ReturnsPointsArray()
+        public void CreateWaternetZonePoints_PhreaticLineBelowSurfaceLineBeforeIntersectionPointWithSurfaceLine_ReturnsPointsCollection()
         {
             // Setup
             var waternetLineGeometry = new[]
@@ -964,10 +963,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
 
             // Call
-            Point2D[][] zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine).ToArray();
+            IEnumerable<IEnumerable<Point2D>> zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert
-            Assert.AreEqual(1, zones.Length);
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0, 2),
@@ -979,11 +977,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(3, -2),
                 new Point2D(0, -2),
                 new Point2D(0, 2)
-            }, zones[0], new Point2DComparerWithTolerance(1e-2));
+            }, zones.Single(), new Point2DComparerWithTolerance(1e-2));
         }
 
         [Test]
-        public void CreateWaternetZonePoints_WaternetAndPhreaticLinesIntersectSurfaceLine_ReturnsPointsArray()
+        public void CreateWaternetZonePoints_WaternetAndPhreaticLinesIntersectSurfaceLine_ReturnsPointsCollection()
         {
             // Setup
             var waternetLineGeometry = new[]
@@ -1008,11 +1006,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             MacroStabilityInwardsWaternetLine waternetLine = CreateWaternetLine(phreaticLineGeometry, waternetLineGeometry);
 
             // Call
-            Point2D[][] zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine).ToArray();
+            IEnumerable<IEnumerable<Point2D>> zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert
-            Assert.AreEqual(1, zones.Length);
-
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(3.125, 7),
@@ -1022,11 +1018,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(5, 5),
                 new Point2D(3.125, 5),
                 new Point2D(3.125, 7)
-            }, zones[0]);
+            }, zones.Single());
         }
 
         [Test]
-        public void CreateWaternetZonePoints_PhreaticLineIntersectsSurfaceLineAtMultiplePoints_ReturnsPointsArray()
+        public void CreateWaternetZonePoints_PhreaticLineIntersectsSurfaceLineAtMultiplePoints_ReturnsPointsCollection()
         {
             // Setup
             var waternetLineGeometry = new[]
@@ -1052,10 +1048,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             MacroStabilityInwardsWaternetLine waternetLine = CreateWaternetLine(phreaticLineGeometry, waternetLineGeometry);
 
             // Call
-            Point2D[][] zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine).ToArray();
+            IEnumerable<IEnumerable<Point2D>> zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert
-            Assert.AreEqual(1, zones.Length);
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0, 2),
@@ -1073,11 +1068,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(3.125, -2),
                 new Point2D(0, -2),
                 new Point2D(0, 2)
-            }, zones[0]);
+            }, zones.Single());
         }
 
         [Test]
-        public void CreateWaternetZonePoints_PhreaticLineIntersectsSurfaceLineAtMultiplePointsAndIntersectsWaternetLine_ReturnsPointsArray()
+        public void CreateWaternetZonePoints_PhreaticLineIntersectsSurfaceLineAtMultiplePointsAndIntersectsWaternetLine_ReturnsPointsCollection()
         {
             // Setup
             var waternetLineGeometry = new[]
@@ -1104,10 +1099,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             MacroStabilityInwardsWaternetLine waternetLine = CreateWaternetLine(phreaticLineGeometry, waternetLineGeometry);
 
             // Call
-            Point2D[][] zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine).ToArray();
+            IEnumerable<IEnumerable<Point2D>> zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert
-            Assert.AreEqual(2, zones.Length);
+            Assert.AreEqual(2, zones.Count());
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0, 2),
@@ -1125,7 +1120,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(3.125, -2),
                 new Point2D(0, -2),
                 new Point2D(0, 2)
-            }, zones[0], new Point2DComparerWithTolerance(1e-2));
+            }, zones.ElementAt(0), new Point2DComparerWithTolerance(1e-2));
 
             CollectionAssert.AreEqual(new[]
             {
@@ -1134,12 +1129,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(15, -8),
                 new Point2D(13, -2),
                 new Point2D(13, -2)
-            }, zones[1], new Point2DComparerWithTolerance(1e-2));
+            }, zones.ElementAt(1), new Point2DComparerWithTolerance(1e-2));
         }
 
         [Test]
         [TestCaseSource(nameof(GetPhreaticLineAndWaternetLineWithDifferentLengths))]
-        public void CreateWaternetZonePoints_PhreaticLineNotSameLength_ReturnsPointArray(IEnumerable<Point2D> waternetLineGeometry,
+        public void CreateWaternetZonePoints_PhreaticLineNotSameLength_ReturnsPointCollection(IEnumerable<Point2D> waternetLineGeometry,
                                                                                          IEnumerable<Point2D> phreaticLineGeometry)
         {
             // Setup
@@ -1153,10 +1148,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             MacroStabilityInwardsWaternetLine waternetLine = CreateWaternetLine(waternetLineGeometry, phreaticLineGeometry);
 
             // Call
-            Point2D[][] zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine).ToArray();
+            IEnumerable<IEnumerable<Point2D>> zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert
-            Assert.AreEqual(1, zones.Length);
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0, 0),
@@ -1164,7 +1158,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(5, -2),
                 new Point2D(0, -2),
                 new Point2D(0, 0)
-            }, zones[0], new Point2DComparerWithTolerance(1e-2));
+            }, zones.Single(), new Point2DComparerWithTolerance(1e-2));
         }
 
         [Test]
@@ -1197,10 +1191,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             MacroStabilityInwardsWaternetLine waternetLine = CreateWaternetLine(phreaticLineGeometry, waternetLineGeometry);
 
             // Call
-            Point2D[][] zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine).ToArray();
+            IEnumerable<IEnumerable<Point2D>> zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert
-            Assert.AreEqual(1, zones.Length);
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(11.18, 7),
@@ -1208,21 +1201,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(15, -8),
                 new Point2D(11.18, 3.46),
                 new Point2D(11.18, 7)
-            }, zones[0], new Point2DComparerWithTolerance(1e-2));
+            }, zones.Single(), new Point2DComparerWithTolerance(1e-2));
         }
 
         [Test]
-        public void CreateSlipPlanePoints_SlidingCurveNull_ReturnsEmptyPointsArray()
+        public void CreateSlipPlanePoints_SlidingCurveNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateSlipPlanePoints(null);
+            IEnumerable<Point2D> line = MacroStabilityInwardsChartDataPointsFactory.CreateSlipPlanePoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(line);
         }
 
         [Test]
-        public void CreateSlipPlanePoints_SlidingCurveEmptySlices_ReturnsEmptyPointsArray()
+        public void CreateSlipPlanePoints_SlidingCurveEmptySlices_ReturnsEmptyPointsCollection()
         {
             // Setup
             var slidingCurve = new MacroStabilityInwardsSlidingCurve(
@@ -1233,14 +1226,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 0.0);
 
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateSlipPlanePoints(slidingCurve);
+            IEnumerable<Point2D> line = MacroStabilityInwardsChartDataPointsFactory.CreateSlipPlanePoints(slidingCurve);
 
             // Assert
             CollectionAssert.IsEmpty(line);
         }
 
         [Test]
-        public void CreateSlipPlanePoints_WithSlidingCurve_ReturnsPointsArray()
+        public void CreateSlipPlanePoints_WithSlidingCurve_ReturnsPointsCollection()
         {
             // Setup
             var points = new[]
@@ -1276,24 +1269,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 0.0);
 
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateSlipPlanePoints(slidingCurve);
+            IEnumerable<Point2D> line = MacroStabilityInwardsChartDataPointsFactory.CreateSlipPlanePoints(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(points, line);
         }
 
         [Test]
-        public void CreateLeftCircleRadiusPoints_SlidingCurveNull_ReturnsEmptyPointsArray()
+        public void CreateLeftCircleRadiusPoints_SlidingCurveNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateLeftCircleRadiusPoints(null);
+            IEnumerable<Point2D> line = MacroStabilityInwardsChartDataPointsFactory.CreateLeftCircleRadiusPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(line);
         }
 
         [Test]
-        public void CreateLeftCircleRadiusPoints_SlidingCurveEmptySlices_ReturnsEmptyPointsArray()
+        public void CreateLeftCircleRadiusPoints_SlidingCurveEmptySlices_ReturnsEmptyPointsCollection()
         {
             // Setup
             var slidingCurve = new MacroStabilityInwardsSlidingCurve(
@@ -1304,14 +1297,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 0.0);
 
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateLeftCircleRadiusPoints(slidingCurve);
+            IEnumerable<Point2D> line = MacroStabilityInwardsChartDataPointsFactory.CreateLeftCircleRadiusPoints(slidingCurve);
 
             // Assert
             CollectionAssert.IsEmpty(line);
         }
 
         [Test]
-        public void CreateLeftCircleRadiusPoints_WithSlidingCurve_ReturnsPointsArray()
+        public void CreateLeftCircleRadiusPoints_WithSlidingCurve_ReturnsPointsCollection()
         {
             // Setup
             var points = new[]
@@ -1335,24 +1328,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 0.0);
 
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateLeftCircleRadiusPoints(slidingCurve);
+            IEnumerable<Point2D> line = MacroStabilityInwardsChartDataPointsFactory.CreateLeftCircleRadiusPoints(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(points, line);
         }
 
         [Test]
-        public void CreateRightCircleRadiusPoints_SlidingCurveNull_ReturnsEmptyPointsArray()
+        public void CreateRightCircleRadiusPoints_SlidingCurveNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateRightCircleRadiusPoints(null);
+            IEnumerable<Point2D> line = MacroStabilityInwardsChartDataPointsFactory.CreateRightCircleRadiusPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(line);
         }
 
         [Test]
-        public void CreateRightCircleRadiusPoints_SlidingCurveEmptySlices_ReturnsEmptyPointsArray()
+        public void CreateRightCircleRadiusPoints_SlidingCurveEmptySlices_ReturnsEmptyPointsCollection()
         {
             // Setup
             var slidingCurve = new MacroStabilityInwardsSlidingCurve(
@@ -1363,14 +1356,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 0.0);
 
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateRightCircleRadiusPoints(slidingCurve);
+            IEnumerable<Point2D> line = MacroStabilityInwardsChartDataPointsFactory.CreateRightCircleRadiusPoints(slidingCurve);
 
             // Assert
             CollectionAssert.IsEmpty(line);
         }
 
         [Test]
-        public void CreateRightCircleRadiusPoints_WithSlidingCurve_ReturnsPointsArray()
+        public void CreateRightCircleRadiusPoints_WithSlidingCurve_ReturnsPointsCollection()
         {
             // Setup
             var points = new[]
@@ -1394,69 +1387,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 0.0);
 
             // Call
-            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreateRightCircleRadiusPoints(slidingCurve);
+            IEnumerable<Point2D> line = MacroStabilityInwardsChartDataPointsFactory.CreateRightCircleRadiusPoints(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(points, line);
         }
 
         [Test]
-        public void CreateSliceAreas_SlicesNull_ReturnsEmptyCollection()
-        {
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceAreas(null);
-
-            // Assert
-            CollectionAssert.IsEmpty(areas);
-        }
-
-        [Test]
-        public void CreateSliceAreas_WithSlices_ReturnsAreas()
-        {
-            // Setup
-            var slices =
-                new[]
-                {
-                    new MacroStabilityInwardsSlice(new Point2D(0, 1),
-                                                   new Point2D(1, 1),
-                                                   new Point2D(0, 0),
-                                                   new Point2D(1, 0),
-                                                   new MacroStabilityInwardsSlice.ConstructionProperties()),
-                    new MacroStabilityInwardsSlice(new Point2D(3, 4),
-                                                   new Point2D(4, 4),
-                                                   new Point2D(3, 3),
-                                                   new Point2D(4, 3),
-                                                   new MacroStabilityInwardsSlice.ConstructionProperties())
-                };
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceAreas(slices);
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                new[]
-                {
-                    new Point2D(0, 1),
-                    new Point2D(1, 1),
-                    new Point2D(1, 0),
-                    new Point2D(0, 0)
-                },
-                new[]
-                {
-                    new Point2D(3, 4),
-                    new Point2D(4, 4),
-                    new Point2D(4, 3),
-                    new Point2D(3, 3)
-                }
-            }, areas);
-        }
-
-        [Test]
         public void CreateTangentLines_TangentLinesNull_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(null, new MacroStabilityInwardsSurfaceLine("line"));
+            IEnumerable<IEnumerable<Point2D>> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(null, new MacroStabilityInwardsSurfaceLine("line"));
 
             // Assert
             CollectionAssert.IsEmpty(lines);
@@ -1466,7 +1407,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateTangentLines_SurfaceLineNull_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(Enumerable.Empty<RoundedDouble>(), null);
+            IEnumerable<IEnumerable<Point2D>> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(Enumerable.Empty<RoundedDouble>(), null);
 
             // Assert
             CollectionAssert.IsEmpty(lines);
@@ -1484,7 +1425,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
 
             // Call
-            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(new[]
+            IEnumerable<IEnumerable<Point2D>> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(new[]
             {
                 (RoundedDouble) 2.5,
                 (RoundedDouble) 5.8
@@ -1510,7 +1451,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateTangentLines_WithBoundaryParametersSurfaceLineNull_ReturnsEmptyCollection()
         {
             // Call
-            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+            IEnumerable<IEnumerable<Point2D>> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
                 MacroStabilityInwardsGridDeterminationType.Manual,
                 MacroStabilityInwardsTangentLineDeterminationType.Specified,
                 (RoundedDouble) 0.0,
@@ -1532,7 +1473,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateTangentLines_WithInvalidBoundaryParameters_ReturnsEmptyCollection(double bottom, double top)
         {
             // Call
-            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+            IEnumerable<IEnumerable<Point2D>> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
                 MacroStabilityInwardsGridDeterminationType.Manual,
                 MacroStabilityInwardsTangentLineDeterminationType.Specified,
                 (RoundedDouble) bottom,
@@ -1553,7 +1494,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             MacroStabilityInwardsTangentLineDeterminationType tangentLineDeterminationType)
         {
             // Call
-            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+            IEnumerable<IEnumerable<Point2D>> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
                 gridDeterminationType,
                 tangentLineDeterminationType,
                 (RoundedDouble) 10.0,
@@ -1577,7 +1518,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
 
             // Call
-            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+            IEnumerable<IEnumerable<Point2D>> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
                 MacroStabilityInwardsGridDeterminationType.Manual,
                 MacroStabilityInwardsTangentLineDeterminationType.Specified,
                 (RoundedDouble) 10.0,
@@ -1608,7 +1549,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
 
             // Call
-            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+            IEnumerable<IEnumerable<Point2D>> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
                 MacroStabilityInwardsGridDeterminationType.Manual,
                 MacroStabilityInwardsTangentLineDeterminationType.Specified,
                 (RoundedDouble) 10.0,
@@ -1649,7 +1590,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
 
             // Call
-            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+            IEnumerable<IEnumerable<Point2D>> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
                 MacroStabilityInwardsGridDeterminationType.Manual,
                 MacroStabilityInwardsTangentLineDeterminationType.Specified,
                 (RoundedDouble) 10.0,
@@ -1690,7 +1631,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
 
             // Call
-            IEnumerable<Point2D[]> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
+            IEnumerable<IEnumerable<Point2D>> lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(
                 MacroStabilityInwardsGridDeterminationType.Manual,
                 MacroStabilityInwardsTangentLineDeterminationType.Specified,
                 (RoundedDouble) 10.0,
@@ -1707,126 +1648,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                     new Point2D(15.0, 10.0)
                 }
             }, lines);
-        }
-
-        [Test]
-        public void CreateSliceParameterAreas_SlidingCurveNull_ReturnsEmptyCollection()
-        {
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(null,
-                                                                                                                 "parameter",
-                                                                                                                 new Random(39).Next());
-
-            // Assert
-            CollectionAssert.IsEmpty(areas);
-        }
-
-        [Test]
-        public void CreateSliceParameterAreas_PropertyNameNull_ReturnsEmptyCollection()
-        {
-            // Setup
-            var slidingCurve = new MacroStabilityInwardsSlidingCurve(
-                new MacroStabilityInwardsSlidingCircle(new Point2D(10, 10), 0.0, true, 0.0, 0.0, 0.0, 0.0),
-                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
-                new[]
-                {
-                    new MacroStabilityInwardsSlice(new Point2D(0, 1),
-                                                   new Point2D(1, 1),
-                                                   new Point2D(0, 0),
-                                                   new Point2D(1, 0),
-                                                   new MacroStabilityInwardsSlice.ConstructionProperties())
-                },
-                0.0,
-                0.0);
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(slidingCurve,
-                                                                                                                 null,
-                                                                                                                 new Random(39).Next());
-
-            // Assert
-            CollectionAssert.IsEmpty(areas);
-        }
-
-        [Test]
-        public void CreateSliceParameterAreas_PropertyNameDoesNotExist_ReturnsEmptyCollection()
-        {
-            // Setup
-            var slidingCurve = new MacroStabilityInwardsSlidingCurve(
-                new MacroStabilityInwardsSlidingCircle(new Point2D(10, 10), 0.0, true, 0.0, 0.0, 0.0, 0.0),
-                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
-                new[]
-                {
-                    new MacroStabilityInwardsSlice(new Point2D(0, 1),
-                                                   new Point2D(1, 1),
-                                                   new Point2D(0, 0),
-                                                   new Point2D(1, 0),
-                                                   new MacroStabilityInwardsSlice.ConstructionProperties())
-                },
-                0.0,
-                0.0);
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(slidingCurve,
-                                                                                                                 "property that does not exist",
-                                                                                                                 new Random(39).Next());
-
-            // Assert
-            CollectionAssert.IsEmpty(areas);
-        }
-
-        [Test]
-        public void CreateSliceParameterAreas_ValidParameters_ReturnsExpectedAreas()
-        {
-            // Setup
-            var slidingCurve = new MacroStabilityInwardsSlidingCurve(
-                new MacroStabilityInwardsSlidingCircle(new Point2D(10, 10), 0.0, true, 0.0, 0.0, 0.0, 0.0),
-                MacroStabilityInwardsSlidingCircleTestFactory.Create(),
-                new[]
-                {
-                    new MacroStabilityInwardsSlice(new Point2D(0, 1),
-                                                   new Point2D(1, 1),
-                                                   new Point2D(0, 0),
-                                                   new Point2D(1, 0),
-                                                   new MacroStabilityInwardsSlice.ConstructionProperties
-                                                   {
-                                                       Cohesion = 30.0
-                                                   }),
-                    new MacroStabilityInwardsSlice(new Point2D(1, 2),
-                                                   new Point2D(2, 2),
-                                                   new Point2D(1, 1),
-                                                   new Point2D(2, 1),
-                                                   new MacroStabilityInwardsSlice.ConstructionProperties
-                                                   {
-                                                       Cohesion = 60.0
-                                                   })
-                },
-                0.0,
-                0.0);
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(slidingCurve,
-                                                                                                                 nameof(MacroStabilityInwardsSlice.Cohesion),
-                                                                                                                 3);
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 0),
-                    new Point2D(1, -10),
-                    new Point2D(0, -10)
-                },
-                new[]
-                {
-                    new Point2D(1, 1),
-                    new Point2D(2, 1),
-                    new Point2D(2, -19),
-                    new Point2D(1, -19)
-                }
-            }, areas);
         }
 
         private static MacroStabilityInwardsWaternetLine CreateWaternetLine(IEnumerable<Point2D> waternetLineGeometry,

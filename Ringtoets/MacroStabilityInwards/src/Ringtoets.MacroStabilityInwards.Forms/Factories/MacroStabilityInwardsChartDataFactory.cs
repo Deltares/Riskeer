@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </summary>
         public static ChartDataCollection CreateSliceParametersChartDataCollection()
         {
-            return new ChartDataCollection(Resources.SliceParameters);
+            return new ChartDataCollection(Resources.SliceParameters_DisplayName);
         }
 
         /// <summary>

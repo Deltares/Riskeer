@@ -736,7 +736,7 @@
   <data name="ZoneBoundaryRight_DisplayName" xml:space="preserve">
     <value>Zoneringsgrens rechts</value>
   </data>
-  <data name="SliceParameters" xml:space="preserve">
+  <data name="SliceParameters_DisplayName" xml:space="preserve">
     <value>Uitvoer per lamel</value>
   </data>
   <data name="Unit_Degree" xml:space="preserve">

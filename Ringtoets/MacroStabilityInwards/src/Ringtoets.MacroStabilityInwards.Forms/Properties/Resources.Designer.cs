@@ -1373,9 +1373,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Uitvoer per lamel.
         /// </summary>
-        public static string SliceParameters {
+        public static string SliceParameters_DisplayName {
             get {
-                return ResourceManager.GetString("SliceParameters", resourceCulture);
+                return ResourceManager.GetString("SliceParameters_DisplayName", resourceCulture);
             }
         }
         
