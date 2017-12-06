@@ -46,6 +46,8 @@ namespace Ringtoets.Common.Data.TestUtil
             {
                 Name = "Background data"
             };
+
+            HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
         }
 
         public string Id { get; }

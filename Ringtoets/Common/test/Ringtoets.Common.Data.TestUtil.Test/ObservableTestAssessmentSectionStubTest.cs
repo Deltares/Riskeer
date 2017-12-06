@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Data.TestUtil.Test
 {
@@ -48,9 +49,15 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsNull(assessmentSection.Comments);
             Assert.AreEqual(0, Convert.ToInt32(assessmentSection.Composition));
             Assert.IsNull(assessmentSection.ReferenceLine);
-            Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
             Assert.IsNotNull(assessmentSection.BackgroundData);
             Assert.AreEqual("Background data", assessmentSection.BackgroundData.Name);
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            Assert.IsNotNull(hydraulicBoundaryDatabase);
+            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
+            Assert.IsNull(hydraulicBoundaryDatabase.Version);
+            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
 
             FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
             Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
