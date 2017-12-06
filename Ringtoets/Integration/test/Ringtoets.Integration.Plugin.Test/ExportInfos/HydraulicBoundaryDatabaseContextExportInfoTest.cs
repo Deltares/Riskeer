@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_NoHydraulicBoundaryDatabaseSet_ReturnFalse()
+        public void IsEnabled_HydraulicBoundaryDatabaseNotCoupled_ReturnFalse()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -118,12 +118,15 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_HydraulicBoundaryDatabaseSet_ReturnTrue()
+        public void IsEnabled_HydraulicBoundaryDatabaseCoupled_ReturnTrue()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = "databaseFile"
+                }
             };
             var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
 

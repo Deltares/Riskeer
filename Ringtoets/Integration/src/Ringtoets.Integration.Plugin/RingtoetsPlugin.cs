@@ -517,7 +517,7 @@ namespace Ringtoets.Integration.Plugin
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(
                     context.WrappedData.HydraulicBoundaryDatabase.Locations, filePath,
                     RingtoetsIntegrationPluginResources.DesignWaterLevel_Description, RingtoetsIntegrationPluginResources.WaveHeight_Description),
-                IsEnabled = context => context.WrappedData.HydraulicBoundaryDatabase != null,
+                IsEnabled = context => context.WrappedData.HydraulicBoundaryDatabase.IsCoupled(),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description)
             };
