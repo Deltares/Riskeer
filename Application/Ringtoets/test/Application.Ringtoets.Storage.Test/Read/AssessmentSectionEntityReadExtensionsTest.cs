@@ -35,6 +35,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
 using Ringtoets.MacroStabilityInwards.Data;
 
@@ -98,8 +99,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(normativeNorm, section.FailureMechanismContribution.NormativeNorm);
 
             Assert.AreEqual(assessmentSectionComposition, section.Composition);
-            Assert.IsNull(section.HydraulicBoundaryDatabase);
             Assert.IsNull(section.ReferenceLine);
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = section.HydraulicBoundaryDatabase;
+            Assert.IsNotNull(hydraulicBoundaryDatabase);
+            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
+            Assert.IsNull(hydraulicBoundaryDatabase.Version);
+            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
         }
 
         [Test]
