@@ -36,100 +36,100 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         [Test]
-        public void ValidatePathForCalculation_ExistingFileWithHlcd_ReturnsNull()
+        public void ValidateFilesForCalculation_ExistingFileWithHlcd_ReturnsNull()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(validFilePath, "");
+            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(validFilePath, "");
 
             // Assert
             Assert.IsNull(result);
         }
 
         [Test]
-        public void ValidatePathForCalculation_NonExistingFile_ReturnsMessageWithError()
+        public void ValidateFilesForCalculation_NonExistingFile_ReturnsMessageWithError()
         {
             // Setup
             const string nonexistingSqlite = "nonexisting.sqlite";
             string filePath = Path.Combine(testDataPath, nonexistingSqlite);
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(filePath, "");
+            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(filePath, "");
 
             // Assert
             StringAssert.StartsWith($"Fout bij het lezen van bestand '{filePath}':", result);
         }
 
         [Test]
-        public void ValidatePathForCalculation_InvalidFile_ReturnsMessageWithError()
+        public void ValidateFilesForCalculation_InvalidFile_ReturnsMessageWithError()
         {
             // Setup
             string invalidPath = Path.Combine(testDataPath, "complete.sqlite");
             invalidPath = invalidPath.Replace('c', Path.GetInvalidPathChars()[0]);
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(invalidPath, testDataPath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(invalidPath, testDataPath);
 
             // Assert
             StringAssert.StartsWith($"Fout bij het lezen van bestand '{invalidPath}':", result);
         }
 
         [Test]
-        public void ValidatePathForCalculation_FileIsDirectory_ReturnsMessageWithError()
+        public void ValidateFilesForCalculation_FileIsDirectory_ReturnsMessageWithError()
         {
             // Setup
             string filePath = Path.Combine(testDataPath, "/");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(filePath, testDataPath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(filePath, testDataPath);
 
             // Assert
             StringAssert.StartsWith($"Fout bij het lezen van bestand '{filePath}':", result);
         }
 
         [Test]
-        public void ValidatePathForCalculation_ExistingFileWithoutHlcd_ReturnsMessageWithError()
+        public void ValidateFilesForCalculation_ExistingFileWithoutHlcd_ReturnsMessageWithError()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(validFilePath, testDataPath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(validFilePath, testDataPath);
 
             // Assert
             StringAssert.StartsWith($"Fout bij het lezen van bestand '{validFilePath}':", result);
         }
 
         [Test]
-        public void ValidatePathForCalculation_ExistingFileWithoutSettings_ReturnsMessageWithError()
+        public void ValidateFilesForCalculation_ExistingFileWithoutSettings_ReturnsMessageWithError()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "withoutSettings", "empty.sqlite");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(validFilePath, testDataPath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(validFilePath, testDataPath);
 
             // Assert
             StringAssert.StartsWith($"Fout bij het lezen van bestand '{validFilePath}':", result);
         }
 
         [Test]
-        public void ValidatePathForCalculation_ExistingFileWithInvalidSettingsDatabase_ReturnsMessageWithError()
+        public void ValidateFilesForCalculation_ExistingFileWithInvalidSettingsDatabase_ReturnsMessageWithError()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite");
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(validFilePath, testDataPath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(validFilePath, testDataPath);
 
             // Assert
             Assert.AreEqual("De rekeninstellingen database heeft niet het juiste schema.", result);
         }
 
         [Test]
-        public void ValidatePathForCalculation_InvalidFilePath_ReturnsMessageWithError()
+        public void ValidateFilesForCalculation_InvalidFilePath_ReturnsMessageWithError()
         {
             // Setup
             const string invalidFilePath = "C:\\Thisissomeverylongpath\\toadirectorywhich\\doesntevenexist\\Nowlets\\finishwithsomelongname\\" +
@@ -138,7 +138,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                                            "\\followedbythefile";
 
             // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(invalidFilePath, testDataPath);
+            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(invalidFilePath, testDataPath);
 
             // Assert
             Assert.AreEqual($"Het opgegeven bestandspad ({invalidFilePath}) is niet geldig.", result);

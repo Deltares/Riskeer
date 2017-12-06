@@ -773,7 +773,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             var validationResults = new List<string>();
 
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                                   preprocessorDirectory);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
