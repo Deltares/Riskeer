@@ -357,14 +357,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return("1");
-            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
-                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = Path.Combine(testDataPath, "complete.sqlite")
             };
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return("1");
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
@@ -478,14 +479,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return("1");
-            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
-                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = Path.Combine(testDataPath, "complete.sqlite")
             };
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return("1");
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
@@ -529,17 +531,18 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return("1");
-            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
-                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = Path.Combine(testDataPath, "complete.sqlite"),
                 CanUsePreprocessor = true,
                 UsePreprocessor = true,
                 PreprocessorDirectory = validPreprocessorDirectory
             };
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return("1");
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
@@ -583,17 +586,20 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.Id).Return("1");
-            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
-                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = Path.Combine(testDataPath, "complete.sqlite"),
                 CanUsePreprocessor = true,
                 UsePreprocessor = false,
                 PreprocessorDirectory = "InvalidPreprocessorDirectory"
             };
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return("1");
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
+                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
