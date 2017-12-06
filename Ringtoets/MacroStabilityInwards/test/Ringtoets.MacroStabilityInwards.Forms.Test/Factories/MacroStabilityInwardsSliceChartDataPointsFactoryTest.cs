@@ -43,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateSliceAreas_WithSilidingCurve_ReturnsAreas()
+        public void CreateSliceAreas_WithSlidingCurve_ReturnsAreas()
         {
             // Setup
             var slidingCurve = new MacroStabilityInwardsSlidingCurve(
