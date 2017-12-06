@@ -30,7 +30,6 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
-using Ringtoets.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.Common.IO.Test.HydraRing
 {
@@ -64,18 +63,6 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                 // Assert
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(reader);
             }
-        }
-
-        [Test]
-        public void Validate_InvalidSchema_ReturnsFalseFileNotLocked()
-        {
-            // Call
-            TestDelegate test = () => new HydraRingSettingsDatabaseReader(invalidSchemaDatabasePath);
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(test).Message;
-            Assert.AreEqual("De rekeninstellingen database heeft niet het juiste schema.", message);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(invalidSchemaDatabasePath));
         }
 
         [Test]

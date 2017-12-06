@@ -186,28 +186,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ExistingFileWithInvalidSettingsDatabaseSchema_ThrowCriticalFileReadException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            string validFilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite");
-
-            // Call
-            TestDelegate test = () => importer.Import(assessmentSection, validFilePath);
-
-            // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build(
-                "Kon het rekeninstellingen bestand niet openen. De rekeninstellingen database heeft niet het juiste schema.");
-            var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(expectedMessage, exception.Message);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Import_ValidFileWithCanUsePreprocessorFalse_DataImportedAndAssessmentSectionNotified()
         {
             // Setup

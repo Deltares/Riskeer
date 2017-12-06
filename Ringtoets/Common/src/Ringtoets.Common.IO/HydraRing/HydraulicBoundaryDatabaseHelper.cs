@@ -45,9 +45,10 @@ namespace Ringtoets.Common.IO.HydraRing
         /// database with a Hydraulic Location Configurations database next to it.
         /// </summary>
         /// <param name="filePath">The path of the Hydraulic Boundary Locations database file.</param>
+        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <returns>A <see cref="string"/> describing the problem when trying to connect to the <paramref name="filePath"/> 
         /// or <c>null</c> if a connection could be correctly made.</returns>
-        public static string ValidatePathForCalculation(string filePath)
+        public static string ValidatePathForCalculation(string filePath, string preprocessorDirectory)
         {
             try
             {
@@ -78,14 +79,20 @@ namespace Ringtoets.Common.IO.HydraRing
                 }
                 string hlcdFilePath = Path.Combine(directoryName, hlcdFileName);
                 using (new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath)) {}
-                using (new DesignTablesSettingsProvider(settingsDatabaseFileName)) {}
-                using (new TimeIntegrationSettingsProvider(settingsDatabaseFileName)) {}
-                using (new NumericsSettingsProvider(settingsDatabaseFileName)) {}
+
+                using (var validator = new HydraRingSettingsDatabaseValidator(settingsDatabaseFileName, preprocessorDirectory))
+                {
+                    if (!validator.ValidateSchema())
+                    {
+                        return Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema;
+                    }
+                }
             }
             catch (CriticalFileReadException e)
             {
                 return e.Message;
             }
+
             return null;
         }
 
