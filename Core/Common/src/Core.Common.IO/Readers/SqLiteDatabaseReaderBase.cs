@@ -24,9 +24,9 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using Core.Common.Base.IO;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
+using UtilsResources = Core.Common.Util.Properties.Resources;
 
 namespace Core.Common.IO.Readers
 {

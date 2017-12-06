@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Views

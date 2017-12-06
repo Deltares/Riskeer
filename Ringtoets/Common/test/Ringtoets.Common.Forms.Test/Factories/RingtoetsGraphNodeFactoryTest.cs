@@ -25,7 +25,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Core.Components.PointedTree.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;

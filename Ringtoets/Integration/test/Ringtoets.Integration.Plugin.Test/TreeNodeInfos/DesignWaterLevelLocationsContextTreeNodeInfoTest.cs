@@ -33,7 +33,7 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
+using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

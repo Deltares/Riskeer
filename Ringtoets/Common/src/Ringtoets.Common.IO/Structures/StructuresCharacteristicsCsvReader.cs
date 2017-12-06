@@ -26,11 +26,11 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.IO.Properties;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilsResources = Core.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Common.IO.Structures
 {

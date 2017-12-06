@@ -26,7 +26,7 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Builders;
+using Core.Common.Util.Builders;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;

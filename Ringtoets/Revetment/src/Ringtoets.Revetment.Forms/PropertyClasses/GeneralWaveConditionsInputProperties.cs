@@ -21,7 +21,7 @@
 
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Attributes;
+using Core.Common.Util.Attributes;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Properties;
 

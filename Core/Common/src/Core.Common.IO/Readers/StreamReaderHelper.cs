@@ -21,8 +21,8 @@
 
 using System.IO;
 using Core.Common.Base.IO;
-using Core.Common.Utils.Builders;
-using Core.Common.Utils.Properties;
+using Core.Common.Util.Builders;
+using Core.Common.Util.Properties;
 
 namespace Core.Common.IO.Readers
 {

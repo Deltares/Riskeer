@@ -54,9 +54,9 @@ namespace Core.Common.TestUtil
             public static class Common
             {
                 public static readonly TestDataPath Gui = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.Gui.Test");
-                public static readonly TestDataPath Utils = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.Utils.Test");
+                public static readonly TestDataPath Util = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.Util.Test");
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.IO.Test");
-                public static readonly TestDataPath TestUtils = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.TestUtil.Test");
+                public static readonly TestDataPath TestUtil = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.TestUtil.Test");
             }
 
             public static class Components

@@ -27,7 +27,7 @@ using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.Create.StabilityStoneCover;
 using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;

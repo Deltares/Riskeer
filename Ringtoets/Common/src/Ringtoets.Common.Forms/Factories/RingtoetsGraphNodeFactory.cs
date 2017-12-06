@@ -26,7 +26,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using Core.Common.Base.Data;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Core.Components.PointedTree.Data;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Helpers;

@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Attributes;
+using Core.Common.Util.Attributes;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;

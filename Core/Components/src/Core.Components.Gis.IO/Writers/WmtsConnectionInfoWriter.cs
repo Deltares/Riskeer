@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using Core.Common.Util;
+using CoreCommonUtilsResources = Core.Common.Util.Properties.Resources;
 
 namespace Core.Components.Gis.IO.Writers
 {

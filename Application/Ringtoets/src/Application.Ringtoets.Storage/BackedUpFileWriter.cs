@@ -23,7 +23,7 @@ using System;
 using System.IO;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
-using Core.Common.Utils;
+using Core.Common.Util;
 
 namespace Application.Ringtoets.Storage
 {

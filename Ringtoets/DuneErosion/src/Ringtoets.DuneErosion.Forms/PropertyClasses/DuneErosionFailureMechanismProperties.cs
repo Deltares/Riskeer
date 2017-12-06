@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Attributes;
+using Core.Common.Util.Attributes;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;

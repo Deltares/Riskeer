@@ -26,7 +26,7 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using Core.Common.Base.IO;
-using Core.Common.Utils;
+using Core.Common.Util;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;

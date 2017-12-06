@@ -27,7 +27,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
+using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;

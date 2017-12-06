@@ -23,7 +23,7 @@ using System;
 using System.IO;
 using BruTile;
 using BruTile.Cache;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Core.Components.BruTile.Data;
 using Core.Components.BruTile.IO;
 using Core.Components.BruTile.Properties;

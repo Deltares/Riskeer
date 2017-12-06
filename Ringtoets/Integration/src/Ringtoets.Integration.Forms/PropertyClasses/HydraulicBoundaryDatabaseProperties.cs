@@ -25,7 +25,7 @@ using System.Drawing.Design;
 using System.Windows.Forms.Design;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Attributes;
+using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;

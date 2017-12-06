@@ -23,7 +23,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using Core.Common.Base.IO;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;

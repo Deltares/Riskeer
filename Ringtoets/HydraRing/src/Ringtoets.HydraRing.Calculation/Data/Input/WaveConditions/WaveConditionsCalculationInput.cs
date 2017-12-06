@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Ringtoets.HydraRing.Calculation.Data.Variables;
 
 namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;

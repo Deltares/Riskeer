@@ -21,7 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 

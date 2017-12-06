@@ -33,7 +33,7 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.Gui.TestUtil;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Core.Components.OxyPlot.Forms;

@@ -33,7 +33,7 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.Gui.TestUtil;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;

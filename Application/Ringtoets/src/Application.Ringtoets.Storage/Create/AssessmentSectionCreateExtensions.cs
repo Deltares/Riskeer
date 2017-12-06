@@ -40,7 +40,7 @@ using Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover;
 using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;

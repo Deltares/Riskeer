@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
+using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

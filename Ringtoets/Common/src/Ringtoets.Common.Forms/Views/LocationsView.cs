@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.PresentationObjects;

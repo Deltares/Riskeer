@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 
 namespace Core.Common.Gui.Forms.PropertyGridView
 {

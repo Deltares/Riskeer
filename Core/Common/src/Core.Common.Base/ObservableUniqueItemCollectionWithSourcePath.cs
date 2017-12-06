@@ -24,7 +24,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Properties;
-using Core.Common.Utils;
+using Core.Common.Util;
 
 namespace Core.Common.Base
 {

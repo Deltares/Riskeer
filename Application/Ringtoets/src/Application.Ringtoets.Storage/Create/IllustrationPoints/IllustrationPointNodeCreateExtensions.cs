@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Create.IllustrationPoints

@@ -119,9 +119,9 @@
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>Core.Common.Gui</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Utils</Name>
+      <Name>Core.Common.Util</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
       <Project>{26214bd0-dafb-4cfc-8eb2-80c5d53c859e}</Project>
@@ -131,9 +131,9 @@
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Utils.TestUtil\Core.Common.Utils.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Util.TestUtil\Core.Common.Util.TestUtil.csproj">
       <Project>{45193749-ECE8-40C4-8C4B-0C783AFFACB5}</Project>
-      <Name>Core.Common.Utils.TestUtil</Name>
+      <Name>Core.Common.Util.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.BruTile\Core.Components.BruTile.csproj">
       <Project>{E02482C7-F12B-42F0-BB2B-C7EC17503A72}</Project>

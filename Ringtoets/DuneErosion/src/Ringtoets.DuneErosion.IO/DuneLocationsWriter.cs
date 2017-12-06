@@ -28,7 +28,7 @@ using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.IO.Properties;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilsResources = Core.Common.Util.Properties.Resources;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.IO

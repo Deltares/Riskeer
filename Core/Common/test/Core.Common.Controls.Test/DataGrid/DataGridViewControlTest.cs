@@ -29,8 +29,8 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Test.Properties;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
-using Core.Common.Utils.Attributes;
+using Core.Common.Util;
+using Core.Common.Util.Attributes;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 

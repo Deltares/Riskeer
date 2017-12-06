@@ -27,7 +27,7 @@ using System.Text;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Ringtoets.Revetment.IO.Properties;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilsResources = Core.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Revetment.IO.WaveConditions
 {

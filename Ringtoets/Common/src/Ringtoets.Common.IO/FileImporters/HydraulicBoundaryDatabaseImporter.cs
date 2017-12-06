@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils.Builders;
+using Core.Common.Util.Builders;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;

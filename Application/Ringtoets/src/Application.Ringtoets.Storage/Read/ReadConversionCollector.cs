@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;

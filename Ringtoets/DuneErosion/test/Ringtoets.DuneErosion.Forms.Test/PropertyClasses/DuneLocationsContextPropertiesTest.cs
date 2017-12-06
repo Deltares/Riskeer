@@ -24,7 +24,7 @@ using System.Globalization;
 using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
+using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;

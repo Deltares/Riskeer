@@ -23,7 +23,7 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms.Views;
 using NUnit.Extensions.Forms;

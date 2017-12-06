@@ -21,7 +21,7 @@
 
 using System;
 using System.Windows.Forms.Integration;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms;
 using Core.Components.GraphSharp.Forms.Layout;

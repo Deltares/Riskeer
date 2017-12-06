@@ -27,10 +27,10 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using Core.Common.Base.IO;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
 using Ringtoets.Common.IO.Properties;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilsResources = Core.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Common.IO.Configurations.Import
 {

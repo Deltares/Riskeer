@@ -24,14 +24,14 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilsResources = Core.Common.Util.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 

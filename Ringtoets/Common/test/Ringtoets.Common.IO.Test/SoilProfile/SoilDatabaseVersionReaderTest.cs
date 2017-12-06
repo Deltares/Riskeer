@@ -23,7 +23,7 @@ using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Builders;
+using Core.Common.Util.Builders;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
 

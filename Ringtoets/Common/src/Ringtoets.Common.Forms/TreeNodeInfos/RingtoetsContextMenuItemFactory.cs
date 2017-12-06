@@ -26,7 +26,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;

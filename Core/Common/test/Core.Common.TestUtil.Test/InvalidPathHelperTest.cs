@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Utils;
+using Core.Common.Util;
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil.Test

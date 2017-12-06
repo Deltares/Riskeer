@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils;
+using Core.Common.Util;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Properties;

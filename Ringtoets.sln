@@ -114,7 +114,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Version", "Core
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8261CCE1-98D7-465B-BC94-4ED239DE7F2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Utils", "Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj", "{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Util", "Core\Common\src\Core.Common.Util\Core.Common.Util.csproj", "{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -136,7 +136,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Controls", "Cor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0D9858E1-CF2D-4DE5-AC0E-64401900D531}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Utils.Test", "Core\Common\test\Core.Common.Utils.Test\Core.Common.Utils.Test.csproj", "{7F937E31-02CA-41D9-B7D4-1079CF452C72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Util.Test", "Core\Common\test\Core.Common.Util.Test\Core.Common.Util.Test.csproj", "{7F937E31-02CA-41D9-B7D4-1079CF452C72}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -1485,12 +1485,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.IO.TestUti
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Utils.TestUtil.Test", "Core\Common\test\Core.Common.Utils.TestUtil.Test\Core.Common.Utils.TestUtil.Test.csproj", "{D2979692-0AF0-49D2-92BB-88696AB76F7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Util.TestUtil.Test", "Core\Common\test\Core.Common.Util.TestUtil.Test\Core.Common.Util.TestUtil.Test.csproj", "{D2979692-0AF0-49D2-92BB-88696AB76F7B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Utils.TestUtil", "Core\Common\test\Core.Common.Utils.TestUtil\Core.Common.Utils.TestUtil.csproj", "{45193749-ECE8-40C4-8C4B-0C783AFFACB5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Util.TestUtil", "Core\Common\test\Core.Common.Util.TestUtil\Core.Common.Util.TestUtil.csproj", "{45193749-ECE8-40C4-8C4B-0C783AFFACB5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection

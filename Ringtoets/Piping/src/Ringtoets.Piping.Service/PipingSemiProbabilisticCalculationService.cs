@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service.Properties;
 

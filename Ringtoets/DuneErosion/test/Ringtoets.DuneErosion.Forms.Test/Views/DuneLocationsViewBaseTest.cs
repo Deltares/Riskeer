@@ -24,7 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.DuneErosion.Data;

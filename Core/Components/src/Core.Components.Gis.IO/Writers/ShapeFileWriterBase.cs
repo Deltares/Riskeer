@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.IO.Properties;
 using DotSpatial.Data;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilsResources = Core.Common.Util.Properties.Resources;
 
 namespace Core.Components.Gis.IO.Writers
 {

@@ -21,7 +21,7 @@
 
 using System.IO;
 using Core.Common.Base.Service;
-using Core.Common.Utils.IO;
+using Core.Common.Util.IO;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.SoilProfile;

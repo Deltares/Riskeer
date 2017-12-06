@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Data.TestUtil;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 

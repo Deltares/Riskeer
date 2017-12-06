@@ -24,7 +24,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Migration.Core.Storage.Properties;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;

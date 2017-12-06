@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using BruTile.Cache;
-using Core.Common.Utils.Settings;
+using Core.Common.Util.Settings;
 
 namespace Core.Components.BruTile.Data
 {

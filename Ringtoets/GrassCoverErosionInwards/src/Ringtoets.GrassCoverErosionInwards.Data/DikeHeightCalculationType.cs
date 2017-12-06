@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Utils.Attributes;
+using Core.Common.Util.Attributes;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data

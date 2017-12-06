@@ -28,10 +28,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
 using Ringtoets.Common.IO.Properties;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
+using UtilsResources = Core.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Common.IO.SurfaceLines
 {

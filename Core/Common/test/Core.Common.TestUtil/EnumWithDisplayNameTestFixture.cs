@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Core.Common.Utils.Attributes;
+using Core.Common.Util.Attributes;
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil

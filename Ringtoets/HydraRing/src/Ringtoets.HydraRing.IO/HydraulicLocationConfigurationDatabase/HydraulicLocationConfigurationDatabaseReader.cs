@@ -27,7 +27,7 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-using Core.Common.Utils.Builders;
+using Core.Common.Util.Builders;
 using log4net;
 using Ringtoets.HydraRing.IO.Properties;
 

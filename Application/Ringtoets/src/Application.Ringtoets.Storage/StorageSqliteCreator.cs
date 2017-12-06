@@ -25,8 +25,8 @@ using System.IO;
 using Application.Ringtoets.Storage.Properties;
 using Core.Common.Base.Storage;
 using Core.Common.IO;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
 
 namespace Application.Ringtoets.Storage
 {

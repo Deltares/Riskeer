@@ -29,7 +29,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

@@ -28,13 +28,13 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilsResources = Core.Common.Util.Properties.Resources;
+using UtilsResources = Core.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Common.IO.DikeProfiles
 {

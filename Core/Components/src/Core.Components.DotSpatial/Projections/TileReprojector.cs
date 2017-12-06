@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using Core.Common.Utils.Drawing;
+using Core.Common.Util.Drawing;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;

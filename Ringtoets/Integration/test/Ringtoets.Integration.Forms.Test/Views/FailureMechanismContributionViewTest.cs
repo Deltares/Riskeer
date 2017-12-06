@@ -28,7 +28,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Gui.Commands;
-using Core.Common.Utils;
+using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

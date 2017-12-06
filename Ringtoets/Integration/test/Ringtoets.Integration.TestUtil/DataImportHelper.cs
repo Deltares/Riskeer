@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Commands;
-using Core.Common.Utils.IO;
+using Core.Common.Util.IO;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;

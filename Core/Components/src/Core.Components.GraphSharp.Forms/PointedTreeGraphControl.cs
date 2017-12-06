@@ -25,7 +25,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Core.Components.GraphSharp.Converters;
 using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms.Layout;
