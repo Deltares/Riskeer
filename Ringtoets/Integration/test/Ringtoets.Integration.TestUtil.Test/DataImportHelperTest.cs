@@ -146,7 +146,7 @@ namespace Ringtoets.Integration.TestUtil.Test
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("targetItem", paramName);
+            Assert.AreEqual("assessmentSection", paramName);
         }
 
         [Test]
