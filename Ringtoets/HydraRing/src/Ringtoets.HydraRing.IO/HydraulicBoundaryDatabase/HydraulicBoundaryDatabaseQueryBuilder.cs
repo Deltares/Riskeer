@@ -48,17 +48,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         }
 
         /// <summary>
-        /// Returns the query to get the amount of relevant locations from the database.
-        /// </summary>
-        /// <returns>The query to get the amount of relevant locations from the database.</returns>
-        public static string GetRelevantLocationsCountQuery()
-        {
-            return $"SELECT count({HrdLocationsTableDefinitions.HrdLocationId}) as {HrdLocationsTableDefinitions.Count} " +
-                   $"FROM {HrdLocationsTableDefinitions.TableName} " +
-                   $"WHERE {HrdLocationsTableDefinitions.LocationTypeId} > 1;"; // Value > 1 makes it relevant
-        }
-
-        /// <summary>
         /// Returns the query to get all relevant locations from the database.
         /// </summary>
         /// <returns>The query to get all relevant locations from the database.</returns>
