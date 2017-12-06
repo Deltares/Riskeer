@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
@@ -79,6 +81,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(filePath, properties.FilePath);
             Assert.AreEqual(usePreprocessor, properties.UsePreprocessor);
             Assert.AreEqual(preprocessorDirectory, properties.PreprocessorDirectory);
+            Assert.AreEqual(preprocessorDirectory, properties.PreprocessorDirectoryReadOnly);
         }
 
         [Test]
@@ -172,11 +175,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void UsePreprocessor_SetNewValue_ValueSetToHydraulicBoundaryDataBase([Values(true, false)] bool usePreprocessor)
+        public void UsePreprocessor_SetNewValue_ValueSetToHydraulicBoundaryDatabaseAndObserversNotified([Values(true, false)] bool usePreprocessor)
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+
+            observer.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(!usePreprocessor, "Preprocessor");
-            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike))
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection)
             {
                 WrappedData =
                 {
@@ -185,15 +196,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
             var properties = new HydraulicBoundaryDatabaseProperties(context);
 
+            assessmentSection.Attach(observer);
+
             // Call
             properties.UsePreprocessor = usePreprocessor;
 
             // Assert
             Assert.AreEqual(usePreprocessor, hydraulicBoundaryDatabase.UsePreprocessor);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void PreprocessorDirectory_SetNewValue_ValueSetToHydraulicBoundaryDataBase()
+        public void PreprocessorDirectory_SetNewValue_ValueSetToHydraulicBoundaryDatabase()
         {
             // Setup
             const string newPreprocessorDirectory = @"C:/path";
@@ -215,15 +229,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnCanUsePreprocessor_ReturnExpectedVisibility(bool canUsePreprocessor)
+        public void DynamicVisibleValidationMethod_DependingOnCanUsePreprocessorAndUsePreprocessor_ReturnExpectedVisibility(
+            [Values(true, false)] bool canUsePreprocessor,
+            [Values(true, false)] bool usePreprocessor)
         {
             // Setup
             var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase = canUsePreprocessor
-                                                ? new HydraulicBoundaryDatabase(true, "Preprocessor")
+                                                ? new HydraulicBoundaryDatabase(usePreprocessor, "Preprocessor")
                                                 : new HydraulicBoundaryDatabase()
             });
 
@@ -231,9 +245,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDatabaseProperties(context);
 
             // Assert
-            Assert.AreEqual(canUsePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.UsePreprocessor)));
-            Assert.AreEqual(canUsePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FilePath)));
+            Assert.AreEqual(canUsePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.UsePreprocessor)));
+            Assert.AreEqual(canUsePreprocessor && usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
+            Assert.AreEqual(canUsePreprocessor && !usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectoryReadOnly)));
         }
 
         [Test]
@@ -246,28 +261,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new HydraulicBoundaryDatabaseProperties(context);
 
             // Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FilePath)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.UsePreprocessor)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FilePath)));
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DynamicReadOnlyValidationMethod_DependingOnUsePreprocessor_ReturnExpectedValue(bool usePreprocessor)
-        {
-            // Setup
-            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(usePreprocessor, "Preprocessor")
-            });
-
-            // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(context);
-
-            // Assert
-            Assert.AreEqual(!usePreprocessor, properties.DynamicReadOnlyValidationMethod(nameof(properties.PreprocessorDirectory)));
-            Assert.IsFalse(properties.DynamicReadOnlyValidationMethod(nameof(properties.UsePreprocessor)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectoryReadOnly)));
         }
     }
 }
