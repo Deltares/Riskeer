@@ -173,17 +173,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     new Point2D(2.0, 1.0)
                 });
 
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
-                    }
-                };
-
                 var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
+                    HydraulicBoundaryDatabase =
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                        }
+                    },
                     ReferenceLine = referenceLine
                 };
 
@@ -196,7 +194,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 MapDataCollection mapData = view.Map.Data;
                 Assert.IsNotNull(mapData);
 
-                AssertHydraulicBoundaryDatabaseData(mapData, hydraulicBoundaryDatabase);
+                AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
                 AssertReferenceLineData(mapData, referenceLine);
             }
         }
