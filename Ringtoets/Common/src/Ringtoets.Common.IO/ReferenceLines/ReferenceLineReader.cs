@@ -31,7 +31,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
-using CoreCommonUtilsResources = Core.Common.Util.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
             if (!File.Exists(shapeFilePath))
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(CoreCommonUtilsResources.Error_File_does_not_exist);
+                    .Build(CoreCommonUtilResources.Error_File_does_not_exist);
                 throw new CriticalFileReadException(message);
             }
 

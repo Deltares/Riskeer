@@ -30,7 +30,7 @@ using Core.Common.Util.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using DotSpatial.Data;
-using CoreCommonUtilsResources = Core.Common.Util.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Core.Components.Gis.IO.Readers
 {
@@ -55,7 +55,7 @@ namespace Core.Components.Gis.IO.Readers
             if (!File.Exists(filePath))
             {
                 string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(CoreCommonUtilsResources.Error_File_does_not_exist);
+                    .Build(CoreCommonUtilResources.Error_File_does_not_exist);
                 throw new CriticalFileReadException(message);
             }
 

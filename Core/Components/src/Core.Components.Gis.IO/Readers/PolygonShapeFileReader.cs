@@ -31,7 +31,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
 using DotSpatial.Topology;
-using CoreCommonUtilsResources = Core.Common.Util.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 
 namespace Core.Components.Gis.IO.Readers
@@ -69,7 +69,7 @@ namespace Core.Components.Gis.IO.Readers
             }
             catch (IOException exception)
             {
-                string message = new FileReaderErrorMessageBuilder(filePath).Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
+                string message = new FileReaderErrorMessageBuilder(filePath).Build(CoreCommonUtilResources.Error_General_IO_Import_ErrorMessage);
                 throw new CriticalFileReadException(message, exception);
             }
         }

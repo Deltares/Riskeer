@@ -29,7 +29,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.IO.Properties;
 using DotSpatial.Data;
-using CoreCommonUtilsResources = Core.Common.Util.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Core.Components.Gis.IO.Writers
 {
@@ -87,7 +87,7 @@ namespace Core.Components.Gis.IO.Writers
             }
             catch (Exception e)
             {
-                throw new CriticalFileWriteException(string.Format(CoreCommonUtilsResources.Error_General_output_error_0, filePath), e);
+                throw new CriticalFileWriteException(string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), e);
             }
         }
 
