@@ -186,7 +186,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
             IAssessmentSection assessmentSection = view.AssessmentSection;
-            var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
                 DesignWaterLevelCalculation =
@@ -198,14 +197,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     Output = new TestHydraulicBoundaryLocationOutput(10.23)
                 }
             };
-            newHydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Precondition
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
             DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
             Assert.AreEqual(5, rows.Count);
 
-            assessmentSection.HydraulicBoundaryDatabase = newHydraulicBoundaryDatabase;
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Clear();
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
             assessmentSection.NotifyObservers();
