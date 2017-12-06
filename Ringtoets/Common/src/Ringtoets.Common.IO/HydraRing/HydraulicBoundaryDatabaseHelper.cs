@@ -42,13 +42,13 @@ namespace Ringtoets.Common.IO.HydraRing
 
         /// <summary>
         /// Attempts to connect to the <paramref name="filePath"/> as if it is a Hydraulic Boundary Locations 
-        /// database with a Hydraulic Location Configurations database next to it.
+        /// database with a Hydraulic Location Configurations database and settings next to it.
         /// </summary>
         /// <param name="filePath">The path of the Hydraulic Boundary Locations database file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <returns>A <see cref="string"/> describing the problem when trying to connect to the <paramref name="filePath"/> 
         /// or <c>null</c> if a connection could be correctly made.</returns>
-        public static string ValidatePathForCalculation(string filePath, string preprocessorDirectory)
+        public static string ValidateFilesForCalculation(string filePath, string preprocessorDirectory)
         {
             try
             {
