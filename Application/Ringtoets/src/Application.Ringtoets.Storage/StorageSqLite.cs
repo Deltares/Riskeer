@@ -35,7 +35,7 @@ using Core.Common.Base.Storage;
 using Core.Common.Util;
 using Core.Common.Util.Builders;
 using log4net;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
 using UtilResources = Core.Common.Util.Properties.Resources;
 

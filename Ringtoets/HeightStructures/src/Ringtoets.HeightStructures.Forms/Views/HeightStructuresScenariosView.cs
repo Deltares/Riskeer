@@ -27,7 +27,7 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 using Ringtoets.HeightStructures.Data;
 
 namespace Ringtoets.HeightStructures.Forms.Views

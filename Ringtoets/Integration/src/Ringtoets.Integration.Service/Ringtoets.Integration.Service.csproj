@@ -62,9 +62,9 @@
       <Name>Ringtoets.GrassCoverErosionInwards.Service</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Utils\Ringtoets.GrassCoverErosionInwards.Utils.csproj">
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Util\Ringtoets.GrassCoverErosionInwards.Util.csproj">
       <Project>{99573570-ee00-4264-8147-26a1b25db23f}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Utils</Name>
+      <Name>Ringtoets.GrassCoverErosionInwards.Util</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">

@@ -34,7 +34,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Utils.TypeConverters;
+using Ringtoets.Common.Util.TypeConverters;
 
 namespace Ringtoets.Common.Forms.TestUtil.Test
 {

@@ -27,7 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 
 namespace Application.Ringtoets.Storage.TestUtil.Test
 {

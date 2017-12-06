@@ -54,7 +54,7 @@ using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
 using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionInwards.Service;
-using Ringtoets.GrassCoverErosionInwards.Utils;
+using Ringtoets.GrassCoverErosionInwards.Util;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;

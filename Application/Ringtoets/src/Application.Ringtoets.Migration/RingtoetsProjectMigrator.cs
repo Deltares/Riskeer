@@ -32,7 +32,7 @@ using Core.Common.Util;
 using Core.Common.Util.Settings;
 using log4net;
 using Migration.Scripts.Data.Exceptions;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 using MigrationCoreStorageResources = Migration.Core.Storage.Properties.Resources;
 
 namespace Application.Ringtoets.Migration

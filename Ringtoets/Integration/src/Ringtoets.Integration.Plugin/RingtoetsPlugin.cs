@@ -63,7 +63,7 @@ using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Utils.TypeConverters;
+using Ringtoets.Common.Util.TypeConverters;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Plugin.Handlers;

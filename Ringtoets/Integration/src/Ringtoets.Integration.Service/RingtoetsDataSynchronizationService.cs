@@ -36,7 +36,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
-using Ringtoets.GrassCoverErosionInwards.Utils;
+using Ringtoets.GrassCoverErosionInwards.Util;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.HeightStructures.Data;

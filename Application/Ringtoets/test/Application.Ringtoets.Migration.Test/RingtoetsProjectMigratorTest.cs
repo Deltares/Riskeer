@@ -33,7 +33,7 @@ using Core.Common.Util;
 using Core.Common.Util.TestUtil.Settings;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 
 namespace Application.Ringtoets.Migration.Test
 {

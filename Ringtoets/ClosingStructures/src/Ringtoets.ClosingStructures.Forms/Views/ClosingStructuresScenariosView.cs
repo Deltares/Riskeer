@@ -28,7 +28,7 @@ using Core.Common.Controls.Views;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 
 namespace Ringtoets.ClosingStructures.Forms.Views
 {

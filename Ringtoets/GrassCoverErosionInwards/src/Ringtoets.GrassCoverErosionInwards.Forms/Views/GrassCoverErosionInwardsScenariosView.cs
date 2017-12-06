@@ -27,7 +27,7 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Utils;
+using Ringtoets.GrassCoverErosionInwards.Util;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
