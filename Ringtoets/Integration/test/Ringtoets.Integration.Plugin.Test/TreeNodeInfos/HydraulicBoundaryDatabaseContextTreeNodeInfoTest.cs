@@ -53,12 +53,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class HydraulicBoundaryDatabaseContextTreeNodeInfoTest : NUnitFormTest
     {
-        private MockRepository mocks;
+        private const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabase");
         private readonly string testDataPathNoHlcd = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabaseNoHLCD");
         private readonly string testDataPathNoSettings = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabaseNoSettings");
         private readonly string testDataPathInvalidSettings = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabaseSettingsInvalid");
+
+        private MockRepository mocks;
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -264,7 +266,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenNoFilePathIsSet_WhenOpeningValidFileFromContextMenu_ThenPathWillBeSetAndNotifiesObserverAndLogMessageAdded()
+        public void GivenNoDatabaseCoupled_WhenOpeningValidFileFromContextMenu_ThenDatabaseCoupledObserversNotifiedAndLogMessagesAdded()
         {
             // Given
             var assessmentSectionObserver = mocks.StrictMock<IObserver>();
@@ -274,8 +276,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             grassCoverErosionOutwardsLocationsObserver.Expect(o => o.UpdateObserver());
 
             string testFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -320,7 +320,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual($"Database op pad '{testFile}' gekoppeld.", msgs[1]);
                     });
 
-                    Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
+                    Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.IsCoupled());
+                    Assert.AreEqual(testFile, assessmentSection.HydraulicBoundaryDatabase.FilePath);
+                    Assert.AreEqual("Dutch coast South19-11-2015 12:0013", assessmentSection.HydraulicBoundaryDatabase.Version);
+                    CollectionAssert.IsNotEmpty(assessmentSection.HydraulicBoundaryDatabase.Locations);
                     CollectionAssert.IsNotEmpty(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations);
                 }
             }
@@ -329,12 +332,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenNoFilePathIsSet_WhenOpeneningInvalidFileFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
+        public void GivenNoDatabaseCoupled_WhenOpeningInvalidFileFromContextMenu_ThenNoDatabaseCoupledNoObserversNotifiedAndLogMessagesAdded()
         {
             // Given
-            string testFile = Path.Combine(testDataPath, "empty.sqlite");
+            var assessmentSectionObserver = mocks.StrictMock<IObserver>();
+            var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
 
-            const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            string testFile = Path.Combine(testDataPath, "empty.sqlite");
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -350,6 +354,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
+
+                assessmentSection.Attach(assessmentSectionObserver);
+                assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -369,7 +376,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     string expectedMessage = $"Fout bij het lezen van bestand '{testFile}': kon geen locaties verkrijgen van de database.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
-                    Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
+                    Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsCoupled());
                 }
             }
             mocks.VerifyAll();
@@ -377,12 +384,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenNoFilePathIsSet_WhenOpeneningValidFileWithoutHLCDFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
+        public void GivenNoDatabaseCoupled_WhenOpeningValidFileWithoutHLCDFromContextMenu_ThenNoDatabaseCoupledNoObserversNotifiedAndLogMessagesAdded()
         {
             // Given
-            string testFile = Path.Combine(testDataPathNoHlcd, "HRD dutch coast south.sqlite");
+            var assessmentSectionObserver = mocks.StrictMock<IObserver>();
+            var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
 
-            const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
+            string testFile = Path.Combine(testDataPathNoHlcd, "HRD dutch coast south.sqlite");
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -398,6 +406,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
+
+                assessmentSection.Attach(assessmentSectionObserver);
+                assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -418,7 +429,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         $"Fout bij het lezen van bestand '{testFile}': het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
-                    Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
+                    Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsCoupled());
                 }
             }
             mocks.VerifyAll();
@@ -426,12 +437,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenNoFilePathIsSet_WhenOpeneningValidFileWithoutSettingsDatabaseFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
+        public void GivenNoFilePathIsSet_WhenOpeningValidFileWithoutSettingsDatabaseFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
         {
             // Given
             string testFile = Path.Combine(testDataPathNoSettings, "HRD dutch coast south.sqlite");
-
-            const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -475,12 +484,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenNoFilePathIsSet_WhenOpeneningValidFileWithInvalidSettingsDatabaseFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
+        public void GivenNoFilePathIsSet_WhenOpeningValidFileWithInvalidSettingsDatabaseFromContextMenu_ThenPathWillNotBeSetAndLogMessageAdded()
         {
             // Given
             string testFile = Path.Combine(testDataPathInvalidSettings, "HRD dutch coast south.sqlite");
-
-            const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -524,13 +531,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenFilePathIsSet_WhenOpeningSameFileFromContextMenu_ThenCalculationsWillNotBeClearedAndNoNotifyObservers()
+        public void GivenDatabaseCoupled_WhenOpeningSameFileFromContextMenu_ThenCalculationsWillNotBeClearedAndNoObserversNotified()
         {
             // Given
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             var assessmentObserver = mocks.StrictMock<IObserver>();
             var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
-            const int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             using (var importer = new HydraulicBoundaryDatabaseImporter())
@@ -597,7 +603,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     string expectedMessage = $"Database op pad '{validFilePath}' gekoppeld.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
-                    Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
+                    Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.IsCoupled());
                     Assert.AreEqual(currentFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
                     Assert.AreEqual(currentVersion, assessmentSection.HydraulicBoundaryDatabase.Version);
                     CollectionAssert.AreEqual(currentLocations, assessmentSection.HydraulicBoundaryDatabase.Locations);

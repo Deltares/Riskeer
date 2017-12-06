@@ -1511,11 +1511,11 @@ namespace Ringtoets.Integration.Plugin
         {
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            bool isHydraulicBoundaryDatabaseSet = hydraulicBoundaryDatabase != null;
-            bool isClearConfirmationRequired = isHydraulicBoundaryDatabaseSet && !HydraulicBoundaryDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
+            bool isHydraulicBoundaryDatabaseCoupled = hydraulicBoundaryDatabase.IsCoupled();
+            bool isClearConfirmationRequired = isHydraulicBoundaryDatabaseCoupled && !HydraulicBoundaryDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
             bool isClearConfirmationGiven = isClearConfirmationRequired && IsClearCalculationConfirmationGiven();
 
-            if (isHydraulicBoundaryDatabaseSet && isClearConfirmationRequired && !isClearConfirmationGiven)
+            if (isHydraulicBoundaryDatabaseCoupled && isClearConfirmationRequired && !isClearConfirmationGiven)
             {
                 return;
             }
