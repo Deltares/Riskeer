@@ -113,6 +113,13 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(composition, section.Composition);
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = section.HydraulicBoundaryDatabase;
+            Assert.IsNotNull(hydraulicBoundaryDatabase);
+            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
+            Assert.IsNull(hydraulicBoundaryDatabase.Version);
+            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
+
             CollectionAssert.IsEmpty(section.Piping.StochasticSoilModels);
             CollectionAssert.IsEmpty(section.Piping.SurfaceLines);
 
