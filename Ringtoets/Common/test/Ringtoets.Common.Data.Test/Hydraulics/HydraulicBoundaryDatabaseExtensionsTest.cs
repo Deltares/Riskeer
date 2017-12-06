@@ -29,6 +29,17 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     public class HydraulicBoundaryDatabaseExtensionsTest
     {
         [Test]
+        public void IsCoupled_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => HydraulicBoundaryDatabaseExtensions.IsCoupled(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("hydraulicBoundaryDatabase", paramName);
+        }
+
+        [Test]
         public void EffectivePreprocessorDirectory_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
         {
             // Call
@@ -50,6 +61,24 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
             // Assert
             Assert.AreEqual("", effectivePreprocessorDirectory);
+        }
+
+        [TestCase(null, false)]
+        [TestCase("", false)]
+        [TestCase("Test", true)]
+        public void IsCoupled_SpecificFilePath_ReturnsExpectedValue(string filePath, bool expectedValue)
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = filePath
+            };
+
+            // Call
+            bool isCoupled = hydraulicBoundaryDatabase.IsCoupled();
+
+            // Assert
+            Assert.AreEqual(expectedValue, isCoupled);
         }
 
         [TestCase(false, "Test", "")]

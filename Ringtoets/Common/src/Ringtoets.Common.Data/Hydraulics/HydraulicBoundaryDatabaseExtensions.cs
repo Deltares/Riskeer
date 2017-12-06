@@ -29,6 +29,25 @@ namespace Ringtoets.Common.Data.Hydraulics
     public static class HydraulicBoundaryDatabaseExtensions
     {
         /// <summary>
+        /// Checks whether the hydraulic boundary database is coupled to a database file.
+        /// </summary>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to check
+        /// for being coupled.</param>
+        /// <returns><c>true</c> if the hydraulic boundary database is coupled;
+        /// <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
+        public static bool IsCoupled(this HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            if (hydraulicBoundaryDatabase == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+            }
+
+            return !string.IsNullOrEmpty(hydraulicBoundaryDatabase.FilePath);
+        }
+
+        /// <summary>
         /// Gets the preprocessor directory to be used during Hydra-Ring calculations.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to get the
