@@ -192,7 +192,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = testFilePath,
                     Version = testVersion,
@@ -225,7 +225,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = testFilePath,
                     Version = testVersion,

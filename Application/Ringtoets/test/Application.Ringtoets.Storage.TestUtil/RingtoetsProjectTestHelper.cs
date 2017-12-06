@@ -77,7 +77,14 @@ namespace Application.Ringtoets.Storage.TestUtil
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 Name = "assessmentSection",
-                HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(),
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = "/temp/test",
+                    Version = "1.0",
+                    CanUsePreprocessor = true,
+                    UsePreprocessor = true,
+                    PreprocessorDirectory = "/temp/preprocessor"
+                },
                 ReferenceLine = GetReferenceLine(),
                 Id = "12-2",
                 FailureMechanismContribution =
@@ -87,6 +94,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                     NormativeNorm = NormType.Signaling
                 }
             };
+
+            assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(GetHydraulicBoundaryLocations());
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             ConfigureMacroStabilityInwardsFailureMechanism(macroStabilityInwardsFailureMechanism, assessmentSection);
@@ -327,9 +336,9 @@ namespace Application.Ringtoets.Storage.TestUtil
             return referenceLine;
         }
 
-        private static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase()
+        private static IEnumerable<HydraulicBoundaryLocation> GetHydraulicBoundaryLocations()
         {
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5)
+            yield return new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5)
             {
                 DesignWaterLevelCalculation =
                 {
@@ -349,7 +358,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                              GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint());
             var waveHeightOutput = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.CalculatedNotConverged,
                                                                        GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint());
-            var hydraulicBoundaryLocationWithIllustrationPoints = new HydraulicBoundaryLocation(13002, "test2", 135.2, 5293.8)
+            yield return new HydraulicBoundaryLocation(13002, "test2", 135.2, 5293.8)
             {
                 DesignWaterLevelCalculation =
                 {
@@ -368,22 +377,6 @@ namespace Application.Ringtoets.Storage.TestUtil
                     Output = waveHeightOutput
                 }
             };
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = "/temp/test",
-                Version = "1.0",
-                Locations =
-                {
-                    hydraulicBoundaryLocation,
-                    hydraulicBoundaryLocationWithIllustrationPoints
-                },
-                CanUsePreprocessor = true,
-                UsePreprocessor = true,
-                PreprocessorDirectory = "/temp/preprocessor"
-            };
-
-            return hydraulicBoundaryDatabase;
         }
 
         private static GeneralResult<TopLevelSubMechanismIllustrationPoint> GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint()
