@@ -48,9 +48,9 @@
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Integration\test\Ringtoets.Integration.TestUtils\Ringtoets.Integration.TestUtils.csproj">
+    <ProjectReference Include="..\..\..\Integration\test\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
       <Project>{174ba68d-6176-4ac5-8dfd-98cdd2c4d971}</Project>
-      <Name>Ringtoets.Integration.TestUtils</Name>
+      <Name>Ringtoets.Integration.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
       <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>

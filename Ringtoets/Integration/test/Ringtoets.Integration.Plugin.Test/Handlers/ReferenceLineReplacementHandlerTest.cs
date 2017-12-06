@@ -36,7 +36,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Plugin.Handlers;
-using Ringtoets.Integration.TestUtils;
+using Ringtoets.Integration.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;

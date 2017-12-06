@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{EA3E979C-FB00-443B-B6A0-273254F24802}</ProjectGuid>
-    <RootNamespace>Ringtoets.Integration.TestUtils.Test</RootNamespace>
-    <AssemblyName>Ringtoets.Integration.TestUtils.Test</AssemblyName>
+    <RootNamespace>Ringtoets.Integration.TestUtil.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Integration.TestUtil.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
@@ -99,9 +99,9 @@
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.TestUtils\Ringtoets.Integration.TestUtils.csproj">
+    <ProjectReference Include="..\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
       <Project>{174ba68d-6176-4ac5-8dfd-98cdd2c4d971}</Project>
-      <Name>Ringtoets.Integration.TestUtils</Name>
+      <Name>Ringtoets.Integration.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

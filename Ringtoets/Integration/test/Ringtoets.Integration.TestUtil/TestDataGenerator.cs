@@ -44,7 +44,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.Integration.TestUtils
+namespace Ringtoets.Integration.TestUtil
 {
     /// <summary>
     /// Class that generates fully configured Ringtoets objects.

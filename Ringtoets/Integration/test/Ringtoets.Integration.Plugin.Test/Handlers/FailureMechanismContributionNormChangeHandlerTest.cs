@@ -34,7 +34,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
-using Ringtoets.Integration.TestUtils;
+using Ringtoets.Integration.TestUtil;
 
 namespace Ringtoets.Integration.Plugin.Test.Handlers
 {

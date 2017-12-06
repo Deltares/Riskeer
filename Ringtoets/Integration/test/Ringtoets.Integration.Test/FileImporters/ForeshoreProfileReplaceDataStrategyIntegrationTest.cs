@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
-using Ringtoets.Integration.TestUtils;
+using Ringtoets.Integration.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;

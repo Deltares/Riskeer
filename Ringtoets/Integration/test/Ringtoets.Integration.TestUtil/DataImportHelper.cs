@@ -48,7 +48,7 @@ using Ringtoets.Piping.Primitives;
 using PipingSurfaceLinesCsvImporterConfigurationFactory = Ringtoets.Piping.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
 using MacroStabilityInwardsSurfaceLinesCsvImporterConfigurationFactory = Ringtoets.MacroStabilityInwards.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
 
-namespace Ringtoets.Integration.TestUtils
+namespace Ringtoets.Integration.TestUtil
 {
     /// <summary>
     /// Helper methods related to importing data for integration tests.

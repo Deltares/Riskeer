@@ -32,7 +32,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Plugin.FileImporter;
 
-namespace Ringtoets.Integration.TestUtils
+namespace Ringtoets.Integration.TestUtil
 {
     /// <summary>
     /// Helper methods related to importing data for integration tests.

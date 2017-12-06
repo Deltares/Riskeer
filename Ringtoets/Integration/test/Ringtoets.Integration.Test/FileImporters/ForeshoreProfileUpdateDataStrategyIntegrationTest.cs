@@ -37,7 +37,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.Integration.Plugin.FileImporters;
-using Ringtoets.Integration.TestUtils;
+using Ringtoets.Integration.TestUtil;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
