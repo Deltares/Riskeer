@@ -494,7 +494,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 FilePath = filePath,
                 CanUsePreprocessor = true,
-                UsePreprocessor = false,
+                UsePreprocessor = true,
                 PreprocessorDirectory = preprocessorDirectory
             };
 

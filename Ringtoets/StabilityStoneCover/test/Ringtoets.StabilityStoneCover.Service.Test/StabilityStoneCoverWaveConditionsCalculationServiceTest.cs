@@ -1087,7 +1087,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 FilePath = validFilePath,
                 CanUsePreprocessor = true,
                 UsePreprocessor = true,
-                PreprocessorDirectory = "InvalidPreprocessorDirectory"
+                PreprocessorDirectory = validPreprocessorDirectory
             };
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
