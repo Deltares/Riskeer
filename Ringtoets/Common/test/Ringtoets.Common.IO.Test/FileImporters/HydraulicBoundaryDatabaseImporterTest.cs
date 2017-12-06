@@ -73,7 +73,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("targetItem", paramName);
+            Assert.AreEqual("assessmentSection", paramName);
         }
 
         [Test]

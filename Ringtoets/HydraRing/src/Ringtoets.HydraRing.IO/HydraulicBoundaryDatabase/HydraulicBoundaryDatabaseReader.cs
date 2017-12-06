@@ -151,35 +151,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
             }
         }
 
-        /// <summary>
-        /// Gets the amount of locations that can be read from the hydraulic boundary database.
-        /// </summary>
-        /// <returns>The amount of locations that can be read, or 0 if no locations could be found.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
-        public int GetLocationCount()
-        {
-            try
-            {
-                using (IDataReader dataReader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsCountQuery(),
-                                                                 new SQLiteParameter
-                                                                 {
-                                                                     DbType = DbType.String
-                                                                 }))
-                {
-                    return !dataReader.Read() ? 0 : Convert.ToInt32(dataReader[HrdLocationsTableDefinitions.Count]);
-                }
-            }
-            catch (InvalidCastException)
-            {
-                return 0;
-            }
-            catch (SQLiteException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
-                throw new CriticalFileReadException(message, exception);
-            }
-        }
-
         protected override void Dispose(bool disposing)
         {
             CloseDataReader();
