@@ -23,7 +23,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Attributes;
+using Core.Common.Util.Attributes;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using TypeConverter = System.ComponentModel.TypeConverterAttribute;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;

@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Core.Components.Stack.Data;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;

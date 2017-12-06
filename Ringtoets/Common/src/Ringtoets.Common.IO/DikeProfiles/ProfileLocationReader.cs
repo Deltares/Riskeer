@@ -26,12 +26,12 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.IO.Properties;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Common.IO.DikeProfiles
 {
@@ -61,7 +61,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
             if (!File.Exists(shapeFilePath))
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(CoreCommonUtilsResources.Error_File_does_not_exist);
+                    .Build(CoreCommonUtilResources.Error_File_does_not_exist);
                 throw new CriticalFileReadException(message);
             }
 

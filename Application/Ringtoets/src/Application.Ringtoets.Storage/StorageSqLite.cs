@@ -32,12 +32,12 @@ using Application.Ringtoets.Storage.Properties;
 using Application.Ringtoets.Storage.Read;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
 using log4net;
 using Ringtoets.Common.Utils;
 using Ringtoets.Integration.Data;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
+using UtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Application.Ringtoets.Storage
 {
@@ -287,7 +287,7 @@ namespace Application.Ringtoets.Storage
         {
             if (!File.Exists(databaseFilePath))
             {
-                string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilsResources.Error_File_does_not_exist);
+                string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilResources.Error_File_does_not_exist);
                 throw new CouldNotConnectException(message);
             }
 

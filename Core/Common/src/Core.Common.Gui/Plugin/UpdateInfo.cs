@@ -23,7 +23,7 @@ using System;
 using System.Drawing;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils;
+using Core.Common.Util;
 
 namespace Core.Common.Gui.Plugin
 {

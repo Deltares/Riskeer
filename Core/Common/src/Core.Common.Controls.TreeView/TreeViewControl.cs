@@ -31,7 +31,7 @@ using System.Windows.Forms.VisualStyles;
 using Core.Common.Base;
 using Core.Common.Controls.Forms;
 using Core.Common.Controls.TreeView.Properties;
-using Core.Common.Utils.Events;
+using Core.Common.Util.Events;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Core.Common.Controls.TreeView

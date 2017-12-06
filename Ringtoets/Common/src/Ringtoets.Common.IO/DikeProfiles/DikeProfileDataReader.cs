@@ -28,13 +28,13 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
+using UtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Common.IO.DikeProfiles
 {
@@ -106,7 +106,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
             if (!File.Exists(filePath))
             {
                 string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(CoreCommonUtilsResources.Error_File_does_not_exist);
+                    .Build(CoreCommonUtilResources.Error_File_does_not_exist);
                 throw new CriticalFileReadException(message);
             }
 
@@ -1026,11 +1026,11 @@ namespace Ringtoets.Common.IO.DikeProfiles
             }
             catch (OutOfMemoryException e)
             {
-                throw CreateCriticalFileReadException(currentLine, UtilsResources.Error_Line_too_big_for_RAM, e);
+                throw CreateCriticalFileReadException(currentLine, UtilResources.Error_Line_too_big_for_RAM, e);
             }
             catch (IOException e)
             {
-                string message = new FileReaderErrorMessageBuilder(fileBeingRead).Build(string.Format(UtilsResources.Error_General_IO_ErrorMessage_0_, e.Message));
+                string message = new FileReaderErrorMessageBuilder(fileBeingRead).Build(string.Format(UtilResources.Error_General_IO_ErrorMessage_0_, e.Message));
                 throw new CriticalFileReadException(message, e);
             }
         }
@@ -1044,7 +1044,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <returns>New <see cref="CriticalFileReadException"/> with message and inner exception set.</returns>
         private CriticalFileReadException CreateCriticalFileReadException(int currentLine, string criticalErrorMessage, Exception innerException = null)
         {
-            string locationDescription = string.Format(UtilsResources.TextFile_On_LineNumber_0_, currentLine);
+            string locationDescription = string.Format(UtilResources.TextFile_On_LineNumber_0_, currentLine);
             string message = new FileReaderErrorMessageBuilder(fileBeingRead).WithLocation(locationDescription)
                                                                              .Build(criticalErrorMessage);
             return new CriticalFileReadException(message, innerException);

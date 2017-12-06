@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.FileImporters.MessageProviders

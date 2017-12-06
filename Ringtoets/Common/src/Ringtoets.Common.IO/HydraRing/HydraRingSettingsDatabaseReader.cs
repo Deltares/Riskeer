@@ -31,7 +31,6 @@ using Core.Common.IO.Readers;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
-using Ringtoets.HydraRing.Calculation.Readers;
 
 namespace Ringtoets.Common.IO.HydraRing
 {
@@ -121,8 +120,6 @@ namespace Ringtoets.Common.IO.HydraRing
                                                    $"WHERE LocationID = {locationIdParameterName}";
 
             excludedPreprocessorLocationsQuery = $"SELECT {locationIdColumn} FROM ExcludedLocationsPreprocessor";
-
-            ValidateSchema();
         }
 
         /// <summary>
@@ -154,7 +151,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                     catch (ConversionException)
                     {
-                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema);
                     }
                 }
             }
@@ -196,7 +193,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                     catch (ConversionException)
                     {
-                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema);
                     }
                 }
             }
@@ -231,7 +228,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                     catch (ConversionException)
                     {
-                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema);
                     }
                 }
             }
@@ -276,7 +273,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                     catch (ConversionException)
                     {
-                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                        throw new CriticalFileReadException(Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema);
                     }
                 }
             }
@@ -315,27 +312,8 @@ namespace Ringtoets.Common.IO.HydraRing
             }
             catch (ConversionException)
             {
-                throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
+                throw new CriticalFileReadException(Resources.HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema);
             }
-        }
-
-        /// <summary>
-        /// Verifies that the schema of the opened settings database is valid.
-        /// </summary>
-        /// <exception cref="CriticalFileReadException">Thrown when the
-        /// opened database doesn't have the expected schema.</exception>
-        private void ValidateSchema()
-        {
-            if (!ContainsRequiredTables(GetColumnDefinitions(Connection)))
-            {
-                CloseConnection();
-                throw new CriticalFileReadException(Resources.HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema);
-            }
-        }
-
-        private bool ContainsRequiredTables(List<Tuple<string, string>> definitions)
-        {
-            return GetValidSchema().All(definitions.Contains);
         }
 
         private IDataReader CreateDesignTablesDataReader(long locationId, HydraRingFailureMechanismType calculationType)
@@ -434,35 +412,6 @@ namespace Ringtoets.Common.IO.HydraRing
         private IDataReader CreateExcludedPreprocessorLocationsDataReader()
         {
             return CreateDataReader(excludedPreprocessorLocationsQuery);
-        }
-
-        private List<Tuple<string, string>> GetValidSchema()
-        {
-            using (var validSchemaConnection = new SQLiteConnection("Data Source=:memory:"))
-            using (SQLiteCommand command = validSchemaConnection.CreateCommand())
-            {
-                validSchemaConnection.Open();
-                command.CommandText = Resources.settings_schema;
-                command.ExecuteNonQuery();
-                return GetColumnDefinitions(validSchemaConnection);
-            }
-        }
-
-        private static List<Tuple<string, string>> GetColumnDefinitions(SQLiteConnection connection)
-        {
-            DataTable columns = connection.GetSchema("COLUMNS");
-
-            var definitions = new List<Tuple<string, string>>();
-            for (var i = 0; i < columns.Rows.Count; i++)
-            {
-                DataRow dataRow = columns.Rows[i];
-                definitions.Add(
-                    Tuple.Create(
-                        ((string) dataRow["TABLE_NAME"]).ToLower(),
-                        ((string) dataRow["COLUMN_NAME"]).ToLower()
-                    ));
-            }
-            return definitions;
         }
     }
 }

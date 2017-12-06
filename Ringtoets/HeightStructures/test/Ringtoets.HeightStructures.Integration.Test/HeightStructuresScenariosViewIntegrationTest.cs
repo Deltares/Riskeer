@@ -38,7 +38,7 @@ using Ringtoets.HeightStructures.Forms.Views;
 using Ringtoets.HeightStructures.IO;
 using Ringtoets.HeightStructures.Plugin.FileImporters;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.TestUtils;
+using Ringtoets.Integration.TestUtil;
 
 namespace Ringtoets.HeightStructures.Integration.Test
 {

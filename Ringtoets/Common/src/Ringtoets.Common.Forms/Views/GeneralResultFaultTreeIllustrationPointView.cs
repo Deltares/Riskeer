@@ -25,7 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.PresentationObjects;

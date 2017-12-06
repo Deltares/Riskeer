@@ -29,7 +29,7 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using log4net;
 
 namespace Core.Common.Gui.Commands

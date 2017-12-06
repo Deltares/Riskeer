@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Attributes;
+using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;

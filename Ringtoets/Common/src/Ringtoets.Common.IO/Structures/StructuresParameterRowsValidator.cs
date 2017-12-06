@@ -25,7 +25,7 @@ using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.Structures

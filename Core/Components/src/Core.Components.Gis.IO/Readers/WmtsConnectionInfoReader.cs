@@ -26,11 +26,11 @@ using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
 using Core.Components.Gis.IO.Properties;
 using log4net;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Core.Components.Gis.IO.Readers
 {
@@ -73,7 +73,7 @@ namespace Core.Components.Gis.IO.Readers
                                               || exception is IOException)
             {
                 string message = new FileReaderErrorMessageBuilder(path)
-                    .Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
+                    .Build(CoreCommonUtilResources.Error_General_IO_Import_ErrorMessage);
                 throw new CriticalFileReadException(message, exception);
             }
         }

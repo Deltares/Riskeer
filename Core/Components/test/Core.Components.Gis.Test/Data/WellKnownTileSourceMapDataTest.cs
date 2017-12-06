@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 

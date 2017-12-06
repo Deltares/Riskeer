@@ -22,8 +22,8 @@
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
-using Core.Common.Utils;
-using Core.Common.Utils.Attributes;
+using Core.Common.Util;
+using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;

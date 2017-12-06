@@ -28,7 +28,7 @@ using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.IO.Properties;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.IO
@@ -73,7 +73,7 @@ namespace Ringtoets.DuneErosion.IO
             }
             catch (SystemException e)
             {
-                throw new CriticalFileWriteException(string.Format(CoreCommonUtilsResources.Error_General_output_error_0, filePath), e);
+                throw new CriticalFileWriteException(string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), e);
             }
         }
 

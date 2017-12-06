@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using System.IO;
-using Core.Common.Utils.Settings;
+using Core.Common.Util.Settings;
 
 namespace Ringtoets.Integration.Forms
 {

@@ -41,7 +41,7 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Settings;
+using Core.Common.Util.Settings;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;

@@ -24,9 +24,9 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using Core.Common.Base.IO;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
+using UtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Core.Common.IO.Readers
 {
@@ -58,7 +58,7 @@ namespace Core.Common.IO.Readers
 
                 if (!File.Exists(databaseFilePath))
                 {
-                    string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilsResources.Error_File_does_not_exist);
+                    string message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilResources.Error_File_does_not_exist);
                     throw new CriticalFileReadException(message);
                 }
 

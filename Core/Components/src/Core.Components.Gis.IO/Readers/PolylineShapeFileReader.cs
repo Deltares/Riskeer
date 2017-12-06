@@ -25,13 +25,13 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.Utils.Builders;
+using Core.Common.Util.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
 using DotSpatial.Topology;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 
 namespace Core.Components.Gis.IO.Readers
@@ -69,7 +69,7 @@ namespace Core.Components.Gis.IO.Readers
             }
             catch (IOException exception)
             {
-                string message = new FileReaderErrorMessageBuilder(shapeFilePath).Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
+                string message = new FileReaderErrorMessageBuilder(shapeFilePath).Build(CoreCommonUtilResources.Error_General_IO_Import_ErrorMessage);
                 throw new CriticalFileReadException(message, exception);
             }
         }

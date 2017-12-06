@@ -73,9 +73,9 @@
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>Core.Common.Gui</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Common.Utils\Core.Common.Utils.csproj">
+    <ProjectReference Include="..\..\src\Core.Common.Util\Core.Common.Util.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
-      <Name>Core.Common.Utils</Name>
+      <Name>Core.Common.Util</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

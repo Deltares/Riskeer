@@ -22,7 +22,7 @@
 using System;
 using Application.Ringtoets.Migration.Console.Properties;
 using Application.Ringtoets.Migration.Core;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Migration.Console;
 using Ringtoets.Common.Utils;
 using MigrationCoreStorageResources = Migration.Core.Storage.Properties.Resources;

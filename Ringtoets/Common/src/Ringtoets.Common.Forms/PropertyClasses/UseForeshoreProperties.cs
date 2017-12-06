@@ -27,7 +27,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
-using Core.Common.Utils.Attributes;
+using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.Properties;
 

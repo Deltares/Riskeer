@@ -211,7 +211,7 @@ namespace Core.Common.TestUtil.Test
 
             path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui);
             Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
+            path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Util);
             Assert.IsTrue(Directory.Exists(path));
             path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.IO);
             Assert.IsTrue(Directory.Exists(path));

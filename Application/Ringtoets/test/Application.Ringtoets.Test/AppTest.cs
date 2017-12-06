@@ -23,7 +23,7 @@ using System;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Settings;
+using Core.Common.Util.Settings;
 using NUnit.Framework;
 using Ringtoets.Integration.Forms;
 

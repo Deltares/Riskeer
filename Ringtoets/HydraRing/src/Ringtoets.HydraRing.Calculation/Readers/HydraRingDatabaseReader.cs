@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
-using Core.Common.Utils;
+using Core.Common.Util;
 
 namespace Ringtoets.HydraRing.Calculation.Readers
 {

@@ -28,7 +28,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Builders;
+using Core.Common.Util.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
@@ -38,7 +38,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Common.IO.Test.FileImporters
 {
@@ -205,7 +205,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             {
                 string[] messageArray = messages.ToArray();
                 string expectedMessage = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(CoreCommonUtilsResources.Error_Path_must_be_specified);
+                    .Build(CoreCommonUtilResources.Error_Path_must_be_specified);
                 StringAssert.StartsWith(expectedMessage, messageArray[0]);
             });
             Assert.IsFalse(importResult);
@@ -266,7 +266,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(folderPath)
-                .Build(CoreCommonUtilsResources.Error_Path_must_not_point_to_empty_file_name);
+                .Build(CoreCommonUtilResources.Error_Path_must_not_point_to_empty_file_name);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importResult);
         }

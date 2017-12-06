@@ -26,7 +26,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
+using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;

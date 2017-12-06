@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Importers;
 using Core.Plugins.Map.Properties;

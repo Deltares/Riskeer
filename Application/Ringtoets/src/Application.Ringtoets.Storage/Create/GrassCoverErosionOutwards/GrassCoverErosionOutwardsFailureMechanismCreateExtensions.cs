@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;

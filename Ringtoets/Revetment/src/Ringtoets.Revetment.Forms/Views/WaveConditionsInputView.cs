@@ -22,7 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Ringtoets.Common.Data.Calculation;

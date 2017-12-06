@@ -35,8 +35,8 @@ using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
-using Core.Common.Utils;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util;
+using Core.Common.Util.Extensions;
 using Core.Components.Gis.Data;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
@@ -839,8 +839,8 @@ namespace Ringtoets.Integration.Plugin
             IEnumerable<AssessmentSection> sectionsWithDatabase = ringtoetsProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase != null);
             foreach (AssessmentSection section in sectionsWithDatabase)
             {
-                string selectedFile = section.HydraulicBoundaryDatabase.FilePath;
-                string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(selectedFile);
+                string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(section.HydraulicBoundaryDatabase.FilePath,
+                                                                                                      section.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
                 if (validationProblem != null)
                 {
                     log.WarnFormat(

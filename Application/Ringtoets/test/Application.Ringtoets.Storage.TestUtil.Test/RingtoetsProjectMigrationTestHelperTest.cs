@@ -25,7 +25,7 @@ using System.Linq;
 using Application.Ringtoets.Migration.Core;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
+using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.Common.Utils;
 

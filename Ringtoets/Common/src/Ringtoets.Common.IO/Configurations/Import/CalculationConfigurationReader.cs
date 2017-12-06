@@ -27,10 +27,10 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using Core.Common.Base.IO;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
 using Ringtoets.Common.IO.Properties;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Common.IO.Configurations.Import
 {
@@ -117,7 +117,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
             if (!File.Exists(xmlFilePath))
             {
                 string message = new FileReaderErrorMessageBuilder(xmlFilePath)
-                    .Build(CoreCommonUtilsResources.Error_File_does_not_exist);
+                    .Build(CoreCommonUtilResources.Error_File_does_not_exist);
 
                 throw new CriticalFileReadException(message);
             }
@@ -145,7 +145,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
                 when (exception is InvalidOperationException || exception is IOException)
             {
                 string message = new FileReaderErrorMessageBuilder(xmlFilePath)
-                    .Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
+                    .Build(CoreCommonUtilResources.Error_General_IO_Import_ErrorMessage);
 
                 throw new CriticalFileReadException(message, exception);
             }

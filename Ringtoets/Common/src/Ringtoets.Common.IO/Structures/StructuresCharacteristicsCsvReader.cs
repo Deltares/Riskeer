@@ -26,11 +26,11 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-using Core.Common.Utils;
-using Core.Common.Utils.Builders;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util;
+using Core.Common.Util.Builders;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.IO.Properties;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Common.IO.Structures
 {
@@ -198,11 +198,11 @@ namespace Ringtoets.Common.IO.Structures
             }
             catch (OutOfMemoryException e)
             {
-                throw CreateCriticalFileReadException(currentLine, CoreCommonUtilsResources.Error_Line_too_big_for_RAM, e);
+                throw CreateCriticalFileReadException(currentLine, CoreCommonUtilResources.Error_Line_too_big_for_RAM, e);
             }
             catch (IOException e)
             {
-                string errorMessage = string.Format(CoreCommonUtilsResources.Error_General_IO_ErrorMessage_0_,
+                string errorMessage = string.Format(CoreCommonUtilResources.Error_General_IO_ErrorMessage_0_,
                                                     e.Message);
                 string fullErrorMessage = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
                 throw new CriticalFileReadException(fullErrorMessage, e);
@@ -240,7 +240,7 @@ namespace Ringtoets.Common.IO.Structures
             string header = ReadLineAndHandleIOExceptions(reader, lineNumber);
             if (header == null)
             {
-                throw CreateCriticalFileReadException(lineNumber, CoreCommonUtilsResources.Error_File_empty);
+                throw CreateCriticalFileReadException(lineNumber, CoreCommonUtilResources.Error_File_empty);
             }
 
             return header.Split(separator)
@@ -537,7 +537,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <returns>New <see cref="LineParseException"/> with message set.</returns>
         private LineParseException CreateLineParseException(int currentLine, string lineParseErrorMessage, Exception innerException = null)
         {
-            string locationDescription = string.Format(CoreCommonUtilsResources.TextFile_On_LineNumber_0_,
+            string locationDescription = string.Format(CoreCommonUtilResources.TextFile_On_LineNumber_0_,
                                                        currentLine);
             string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
                                                                         .Build(lineParseErrorMessage);
@@ -553,7 +553,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <returns>New <see cref="CriticalFileReadException"/> with message set.</returns>
         private CriticalFileReadException CreateCriticalFileReadException(int currentLine, string criticalErrorMessage, Exception innerException = null)
         {
-            string locationDescription = string.Format(CoreCommonUtilsResources.TextFile_On_LineNumber_0_,
+            string locationDescription = string.Format(CoreCommonUtilResources.TextFile_On_LineNumber_0_,
                                                        currentLine);
             string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
                                                                         .Build(criticalErrorMessage);

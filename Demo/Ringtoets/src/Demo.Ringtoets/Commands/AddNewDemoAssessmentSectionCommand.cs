@@ -28,7 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
-using Core.Common.Utils.IO;
+using Core.Common.Util.IO;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;

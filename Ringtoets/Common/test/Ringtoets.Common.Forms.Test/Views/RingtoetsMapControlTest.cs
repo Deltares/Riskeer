@@ -25,7 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using Core.Common.Utils.TestUtil.Settings;
+using Core.Common.Util.TestUtil.Settings;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;

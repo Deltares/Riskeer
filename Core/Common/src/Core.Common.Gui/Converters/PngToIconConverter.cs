@@ -24,7 +24,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
-using Core.Common.Utils.Drawing;
+using Core.Common.Util.Drawing;
 
 namespace Core.Common.Gui.Converters
 {

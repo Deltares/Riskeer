@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils;
-using Core.Common.Utils.Properties;
+using Core.Common.Util;
+using Core.Common.Util.Properties;
 using Ringtoets.Common.IO.Configurations.Helpers;
 
 namespace Ringtoets.Common.IO.Configurations.Export

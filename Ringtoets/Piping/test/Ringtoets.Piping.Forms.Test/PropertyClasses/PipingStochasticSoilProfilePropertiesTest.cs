@@ -25,7 +25,7 @@ using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
+using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PropertyClasses;

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 
 namespace Core.Components.Gis.Data
 {

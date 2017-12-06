@@ -28,7 +28,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.TestUtil;
 using Core.Plugins.Chart.Legend;

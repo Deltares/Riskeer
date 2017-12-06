@@ -24,7 +24,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms;
 using Core.Components.GraphSharp.TestUtil;

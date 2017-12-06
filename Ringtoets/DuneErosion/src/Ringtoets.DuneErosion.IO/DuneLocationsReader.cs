@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.Utils.IO;
+using Core.Common.Util.IO;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.IO.Readers;

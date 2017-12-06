@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils.Builders;
+using Core.Common.Util.Builders;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
@@ -48,10 +48,10 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.
         /// </summary>
-        /// <param name="targetItem">The <see cref="IAssessmentSection"/> to set the imported data to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to set the imported data to.</param>
         /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
         /// <returns><c>true</c> if the import was successful, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="targetItem"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>The given file at <paramref name="filePath"/> cannot be read.</item>
@@ -59,16 +59,16 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <item>The file 'config.sqlite' in the same folder as <paramref name="filePath"/> cannot be read.</item>
         /// </list>
         /// </exception>
-        public bool Import(IAssessmentSection targetItem, string filePath)
+        public bool Import(IAssessmentSection assessmentSection, string filePath)
         {
-            if (targetItem == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(targetItem));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             ValidateAndConnectTo(filePath);
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = targetItem.HydraulicBoundaryDatabase;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             if (!IsImportRequired(hydraulicBoundaryDatabase))
             {
                 bool isNotificationRequired = hydraulicBoundaryDatabase.FilePath != filePath;
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
                 if (isNotificationRequired)
                 {
-                    targetItem.NotifyObservers();
+                    assessmentSection.NotifyObservers();
                 }
             }
             else
@@ -89,8 +89,8 @@ namespace Ringtoets.Common.IO.FileImporters
                     return false;
                 }
 
-                targetItem.HydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(readHydraulicBoundaryDatabase, filePath);
-                targetItem.NotifyObservers();
+                assessmentSection.HydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(readHydraulicBoundaryDatabase, filePath);
+                assessmentSection.NotifyObservers();
 
                 log.Info(Resources.HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read);
             }

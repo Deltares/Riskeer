@@ -30,7 +30,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Core.Components.Chart.TestUtil;

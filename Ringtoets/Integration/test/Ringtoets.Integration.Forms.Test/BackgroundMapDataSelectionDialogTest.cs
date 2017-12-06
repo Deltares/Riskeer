@@ -28,7 +28,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
 using Core.Common.TestUtil;
-using Core.Common.Utils.TestUtil.Settings;
+using Core.Common.Util.TestUtil.Settings;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;

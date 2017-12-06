@@ -465,7 +465,7 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_" xml:space="preserve">
     <value>Kon het rekeninstellingen bestand niet openen. {0}</value>
   </data>
-  <data name="HydraRingSettingsDatabaseReader_ValidateSchema_Hydraulic_calculation_settings_database_has_invalid_schema" xml:space="preserve">
+  <data name="HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema" xml:space="preserve">
     <value>De rekeninstellingen database heeft niet het juiste schema.</value>
   </data>
   <data name="FailureMechanismSectionReader_File_has_section_without_sectionName" xml:space="preserve">
@@ -885,5 +885,8 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   </data>
   <data name="HydraulicBoundaryDatabaseHelper_ValidatePreprocessorDirectory_Path_does_not_exist" xml:space="preserve">
     <value>De bestandsmap bestaat niet.</value>
+  </data>
+  <data name="settings_schema_preprocessor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\settings-schema-preprocessor.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

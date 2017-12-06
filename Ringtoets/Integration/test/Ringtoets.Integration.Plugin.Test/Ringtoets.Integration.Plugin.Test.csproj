@@ -119,9 +119,9 @@
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>Core.Common.Gui</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Utils</Name>
+      <Name>Core.Common.Util</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
       <Project>{26214bd0-dafb-4cfc-8eb2-80c5d53c859e}</Project>
@@ -131,9 +131,9 @@
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Utils.TestUtil\Core.Common.Utils.TestUtil.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Util.TestUtil\Core.Common.Util.TestUtil.csproj">
       <Project>{45193749-ECE8-40C4-8C4B-0C783AFFACB5}</Project>
-      <Name>Core.Common.Utils.TestUtil</Name>
+      <Name>Core.Common.Util.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.BruTile\Core.Components.BruTile.csproj">
       <Project>{E02482C7-F12B-42F0-BB2B-C7EC17503A72}</Project>
@@ -267,10 +267,6 @@
       <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
       <Name>Ringtoets.Piping.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
-      <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
-      <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>
@@ -323,9 +319,9 @@
       <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
       <Name>Ringtoets.Integration.Plugin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.TestUtils\Ringtoets.Integration.TestUtils.csproj">
+    <ProjectReference Include="..\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
       <Project>{174ba68d-6176-4ac5-8dfd-98cdd2c4d971}</Project>
-      <Name>Ringtoets.Integration.TestUtils</Name>
+      <Name>Ringtoets.Integration.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Builders;
+using Core.Common.Util.Builders;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SurfaceLines;
 

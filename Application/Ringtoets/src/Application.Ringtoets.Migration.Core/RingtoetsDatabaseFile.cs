@@ -22,7 +22,7 @@
 using System;
 using System.Data.SQLite;
 using Core.Common.IO;
-using Core.Common.Utils;
+using Core.Common.Util;
 
 namespace Application.Ringtoets.Migration.Core
 {

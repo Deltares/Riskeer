@@ -24,10 +24,10 @@ using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Builders;
+using Core.Common.Util.Builders;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Structures;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
+using UtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Common.IO.Test.Structures
 {
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             TestDelegate call = () => new StructuresCharacteristicsCsvReader(path);
 
             // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Path_must_be_specified);
+            string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilResources.Error_Path_must_be_specified);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            string expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build(UtilsResources.Error_Path_must_not_point_to_empty_file_name);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build(UtilResources.Error_Path_must_not_point_to_empty_file_name);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 

@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using Core.Common.Util;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Core.Components.Gis.IO.Writers
 {
@@ -73,7 +73,7 @@ namespace Core.Components.Gis.IO.Writers
             }
             catch (SystemException exception)
             {
-                throw new CriticalFileWriteException(string.Format(CoreCommonUtilsResources.Error_General_output_error_0, filePath), exception);
+                throw new CriticalFileWriteException(string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), exception);
             }
         }
 

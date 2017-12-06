@@ -25,7 +25,7 @@ using System.ComponentModel;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Primitives;
 

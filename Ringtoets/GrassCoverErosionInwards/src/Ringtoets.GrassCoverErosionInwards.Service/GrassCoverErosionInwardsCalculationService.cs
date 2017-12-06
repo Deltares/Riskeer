@@ -26,7 +26,7 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using Core.Common.Base.IO;
-using Core.Common.Utils;
+using Core.Common.Util;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -772,13 +772,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         {
             var validationResults = new List<string>();
 
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                                                  preprocessorDirectory);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
                 validationResults.Add(databaseFilePathValidationProblem);
             }
 
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
             if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
             {
                 validationResults.Add(preprocessorDirectoryValidationProblem);

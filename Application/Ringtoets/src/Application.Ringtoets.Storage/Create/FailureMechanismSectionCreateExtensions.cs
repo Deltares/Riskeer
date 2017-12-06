@@ -22,7 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
-using Core.Common.Utils.Extensions;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Create

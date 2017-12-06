@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using System.Xml.Schema;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.Data.Standard;

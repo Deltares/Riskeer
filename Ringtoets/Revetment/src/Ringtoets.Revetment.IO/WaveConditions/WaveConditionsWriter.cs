@@ -27,7 +27,7 @@ using System.Text;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Ringtoets.Revetment.IO.Properties;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Revetment.IO.WaveConditions
 {
@@ -70,7 +70,7 @@ namespace Ringtoets.Revetment.IO.WaveConditions
             }
             catch (SystemException e)
             {
-                throw new CriticalFileWriteException(string.Format(CoreCommonUtilsResources.Error_General_output_error_0, filePath), e);
+                throw new CriticalFileWriteException(string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), e);
             }
         }
 

@@ -27,7 +27,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using Core.Common.Controls.Views;
-using Core.Common.Utils.Drawing;
+using Core.Common.Util.Drawing;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Core.Common.Gui.Forms.ViewHost

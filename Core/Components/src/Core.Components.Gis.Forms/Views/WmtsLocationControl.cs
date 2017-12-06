@@ -26,7 +26,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils.Settings;
+using Core.Common.Util.Settings;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Exceptions;
 using Core.Components.Gis.Forms.Properties;

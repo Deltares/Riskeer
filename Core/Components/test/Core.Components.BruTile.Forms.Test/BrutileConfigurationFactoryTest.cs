@@ -27,7 +27,7 @@ using System.Security.AccessControl;
 using BruTile;
 using BruTile.Predefined;
 using Core.Common.TestUtil;
-using Core.Common.Utils.TestUtil.Settings;
+using Core.Common.Util.TestUtil.Settings;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;

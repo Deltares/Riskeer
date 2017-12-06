@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.TestUtil.Test.Properties;
-using Core.Common.Utils.Attributes;
+using Core.Common.Util.Attributes;
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil.Test

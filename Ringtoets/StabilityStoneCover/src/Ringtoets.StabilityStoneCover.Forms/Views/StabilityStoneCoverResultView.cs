@@ -22,7 +22,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityStoneCover.Data;

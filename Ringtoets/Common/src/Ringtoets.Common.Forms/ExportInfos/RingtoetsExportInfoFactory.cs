@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
-using Core.Common.Utils;
+using Core.Common.Util;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;

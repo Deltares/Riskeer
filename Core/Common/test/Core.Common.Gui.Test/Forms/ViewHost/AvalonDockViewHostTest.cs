@@ -30,7 +30,7 @@ using System.Windows.Forms.Integration;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Xceed.Wpf.AvalonDock.Layout;

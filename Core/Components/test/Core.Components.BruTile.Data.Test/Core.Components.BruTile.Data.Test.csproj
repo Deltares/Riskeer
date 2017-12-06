@@ -25,9 +25,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Utils</Name>
+      <Name>Core.Common.Util</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Components.BruTile.Data\Core.Components.BruTile.Data.csproj">
       <Project>{3DCEF8F6-CB6D-435C-9539-50143DACD86C}</Project>

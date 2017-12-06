@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.IO.Readers;
-using Core.Common.Utils.Builders;
+using Core.Common.Util.Builders;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.SoilProfile.Schema;

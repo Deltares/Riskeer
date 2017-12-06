@@ -27,7 +27,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Builders;
+using Core.Common.Util.Builders;
 using NUnit.Framework;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 
@@ -193,41 +193,6 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
 
                 // Assert
                 Assert.AreEqual((long) 13, trackId);
-            }
-        }
-
-        [Test]
-        public void GetLocationCount_EmptyDatabase_ThrowsCriticalFileReadException()
-        {
-            // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "empty.sqlite");
-
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
-            {
-                // Call
-                TestDelegate test = () => hydraulicBoundaryDatabaseReader.GetLocationCount();
-
-                // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(test);
-                string expectedException = new FileReaderErrorMessageBuilder(hydraulicBoundaryDatabaseFile).Build("Kon geen locaties verkrijgen van de database.");
-                Assert.AreEqual(expectedException, exception.Message);
-                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
-            }
-        }
-
-        [Test]
-        public void GetLocationCount_ValidFile_ExpectedValues()
-        {
-            // Setup
-            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "complete.sqlite");
-
-            using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
-            {
-                // Call
-                int nrOfLocations = hydraulicBoundaryDatabaseReader.GetLocationCount();
-
-                // Assert
-                Assert.AreEqual(18, nrOfLocations);
             }
         }
 

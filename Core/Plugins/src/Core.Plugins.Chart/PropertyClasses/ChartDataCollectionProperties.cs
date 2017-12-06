@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Attributes;
+using Core.Common.Util.Attributes;
 using Core.Components.Chart.Data;
 using Core.Plugins.Chart.Properties;
 

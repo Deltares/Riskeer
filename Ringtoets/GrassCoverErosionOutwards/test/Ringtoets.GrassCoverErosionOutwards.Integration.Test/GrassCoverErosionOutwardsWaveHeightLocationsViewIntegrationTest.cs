@@ -22,7 +22,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Utils.Reflection;
+using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;

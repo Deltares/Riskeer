@@ -25,7 +25,7 @@ using System.Drawing.Design;
 using System.Linq;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Attributes;
+using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.Properties;
 using Core.Plugins.Map.UITypeEditors;

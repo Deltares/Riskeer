@@ -50,17 +50,6 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
         }
 
         [Test]
-        public void GetRelevantLocationsCountQuery_Always_ReturnsExpectedValues()
-        {
-            // Call
-            string query = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsCountQuery();
-
-            // Assert
-            const string expectedQuery = "SELECT count(HRDLocationId) as nrOfRows FROM HRDLocations WHERE LocationTypeId > 1;";
-            Assert.AreEqual(expectedQuery, query);
-        }
-
-        [Test]
         public void GetRelevantLocationsQuery_Always_ReturnsExpectedValues()
         {
             // Call

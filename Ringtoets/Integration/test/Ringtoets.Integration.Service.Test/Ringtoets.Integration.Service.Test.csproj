@@ -111,9 +111,9 @@
       <Project>{28811C4A-6C18-42C1-88B2-A03A3784E2D0}</Project>
       <Name>Ringtoets.Integration.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.TestUtils\Ringtoets.Integration.TestUtils.csproj">
+    <ProjectReference Include="..\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
       <Project>{174ba68d-6176-4ac5-8dfd-98cdd2c4d971}</Project>
-      <Name>Ringtoets.Integration.TestUtils</Name>
+      <Name>Ringtoets.Integration.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

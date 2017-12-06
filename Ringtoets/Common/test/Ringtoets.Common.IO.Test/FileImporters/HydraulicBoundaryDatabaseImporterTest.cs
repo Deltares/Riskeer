@@ -26,7 +26,7 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Builders;
+using Core.Common.Util.Builders;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("targetItem", paramName);
+            Assert.AreEqual("assessmentSection", paramName);
         }
 
         [Test]
@@ -179,28 +179,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build($"Kon het rekeninstellingen bestand niet openen. Fout bij het lezen van bestand '{HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(validFilePath)}': het bestand bestaat niet.");
-            var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(expectedMessage, exception.Message);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Import_ExistingFileWithInvalidSettingsDatabaseSchema_ThrowCriticalFileReadException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            string validFilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite");
-
-            // Call
-            TestDelegate test = () => importer.Import(assessmentSection, validFilePath);
-
-            // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build(
-                "Kon het rekeninstellingen bestand niet openen. De rekeninstellingen database heeft niet het juiste schema.");
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
 
