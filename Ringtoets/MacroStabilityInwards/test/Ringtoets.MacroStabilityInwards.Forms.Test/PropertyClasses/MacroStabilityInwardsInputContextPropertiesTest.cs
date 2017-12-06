@@ -1241,7 +1241,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
@@ -1249,6 +1249,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
             mockRepository.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -1291,8 +1294,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -1303,7 +1304,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(2, "B", 0, 4)
                 }
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculation = new MacroStabilityInwardsCalculationScenario();
@@ -1328,6 +1332,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_WithLocationsAndSurfaceLine_ReturnLocationsSortedByDistanceThenById()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -1341,10 +1348,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -1380,13 +1385,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void GivenLocationAndReferencePoint_WhenUpdatingSurfaceLine_ThenUpdateSelectableBoundaryLocations()
         {
-            // Given          
+            // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -1399,7 +1401,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(2, "B", 0, 200)
                 }
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            observable.Expect(o => o.NotifyObservers());
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
