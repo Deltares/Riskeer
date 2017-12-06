@@ -33,7 +33,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating <see cref="ChartData"/> for data used as input in the macro stability inwards failure mechanism.
+    /// Factory for creating <see cref="ChartData"/> for data used in the macro stability inwards failure mechanism.
     /// </summary>
     internal static class MacroStabilityInwardsChartDataFactory
     {
@@ -55,41 +55,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         public static ChartDataCollection CreateWaternetZonesDailyChartDataCollection()
         {
             return new ChartDataCollection(Resources.WaternetLinesDaily_DisplayName);
-        }
-
-        /// <summary>
-        /// Create a <see cref="ChartDataCollection"/> for the slice output parameters.
-        /// </summary>
-        public static ChartDataCollection CreateSliceParametersChartDataCollection()
-        {
-            return new ChartDataCollection(Resources.SliceParameters_DisplayName);
-        }
-
-        /// <summary>
-        /// Create a <see cref="ChartMultipleAreaData"/> for a slice parameter.
-        /// </summary>
-        /// <param name="name">The display name of the parameter.</param>
-        /// <param name="isVisible">The default visibility of the chart data.</param>
-        /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
-        /// is <c>null</c>.</exception>
-        public static ChartMultipleAreaData CreateSliceParameterChartData(string name, bool isVisible)
-        {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            return new ChartMultipleAreaData(name, new ChartAreaStyle
-            {
-                StrokeThickness = 1,
-                StrokeColor = Color.Black,
-                FillColor = Color.FromArgb(150, Color.Red),
-                IsEditable = true
-            })
-            {
-                IsVisible = isVisible
-            };
         }
 
         /// <summary>
@@ -300,22 +265,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                                                  FillColor = SoilLayerDataHelper.GetValidColor(data.Color),
                                                  StrokeColor = Color.Black,
                                                  StrokeThickness = 1
-                                             });
-        }
-
-        /// <summary>
-        /// Create a <see cref="ChartMultipleAreaData"/> for the slices in a slip plane.
-        /// </summary>
-        /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
-        public static ChartMultipleAreaData CreateSlicesChartData()
-        {
-            return new ChartMultipleAreaData(Resources.Slices_DisplayName,
-                                             new ChartAreaStyle
-                                             {
-                                                 FillColor = Color.Empty,
-                                                 StrokeColor = Color.DarkGreen,
-                                                 StrokeThickness = 2,
-                                                 IsEditable = true
                                              });
         }
 

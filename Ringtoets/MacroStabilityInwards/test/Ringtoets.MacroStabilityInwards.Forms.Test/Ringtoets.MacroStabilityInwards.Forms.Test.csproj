@@ -24,6 +24,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\MacroStabilityInwardsSliceChartDataFactoryTest.cs" />
     <Compile Include="Factories\MacroStabilityInwardsSliceChartDataPointsFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationConfigurationHelperTest.cs" />
     <Compile Include="MacroStabilityInwardsSurfaceLineSelectionDialogTest.cs" />

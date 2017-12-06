@@ -84,7 +84,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateSurfaceLevelOutsidePoint_GivenSurfaceLineWithSurfaceLevelOutside_ReturnsSurfaceLevelOutsideCollection()
+        public void CreateSurfaceLevelOutsidePoint_GivenSurfaceLineWithSurfaceLevelOutside_ReturnsSurfaceLevelOutsidePointsCollection()
         {
             // Setup
             var surfaceLevelOutside = new Point3D(1.2, 2.3, 4.0);
@@ -110,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDikeToeAtRiverPoint_SurfaceLevelOutsideNull_ReturnsEmptyPointsCollection()
+        public void CreateDikeToeAtRiverPoint_DikeToeAtRiverNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
