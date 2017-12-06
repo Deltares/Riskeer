@@ -322,7 +322,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 FilePath = databaseFilePath
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(ass => ass.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSection.Stub(ass => ass.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -385,7 +385,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 UsePreprocessor = true,
                 PreprocessorDirectory = preprocessorDirectory
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(ass => ass.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSection.Stub(ass => ass.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -447,7 +447,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 UsePreprocessor = false,
                 PreprocessorDirectory = "InvalidPreprocessorDirectory"
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(ass => ass.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSection.Stub(ass => ass.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -637,16 +637,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             protected override void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
             {
                 IAssessmentSection assessmentSection = view.AssessmentSection;
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0);
 
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        hydraulicBoundaryLocation
-                    }
-                };
-
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Clear();
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0));
                 assessmentSection.NotifyObservers();
             }
 

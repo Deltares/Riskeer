@@ -186,7 +186,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(testForm);
             IAssessmentSection assessmentSection = view.AssessmentSection;
-            var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
                 WaveHeightCalculation =
@@ -198,7 +197,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     Output = new TestHydraulicBoundaryLocationOutput(10.23)
                 }
             };
-            newHydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Precondition
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
@@ -206,7 +204,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(5, rows.Count);
 
             // Call
-            assessmentSection.HydraulicBoundaryDatabase = newHydraulicBoundaryDatabase;
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Clear();
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
             assessmentSection.NotifyObservers();
 
             // Assert
@@ -323,7 +322,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 FilePath = databaseFilePath
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(ass => ass.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSection.Stub(ass => ass.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -386,7 +385,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 UsePreprocessor = true,
                 PreprocessorDirectory = preprocessorDirectory
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(ass => ass.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSection.Stub(ass => ass.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -448,7 +447,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 UsePreprocessor = false,
                 PreprocessorDirectory = "InvalidPreprocessorDirectory"
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(ass => ass.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSection.Stub(ass => ass.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -638,16 +637,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             protected override void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
             {
                 IAssessmentSection assessmentSection = view.AssessmentSection;
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0);
 
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        hydraulicBoundaryLocation
-                    }
-                };
-
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Clear();
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0));
                 assessmentSection.NotifyObservers();
             }
 
