@@ -343,17 +343,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
-                    }
-                };
-
                 var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                    HydraulicBoundaryDatabase =
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                        }
+                    }
                 };
 
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(),
@@ -364,15 +362,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations,
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                                           hydraulicBoundaryLocationsMapData);
 
                 // When
-                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
-                hydraulicBoundaryDatabase.NotifyObservers();
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
+                assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations,
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                                           hydraulicBoundaryLocationsMapData);
             }
         }
