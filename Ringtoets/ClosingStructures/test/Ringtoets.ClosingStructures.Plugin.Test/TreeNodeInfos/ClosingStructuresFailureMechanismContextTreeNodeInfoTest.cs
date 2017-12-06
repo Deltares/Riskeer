@@ -128,22 +128,22 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-            Assert.AreEqual(4, inputsFolder.Contents.Count);
-            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
+            Assert.AreEqual(4, inputsFolder.Contents.Count());
+            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-            var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents[1];
+            var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
             Assert.AreSame(failureMechanism, profilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, profilesContext.ParentAssessmentSection);
 
-            var closingStructuresContext = (ClosingStructuresContext) inputsFolder.Contents[2];
+            var closingStructuresContext = (ClosingStructuresContext) inputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.ClosingStructures, closingStructuresContext.WrappedData);
             Assert.AreSame(failureMechanism, closingStructuresContext.FailureMechanism);
             Assert.AreSame(assessmentSection, closingStructuresContext.AssessmentSection);
 
-            var inputComment = (Comment) inputsFolder.Contents[3];
+            var inputComment = (Comment) inputsFolder.Contents.ElementAt(3);
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var calculationsFolder = (ClosingStructuresCalculationGroupContext) children[1];
@@ -155,16 +155,16 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
-            Assert.AreEqual(3, outputsFolder.Contents.Count);
-            var scenariosContext = (ClosingStructuresScenariosContext) outputsFolder.Contents[0];
+            Assert.AreEqual(3, outputsFolder.Contents.Count());
+            var scenariosContext = (ClosingStructuresScenariosContext) outputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
             Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>) outputsFolder.Contents[1];
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var outputComment = (Comment) outputsFolder.Contents[2];
+            var outputComment = (Comment) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 

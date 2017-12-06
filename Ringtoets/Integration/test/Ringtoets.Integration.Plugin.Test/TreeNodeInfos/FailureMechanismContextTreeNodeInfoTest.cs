@@ -182,18 +182,18 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Invoer", inputFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Input, inputFolder.Category);
 
-                var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputFolder.Contents[0];
+                var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputFolder.Contents.ElementAt(0);
                 Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
                 Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-                var inputComment = (Comment) inputFolder.Contents[1];
+                var inputComment = (Comment) inputFolder.Contents.ElementAt(1);
                 Assert.AreSame(failureMechanism.InputComments, inputComment);
 
                 var outputFolder = (CategoryTreeFolder) children[1];
                 Assert.AreEqual("Oordeel", outputFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-                var outputComment = (Comment) outputFolder.Contents[0];
+                var outputComment = (Comment) outputFolder.Contents.ElementAt(0);
                 Assert.AreSame(failureMechanism.OutputComments, outputComment);
             }
             mocks.VerifyAll();
@@ -514,7 +514,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 var outputFolder = (CategoryTreeFolder) children[1];
 
-                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<T>) outputFolder.Contents[0];
+                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<T>) outputFolder.Contents.ElementAt(0);
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             }
