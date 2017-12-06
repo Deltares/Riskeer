@@ -655,9 +655,9 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = hydraulicBoundaryDatabase => RingtoetsFormsResources.HydraulicBoundaryDatabase_DisplayName,
                 Image = hydraulicBoundaryDatabase => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null
-                                           ? Color.FromKnownColor(KnownColor.GrayText)
-                                           : Color.FromKnownColor(KnownColor.ControlText),
+                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase.IsCoupled()
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = HydraulicBoundaryDatabaseChildNodeObjects,
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };

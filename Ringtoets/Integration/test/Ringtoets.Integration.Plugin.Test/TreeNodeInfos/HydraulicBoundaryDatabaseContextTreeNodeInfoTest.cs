@@ -170,7 +170,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ContextHasNoReferenceLine_ReturnDisabledColor()
+        public void ForeColor_HydraulicBoundaryDatabaseNotCoupled_ReturnDisabledColor()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -179,6 +179,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
+
                 // Call
                 Color color = info.ForeColor(hydraulicBoundaryDatabaseContext);
 
@@ -188,14 +189,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ContextHasReferenceLineData_ReturnControlText()
+        public void ForeColor_HydraulicBoundaryDatabaseCoupled_ReturnEnabledColor()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = "databaseFile"
+                }
             };
-
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
