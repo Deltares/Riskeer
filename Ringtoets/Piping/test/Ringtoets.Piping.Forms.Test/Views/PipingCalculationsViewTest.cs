@@ -1299,13 +1299,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2);
-            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
+                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                }
+            };
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation1);
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation2);
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
         }
 
         private PipingCalculationsView ShowSimplePipingCalculationsViewWithSurfaceLines(IAssessmentSection assessmentSection)
@@ -1389,10 +1392,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4);
-
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation1);
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation2);
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
