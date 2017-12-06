@@ -214,7 +214,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_NoHydraulicBoundaryDatabaseSet_ReturnsEmpty()
+        public void ChildNodeObjects_HydraulicBoundaryDatabaseNotCoupled_ReturnsEmpty()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -233,14 +233,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_HydraulicBoundaryDatabaseSet_ReturnsChildrenOfData()
+        public void ChildNodeObjects_HydraulicBoundaryDatabaseCoupled_ReturnsChildrenOfData()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = "databaseFile"
+                }
             };
-
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())

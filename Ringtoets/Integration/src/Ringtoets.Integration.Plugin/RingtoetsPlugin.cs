@@ -1363,15 +1363,16 @@ namespace Ringtoets.Integration.Plugin
 
         private static object[] HydraulicBoundaryDatabaseChildNodeObjects(HydraulicBoundaryDatabaseContext nodeData)
         {
-            if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
+            if (nodeData.WrappedData.HydraulicBoundaryDatabase.IsCoupled())
             {
-                return new object[0];
+                return new object[]
+                {
+                    new DesignWaterLevelLocationsContext(nodeData.WrappedData),
+                    new WaveHeightLocationsContext(nodeData.WrappedData)
+                };
             }
-            return new object[]
-            {
-                new DesignWaterLevelLocationsContext(nodeData.WrappedData),
-                new WaveHeightLocationsContext(nodeData.WrappedData)
-            };
+
+            return new object[0];
         }
 
         private ContextMenuStrip DesignWaterLevelLocationsContextMenuStrip(DesignWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
