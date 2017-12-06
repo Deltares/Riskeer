@@ -37,14 +37,14 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             const string testResultDescription = "D";
 
             // Call
-            TestCaseData[] testCaseDatas = ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameAndX0(
+            IEnumerable<TestCaseData> testCaseData = ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameAndX0(
                 targetName,
-                testResultDescription).ToArray();
+                testResultDescription);
 
             // Assert
-            Assert.AreEqual(5, testCaseDatas.Length);
-            AssertTestNames(testCaseDatas, targetName, testResultDescription);
-            AssertProperties(testCaseDatas, true);
+            Assert.AreEqual(5, testCaseData.Count());
+            AssertTestNames(testCaseData, targetName, testResultDescription);
+            AssertProperties(testCaseData, true);
         }
 
         [Test]
@@ -55,38 +55,39 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             const string testResultDescription = "D";
 
             // Call
-            TestCaseData[] testCaseDatas = ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameOrientationAndX0(
+            IEnumerable<TestCaseData> testCaseData = ForeshoreProfilePermutationHelper.DifferentForeshoreProfilesWithSameIdNameOrientationAndX0(
                 targetName,
                 testResultDescription).ToArray();
 
             // Assert
-            Assert.AreEqual(4, testCaseDatas.Length);
-            AssertTestNames(testCaseDatas, targetName, testResultDescription);
-            AssertProperties(testCaseDatas, false);
+            Assert.AreEqual(4, testCaseData.Count());
+            AssertTestNames(testCaseData, targetName, testResultDescription);
+            AssertProperties(testCaseData, false);
         }
 
-        private static void AssertTestNames(ICollection<TestCaseData> testCaseDatas,
+        private static void AssertTestNames(IEnumerable<TestCaseData> testCaseData,
                                             string targetName,
                                             string testResultDescription)
         {
-            IEnumerable<string> testNames = testCaseDatas
+            IEnumerable<string> testNames = testCaseData
                 .Select(tcd => tcd.TestName)
-                .ToList();
-            Assert.AreEqual(testCaseDatas.Count, testNames.Distinct().Count());
+                .ToArray();
+            Assert.AreEqual(testCaseData.Count(), testNames.Distinct().Count());
             Assert.IsTrue(testNames.All(tn => tn.StartsWith($"{targetName}_")));
             Assert.IsTrue(testNames.All(tn => tn.EndsWith($"_{testResultDescription}")));
         }
 
-        private static void AssertProperties(ICollection<TestCaseData> testCaseDatas, bool orientationUnique)
+        private static void AssertProperties(IEnumerable<TestCaseData> testCaseData, bool orientationUnique)
         {
             var differentProfiles = new List<ForeshoreProfile>();
             var referenceProfile = new TestForeshoreProfile();
 
-            IEnumerable<ForeshoreProfile> profiles = testCaseDatas.Select(tcd => tcd.Arguments[0])
-                                                                  .OfType<ForeshoreProfile>()
-                                                                  .ToList();
+            IEnumerable<ForeshoreProfile> profiles = testCaseData.Select(tcd => tcd.Arguments[0])
+                                                                 .OfType<ForeshoreProfile>()
+                                                                 .ToArray();
 
-            Assert.AreEqual(profiles.Count(), testCaseDatas.Count);
+            int testDataCount = testCaseData.Count();
+            Assert.AreEqual(testDataCount, profiles.Count());
 
             Assert.IsTrue(profiles.All(p => p.Id == referenceProfile.Id));
             Assert.IsTrue(profiles.All(p => p.Name == referenceProfile.Name));
@@ -114,7 +115,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                                                        && p.BreakWater.Type.Equals(BreakWaterType.Wall)
                                                        && p.BreakWater.Height.Equals(defaultBreakWater.Height)));
 
-            Assert.AreEqual(differentProfiles.Distinct().Count(), testCaseDatas.Count);
+            Assert.AreEqual(testDataCount, differentProfiles.Distinct().Count());
         }
     }
 }

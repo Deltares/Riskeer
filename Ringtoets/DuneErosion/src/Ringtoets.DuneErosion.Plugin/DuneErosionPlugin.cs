@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -172,18 +171,18 @@ namespace Ringtoets.DuneErosion.Plugin
             };
         }
 
-        private static IEnumerable GetInputs(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetInputs(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
         }
 
-        private static IEnumerable GetOutputs(DuneErosionFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(DuneErosionFailureMechanism failureMechanism)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),

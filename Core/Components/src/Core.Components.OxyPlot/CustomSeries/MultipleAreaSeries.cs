@@ -104,9 +104,9 @@ namespace Core.Components.OxyPlot.CustomSeries
             renderContext.SetClip(clippingRect);
 
             // Transform all points to screen coordinates
-            foreach (DataPoint[] area in Areas)
+            foreach (IEnumerable<DataPoint> area in Areas)
             {
-                int n0 = area.Length;
+                int n0 = area.Count();
                 var pts0 = new ScreenPoint[n0];
                 TransformToScreenCoordinates(n0, pts0, area);
 
@@ -139,11 +139,11 @@ namespace Core.Components.OxyPlot.CustomSeries
             YAxis.Include(MaxY);
         }
 
-        private void TransformToScreenCoordinates(int n0, ScreenPoint[] pts0, DataPoint[] actualPoints)
+        private void TransformToScreenCoordinates(int n0, ScreenPoint[] pts0, IEnumerable<DataPoint> actualPoints)
         {
             for (var i = 0; i < n0; i++)
             {
-                pts0[i] = XAxis.Transform(actualPoints[i].X, actualPoints[i].Y, YAxis);
+                pts0[i] = XAxis.Transform(actualPoints.ElementAt(i).X, actualPoints.ElementAt(i).Y, YAxis);
             }
         }
     }

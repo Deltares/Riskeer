@@ -265,12 +265,11 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             var calculationConfigurationReader = new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = calculationConfigurationReader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = calculationConfigurationReader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var group = (CalculationGroupConfiguration) readConfigurationItems.Single();
 
-            var group = readConfigurationItems[0] as CalculationGroupConfiguration;
             Assert.IsNotNull(group);
             Assert.AreEqual("Calculation group", group.Name);
             CollectionAssert.IsEmpty(group.Items);
@@ -284,10 +283,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             var calculationConfigurationReader = new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = calculationConfigurationReader.Read().ToList();
+            IConfigurationItem[] readConfigurationItems = calculationConfigurationReader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(5, readConfigurationItems.Count);
+            Assert.AreEqual(5, readConfigurationItems.Length);
 
             var group1 = readConfigurationItems[0] as CalculationGroupConfiguration;
             Assert.IsNotNull(group1);

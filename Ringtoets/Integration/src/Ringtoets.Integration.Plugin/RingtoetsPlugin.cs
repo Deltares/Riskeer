@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -840,7 +839,7 @@ namespace Ringtoets.Integration.Plugin
             foreach (AssessmentSection section in sectionsWithDatabase)
             {
                 string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(section.HydraulicBoundaryDatabase.FilePath,
-                                                                                                      section.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+                                                                                                       section.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
                 if (validationProblem != null)
                 {
                     log.WarnFormat(
@@ -1194,16 +1193,16 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private static IEnumerable GetInputs(IFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetInputs(IFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.InputComments
             };
         }
 
-        private static IEnumerable GetOutputs(IFailureMechanism nodeData)
+        private static IEnumerable<object> GetOutputs(IFailureMechanism nodeData)
         {
             var duneErosion = nodeData as IHasSectionResults<DuneErosionFailureMechanismSectionResult>;
             var grassCoverSlipOffInwards = nodeData as IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>;

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -264,9 +263,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private static IEnumerable GetInputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetInputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
@@ -274,9 +273,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private static IEnumerable GetOutputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),

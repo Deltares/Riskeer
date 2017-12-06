@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -539,9 +538,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private static IEnumerable GetInputs(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetInputs(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection),
@@ -549,9 +548,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private static IEnumerable GetOutputs(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
-            return new ArrayList
+            return new object[]
             {
                 new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(

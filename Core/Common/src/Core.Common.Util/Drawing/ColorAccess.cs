@@ -170,7 +170,7 @@ namespace Core.Common.Util.Drawing
             }
 
             BitmapData bitmapData = bitmap.LockBits(validRange, ImageLockMode.WriteOnly, bitmap.PixelFormat);
-            Marshal.Copy(Buffer.ToArray(), 0, bitmapData.Scan0, Buffer.Count());
+            Marshal.Copy(buffer, 0, bitmapData.Scan0, buffer.Length);
             bitmap.UnlockBits(bitmapData);
         }
 

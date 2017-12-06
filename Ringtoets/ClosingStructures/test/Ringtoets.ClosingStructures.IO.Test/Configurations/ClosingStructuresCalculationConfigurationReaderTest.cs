@@ -305,12 +305,11 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNull(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureId);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
@@ -339,12 +338,11 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual(67.1, calculation.StructureNormalOrientation);
             Assert.AreEqual("kunstwerk1", calculation.StructureId);
             Assert.AreEqual("Locatie1", calculation.HydraulicBoundaryLocationName);
@@ -397,12 +395,11 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.IsTrue(double.IsNegativeInfinity(calculation.StructureNormalOrientation.Value));
             Assert.IsNull(calculation.StructureId);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
@@ -453,12 +450,11 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNaN(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureId);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
@@ -509,12 +505,11 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNull(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureId);
             Assert.AreEqual("Locatie1", calculation.HydraulicBoundaryLocationName);
@@ -560,12 +555,11 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNull(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureId);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);

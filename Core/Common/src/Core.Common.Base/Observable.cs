@@ -33,34 +33,34 @@ namespace Core.Common.Base
         /// <summary>
         /// The observers that are attached.
         /// </summary>
-        protected Collection<IObserver> observers = new Collection<IObserver>();
+        protected Collection<IObserver> ObserverCollection = new Collection<IObserver>();
 
         public IEnumerable<IObserver> Observers
         {
             get
             {
-                return observers;
+                return ObserverCollection;
             }
         }
 
         public void Attach(IObserver observer)
         {
-            observers.Add(observer);
+            ObserverCollection.Add(observer);
         }
 
         public void Detach(IObserver observer)
         {
-            observers.Remove(observer);
+            ObserverCollection.Remove(observer);
         }
 
         public virtual void NotifyObservers()
         {
             // Iterate through a copy of the list of observers; an update of one observer might result in detaching
             // another observer (which will result in a "list modified" exception over here otherwise)
-            foreach (IObserver observer in observers.ToArray())
+            foreach (IObserver observer in ObserverCollection.ToArray())
             {
                 // Ensure the observer is still part of the original list of observers
-                if (!observers.Contains(observer))
+                if (!ObserverCollection.Contains(observer))
                 {
                     continue;
                 }

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -686,9 +685,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             };
         }
 
-        private static IEnumerable GetInputs(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetInputs(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new MacroStabilityInwardsSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
@@ -697,9 +696,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             };
         }
 
-        private static IEnumerable GetOutputs(MacroStabilityInwardsFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
-            return new ArrayList
+            return new object[]
             {
                 new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(

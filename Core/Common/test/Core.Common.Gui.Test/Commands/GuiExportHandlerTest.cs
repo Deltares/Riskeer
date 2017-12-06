@@ -253,7 +253,7 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.ReplayAll();
 
             var dialogText = "";
-            List<TestListViewItem> listViewItems = null;
+            TestListViewItem[] listViewItems = null;
 
             ModalFormHandler = (name, wnd, form) =>
             {
@@ -265,7 +265,7 @@ namespace Core.Common.Gui.Test.Commands
                 listViewItems = listView.Items
                                         .OfType<ListViewItem>()
                                         .Select(lvi => new TestListViewItem(lvi.Name, lvi.Group.Name, imageList.Images[lvi.ImageIndex]))
-                                        .ToList();
+                                        .ToArray();
 
                 dialog.Close();
             };
@@ -282,7 +282,7 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             Assert.AreEqual("Kies wat u wilt exporteren", dialogText);
 
-            Assert.AreEqual(2, listViewItems.Count);
+            Assert.AreEqual(2, listViewItems.Length);
             Assert.AreEqual("", listViewItems[0].Name);
             Assert.AreEqual("Algemeen", listViewItems[0].Group);
             Assert.AreEqual("", listViewItems[1].Name);
@@ -370,7 +370,7 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.ReplayAll();
 
             var dialogText = "";
-            List<TestListViewItem> listViewItems = null;
+            TestListViewItem[] listViewItems = null;
 
             ModalFormHandler = (name, wnd, form) =>
             {
@@ -382,7 +382,7 @@ namespace Core.Common.Gui.Test.Commands
                 listViewItems = listView.Items
                                         .OfType<ListViewItem>()
                                         .Select(lvi => new TestListViewItem(lvi.Name, lvi.Group.Name, imageList.Images[lvi.ImageIndex]))
-                                        .ToList();
+                                        .ToArray();
 
                 dialog.Close();
             };
@@ -415,7 +415,7 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             Assert.AreEqual("Kies wat u wilt exporteren", dialogText);
 
-            Assert.AreEqual(2, listViewItems.Count);
+            Assert.AreEqual(2, listViewItems.Length);
             string expectedItemName1 = hasFileFilterGenerator
                                            ? $"{exportInfo1.Name} (*.{exportInfo1.FileFilterGenerator.Extension})"
                                            : exportInfo1.Name;

@@ -297,9 +297,10 @@ namespace Core.Components.OxyPlot.Forms.Test
         private static void AssertSeries(IEnumerable<string> expectedSeriesTitles, CategoryPlotView plotView)
         {
             ElementCollection<Series> series = plotView.Model.Series;
-            Assert.AreEqual(expectedSeriesTitles.Count(), series.Count);
+            int expectedSeriesTitlesCount = expectedSeriesTitles.Count();
+            Assert.AreEqual(expectedSeriesTitlesCount, series.Count);
 
-            for (var i = 0; i < expectedSeriesTitles.Count(); i++)
+            for (var i = 0; i < expectedSeriesTitlesCount; i++)
             {
                 Assert.AreEqual(expectedSeriesTitles.ElementAt(i), series[i].Title);
             }

@@ -69,8 +69,6 @@ namespace Core.Common.Gui.PropertyBag
 
             Properties = properties;
             WrappedObject = propertyObject;
-
-            
         }
 
         /// <summary>

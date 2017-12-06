@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -427,9 +426,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             };
         }
 
-        private static IEnumerable GetInputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetInputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
@@ -437,9 +436,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             };
         }
 
-        private static IEnumerable GetOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),

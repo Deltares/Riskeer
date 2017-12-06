@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -368,9 +367,9 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
-        private static IEnumerable GetInputs(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetInputs(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
@@ -379,9 +378,9 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
-        private static IEnumerable GetOutputs(ClosingStructuresFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(ClosingStructuresFailureMechanism failureMechanism)
         {
-            return new ArrayList
+            return new object[]
             {
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(

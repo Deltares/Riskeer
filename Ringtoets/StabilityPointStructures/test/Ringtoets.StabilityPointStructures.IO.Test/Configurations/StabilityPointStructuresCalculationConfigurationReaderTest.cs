@@ -379,12 +379,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             var reader = new StabilityPointStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
-
-            var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems[0];
+            var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.AreEqual(0.2, calculation.AllowedLevelIncreaseStorage.Mean);
             Assert.AreEqual(0.01, calculation.AllowedLevelIncreaseStorage.StandardDeviation);
@@ -494,12 +492,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             var reader = new StabilityPointStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
-
-            var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems[0];
+            var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.AreEqual(0.01, calculation.FactorStormDurationOpenStructure);
             Assert.AreEqual("profiel1", calculation.ForeshoreProfileId);
@@ -563,12 +559,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             var reader = new StabilityPointStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
-
-            var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems[0];
+            var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.IsNull(calculation.AllowedLevelIncreaseStorage);
             Assert.IsNull(calculation.AreaFlowApertures);
@@ -619,12 +613,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             var reader = new StabilityPointStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
-
-            var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems[0];
+            var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.IsNull(calculation.AllowedLevelIncreaseStorage.Mean);
             Assert.IsNull(calculation.AllowedLevelIncreaseStorage.StandardDeviation);
@@ -697,12 +689,11 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             var reader = new StabilityPointStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.That(double.IsPositiveInfinity(calculation.AllowedLevelIncreaseStorage.Mean.Value));
             Assert.That(double.IsNegativeInfinity(calculation.AllowedLevelIncreaseStorage.StandardDeviation.Value));
 
@@ -796,12 +787,11 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             var reader = new StabilityPointStructuresCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (StabilityPointStructuresCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNaN(calculation.AllowedLevelIncreaseStorage.Mean);
             Assert.IsNaN(calculation.AllowedLevelIncreaseStorage.StandardDeviation);
 
