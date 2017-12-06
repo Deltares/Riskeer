@@ -73,7 +73,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// </list></exception>
         public IEnumerable<ReferenceLineMeta> GetReferenceLineMetas()
         {
-            List<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(shapeFilePath);
+            IEnumerable<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(shapeFilePath);
 
             ValidateReferenceLineMetas(referenceLineMetas);
 

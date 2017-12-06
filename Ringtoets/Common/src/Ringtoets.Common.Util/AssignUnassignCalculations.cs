@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Util
         /// </summary>
         /// <param name="sections">The <see cref="FailureMechanismSection"/> objects.</param>
         /// <param name="calculations">The <see cref="CalculationWithLocation"/> objects.</param>
-        /// <returns>A <see cref="Dictionary{K, V}"/> containing a <see cref="List{T}"/> 
+        /// <returns>A <see cref="IDictionary{K, V}"/> containing a <see cref="List{T}"/> 
         /// of <see cref="FailureMechanismSectionResult"/> objects 
         /// for each section name which has calculations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>

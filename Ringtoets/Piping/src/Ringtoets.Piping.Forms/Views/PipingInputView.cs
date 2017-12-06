@@ -223,7 +223,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private IEnumerable<PipingSoilLayer> GetSoilLayers()
         {
-            return data?.InputParameters.StochasticSoilProfile?.SoilProfile.Layers.ToList() ?? new List<PipingSoilLayer>();
+            return data?.InputParameters.StochasticSoilProfile?.SoilProfile.Layers.ToArray() ?? new PipingSoilLayer[0];
         }
     }
 }

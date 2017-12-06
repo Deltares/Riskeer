@@ -413,21 +413,21 @@ namespace Ringtoets.Common.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Adds a valid <see cref="CharacteristicPoints"/> read from <paramref name="reader"/> to the <paramref name="list"/>.
+        /// Adds a valid <see cref="CharacteristicPoints"/> read from <paramref name="reader"/> to the <paramref name="characteristicPointsList"/>.
         /// </summary>
-        /// <param name="list">The list to add the valid <see cref="CharacteristicPoints"/> to.</param>
+        /// <param name="characteristicPointsList">The list to add the valid <see cref="CharacteristicPoints"/> to.</param>
         /// <param name="reader">The reader to read the <see cref="CharacteristicPoints"/> from.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="list"/> already contains a <see cref="CharacteristicPoints"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="characteristicPointsList"/> already contains a <see cref="CharacteristicPoints"/>
         /// with the same name as the new <see cref="CharacteristicPoints"/>.</exception>
-        private void AddValidCharacteristicPointsLocationToCollection(List<CharacteristicPoints> list, CharacteristicPointsCsvReader reader)
+        private void AddValidCharacteristicPointsLocationToCollection(List<CharacteristicPoints> characteristicPointsList, CharacteristicPointsCsvReader reader)
         {
             try
             {
                 CharacteristicPoints location = reader.ReadCharacteristicPointsLocation();
 
-                if (IsCharacteristicPointsLocationsAlreadyDefined(list, location))
+                if (IsCharacteristicPointsLocationsAlreadyDefined(characteristicPointsList, location))
                 {
-                    list.Add(location);
+                    characteristicPointsList.Add(location);
                 }
             }
             catch (LineParseException e)

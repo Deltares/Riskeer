@@ -29,7 +29,7 @@ namespace Ringtoets.Integration.Data.StandAlone
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the
-    /// macro stability outwards failure mechanism.
+    /// Macrostability Outwards failure mechanism.
     /// </summary>
     public class MacrostabilityOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<MacrostabilityOutwardsFailureMechanismSectionResult>
     {

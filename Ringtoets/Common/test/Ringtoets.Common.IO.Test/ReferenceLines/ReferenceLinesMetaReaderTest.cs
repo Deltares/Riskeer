@@ -126,12 +126,12 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string invalidFilePath = Path.Combine(testDataPath, shapeFileName);
 
             // Call
-            List<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
+            IEnumerable<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert
-            Assert.AreEqual(2, referenceLineMetas.Count);
-            CollectionAssert.IsEmpty(referenceLineMetas[0].ReferenceLine.Points);
-            CollectionAssert.IsEmpty(referenceLineMetas[1].ReferenceLine.Points);
+            Assert.AreEqual(2, referenceLineMetas.Count());
+            CollectionAssert.IsEmpty(referenceLineMetas.ElementAt(0).ReferenceLine.Points);
+            CollectionAssert.IsEmpty(referenceLineMetas.ElementAt(1).ReferenceLine.Points);
         }
 
         [Test]
@@ -176,10 +176,10 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string validFilePath = Path.Combine(testDataPath, "NBPW.shp");
 
             // Call
-            List<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
+            IEnumerable<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
 
             // Assert
-            Assert.AreEqual(3, referenceLineMetas.Count);
+            Assert.AreEqual(3, referenceLineMetas.Count());
 
             var expectedReferenceLineMeta1 = new ReferenceLineMeta
             {
@@ -192,7 +192,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 new Point2D(160679.9250, 475072.583),
                 new Point2D(160892.0751, 474315.4917)
             });
-            AssertReferenceLineMetas(expectedReferenceLineMeta1, referenceLineMetas[0]);
+            AssertReferenceLineMetas(expectedReferenceLineMeta1, referenceLineMetas.ElementAt(0));
 
             var expectedReferenceLineMeta2 = new ReferenceLineMeta
             {
@@ -205,7 +205,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 new Point2D(155556.9191, 464341.1281),
                 new Point2D(155521.4761, 464360.7401)
             });
-            AssertReferenceLineMetas(expectedReferenceLineMeta2, referenceLineMetas[1]);
+            AssertReferenceLineMetas(expectedReferenceLineMeta2, referenceLineMetas.ElementAt(1));
 
             var expectedReferenceLineMeta3 = new ReferenceLineMeta
             {
@@ -218,7 +218,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 new Point2D(147367.321899, 476902.9157103),
                 new Point2D(147410.0515, 476938.9447)
             });
-            AssertReferenceLineMetas(expectedReferenceLineMeta3, referenceLineMetas[2]);
+            AssertReferenceLineMetas(expectedReferenceLineMeta3, referenceLineMetas.ElementAt(2));
         }
 
         [Test]
@@ -228,12 +228,10 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string validFilePath = Path.Combine(testDataPath, "NBPW_EmptyNormOGAndNormSW.shp");
 
             // Call
-            List<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
+            IEnumerable<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
 
             // Assert
-            Assert.AreEqual(1, referenceLineMetas.Count);
-
-            ReferenceLineMeta referenceLineMeta = referenceLineMetas.First();
+            ReferenceLineMeta referenceLineMeta = referenceLineMetas.Single();
             Assert.AreEqual("46-1", referenceLineMeta.AssessmentSectionId);
             Assert.IsNull(referenceLineMeta.SignalingValue);
             Assert.AreEqual(0, referenceLineMeta.LowerLimitValue);
@@ -246,11 +244,10 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string validFilePath = Path.Combine(testDataPath, "NBPW_EmptyTrackId.shp");
 
             // Call
-            List<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
+            IEnumerable<ReferenceLineMeta> referenceLineMetas = ReferenceLinesMetaReader.ReadReferenceLinesMetas(validFilePath);
 
             // Assert
-            Assert.AreEqual(1, referenceLineMetas.Count);
-            ReferenceLineMeta referenceLineMeta = referenceLineMetas.First();
+            ReferenceLineMeta referenceLineMeta = referenceLineMetas.Single();
             Assert.IsEmpty(referenceLineMeta.AssessmentSectionId);
         }
 

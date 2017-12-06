@@ -953,9 +953,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             DikeProfile[] dikeProfileArray = dikeProfiles.ToArray();
 
             Assert.IsInstanceOf<MapLineData>(mapData);
-            Assert.AreEqual(dikeProfileArray.Length, dikeProfilesData.Features.Count());
+            int dikeProfileCount = dikeProfileArray.Length;
+            Assert.AreEqual(dikeProfileCount, dikeProfilesData.Features.Count());
 
-            for (var i = 0; i < dikeProfileArray.Length; i++)
+            for (var i = 0; i < dikeProfileCount; i++)
             {
                 MapGeometry profileDataA = dikeProfilesData.Features.ElementAt(i).MapGeometries.First();
                 CollectionAssert.AreEquivalent(dikeProfileArray[0].DikeGeometry, profileDataA.PointCollections.First());
@@ -970,9 +971,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var calculationsMapData = (MapLineData) mapData;
             GrassCoverErosionInwardsCalculation[] calculationsArray = calculations.ToArray();
             MapFeature[] calculationsFeatures = calculationsMapData.Features.ToArray();
-            Assert.AreEqual(calculationsArray.Length, calculationsFeatures.Length);
+            int calculationsCount = calculationsArray.Length;
+            Assert.AreEqual(calculationsCount, calculationsFeatures.Length);
 
-            for (var index = 0; index < calculationsArray.Length; index++)
+            for (var index = 0; index < calculationsCount; index++)
             {
                 MapGeometry[] geometries = calculationsFeatures[index].MapGeometries.ToArray();
                 Assert.AreEqual(1, geometries.Length);
