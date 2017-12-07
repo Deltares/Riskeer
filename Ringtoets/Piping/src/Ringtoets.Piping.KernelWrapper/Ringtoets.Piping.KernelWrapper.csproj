@@ -9,8 +9,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="WTIPiping, Version=16.2.1.4574, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="WTIPiping, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\..\..\..\lib\Plugins\Wti\WTIPiping.dll</HintPath>
     </Reference>
   </ItemGroup>
