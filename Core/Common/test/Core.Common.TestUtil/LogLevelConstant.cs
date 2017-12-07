@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using log4net.Core;
 
@@ -36,8 +37,22 @@ namespace Core.Common.TestUtil
 
     public static class LogLevelConstantExtensions
     {
+        /// <summary>
+        /// Converts a <see cref="LogLevelConstant"/> to a <see cref="Level"/>.
+        /// </summary>
+        /// <param name="level">The <see cref="LogLevelConstant"/> to convert.</param>
+        /// <returns>The <see cref="Level"/> based on the <paramref name="level"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="level"/>
+        /// is not a valid value for <see cref="LogLevelConstant"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="level"/>
+        /// is not a supported member.</exception>
         public static Level ToLog4NetLevel(this LogLevelConstant level)
         {
+            if (!Enum.IsDefined(typeof(LogLevelConstant), level))
+            {
+                throw new InvalidEnumArgumentException(nameof(level), (int)level, typeof(LogLevelConstant));
+            }
+
             switch (level)
             {
                 case LogLevelConstant.Off:
@@ -53,7 +68,7 @@ namespace Core.Common.TestUtil
                 case LogLevelConstant.Debug:
                     return Level.Debug;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(level), (int) level, typeof(LogLevelConstant));
+                    throw new NotSupportedException($"The enum value {nameof(LogLevelConstant)}.{level} is not supported.");
             }
         }
     }

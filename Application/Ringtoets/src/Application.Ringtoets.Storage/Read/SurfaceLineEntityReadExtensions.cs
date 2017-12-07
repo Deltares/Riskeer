@@ -48,6 +48,10 @@ namespace Application.Ringtoets.Storage.Read
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="SurfaceLineEntity.PointsXml"/> 
         /// of <paramref name="entity"/> is empty.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the <paramref name="entity"/> 
+        /// contains an invalid type of characteristic point.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="entity"/> contains a 
+        /// characteristic point that is not supported.</exception>
         public static PipingSurfaceLine ReadAsPipingSurfaceLine(this SurfaceLineEntity entity,
                                                                 ReadConversionCollector collector)
         {
@@ -89,6 +93,10 @@ namespace Application.Ringtoets.Storage.Read
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="SurfaceLineEntity.PointsXml"/> 
         /// of <paramref name="entity"/> is empty.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the <paramref name="entity"/> 
+        /// contains an invalid type of characteristic point.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="entity"/> contains a 
+        /// characteristic point that is not supported.</exception>
         public static MacroStabilityInwardsSurfaceLine ReadAsMacroStabilityInwardsSurfaceLine(
             this SurfaceLineEntity entity,
             ReadConversionCollector collector)
@@ -126,6 +134,16 @@ namespace Application.Ringtoets.Storage.Read
                                entity.ReferenceLineIntersectionY.ToNullAsNaN());
         }
 
+        /// <summary>
+        /// Reads the characteristic points from the <paramref name="entity"/> and sets these 
+        /// to the <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="entity">The entity to read.</param>
+        /// <param name="surfaceLine">The surface line to set the characteristic point on.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the <paramref name="entity"/> 
+        /// contains an invalid type of characteristic point.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="entity"/> contains a 
+        /// characteristic point that is not supported.</exception>
         private static void ReadCharacteristicPoints(this SurfaceLineEntity entity, PipingSurfaceLine surfaceLine)
         {
             var characteristicPoints = new Dictionary<PipingCharacteristicPointType, Point3D>();
@@ -139,6 +157,16 @@ namespace Application.Ringtoets.Storage.Read
             characteristicPoints.ForEachElementDo(cp => SetCharacteristicPoint(surfaceLine, cp.Key, cp.Value));
         }
 
+        /// <summary>
+        /// Reads the characteristic points from the <paramref name="entity"/> and sets these 
+        /// to the <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="entity">The entity to read.</param>
+        /// <param name="surfaceLine">The surface line to set the characteristic point on.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the <paramref name="entity"/> 
+        /// contains an invalid type of characteristic point.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="entity"/> contains a 
+        /// characteristic point that is not supported.</exception>
         private static void ReadCharacteristicPoints(this SurfaceLineEntity entity, MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             var characteristicPoints = new Dictionary<MacroStabilityInwardsCharacteristicPointType, Point3D>();
@@ -152,10 +180,27 @@ namespace Application.Ringtoets.Storage.Read
             characteristicPoints.ForEachElementDo(cp => SetCharacteristicPoint(surfaceLine, cp.Key, cp.Value));
         }
 
+
+        /// <summary>
+        /// Sets the characteristic point and its coordinate to the <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to set the characteristic point on.</param>
+        /// <param name="type">The type of characteristic point.</param>
+        /// <param name="geometryPoint">The point associated with the characteristic point.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="type"/> is not 
+        /// a valid <see cref="PipingCharacteristicPointType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="type"/> is not supported.</exception>
         private static void SetCharacteristicPoint(PipingSurfaceLine surfaceLine,
                                                    PipingCharacteristicPointType type,
                                                    Point3D geometryPoint)
         {
+            if (!Enum.IsDefined(typeof(PipingCharacteristicPointType), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(type),
+                                                       (int) type,
+                                                       typeof(PipingCharacteristicPointType));
+            }
+
             switch (type)
             {
                 case PipingCharacteristicPointType.DikeToeAtRiver:
@@ -177,16 +222,30 @@ namespace Application.Ringtoets.Storage.Read
                     surfaceLine.SetDitchPolderSideAt(geometryPoint);
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(type),
-                                                           (int) type,
-                                                           typeof(PipingCharacteristicPointType));
+                    throw new NotSupportedException($"The enum value {nameof(PipingCharacteristicPointType)}.{type} is not supported.");
             }
         }
 
+        /// <summary>
+        /// Sets the characteristic point and its coordinate to the <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to set the characteristic point on.</param>
+        /// <param name="type">The type of characteristic point.</param>
+        /// <param name="geometryPoint">The point associated with the characteristic point.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="type"/> is not 
+        /// a valid <see cref="MacroStabilityInwardsCharacteristicPointType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="type"/> is not supported.</exception>
         private static void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine,
                                                    MacroStabilityInwardsCharacteristicPointType type,
                                                    Point3D geometryPoint)
         {
+            if (!Enum.IsDefined(typeof(MacroStabilityInwardsCharacteristicPointType), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(type),
+                                                       (int) type,
+                                                       typeof(MacroStabilityInwardsCharacteristicPointType));
+            }
+
             switch (type)
             {
                 case MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside:
@@ -226,9 +285,7 @@ namespace Application.Ringtoets.Storage.Read
                     surfaceLine.SetDitchPolderSideAt(geometryPoint);
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(type),
-                                                           (int) type,
-                                                           typeof(MacroStabilityInwardsCharacteristicPointType));
+                    throw new NotSupportedException($"The enum value {nameof(MacroStabilityInwardsCharacteristicPointType)}.{type} is not supported.");
             }
         }
 
