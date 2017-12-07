@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -150,6 +151,21 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual("Bing Maps - Satelliet", section.BackgroundData.Name);
             var configuration = (WellKnownBackgroundDataConfiguration) section.BackgroundData.Configuration;
             Assert.AreEqual(RingtoetsWellKnownTileSource.BingAerial, configuration.WellKnownTileSource);
+        }
+
+        [Test]
+        public void Constructor_InvalidAssessmentSectionComposition_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const int invalidValue = 99;
+
+            // Call
+            TestDelegate call = () => new AssessmentSection((AssessmentSectionComposition) invalidValue);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'newComposition' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionComposition)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("newComposition", parameterName);
         }
 
         [Test]
@@ -316,6 +332,22 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(norm, otherContributionItem.Norm);
             double expectedNorm = composition == AssessmentSectionComposition.DikeAndDune ? 150000 : 100000;
             Assert.AreEqual(expectedNorm, otherContributionItem.ProbabilitySpace, 1e-6);
+        }
+
+        [Test]
+        public void ChangeComposition_InvalidAssessmentSectionComposition_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const int invalidValue = 99;
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            // Call
+            TestDelegate call = () => assessmentSection.ChangeComposition((AssessmentSectionComposition) invalidValue);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'newComposition' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionComposition)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("newComposition", parameterName);
         }
 
         [Test]

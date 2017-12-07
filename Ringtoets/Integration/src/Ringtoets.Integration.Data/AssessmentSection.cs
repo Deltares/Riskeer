@@ -67,6 +67,10 @@ namespace Ringtoets.Integration.Data
         /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
         /// </list>
         /// </exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="composition"/> 
+        /// is not a valid enum value of <see cref="AssessmentSectionComposition"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="composition"/>
+        /// is not supported.</exception>
         public AssessmentSection(AssessmentSectionComposition composition,
                                  double lowerLimitNorm = defaultNorm,
                                  double signalingNorm = defaultNorm)
@@ -249,6 +253,13 @@ namespace Ringtoets.Integration.Data
 
         public void ChangeComposition(AssessmentSectionComposition newComposition)
         {
+            if (!Enum.IsDefined(typeof(AssessmentSectionComposition), newComposition))
+            {
+                throw new InvalidEnumArgumentException(nameof(newComposition),
+                                                       (int)newComposition,
+                                                       typeof(AssessmentSectionComposition));
+            }
+
             switch (newComposition)
             {
                 case AssessmentSectionComposition.Dike:
@@ -294,9 +305,7 @@ namespace Ringtoets.Integration.Data
                     FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 20);
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(newComposition),
-                                                           (int) newComposition,
-                                                           typeof(AssessmentSectionComposition));
+                    throw new NotSupportedException($"The enum value {nameof(AssessmentSectionComposition)}.{newComposition} is not supported.");
             }
             Composition = newComposition;
             SetFailureMechanismRelevancy();

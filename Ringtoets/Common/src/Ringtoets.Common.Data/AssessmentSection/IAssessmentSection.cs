@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -83,6 +85,10 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// and the failure mechanisms returned by <see cref="GetFailureMechanisms"/>.
         /// </summary>
         /// <param name="newComposition">The new composition description.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="newComposition"/> 
+        /// is not a valid enum value of <see cref="AssessmentSectionComposition"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="newComposition"/>
+        /// is not supported.</exception>
         void ChangeComposition(AssessmentSectionComposition newComposition);
     }
 }

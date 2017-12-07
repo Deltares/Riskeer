@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
@@ -45,14 +47,16 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         public void GetDisplayName_InvalidEnum_ThrowsNotSupportedException()
         {
             // Setup
-            const RingtoetsWellKnownTileSource ringtoetsWellKnownTileSource = (RingtoetsWellKnownTileSource) 9999;
+            const int invalidValue = 9999;
+            const RingtoetsWellKnownTileSource ringtoetsWellKnownTileSource = (RingtoetsWellKnownTileSource) invalidValue;
 
             // Call
             TestDelegate call = () => ringtoetsWellKnownTileSource.GetDisplayName();
 
             // Assert
-            string message = Assert.Throws<NotSupportedException>(call).Message;
-            Assert.AreEqual($"Unknown value '{ringtoetsWellKnownTileSource}'", message);
+            string expectedMessage = $"The value of argument 'ringtoetsWellKnownTileSource' ({invalidValue}) is invalid for Enum type '{nameof(RingtoetsWellKnownTileSource)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("ringtoetsWellKnownTileSource", parameterName);
         }
 
         private static IEnumerable<TestCaseData> GetValidRingtoetsWellKnownTileSources()

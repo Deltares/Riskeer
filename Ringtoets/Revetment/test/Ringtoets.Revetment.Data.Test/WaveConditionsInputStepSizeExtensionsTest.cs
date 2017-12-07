@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.Revetment.Data.Test
@@ -43,12 +44,16 @@ namespace Ringtoets.Revetment.Data.Test
         [Test]
         public void AsValue_InvalidValue_ThrowsInvalidEnumArgumentException()
         {
+            // Setup
+            const int invalidValue = 4;
+
             // Call
-            TestDelegate test = () => ((WaveConditionsInputStepSize) 4).AsValue();
+            TestDelegate call = () => ((WaveConditionsInputStepSize) invalidValue).AsValue();
 
             // Assert
-            string parameter = Assert.Throws<InvalidEnumArgumentException>(test).ParamName;
-            Assert.AreEqual("stepSize", parameter);
+            string expectedMessage = $"The value of argument 'stepSize' ({invalidValue}) is invalid for Enum type '{nameof(WaveConditionsInputStepSize)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("stepSize", parameterName);
         }
     }
 }

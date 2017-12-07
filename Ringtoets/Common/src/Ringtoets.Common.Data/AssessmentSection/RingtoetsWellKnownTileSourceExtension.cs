@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.AssessmentSection
@@ -35,10 +36,19 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <param name="ringtoetsWellKnownTileSource">The <see cref="RingtoetsWellKnownTileSource"/> 
         /// to get the display name of.</param>
         /// <returns>The display name.</returns>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="ringtoetsWellKnownTileSource"/> 
-        /// is not a valid value for <see cref="RingtoetsWellKnownTileSource"/>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="ringtoetsWellKnownTileSource"/> 
+        /// is not a valid value of <see cref="RingtoetsWellKnownTileSource"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="ringtoetsWellKnownTileSource"/>
+        /// is not supported.</exception>
         public static string GetDisplayName(this RingtoetsWellKnownTileSource ringtoetsWellKnownTileSource)
         {
+            if (!Enum.IsDefined(typeof(RingtoetsWellKnownTileSource), ringtoetsWellKnownTileSource))
+            {
+                throw new InvalidEnumArgumentException(nameof(ringtoetsWellKnownTileSource),
+                                                       (int)ringtoetsWellKnownTileSource,
+                                                       typeof(RingtoetsWellKnownTileSource));
+            }
+
             switch (ringtoetsWellKnownTileSource)
             {
                 case RingtoetsWellKnownTileSource.OpenStreetMap:
@@ -54,7 +64,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
                 case RingtoetsWellKnownTileSource.EsriWorldShadedRelief:
                     return Resources.RingtoetsWellKnownTileSource_EsriWorldShadedRelief_DisplayName;
                 default:
-                    throw new NotSupportedException($"Unknown value '{ringtoetsWellKnownTileSource}'");
+                    throw new NotSupportedException($"The enum value {nameof(RingtoetsWellKnownTileSource)}.{ringtoetsWellKnownTileSource} is not supported.");
             }
         }
     }

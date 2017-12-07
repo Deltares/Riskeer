@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 
 namespace Ringtoets.Revetment.Data
@@ -33,9 +34,17 @@ namespace Ringtoets.Revetment.Data
         /// </summary>
         /// <param name="stepSize">The step size to get a real value for.</param>
         /// <returns>The real value of <paramref name="stepSize"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="stepSize"/> when using an invalid stepsize.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="stepSize"/> 
+        /// is not a valid enum value of <see cref="WaveConditionsInputStepSize"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="stepSize"/>
+        /// is not supported for the conversion.</exception>
         public static double AsValue(this WaveConditionsInputStepSize stepSize)
         {
+            if (!Enum.IsDefined(typeof(WaveConditionsInputStepSize), stepSize))
+            {
+                throw new InvalidEnumArgumentException(nameof(stepSize), (int)stepSize, typeof(WaveConditionsInputStepSize));
+            }
+
             switch (stepSize)
             {
                 case WaveConditionsInputStepSize.Half:
@@ -45,7 +54,7 @@ namespace Ringtoets.Revetment.Data
                 case WaveConditionsInputStepSize.Two:
                     return 2.0;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(stepSize), (int) stepSize, typeof(WaveConditionsInputStepSize));
+                    throw new NotSupportedException($"The enum value {nameof(WaveConditionsInputStepSize)}.{stepSize} is not supported.");
             }
         }
     }
