@@ -21,6 +21,7 @@
 
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
+using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.Gis.Style;
 using DotSpatial.Symbology;
@@ -52,11 +53,16 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         public void Convert_InvalidPointSymbol_ThrowsInvalidEnumArgumentException()
         {
+            // Setup
+            const int invalidValue = 100;
+
             // Call
-            TestDelegate test = () => MapDataHelper.Convert((PointSymbol) 100);
+            TestDelegate call = () => MapDataHelper.Convert((PointSymbol) invalidValue);
 
             // Assert
-            Assert.Throws<InvalidEnumArgumentException>(test);
+            string expectedMessage = $"The value of argument 'symbol' ({invalidValue}) is invalid for Enum type '{nameof(PointSymbol)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("symbol", parameterName);
         }
 
         [Test]
@@ -78,11 +84,16 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         public void Convert_InvalidLineDashStyle_ThrowsInvalidEnumArgumentException()
         {
+            // Setup 
+            const int invalidValue = 100;
+
             // Call
-            TestDelegate call = () => MapDataHelper.Convert((LineDashStyle) 100);
+            TestDelegate call = () => MapDataHelper.Convert((LineDashStyle) invalidValue);
 
             // Assert
-            Assert.Throws<InvalidEnumArgumentException>(call);
+            string expectedMessage = $"The value of argument 'dashStyle' ({invalidValue}) is invalid for Enum type '{nameof(LineDashStyle)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("dashStyle", parameterName);
         }
     }
 }
