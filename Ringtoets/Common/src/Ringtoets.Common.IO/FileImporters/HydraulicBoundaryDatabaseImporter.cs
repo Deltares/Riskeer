@@ -89,7 +89,22 @@ namespace Ringtoets.Common.IO.FileImporters
                     return false;
                 }
 
-                assessmentSection.HydraulicBoundaryDatabase = CreateHydraulicBoundaryDatabase(readHydraulicBoundaryDatabase, filePath);
+                hydraulicBoundaryDatabase.FilePath = filePath;
+                hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
+                hydraulicBoundaryDatabase.Locations.Clear();
+                hydraulicBoundaryDatabase.Locations.AddRange(readHydraulicBoundaryDatabase.Locations);
+
+                if (readHydraulicBoundaryDatabase.CanUsePreprocessor)
+                {
+                    hydraulicBoundaryDatabase.CanUsePreprocessor = true;
+                    hydraulicBoundaryDatabase.UsePreprocessor = true;
+                    hydraulicBoundaryDatabase.PreprocessorDirectory = Path.GetDirectoryName(filePath);
+                }
+                else
+                {
+                    hydraulicBoundaryDatabase.CanUsePreprocessor = false;
+                }
+
                 assessmentSection.NotifyObservers();
 
                 log.Info(Resources.HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read);
@@ -210,26 +225,6 @@ namespace Ringtoets.Common.IO.FileImporters
                 log.Error(e.Message, e);
                 return 0;
             }
-        }
-
-        private static HydraulicBoundaryDatabase CreateHydraulicBoundaryDatabase(ReadHydraulicBoundaryDatabase readData, string filePath)
-        {
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Version = readData.Version,
-                FilePath = filePath
-            };
-
-            hydraulicBoundaryDatabase.Locations.AddRange(readData.Locations);
-
-            if (readData.CanUsePreprocessor)
-            {
-                hydraulicBoundaryDatabase.CanUsePreprocessor = true;
-                hydraulicBoundaryDatabase.UsePreprocessor = true;
-                hydraulicBoundaryDatabase.PreprocessorDirectory = Path.GetDirectoryName(filePath);
-            }
-
-            return hydraulicBoundaryDatabase;
         }
     }
 }
