@@ -82,15 +82,6 @@ namespace Ringtoets.Common.Data.TestUtil
                                                             failureMechanism
                                                         };
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = filePath,
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                }
-            };
-
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("21");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
@@ -102,6 +93,15 @@ namespace Ringtoets.Common.Data.TestUtil
 
             if (addBoundaryDatabase)
             {
+                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    FilePath = filePath,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
+                    }
+                };
+
                 assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             }
 
