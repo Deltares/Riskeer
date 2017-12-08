@@ -537,14 +537,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private static DesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView(Form form)
         {
-            var assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
-            };
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
+
+            assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(testHydraulicBoundaryDatabase.Locations);
 
             DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection, form);
 
-            view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            view.Data = testHydraulicBoundaryDatabase.Locations;
+
             return view;
         }
 

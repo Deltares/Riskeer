@@ -537,14 +537,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private static WaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView(Form form)
         {
-            var assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
-            };
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
+
+            assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(testHydraulicBoundaryDatabase.Locations);
 
             WaveHeightLocationsView view = ShowWaveHeightLocationsView(assessmentSection, form);
 
-            view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            view.Data = testHydraulicBoundaryDatabase.Locations;
             return view;
         }
 
