@@ -571,13 +571,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     new TestHydraulicBoundaryLocation()
                 }
-            };
+            });
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
@@ -765,10 +765,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     FilePath = ""
-                };
+                });
+
                 var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                                   failureMechanism.WaveConditionsCalculationGroup,
                                                                                                   failureMechanism,
@@ -818,10 +819,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     FilePath = validHydroDatabasePath
-                };
+                });
+
                 var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                                   failureMechanism.WaveConditionsCalculationGroup,
                                                                                                   failureMechanism,
@@ -873,10 +875,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     FilePath = validHydroDatabasePath
-                };
+                });
+
                 var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                                   failureMechanism.WaveConditionsCalculationGroup,
                                                                                                   failureMechanism,
@@ -1089,14 +1092,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 failureMechanism, mocks);
-
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"),
                 CanUsePreprocessor = true,
                 UsePreprocessor = false,
                 PreprocessorDirectory = "InvalidPreprocessorDirectory"
-            };
+            });
 
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                               failureMechanism.WaveConditionsCalculationGroup,
@@ -1164,14 +1166,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 failureMechanism, mocks);
-
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"),
                 CanUsePreprocessor = true,
                 UsePreprocessor = true,
                 PreprocessorDirectory = TestHelper.GetScratchPadPath()
-            };
+            });
 
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                               failureMechanism.WaveConditionsCalculationGroup,
@@ -1239,14 +1240,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 failureMechanism, mocks);
-
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"),
                 CanUsePreprocessor = true,
                 UsePreprocessor = true,
                 PreprocessorDirectory = "InvalidPreprocessorDirectory"
-            };
+            });
 
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                               failureMechanism.WaveConditionsCalculationGroup,
@@ -1863,15 +1863,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         hydraulicBoundaryLocation2
                     }
                 };
+
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     Locations =
                     {
                         hydraulicBoundaryLocation1,
                         hydraulicBoundaryLocation2
                     }
-                };
+                });
 
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
@@ -1939,8 +1940,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         hydraulicBoundaryLocation2
                     }
                 };
+
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     Locations =
                     {
@@ -1948,7 +1950,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         hydraulicBoundaryLocation1,
                         hydraulicBoundaryLocation2
                     }
-                };
+                });
 
                 var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                                   null,
