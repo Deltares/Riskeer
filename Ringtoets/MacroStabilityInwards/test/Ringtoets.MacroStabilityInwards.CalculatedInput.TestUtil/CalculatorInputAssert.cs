@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using NUnit.Framework;
@@ -39,6 +40,10 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
         /// <param name="actual">The actual <see cref="SoilProfile"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="original"/>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="original"/>
+        /// contains an invalid value of the enum <see cref="MacroStabilityInwardsShearStrengthModel"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="original"/>
+        /// contains an unsupported value of <see cref="MacroStabilityInwardsShearStrengthModel"/>.</exception>
         public static void AssertSoilProfile(IMacroStabilityInwardsSoilProfileUnderSurfaceLine original, SoilProfile actual)
         {
             MacroStabilityInwardsSoilLayer2D[] expectedLayers = original.Layers.ToArray();
@@ -104,8 +109,12 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
         /// </summary>
         /// <param name="original">The original <see cref="MacroStabilityInwardsSoilLayer2D"/> array.</param>
         /// <param name="actual">The actual <see cref="SoilLayer"/> array.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/>
         /// does not correspond to <paramref name="original"/>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="original"/>
+        /// contains an item with an invalid value of the enum <see cref="MacroStabilityInwardsShearStrengthModel"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="original"/>
+        /// contains an item with an unsupported value of <see cref="MacroStabilityInwardsShearStrengthModel"/>.</exception>
         private static void AssertLayers(MacroStabilityInwardsSoilLayer2D[] original, SoilLayer[] actual)
         {
             Assert.AreEqual(original.Length, actual.Length);
@@ -140,9 +149,18 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
         /// <param name="shearStrengthModel">The original shear strength model</param>
         /// <returns>A converted shear strength model</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
-        /// is an invalid value.</exception>
+        /// is an invalid value of the enum <see cref="MacroStabilityInwardsShearStrengthModel"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
+        /// is an unsupported value.</exception>
         private static ShearStrengthModel ConvertShearStrengthModel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
         {
+            if (!Enum.IsDefined(typeof(MacroStabilityInwardsShearStrengthModel), shearStrengthModel))
+            {
+                throw new InvalidEnumArgumentException(nameof(shearStrengthModel),
+                                                       (int) shearStrengthModel,
+                                                       typeof(MacroStabilityInwardsShearStrengthModel));
+            }
+
             switch (shearStrengthModel)
             {
                 case MacroStabilityInwardsShearStrengthModel.SuCalculated:
@@ -152,7 +170,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
                 case MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated:
                     return ShearStrengthModel.CPhiOrSuCalculated;
                 default:
-                    throw new InvalidEnumArgumentException();
+                    throw new NotSupportedException();
             }
         }
     }
