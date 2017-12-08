@@ -305,6 +305,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSection.Stub(ass => ass.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
@@ -322,8 +323,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 invocation => { calculatedLocations = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray(); }).Return(isSuccessful);
 
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
