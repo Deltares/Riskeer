@@ -264,34 +264,24 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView();
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            view.Data = new[]
             {
-                HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
-            };
-
-            view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
-        }
-
-        private class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase
-        {
-            public TestHydraulicBoundaryDatabase()
-            {
-                Locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
-                Locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
+                new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
+                new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                 {
                     DesignWaterLevelCalculation =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(1.23)
                     }
-                });
-                Locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
+                },
+                new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
                     WaveHeightCalculation =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(2.45)
                     }
-                });
-                Locations.Add(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
+                },
+                new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
                 {
                     WaveHeightCalculation =
                     {
@@ -300,15 +290,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                             ShouldIllustrationPointsBeCalculated = true
                         }
                     }
-                });
-            }
-        }
-
-        private class TestHydraulicBoundaryLocationRow : HydraulicBoundaryLocationRow
-        {
-            public TestHydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                    HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-                : base(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation) {}
+                }
+            };
         }
 
         private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView
