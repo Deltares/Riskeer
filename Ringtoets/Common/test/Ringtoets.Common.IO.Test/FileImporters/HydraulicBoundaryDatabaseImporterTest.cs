@@ -191,6 +191,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             assessmentSection.Expect(section => section.NotifyObservers());
             mocks.ReplayAll();
 
@@ -222,6 +223,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             assessmentSection.Expect(section => section.NotifyObservers());
             mocks.ReplayAll();
 
@@ -255,6 +257,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Twice();
             mocks.ReplayAll();
 
@@ -282,6 +285,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             assessmentSection.Expect(section => section.NotifyObservers());
             mocks.ReplayAll();
 
@@ -308,6 +312,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
             mocks.ReplayAll();
 
@@ -331,7 +336,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 Assert.AreEqual(loggedException.Message, expectedLog.Item1);
             });
             Assert.IsFalse(importResult);
-            Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase, "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
+            Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsCoupled(), "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
 
             mocks.VerifyAll();
         }
