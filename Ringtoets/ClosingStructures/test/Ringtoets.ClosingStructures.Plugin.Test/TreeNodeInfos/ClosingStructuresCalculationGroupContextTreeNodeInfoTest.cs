@@ -321,12 +321,14 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 new TestClosingStructure()
             }, "some path");
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var groupContext = new ClosingStructuresCalculationGroupContext(group,
                                                                             null,
                                                                             failureMechanism,
                                                                             assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
@@ -540,7 +542,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
                                                                         null,

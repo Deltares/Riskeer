@@ -300,12 +300,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 new TestStabilityPointStructure()
             }, "path");
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                    null,
                                                                                    failureMechanism,
                                                                                    assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -395,7 +396,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                null,

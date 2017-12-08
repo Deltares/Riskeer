@@ -324,12 +324,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             }, "some path");
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            null,
                                                                            failureMechanism,
                                                                            assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -541,6 +542,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        null,
                                                                        failureMechanism,
@@ -554,8 +557,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
-
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
