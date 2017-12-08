@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
@@ -53,6 +54,25 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             const string expectedMessage = "Need at least two distinct points to define a Ring.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
             Assert.AreEqual("points", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithPoints_ExpectedValues()
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point2D(3.0, 2.001),
+                new Point2D(5.436, 6.4937),
+                new Point2D(1, 1.23)
+            };
+
+            // Call
+            var ring = new Ring(points);
+            
+            // Assert
+            Assert.AreEqual(2, ring.Points.NumberOfDecimalPlaces);
+            CollectionAssert.AreEqual(points, ring.Points, new Point2DComparerWithTolerance(1e-2));
         }
 
         [Test]

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives
@@ -43,10 +44,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public Ring(IEnumerable<Point2D> points)
         {
             ValidateAndTrimPoints(points);
-            Points = points.ToArray();
+            Points = new RoundedPoint2DCollection(2, points);
         }
 
-        public IEnumerable<Point2D> Points { get; }
+        /// <summary>
+        /// Gets the points that form the ring.
+        /// </summary>
+        public RoundedPoint2DCollection Points { get; }
 
         public override bool Equals(object obj)
         {
