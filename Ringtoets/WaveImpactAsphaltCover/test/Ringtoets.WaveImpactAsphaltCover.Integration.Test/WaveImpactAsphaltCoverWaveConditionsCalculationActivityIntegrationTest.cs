@@ -57,10 +57,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         public void Run_CalculationWithInvalidHydraulicBoundaryDatabaseFilePath_DoesNotPerformCalculationAndLogsError()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
@@ -119,7 +116,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     CanUsePreprocessor = true,
                     UsePreprocessor = true,
@@ -434,7 +431,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
                     Locations =
@@ -477,7 +474,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
                     Locations =
@@ -523,7 +520,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
                     Locations =

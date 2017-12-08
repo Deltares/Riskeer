@@ -108,7 +108,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
             var target = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
