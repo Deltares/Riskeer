@@ -75,8 +75,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculation
@@ -445,8 +444,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculation
@@ -477,8 +475,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculation
