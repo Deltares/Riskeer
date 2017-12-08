@@ -27,7 +27,7 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 using Ringtoets.HeightStructures.Data;
 
 namespace Ringtoets.HeightStructures.Forms.Views
@@ -58,7 +58,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children
                                                                                  .OfType<StructuresCalculation<HeightStructuresInput>>()
-                                                                                 .Select(c => c.InputParameters)));
+                                                                                 .Select(c => c.InputParameters)).ToArray());
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
         }
 

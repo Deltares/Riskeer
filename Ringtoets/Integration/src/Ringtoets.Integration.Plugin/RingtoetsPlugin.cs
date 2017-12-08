@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -63,7 +62,7 @@ using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Utils.TypeConverters;
+using Ringtoets.Common.Util.TypeConverters;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Plugin.Handlers;
@@ -839,8 +838,8 @@ namespace Ringtoets.Integration.Plugin
             IEnumerable<AssessmentSection> sectionsWithDatabase = ringtoetsProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase != null);
             foreach (AssessmentSection section in sectionsWithDatabase)
             {
-                string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(section.HydraulicBoundaryDatabase.FilePath,
-                                                                                                      section.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+                string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(section.HydraulicBoundaryDatabase.FilePath,
+                                                                                                       section.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
                 if (validationProblem != null)
                 {
                     log.WarnFormat(
@@ -1194,16 +1193,16 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private static IEnumerable GetInputs(IFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetInputs(IFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.InputComments
             };
         }
 
-        private static IEnumerable GetOutputs(IFailureMechanism nodeData)
+        private static IEnumerable<object> GetOutputs(IFailureMechanism nodeData)
         {
             var duneErosion = nodeData as IHasSectionResults<DuneErosionFailureMechanismSectionResult>;
             var grassCoverSlipOffInwards = nodeData as IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>;

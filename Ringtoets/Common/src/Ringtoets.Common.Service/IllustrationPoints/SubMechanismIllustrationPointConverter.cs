@@ -50,9 +50,9 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             }
 
             IEnumerable<SubMechanismIllustrationPointStochast> stochasts = hydraRingSubMechanismIllustrationPoint
-                .Stochasts.Select(StochastConverter.Convert);
+                .Stochasts.Select(StochastConverter.Convert).ToArray();
             IEnumerable<IllustrationPointResult> illustrationPointResults = hydraRingSubMechanismIllustrationPoint
-                .Results.Select(IllustrationPointResultConverter.Convert);
+                .Results.Select(IllustrationPointResultConverter.Convert).ToArray();
 
             return new SubMechanismIllustrationPoint(hydraRingSubMechanismIllustrationPoint.Name,
                                                      hydraRingSubMechanismIllustrationPoint.Beta,

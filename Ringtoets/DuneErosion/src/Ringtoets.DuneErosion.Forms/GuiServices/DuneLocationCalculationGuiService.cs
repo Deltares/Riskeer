@@ -77,7 +77,7 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
                 throw new ArgumentNullException(nameof(locations));
             }
 
-            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath,
+            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
                                                                                                   preprocessorDirectory);
             if (!string.IsNullOrEmpty(validationProblem))
             {

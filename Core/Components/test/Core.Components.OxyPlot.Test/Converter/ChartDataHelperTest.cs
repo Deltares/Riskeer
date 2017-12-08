@@ -21,6 +21,7 @@
 
 using System.ComponentModel;
 using System.Drawing;
+using Core.Common.TestUtil;
 using Core.Components.Chart.Styles;
 using Core.Components.OxyPlot.Converter;
 using NUnit.Framework;
@@ -67,11 +68,16 @@ namespace Core.Components.OxyPlot.Test.Converter
         [Test]
         public void Convert_InvalidChartLineDashStyle_ThrowsInvalidEnumArgumentException()
         {
+            // Setup
+            const int invalidValue = 100;
+
             // Call
-            TestDelegate call = () => ChartDataHelper.Convert((ChartLineDashStyle) 100);
+            TestDelegate call = () => ChartDataHelper.Convert((ChartLineDashStyle) invalidValue);
 
             // Assert
-            Assert.Throws<InvalidEnumArgumentException>(call);
+            string expectedMessage = $"The value of argument 'dashStyle' ({invalidValue}) is invalid for Enum type '{nameof(ChartLineDashStyle)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("dashStyle", parameterName);
         }
 
         [Test]
@@ -95,11 +101,16 @@ namespace Core.Components.OxyPlot.Test.Converter
         [Test]
         public void Convert_InvalidChartPointSymbol_ThrowsInvalidEnumArgumentException()
         {
+            // Setup
+            const int invalidValue = 10;
+
             // Call
-            TestDelegate call = () => ChartDataHelper.Convert((ChartPointSymbol) 10);
+            TestDelegate call = () => ChartDataHelper.Convert((ChartPointSymbol) invalidValue);
 
             // Assert
-            Assert.Throws<InvalidEnumArgumentException>(call);
+            string expectedMessage = $"The value of argument 'symbol' ({invalidValue}) is invalid for Enum type '{nameof(ChartPointSymbol)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("symbol", parameterName);
         }
     }
 }

@@ -38,9 +38,19 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                    || base.CanConvertTo(context, destinationType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="ConfigurationStabilityPointStructuresLoadSchematizationType"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             var type = (ConfigurationStabilityPointStructuresLoadSchematizationType) value;
+            if (!Enum.IsDefined(typeof(ConfigurationStabilityPointStructuresLoadSchematizationType), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(value),
+                                                       (int)type,
+                                                       typeof(ConfigurationStabilityPointStructuresLoadSchematizationType));
+            }
+
             if (destinationType == typeof(string))
             {
                 return ConvertToString(type);
@@ -59,6 +69,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                    || base.CanConvertFrom(context, sourceType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="LoadSchematizationType"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var text = value as string;
@@ -69,6 +82,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
             var loadSchematizationType = value as LoadSchematizationType?;
             if (loadSchematizationType != null)
             {
+                if (!Enum.IsDefined(typeof(LoadSchematizationType), loadSchematizationType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(value),
+                                                           (int) loadSchematizationType,
+                                                           typeof(LoadSchematizationType));
+                }
+
                 return ConvertToConfigurationStabilityPointStructuresLoadSchematizationType(loadSchematizationType.Value);
             }
             return base.ConvertFrom(context, culture, value);

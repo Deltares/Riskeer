@@ -157,22 +157,22 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-            Assert.AreEqual(4, inputsFolder.Contents.Count);
-            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
+            Assert.AreEqual(4, inputsFolder.Contents.Count());
+            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
             Assert.AreSame(pipingFailureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-            var surfaceLinesContext = (PipingSurfaceLinesContext) inputsFolder.Contents[1];
+            var surfaceLinesContext = (PipingSurfaceLinesContext) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(pipingFailureMechanism.SurfaceLines, surfaceLinesContext.WrappedData);
             Assert.AreSame(pipingFailureMechanism, surfaceLinesContext.FailureMechanism);
             Assert.AreSame(assessmentSection, surfaceLinesContext.AssessmentSection);
 
-            var stochasticSoilModelContext = (PipingStochasticSoilModelCollectionContext) inputsFolder.Contents[2];
+            var stochasticSoilModelContext = (PipingStochasticSoilModelCollectionContext) inputsFolder.Contents.ElementAt(2);
             Assert.AreSame(pipingFailureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(pipingFailureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(assessmentSection, stochasticSoilModelContext.AssessmentSection);
 
-            var comment = (Comment) inputsFolder.Contents[3];
+            var comment = (Comment) inputsFolder.Contents.ElementAt(3);
             Assert.AreSame(pipingFailureMechanism.InputComments, comment);
 
             var calculationsFolder = (PipingCalculationGroupContext) children[1];
@@ -186,16 +186,16 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
-            Assert.AreEqual(3, outputsFolder.Contents.Count);
-            var failureMechanismScenariosContext = (PipingScenariosContext) outputsFolder.Contents[0];
+            Assert.AreEqual(3, outputsFolder.Contents.Count());
+            var failureMechanismScenariosContext = (PipingScenariosContext) outputsFolder.Contents.ElementAt(0);
             Assert.AreSame(pipingFailureMechanism, failureMechanismScenariosContext.ParentFailureMechanism);
             Assert.AreSame(pipingFailureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>) outputsFolder.Contents[1];
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(pipingFailureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var commentContext = (Comment) outputsFolder.Contents[2];
+            var commentContext = (Comment) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(pipingFailureMechanism.OutputComments, commentContext);
         }
 

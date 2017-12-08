@@ -34,7 +34,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>
+    /// Factory for creating collections of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>
     /// (created via <see cref="RingtoetsMapDataFactory"/>).
     /// </summary>
     internal static class MacroStabilityInwardsMapDataFeaturesFactory
@@ -43,16 +43,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create surface line features based on the provided <paramref name="surfaceLines"/>.
         /// </summary>
         /// <param name="surfaceLines">The collection of <see cref="MacroStabilityInwardsSurfaceLine"/> to create the surface line features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="surfaceLines"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateSurfaceLineFeatures(MacroStabilityInwardsSurfaceLine[] surfaceLines)
+        /// <returns>A collection of features or an empty collection when <paramref name="surfaceLines"/> is <c>null</c> or empty.</returns>
+        public static IEnumerable<MapFeature> CreateSurfaceLineFeatures(IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines)
         {
             if (surfaceLines != null && surfaceLines.Any())
             {
-                var features = new MapFeature[surfaceLines.Length];
+                var features = new MapFeature[surfaceLines.Count()];
 
-                for (var i = 0; i < surfaceLines.Length; i++)
+                for (var i = 0; i < surfaceLines.Count(); i++)
                 {
-                    MacroStabilityInwardsSurfaceLine surfaceLine = surfaceLines[i];
+                    MacroStabilityInwardsSurfaceLine surfaceLine = surfaceLines.ElementAt(i);
 
                     MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(surfaceLine));
                     feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = surfaceLine.Name;
@@ -70,16 +70,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create stochastic soil model features based on the provided <paramref name="stochasticSoilModels"/>.
         /// </summary>
         /// <param name="stochasticSoilModels">The collection of <see cref="MacroStabilityInwardsStochasticSoilModel"/> to create the stochastic soil model features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="stochasticSoilModels"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateStochasticSoilModelFeatures(MacroStabilityInwardsStochasticSoilModel[] stochasticSoilModels)
+        /// <returns>A collection of features or an empty collection when <paramref name="stochasticSoilModels"/> is <c>null</c> or empty.</returns>
+        public static IEnumerable<MapFeature> CreateStochasticSoilModelFeatures(IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels)
         {
             if (stochasticSoilModels != null && stochasticSoilModels.Any())
             {
-                var features = new MapFeature[stochasticSoilModels.Length];
+                var features = new MapFeature[stochasticSoilModels.Count()];
 
-                for (var i = 0; i < stochasticSoilModels.Length; i++)
+                for (var i = 0; i < stochasticSoilModels.Count(); i++)
                 {
-                    MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = stochasticSoilModels[i];
+                    MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = stochasticSoilModels.ElementAt(i);
 
                     MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(stochasticSoilModel));
                     feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = stochasticSoilModel.Name;
@@ -97,8 +97,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create calculation features based on the provided <paramref name="calculations"/>.
         /// </summary>
         /// <param name="calculations">The collection of <see cref="MacroStabilityInwardsCalculationScenario"/> to create the calculation features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateCalculationFeatures(IEnumerable<MacroStabilityInwardsCalculationScenario> calculations)
+        /// <returns>A collection of features or an empty collection when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
+        public static IEnumerable<MapFeature> CreateCalculationFeatures(IEnumerable<MacroStabilityInwardsCalculationScenario> calculations)
         {
             bool hasCalculations = calculations != null && calculations.Any();
 
@@ -124,12 +124,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 
         private static IEnumerable<Point2D> GetWorldPoints(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return surfaceLine.Points.Select(p => new Point2D(p.X, p.Y));
+            return surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)).ToArray();
         }
 
         private static IEnumerable<Point2D> GetWorldPoints(MacroStabilityInwardsStochasticSoilModel stochasticSoilModel)
         {
-            return stochasticSoilModel.Geometry.Select(p => new Point2D(p));
+            return stochasticSoilModel.Geometry.Select(p => new Point2D(p)).ToArray();
         }
     }
 }

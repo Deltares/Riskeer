@@ -190,12 +190,11 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readItems.Count);
+            var calculation = (WaveConditionsCalculationConfiguration) readItems.Single();
 
-            var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Berekening 1", calculation.Name);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
@@ -217,12 +216,11 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readItems.Count);
+            var calculation = (WaveConditionsCalculationConfiguration) readItems.Single();
 
-            var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.IsNull(calculation.WaveReduction.UseBreakWater);
             Assert.IsNull(calculation.WaveReduction.BreakWaterType);
@@ -238,12 +236,11 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readItems.Count);
+            var calculation = (WaveConditionsCalculationConfiguration) readItems.Single();
 
-            var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.IsNaN(calculation.UpperBoundaryRevetment);
             Assert.IsNaN(calculation.LowerBoundaryRevetment);
@@ -261,12 +258,11 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readItems.Count);
+            var calculation = (WaveConditionsCalculationConfiguration) readItems.Single();
 
-            var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
 
             Assert.NotNull(calculation.UpperBoundaryRevetment);
@@ -294,12 +290,11 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readItems.Count);
+            var calculation = (WaveConditionsCalculationConfiguration) readItems.Single();
 
-            var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Berekening 1", calculation.Name);
             Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocationName);
@@ -324,12 +319,11 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             var reader = new WaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readItems.Count);
+            var calculation = (WaveConditionsCalculationConfiguration) readItems.Single();
 
-            var calculation = readItems[0] as WaveConditionsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Berekening 1", calculation.Name);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);

@@ -59,7 +59,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// <item>Has an empty <see cref="assessmentsectionIdAttributeKey"/> attribute.</item>
         /// <item>The shape file has non-line geometries in it.</item>
         /// </list></exception>
-        public static List<ReferenceLineMeta> ReadReferenceLinesMetas(string shapeFilePath)
+        public static IEnumerable<ReferenceLineMeta> ReadReferenceLinesMetas(string shapeFilePath)
         {
             ValidateFilePath(shapeFilePath);
 
@@ -71,7 +71,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
             }
         }
 
-        private static List<ReferenceLineMeta> ReadReferenceLinesMetas(PolylineShapeFileReader reader)
+        private static IEnumerable<ReferenceLineMeta> ReadReferenceLinesMetas(PolylineShapeFileReader reader)
         {
             var referenceLinesMetas = new List<ReferenceLineMeta>();
             ReferenceLineMeta referenceLinesMeta;
@@ -118,7 +118,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// <exception cref="CriticalFileReadException">Thrown when the shape file lacks one of the mandatory attributes.</exception>
         private static void ValidateExistenceOfRequiredAttributes(PolylineShapeFileReader polylineShapeFileReader, string shapeFilePath)
         {
-            string[] missingAttributes = GetMissingAttributes(polylineShapeFileReader).ToArray();
+            IEnumerable<string> missingAttributes = GetMissingAttributes(polylineShapeFileReader);
             if (missingAttributes.Any())
             {
                 string message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_,

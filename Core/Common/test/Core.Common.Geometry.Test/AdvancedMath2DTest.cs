@@ -89,7 +89,7 @@ namespace Core.Common.Geometry.Test
             };
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB).ToArray();
+            IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB);
 
             // Assert
             Assert.AreEqual(1, intersections.Count());
@@ -111,7 +111,7 @@ namespace Core.Common.Geometry.Test
             };
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB).ToArray();
+            IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB);
 
             // Assert
             Assert.AreEqual(1, intersections.Count());
@@ -133,7 +133,7 @@ namespace Core.Common.Geometry.Test
             };
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB).ToArray();
+            IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB);
 
             // Assert
             Assert.AreEqual(new[]
@@ -162,7 +162,7 @@ namespace Core.Common.Geometry.Test
             };
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB).ToArray();
+            IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB);
 
             // Assert
             Assert.AreEqual(new[]
@@ -193,7 +193,7 @@ namespace Core.Common.Geometry.Test
             };
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB).ToArray();
+            IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB);
 
             // Assert
             Assert.AreEqual(2, intersections.Count());
@@ -233,7 +233,7 @@ namespace Core.Common.Geometry.Test
             };
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB).ToArray();
+            IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB);
 
             // Assert
             Assert.AreEqual(3, intersections.Count());
@@ -282,10 +282,10 @@ namespace Core.Common.Geometry.Test
         }
 
         [Test]
-        public void FromXToXY_NoPoints_ReturnsEmptyList()
+        public void FromXToXY_NoPoints_ReturnsEmptyCollection()
         {
             // Call
-            Point2D[] points = AdvancedMath2D.FromXToXY(new double[0], new Point2D(0, 0), 3, 2);
+            IEnumerable<Point2D> points = AdvancedMath2D.FromXToXY(new double[0], new Point2D(0, 0), 3, 2);
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -299,7 +299,7 @@ namespace Core.Common.Geometry.Test
             var referencePoint = new Point2D(0, 0);
 
             // Call
-            Point2D[] points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, 0, 0);
+            IEnumerable<Point2D> points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, 0, 0);
 
             // Assert
             CollectionElementsAlmostEquals(xCoordinates.Select(x => new Point2D(0, x)), points);
@@ -314,7 +314,7 @@ namespace Core.Common.Geometry.Test
             int offset = new Random(21).Next();
 
             // Call
-            Point2D[] points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, offset, 0);
+            IEnumerable<Point2D> points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, offset, 0);
 
             // Assert
             CollectionElementsAlmostEquals(xCoordinates.Select(x => new Point2D(0, x - offset)), points);
@@ -328,7 +328,7 @@ namespace Core.Common.Geometry.Test
             var referencePoint = new Point2D(0, 0);
 
             // Call
-            Point2D[] points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, 0, 180);
+            IEnumerable<Point2D> points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, 0, 180);
 
             // Assert
             CollectionElementsAlmostEquals(xCoordinates.Select(x => new Point2D(0, -x)), points);
@@ -343,7 +343,7 @@ namespace Core.Common.Geometry.Test
             var referencePoint = new Point2D(random.NextDouble(), random.NextDouble());
 
             // Call
-            Point2D[] points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, 0, 0);
+            IEnumerable<Point2D> points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, 0, 0);
 
             // Assert
             CollectionElementsAlmostEquals(xCoordinates.Select(x => new Point2D(referencePoint.X, referencePoint.Y + x)), points);
@@ -365,7 +365,7 @@ namespace Core.Common.Geometry.Test
             const double rotation = 45;
 
             // Call
-            Point2D[] points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, offset, rotation);
+            IEnumerable<Point2D> points = AdvancedMath2D.FromXToXY(xCoordinates, referencePoint, offset, rotation);
 
             // Assert
             CollectionElementsAlmostEquals(new[]
@@ -421,12 +421,12 @@ namespace Core.Common.Geometry.Test
             };
 
             // Call
-            Point2D[] pointsOfPolygon = AdvancedMath2D.CompleteLineToPolygon(points, completingPointsLevel).ToArray();
+            IEnumerable<Point2D> pointsOfPolygon = AdvancedMath2D.CompleteLineToPolygon(points, completingPointsLevel);
 
             // Assert
             Assert.AreEqual(points, pointsOfPolygon.Take(3));
-            Assert.AreEqual(new Point2D(lastPointX, completingPointsLevel), pointsOfPolygon[3]);
-            Assert.AreEqual(new Point2D(firstPointX, completingPointsLevel), pointsOfPolygon[4]);
+            Assert.AreEqual(new Point2D(lastPointX, completingPointsLevel), pointsOfPolygon.ElementAt(3));
+            Assert.AreEqual(new Point2D(firstPointX, completingPointsLevel), pointsOfPolygon.ElementAt(4));
         }
 
         private static double[] ThreeRandomXCoordinates()
@@ -440,13 +440,13 @@ namespace Core.Common.Geometry.Test
             };
         }
 
-        private static void CollectionElementsAlmostEquals(IEnumerable<Point2D> expected, Point2D[] actual)
+        private static void CollectionElementsAlmostEquals(IEnumerable<Point2D> expected, IEnumerable<Point2D> actual)
         {
-            Assert.AreEqual(expected.Count(), actual.Length);
+            Assert.AreEqual(expected.Count(), actual.Count());
 
-            for (var index = 0; index < actual.Length; index++)
+            for (var index = 0; index < actual.Count(); index++)
             {
-                Point2D actualPoint = actual[index];
+                Point2D actualPoint = actual.ElementAt(index);
                 Point2D expectedPoint = expected.ElementAt(index);
 
                 const double delta = 1e-8;

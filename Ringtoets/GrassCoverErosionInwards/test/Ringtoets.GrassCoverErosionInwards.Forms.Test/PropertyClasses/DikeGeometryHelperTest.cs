@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -34,10 +36,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void GetRoughnesses_DikeGeometryWithNoPoints_ReturnsEmptyCollection()
         {
             // Setup
-            var dikeGeometry = new RoughnessPoint[0];
+            IEnumerable<RoughnessPoint> dikeGeometry = Enumerable.Empty<RoughnessPoint>();
 
             // Call
-            RoundedDouble[] roughnesses = DikeGeometryHelper.GetRoughnesses(dikeGeometry);
+            IEnumerable<RoundedDouble> roughnesses = DikeGeometryHelper.GetRoughnesses(dikeGeometry);
 
             // Assert
             CollectionAssert.IsEmpty(roughnesses);
@@ -53,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            RoundedDouble[] roughnesses = DikeGeometryHelper.GetRoughnesses(dikeGeometry);
+            IEnumerable<RoundedDouble> roughnesses = DikeGeometryHelper.GetRoughnesses(dikeGeometry);
 
             // Assert
             CollectionAssert.IsEmpty(roughnesses);
@@ -71,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            RoundedDouble[] roughnesses = DikeGeometryHelper.GetRoughnesses(dikeGeometry);
+            IEnumerable<RoundedDouble> roughnesses = DikeGeometryHelper.GetRoughnesses(dikeGeometry);
 
             // Assert
             CollectionAssert.AreEqual(new[]

@@ -156,6 +156,13 @@ namespace Application.Ringtoets.Storage.Read
                                                    PipingCharacteristicPointType type,
                                                    Point3D geometryPoint)
         {
+            if (!Enum.IsDefined(typeof(PipingCharacteristicPointType), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(type),
+                                                       (int) type,
+                                                       typeof(PipingCharacteristicPointType));
+            }
+
             switch (type)
             {
                 case PipingCharacteristicPointType.DikeToeAtRiver:
@@ -177,9 +184,7 @@ namespace Application.Ringtoets.Storage.Read
                     surfaceLine.SetDitchPolderSideAt(geometryPoint);
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(type),
-                                                           (int) type,
-                                                           typeof(PipingCharacteristicPointType));
+                    throw new NotSupportedException($"The enum value {nameof(PipingCharacteristicPointType)}.{type} is not supported.");
             }
         }
 
@@ -187,6 +192,13 @@ namespace Application.Ringtoets.Storage.Read
                                                    MacroStabilityInwardsCharacteristicPointType type,
                                                    Point3D geometryPoint)
         {
+            if (!Enum.IsDefined(typeof(MacroStabilityInwardsCharacteristicPointType), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(type),
+                                                       (int) type,
+                                                       typeof(MacroStabilityInwardsCharacteristicPointType));
+            }
+
             switch (type)
             {
                 case MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside:
@@ -226,9 +238,7 @@ namespace Application.Ringtoets.Storage.Read
                     surfaceLine.SetDitchPolderSideAt(geometryPoint);
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(type),
-                                                           (int) type,
-                                                           typeof(MacroStabilityInwardsCharacteristicPointType));
+                    throw new NotSupportedException($"The enum value {nameof(MacroStabilityInwardsCharacteristicPointType)}.{type} is not supported.");
             }
         }
 

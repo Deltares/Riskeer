@@ -34,7 +34,7 @@ namespace Core.Common.Base
         {
             var clone = (CloneableObservableList<T>) MemberwiseClone();
 
-            clone.observers = new Collection<IObserver>();
+            clone.ObserverCollection = new Collection<IObserver>();
 
             return clone;
         }

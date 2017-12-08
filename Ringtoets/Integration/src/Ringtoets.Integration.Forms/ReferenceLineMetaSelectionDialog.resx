@@ -247,7 +247,7 @@
     <value>ReferenceLineMetaDataGridViewControl</value>
   </data>
   <data name="&gt;&gt;ReferenceLineMetaDataGridViewControl.Type" xml:space="preserve">
-    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=16.1.1.4365, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ReferenceLineMetaDataGridViewControl.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -388,6 +388,6 @@
     <value>ReferenceLineMetaSelectionDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Dialogs.DialogBase, Core.Common.Controls, Version=16.1.1.4365, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Dialogs.DialogBase, Core.Common.Controls, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>

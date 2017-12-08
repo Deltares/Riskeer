@@ -103,7 +103,7 @@ namespace Core.Common.Geometry
         /// <returns>A collection of <see cref="Point2D"/> with the transformed X coordinates.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="xCoordinates"/> or
         /// <paramref name="referencePoint"/> is <c>null</c>.</exception>
-        public static Point2D[] FromXToXY(double[] xCoordinates, Point2D referencePoint, double offset, double rotation)
+        public static IEnumerable<Point2D> FromXToXY(IEnumerable<double> xCoordinates, Point2D referencePoint, double offset, double rotation)
         {
             if (xCoordinates == null)
             {

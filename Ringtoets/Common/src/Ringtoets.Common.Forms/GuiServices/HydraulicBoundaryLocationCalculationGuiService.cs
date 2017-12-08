@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         private bool RunActivities<TActivity>(string hydraulicBoundaryDatabasePath, string preprocessorDirectory,
                                               IEnumerable<TActivity> activities) where TActivity : Activity
         {
-            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabasePath,
+            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabasePath,
                                                                                                   preprocessorDirectory);
             if (string.IsNullOrEmpty(validationProblem))
             {

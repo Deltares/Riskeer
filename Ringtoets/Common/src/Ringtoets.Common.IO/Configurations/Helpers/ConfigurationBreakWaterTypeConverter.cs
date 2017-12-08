@@ -41,11 +41,20 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             return base.CanConvertTo(context, destinationType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="ConfigurationBreakWaterType"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
+            var type = (ConfigurationBreakWaterType)value;
+            if (!Enum.IsDefined(typeof(ConfigurationBreakWaterType), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(value), (int)type, typeof(ConfigurationBreakWaterType));
+            }
+
             if (destinationType == typeof(string))
             {
-                var type = (ConfigurationBreakWaterType) value;
+                
                 switch (type)
                 {
                     case ConfigurationBreakWaterType.Caisson:
@@ -60,7 +69,6 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             }
             if (destinationType == typeof(BreakWaterType))
             {
-                var type = (ConfigurationBreakWaterType) value;
                 switch (type)
                 {
                     case ConfigurationBreakWaterType.Caisson:
@@ -89,6 +97,9 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             return base.CanConvertFrom(context, sourceType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="BreakWaterType" />.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var text = value as string;
@@ -107,6 +118,11 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             var breakWaterType = value as BreakWaterType?;
             if (breakWaterType != null)
             {
+                if (!Enum.IsDefined(typeof(BreakWaterType), breakWaterType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(value), (int)breakWaterType, typeof(BreakWaterType));
+                }
+
                 switch (breakWaterType)
                 {
                     case BreakWaterType.Caisson:

@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.TestUtil;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 
 namespace Application.Ringtoets.Storage.TestUtil
 {

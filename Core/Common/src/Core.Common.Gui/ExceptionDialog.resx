@@ -325,6 +325,6 @@
     <value>ExceptionDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Dialogs.DialogBase, Core.Common.Controls, Version=16.1.1.4329, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Dialogs.DialogBase, Core.Common.Controls, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>

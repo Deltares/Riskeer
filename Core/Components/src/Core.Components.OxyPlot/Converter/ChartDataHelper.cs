@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using Core.Components.Chart.Data;
@@ -38,9 +39,19 @@ namespace Core.Components.OxyPlot.Converter
         /// <param name="dashStyle">The <see cref="ChartLineDashStyle"/> to convert.</param>
         /// <returns>The converted <see cref="LineStyle"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="dashStyle"/> 
-        /// cannot be converted.</exception>
+        /// is not a valid enum value of <see cref="ChartLineDashStyle"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="dashStyle"/>
+        /// is not supported for the conversion.</exception>
         public static LineStyle Convert(ChartLineDashStyle dashStyle)
         {
+            if (!Enum.IsDefined(typeof(ChartLineDashStyle), dashStyle))
+            {
+                throw new InvalidEnumArgumentException(nameof(dashStyle),
+                                                       (int)dashStyle,
+                                                       typeof(ChartLineDashStyle));
+            }
+
+
             var lineStyle = LineStyle.Solid;
             switch (dashStyle)
             {
@@ -59,9 +70,7 @@ namespace Core.Components.OxyPlot.Converter
                     lineStyle = LineStyle.DashDotDot;
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(dashStyle),
-                                                           (int) dashStyle,
-                                                           typeof(ChartLineDashStyle));
+                    throw new NotSupportedException($"The enum value {nameof(ChartLineDashStyle)}.{dashStyle} is not supported.");
             }
             return lineStyle;
         }
@@ -72,9 +81,18 @@ namespace Core.Components.OxyPlot.Converter
         /// <param name="symbol">The <see cref="ChartPointSymbol"/> to convert.</param>
         /// <returns>The converted <see cref="MarkerType"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="symbol"/> 
-        /// cannot be converted.</exception>
+        /// is not a valid enum value of <see cref="ChartPointSymbol"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="symbol"/>
+        /// is not supported for the conversion.</exception>
         public static MarkerType Convert(ChartPointSymbol symbol)
         {
+            if (!Enum.IsDefined(typeof(ChartPointSymbol), symbol))
+            { 
+                throw new InvalidEnumArgumentException(nameof(symbol),
+                                                       (int)symbol,
+                                                       typeof(ChartPointSymbol));
+            }
+
             MarkerType markerType;
             switch (symbol)
             {
@@ -100,9 +118,7 @@ namespace Core.Components.OxyPlot.Converter
                     markerType = MarkerType.Plus;
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(symbol),
-                                                           (int) symbol,
-                                                           typeof(ChartPointSymbol));
+                    throw new NotSupportedException($"The enum value {nameof(ChartPointSymbol)}.{symbol} is not supported.");
             }
             return markerType;
         }

@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         public CategoryTreeFolder(string name, IEnumerable contents, TreeFolderCategory category = TreeFolderCategory.General)
         {
             Name = name;
-            Contents = contents.OfType<object>().ToList();
+            Contents = contents.OfType<object>().ToArray();
             Category = category;
         }
 
@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the contents of the folder.
         /// </summary>
-        public List<object> Contents { get; }
+        public IEnumerable<object> Contents { get; }
 
         /// <summary>
         /// Gets the category of the folder.
@@ -91,14 +91,15 @@ namespace Ringtoets.Common.Forms.PresentationObjects
                 return false;
             }
 
-            if (Contents.Count != other.Contents.Count)
+            int contentsCount = Contents.Count();
+            if (contentsCount != other.Contents.Count())
             {
                 return false;
             }
 
-            for (var i = 0; i < Contents.Count; i++)
+            for (var i = 0; i < contentsCount; i++)
             {
-                if (!Contents[i].Equals(other.Contents[i]))
+                if (!Contents.ElementAt(i).Equals(other.Contents.ElementAt(i)))
                 {
                     return false;
                 }

@@ -30,7 +30,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>.
+    /// Factory for creating collections of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>.
     /// </summary>
     internal static class WaveImpactAsphaltCoverMapDataFeaturesFactory
     {
@@ -38,8 +38,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Factories
         /// Create calculation features based on the provided <paramref name="calculationInputs"/>.
         /// </summary>
         /// <param name="calculationInputs">The collection of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> to create the calculation features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="calculationInputs"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateCalculationFeatures(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculationInputs)
+        /// <returns>A collection of features or an empty collection when <paramref name="calculationInputs"/> is <c>null</c> or empty.</returns>
+        public static IEnumerable<MapFeature> CreateCalculationFeatures(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculationInputs)
         {
             bool hasCalculations = calculationInputs != null && calculationInputs.Any();
 

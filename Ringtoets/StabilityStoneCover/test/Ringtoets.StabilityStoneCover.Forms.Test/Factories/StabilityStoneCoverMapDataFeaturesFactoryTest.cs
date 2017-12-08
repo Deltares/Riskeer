@@ -36,27 +36,27 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Factories
     public class StabilityStoneCoverMapDataFeaturesFactoryTest
     {
         [Test]
-        public void CreateCalculationFeatures_CalculationsNull_ReturnsEmptyFeaturesArray()
+        public void CreateCalculationFeatures_CalculationsNull_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            MapFeature[] features = StabilityStoneCoverMapDataFeaturesFactory.CreateCalculationFeatures(null);
+            IEnumerable<MapFeature> features = StabilityStoneCoverMapDataFeaturesFactory.CreateCalculationFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateCalculationFeatures_NoCalculations_ReturnsEmptyFeaturesArray()
+        public void CreateCalculationFeatures_NoCalculations_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            MapFeature[] features = StabilityStoneCoverMapDataFeaturesFactory.CreateCalculationFeatures(Enumerable.Empty<StabilityStoneCoverWaveConditionsCalculation>());
+            IEnumerable<MapFeature> features = StabilityStoneCoverMapDataFeaturesFactory.CreateCalculationFeatures(Enumerable.Empty<StabilityStoneCoverWaveConditionsCalculation>());
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateCalculationFeatures_GivenCalculations_ReturnsCalculationFeaturesArray()
+        public void CreateCalculationFeatures_GivenCalculations_ReturnsCalculationFeaturesCollection()
         {
             // Setup
             var calculationA = new StabilityStoneCoverWaveConditionsCalculation();
@@ -69,26 +69,26 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Factories
             calculationB.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 2.2, 3.8);
 
             // Call
-            MapFeature[] features = StabilityStoneCoverMapDataFeaturesFactory.CreateCalculationFeatures(new[]
+            IEnumerable<MapFeature> features = StabilityStoneCoverMapDataFeaturesFactory.CreateCalculationFeatures(new[]
             {
                 calculationA,
                 calculationB
             });
 
             // Assert
-            Assert.AreEqual(2, features.Length);
-            Assert.AreEqual(1, features[0].MapGeometries.Count());
-            Assert.AreEqual(1, features[1].MapGeometries.Count());
+            Assert.AreEqual(2, features.Count());
+            Assert.AreEqual(1, features.ElementAt(0).MapGeometries.Count());
+            Assert.AreEqual(1, features.ElementAt(1).MapGeometries.Count());
             AssertEqualPointCollections(new[]
             {
                 new Point2D(1.0, 3.0),
                 new Point2D(5.0, 4.0)
-            }, features[0].MapGeometries.ElementAt(0));
+            }, features.ElementAt(0).MapGeometries.ElementAt(0));
             AssertEqualPointCollections(new[]
             {
                 new Point2D(1.0, 4.0),
                 new Point2D(2.2, 3.8)
-            }, features[1].MapGeometries.ElementAt(0));
+            }, features.ElementAt(1).MapGeometries.ElementAt(0));
         }
 
         private static void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)

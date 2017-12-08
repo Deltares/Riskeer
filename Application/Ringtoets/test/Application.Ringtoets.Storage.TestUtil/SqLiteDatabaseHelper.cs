@@ -24,7 +24,7 @@ using System.Data.SQLite;
 using Application.Ringtoets.Storage.Properties;
 using Core.Common.IO;
 using NUnit.Framework;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.TestUtil

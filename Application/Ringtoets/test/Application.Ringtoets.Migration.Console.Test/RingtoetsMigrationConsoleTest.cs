@@ -27,7 +27,7 @@ using Core.Common.TestUtil;
 using Migration.Console;
 using Migration.Console.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 
 namespace Application.Ringtoets.Migration.Console.Test
 {

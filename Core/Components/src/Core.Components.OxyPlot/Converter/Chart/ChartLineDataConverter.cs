@@ -34,7 +34,7 @@ namespace Core.Components.OxyPlot.Converter.Chart
     {
         protected override void SetSeriesData(ChartLineData data, LineSeries series)
         {
-            series.ItemsSource = data.Points.Select(p => new DataPoint(p.X, p.Y));
+            series.ItemsSource = data.Points.Select(p => new DataPoint(p.X, p.Y)).ToArray();
         }
 
         protected override void SetSeriesStyle(ChartLineData data, LineSeries series)

@@ -62,7 +62,7 @@ namespace Core.Common.Base.Geometry
             Point3D last = points.Last();
             var firstPoint = new Point2D(first.X, first.Y);
             var lastPoint = new Point2D(last.X, last.Y);
-            return points.Select(p => p.ProjectIntoLocalCoordinates(firstPoint, lastPoint));
+            return points.Select(p => p.ProjectIntoLocalCoordinates(firstPoint, lastPoint)).ToArray();
         }
 
         /// <summary>

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.TestUtil;
 using Core.Common.Util.TestUtil.Settings;
 using Core.Components.BruTile.Configurations;
@@ -37,16 +38,18 @@ namespace Core.Components.BruTile.Test.Configurations
         private TestSettingsHelper testSettingsHelper;
 
         [Test]
-        public void CreateInitializedConfiguration_InvalidWellKnownTileSource_ThrowNotSupportedException()
+        public void CreateInitializedConfiguration_InvalidWellKnownTileSource_ThenThrowsInvalidEnumArgumentException()
         {
             // Setup
-            const WellKnownTileSource invalidValue = (WellKnownTileSource) 9999;
-
+            const int invalidTileSource = 9999;
+           
             // Call
-            TestDelegate call = () => WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration(invalidValue);
+            TestDelegate call = () => WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration((WellKnownTileSource) invalidTileSource);
 
             // Assert
-            Assert.Throws<NotSupportedException>(call);
+            string exoectedMessage = $"The value of argument 'wellKnownTileSource' ({invalidTileSource}) is invalid for Enum type '{nameof(WellKnownTileSource)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, exoectedMessage).ParamName;
+            Assert.AreEqual("wellKnownTileSource", parameterName);
         }
 
         [Test]

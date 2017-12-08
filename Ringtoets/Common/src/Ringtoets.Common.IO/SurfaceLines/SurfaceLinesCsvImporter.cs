@@ -158,7 +158,8 @@ namespace Ringtoets.Common.IO.SurfaceLines
         private IEnumerable<T> GetTransformedSurfaceLines(IEnumerable<SurfaceLine> surfaceLines, IEnumerable<CharacteristicPoints> characteristicPointsCollection)
         {
             LogMissingSurfaceLinesOrCharacteristicPoints(surfaceLines, characteristicPointsCollection);
-            Tuple<SurfaceLine, CharacteristicPoints>[] surfaceLinesWithCharacteristicPoints = surfaceLines.Select(sl => Tuple.Create(sl, characteristicPointsCollection.FirstOrDefault(cp => cp.Name == sl.Name))).ToArray();
+            Tuple<SurfaceLine, CharacteristicPoints>[] surfaceLinesWithCharacteristicPoints = surfaceLines.Select(
+                sl => Tuple.Create(sl, characteristicPointsCollection.FirstOrDefault(cp => cp.Name == sl.Name))).ToArray();
 
             string progressText = RingtoetsCommonIOResources.Importer_ProgressText_Validating_imported_data;
             int numberOfSurfaceLines = surfaceLinesWithCharacteristicPoints.Length;
@@ -181,9 +182,12 @@ namespace Ringtoets.Common.IO.SurfaceLines
             }
         }
 
-        private void LogMissingSurfaceLinesOrCharacteristicPoints(IEnumerable<SurfaceLine> readSurfaceLines, IEnumerable<CharacteristicPoints> readCharacteristicPointsLocations)
+        private void LogMissingSurfaceLinesOrCharacteristicPoints(IEnumerable<SurfaceLine> readSurfaceLines,
+                                                                  IEnumerable<CharacteristicPoints> readCharacteristicPointsLocations)
         {
-            string[] surfaceLinesWithCharacteristicPoints = readSurfaceLines.Select(sl => sl.Name).Intersect(readCharacteristicPointsLocations.Select(cp => cp.Name)).ToArray();
+            string[] surfaceLinesWithCharacteristicPoints = readSurfaceLines.Select(sl => sl.Name)
+                                                                            .Intersect(readCharacteristicPointsLocations.Select(cp => cp.Name))
+                                                                            .ToArray();
             if (readCharacteristicPointsLocations.Any())
             {
                 foreach (string missingCharacteristicPoints in readSurfaceLines.Select(sl => sl.Name).Except(surfaceLinesWithCharacteristicPoints))
@@ -413,21 +417,21 @@ namespace Ringtoets.Common.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Adds a valid <see cref="CharacteristicPoints"/> read from <paramref name="reader"/> to the <paramref name="list"/>.
+        /// Adds a valid <see cref="CharacteristicPoints"/> read from <paramref name="reader"/> to the <paramref name="characteristicPointsList"/>.
         /// </summary>
-        /// <param name="list">The list to add the valid <see cref="CharacteristicPoints"/> to.</param>
+        /// <param name="characteristicPointsList">The list to add the valid <see cref="CharacteristicPoints"/> to.</param>
         /// <param name="reader">The reader to read the <see cref="CharacteristicPoints"/> from.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="list"/> already contains a <see cref="CharacteristicPoints"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="characteristicPointsList"/> already contains a <see cref="CharacteristicPoints"/>
         /// with the same name as the new <see cref="CharacteristicPoints"/>.</exception>
-        private void AddValidCharacteristicPointsLocationToCollection(List<CharacteristicPoints> list, CharacteristicPointsCsvReader reader)
+        private void AddValidCharacteristicPointsLocationToCollection(List<CharacteristicPoints> characteristicPointsList, CharacteristicPointsCsvReader reader)
         {
             try
             {
                 CharacteristicPoints location = reader.ReadCharacteristicPointsLocation();
 
-                if (IsCharacteristicPointsLocationsAlreadyDefined(list, location))
+                if (IsCharacteristicPointsLocationsAlreadyDefined(characteristicPointsList, location))
                 {
-                    list.Add(location);
+                    characteristicPointsList.Add(location);
                 }
             }
             catch (LineParseException e)

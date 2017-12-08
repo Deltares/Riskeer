@@ -28,7 +28,7 @@ using Core.Common.Controls.Views;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 
 namespace Ringtoets.ClosingStructures.Forms.Views
 {
@@ -58,7 +58,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children
                                                                                  .OfType<StructuresCalculation<ClosingStructuresInput>>()
-                                                                                 .Select(c => c.InputParameters)));
+                                                                                 .Select(c => c.InputParameters))
+                                                                                 .ToArray());
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
         }
 

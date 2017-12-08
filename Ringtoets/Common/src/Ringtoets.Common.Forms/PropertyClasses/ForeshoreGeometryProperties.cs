@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return GetFormattedCoordinates().ToArray();
+                return GetFormattedCoordinates() as Point2D[];
             }
         }
 
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             return data.Geometry.Select(geometry => new Point2D(
                                             new RoundedDouble(0, geometry.X),
-                                            new RoundedDouble(0, geometry.Y)));
+                                            new RoundedDouble(0, geometry.Y))).ToArray();
         }
     }
 }

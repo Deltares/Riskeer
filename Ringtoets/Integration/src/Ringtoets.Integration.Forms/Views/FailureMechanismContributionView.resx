@@ -229,7 +229,7 @@
     <value>probabilityDistributionGrid</value>
   </data>
   <data name="&gt;&gt;probabilityDistributionGrid.Type" xml:space="preserve">
-    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=17.2.1.11030, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;probabilityDistributionGrid.Parent" xml:space="preserve">
     <value>$this</value>

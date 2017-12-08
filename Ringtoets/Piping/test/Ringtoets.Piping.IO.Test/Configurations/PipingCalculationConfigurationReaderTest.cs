@@ -190,12 +190,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.AssessmentLevel);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
@@ -217,12 +216,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNull(calculation.PhreaticLevelExit);
             Assert.IsNull(calculation.DampingFactorExit);
         }
@@ -235,12 +233,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNaN(calculation.AssessmentLevel);
             Assert.IsNaN(calculation.EntryPointL);
             Assert.IsNaN(calculation.ExitPointL);
@@ -259,12 +256,10 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
-
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
+            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.IsNotNull(calculation.AssessmentLevel);
             Assert.IsNotNull(calculation.EntryPointL);
@@ -297,12 +292,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.AssessmentLevel);
             Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocationName);
@@ -331,12 +325,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.AreEqual(1.1, calculation.AssessmentLevel);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
@@ -361,12 +354,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.AreEqual(1.1, calculation.AssessmentLevel);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
@@ -388,12 +380,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNull(calculation.PhreaticLevelExit.Mean);
             Assert.AreEqual(0.1, calculation.PhreaticLevelExit.StandardDeviation);
             Assert.IsNull(calculation.DampingFactorExit.Mean);
@@ -408,12 +399,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual(0.0, calculation.PhreaticLevelExit.Mean);
             Assert.IsNull(calculation.PhreaticLevelExit.StandardDeviation);
             Assert.AreEqual(6.6, calculation.DampingFactorExit.Mean);
@@ -428,12 +418,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNull(calculation.PhreaticLevelExit.Mean);
             Assert.IsNull(calculation.PhreaticLevelExit.StandardDeviation);
             Assert.IsNull(calculation.DampingFactorExit.Mean);
@@ -448,12 +437,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNull(calculation.Scenario.Contribution);
             Assert.IsNull(calculation.Scenario.IsRelevant);
         }

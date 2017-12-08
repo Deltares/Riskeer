@@ -29,7 +29,7 @@ namespace Ringtoets.Integration.Data.StandAlone
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the
-    /// micro stability failure mechanism.
+    /// Microstability failure mechanism.
     /// </summary>
     public class MicrostabilityFailureMechanism : FailureMechanismBase, IHasSectionResults<MicrostabilityFailureMechanismSectionResult>
     {

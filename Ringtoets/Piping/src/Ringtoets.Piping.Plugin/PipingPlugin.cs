@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -680,9 +679,9 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private static IEnumerable GetInputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetInputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new PipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
@@ -691,9 +690,9 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private static IEnumerable GetOutputs(PipingFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(PipingFailureMechanism failureMechanism)
         {
-            return new ArrayList
+            return new object[]
             {
                 new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(

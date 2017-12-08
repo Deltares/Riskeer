@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// </summary>
         /// <param name="faultTreeIllustrationPoint">The <see cref="FaultTreeIllustrationPoint"/>
         /// to retrieve stochast names from.</param>
-        /// <returns>A list of all stochast names.</returns>
+        /// <returns>A collection of all stochast names.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="faultTreeIllustrationPoint"/>
         /// is <c>null</c>.</exception>
         public static IEnumerable<string> GetStochastNames(this FaultTreeIllustrationPoint faultTreeIllustrationPoint)
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 throw new ArgumentNullException(nameof(faultTreeIllustrationPoint));
             }
 
-            return faultTreeIllustrationPoint.Stochasts.Select(s => s.Name);
+            return faultTreeIllustrationPoint.Stochasts.Select(s => s.Name).ToArray();
         }
     }
 }

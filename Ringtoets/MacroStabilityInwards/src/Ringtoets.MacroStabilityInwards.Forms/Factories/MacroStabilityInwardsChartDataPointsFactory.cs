@@ -235,7 +235,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         public static IEnumerable<IEnumerable<Point2D>> CreateOuterRingArea(MacroStabilityInwardsSoilLayer2D soilLayer)
         {
             return soilLayer != null
-                       ? new List<IEnumerable<Point2D>>
+                       ? new IEnumerable<Point2D>[]
                        {
                            soilLayer.OuterRing.Points.ToArray()
                        }
@@ -250,7 +250,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// is <c>null</c>.</returns>
         public static IEnumerable<Point2D> CreatePhreaticLinePoints(MacroStabilityInwardsPhreaticLine phreaticLine)
         {
-            return phreaticLine?.Geometry.ToArray() ?? new Point2D[0];
+            return phreaticLine?.Geometry ?? new Point2D[0];
         }
 
         /// <summary>
@@ -282,7 +282,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             IEnumerable<Point2D> waternetLineGeometry = new RoundedPoint2DCollection(2, waternetLine.Geometry).ToArray();
 
             return IsSurfaceLineAboveWaternetZone(surfaceLineLocalGeometry, waternetLineGeometry, phreaticLineGeometry)
-                       ? CreateZoneAreas(waternetLineGeometry, phreaticLineGeometry).ToArray()
+                       ? CreateZoneAreas(waternetLineGeometry, phreaticLineGeometry)
                        : GetWaternetZoneWithSurfaceLineIntersection(surfaceLineLocalGeometry, waternetLineGeometry, phreaticLineGeometry).ToArray();
         }
 
@@ -336,7 +336,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                                                                 grid.NumberOfHorizontalPoints));
             }
 
-            return points.ToArray();
+            return points;
         }
 
         /// <summary>
@@ -355,7 +355,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             List<Point2D> points = slidingCurve.Slices.Select(slice => slice.BottomLeftPoint).OrderBy(x => x.X).ToList();
             points.Add(slidingCurve.Slices.Last().BottomRightPoint);
 
-            return points.ToArray();
+            return points;
         }
 
         /// <summary>
@@ -647,7 +647,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                     area.Add(topLine.First());
                 }
             }
-            return area.ToArray();
+            return area;
         }
 
         private static bool AreaIsNotFlatLine(IEnumerable<Point2D> topLine, IEnumerable<Point2D> bottomLine)

@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Service
         /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="HydraRingForelandPoint"/>.</returns>
         public static IEnumerable<HydraRingForelandPoint> ParseForeshore(IUseForeshore input)
         {
-            return input.UseForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0];
+            return input.UseForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)).ToArray() : new HydraRingForelandPoint[0];
         }
 
         /// <summary>

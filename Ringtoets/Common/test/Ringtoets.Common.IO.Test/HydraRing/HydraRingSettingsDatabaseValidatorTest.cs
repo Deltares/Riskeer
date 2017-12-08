@@ -83,10 +83,14 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void ValidateSchema_NoPreprocessorInvalidDatabase_ReturnFalse()
+        [TestCase("invalidSettings_MissingColumn")]
+        [TestCase("invalidSettings_MissingTable")]
+        [TestCase("invalidSettings_WrongColumnName")]
+        [TestCase("invalidSettings_WrongTableName")]
+        public void ValidateSchema_NoPreprocessorInvalidDatabase_ReturnFalse(string databaseName)
         {
             // Setup
-            string completeDatabasePath = Path.Combine(directoryPath, "invalid-settings-schema.config.sqlite");
+            string completeDatabasePath = Path.Combine(directoryPath, $"{databaseName}.config.sqlite");
 
             using (var validator = new HydraRingSettingsDatabaseValidator(completeDatabasePath, string.Empty))
             {
@@ -115,7 +119,10 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
-        [TestCase("invalid-settings-schema")]
+        [TestCase("invalidSettings_MissingColumn")]
+        [TestCase("invalidSettings_MissingTable")]
+        [TestCase("invalidSettings_WrongColumnName")]
+        [TestCase("invalidSettings_WrongTableName")]
         [TestCase("withoutPreprocessor")]
         public void ValidateSchema_PreprocessorInvalidDatabase_ReturnFalse(string databaseName)
         {

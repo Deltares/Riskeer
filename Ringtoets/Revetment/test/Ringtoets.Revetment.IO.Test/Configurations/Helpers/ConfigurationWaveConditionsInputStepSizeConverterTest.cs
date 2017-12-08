@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations;
@@ -100,16 +101,21 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void ConvertTo_StringInvalidConfigurationWaveConditionsInputStepSize_ThrowNotSupportedException()
+        [TestCase(typeof(string))]
+        [TestCase(typeof(WaveConditionsInputStepSize))]
+        public void ConvertTo_StringInvalidConfigurationWaveConditionsInputStepSize_ThrowInvalidEnumArgumentException(Type destinationType)
         {
             // Setup
+            const ConfigurationWaveConditionsInputStepSize invalidValue = (ConfigurationWaveConditionsInputStepSize) 9999; 
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo((ConfigurationWaveConditionsInputStepSize) 9999, typeof(string));
+            TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
 
             // Assert
-            Assert.Throws<NotSupportedException>(call);
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationWaveConditionsInputStepSize)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("value", parameterName);
         }
 
         [Test]
@@ -131,26 +137,14 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void ConvertTo_WaveConditionsInputStepSizeInvalidConfigurationWaveConditionsInputStepSize_ThrowNotSupportedException()
-        {
-            // Setup
-            var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
-
-            // Call
-            TestDelegate call = () => converter.ConvertTo((ConfigurationWaveConditionsInputStepSize) 9999, typeof(WaveConditionsInputStepSize));
-
-            // Assert
-            Assert.Throws<NotSupportedException>(call);
-        }
-
-        [Test]
         public void ConvertTo_Object_ThrowNotSupportedException()
         {
             // Setup
+            var random = new Random(21);
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(ConfigurationWaveConditionsInputStepSize.Half, typeof(object));
+            TestDelegate call = () => converter.ConvertTo(random.NextEnumValue<ConfigurationWaveConditionsInputStepSize>(), typeof(object));
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -259,6 +253,22 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.AreEqual(expectedResult, convertFrom);
+        }
+
+        [Test]
+        public void ConvertFrom_InvalidWaveConditionsInputStepSize_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            const WaveConditionsInputStepSize invalidValue = (WaveConditionsInputStepSize)9999;
+            var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(WaveConditionsInputStepSize)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("value", parameterName);
         }
 
         [Test]

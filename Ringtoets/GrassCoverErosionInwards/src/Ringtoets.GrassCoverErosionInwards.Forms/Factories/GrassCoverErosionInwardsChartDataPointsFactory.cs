@@ -29,7 +29,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="Point2D"/> to use in <see cref="ChartData"/>
+    /// Factory for creating collections of <see cref="Point2D"/> to use in <see cref="ChartData"/>
     /// (created via <see cref="GrassCoverErosionInwardsChartDataFactory"/>).
     /// </summary>
     internal static class GrassCoverErosionInwardsChartDataPointsFactory
@@ -38,8 +38,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
         /// Create dike geometry points in 2D space based on the provided <paramref name="dikeProfile"/>.
         /// </summary>
         /// <param name="dikeProfile">The <see cref="DikeProfile"/> to create the dike geometry points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when <paramref name="dikeProfile"/> is <c>null</c>.</returns>
-        public static Point2D[] CreateDikeGeometryPoints(DikeProfile dikeProfile)
+        /// <returns>A collection of points in 2D space or an empty array when <paramref name="dikeProfile"/> is <c>null</c>.</returns>
+        public static IEnumerable<Point2D> CreateDikeGeometryPoints(DikeProfile dikeProfile)
         {
             return dikeProfile?.DikeGeometry.Select(dg => dg.Point).ToArray() ?? new Point2D[0];
         }
@@ -48,14 +48,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
         /// Create foreshore geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="GrassCoverErosionInwardsInput"/> to create the foreshore geometry points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when:
+        /// <returns>A collection of points in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the <see cref="DikeProfile"/> in <paramref name="input"/> is <c>null</c>;</item>
         /// <item>the foreshore in <paramref name="input"/> is not in use.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateForeshoreGeometryPoints(GrassCoverErosionInwardsInput input)
+        public static IEnumerable<Point2D> CreateForeshoreGeometryPoints(GrassCoverErosionInwardsInput input)
         {
             return input?.DikeProfile != null && input.UseForeshore
                        ? input.DikeProfile.ForeshoreGeometry.ToArray()
@@ -66,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
         /// Create dike height points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="GrassCoverErosionInwardsInput"/> to create the dike height points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when:
+        /// <returns>A collection of points in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the dike profile in <paramref name="input"/> is <c>null</c>;</item>
@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
         /// <item>the dike geometry in <paramref name="input"/> contains less than two points.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDikeHeightPoints(GrassCoverErosionInwardsInput input)
+        public static IEnumerable<Point2D> CreateDikeHeightPoints(GrassCoverErosionInwardsInput input)
         {
             if (input?.DikeProfile == null || double.IsNaN(input.DikeHeight) || input.DikeProfile.DikeGeometry.Count() < 2)
             {

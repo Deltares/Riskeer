@@ -153,7 +153,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdateIllustrationPointsControl()
         {
-            illustrationPointsControl.Data = GetIllustrationPointControlItems()?.ToArray();
+            illustrationPointsControl.Data = GetIllustrationPointControlItems();
         }
 
         private IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
@@ -174,7 +174,7 @@ namespace Ringtoets.Common.Forms.Views
                                                         topLevelFaultTreeIllustrationPoint.ClosingSituation,
                                                         GetStochasts(illustrationPoint),
                                                         illustrationPoint.Beta);
-            });
+            }).ToArray();
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.Forms.Views
             var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
             Selection = selection != null
                             ? new SelectedTopLevelFaultTreeIllustrationPoint((TopLevelFaultTreeIllustrationPoint) selection.Source,
-                                                                             GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
+                                                                             GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation).ToArray())
                             : null;
             OnSelectionChanged();
         }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using Core.Components.Gis.Data;
@@ -38,9 +39,18 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="symbol">The symbol to convert.</param>
         /// <returns>The converted <see cref="PointShape"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="symbol"/> 
-        /// cannot be converted.</exception>
+        /// is not a valid enum value of <see cref="PointSymbol"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="symbol"/>
+        /// is not supported for the conversion.</exception>
         public static PointShape Convert(PointSymbol symbol)
         {
+            if (!Enum.IsDefined(typeof(PointSymbol), symbol))
+            {
+                throw new InvalidEnumArgumentException(nameof(symbol),
+                                                       (int) symbol,
+                                                       typeof(PointSymbol));
+            }
+
             PointShape shape;
             switch (symbol)
             {
@@ -66,9 +76,7 @@ namespace Core.Components.DotSpatial.Converter
                     shape = PointShape.Pentagon;
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(symbol),
-                                                           (int) symbol,
-                                                           typeof(PointShape));
+                    throw new NotSupportedException($"The enum value {nameof(PointShape)}.{symbol} is not supported.");
             }
             return shape;
         }
@@ -79,9 +87,18 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="dashStyle">The <see cref="LineDashStyle"/> to convert.</param>
         /// <returns>The converted <see cref="DashStyle"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="dashStyle"/> 
-        /// cannot be converted.</exception>
+        /// is not a valid enum value of <see cref="LineDashStyle"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="dashStyle"/>
+        /// is not supported for the conversion.</exception>
         public static DashStyle Convert(LineDashStyle dashStyle)
         {
+            if (!Enum.IsDefined(typeof(LineDashStyle), dashStyle))
+            {
+                throw new InvalidEnumArgumentException(nameof(dashStyle),
+                                                       (int) dashStyle,
+                                                       typeof(LineDashStyle));
+            }
+
             var lineStyle = DashStyle.Solid;
             switch (dashStyle)
             {
@@ -100,9 +117,7 @@ namespace Core.Components.DotSpatial.Converter
                     lineStyle = DashStyle.DashDotDot;
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(dashStyle),
-                                                           (int) dashStyle,
-                                                           typeof(LineDashStyle));
+                    throw new NotSupportedException($"The enum value {nameof(LineDashStyle)}.{dashStyle} is not supported.");
             }
             return lineStyle;
         }

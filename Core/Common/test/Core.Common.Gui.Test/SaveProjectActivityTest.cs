@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.Base.Storage;
@@ -194,17 +193,10 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [Combinatorial]
-        public void Run_SaveProjectAsThrowsException_FailedWithAdditionalLogMessages(
-            [Values(true, false)] bool saveExistingProject,
-            [Values(SaveProjectAsExceptionType.StorageException,
-                SaveProjectAsExceptionType.CouldNotConnectException,
-                SaveProjectAsExceptionType.ArgumentException)] SaveProjectAsExceptionType exceptionType)
+        public void Run_SaveProjectAsThrowsException_FailedWithAdditionalLogMessages(Exception exception, string errorMessage)
         {
             // Setup
             const string filePath = "A";
-            const string message = "<error message>";
-
-            Exception exception = CreateException(exceptionType, message);
 
             var mocks = new MockRepository();
             var project = mocks.Stub<IProject>();
@@ -216,18 +208,50 @@ namespace Core.Common.Gui.Test
                         .Throw(exception);
             mocks.ReplayAll();
 
-            var activity = new SaveProjectActivity(project, filePath, saveExistingProject, storeProject, projectOwner);
+            var activity = new SaveProjectActivity(project, filePath, false, storeProject, projectOwner);
 
             // Call
             Action call = () => activity.Run();
 
             // Assert
-            string exitingPrefix = saveExistingProject ? "bestaand " : "";
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call,
                                                               new[]
                                                               {
-                                                                  Tuple.Create($"Opslaan van {exitingPrefix}project is gestart.", LogLevelConstant.Info),
-                                                                  Tuple.Create(message, LogLevelConstant.Error)
+                                                                  Tuple.Create($"Opslaan van project is gestart.", LogLevelConstant.Info),
+                                                                  Tuple.Create(errorMessage, LogLevelConstant.Error)
+                                                              }, 2);
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetExceptions))]
+        public void Run_SaveExistingProjectAsThrowsException_FailedWithAdditionalLogMessages(Exception exception, string errorMessage)
+        {
+            // Setup
+            const string filePath = "A";
+
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            var storeProject = mocks.Stub<IStoreProject>();
+            storeProject.Stub(sp => sp.HasStagedProject)
+                        .Return(true);
+            storeProject.Stub(sp => sp.SaveProjectAs(filePath))
+                        .Throw(exception);
+            mocks.ReplayAll();
+
+            var activity = new SaveProjectActivity(project, filePath, true, storeProject, projectOwner);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call,
+                                                              new[]
+                                                              {
+                                                                  Tuple.Create($"Opslaan van bestaand project is gestart.", LogLevelConstant.Info),
+                                                                  Tuple.Create(errorMessage, LogLevelConstant.Error)
                                                               }, 2);
             Assert.AreEqual(ActivityState.Failed, activity.State);
             mocks.VerifyAll();
@@ -531,26 +555,16 @@ namespace Core.Common.Gui.Test
             mocks.VerifyAll();
         }
 
-        private static Exception CreateException(SaveProjectAsExceptionType exceptionType, string message)
+        private static IEnumerable<TestCaseData> GetExceptions()
         {
-            switch (exceptionType)
-            {
-                case SaveProjectAsExceptionType.ArgumentException:
-                    return new ArgumentException(message);
-                case SaveProjectAsExceptionType.CouldNotConnectException:
-                    return new CouldNotConnectException(message);
-                case SaveProjectAsExceptionType.StorageException:
-                    return new StorageException(message);
-                default:
-                    throw new InvalidEnumArgumentException();
-            }
-        }
+            const string exceptionMessage = "I am an error message";
 
-        public enum SaveProjectAsExceptionType
-        {
-            CouldNotConnectException,
-            StorageException,
-            ArgumentException
+            yield return new TestCaseData(new ArgumentException(exceptionMessage), exceptionMessage)
+                .SetName("ArgumentException");
+            yield return new TestCaseData(new CouldNotConnectException(exceptionMessage), exceptionMessage)
+                .SetName("CouldNotConnectException");
+            yield return new TestCaseData(new StorageValidationException(exceptionMessage), exceptionMessage)
+                .SetName("StorageValidationException");
         }
     }
 }

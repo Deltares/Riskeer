@@ -38,9 +38,19 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                    || base.CanConvertTo(context, destinationType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="ConfigurationStabilityPointStructuresInflowModelType"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             var type = (ConfigurationStabilityPointStructuresInflowModelType) value;
+            if (!Enum.IsDefined(typeof(ConfigurationStabilityPointStructuresInflowModelType), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(value),
+                                                       (int) type,
+                                                       typeof(ConfigurationStabilityPointStructuresInflowModelType));
+            }
+
             if (destinationType == typeof(string))
             {
                 return ConvertToString(type);
@@ -59,6 +69,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                    || base.CanConvertFrom(context, sourceType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="StabilityPointStructureInflowModelType"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var text = value as string;
@@ -66,9 +79,17 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
             {
                 return ConvertToConfigurationInflowModelType(text);
             }
+
             var inflowModelType = value as StabilityPointStructureInflowModelType?;
-            if (inflowModelType != null)
+           if (inflowModelType != null)
             {
+                if (!Enum.IsDefined(typeof(StabilityPointStructureInflowModelType), inflowModelType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(value),
+                                                           (int)inflowModelType,
+                                                           typeof(StabilityPointStructureInflowModelType));
+                }
+
                 return ConvertToConfigurationInflowModelType(inflowModelType.Value);
             }
             return base.ConvertFrom(context, culture, value);

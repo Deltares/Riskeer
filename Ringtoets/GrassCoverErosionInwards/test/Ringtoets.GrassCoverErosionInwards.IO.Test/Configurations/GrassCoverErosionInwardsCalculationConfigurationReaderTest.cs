@@ -230,12 +230,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
@@ -256,12 +255,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.IsNull(calculation.CriticalFlowRate);
         }
@@ -274,12 +272,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.IsNaN(calculation.Orientation);
             Assert.IsNaN(calculation.DikeHeight);
@@ -296,12 +293,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
 
             Assert.IsNotNull(calculation.Orientation);
@@ -329,12 +325,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Berekening 1", calculation.Name);
             Assert.AreEqual("Some_hydraulic_boundary_location", calculation.HydraulicBoundaryLocationName);
@@ -362,12 +357,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual("Partial calculation 2", calculation.Name);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
@@ -394,12 +388,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.IsNull(calculation.CriticalFlowRate.Mean);
             Assert.AreEqual(2.2, calculation.CriticalFlowRate.StandardDeviation);
@@ -413,12 +406,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.AreEqual(1.1, calculation.CriticalFlowRate.Mean);
             Assert.IsNull(calculation.CriticalFlowRate.StandardDeviation);
@@ -432,12 +424,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var calculation = readConfigurationItems[0] as GrassCoverErosionInwardsCalculationConfiguration;
             Assert.IsNotNull(calculation);
             Assert.IsNull(calculation.CriticalFlowRate.Mean);
             Assert.IsNull(calculation.CriticalFlowRate.StandardDeviation);

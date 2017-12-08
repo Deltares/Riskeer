@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -48,7 +47,7 @@ using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
@@ -381,9 +380,9 @@ namespace Ringtoets.HeightStructures.Plugin
             };
         }
 
-        private static IEnumerable GetInputs(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetInputs(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
@@ -392,9 +391,9 @@ namespace Ringtoets.HeightStructures.Plugin
             };
         }
 
-        private static IEnumerable GetOutputs(HeightStructuresFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(HeightStructuresFailureMechanism failureMechanism)
         {
-            return new ArrayList
+            return new object[]
             {
                 new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(

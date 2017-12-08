@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
@@ -55,23 +56,22 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Constructor_WithValidPointsArray_PointSetCopiedToNewCollection()
+        public void Constructor_WithPoints_ExpectedValues()
         {
             // Setup
             var points = new[]
             {
-                new Point2D(3, 2),
-                new Point2D(5, 6),
-                new Point2D(1, 1.2)
+                new Point2D(3.0, 2.001),
+                new Point2D(5.436, 6.4937),
+                new Point2D(1, 1.23)
             };
 
-            var ring = new Ring(points);
-
             // Call
-            IEnumerable<Point2D> ringPoints = ring.Points;
-
+            var ring = new Ring(points);
+            
             // Assert
-            TestHelper.AssertAreEqualButNotSame(points, ringPoints);
+            Assert.AreEqual(2, ring.Points.NumberOfDecimalPlaces);
+            CollectionAssert.AreEqual(points, ring.Points, new Point2DComparerWithTolerance(1e-2));
         }
 
         [TestFixture]

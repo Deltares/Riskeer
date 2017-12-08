@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
@@ -345,20 +346,17 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        [TestCase(ExceptionType.ArgumentException)]
-        [TestCase(ExceptionType.CriticalFileReadException)]
-        [TestCase(ExceptionType.StorageValidationException)]
-        public void OpenExistingProject_ShouldMigrateThrowsException_LogFailureAndCreateNewProjectAndReturnsFalse(ExceptionType exceptionType)
+        [TestCaseSource(nameof(GetExceptions))]
+        public void OpenExistingProject_ShouldMigrateThrowsException_LogFailureAndCreateNewProjectAndReturnsFalse(Exception exception, string errorMessage)
         {
             // Setup
-            const string errorMessage = "I am an error message.";
             const string pathToSomeValidFile = " ";
 
             var projectStorage = mocks.StrictMock<IStoreProject>();
 
             var projectMigrator = mocks.StrictMock<IMigrateProject>();
             projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile))
-                           .Throw(CreateException(exceptionType, errorMessage));
+                           .Throw(exception);
 
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
@@ -1031,26 +1029,16 @@ namespace Core.Common.Gui.Test.Commands
             mocks.VerifyAll();
         }
 
-        public enum ExceptionType
+        private static IEnumerable<TestCaseData> GetExceptions()
         {
-            ArgumentException,
-            CriticalFileReadException,
-            StorageValidationException
-        }
+            const string exceptionMessage = "I am an error message";
 
-        private Exception CreateException(ExceptionType type, string message)
-        {
-            switch (type)
-            {
-                case ExceptionType.ArgumentException:
-                    return new ArgumentException(message);
-                case ExceptionType.CriticalFileReadException:
-                    return new CriticalFileReadException(message);
-                case ExceptionType.StorageValidationException:
-                    return new StorageValidationException(message);
-                default:
-                    throw new InvalidEnumArgumentException(nameof(type), (int) type, typeof(ExceptionType));
-            }
+            yield return new TestCaseData(new ArgumentException(exceptionMessage), exceptionMessage)
+                .SetName("ArgumentException");
+            yield return new TestCaseData(new CriticalFileReadException(exceptionMessage), exceptionMessage)
+                .SetName("CriticalFileReadException");
+            yield return new TestCaseData(new StorageValidationException(exceptionMessage), exceptionMessage)
+                .SetName("StorageValidationException");
         }
     }
 }

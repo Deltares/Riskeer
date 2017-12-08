@@ -133,7 +133,7 @@ namespace Ringtoets.Common.Forms
             };
             if (calculationsPerSegmentName.ContainsKey(sectionName))
             {
-                items.AddRange(calculationsPerSegmentName[sectionName].Select(c => new DataGridViewComboBoxItemWrapper<ICalculation>(c)));
+                items.AddRange(calculationsPerSegmentName[sectionName].Select(c => new DataGridViewComboBoxItemWrapper<ICalculation>(c)).ToArray());
             }
 
             var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[calculationsColumnIndex];

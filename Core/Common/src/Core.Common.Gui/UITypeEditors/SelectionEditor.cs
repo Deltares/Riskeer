@@ -141,7 +141,7 @@ namespace Core.Common.Gui.UITypeEditors
             foreach (TProperty option in GetAvailableOptions(context))
             {
                 int index = listBox.Items.Add(option);
-                if (ReferenceEquals(GetCurrentOption(context), option))
+                if (Equals(GetCurrentOption(context), option))
                 {
                     listBox.SelectedIndex = index;
                 }

@@ -17,6 +17,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\MacroStabilityInwardsSliceChartDataFactory.cs" />
     <Compile Include="Factories\MacroStabilityInwardsSliceChartDataPointsFactory.cs" />
     <Compile Include="MacroStabilityInwardsCalculationConfigurationHelper.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputExtremeProperties.cs" />

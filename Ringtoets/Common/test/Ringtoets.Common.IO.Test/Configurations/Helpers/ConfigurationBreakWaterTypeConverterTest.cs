@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.Configurations;
@@ -98,17 +99,21 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void ConvertTo_InvalidBreakWaterType_ThrowNotSupportedException()
+        [TestCase(typeof(string))]
+        [TestCase(typeof(BreakWaterType))]
+        public void ConvertTo_InvalidBreakWaterType_ThrowInvalidEnumArgumentException(Type destinationType)
         {
             // Setup
             var converter = new ConfigurationBreakWaterTypeConverter();
             const ConfigurationBreakWaterType invalidValue = (ConfigurationBreakWaterType) 99999999;
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
+            TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
 
             // Assert
-            Assert.Throws<NotSupportedException>(call);
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationBreakWaterType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("value", parameterName);
         }
 
         [Test]
@@ -212,6 +217,22 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.AreEqual(expectedResult, result);
+        }
+
+        [Test]
+        public void ConvertFrom_InvalidClosingStructureInflowModelType_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            const int invalidValue = -1;
+            var converter = new ConfigurationBreakWaterTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom((BreakWaterType)invalidValue);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(BreakWaterType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("value", parameterName);
         }
     }
 }

@@ -125,17 +125,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-            Assert.AreEqual(3, inputsFolder.Contents.Count);
-            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
+            Assert.AreEqual(3, inputsFolder.Contents.Count());
+            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-            var dikeProfilesContext = (DikeProfilesContext) inputsFolder.Contents[1];
+            var dikeProfilesContext = (DikeProfilesContext) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.DikeProfiles, dikeProfilesContext.WrappedData);
             Assert.AreSame(failureMechanism, dikeProfilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, dikeProfilesContext.ParentAssessmentSection);
 
-            var inputComment = (Comment) inputsFolder.Contents[2];
+            var inputComment = (Comment) inputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var calculationsFolder = (GrassCoverErosionInwardsCalculationGroupContext) children[1];
@@ -147,16 +147,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
-            Assert.AreEqual(3, outputsFolder.Contents.Count);
-            var scenariosContext = (GrassCoverErosionInwardsScenariosContext) outputsFolder.Contents[0];
+            Assert.AreEqual(3, outputsFolder.Contents.Count());
+            var scenariosContext = (GrassCoverErosionInwardsScenariosContext) outputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
             Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>) outputsFolder.Contents[1];
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var outputComment = (Comment) outputsFolder.Contents[2];
+            var outputComment = (Comment) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 

@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Utils;
+using Ringtoets.GrassCoverErosionInwards.Util;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {

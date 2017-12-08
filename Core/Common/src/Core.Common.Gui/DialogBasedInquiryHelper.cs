@@ -124,7 +124,7 @@ namespace Core.Common.Gui
                 case DialogResult.No:
                     return OptionalStepResult.SkipOptionalStep;
                 default:
-                    throw new NotImplementedException("Dialogbox should only return the above values.");
+                    throw new NotSupportedException("Dialogbox should only return the above values.");
             }
         }
     }

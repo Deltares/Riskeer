@@ -142,22 +142,22 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-            Assert.AreEqual(4, inputsFolder.Contents.Count);
-            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
+            Assert.AreEqual(4, inputsFolder.Contents.Count());
+            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-            var surfaceLinesContext = (MacroStabilityInwardsSurfaceLinesContext) inputsFolder.Contents[1];
+            var surfaceLinesContext = (MacroStabilityInwardsSurfaceLinesContext) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.SurfaceLines, surfaceLinesContext.WrappedData);
             Assert.AreSame(failureMechanism, surfaceLinesContext.FailureMechanism);
             Assert.AreSame(assessmentSection, surfaceLinesContext.AssessmentSection);
 
-            var stochasticSoilModelContext = (MacroStabilityInwardsStochasticSoilModelCollectionContext) inputsFolder.Contents[2];
+            var stochasticSoilModelContext = (MacroStabilityInwardsStochasticSoilModelCollectionContext) inputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(failureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(assessmentSection, stochasticSoilModelContext.AssessmentSection);
 
-            var comment = (Comment) inputsFolder.Contents[3];
+            var comment = (Comment) inputsFolder.Contents.ElementAt(3);
             Assert.AreSame(failureMechanism.InputComments, comment);
 
             var calculationsFolder = (MacroStabilityInwardsCalculationGroupContext) children[1];
@@ -171,16 +171,16 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
-            Assert.AreEqual(3, outputsFolder.Contents.Count);
-            var failureMechanismScenariosContext = (MacroStabilityInwardsScenariosContext) outputsFolder.Contents[0];
+            Assert.AreEqual(3, outputsFolder.Contents.Count());
+            var failureMechanismScenariosContext = (MacroStabilityInwardsScenariosContext) outputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismScenariosContext.ParentFailureMechanism);
             Assert.AreSame(failureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>) outputsFolder.Contents[1];
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var commentContext = (Comment) outputsFolder.Contents[2];
+            var commentContext = (Comment) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.OutputComments, commentContext);
         }
 

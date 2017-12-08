@@ -765,7 +765,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(IEnumerable<RoughnessPoint> roughnessProfilePoints)
         {
-            return roughnessProfilePoints.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness));
+            return roughnessProfilePoints.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X,
+                                                                                                      roughnessPoint.Point.Y,
+                                                                                                      roughnessPoint.Roughness)).ToArray();
         }
 
         private static string[] ValidateInput(GrassCoverErosionInwardsInput inputParameters, IAssessmentSection assessmentSection)
@@ -773,8 +775,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             var validationResults = new List<string>();
 
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                                  preprocessorDirectory);
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                                                   preprocessorDirectory);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
                 validationResults.Add(databaseFilePathValidationProblem);

@@ -32,7 +32,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>.
+    /// Factory for creating collections of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>.
     /// </summary>
     internal static class GrassCoverErosionOutwardsMapDataFeaturesFactory
     {
@@ -40,8 +40,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
         /// Create calculation features based on the provided <paramref name="calculationInputs"/>.
         /// </summary>
         /// <param name="calculationInputs">The collection of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> to create the calculation features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="calculationInputs"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateCalculationFeatures(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculationInputs)
+        /// <returns>A collection of features or an empty collection when <paramref name="calculationInputs"/> is <c>null</c> or empty.</returns>
+        public static IEnumerable<MapFeature> CreateCalculationFeatures(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculationInputs)
         {
             bool hasCalculations = calculationInputs != null && calculationInputs.Any();
 
@@ -70,9 +70,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
         /// </summary>
         /// <param name="hydraulicBoundaryLocations">The array of <see cref="HydraulicBoundaryLocation"/>
         /// to create the location features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryLocations"/>
+        /// <returns>A collection of features or an empty collection when <paramref name="hydraulicBoundaryLocations"/>
         /// is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateHydraulicBoundaryLocationFeatures(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
+        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationFeatures(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
         {
             return RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryLocations ?? new HydraulicBoundaryLocation[0],
                                                                                            Resources.DesignWaterLevel_DisplayName,

@@ -71,26 +71,26 @@ namespace Ringtoets.Common.IO.HydraRing
             return ContainsRequiredTables(GetColumnDefinitions(Connection));
         }
 
-        private bool ContainsRequiredTables(List<Tuple<string, string>> definitions)
+        private bool ContainsRequiredTables(IEnumerable<Tuple<string, string>> definitions)
         {
             return GetValidSchema().All(definitions.Contains);
         }
 
-        private List<Tuple<string, string>> GetValidSchema()
+        private IEnumerable<Tuple<string, string>> GetValidSchema()
         {
             using (var validSchemaConnection = new SQLiteConnection("Data Source=:memory:"))
             using (SQLiteCommand command = validSchemaConnection.CreateCommand())
             {
                 validSchemaConnection.Open();
                 command.CommandText = usePreprocessor
-                    ? Resources.settings_schema_preprocessor
-                    : Resources.settings_schema;
+                                          ? Resources.settings_schema_preprocessor
+                                          : Resources.settings_schema;
                 command.ExecuteNonQuery();
                 return GetColumnDefinitions(validSchemaConnection);
             }
         }
 
-        private static List<Tuple<string, string>> GetColumnDefinitions(SQLiteConnection connection)
+        private static IEnumerable<Tuple<string, string>> GetColumnDefinitions(SQLiteConnection connection)
         {
             DataTable columns = connection.GetSchema("COLUMNS");
 

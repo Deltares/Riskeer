@@ -24,7 +24,7 @@ using Application.Ringtoets.Migration.Console.Properties;
 using Application.Ringtoets.Migration.Core;
 using Core.Common.Util;
 using Migration.Console;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 using MigrationCoreStorageResources = Migration.Core.Storage.Properties.Resources;
 
 namespace Application.Ringtoets.Migration.Console

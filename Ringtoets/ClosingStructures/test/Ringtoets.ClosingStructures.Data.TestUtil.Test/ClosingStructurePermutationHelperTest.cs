@@ -36,12 +36,12 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             const string testResultDescription = "B";
 
             // Call
-            List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructures(targetName, testResultDescription).ToList();
+            IEnumerable<TestCaseData> testCaseData = ClosingStructurePermutationHelper.DifferentClosingStructures(targetName, testResultDescription);
 
             // Assert
-            Assert.AreEqual(27, testCaseDatas.Count);
-            AssertTestNames(testCaseDatas, targetName, testResultDescription);
-            AssertParameters(testCaseDatas, true, true, true);
+            Assert.AreEqual(27, testCaseData.Count());
+            AssertTestNames(testCaseData, targetName, testResultDescription);
+            AssertParameters(testCaseData, true, true, true);
         }
 
         [Test]
@@ -52,12 +52,12 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             const string testResultDescription = "D";
 
             // Call
-            List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameId(targetName, testResultDescription).ToList();
+            IEnumerable<TestCaseData> testCaseData = ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameId(targetName, testResultDescription);
 
             // Assert
-            Assert.AreEqual(26, testCaseDatas.Count);
-            AssertTestNames(testCaseDatas, targetName, testResultDescription);
-            AssertParameters(testCaseDatas, false, true, true);
+            Assert.AreEqual(26, testCaseData.Count());
+            AssertTestNames(testCaseData, targetName, testResultDescription);
+            AssertParameters(testCaseData, false, true, true);
         }
 
         [Test]
@@ -68,35 +68,35 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             const string testResultDescription = "F";
 
             // Call
-            List<TestCaseData> testCaseDatas = ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameIdNameAndLocation(targetName, testResultDescription).ToList();
+            IEnumerable<TestCaseData> testCaseData = ClosingStructurePermutationHelper.DifferentClosingStructuresWithSameIdNameAndLocation(targetName, testResultDescription);
 
             // Assert
-            Assert.AreEqual(24, testCaseDatas.Count);
-            AssertTestNames(testCaseDatas, targetName, testResultDescription);
-            AssertParameters(testCaseDatas, false, false, false);
+            Assert.AreEqual(24, testCaseData.Count());
+            AssertTestNames(testCaseData, targetName, testResultDescription);
+            AssertParameters(testCaseData, false, false, false);
         }
 
-        private static void AssertTestNames(IEnumerable<TestCaseData> testCaseDatas, string targetName, string testResultDescription)
+        private static void AssertTestNames(IEnumerable<TestCaseData> testCaseData, string targetName, string testResultDescription)
         {
-            IEnumerable<string> testNames = testCaseDatas
+            IEnumerable<string> testNames = testCaseData
                 .Select(tcd => tcd.TestName)
-                .ToList();
-            Assert.AreEqual(testCaseDatas.Count(), testNames.Distinct().Count());
+                .ToArray();
+            Assert.AreEqual(testCaseData.Count(), testNames.Distinct().Count());
             Assert.IsTrue(testNames.All(tn => tn.StartsWith($"{targetName}_")));
             Assert.IsTrue(testNames.All(tn => tn.EndsWith($"_{testResultDescription}")));
         }
 
-        private static void AssertParameters(IEnumerable<TestCaseData> testCaseDatas, bool idUnique, bool nameUnique, bool locationUnique)
+        private static void AssertParameters(IEnumerable<TestCaseData> testCaseData, bool idUnique, bool nameUnique, bool locationUnique)
         {
             var differentStructures = new List<ClosingStructure>();
             var referenceStructure = new TestClosingStructure();
 
-            IEnumerable<ClosingStructure> structures = testCaseDatas
+            IEnumerable<ClosingStructure> structures = testCaseData
                 .Select(tcd => tcd.Arguments[0])
                 .OfType<ClosingStructure>()
-                .ToList();
+                .ToArray();
 
-            int expectedTestDataCount = testCaseDatas.Count();
+            int expectedTestDataCount = testCaseData.Count();
             Assert.AreEqual(expectedTestDataCount, structures.Count());
 
             if (idUnique)

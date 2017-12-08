@@ -124,22 +124,22 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Invoer", inputsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-                Assert.AreEqual(4, inputsFolder.Contents.Count);
-                var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
+                Assert.AreEqual(4, inputsFolder.Contents.Count());
+                var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
                 Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
                 Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-                var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents[1];
+                var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents.ElementAt(1);
                 Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
                 Assert.AreSame(failureMechanism, profilesContext.ParentFailureMechanism);
                 Assert.AreSame(assessmentSection, profilesContext.ParentAssessmentSection);
 
-                var stabilityPointStructuresContext = (StabilityPointStructuresContext) inputsFolder.Contents[2];
+                var stabilityPointStructuresContext = (StabilityPointStructuresContext) inputsFolder.Contents.ElementAt(2);
                 Assert.AreSame(failureMechanism.StabilityPointStructures, stabilityPointStructuresContext.WrappedData);
                 Assert.AreSame(failureMechanism, stabilityPointStructuresContext.FailureMechanism);
                 Assert.AreSame(assessmentSection, stabilityPointStructuresContext.AssessmentSection);
 
-                var inputComment = (Comment) inputsFolder.Contents[3];
+                var inputComment = (Comment) inputsFolder.Contents.ElementAt(3);
                 Assert.AreSame(failureMechanism.InputComments, inputComment);
 
                 var calculationsFolder = (StabilityPointStructuresCalculationGroupContext) children[1];
@@ -150,17 +150,17 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var outputsFolder = (CategoryTreeFolder) children[2];
                 Assert.AreEqual("Oordeel", outputsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-                Assert.AreEqual(3, outputsFolder.Contents.Count);
+                Assert.AreEqual(3, outputsFolder.Contents.Count());
 
-                var scenariosContext = (StabilityPointStructuresScenariosContext) outputsFolder.Contents[0];
+                var scenariosContext = (StabilityPointStructuresScenariosContext) outputsFolder.Contents.ElementAt(0);
                 Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
                 Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
 
-                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>) outputsFolder.Contents[1];
+                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-                var outputComment = (Comment) outputsFolder.Contents[2];
+                var outputComment = (Comment) outputsFolder.Contents.ElementAt(2);
                 Assert.AreSame(failureMechanism.OutputComments, outputComment);
             }
             mocksRepository.VerifyAll();

@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
@@ -159,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
         [TestCase(typeof(string))]
         [TestCase(typeof(DikeHeightCalculationType))]
         [TestCase(typeof(OvertoppingRateCalculationType))]
-        public void ConvertTo_InvalidReadHydraulicLoadsCalculationTypeValue_ThrowNotSupportedException(Type type)
+        public void ConvertTo_InvalidReadHydraulicLoadsCalculationTypeValue_ThrowInvalidEnumArgumentException(Type type)
         {
             // Setup
             var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
@@ -170,7 +171,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
             TestDelegate call = () => converter.ConvertTo(invalidValue, type);
 
             // Assert
-            Assert.Throws<NotSupportedException>(call);
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationHydraulicLoadsCalculationType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("value", parameterName);
         }
 
         [Test]
@@ -314,29 +317,35 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void ConvertFrom_UnsupportedDikeHeightCalculationType_ThrowNotSupportedException()
+        public void ConvertFrom_UnsupportedDikeHeightCalculationType_ThrowInvalidEnumArgumentException()
         {
             // Setup
+            const DikeHeightCalculationType invalidValue = (DikeHeightCalculationType) 9999;
             var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom((DikeHeightCalculationType) 9999);
+            TestDelegate call = () => converter.ConvertFrom(invalidValue);
 
             // Assert
-            Assert.Throws<NotSupportedException>(call);
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(DikeHeightCalculationType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("value", parameterName);
         }
 
         [Test]
-        public void ConvertFrom_UnsupportedOvertoppingRateCalculationType_ThrowNotSupportedException()
+        public void ConvertFrom_UnsupportedOvertoppingRateCalculationType_ThrowInvalidEnumArgumentException()
         {
             // Setup
+            const OvertoppingRateCalculationType invalidValue = (OvertoppingRateCalculationType) 9999;
             var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom((OvertoppingRateCalculationType) 9999);
+            TestDelegate call = () => converter.ConvertFrom(invalidValue);
 
             // Assert
-            Assert.Throws<NotSupportedException>(call);
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(OvertoppingRateCalculationType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("value", parameterName);
         }
     }
 }

@@ -27,7 +27,7 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Utils;
+using Ringtoets.GrassCoverErosionInwards.Util;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children
                                                                                  .OfType<GrassCoverErosionInwardsCalculation>()
-                                                                                 .Select(c => c.InputParameters)));
+                                                                                 .Select(c => c.InputParameters)).ToArray());
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
         }
 

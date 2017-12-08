@@ -35,7 +35,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
 {

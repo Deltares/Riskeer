@@ -78,12 +78,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual("Calculation", configuration.Name);
             Assert.IsNull(configuration.AssessmentLevel);
             Assert.IsNull(configuration.HydraulicBoundaryLocationName);
@@ -132,12 +131,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNaN(configuration.AssessmentLevel);
             Assert.IsNaN(configuration.Scenario.Contribution);
             Assert.IsNaN(configuration.WaterLevelRiverAverage);
@@ -185,12 +183,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
-
-            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
+            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.IsNotNull(configuration.AssessmentLevel);
             Assert.IsNotNull(configuration.Scenario.Contribution);
@@ -246,12 +242,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual("Calculation", configuration.Name);
             Assert.IsNull(configuration.AssessmentLevel);
             Assert.AreEqual("HRlocatie", configuration.HydraulicBoundaryLocationName);
@@ -351,12 +346,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            List<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual("Calculation", configuration.Name);
             Assert.AreEqual(1.1, configuration.AssessmentLevel);
             Assert.IsNull(configuration.HydraulicBoundaryLocationName);
@@ -451,12 +445,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
-            var readConfigurationItems = reader.Read().ToList();
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(1, readConfigurationItems.Count);
+            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
             Assert.AreEqual("Calculation", configuration.Name);
             Assert.AreEqual(1.1, configuration.AssessmentLevel);
             Assert.IsNull(configuration.HydraulicBoundaryLocationName);

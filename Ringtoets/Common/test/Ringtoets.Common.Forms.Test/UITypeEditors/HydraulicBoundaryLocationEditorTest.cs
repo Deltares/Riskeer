@@ -84,11 +84,13 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            SelectableHydraulicBoundaryLocation hydraulicBoundaryLocation = CreateSelectableHydraulicBoundaryLocation();
-            var properties = new ObjectPropertiesWithSelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, new[]
-            {
-                hydraulicBoundaryLocation
-            });
+            var selectedHydraulicBoundaryLocation = new HydraulicBoundaryLocation(23, "name", 0, 0);
+            var properties = new ObjectPropertiesWithSelectableHydraulicBoundaryLocation(
+                new SelectableHydraulicBoundaryLocation(selectedHydraulicBoundaryLocation, null),
+                new[]
+                {
+                    new SelectableHydraulicBoundaryLocation(selectedHydraulicBoundaryLocation, null)
+                });
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new HydraulicBoundaryLocationEditor();
             var someValue = new object();
@@ -103,7 +105,8 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryLocation, result);
+            Assert.AreEqual(new SelectableHydraulicBoundaryLocation(selectedHydraulicBoundaryLocation, null), result);
+
             mockRepository.VerifyAll();
         }
 
@@ -116,10 +119,10 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         {
             private readonly IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations;
 
-            public ObjectPropertiesWithSelectableHydraulicBoundaryLocation(SelectableHydraulicBoundaryLocation selectableHydraulicBoundaryLocation,
+            public ObjectPropertiesWithSelectableHydraulicBoundaryLocation(SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation,
                                                                            IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations)
             {
-                SelectedHydraulicBoundaryLocation = selectableHydraulicBoundaryLocation;
+                SelectedHydraulicBoundaryLocation = selectedHydraulicBoundaryLocation;
                 this.selectableHydraulicBoundaryLocations = selectableHydraulicBoundaryLocations;
             }
 

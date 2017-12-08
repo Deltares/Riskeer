@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Forms.Factories
 
             IEnumerable<Tuple<string, string>> labels =
                 illustrationPointControlItems.Select(controlItem => Tuple.Create(controlItem.WindDirectionName,
-                                                                                 controlItem.ClosingSituation));
+                                                                                 controlItem.ClosingSituation)).ToArray();
 
             bool showClosingSituation = illustrationPointControlItems.HasMultipleUniqueValues(item => item.ClosingSituation);
 
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Forms.Factories
             return illustrationPointControlItem.Stochasts
                                                .Select(stochast => Tuple.Create(
                                                            stochast.Name,
-                                                           new RoundedDouble(5, Math.Pow(stochast.Alpha, 2))));
+                                                           new RoundedDouble(5, Math.Pow(stochast.Alpha, 2)))).ToArray();
         }
 
         private static IDictionary<string, List<RoundedDouble>> CreateStochastsLookup(IEnumerable<Tuple<string, RoundedDouble>> stochastValues)

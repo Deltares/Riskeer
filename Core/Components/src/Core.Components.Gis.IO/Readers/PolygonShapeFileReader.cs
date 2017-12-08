@@ -138,14 +138,14 @@ namespace Core.Components.Gis.IO.Readers
             };
         }
 
-        private FeatureBasedMapData ConvertPolygonFeaturesToMapPointData(IEnumerable<IFeature> featureList, string name)
+        private FeatureBasedMapData ConvertPolygonFeaturesToMapPointData(IEnumerable<IFeature> features, string name)
         {
-            int featureListCount = featureList.Count();
-            var mapFeatures = new MapFeature[featureListCount];
+            int featureCount = features.Count();
+            var mapFeatures = new MapFeature[featureCount];
 
-            for (var i = 0; i < featureListCount; i++)
+            for (var i = 0; i < featureCount; i++)
             {
-                IFeature feature = featureList.ElementAt(i);
+                IFeature feature = features.ElementAt(i);
                 MapFeature mapFeature = CreateMapFeatureForPolygonFeature(feature);
 
                 CopyMetaDataIntoFeature(mapFeature, i);
@@ -170,7 +170,7 @@ namespace Core.Components.Gis.IO.Readers
             {
                 var basicPolygon = (IBasicPolygon) polygonFeature.BasicGeometry.GetBasicGeometryN(i);
 
-                var mapGeometry = new MapGeometry(GetMapGeometryPointCollections(basicPolygon));
+                var mapGeometry = new MapGeometry(GetMapGeometryPointCollections(basicPolygon).ToArray());
                 geometries.Add(mapGeometry);
             }
 

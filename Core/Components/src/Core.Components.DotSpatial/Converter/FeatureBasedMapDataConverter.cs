@@ -127,7 +127,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <returns>The converted <see cref="IEnumerable{T}"/> of <see cref="Coordinate"/>.</returns>
         protected static IEnumerable<Coordinate> ConvertPoint2DElementsToCoordinates(IEnumerable<Point2D> points)
         {
-            return points.Select(point => new Coordinate(point.X, point.Y));
+            return points.Select(point => new Coordinate(point.X, point.Y)).ToArray();
         }
 
         private static void ValidateParameters(TFeatureBasedMapData data, TMapFeatureLayer layer)

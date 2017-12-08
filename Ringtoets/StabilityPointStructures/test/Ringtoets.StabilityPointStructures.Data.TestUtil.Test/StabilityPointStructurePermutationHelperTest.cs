@@ -36,12 +36,12 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             const string testResultDescription = "B";
 
             // Call
-            List<TestCaseData> testCaseDatas = StabilityPointStructurePermutationHelper.DifferentStabilityPointStructures(targetName, testResultDescription).ToList();
+            IEnumerable<TestCaseData> testCaseData = StabilityPointStructurePermutationHelper.DifferentStabilityPointStructures(targetName, testResultDescription);
 
             // Assert
-            Assert.AreEqual(46, testCaseDatas.Count);
-            AssertTestNames(testCaseDatas, targetName, testResultDescription);
-            AssertParameters(testCaseDatas, true, true, true);
+            Assert.AreEqual(46, testCaseData.Count());
+            AssertTestNames(testCaseData, targetName, testResultDescription);
+            AssertParameters(testCaseData, true, true, true);
         }
 
         [Test]
@@ -52,12 +52,12 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             const string testResultDescription = "D";
 
             // Call
-            List<TestCaseData> testCaseDatas = StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameId(targetName, testResultDescription).ToList();
+            IEnumerable<TestCaseData> testCaseData = StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameId(targetName, testResultDescription);
 
             // Assert
-            Assert.AreEqual(45, testCaseDatas.Count);
-            AssertTestNames(testCaseDatas, targetName, testResultDescription);
-            AssertParameters(testCaseDatas, false, true, true);
+            Assert.AreEqual(45, testCaseData.Count());
+            AssertTestNames(testCaseData, targetName, testResultDescription);
+            AssertParameters(testCaseData, false, true, true);
         }
 
         [Test]
@@ -68,35 +68,36 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             const string testResultDescription = "F";
 
             // Call
-            List<TestCaseData> testCaseDatas = StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameIdNameAndLocation(targetName, testResultDescription).ToList();
+            IEnumerable<TestCaseData> testCaseData = StabilityPointStructurePermutationHelper.DifferentStabilityPointStructuresWithSameIdNameAndLocation(targetName, testResultDescription).ToList();
 
             // Assert
-            Assert.AreEqual(43, testCaseDatas.Count);
-            AssertTestNames(testCaseDatas, targetName, testResultDescription);
-            AssertParameters(testCaseDatas, false, false, false);
+            Assert.AreEqual(43, testCaseData.Count());
+            AssertTestNames(testCaseData, targetName, testResultDescription);
+            AssertParameters(testCaseData, false, false, false);
         }
 
-        private static void AssertTestNames(ICollection<TestCaseData> testCaseDatas, string targetName, string testResultDescription)
+        private static void AssertTestNames(IEnumerable<TestCaseData> testCaseData, string targetName, string testResultDescription)
         {
-            IEnumerable<string> testNames = testCaseDatas
+            IEnumerable<string> testNames = testCaseData
                 .Select(tcd => tcd.TestName)
-                .ToList();
-            Assert.AreEqual(testCaseDatas.Count, testNames.Distinct().Count());
+                .ToArray();
+            Assert.AreEqual(testCaseData.Count(), testNames.Distinct().Count());
             Assert.IsTrue(testNames.All(tn => tn.StartsWith($"{targetName}_")));
             Assert.IsTrue(testNames.All(tn => tn.EndsWith($"_{testResultDescription}")));
         }
 
-        private static void AssertParameters(ICollection<TestCaseData> testCaseDatas, bool idUnique, bool nameUnique, bool locationUnique)
+        private static void AssertParameters(IEnumerable<TestCaseData> testCaseData, bool idUnique, bool nameUnique, bool locationUnique)
         {
             var differentStructures = new List<StabilityPointStructure>();
             var referenceStructure = new TestStabilityPointStructure();
 
-            IEnumerable<StabilityPointStructure> structures = testCaseDatas
+            IEnumerable<StabilityPointStructure> structures = testCaseData
                 .Select(tcd => tcd.Arguments[0])
                 .OfType<StabilityPointStructure>()
-                .ToList();
+                .ToArray();
 
-            Assert.AreEqual(testCaseDatas.Count, structures.Count());
+            int testCaseDataCount = testCaseData.Count();
+            Assert.AreEqual(testCaseDataCount, structures.Count());
 
             if (idUnique)
             {
@@ -168,7 +169,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.Mean.Equals(referenceStructure.AreaFlowApertures.Mean)));
             differentStructures.Add(structures.Single(s => !s.AreaFlowApertures.StandardDeviation.Equals(referenceStructure.AreaFlowApertures.StandardDeviation)));
             differentStructures.Add(structures.Single(s => !s.InflowModelType.Equals(referenceStructure.InflowModelType)));
-            Assert.AreEqual(testCaseDatas.Count, differentStructures.Distinct().Count());
+            Assert.AreEqual(testCaseDataCount, differentStructures.Distinct().Count());
         }
     }
 }

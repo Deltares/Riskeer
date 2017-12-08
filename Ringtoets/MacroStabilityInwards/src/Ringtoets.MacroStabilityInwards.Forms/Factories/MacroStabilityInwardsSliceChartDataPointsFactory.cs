@@ -31,8 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 {
     /// <summary>
     /// Factory for creating collections of points in 2D space for a collection of <see cref="MacroStabilityInwardsSlice"/> 
-    /// to use in <see cref="ChartData"/>.
-    /// (created via <see cref="MacroStabilityInwardsChartDataFactory"/>).
+    /// to use in <see cref="ChartData"/> (created via <see cref="MacroStabilityInwardsSliceChartDataFactory"/>).
     /// </summary>
     internal static class MacroStabilityInwardsSliceChartDataPointsFactory
     {
@@ -56,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 slice.TopRightPoint,
                 slice.BottomRightPoint,
                 slice.BottomLeftPoint
-            });
+            }).ToArray();
         }
 
         /// <summary>
@@ -66,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreateCohesionAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -80,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreateEffectiveStressAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -94,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreateEffectiveStressDailyAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -108,7 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreateTotalPorePressureAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -122,7 +121,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreateWeightAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -136,7 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreatePiezometricPorePressureAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -150,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreatePorePressureAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -164,7 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreateVerticalPorePressureAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -178,7 +177,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreateHorizontalPorePressureAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -192,7 +191,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreateOverConsolidationRatioAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -206,7 +205,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreatePopAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -220,7 +219,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreateNormalStressAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -234,7 +233,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreateShearStressAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -248,7 +247,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
         /// get the slices from.</param>
         /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is null.
+        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreateLoadStressAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
@@ -267,7 +266,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             var areas = new List<Point2D[]>();
             foreach (MacroStabilityInwardsSlice slice in slices)
             {
-                RoundedDouble value = getParameterFunc.Invoke(slice);
+                RoundedDouble value = getParameterFunc(slice);
                 double offset = value.Value * scaleFactor;
                 double deltaX = slice.BottomLeftPoint.X - slice.BottomRightPoint.X;
                 double deltaY = slice.BottomLeftPoint.Y - slice.BottomRightPoint.Y;

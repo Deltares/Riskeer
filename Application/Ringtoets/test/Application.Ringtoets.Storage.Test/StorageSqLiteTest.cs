@@ -29,7 +29,7 @@ using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Utils;
+using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Test

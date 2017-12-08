@@ -55,12 +55,12 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 UpdateDataGridViewDataSource,
                 cg => cg.Children.Concat<object>(cg.Children
                                                    .OfType<StructuresCalculation<ClosingStructuresInput>>()
-                                                   .Select(c => c.InputParameters)));
+                                                   .Select(c => c.InputParameters)).ToArray());
             calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(
                 UpdateDataGridViewDataSource,
                 cg => cg.Children.Concat<object>(cg.Children
                                                    .OfType<StructuresCalculation<ClosingStructuresInput>>()
-                                                   .Select(c => c.Output)));
+                                                   .Select(c => c.Output)).ToArray());
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
                 c => c.Children);

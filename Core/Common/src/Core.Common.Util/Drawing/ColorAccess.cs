@@ -121,7 +121,7 @@ namespace Core.Common.Util.Drawing
                         return Color.FromArgb(Buffer.ElementAt(index + 3), Buffer.ElementAt(index + 2),
                                               Buffer.ElementAt(index + 1), Buffer.ElementAt(index));
                     default:
-                        throw new InvalidOperationException($"Indexing image for image format '{format}' isn't supported.");
+                        throw new NotSupportedException($"Indexing image for image format '{format}' isn't supported.");
                 }
             }
             set
@@ -170,7 +170,7 @@ namespace Core.Common.Util.Drawing
             }
 
             BitmapData bitmapData = bitmap.LockBits(validRange, ImageLockMode.WriteOnly, bitmap.PixelFormat);
-            Marshal.Copy(Buffer.ToArray(), 0, bitmapData.Scan0, Buffer.Count());
+            Marshal.Copy(buffer, 0, bitmapData.Scan0, buffer.Length);
             bitmap.UnlockBits(bitmapData);
         }
 
@@ -185,6 +185,10 @@ namespace Core.Common.Util.Drawing
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="accessibleArea"/>
         /// is specified and does not fully fit within the bounds of <paramref name="bitmap"/>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="bitmap.PixelFormat"/>
+        /// has an invalid value for <see cref="PixelFormat"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="bitmap"/>
+        /// is not supported.</exception>
         /// <exception cref="Exception">Thrown when unable to connect to the data buffers
         /// of <paramref name="bitmap"/>.</exception>
         public static ColorAccess Create(Bitmap bitmap, Rectangle? accessibleArea = null)
@@ -235,8 +239,24 @@ namespace Core.Common.Util.Drawing
             return offsetRow + offsetCol;
         }
 
+        /// <summary>
+        /// Gets the pixelsize based on the <see cref="PixelFormat"/>.
+        /// </summary>
+        /// <param name="pixelFormat"></param>
+        /// <returns>The pixel size.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="pixelFormat"/>
+        /// is an invalid <see cref="PixelFormat"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="pixelFormat"/>
+        /// is not supported.</exception>
         private static int GetPixelSize(PixelFormat pixelFormat)
         {
+            if (!Enum.IsDefined(typeof(PixelFormat), pixelFormat))
+            {
+                throw new InvalidEnumArgumentException(nameof(format),
+                                                       (int) pixelFormat,
+                                                       typeof(PixelFormat));
+            }
+
             switch (pixelFormat)
             {
                 case PixelFormat.Format8bppIndexed:
@@ -262,7 +282,7 @@ namespace Core.Common.Util.Drawing
                 case PixelFormat.Format1bppIndexed:
                     return 1;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(pixelFormat), (int) pixelFormat, typeof(PixelFormat));
+                    throw new NotSupportedException($"The enum value {nameof(PixelFormat)}.{pixelFormat} is not supported.");
             }
         }
     }

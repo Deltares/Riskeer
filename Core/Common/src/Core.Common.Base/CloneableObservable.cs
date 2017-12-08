@@ -33,7 +33,7 @@ namespace Core.Common.Base
         {
             var clone = (CloneableObservable) MemberwiseClone();
 
-            clone.observers = new Collection<IObserver>();
+            clone.ObserverCollection = new Collection<IObserver>();
 
             return clone;
         }

@@ -354,7 +354,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                 if (hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
                 {
                     orderDictionaries.Add(CreateNumericsRecord(hydraRingCalculationInput.Section.SectionId,
-                                                               failureMechanismDefaults.MechanismId,
+                                                               failureMechanismDefaults.PreprocessorMechanismId,
                                                                failureMechanismDefaults.PreprocessorSubMechanismId,
                                                                hydraRingCalculationInput.PreprocessorSetting.NumericsSetting));
                 }
@@ -648,7 +648,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                 if (hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
                 {
                     orderedDictionaries.Add(CreateFaultTreeModelsRecord(hydraRingCalculationInput.Section.SectionId,
-                                                                        failureMechanismDefaults.MechanismId,
+                                                                        failureMechanismDefaults.PreprocessorMechanismId,
                                                                         failureMechanismDefaults.PreprocessorFaultTreeModelId));
                 }
             }

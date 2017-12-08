@@ -72,7 +72,7 @@ namespace Core.Components.DotSpatial.Converter
 
         private static IBasicLineString GetLineString(IGeometryFactory factory, IEnumerable<Point2D> points)
         {
-            return factory.CreateLineString(ConvertPoint2DElementsToCoordinates(points).ToList());
+            return factory.CreateLineString(ConvertPoint2DElementsToCoordinates(points).ToArray());
         }
     }
 }

@@ -226,6 +226,6 @@
     <value>SelectItemDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Dialogs.DialogBase, Core.Common.Controls, Version=16.2.1.5472, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Dialogs.DialogBase, Core.Common.Controls, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>

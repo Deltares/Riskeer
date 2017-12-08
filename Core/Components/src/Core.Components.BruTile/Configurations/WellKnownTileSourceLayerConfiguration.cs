@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using BruTile;
 using BruTile.Predefined;
@@ -107,10 +108,19 @@ namespace Core.Components.BruTile.Configurations
         /// </summary>
         /// <param name="wellKnownTileSource">The tile provider to be used.</param>
         /// <returns>The <see cref="KnownTileSource"/> equivalent of the <paramref name="wellKnownTileSource"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="wellKnownTileSource"/>
+        /// is not a valid enum value of <see cref="WellKnownTileSource"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="wellKnownTileSource"/>
         /// is not a supported member.</exception>
         private static KnownTileSource WellKnownTileSourceToKnownTileSource(WellKnownTileSource wellKnownTileSource)
         {
+            if (!Enum.IsDefined(typeof(WellKnownTileSource), wellKnownTileSource))
+            {
+                throw new InvalidEnumArgumentException(nameof(wellKnownTileSource),
+                                                       (int) wellKnownTileSource,
+                                                       typeof(WellKnownTileSource));
+            }
+
             switch (wellKnownTileSource)
             {
                 case WellKnownTileSource.BingAerial:

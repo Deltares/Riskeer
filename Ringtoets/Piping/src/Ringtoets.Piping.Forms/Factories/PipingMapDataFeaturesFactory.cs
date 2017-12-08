@@ -34,7 +34,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>
+    /// Factory for creating collections of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>
     /// (created via <see cref="RingtoetsMapDataFactory"/>).
     /// </summary>
     internal static class PipingMapDataFeaturesFactory
@@ -43,16 +43,16 @@ namespace Ringtoets.Piping.Forms.Factories
         /// Create surface line features based on the provided <paramref name="surfaceLines"/>.
         /// </summary>
         /// <param name="surfaceLines">The collection of <see cref="PipingSurfaceLine"/> to create the surface line features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="surfaceLines"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateSurfaceLineFeatures(PipingSurfaceLine[] surfaceLines)
+        /// <returns>A collection of features or an empty collection when <paramref name="surfaceLines"/> is <c>null</c> or empty.</returns>
+        public static MapFeature[] CreateSurfaceLineFeatures(IEnumerable<PipingSurfaceLine> surfaceLines)
         {
             if (surfaceLines != null && surfaceLines.Any())
             {
-                var features = new MapFeature[surfaceLines.Length];
+                var features = new MapFeature[surfaceLines.Count()];
 
-                for (var i = 0; i < surfaceLines.Length; i++)
+                for (var i = 0; i < surfaceLines.Count(); i++)
                 {
-                    PipingSurfaceLine surfaceLine = surfaceLines[i];
+                    PipingSurfaceLine surfaceLine = surfaceLines.ElementAt(i);
 
                     MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(surfaceLine));
                     feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = surfaceLine.Name;
@@ -70,16 +70,16 @@ namespace Ringtoets.Piping.Forms.Factories
         /// Create stochastic soil model features based on the provided <paramref name="stochasticSoilModels"/>.
         /// </summary>
         /// <param name="stochasticSoilModels">The collection of <see cref="PipingStochasticSoilModel"/> to create the stochastic soil model features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="stochasticSoilModels"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateStochasticSoilModelFeatures(PipingStochasticSoilModel[] stochasticSoilModels)
+        /// <returns>A collection of features or an empty collection when <paramref name="stochasticSoilModels"/> is <c>null</c> or empty.</returns>
+        public static IEnumerable<MapFeature> CreateStochasticSoilModelFeatures(IEnumerable<PipingStochasticSoilModel> stochasticSoilModels)
         {
             if (stochasticSoilModels != null && stochasticSoilModels.Any())
             {
-                var features = new MapFeature[stochasticSoilModels.Length];
+                var features = new MapFeature[stochasticSoilModels.Count()];
 
-                for (var i = 0; i < stochasticSoilModels.Length; i++)
+                for (var i = 0; i < stochasticSoilModels.Count(); i++)
                 {
-                    PipingStochasticSoilModel stochasticSoilModel = stochasticSoilModels[i];
+                    PipingStochasticSoilModel stochasticSoilModel = stochasticSoilModels.ElementAt(i);
 
                     MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(stochasticSoilModel));
                     feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = stochasticSoilModel.Name;
@@ -97,8 +97,8 @@ namespace Ringtoets.Piping.Forms.Factories
         /// Create calculation features based on the provided <paramref name="calculations"/>.
         /// </summary>
         /// <param name="calculations">The collection of <see cref="PipingCalculationScenario"/> to create the calculation features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateCalculationFeatures(IEnumerable<PipingCalculationScenario> calculations)
+        /// <returns>A collection of features or an empty collection when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
+        public static IEnumerable<MapFeature> CreateCalculationFeatures(IEnumerable<PipingCalculationScenario> calculations)
         {
             bool hasCalculations = calculations != null && calculations.Any();
 
@@ -107,9 +107,9 @@ namespace Ringtoets.Piping.Forms.Factories
                 return new MapFeature[0];
             }
 
-            IEnumerable<PipingCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(c =>
-                                                                                                                                 c.InputParameters.SurfaceLine != null &&
-                                                                                                                                 c.InputParameters.HydraulicBoundaryLocation != null);
+            IEnumerable<PipingCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(
+                c => c.InputParameters.SurfaceLine != null &&
+                     c.InputParameters.HydraulicBoundaryLocation != null);
 
             MapCalculationData[] calculationData =
                 calculationsWithLocationAndHydraulicBoundaryLocation.Select(
@@ -123,12 +123,12 @@ namespace Ringtoets.Piping.Forms.Factories
 
         private static IEnumerable<Point2D> GetWorldPoints(PipingSurfaceLine surfaceLine)
         {
-            return surfaceLine.Points.Select(p => new Point2D(p.X, p.Y));
+            return surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)).ToArray();
         }
 
         private static IEnumerable<Point2D> GetWorldPoints(PipingStochasticSoilModel stochasticSoilModel)
         {
-            return stochasticSoilModel.Geometry.Select(p => new Point2D(p));
+            return stochasticSoilModel.Geometry.Select(p => new Point2D(p)).ToArray();
         }
     }
 }

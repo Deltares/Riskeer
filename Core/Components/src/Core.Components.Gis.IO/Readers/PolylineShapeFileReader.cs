@@ -150,7 +150,7 @@ namespace Core.Components.Gis.IO.Readers
         private MapLineData ConvertMultiLineFeatureToMapLineData(IEnumerable<IFeature> lineFeatures, string name)
         {
             int lineFeaturesCount = lineFeatures.Count();
-            var mapFeatureList = new MapFeature[lineFeaturesCount];
+            var mapFeatures = new MapFeature[lineFeaturesCount];
 
             for (var featureIndex = 0; featureIndex < lineFeaturesCount; featureIndex++)
             {
@@ -159,12 +159,12 @@ namespace Core.Components.Gis.IO.Readers
 
                 CopyMetaDataIntoFeature(feature, featureIndex);
 
-                mapFeatureList[featureIndex] = feature;
+                mapFeatures[featureIndex] = feature;
             }
 
             var mapLineData = new MapLineData(name)
             {
-                Features = mapFeatureList
+                Features = mapFeatures
             };
             mapLineData.SelectedMetaDataAttribute = mapLineData.MetaData.FirstOrDefault();
 
@@ -186,11 +186,11 @@ namespace Core.Components.Gis.IO.Readers
             return new MapFeature(geometries);
         }
 
-        private static IEnumerable<Point2D>[] GetMapGeometryPointCollections(IEnumerable<Coordinate> lineCoordinates)
+        private static IEnumerable<IEnumerable<Point2D>> GetMapGeometryPointCollections(IEnumerable<Coordinate> lineCoordinates)
         {
             return new[]
             {
-                lineCoordinates.Select(c => new Point2D(c.X, c.Y))
+                lineCoordinates.Select(c => new Point2D(c.X, c.Y)).ToArray()
             };
         }
     }

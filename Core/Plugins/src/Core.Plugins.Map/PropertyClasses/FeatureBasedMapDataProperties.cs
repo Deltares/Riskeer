@@ -130,7 +130,7 @@ namespace Core.Plugins.Map.PropertyClasses
 
         public IEnumerable<SelectableMetaDataAttribute> GetAvailableMetaDataAttributes()
         {
-            return data.MetaData.Select(md => new SelectableMetaDataAttribute(md));
+            return data.MetaData.Select(md => new SelectableMetaDataAttribute(md)).ToArray();
         }
     }
 }

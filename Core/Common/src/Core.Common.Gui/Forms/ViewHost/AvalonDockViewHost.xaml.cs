@@ -418,6 +418,11 @@ namespace Core.Common.Gui.Forms.ViewHost
         private void AddLayoutAnchorable(LayoutAnchorable layoutAnchorable, ToolViewLocation toolViewLocation)
         {
             LayoutAnchorablePaneGroup layoutAnchorablePaneGroup;
+            if (!Enum.IsDefined(typeof(ToolViewLocation), toolViewLocation))
+            {
+                throw new InvalidEnumArgumentException(nameof(toolViewLocation), (int)toolViewLocation, typeof(ToolViewLocation));
+            }
+
             switch (toolViewLocation)
             {
                 case ToolViewLocation.Left:
@@ -445,7 +450,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                     layoutAnchorablePaneGroup = RightLayoutAnchorablePaneGroup;
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(toolViewLocation), (int) toolViewLocation, typeof(ToolViewLocation));
+                    throw new NotSupportedException($"The enum value {nameof(ToolViewLocation)}.{toolViewLocation} is not supported.");
             }
 
             layoutAnchorablePaneGroup.Descendents()
