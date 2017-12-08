@@ -379,66 +379,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryDatabase_WhenNewDatabaseIsSetAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView())
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var currentHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "old 1", 1, 2)
-                    }
-                };
-                var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "new 1", 1, 2)
-                    }
-                };
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase = currentHydraulicBoundaryDatabase
-                };
-
-                view.Data = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver()).Repeat.Twice();
-                observers[dikeProfilesIndex].Expect(obs => obs.UpdateObserver());
-                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
-                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(currentHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
-
-                // When
-                assessmentSection.HydraulicBoundaryDatabase = newHydraulicBoundaryDatabase;
-                assessmentSection.NotifyObservers();
-                newHydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "new 2", 2, 3));
-                newHydraulicBoundaryDatabase.NotifyObservers();
-
-                // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
-
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given

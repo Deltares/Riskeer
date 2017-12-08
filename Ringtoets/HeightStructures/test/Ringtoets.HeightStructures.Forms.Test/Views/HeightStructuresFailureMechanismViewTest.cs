@@ -376,55 +376,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryDatabase_WhenNewDatabaseIsSetAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            using (var view = new HeightStructuresFailureMechanismView())
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var currentHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "old 1", 1, 2)
-                    }
-                };
-                var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "new 1", 1, 2)
-                    }
-                };
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase = currentHydraulicBoundaryDatabase
-                };
-
-                view.Data = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(),
-                                                                        assessmentSection);
-
-                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-                // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(currentHydraulicBoundaryDatabase.Locations,
-                                                                          hydraulicBoundaryLocationsMapData);
-
-                // When
-                assessmentSection.HydraulicBoundaryDatabase = newHydraulicBoundaryDatabase;
-                assessmentSection.NotifyObservers();
-                newHydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "new 2", 2, 3));
-                newHydraulicBoundaryDatabase.NotifyObservers();
-
-                // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations,
-                                                                          hydraulicBoundaryLocationsMapData);
-            }
-        }
-
-        [Test]
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
