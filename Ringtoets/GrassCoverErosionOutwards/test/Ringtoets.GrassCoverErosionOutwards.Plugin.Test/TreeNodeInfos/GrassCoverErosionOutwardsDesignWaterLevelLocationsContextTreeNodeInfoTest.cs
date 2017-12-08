@@ -189,14 +189,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
             var applicationFeatureCommandHandler = mockRepository.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mockRepository.Stub<IImportCommandHandler>();
             var exportCommandHandler = mockRepository.Stub<IExportCommandHandler>();
             var updateCommandHandler = mockRepository.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mockRepository.Stub<IViewCommands>();
+
             viewCommandsHandler.Stub(vch => vch.CanOpenViewFor(null)).IgnoreArguments().Return(true);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -248,18 +248,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite"),
-                Version = "1.0"
-            };
-
             var applicationFeatureCommandHandler = mockRepository.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mockRepository.Stub<IImportCommandHandler>();
             var exportCommandHandler = mockRepository.Stub<IExportCommandHandler>();
             var updateCommandHandler = mockRepository.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mockRepository.Stub<IViewCommands>();
+
             viewCommandsHandler.Stub(vch => vch.CanOpenViewFor(null)).IgnoreArguments().Return(true);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite"),
+                Version = "1.0"
+            });
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -308,18 +308,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite"),
-                Version = "1.0"
-            };
-
             var applicationFeatureCommandHandler = mockRepository.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mockRepository.Stub<IImportCommandHandler>();
             var exportCommandHandler = mockRepository.Stub<IExportCommandHandler>();
             var updateCommandHandler = mockRepository.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mockRepository.Stub<IViewCommands>();
+
             viewCommandsHandler.Stub(vch => vch.CanOpenViewFor(null)).IgnoreArguments().Return(true);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite"),
+                Version = "1.0"
+            });
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -378,10 +378,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = filePath
-            };
+            });
 
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
@@ -440,13 +440,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = filePath,
                 CanUsePreprocessor = true,
                 UsePreprocessor = true,
                 PreprocessorDirectory = preprocessorDirectory
-            };
+            });
 
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
@@ -504,13 +504,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = filePath,
                 CanUsePreprocessor = true,
                 UsePreprocessor = false,
                 PreprocessorDirectory = "InvalidPreprocessorDirectory"
-            };
+            });
 
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {

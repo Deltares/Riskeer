@@ -496,7 +496,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 UsePreprocessor = true,
                 PreprocessorDirectory = preprocessorDirectory
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSection.Stub(ass => ass.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
