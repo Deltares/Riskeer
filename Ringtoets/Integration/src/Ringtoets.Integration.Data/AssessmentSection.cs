@@ -251,12 +251,17 @@ namespace Ringtoets.Integration.Data
             yield return TechnicalInnovation;
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="newComposition"/> 
+        /// is not a valid enum value of <see cref="AssessmentSectionComposition"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="newComposition"/>
+        /// is not supported.</exception>
         public void ChangeComposition(AssessmentSectionComposition newComposition)
         {
             if (!Enum.IsDefined(typeof(AssessmentSectionComposition), newComposition))
             {
                 throw new InvalidEnumArgumentException(nameof(newComposition),
-                                                       (int)newComposition,
+                                                       (int) newComposition,
                                                        typeof(AssessmentSectionComposition));
             }
 

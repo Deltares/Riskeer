@@ -85,10 +85,6 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// and the failure mechanisms returned by <see cref="GetFailureMechanisms"/>.
         /// </summary>
         /// <param name="newComposition">The new composition description.</param>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="newComposition"/> 
-        /// is not a valid enum value of <see cref="AssessmentSectionComposition"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="newComposition"/>
-        /// is not supported.</exception>
         void ChangeComposition(AssessmentSectionComposition newComposition);
     }
 }
