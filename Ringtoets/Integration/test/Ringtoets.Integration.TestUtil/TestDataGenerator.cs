@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.TestUtil
             var assessmentSection = new AssessmentSection(composition)
             {
                 ReferenceLine = new ReferenceLine(),
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     Locations =
                     {

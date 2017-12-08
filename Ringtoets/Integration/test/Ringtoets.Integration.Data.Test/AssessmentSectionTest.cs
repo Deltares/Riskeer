@@ -411,21 +411,6 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
         }
 
-        [Test]
-        public void HydraulicBoundaryDatabase_SetNewValue_GetNewValue()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-            // Call
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-
-            // Assert
-            Assert.AreSame(hydraulicBoundaryDatabase, assessmentSection.HydraulicBoundaryDatabase);
-        }
-
         private IFailureMechanism[] GetExpectedContributingFailureMechanisms(AssessmentSection section)
         {
             return new IFailureMechanism[]

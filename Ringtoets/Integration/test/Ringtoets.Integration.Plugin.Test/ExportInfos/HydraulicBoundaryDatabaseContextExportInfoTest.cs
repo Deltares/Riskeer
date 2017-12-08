@@ -60,12 +60,15 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 0, 0));
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "test", 0, 0)
+                    }
+                }
             };
             var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
             const string filePath = "test";

@@ -58,10 +58,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         public void Run_CalculationWithInvalidHydraulicBoundaryDatabaseFilePath_DoesNotPerformCalculationAndLogsError()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -115,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     CanUsePreprocessor = true,
                     UsePreprocessor = true,
@@ -523,7 +520,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
                     Locations =
@@ -566,7 +563,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
                     Locations =
@@ -612,7 +609,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
                     Locations =
