@@ -30,7 +30,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>.
+    /// Factory for creating collections of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>.
     /// </summary>
     internal static class GrassCoverErosionInwardsMapDataFeaturesFactory
     {
@@ -38,8 +38,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
         /// Create calculation features based on the provided <paramref name="calculations"/>.
         /// </summary>
         /// <param name="calculations">The collection of <see cref="GrassCoverErosionInwardsCalculation"/> to create the calculation features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateCalculationFeatures(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        /// <returns>A collection of features or an empty collection when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
+        public static IEnumerable<MapFeature> CreateCalculationFeatures(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             bool hasCalculations = calculations != null && calculations.Any();
 

@@ -40,7 +40,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>
+    /// Factory for creating collections of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>
     /// (created via <see cref="RingtoetsMapDataFactory"/>).
     /// </summary>
     public static class RingtoetsMapDataFeaturesFactory
@@ -75,9 +75,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// line features for.</param>
         /// <param name="id">The id of the <see cref="IAssessmentSection"/>.</param>
         /// <param name="name">The name of the <see cref="IAssessmentSection"/>.</param>
-        /// <returns>An array of features or an empty array when <paramref name="referenceLine"/> 
+        /// <returns>A collection of features or an empty collection when <paramref name="referenceLine"/> 
         /// is <c>null</c>.</returns>
-        public static MapFeature[] CreateReferenceLineFeatures(ReferenceLine referenceLine, string id, string name)
+        public static IEnumerable<MapFeature> CreateReferenceLineFeatures(ReferenceLine referenceLine, string id, string name)
         {
             if (referenceLine != null)
             {
@@ -100,9 +100,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
         /// to create the location features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryDatabase"/> 
+        /// <returns>A collection of features or an empty collection when <paramref name="hydraulicBoundaryDatabase"/> 
         /// is <c>null</c>.</returns>
-        public static MapFeature[] CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        public static IEnumerable<MapFeature> CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             return CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryDatabase?.Locations.ToArray() ?? new HydraulicBoundaryLocation[0],
                                                            Resources.DesignWaterLevel_DisplayName,
@@ -115,12 +115,12 @@ namespace Ringtoets.Common.Forms.Factories
         /// <param name="hydraulicBoundaryLocations">The locations to create the features for.</param>
         /// <param name="designWaterLevelAttributeName">The name of the design water level attribute.</param>
         /// <param name="waveHeightAttributeName">The name of the wave height attribute.</param>
-        /// <returns>An array of features or an empty array when <paramref name="hydraulicBoundaryLocations"/> 
+        /// <returns>A collection of features or an empty collection when <paramref name="hydraulicBoundaryLocations"/> 
         /// is empty.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static MapFeature[] CreateHydraulicBoundaryLocationFeatures(HydraulicBoundaryLocation[] hydraulicBoundaryLocations,
-                                                                           string designWaterLevelAttributeName,
-                                                                           string waveHeightAttributeName)
+        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationFeatures(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                                                      string designWaterLevelAttributeName,
+                                                                                      string waveHeightAttributeName)
         {
             if (hydraulicBoundaryLocations == null)
             {
@@ -135,11 +135,11 @@ namespace Ringtoets.Common.Forms.Factories
                 throw new ArgumentNullException(nameof(waveHeightAttributeName));
             }
 
-            var features = new MapFeature[hydraulicBoundaryLocations.Length];
+            var features = new MapFeature[hydraulicBoundaryLocations.Count()];
 
-            for (var i = 0; i < hydraulicBoundaryLocations.Length; i++)
+            for (var i = 0; i < hydraulicBoundaryLocations.Count(); i++)
             {
-                HydraulicBoundaryLocation location = hydraulicBoundaryLocations[i];
+                HydraulicBoundaryLocation location = hydraulicBoundaryLocations.ElementAt(i);
 
                 MapFeature feature = CreateSinglePointMapFeature(location.Location);
                 feature.MetaData[Resources.MetaData_ID] = location.Id;
@@ -158,9 +158,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// </summary>
         /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create 
         /// the section features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="sections"/> is 
+        /// <returns>A collection of features or an empty collection when <paramref name="sections"/> is 
         /// <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateFailureMechanismSectionFeatures(IEnumerable<FailureMechanismSection> sections)
+        public static IEnumerable<MapFeature> CreateFailureMechanismSectionFeatures(IEnumerable<FailureMechanismSection> sections)
         {
             return sections?.Select(CreateFailureMechanismSectionMapFeature).ToArray() ?? new MapFeature[0];
         }
@@ -170,9 +170,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// </summary>
         /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create 
         /// the section start point features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="sections"/> is 
+        /// <returns>A collection of features or an empty collection when <paramref name="sections"/> is 
         /// <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateFailureMechanismSectionStartPointFeatures(IEnumerable<FailureMechanismSection> sections)
+        public static IEnumerable<MapFeature> CreateFailureMechanismSectionStartPointFeatures(IEnumerable<FailureMechanismSection> sections)
         {
             return sections != null && sections.Any()
                        ? new[]
@@ -187,14 +187,14 @@ namespace Ringtoets.Common.Forms.Factories
         /// </summary>
         /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create 
         /// the section end point features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="sections"/> is 
+        /// <returns>A collection of features or an empty collection when <paramref name="sections"/> is 
         /// <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateFailureMechanismSectionEndPointFeatures(IEnumerable<FailureMechanismSection> sections)
+        public static IEnumerable<MapFeature> CreateFailureMechanismSectionEndPointFeatures(IEnumerable<FailureMechanismSection> sections)
         {
             return sections != null && sections.Any()
                        ? new[]
                        {
-                           CreateSingleLineMapFeature(sections.Select(sl => sl.GetLast()))
+                           CreateSingleLineMapFeature(sections.Select(sl => sl.GetLast()).ToArray())
                        }
                        : new MapFeature[0];
         }
@@ -203,9 +203,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// Create features for the geometry of the <paramref name="dikeProfiles"/>.
         /// </summary>
         /// <param name="dikeProfiles">The profiles to create features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="dikeProfiles"/> is 
+        /// <returns>A collection of features or an empty collection when <paramref name="dikeProfiles"/> is 
         /// <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateDikeProfilesFeatures(IEnumerable<DikeProfile> dikeProfiles)
+        public static IEnumerable<MapFeature> CreateDikeProfilesFeatures(IEnumerable<DikeProfile> dikeProfiles)
         {
             if (dikeProfiles != null)
             {
@@ -230,9 +230,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// Create features for the geometry of the <paramref name="foreshoreProfiles"/>.
         /// </summary>
         /// <param name="foreshoreProfiles">The profiles to create features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="foreshoreProfiles"/>
+        /// <returns>A collection of features or an empty collection when <paramref name="foreshoreProfiles"/>
         /// is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateForeshoreProfilesFeatures(IEnumerable<ForeshoreProfile> foreshoreProfiles)
+        public static IEnumerable<MapFeature> CreateForeshoreProfilesFeatures(IEnumerable<ForeshoreProfile> foreshoreProfiles)
         {
             if (foreshoreProfiles != null)
             {
@@ -258,9 +258,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// Create features for the geometry of the <paramref name="structures"/>.
         /// </summary>
         /// <param name="structures">The profiles to create features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="structures"/> is 
+        /// <returns>A collection of features or an empty collection when <paramref name="structures"/> is 
         /// <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateStructuresFeatures(IEnumerable<StructureBase> structures)
+        public static IEnumerable<MapFeature> CreateStructuresFeatures(IEnumerable<StructureBase> structures)
         {
             if (structures != null)
             {
@@ -288,9 +288,9 @@ namespace Ringtoets.Common.Forms.Factories
         /// <typeparam name="TStructure">The type of the <see cref="StructureBase"/>.</typeparam>
         /// <param name="calculations">The collection of <see cref="StructuresCalculation{T}"/> to create the 
         /// calculation features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="calculations"/> is <c>null</c> 
+        /// <returns>A collection of features or an empty collection when <paramref name="calculations"/> is <c>null</c> 
         /// or empty.</returns>
-        public static MapFeature[] CreateStructureCalculationsFeatures<TStructuresInput, TStructure>(
+        public static IEnumerable<MapFeature> CreateStructureCalculationsFeatures<TStructuresInput, TStructure>(
             IEnumerable<StructuresCalculation<TStructuresInput>> calculations)
             where TStructuresInput : StructuresInputBase<TStructure>, new()
             where TStructure : StructureBase
@@ -311,17 +311,17 @@ namespace Ringtoets.Common.Forms.Factories
         /// </summary>
         /// <param name="calculationData">The collection of <see cref="MapCalculationData"/> to create the 
         /// calculation features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="calculationData"/> is <c>null</c> 
+        /// <returns>A collection of features or an empty collection when <paramref name="calculationData"/> is <c>null</c> 
         /// or empty.</returns>
-        public static MapFeature[] CreateCalculationFeatures(MapCalculationData[] calculationData)
+        public static IEnumerable<MapFeature> CreateCalculationFeatures(IEnumerable<MapCalculationData> calculationData)
         {
             if (calculationData != null && calculationData.Any())
             {
-                var features = new MapFeature[calculationData.Length];
+                var features = new MapFeature[calculationData.Count()];
 
-                for (var i = 0; i < calculationData.Length; i++)
+                for (var i = 0; i < calculationData.Count(); i++)
                 {
-                    MapCalculationData calculationItem = calculationData[i];
+                    MapCalculationData calculationItem = calculationData.ElementAt(i);
                     MapFeature feature = CreateSingleLineMapFeature(new[]
                     {
                         calculationItem.CalculationLocation,
@@ -402,7 +402,7 @@ namespace Ringtoets.Common.Forms.Factories
             return feature;
         }
 
-        private static Point2D[] GetWorldPoints(DikeProfile dikeProfile)
+        private static IEnumerable<Point2D> GetWorldPoints(DikeProfile dikeProfile)
         {
             return AdvancedMath2D.FromXToXY(
                 dikeProfile.DikeGeometry.Select(p => -p.Point.X).ToArray(),
@@ -411,7 +411,7 @@ namespace Ringtoets.Common.Forms.Factories
                 dikeProfile.Orientation);
         }
 
-        private static Point2D[] GetWorldPoints(ForeshoreProfile foreshoreProfile)
+        private static IEnumerable<Point2D> GetWorldPoints(ForeshoreProfile foreshoreProfile)
         {
             return AdvancedMath2D.FromXToXY(
                 foreshoreProfile.Geometry.Select(p => -p.X).ToArray(),

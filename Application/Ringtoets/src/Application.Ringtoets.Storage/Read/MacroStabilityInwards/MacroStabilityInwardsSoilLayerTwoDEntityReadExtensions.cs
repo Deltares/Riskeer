@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
 
             return new MacroStabilityInwardsSoilLayer2D(outerRing,
                                                         ReadData(entity),
-                                                        ReadNestedLayers(entity).ToArray());
+                                                        ReadNestedLayers(entity));
         }
 
         private static MacroStabilityInwardsSoilLayerData ReadData(MacroStabilityInwardsSoilLayerTwoDEntity entity)
@@ -110,7 +110,8 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
         {
             return entity.MacroStabilityInwardsSoilLayerTwoDEntity1
                          .OrderBy(e => e.Order)
-                         .Select(e => e.Read());
+                         .Select(e => e.Read())
+                         .ToArray();
         }
     }
 }

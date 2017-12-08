@@ -207,7 +207,7 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             for (var i = 0; i < foreshoreProfileArray.Length; i++)
             {
-                Point2D[] expectedGeometry = GetWorldPoints(foreshoreProfileArray[i]);
+                IEnumerable<Point2D> expectedGeometry = GetWorldPoints(foreshoreProfileArray[i]);
                 MapGeometry profileDataA = foreshoreProfilesData.Features.ElementAt(i).MapGeometries.First();
                 CollectionAssert.AreEquivalent(expectedGeometry, profileDataA.PointCollections.First());
             }
@@ -290,7 +290,7 @@ namespace Ringtoets.Common.Forms.TestUtil
                                       structuresData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
         }
 
-        private static Point2D[] GetWorldPoints(ForeshoreProfile foreshoreProfile)
+        private static IEnumerable<Point2D> GetWorldPoints(ForeshoreProfile foreshoreProfile)
         {
             return AdvancedMath2D.FromXToXY(
                 foreshoreProfile.Geometry.Select(p => -p.X).ToArray(),

@@ -38,27 +38,27 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
     public class MacroStabilityInwardsMapDataFeaturesFactoryTest
     {
         [Test]
-        public void CreateSurfaceLineFeatures_SurfaceLinesNull_ReturnsEmptyFeaturesArray()
+        public void CreateSurfaceLineFeatures_SurfaceLinesNull_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            MapFeature[] features = MacroStabilityInwardsMapDataFeaturesFactory.CreateSurfaceLineFeatures(null);
+            IEnumerable<MapFeature> features = MacroStabilityInwardsMapDataFeaturesFactory.CreateSurfaceLineFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateSurfaceLineFeatures_NoSurfaceLines_ReturnsEmptyFeaturesArray()
+        public void CreateSurfaceLineFeatures_NoSurfaceLines_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            MapFeature[] features = MacroStabilityInwardsMapDataFeaturesFactory.CreateSurfaceLineFeatures(new MacroStabilityInwardsSurfaceLine[0]);
+            IEnumerable<MapFeature> features = MacroStabilityInwardsMapDataFeaturesFactory.CreateSurfaceLineFeatures(new MacroStabilityInwardsSurfaceLine[0]);
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateSurfaceLineFeatures_GivenSurfaceLines_ReturnsSurfaceLineFeaturesArray()
+        public void CreateSurfaceLineFeatures_GivenSurfaceLines_ReturnsSurfaceLineFeaturesCollection()
         {
             // Setup
             var pointsOne = new[]
@@ -80,42 +80,42 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             surfaceLines[1].SetGeometry(pointsTwo);
 
             // Call
-            MapFeature[] features = MacroStabilityInwardsMapDataFeaturesFactory.CreateSurfaceLineFeatures(surfaceLines);
+            IEnumerable<MapFeature> features = MacroStabilityInwardsMapDataFeaturesFactory.CreateSurfaceLineFeatures(surfaceLines);
 
             // Assert
-            Assert.AreEqual(surfaceLines.Length, features.Length);
+            Assert.AreEqual(surfaceLines.Length, features.Count());
 
-            for (var i = 0; i < features.Length; i++)
+            for (var i = 0; i < features.Count(); i++)
             {
-                Assert.AreEqual(1, features[i].MapGeometries.Count());
-                AssertEqualPointCollections(surfaceLines[i].Points, features[i].MapGeometries.First());
-                Assert.AreEqual(1, features[i].MetaData.Keys.Count);
-                Assert.AreEqual(surfaceLines[i].Name, features[i].MetaData["Naam"]);
+                Assert.AreEqual(1, features.ElementAt(i).MapGeometries.Count());
+                AssertEqualPointCollections(surfaceLines[i].Points, features.ElementAt(i).MapGeometries.First());
+                Assert.AreEqual(1, features.ElementAt(i).MetaData.Keys.Count);
+                Assert.AreEqual(surfaceLines[i].Name, features.ElementAt(i).MetaData["Naam"]);
             }
         }
 
         [Test]
-        public void CreateStochasticSoilModelFeatures_StochasticSoilModelsNull_ReturnsEmptyFeaturesArray()
+        public void CreateStochasticSoilModelFeatures_StochasticSoilModelsNull_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            MapFeature[] features = MacroStabilityInwardsMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(null);
+            IEnumerable<MapFeature> features = MacroStabilityInwardsMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateStochasticSoilModelFeatures_NoStochasticSoilModels_ReturnsEmptyFeaturesArray()
+        public void CreateStochasticSoilModelFeatures_NoStochasticSoilModels_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            MapFeature[] features = MacroStabilityInwardsMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(new MacroStabilityInwardsStochasticSoilModel[0]);
+            IEnumerable<MapFeature> features = MacroStabilityInwardsMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(new MacroStabilityInwardsStochasticSoilModel[0]);
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateStochasticSoilModelFeatures_GivenStochasticSoilModels_ReturnsStochasticSoilModelFeaturesArray()
+        public void CreateStochasticSoilModelFeatures_GivenStochasticSoilModels_ReturnsStochasticSoilModelFeaturesCollection()
         {
             // Setup
             var pointsOne = new[]
@@ -135,42 +135,42 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             };
 
             // Call
-            MapFeature[] features = MacroStabilityInwardsMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(stochasticSoilModels);
+            IEnumerable<MapFeature> features = MacroStabilityInwardsMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(stochasticSoilModels);
 
             // Assert
-            Assert.AreEqual(stochasticSoilModels.Length, features.Length);
+            Assert.AreEqual(stochasticSoilModels.Length, features.Count());
 
-            for (var i = 0; i < features.Length; i++)
+            for (var i = 0; i < features.Count(); i++)
             {
-                Assert.AreEqual(1, features[i].MapGeometries.Count());
-                AssertEqualPointCollections(stochasticSoilModels[i].Geometry, features[i].MapGeometries.First());
-                Assert.AreEqual(1, features[i].MetaData.Keys.Count);
-                Assert.AreEqual(stochasticSoilModels[i].Name, features[i].MetaData["Naam"]);
+                Assert.AreEqual(1, features.ElementAt(i).MapGeometries.Count());
+                AssertEqualPointCollections(stochasticSoilModels[i].Geometry, features.ElementAt(i).MapGeometries.First());
+                Assert.AreEqual(1, features.ElementAt(i).MetaData.Keys.Count);
+                Assert.AreEqual(stochasticSoilModels[i].Name, features.ElementAt(i).MetaData["Naam"]);
             }
         }
 
         [Test]
-        public void CreateCalculationFeatures_CalculationsNull_ReturnsEmptyFeaturesArray()
+        public void CreateCalculationFeatures_CalculationsNull_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            MapFeature[] features = MacroStabilityInwardsMapDataFeaturesFactory.CreateCalculationFeatures(null);
+            IEnumerable<MapFeature> features = MacroStabilityInwardsMapDataFeaturesFactory.CreateCalculationFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateCalculationFeatures_NoCalculations_ReturnsEmptyFeaturesArray()
+        public void CreateCalculationFeatures_NoCalculations_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            MapFeature[] features = MacroStabilityInwardsMapDataFeaturesFactory.CreateCalculationFeatures(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
+            IEnumerable<MapFeature> features = MacroStabilityInwardsMapDataFeaturesFactory.CreateCalculationFeatures(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateCalculationFeatures_GivenCalculations_ReturnsCalculationFeaturesArray()
+        public void CreateCalculationFeatures_GivenCalculations_ReturnsCalculationFeaturesCollection()
         {
             // Setup
             MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
@@ -183,26 +183,26 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             calculationB.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 2.2, 3.8);
 
             // Call
-            MapFeature[] features = MacroStabilityInwardsMapDataFeaturesFactory.CreateCalculationFeatures(new[]
+            IEnumerable<MapFeature> features = MacroStabilityInwardsMapDataFeaturesFactory.CreateCalculationFeatures(new[]
             {
                 calculationA,
                 calculationB
             });
 
             // Assert
-            Assert.AreEqual(2, features.Length);
-            Assert.AreEqual(1, features[0].MapGeometries.Count());
-            Assert.AreEqual(1, features[1].MapGeometries.Count());
+            Assert.AreEqual(2, features.Count());
+            Assert.AreEqual(1, features.ElementAt(0).MapGeometries.Count());
+            Assert.AreEqual(1, features.ElementAt(1).MapGeometries.Count());
             AssertEqualPointCollections(new[]
             {
                 new Point2D(1.0, 3.0),
                 new Point2D(5.0, 4.0)
-            }, features[0].MapGeometries.ElementAt(0));
+            }, features.ElementAt(0).MapGeometries.ElementAt(0));
             AssertEqualPointCollections(new[]
             {
                 new Point2D(1.0, 4.0),
                 new Point2D(2.2, 3.8)
-            }, features[1].MapGeometries.ElementAt(0));
+            }, features.ElementAt(1).MapGeometries.ElementAt(0));
         }
 
         private static void AssertEqualPointCollections(IEnumerable<Point3D> points, MapGeometry geometry)

@@ -30,7 +30,7 @@ using Ringtoets.StabilityStoneCover.Data;
 namespace Ringtoets.StabilityStoneCover.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>.
+    /// Factory for creating collections of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>.
     /// </summary>
     internal static class StabilityStoneCoverMapDataFeaturesFactory
     {
@@ -38,8 +38,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Factories
         /// Create calculation features based on the provided <paramref name="calculationInputs"/>.
         /// </summary>
         /// <param name="calculationInputs">The collection of <see cref="StabilityStoneCoverWaveConditionsCalculation"/> to create the calculation features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="calculationInputs"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateCalculationFeatures(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculationInputs)
+        /// <returns>A collection of features or an empty collection when <paramref name="calculationInputs"/> is <c>null</c> or empty.</returns>
+        public static IEnumerable<MapFeature> CreateCalculationFeatures(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculationInputs)
         {
             bool hasCalculations = calculationInputs != null && calculationInputs.Any();
 

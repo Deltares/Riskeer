@@ -36,20 +36,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
     public class GrassCoverErosionOutwardsMapDataFeaturesFactoryTest
     {
         [Test]
-        public void CreateCalculationFeatures_CalculationsNull_ReturnsEmptyFeaturesArray()
+        public void CreateCalculationFeatures_CalculationsNull_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            MapFeature[] features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateCalculationFeatures(null);
+            IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateCalculationFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateCalculationFeatures_NoCalculations_ReturnsEmptyFeaturesArray()
+        public void CreateCalculationFeatures_NoCalculations_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            MapFeature[] features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateCalculationFeatures(
+            IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateCalculationFeatures(
                 Enumerable.Empty<GrassCoverErosionOutwardsWaveConditionsCalculation>());
 
             // Assert
@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateCalculationFeatures_GivenCalculations_ReturnsCalculationFeaturesArray()
+        public void CreateCalculationFeatures_GivenCalculations_ReturnsCalculationFeaturesCollection()
         {
             // Setup
             var calculationA = new GrassCoverErosionOutwardsWaveConditionsCalculation();
@@ -70,40 +70,40 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
             calculationB.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 2.2, 3.8);
 
             // Call
-            MapFeature[] features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateCalculationFeatures(new[]
+            IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateCalculationFeatures(new[]
             {
                 calculationA,
                 calculationB
             });
 
             // Assert
-            Assert.AreEqual(2, features.Length);
-            Assert.AreEqual(1, features[0].MapGeometries.Count());
-            Assert.AreEqual(1, features[1].MapGeometries.Count());
+            Assert.AreEqual(2, features.Count());
+            Assert.AreEqual(1, features.ElementAt(0).MapGeometries.Count());
+            Assert.AreEqual(1, features.ElementAt(1).MapGeometries.Count());
             AssertEqualPointCollections(new[]
             {
                 new Point2D(1.0, 3.0),
                 new Point2D(5.0, 4.0)
-            }, features[0].MapGeometries.ElementAt(0));
+            }, features.ElementAt(0).MapGeometries.ElementAt(0));
             AssertEqualPointCollections(new[]
             {
                 new Point2D(1.0, 4.0),
                 new Point2D(2.2, 3.8)
-            }, features[1].MapGeometries.ElementAt(0));
+            }, features.ElementAt(1).MapGeometries.ElementAt(0));
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationsFeatures_HydraulicBoundaryLocationsNull_ReturnsEmptyFeaturesArray()
+        public void CreateHydraulicBoundaryLocationsFeatures_HydraulicBoundaryLocationsNull_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            MapFeature[] features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(null);
+            IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(null);
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationFeatures_GivenHydraulicBoundaryLocations_ReturnsLocationFeaturesArray()
+        public void CreateHydraulicBoundaryLocationFeatures_GivenHydraulicBoundaryLocations_ReturnsLocationFeaturesCollection()
         {
             // Setup
             var points = new[]
@@ -114,17 +114,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
             HydraulicBoundaryLocation[] hydraulicBoundaryLocations = points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)).ToArray();
 
             // Call
-            MapFeature[] features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryLocations);
+            IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryLocations);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryLocations.Length, features.Length);
+            Assert.AreEqual(hydraulicBoundaryLocations.Length, features.Count());
             for (var i = 0; i < hydraulicBoundaryLocations.Length; i++)
             {
-                Assert.AreEqual(4, features[i].MetaData.Keys.Count);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].Id, features[i].MetaData["ID"]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].Name, features[i].MetaData["Naam"]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].DesignWaterLevel, features[i].MetaData["Waterstand bij doorsnede-eis"]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].WaveHeight, features[i].MetaData["Golfhoogte bij doorsnede-eis"]);
+                Assert.AreEqual(4, features.ElementAt(i).MetaData.Keys.Count);
+                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).Id, features.ElementAt(i).MetaData["ID"]);
+                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).Name, features.ElementAt(i).MetaData["Naam"]);
+                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).DesignWaterLevel, features.ElementAt(i).MetaData["Waterstand bij doorsnede-eis"]);
+                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).WaveHeight, features.ElementAt(i).MetaData["Golfhoogte bij doorsnede-eis"]);
             }
 
             AssertEqualFeatureCollections(points, features);
@@ -135,15 +135,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
             CollectionAssert.AreEqual(points.Select(p => new Point2D(p)), geometry.PointCollections.First());
         }
 
-        private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)
+        private static void AssertEqualFeatureCollections(IEnumerable<Point2D> points, IEnumerable<MapFeature> features)
         {
-            Assert.AreEqual(points.Length, features.Length);
-            for (var i = 0; i < points.Length; i++)
+            Assert.AreEqual(points.Count(), features.Count());
+            for (var i = 0; i < points.Count(); i++)
             {
                 CollectionAssert.AreEqual(new[]
                 {
-                    points[i]
-                }, features[i].MapGeometries.First().PointCollections.First());
+                    points.ElementAt(i)
+                }, features.ElementAt(i).MapGeometries.First().PointCollections.First());
             }
         }
     }
