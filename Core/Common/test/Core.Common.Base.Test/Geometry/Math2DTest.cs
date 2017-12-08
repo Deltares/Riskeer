@@ -22,7 +22,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Properties;
@@ -715,13 +714,13 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
-            Point2D[] expectedOverlappingPoints = dy >= 0 ?
-                                                      new[]
+            Point2D[] expectedOverlappingPoints = dy >= 0
+                                                      ? new[]
                                                       {
                                                           verticalSegment1.FirstPoint,
                                                           verticalSegment2.SecondPoint
-                                                      } :
-                                                      new[]
+                                                      }
+                                                      : new[]
                                                       {
                                                           verticalSegment1.SecondPoint,
                                                           verticalSegment2.FirstPoint
@@ -753,13 +752,13 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
-            Point2D[] expectedOverlappingPoints = dx >= 0 ?
-                                                      new[]
+            Point2D[] expectedOverlappingPoints = dx >= 0
+                                                      ? new[]
                                                       {
                                                           horizontalSegment1.FirstPoint,
                                                           horizontalSegment2.SecondPoint
-                                                      } :
-                                                      new[]
+                                                      }
+                                                      : new[]
                                                       {
                                                           horizontalSegment1.SecondPoint,
                                                           horizontalSegment2.FirstPoint
@@ -1242,7 +1241,7 @@ namespace Core.Common.Base.Test.Geometry
             Assert.AreEqual(expectedAngle, angle);
         }
 
-        private static void CollectionAssertAreEquivalent(Point2D[] expected, ReadOnlyCollection<Point2D> actual)
+        private static void CollectionAssertAreEquivalent(IEnumerable<Point2D> expected, IEnumerable<Point2D> actual)
         {
             var comparer = new Point2DComparerWithTolerance(1e-6);
             foreach (Point2D intersectionPoint in actual)
@@ -1251,7 +1250,7 @@ namespace Core.Common.Base.Test.Geometry
             }
         }
 
-        private static double[] GetLengthsBasedOnRelative(double[] relativeLengths, IEnumerable<Point2D> lineGeometryPoints)
+        private static double[] GetLengthsBasedOnRelative(IEnumerable<double> relativeLengths, IEnumerable<Point2D> lineGeometryPoints)
         {
             double lineLength = Math2D.ConvertLinePointsToLineSegments(lineGeometryPoints).Sum(s => s.Length);
             return relativeLengths.Select(l => lineLength * l).ToArray();

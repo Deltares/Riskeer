@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
     {
         private static IEnumerable<Stochast> GetStochasts(HydraRingGeneralResult hydraGeneralResult)
         {
-            return hydraGeneralResult.Stochasts.Select(StochastConverter.Convert);
+            return hydraGeneralResult.Stochasts.Select(StochastConverter.Convert).ToArray();
         }
 
         #region SubMechanismIllustrationPoint

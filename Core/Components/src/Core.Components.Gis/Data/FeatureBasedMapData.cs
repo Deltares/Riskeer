@@ -85,7 +85,8 @@ namespace Core.Components.Gis.Data
             {
                 return features.SelectMany(f => f.MetaData)
                                .Select(md => md.Key)
-                               .Distinct();
+                               .Distinct()
+                               .ToArray();
             }
         }
 

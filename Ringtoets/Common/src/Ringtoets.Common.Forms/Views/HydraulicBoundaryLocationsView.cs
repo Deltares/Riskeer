@@ -134,7 +134,7 @@ namespace Ringtoets.Common.Forms.Views
                                                                 topLevelSubMechanismIllustrationPoint.ClosingSituation,
                                                                 subMechanismIllustrationPoint.Stochasts,
                                                                 subMechanismIllustrationPoint.Beta);
-                    });
+                    }).ToArray();
             }
 
             return Enumerable.Empty<IllustrationPointControlItem>();

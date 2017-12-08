@@ -57,7 +57,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             failureMechanismObserver = new Observer(OnFailureMechanismUpdate);
 
             // The concat is needed to observe the input of calculations in child groups.
-            inputObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput>(UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<MacroStabilityInwardsCalculationScenario>().Select(pc => pc.InputParameters)));
+            inputObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput>(UpdateDataGridViewDataSource, cg => cg.Children
+                                                                                                                                      .Concat<object>(cg.Children
+                                                                                                                                                        .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                                                                                        .Select(pc => pc.InputParameters))
+                                                                                                                                      .ToArray());
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, cg => cg.Children);
             calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(dataGridViewControl.RefreshDataGridView, cg => cg.Children);
         }

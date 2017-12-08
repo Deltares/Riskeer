@@ -119,7 +119,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             return dataGridViewControl.Rows
                                       .Cast<DataGridViewRow>()
-                                      .Select(row => (DuneLocationRow) row.DataBoundItem);
+                                      .Select(row => (DuneLocationRow) row.DataBoundItem)
+                                      .ToArray();
         }
 
         /// <summary>
@@ -128,7 +129,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
         protected IEnumerable<DuneLocation> GetSelectedCalculatableObjects()
         {
             return GetCalculatableRows().Where(r => r.ShouldCalculate)
-                                        .Select(r => r.CalculatableObject);
+                                        .Select(r => r.CalculatableObject)
+                                        .ToArray();
         }
 
         /// <summary>

@@ -54,12 +54,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 UpdateDataGridViewDataSource,
                 cg => cg.Children.Concat<object>(cg.Children
                                                    .OfType<GrassCoverErosionInwardsCalculation>()
-                                                   .Select(c => c.InputParameters)));
+                                                   .Select(c => c.InputParameters)).ToArray());
             calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(
                 UpdateDataGridViewDataSource,
                 cg => cg.Children.Concat<object>(cg.Children
                                                    .OfType<GrassCoverErosionInwardsCalculation>()
-                                                   .Select(c => c.Output)));
+                                                   .Select(c => c.Output)).ToArray());
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
                 c => c.Children);

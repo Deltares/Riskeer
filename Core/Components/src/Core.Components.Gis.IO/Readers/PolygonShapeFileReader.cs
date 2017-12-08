@@ -170,7 +170,7 @@ namespace Core.Components.Gis.IO.Readers
             {
                 var basicPolygon = (IBasicPolygon) polygonFeature.BasicGeometry.GetBasicGeometryN(i);
 
-                var mapGeometry = new MapGeometry(GetMapGeometryPointCollections(basicPolygon));
+                var mapGeometry = new MapGeometry(GetMapGeometryPointCollections(basicPolygon).ToArray());
                 geometries.Add(mapGeometry);
             }
 

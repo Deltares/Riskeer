@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Components.Gis.Data;
@@ -99,13 +100,13 @@ namespace Core.Components.Gis.Forms.Views
 
         private void UpdateDataGridViewDataSource()
         {
-            WellKnownTileSourceMapData[] knownTileSourceMapDatas = GetSortedWellKnownTileSourceMapDatas();
+            IEnumerable<WellKnownTileSourceMapData> knownTileSourceMapDatas = GetSortedWellKnownTileSourceMapDatas();
 
             dataGridViewControl.SetDataSource(knownTileSourceMapDatas);
             dataGridViewControl.ClearCurrentCell();
         }
 
-        private static WellKnownTileSourceMapData[] GetSortedWellKnownTileSourceMapDatas()
+        private static IEnumerable<WellKnownTileSourceMapData> GetSortedWellKnownTileSourceMapDatas()
         {
             var enumValues = (WellKnownTileSource[]) Enum.GetValues(typeof(WellKnownTileSource));
             return enumValues.Select(enumValue => new WellKnownTileSourceMapData(enumValue)).ToList().OrderBy(w => w.Name).ToArray();

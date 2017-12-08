@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -37,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
         public void CreateDikeGeometryPoints_DikeProfileNull_ReturnsEmptyPointsArray()
         {
             // Call
-            Point2D[] points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeGeometryPoints(null);
+            IEnumerable<Point2D> points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeGeometryPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -52,10 +53,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
                 new RoughnessPoint(new Point2D(1.1, 2.2), 0.5),
                 new RoughnessPoint(new Point2D(3.3, 4.4), 0.6)
             };
-            var dikeProfile = DikeProfileTestFactory.CreateDikeProfile(roughnessPoints);
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(roughnessPoints);
 
             // Call
-            Point2D[] points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeGeometryPoints(dikeProfile);
+            IEnumerable<Point2D> points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeGeometryPoints(dikeProfile);
 
             // Assert
             CollectionAssert.AreEqual(roughnessPoints.Select(rp => rp.Point), points);
@@ -65,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
         public void CreateForeshoreGeometryPoints_InputNull_ReturnsEmptyPointsArray()
         {
             // Call
-            Point2D[] points = GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(null);
+            IEnumerable<Point2D> points = GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -81,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
+            IEnumerable<Point2D> points = GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -102,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
+            IEnumerable<Point2D> points = GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -124,7 +125,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
+            IEnumerable<Point2D> points = GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
 
             // Assert
             CollectionAssert.AreEqual(foreshoreGeometry, points);
@@ -134,7 +135,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
         public void CreateDikeHeightPoints_DikeProfileNull_ReturnsEmptyPointsArray()
         {
             // Call
-            Point2D[] points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(null);
+            IEnumerable<Point2D> points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -155,7 +156,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(input);
+            IEnumerable<Point2D> points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(input);
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -175,7 +176,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(input);
+            IEnumerable<Point2D> points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(input);
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -197,7 +198,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(input);
+            IEnumerable<Point2D> points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(input);
 
             // Assert
             CollectionAssert.AreEqual(new[]

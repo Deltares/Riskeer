@@ -169,7 +169,7 @@ namespace Core.Components.Gis.IO.Readers
 
         private static MapFeature CreateMapFeatureForPointFeature(IFeature pointFeature)
         {
-            IEnumerable<MapGeometry> mapGeometries = pointFeature.Coordinates.Select(c => new MapGeometry(GetMapGeometryPointCollections(c)));
+            IEnumerable<MapGeometry> mapGeometries = pointFeature.Coordinates.Select(c => new MapGeometry(GetMapGeometryPointCollections(c))).ToArray();
             return new MapFeature(mapGeometries);
         }
 

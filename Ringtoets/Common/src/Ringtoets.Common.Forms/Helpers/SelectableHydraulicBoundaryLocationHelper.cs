@@ -50,7 +50,8 @@ namespace Ringtoets.Common.Forms.Helpers
             }
             return hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, referencePoint))
                                              .OrderBy(hbl => hbl.Distance)
-                                             .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id);
+                                             .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id)
+                                             .ToArray();
         }
     }
 }

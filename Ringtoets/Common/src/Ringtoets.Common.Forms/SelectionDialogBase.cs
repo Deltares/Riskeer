@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Forms
 
         private IEnumerable<SelectableRow<T>> GetSelectableRows()
         {
-            return DataGridViewControl.Rows.Cast<DataGridViewRow>().Select(row => row.DataBoundItem).Cast<SelectableRow<T>>();
+            return DataGridViewControl.Rows.Cast<DataGridViewRow>().Select(row => row.DataBoundItem).Cast<SelectableRow<T>>().ToArray();
         }
 
         private IEnumerable<T> GetSelectedItems()

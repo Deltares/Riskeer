@@ -121,7 +121,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
             }
 
             MapGeometry referenceGeometry = referenceGeometries[0];
-            referenceLine.SetGeometry(referenceGeometry.PointCollections.First().Select(t => new Point2D(t)));
+            referenceLine.SetGeometry(referenceGeometry.PointCollections.First().Select(t => new Point2D(t)).ToArray());
             return referenceLine;
         }
     }

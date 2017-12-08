@@ -215,28 +215,27 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <paramref name="points"/> is <c>null</c>.</exception>
         private void SetGeometry(IEnumerable<Point2D> points)
         {
-            Point2D[] foreshorePoints = points.ToArray();
-            if (foreshorePoints.Any(p => p == null))
+            if (points.Any(p => p == null))
             {
                 throw new ArgumentException(Resources.ForeshoreProfile_SetGeometry_A_point_in_the_collection_is_null);
             }
 
-            Geometry = new RoundedPoint2DCollection(2, foreshorePoints.Select(p => new Point2D(p)));
+            Geometry = new RoundedPoint2DCollection(2, points.Select(p => new Point2D(p)).ToArray());
         }
 
-        private bool EqualGeometry(Point2D[] otherGeometry)
+        private bool EqualGeometry(IEnumerable<Point2D> otherGeometry)
         {
             Point2D[] pointsArray = Geometry.ToArray();
 
             int nrOfPoints = pointsArray.Length;
-            if (otherGeometry.Length != nrOfPoints)
+            if (otherGeometry.Count() != nrOfPoints)
             {
                 return false;
             }
 
             for (var i = 0; i < nrOfPoints; i++)
             {
-                if (!pointsArray[i].Equals(otherGeometry[i]))
+                if (!pointsArray[i].Equals(otherGeometry.ElementAt(i)))
                 {
                     return false;
                 }

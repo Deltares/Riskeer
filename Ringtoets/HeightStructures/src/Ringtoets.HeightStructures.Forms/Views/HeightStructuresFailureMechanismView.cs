@@ -90,7 +90,8 @@ namespace Ringtoets.HeightStructures.Forms.Views
             structuresObserver = new Observer(UpdateMapData);
 
             calculationInputObserver = new RecursiveObserver<CalculationGroup, HeightStructuresInput>(
-                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<HeightStructuresInput>>().Select(pc => pc.InputParameters)));
+                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<HeightStructuresInput>>()
+                                                                     .Select(pc => pc.InputParameters)).ToArray());
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
             calculationObserver = new RecursiveObserver<CalculationGroup, StructuresCalculation<HeightStructuresInput>>(UpdateMapData, pcg => pcg.Children);
             foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll);

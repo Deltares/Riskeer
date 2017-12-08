@@ -186,11 +186,11 @@ namespace Core.Components.Gis.IO.Readers
             return new MapFeature(geometries);
         }
 
-        private static IEnumerable<Point2D>[] GetMapGeometryPointCollections(IEnumerable<Coordinate> lineCoordinates)
+        private static IEnumerable<IEnumerable<Point2D>> GetMapGeometryPointCollections(IEnumerable<Coordinate> lineCoordinates)
         {
             return new[]
             {
-                lineCoordinates.Select(c => new Point2D(c.X, c.Y))
+                lineCoordinates.Select(c => new Point2D(c.X, c.Y)).ToArray()
             };
         }
     }

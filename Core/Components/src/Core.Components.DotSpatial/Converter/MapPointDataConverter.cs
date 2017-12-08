@@ -37,7 +37,7 @@ namespace Core.Components.DotSpatial.Converter
     {
         protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
         {
-            return GetAllMapFeatureCoordinates(mapFeature).Select(c => new Feature(new Point(c.X, c.Y)));
+            return GetAllMapFeatureCoordinates(mapFeature).Select(c => new Feature(new Point(c.X, c.Y))).ToArray();
         }
 
         protected override IFeatureSymbolizer CreateSymbolizer(MapPointData mapData)
@@ -49,7 +49,7 @@ namespace Core.Components.DotSpatial.Converter
 
         private static IEnumerable<Coordinate> GetAllMapFeatureCoordinates(MapFeature feature)
         {
-            return feature.MapGeometries.SelectMany(mapGeometry => ConvertPoint2DElementsToCoordinates(mapGeometry.PointCollections.First()));
+            return feature.MapGeometries.SelectMany(mapGeometry => ConvertPoint2DElementsToCoordinates(mapGeometry.PointCollections.First())).ToArray();
         }
     }
 }

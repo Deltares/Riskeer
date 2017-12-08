@@ -115,7 +115,8 @@ namespace Ringtoets.Common.Forms.Views
         {
             return dataGridViewControl.Rows
                                       .Cast<DataGridViewRow>()
-                                      .Select(row => (CalculatableRow<T>) row.DataBoundItem);
+                                      .Select(row => (CalculatableRow<T>) row.DataBoundItem)
+                                      .ToArray();
         }
 
         /// <summary>
@@ -124,7 +125,8 @@ namespace Ringtoets.Common.Forms.Views
         protected IEnumerable<T> GetSelectedCalculatableObjects()
         {
             return GetCalculatableRows().Where(r => r.ShouldCalculate)
-                                        .Select(r => r.CalculatableObject);
+                                        .Select(r => r.CalculatableObject)
+                                        .ToArray();
         }
 
         /// <summary>
@@ -175,7 +177,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void HandlePossibleOutdatedIllustrationPointsControl()
         {
-            IEnumerable<IllustrationPointControlItem> illustrationPointControlItems = GetIllustrationPointControlItems().ToArray();
+            IEnumerable<IllustrationPointControlItem> illustrationPointControlItems = GetIllustrationPointControlItems();
 
             if (illustrationPointsControl.Data.Count() != illustrationPointControlItems.Count())
             {
@@ -253,7 +255,7 @@ namespace Ringtoets.Common.Forms.Views
             var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
             Selection = selection != null
                             ? new SelectedTopLevelSubMechanismIllustrationPoint((TopLevelSubMechanismIllustrationPoint) selection.Source,
-                                                                                GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
+                                                                                GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation).ToArray())
                             : null;
 
             OnSelectionChanged();
