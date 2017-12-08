@@ -367,16 +367,18 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsStructure_CalculatesDistanceWithCorrectReferencePoint()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     hydraulicBoundaryLocation
                 }
             };
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            mockRepository.ReplayAll();
 
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
@@ -470,16 +472,18 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GivenPropertiesWithStructureAndLocations_WhenSelectingLocation_ThenSelectedLocationDistanceSameAsLocationItem()
         {
             // Given
-            mockRepository.ReplayAll();
-
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     hydraulicBoundaryLocation
                 }
             };
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            mockRepository.ReplayAll();
 
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
@@ -521,8 +525,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoStructure_ReturnsLocationsSortedById()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -533,7 +535,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(2, "B", 0, 4)
                 }
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            mockRepository.ReplayAll();
 
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
@@ -566,8 +571,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndStructure_ReturnsLocationsSortByDistanceThenById()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -580,7 +583,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(2, "B", 0, 200)
                 }
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            mockRepository.ReplayAll();
 
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
@@ -622,8 +628,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GivenLocationAndReferencePoint_WhenUpdatingStructure_ThenUpdateSelectableBoundaryLocations()
         {
             // Given
-            mockRepository.ReplayAll();
-
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -636,7 +640,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(2, "B", 0, 200)
                 }
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            mockRepository.ReplayAll();
 
             var calculation = new StructuresCalculation<SimpleStructureInput>
             {
