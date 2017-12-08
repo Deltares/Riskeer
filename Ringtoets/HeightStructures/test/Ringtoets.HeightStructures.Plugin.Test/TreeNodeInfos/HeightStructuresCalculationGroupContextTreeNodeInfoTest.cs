@@ -590,11 +590,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 Version = "1.0"
-            };
+            });
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        null,
@@ -641,11 +641,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 Version = "1.0"
-            };
+            });
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        null,
@@ -733,7 +733,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        null,
                                                                        failureMechanism,
@@ -780,11 +781,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 Version = "1.0"
-            };
+            });
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        null,
@@ -831,11 +832,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 Version = "1.0"
-            };
+            });
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        null,
@@ -994,14 +995,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            };
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            });
 
             var groupContext = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            null,
@@ -1021,8 +1021,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                                  .Repeat
                                  .Times(nrOfCalculators);
                 mocks.ReplayAll();
-
-                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -1084,13 +1082,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath
-            };
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            });
 
             var groupContext = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            null,
