@@ -931,6 +931,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+            assessmentSection.Replay();
+
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailuremechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 

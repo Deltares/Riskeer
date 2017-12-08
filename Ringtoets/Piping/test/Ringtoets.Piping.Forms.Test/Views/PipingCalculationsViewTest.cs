@@ -1105,6 +1105,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+            assessmentSection.Replay();
+
             PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
