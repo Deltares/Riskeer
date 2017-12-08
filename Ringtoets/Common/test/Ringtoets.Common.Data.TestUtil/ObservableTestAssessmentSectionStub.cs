@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Data.TestUtil
         public AssessmentSectionComposition Composition { get; }
         public ReferenceLine ReferenceLine { get; set; }
         public FailureMechanismContribution FailureMechanismContribution { get; }
-        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
+        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; }
         public BackgroundData BackgroundData { get; set; }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()

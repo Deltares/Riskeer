@@ -222,7 +222,7 @@ namespace Ringtoets.Integration.Data
 
         public FailureMechanismContribution FailureMechanismContribution { get; }
 
-        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
+        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; }
 
         public BackgroundData BackgroundData { get; }
 
