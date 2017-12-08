@@ -32,7 +32,6 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
@@ -109,28 +108,21 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsHydraulicBoundaryDatabase()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
-            };
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var context = new DesignWaterLevelLocationsContext(assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryDatabase.Locations, viewData);
+            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, viewData);
         }
 
         [Test]
         public void CreateInstance_Always_SetExpectedProperties()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-            };
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var context = new DesignWaterLevelLocationsContext(assessmentSection);
 
             using (var ringtoetsPlugin = new RingtoetsPlugin())
@@ -151,8 +143,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
@@ -161,9 +151,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
             mocks.ReplayAll();
 
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var context = new DesignWaterLevelLocationsContext(assessmentSection);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             using (var view = new DesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub()))
             using (var ringtoetsPlugin = new RingtoetsPlugin())

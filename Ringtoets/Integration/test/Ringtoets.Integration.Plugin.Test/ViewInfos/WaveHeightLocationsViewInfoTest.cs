@@ -108,29 +108,21 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsHydraulicBoundaryDatabase()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
-            };
-
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var context = new WaveHeightLocationsContext(assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryDatabase.Locations, viewData);
+            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, viewData);
         }
 
         [Test]
         public void CreateInstance_Always_SetExpectedProperties()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-            };
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var context = new WaveHeightLocationsContext(assessmentSection);
 
             using (var ringtoetsPlugin = new RingtoetsPlugin())
@@ -160,10 +152,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-            };
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var context = new WaveHeightLocationsContext(assessmentSection);
 
             using (var view = new WaveHeightLocationsView(assessmentSection))

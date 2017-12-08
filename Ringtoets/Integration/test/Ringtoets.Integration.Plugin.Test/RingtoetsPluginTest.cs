@@ -131,7 +131,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     var project = new RingtoetsProject();
                     var section = new AssessmentSection(AssessmentSectionComposition.Dike)
                     {
-                        HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                        HydraulicBoundaryDatabase =
                         {
                             FilePath = testFilePath
                         }
@@ -169,7 +169,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
                     var section = new AssessmentSection(AssessmentSectionComposition.Dike)
                     {
-                        HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                        HydraulicBoundaryDatabase =
                         {
                             FilePath = nonExistingFileExistingFile
                         }
