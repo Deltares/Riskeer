@@ -119,10 +119,10 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         {
             private readonly IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations;
 
-            public ObjectPropertiesWithSelectableHydraulicBoundaryLocation(SelectableHydraulicBoundaryLocation selectableHydraulicBoundaryLocation,
+            public ObjectPropertiesWithSelectableHydraulicBoundaryLocation(SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation,
                                                                            IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations)
             {
-                SelectedHydraulicBoundaryLocation = selectableHydraulicBoundaryLocation;
+                SelectedHydraulicBoundaryLocation = selectedHydraulicBoundaryLocation;
                 this.selectableHydraulicBoundaryLocations = selectableHydraulicBoundaryLocations;
             }
 

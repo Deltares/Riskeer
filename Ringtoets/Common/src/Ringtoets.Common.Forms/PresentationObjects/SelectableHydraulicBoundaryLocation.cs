@@ -101,7 +101,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
 
         private bool Equals(SelectableHydraulicBoundaryLocation other)
         {
-            return Equals(HydraulicBoundaryLocation, other.HydraulicBoundaryLocation);
+            return ReferenceEquals(HydraulicBoundaryLocation, other.HydraulicBoundaryLocation);
         }
     }
 }

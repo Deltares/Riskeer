@@ -119,7 +119,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(10, "Name 2", 0, 1),
+                yield return new TestCaseData(new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "Name", 0, 1),
                                                                                       CreateReferencePoint()))
                     .SetName("Hydraulic Boundary Location");
             }
