@@ -104,6 +104,10 @@ namespace Ringtoets.Common.Data.TestUtil
 
                 assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             }
+            else
+            {
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            }
 
             return assessmentSection;
         }

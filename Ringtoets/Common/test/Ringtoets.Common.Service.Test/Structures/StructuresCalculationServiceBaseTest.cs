@@ -241,8 +241,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks);
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+                failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
@@ -280,8 +279,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks);
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+                failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
@@ -321,8 +319,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks);
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+                failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation

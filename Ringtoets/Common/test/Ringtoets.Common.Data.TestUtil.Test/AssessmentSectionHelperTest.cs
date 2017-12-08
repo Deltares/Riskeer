@@ -114,7 +114,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsNotNull(assessmentSection);
             Assert.AreEqual("21", assessmentSection.Id);
-            Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
+            Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsCoupled());
             CollectionAssert.AreEqual(new[]
             {
                 failureMechanism
@@ -139,7 +139,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsNotNull(assessmentSection);
             Assert.AreEqual("21", assessmentSection.Id);
-            Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
+            Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsCoupled());
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms());
 
             FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
