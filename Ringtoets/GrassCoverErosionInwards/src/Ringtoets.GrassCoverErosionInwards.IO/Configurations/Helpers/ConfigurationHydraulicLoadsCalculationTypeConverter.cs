@@ -39,13 +39,22 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
                    || base.CanConvertTo(context, destinationType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="ConfigurationHydraulicLoadsCalculationType"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            var readHydraulicLoadsCalculationType = (ConfigurationHydraulicLoadsCalculationType) value;
+            var hydraulicLoadsCalculationType = (ConfigurationHydraulicLoadsCalculationType) value;
+            if (!Enum.IsDefined(typeof(ConfigurationHydraulicLoadsCalculationType), hydraulicLoadsCalculationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(value),
+                                                       (int) hydraulicLoadsCalculationType,
+                                                       typeof(ConfigurationHydraulicLoadsCalculationType));
+            }
 
             if (destinationType == typeof(DikeHeightCalculationType))
             {
-                switch (readHydraulicLoadsCalculationType)
+                switch (hydraulicLoadsCalculationType)
                 {
                     case ConfigurationHydraulicLoadsCalculationType.NoCalculation:
                         return DikeHeightCalculationType.NoCalculation;
@@ -59,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
             }
             if (destinationType == typeof(OvertoppingRateCalculationType))
             {
-                switch (readHydraulicLoadsCalculationType)
+                switch (hydraulicLoadsCalculationType)
                 {
                     case ConfigurationHydraulicLoadsCalculationType.NoCalculation:
                         return OvertoppingRateCalculationType.NoCalculation;
@@ -73,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
             }
             if (destinationType == typeof(string))
             {
-                switch (readHydraulicLoadsCalculationType)
+                switch (hydraulicLoadsCalculationType)
                 {
                     case ConfigurationHydraulicLoadsCalculationType.NoCalculation:
                         return Resources.ReadHydraulicLoadsCalculationTypeConverter_NoCalculation;
@@ -96,11 +105,22 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
                    || base.CanConvertFrom(context, sourceType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="DikeHeightCalculationType"/> or <see cref="OvertoppingRateCalculationType"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is DikeHeightCalculationType)
             {
-                switch ((DikeHeightCalculationType) value)
+                var dikeHeightCalculationType = (DikeHeightCalculationType) value;
+                if (!Enum.IsDefined(typeof(DikeHeightCalculationType), dikeHeightCalculationType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(value),
+                                                           (int) dikeHeightCalculationType,
+                                                           typeof(DikeHeightCalculationType));
+                }
+
+                switch (dikeHeightCalculationType)
                 {
                     case DikeHeightCalculationType.NoCalculation:
                         return ConfigurationHydraulicLoadsCalculationType.NoCalculation;
@@ -114,7 +134,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
             }
             if (value is OvertoppingRateCalculationType)
             {
-                switch ((OvertoppingRateCalculationType) value)
+                var overtoppingRateCalculationType = (OvertoppingRateCalculationType) value;
+                if (!Enum.IsDefined(typeof(OvertoppingRateCalculationType), overtoppingRateCalculationType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(value),
+                                                           (int) overtoppingRateCalculationType,
+                                                           typeof(OvertoppingRateCalculationType));
+                }
+
+                switch (overtoppingRateCalculationType)
                 {
                     case OvertoppingRateCalculationType.NoCalculation:
                         return ConfigurationHydraulicLoadsCalculationType.NoCalculation;

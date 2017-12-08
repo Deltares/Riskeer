@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.IO.Configurations;
@@ -98,17 +99,21 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void ConvertTo_InvalidClosingStructureInflowModelType_ThrowNotSupportedException()
+        [TestCase(typeof(ClosingStructureInflowModelType))]
+        [TestCase(typeof(string))]
+        public void ConvertTo_InvalidClosingStructureInflowModelType_ThrowInvalidEnumArgumentException(Type destinationType)
         {
             // Setup
             var converter = new ConfigurationClosingStructureInflowModelTypeConverter();
-            const ConfigurationClosingStructureInflowModelType invalidValue = (ConfigurationClosingStructureInflowModelType) 99999999;
+            const ConfigurationClosingStructureInflowModelType invalidValue = (ConfigurationClosingStructureInflowModelType)99999999;
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
+            TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
 
             // Assert
-            Assert.Throws<NotSupportedException>(call);
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationClosingStructureInflowModelType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("value", parameterName);
         }
 
         [Test]
@@ -215,16 +220,19 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void ConvertFrom_InvalidClosingStructureInflowModelType_ThrowNotSupportedException()
+        public void ConvertFrom_InvalidClosingStructureInflowModelType_ThrowInvalidEnumArgumentException()
         {
             // Setup
+            const int invalidValue = -1;
             var converter = new ConfigurationClosingStructureInflowModelTypeConverter();
-
+            
             // Call
-            TestDelegate call = () => converter.ConvertFrom((ClosingStructureInflowModelType) (-1));
+            TestDelegate call = () => converter.ConvertFrom((ClosingStructureInflowModelType) invalidValue);
 
             // Assert
-            Assert.Throws<NotSupportedException>(call);
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ClosingStructureInflowModelType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("value", parameterName);
         }
     }
 }

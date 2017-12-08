@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Xml;
 using Core.Common.TestUtil;
@@ -373,7 +374,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
                     TestDelegate testDelegate = () => xmlWriter.WriteWaveReduction(configuration);
 
                     // Assert
-                    Assert.Throws<NotSupportedException>(testDelegate);
+                    Assert.Throws<InvalidEnumArgumentException>(testDelegate);
                 }
             }
             finally

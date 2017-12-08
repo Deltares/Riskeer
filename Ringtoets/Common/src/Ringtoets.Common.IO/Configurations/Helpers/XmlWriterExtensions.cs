@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Xml;
 
 namespace Ringtoets.Common.IO.Configurations.Helpers
@@ -84,6 +85,8 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the conversion of <paramref name="waveReduction"/>
+        /// cannot be performed.</exception>
         /// <exception cref="NotSupportedException">Thrown when the conversion of <paramref name="waveReduction"/>
         /// cannot be performed.</exception>
         public static void WriteWaveReduction(this XmlWriter writer, WaveReductionConfiguration waveReduction)

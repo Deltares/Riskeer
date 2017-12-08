@@ -37,9 +37,18 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
                    || base.CanConvertTo(context, destinationType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="ConfigurationWaveConditionsInputStepSize"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             var stepSize = (ConfigurationWaveConditionsInputStepSize) value;
+            if (!Enum.IsDefined(typeof(ConfigurationWaveConditionsInputStepSize), stepSize))
+            {
+                throw new InvalidEnumArgumentException(nameof(value),
+                                                       (int) stepSize,
+                                                       typeof(ConfigurationWaveConditionsInputStepSize));
+            }
 
             if (destinationType == typeof(WaveConditionsInputStepSize))
             {
@@ -80,11 +89,22 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
                    || base.CanConvertFrom(context, sourceType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="WaveConditionsInputStepSize"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is WaveConditionsInputStepSize)
             {
-                switch ((WaveConditionsInputStepSize) value)
+                var stepSize = (WaveConditionsInputStepSize) value;
+                if (!Enum.IsDefined(typeof(WaveConditionsInputStepSize), stepSize))
+                {
+                    throw new InvalidEnumArgumentException(nameof(value),
+                                                           (int) stepSize,
+                                                           typeof(WaveConditionsInputStepSize));
+                }
+
+                switch (stepSize)
                 {
                     case WaveConditionsInputStepSize.Half:
                         return ConfigurationWaveConditionsInputStepSize.Half;

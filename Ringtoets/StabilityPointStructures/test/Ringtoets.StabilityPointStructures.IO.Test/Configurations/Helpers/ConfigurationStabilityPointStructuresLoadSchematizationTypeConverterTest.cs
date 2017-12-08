@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.IO.Configurations;
@@ -103,8 +104,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations.Helpers
         public void ConvertTo_InvalidType_ThrowNotSupportedException()
         {
             // Setup
+            var random = new Random(21);
+            var invalidValue = random.NextEnumValue<ConfigurationStabilityPointStructuresLoadSchematizationType>();
             var converter = new ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter();
-            const ConfigurationStabilityPointStructuresLoadSchematizationType invalidValue = (ConfigurationStabilityPointStructuresLoadSchematizationType) 99999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(object));
@@ -114,33 +116,22 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void ConvertTo_ConfigurationStabilityPointStructuresLoadSchematizationTypeToString_ThrowNotSupportedException()
+        [TestCase(typeof(string))]
+        [TestCase(typeof(LoadSchematizationType))]
+        public void ConvertTo_ConfigurationStabilityPointStructuresLoadSchematizationType_ThrowInvalidEnumArgumentException(Type destinationType)
         {
             // Setup
             var converter = new ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter();
             const ConfigurationStabilityPointStructuresLoadSchematizationType invalidValue = (ConfigurationStabilityPointStructuresLoadSchematizationType) 99999;
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
+            TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
 
             // Assert
-            string message = Assert.Throws<NotSupportedException>(call).Message;
-            Assert.AreEqual($"Value '{invalidValue}' is not supported.", message);
-        }
-
-        [Test]
-        public void ConvertTo_InvalidConfigurationStabilityPointStructuresLoadSchematizationTypeToLoadSchematizationType_ThrowNotSupportedException()
-        {
-            // Setup
-            var converter = new ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter();
-            const ConfigurationStabilityPointStructuresLoadSchematizationType invalidValue = (ConfigurationStabilityPointStructuresLoadSchematizationType) 99999;
-
-            // Call
-            TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(LoadSchematizationType));
-
-            // Assert
-            string message = Assert.Throws<NotSupportedException>(call).Message;
-            Assert.AreEqual($"Value '{invalidValue}' is not supported.", message);
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type " +
+                                     $"'{nameof(ConfigurationStabilityPointStructuresLoadSchematizationType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("value", parameterName);
         }
 
         [Test]
@@ -247,7 +238,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void ConvertFrom_InvalidLoadSchematizationType_ThrowNotSupportedException()
+        public void ConvertFrom_InvalidLoadSchematizationType_ThrowInvalidEnumArgumentException()
         {
             // Setup
             var converter = new ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter();
@@ -257,8 +248,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations.Helpers
             TestDelegate call = () => converter.ConvertFrom(invalidValue);
 
             // Assert
-            string message = Assert.Throws<NotSupportedException>(call).Message;
-            Assert.AreEqual($"Value '{invalidValue}' is not supported.", message);
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(LoadSchematizationType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("value", parameterName);
         }
 
         [Test]

@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -120,7 +120,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
+            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
         [Test]
@@ -142,7 +142,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
+            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
         private static StabilityPointStructuresCalculationConfiguration CreateFullCalculation()

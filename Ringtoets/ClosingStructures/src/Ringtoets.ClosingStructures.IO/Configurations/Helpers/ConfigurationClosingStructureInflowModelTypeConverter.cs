@@ -41,11 +41,21 @@ namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
             return base.CanConvertTo(context, destinationType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="ConfigurationClosingStructureInflowModelType"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
+            var type = (ConfigurationClosingStructureInflowModelType) value;
+            if (!Enum.IsDefined(typeof(ConfigurationClosingStructureInflowModelType), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(value),
+                                                       (int) type,
+                                                       typeof(ConfigurationClosingStructureInflowModelType));
+            }
+
             if (destinationType == typeof(string))
             {
-                var type = (ConfigurationClosingStructureInflowModelType) value;
                 switch (type)
                 {
                     case ConfigurationClosingStructureInflowModelType.FloodedCulvert:
@@ -60,7 +70,6 @@ namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
             }
             if (destinationType == typeof(ClosingStructureInflowModelType))
             {
-                var type = (ConfigurationClosingStructureInflowModelType) value;
                 switch (type)
                 {
                     case ConfigurationClosingStructureInflowModelType.FloodedCulvert:
@@ -89,6 +98,9 @@ namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
             return base.CanConvertFrom(context, sourceType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="ClosingStructureInflowModelType"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var text = value as string;
@@ -107,6 +119,11 @@ namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
             var inflowModelType = value as ClosingStructureInflowModelType?;
             if (inflowModelType != null)
             {
+                if (!Enum.IsDefined(typeof(ClosingStructureInflowModelType), inflowModelType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(value), (int) value, typeof(ClosingStructureInflowModelType));
+                }
+
                 switch (inflowModelType)
                 {
                     case ClosingStructureInflowModelType.FloodedCulvert:

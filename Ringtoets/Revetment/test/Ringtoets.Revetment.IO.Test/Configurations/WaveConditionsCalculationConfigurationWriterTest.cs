@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using System.ComponentModel;
 using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
@@ -143,7 +143,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
+            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
         protected override WaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)
