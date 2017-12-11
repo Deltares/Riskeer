@@ -34,17 +34,6 @@ namespace Ringtoets.Common.Data.TestUtil
     public static class AssessmentSectionHelper
     {
         /// <summary>
-        /// Creates a stub of <see cref="IAssessmentSection"/> without <see cref="HydraulicBoundaryDatabase"/> 
-        /// or <see cref="IFailureMechanism"/> set.
-        /// </summary>
-        /// <param name="mockRepository">The mock repository to create the stub with.</param>
-        /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
-        public static IAssessmentSection CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(MockRepository mockRepository)
-        {
-            return CreateAssessmentSectionStub(null, mockRepository, false, null);
-        }
-
-        /// <summary>
         /// Creates a stub of <see cref="IAssessmentSection"/> without the <see cref="HydraulicBoundaryDatabase"/> set.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to set the contribution for.</param>

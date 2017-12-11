@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewCommands = mocks.Stub<IViewCommands>();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(null, mocks);
             mocks.ReplayAll();
 
             var view = new FailureMechanismContributionView(viewCommands);
@@ -120,7 +120,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_Returns_FailureMechanismContribution()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(null, mocks);
             mocks.ReplayAll();
 
             var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);
@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewCommands = mocks.Stub<IViewCommands>();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(null, mocks);
             assessmentSection.Stub(section => section.Composition)
                              .Return(AssessmentSectionComposition.Dike);
 
@@ -165,11 +165,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var viewCommands = mocks.Stub<IViewCommands>();
 
-            IAssessmentSection assessmentSection1 = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
+            IAssessmentSection assessmentSection1 = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(null, mocks);
             assessmentSection1.Stub(section => section.Composition)
                               .Return(AssessmentSectionComposition.DikeAndDune);
 
-            IAssessmentSection assessmentSection2 = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
+            IAssessmentSection assessmentSection2 = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(null, mocks);
             assessmentSection2.Stub(section => section.Composition)
                               .Return(AssessmentSectionComposition.DikeAndDune);
             mocks.ReplayAll();
@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var viewCommands = mocks.Stub<IViewCommands>();
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(null, mocks);
             mocks.ReplayAll();
 
             using (var view = new FailureMechanismContributionView(viewCommands))
@@ -216,7 +216,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var viewCommands = mocks.Stub<IViewCommands>();
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(null, mocks);
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
 
             var gui = mocks.Stub<IGui>();

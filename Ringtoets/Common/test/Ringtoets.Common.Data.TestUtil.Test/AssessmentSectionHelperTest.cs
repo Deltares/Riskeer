@@ -126,27 +126,5 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
             mocks.VerifyAll();
         }
-
-        [Test]
-        public void CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms_ReturnsStubbedAssessmentSectionWithoutHRDOrFailureMechanisms()
-        {
-            var mocks = new MockRepository();
-
-            // Call
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
-            mocks.ReplayAll();
-
-            // Assert
-            Assert.IsNotNull(assessmentSection);
-            Assert.AreEqual("21", assessmentSection.Id);
-            Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsCoupled());
-            CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms());
-
-            FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
-            Assert.AreEqual(1.0 / 10, contribution.LowerLimitNorm);
-            Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
-            Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
-            mocks.VerifyAll();
-        }
     }
 }
