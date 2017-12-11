@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
 using Ringtoets.MacroStabilityInwards.Data;
 
@@ -271,11 +272,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 {
                     value = (RoundedDouble) 0.0;
                 }
-                else if (value > 2000.0)
-                {
-                    value = (RoundedDouble) 2000.0;
-                }
-                double offset = value.Value * scaleFactor;
+                value = value.ClipValue((RoundedDouble) (-2000.0), (RoundedDouble) 2000.0);
+
+                double offset = value * scaleFactor;
                 double deltaX = slice.BottomLeftPoint.X - slice.BottomRightPoint.X;
                 double deltaY = slice.BottomLeftPoint.Y - slice.BottomRightPoint.Y;
 
