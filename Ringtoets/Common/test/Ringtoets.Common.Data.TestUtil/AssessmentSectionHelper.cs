@@ -36,14 +36,14 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <summary>
         /// Creates a stub of <see cref="IAssessmentSection"/>.
         /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to set the contribution for.</param>
         /// <param name="mockRepository">The mock repository to create the stub with.</param>
-        /// <param name="failureMechanism">The failure mechanism to set the contribution for (optional).</param>
         /// <param name="filePath">The file path to the hydraulic boundary database (optional).</param>
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
         /// <remarks>When <paramref name="filePath"/> is provided, a dummy location with id 1300001 is added to the
         /// hydraulic boundary database too.</remarks>
-        public static IAssessmentSection CreateAssessmentSectionStub(MockRepository mockRepository,
-                                                                     IFailureMechanism failureMechanism = null,
+        public static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism,
+                                                                     MockRepository mockRepository,
                                                                      string filePath = null)
         {
             IFailureMechanism[] failureMechanisms = GetFailureMechanisms(failureMechanism);

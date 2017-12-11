@@ -136,7 +136,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 PreprocessorDirectory = "NonExistingPreprocessorDirectory"
             };
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(new TestFailureMechanism(), mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(), mocks);
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             mocks.ReplayAll();
@@ -363,7 +363,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 PreprocessorDirectory = "NonExistingPreprocessorDirectory"
             };
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(new TestFailureMechanism(), mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(), mocks);
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             mocks.ReplayAll();
@@ -409,7 +409,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 PreprocessorDirectory = TestHelper.GetScratchPadPath()
             };
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(new TestFailureMechanism(), mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(), mocks);
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             mocks.ReplayAll();

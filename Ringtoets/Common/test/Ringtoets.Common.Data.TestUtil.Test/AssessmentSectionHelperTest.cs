@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var mocks = new MockRepository();
 
             // Call
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             // Assert
