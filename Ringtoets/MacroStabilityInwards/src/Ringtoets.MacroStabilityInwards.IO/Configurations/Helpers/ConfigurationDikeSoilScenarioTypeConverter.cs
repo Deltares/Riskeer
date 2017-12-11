@@ -43,11 +43,21 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                    || base.CanConvertTo(context, sourceType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="ConfigurationDikeSoilScenario"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
+            var type = (ConfigurationDikeSoilScenario) value;
+            if (!Enum.IsDefined(typeof(ConfigurationDikeSoilScenario), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(value),
+                                                       (int) type,
+                                                       typeof(ConfigurationDikeSoilScenario));
+            }
+
             if (destinationType == typeof(string))
             {
-                var type = (ConfigurationDikeSoilScenario) value;
                 switch (type)
                 {
                     case ConfigurationDikeSoilScenario.ClayDikeOnClay:
@@ -64,7 +74,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
             }
             if (destinationType == typeof(MacroStabilityInwardsDikeSoilScenario))
             {
-                var type = (ConfigurationDikeSoilScenario) value;
                 switch (type)
                 {
                     case ConfigurationDikeSoilScenario.ClayDikeOnClay:
@@ -82,6 +91,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="MacroStabilityInwardsDikeSoilScenario"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var text = value as string;
@@ -104,6 +116,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
             var dikeSoilScenario = value as MacroStabilityInwardsDikeSoilScenario?;
             if (dikeSoilScenario != null)
             {
+                if (!Enum.IsDefined(typeof(MacroStabilityInwardsDikeSoilScenario), dikeSoilScenario))
+                {
+                    throw new InvalidEnumArgumentException(nameof(value),
+                                                           (int) dikeSoilScenario,
+                                                           typeof(MacroStabilityInwardsDikeSoilScenario));
+                }
+
                 switch (dikeSoilScenario)
                 {
                     case MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay:
