@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
-using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
