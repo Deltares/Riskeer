@@ -255,56 +255,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             slipPlaneChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSlipPlanePoints(output?.SlidingCurve);
             leftCircleRadiusChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateLeftCircleRadiusPoints(output?.SlidingCurve);
             rightCircleRadiusChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateRightCircleRadiusPoints(output?.SlidingCurve);
-            slicesChartData.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateSliceAreas(output?.SlidingCurve.Slices);
+            slicesChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateSliceAreas(output?.SlidingCurve);
             tangentLinesChartData.Lines = MacroStabilityInwardsChartDataPointsFactory.CreateTangentLines(output?.SlipPlane.TangentLines,
                                                                                                          data.InputParameters.SurfaceLine);
-            SetSliceParameterChartData(output);
+            SetSliceParameterChartData(output?.SlidingCurve);
         }
 
-        private void SetSliceParameterChartData(MacroStabilityInwardsOutput output)
+        private void SetSliceParameterChartData(MacroStabilityInwardsSlidingCurve slidingCurve)
         {
-            sliceCohesionChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.Cohesion), 8);
-            sliceEffectiveStressChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.EffectiveStress), 8);
-            sliceEffectiveStressDailyChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.EffectiveStressDaily), 8);
-            sliceTotalPorePressureChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.TotalPorePressure), 8);
-            sliceWeightChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.Weight), 8);
-            slicePiezometricPorePressureChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.PiezometricPorePressure), 8);
-            slicePorePressureChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.PorePressure), 8);
-            sliceVerticalPorePressureChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.VerticalPorePressure), 8);
-            sliceHorizontalPorePressureChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.HorizontalPorePressure), 8);
-            sliceOverConsolidationRatioChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.OverConsolidationRatio), 20);
-            slicePopChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.Pop), 8);
-            sliceNormalStressChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.NormalStress), 8);
-            sliceShearStressChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.ShearStress), 8);
-            sliceLoadStressChartData.Areas =
-                MacroStabilityInwardsChartDataPointsFactory.CreateSliceParameterAreas(output?.SlidingCurve,
-                                                                                      nameof(MacroStabilityInwardsSlice.LoadStress), 8);
+            sliceCohesionChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateCohesionAreas(slidingCurve);
+            sliceEffectiveStressChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressAreas(slidingCurve);
+            sliceEffectiveStressDailyChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressDailyAreas(slidingCurve);
+            sliceTotalPorePressureChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateTotalPorePressureAreas(slidingCurve);
+            sliceWeightChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateWeightAreas(slidingCurve);
+            slicePiezometricPorePressureChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePiezometricPorePressureAreas(slidingCurve);
+            slicePorePressureChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePorePressureAreas(slidingCurve);
+            sliceVerticalPorePressureChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateVerticalPorePressureAreas(slidingCurve);
+            sliceHorizontalPorePressureChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateHorizontalPorePressureAreas(slidingCurve);
+            sliceOverConsolidationRatioChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateOverConsolidationRatioAreas(slidingCurve);
+            slicePopChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePopAreas(slidingCurve);
+            sliceNormalStressChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateNormalStressAreas(slidingCurve);
+            sliceShearStressChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateShearStressAreas(slidingCurve);
+            sliceLoadStressChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateLoadStressAreas(slidingCurve);
         }
 
         private void UpdateInputChartData()

@@ -251,38 +251,38 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         /// <param name="actual">The actual <see cref="ChartMultipleAreaData"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="slices"/>.</exception>
-        public static void AssertSliceParametersChartData(IEnumerable<MacroStabilityInwardsSlice> slices, ChartDataCollection actual)
+        private static void AssertSliceParametersChartData(IEnumerable<MacroStabilityInwardsSlice> slices, ChartDataCollection actual)
         {
             MacroStabilityInwardsSlice[] macroStabilityInwardsSlices = slices.ToArray();
             CollectionAssert.IsNotEmpty(macroStabilityInwardsSlices);
 
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.Cohesion), 8),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.Cohesion, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterCohesionIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.EffectiveStress), 8),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.EffectiveStress, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterEffectiveStressIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.EffectiveStressDaily), 8),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.EffectiveStressDaily, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterEffectiveStressDailyIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.TotalPorePressure), 8),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.TotalPorePressure, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterTotalPorePressureIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.Weight), 8),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.Weight, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterWeightIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.PiezometricPorePressure), 8),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.PiezometricPorePressure, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterPiezometricPorePressureIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.PorePressure), 8),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.PorePressure, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterPorePressureIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.VerticalPorePressure), 8),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.VerticalPorePressure, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterVerticalPorePressureIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.HorizontalPorePressure), 8),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.HorizontalPorePressure, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterHorizontalPorePressureIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.OverConsolidationRatio), 20),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.OverConsolidationRatio, 0.05),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterOverConsolidationRatioIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.Pop), 8),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.Pop, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterPopIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.NormalStress), 8),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.NormalStress, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterNormalStressIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.ShearStress), 8),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.ShearStress, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterShearStressIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, nameof(MacroStabilityInwardsSlice.LoadStress), 8),
+            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.LoadStress, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterLoadStressIndex)).Areas);
         }
 
@@ -313,6 +313,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             var loadStressSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterLoadStressIndex];
 
             CollectionAssert.IsEmpty(cohesionSliceData.Areas);
+            CollectionAssert.IsEmpty(effectiveStressSliceData.Areas);
+            CollectionAssert.IsEmpty(effectiveStressDailySliceData.Areas);
+            CollectionAssert.IsEmpty(totalPorePressureSliceData.Areas);
+            CollectionAssert.IsEmpty(weightSliceData.Areas);
+            CollectionAssert.IsEmpty(piezometricPorePressureSliceData.Areas);
+            CollectionAssert.IsEmpty(porePressureSliceData.Areas);
+            CollectionAssert.IsEmpty(verticalPorePressureSliceData.Areas);
+            CollectionAssert.IsEmpty(horizontalPorePressureSliceData.Areas);
+            CollectionAssert.IsEmpty(overConsolidationRatioSliceData.Areas);
+            CollectionAssert.IsEmpty(popSliceData.Areas);
+            CollectionAssert.IsEmpty(normalStressSliceData.Areas);
+            CollectionAssert.IsEmpty(shearStressSliceData.Areas);
+            CollectionAssert.IsEmpty(loadStressSliceData.Areas);
 
             Assert.AreEqual("Cohesie", cohesionSliceData.Name);
             Assert.AreEqual("Effectieve spanning", effectiveStressSliceData.Name);
@@ -383,14 +396,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         }
 
         private static IEnumerable<Point2D[]> CreateExpectedSliceParameterAreas(IEnumerable<MacroStabilityInwardsSlice> slices,
-                                                                                string propertyName,
-                                                                                int scaleFactor)
+                                                                                Func<MacroStabilityInwardsSlice, RoundedDouble> getParameterFunc,
+                                                                                double scaleFactor)
         {
             var areas = new List<Point2D[]>();
             foreach (MacroStabilityInwardsSlice slice in slices)
             {
-                var value = (RoundedDouble?) slice.GetType().GetProperty(propertyName)?.GetValue(slice, null);
-                double offset = value.Value / scaleFactor;
+                RoundedDouble value = getParameterFunc.Invoke(slice);
+                double offset = value.Value * scaleFactor;
                 double length = Math.Sqrt(Math.Pow(slice.BottomLeftPoint.X - slice.BottomRightPoint.X, 2) +
                                           Math.Pow(slice.BottomLeftPoint.Y - slice.BottomRightPoint.Y, 2));
 
