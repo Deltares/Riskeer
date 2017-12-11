@@ -137,12 +137,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateCohesionAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreateCohesionAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                Cohesion = new Random(39).Next(2000, int.MaxValue)
+                Cohesion = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -178,12 +179,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateCohesionAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreateCohesionAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                Cohesion = new Random(39).Next(int.MinValue, -2000)
+                Cohesion = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -270,12 +272,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateEffectiveStressAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreateEffectiveStressAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                EffectiveStress = new Random(39).Next(2000, int.MaxValue)
+                EffectiveStress = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -311,12 +314,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateEffectiveStressAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreateEffectiveStressAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                EffectiveStress = new Random(39).Next(int.MinValue, -2001)
+                EffectiveStress = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -403,12 +407,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateEffectiveStressDailyAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreateEffectiveStressDailyAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                EffectiveStressDaily = new Random(39).Next(2000, int.MaxValue)
+                EffectiveStressDaily = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -444,12 +449,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateEffectiveStressDailyAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreateEffectiveStressDailyAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                EffectiveStressDaily = new Random(39).Next(int.MinValue, -2001)
+                EffectiveStressDaily = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -536,12 +542,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateTotalPorePressureAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreateTotalPorePressureAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                TotalPorePressure = new Random(39).Next(2000, int.MaxValue)
+                TotalPorePressure = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -577,12 +584,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateTotalPorePressureAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreateTotalPorePressureAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                TotalPorePressure = new Random(39).Next(int.MinValue, -2001)
+                TotalPorePressure = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -669,12 +677,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateWeightAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreateWeightAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                Weight = new Random(39).Next(2000, int.MaxValue)
+                Weight = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -710,12 +719,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateWeightAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreateWeightAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                Weight = new Random(39).Next(int.MinValue, -2001)
+                Weight = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -802,12 +812,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreatePiezometricPorePressureAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreatePiezometricPorePressureAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                PiezometricPorePressure = new Random(39).Next(2000, int.MaxValue)
+                PiezometricPorePressure = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -843,12 +854,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreatePiezometricPorePressureAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreatePiezometricPorePressureAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                PiezometricPorePressure = new Random(39).Next(int.MinValue, -2001)
+                PiezometricPorePressure = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -935,12 +947,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreatePorePressureAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreatePorePressureAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                PorePressure = new Random(39).Next(2000, int.MaxValue)
+                PorePressure = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -976,12 +989,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreatePorePressureAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreatePorePressureAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                PorePressure = new Random(39).Next(int.MinValue, -2001)
+                PorePressure = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1068,12 +1082,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateVerticalPorePressureAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreateVerticalPorePressureAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                VerticalPorePressure = new Random(39).Next(2000, int.MaxValue)
+                VerticalPorePressure = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1109,12 +1124,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateVerticalPorePressureAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreateVerticalPorePressureAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                VerticalPorePressure = new Random(39).Next(int.MinValue, -2001)
+                VerticalPorePressure = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1201,12 +1217,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHorizontalPorePressureAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreateHorizontalPorePressureAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                HorizontalPorePressure = new Random(39).Next(2000, int.MaxValue)
+                HorizontalPorePressure = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1242,12 +1259,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHorizontalPorePressureAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreateHorizontalPorePressureAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                HorizontalPorePressure = new Random(39).Next(int.MinValue, -2001)
+                HorizontalPorePressure = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1334,12 +1352,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateOverConsolidationRatioAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreateOverConsolidationRatioAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                OverConsolidationRatio = new Random(39).Next(2000, int.MaxValue)
+                OverConsolidationRatio = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1375,12 +1394,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateOverConsolidationRatioAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreateOverConsolidationRatioAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                OverConsolidationRatio = new Random(39).Next(int.MinValue, -2001)
+                OverConsolidationRatio = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1467,12 +1487,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreatePopAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreatePopAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                Pop = new Random(39).Next(2000, int.MaxValue)
+                Pop = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1508,12 +1529,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreatePopAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreatePopAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                Pop = new Random(39).Next(int.MinValue, -2001)
+                Pop = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1600,12 +1622,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateNormalStressAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreateNormalStressAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                NormalStress = new Random(39).Next(2000, int.MaxValue)
+                NormalStress = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1641,12 +1664,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateNormalStressAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreateNormalStressAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                NormalStress = new Random(39).Next(int.MinValue, -2001)
+                NormalStress = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1733,12 +1757,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateShearStressAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreateShearStressAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                ShearStress = new Random(39).Next(2000, int.MaxValue)
+                ShearStress = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1774,12 +1799,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateShearStressAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreateShearStressAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                ShearStress = new Random(39).Next(int.MinValue, -2001)
+                ShearStress = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1866,12 +1892,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateLoadStressAreas_ValueAboveUpperLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesAboveUpperLimit))]
+        public void CreateLoadStressAreas_ValueAboveUpperLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                LoadStress = new Random(39).Next(2000, int.MaxValue)
+                LoadStress = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -1907,12 +1934,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateLoadStressAreas_ValueBelowLowerLimit_ReturnsExpectedAreas()
+        [TestCaseSource(nameof(GetValuesBelowLowerLimit))]
+        public void CreateLoadStressAreas_ValueBelowLowerLimit_ReturnsExpectedAreas(double value)
         {
             // Setup
             var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
             {
-                LoadStress = new Random(39).Next(int.MinValue, -2001)
+                LoadStress = value
             };
 
             MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
@@ -2032,6 +2060,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             yield return new TestCaseData(new Func<MacroStabilityInwardsSlidingCurve, IEnumerable<IEnumerable<Point2D>>>(
                                               MacroStabilityInwardsSliceChartDataPointsFactory.CreatePopAreas))
                 .SetName(nameof(MacroStabilityInwardsSliceChartDataPointsFactory.CreateLoadStressAreas));
+        }
+
+        private static IEnumerable<TestCaseData> GetValuesAboveUpperLimit()
+        {
+            yield return new TestCaseData(2000.0);
+            yield return new TestCaseData(3500.0);
+            yield return new TestCaseData(double.MaxValue);
+        }
+
+        private static IEnumerable<TestCaseData> GetValuesBelowLowerLimit()
+        {
+            yield return new TestCaseData(-2000.0);
+            yield return new TestCaseData(-3500.0);
+            yield return new TestCaseData(double.MinValue);
         }
 
         private static MacroStabilityInwardsSlidingCurve CreateSlidingCurve(MacroStabilityInwardsSlice.ConstructionProperties constructionProperties)
