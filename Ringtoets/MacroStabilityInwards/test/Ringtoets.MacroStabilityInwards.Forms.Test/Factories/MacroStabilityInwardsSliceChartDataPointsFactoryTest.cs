@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.TestUtil.Geometry;
@@ -89,6 +90,70 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateParameterAreas_ValueNaN_ReturnsExpectedAreas()
+        {
+            // Setup
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(new MacroStabilityInwardsSlice.ConstructionProperties());
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> cohesionAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateCohesionAreas(slidingCurve);
+            IEnumerable<IEnumerable<Point2D>> effectiveStressAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressAreas(slidingCurve);
+            IEnumerable<IEnumerable<Point2D>> effectiveStressDailyAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressDailyAreas(slidingCurve);
+            IEnumerable<IEnumerable<Point2D>> totalPorePressureAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateTotalPorePressureAreas(slidingCurve);
+            IEnumerable<IEnumerable<Point2D>> weightAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateWeightAreas(slidingCurve);
+            IEnumerable<IEnumerable<Point2D>> piezometricPorePressureAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePiezometricPorePressureAreas(slidingCurve);
+            IEnumerable<IEnumerable<Point2D>> porePressureAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePorePressureAreas(slidingCurve);
+            IEnumerable<IEnumerable<Point2D>> verticalPorePressureAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateVerticalPorePressureAreas(slidingCurve);
+            IEnumerable<IEnumerable<Point2D>> horizontalPorePressureAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateHorizontalPorePressureAreas(slidingCurve);
+            IEnumerable<IEnumerable<Point2D>> overConsolidationRatioAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateOverConsolidationRatioAreas(slidingCurve);
+            IEnumerable<IEnumerable<Point2D>> popAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePopAreas(slidingCurve);
+            IEnumerable<IEnumerable<Point2D>> normalStressAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateNormalStressAreas(slidingCurve);
+            IEnumerable<IEnumerable<Point2D>> shearStressAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateShearStressAreas(slidingCurve);
+            IEnumerable<IEnumerable<Point2D>> loadStressAreas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateLoadStressAreas(slidingCurve);
+
+            // Assert
+            var expectedAreas = new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, 0),
+                    new Point2D(0, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(1, 1),
+                    new Point2D(1, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(2, 1),
+                    new Point2D(1, 0)
+                }
+            };
+
+            CollectionAssert.AreEqual(expectedAreas, cohesionAreas);
+            CollectionAssert.AreEqual(expectedAreas, effectiveStressAreas);
+            CollectionAssert.AreEqual(expectedAreas, effectiveStressDailyAreas);
+            CollectionAssert.AreEqual(expectedAreas, totalPorePressureAreas);
+            CollectionAssert.AreEqual(expectedAreas, weightAreas);
+            CollectionAssert.AreEqual(expectedAreas, piezometricPorePressureAreas);
+            CollectionAssert.AreEqual(expectedAreas, porePressureAreas);
+            CollectionAssert.AreEqual(expectedAreas, verticalPorePressureAreas);
+            CollectionAssert.AreEqual(expectedAreas, horizontalPorePressureAreas);
+            CollectionAssert.AreEqual(expectedAreas, overConsolidationRatioAreas);
+            CollectionAssert.AreEqual(expectedAreas, popAreas);
+            CollectionAssert.AreEqual(expectedAreas, normalStressAreas);
+            CollectionAssert.AreEqual(expectedAreas, shearStressAreas);
+            CollectionAssert.AreEqual(expectedAreas, loadStressAreas);
+        }
+
+        [Test]
         public void CreateCohesionAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
@@ -96,6 +161,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
             // Assert
             CollectionAssert.IsEmpty(areas);
+        }
+
+        [Test]
+        public void CreateCohesionAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                Cohesion = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateCohesionAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -250),
+                    new Point2D(0, -250)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(251, 1),
+                    new Point2D(251, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(178.776695, -175.776695),
+                    new Point2D(177.776695, -176.776695)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
         }
 
         [Test]
@@ -150,6 +256,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateEffectiveStressAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                EffectiveStress = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -250),
+                    new Point2D(0, -250)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(251, 1),
+                    new Point2D(251, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(178.776695, -175.776695),
+                    new Point2D(177.776695, -176.776695)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
+        }
+
+        [Test]
         public void CreateEffectiveStressAreas_ValidParameters_ReturnsExpectedAreas()
         {
             // Setup
@@ -198,6 +345,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
             // Assert
             CollectionAssert.IsEmpty(areas);
+        }
+
+        [Test]
+        public void CreateEffectiveStressDailyAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                EffectiveStressDaily = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressDailyAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -250),
+                    new Point2D(0, -250)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(251, 1),
+                    new Point2D(251, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(178.776695, -175.776695),
+                    new Point2D(177.776695, -176.776695)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
         }
 
         [Test]
@@ -252,6 +440,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateTotalPorePressureAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                TotalPorePressure = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateTotalPorePressureAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -250),
+                    new Point2D(0, -250)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(251, 1),
+                    new Point2D(251, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(178.776695, -175.776695),
+                    new Point2D(177.776695, -176.776695)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
+        }
+
+        [Test]
         public void CreateTotalPorePressureAreas_ValidParameters_ReturnsExpectedAreas()
         {
             // Setup
@@ -300,6 +529,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
             // Assert
             CollectionAssert.IsEmpty(areas);
+        }
+
+        [Test]
+        public void CreateWeightAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                Weight = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateWeightAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -250),
+                    new Point2D(0, -250)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(251, 1),
+                    new Point2D(251, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(178.776695, -175.776695),
+                    new Point2D(177.776695, -176.776695)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
         }
 
         [Test]
@@ -354,6 +624,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreatePiezometricPorePressureAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                PiezometricPorePressure = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePiezometricPorePressureAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -250),
+                    new Point2D(0, -250)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(251, 1),
+                    new Point2D(251, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(178.776695, -175.776695),
+                    new Point2D(177.776695, -176.776695)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
+        }
+
+        [Test]
         public void CreatePiezometricPorePressureAreas_ValidParameters_ReturnsExpectedAreas()
         {
             // Setup
@@ -402,6 +713,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
             // Assert
             CollectionAssert.IsEmpty(areas);
+        }
+
+        [Test]
+        public void CreatePorePressureAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                PorePressure = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePorePressureAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -250),
+                    new Point2D(0, -250)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(251, 1),
+                    new Point2D(251, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(178.776695, -175.776695),
+                    new Point2D(177.776695, -176.776695)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
         }
 
         [Test]
@@ -456,6 +808,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateVerticalPorePressureAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                VerticalPorePressure = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateVerticalPorePressureAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -250),
+                    new Point2D(0, -250)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(251, 1),
+                    new Point2D(251, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(178.776695, -175.776695),
+                    new Point2D(177.776695, -176.776695)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
+        }
+
+        [Test]
         public void CreateVerticalPorePressureAreas_ValidParameters_ReturnsExpectedAreas()
         {
             // Setup
@@ -504,6 +897,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
             // Assert
             CollectionAssert.IsEmpty(areas);
+        }
+
+        [Test]
+        public void CreateHorizontalPorePressureAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                HorizontalPorePressure = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateHorizontalPorePressureAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -250),
+                    new Point2D(0, -250)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(251, 1),
+                    new Point2D(251, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(178.776695, -175.776695),
+                    new Point2D(177.776695, -176.776695)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
         }
 
         [Test]
@@ -558,6 +992,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateOverConsolidationRatioAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                OverConsolidationRatio = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateOverConsolidationRatioAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -100),
+                    new Point2D(0, -100)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(101, 1),
+                    new Point2D(101, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(72.710678, -69.710678),
+                    new Point2D(71.710678, -70.710678)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
+        }
+
+        [Test]
         public void CreateOverConsolidationRatioAreas_ValidParameters_ReturnsExpectedAreas()
         {
             // Setup
@@ -606,6 +1081,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
             // Assert
             CollectionAssert.IsEmpty(areas);
+        }
+
+        [Test]
+        public void CreatePopAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                Pop = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePopAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -250),
+                    new Point2D(0, -250)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(251, 1),
+                    new Point2D(251, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(178.776695, -175.776695),
+                    new Point2D(177.776695, -176.776695)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
         }
 
         [Test]
@@ -660,6 +1176,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateNormalStressAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                NormalStress = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateNormalStressAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -250),
+                    new Point2D(0, -250)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(251, 1),
+                    new Point2D(251, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(178.776695, -175.776695),
+                    new Point2D(177.776695, -176.776695)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
+        }
+
+        [Test]
         public void CreateNormalStressAreas_ValidParameters_ReturnsExpectedAreas()
         {
             // Setup
@@ -711,6 +1268,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateShearStressAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                ShearStress = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateShearStressAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -250),
+                    new Point2D(0, -250)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(251, 1),
+                    new Point2D(251, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(178.776695, -175.776695),
+                    new Point2D(177.776695, -176.776695)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
+        }
+
+        [Test]
         public void CreateShearStressAreas_ValidParameters_ReturnsExpectedAreas()
         {
             // Setup
@@ -759,6 +1357,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
             // Assert
             CollectionAssert.IsEmpty(areas);
+        }
+
+        [Test]
+        public void CreateLoadStressAreas_ValueAboveLimit_ReturnsExpectedAreas()
+        {
+            // Setup
+            var constructionProperties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                LoadStress = new Random(39).Next(2001, int.MaxValue)
+            };
+
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateLoadStressAreas(slidingCurve);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0),
+                    new Point2D(1, -250),
+                    new Point2D(0, -250)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(1, 1),
+                    new Point2D(251, 1),
+                    new Point2D(251, 0)
+                },
+                new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 1),
+                    new Point2D(178.776695, -175.776695),
+                    new Point2D(177.776695, -176.776695)
+                }
+            }, areas, new Point2DComparerWithTolerance(1e-6));
         }
 
         [Test]

@@ -267,6 +267,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             foreach (MacroStabilityInwardsSlice slice in slices)
             {
                 RoundedDouble value = getParameterFunc(slice);
+                if (double.IsNaN(value))
+                {
+                    value = (RoundedDouble) 0.0;
+                }
+                else if (value > 2000.0)
+                {
+                    value = (RoundedDouble) 2000.0;
+                }
                 double offset = value.Value * scaleFactor;
                 double deltaX = slice.BottomLeftPoint.X - slice.BottomRightPoint.X;
                 double deltaY = slice.BottomLeftPoint.Y - slice.BottomRightPoint.Y;
