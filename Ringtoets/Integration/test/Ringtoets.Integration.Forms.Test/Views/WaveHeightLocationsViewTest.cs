@@ -544,7 +544,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             WaveHeightLocationsView view = ShowWaveHeightLocationsView(assessmentSection, form);
 
-            view.Data = testHydraulicBoundaryDatabase.Locations;
+            view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
             return view;
         }
 
