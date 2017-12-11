@@ -71,10 +71,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Setup 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
-                                                                                                       mockRepository);
+                                                                                                       mockRepository,
+                                                                                                       Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculation = new TestClosingStructuresCalculation();
 
@@ -125,10 +124,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Setup 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
-                                                                                                       mockRepository);
+                                                                                                       mockRepository,
+                                                                                                       Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculation = new TestClosingStructuresCalculation
             {
@@ -185,10 +183,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Setup 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
-                                                                                                       mockRepository);
+                                                                                                       mockRepository,
+                                                                                                       Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculation = new TestClosingStructuresCalculation
             {
@@ -240,10 +237,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Setup 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
-                                                                                                       mockRepository);
+                                                                                                       mockRepository,
+                                                                                                       Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculation = new TestClosingStructuresCalculation
             {
@@ -274,10 +270,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
+                                                                                                       mockRepository,
+                                                                                                       Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculation = new TestClosingStructuresCalculation
             {

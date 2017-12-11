@@ -118,10 +118,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Setup 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
-                                                                                                       mockRepository);
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var calculation = new TestStabilityPointStructuresCalculation
             {
@@ -200,10 +199,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Setup 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
-                                                                                                       mockRepository);
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var calculation = new TestStabilityPointStructuresCalculation
             {
@@ -282,10 +280,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Setup 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
-                                                                                                       mockRepository);
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var calculation = new TestStabilityPointStructuresCalculation
             {
@@ -364,10 +361,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Setup 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
-                                                                                                       mockRepository);
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var calculation = new TestStabilityPointStructuresCalculation
             {

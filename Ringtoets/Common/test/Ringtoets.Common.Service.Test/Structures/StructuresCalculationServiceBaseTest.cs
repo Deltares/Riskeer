@@ -97,10 +97,10 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(), mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
+                                                                                                       mocks,
+                                                                                                       Path.Combine(testDataPath, "notexisting.sqlite"));
             mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "notexisting.sqlite");
 
             var calculation = new TestStructuresCalculation();
 
@@ -167,12 +167,10 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                new TestFailureMechanism(),
-                mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
+                                                                                                       mocks,
+                                                                                                       Path.Combine(testDataPath, "HRD nosettings.sqlite"));
             mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
             var calculation = new TestStructuresCalculation();
 
@@ -200,11 +198,10 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                new TestFailureMechanism(), mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
+                                                                                                       mocks,
+                                                                                                       validFilePath);
             mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var calculation = new TestStructuresCalculation
             {
