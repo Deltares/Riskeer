@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
@@ -37,7 +38,7 @@ namespace Core.Components.OxyPlot.Converter.Chart
         {
             series.Areas.Clear();
 
-            foreach (Point2D[] area in data.Areas)
+            foreach (IEnumerable<Point2D> area in data.Areas)
             {
                 series.Areas.Add(area.Select(p => new DataPoint(p.X, p.Y)).ToArray());
             }

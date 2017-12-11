@@ -44,6 +44,8 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Factories\MacroStabilityInwardsSliceChartDataFactory.cs" />
+    <Compile Include="Factories\MacroStabilityInwardsSliceChartDataPointsFactory.cs" />
     <Compile Include="MacroStabilityInwardsCalculationConfigurationHelper.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputExtremeProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputDailyProperties.cs" />

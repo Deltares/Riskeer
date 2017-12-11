@@ -71,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateWaternetZoneChartData_WithVisibility_ReturnsEmptyChartLineDataWithExpectedVisibility(bool isVisible)
+        public void CreateWaternetZoneChartData_WithVisibility_ReturnsEmptyChartLineDataWithExpectedStylingAndVisibility(bool isVisible)
         {
             // Setup
             const string name = "zone";
@@ -100,7 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreatePhreaticLineChartData_WithVisibility_ReturnsEmptyChartLineDataWithExpectedVisibility(bool isVisible)
+        public void CreatePhreaticLineChartData_WithVisibility_ReturnsEmptyChartLineDataWithExpectedStylingAndVisibility(bool isVisible)
         {
             // Setup
             const string name = "zone";
@@ -293,18 +293,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Radius passieve cirkel", data.Name);
             AssertEqualStyle(data.Style, Color.Gray, 1, ChartLineDashStyle.Dash);
-        }
-
-        [Test]
-        public void CreateSlicesChartData_ReturnsChartMultipleAreaData()
-        {
-            // Call
-            ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSlicesChartData();
-
-            // Assert
-            CollectionAssert.IsEmpty(data.Areas);
-            Assert.AreEqual("Lamellen", data.Name);
-            AssertEqualStyle(data.Style, Color.Empty, Color.DarkGreen, 2, true);
         }
 
         [Test]
