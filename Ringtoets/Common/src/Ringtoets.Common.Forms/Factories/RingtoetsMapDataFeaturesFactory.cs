@@ -177,7 +177,7 @@ namespace Ringtoets.Common.Forms.Factories
             return sections != null && sections.Any()
                        ? new[]
                        {
-                           CreateSingleLineMapFeature(sections.Select(sl => sl.GetStart()))
+                           CreateSingleLineMapFeature(sections.Select(sl => sl.GetStart()).ToArray())
                        }
                        : new MapFeature[0];
         }
@@ -392,7 +392,7 @@ namespace Ringtoets.Common.Forms.Factories
             {
                 new MapGeometry(new[]
                 {
-                    section.Points.Select(p => new Point2D(p))
+                    section.Points.Select(p => new Point2D(p)).ToArray()
                 })
             });
 
@@ -405,7 +405,7 @@ namespace Ringtoets.Common.Forms.Factories
         private static IEnumerable<Point2D> GetWorldPoints(DikeProfile dikeProfile)
         {
             return AdvancedMath2D.FromXToXY(
-                dikeProfile.DikeGeometry.Select(p => -p.Point.X).ToArray(),
+                dikeProfile.DikeGeometry.Select(p => -p.Point.X),
                 dikeProfile.WorldReferencePoint,
                 -dikeProfile.X0,
                 dikeProfile.Orientation);
@@ -414,7 +414,7 @@ namespace Ringtoets.Common.Forms.Factories
         private static IEnumerable<Point2D> GetWorldPoints(ForeshoreProfile foreshoreProfile)
         {
             return AdvancedMath2D.FromXToXY(
-                foreshoreProfile.Geometry.Select(p => -p.X).ToArray(),
+                foreshoreProfile.Geometry.Select(p => -p.X),
                 foreshoreProfile.WorldReferencePoint,
                 -foreshoreProfile.X0,
                 foreshoreProfile.Orientation);

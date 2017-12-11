@@ -109,7 +109,7 @@ namespace Core.Components.Gis.Forms.Views
         private static IEnumerable<WellKnownTileSourceMapData> GetSortedWellKnownTileSourceMapDatas()
         {
             var enumValues = (WellKnownTileSource[]) Enum.GetValues(typeof(WellKnownTileSource));
-            return enumValues.Select(enumValue => new WellKnownTileSourceMapData(enumValue)).ToList().OrderBy(w => w.Name).ToArray();
+            return enumValues.Select(enumValue => new WellKnownTileSourceMapData(enumValue)).OrderBy(w => w.Name).ToArray();
         }
 
         private void DataGridViewCurrentCellChangedHandler(object sender, EventArgs e)

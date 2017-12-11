@@ -115,8 +115,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             return dataGridViewControl.Rows
                                       .Cast<DataGridViewRow>()
-                                      .Select(row => (CalculatableRow<T>) row.DataBoundItem)
-                                      .ToArray();
+                                      .Select(row => (CalculatableRow<T>) row.DataBoundItem);
         }
 
         /// <summary>
@@ -125,8 +124,7 @@ namespace Ringtoets.Common.Forms.Views
         protected IEnumerable<T> GetSelectedCalculatableObjects()
         {
             return GetCalculatableRows().Where(r => r.ShouldCalculate)
-                                        .Select(r => r.CalculatableObject)
-                                        .ToArray();
+                                        .Select(r => r.CalculatableObject);
         }
 
         /// <summary>
@@ -255,7 +253,7 @@ namespace Ringtoets.Common.Forms.Views
             var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
             Selection = selection != null
                             ? new SelectedTopLevelSubMechanismIllustrationPoint((TopLevelSubMechanismIllustrationPoint) selection.Source,
-                                                                                GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation).ToArray())
+                                                                                GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
                             : null;
 
             OnSelectionChanged();

@@ -78,7 +78,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             foreshoreProfilesObserver = new Observer(UpdateMapData);
 
             calculationInputObserver = new RecursiveObserver<CalculationGroup, WaveConditionsInput>(
-                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>().Select(pc => pc.InputParameters)));
+                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                     .Select(pc => pc.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
             calculationObserver = new RecursiveObserver<CalculationGroup, GrassCoverErosionOutwardsWaveConditionsCalculation>(UpdateMapData, pcg => pcg.Children);
             foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll);

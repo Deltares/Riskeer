@@ -91,8 +91,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ClosingStructuresInput>(
                 UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<ClosingStructuresInput>>()
-                                                                     .Select(pc => pc.InputParameters)
-                                                                     .ToArray()).ToArray());
+                                                                     .Select(pc => pc.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
             calculationObserver = new RecursiveObserver<CalculationGroup, StructuresCalculation<ClosingStructuresInput>>(UpdateMapData, pcg => pcg.Children);
             foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll);

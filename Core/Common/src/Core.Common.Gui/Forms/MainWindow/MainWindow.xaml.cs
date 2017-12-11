@@ -462,8 +462,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             // get all ribbon controls
             ribbonCommandHandlers = pluginsHost.Plugins.Where(p => p.RibbonCommandHandler != null)
-                                               .Select(p => p.RibbonCommandHandler)
-                                               .ToArray();
+                                               .Select(p => p.RibbonCommandHandler);
 
             foreach (Ribbon ribbonControl in ribbonCommandHandlers.Select(rch => rch.GetRibbonControl()))
             {

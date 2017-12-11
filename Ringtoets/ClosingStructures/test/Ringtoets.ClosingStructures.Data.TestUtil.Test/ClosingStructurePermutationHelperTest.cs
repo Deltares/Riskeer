@@ -78,9 +78,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
 
         private static void AssertTestNames(IEnumerable<TestCaseData> testCaseData, string targetName, string testResultDescription)
         {
-            IEnumerable<string> testNames = testCaseData
-                .Select(tcd => tcd.TestName)
-                .ToArray();
+            IEnumerable<string> testNames = testCaseData.Select(tcd => tcd.TestName);
             Assert.AreEqual(testCaseData.Count(), testNames.Distinct().Count());
             Assert.IsTrue(testNames.All(tn => tn.StartsWith($"{targetName}_")));
             Assert.IsTrue(testNames.All(tn => tn.EndsWith($"_{testResultDescription}")));

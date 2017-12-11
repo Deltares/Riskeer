@@ -356,7 +356,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         {
             return windDirections.SelectMany(windDirection =>
                                                  closingSituations.Select(
-                                                     closingSituation => Tuple.Create(windDirection.Key, windDirection.Value, closingSituation.Key, closingSituation.Value)));
+                                                     closingSituation => Tuple.Create(windDirection.Key, windDirection.Value, closingSituation.Key, closingSituation.Value)))
+                                 .ToArray();
         }
 
         private IllustrationPointTreeNode BuildFaultTree(

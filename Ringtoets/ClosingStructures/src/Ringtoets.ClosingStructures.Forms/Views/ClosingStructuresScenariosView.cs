@@ -58,8 +58,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children
                                                                                  .OfType<StructuresCalculation<ClosingStructuresInput>>()
-                                                                                 .Select(c => c.InputParameters))
-                                                                                 .ToArray());
+                                                                                 .Select(c => c.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
         }
 

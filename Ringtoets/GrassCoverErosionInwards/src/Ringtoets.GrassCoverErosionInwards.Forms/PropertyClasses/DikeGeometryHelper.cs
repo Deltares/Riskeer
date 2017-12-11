@@ -41,7 +41,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             return roughnessPoints.Count() > 1
                        ? roughnessPoints.Take(roughnessPoints.Count() - 1)
                                         .Select(p => p.Roughness)
-                                        .ToArray()
                        : new RoundedDouble[0];
         }
     }

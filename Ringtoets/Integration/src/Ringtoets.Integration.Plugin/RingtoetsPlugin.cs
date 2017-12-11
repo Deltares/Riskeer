@@ -1134,8 +1134,8 @@ namespace Ringtoets.Integration.Plugin
                 .GetFailureMechanisms()
                 .Select(failureMechanism => failureMechanismAssociations
                             .First(a => a.Match(failureMechanism))
-                            .Create(failureMechanism, assessmentSection)
-                );
+                            .Create(failureMechanism, assessmentSection))
+                .ToArray();
         }
 
         private static void AssessmentSectionOnNodeRenamed(IAssessmentSection nodeData, string newName)

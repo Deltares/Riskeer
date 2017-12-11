@@ -41,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
         /// <returns>A collection of points in 2D space or an empty array when <paramref name="dikeProfile"/> is <c>null</c>.</returns>
         public static IEnumerable<Point2D> CreateDikeGeometryPoints(DikeProfile dikeProfile)
         {
-            return dikeProfile?.DikeGeometry.Select(dg => dg.Point).ToArray() ?? new Point2D[0];
+            return dikeProfile?.DikeGeometry.Select(dg => dg.Point) ?? new Point2D[0];
         }
 
         /// <summary>
