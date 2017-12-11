@@ -1510,26 +1510,23 @@ namespace Ringtoets.Integration.Plugin
         {
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            bool isHydraulicBoundaryDatabaseCoupled = hydraulicBoundaryDatabase.IsCoupled();
-            bool isClearConfirmationRequired = isHydraulicBoundaryDatabaseCoupled && !HydraulicBoundaryDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
-            bool isClearConfirmationGiven = isClearConfirmationRequired && IsClearCalculationConfirmationGiven();
-
-            if (isHydraulicBoundaryDatabaseCoupled && isClearConfirmationRequired && !isClearConfirmationGiven)
+            bool haveEqualVersion = HydraulicBoundaryDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
+            bool isClearConfirmationRequired = hydraulicBoundaryDatabase.IsCoupled() && !haveEqualVersion;
+            if (isClearConfirmationRequired && !IsClearCalculationConfirmationGiven())
             {
                 return;
             }
 
-            HydraulicBoundaryDatabase previousHydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
             {
                 if (hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
                 {
-                    if (isClearConfirmationGiven)
+                    if (isClearConfirmationRequired)
                     {
                         ClearCalculations(assessmentSection);
                     }
 
-                    if (!ReferenceEquals(previousHydraulicBoundaryDatabase, assessmentSection.HydraulicBoundaryDatabase))
+                    if (!haveEqualVersion)
                     {
                         HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase?.Locations.ToArray()
                                                                                  ?? new HydraulicBoundaryLocation[0];
@@ -1543,6 +1540,7 @@ namespace Ringtoets.Integration.Plugin
 
                         assessmentSection.DuneErosion.DuneLocations.NotifyObservers();
                     }
+
                     log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
                                    assessmentSection.HydraulicBoundaryDatabase.FilePath);
                 }
