@@ -34,42 +34,20 @@ namespace Ringtoets.Common.Data.TestUtil
     public static class AssessmentSectionHelper
     {
         /// <summary>
-        /// Creates a stub of <see cref="IAssessmentSection"/> without the <see cref="HydraulicBoundaryDatabase"/> set.
+        /// Creates a stub of <see cref="IAssessmentSection"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to set the contribution for.</param>
         /// <param name="mockRepository">The mock repository to create the stub with.</param>
+        /// <param name="failureMechanism">The failure mechanism to set the contribution for (optional).</param>
+        /// <param name="filePath">The file path to the hydraulic boundary database (optional).</param>
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
-        public static IAssessmentSection CreateAssessmentSectionStubWithoutBoundaryDatabase(IFailureMechanism failureMechanism,
-                                                                                            MockRepository mockRepository)
-        {
-            return CreateAssessmentSectionStub(failureMechanism, mockRepository, false, null);
-        }
-
-        /// <summary>
-        /// Creates a stub of <see cref="IAssessmentSection"/> with the <see cref="HydraulicBoundaryDatabase"/> set.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to set the contribution for.</param>
-        /// <param name="mockRepository">The mock repository to create the stub with.</param>
-        /// <param name="filePath">The file path to the hydraulic boundary database.</param>
-        /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
-        public static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism,
-                                                                     MockRepository mockRepository,
+        /// <remarks>When <paramref name="filePath"/> is provided, a dummy location with id 1300001 is added to the
+        /// hydraulic boundary database too.</remarks>
+        public static IAssessmentSection CreateAssessmentSectionStub(MockRepository mockRepository,
+                                                                     IFailureMechanism failureMechanism = null,
                                                                      string filePath = null)
         {
-            return CreateAssessmentSectionStub(failureMechanism, mockRepository, true, filePath);
-        }
-
-        private static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism,
-                                                                      MockRepository mockRepository,
-                                                                      bool addBoundaryDatabase,
-                                                                      string filePath)
-        {
-            IFailureMechanism[] failureMechanisms = failureMechanism == null
-                                                        ? Enumerable.Empty<IFailureMechanism>().ToArray()
-                                                        : new[]
-                                                        {
-                                                            failureMechanism
-                                                        };
+            IFailureMechanism[] failureMechanisms = GetFailureMechanisms(failureMechanism);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(filePath);
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("21");
@@ -79,22 +57,34 @@ namespace Ringtoets.Common.Data.TestUtil
                                                                                    0.1,
                                                                                    1.0 / 30000));
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            if (addBoundaryDatabase)
-            {
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    FilePath = filePath,
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                    }
-                };
-
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-            }
+            assessmentSection.Replay();
 
             return assessmentSection;
+        }
+
+        private static IFailureMechanism[] GetFailureMechanisms(IFailureMechanism failureMechanism)
+        {
+            return failureMechanism == null
+                       ? Enumerable.Empty<IFailureMechanism>().ToArray()
+                       : new[]
+                       {
+                           failureMechanism
+                       };
+        }
+
+        private static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase(string filePath)
+        {
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                hydraulicBoundaryDatabase.FilePath = filePath;
+                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0));
+            }
+
+            return hydraulicBoundaryDatabase;
         }
     }
 }
