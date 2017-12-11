@@ -402,7 +402,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             var areas = new List<Point2D[]>();
             foreach (MacroStabilityInwardsSlice slice in slices)
             {
-                RoundedDouble value = getParameterFunc.Invoke(slice);
+                RoundedDouble value = getParameterFunc(slice);
                 double offset = value.Value * scaleFactor;
                 double length = Math.Sqrt(Math.Pow(slice.BottomLeftPoint.X - slice.BottomRightPoint.X, 2) +
                                           Math.Pow(slice.BottomLeftPoint.Y - slice.BottomRightPoint.Y, 2));

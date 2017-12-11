@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
     public class MacroStabilityInwardsSliceChartDataPointsFactoryTest
     {
         [Test]
-        public void CreateSliceAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreateSliceAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateSliceAreas(null);
@@ -43,10 +43,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateSliceAreas_WithSlices_ReturnsAreas()
+        public void CreateSliceAreas_WithSilidingCurve_ReturnsAreas()
         {
             // Setup
-            var slices = new MacroStabilityInwardsSlidingCurve(
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(
                 MacroStabilityInwardsSlidingCircleTestFactory.Create(),
                 MacroStabilityInwardsSlidingCircleTestFactory.Create(),
                 new[]
@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 0.0);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateSliceAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateSliceAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateCohesionAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreateCohesionAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateCohesionAreas(null);
@@ -107,10 +107,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 Cohesion = 30.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateCohesionAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateCohesionAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -140,7 +140,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateEffectiveStressAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreateEffectiveStressAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressAreas(null);
@@ -158,10 +158,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 EffectiveStress = 40.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -191,7 +191,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateEffectiveStressDailyAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreateEffectiveStressDailyAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressDailyAreas(null);
@@ -209,10 +209,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 EffectiveStressDaily = 50.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressDailyAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressDailyAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -242,7 +242,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateTotalPorePressureAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreateTotalPorePressureAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateTotalPorePressureAreas(null);
@@ -260,10 +260,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 TotalPorePressure = 60.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateTotalPorePressureAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateTotalPorePressureAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -293,7 +293,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateWeightAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreateWeightAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateWeightAreas(null);
@@ -311,10 +311,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 Weight = 70.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateWeightAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateWeightAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -344,7 +344,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreatePiezometricPorePressureAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreatePiezometricPorePressureAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePiezometricPorePressureAreas(null);
@@ -362,10 +362,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 PiezometricPorePressure = 80.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePiezometricPorePressureAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePiezometricPorePressureAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -395,7 +395,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreatePorePressureAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreatePorePressureAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePorePressureAreas(null);
@@ -413,10 +413,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 PorePressure = 90.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePorePressureAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePorePressureAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -446,7 +446,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateVerticalPorePressureAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreateVerticalPorePressureAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateVerticalPorePressureAreas(null);
@@ -464,10 +464,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 VerticalPorePressure = 100.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateVerticalPorePressureAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateVerticalPorePressureAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -497,7 +497,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHorizontalPorePressureAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreateHorizontalPorePressureAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateHorizontalPorePressureAreas(null);
@@ -515,10 +515,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 HorizontalPorePressure = 110.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateHorizontalPorePressureAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateHorizontalPorePressureAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -548,7 +548,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateOverConsolidationRatioAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreateOverConsolidationRatioAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateOverConsolidationRatioAreas(null);
@@ -566,10 +566,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 OverConsolidationRatio = 40.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateOverConsolidationRatioAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateOverConsolidationRatioAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -599,7 +599,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreatePopAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreatePopAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePopAreas(null);
@@ -617,10 +617,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 Pop = 120.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePopAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePopAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -650,7 +650,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateNormalStressAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreateNormalStressAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateNormalStressAreas(null);
@@ -668,10 +668,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 NormalStress = 130.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateNormalStressAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateNormalStressAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -701,7 +701,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateShearStressAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreateShearStressAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateShearStressAreas(null);
@@ -719,10 +719,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 ShearStress = 150.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateShearStressAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateShearStressAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -752,7 +752,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateLoadStressAreas_SlicesNull_ReturnsEmptyCollection()
+        public void CreateLoadStressAreas_SlidingCurveNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateLoadStressAreas(null);
@@ -770,10 +770,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 LoadStress = 160.0
             };
 
-            MacroStabilityInwardsSlidingCurve slices = CreateSlidingCurve(constructionProperties);
+            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(constructionProperties);
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateLoadStressAreas(slices);
+            IEnumerable<IEnumerable<Point2D>> areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateLoadStressAreas(slidingCurve);
 
             // Assert
             CollectionAssert.AreEqual(new[]
