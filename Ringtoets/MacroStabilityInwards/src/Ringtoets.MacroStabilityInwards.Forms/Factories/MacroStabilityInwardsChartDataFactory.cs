@@ -33,7 +33,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating <see cref="ChartData"/> for data used as input in the macro stability inwards failure mechanism.
+    /// Factory for creating <see cref="ChartData"/> for data used in the macro stability inwards failure mechanism.
     /// </summary>
     internal static class MacroStabilityInwardsChartDataFactory
     {
@@ -265,22 +265,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                                                  FillColor = SoilLayerDataHelper.GetValidColor(data.Color),
                                                  StrokeColor = Color.Black,
                                                  StrokeThickness = 1
-                                             });
-        }
-
-        /// <summary>
-        /// Create a <see cref="ChartMultipleAreaData"/> for the slices in a slip plane.
-        /// </summary>
-        /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
-        public static ChartMultipleAreaData CreateSlicesChartData()
-        {
-            return new ChartMultipleAreaData(Resources.Slices_DisplayName,
-                                             new ChartAreaStyle
-                                             {
-                                                 FillColor = Color.Empty,
-                                                 StrokeColor = Color.DarkGreen,
-                                                 StrokeThickness = 2,
-                                                 IsEditable = true
                                              });
         }
 
