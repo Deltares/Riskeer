@@ -40,8 +40,8 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="mockRepository">The mock repository to create the stub with.</param>
         /// <param name="filePath">The file path to the hydraulic boundary database (optional).</param>
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
-        /// <remarks>When <paramref name="filePath"/> is provided, a dummy location with id 1300001 is added to the
-        /// hydraulic boundary database too.</remarks>
+        /// <remarks>Whether <paramref name="filePath"/> is provided or not, a dummy location with id 1300001 is added to the
+        /// hydraulic boundary database.</remarks>
         public static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism,
                                                                      MockRepository mockRepository,
                                                                      string filePath = null)
