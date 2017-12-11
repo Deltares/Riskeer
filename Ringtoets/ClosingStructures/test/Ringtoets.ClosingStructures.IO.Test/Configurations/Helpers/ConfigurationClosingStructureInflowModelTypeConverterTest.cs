@@ -117,6 +117,20 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations.Helpers
         }
 
         [Test]
+        public void ConvertTo_InvalidDestinationType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var random = new Random(21);
+            var converter = new ConfigurationClosingStructureInflowModelTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertTo(random.NextEnumValue<ConfigurationClosingStructureInflowModelType>(), typeof(object));
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
         [TestCase(ConfigurationClosingStructureInflowModelType.FloodedCulvert, ClosingStructureInflowModelType.FloodedCulvert)]
         [TestCase(ConfigurationClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.LowSill)]
         [TestCase(ConfigurationClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.VerticalWall)]

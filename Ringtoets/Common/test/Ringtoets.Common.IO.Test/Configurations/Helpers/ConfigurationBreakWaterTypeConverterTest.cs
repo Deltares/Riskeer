@@ -117,6 +117,20 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
+        public void ConvertTo_InvalidDestinationType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var random = new Random(21);
+            var converter = new ConfigurationBreakWaterTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertTo(random.NextEnumValue<ConfigurationBreakWaterType>(), typeof(object));
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
         [TestCase(ConfigurationBreakWaterType.Caisson, BreakWaterType.Caisson)]
         [TestCase(ConfigurationBreakWaterType.Dam, BreakWaterType.Dam)]
         [TestCase(ConfigurationBreakWaterType.Wall, BreakWaterType.Wall)]
