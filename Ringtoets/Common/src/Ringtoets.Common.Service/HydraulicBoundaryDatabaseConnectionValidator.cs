@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service.Properties;
@@ -33,17 +34,22 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Validates the connection of the specified database.
         /// </summary>
-        /// <param name="database">The database.</param>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database.</param>
         /// <returns>An error message if a problem was found. Returns null in case no problems were found.</returns>
-        public static string Validate(HydraulicBoundaryDatabase database)
+        public static string Validate(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            if (database == null)
+            if (hydraulicBoundaryDatabase == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+            }
+
+            if (!hydraulicBoundaryDatabase.IsCoupled())
             {
                 return Resources.HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported;
             }
 
-            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(database.FilePath,
-                                                                                                  database.EffectivePreprocessorDirectory());
+            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabase.FilePath,
+                                                                                                   hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
             if (!string.IsNullOrEmpty(validationProblem))
             {
                 return string.Format(Resources.Hydraulic_boundary_database_connection_failed_0_,
