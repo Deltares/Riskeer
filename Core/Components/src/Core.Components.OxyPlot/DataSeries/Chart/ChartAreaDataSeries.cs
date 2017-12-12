@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.OxyPlot.Converter.Chart;
@@ -35,7 +36,7 @@ namespace Core.Components.OxyPlot.DataSeries.Chart
         private readonly ChartAreaData chartAreaData;
         private readonly ChartAreaDataConverter converter = new ChartAreaDataConverter();
 
-        private Point2D[] drawnPoints;
+        private IEnumerable<Point2D> drawnPoints;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartAreaDataSeries"/>.

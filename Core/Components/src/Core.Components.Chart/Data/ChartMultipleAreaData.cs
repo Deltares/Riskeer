@@ -33,7 +33,7 @@ namespace Core.Components.Chart.Data
     /// </summary>
     public class ChartMultipleAreaData : ChartData
     {
-        private IEnumerable<Point2D[]> areas;
+        private IEnumerable<IEnumerable<Point2D>> areas;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartMultipleAreaData"/> with default styling.
@@ -75,7 +75,7 @@ namespace Core.Components.Chart.Data
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> contains any <c>null</c> value.</exception>
-        public IEnumerable<Point2D[]> Areas
+        public IEnumerable<IEnumerable<Point2D>> Areas
         {
             get
             {

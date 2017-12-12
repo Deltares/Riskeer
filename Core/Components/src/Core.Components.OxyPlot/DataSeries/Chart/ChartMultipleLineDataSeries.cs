@@ -36,7 +36,7 @@ namespace Core.Components.OxyPlot.DataSeries.Chart
         private readonly ChartMultipleLineData chartMultipleLineData;
         private readonly ChartMultipleLineDataConverter converter = new ChartMultipleLineDataConverter();
 
-        private IEnumerable<Point2D[]> drawnLines;
+        private IEnumerable<IEnumerable<Point2D>> drawnLines;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartMultipleLineDataSeries"/>.

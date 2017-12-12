@@ -36,7 +36,7 @@ namespace Core.Components.OxyPlot.DataSeries.Chart
         private readonly ChartMultipleAreaData chartMultipleAreaData;
         private readonly ChartMultipleAreaDataConverter converter = new ChartMultipleAreaDataConverter();
 
-        private IEnumerable<Point2D[]> drawnAreas;
+        private IEnumerable<IEnumerable<Point2D>> drawnAreas;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartMultipleAreaDataSeries"/>.
