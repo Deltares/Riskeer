@@ -95,8 +95,8 @@ namespace Ringtoets.Common.Service.Structures
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>true</c> if <paramref name="calculation"/> has no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
-        /// enum value is encountered.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when an invalid enum value is encountered.</exception>
+        /// <exception cref="NotSupportedException">Thrown when an unsupported enum value is encountered.</exception>
         public static bool Validate(StructuresCalculation<TStructureInput> calculation, IAssessmentSection assessmentSection)
         {
             if (calculation == null)

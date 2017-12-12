@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Service;
@@ -44,7 +45,15 @@ namespace Ringtoets.ClosingStructures.Service
                                                                          bool usePreprocessor)
         {
             StructuresClosureCalculationInput input;
-            switch (structureInput.InflowModelType)
+            ClosingStructureInflowModelType closingStructureInflowModelType = structureInput.InflowModelType;
+            if (!Enum.IsDefined(typeof(ClosingStructureInflowModelType), closingStructureInflowModelType))
+            {
+                throw new InvalidEnumArgumentException(nameof(structureInput),
+                                                       (int) closingStructureInflowModelType,
+                                                       typeof(ClosingStructureInflowModelType));
+            }
+
+            switch (closingStructureInflowModelType)
             {
                 case ClosingStructureInflowModelType.VerticalWall:
                     input = CreateClosureVerticalWallCalculationInput(structureInput, generalInput);
@@ -56,9 +65,7 @@ namespace Ringtoets.ClosingStructures.Service
                     input = CreateFloodedCulvertCalculationInput(structureInput, generalInput);
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(structureInput),
-                                                           (int) structureInput.InflowModelType,
-                                                           typeof(ClosingStructureInflowModelType));
+                    throw new NotSupportedException($"The enum value {nameof(ClosingStructureInflowModelType)}.{closingStructureInflowModelType} is not supported.");
             }
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath, usePreprocessor);

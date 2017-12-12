@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.Structures;
@@ -48,54 +49,102 @@ namespace Ringtoets.StabilityPointStructures.Service
                                                                                 bool usePreprocessor)
         {
             StructuresStabilityPointCalculationInput input;
-            switch (structureInput.InflowModelType)
+            StabilityPointStructureInflowModelType inflowModelType = structureInput.InflowModelType;
+            if (!Enum.IsDefined(typeof(StabilityPointStructureInflowModelType), inflowModelType))
+            {
+                throw new InvalidEnumArgumentException(nameof(structureInput),
+                                                       (int)inflowModelType,
+                                                       typeof(StabilityPointStructureInflowModelType));
+            }
+
+            switch (inflowModelType)
             {
                 case StabilityPointStructureInflowModelType.LowSill:
-                    switch (structureInput.LoadSchematizationType)
-                    {
-                        case LoadSchematizationType.Linear:
-                            input = CreateLowSillLinearCalculationInput(
-                                structureInput,
-                                generalInput);
-                            break;
-                        case LoadSchematizationType.Quadratic:
-                            input = CreateLowSillQuadraticCalculationInput(
-                                structureInput,
-                                generalInput);
-                            break;
-                        default:
-                            throw new InvalidEnumArgumentException(nameof(structureInput),
-                                                                   (int) structureInput.LoadSchematizationType,
-                                                                   typeof(LoadSchematizationType));
-                    }
+                    input = CreateLowSillInput(structureInput, generalInput);
                     break;
                 case StabilityPointStructureInflowModelType.FloodedCulvert:
-                    switch (structureInput.LoadSchematizationType)
-                    {
-                        case LoadSchematizationType.Linear:
-                            input = CreateFloodedCulvertLinearCalculationInput(
-                                structureInput,
-                                generalInput);
-                            break;
-                        case LoadSchematizationType.Quadratic:
-                            input = CreateFloodedCulvertQuadraticCalculationInput(
-                                structureInput,
-                                generalInput);
-                            break;
-                        default:
-                            throw new InvalidEnumArgumentException(nameof(structureInput),
-                                                                   (int) structureInput.LoadSchematizationType,
-                                                                   typeof(LoadSchematizationType));
-                    }
+                    input = CreateFloodedCulvertInput(structureInput, generalInput);
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(structureInput),
-                                                           (int) structureInput.InflowModelType,
-                                                           typeof(StabilityPointStructureInflowModelType));
+                    throw new NotSupportedException($"The enum value {nameof(StabilityPointStructureInflowModelType)}.{inflowModelType} is not supported.");
             }
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
             return input;
+        }
+
+        /// <summary>
+        /// Creates calculation input based on the <paramref name="structureInput"/> and <paramref name="generalInput"/>
+        /// for flooded culvert calculations.
+        /// </summary>
+        /// <param name="structureInput">The <see cref="StabilityPointStructuresInput"/> to base the calculation on.</param>
+        /// <param name="generalInput">The <see cref="GeneralStabilityPointStructuresInput"/> to base the calculation on.</param>
+        /// <returns>A configured <see cref="StructuresStabilityPointCalculationInput"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="structureInput"/> contains
+        /// an invalid value of <see cref="LoadSchematizationType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when<paramref name="structureInput"/> contains
+        /// an unsupported value of <see cref="LoadSchematizationType"/> </exception>
+        private static StructuresStabilityPointCalculationInput CreateFloodedCulvertInput(StabilityPointStructuresInput structureInput,
+                                                                                          GeneralStabilityPointStructuresInput generalInput)
+        {
+            LoadSchematizationType loadSchematizationType = structureInput.LoadSchematizationType;
+            if (!Enum.IsDefined(typeof(LoadSchematizationType), loadSchematizationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(structureInput),
+                                                       (int)loadSchematizationType,
+                                                       typeof(LoadSchematizationType));
+            }
+
+            switch (structureInput.LoadSchematizationType)
+            {
+                case LoadSchematizationType.Linear:
+                    return CreateFloodedCulvertLinearCalculationInput(
+                        structureInput,
+                        generalInput);
+                case LoadSchematizationType.Quadratic:
+                    return CreateFloodedCulvertQuadraticCalculationInput(
+                        structureInput,
+                        generalInput);
+                default:
+                    throw new NotSupportedException($"The enum value {nameof(LoadSchematizationType)}.{loadSchematizationType} is not supported.");
+            }
+        }
+
+        /// <summary>
+        /// Creates calculation input based on the <paramref name="structureInput"/> and <paramref name="generalInput"/>
+        /// for low sill calculations.
+        /// </summary>
+        /// <param name="structureInput">The <see cref="StabilityPointStructuresInput"/> to base the calculation on.</param>
+        /// <param name="generalInput">The <see cref="GeneralStabilityPointStructuresInput"/> to base the calculation on.</param>
+        /// <returns>A configured <see cref="StructuresStabilityPointCalculationInput"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="structureInput"/> contains
+        /// an invalid value of <see cref="LoadSchematizationType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when<paramref name="structureInput"/> contains
+        /// an unsupported value of <see cref="LoadSchematizationType"/> </exception>
+        private static StructuresStabilityPointCalculationInput CreateLowSillInput(StabilityPointStructuresInput structureInput,
+                                                                                   GeneralStabilityPointStructuresInput generalInput)
+        {
+            LoadSchematizationType loadSchematizationType = structureInput.LoadSchematizationType;
+            if (!Enum.IsDefined(typeof(LoadSchematizationType), loadSchematizationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(structureInput),
+                                                       (int) loadSchematizationType,
+                                                       typeof(LoadSchematizationType));
+            }
+
+            switch (loadSchematizationType)
+            {
+                case LoadSchematizationType.Linear:
+                    return CreateLowSillLinearCalculationInput(
+                        structureInput,
+                        generalInput);
+                case LoadSchematizationType.Quadratic:
+                    return CreateLowSillQuadraticCalculationInput(
+                        structureInput,
+                        generalInput);
+                default:
+                    throw new NotSupportedException($"The enum value {nameof(LoadSchematizationType)}.{loadSchematizationType} is not supported.");
+            }
         }
 
         private static StructuresStabilityPointLowSillLinearCalculationInput CreateLowSillLinearCalculationInput(
