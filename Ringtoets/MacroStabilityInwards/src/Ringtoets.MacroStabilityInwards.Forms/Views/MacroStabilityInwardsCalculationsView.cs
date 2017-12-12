@@ -389,7 +389,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(MacroStabilityInwardsCalculation macroStabilityInwardsCalculation)
         {
-            if (assessmentSection?.HydraulicBoundaryDatabase == null || macroStabilityInwardsCalculation.InputParameters.UseAssessmentLevelManualInput)
+            if (assessmentSection == null || macroStabilityInwardsCalculation.InputParameters.UseAssessmentLevelManualInput)
             {
                 return Enumerable.Empty<SelectableHydraulicBoundaryLocation>();
             }
@@ -502,7 +502,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
         {
-            if (assessmentSection?.HydraulicBoundaryDatabase == null)
+            if (assessmentSection == null)
             {
                 return null;
             }

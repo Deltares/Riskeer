@@ -70,11 +70,6 @@ namespace Ringtoets.Integration.Forms.Views
 
         protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
         {
-            if (AssessmentSection?.HydraulicBoundaryDatabase == null)
-            {
-                return;
-            }
-
             bool successfulCalculation = CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                     AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                     locations,
