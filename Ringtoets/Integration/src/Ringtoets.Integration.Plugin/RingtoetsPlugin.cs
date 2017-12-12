@@ -1331,8 +1331,24 @@ namespace Ringtoets.Integration.Plugin
 
         #region CategoryTreeFolder TreeNodeInfo
 
+        /// <summary>
+        /// Gets an <see cref="Image"/> based on <paramref name="category"/>.
+        /// </summary>
+        /// <param name="category">The tree folder category to retrieve the image for.</param>
+        /// <returns>An <see cref="Image"/> based on <paramref name="category"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
+        /// is an invalid value of <see cref="TreeFolderCategory"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
+        /// is an unsupported value of <see cref="TreeFolderCategory"/>.</exception>
         private static Image GetFolderIcon(TreeFolderCategory category)
         {
+            if (!Enum.IsDefined(typeof(TreeFolderCategory), category))
+            {
+                throw new InvalidEnumArgumentException(nameof(category),
+                                                       (int) category,
+                                                       typeof(TreeFolderCategory));
+            }
+
             switch (category)
             {
                 case TreeFolderCategory.General:
@@ -1342,9 +1358,7 @@ namespace Ringtoets.Integration.Plugin
                 case TreeFolderCategory.Output:
                     return RingtoetsCommonFormsResources.OutputFolderIcon;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(category),
-                                                           (int) category,
-                                                           typeof(TreeFolderCategory));
+                    throw new NotSupportedException($"The enum value {nameof(TreeFolderCategory)}.{category} is not supported.");
             }
         }
 

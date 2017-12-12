@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -85,6 +86,7 @@ namespace Ringtoets.Piping.Data
         /// <param name="calculations">All calculations in the failure mechanism.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when any of the relevant calculations 
         /// in <paramref name="pipingFailureMechanismSectionResult"/> has an invalid <see cref="CalculationScenarioStatus"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when any of the relevant scenarios has an unsupported value of <see cref="CalculationScenarioStatus"/>.</exception>
         public static CalculationScenarioStatus GetCalculationScenarioStatus(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
                                                                              IEnumerable<PipingCalculationScenario> calculations)
         {
@@ -92,7 +94,15 @@ namespace Ringtoets.Piping.Data
             var notCalculated = false;
             foreach (PipingCalculationScenario calculationScenario in pipingFailureMechanismSectionResult.GetCalculationScenarios(calculations).Where(cs => cs.IsRelevant))
             {
-                switch (calculationScenario.Status)
+                CalculationScenarioStatus calculationScenarioStatus = calculationScenario.Status;
+                if (!Enum.IsDefined(typeof(CalculationScenarioStatus), calculationScenarioStatus))
+                {
+                    throw new InvalidEnumArgumentException(nameof(pipingFailureMechanismSectionResult),
+                                                           (int)calculationScenarioStatus,
+                                                           typeof(CalculationScenarioStatus));
+                }
+
+                switch (calculationScenarioStatus)
                 {
                     case CalculationScenarioStatus.Failed:
                         failed = true;
@@ -103,9 +113,7 @@ namespace Ringtoets.Piping.Data
                     case CalculationScenarioStatus.Done:
                         continue;
                     default:
-                        throw new InvalidEnumArgumentException(nameof(pipingFailureMechanismSectionResult),
-                                                               (int) calculationScenario.Status,
-                                                               typeof(CalculationScenarioStatus));
+                       throw new NotSupportedException($"The enum value {nameof(CalculationScenarioStatus)}.{calculationScenarioStatus} is not supported.");
                 }
             }
 
