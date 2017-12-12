@@ -111,10 +111,10 @@ namespace Ringtoets.Integration.Forms.Views
         {
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
 
-            if (!ReferenceEquals(Data, hydraulicBoundaryDatabase?.Locations))
+            if (!ReferenceEquals(Data, hydraulicBoundaryDatabase.Locations))
             {
                 hydraulicBoundaryDatabaseObserver.Observable = hydraulicBoundaryDatabase;
-                Data = hydraulicBoundaryDatabase?.Locations;
+                Data = hydraulicBoundaryDatabase.Locations;
             }
             else
             {

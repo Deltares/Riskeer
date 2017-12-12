@@ -251,21 +251,5 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(canUsePreprocessor && usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
             Assert.AreEqual(canUsePreprocessor && !usePreprocessor, properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectoryReadOnly)));
         }
-
-        [Test]
-        public void DynamicVisibleValidationMethod_HydraulicBoundaryDatabaseNull_ReturnExpectedVisibility()
-        {
-            // Setup
-            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike));
-
-            // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(context);
-
-            // Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FilePath)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.UsePreprocessor)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectory)));
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(properties.PreprocessorDirectoryReadOnly)));
-        }
     }
 }

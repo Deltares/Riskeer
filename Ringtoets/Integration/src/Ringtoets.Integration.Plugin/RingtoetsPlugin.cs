@@ -372,7 +372,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new ViewInfo<DesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocation>, DesignWaterLevelLocationsView>
             {
                 GetViewName = (view, context) => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
-                GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase?.Locations,
+                GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase.Locations,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
                 CreateInstance = context => new DesignWaterLevelLocationsView(context.WrappedData),
@@ -382,7 +382,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new ViewInfo<WaveHeightLocationsContext, IEnumerable<HydraulicBoundaryLocation>, WaveHeightLocationsView>
             {
                 GetViewName = (view, context) => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
-                GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase?.Locations,
+                GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase.Locations,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
                 CreateInstance = context => new WaveHeightLocationsView(context.WrappedData),
@@ -1528,8 +1528,7 @@ namespace Ringtoets.Integration.Plugin
 
                     if (!haveEqualVersion)
                     {
-                        HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase?.Locations.ToArray()
-                                                                                 ?? new HydraulicBoundaryLocation[0];
+                        HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
 
                         assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
                         assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();

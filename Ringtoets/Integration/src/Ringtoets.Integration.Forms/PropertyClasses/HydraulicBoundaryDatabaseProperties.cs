@@ -118,7 +118,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            bool canUsePreprocessor = data.WrappedData.HydraulicBoundaryDatabase?.CanUsePreprocessor ?? false;
+            bool canUsePreprocessor = data.WrappedData.HydraulicBoundaryDatabase.CanUsePreprocessor;
 
             if (propertyName.Equals(nameof(UsePreprocessor)) && !canUsePreprocessor)
             {
