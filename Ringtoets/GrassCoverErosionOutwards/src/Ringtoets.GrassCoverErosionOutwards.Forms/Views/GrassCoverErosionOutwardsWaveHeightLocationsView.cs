@@ -103,11 +103,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
         {
-            if (AssessmentSection?.HydraulicBoundaryDatabase == null)
-            {
-                return;
-            }
-
             double mechanismSpecificNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
                 AssessmentSection.FailureMechanismContribution.Norm,
                 FailureMechanism.Contribution,
