@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
@@ -41,65 +38,29 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var foreshoreProfiles = new[]
             {
-                Locations =
-                {
-                    hydraulicBoundaryLocation
-                }
+                new TestForeshoreProfile()
             };
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.ForeshoreProfiles.AddRange(new[]
-            {
-                new TestForeshoreProfile()
-            }, "path");
-
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-
             // Call
-            var context = new StabilityStoneCoverWaveConditionsInputContext(
-                calculation.InputParameters,
-                calculation,
-                failureMechanism.ForeshoreProfiles,
-                assessmentSection);
+            var context = new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
+                                                                            calculation,
+                                                                            foreshoreProfiles,
+                                                                            assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
-            Assert.AreEqual(calculation.InputParameters, context.WrappedData);
-            CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, context.ForeshoreProfiles);
-            CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations, context.HydraulicBoundaryLocations);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_InputNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            // Call
-            TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(
-                null,
-                null,
-                failureMechanism.ForeshoreProfiles,
-                assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("wrappedData", exception.ParamName);
+            Assert.AreSame(calculation.InputParameters, context.WrappedData);
+            Assert.AreSame(calculation, context.Calculation);
+            Assert.AreSame(foreshoreProfiles, context.ForeshoreProfiles);
+            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, context.HydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
 
@@ -107,18 +68,18 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
         public void Constructor_ForeshoreProfilesNull_ThrowsArgumentNullException()
         {
             // Setup
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             mocks.ReplayAll();
 
-            var input = new WaveConditionsInput();
-
             // Call
-            TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(
-                input,
-                new TestWaveConditionsCalculation(),
-                null,
-                assessmentSection);
+            TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
+                                                                                        calculation,
+                                                                                        null,
+                                                                                        assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -127,73 +88,24 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var input = new WaveConditionsInput();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            // Call
-
-            TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(
-                input,
-                null,
-                failureMechanism.ForeshoreProfiles,
-                assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var input = new WaveConditionsInput();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var foreshoreProfiles = new[]
+            {
+                new TestForeshoreProfile()
+            };
 
             // Call
-
-            TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(
-                input,
-                new TestWaveConditionsCalculation(),
-                failureMechanism.ForeshoreProfiles,
-                null);
+            TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
+                                                                                        calculation,
+                                                                                        foreshoreProfiles,
+                                                                                        null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void HydraulicBoundaryLocations_HydraulicBoundaryDatabaseNull_ReturnEmptyCollection()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var input = new WaveConditionsInput();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var context = new StabilityStoneCoverWaveConditionsInputContext(
-                input,
-                new TestWaveConditionsCalculation(),
-                failureMechanism.ForeshoreProfiles,
-                assessmentSection);
-
-            // Call
-            IEnumerable<HydraulicBoundaryLocation> locations = context.HydraulicBoundaryLocations;
-
-            // Assert
-            CollectionAssert.IsEmpty(locations);
-            mocks.VerifyAll();
         }
     }
 }
