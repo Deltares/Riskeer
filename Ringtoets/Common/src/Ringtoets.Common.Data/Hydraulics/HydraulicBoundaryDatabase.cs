@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         public HydraulicBoundaryDatabase()
         {
             CanUsePreprocessor = false;
-            Locations = new List<HydraulicBoundaryLocation>();
+            Locations = new ObservableList<HydraulicBoundaryLocation>();
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Gets the hydraulic boundary locations.
         /// </summary>
-        public List<HydraulicBoundaryLocation> Locations { get; }
+        public ObservableList<HydraulicBoundaryLocation> Locations { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the Hydra-Ring preprocessor can be used.
