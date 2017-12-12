@@ -32,10 +32,11 @@ namespace Ringtoets.Common.Service
     public static class HydraulicBoundaryDatabaseConnectionValidator
     {
         /// <summary>
-        /// Validates the connection of the specified database.
+        /// Validates the connection of the provided hydraulic boundary database.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database.</param>
-        /// <returns>An error message if a problem was found. Returns null in case no problems were found.</returns>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to validate.</param>
+        /// <returns>An error message if a problem was found; <c>null</c> in case no problems were found.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
         public static string Validate(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (hydraulicBoundaryDatabase == null)

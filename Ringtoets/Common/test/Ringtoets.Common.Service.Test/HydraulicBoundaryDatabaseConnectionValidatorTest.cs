@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDatabaseCoupledToNotExistingFile_ReturnsErrorMessage()
+        public void Validate_HydraulicBoundaryDatabaseCoupledToNotExistingDatabaseFile_ReturnsErrorMessage()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDatabaseCoupledToExistingFileWithoutSettings_ReturnsErrorMessage()
+        public void Validate_HydraulicBoundaryDatabaseCoupledToExistingDatabaseFileWithoutSettings_ReturnsErrorMessage()
         {
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite");
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDatabaseCoupledToValidFile_ReturnsNull()
+        public void Validate_HydraulicBoundaryDatabaseCoupledToValidDatabaseFile_ReturnsNull()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
