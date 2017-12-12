@@ -135,6 +135,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.HydraulicDatabaseLocation);
             Assert.IsNull(entity.HydraulicDatabaseVersion);
             CollectionAssert.IsEmpty(entity.HydraulicLocationEntities);
+            CollectionAssert.IsEmpty(entity.HydraRingPreprocessorEntities);
 
             Assert.IsNull(entity.ReferenceLinePointXml);
 
@@ -184,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithHydraulicBoundaryDatabaseCanUsePreprocessorFalse_SetsPropertiesAndLocationsToEntity()
+        public void Create_WithCanUsePreprocessorFalse_SetsPropertiesAndLocationsToEntity()
         {
             // Setup
             const string testFilePath = "path";
@@ -211,11 +212,11 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(testFilePath, entity.HydraulicDatabaseLocation);
             Assert.AreEqual(testVersion, entity.HydraulicDatabaseVersion);
             Assert.AreEqual(1, entity.HydraulicLocationEntities.Count);
-            Assert.AreEqual(0, entity.HydraRingPreprocessorEntities.Count);
+            CollectionAssert.IsEmpty(entity.HydraRingPreprocessorEntities);
         }
 
         [Test]
-        public void Create_WithHydraulicBoundaryDatabaseCanUsePreprocessorTrue_SetsPropertiesAndLocationsToEntity()
+        public void Create_WithCanUsePreprocessorTrue_SetsPropertiesAndLocationsToEntity()
         {
             // Setup
             const string testFilePath = "path";
