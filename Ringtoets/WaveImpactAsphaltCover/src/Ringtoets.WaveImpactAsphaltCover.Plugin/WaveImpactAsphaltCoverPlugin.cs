@@ -105,7 +105,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                     new WaveConditionsCalculationConfigurationImporter<WaveImpactAsphaltCoverWaveConditionsCalculation>(
                         filePath,
                         context.WrappedData,
-                        context.HydraulicBoundaryLocations,
+                        context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                         context.ForeshoreProfiles));
         }
 

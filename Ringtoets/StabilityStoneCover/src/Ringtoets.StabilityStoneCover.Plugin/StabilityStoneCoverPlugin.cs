@@ -152,7 +152,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                     new WaveConditionsCalculationConfigurationImporter<StabilityStoneCoverWaveConditionsCalculation>(
                         filePath,
                         context.WrappedData,
-                        context.HydraulicBoundaryLocations,
+                        context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                         context.ForeshoreProfiles));
         }
 
