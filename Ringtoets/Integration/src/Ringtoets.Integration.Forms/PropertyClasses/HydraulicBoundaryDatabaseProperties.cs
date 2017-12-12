@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.HydraulicBoundaryDatabase != null ? data.WrappedData.HydraulicBoundaryDatabase.FilePath : string.Empty;
+                return data.WrappedData.HydraulicBoundaryDatabase.IsCoupled() ? data.WrappedData.HydraulicBoundaryDatabase.FilePath : string.Empty;
             }
         }
 

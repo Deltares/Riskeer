@@ -98,10 +98,8 @@ namespace Ringtoets.Integration.Plugin.Handlers
                                affectedObjects.OfType<ICalculation>().Count());
             }
 
-            if (assessmentSection.HydraulicBoundaryDatabase != null)
-            {
-                affectedObjects.AddRange(ClearAllHydraulicBoundaryLocationOutput());
-            }
+            affectedObjects.AddRange(ClearAllHydraulicBoundaryLocationOutput());
+
             return affectedObjects;
         }
 
