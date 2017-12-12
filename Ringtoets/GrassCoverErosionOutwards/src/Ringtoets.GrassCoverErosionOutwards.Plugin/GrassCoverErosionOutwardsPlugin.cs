@@ -206,9 +206,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
                                                                                  .Build(),
-                ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase == null
-                                           ? Color.FromKnownColor(KnownColor.GrayText)
-                                           : Color.FromKnownColor(KnownColor.ControlText)
+                ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase.IsCoupled()
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText)
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext>
