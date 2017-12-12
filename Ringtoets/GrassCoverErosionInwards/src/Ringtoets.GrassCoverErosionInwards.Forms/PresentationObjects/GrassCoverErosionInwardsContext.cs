@@ -93,7 +93,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         {
             get
             {
-                return AssessmentSection.HydraulicBoundaryDatabase.Locations;
+                return AssessmentSection.HydraulicBoundaryDatabase == null ?
+                           Enumerable.Empty<HydraulicBoundaryLocation>() :
+                           AssessmentSection.HydraulicBoundaryDatabase.Locations;
             }
         }
     }

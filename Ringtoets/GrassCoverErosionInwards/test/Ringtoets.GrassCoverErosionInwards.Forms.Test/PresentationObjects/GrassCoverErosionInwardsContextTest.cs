@@ -42,18 +42,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             mockRepository.ReplayAll();
 
-            var observableObject = new ObservableObject();
+            var target = new ObservableObject();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, failureMechanism, assessmentSection);
+            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableObject>>(context);
-            Assert.AreSame(observableObject, context.WrappedData);
+            Assert.AreSame(target, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             CollectionAssert.IsEmpty(context.AvailableHydraulicBoundaryLocations);
@@ -95,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void AvailableHydraulicBoundaryLocations_HydraulicBoundaryDatabaseWithLocations_ReturnsAllHydraulicBoundaryLocations()
+        public void AvailableHydraulicBoundaryLocations_HydraulicBoundaryDatabaseSet_ReturnsAllHydraulicBoundaryLocations()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
