@@ -83,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                     layer,
                     soilProfile,
                     localizedSurfaceLine.First().X,
-                    localizedSurfaceLine.Last().X));
+                    localizedSurfaceLine.Last().X)).ToArray();
 
             return GeometriesToIntersections(layerGeometries, surfaceLineGeometry);
         }

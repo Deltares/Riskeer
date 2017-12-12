@@ -251,7 +251,7 @@ namespace Ringtoets.Piping.Forms.Factories
 
         private static IEnumerable<Point2D[]> GetSoilLayerWithSurfaceLineIntersection(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
         {
-            Point2D[] surfaceLineAsPolygon = CreateSurfaceLinePolygonAroundSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
+            IEnumerable<Point2D> surfaceLineAsPolygon = CreateSurfaceLinePolygonAroundSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
             Point2D[] soilLayerAsPolygon = CreateSurfaceLineWideSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
 
             return AdvancedMath2D.PolygonIntersectionWithPolygon(surfaceLineAsPolygon, soilLayerAsPolygon);
@@ -265,20 +265,18 @@ namespace Ringtoets.Piping.Forms.Factories
             return surfaceLineLowestPointY >= topLevel;
         }
 
-        private static bool IsSurfaceLineBelowSoilLayer(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
+        private static bool IsSurfaceLineBelowSoilLayer(IEnumerable<Point2D> surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
         {
             double topLevel = soilLayer.Top;
             return surfaceLineLocalGeometry.Select(p => p.Y).Max() <= topLevel - soilProfile.GetLayerThickness(soilLayer);
         }
 
-        private static Point2D[] CreateSurfaceLinePolygonAroundSoilLayer(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
+        private static IEnumerable<Point2D> CreateSurfaceLinePolygonAroundSoilLayer(IEnumerable<Point2D> surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
         {
-            List<Point2D> surfaceLineAsPolygon = surfaceLineLocalGeometry.ToList();
-
             double topLevel = soilLayer.Top;
             double bottomLevel = topLevel - soilProfile.GetLayerThickness(soilLayer);
 
-            double closingSurfaceLineToPolygonBottomLevel = Math.Min(surfaceLineAsPolygon.Select(p => p.Y).Min(), bottomLevel) - 1;
+            double closingSurfaceLineToPolygonBottomLevel = Math.Min(surfaceLineLocalGeometry.Select(p => p.Y).Min(), bottomLevel) - 1;
 
             return AdvancedMath2D.CompleteLineToPolygon(surfaceLineLocalGeometry, closingSurfaceLineToPolygonBottomLevel).ToArray();
         }

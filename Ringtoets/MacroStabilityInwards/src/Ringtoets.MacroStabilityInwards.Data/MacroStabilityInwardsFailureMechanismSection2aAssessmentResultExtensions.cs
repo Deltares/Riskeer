@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -85,6 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="calculations">All calculations in the failure mechanism.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when any of the relevant calculations 
         /// in <paramref name="macroStabilityInwardsFailureMechanismSectionResult"/> has an invalid <see cref="CalculationScenarioStatus"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when any of the relevant scenarios has an unsupported value of <see cref="CalculationScenarioStatus"/>.</exception>
         public static CalculationScenarioStatus GetCalculationScenarioStatus(
             this MacroStabilityInwardsFailureMechanismSectionResult macroStabilityInwardsFailureMechanismSectionResult,
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculations)
@@ -93,6 +95,14 @@ namespace Ringtoets.MacroStabilityInwards.Data
             var notCalculated = false;
             foreach (MacroStabilityInwardsCalculationScenario calculationScenario in macroStabilityInwardsFailureMechanismSectionResult.GetCalculationScenarios(calculations).Where(cs => cs.IsRelevant))
             {
+                CalculationScenarioStatus calculationScenarioStatus = calculationScenario.Status;
+                if (!Enum.IsDefined(typeof(CalculationScenarioStatus), calculationScenarioStatus))
+                {
+                    throw new InvalidEnumArgumentException(nameof(macroStabilityInwardsFailureMechanismSectionResult),
+                                                           (int)calculationScenarioStatus,
+                                                           typeof(CalculationScenarioStatus));
+                }
+
                 switch (calculationScenario.Status)
                 {
                     case CalculationScenarioStatus.Failed:
@@ -104,9 +114,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                     case CalculationScenarioStatus.Done:
                         continue;
                     default:
-                        throw new InvalidEnumArgumentException(nameof(macroStabilityInwardsFailureMechanismSectionResult),
-                                                               (int) calculationScenario.Status,
-                                                               typeof(CalculationScenarioStatus));
+                        throw new NotSupportedException($"The enum value {nameof(CalculationScenarioStatus)}.{calculationScenarioStatus} is not supported.");
                 }
             }
 

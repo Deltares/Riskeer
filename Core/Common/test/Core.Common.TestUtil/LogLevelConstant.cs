@@ -35,6 +35,9 @@ namespace Core.Common.TestUtil
         Debug
     }
 
+    /// <summary>
+    /// Extension methods for the <see cref="LogLevelConstant"/>.
+    /// </summary>
     public static class LogLevelConstantExtensions
     {
         /// <summary>

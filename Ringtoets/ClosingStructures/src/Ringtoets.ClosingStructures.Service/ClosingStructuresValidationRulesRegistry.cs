@@ -41,9 +41,17 @@ namespace Ringtoets.ClosingStructures.Service
             {
                 throw new ArgumentNullException(nameof(input));
             }
+            
+            ClosingStructureInflowModelType inflowModelType = input.InflowModelType;
+            if (!Enum.IsDefined(typeof(ClosingStructureInflowModelType), inflowModelType))
+            {
+                throw new InvalidEnumArgumentException(nameof(input),
+                                                       (int)inflowModelType,
+                                                       typeof(ClosingStructureInflowModelType));
+            }
 
             IEnumerable<ValidationRule> validationRules;
-            switch (input.InflowModelType)
+            switch (inflowModelType)
             {
                 case ClosingStructureInflowModelType.VerticalWall:
                     validationRules = GetVerticalWallValidationRules(input);
@@ -55,9 +63,7 @@ namespace Ringtoets.ClosingStructures.Service
                     validationRules = GetFloodedCulvertValidationRules(input);
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(input),
-                                                           (int) input.InflowModelType,
-                                                           typeof(ClosingStructureInflowModelType));
+                    throw new NotSupportedException($"The enum value {nameof(ClosingStructureInflowModelType)}.{inflowModelType} is not supported.");
             }
 
             return validationRules;

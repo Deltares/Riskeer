@@ -32,7 +32,7 @@ using Ringtoets.Revetment.Data;
 namespace Ringtoets.Revetment.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="Point2D"/> to use in <see cref="ChartData"/>
+    /// Factory for creating collections of <see cref="Point2D"/> to use in <see cref="ChartData"/>
     /// (created via <see cref="RingtoetsChartDataFactory"/> and <see cref="WaveConditionsChartDataFactory"/>) .
     /// </summary>
     internal static class WaveConditionsChartDataPointsFactory
@@ -41,14 +41,14 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create foreshore geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> to create the foreshore geometry points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when:
+        /// <returns>A collection of points in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the <see cref="ForeshoreProfile"/> in <paramref name="input"/> is <c>null</c>;</item>
         /// <item>the foreshore in <paramref name="input"/> is not in use.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateForeshoreGeometryPoints(WaveConditionsInput input)
+        public static IEnumerable<Point2D> CreateForeshoreGeometryPoints(WaveConditionsInput input)
         {
             return input?.ForeshoreProfile != null && input.UseForeshore
                        ? input.ForeshoreGeometry.ToArray()
@@ -59,14 +59,14 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create revetment geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> to create the revetment geometry points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when:
+        /// <returns>A collection of points in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the <see cref="WaveConditionsInput.LowerBoundaryRevetment"/> is not set;</item>
         /// <item>the <see cref="WaveConditionsInput.UpperBoundaryRevetment"/> is not set.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateRevetmentGeometryPoints(WaveConditionsInput input)
+        public static IEnumerable<Point2D> CreateRevetmentGeometryPoints(WaveConditionsInput input)
         {
             if (input == null
                 || double.IsNaN(input.LowerBoundaryRevetment)
@@ -89,14 +89,14 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create revetment base geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> to create the revetment base geometry points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when:
+        /// <returns>A collection of points in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the <see cref="WaveConditionsInput.LowerBoundaryRevetment"/> is not set;</item>
         /// <item>the <see cref="WaveConditionsInput.UpperBoundaryRevetment"/> is not set.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateRevetmentBaseGeometryPoints(WaveConditionsInput input)
+        public static IEnumerable<Point2D> CreateRevetmentBaseGeometryPoints(WaveConditionsInput input)
         {
             if (input == null
                 || double.IsNaN(input.LowerBoundaryRevetment)
@@ -123,13 +123,13 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create lower boundary revetment geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> to create the lower boundary revetment geometry points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when:
+        /// <returns>A collection of points in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the <see cref="WaveConditionsInput.LowerBoundaryRevetment"/> is not set.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateLowerBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
+        public static IEnumerable<Point2D> CreateLowerBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
         {
             return input != null
                        ? CreateGeometryPoints(input, () => input.LowerBoundaryRevetment)
@@ -140,13 +140,13 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create upper boundary revetment geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> to create the upper boundary revetment geometry points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when:
+        /// <returns>A collection of points in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the <see cref="WaveConditionsInput.UpperBoundaryRevetment"/> is not set.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateUpperBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
+        public static IEnumerable<Point2D> CreateUpperBoundaryRevetmentGeometryPoints(WaveConditionsInput input)
         {
             return input != null
                        ? CreateGeometryPoints(input, () => input.UpperBoundaryRevetment)
@@ -157,13 +157,13 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create lower boundary water levels geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> to create the lower boundary water levels geometry points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when:
+        /// <returns>A collection of points in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the <see cref="WaveConditionsInput.LowerBoundaryWaterLevels"/> is not set.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateLowerBoundaryWaterLevelsGeometryPoints(WaveConditionsInput input)
+        public static IEnumerable<Point2D> CreateLowerBoundaryWaterLevelsGeometryPoints(WaveConditionsInput input)
         {
             return input != null
                        ? CreateGeometryPoints(input, () => input.LowerBoundaryWaterLevels)
@@ -174,13 +174,13 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create upper boundary water levels geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> to create the upper boundary water levels geometry points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when:
+        /// <returns>A collection of points in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the <see cref="WaveConditionsInput.UpperBoundaryWaterLevels"/> is not set.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateUpperBoundaryWaterLevelsGeometryPoints(WaveConditionsInput input)
+        public static IEnumerable<Point2D> CreateUpperBoundaryWaterLevelsGeometryPoints(WaveConditionsInput input)
         {
             return input != null
                        ? CreateGeometryPoints(input, () => input.UpperBoundaryWaterLevels)
@@ -191,14 +191,14 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create design water level geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> to create the design water level geometry points for.</param>
-        /// <returns>An array of points in 2D space or an empty array when:
+        /// <returns>A collection of points in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item><see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> is <c>null</c>;</item>
         /// <item>the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> is not set.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDesignWaterLevelGeometryPoints(WaveConditionsInput input)
+        public static IEnumerable<Point2D> CreateDesignWaterLevelGeometryPoints(WaveConditionsInput input)
         {
             return input?.HydraulicBoundaryLocation != null
                        ? CreateGeometryPoints(input, () => input.HydraulicBoundaryLocation.DesignWaterLevel)
@@ -209,20 +209,20 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create water levels geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> to create the water levels geometry points for.</param>
-        /// <returns>A list with arrays of points in 2D space or an empty list when:
+        /// <returns>A list with collections of points in 2D space or an empty list when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>there are no <see cref="WaveConditionsInput.WaterLevels"/>.</item>
         /// </list>
         /// </returns>
-        public static List<Point2D[]> CreateWaterLevelsGeometryPoints(WaveConditionsInput input)
+        public static IEnumerable<IEnumerable<Point2D>> CreateWaterLevelsGeometryPoints(WaveConditionsInput input)
         {
             return input?.WaterLevels
                         .Select(waterLevel => CreateGeometryPoints(input, () => waterLevel))
-                        .ToList() ?? new List<Point2D[]>();
+                        .ToList() ?? new List<IEnumerable<Point2D>>();
         }
 
-        private static Point2D[] CreateGeometryPoints(WaveConditionsInput input, Func<double> getValueFunc)
+        private static IEnumerable<Point2D> CreateGeometryPoints(WaveConditionsInput input, Func<double> getValueFunc)
         {
             double value = getValueFunc();
 

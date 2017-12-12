@@ -34,17 +34,17 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
     public class WaveConditionsChartDataPointsFactoryTest
     {
         [Test]
-        public void CreateForeshoreGeometryPoints_InputNull_ReturnsEmptyPointsArray()
+        public void CreateForeshoreGeometryPoints_InputNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateForeshoreGeometryPoints(null);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateForeshoreGeometryPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateForeshoreGeometryPoints_ForeshoreProfileNull_ReturnsEmptyPointsArray()
+        public void CreateForeshoreGeometryPoints_ForeshoreProfileNull_ReturnsEmptyPointsCollection()
         {
             // Setup
             var input = new WaveConditionsInput
@@ -53,14 +53,14 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateForeshoreGeometryPoints_ForeshoreProfileSetUseForeshoreFalse_ReturnsEmptyPointsArray()
+        public void CreateForeshoreGeometryPoints_ForeshoreProfileSetUseForeshoreFalse_ReturnsEmptyPointsCollection()
         {
             // Setup
             var input = new WaveConditionsInput
@@ -74,14 +74,14 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateForeshoreGeometryPoints_ForeshoreProfileSetUseForeshoreTrue_ReturnsForeshoreGeometryPointsArray()
+        public void CreateForeshoreGeometryPoints_ForeshoreProfileSetUseForeshoreTrue_ReturnsForeshoreGeometryPointsCollection()
         {
             // Setup
             var foreshoreGeometry = new[]
@@ -96,17 +96,17 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateForeshoreGeometryPoints(input);
 
             // Assert
             CollectionAssert.AreEqual(foreshoreGeometry, points);
         }
 
         [Test]
-        public void CreateRevetmentGeometryPoints_InputNull_ReturnsEmptyPointsArray()
+        public void CreateRevetmentGeometryPoints_InputNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(null);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -115,19 +115,19 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         [Test]
         [TestCaseSource(nameof(GetInputWithoutRevetmentBoundaries), new object[]
         {
-            "CreateRevetmentGeometryPoints_BoundariesNotSet_ReturnsEmptyPointsArray({0})"
+            "CreateRevetmentGeometryPoints_BoundariesNotSet_ReturnsEmptyPointsCollection({0})"
         })]
-        public void CreateRevetmentGeometryPoints_BoundariesNotSet_ReturnsEmptyPointsArray(WaveConditionsInput input)
+        public void CreateRevetmentGeometryPoints_BoundariesNotSet_ReturnsEmptyPointsCollection(WaveConditionsInput input)
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateRevetmentGeometryPoints_InputWithoutForeshoreProfile_ReturnRevetmentGeometryPointsArray()
+        public void CreateRevetmentGeometryPoints_InputWithoutForeshoreProfile_ReturnRevetmentGeometryPointsCollection()
         {
             // Setup
             const double lowerBoundaryRevetment = 2;
@@ -140,7 +140,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -151,7 +151,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateRevetmentGeometryPoints_InputUseForeshoreProfileFalse_ReturnRevetmentGeometryPointsArray()
+        public void CreateRevetmentGeometryPoints_InputUseForeshoreProfileFalse_ReturnRevetmentGeometryPointsCollection()
         {
             // Setup
             const double lowerBoundaryRevetment = 2;
@@ -171,7 +171,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -184,9 +184,9 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         [Test]
         [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
         {
-            "CreateRevetmentGeometryPoints_InputWithForeshoreProfile_ReturnRevetmentGeometryPointsArray({0})"
+            "CreateRevetmentGeometryPoints_InputWithForeshoreProfile_ReturnRevetmentGeometryPointsCollection({0})"
         })]
-        public void CreateRevetmentGeometryPoints_InputWithForeshoreProfile_ReturnRevetmentGeometryPointsArray(
+        public void CreateRevetmentGeometryPoints_InputWithForeshoreProfile_ReturnRevetmentGeometryPointsCollection(
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
@@ -201,7 +201,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
 
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
@@ -218,10 +218,10 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateRevetmentBaseGeometryPoints_InputNull_ReturnsEmptyPointsArray()
+        public void CreateRevetmentBaseGeometryPoints_InputNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(null);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -230,19 +230,19 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         [Test]
         [TestCaseSource(nameof(GetInputWithoutRevetmentBoundaries), new object[]
         {
-            "CreateRevetmentBaseGeometryPoints_BoundariesNotSet_ReturnsEmptyPointsArray({0})"
+            "CreateRevetmentBaseGeometryPoints_BoundariesNotSet_ReturnsEmptyPointsCollection({0})"
         })]
-        public void CreateRevetmentBaseGeometryPoints_BoundariesNotSet_ReturnsEmptyPointsArray(WaveConditionsInput input)
+        public void CreateRevetmentBaseGeometryPoints_BoundariesNotSet_ReturnsEmptyPointsCollection(WaveConditionsInput input)
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateRevetmentBaseGeometryPoints_InputWithoutForeshoreProfile_ReturnRevetmentBaseGeometryPointsArray()
+        public void CreateRevetmentBaseGeometryPoints_InputWithoutForeshoreProfile_ReturnRevetmentBaseGeometryPointsCollection()
         {
             // Setup
             const double lowerBoundaryRevetment = 2;
@@ -255,7 +255,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -266,7 +266,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateRevetmentBaseGeometryPoints_InputUseForeshoreProfileFalse_ReturnRevetmentBaseGeometryPointsArray()
+        public void CreateRevetmentBaseGeometryPoints_InputUseForeshoreProfileFalse_ReturnRevetmentBaseGeometryPointsCollection()
         {
             // Setup
             const double lowerBoundaryRevetment = 2;
@@ -286,7 +286,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -299,9 +299,9 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         [Test]
         [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
         {
-            "CreateRevetmentBaseGeometryPoints_InputWithForeshoreProfile_ReturnRevetmentBaseGeometryPointsArray({0})"
+            "CreateRevetmentBaseGeometryPoints_InputWithForeshoreProfile_ReturnRevetmentBaseGeometryPointsCollection({0})"
         })]
-        public void CreateRevetmentBaseGeometryPoints_InputWithForeshoreProfile_ReturnRevetmentBaseGeometryPointsArray(
+        public void CreateRevetmentBaseGeometryPoints_InputWithForeshoreProfile_ReturnRevetmentBaseGeometryPointsCollection(
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
@@ -316,7 +316,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
 
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
@@ -334,9 +334,9 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         [Test]
         [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
         {
-            "CreateRevetmentBaseGeometryPoints_InputWithForeshoreProfileAndLowerBoundaryWaterLevelsBelowForeshoreProfile_ReturnRevetmentBaseGeometryPointsArray({0})"
+            "CreateRevetmentBaseGeometryPoints_InputWithForeshoreProfileAndLowerBoundaryWaterLevelsBelowForeshoreProfile_ReturnRevetmentBaseGeometryPointsCollection({0})"
         })]
-        public void CreateRevetmentBaseGeometryPoints_InputWithForeshoreProfileAndLowerBoundaryWaterLevelsBelowForeshoreProfile_ReturnRevetmentBaseGeometryPointsArray(
+        public void CreateRevetmentBaseGeometryPoints_InputWithForeshoreProfileAndLowerBoundaryWaterLevelsBelowForeshoreProfile_ReturnRevetmentBaseGeometryPointsCollection(
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
@@ -353,7 +353,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
 
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
@@ -369,27 +369,27 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateLowerBoundaryRevetmentGeometryPoints_InputNull_ReturnsEmptyPointsArray()
+        public void CreateLowerBoundaryRevetmentGeometryPoints_InputNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(null);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateLowerBoundaryRevetmentGeometryPoints_LowerBoundaryRevetmentNaN_ReturnsEmptyPointsArray()
+        public void CreateLowerBoundaryRevetmentGeometryPoints_LowerBoundaryRevetmentNaN_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(new WaveConditionsInput());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(new WaveConditionsInput());
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateLowerBoundaryRevetmentGeometryPoints_NoForeshoreProfile_ReturnsLowerBoundaryRevetmentGeometryPointsArray()
+        public void CreateLowerBoundaryRevetmentGeometryPoints_NoForeshoreProfile_ReturnsLowerBoundaryRevetmentGeometryPointsCollection()
         {
             // Call
             var input = new WaveConditionsInput
@@ -398,7 +398,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(input);
 
             // Assert
             var expectedPoints = new[]
@@ -410,7 +410,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateLowerBoundaryRevetmentGeometryPoints_UseForeshoreProfileFalse_ReturnsLowerBoundaryRevetmentGeometryPointsArray()
+        public void CreateLowerBoundaryRevetmentGeometryPoints_UseForeshoreProfileFalse_ReturnsLowerBoundaryRevetmentGeometryPointsCollection()
         {
             // Call
             var input = new WaveConditionsInput
@@ -425,7 +425,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(input);
 
             // Assert
             var expectedPoints = new[]
@@ -439,9 +439,9 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         [Test]
         [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
         {
-            "CreateLowerBoundaryRevetmentGeometryPoints_WithForeshoreProfile_ReturnsLowerBoundaryRevetmentGeometryPointsArray({0})"
+            "CreateLowerBoundaryRevetmentGeometryPoints_WithForeshoreProfile_ReturnsLowerBoundaryRevetmentGeometryPointsCollection({0})"
         })]
-        public void CreateLowerBoundaryRevetmentGeometryPoints_WithForeshoreProfile_ReturnsLowerBoundaryRevetmentGeometryPointsArray(
+        public void CreateLowerBoundaryRevetmentGeometryPoints_WithForeshoreProfile_ReturnsLowerBoundaryRevetmentGeometryPointsCollection(
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Call
@@ -452,7 +452,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(input);
 
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
@@ -467,27 +467,27 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateUpperBoundaryRevetmentGeometryPoints_InputNull_ReturnsEmptyPointsArray()
+        public void CreateUpperBoundaryRevetmentGeometryPoints_InputNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(null);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateUpperBoundaryRevetmentGeometryPoints_UpperBoundaryRevetmentNaN_ReturnsEmptyPointsArray()
+        public void CreateUpperBoundaryRevetmentGeometryPoints_UpperBoundaryRevetmentNaN_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(new WaveConditionsInput());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(new WaveConditionsInput());
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateUpperBoundaryRevetmentGeometryPoints_NoForeshoreProfile_ReturnsUpperBoundaryRevetmentGeometryPointsArray()
+        public void CreateUpperBoundaryRevetmentGeometryPoints_NoForeshoreProfile_ReturnsUpperBoundaryRevetmentGeometryPointsCollection()
         {
             // Call
             var input = new WaveConditionsInput
@@ -496,7 +496,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(input);
 
             // Assert
             var expectedPoints = new[]
@@ -508,7 +508,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateUpperBoundaryRevetmentGeometryPoints_UseForeshoreProfileFalse_ReturnsUpperBoundaryRevetmentGeometryPointsArray()
+        public void CreateUpperBoundaryRevetmentGeometryPoints_UseForeshoreProfileFalse_ReturnsUpperBoundaryRevetmentGeometryPointsCollection()
         {
             // Call
             var input = new WaveConditionsInput
@@ -523,7 +523,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(input);
 
             // Assert
             var expectedPoints = new[]
@@ -537,9 +537,9 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         [Test]
         [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
         {
-            "CreateUpperBoundaryRevetmentGeometryPoints_WithForeshoreProfile_ReturnsUpperBoundaryRevetmentGeometryPointsArray({0})"
+            "CreateUpperBoundaryRevetmentGeometryPoints_WithForeshoreProfile_ReturnsUpperBoundaryRevetmentGeometryPointsCollection({0})"
         })]
-        public void CreateUpperBoundaryRevetmentGeometryPoints_WithForeshoreProfile_ReturnsUpperBoundaryRevetmentGeometryPointsArray(
+        public void CreateUpperBoundaryRevetmentGeometryPoints_WithForeshoreProfile_ReturnsUpperBoundaryRevetmentGeometryPointsCollection(
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Call
@@ -550,7 +550,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(input);
 
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
@@ -565,27 +565,27 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateLowerBoundaryWaterLevelsGeometryPoints_InputNull_ReturnsEmptyPointsArray()
+        public void CreateLowerBoundaryWaterLevelsGeometryPoints_InputNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(null);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateLowerBoundaryWaterLevelsGeometryPoints_LowerBoundaryWaterLevelsNaN_ReturnsEmptyPointsArray()
+        public void CreateLowerBoundaryWaterLevelsGeometryPoints_LowerBoundaryWaterLevelsNaN_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(new WaveConditionsInput());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(new WaveConditionsInput());
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateLowerBoundaryWaterLevelsGeometryPoints_NoForeshoreProfile_ReturnsLowerBoundaryWaterLevelsGeometryPointsArray()
+        public void CreateLowerBoundaryWaterLevelsGeometryPoints_NoForeshoreProfile_ReturnsLowerBoundaryWaterLevelsGeometryPointsCollection()
         {
             // Call
             var input = new WaveConditionsInput
@@ -594,7 +594,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(input);
 
             // Assert
             var expectedPoints = new[]
@@ -606,7 +606,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateLowerBoundaryWaterLevelsGeometryPoints_UseForeshoreProfileFalse_ReturnsLowerBoundaryWaterLevelsGeometryPointsArray()
+        public void CreateLowerBoundaryWaterLevelsGeometryPoints_UseForeshoreProfileFalse_ReturnsLowerBoundaryWaterLevelsGeometryPointsCollection()
         {
             // Call
             var input = new WaveConditionsInput
@@ -621,7 +621,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(input);
 
             // Assert
             var expectedPoints = new[]
@@ -635,9 +635,9 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         [Test]
         [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
         {
-            "CreateLowerBoundaryWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsLowerBoundaryWaterLevelsGeometryPointsArray({0})"
+            "CreateLowerBoundaryWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsLowerBoundaryWaterLevelsGeometryPointsCollection({0})"
         })]
-        public void CreateLowerBoundaryWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsLowerBoundaryWaterLevelsGeometryPointsArray(
+        public void CreateLowerBoundaryWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsLowerBoundaryWaterLevelsGeometryPointsCollection(
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Call
@@ -648,7 +648,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(input);
 
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
@@ -663,27 +663,27 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateUpperBoundaryWaterLevelsGeometryPoints_InputNull_ReturnsEmptyPointsArray()
+        public void CreateUpperBoundaryWaterLevelsGeometryPoints_InputNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(null);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateUpperBoundaryWaterLevelsGeometryPoints_UpperBoundaryWaterLevelsNaN_ReturnsEmptyPointsArray()
+        public void CreateUpperBoundaryWaterLevelsGeometryPoints_UpperBoundaryWaterLevelsNaN_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(new WaveConditionsInput());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(new WaveConditionsInput());
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateUpperBoundaryWaterLevelsGeometryPoints_NoForeshoreProfile_ReturnsUpperBoundaryWaterLevelsGeometryPointsArray()
+        public void CreateUpperBoundaryWaterLevelsGeometryPoints_NoForeshoreProfile_ReturnsUpperBoundaryWaterLevelsGeometryPointsCollection()
         {
             // Call
             var input = new WaveConditionsInput
@@ -692,7 +692,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(input);
 
             // Assert
             var expectedPoints = new[]
@@ -704,7 +704,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateUpperBoundaryWaterLevelsGeometryPoints_UseForeshoreProfileFalse_ReturnsUpperBoundaryWaterLevelsGeometryPointsArray()
+        public void CreateUpperBoundaryWaterLevelsGeometryPoints_UseForeshoreProfileFalse_ReturnsUpperBoundaryWaterLevelsGeometryPointsCollection()
         {
             // Call
             var input = new WaveConditionsInput
@@ -719,7 +719,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(input);
 
             // Assert
             var expectedPoints = new[]
@@ -733,9 +733,9 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         [Test]
         [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
         {
-            "CreateUpperBoundaryWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsUppserBoundaryWaterLevelsGeometryPointsArray({0})"
+            "CreateUpperBoundaryWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsUppserBoundaryWaterLevelsGeometryPointsCollection({0})"
         })]
-        public void CreateUpperBoundaryWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsUpperBoundaryWaterLevelsGeometryPointsArray(
+        public void CreateUpperBoundaryWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsUpperBoundaryWaterLevelsGeometryPointsCollection(
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Call
@@ -746,7 +746,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(input);
 
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
@@ -761,27 +761,27 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDesignWaterLevelGeometryPoints_InputNull_ReturnsEmptyPointsArray()
+        public void CreateDesignWaterLevelGeometryPoints_InputNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(null);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDesignWaterLevelGeometryPoints_HydraulicBoundaryLocationNull_ReturnsEmptyPointsArray()
+        public void CreateDesignWaterLevelGeometryPoints_HydraulicBoundaryLocationNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(new WaveConditionsInput());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(new WaveConditionsInput());
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDesignWaterLevelGeometryPoints_DesignWaterLevelNaN_ReturnsEmptyPointsArray()
+        public void CreateDesignWaterLevelGeometryPoints_DesignWaterLevelNaN_ReturnsEmptyPointsCollection()
         {
             // Setup
             var input = new WaveConditionsInput
@@ -790,14 +790,14 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDesignWaterLevelGeometryPoints_NoForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsArray()
+        public void CreateDesignWaterLevelGeometryPoints_NoForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsCollection()
         {
             // Call
             var input = new WaveConditionsInput
@@ -806,7 +806,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
 
             // Assert
             var expectedPoints = new[]
@@ -818,7 +818,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDesignWaterLevelGeometryPoints_UseForeshoreProfileFalse_ReturnsDesignWaterLevelGeometryPointsArray()
+        public void CreateDesignWaterLevelGeometryPoints_UseForeshoreProfileFalse_ReturnsDesignWaterLevelGeometryPointsCollection()
         {
             // Call
             var input = new WaveConditionsInput
@@ -833,7 +833,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
 
             // Assert
             var expectedPoints = new[]
@@ -847,9 +847,9 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         [Test]
         [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
         {
-            "CreateDesignWaterLevelGeometryPoints_WithForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsArray({0})"
+            "CreateDesignWaterLevelGeometryPoints_WithForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsCollection({0})"
         })]
-        public void CreateDesignWaterLevelGeometryPoints_WithForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsArray(
+        public void CreateDesignWaterLevelGeometryPoints_WithForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsCollection(
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Call
@@ -860,7 +860,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
 
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
@@ -878,7 +878,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateWaterLevelsGeometryPoints_InputNull_ReturnsEmptyLinesList()
         {
             // Call
-            List<Point2D[]> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(null);
+            IEnumerable<IEnumerable<Point2D>> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(null);
 
             // Assert
             CollectionAssert.IsEmpty(lines);
@@ -891,14 +891,14 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             var input = new WaveConditionsInput();
 
             // Call
-            List<Point2D[]> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input);
+            IEnumerable<IEnumerable<Point2D>> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input);
 
             // Assert
             CollectionAssert.IsEmpty(lines);
         }
 
         [Test]
-        public void CreateWaterLevelsGeometryPoints_NoForeshoreProfile_ReturnsWaterLevelsGeometryPointsArray()
+        public void CreateWaterLevelsGeometryPoints_NoForeshoreProfile_ReturnsWaterLevelsGeometryPointsCollection()
         {
             // Call
             var input = new WaveConditionsInput
@@ -910,7 +910,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            List<Point2D[]> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input);
+            IEnumerable<IEnumerable<Point2D>> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input);
 
             // Assert
             var expectedLines = new[]
@@ -933,9 +933,9 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         [Test]
         [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
         {
-            "CreateWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsWaterLevelsGeometryPointsArray({0})"
+            "CreateWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsWaterLevelsGeometryPointsCollection({0})"
         })]
-        public void CreateWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsWaterLevelsGeometryPointsArray(
+        public void CreateWaterLevelsGeometryPoints_WithForeshoreProfile_ReturnsWaterLevelsGeometryPointsCollection(
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Call
@@ -949,7 +949,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            List<Point2D[]> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input);
+            IEnumerable<IEnumerable<Point2D>> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input);
 
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
@@ -971,18 +971,18 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             AssertWaterLevelGeometries(expectedLines, lines);
         }
 
-        private static void AssertWaterLevelGeometries(IEnumerable<Point2D[]> expectedLines, IEnumerable<Point2D[]> lines)
+        private static void AssertWaterLevelGeometries(IEnumerable<IEnumerable<Point2D>> expectedLines, IEnumerable<IEnumerable<Point2D>> lines)
         {
             int expectedLinesCount = expectedLines.Count();
             Assert.AreEqual(expectedLinesCount, lines.Count());
             for (var i = 0; i < expectedLinesCount; i++)
             {
-                Point2D[] expectedLineGeometry = expectedLines.ElementAt(i);
-                Assert.AreEqual(expectedLineGeometry.Length, lines.ElementAt(i).Length);
-                for (var j = 0; j < expectedLineGeometry.Length; j++)
+                IEnumerable<Point2D> expectedLineGeometry = expectedLines.ElementAt(i);
+                Assert.AreEqual(expectedLineGeometry.Count(), lines.ElementAt(i).Count());
+                for (var j = 0; j < expectedLineGeometry.Count(); j++)
                 {
-                    Point2D expectedPoint = expectedLineGeometry[j];
-                    Point2D actualPoint = lines.ElementAt(i)[j];
+                    Point2D expectedPoint = expectedLineGeometry.ElementAt(j);
+                    Point2D actualPoint = lines.ElementAt(i).ElementAt(j);
 
                     Assert.AreEqual(expectedPoint.X, actualPoint.X, 1e-6);
                     Assert.AreEqual(actualPoint.X, actualPoint.X, 1e-6);

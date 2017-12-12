@@ -126,7 +126,7 @@ namespace Ringtoets.Common.IO.FileImporters
         private static DikeProfile CreateDikeProfile(ProfileLocation dikeProfileLocation, DikeProfileData dikeProfileData)
         {
             return new DikeProfile(dikeProfileLocation.Point, dikeProfileData.DikeGeometry,
-                                   dikeProfileData.ForeshoreGeometry.Select(fg => fg.Point).ToArray(),
+                                   dikeProfileData.ForeshoreGeometry.Select(fg => fg.Point),
                                    CreateBreakWater(dikeProfileData),
                                    new DikeProfile.ConstructionProperties
                                    {

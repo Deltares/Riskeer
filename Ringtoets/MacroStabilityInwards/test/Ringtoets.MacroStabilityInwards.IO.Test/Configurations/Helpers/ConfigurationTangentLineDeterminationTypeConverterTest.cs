@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.IO.Configurations;
@@ -92,18 +93,32 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        [TestCaseSource(nameof(InvalidConvertions), new object[]
-        {
-            "ConvertTo_Convert{2}to{1}_ThrowsNotSupportedException"
-        })]
-        public void ConvertTo_Invalid_ThrowsNotSupportedException(ConfigurationTangentLineDeterminationType invalidValue,
-                                                                  Type convertToType)
+        [TestCase(typeof(string))]
+        [TestCase(typeof(MacroStabilityInwardsTangentLineDeterminationType))]
+        public void ConvertTo_InvalidConfigurationTangentLineDeterminationType_ThrowsNotSupportedException(Type convertToType)
         {
             // Setup
+            const ConfigurationTangentLineDeterminationType invalidValue = (ConfigurationTangentLineDeterminationType)9999;
             var converter = new ConfigurationTangentLineDeterminationTypeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, convertToType);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationTangentLineDeterminationType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("value", parameterName);
+        }
+
+        [Test]
+        public void ConvertTo_InvalidDestinationType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var random = new Random(21);
+            var converter = new ConfigurationTangentLineDeterminationTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertTo(random.NextEnumValue<ConfigurationTangentLineDeterminationType>(), typeof(object));
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
@@ -158,13 +173,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        [TestCaseSource(nameof(InvalidConvertFrom), new object[]
-        {
-            "ConvertFrom_{0}_ThrowsNotSupportedException"
-        })]
-        public void ConvertFrom_InvalidValue_ThrowsNotSupportedException(object invalidValue)
+        public void ConvertFom_InvalidStringValue_ThrowsNotSupportedException()
         {
             // Setup
+            const string invalidValue = "invalid value";
             var converter = new ConfigurationTangentLineDeterminationTypeConverter();
 
             // Call
@@ -172,6 +184,36 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
+        public void ConvertFrom_InvalidValueType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var invalidValue = new object();
+            var converter = new ConfigurationTangentLineDeterminationTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        [Test]
+        public void ConvertFrom_InvalidMacroStabilityInwardsTangentLineDeterminationType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const MacroStabilityInwardsTangentLineDeterminationType invalidValue = (MacroStabilityInwardsTangentLineDeterminationType)9999;
+            var converter = new ConfigurationTangentLineDeterminationTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(MacroStabilityInwardsTangentLineDeterminationType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            Assert.AreEqual("value", parameterName);
         }
 
         private static IEnumerable<TestCaseData> GetSupportedTypes(string testName)
@@ -196,33 +238,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
                 .SetName(testName);
             yield return new TestCaseData(ConfigurationTangentLineDeterminationType.Specified,
                                           MacroStabilityInwardsTangentLineDeterminationType.Specified)
-                .SetName(testName);
-        }
-
-        private static IEnumerable<TestCaseData> InvalidConvertions(string testName)
-        {
-            yield return new TestCaseData((ConfigurationTangentLineDeterminationType) 99999,
-                                          typeof(string))
-                .SetName(testName);
-
-            yield return new TestCaseData((ConfigurationTangentLineDeterminationType) 99999,
-                                          typeof(MacroStabilityInwardsTangentLineDeterminationType))
-                .SetName(testName);
-
-            yield return new TestCaseData((ConfigurationTangentLineDeterminationType) 99999,
-                                          typeof(object))
-                .SetName(testName);
-        }
-
-        private static IEnumerable<TestCaseData> InvalidConvertFrom(string testName)
-        {
-            yield return new TestCaseData("invalid value")
-                .SetName(testName);
-
-            yield return new TestCaseData((MacroStabilityInwardsTangentLineDeterminationType) 99999)
-                .SetName(testName);
-
-            yield return new TestCaseData(new object())
                 .SetName(testName);
         }
     }

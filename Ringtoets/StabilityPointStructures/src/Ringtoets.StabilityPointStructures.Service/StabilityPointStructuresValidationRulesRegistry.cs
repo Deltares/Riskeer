@@ -42,46 +42,88 @@ namespace Ringtoets.StabilityPointStructures.Service
                 throw new ArgumentNullException(nameof(input));
             }
 
+            StabilityPointStructureInflowModelType inflowModelType = input.InflowModelType;
+            if (!Enum.IsDefined(typeof(StabilityPointStructureInflowModelType), inflowModelType))
+            {
+                throw new InvalidEnumArgumentException(nameof(input),
+                                                       (int)inflowModelType,
+                                                       typeof(StabilityPointStructureInflowModelType));
+            }
+
             IEnumerable<ValidationRule> validationRules;
-            switch (input.InflowModelType)
+            switch (inflowModelType)
             {
                 case StabilityPointStructureInflowModelType.LowSill:
-                    switch (input.LoadSchematizationType)
-                    {
-                        case LoadSchematizationType.Linear:
-                            validationRules = GetLowSillLinearValidationRules(input);
-                            break;
-                        case LoadSchematizationType.Quadratic:
-                            validationRules = GetLowSillQuadraticValidationRules(input);
-                            break;
-                        default:
-                            throw new InvalidEnumArgumentException(nameof(input),
-                                                                   (int) input.LoadSchematizationType,
-                                                                   typeof(LoadSchematizationType));
-                    }
+                    validationRules = GetLowSillValidationRules(input);
                     break;
                 case StabilityPointStructureInflowModelType.FloodedCulvert:
-                    switch (input.LoadSchematizationType)
-                    {
-                        case LoadSchematizationType.Linear:
-                            validationRules = GetFloodedCulvertLinearValidationRules(input);
-                            break;
-                        case LoadSchematizationType.Quadratic:
-                            validationRules = GetFloodedCulvertQuadraticValidationRules(input);
-                            break;
-                        default:
-                            throw new InvalidEnumArgumentException(nameof(input),
-                                                                   (int) input.LoadSchematizationType,
-                                                                   typeof(LoadSchematizationType));
-                    }
+                    validationRules = GetFloodedCulvertValidationRules(input);
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(input),
-                                                           (int) input.InflowModelType,
-                                                           typeof(StabilityPointStructureInflowModelType));
+                    throw new NotSupportedException($"The enum value {nameof(StabilityPointStructureInflowModelType)}.{inflowModelType} is not supported.");
             }
 
             return validationRules;
+        }
+
+        /// <summary>
+        /// Gets the validation rules applicable for flooded culvert calculations.
+        /// </summary>
+        /// <param name="input">The <see cref="StabilityPointStructuresInput"/> to base the validation rules on.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of validation rules to validate a flooded culvert input.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="input"/> contains
+        /// an invalid value of <see cref="LoadSchematizationType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when<paramref name="input"/> contains
+        /// an unsupported value of <see cref="LoadSchematizationType"/>.</exception>
+        private static IEnumerable<ValidationRule> GetFloodedCulvertValidationRules(StabilityPointStructuresInput input)
+        {
+            LoadSchematizationType loadSchematizationType = input.LoadSchematizationType;
+            if (!Enum.IsDefined(typeof(LoadSchematizationType), loadSchematizationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(input),
+                                                       (int) loadSchematizationType,
+                                                       typeof(LoadSchematizationType));
+            }
+
+            switch (loadSchematizationType)
+            {
+                case LoadSchematizationType.Linear:
+                    return GetFloodedCulvertLinearValidationRules(input);
+                case LoadSchematizationType.Quadratic:
+                    return GetFloodedCulvertQuadraticValidationRules(input);
+                default:
+                    throw new NotSupportedException($"The enum value {nameof(LoadSchematizationType)}.{loadSchematizationType} is not supported.");
+            }
+        }
+
+        /// <summary>
+        /// Gets the validation rules applicable for low sill calculations.
+        /// </summary>
+        /// <param name="input">The <see cref="StabilityPointStructuresInput"/> to base the validation rules on.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of validation rules to validate a flooded culvert input.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="input"/> contains
+        /// an invalid value of <see cref="LoadSchematizationType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when<paramref name="input"/> contains
+        /// an unsupported value of <see cref="LoadSchematizationType"/>.</exception>
+        private static IEnumerable<ValidationRule> GetLowSillValidationRules(StabilityPointStructuresInput input)
+        {
+            LoadSchematizationType loadSchematizationType = input.LoadSchematizationType;
+            if (!Enum.IsDefined(typeof(LoadSchematizationType), loadSchematizationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(input),
+                                                       (int) loadSchematizationType,
+                                                       typeof(LoadSchematizationType));
+            }
+
+            switch (loadSchematizationType)
+            {
+                case LoadSchematizationType.Linear:
+                    return GetLowSillLinearValidationRules(input);
+                case LoadSchematizationType.Quadratic:
+                    return GetLowSillQuadraticValidationRules(input);
+                default:
+                    throw new NotSupportedException($"The enum value {nameof(LoadSchematizationType)}.{loadSchematizationType} is not supported.");
+            }
         }
 
         private static IEnumerable<ValidationRule> GetLowSillLinearValidationRules(StabilityPointStructuresInput input)

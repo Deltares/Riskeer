@@ -403,7 +403,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             foreach (MacroStabilityInwardsSlice slice in slices)
             {
                 RoundedDouble value = getParameterFunc(slice);
-                double offset = value.Value * scaleFactor;
+                double offset = value * scaleFactor;
                 double length = Math.Sqrt(Math.Pow(slice.BottomLeftPoint.X - slice.BottomRightPoint.X, 2) +
                                           Math.Pow(slice.BottomLeftPoint.Y - slice.BottomRightPoint.Y, 2));
 

@@ -43,11 +43,21 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                    || base.CanConvertTo(context, sourceType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="ConfigurationTangentLineDeterminationType"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
+            var type = (ConfigurationTangentLineDeterminationType) value;
+            if (!Enum.IsDefined(typeof(ConfigurationTangentLineDeterminationType), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(value),
+                                                       (int) type,
+                                                       typeof(ConfigurationTangentLineDeterminationType));
+            }
+
             if (destinationType == typeof(string))
             {
-                var type = (ConfigurationTangentLineDeterminationType) value;
                 switch (type)
                 {
                     case ConfigurationTangentLineDeterminationType.Specified:
@@ -60,7 +70,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
             }
             if (destinationType == typeof(MacroStabilityInwardsTangentLineDeterminationType))
             {
-                var type = (ConfigurationTangentLineDeterminationType) value;
                 switch (type)
                 {
                     case ConfigurationTangentLineDeterminationType.Specified:
@@ -74,6 +83,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="MacroStabilityInwardsTangentLineDeterminationType"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var text = value as string;
@@ -92,6 +104,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
             var tangentLineDeterminationType = value as MacroStabilityInwardsTangentLineDeterminationType?;
             if (tangentLineDeterminationType != null)
             {
+                if (!Enum.IsDefined(typeof(MacroStabilityInwardsTangentLineDeterminationType), tangentLineDeterminationType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(value),
+                                                           (int) tangentLineDeterminationType,
+                                                           typeof(MacroStabilityInwardsTangentLineDeterminationType));
+                }
+
                 switch (tangentLineDeterminationType)
                 {
                     case MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated:

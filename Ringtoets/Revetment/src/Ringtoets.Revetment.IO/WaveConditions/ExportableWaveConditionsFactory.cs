@@ -113,7 +113,7 @@ namespace Ringtoets.Revetment.IO.WaveConditions
                 throw new ArgumentNullException(nameof(coverType));
             }
 
-            return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput, coverType));
+            return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput, coverType)).ToArray();
         }
     }
 }

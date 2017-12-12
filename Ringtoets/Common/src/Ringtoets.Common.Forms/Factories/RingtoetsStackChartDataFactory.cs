@@ -118,9 +118,9 @@ namespace Ringtoets.Common.Forms.Factories
         private static IEnumerable<Tuple<string, RoundedDouble>> GetStochastValues(IllustrationPointControlItem illustrationPointControlItem)
         {
             return illustrationPointControlItem.Stochasts
-                                               .Select(stochast => Tuple.Create(
-                                                           stochast.Name,
-                                                           new RoundedDouble(5, Math.Pow(stochast.Alpha, 2)))).ToArray();
+                                               .Select(stochast => Tuple.Create(stochast.Name,
+                                                                                new RoundedDouble(5, Math.Pow(stochast.Alpha, 2))))
+                                               .ToArray();
         }
 
         private static IDictionary<string, List<RoundedDouble>> CreateStochastsLookup(IEnumerable<Tuple<string, RoundedDouble>> stochastValues)

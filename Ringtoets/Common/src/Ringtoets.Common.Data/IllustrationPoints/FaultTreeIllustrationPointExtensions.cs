@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 throw new ArgumentNullException(nameof(faultTreeIllustrationPoint));
             }
 
-            return faultTreeIllustrationPoint.Stochasts.Select(s => s.Name).ToArray();
+            return faultTreeIllustrationPoint.Stochasts.Select(s => s.Name);
         }
     }
 }

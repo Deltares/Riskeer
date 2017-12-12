@@ -45,6 +45,8 @@ namespace Ringtoets.Common.Service.ValidationRules
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
         /// enum value is encountered.</exception>
+        /// <exception cref="NotSupportedException">Thrown when an unsupported 
+        /// enum value is encountered.</exception>
         IEnumerable<ValidationRule> GetValidationRules(TStructuresInput input);
     }
 }

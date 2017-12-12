@@ -145,7 +145,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             ViewInfo[] viewInfos = compatibleStandaloneViewInfos.ToArray();
 
             // filter on inheritance
-            Type[] dataTypes = viewInfos.Select(i => i.DataType).ToArray();
+            IEnumerable<Type> dataTypes = viewInfos.Select(i => i.DataType);
             return viewInfos.Where(i => !dataTypes.Any(t => t != i.DataType && t.Implements(i.DataType)));
         }
 

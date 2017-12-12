@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
 
         private static IEnumerable<Point2D> GetSurfaceLine2DGeometry(MechanismSurfaceLineBase surfaceLine)
         {
-            return surfaceLine.Points.Select(p => new Point2D(p.X, p.Y));
+            return surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)).ToArray();
         }
 
         private static bool DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(PipingStochasticSoilModel stochasticSoilModel,

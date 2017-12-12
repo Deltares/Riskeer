@@ -360,33 +360,26 @@ namespace Core.Common.Controls.TreeView
             int xPos, yPos;
             Rectangle bounds = node.Bounds;
 
-            switch (anchor)
+            if (anchor == AnchorStyles.Left)
             {
-                case AnchorStyles.Left:
-                    xPos = GetImageLeft(node) - placeHolderWidth;
-                    break;
-                case AnchorStyles.Right:
-                    xPos = bounds.Right;
-                    break;
-                default:
-                    return new Point[0];
+                xPos = GetImageLeft(node) - placeHolderWidth;
+            }
+            else
+            {
+                xPos = bounds.Right;
             }
 
-            switch (location)
+            if (location == PlaceholderLocation.Top)
             {
-                case PlaceholderLocation.Top:
-                    yPos = bounds.Top;
-                    break;
-                case PlaceholderLocation.Bottom:
-                    yPos = bounds.Bottom;
-                    break;
-                case PlaceholderLocation.Middle:
-                    yPos = bounds.Top + bounds.Height / 2;
-                    break;
-                default:
-                    throw new InvalidEnumArgumentException(nameof(location),
-                                                           (int) location,
-                                                           typeof(PlaceholderLocation));
+                yPos = bounds.Top;
+            }
+            else if (location == PlaceholderLocation.Bottom)
+            {
+                yPos = bounds.Bottom;
+            }
+            else
+            {
+                yPos = bounds.Top + bounds.Height / 2;
             }
 
             return CreateTrianglePoints(new Rectangle(xPos, yPos - placeHolderWidth, placeHolderWidth, placeHolderHeight), anchor);

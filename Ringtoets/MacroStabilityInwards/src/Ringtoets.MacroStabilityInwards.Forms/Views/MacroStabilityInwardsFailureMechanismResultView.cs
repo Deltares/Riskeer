@@ -55,12 +55,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 UpdateDataGridViewDataSource,
                 cg => cg.Children.Concat<object>(cg.Children
                                                    .OfType<MacroStabilityInwardsCalculationScenario>()
-                                                   .Select(c => c.InputParameters)).ToArray());
+                                                   .Select(c => c.InputParameters)));
             calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(
                 UpdateDataGridViewDataSource,
                 cg => cg.Children.Concat<object>(cg.Children
                                                    .OfType<MacroStabilityInwardsCalculationScenario>()
-                                                   .Select(c => c.Output)).ToArray());
+                                                   .Select(c => c.Output)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
                 c => c.Children);

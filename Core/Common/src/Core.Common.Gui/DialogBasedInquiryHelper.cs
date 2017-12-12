@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Gui.Properties;
 using Core.Common.Util;
@@ -114,6 +115,13 @@ namespace Core.Common.Gui
                                                         query,
                                                         workflowDescription,
                                                         MessageBoxButtons.YesNoCancel);
+
+            if (!Enum.IsDefined(typeof(DialogResult), confirmation))
+            {
+                throw new InvalidEnumArgumentException(nameof(confirmation),
+                                                       (int) confirmation,
+                                                       typeof(DialogResult));
+            }
 
             switch (confirmation)
             {

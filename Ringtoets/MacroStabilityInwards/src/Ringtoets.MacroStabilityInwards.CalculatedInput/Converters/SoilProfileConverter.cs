@@ -101,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
             }).ToArray();
         }
 
-        private static Point2D[] RingToPoints(Ring ring)
+        private static IEnumerable<Point2D> RingToPoints(Ring ring)
         {
             return ring.Points.ToArray();
         }
@@ -111,7 +111,8 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
         {
             return preconsolidationStresses.Select(ps => new PreconsolidationStress(
                                                        ps.Location,
-                                                       MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(ps).GetDesignValue()));
+                                                       MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(ps).GetDesignValue()))
+                                           .ToArray();
         }
 
         /// <summary>

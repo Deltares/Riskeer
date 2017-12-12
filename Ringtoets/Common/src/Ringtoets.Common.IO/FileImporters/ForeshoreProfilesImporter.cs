@@ -127,7 +127,7 @@ namespace Ringtoets.Common.IO.FileImporters
         private static ForeshoreProfile CreateForeshoreProfile(ProfileLocation dikeProfileLocation, DikeProfileData dikeProfileData)
         {
             var foreshoreProfile = new ForeshoreProfile(dikeProfileLocation.Point,
-                                                        dikeProfileData.ForeshoreGeometry.Select(fg => fg.Point).ToArray(),
+                                                        dikeProfileData.ForeshoreGeometry.Select(fg => fg.Point),
                                                         CreateBreakWater(dikeProfileData),
                                                         new ForeshoreProfile.ConstructionProperties
                                                         {

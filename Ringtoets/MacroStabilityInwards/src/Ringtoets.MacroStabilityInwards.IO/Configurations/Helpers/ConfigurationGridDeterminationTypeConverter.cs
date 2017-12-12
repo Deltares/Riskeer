@@ -43,11 +43,21 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                    || base.CanConvertTo(context, sourceType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="ConfigurationGridDeterminationType"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
+            var type = (ConfigurationGridDeterminationType) value;
+            if (!Enum.IsDefined(typeof(ConfigurationGridDeterminationType), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(value),
+                                                       (int) type,
+                                                       typeof(ConfigurationGridDeterminationType));
+            }
+
             if (destinationType == typeof(string))
             {
-                var type = (ConfigurationGridDeterminationType) value;
                 switch (type)
                 {
                     case ConfigurationGridDeterminationType.Automatic:
@@ -60,7 +70,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
             }
             if (destinationType == typeof(MacroStabilityInwardsGridDeterminationType))
             {
-                var type = (ConfigurationGridDeterminationType) value;
                 switch (type)
                 {
                     case ConfigurationGridDeterminationType.Automatic:
@@ -74,6 +83,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="MacroStabilityInwardsGridDeterminationType"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var text = value as string;
@@ -92,6 +104,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
             var gridDeterminationType = value as MacroStabilityInwardsGridDeterminationType?;
             if (gridDeterminationType != null)
             {
+                if (!Enum.IsDefined(typeof(MacroStabilityInwardsGridDeterminationType), gridDeterminationType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(value),
+                                                           (int) gridDeterminationType,
+                                                           typeof(MacroStabilityInwardsGridDeterminationType));
+                }
+
                 switch (gridDeterminationType)
                 {
                     case MacroStabilityInwardsGridDeterminationType.Automatic:

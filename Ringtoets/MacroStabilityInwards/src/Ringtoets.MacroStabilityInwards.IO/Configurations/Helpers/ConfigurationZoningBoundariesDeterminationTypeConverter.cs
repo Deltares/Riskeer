@@ -43,11 +43,21 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                    || base.CanConvertTo(context, sourceType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="ConfigurationZoningBoundariesDeterminationType"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
+            var type = (ConfigurationZoningBoundariesDeterminationType) value;
+            if (!Enum.IsDefined(typeof(ConfigurationZoningBoundariesDeterminationType), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(value),
+                                                       (int) type,
+                                                       typeof(ConfigurationZoningBoundariesDeterminationType));
+            }
+
             if (destinationType == typeof(string))
             {
-                var type = (ConfigurationZoningBoundariesDeterminationType) value;
                 switch (type)
                 {
                     case ConfigurationZoningBoundariesDeterminationType.Automatic:
@@ -60,7 +70,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
             }
             if (destinationType == typeof(MacroStabilityInwardsZoningBoundariesDeterminationType))
             {
-                var type = (ConfigurationZoningBoundariesDeterminationType) value;
                 switch (type)
                 {
                     case ConfigurationZoningBoundariesDeterminationType.Automatic:
@@ -74,6 +83,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="MacroStabilityInwardsZoningBoundariesDeterminationType"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var text = value as string;
@@ -92,6 +104,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
             var zoningBoundariesDeterminationType = value as MacroStabilityInwardsZoningBoundariesDeterminationType?;
             if (zoningBoundariesDeterminationType != null)
             {
+                if (!Enum.IsDefined(typeof(MacroStabilityInwardsZoningBoundariesDeterminationType), zoningBoundariesDeterminationType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(value),
+                                                           (int) zoningBoundariesDeterminationType,
+                                                           typeof(MacroStabilityInwardsZoningBoundariesDeterminationType));
+                }
+
                 switch (zoningBoundariesDeterminationType)
                 {
                     case MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic:
