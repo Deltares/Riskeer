@@ -100,11 +100,16 @@ namespace Ringtoets.Common.Forms.Factories
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
         /// to create the location features for.</param>
-        /// <returns>A collection of features or an empty collection when <paramref name="hydraulicBoundaryDatabase"/> 
-        /// is <c>null</c>.</returns>
+        /// <returns>A collection of features.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
         public static IEnumerable<MapFeature> CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            return CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryDatabase?.Locations.ToArray() ?? new HydraulicBoundaryLocation[0],
+            if (hydraulicBoundaryDatabase == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+            }
+
+            return CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryDatabase.Locations.ToArray(),
                                                            Resources.DesignWaterLevel_DisplayName,
                                                            Resources.MetaData_WaveHeight);
         }
