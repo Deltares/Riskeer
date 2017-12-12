@@ -21,12 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
@@ -82,20 +80,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
             get
             {
                 return FailureMechanism.DikeProfiles;
-            }
-        }
-
-        /// <summary>
-        /// Gets the available hydraulic boundary locations in order for the user to select one to 
-        /// set <see cref="GrassCoverErosionInwardsInput.HydraulicBoundaryLocation"/>.
-        /// </summary>
-        public IEnumerable<HydraulicBoundaryLocation> AvailableHydraulicBoundaryLocations
-        {
-            get
-            {
-                return AssessmentSection.HydraulicBoundaryDatabase == null ?
-                           Enumerable.Empty<HydraulicBoundaryLocation>() :
-                           AssessmentSection.HydraulicBoundaryDatabase.Locations;
             }
         }
     }

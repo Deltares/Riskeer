@@ -21,11 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -73,22 +71,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// to set <see cref="MacroStabilityInwardsInput.StochasticSoilProfile"/> and <see cref="MacroStabilityInwardsInput.StochasticSoilModel"/>.
         /// </summary>
         public IEnumerable<MacroStabilityInwardsStochasticSoilModel> AvailableStochasticSoilModels { get; }
-
-        /// <summary>
-        /// Gets the available hydraulic boundary locations in order for the user to select one to 
-        /// set <see cref="MacroStabilityInwardsInput.HydraulicBoundaryLocation"/>.
-        /// </summary>
-        public IEnumerable<HydraulicBoundaryLocation> AvailableHydraulicBoundaryLocations
-        {
-            get
-            {
-                if (AssessmentSection.HydraulicBoundaryDatabase == null)
-                {
-                    return Enumerable.Empty<HydraulicBoundaryLocation>();
-                }
-                return AssessmentSection.HydraulicBoundaryDatabase.Locations;
-            }
-        }
 
         /// <summary>
         /// Gets the failure mechanism which the context belongs to.

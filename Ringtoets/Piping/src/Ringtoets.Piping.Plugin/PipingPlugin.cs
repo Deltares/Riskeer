@@ -133,7 +133,7 @@ namespace Ringtoets.Piping.Plugin
                     new PipingCalculationConfigurationImporter(
                         filePath,
                         context.WrappedData,
-                        context.AvailableHydraulicBoundaryLocations,
+                        context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                         context.FailureMechanism));
         }
 

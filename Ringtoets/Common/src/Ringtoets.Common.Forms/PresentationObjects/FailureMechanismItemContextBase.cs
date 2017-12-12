@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
@@ -74,18 +71,5 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// Gets the assessment section which the context belongs to.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; }
-
-        /// <summary>
-        /// Gets the available hydraulic boundary locations.
-        /// </summary>
-        public IEnumerable<HydraulicBoundaryLocation> AvailableHydraulicBoundaryLocations
-        {
-            get
-            {
-                return AssessmentSection.HydraulicBoundaryDatabase != null
-                           ? AssessmentSection.HydraulicBoundaryDatabase.Locations
-                           : Enumerable.Empty<HydraulicBoundaryLocation>();
-            }
-        }
     }
 }

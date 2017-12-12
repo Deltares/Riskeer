@@ -361,7 +361,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             Point2D calculationLocation = data.WrappedData.DikeProfile?.WorldReferencePoint;
 
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AvailableHydraulicBoundaryLocations, calculationLocation);
+                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, calculationLocation);
         }
     }
 }

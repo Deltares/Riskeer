@@ -21,11 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
@@ -74,22 +72,6 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// to set <see cref="PipingInput.StochasticSoilProfile"/> and <see cref="PipingInput.StochasticSoilModel"/>.
         /// </summary>
         public IEnumerable<PipingStochasticSoilModel> AvailableStochasticSoilModels { get; }
-
-        /// <summary>
-        /// Gets the available hydraulic boundary locations in order for the user to select one to 
-        /// set <see cref="PipingInput.HydraulicBoundaryLocation"/>.
-        /// </summary>
-        public IEnumerable<HydraulicBoundaryLocation> AvailableHydraulicBoundaryLocations
-        {
-            get
-            {
-                if (AssessmentSection.HydraulicBoundaryDatabase == null)
-                {
-                    return Enumerable.Empty<HydraulicBoundaryLocation>();
-                }
-                return AssessmentSection.HydraulicBoundaryDatabase.Locations;
-            }
-        }
 
         /// <summary>
         /// Gets the piping failure mechanism which the piping context belongs to.

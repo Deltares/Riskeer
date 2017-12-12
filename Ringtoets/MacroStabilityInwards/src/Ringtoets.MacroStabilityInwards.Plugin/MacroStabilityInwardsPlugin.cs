@@ -135,7 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                     new MacroStabilityInwardsCalculationConfigurationImporter(
                         filePath,
                         context.WrappedData,
-                        context.AvailableHydraulicBoundaryLocations,
+                        context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                         context.FailureMechanism));
         }
 

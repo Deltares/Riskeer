@@ -109,7 +109,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 (context, filePath) => new HeightStructuresCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,
-                    context.AvailableHydraulicBoundaryLocations,
+                    context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                     context.AvailableForeshoreProfiles,
                     context.AvailableStructures,
                     context.FailureMechanism));
