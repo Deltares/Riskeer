@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("database", paramName);
+            Assert.AreEqual("hydraulicBoundaryDatabase", paramName);
         }
 
         [Test]

@@ -40,15 +40,16 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationContextProperties"/>.
         /// </summary>
-        /// <param name="database">The database to set as data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="database"/> is <c>null</c>.</exception>
-        public DesignWaterLevelLocationsContextProperties(HydraulicBoundaryDatabase database)
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to set as data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
+        public DesignWaterLevelLocationsContextProperties(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            if (database == null)
+            if (hydraulicBoundaryDatabase == null)
             {
-                throw new ArgumentNullException(nameof(database));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
-            Data = database;
+
+            Data = hydraulicBoundaryDatabase;
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
