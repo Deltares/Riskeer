@@ -126,13 +126,13 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// cannot be transformed in a <see cref="PipingSoilProfile"/>.</exception>
         private static PipingSoilProfile CreatePipingSoilProfile(SoilProfile1D soilProfile1D)
         {
-            IEnumerable<PipingSoilLayer> layers = soilProfile1D.Layers.Select(PipingSoilLayerTransformer.Transform);
+            IEnumerable<PipingSoilLayer> layers = soilProfile1D.Layers.Select(PipingSoilLayerTransformer.Transform).ToArray();
 
             try
             {
                 return new PipingSoilProfile(soilProfile1D.Name,
                                              soilProfile1D.Bottom,
-                                             layers.ToArray(),
+                                             layers,
                                              SoilProfileType.SoilProfile1D);
             }
             catch (ArgumentException e)

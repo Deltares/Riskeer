@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
             }
 
             return new WaternetCalculatorResult(phreaticLineLookup.Values,
-                                                waternet.WaternetLineList.Select(wl => CreateWaternetLine(wl, phreaticLineLookup)));
+                                                waternet.WaternetLineList.Select(wl => CreateWaternetLine(wl, phreaticLineLookup)).ToArray());
         }
 
         private static WaternetLineResult CreateWaternetLine(WaternetLine waternetLine,
