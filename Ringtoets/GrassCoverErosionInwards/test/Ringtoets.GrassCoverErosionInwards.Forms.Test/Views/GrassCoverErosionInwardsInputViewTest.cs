@@ -530,7 +530,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var dikeProfileChartData = (ChartLineData) chartData;
 
             RoughnessPoint[] dikeGeometry = dikeProfile.DikeGeometry;
-            Assert.AreEqual(dikeGeometry.Length, dikeProfileChartData.Points.Length);
+            Assert.AreEqual(dikeGeometry.Length, dikeProfileChartData.Points.Count());
             CollectionAssert.AreEqual(dikeGeometry.Select(dg => dg.Point), dikeProfileChartData.Points);
 
             string expectedName = $"{dikeProfile.Name} - Dijkprofiel";
@@ -543,7 +543,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var foreshoreChartData = (ChartLineData) chartData;
 
             RoundedPoint2DCollection foreshoreGeometry = dikeProfile.ForeshoreGeometry;
-            Assert.AreEqual(foreshoreGeometry.Count(), foreshoreChartData.Points.Length);
+            Assert.AreEqual(foreshoreGeometry.Count(), foreshoreChartData.Points.Count());
             CollectionAssert.AreEqual(foreshoreGeometry, foreshoreChartData.Points);
 
             string expectedName = $"{dikeProfile.Name} - Voorlandprofiel";
@@ -561,7 +561,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 new Point2D(dikeProfile.DikeGeometry.Last().Point.X, dikeProfile.DikeHeight)
             };
 
-            Assert.AreEqual(dikeHeightGeometry.Length, dikeHeightChartData.Points.Length);
+            Assert.AreEqual(dikeHeightGeometry.Length, dikeHeightChartData.Points.Count());
             CollectionAssert.AreEqual(dikeHeightGeometry, dikeHeightChartData.Points);
 
             Assert.AreEqual("Dijkhoogte", chartData.Name);
