@@ -151,11 +151,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_NoHydraulicBoundaryDatabaseSet_ReturnNoChildNodes()
+        public void ChildNodeObjects_HydraulicBoundaryDatabaseNotCoupled_ReturnNoChildNodes()
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             mockRepository.ReplayAll();
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
 
@@ -167,11 +169,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_HydraulicBoundaryDatabaseSet_ReturnChildDataNodes()
+        public void ChildNodeObjects_HydraulicBoundaryDatabaseCoupled_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            {
+                FilePath = "databaseFile"
+            });
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
