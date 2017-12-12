@@ -69,14 +69,11 @@ namespace Ringtoets.Common.IO.FileImporters
             ValidateAndConnectTo(filePath);
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            if (!IsImportRequired(hydraulicBoundaryDatabase))
+            if (hydraulicBoundaryDatabaseReader.GetVersion() == hydraulicBoundaryDatabase.Version)
             {
-                bool isNotificationRequired = hydraulicBoundaryDatabase.FilePath != filePath;
-
-                hydraulicBoundaryDatabase.FilePath = filePath;
-
-                if (isNotificationRequired)
+                if (hydraulicBoundaryDatabase.FilePath != filePath)
                 {
+                    hydraulicBoundaryDatabase.FilePath = filePath;
                     assessmentSection.NotifyObservers();
                 }
             }
@@ -164,11 +161,6 @@ namespace Ringtoets.Common.IO.FileImporters
                 string errorMessage = string.Format(Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_, e.Message);
                 throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(filePath).Build(errorMessage));
             }
-        }
-
-        private bool IsImportRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
-        {
-            return hydraulicBoundaryDatabase == null || hydraulicBoundaryDatabaseReader.GetVersion() != hydraulicBoundaryDatabase.Version;
         }
 
         private ReadHydraulicBoundaryDatabase ReadHydraulicBoundaryDatabase()
