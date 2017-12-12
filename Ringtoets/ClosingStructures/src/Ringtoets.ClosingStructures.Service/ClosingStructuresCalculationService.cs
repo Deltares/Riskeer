@@ -44,7 +44,6 @@ namespace Ringtoets.ClosingStructures.Service
                                                                          string hydraulicBoundaryDatabaseFilePath,
                                                                          bool usePreprocessor)
         {
-            StructuresClosureCalculationInput input;
             ClosingStructureInflowModelType closingStructureInflowModelType = structureInput.InflowModelType;
             if (!Enum.IsDefined(typeof(ClosingStructureInflowModelType), closingStructureInflowModelType))
             {
@@ -53,6 +52,7 @@ namespace Ringtoets.ClosingStructures.Service
                                                        typeof(ClosingStructureInflowModelType));
             }
 
+            StructuresClosureCalculationInput input;
             switch (closingStructureInflowModelType)
             {
                 case ClosingStructureInflowModelType.VerticalWall:

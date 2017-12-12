@@ -48,7 +48,6 @@ namespace Ringtoets.StabilityPointStructures.Service
                                                                                 string hydraulicBoundaryDatabaseFilePath,
                                                                                 bool usePreprocessor)
         {
-            StructuresStabilityPointCalculationInput input;
             StabilityPointStructureInflowModelType inflowModelType = structureInput.InflowModelType;
             if (!Enum.IsDefined(typeof(StabilityPointStructureInflowModelType), inflowModelType))
             {
@@ -57,6 +56,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                                                        typeof(StabilityPointStructureInflowModelType));
             }
 
+            StructuresStabilityPointCalculationInput input;
             switch (inflowModelType)
             {
                 case StabilityPointStructureInflowModelType.LowSill:
@@ -83,7 +83,7 @@ namespace Ringtoets.StabilityPointStructures.Service
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="structureInput"/> contains
         /// an invalid value of <see cref="LoadSchematizationType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when<paramref name="structureInput"/> contains
-        /// an unsupported value of <see cref="LoadSchematizationType"/> </exception>
+        /// an unsupported value of <see cref="LoadSchematizationType"/>.</exception>
         private static StructuresStabilityPointCalculationInput CreateFloodedCulvertInput(StabilityPointStructuresInput structureInput,
                                                                                           GeneralStabilityPointStructuresInput generalInput)
         {
@@ -120,7 +120,7 @@ namespace Ringtoets.StabilityPointStructures.Service
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="structureInput"/> contains
         /// an invalid value of <see cref="LoadSchematizationType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when<paramref name="structureInput"/> contains
-        /// an unsupported value of <see cref="LoadSchematizationType"/> </exception>
+        /// an unsupported value of <see cref="LoadSchematizationType"/>.</exception>
         private static StructuresStabilityPointCalculationInput CreateLowSillInput(StabilityPointStructuresInput structureInput,
                                                                                    GeneralStabilityPointStructuresInput generalInput)
         {
