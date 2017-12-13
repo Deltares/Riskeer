@@ -35,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
     public class GrassCoverErosionInwardsChartDataPointsFactoryTest
     {
         [Test]
-        public void CreateDikeGeometryPoints_DikeProfileNull_ReturnsEmptyPointsArray()
+        public void CreateDikeGeometryPoints_DikeProfileNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<Point2D> points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeGeometryPoints(null);
@@ -45,7 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDikeGeometryPoints_DikeProfile_ReturnsDikeGeometryPointsArray()
+        public void CreateDikeGeometryPoints_DikeProfile_ReturnsDikeGeometryCollection()
         {
             // Setup
             var roughnessPoints = new[]
@@ -63,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateForeshoreGeometryPoints_InputNull_ReturnsEmptyPointsArray()
+        public void CreateForeshoreGeometryPoints_InputNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<Point2D> points = GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(null);
@@ -73,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateForeshoreGeometryPoints_DikeProfileNull_ReturnsEmptyPointsArray()
+        public void CreateForeshoreGeometryPoints_DikeProfileNull_ReturnsEmptyCollection()
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput
@@ -89,7 +89,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateForeshoreGeometryPoints_DikeProfileSetUseForeshoreFalse_ReturnsEmptyPointsArray()
+        public void CreateForeshoreGeometryPoints_DikeProfileSetUseForeshoreFalse_ReturnsEmptyCollection()
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput
@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateForeshoreGeometryPoints_DikeProfileSetUseForeshoreTrue_ReturnsForeshoreGeometryPointsArray()
+        public void CreateForeshoreGeometryPoints_DikeProfileSetUseForeshoreTrue_ReturnsForeshoreGeometryCollection()
         {
             // Setup
             var foreshoreGeometry = new[]
@@ -132,7 +132,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDikeHeightPoints_DikeProfileNull_ReturnsEmptyPointsArray()
+        public void CreateDikeHeightPoints_DikeProfileNull_ReturnsEmptyCollection()
         {
             // Call
             IEnumerable<Point2D> points = GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(null);
@@ -142,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDikeHeightPoints_DikeProfileSetDikeHeightNaN_ReturnsEmptyPointsArray()
+        public void CreateDikeHeightPoints_DikeProfileSetDikeHeightNaN_ReturnsEmptyCollection()
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput
@@ -163,7 +163,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDikeHeightPoints_DikeProfileSetDikeGeometryLessThanTwoPoints_ReturnsEmptyPointsArray()
+        public void CreateDikeHeightPoints_DikeProfileSetDikeGeometryLessThanTwoPoints_ReturnsEmptyCollection()
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput
@@ -183,7 +183,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDikeHeightPoints_DikeProfileSetValidData_ReturnsEmptyPointsArray()
+        public void CreateDikeHeightPoints_DikeProfileSetValidData_ReturnsEmptyCollection()
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput

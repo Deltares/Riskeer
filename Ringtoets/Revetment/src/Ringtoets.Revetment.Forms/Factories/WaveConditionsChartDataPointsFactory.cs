@@ -209,7 +209,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create water levels geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> to create the water levels geometry points for.</param>
-        /// <returns>A list with collections of points in 2D space or an empty list when:
+        /// <returns>A collection with collections of points in 2D space or an empty list when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>there are no <see cref="WaveConditionsInput.WaterLevels"/>.</item>
@@ -219,7 +219,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         {
             return input?.WaterLevels
                         .Select(waterLevel => CreateGeometryPoints(input, () => waterLevel))
-                        .ToList() ?? new List<IEnumerable<Point2D>>();
+                        .ToArray() ?? new IEnumerable<Point2D>[0];
         }
 
         private static IEnumerable<Point2D> CreateGeometryPoints(WaveConditionsInput input, Func<double> getValueFunc)

@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
         /// Create dike geometry points in 2D space based on the provided <paramref name="dikeProfile"/>.
         /// </summary>
         /// <param name="dikeProfile">The <see cref="DikeProfile"/> to create the dike geometry points for.</param>
-        /// <returns>A collection of points in 2D space or an empty array when <paramref name="dikeProfile"/> is <c>null</c>.</returns>
+        /// <returns>A collection of points in 2D space or an empty collection when <paramref name="dikeProfile"/> is <c>null</c>.</returns>
         public static IEnumerable<Point2D> CreateDikeGeometryPoints(DikeProfile dikeProfile)
         {
             return dikeProfile?.DikeGeometry.Select(dg => dg.Point) ?? new Point2D[0];
@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
         /// Create foreshore geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="GrassCoverErosionInwardsInput"/> to create the foreshore geometry points for.</param>
-        /// <returns>A collection of points in 2D space or an empty array when:
+        /// <returns>A collection of points in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the <see cref="DikeProfile"/> in <paramref name="input"/> is <c>null</c>;</item>
@@ -66,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
         /// Create dike height points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="GrassCoverErosionInwardsInput"/> to create the dike height points for.</param>
-        /// <returns>A collection of points in 2D space or an empty array when:
+        /// <returns>A collection of points in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the dike profile in <paramref name="input"/> is <c>null</c>;</item>

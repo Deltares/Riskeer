@@ -444,7 +444,7 @@ namespace Core.Common.Geometry.Test
         {
             Assert.AreEqual(expected.Count(), actual.Count());
 
-            for (var index = 0; index < actual.Count(); index++)
+            for (var index = 0; index < expected.Count(); index++)
             {
                 Point2D actualPoint = actual.ElementAt(index);
                 Point2D expectedPoint = expected.ElementAt(index);

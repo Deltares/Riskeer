@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateReferenceLineFeatures_GivenReferenceLine_ReturnsReferenceLineFeaturesCollection()
+        public void CreateReferenceLineFeatures_GivenReferenceLine_ReturnsReferenceLineFeature()
         {
             // Setup
             const string id = "1";
@@ -100,10 +100,9 @@ namespace Ringtoets.Common.Forms.Test.Factories
             referenceLine.SetGeometry(points);
 
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, id, name);
+            MapFeature mapFeature = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, id, name).Single();
 
             // Assert
-            MapFeature mapFeature = features.First();
             Assert.AreEqual(3, mapFeature.MetaData.Keys.Count);
             Assert.AreEqual(id, mapFeature.MetaData["ID"]);
             Assert.AreEqual(name, mapFeature.MetaData["Naam"]);
@@ -139,15 +138,16 @@ namespace Ringtoets.Common.Forms.Test.Factories
             IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
 
             // Assert
-            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
-            Assert.AreEqual(hydraulicBoundaryLocations.Count, features.Count());
-            for (var i = 0; i < hydraulicBoundaryLocations.Count; i++)
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
+            int expectedHydraulicBoundaryLocationsCount = hydraulicBoundaryLocations.Count();
+            Assert.AreEqual(expectedHydraulicBoundaryLocationsCount, features.Count());
+            for (var i = 0; i < expectedHydraulicBoundaryLocationsCount; i++)
             {
                 Assert.AreEqual(4, features.ElementAt(i).MetaData.Keys.Count);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].Id, features.ElementAt(i).MetaData["ID"]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].Name, features.ElementAt(i).MetaData["Naam"]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].DesignWaterLevel, features.ElementAt(i).MetaData["Toetspeil"]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].WaveHeight, features.ElementAt(i).MetaData["Golfhoogte"]);
+                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).Id, features.ElementAt(i).MetaData["ID"]);
+                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).Name, features.ElementAt(i).MetaData["Naam"]);
+                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).DesignWaterLevel, features.ElementAt(i).MetaData["Toetspeil"]);
+                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).WaveHeight, features.ElementAt(i).MetaData["Golfhoogte"]);
             }
 
             AssertEqualFeatureCollections(points, features);
@@ -216,20 +216,21 @@ namespace Ringtoets.Common.Forms.Test.Factories
             hydraulicBoundaryDatabase.Locations.AddRange(points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)));
 
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryDatabase.Locations.ToArray(),
+            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryDatabase.Locations,
                                                                                                                        designWaterLevelAttributeName,
                                                                                                                        waveheightAttributeName);
 
             // Assert
-            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
-            Assert.AreEqual(hydraulicBoundaryLocations.Count, features.Count());
-            for (var i = 0; i < hydraulicBoundaryLocations.Count; i++)
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
+            int expectedHydraulicBoundaryLocationsCount = hydraulicBoundaryLocations.Count();
+            Assert.AreEqual(expectedHydraulicBoundaryLocationsCount, features.Count());
+            for (var i = 0; i < expectedHydraulicBoundaryLocationsCount; i++)
             {
                 Assert.AreEqual(4, features.ElementAt(i).MetaData.Keys.Count);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].Id, features.ElementAt(i).MetaData["ID"]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].Name, features.ElementAt(i).MetaData["Naam"]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].DesignWaterLevel, features.ElementAt(i).MetaData[designWaterLevelAttributeName]);
-                Assert.AreEqual(hydraulicBoundaryLocations[i].WaveHeight, features.ElementAt(i).MetaData[waveheightAttributeName]);
+                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).Id, features.ElementAt(i).MetaData["ID"]);
+                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).Name, features.ElementAt(i).MetaData["Naam"]);
+                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).DesignWaterLevel, features.ElementAt(i).MetaData[designWaterLevelAttributeName]);
+                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).WaveHeight, features.ElementAt(i).MetaData[waveheightAttributeName]);
             }
 
             AssertEqualFeatureCollections(points, features);
@@ -445,14 +446,10 @@ namespace Ringtoets.Common.Forms.Test.Factories
 
             // Assert
             Assert.AreEqual(2, features.Count());
-            Assert.AreEqual(1, features.First().MapGeometries.Count());
-            Assert.AreEqual(1, features.ElementAt(1).MapGeometries.Count());
-            Point2D[] mapDataGeometryOne = features.First().MapGeometries.ElementAt(0).PointCollections.First().ToArray();
-            Point2D[] mapDataGeometryTwo = features.ElementAt(1).MapGeometries.ElementAt(0).PointCollections.First().ToArray();
-            Assert.AreEqual(1, mapDataGeometryOne.Length);
-            Assert.AreEqual(1, mapDataGeometryTwo.Length);
-            Assert.AreEqual(structure1.Location, mapDataGeometryOne[0]);
-            Assert.AreEqual(structure2.Location, mapDataGeometryTwo[0]);
+            Point2D locationOne = features.First().MapGeometries.Single().PointCollections.First().Single();
+            Point2D locationTwo = features.ElementAt(1).MapGeometries.Single().PointCollections.First().Single();
+            Assert.AreEqual(structure1.Location, locationOne);
+            Assert.AreEqual(structure2.Location, locationTwo);
 
             const int expectedNumberOfMetaDataOptions = 1;
             Assert.AreEqual(expectedNumberOfMetaDataOptions, features.First().MetaData.Count);

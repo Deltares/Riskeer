@@ -135,9 +135,10 @@ namespace Ringtoets.Common.Forms.Factories
                 throw new ArgumentNullException(nameof(waveHeightAttributeName));
             }
 
-            var features = new MapFeature[hydraulicBoundaryLocations.Count()];
+            int hydraulicBoundaryLocationsCount = hydraulicBoundaryLocations.Count();
+            var features = new MapFeature[hydraulicBoundaryLocationsCount];
 
-            for (var i = 0; i < hydraulicBoundaryLocations.Count(); i++)
+            for (var i = 0; i < hydraulicBoundaryLocationsCount; i++)
             {
                 HydraulicBoundaryLocation location = hydraulicBoundaryLocations.ElementAt(i);
 
@@ -177,7 +178,7 @@ namespace Ringtoets.Common.Forms.Factories
             return sections != null && sections.Any()
                        ? new[]
                        {
-                           CreateSingleLineMapFeature(sections.Select(sl => sl.GetStart()).ToArray())
+                           CreateSingleLineMapFeature(sections.Select(sl => sl.GetStart()))
                        }
                        : new MapFeature[0];
         }
@@ -194,7 +195,7 @@ namespace Ringtoets.Common.Forms.Factories
             return sections != null && sections.Any()
                        ? new[]
                        {
-                           CreateSingleLineMapFeature(sections.Select(sl => sl.GetLast()).ToArray())
+                           CreateSingleLineMapFeature(sections.Select(sl => sl.GetLast()))
                        }
                        : new MapFeature[0];
         }
