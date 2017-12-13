@@ -510,11 +510,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemPerformCalculationAndValidationDisabledAndTooltipSet()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotCoupled_ContextMenuItemPerformCalculationAndValidationDisabledAndTooltipSet()
         {
             // Setup
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);

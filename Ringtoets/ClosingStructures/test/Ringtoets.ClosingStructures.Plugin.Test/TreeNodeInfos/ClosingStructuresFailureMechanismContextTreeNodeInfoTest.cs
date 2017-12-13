@@ -424,13 +424,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotCoupled_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
             var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocksRepository);
 
             var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();

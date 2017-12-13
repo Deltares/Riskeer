@@ -477,7 +477,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotCoupled_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
             var group = new CalculationGroup
@@ -491,7 +491,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
 
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
                                                                         null,
