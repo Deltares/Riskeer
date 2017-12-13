@@ -182,17 +182,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseCoupledToInvalidFile_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
 
             var applicationFeatureCommandHandler = mockRepository.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mockRepository.Stub<IImportCommandHandler>();
             var exportCommandHandler = mockRepository.Stub<IExportCommandHandler>();
             var updateCommandHandler = mockRepository.Stub<IUpdateCommandHandler>();
             var viewCommandsHandler = mockRepository.Stub<IViewCommands>();
+
             viewCommandsHandler.Stub(vch => vch.CanOpenViewFor(null)).IgnoreArguments().Return(true);
 
             using (var treeViewControl = new TreeViewControl())
