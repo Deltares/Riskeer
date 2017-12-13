@@ -100,9 +100,10 @@ namespace Ringtoets.Common.Forms.Test.Factories
             referenceLine.SetGeometry(points);
 
             // Call
-            MapFeature mapFeature = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, id, name).Single();
+            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, id, name);
 
             // Assert
+            MapFeature mapFeature = features.Single();
             Assert.AreEqual(3, mapFeature.MetaData.Keys.Count);
             Assert.AreEqual(id, mapFeature.MetaData["ID"]);
             Assert.AreEqual(name, mapFeature.MetaData["Naam"]);
