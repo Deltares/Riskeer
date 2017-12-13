@@ -716,7 +716,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_CalculateAllAndValidateAllDisabled()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseCoupledToInvalidFile_CalculateAllAndValidateAllDisabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -727,11 +727,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-                {
-                    FilePath = ""
-                });
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                             failureMechanism.WaveConditionsCalculationGroup,
