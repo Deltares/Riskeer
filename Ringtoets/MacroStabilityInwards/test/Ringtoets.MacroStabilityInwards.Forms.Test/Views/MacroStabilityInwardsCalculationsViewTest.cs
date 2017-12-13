@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -151,11 +152,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void AssessmentSection_WithSurfaceLinesHydraulicBoundaryDatabaseNull_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
+        public void AssessmentSection_WithSurfaceLinesHydraulicBoundaryDatabaseNotCoupled_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             using (MacroStabilityInwardsCalculationsView macroStabilityInwardsCalculationsView = ShowSimpleMacroStabilityInwardsCalculationsViewWithSurfaceLines(
