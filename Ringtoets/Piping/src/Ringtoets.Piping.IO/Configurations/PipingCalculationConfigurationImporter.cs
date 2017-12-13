@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.IO.Configurations
 
         protected override ICalculation ParseReadCalculation(PipingCalculationConfiguration calculationConfiguration)
         {
-            var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var pipingCalculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
             {
                 Name = calculationConfiguration.Name
             };

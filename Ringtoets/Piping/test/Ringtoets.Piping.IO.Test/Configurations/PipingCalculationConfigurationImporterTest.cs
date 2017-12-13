@@ -367,7 +367,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            PipingFailureMechanism pipingFailureMechanism = CreatePipingFailureMechanism();
 
             var importer = new PipingCalculationConfigurationImporter(filePath,
                                                                       calculationGroup,
@@ -380,7 +380,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "Calculation"
             };
@@ -397,7 +397,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            PipingFailureMechanism pipingFailureMechanism = CreatePipingFailureMechanism();
 
             var importer = new PipingCalculationConfigurationImporter(filePath,
                                                                       calculationGroup,
@@ -410,7 +410,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "Calculation",
                 InputParameters =
@@ -438,7 +438,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            PipingFailureMechanism pipingFailureMechanism = CreatePipingFailureMechanism();
 
             var importer = new PipingCalculationConfigurationImporter(filePath,
                                                                       calculationGroup,
@@ -451,7 +451,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "Calculation",
                 InputParameters =
@@ -507,7 +507,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            PipingFailureMechanism pipingFailureMechanism = CreatePipingFailureMechanism();
 
             var importer = new PipingCalculationConfigurationImporter(filePath,
                                                                       calculationGroup,
@@ -520,7 +520,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "Calculation",
                 Contribution = (RoundedDouble) 0.088
@@ -538,7 +538,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            PipingFailureMechanism pipingFailureMechanism = CreatePipingFailureMechanism();
 
             var importer = new PipingCalculationConfigurationImporter(filePath,
                                                                       calculationGroup,
@@ -551,7 +551,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "Calculation",
                 IsRelevant = false
@@ -591,7 +591,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 stochasticSoilProfile
             });
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            PipingFailureMechanism pipingFailureMechanism = CreatePipingFailureMechanism();
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
                 surfaceLine
@@ -616,7 +616,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "Calculation",
                 InputParameters =
@@ -651,27 +651,76 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
         }
 
+        [Test]
+        public void GivenImportedCalculation_WhenPipingGeneralInputChanges_ThenImportedCalculationUpdated()
+        {
+            // Given
+            string filePath = Path.Combine(importerPath, "validConfigurationStochastsNoParameters.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            PipingFailureMechanism pipingFailureMechanism = CreatePipingFailureMechanism();
+            var importer = new PipingCalculationConfigurationImporter(filePath,
+                                                                      calculationGroup,
+                                                                      Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                      pipingFailureMechanism);
+            importer.Import();
+            
+            // When
+            var random = new Random(33);
+            GeneralPipingInput generalInputParameters = pipingFailureMechanism.GeneralInput;
+            generalInputParameters.WaterVolumetricWeight = random.NextRoundedDouble(0, 20);
+
+
+            // Then
+            var expectedCalculation = new PipingCalculationScenario(generalInputParameters)
+            {
+                Name = "Calculation"
+            };
+
+            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario)calculationGroup.Children[0]);
+        }
+
+        private static PipingFailureMechanism CreatePipingFailureMechanism()
+        {
+            var random = new Random(21);
+            var pipingFailureMechanism = new PipingFailureMechanism
+            {
+                GeneralInput =
+                {
+                    WaterVolumetricWeight = random.NextRoundedDouble(0, 20)
+                }
+            };
+            return pipingFailureMechanism;
+        }
+
         private static void AssertPipingCalculationScenario(PipingCalculationScenario expectedCalculation, PipingCalculationScenario actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
-            Assert.AreEqual(expectedCalculation.InputParameters.UseAssessmentLevelManualInput, actualCalculation.InputParameters.UseAssessmentLevelManualInput);
-            if (expectedCalculation.InputParameters.UseAssessmentLevelManualInput)
+
+            PipingInput expectedInput = expectedCalculation.InputParameters;
+            PipingInput actualInput = actualCalculation.InputParameters;
+            Assert.AreEqual(expectedInput.UseAssessmentLevelManualInput, actualInput.UseAssessmentLevelManualInput);
+            if (expectedInput.UseAssessmentLevelManualInput)
             {
-                Assert.AreEqual(expectedCalculation.InputParameters.AssessmentLevel.Value, actualCalculation.InputParameters.AssessmentLevel.Value);
+                Assert.AreEqual(expectedInput.AssessmentLevel.Value, actualInput.AssessmentLevel.Value);
             }
             else
             {
-                Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
+                Assert.AreSame(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
             }
-            Assert.AreSame(expectedCalculation.InputParameters.SurfaceLine, actualCalculation.InputParameters.SurfaceLine);
-            Assert.AreEqual(expectedCalculation.InputParameters.EntryPointL.Value, actualCalculation.InputParameters.EntryPointL.Value);
-            Assert.AreEqual(expectedCalculation.InputParameters.ExitPointL.Value, actualCalculation.InputParameters.ExitPointL.Value);
-            Assert.AreSame(expectedCalculation.InputParameters.StochasticSoilModel, actualCalculation.InputParameters.StochasticSoilModel);
-            Assert.AreSame(expectedCalculation.InputParameters.StochasticSoilProfile, actualCalculation.InputParameters.StochasticSoilProfile);
-            Assert.AreEqual(expectedCalculation.InputParameters.PhreaticLevelExit.Mean.Value, actualCalculation.InputParameters.PhreaticLevelExit.Mean.Value);
-            Assert.AreEqual(expectedCalculation.InputParameters.PhreaticLevelExit.StandardDeviation.Value, actualCalculation.InputParameters.PhreaticLevelExit.StandardDeviation.Value);
-            Assert.AreEqual(expectedCalculation.InputParameters.DampingFactorExit.Mean.Value, actualCalculation.InputParameters.DampingFactorExit.Mean.Value);
-            Assert.AreEqual(expectedCalculation.InputParameters.DampingFactorExit.StandardDeviation.Value, actualCalculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
+
+            Assert.AreEqual(expectedInput.WaterVolumetricWeight, actualInput.WaterVolumetricWeight);
+
+            Assert.AreSame(expectedInput.SurfaceLine, actualInput.SurfaceLine);
+            Assert.AreEqual(expectedInput.EntryPointL.Value, actualInput.EntryPointL.Value);
+            Assert.AreEqual(expectedInput.ExitPointL.Value, actualInput.ExitPointL.Value);
+            Assert.AreSame(expectedInput.StochasticSoilModel, actualInput.StochasticSoilModel);
+            Assert.AreSame(expectedInput.StochasticSoilProfile, actualInput.StochasticSoilProfile);
+            Assert.AreEqual(expectedInput.PhreaticLevelExit.Mean.Value, actualInput.PhreaticLevelExit.Mean.Value);
+            Assert.AreEqual(expectedInput.PhreaticLevelExit.StandardDeviation.Value, actualInput.PhreaticLevelExit.StandardDeviation.Value);
+            Assert.AreEqual(expectedInput.DampingFactorExit.Mean.Value, actualInput.DampingFactorExit.Mean.Value);
+            Assert.AreEqual(expectedInput.DampingFactorExit.StandardDeviation.Value, actualInput.DampingFactorExit.StandardDeviation.Value);
 
             Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
             Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution, actualCalculation.Contribution.GetAccuracy());
