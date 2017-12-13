@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
         [Test]
         [TestCase(typeof(string))]
         [TestCase(typeof(MacroStabilityInwardsGridDeterminationType))]
-        public void ConvertTo_InvalidConfigurationGridDeterminationType_ThrowsNotSupportedException(Type convertToType)
+        public void ConvertTo_InvalidConfigurationGridDeterminationType_ThrowsInvalidEnumArgumentException(Type convertToType)
         {
             // Setup
             const ConfigurationGridDeterminationType invalidValue = (ConfigurationGridDeterminationType) 9999;

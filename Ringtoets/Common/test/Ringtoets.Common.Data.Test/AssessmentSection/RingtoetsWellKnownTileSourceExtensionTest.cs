@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.TestUtil;
@@ -44,7 +43,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        public void GetDisplayName_InvalidEnum_ThrowsNotSupportedException()
+        public void GetDisplayName_InvalidEnum_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             const int invalidValue = 9999;
