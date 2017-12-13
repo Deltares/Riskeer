@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
@@ -38,7 +39,10 @@ namespace Ringtoets.Common.Forms.Views
     public abstract partial class HydraulicBoundaryLocationsView
         : LocationsView<HydraulicBoundaryLocation>
     {
-        private IEnumerable<HydraulicBoundaryLocation> locations;
+        private readonly ObservableList<HydraulicBoundaryLocation> locations;
+
+        private readonly Observer hydraulicBoundaryLocationsObserver;
+        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsView"/>.
@@ -54,19 +58,26 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             AssessmentSection = assessmentSection;
+
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateDataGridViewDataSource);
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(HandleHydraulicBoundaryDatabaseUpdate, list => list);
+
+            locations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+
+            hydraulicBoundaryLocationsObserver.Observable = locations;
+            hydraulicBoundaryLocationObserver.Observable = locations;
+
+            UpdateDataGridViewDataSource();
         }
 
-        public override object Data
+        public override object Data { get; set; }
+
+        protected override void Dispose(bool disposing)
         {
-            get
-            {
-                return locations;
-            }
-            set
-            {
-                locations = value as IEnumerable<HydraulicBoundaryLocation>;
-                UpdateDataGridViewDataSource();
-            }
+            hydraulicBoundaryLocationsObserver.Dispose();
+            hydraulicBoundaryLocationObserver.Dispose();
+
+            base.Dispose(disposing);
         }
 
         /// <summary>
