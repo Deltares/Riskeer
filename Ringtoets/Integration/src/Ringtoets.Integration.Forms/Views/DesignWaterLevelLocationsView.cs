@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;

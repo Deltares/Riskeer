@@ -222,6 +222,28 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void DesignWaterLevelLocationsView_HydraulicBoundaryeLocationUpdated_DataGridViewCorrectlyUpdated()
+        {
+            // Setup
+            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
+            HydraulicBoundaryLocation location = view.AssessmentSection.HydraulicBoundaryDatabase.Locations.First();
+
+            // Precondition
+            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
+            DataGridViewCellCollection cells = rows[0].Cells;
+            Assert.AreEqual(6, cells.Count);
+            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+
+            // Call
+            location.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
+            location.NotifyObservers();
+
+            // Assert
+            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+        }
+
+        [Test]
         public void DesignWaterLevelLocationsView_HydraulicBoundaryLocationUpdated_IllustrationPointsControlCorrectlyUpdated()
         {
             // Setup

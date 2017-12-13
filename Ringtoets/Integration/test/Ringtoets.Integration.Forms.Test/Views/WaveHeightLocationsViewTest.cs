@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
             // Call
@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
             // Call
@@ -181,7 +181,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void WaveHeightLocationsView_HydraulicBoundaryDatabaseUpdated_DataGridViewCorrectlyUpdated()
+        public void WaveHeightLocationsView_HydraulicBoundaryDatabaseLocationsUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
             WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(testForm);
@@ -204,9 +204,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(5, rows.Count);
 
             // Call
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Clear();
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-            assessmentSection.NotifyObservers();
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            hydraulicBoundaryLocations.Clear();
+            hydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
+            hydraulicBoundaryLocations.NotifyObservers();
 
             // Assert
             Assert.AreEqual(1, rows.Count);
@@ -221,7 +222,29 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void WaveHeightLocationsView_HydraulicBoundaryDatabaseUpdated_IllustrationPointsControlCorrectlyUpdated()
+        public void WaveHeightLocationsView_HydraulicBoundaryeLocationUpdated_DataGridViewCorrectlyUpdated()
+        {
+            // Setup
+            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(testForm);
+            HydraulicBoundaryLocation location = view.AssessmentSection.HydraulicBoundaryDatabase.Locations.First();
+
+            // Precondition
+            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
+            DataGridViewCellCollection cells = rows[0].Cells;
+            Assert.AreEqual(6, cells.Count);
+            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+
+            // Call
+            location.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
+            location.NotifyObservers();
+
+            // Assert
+            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+        }
+
+        [Test]
+        public void WaveHeightLocationsView_HydraulicBoundaryLocationUpdated_IllustrationPointsControlCorrectlyUpdated()
         {
             // Setup
             WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(testForm);
@@ -244,8 +267,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var output = new TestHydraulicBoundaryLocationOutput(generalResult);
 
             // Call
-            view.AssessmentSection.HydraulicBoundaryDatabase.Locations[3].WaveHeightCalculation.Output = output;
-            view.AssessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = view.AssessmentSection.HydraulicBoundaryDatabase.Locations[3];
+            hydraulicBoundaryLocation.WaveHeightCalculation.Output = output;
+            hydraulicBoundaryLocation.NotifyObservers();
 
             // Assert
             IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
@@ -265,14 +289,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
-
-            var observer = mockRepository.StrictMock<IObserver>();
-            assessmentSection.HydraulicBoundaryDatabase.Attach(observer);
-
-            if (isSuccessful)
-            {
-                observer.Expect(o => o.UpdateObserver());
-            }
 
             IEnumerable<HydraulicBoundaryLocation> locations = null;
             guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
@@ -638,25 +654,30 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 IAssessmentSection assessmentSection = view.AssessmentSection;
 
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Clear();
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0));
-                assessmentSection.NotifyObservers();
+                ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+                hydraulicBoundaryLocations.Clear();
+                hydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0));
+                hydraulicBoundaryLocations.NotifyObservers();
             }
 
             protected override void ClearLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
             {
                 IAssessmentSection assessmentSection = view.AssessmentSection;
 
-                assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.WaveHeightCalculation.Output = null);
-                assessmentSection.NotifyObservers();
+                assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc =>
+                {
+                    loc.WaveHeightCalculation.Output = null;
+                    loc.NotifyObservers();
+                });
             }
 
             protected override void AddLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
             {
                 IAssessmentSection assessmentSection = view.AssessmentSection;
 
-                assessmentSection.HydraulicBoundaryDatabase.Locations.First().WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
-                assessmentSection.NotifyObservers();
+                HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
+                hydraulicBoundaryLocation.WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
+                hydraulicBoundaryLocation.NotifyObservers();
             }
         }
     }

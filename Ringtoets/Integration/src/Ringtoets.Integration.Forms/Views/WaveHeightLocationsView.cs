@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
@@ -37,9 +36,6 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class WaveHeightLocationsView : HydraulicBoundaryLocationsView
     {
-        private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryDatabaseObserver;
-
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightLocationsView"/>.
         /// </summary>
@@ -50,12 +46,6 @@ namespace Ringtoets.Integration.Forms.Views
             : base(assessmentSection)
         {
             InitializeComponent();
-
-            assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryDatabase);
-            hydraulicBoundaryDatabaseObserver = new Observer(HandleHydraulicBoundaryDatabaseUpdate);
-
-            assessmentSectionObserver.Observable = AssessmentSection;
-            hydraulicBoundaryDatabaseObserver.Observable = AssessmentSection.HydraulicBoundaryDatabase;
         }
 
         protected override object CreateSelectedItemFromCurrentRow()
@@ -70,16 +60,11 @@ namespace Ringtoets.Integration.Forms.Views
 
         protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
         {
-            bool successfulCalculation = CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                    AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                                    locations,
-                                                                                    AssessmentSection.FailureMechanismContribution.Norm,
-                                                                                    new WaveHeightCalculationMessageProvider());
-
-            if (successfulCalculation)
-            {
-                AssessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
-            }
+            CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                       AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                       locations,
+                                                       AssessmentSection.FailureMechanismContribution.Norm,
+                                                       new WaveHeightCalculationMessageProvider());
         }
 
         protected override void InitializeDataGridView()
@@ -89,32 +74,9 @@ namespace Ringtoets.Integration.Forms.Views
                                                  Resources.HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            assessmentSectionObserver.Dispose();
-            hydraulicBoundaryDatabaseObserver.Dispose();
-
-            base.Dispose(disposing);
-        }
-
         protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
         {
             return location.WaveHeightCalculation;
-        }
-
-        private void UpdateHydraulicBoundaryDatabase()
-        {
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
-
-            if (!ReferenceEquals(Data, hydraulicBoundaryDatabase.Locations))
-            {
-                hydraulicBoundaryDatabaseObserver.Observable = hydraulicBoundaryDatabase;
-                Data = hydraulicBoundaryDatabase.Locations;
-            }
-            else
-            {
-                HandleHydraulicBoundaryDatabaseUpdate();
-            }
         }
     }
 }
