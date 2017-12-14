@@ -426,8 +426,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                                      failureMechanism,
                                                                                      assessmentSection);
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
+            var orderedMocks = new MockRepository();
+            var menuBuilder = orderedMocks.StrictMock<IContextMenuBuilder>();
+            using (orderedMocks.Ordered())
             {
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -455,6 +456,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
+                orderedMocks.ReplayAll();
 
                 plugin.Gui = gui;
 
@@ -462,7 +464,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(context, null, treeViewControl);
             }
             // Assert
-            // Assert expectancies are called in TearDown()
+            orderedMocks.VerifyAll();
         }
 
         [Test]
