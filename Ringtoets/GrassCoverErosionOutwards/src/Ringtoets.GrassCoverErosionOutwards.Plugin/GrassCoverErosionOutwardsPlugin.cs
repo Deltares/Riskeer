@@ -141,10 +141,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GetViewName = (view, locations) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName,
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(context.AssessmentSection),
+                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(context.FailureMechanism, context.AssessmentSection),
                 AfterCreate = (view, context) =>
                 {
-                    view.FailureMechanism = context.FailureMechanism;
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 },
                 CloseForData = CloseDesignWaterLevelLocationsViewForData

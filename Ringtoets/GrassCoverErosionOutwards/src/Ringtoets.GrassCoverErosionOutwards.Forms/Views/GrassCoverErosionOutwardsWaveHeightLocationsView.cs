@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveHeightLocationsView(IAssessmentSection assessmentSection)
-            : base(assessmentSection)
+            : base(null, assessmentSection)
         {
             assessmentSectionObserver = new Observer(UpdateCalculateForSelectedButton);
             hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocations);

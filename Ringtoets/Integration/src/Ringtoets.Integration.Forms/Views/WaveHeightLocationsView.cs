@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         public WaveHeightLocationsView(IAssessmentSection assessmentSection)
-            : base(assessmentSection)
+            : base(assessmentSection?.HydraulicBoundaryDatabase.Locations, assessmentSection)
         {
             InitializeComponent();
         }

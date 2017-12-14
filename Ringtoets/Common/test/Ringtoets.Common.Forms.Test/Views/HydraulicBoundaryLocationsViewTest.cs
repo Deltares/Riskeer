@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
@@ -56,6 +56,17 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void TearDown()
         {
             testForm.Dispose();
+        }
+
+        [Test]
+        public void Constructor_LocationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TestHydraulicBoundaryLocationsView(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("locations", exception.ParamName);
         }
 
         [Test]
@@ -165,7 +176,13 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GetIllustrationPointControlItems_ViewWithData_ReturnsExpectedControlItems()
         {
             // Setup
-            TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var locations = new ObservableList<HydraulicBoundaryLocation>
+            {
+                hydraulicBoundaryLocation
+            };
+
+            TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView(locations);
 
             var topLevelIllustrationPoints = new[]
             {
@@ -182,10 +199,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Output = output
             };
             view.ItemToCreate = calculation;
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            view.AssessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-            view.AssessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
             // Call
             IEnumerable<IllustrationPointControlItem> actualControlItems =
@@ -215,9 +228,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                                 });
         }
 
-        private TestHydraulicBoundaryLocationsView ShowTestHydraulicBoundaryLocationsView()
+        private void ShowTestHydraulicBoundaryLocationsView()
         {
-            var view = new TestHydraulicBoundaryLocationsView();
+            ShowTestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocation>());
+        }
+
+        private TestHydraulicBoundaryLocationsView ShowTestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations)
+        {
+            var view = new TestHydraulicBoundaryLocationsView(locations);
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -227,8 +245,8 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private TestHydraulicBoundaryLocationsView ShowFullyConfiguredTestHydraulicBoundaryLocationsView()
         {
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(new[]
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
+            locations.AddRange(new[]
             {
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
                 new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
@@ -257,19 +275,13 @@ namespace Ringtoets.Common.Forms.Test.Views
                 }
             });
 
-            var view = new TestHydraulicBoundaryLocationsView(assessmentSection);
-
-            testForm.Controls.Add(view);
-            testForm.Show();
-
-            return view;
+            return ShowTestHydraulicBoundaryLocationsView(locations);
         }
 
         private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView
         {
-            public TestHydraulicBoundaryLocationsView() : this(new ObservableTestAssessmentSectionStub()) {}
-
-            public TestHydraulicBoundaryLocationsView(IAssessmentSection assessmentSection) : base(assessmentSection) {}
+            public TestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations)
+                : base(locations, new ObservableTestAssessmentSectionStub()) {}
 
             public HydraulicBoundaryLocation GetCalculationsCallArgument { get; private set; }
 

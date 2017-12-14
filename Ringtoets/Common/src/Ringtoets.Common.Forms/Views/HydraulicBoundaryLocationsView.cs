@@ -36,8 +36,7 @@ namespace Ringtoets.Common.Forms.Views
     /// Base view for <see cref="HydraulicBoundaryLocation"/> views which should be derived in 
     /// order to get a consistent look and feel.
     /// </summary>
-    public abstract partial class HydraulicBoundaryLocationsView
-        : LocationsView<HydraulicBoundaryLocation>
+    public abstract partial class HydraulicBoundaryLocationsView : LocationsView<HydraulicBoundaryLocation>
     {
         private readonly ObservableList<HydraulicBoundaryLocation> locations;
 
@@ -47,11 +46,17 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsView"/>.
         /// </summary>
+        /// <param name="locations">The locations to show in the view.</param>
         /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationsView(IAssessmentSection assessmentSection)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> or
+        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
+                                                 IAssessmentSection assessmentSection)
         {
+            if (locations == null)
+            {
+                throw new ArgumentNullException(nameof(locations));
+            }
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
@@ -62,7 +67,7 @@ namespace Ringtoets.Common.Forms.Views
             hydraulicBoundaryLocationsObserver = new Observer(UpdateDataGridViewDataSource);
             hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(HandleHydraulicBoundaryDatabaseUpdate, list => list);
 
-            locations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            this.locations = locations;
 
             hydraulicBoundaryLocationsObserver.Observable = locations;
             hydraulicBoundaryLocationObserver.Observable = locations;

@@ -21,7 +21,6 @@
 
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -75,12 +74,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
             }
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            if (!contributionAfterChangeNotZero)
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
+            if (contributionAfterChangeNotZero)
             {
-                failureMechanism.Contribution = 5;
+                failureMechanism.Contribution = 0;
+                failureMechanism.NotifyObservers();
             }
-            view.FailureMechanism = failureMechanism;
 
             // Precondition
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
@@ -90,27 +89,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             // When
             failureMechanism.Contribution = contributionAfterChangeNotZero ? 5 : 0;
-            view.AssessmentSection.NotifyObservers();
+            failureMechanism.NotifyObservers();
 
             // Then
             Assert.AreEqual(rowSelected && contributionAfterChangeNotZero, button.Enabled);
             Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
         }
 
-        private GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView()
-        {
-            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike));
-
-            testForm.Controls.Add(view);
-            testForm.Show();
-
-            return view;
-        }
-
         private GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView()
         {
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView();
-            view.Data = new ObservableList<HydraulicBoundaryLocation>
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 5
+            };
+            failureMechanism.HydraulicBoundaryLocations.AddRange(new[]
             {
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
                 new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
@@ -127,7 +119,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                         Output = new TestHydraulicBoundaryLocationOutput(2.45)
                     }
                 }
-            };
+            });
+            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism,
+                                                                                  new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            testForm.Controls.Add(view);
+            testForm.Show();
+
             return view;
         }
     }
