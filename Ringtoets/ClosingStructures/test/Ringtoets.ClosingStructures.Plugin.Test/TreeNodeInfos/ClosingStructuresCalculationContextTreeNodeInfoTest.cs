@@ -581,8 +581,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestClosingStructuresFailureMechanism();
             var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
-
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());

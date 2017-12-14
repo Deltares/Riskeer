@@ -301,8 +301,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelected_CallsCalculateWaveHeightsSelectionNotChanged(bool isSuccessful)
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSection.Stub(ass => ass.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());

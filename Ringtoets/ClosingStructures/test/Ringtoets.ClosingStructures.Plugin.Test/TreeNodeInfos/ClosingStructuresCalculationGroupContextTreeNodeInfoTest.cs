@@ -320,14 +320,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 new TestClosingStructure()
             }, "some path");
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new ClosingStructuresCalculationGroupContext(group,
                                                                             null,
                                                                             failureMechanism,
                                                                             assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             using (var treeViewControl = new TreeViewControl())
             {

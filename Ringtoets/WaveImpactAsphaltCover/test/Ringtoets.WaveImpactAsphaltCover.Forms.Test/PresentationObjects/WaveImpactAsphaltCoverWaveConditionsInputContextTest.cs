@@ -45,8 +45,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             };
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             // Call
@@ -71,8 +70,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             // Call

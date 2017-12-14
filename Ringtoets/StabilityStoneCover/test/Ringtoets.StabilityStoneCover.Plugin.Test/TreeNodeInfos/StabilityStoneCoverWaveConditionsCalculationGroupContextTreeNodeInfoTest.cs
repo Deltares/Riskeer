@@ -218,8 +218,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                             failureMechanism,
                                                                                             assessmentSection);
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
+            var orderedMocks = new MockRepository();
+            var menuBuilder = orderedMocks.StrictMock<IContextMenuBuilder>();
+            using (orderedMocks.Ordered())
             {
                 menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
@@ -250,12 +251,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
+                orderedMocks.ReplayAll();
 
                 // Call
                 info.ContextMenuStrip(groupContext, null, treeViewControl);
             }
             // Assert
-            // Assert expectancies called in TearDown()
+            orderedMocks.VerifyAll();
         }
 
         [Test]

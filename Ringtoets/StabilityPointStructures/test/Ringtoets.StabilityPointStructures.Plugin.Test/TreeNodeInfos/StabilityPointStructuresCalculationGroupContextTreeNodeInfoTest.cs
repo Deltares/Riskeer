@@ -299,14 +299,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 new TestStabilityPointStructure()
             }, "path");
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                    null,
                                                                                    failureMechanism,
                                                                                    assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             using (var treeViewControl = new TreeViewControl())
             {

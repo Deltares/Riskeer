@@ -304,8 +304,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Given
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             assessmentSection.Expect(section => section.NotifyObservers()); // Expectation from first import
 
             var databaseObserver = mocks.StrictMock<IObserver>();
@@ -335,8 +334,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             string corruptPath = Path.Combine(testDataPath, "corruptschema.sqlite");

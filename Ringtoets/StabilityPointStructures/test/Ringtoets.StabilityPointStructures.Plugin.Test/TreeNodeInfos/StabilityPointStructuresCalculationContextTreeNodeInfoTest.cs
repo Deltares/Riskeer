@@ -557,8 +557,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();

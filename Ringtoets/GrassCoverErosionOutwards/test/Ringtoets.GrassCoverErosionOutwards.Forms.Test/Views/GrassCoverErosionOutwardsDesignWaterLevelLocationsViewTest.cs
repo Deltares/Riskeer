@@ -300,7 +300,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSection.Stub(ass => ass.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
