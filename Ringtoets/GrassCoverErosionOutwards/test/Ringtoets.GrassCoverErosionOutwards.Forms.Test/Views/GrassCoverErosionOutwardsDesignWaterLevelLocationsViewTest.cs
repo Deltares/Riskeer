@@ -425,12 +425,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             assessmentSection.HydraulicBoundaryDatabase.FilePath = databaseFilePath;
 
             GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
-            ObservableList<HydraulicBoundaryLocation> locations = view.FailureMechanism.HydraulicBoundaryLocations;
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
+            ObservableList<HydraulicBoundaryLocation> locations = failureMechanism.HydraulicBoundaryLocations;
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
-
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
 
             view.CalculationGuiService = guiService;
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
@@ -498,11 +497,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
             view.CalculationGuiService = guiService;
-
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
-            failureMechanism.Contribution = 10;
-            failureMechanism.NotifyObservers();
-
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
 
             // Call
@@ -566,11 +561,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
-            failureMechanism.Contribution = 10;
-            failureMechanism.NotifyObservers();
-
             view.CalculationGuiService = guiService;
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
 
             // Call

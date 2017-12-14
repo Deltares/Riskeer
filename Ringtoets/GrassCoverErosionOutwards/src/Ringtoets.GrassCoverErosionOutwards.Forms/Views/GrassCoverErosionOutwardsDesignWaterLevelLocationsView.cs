@@ -41,7 +41,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
     {
         private readonly GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider messageProvider;
-
         private readonly Observer failureMechanismObserver;
 
         /// <summary>
@@ -65,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for which the
+        /// Gets the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for which the
         /// hydraulic boundary locations are shown.
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }

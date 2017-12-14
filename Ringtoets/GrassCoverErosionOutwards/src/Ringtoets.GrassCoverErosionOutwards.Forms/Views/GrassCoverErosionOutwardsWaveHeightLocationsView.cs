@@ -40,55 +40,49 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/></summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationsView : HydraulicBoundaryLocationsView
     {
-        private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryLocationsObserver;
-
-        private GrassCoverErosionOutwardsFailureMechanism failureMechanism;
+        private readonly GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider messageProvider;
+        private readonly Observer failureMechanismObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsView"/>
         /// </summary>
+        /// <param name="failureMechanism">The failure mechanism that the locations belong to.</param>
         /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveHeightLocationsView(IAssessmentSection assessmentSection)
-            : base(null, assessmentSection)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or
+        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsWaveHeightLocationsView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                IAssessmentSection assessmentSection)
+            : base(failureMechanism?.HydraulicBoundaryLocations, assessmentSection)
         {
-            assessmentSectionObserver = new Observer(UpdateCalculateForSelectedButton);
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocations);
+            FailureMechanism = failureMechanism;
+            messageProvider = new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider();
 
-            assessmentSectionObserver.Observable = AssessmentSection;
+            failureMechanismObserver = new Observer(UpdateCalculateForSelectedButton)
+            {
+                Observable = failureMechanism
+            };
         }
 
-        public override object Data
-        {
-            get
-            {
-                return base.Data;
-            }
-            set
-            {
-                var data = (ObservableList<HydraulicBoundaryLocation>) value;
-                base.Data = data;
-                hydraulicBoundaryLocationsObserver.Observable = data;
-            }
-        }
+        public override object Data { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for which the
+        /// Gets the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for which the
         /// hydraulic boundary locations are shown.
         /// </summary>
-        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism
+        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
+
+        protected override void Dispose(bool disposing)
         {
-            get
-            {
-                return failureMechanism;
-            }
-            set
-            {
-                failureMechanism = value;
-                UpdateCalculateForSelectedButton();
-            }
+            failureMechanismObserver.Dispose();
+
+            base.Dispose(disposing);
+        }
+
+        protected override void InitializeDataGridView()
+        {
+            base.InitializeDataGridView();
+            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationRow.Result),
+                                                 Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName);
         }
 
         protected override object CreateSelectedItemFromCurrentRow()
@@ -97,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
             return currentRow != null
                        ? new GrassCoverErosionOutwardsWaveHeightLocationContext(((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject,
-                                                                                (ObservableList<HydraulicBoundaryLocation>) Data)
+                                                                                FailureMechanism.HydraulicBoundaryLocations)
                        : null;
         }
 
@@ -108,76 +102,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 FailureMechanism.Contribution,
                 FailureMechanism.GeneralInput.N);
 
-            bool successFullCalculation = CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                     AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                                     locations,
-                                                                                     mechanismSpecificNorm,
-                                                                                     new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
-
-            if (successFullCalculation)
-            {
-                ((IObservable) Data).NotifyObservers();
-            }
-        }
-
-        protected override void InitializeDataGridView()
-        {
-            base.InitializeDataGridView();
-            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationRow.Result),
-                                                 Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            assessmentSectionObserver.Dispose();
-            hydraulicBoundaryLocationsObserver.Dispose();
-            base.Dispose(disposing);
+            CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                       AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                       locations,
+                                                       mechanismSpecificNorm,
+                                                       messageProvider);
         }
 
         protected override string ValidateCalculatableObjects()
         {
-            if (FailureMechanism != null && FailureMechanism.Contribution <= 0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
-            return base.ValidateCalculatableObjects();
+            return FailureMechanism != null && FailureMechanism.Contribution <= 0
+                       ? RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero
+                       : base.ValidateCalculatableObjects();
         }
 
         protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
         {
             return location.WaveHeightCalculation;
-        }
-
-        private void UpdateHydraulicBoundaryLocations()
-        {
-            if (IsDataGridDataSourceChanged())
-            {
-                UpdateDataGridViewDataSource();
-            }
-            else
-            {
-                HandleHydraulicBoundaryDatabaseUpdate();
-            }
-        }
-
-        private bool IsDataGridDataSourceChanged()
-        {
-            var locations = (ObservableList<HydraulicBoundaryLocation>) Data;
-            int count = dataGridViewControl.Rows.Count;
-            if (count != locations.Count)
-            {
-                return true;
-            }
-            for (var i = 0; i < count; i++)
-            {
-                HydraulicBoundaryLocation locationFromGrid = ((HydraulicBoundaryLocationRow) dataGridViewControl.Rows[i].DataBoundItem).CalculatableObject;
-                if (!ReferenceEquals(locationFromGrid, locations[i]))
-                {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }

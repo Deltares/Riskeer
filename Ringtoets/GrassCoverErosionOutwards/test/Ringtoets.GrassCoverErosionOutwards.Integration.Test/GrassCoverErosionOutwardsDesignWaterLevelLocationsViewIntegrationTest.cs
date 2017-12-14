@@ -120,6 +120,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                     }
                 }
             });
+
             var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism,
                                                                                   new AssessmentSection(AssessmentSectionComposition.Dike));
 
