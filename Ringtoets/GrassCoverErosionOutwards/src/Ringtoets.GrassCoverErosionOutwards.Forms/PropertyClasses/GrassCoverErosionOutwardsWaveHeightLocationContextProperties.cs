@@ -148,7 +148,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             set
             {
                 data.WrappedData.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
-                data.HydraulicBoundaryLocations.NotifyObservers();
+                data.WrappedData.NotifyObservers();
             }
         }
 

@@ -309,7 +309,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 hydraulicBoundaryLocation
             };
 
-            locations.Attach(observer);
+            hydraulicBoundaryLocation.Attach(observer);
 
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
             {
