@@ -41,13 +41,12 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The message provider for the services.</param>
-        /// <returns>True if the observers should be notified; false if otherwise</returns>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabaseFilePath"/>,
         /// <paramref name="preprocessorDirectory"/>, <paramref name="messageProvider"/> or
         /// or <paramref name="locations"/> is <c>null</c>.</exception>
-        bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabaseFilePath,
+        void CalculateDesignWaterLevels(string hydraulicBoundaryDatabaseFilePath,
                                         string preprocessorDirectory,
                                         IEnumerable<HydraulicBoundaryLocation> locations,
                                         double norm,
@@ -62,13 +61,12 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The message provider for the services.</param>
-        /// <returns>True if the observers should be notified; false if otherwise</returns>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabaseFilePath"/>,
         /// <paramref name="preprocessorDirectory"/>, <paramref name="messageProvider"/> or
         /// or <paramref name="locations"/> is <c>null</c>.</exception>
-        bool CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,
+        void CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,
                                   string preprocessorDirectory,
                                   IEnumerable<HydraulicBoundaryLocation> locations,
                                   double norm,

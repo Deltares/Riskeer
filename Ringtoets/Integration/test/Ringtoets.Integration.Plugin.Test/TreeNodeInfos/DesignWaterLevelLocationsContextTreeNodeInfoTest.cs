@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -57,11 +56,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         private MockRepository mockRepository;
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
-        public override void Setup()
-        {
-            mockRepository = new MockRepository();
-        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -500,14 +494,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
-            assessmentSectionObserver.Expect(o => o.UpdateObserver());
-            assessmentSection.Attach(assessmentSectionObserver);
-
-            var databaseObserver = mockRepository.StrictMock<IObserver>();
-            databaseObserver.Expect(o => o.UpdateObserver());
-            assessmentSection.HydraulicBoundaryDatabase.Attach(databaseObserver);
-
             var context = new DesignWaterLevelLocationsContext(assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -564,6 +550,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             }
             mockRepository.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            mockRepository = new MockRepository();
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)

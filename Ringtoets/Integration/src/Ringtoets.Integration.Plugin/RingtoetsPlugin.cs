@@ -1402,16 +1402,11 @@ namespace Ringtoets.Integration.Plugin
                     }
 
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
-                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                                           assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                                                                           assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                                                                           new DesignWaterLevelCalculationMessageProvider());
-                    if (successfulCalculation)
-                    {
-                        nodeData.NotifyObservers();
-                        assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
-                    }
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                              assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                              assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                              assessmentSection.FailureMechanismContribution.Norm,
+                                                                                              new DesignWaterLevelCalculationMessageProvider());
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.WrappedData, designWaterLevelItem);
@@ -1438,16 +1433,11 @@ namespace Ringtoets.Integration.Plugin
                         return;
                     }
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
-                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                                     assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                                                                     assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                                                     assessmentSection.FailureMechanismContribution.Norm,
-                                                                                                                     new WaveHeightCalculationMessageProvider());
-                    if (successfulCalculation)
-                    {
-                        nodeData.NotifyObservers();
-                        assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
-                    }
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                        assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                        assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                        assessmentSection.FailureMechanismContribution.Norm,
+                                                                                        new WaveHeightCalculationMessageProvider());
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.WrappedData, waveHeightItem);

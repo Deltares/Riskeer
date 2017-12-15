@@ -291,9 +291,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevelsSelectionNotChanged(bool isSuccessful)
+        public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevelsSelectionNotChanged()
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
@@ -307,7 +305,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             HydraulicBoundaryLocation[] calculatedLocations = null;
             guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
-                invocation => { calculatedLocations = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray(); }).Return(isSuccessful);
+                invocation => { calculatedLocations = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray(); });
 
             mockRepository.ReplayAll();
 
@@ -418,7 +416,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
                     normValue = (double) invocation.Arguments[3];
                     messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
-                }).Return(true);
+                });
 
             mockRepository.ReplayAll();
 
@@ -481,7 +479,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
                     normValue = (double) invocation.Arguments[3];
                     messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
-                }).Return(true);
+                });
 
             mockRepository.ReplayAll();
 
@@ -546,7 +544,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
                     normValue = (double) invocation.Arguments[3];
                     messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
-                }).Return(true);
+                });
 
             mockRepository.ReplayAll();
 

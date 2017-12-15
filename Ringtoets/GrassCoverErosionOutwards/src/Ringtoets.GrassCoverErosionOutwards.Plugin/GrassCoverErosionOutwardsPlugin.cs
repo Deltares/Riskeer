@@ -522,17 +522,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
                     double mechanismSpecificNorm = GetFailureMechanismSpecificNorm(assessmentSection, failureMechanism);
 
-                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                         nodeData.WrappedData,
                         mechanismSpecificNorm,
                         new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
-
-                    if (successfulCalculation)
-                    {
-                        nodeData.WrappedData.NotifyObservers();
-                    }
                 });
 
             string validationText = ValidateAllDataAvailableAndGetErrorMessage(nodeData.AssessmentSection, nodeData.FailureMechanism);
@@ -577,17 +572,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
                     double mechanismSpecificNorm = GetFailureMechanismSpecificNorm(assessmentSection, failureMechanism);
 
-                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                         nodeData.WrappedData,
                         mechanismSpecificNorm,
                         new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
-
-                    if (successfulCalculation)
-                    {
-                        nodeData.WrappedData.NotifyObservers();
-                    }
                 });
 
             string validationText = ValidateAllDataAvailableAndGetErrorMessage(nodeData.AssessmentSection, nodeData.FailureMechanism);

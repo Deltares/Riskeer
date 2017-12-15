@@ -286,9 +286,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevels(bool isSuccessful)
+        public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevels()
         {
             // Setup
             var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
@@ -302,7 +300,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             IEnumerable<HydraulicBoundaryLocation> locations = null;
             guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
-                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]; }).Return(isSuccessful);
+                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]; });
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiService;
@@ -371,7 +369,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
                     normValue = (double) invocation.Arguments[3];
                     messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
-                }).Return(true);
+                });
 
             mockRepository.ReplayAll();
 
@@ -433,7 +431,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
                     normValue = (double) invocation.Arguments[3];
                     messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
-                }).Return(true);
+                });
 
             mockRepository.ReplayAll();
 
@@ -494,7 +492,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
                     normValue = (double) invocation.Arguments[3];
                     messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
-                }).Return(true);
+                });
 
             mockRepository.ReplayAll();
 
