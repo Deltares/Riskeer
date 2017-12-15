@@ -665,12 +665,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                                                                       Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                       pipingFailureMechanism);
             importer.Import();
-            
+
             // When
             var random = new Random(33);
             GeneralPipingInput generalInputParameters = pipingFailureMechanism.GeneralInput;
             generalInputParameters.WaterVolumetricWeight = random.NextRoundedDouble(0, 20);
-
 
             // Then
             var expectedCalculation = new PipingCalculationScenario(generalInputParameters)
@@ -678,7 +677,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 Name = "Calculation"
             };
 
-            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario)calculationGroup.Children[0]);
+            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
         }
 
         private static PipingFailureMechanism CreatePipingFailureMechanism()
@@ -697,33 +696,29 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         private static void AssertPipingCalculationScenario(PipingCalculationScenario expectedCalculation, PipingCalculationScenario actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
+            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
 
             PipingInput expectedInput = expectedCalculation.InputParameters;
             PipingInput actualInput = actualCalculation.InputParameters;
             Assert.AreEqual(expectedInput.UseAssessmentLevelManualInput, actualInput.UseAssessmentLevelManualInput);
             if (expectedInput.UseAssessmentLevelManualInput)
             {
-                Assert.AreEqual(expectedInput.AssessmentLevel.Value, actualInput.AssessmentLevel.Value);
+                Assert.AreEqual(expectedInput.AssessmentLevel, actualInput.AssessmentLevel);
             }
             else
             {
                 Assert.AreSame(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
             }
-
             Assert.AreEqual(expectedInput.WaterVolumetricWeight, actualInput.WaterVolumetricWeight);
 
-            Assert.AreSame(expectedInput.SurfaceLine, actualInput.SurfaceLine);
-            Assert.AreEqual(expectedInput.EntryPointL.Value, actualInput.EntryPointL.Value);
-            Assert.AreEqual(expectedInput.ExitPointL.Value, actualInput.ExitPointL.Value);
             Assert.AreSame(expectedInput.StochasticSoilModel, actualInput.StochasticSoilModel);
             Assert.AreSame(expectedInput.StochasticSoilProfile, actualInput.StochasticSoilProfile);
-            Assert.AreEqual(expectedInput.PhreaticLevelExit.Mean.Value, actualInput.PhreaticLevelExit.Mean.Value);
-            Assert.AreEqual(expectedInput.PhreaticLevelExit.StandardDeviation.Value, actualInput.PhreaticLevelExit.StandardDeviation.Value);
-            Assert.AreEqual(expectedInput.DampingFactorExit.Mean.Value, actualInput.DampingFactorExit.Mean.Value);
-            Assert.AreEqual(expectedInput.DampingFactorExit.StandardDeviation.Value, actualInput.DampingFactorExit.StandardDeviation.Value);
-
-            Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
-            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution, actualCalculation.Contribution.GetAccuracy());
+            Assert.AreSame(expectedInput.SurfaceLine, actualInput.SurfaceLine);
+            Assert.AreEqual(expectedInput.EntryPointL, actualInput.EntryPointL);
+            Assert.AreEqual(expectedInput.ExitPointL, actualInput.ExitPointL);
+            DistributionAssert.AreEqual(expectedInput.PhreaticLevelExit, actualInput.PhreaticLevelExit);
+            DistributionAssert.AreEqual(expectedInput.DampingFactorExit, actualInput.DampingFactorExit);
         }
     }
 }
