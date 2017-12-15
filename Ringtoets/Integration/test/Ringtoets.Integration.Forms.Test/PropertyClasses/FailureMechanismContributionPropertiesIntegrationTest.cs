@@ -601,7 +601,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mockRepository.VerifyAll(); // No update observer expected.
         }
 
-        private void SetPropertyAndVerifyNotificationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(Action<FailureMechanismContributionProperties> setPropertyAction)
+        private void SetPropertyAndVerifyNotificationsAndNoOutputForHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(Action<FailureMechanismContributionProperties> setPropertyAction)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -776,21 +776,21 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         #region NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput
 
         [Test]
-        public void LowerLimitNorm_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        public void LowerLimitNorm_NoHydraulicBoundaryDatabaseOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
         {
-            SetPropertyAndVerifyNotificationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
+            SetPropertyAndVerifyNotificationsAndNoOutputForHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
         }
 
         [Test]
-        public void SignalingNorm_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        public void SignalingNorm_NoHydraulicBoundaryDatabaseOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
         {
-            SetPropertyAndVerifyNotificationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.SignalingNorm = newSignalingNorm);
+            SetPropertyAndVerifyNotificationsAndNoOutputForHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.SignalingNorm = newSignalingNorm);
         }
 
         [Test]
-        public void NormativeNorm_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        public void NormativeNorm_NoHydraulicBoundaryDatabaseOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
         {
-            SetPropertyAndVerifyNotificationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.NormativeNorm = newNormativeNorm);
+            SetPropertyAndVerifyNotificationsAndNoOutputForHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.NormativeNorm = newNormativeNorm);
         }
 
         #endregion
