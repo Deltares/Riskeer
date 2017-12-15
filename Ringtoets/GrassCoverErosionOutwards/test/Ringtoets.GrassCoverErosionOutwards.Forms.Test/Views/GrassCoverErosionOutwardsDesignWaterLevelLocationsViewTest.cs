@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowDesignWaterLevelLocationsView(assessmentSection, testForm);
+            ShowDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, testForm);
 
             // Assert
             DataGridView locationsDataGridView = GetLocationsDataGridView();
@@ -611,11 +611,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                                                                             illustrationPoint.Stochasts,
                                                                             illustrationPoint.Beta);
                                 });
-        }
-
-        private static void ShowDesignWaterLevelLocationsView(IAssessmentSection assessmentSection, Form form)
-        {
-            ShowDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, form);
         }
 
         private static GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocation> locations,

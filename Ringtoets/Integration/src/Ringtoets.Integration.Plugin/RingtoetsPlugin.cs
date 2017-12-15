@@ -375,7 +375,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase.Locations,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
-                CreateInstance = context => new DesignWaterLevelLocationsView(context.WrappedData),
+                CreateInstance = context => new DesignWaterLevelLocationsView(context.WrappedData.HydraulicBoundaryDatabase.Locations, context.WrappedData),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
@@ -385,7 +385,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase.Locations,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
-                CreateInstance = context => new WaveHeightLocationsView(context.WrappedData),
+                CreateInstance = context => new WaveHeightLocationsView(context.WrappedData.HydraulicBoundaryDatabase.Locations, context.WrappedData),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 

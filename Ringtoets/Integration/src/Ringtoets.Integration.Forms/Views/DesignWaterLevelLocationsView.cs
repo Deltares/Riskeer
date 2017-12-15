@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
@@ -36,16 +37,21 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class DesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
     {
+        private readonly DesignWaterLevelCalculationMessageProvider messageProvider;
+
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationsView"/>.
         /// </summary>
+        /// <param name="locations">The locations to show in the view.</param>
         /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        public DesignWaterLevelLocationsView(IAssessmentSection assessmentSection)
-            : base(assessmentSection?.HydraulicBoundaryDatabase.Locations, assessmentSection)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> or 
+        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public DesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocation> locations, IAssessmentSection assessmentSection)
+            : base(locations, assessmentSection)
         {
             InitializeComponent();
+
+            messageProvider = new DesignWaterLevelCalculationMessageProvider();
         }
 
         protected override object CreateSelectedItemFromCurrentRow()
@@ -64,7 +70,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                              AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                              locations,
                                                              AssessmentSection.FailureMechanismContribution.Norm,
-                                                             new DesignWaterLevelCalculationMessageProvider());
+                                                             messageProvider);
         }
 
         protected override void InitializeDataGridView()
