@@ -297,8 +297,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
-            assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
-            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+            assessmentSection.Stub(a => a.Id).Return(string.Empty);
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
@@ -460,8 +460,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
-            assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
-            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+            assessmentSection.Stub(a => a.Id).Return(string.Empty);
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
@@ -525,11 +525,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             const string databaseFilePath = "DatabaseFilePath";
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
-            assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
-            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+            assessmentSection.Stub(a => a.Id).Return(string.Empty);
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();            
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 

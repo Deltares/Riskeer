@@ -467,7 +467,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations);
 
             // Precondition
-            Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
+            Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.IsCoupled());
             CollectionAssert.IsNotEmpty(assessmentSection.HydraulicBoundaryDatabase.Locations);
 
             string currentFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;

@@ -349,9 +349,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 FilePath = databaseFilePath
             };
-            assessmentSection.Stub(ass => ass.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-            assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
-            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.Id).Return(string.Empty);
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
@@ -411,9 +411,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 UsePreprocessor = true,
                 PreprocessorDirectory = preprocessorDirectory
             };
-            assessmentSection.Stub(ass => ass.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-            assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
-            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.Id).Return(string.Empty);
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
@@ -472,9 +472,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 UsePreprocessor = false,
                 PreprocessorDirectory = "InvalidPreprocessorDirectory"
             };
-            assessmentSection.Stub(ass => ass.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-            assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
-            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.Id).Return(string.Empty);
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
