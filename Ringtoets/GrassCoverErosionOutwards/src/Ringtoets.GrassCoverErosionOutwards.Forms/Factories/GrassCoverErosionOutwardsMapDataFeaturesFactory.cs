@@ -68,11 +68,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
         /// <summary>
         /// Create hydraulic boundary location features based on the provided <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The array of <see cref="HydraulicBoundaryLocation"/>
+        /// <param name="hydraulicBoundaryLocations">The collection of <see cref="HydraulicBoundaryLocation"/>
         /// to create the location features for.</param>
         /// <returns>A collection of features or an empty collection when <paramref name="hydraulicBoundaryLocations"/>
         /// is <c>null</c> or empty.</returns>
-        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationFeatures(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
+        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationFeatures(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             return RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryLocations ?? new HydraulicBoundaryLocation[0],
                                                                                            Resources.DesignWaterLevel_DisplayName,

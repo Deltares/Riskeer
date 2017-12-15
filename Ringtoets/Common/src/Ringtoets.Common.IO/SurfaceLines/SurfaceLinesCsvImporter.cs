@@ -158,11 +158,11 @@ namespace Ringtoets.Common.IO.SurfaceLines
         private IEnumerable<T> GetTransformedSurfaceLines(IEnumerable<SurfaceLine> surfaceLines, IEnumerable<CharacteristicPoints> characteristicPointsCollection)
         {
             LogMissingSurfaceLinesOrCharacteristicPoints(surfaceLines, characteristicPointsCollection);
-            Tuple<SurfaceLine, CharacteristicPoints>[] surfaceLinesWithCharacteristicPoints = surfaceLines.Select(
+            IEnumerable<Tuple<SurfaceLine, CharacteristicPoints>> surfaceLinesWithCharacteristicPoints = surfaceLines.Select(
                 sl => Tuple.Create(sl, characteristicPointsCollection.FirstOrDefault(cp => cp.Name == sl.Name))).ToArray();
 
             string progressText = RingtoetsCommonIOResources.Importer_ProgressText_Validating_imported_data;
-            int numberOfSurfaceLines = surfaceLinesWithCharacteristicPoints.Length;
+            int numberOfSurfaceLines = surfaceLinesWithCharacteristicPoints.Count();
 
             NotifyProgress(progressText, 0, numberOfSurfaceLines);
 
@@ -185,9 +185,9 @@ namespace Ringtoets.Common.IO.SurfaceLines
         private void LogMissingSurfaceLinesOrCharacteristicPoints(IEnumerable<SurfaceLine> readSurfaceLines,
                                                                   IEnumerable<CharacteristicPoints> readCharacteristicPointsLocations)
         {
-            string[] surfaceLinesWithCharacteristicPoints = readSurfaceLines.Select(sl => sl.Name)
-                                                                            .Intersect(readCharacteristicPointsLocations.Select(cp => cp.Name))
-                                                                            .ToArray();
+            IEnumerable<string> surfaceLinesWithCharacteristicPoints = readSurfaceLines.Select(sl => sl.Name)
+                                                                                       .Intersect(readCharacteristicPointsLocations.Select(cp => cp.Name))
+                                                                                       .ToArray();
             if (readCharacteristicPointsLocations.Any())
             {
                 foreach (string missingCharacteristicPoints in readSurfaceLines.Select(sl => sl.Name).Except(surfaceLinesWithCharacteristicPoints))

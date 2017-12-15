@@ -225,9 +225,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
 
         private bool EqualGeometry(IEnumerable<Point2D> otherGeometry)
         {
-            Point2D[] pointsArray = Geometry.ToArray();
-
-            int nrOfPoints = pointsArray.Length;
+            int nrOfPoints = Geometry.Count();
             if (otherGeometry.Count() != nrOfPoints)
             {
                 return false;
@@ -235,7 +233,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
 
             for (var i = 0; i < nrOfPoints; i++)
             {
-                if (!pointsArray[i].Equals(otherGeometry.ElementAt(i)))
+                if (!Geometry.ElementAt(i).Equals(otherGeometry.ElementAt(i)))
                 {
                     return false;
                 }

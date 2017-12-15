@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <param name="hydraulicBoundaryLocations">The available hydraulic boundary locations.</param>
         /// <param name="referencePoint">The reference point to which the distance needs to be 
         /// calculated in <see cref="SelectableHydraulicBoundaryLocation"/>.</param>
-        /// <returns>An ordered list of selectable hydraulic boundary locations.</returns>
+        /// <returns>An ordered collection of selectable hydraulic boundary locations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
         public static IEnumerable<SelectableHydraulicBoundaryLocation> GetSortedSelectableHydraulicBoundaryLocations(
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, Point2D referencePoint)

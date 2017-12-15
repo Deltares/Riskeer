@@ -357,7 +357,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void WriteWaveReduction_InvalidBreakWaterType_ThrowsNotSupportedException()
+        public void WriteWaveReduction_InvalidBreakWaterType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(WriteWaveReduction_WithoutWaveReduction_ThrowsArgumentNullException));

@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
         [Test]
         [TestCase(typeof(string))]
         [TestCase(typeof(MacroStabilityInwardsDikeSoilScenario))]
-        public void ConvertTo_InvalidConfigurationDikeSoilScenario_ThrowsNotSupportedException(Type convertToType)
+        public void ConvertTo_InvalidConfigurationDikeSoilScenario_ThrowsInvalidEnumArgumentException(Type convertToType)
         {
             // Setup
             const ConfigurationDikeSoilScenario invalidValue = (ConfigurationDikeSoilScenario) 9999;

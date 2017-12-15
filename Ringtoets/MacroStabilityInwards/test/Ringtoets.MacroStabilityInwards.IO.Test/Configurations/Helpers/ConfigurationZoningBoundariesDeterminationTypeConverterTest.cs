@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
         [Test]
         [TestCase(typeof(string))]
         [TestCase(typeof(MacroStabilityInwardsZoningBoundariesDeterminationType))]
-        public void ConvertTo_InvalidConfigurationZoningBoundariesDeterminationType_ThrowsNotSupportedException(Type convertToType)
+        public void ConvertTo_InvalidConfigurationZoningBoundariesDeterminationType_ThrowsInvalidEnumArgumentException(Type convertToType)
         {
             // Setup
             const ConfigurationZoningBoundariesDeterminationType invalidValue = (ConfigurationZoningBoundariesDeterminationType) 9999;

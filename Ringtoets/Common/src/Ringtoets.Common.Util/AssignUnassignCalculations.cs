@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Util
             SectionResultWithCalculationAssignment[] sectionResultsArray = sectionResults.ToArray();
 
             IDictionary<string, List<ICalculation>> calculationsPerSegmentName =
-                CollectCalculationsPerSection(sectionResultsArray.Select(sr => sr.Result.Section).ToArray(), calculations);
+                CollectCalculationsPerSection(sectionResultsArray.Select(sr => sr.Result.Section), calculations);
 
             return UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(
                 sectionResultsArray,

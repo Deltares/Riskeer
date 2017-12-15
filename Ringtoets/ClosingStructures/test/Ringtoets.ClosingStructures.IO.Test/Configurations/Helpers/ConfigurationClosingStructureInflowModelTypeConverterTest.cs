@@ -105,7 +105,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations.Helpers
         {
             // Setup
             var converter = new ConfigurationClosingStructureInflowModelTypeConverter();
-            const ConfigurationClosingStructureInflowModelType invalidValue = (ConfigurationClosingStructureInflowModelType)99999999;
+            const ConfigurationClosingStructureInflowModelType invalidValue = (ConfigurationClosingStructureInflowModelType) 99999999;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
@@ -239,7 +239,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations.Helpers
             // Setup
             const int invalidValue = -1;
             var converter = new ConfigurationClosingStructureInflowModelTypeConverter();
-            
+
             // Call
             TestDelegate call = () => converter.ConvertFrom((ClosingStructureInflowModelType) invalidValue);
 

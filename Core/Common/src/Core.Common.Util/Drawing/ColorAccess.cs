@@ -85,6 +85,9 @@ namespace Core.Common.Util.Drawing
         /// <param name="x">The x-coordinate.</param>
         /// <param name="y">The y-coordinate.</param>
         /// <returns>The color of the given pixel.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the coordinates are out of bounds.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the getting or setting the color at the specified 
+        /// coordinates of a <see cref="Bitmap"/> with an unsupported <see cref="PixelFormat"/>.</exception>
         public Color this[int x, int y]
         {
             get
@@ -216,6 +219,14 @@ namespace Core.Common.Util.Drawing
             return res;
         }
 
+        /// <summary>
+        /// Validates if <paramref name="x"/> and <paramref name="y"/>
+        /// are in the range of the image that is accessible.
+        /// </summary>
+        /// <param name="x">The x-coordinate.</param>
+        /// <param name="y">The y-coordinate.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="x"/>
+        /// or <paramref name="y"/> are out of the accessible range.</exception>
         private void ValidateIndices(int x, int y)
         {
             if (!IsInValidRange(x, y))

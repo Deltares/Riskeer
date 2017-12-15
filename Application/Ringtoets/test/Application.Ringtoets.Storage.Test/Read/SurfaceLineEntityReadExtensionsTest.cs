@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Primitives;
@@ -294,6 +296,39 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreSame(geometryPoint, surfaceLine.DikeToeAtRiver);
             Assert.AreSame(geometryPoint, surfaceLine.DitchDikeSide);
             Assert.AreSame(geometryPoint, surfaceLine.DitchPolderSide);
+        }
+
+        [Test]
+        public void ReadAsPipingSurfaceLine_WithInvalidPipingCharacteristicPointType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var random = new Random(31);
+
+            var points = new[]
+            {
+                CreatePoint3D(random)
+            };
+
+            const byte invalidCharacteristicPointType = 37;
+            var entity = new SurfaceLineEntity
+            {
+                Name = "Better name.",
+                ReferenceLineIntersectionX = random.NextDouble(),
+                ReferenceLineIntersectionY = random.NextDouble(),
+                PointsXml = new Point3DXmlSerializer().ToXml(points),
+                PipingCharacteristicPointEntities =
+                {
+                    CreatePipingCharacteristicPointEntity(points[0], (PipingCharacteristicPointType) invalidCharacteristicPointType)
+                }
+            };
+
+            // Call
+            TestDelegate call = () => entity.ReadAsPipingSurfaceLine(new ReadConversionCollector());
+
+            // Assert
+            string exoectedMessage = $"The value of argument 'type' ({invalidCharacteristicPointType}) is invalid for Enum type '{nameof(PipingCharacteristicPointType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, exoectedMessage).ParamName;
+            Assert.AreEqual("type", parameterName);
         }
 
         [Test]
@@ -615,6 +650,39 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreSame(geometryPoint, surfaceLine.BottomDitchPolderSide);
             Assert.AreSame(geometryPoint, surfaceLine.DitchPolderSide);
             Assert.AreSame(geometryPoint, surfaceLine.SurfaceLevelInside);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsSurfaceLine_WithInvalidMacroStabilityCharacteristicPointType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var random = new Random(31);
+
+            var points = new[]
+            {
+                CreatePoint3D(random)
+            };
+
+            const byte invalidCharacteristicPointType = 37;
+            var entity = new SurfaceLineEntity
+            {
+                Name = "Better name.",
+                ReferenceLineIntersectionX = random.NextDouble(),
+                ReferenceLineIntersectionY = random.NextDouble(),
+                PointsXml = new Point3DXmlSerializer().ToXml(points),
+                MacroStabilityInwardsCharacteristicPointEntities =
+                {
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], (MacroStabilityInwardsCharacteristicPointType) invalidCharacteristicPointType)
+                }
+            };
+
+            // Call
+            TestDelegate call = () => entity.ReadAsMacroStabilityInwardsSurfaceLine(new ReadConversionCollector());
+
+            // Assert
+            string exoectedMessage = $"The value of argument 'type' ({invalidCharacteristicPointType}) is invalid for Enum type '{nameof(MacroStabilityInwardsCharacteristicPointType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, exoectedMessage).ParamName;
+            Assert.AreEqual("type", parameterName);
         }
 
         [Test]

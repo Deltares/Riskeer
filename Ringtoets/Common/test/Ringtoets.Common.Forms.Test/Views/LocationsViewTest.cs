@@ -355,8 +355,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 ObjectsToCalculate = GetCalculatableRows()
                     .Where(r => r.ShouldCalculate)
                     .Cast<TestCalculatableRow>()
-                    .Select(row => row.CalculatableObject)
-                    .ToArray();
+                    .Select(row => row.CalculatableObject);
             }
 
             protected override IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
@@ -369,7 +368,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                                                       topLevelSubMechanismIllustrationPoint.WindDirection.Name,
                                                                                       topLevelSubMechanismIllustrationPoint.ClosingSituation,
                                                                                       topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.Stochasts,
-                                                                                      topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.Beta)).ToArray();
+                                                                                      topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.Beta))
+                                         .ToArray();
             }
         }
     }

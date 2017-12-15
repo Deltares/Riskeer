@@ -38,11 +38,11 @@ namespace Core.Components.BruTile.Test.Configurations
         private TestSettingsHelper testSettingsHelper;
 
         [Test]
-        public void CreateInitializedConfiguration_InvalidWellKnownTileSource_ThenThrowsInvalidEnumArgumentException()
+        public void CreateInitializedConfiguration_InvalidWellKnownTileSource_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             const int invalidTileSource = 9999;
-           
+
             // Call
             TestDelegate call = () => WellKnownTileSourceLayerConfiguration.CreateInitializedConfiguration((WellKnownTileSource) invalidTileSource);
 

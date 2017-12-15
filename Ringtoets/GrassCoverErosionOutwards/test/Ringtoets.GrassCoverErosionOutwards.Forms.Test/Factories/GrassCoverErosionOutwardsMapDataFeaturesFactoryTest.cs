@@ -111,14 +111,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
                 new Point2D(1.2, 2.3),
                 new Point2D(2.7, 2.0)
             };
-            HydraulicBoundaryLocation[] hydraulicBoundaryLocations = points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)).ToArray();
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)).ToArray();
 
             // Call
             IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryLocations);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryLocations.Length, features.Count());
-            for (var i = 0; i < hydraulicBoundaryLocations.Length; i++)
+            int expectedHydraulicBoundaryLocationsCount = hydraulicBoundaryLocations.Count();
+            Assert.AreEqual(expectedHydraulicBoundaryLocationsCount, features.Count());
+            for (var i = 0; i < expectedHydraulicBoundaryLocationsCount; i++)
             {
                 Assert.AreEqual(4, features.ElementAt(i).MetaData.Keys.Count);
                 Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).Id, features.ElementAt(i).MetaData["ID"]);

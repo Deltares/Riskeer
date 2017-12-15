@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
         [Test]
         [TestCase(typeof(string))]
         [TestCase(typeof(MacroStabilityInwardsTangentLineDeterminationType))]
-        public void ConvertTo_InvalidConfigurationTangentLineDeterminationType_ThrowsNotSupportedException(Type convertToType)
+        public void ConvertTo_InvalidConfigurationTangentLineDeterminationType_ThrowsInvalidEnumArgumentException(Type convertToType)
         {
             // Setup
             const ConfigurationTangentLineDeterminationType invalidValue = (ConfigurationTangentLineDeterminationType)9999;
