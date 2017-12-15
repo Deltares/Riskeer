@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void Validate_NoHydraulicBoundaryDatabase_LogValidationMessageAndReturnFalse()
+        public void Validate_HydraulicBoundaryDatabasePathInvalid_LogValidationMessageAndReturnFalse()
         {
             // Setup
             var mockRepository = new MockRepository();

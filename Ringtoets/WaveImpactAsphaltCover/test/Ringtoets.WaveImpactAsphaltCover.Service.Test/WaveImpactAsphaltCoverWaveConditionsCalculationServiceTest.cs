@@ -73,7 +73,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
-        public void Validate_NoHydraulicBoundaryDatabase_DoesNotPerformCalculationAndLogsError()
+        public void Validate_HydraulicBoundaryDatabasePathInvalid_DoesNotPerformCalculationAndLogsError()
         {
             // Setup
             var mockRepository = new MockRepository();

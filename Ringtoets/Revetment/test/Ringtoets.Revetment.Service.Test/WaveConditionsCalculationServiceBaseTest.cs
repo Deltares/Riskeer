@@ -84,7 +84,7 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_NoHydraulicBoundaryDatabase_ReturnsFalseAndLogsValidationError()
+        public void Validate_HydraulicBoundaryDatabasePathInvalid_ReturnsFalseAndLogsValidationError()
         {
             // Setup 
             var isValid = false;
