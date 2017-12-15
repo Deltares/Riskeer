@@ -213,22 +213,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSectionA))
             {
-                view.Data = assessmentSectionA;
-
-                // Call
-                bool closeForData = info.CloseForData(view, new object());
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseViewForData_ViewDataNull_ReturnsFalse()
-        {
-            // Setup
-            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), new ObservableTestAssessmentSectionStub()))
-            {
                 // Call
                 bool closeForData = info.CloseForData(view, new object());
 
