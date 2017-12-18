@@ -193,7 +193,10 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            inputParameters.StochasticSoilProfile.SoilProfile.Layers.ElementAt(0).BelowPhreaticLevelMean = 3.2;
+            inputParameters.StochasticSoilProfile.SoilProfile.Layers.First().BelowPhreaticLevel = new LogNormalDistribution
+            {
+                Mean = (RoundedDouble) 3.2
+            };
 
             // Call
             DesignVariable<LogNormalDistribution> saturatedVolumicWeightOfCoverageLayer =

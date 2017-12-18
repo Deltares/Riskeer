@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.Piping;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
@@ -53,12 +54,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             const string materialName = "sand";
 
             bool isAquifer = random.NextBoolean();
-            double belowPhreaticLevelMean = random.NextDouble();
+            double belowPhreaticLevelMean = random.GetFromRange(1, double.MaxValue);
             double belowPhreaticLevelDeviation = random.NextDouble();
             double belowPhreaticLevelShift = random.NextDouble();
-            double diameterD70Mean = random.NextDouble();
+            double diameterD70Mean = random.GetFromRange(1, double.MaxValue);
             double diameterD70CoefficientOfVariation = random.NextDouble();
-            double permeabilityMean = random.NextDouble();
+            double permeabilityMean = random.GetFromRange(1, double.MaxValue);
             double permeabilityCoefficientOfVariation = random.NextDouble();
 
             var entity = new PipingSoilLayerEntity
@@ -87,13 +88,22 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(color.ToArgb(), layer.Color.ToArgb());
             Assert.AreEqual(materialName, layer.MaterialName);
 
-            Assert.AreEqual(belowPhreaticLevelMean, layer.BelowPhreaticLevelMean);
-            Assert.AreEqual(belowPhreaticLevelDeviation, layer.BelowPhreaticLevelDeviation);
-            Assert.AreEqual(belowPhreaticLevelShift, layer.BelowPhreaticLevelShift);
-            Assert.AreEqual(diameterD70Mean, layer.DiameterD70Mean);
-            Assert.AreEqual(diameterD70CoefficientOfVariation, layer.DiameterD70CoefficientOfVariation);
-            Assert.AreEqual(permeabilityMean, layer.PermeabilityMean);
-            Assert.AreEqual(permeabilityCoefficientOfVariation, layer.PermeabilityCoefficientOfVariation);
+            Assert.AreEqual(belowPhreaticLevelMean, layer.BelowPhreaticLevel.Mean,
+                            layer.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(belowPhreaticLevelDeviation, layer.BelowPhreaticLevel.StandardDeviation,
+                            layer.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(belowPhreaticLevelShift, layer.BelowPhreaticLevel.Shift,
+                            layer.BelowPhreaticLevel.GetAccuracy());
+
+            Assert.AreEqual(diameterD70Mean, layer.DiameterD70.Mean,
+                            layer.DiameterD70.GetAccuracy());
+            Assert.AreEqual(diameterD70CoefficientOfVariation, layer.DiameterD70.CoefficientOfVariation,
+                            layer.DiameterD70.GetAccuracy());
+
+            Assert.AreEqual(permeabilityMean, layer.Permeability.Mean,
+                            layer.Permeability.GetAccuracy());
+            Assert.AreEqual(permeabilityCoefficientOfVariation, layer.Permeability.CoefficientOfVariation,
+                            layer.Permeability.GetAccuracy());
         }
 
         [Test]
@@ -113,13 +123,13 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(entity.MaterialName, layer.MaterialName);
 
             Assert.IsNaN(layer.Top);
-            Assert.IsNaN(layer.BelowPhreaticLevelMean);
-            Assert.IsNaN(layer.BelowPhreaticLevelDeviation);
-            Assert.IsNaN(layer.BelowPhreaticLevelShift);
-            Assert.IsNaN(layer.DiameterD70Mean);
-            Assert.IsNaN(layer.DiameterD70CoefficientOfVariation);
-            Assert.IsNaN(layer.PermeabilityMean);
-            Assert.IsNaN(layer.PermeabilityCoefficientOfVariation);
+            Assert.IsNaN(layer.BelowPhreaticLevel.Mean);
+            Assert.IsNaN(layer.BelowPhreaticLevel.StandardDeviation);
+            Assert.IsNaN(layer.BelowPhreaticLevel.Shift);
+            Assert.IsNaN(layer.DiameterD70.Mean);
+            Assert.IsNaN(layer.DiameterD70.CoefficientOfVariation);
+            Assert.IsNaN(layer.Permeability.Mean);
+            Assert.IsNaN(layer.Permeability.CoefficientOfVariation);
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -397,16 +397,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
             get {
                 return ResourceManager.GetString("SurfaceLinesCsvImporter_SurfaceLine_0_skipped_cause_1_CharacteristicPoint_mandato" +
                         "ry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden bij het inlezen van grondlaag &apos;{0}&apos; voor parameter &apos;{1}&apos;: {2}.
-        /// </summary>
-        public static string Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_ {
-            get {
-                return ResourceManager.GetString("Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessa" +
-                        "ge_2_", resourceCulture);
             }
         }
         

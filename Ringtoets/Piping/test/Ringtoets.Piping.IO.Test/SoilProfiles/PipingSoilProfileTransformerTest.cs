@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.TestUtil;
@@ -484,13 +485,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             Assert.AreEqual(expected.Top, actual.Top);
             Assert.AreEqual(expected.IsAquifer, actual.IsAquifer);
-            Assert.AreEqual(expected.BelowPhreaticLevelMean, actual.BelowPhreaticLevelMean);
-            Assert.AreEqual(expected.BelowPhreaticLevelDeviation, actual.BelowPhreaticLevelDeviation);
-            Assert.AreEqual(expected.BelowPhreaticLevelShift, actual.BelowPhreaticLevelShift);
-            Assert.AreEqual(expected.DiameterD70Mean, actual.DiameterD70Mean);
-            Assert.AreEqual(expected.DiameterD70CoefficientOfVariation, actual.DiameterD70CoefficientOfVariation);
-            Assert.AreEqual(expected.PermeabilityMean, actual.PermeabilityMean);
-            Assert.AreEqual(expected.PermeabilityCoefficientOfVariation, actual.PermeabilityCoefficientOfVariation);
+            DistributionAssert.AreEqual(expected.BelowPhreaticLevel, actual.BelowPhreaticLevel);
+            DistributionAssert.AreEqual(expected.DiameterD70, actual.DiameterD70);
+            DistributionAssert.AreEqual(expected.Permeability, actual.Permeability);
             Assert.AreEqual(expected.MaterialName, actual.MaterialName);
             Assert.AreEqual(expected.Color, actual.Color);
         }

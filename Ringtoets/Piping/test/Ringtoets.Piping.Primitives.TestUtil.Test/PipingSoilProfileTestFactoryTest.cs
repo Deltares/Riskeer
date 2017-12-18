@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Piping.Primitives.TestUtil.Test
 {
@@ -88,13 +89,9 @@ namespace Ringtoets.Piping.Primitives.TestUtil.Test
         {
             Assert.AreEqual(expected.Top, actual.Top);
             Assert.AreEqual(expected.MaterialName, actual.MaterialName);
-            Assert.AreEqual(expected.BelowPhreaticLevelMean, actual.BelowPhreaticLevelMean);
-            Assert.AreEqual(expected.BelowPhreaticLevelDeviation, actual.BelowPhreaticLevelDeviation);
-            Assert.AreEqual(expected.BelowPhreaticLevelShift, actual.BelowPhreaticLevelShift);
-            Assert.AreEqual(expected.DiameterD70Mean, actual.DiameterD70Mean);
-            Assert.AreEqual(expected.DiameterD70CoefficientOfVariation, actual.DiameterD70CoefficientOfVariation);
-            Assert.AreEqual(expected.PermeabilityMean, actual.PermeabilityMean);
-            Assert.AreEqual(expected.PermeabilityCoefficientOfVariation, actual.PermeabilityCoefficientOfVariation);
+            DistributionAssert.AreEqual(expected.BelowPhreaticLevel, actual.BelowPhreaticLevel);
+            DistributionAssert.AreEqual(expected.DiameterD70, actual.DiameterD70);
+            DistributionAssert.AreEqual(expected.Permeability, actual.Permeability);
         }
     }
 }

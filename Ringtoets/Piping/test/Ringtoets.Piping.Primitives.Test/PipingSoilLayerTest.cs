@@ -23,8 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Piping.Primitives.Test
 {
@@ -47,15 +50,105 @@ namespace Ringtoets.Piping.Primitives.Test
             Assert.IsEmpty(layer.MaterialName);
             Assert.AreEqual(Color.Empty, layer.Color);
 
-            Assert.IsNaN(layer.BelowPhreaticLevelMean);
-            Assert.IsNaN(layer.BelowPhreaticLevelDeviation);
-            Assert.IsNaN(layer.BelowPhreaticLevelShift);
+            DistributionAssert.AreEqual(new LogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN,
+                Shift = RoundedDouble.NaN
+            }, layer.BelowPhreaticLevel);
 
-            Assert.IsNaN(layer.DiameterD70Mean);
-            Assert.IsNaN(layer.DiameterD70CoefficientOfVariation);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(6)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            }, layer.DiameterD70);
 
-            Assert.IsNaN(layer.PermeabilityMean);
-            Assert.IsNaN(layer.PermeabilityCoefficientOfVariation);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(6)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            }, layer.Permeability);
+        }
+
+        [Test]
+        public void BelowPhreaticLevel_Always_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var layer = new PipingSoilLayer(random.NextDouble());
+
+            var distributionToSet = new LogNormalDistribution
+            {
+                Mean = random.NextRoundedDouble(),
+                StandardDeviation = random.NextRoundedDouble(),
+                Shift = random.NextRoundedDouble()
+            };
+
+            // Call
+            layer.BelowPhreaticLevel = distributionToSet;
+
+            // Assert
+            var expectedDistribution = new LogNormalDistribution(2)
+            {
+                Mean = distributionToSet.Mean,
+                StandardDeviation = distributionToSet.StandardDeviation,
+                Shift = distributionToSet.Shift
+            };
+            AssertDistributionCorrectlySet(layer.BelowPhreaticLevel, distributionToSet, expectedDistribution);
+        }
+
+        [Test]
+        public void Diameter70_Always_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var layer = new PipingSoilLayer(random.NextDouble());
+
+            var distributionToSet = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = random.NextRoundedDouble(),
+                CoefficientOfVariation = random.NextRoundedDouble(),
+                Shift = random.NextRoundedDouble()
+            };
+
+            // Call
+            layer.DiameterD70 = distributionToSet;
+
+            // Assert
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(6)
+            {
+                Mean = distributionToSet.Mean,
+                CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
+                Shift = layer.DiameterD70.Shift
+            };
+            AssertDistributionCorrectlySet(layer.DiameterD70, distributionToSet, expectedDistribution);
+        }
+
+        [Test]
+        public void Permeability_Always_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var layer = new PipingSoilLayer(random.NextDouble());
+
+            var distributionToSet = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = random.NextRoundedDouble(),
+                CoefficientOfVariation = random.NextRoundedDouble(),
+                Shift = random.NextRoundedDouble()
+            };
+
+            // Call
+            layer.Permeability = distributionToSet;
+
+            // Assert
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(6)
+            {
+                Mean = distributionToSet.Mean,
+                CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
+                Shift = layer.DiameterD70.Shift
+            };
+            AssertDistributionCorrectlySet(layer.Permeability, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -89,6 +182,22 @@ namespace Ringtoets.Piping.Primitives.Test
             Assert.AreEqual(materialName, layer.MaterialName);
         }
 
+        private static void AssertDistributionCorrectlySet(IDistribution distributionToAssert,
+                                                           IDistribution setDistribution,
+                                                           IDistribution expectedDistribution)
+        {
+            Assert.AreNotSame(setDistribution, distributionToAssert);
+            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
+        }
+
+        private static void AssertDistributionCorrectlySet(IVariationCoefficientDistribution distributionToAssert,
+                                                           IVariationCoefficientDistribution setDistribution,
+                                                           IVariationCoefficientDistribution expectedDistribution)
+        {
+            Assert.AreNotSame(setDistribution, distributionToAssert);
+            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
+        }
+
         [TestFixture]
         private class PipingSoilLayerEqualsTest : EqualsTestFixture<PipingSoilLayer, TestLayer>
         {
@@ -117,13 +226,9 @@ namespace Ringtoets.Piping.Primitives.Test
                     MaterialName = "Different Name",
                     Color = baseLayer.Color,
                     IsAquifer = baseLayer.IsAquifer,
-                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
-                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
-                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
-                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
-                    DiameterD70Mean = baseLayer.DiameterD70Mean,
-                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
-                    PermeabilityMean = baseLayer.PermeabilityMean
+                    BelowPhreaticLevel = baseLayer.BelowPhreaticLevel,
+                    DiameterD70 = baseLayer.DiameterD70,
+                    Permeability = baseLayer.Permeability
                 }).SetName("Name");
 
                 yield return new TestCaseData(new PipingSoilLayer(double.NaN)
@@ -131,13 +236,9 @@ namespace Ringtoets.Piping.Primitives.Test
                     MaterialName = baseLayer.MaterialName,
                     Color = baseLayer.Color.ToArgb().Equals(Color.Aqua.ToArgb()) ? Color.Bisque : Color.Aqua,
                     IsAquifer = baseLayer.IsAquifer,
-                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
-                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
-                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
-                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
-                    DiameterD70Mean = baseLayer.DiameterD70Mean,
-                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
-                    PermeabilityMean = baseLayer.PermeabilityMean
+                    BelowPhreaticLevel = baseLayer.BelowPhreaticLevel,
+                    DiameterD70 = baseLayer.DiameterD70,
+                    Permeability = baseLayer.Permeability
                 }).SetName("Color");
 
                 yield return new TestCaseData(new PipingSoilLayer(double.NaN)
@@ -145,13 +246,9 @@ namespace Ringtoets.Piping.Primitives.Test
                     MaterialName = baseLayer.MaterialName,
                     Color = baseLayer.Color,
                     IsAquifer = !baseLayer.IsAquifer,
-                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
-                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
-                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
-                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
-                    DiameterD70Mean = baseLayer.DiameterD70Mean,
-                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
-                    PermeabilityMean = baseLayer.PermeabilityMean
+                    BelowPhreaticLevel = baseLayer.BelowPhreaticLevel,
+                    DiameterD70 = baseLayer.DiameterD70,
+                    Permeability = baseLayer.Permeability
                 }).SetName("IsAquifer");
 
                 yield return new TestCaseData(new PipingSoilLayer(double.NaN)
@@ -159,13 +256,14 @@ namespace Ringtoets.Piping.Primitives.Test
                     MaterialName = baseLayer.MaterialName,
                     Color = baseLayer.Color,
                     IsAquifer = baseLayer.IsAquifer,
-                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation + offset,
-                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
-                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
-                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
-                    DiameterD70Mean = baseLayer.DiameterD70Mean,
-                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
-                    PermeabilityMean = baseLayer.PermeabilityMean
+                    BelowPhreaticLevel = new LogNormalDistribution
+                    {
+                        Mean = baseLayer.BelowPhreaticLevel.Mean,
+                        StandardDeviation = baseLayer.BelowPhreaticLevel.StandardDeviation + random.NextRoundedDouble(),
+                        Shift = baseLayer.BelowPhreaticLevel.Shift
+                    },
+                    DiameterD70 = baseLayer.DiameterD70,
+                    Permeability = baseLayer.Permeability
                 }).SetName("BelowPhreaticLevelDeviation");
 
                 yield return new TestCaseData(new PipingSoilLayer(double.NaN)
@@ -173,13 +271,14 @@ namespace Ringtoets.Piping.Primitives.Test
                     MaterialName = baseLayer.MaterialName,
                     Color = baseLayer.Color,
                     IsAquifer = baseLayer.IsAquifer,
-                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
-                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean + offset,
-                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
-                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
-                    DiameterD70Mean = baseLayer.DiameterD70Mean,
-                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
-                    PermeabilityMean = baseLayer.PermeabilityMean
+                    BelowPhreaticLevel = new LogNormalDistribution
+                    {
+                        Mean = baseLayer.BelowPhreaticLevel.Mean + random.NextRoundedDouble(),
+                        StandardDeviation = baseLayer.BelowPhreaticLevel.StandardDeviation,
+                        Shift = baseLayer.BelowPhreaticLevel.Shift
+                    },
+                    DiameterD70 = baseLayer.DiameterD70,
+                    Permeability = baseLayer.Permeability
                 }).SetName("BelowPhreaticLevelMean");
 
                 yield return new TestCaseData(new PipingSoilLayer(double.NaN)
@@ -187,13 +286,14 @@ namespace Ringtoets.Piping.Primitives.Test
                     MaterialName = baseLayer.MaterialName,
                     Color = baseLayer.Color,
                     IsAquifer = baseLayer.IsAquifer,
-                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
-                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
-                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift + offset,
-                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
-                    DiameterD70Mean = baseLayer.DiameterD70Mean,
-                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
-                    PermeabilityMean = baseLayer.PermeabilityMean
+                    BelowPhreaticLevel = new LogNormalDistribution
+                    {
+                        Mean = baseLayer.BelowPhreaticLevel.Mean,
+                        StandardDeviation = baseLayer.BelowPhreaticLevel.StandardDeviation,
+                        Shift = baseLayer.BelowPhreaticLevel.Shift + random.NextRoundedDouble()
+                    },
+                    DiameterD70 = baseLayer.DiameterD70,
+                    Permeability = baseLayer.Permeability
                 }).SetName("BelowPhreaticLevelShift");
 
                 yield return new TestCaseData(new PipingSoilLayer(double.NaN)
@@ -201,13 +301,13 @@ namespace Ringtoets.Piping.Primitives.Test
                     MaterialName = baseLayer.MaterialName,
                     Color = baseLayer.Color,
                     IsAquifer = baseLayer.IsAquifer,
-                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
-                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
-                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
-                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation + offset,
-                    DiameterD70Mean = baseLayer.DiameterD70Mean,
-                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
-                    PermeabilityMean = baseLayer.PermeabilityMean
+                    BelowPhreaticLevel = baseLayer.BelowPhreaticLevel,
+                    DiameterD70 = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = baseLayer.DiameterD70.Mean,
+                        CoefficientOfVariation = baseLayer.DiameterD70.CoefficientOfVariation + random.NextRoundedDouble()
+                    },
+                    Permeability = baseLayer.Permeability
                 }).SetName("DiameterD70CoefficientOfVariation");
 
                 yield return new TestCaseData(new PipingSoilLayer(double.NaN)
@@ -215,13 +315,13 @@ namespace Ringtoets.Piping.Primitives.Test
                     MaterialName = baseLayer.MaterialName,
                     Color = baseLayer.Color,
                     IsAquifer = baseLayer.IsAquifer,
-                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
-                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
-                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
-                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
-                    DiameterD70Mean = baseLayer.DiameterD70Mean + offset,
-                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
-                    PermeabilityMean = baseLayer.PermeabilityMean
+                    BelowPhreaticLevel = baseLayer.BelowPhreaticLevel,
+                    DiameterD70 = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = baseLayer.DiameterD70.Mean + random.NextRoundedDouble(),
+                        CoefficientOfVariation = baseLayer.DiameterD70.CoefficientOfVariation
+                    },
+                    Permeability = baseLayer.Permeability
                 }).SetName("DiameterD70Mean");
 
                 yield return new TestCaseData(new PipingSoilLayer(double.NaN)
@@ -229,13 +329,13 @@ namespace Ringtoets.Piping.Primitives.Test
                     MaterialName = baseLayer.MaterialName,
                     Color = baseLayer.Color,
                     IsAquifer = baseLayer.IsAquifer,
-                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
-                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
-                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
-                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
-                    DiameterD70Mean = baseLayer.DiameterD70Mean,
-                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation + offset,
-                    PermeabilityMean = baseLayer.PermeabilityMean
+                    BelowPhreaticLevel = baseLayer.BelowPhreaticLevel,
+                    DiameterD70 = baseLayer.DiameterD70,
+                    Permeability = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = baseLayer.Permeability.Mean,
+                        CoefficientOfVariation = baseLayer.Permeability.CoefficientOfVariation + random.NextRoundedDouble()
+                    }
                 }).SetName("PermeabilityCoefficientOfVariation");
 
                 yield return new TestCaseData(new PipingSoilLayer(double.NaN)
@@ -243,13 +343,13 @@ namespace Ringtoets.Piping.Primitives.Test
                     MaterialName = baseLayer.MaterialName,
                     Color = baseLayer.Color,
                     IsAquifer = baseLayer.IsAquifer,
-                    BelowPhreaticLevelDeviation = baseLayer.BelowPhreaticLevelDeviation,
-                    BelowPhreaticLevelMean = baseLayer.BelowPhreaticLevelMean,
-                    BelowPhreaticLevelShift = baseLayer.BelowPhreaticLevelShift,
-                    DiameterD70CoefficientOfVariation = baseLayer.DiameterD70CoefficientOfVariation,
-                    DiameterD70Mean = baseLayer.DiameterD70Mean,
-                    PermeabilityCoefficientOfVariation = baseLayer.PermeabilityCoefficientOfVariation,
-                    PermeabilityMean = baseLayer.PermeabilityMean + offset
+                    BelowPhreaticLevel = baseLayer.BelowPhreaticLevel,
+                    DiameterD70 = baseLayer.DiameterD70,
+                    Permeability = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = baseLayer.Permeability.Mean + random.NextRoundedDouble(),
+                        CoefficientOfVariation = baseLayer.Permeability.CoefficientOfVariation
+                    }
                 }).SetName("PermeabilityMean");
             }
 
@@ -261,13 +361,22 @@ namespace Ringtoets.Piping.Primitives.Test
                     MaterialName = string.Join("", Enumerable.Repeat('x', random.Next(0, 40))),
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
                     IsAquifer = random.NextBoolean(),
-                    BelowPhreaticLevelDeviation = random.NextDouble(),
-                    BelowPhreaticLevelMean = random.NextDouble(),
-                    BelowPhreaticLevelShift = random.NextDouble(),
-                    DiameterD70CoefficientOfVariation = random.NextDouble(),
-                    DiameterD70Mean = random.NextDouble(),
-                    PermeabilityCoefficientOfVariation = random.NextDouble(),
-                    PermeabilityMean = random.NextDouble()
+                    BelowPhreaticLevel = new LogNormalDistribution
+                    {
+                        Mean = random.NextRoundedDouble(1, double.MaxValue),
+                        StandardDeviation = random.NextRoundedDouble(),
+                        Shift = random.NextRoundedDouble()
+                    },
+                    DiameterD70 = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    },
+                    Permeability = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    }
                 };
             }
         }
@@ -280,13 +389,9 @@ namespace Ringtoets.Piping.Primitives.Test
                 IsAquifer = layer.IsAquifer;
                 MaterialName = layer.MaterialName;
                 Color = layer.Color;
-                BelowPhreaticLevelMean = layer.BelowPhreaticLevelMean;
-                BelowPhreaticLevelDeviation = layer.BelowPhreaticLevelDeviation;
-                BelowPhreaticLevelShift = layer.BelowPhreaticLevelShift;
-                PermeabilityCoefficientOfVariation = layer.PermeabilityCoefficientOfVariation;
-                PermeabilityMean = layer.PermeabilityMean;
-                DiameterD70Mean = layer.DiameterD70Mean;
-                DiameterD70CoefficientOfVariation = layer.DiameterD70CoefficientOfVariation;
+                BelowPhreaticLevel = layer.BelowPhreaticLevel;
+                DiameterD70 = layer.DiameterD70;
+                Permeability = layer.Permeability;
             }
         }
     }

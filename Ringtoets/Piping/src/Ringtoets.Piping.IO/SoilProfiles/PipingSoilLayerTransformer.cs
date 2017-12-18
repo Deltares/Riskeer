@@ -23,7 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.IO.Properties;
@@ -187,15 +189,94 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// <param name="soilLayer">The <see cref="SoilLayerBase"/> to get the properties from.</param>
         /// <remarks>This method does not perform validation. Use <see cref="ValidateStochasticParameters"/> to 
         /// verify whether the distributions for the stochastic parameters are correctly defined.</remarks>
+        /// <exception cref="ImportedDataTransformException">Thrown when the stochastic values of <paramref name="pipingSoilLayer"/>
+        /// are invalid.</exception>
         private static void SetStochasticParameters(PipingSoilLayer pipingSoilLayer, SoilLayerBase soilLayer)
         {
-            pipingSoilLayer.BelowPhreaticLevelMean = soilLayer.BelowPhreaticLevelMean;
-            pipingSoilLayer.BelowPhreaticLevelDeviation = soilLayer.BelowPhreaticLevelDeviation;
-            pipingSoilLayer.BelowPhreaticLevelShift = soilLayer.BelowPhreaticLevelShift;
-            pipingSoilLayer.DiameterD70Mean = soilLayer.DiameterD70Mean;
-            pipingSoilLayer.DiameterD70CoefficientOfVariation = soilLayer.DiameterD70CoefficientOfVariation;
-            pipingSoilLayer.PermeabilityMean = soilLayer.PermeabilityMean;
-            pipingSoilLayer.PermeabilityCoefficientOfVariation = soilLayer.PermeabilityCoefficientOfVariation;
+            pipingSoilLayer.BelowPhreaticLevel = TransformLogNormalDistribution(soilLayer.BelowPhreaticLevelMean,
+                                                                                soilLayer.BelowPhreaticLevelDeviation,
+                                                                                soilLayer.BelowPhreaticLevelShift,
+                                                                                soilLayer.MaterialName,
+                                                                                Resources.SoilLayer_BelowPhreaticLevelDistribution_DisplayName);
+
+            pipingSoilLayer.DiameterD70 = TransformVariationCoefficientLogNormalDistribution(soilLayer.DiameterD70Mean,
+                                                                                             soilLayer.DiameterD70CoefficientOfVariation,
+                                                                                             soilLayer.MaterialName,
+                                                                                             Resources.SoilLayer_DiameterD70Distribution_DisplayName);
+
+            pipingSoilLayer.Permeability = TransformVariationCoefficientLogNormalDistribution(soilLayer.PermeabilityMean,
+                                                                                              soilLayer.PermeabilityCoefficientOfVariation,
+                                                                                              soilLayer.MaterialName,
+                                                                                              Resources.SoilLayer_PermeabilityDistribution_DisplayName);
+        }
+
+        /// <summary>
+        /// Transforms the input arguments into a log normal distribution for a parameter of a soil layer.
+        /// </summary>
+        /// <param name="mean">The mean of the distribution.</param>
+        /// <param name="coefficientOfVariation">The coefficient of variation of the distribution.</param>
+        /// <param name="soilLayerName">The name of the soil layer.</param>
+        /// <param name="parameterName">The name of the parameter to create a distribution for.</param>
+        /// <returns>A <see cref="VariationCoefficientLogNormalDistribution"/> based on the input arguments.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when a <see cref="VariationCoefficientLogNormalDistribution"/>
+        /// cannot be created due to invalid values for <paramref name="mean"/>, <paramref name="coefficientOfVariation"/>.</exception>
+        private static VariationCoefficientLogNormalDistribution TransformVariationCoefficientLogNormalDistribution(double mean,
+                                                                                                                    double coefficientOfVariation,
+                                                                                                                    string soilLayerName,
+                                                                                                                    string parameterName)
+        {
+            try
+            {
+                return new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) mean,
+                    CoefficientOfVariation = (RoundedDouble) coefficientOfVariation
+                };
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                string errorMessage = string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_,
+                                                    soilLayerName,
+                                                    parameterName,
+                                                    e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
+            }
+        }
+
+        /// <summary>
+        /// Transforms the input arguments into a log normal distribution for a parameter of a soil layer.
+        /// </summary>
+        /// <param name="mean">The mean of the distribution.</param>
+        /// <param name="standardDeviation">The standard deviation of the distribution.</param>
+        /// <param name="shift">The shift of the distribution.</param>
+        /// <param name="soilLayerName">The name of the soil layer.</param>
+        /// <param name="parameterName">The name of the parameter to create a distribution for.</param>
+        /// <returns>A <see cref="LogNormalDistribution"/> based on the input arguments.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when a <see cref="LogNormalDistribution"/>
+        /// cannot be created due to invalid values for <paramref name="mean"/>, <paramref name="standardDeviation"/>.</exception>
+        private static LogNormalDistribution TransformLogNormalDistribution(double mean,
+                                                                            double standardDeviation,
+                                                                            double shift,
+                                                                            string soilLayerName,
+                                                                            string parameterName)
+        {
+            try
+            {
+                return new LogNormalDistribution
+                {
+                    Mean = (RoundedDouble) mean,
+                    StandardDeviation = (RoundedDouble) standardDeviation,
+                    Shift = (RoundedDouble) shift
+                };
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                string errorMessage = string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_,
+                                                    soilLayerName,
+                                                    parameterName,
+                                                    e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
+            }
         }
 
         private static bool HeightInInnerLoop(Tuple<double, double> tuple, double height)

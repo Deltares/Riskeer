@@ -77,13 +77,13 @@ namespace Ringtoets.Piping.Forms.Views
                 Color = SoilLayerDataHelper.GetValidColor(layer.Color);
                 Top = new RoundedDouble(2, layer.Top);
                 IsAquifer = layer.IsAquifer;
-                PermeabilityMean = new RoundedDouble(6, layer.PermeabilityMean);
-                PermeabilityCoefficientOfVariation = new RoundedDouble(6, layer.PermeabilityCoefficientOfVariation);
-                DiameterD70Mean = new RoundedDouble(6, layer.DiameterD70Mean);
-                DiameterD70CoefficientOfVariation = new RoundedDouble(6, layer.DiameterD70CoefficientOfVariation);
-                BelowPhreaticLevelMean = new RoundedDouble(2, layer.BelowPhreaticLevelMean);
-                BelowPhreaticLevelDeviation = new RoundedDouble(2, layer.BelowPhreaticLevelDeviation);
-                BelowPhreaticLevelShift = new RoundedDouble(2, layer.BelowPhreaticLevelShift);
+                PermeabilityMean = layer.Permeability.Mean;
+                PermeabilityCoefficientOfVariation = layer.Permeability.CoefficientOfVariation;
+                DiameterD70Mean = layer.DiameterD70.Mean;
+                DiameterD70CoefficientOfVariation = layer.DiameterD70.CoefficientOfVariation;
+                BelowPhreaticLevelMean = layer.BelowPhreaticLevel.Mean;
+                BelowPhreaticLevelDeviation = layer.BelowPhreaticLevel.StandardDeviation;
+                BelowPhreaticLevelShift = layer.BelowPhreaticLevel.Shift;
             }
 
             /// <summary>

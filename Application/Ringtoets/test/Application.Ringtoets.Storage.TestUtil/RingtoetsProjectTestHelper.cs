@@ -873,13 +873,22 @@ namespace Application.Ringtoets.Storage.TestUtil
                 new PipingSoilLayer(1.0)
                 {
                     IsAquifer = true,
-                    BelowPhreaticLevelMean = 2.2,
-                    BelowPhreaticLevelDeviation = 1.2,
-                    BelowPhreaticLevelShift = 3.2,
-                    DiameterD70Mean = 2.42,
-                    DiameterD70CoefficientOfVariation = 21.002,
-                    PermeabilityMean = 0.9982,
-                    PermeabilityCoefficientOfVariation = 0.220,
+                    BelowPhreaticLevel = new LogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 3.2,
+                        StandardDeviation = (RoundedDouble) 1.2,
+                        Shift = (RoundedDouble) 2.2
+                    },
+                    DiameterD70 = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 2.42,
+                        CoefficientOfVariation = (RoundedDouble) 21.002
+                    },
+                    Permeability = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.9982,
+                        CoefficientOfVariation = (RoundedDouble) 0.220
+                    },
                     Color = Color.HotPink,
                     MaterialName = "HotPinkLayer"
                 },

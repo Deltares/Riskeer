@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
@@ -176,13 +177,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     AssertColumnValueEqual(pipingSoilLayer.Color, rowCells[colorColumnIndex].Value);
                     AssertColumnValueEqual(pipingSoilLayer.Top, rowCells[topColumnIndex].Value);
                     AssertColumnValueEqual(pipingSoilLayer.IsAquifer, rowCells[isAquiferColumnIndex].Value);
-                    AssertColumnValueEqual(pipingSoilLayer.PermeabilityMean, rowCells[permeabilityMeanColumnIndex].Value);
-                    AssertColumnValueEqual(pipingSoilLayer.PermeabilityCoefficientOfVariation, rowCells[permeabilityCoefficientOfVariationColumnIndex].Value);
-                    AssertColumnValueEqual(pipingSoilLayer.DiameterD70Mean, rowCells[d70MeanColumnIndex].Value);
-                    AssertColumnValueEqual(pipingSoilLayer.DiameterD70CoefficientOfVariation, rowCells[d70CoefficientOfVariationColumnIndex].Value);
-                    AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelMean, rowCells[belowPhreaticLevelWeightMeanColumnIndex].Value);
-                    AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelDeviation, rowCells[belowPhreaticLevelWeightDeviationColumnIndex].Value);
-                    AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelShift, rowCells[belowPhreaticLevelWeightShiftColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.Permeability.Mean, rowCells[permeabilityMeanColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.Permeability.CoefficientOfVariation, rowCells[permeabilityCoefficientOfVariationColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.DiameterD70.Mean, rowCells[d70MeanColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.DiameterD70.CoefficientOfVariation, rowCells[d70CoefficientOfVariationColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevel.Mean, rowCells[belowPhreaticLevelWeightMeanColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevel.StandardDeviation, rowCells[belowPhreaticLevelWeightDeviationColumnIndex].Value);
+                    AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevel.Shift, rowCells[belowPhreaticLevelWeightShiftColumnIndex].Value);
                 }
             }
         }
@@ -212,13 +213,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 AssertColumnValueEqual(Color.White, rowCells[colorColumnIndex].Value);
                 AssertColumnValueEqual(pipingSoilLayer.Top, rowCells[topColumnIndex].Value);
                 AssertColumnValueEqual(pipingSoilLayer.IsAquifer, rowCells[isAquiferColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.PermeabilityMean, rowCells[permeabilityMeanColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.PermeabilityCoefficientOfVariation, rowCells[permeabilityCoefficientOfVariationColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.DiameterD70Mean, rowCells[d70MeanColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.DiameterD70CoefficientOfVariation, rowCells[d70CoefficientOfVariationColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelMean, rowCells[belowPhreaticLevelWeightMeanColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelDeviation, rowCells[belowPhreaticLevelWeightDeviationColumnIndex].Value);
-                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelShift, rowCells[belowPhreaticLevelWeightShiftColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.Permeability.Mean, rowCells[permeabilityMeanColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.Permeability.CoefficientOfVariation, rowCells[permeabilityCoefficientOfVariationColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.DiameterD70.Mean, rowCells[d70MeanColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.DiameterD70.CoefficientOfVariation, rowCells[d70CoefficientOfVariationColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevel.Mean, rowCells[belowPhreaticLevelWeightMeanColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevel.StandardDeviation, rowCells[belowPhreaticLevelWeightDeviationColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevel.Shift, rowCells[belowPhreaticLevelWeightShiftColumnIndex].Value);
             }
         }
 
@@ -236,7 +237,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
-        private PipingSoilLayer CreatePipingSoilLayer()
+        private static PipingSoilLayer CreatePipingSoilLayer()
         {
             var random = new Random();
 
@@ -245,13 +246,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 MaterialName = $"{random.NextDouble()}",
                 Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
                 IsAquifer = random.NextBoolean(),
-                PermeabilityMean = random.NextRoundedDouble(),
-                PermeabilityCoefficientOfVariation = random.NextRoundedDouble(),
-                DiameterD70Mean = random.NextRoundedDouble(),
-                DiameterD70CoefficientOfVariation = random.NextRoundedDouble(),
-                BelowPhreaticLevelMean = random.NextRoundedDouble(),
-                BelowPhreaticLevelDeviation = random.NextRoundedDouble(),
-                BelowPhreaticLevelShift = random.NextRoundedDouble()
+                BelowPhreaticLevel = new LogNormalDistribution
+                {
+                    Mean = random.NextRoundedDouble(1, double.MaxValue),
+                    StandardDeviation = random.NextRoundedDouble(),
+                    Shift = random.NextRoundedDouble()
+                },
+                DiameterD70 = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = random.NextRoundedDouble(1, double.MaxValue),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                Permeability = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = random.NextRoundedDouble(1, double.MaxValue),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                }
             };
         }
     }

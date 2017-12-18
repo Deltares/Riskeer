@@ -23,8 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.TestUtil;
@@ -183,13 +186,25 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             Assert.AreEqual(expectedColor, pipingSoilLayer.Color);
 
             Assert.AreEqual(top, pipingSoilLayer.Top);
-            Assert.AreEqual(belowPhreaticLevelMean, pipingSoilLayer.BelowPhreaticLevelMean);
-            Assert.AreEqual(belowPhreaticLevelDeviation, pipingSoilLayer.BelowPhreaticLevelDeviation);
-            Assert.AreEqual(belowPhreaticLevelShift, pipingSoilLayer.BelowPhreaticLevelShift);
-            Assert.AreEqual(diameterD70Mean, pipingSoilLayer.DiameterD70Mean);
-            Assert.AreEqual(diameterD70CoefficientOfVariation, pipingSoilLayer.DiameterD70CoefficientOfVariation);
-            Assert.AreEqual(permeabilityMean, pipingSoilLayer.PermeabilityMean);
-            Assert.AreEqual(permeabilityCoefficientOfVariation, pipingSoilLayer.PermeabilityCoefficientOfVariation);
+
+            DistributionAssert.AreEqual(new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) layer.BelowPhreaticLevelMean,
+                StandardDeviation = (RoundedDouble) layer.BelowPhreaticLevelDeviation,
+                Shift = (RoundedDouble) layer.BelowPhreaticLevelShift
+            }, pipingSoilLayer.BelowPhreaticLevel);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(6)
+            {
+                Mean = (RoundedDouble) layer.DiameterD70Mean,
+                CoefficientOfVariation = (RoundedDouble) layer.DiameterD70CoefficientOfVariation
+            }, pipingSoilLayer.DiameterD70);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(6)
+            {
+                Mean = (RoundedDouble) layer.PermeabilityMean,
+                CoefficientOfVariation = (RoundedDouble) layer.PermeabilityCoefficientOfVariation
+            }, pipingSoilLayer.Permeability);
         }
 
         [Test]
@@ -209,6 +224,22 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
             string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
                                                                 "Parameter 'Verzadigd gewicht' moet verschoven lognormaal verdeeld zijn.");
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(InvalidStochasticDistributionValuesSoilLayer1D))]
+        public void SoilLayer1DTransform_InvalidStochasticDistributionValues_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameter)
+        {
+            // Call
+            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentOutOfRangeException>(innerException);
+            string expectedMessage = $"Er is een fout opgetreden bij het inlezen van grondlaag '{layer.MaterialName}' voor parameter '{parameter}': {innerException.Message}";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -343,12 +374,24 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             Color expectedColor = Color.FromArgb(Convert.ToInt32(color));
             Assert.AreEqual(expectedColor, resultLayer.Color);
 
-            Assert.AreEqual(belowPhreaticLevelMean, resultLayer.BelowPhreaticLevelMean);
-            Assert.AreEqual(belowPhreaticLevelDeviation, resultLayer.BelowPhreaticLevelDeviation);
-            Assert.AreEqual(diameterD70Mean, resultLayer.DiameterD70Mean);
-            Assert.AreEqual(diameterD70CoefficientOfVariation, resultLayer.DiameterD70CoefficientOfVariation);
-            Assert.AreEqual(permeabilityMean, resultLayer.PermeabilityMean);
-            Assert.AreEqual(permeabilityCoefficientOfVariation, resultLayer.PermeabilityCoefficientOfVariation);
+            DistributionAssert.AreEqual(new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) layer.BelowPhreaticLevelMean,
+                StandardDeviation = (RoundedDouble) layer.BelowPhreaticLevelDeviation,
+                Shift = (RoundedDouble) layer.BelowPhreaticLevelShift
+            }, resultLayer.BelowPhreaticLevel);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(6)
+            {
+                Mean = (RoundedDouble) layer.DiameterD70Mean,
+                CoefficientOfVariation = (RoundedDouble) layer.DiameterD70CoefficientOfVariation
+            }, resultLayer.DiameterD70);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(6)
+            {
+                Mean = (RoundedDouble) layer.PermeabilityMean,
+                CoefficientOfVariation = (RoundedDouble) layer.PermeabilityCoefficientOfVariation
+            }, resultLayer.Permeability);
         }
 
         [Test]
@@ -1036,6 +1079,25 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
+        [Test]
+        [TestCaseSource(nameof(InvalidStochasticDistributionValuesSoilLayer2D))]
+        public void SoilLayer2DTransform_InvalidStochasticDistributionValues_ThrowsImportedDataTransformException(SoilLayer2D layer, string parameter)
+        {
+            // Setup
+            double bottom;
+
+            // Call
+            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer, 1, out bottom);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentOutOfRangeException>(innerException);
+            string expectedMessage = $"Er is een fout opgetreden bij het inlezen van grondlaag '{layer.MaterialName}' voor parameter '{parameter}': {innerException.Message}";
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
         private static SoilLayer2D CreateValidConfiguredSoilLayer2D(double x1, double x3)
         {
             var random = new Random(21);
@@ -1056,24 +1118,31 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             return SoilLayer2DTestFactory.CreateSoilLayer2D(Enumerable.Empty<IEnumerable<Segment2D>>(), outerLoop);
         }
 
+        private static IEnumerable<TestCaseData> GetColorCases()
+        {
+            yield return new TestCaseData(null, Color.Empty)
+                .SetName("Color result Empty");
+            yield return new TestCaseData((double) -12156236, Color.FromArgb(70, 130, 180))
+                .SetName("Color result Purple");
+            yield return new TestCaseData((double) -65281, Color.FromArgb(255, 0, 255))
+                .SetName("Color result Pink");
+        }
+
+        private static string CreateExpectedErrorMessage(string materialName, string errorMessage)
+        {
+            return $"Er is een fout opgetreden bij het inlezen van grondlaag '{materialName}': {errorMessage}";
+        }
+
+        #region Test Data: Invalid DistributionType
+
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsTypeSoilLayer1D()
         {
             return IncorrectLogNormalDistributionsType(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
         }
 
-        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsShiftSoilLayer1D()
-        {
-            return IncorrectLogNormalDistributionsShift(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
-        }
-
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsTypeSoilLayer2D()
         {
             return IncorrectLogNormalDistributionsType(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
-        }
-
-        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsShiftSoilLayer2D()
-        {
-            return IncorrectLogNormalDistributionsShift(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
         }
 
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsType(Func<SoilLayerBase> soilLayer, string typeName)
@@ -1103,6 +1172,20 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             ).SetName(string.Format(testNameFormat, typeName));
         }
 
+        #endregion
+
+        #region Test Data: Invalid Shift
+
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsShiftSoilLayer1D()
+        {
+            return IncorrectLogNormalDistributionsShift(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsShiftSoilLayer2D()
+        {
+            return IncorrectLogNormalDistributionsShift(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
+        }
+
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsShift(Func<SoilLayerBase> soilLayer, string typeName)
         {
             const string testNameFormat = "{0}Transform_IncorrectShift{{1}}_ThrowsImportedDataTransformException";
@@ -1130,19 +1213,42 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             ).SetName(string.Format(testNameFormat, typeName));
         }
 
-        private static string CreateExpectedErrorMessage(string materialName, string errorMessage)
+        #endregion
+
+        #region Test Data: Invalid Distribution Properties
+
+        private static IEnumerable<TestCaseData> InvalidStochasticDistributionValuesSoilLayer1D()
         {
-            return $"Er is een fout opgetreden bij het inlezen van grondlaag '{materialName}': {errorMessage}";
+            return InvalidStochasticDistributionValues(() => SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer(), nameof(SoilLayer1D));
         }
 
-        private static IEnumerable<TestCaseData> GetColorCases()
+        private static IEnumerable<TestCaseData> InvalidStochasticDistributionValuesSoilLayer2D()
         {
-            yield return new TestCaseData(null, Color.Empty)
-                .SetName("Color result Empty");
-            yield return new TestCaseData((double) -12156236, Color.FromArgb(70, 130, 180))
-                .SetName("Color result Purple");
-            yield return new TestCaseData((double) -65281, Color.FromArgb(255, 0, 255))
-                .SetName("Color result Pink");
+            return InvalidStochasticDistributionValues(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
         }
+
+        private static IEnumerable<TestCaseData> InvalidStochasticDistributionValues(Func<SoilLayerBase> soilLayer, string typeName)
+        {
+            const string testNameFormat = "{0}Transform_InvalidStochasticDistributionValues{{1}}_ThrowsImportedDataTransformException";
+            const double invalidMean = 0;
+
+            SoilLayerBase invalidBelowPhreaticLevel = soilLayer();
+            invalidBelowPhreaticLevel.BelowPhreaticLevelMean = 1;
+            invalidBelowPhreaticLevel.BelowPhreaticLevelShift = 2;
+            yield return new TestCaseData(invalidBelowPhreaticLevel, "Verzadigd gewicht"
+            ).SetName(string.Format(testNameFormat, typeName));
+
+            SoilLayerBase invalidPermeability = soilLayer();
+            invalidPermeability.PermeabilityMean = invalidMean;
+            yield return new TestCaseData(invalidPermeability, "Doorlatendheid"
+            ).SetName(string.Format(testNameFormat, typeName));
+
+            SoilLayerBase invalidDiameterD70 = soilLayer();
+            invalidDiameterD70.DiameterD70Mean = invalidMean;
+            yield return new TestCaseData(invalidDiameterD70, "Korrelgrootte"
+            ).SetName(string.Format(testNameFormat, typeName));
+        }
+
+        #endregion
     }
 }

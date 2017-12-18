@@ -21,6 +21,8 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Read.Piping
@@ -49,13 +51,22 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 IsAquifer = Convert.ToBoolean(entity.IsAquifer),
                 Color = entity.Color.ToColor(),
                 MaterialName = entity.MaterialName ?? string.Empty,
-                BelowPhreaticLevelMean = entity.BelowPhreaticLevelMean.ToNullAsNaN(),
-                BelowPhreaticLevelDeviation = entity.BelowPhreaticLevelDeviation.ToNullAsNaN(),
-                BelowPhreaticLevelShift = entity.BelowPhreaticLevelShift.ToNullAsNaN(),
-                DiameterD70Mean = entity.DiameterD70Mean.ToNullAsNaN(),
-                DiameterD70CoefficientOfVariation = entity.DiameterD70CoefficientOfVariation.ToNullAsNaN(),
-                PermeabilityMean = entity.PermeabilityMean.ToNullAsNaN(),
-                PermeabilityCoefficientOfVariation = entity.PermeabilityCoefficientOfVariation.ToNullAsNaN()
+                BelowPhreaticLevel = new LogNormalDistribution
+                {
+                    Mean = (RoundedDouble) entity.BelowPhreaticLevelMean.ToNullAsNaN(),
+                    StandardDeviation = (RoundedDouble) entity.BelowPhreaticLevelDeviation.ToNullAsNaN(),
+                    Shift = (RoundedDouble) entity.BelowPhreaticLevelShift.ToNullAsNaN()
+                },
+                DiameterD70 = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) entity.DiameterD70Mean.ToNullAsNaN(),
+                    CoefficientOfVariation = (RoundedDouble) entity.DiameterD70CoefficientOfVariation.ToNullAsNaN()
+                },
+                Permeability = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) entity.PermeabilityMean.ToNullAsNaN(),
+                    CoefficientOfVariation = (RoundedDouble) entity.PermeabilityCoefficientOfVariation.ToNullAsNaN()
+                }
             };
         }
     }

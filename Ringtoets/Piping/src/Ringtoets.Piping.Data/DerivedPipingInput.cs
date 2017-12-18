@@ -154,14 +154,14 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                var distribution = new VariationCoefficientLogNormalDistribution(6)
-                {
-                    Mean = RoundedDouble.NaN,
-                    CoefficientOfVariation = RoundedDouble.NaN
-                };
-                UpdateDiameterD70Parameters(distribution);
-
-                return distribution;
+                PipingSoilLayer topMostAquiferLayer = GetConsecutiveAquiferLayers().FirstOrDefault();
+                return topMostAquiferLayer != null
+                           ? topMostAquiferLayer.DiameterD70
+                           : new VariationCoefficientLogNormalDistribution(6)
+                           {
+                               Mean = RoundedDouble.NaN,
+                               CoefficientOfVariation = RoundedDouble.NaN
+                           };
             }
         }
 
@@ -258,62 +258,38 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private void UpdateDiameterD70Parameters(VariationCoefficientLogNormalDistribution diameterD70Distribution)
-        {
-            PipingSoilLayer topMostAquiferLayer = GetConsecutiveAquiferLayers().FirstOrDefault();
-            if (topMostAquiferLayer != null)
-            {
-                var diameterD70Mean = new RoundedDouble(GetNumberOfDecimals(diameterD70Distribution), topMostAquiferLayer.DiameterD70Mean);
-
-                if (diameterD70Mean > 0)
-                {
-                    diameterD70Distribution.Mean = diameterD70Mean;
-                }
-                diameterD70Distribution.CoefficientOfVariation = (RoundedDouble) topMostAquiferLayer.DiameterD70CoefficientOfVariation;
-            }
-        }
-
         private void UpdateDarcyPermeabilityParameters(VariationCoefficientLogNormalDistribution darcyPermeabilityDistribution)
         {
-            PipingSoilLayer[] aquiferLayers = GetConsecutiveAquiferLayers();
+            IEnumerable<PipingSoilLayer> aquiferLayers = GetConsecutiveAquiferLayers();
 
             int numberOfDecimals = GetNumberOfDecimals(darcyPermeabilityDistribution);
 
             if (HasCorrectDarcyPermeabilityWeightDistributionParameterDefinition(
-                aquiferLayers,
-                numberOfDecimals))
+                aquiferLayers))
             {
                 PipingSoilLayer topMostAquiferLayer = aquiferLayers.First();
-
-                var permeabilityCoefficientOfVariation = new RoundedDouble(numberOfDecimals, topMostAquiferLayer.PermeabilityCoefficientOfVariation);
 
                 var weightedMean = new RoundedDouble(numberOfDecimals,
                                                      GetWeightedMeanForDarcyPermeabilityOfAquiferLayer(aquiferLayers,
                                                                                                        input.StochasticSoilProfile.SoilProfile,
                                                                                                        input.SurfaceLine.GetZAtL(input.ExitPointL)));
 
-                if (weightedMean > 0)
-                {
-                    darcyPermeabilityDistribution.Mean = weightedMean;
-                }
-
-                darcyPermeabilityDistribution.CoefficientOfVariation = permeabilityCoefficientOfVariation;
+                darcyPermeabilityDistribution.Mean = weightedMean;
+                darcyPermeabilityDistribution.CoefficientOfVariation = topMostAquiferLayer.Permeability.CoefficientOfVariation;
             }
         }
 
         private void UpdateSaturatedVolumicWeightOfCoverageLayerParameters(LogNormalDistribution volumicWeightDistribution)
         {
-            PipingSoilLayer[] coverageLayers = GetConsecutiveCoverageLayers();
+            IEnumerable<PipingSoilLayer> coverageLayers = GetConsecutiveCoverageLayers();
 
             int numberOfDecimals = GetNumberOfDecimals(volumicWeightDistribution);
 
-            if (HasCorrectSaturatedWeightDistributionParameterDefinition(
-                coverageLayers,
-                numberOfDecimals))
+            if (HasCorrectSaturatedWeightDistributionParameterDefinition(coverageLayers))
             {
                 PipingSoilLayer topMostAquitardLayer = coverageLayers.First();
-                volumicWeightDistribution.Shift = (RoundedDouble) topMostAquitardLayer.BelowPhreaticLevelShift;
-                volumicWeightDistribution.StandardDeviation = (RoundedDouble) topMostAquitardLayer.BelowPhreaticLevelDeviation;
+                volumicWeightDistribution.Shift = topMostAquitardLayer.BelowPhreaticLevel.Shift;
+                volumicWeightDistribution.StandardDeviation = topMostAquitardLayer.BelowPhreaticLevel.StandardDeviation;
 
                 var weightedMean = new RoundedDouble(numberOfDecimals,
                                                      GetWeightedMeanForVolumicWeightOfCoverageLayer(
@@ -338,85 +314,40 @@ namespace Ringtoets.Piping.Data
             return distribution.Mean.NumberOfDecimalPlaces;
         }
 
-        private static bool HasCorrectSaturatedWeightDistributionParameterDefinition(IEnumerable<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
+        private static bool HasCorrectSaturatedWeightDistributionParameterDefinition(IEnumerable<PipingSoilLayer> consecutiveAquitardLayers)
         {
             if (!consecutiveAquitardLayers.Any())
             {
                 return false;
             }
 
-            LogNormalDistribution[] distributions = GetLayerSaturatedVolumicWeightDistributionDefinitions(consecutiveAquitardLayers, numberOfDecimals);
-
-            if (distributions == null)
-            {
-                return false;
-            }
-
-            if (distributions.Length == 1)
+            IEnumerable<LogNormalDistribution> distributions = consecutiveAquitardLayers.Select(layer => layer.BelowPhreaticLevel);
+            if (distributions.Count() == 1)
             {
                 return true;
             }
 
             return distributions.All(currentLayerDistribution => AreShiftAndDeviationEqual(
                                          currentLayerDistribution,
-                                         distributions[0]));
+                                         distributions.First()));
         }
 
-        private static bool HasCorrectDarcyPermeabilityWeightDistributionParameterDefinition(IEnumerable<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
+        private static bool HasCorrectDarcyPermeabilityWeightDistributionParameterDefinition(IEnumerable<PipingSoilLayer> consecutiveAquitardLayers)
         {
             if (!consecutiveAquitardLayers.Any())
             {
                 return false;
             }
 
-            VariationCoefficientLogNormalDistribution[] distributions = GetLayerPermeabilityDistributionDefinitions(consecutiveAquitardLayers, numberOfDecimals);
-
-            if (distributions == null)
-            {
-                return false;
-            }
-
-            if (distributions.Length == 1)
+            IEnumerable<VariationCoefficientLogNormalDistribution> distributions = consecutiveAquitardLayers.Select(layer => layer.Permeability);
+            if (distributions.Count() == 1)
             {
                 return true;
             }
 
             return distributions.All(currentLayerDistribution => AreCoefficientEqual(
                                          currentLayerDistribution,
-                                         distributions[0]));
-        }
-
-        private static LogNormalDistribution[] GetLayerSaturatedVolumicWeightDistributionDefinitions(IEnumerable<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
-        {
-            try
-            {
-                return consecutiveAquitardLayers.Select(layer => new LogNormalDistribution(numberOfDecimals)
-                {
-                    Mean = (RoundedDouble) layer.BelowPhreaticLevelMean,
-                    StandardDeviation = (RoundedDouble) layer.BelowPhreaticLevelDeviation,
-                    Shift = (RoundedDouble) layer.BelowPhreaticLevelShift
-                }).ToArray();
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                return null;
-            }
-        }
-
-        private static VariationCoefficientLogNormalDistribution[] GetLayerPermeabilityDistributionDefinitions(IEnumerable<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
-        {
-            try
-            {
-                return consecutiveAquitardLayers.Select(layer => new VariationCoefficientLogNormalDistribution(numberOfDecimals)
-                {
-                    Mean = (RoundedDouble) layer.PermeabilityMean,
-                    CoefficientOfVariation = (RoundedDouble) layer.PermeabilityCoefficientOfVariation
-                }).ToArray();
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                return null;
-            }
+                                         distributions.First()));
         }
 
         private static bool AreShiftAndDeviationEqual(LogNormalDistribution currentLayerDistribution, LogNormalDistribution baseLayerDistribution)
@@ -432,7 +363,9 @@ namespace Ringtoets.Piping.Data
             return Math.Abs(baseLayerDistribution.CoefficientOfVariation - currentLayerDistribution.CoefficientOfVariation) < 1e-6;
         }
 
-        private static double GetWeightedMeanForVolumicWeightOfCoverageLayer(PipingSoilLayer[] aquitardLayers, PipingSoilProfile profile, double surfaceLevel)
+        private static double GetWeightedMeanForVolumicWeightOfCoverageLayer(IEnumerable<PipingSoilLayer> aquitardLayers,
+                                                                             PipingSoilProfile profile,
+                                                                             double surfaceLevel)
         {
             var totalThickness = 0.0;
             var weighedTotal = 0.0;
@@ -444,13 +377,15 @@ namespace Ringtoets.Piping.Data
                 double thicknessUnderSurface = Math.Min(layer.Top, surfaceLevel) - bottom;
 
                 totalThickness += thicknessUnderSurface;
-                weighedTotal += layer.BelowPhreaticLevelMean * thicknessUnderSurface;
+                weighedTotal += layer.BelowPhreaticLevel.Mean * thicknessUnderSurface;
             }
 
             return weighedTotal / totalThickness;
         }
 
-        private static double GetWeightedMeanForDarcyPermeabilityOfAquiferLayer(PipingSoilLayer[] aquitardLayers, PipingSoilProfile profile, double surfaceLevel)
+        private static double GetWeightedMeanForDarcyPermeabilityOfAquiferLayer(IEnumerable<PipingSoilLayer> aquitardLayers,
+                                                                                PipingSoilProfile profile,
+                                                                                double surfaceLevel)
         {
             var totalThickness = 0.0;
             var weighedTotal = 0.0;
@@ -462,13 +397,13 @@ namespace Ringtoets.Piping.Data
                 double thicknessUnderSurface = Math.Min(layer.Top, surfaceLevel) - bottom;
 
                 totalThickness += thicknessUnderSurface;
-                weighedTotal += layer.PermeabilityMean * thicknessUnderSurface;
+                weighedTotal += layer.Permeability.Mean * thicknessUnderSurface;
             }
 
             return weighedTotal / totalThickness;
         }
 
-        private PipingSoilLayer[] GetConsecutiveAquiferLayers()
+        private IEnumerable<PipingSoilLayer> GetConsecutiveAquiferLayers()
         {
             PipingSurfaceLine surfaceLine = input.SurfaceLine;
             PipingSoilProfile soilProfile = input.StochasticSoilProfile?.SoilProfile;
@@ -482,7 +417,7 @@ namespace Ringtoets.Piping.Data
             return new PipingSoilLayer[0];
         }
 
-        private PipingSoilLayer[] GetConsecutiveCoverageLayers()
+        private IEnumerable<PipingSoilLayer> GetConsecutiveCoverageLayers()
         {
             PipingSurfaceLine surfaceLine = input.SurfaceLine;
             PipingSoilProfile soilProfile = input.StochasticSoilProfile?.SoilProfile;

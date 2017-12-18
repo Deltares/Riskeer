@@ -21,6 +21,8 @@
 
 using System;
 using System.Drawing;
+using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Probabilistics;
 
 namespace Ringtoets.Piping.Primitives
 {
@@ -30,6 +32,9 @@ namespace Ringtoets.Piping.Primitives
     /// </summary>
     public class PipingSoilLayer
     {
+        private readonly LogNormalDistribution belowPhreaticLevel;
+        private readonly VariationCoefficientLogNormalDistribution diameterD70;
+        private readonly VariationCoefficientLogNormalDistribution permeability;
         private string materialName;
 
         /// <summary>
@@ -40,13 +45,23 @@ namespace Ringtoets.Piping.Primitives
         {
             Top = top;
             MaterialName = string.Empty;
-            BelowPhreaticLevelMean = double.NaN;
-            BelowPhreaticLevelDeviation = double.NaN;
-            BelowPhreaticLevelShift = double.NaN;
-            DiameterD70Mean = double.NaN;
-            DiameterD70CoefficientOfVariation = double.NaN;
-            PermeabilityMean = double.NaN;
-            PermeabilityCoefficientOfVariation = double.NaN;
+
+            belowPhreaticLevel = new LogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN,
+                Shift = RoundedDouble.NaN
+            };
+            diameterD70 = new VariationCoefficientLogNormalDistribution(6)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            };
+            permeability = new VariationCoefficientLogNormalDistribution(6)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            };
         }
 
         /// <summary>
@@ -60,48 +75,57 @@ namespace Ringtoets.Piping.Primitives
         public bool IsAquifer { get; set; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
+        /// Gets or sets the distribution for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
         /// [kN/m³]
         /// </summary>
-        public double BelowPhreaticLevelMean { get; set; }
+        public LogNormalDistribution BelowPhreaticLevel
+        {
+            get
+            {
+                return belowPhreaticLevel;
+            }
+            set
+            {
+                belowPhreaticLevel.Mean = value.Mean;
+                belowPhreaticLevel.StandardDeviation = value.StandardDeviation;
+                belowPhreaticLevel.Shift = value.Shift;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double BelowPhreaticLevelDeviation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the shift of the distribution for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double BelowPhreaticLevelShift { get; set; }
-
-        /// <summary>
-        /// Gets or sets the mean of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+        /// Gets or sets the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
         /// on which the formula of Sellmeijer has been fit.
         /// [m]
         /// </summary>
-        public double DiameterD70Mean { get; set; }
+        public VariationCoefficientLogNormalDistribution DiameterD70
+        {
+            get
+            {
+                return diameterD70;
+            }
+            set
+            {
+                diameterD70.Mean = value.Mean;
+                diameterD70.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the coefficient of variation of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
-        /// on which the formula of Sellmeijer has been fit.
-        /// [m]
-        /// </summary>
-        public double DiameterD70CoefficientOfVariation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the mean of the distribution for the Darcy-speed with which water flows through the aquifer layer.
+        /// Gets or sets the distribution for the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        public double PermeabilityMean { get; set; }
-
-        /// <summary>
-        /// Gets or sets the coefficient of variation of the distribution for the Darcy-speed with which water flows through the aquifer layer.
-        /// [m/s]
-        /// </summary>
-        public double PermeabilityCoefficientOfVariation { get; set; }
+        public VariationCoefficientLogNormalDistribution Permeability
+        {
+            get
+            {
+                return permeability;
+            }
+            set
+            {
+                permeability.Mean = value.Mean;
+                permeability.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the name of the material that was assigned to the <see cref="PipingSoilLayer"/>.
@@ -152,13 +176,9 @@ namespace Ringtoets.Piping.Primitives
                 int hashCode = materialName?.GetHashCode() ?? 0;
                 hashCode = (hashCode * 397) ^ Top.GetHashCode();
                 hashCode = (hashCode * 397) ^ IsAquifer.GetHashCode();
-                hashCode = (hashCode * 397) ^ BelowPhreaticLevelMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ BelowPhreaticLevelDeviation.GetHashCode();
-                hashCode = (hashCode * 397) ^ BelowPhreaticLevelShift.GetHashCode();
-                hashCode = (hashCode * 397) ^ DiameterD70Mean.GetHashCode();
-                hashCode = (hashCode * 397) ^ DiameterD70CoefficientOfVariation.GetHashCode();
-                hashCode = (hashCode * 397) ^ PermeabilityMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ PermeabilityCoefficientOfVariation.GetHashCode();
+                hashCode = (hashCode * 397) ^ BelowPhreaticLevel.GetHashCode();
+                hashCode = (hashCode * 397) ^ DiameterD70.GetHashCode();
+                hashCode = (hashCode * 397) ^ Permeability.GetHashCode();
                 hashCode = (hashCode * 397) ^ Color.GetHashCode();
                 return hashCode;
             }
@@ -169,13 +189,9 @@ namespace Ringtoets.Piping.Primitives
             return string.Equals(materialName, other.materialName)
                    && Top.Equals(other.Top)
                    && IsAquifer == other.IsAquifer
-                   && BelowPhreaticLevelMean.Equals(other.BelowPhreaticLevelMean)
-                   && BelowPhreaticLevelDeviation.Equals(other.BelowPhreaticLevelDeviation)
-                   && BelowPhreaticLevelShift.Equals(other.BelowPhreaticLevelShift)
-                   && DiameterD70Mean.Equals(other.DiameterD70Mean)
-                   && DiameterD70CoefficientOfVariation.Equals(other.DiameterD70CoefficientOfVariation)
-                   && PermeabilityMean.Equals(other.PermeabilityMean)
-                   && PermeabilityCoefficientOfVariation.Equals(other.PermeabilityCoefficientOfVariation)
+                   && BelowPhreaticLevel.Equals(other.BelowPhreaticLevel)
+                   && DiameterD70.Equals(other.DiameterD70)
+                   && Permeability.Equals(other.Permeability)
                    && Color.ToArgb().Equals(other.Color.ToArgb());
         }
     }

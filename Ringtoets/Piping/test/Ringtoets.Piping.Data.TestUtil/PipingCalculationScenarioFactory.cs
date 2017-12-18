@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
@@ -147,17 +148,26 @@ namespace Ringtoets.Piping.Data.TestUtil
                     new PipingSoilLayer(top)
                     {
                         IsAquifer = false,
-                        BelowPhreaticLevelDeviation = 0,
-                        BelowPhreaticLevelShift = 10,
-                        BelowPhreaticLevelMean = 17.5
+                        BelowPhreaticLevel = new LogNormalDistribution
+                        {
+                            Mean = (RoundedDouble) 17.5,
+                            StandardDeviation = (RoundedDouble) 0,
+                            Shift = (RoundedDouble) 10
+                        }
                     },
                     new PipingSoilLayer(top / 2)
                     {
                         IsAquifer = true,
-                        DiameterD70CoefficientOfVariation = 0,
-                        DiameterD70Mean = 4.0e-4,
-                        PermeabilityCoefficientOfVariation = 0.5,
-                        PermeabilityMean = 1.0
+                        DiameterD70 = new VariationCoefficientLogNormalDistribution
+                        {
+                            Mean = (RoundedDouble) 4.0e-4,
+                            CoefficientOfVariation = (RoundedDouble) 0
+                        },
+                        Permeability = new VariationCoefficientLogNormalDistribution
+                        {
+                            Mean = (RoundedDouble) 1.0,
+                            CoefficientOfVariation = (RoundedDouble) 0.5
+                        }
                     }
                 }, SoilProfileType.SoilProfile1D));
             var surfaceLine = new PipingSurfaceLine(string.Empty);

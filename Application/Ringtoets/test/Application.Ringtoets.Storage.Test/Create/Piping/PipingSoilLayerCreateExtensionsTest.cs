@@ -23,8 +23,11 @@ using System;
 using System.Drawing;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Create.Piping
@@ -54,13 +57,22 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 IsAquifer = random.NextBoolean(),
                 Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
                 MaterialName = "MaterialName",
-                BelowPhreaticLevelMean = random.NextDouble(),
-                BelowPhreaticLevelDeviation = random.NextDouble(),
-                BelowPhreaticLevelShift = random.NextDouble(),
-                DiameterD70Mean = random.NextDouble(),
-                DiameterD70CoefficientOfVariation = random.NextDouble(),
-                PermeabilityMean = random.NextDouble(),
-                PermeabilityCoefficientOfVariation = random.NextDouble()
+                BelowPhreaticLevel = new LogNormalDistribution
+                {
+                    Mean = random.NextRoundedDouble(1, double.MaxValue),
+                    StandardDeviation = random.NextRoundedDouble(),
+                    Shift = random.NextRoundedDouble()
+                },
+                DiameterD70 = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = random.NextRoundedDouble(1, double.MaxValue),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                Permeability = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = random.NextRoundedDouble(1, double.MaxValue),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                }
             };
 
             // Call
@@ -71,13 +83,23 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(soilLayer.Top, entity.Top);
             Assert.AreEqual(Convert.ToByte(soilLayer.IsAquifer), entity.IsAquifer);
             Assert.AreEqual(soilLayer.Color.ToInt64(), Convert.ToInt64(entity.Color));
-            Assert.AreEqual(soilLayer.BelowPhreaticLevelMean, entity.BelowPhreaticLevelMean);
-            Assert.AreEqual(soilLayer.BelowPhreaticLevelDeviation, entity.BelowPhreaticLevelDeviation);
-            Assert.AreEqual(soilLayer.BelowPhreaticLevelShift, entity.BelowPhreaticLevelShift);
-            Assert.AreEqual(soilLayer.DiameterD70Mean, entity.DiameterD70Mean);
-            Assert.AreEqual(soilLayer.DiameterD70CoefficientOfVariation, entity.DiameterD70CoefficientOfVariation);
-            Assert.AreEqual(soilLayer.PermeabilityMean, entity.PermeabilityMean);
-            Assert.AreEqual(soilLayer.PermeabilityCoefficientOfVariation, entity.PermeabilityCoefficientOfVariation);
+
+            Assert.AreEqual(soilLayer.BelowPhreaticLevel.Mean, entity.BelowPhreaticLevelMean,
+                            soilLayer.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(soilLayer.BelowPhreaticLevel.StandardDeviation, entity.BelowPhreaticLevelDeviation,
+                            soilLayer.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(soilLayer.BelowPhreaticLevel.Shift, entity.BelowPhreaticLevelShift,
+                            soilLayer.BelowPhreaticLevel.GetAccuracy());
+
+            Assert.AreEqual(soilLayer.DiameterD70.Mean, entity.DiameterD70Mean,
+                            soilLayer.DiameterD70.GetAccuracy());
+            Assert.AreEqual(soilLayer.DiameterD70.CoefficientOfVariation, entity.DiameterD70CoefficientOfVariation,
+                            soilLayer.DiameterD70.GetAccuracy());
+
+            Assert.AreEqual(soilLayer.Permeability.Mean, entity.PermeabilityMean,
+                            soilLayer.Permeability.GetAccuracy());
+            Assert.AreEqual(soilLayer.Permeability.CoefficientOfVariation, entity.PermeabilityCoefficientOfVariation,
+                            soilLayer.Permeability.GetAccuracy());
             Assert.AreEqual(order, entity.Order);
         }
 
@@ -87,13 +109,22 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             var soilLayer = new PipingSoilLayer(double.NaN)
             {
-                BelowPhreaticLevelMean = double.NaN,
-                BelowPhreaticLevelDeviation = double.NaN,
-                BelowPhreaticLevelShift = double.NaN,
-                DiameterD70Mean = double.NaN,
-                DiameterD70CoefficientOfVariation = double.NaN,
-                PermeabilityMean = double.NaN,
-                PermeabilityCoefficientOfVariation = double.NaN
+                BelowPhreaticLevel = new LogNormalDistribution
+                {
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = RoundedDouble.NaN,
+                    Shift = RoundedDouble.NaN
+                },
+                DiameterD70 = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = RoundedDouble.NaN,
+                    CoefficientOfVariation = RoundedDouble.NaN
+                },
+                Permeability = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = RoundedDouble.NaN,
+                    CoefficientOfVariation = RoundedDouble.NaN
+                }
             };
 
             // Call

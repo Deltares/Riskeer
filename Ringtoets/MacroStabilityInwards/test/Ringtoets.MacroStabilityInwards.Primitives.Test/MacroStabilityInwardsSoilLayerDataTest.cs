@@ -122,6 +122,203 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.AreEqual(materialName, data.MaterialName);
         }
 
+        [Test]
+        public void AbovePhreaticLevel_Always_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var data = new MacroStabilityInwardsSoilLayerData();
+
+            var distributionToSet = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = random.NextRoundedDouble(),
+                CoefficientOfVariation = random.NextRoundedDouble(),
+                Shift = random.NextRoundedDouble()
+            };
+
+            // Call
+            data.AbovePhreaticLevel = distributionToSet;
+
+            // Assert
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = distributionToSet.Mean,
+                CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
+                Shift = distributionToSet.Shift
+            };
+            AssertDistributionCorrectlySet(data.AbovePhreaticLevel, distributionToSet, expectedDistribution);
+        }
+
+        [Test]
+        public void BelowPhreaticLevel_Always_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var data = new MacroStabilityInwardsSoilLayerData();
+
+            var distributionToSet = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = random.NextRoundedDouble(),
+                CoefficientOfVariation = random.NextRoundedDouble(),
+                Shift = random.NextRoundedDouble()
+            };
+
+            // Call
+            data.BelowPhreaticLevel = distributionToSet;
+
+            // Assert
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = distributionToSet.Mean,
+                CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
+                Shift = distributionToSet.Shift
+            };
+            AssertDistributionCorrectlySet(data.BelowPhreaticLevel, distributionToSet, expectedDistribution);
+        }
+
+        [Test]
+        public void Cohesion_Always_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var data = new MacroStabilityInwardsSoilLayerData();
+
+            var distributionToSet = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = random.NextRoundedDouble(),
+                CoefficientOfVariation = random.NextRoundedDouble(),
+                Shift = random.NextRoundedDouble()
+            };
+
+            // Call
+            data.Cohesion = distributionToSet;
+
+            // Assert
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = distributionToSet.Mean,
+                CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
+                Shift = data.Cohesion.Shift
+            };
+            AssertDistributionCorrectlySet(data.Cohesion, distributionToSet, expectedDistribution);
+        }
+
+        [Test]
+        public void FrictionAngle_Always_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var data = new MacroStabilityInwardsSoilLayerData();
+
+            var distributionToSet = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = random.NextRoundedDouble(),
+                CoefficientOfVariation = random.NextRoundedDouble(),
+                Shift = random.NextRoundedDouble()
+            };
+
+            // Call
+            data.FrictionAngle = distributionToSet;
+
+            // Assert
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = distributionToSet.Mean,
+                CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
+                Shift = data.FrictionAngle.Shift
+            };
+            AssertDistributionCorrectlySet(data.FrictionAngle, distributionToSet, expectedDistribution);
+        }
+
+        [Test]
+        public void StrengthIncreaseExponent_Always_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var data = new MacroStabilityInwardsSoilLayerData();
+
+            var distributionToSet = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = random.NextRoundedDouble(),
+                CoefficientOfVariation = random.NextRoundedDouble(),
+                Shift = random.NextRoundedDouble()
+            };
+
+            // Call
+            data.StrengthIncreaseExponent = distributionToSet;
+
+            // Assert
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = distributionToSet.Mean,
+                CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
+                Shift = data.StrengthIncreaseExponent.Shift
+            };
+            AssertDistributionCorrectlySet(data.StrengthIncreaseExponent, distributionToSet, expectedDistribution);
+        }
+
+        [Test]
+        public void ShearStrengthRatio_Always_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var data = new MacroStabilityInwardsSoilLayerData();
+
+            var distributionToSet = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = random.NextRoundedDouble(),
+                CoefficientOfVariation = random.NextRoundedDouble(),
+                Shift = random.NextRoundedDouble()
+            };
+
+            // Call
+            data.ShearStrengthRatio = distributionToSet;
+
+            // Assert
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = distributionToSet.Mean,
+                CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
+                Shift = data.StrengthIncreaseExponent.Shift
+            };
+            AssertDistributionCorrectlySet(data.ShearStrengthRatio, distributionToSet, expectedDistribution);
+        }
+
+        [Test]
+        public void Pop_Always_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var data = new MacroStabilityInwardsSoilLayerData();
+
+            var distributionToSet = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = random.NextRoundedDouble(),
+                CoefficientOfVariation = random.NextRoundedDouble(),
+                Shift = random.NextRoundedDouble()
+            };
+
+            // Call
+            data.Pop = distributionToSet;
+
+            // Assert
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = distributionToSet.Mean,
+                CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
+                Shift = data.Pop.Shift
+            };
+            AssertDistributionCorrectlySet(data.Pop, distributionToSet, expectedDistribution);
+        }
+
+        private static void AssertDistributionCorrectlySet(IVariationCoefficientDistribution distributionToAssert,
+                                                           IVariationCoefficientDistribution setDistribution,
+                                                           IVariationCoefficientDistribution expectedDistribution)
+        {
+            Assert.AreNotSame(setDistribution, distributionToAssert);
+            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
+        }
+
         [TestFixture]
         private class MacroStabilityInwardsSoilLayerDataEqualsTest
             : EqualsTestFixture<MacroStabilityInwardsSoilLayerData, DerivedMacroStabilityInwardsSoilLayerData>

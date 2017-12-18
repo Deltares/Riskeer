@@ -1370,13 +1370,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedLayer.Top, actualLayer.Top);
             Assert.AreEqual(expectedLayer.IsAquifer, actualLayer.IsAquifer);
             Assert.AreEqual(expectedLayer.Color.ToArgb(), actualLayer.Color.ToArgb());
-            Assert.AreEqual(expectedLayer.BelowPhreaticLevelMean, actualLayer.BelowPhreaticLevelMean);
-            Assert.AreEqual(expectedLayer.BelowPhreaticLevelDeviation, actualLayer.BelowPhreaticLevelDeviation);
-            Assert.AreEqual(expectedLayer.BelowPhreaticLevelShift, actualLayer.BelowPhreaticLevelShift);
-            Assert.AreEqual(expectedLayer.DiameterD70Mean, actualLayer.DiameterD70Mean);
-            Assert.AreEqual(expectedLayer.DiameterD70CoefficientOfVariation, actualLayer.DiameterD70CoefficientOfVariation);
-            Assert.AreEqual(expectedLayer.PermeabilityMean, actualLayer.PermeabilityMean);
-            Assert.AreEqual(expectedLayer.PermeabilityCoefficientOfVariation, actualLayer.PermeabilityCoefficientOfVariation);
+
+            DistributionAssert.AreEqual(expectedLayer.BelowPhreaticLevel, actualLayer.BelowPhreaticLevel);
+            DistributionAssert.AreEqual(expectedLayer.DiameterD70, actualLayer.DiameterD70);
+            DistributionAssert.AreEqual(expectedLayer.Permeability, actualLayer.Permeability);
         }
 
         private static void AssertPipingSurfaceLine(PipingSurfaceLine expectedSurfaceLine,

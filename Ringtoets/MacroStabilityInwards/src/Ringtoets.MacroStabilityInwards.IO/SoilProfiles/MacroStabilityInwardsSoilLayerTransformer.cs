@@ -201,7 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
             catch (ArgumentOutOfRangeException e)
             {
-                string errorMessage = string.Format(Resources.Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_,
+                string errorMessage = string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_,
                                                     soilLayerName,
                                                     parameterName,
                                                     e.Message);
