@@ -611,7 +611,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         private static GrassCoverErosionOutwardsWaveHeightLocationsView ShowWaveHeightLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
-                                                                                                    IAssessmentSection assessmentSection, Form form)
+                                                                                                    IAssessmentSection assessmentSection,
+                                                                                                    Form form)
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
@@ -707,34 +708,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 return ShowFullyConfiguredWaveHeightLocationsView(new ObservableTestAssessmentSectionStub(), form);
             }
 
-            protected override void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
+            protected override ObservableList<HydraulicBoundaryLocation> GetLocationsInView(LocationsView<HydraulicBoundaryLocation> view)
             {
-                ObservableList<HydraulicBoundaryLocation> locations = ((GrassCoverErosionOutwardsWaveHeightLocationsView) view).FailureMechanism.HydraulicBoundaryLocations;
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0);
-
-                locations.Clear();
-                locations.Add(hydraulicBoundaryLocation);
-                locations.NotifyObservers();
-            }
-
-            protected override void ClearLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
-            {
-                ObservableList<HydraulicBoundaryLocation> locations = ((GrassCoverErosionOutwardsWaveHeightLocationsView) view).FailureMechanism.HydraulicBoundaryLocations;
-
-                locations.ForEach(loc =>
-                {
-                    loc.WaveHeightCalculation.Output = null;
-                    loc.NotifyObservers();
-                });
-            }
-
-            protected override void AddLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
-            {
-                ObservableList<HydraulicBoundaryLocation> locations = ((GrassCoverErosionOutwardsWaveHeightLocationsView) view).FailureMechanism.HydraulicBoundaryLocations;
-
-                HydraulicBoundaryLocation location = locations.First();
-                location.WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
-                location.NotifyObservers();
+                return ((GrassCoverErosionOutwardsWaveHeightLocationsView) view).FailureMechanism.HydraulicBoundaryLocations;
             }
         }
     }

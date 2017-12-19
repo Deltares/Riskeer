@@ -612,7 +612,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         private static GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
-                                                                                                                IAssessmentSection assessmentSection, Form form)
+                                                                                                                IAssessmentSection assessmentSection,
+                                                                                                                Form form)
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
@@ -708,34 +709,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 return ShowFullyConfiguredDesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub(), form);
             }
 
-            protected override void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
+            protected override ObservableList<HydraulicBoundaryLocation> GetLocationsInView(LocationsView<HydraulicBoundaryLocation> view)
             {
-                ObservableList<HydraulicBoundaryLocation> locations = ((GrassCoverErosionOutwardsDesignWaterLevelLocationsView) view).FailureMechanism.HydraulicBoundaryLocations;
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0);
-
-                locations.Clear();
-                locations.Add(hydraulicBoundaryLocation);
-                locations.NotifyObservers();
-            }
-
-            protected override void ClearLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
-            {
-                ObservableList<HydraulicBoundaryLocation> locations = ((GrassCoverErosionOutwardsDesignWaterLevelLocationsView) view).FailureMechanism.HydraulicBoundaryLocations;
-
-                locations.ForEach(loc =>
-                {
-                    loc.DesignWaterLevelCalculation.Output = null;
-                    loc.NotifyObservers();
-                });
-            }
-
-            protected override void AddLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
-            {
-                ObservableList<HydraulicBoundaryLocation> locations = ((GrassCoverErosionOutwardsDesignWaterLevelLocationsView) view).FailureMechanism.HydraulicBoundaryLocations;
-
-                HydraulicBoundaryLocation location = locations.First();
-                location.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
-                location.NotifyObservers();
+                return ((GrassCoverErosionOutwardsDesignWaterLevelLocationsView) view).FailureMechanism.HydraulicBoundaryLocations;
             }
         }
     }

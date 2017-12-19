@@ -21,8 +21,12 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 
@@ -80,22 +84,40 @@ namespace Ringtoets.Common.Forms.TestUtil
         protected abstract LocationsView<T> ShowFullyConfiguredLocationsView(Form form);
 
         /// <summary>
-        /// Method for replacing the hydraulic boundary database as well as notifying the observers.
+        /// Method for getting the locations in <paramref name="view"/>.
         /// </summary>
-        /// <param name="view">The locations view involved.</param>
-        protected abstract void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<T> view);
+        /// <param name="view">The view to get the locations from.</param>
+        /// <returns>An <see cref="ObservableList{T}"/> of locations.</returns>
+        protected abstract ObservableList<HydraulicBoundaryLocation> GetLocationsInView(LocationsView<T> view);
 
-        /// <summary>
-        /// Method for clearing all location output as well as notifying the observers.
-        /// </summary>
-        /// <param name="view">The locations view involved.</param>
-        protected abstract void ClearLocationOutputAndNotifyObservers(LocationsView<T> view);
+        private void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<T> view)
+        {
+            ObservableList<HydraulicBoundaryLocation> locations = GetLocationsInView(view);
 
-        /// <summary>
-        /// Method for adding some location output as well as notifying the observers.
-        /// </summary>
-        /// <param name="view">The locations view involved.</param>
-        protected abstract void AddLocationOutputAndNotifyObservers(LocationsView<T> view);
+            locations.Clear();
+            locations.Add(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0));
+            locations.NotifyObservers();
+        }
+
+        private void ClearLocationOutputAndNotifyObservers(LocationsView<T> view)
+        {
+            ObservableList<HydraulicBoundaryLocation> locations = GetLocationsInView(view);
+
+            locations.ForEach(loc =>
+            {
+                loc.WaveHeightCalculation.Output = null;
+                loc.NotifyObservers();
+            });
+        }
+
+        private void AddLocationOutputAndNotifyObservers(LocationsView<T> view)
+        {
+            ObservableList<HydraulicBoundaryLocation> locations = GetLocationsInView(view);
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = locations.First();
+            hydraulicBoundaryLocation.WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
+            hydraulicBoundaryLocation.NotifyObservers();
+        }
 
         private DataGridView GetLocationsDataGridView()
         {

@@ -548,7 +548,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         private static WaveHeightLocationsView ShowWaveHeightLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
-                                                                           IAssessmentSection assessmentSection, Form form)
+                                                                           IAssessmentSection assessmentSection,
+                                                                           Form form)
         {
             var view = new WaveHeightLocationsView(locations, assessmentSection);
 
@@ -662,27 +663,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 return ShowFullyConfiguredWaveHeightLocationsView(locations, form);
             }
 
-            protected override void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
+            protected override ObservableList<HydraulicBoundaryLocation> GetLocationsInView(LocationsView<HydraulicBoundaryLocation> view)
             {
-                locations.Clear();
-                locations.Add(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0));
-                locations.NotifyObservers();
-            }
-
-            protected override void ClearLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
-            {
-                locations.ForEach(loc =>
-                {
-                    loc.WaveHeightCalculation.Output = null;
-                    loc.NotifyObservers();
-                });
-            }
-
-            protected override void AddLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
-            {
-                HydraulicBoundaryLocation hydraulicBoundaryLocation = locations.First();
-                hydraulicBoundaryLocation.WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
-                hydraulicBoundaryLocation.NotifyObservers();
+                return locations;
             }
         }
     }
