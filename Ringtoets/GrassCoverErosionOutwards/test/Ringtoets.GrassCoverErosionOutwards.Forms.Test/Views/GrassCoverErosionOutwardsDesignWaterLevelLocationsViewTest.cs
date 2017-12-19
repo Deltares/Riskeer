@@ -84,7 +84,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(new GrassCoverErosionOutwardsFailureMechanism(),
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                                         new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                          assessmentSection))
             {
                 // Assert
@@ -101,11 +102,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(null, assessmentSection);
+            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                                                 null,
+                                                                                                 assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("locations", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -619,9 +622,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 Contribution = 10
             };
-            failureMechanism.HydraulicBoundaryLocations.AddRange(locations);
 
-            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism, assessmentSection);
+            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(locations,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
 
             form.Controls.Add(view);
             form.Show();
