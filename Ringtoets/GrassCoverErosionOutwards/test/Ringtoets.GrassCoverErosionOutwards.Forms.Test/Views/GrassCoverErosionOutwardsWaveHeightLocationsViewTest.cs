@@ -84,8 +84,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                                   new GrassCoverErosionOutwardsFailureMechanism(),
+            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                    assessmentSection))
             {
                 // Assert
@@ -102,13 +101,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsWaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                                           null,
-                                                                                           assessmentSection);
+            TestDelegate call = () => new GrassCoverErosionOutwardsWaveHeightLocationsView(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
+            Assert.AreEqual("locations", exception.ParamName);
         }
 
         [Test]
@@ -621,10 +618,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 Contribution = 10
             };
+            failureMechanism.HydraulicBoundaryLocations.AddRange(locations);
 
-            var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(locations,
-                                                                            failureMechanism,
-                                                                            assessmentSection);
+            var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(failureMechanism, assessmentSection);
 
             form.Controls.Add(view);
             form.Show();

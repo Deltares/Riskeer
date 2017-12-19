@@ -47,20 +47,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsView"/>.
         /// </summary>
-        /// <param name="locations">The locations to show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism that the locations belong to.</param>
         /// <param name="assessmentSection">The assessment section that the locations belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveHeightLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
-                                                                GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or
+        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsWaveHeightLocationsView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                 IAssessmentSection assessmentSection)
-            : base(locations, assessmentSection)
+            : base(failureMechanism?.HydraulicBoundaryLocations, assessmentSection)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             FailureMechanism = failureMechanism;
             messageProvider = new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider();
 
@@ -118,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         protected override string ValidateCalculatableObjects()
         {
-            return FailureMechanism == null || FailureMechanism.Contribution <= 0
+            return FailureMechanism != null && FailureMechanism.Contribution <= 0
                        ? RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero
                        : base.ValidateCalculatableObjects();
         }

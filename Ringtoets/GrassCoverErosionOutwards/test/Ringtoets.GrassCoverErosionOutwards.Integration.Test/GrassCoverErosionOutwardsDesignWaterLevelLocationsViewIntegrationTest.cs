@@ -21,7 +21,6 @@
 
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -103,8 +102,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             {
                 Contribution = 5
             };
-
-            var locations = new ObservableList<HydraulicBoundaryLocation>
+            failureMechanism.HydraulicBoundaryLocations.AddRange(new[]
             {
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
                 new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
@@ -121,10 +119,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                         Output = new TestHydraulicBoundaryLocationOutput(2.45)
                     }
                 }
-            };
+            });
 
-            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(locations,
-                                                                                  failureMechanism,
+            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism,
                                                                                   new AssessmentSection(AssessmentSectionComposition.Dike));
 
             testForm.Controls.Add(view);

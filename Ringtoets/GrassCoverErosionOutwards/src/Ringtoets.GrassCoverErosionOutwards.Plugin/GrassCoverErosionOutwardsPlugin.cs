@@ -141,9 +141,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GetViewName = (view, locations) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName,
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(context.WrappedData,
-                                                                                                       context.FailureMechanism,
-                                                                                                       context.AssessmentSection),
+                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(context.FailureMechanism, context.AssessmentSection),
                 AfterCreate = (view, context) =>
                 {
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
@@ -158,15 +156,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 GetViewName = (view, locations) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName,
                 GetViewData = context => context.WrappedData,
+                CloseForData = CloseGrassCoverErosionOutwardsLocationsViewForData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationsView(context.WrappedData,
-                                                                                                 context.FailureMechanism,
-                                                                                                 context.AssessmentSection),
+                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationsView(context.FailureMechanism, context.AssessmentSection),
                 AfterCreate = (view, context) =>
                 {
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                },
-                CloseForData = CloseGrassCoverErosionOutwardsLocationsViewForData
+                }
             };
         }
 
