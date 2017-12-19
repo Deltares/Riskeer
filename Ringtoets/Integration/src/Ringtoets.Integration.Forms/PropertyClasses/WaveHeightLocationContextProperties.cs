@@ -146,7 +146,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             set
             {
                 data.WrappedData.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
-                data.HydraulicBoundaryDatabase.NotifyObservers();
                 data.WrappedData.NotifyObservers();
             }
         }
