@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Properties;
 

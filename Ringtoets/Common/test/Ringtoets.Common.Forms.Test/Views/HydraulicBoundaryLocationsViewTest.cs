@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
@@ -67,6 +68,17 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("locations", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocation>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -282,6 +294,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             public TestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations)
                 : base(locations, new ObservableTestAssessmentSectionStub()) {}
+
+            public TestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
+                                                      IAssessmentSection assessmentSection)
+                : base(locations, assessmentSection) {}
 
             public HydraulicBoundaryLocation GetCalculationsCallArgument { get; private set; }
 

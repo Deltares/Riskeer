@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Forms.GuiServices
                                               IEnumerable<TActivity> activities) where TActivity : Activity
         {
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabasePath,
-                                                                                                  preprocessorDirectory);
+                                                                                                   preprocessorDirectory);
             if (string.IsNullOrEmpty(validationProblem))
             {
                 ActivityProgressDialogRunner.Run(viewParent, activities);
