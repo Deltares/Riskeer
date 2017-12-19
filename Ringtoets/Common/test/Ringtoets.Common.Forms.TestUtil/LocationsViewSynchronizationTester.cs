@@ -105,6 +105,7 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             locations.ForEach(loc =>
             {
+                loc.DesignWaterLevelCalculation.Output = null;
                 loc.WaveHeightCalculation.Output = null;
                 loc.NotifyObservers();
             });
@@ -115,6 +116,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             ObservableList<HydraulicBoundaryLocation> locations = GetLocationsInView(view);
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = locations.First();
+            hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
             hydraulicBoundaryLocation.WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
             hydraulicBoundaryLocation.NotifyObservers();
         }

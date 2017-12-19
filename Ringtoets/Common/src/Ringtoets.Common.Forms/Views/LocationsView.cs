@@ -160,10 +160,10 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Handles the update from the hydraulic boundary database by refreshing
-        /// the data grid view and updating the data of the illustration points control.
+        /// Handles the update of a hydraulic boundary location by refreshing the data grid view
+        /// and updating the data of the illustration points control.
         /// </summary>
-        protected void HandleHydraulicBoundaryDatabaseUpdate()
+        protected void HandleHydraulicBoundaryLocationUpdate()
         {
             suspendAllEvents = true;
             dataGridViewControl.RefreshDataGridView();
