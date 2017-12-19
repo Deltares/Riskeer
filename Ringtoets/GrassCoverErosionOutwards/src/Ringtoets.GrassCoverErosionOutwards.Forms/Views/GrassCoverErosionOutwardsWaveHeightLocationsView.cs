@@ -37,17 +37,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {
     /// <summary>
     /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.WaveHeight"/>
-    /// for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/></summary>
+    /// for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
+    /// </summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationsView : HydraulicBoundaryLocationsView
     {
         private readonly GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider messageProvider;
         private readonly Observer failureMechanismObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsView"/>
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism that the locations belong to.</param>
-        /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
+        /// <param name="assessmentSection">The assessment section that the locations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or
         /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveHeightLocationsView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,

@@ -77,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
@@ -255,7 +255,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void WaveHeightLocationsView_HydraulicBoundaryLocationsUpdated_IllustrationPointsControlCorrectlyUpdated()
+        public void WaveHeightLocationsView_HydraulicBoundaryLocationUpdated_IllustrationPointsControlCorrectlyUpdated()
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);

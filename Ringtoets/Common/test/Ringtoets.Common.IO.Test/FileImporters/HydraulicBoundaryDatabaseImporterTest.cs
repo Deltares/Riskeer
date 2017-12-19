@@ -268,7 +268,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void GivenDatabaseCoupled_WhenImportingToSameDatabaseOnDifferentPath_ThenFilePathUpdatedAndObserversNotified()
+        public void GivenDatabaseCoupled_WhenImportingToSameDatabaseOnDifferentPath_ThenFilePathUpdatedAndSpecificObserversNotified()
         {
             // Given
             var mocks = new MockRepository();
@@ -277,6 +277,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var databaseObserver = mocks.StrictMock<IObserver>();
             databaseObserver.Expect(o => o.UpdateObserver());
+            var locationsObserver = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
@@ -285,6 +286,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             importer.Import(assessmentSection, validFilePath);
 
             assessmentSection.HydraulicBoundaryDatabase.Attach(databaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(locationsObserver);
 
             // When
             bool importResult = importer.Import(assessmentSection, copyValidFilePath);
@@ -308,6 +310,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             assessmentSection.Expect(section => section.NotifyObservers()); // Expectation from first import
 
             var databaseObserver = mocks.StrictMock<IObserver>();
+            var locationsObserver = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
@@ -315,6 +318,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             importer.Import(assessmentSection, validFilePath);
 
             assessmentSection.HydraulicBoundaryDatabase.Attach(databaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(locationsObserver);
 
             // When
             bool importResult = importer.Import(assessmentSection, validFilePath);

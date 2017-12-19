@@ -206,7 +206,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_HydraulicBoundaryDatabaseUpdated_DataGridViewCorrectlyUpdated()
+        public void DesignWaterLevelLocationsView_HydraulicBoundaryLocationsUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
@@ -255,7 +255,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_HydraulicBoundaryDatabaseUpdated_IllustrationPointsControlCorrectlyUpdated()
+        public void DesignWaterLevelLocationsView_HydraulicBoundaryLocationUpdated_IllustrationPointsControlCorrectlyUpdated()
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
@@ -380,7 +380,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
             }
-            
+
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
             Assert.AreEqual(rowSelected && contributionNotZero, button.Enabled);
@@ -394,7 +394,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);            
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -554,7 +554,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             hydraulicBoundaryDatabase.UsePreprocessor = false;
             hydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);            
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -700,7 +700,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             protected override object GetLocationSelection(LocationsView<HydraulicBoundaryLocation> view, object selectedRowObject)
             {
                 return new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject,
-                                                                                    ((GrassCoverErosionOutwardsDesignWaterLevelLocationsView)view).FailureMechanism.HydraulicBoundaryLocations);
+                                                                                    ((GrassCoverErosionOutwardsDesignWaterLevelLocationsView) view).FailureMechanism.HydraulicBoundaryLocations);
             }
 
             protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
@@ -710,7 +710,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             protected override void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
             {
-                ObservableList<HydraulicBoundaryLocation> locations = ((GrassCoverErosionOutwardsDesignWaterLevelLocationsView)view).FailureMechanism.HydraulicBoundaryLocations;
+                ObservableList<HydraulicBoundaryLocation> locations = ((GrassCoverErosionOutwardsDesignWaterLevelLocationsView) view).FailureMechanism.HydraulicBoundaryLocations;
                 var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0);
 
                 locations.Clear();
@@ -731,7 +731,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             protected override void AddLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
             {
-                ObservableList<HydraulicBoundaryLocation> locations = ((GrassCoverErosionOutwardsDesignWaterLevelLocationsView)view).FailureMechanism.HydraulicBoundaryLocations;
+                ObservableList<HydraulicBoundaryLocation> locations = ((GrassCoverErosionOutwardsDesignWaterLevelLocationsView) view).FailureMechanism.HydraulicBoundaryLocations;
 
                 HydraulicBoundaryLocation location = locations.First();
                 location.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
