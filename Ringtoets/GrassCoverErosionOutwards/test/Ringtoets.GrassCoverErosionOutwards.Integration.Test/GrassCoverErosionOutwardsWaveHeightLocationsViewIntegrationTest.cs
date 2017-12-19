@@ -23,7 +23,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -39,20 +38,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         private const int locationCalculateColumnIndex = 0;
 
         private Form testForm;
-        private MockRepository mockRepository;
 
         [SetUp]
         public void Setup()
         {
             testForm = new Form();
-            mockRepository = new MockRepository();
         }
 
         [TearDown]
         public void TearDown()
         {
             testForm.Dispose();
-            mockRepository.VerifyAll();
         }
 
         [Test]
