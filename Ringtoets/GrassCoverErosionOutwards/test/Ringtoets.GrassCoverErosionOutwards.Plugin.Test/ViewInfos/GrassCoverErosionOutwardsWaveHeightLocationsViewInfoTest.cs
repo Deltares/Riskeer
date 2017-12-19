@@ -162,6 +162,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void CloseViewForData_ForMatchingAssessmentSection_ReturnsTrue()
         {
             // Setup
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var mocks = new MockRepository();
@@ -174,7 +175,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(failureMechanism, assessmentSection))
+            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(locations,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -192,6 +195,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void CloseViewForData_ForNonMatchingAssessmentSection_ReturnsFalse()
         {
             // Setup
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var mocks = new MockRepository();
@@ -209,7 +213,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(failureMechanism, assessmentSectionA))
+            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(locations,
+                                                                                   failureMechanism,
+                                                                                   assessmentSectionA))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -241,7 +247,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 new GrassCoverErosionOutwardsFailureMechanism(),
                 assessmentSection);
 
-            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(new GrassCoverErosionOutwardsFailureMechanism(),
+            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                                   new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                    assessmentSection))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -279,7 +286,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 new GrassCoverErosionOutwardsFailureMechanism(),
                 assessmentSectionB);
 
-            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSectionA))
+            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                                   new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                   assessmentSectionA))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -307,7 +316,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection))
+            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                                   new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                   assessmentSection))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);

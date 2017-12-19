@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         protected override string ValidateCalculatableObjects()
         {
-            return FailureMechanism.Contribution <= 0
+            return FailureMechanism == null || FailureMechanism.Contribution <= 0
                        ? RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero
                        : base.ValidateCalculatableObjects();
         }
