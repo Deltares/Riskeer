@@ -136,16 +136,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 ViewInfo info = GetInfo(plugin);
 
                 var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+                var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
 
                 var data = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                    new ObservableList<HydraulicBoundaryLocation>(),
+                    hydraulicBoundaryLocations,
                     assessmentSection,
                     grassCoverErosionOutwardsFailureMechanism);
 
                 plugin.Gui = gui;
                 plugin.Activate();
 
-                using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(grassCoverErosionOutwardsFailureMechanism, assessmentSection))
+                using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(hydraulicBoundaryLocations,
+                                                                                             grassCoverErosionOutwardsFailureMechanism,
+                                                                                             assessmentSection))
                 {
                     // Call
                     info.AfterCreate(view, data);
