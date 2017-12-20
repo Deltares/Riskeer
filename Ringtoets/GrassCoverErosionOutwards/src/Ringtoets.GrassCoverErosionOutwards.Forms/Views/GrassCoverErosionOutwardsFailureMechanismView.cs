@@ -49,6 +49,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly Observer foreshoreProfilesObserver;
 
+        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
         private readonly RecursiveObserver<CalculationGroup, WaveConditionsInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionOutwardsWaveConditionsCalculation> calculationObserver;
@@ -77,6 +78,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData);
             foreshoreProfilesObserver = new Observer(UpdateMapData);
 
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
+                UpdateMapData, hbl => hbl);
             calculationInputObserver = new RecursiveObserver<CalculationGroup, WaveConditionsInput>(
                 UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
                                                                      .Select(pc => pc.InputParameters)));
@@ -117,6 +120,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
                     hydraulicBoundaryLocationsObserver.Observable = null;
+                    hydraulicBoundaryLocationObserver.Observable = null;
                     foreshoreProfilesObserver.Observable = null;
                     foreshoreProfileObserver.Observable = null;
                     calculationInputObserver.Observable = null;
@@ -130,6 +134,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                     failureMechanismObserver.Observable = data.WrappedData;
                     assessmentSectionObserver.Observable = data.Parent;
                     hydraulicBoundaryLocationsObserver.Observable = data.WrappedData.HydraulicBoundaryLocations;
+                    hydraulicBoundaryLocationObserver.Observable = data.WrappedData.HydraulicBoundaryLocations;
                     foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
                     foreshoreProfileObserver.Observable = data.WrappedData.ForeshoreProfiles;
                     calculationInputObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
@@ -156,6 +161,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
             hydraulicBoundaryLocationsObserver.Dispose();
+            hydraulicBoundaryLocationObserver.Dispose();
             foreshoreProfilesObserver.Dispose();
             foreshoreProfileObserver.Dispose();
             calculationInputObserver.Dispose();
