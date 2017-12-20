@@ -35,45 +35,48 @@ namespace Core.Common.Gui.Test.PropertyBag
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new ObjectProperties<string>();
-
-            // Assert
-            Assert.IsInstanceOf<IObjectProperties>(properties);
-            Assert.IsInstanceOf<IDisposable>(properties);
-            Assert.IsNull(properties.Data);
+            using (var properties = new ObjectProperties<string>())
+            {
+                // Assert
+                Assert.IsInstanceOf<IObjectProperties>(properties);
+                Assert.IsInstanceOf<IDisposable>(properties);
+                Assert.IsNull(properties.Data);
+            }
         }
 
         [Test]
         public void Data_SetValue_GetNewlySetValue()
         {
             // Setup
-            var properties = new ObjectProperties<string>();
+            using (var properties = new ObjectProperties<string>())
+            {
+                const string text = "text";
 
-            const string text = "text";
+                // Call
+                properties.Data = text;
 
-            // Call
-            properties.Data = text;
-
-            // Assert
-            Assert.AreEqual(text, properties.Data);
+                // Assert
+                Assert.AreEqual(text, properties.Data);
+            }
         }
 
         [Test]
         public void Data_IsNotBrowsable()
         {
             // Setup
-            var properties = new ObjectProperties<string>();
+            using (var properties = new ObjectProperties<string>())
+            {
+                const string dataPropertyName = nameof(ObjectProperties<string>.Data);
+                PropertyInfo propertyInfo = properties.GetType().GetProperty(dataPropertyName);
 
-            const string dataPropertyName = nameof(ObjectProperties<string>.Data);
-            PropertyInfo propertyInfo = properties.GetType().GetProperty(dataPropertyName);
+                // Call
+                var browsableAttribute = (BrowsableAttribute) Attribute.GetCustomAttribute(propertyInfo,
+                                                                                           typeof(BrowsableAttribute),
+                                                                                           true);
 
-            // Call
-            var browsableAttribute = (BrowsableAttribute) Attribute.GetCustomAttribute(propertyInfo,
-                                                                                       typeof(BrowsableAttribute),
-                                                                                       true);
-
-            // Assert
-            Assert.AreEqual(BrowsableAttribute.No, browsableAttribute);
+                // Assert
+                Assert.AreEqual(BrowsableAttribute.No, browsableAttribute);
+            }
         }
 
         [Test]
@@ -81,7 +84,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         {
             // Given
             var observable = new SimpleObservable();
-            using (var properties = new ObjectProperties<SimpleObservable>()
+            using (var properties = new ObjectProperties<SimpleObservable>
             {
                 Data = observable
             })
@@ -104,7 +107,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var refreshRequiredRaised = 0;
 
             var observable = new SimpleObservable();
-            using (var properties = new ObjectProperties<SimpleObservable>()
+            using (var properties = new ObjectProperties<SimpleObservable>
             {
                 Data = observable
             })
@@ -119,6 +122,6 @@ namespace Core.Common.Gui.Test.PropertyBag
             Assert.AreEqual(0, refreshRequiredRaised);
         }
 
-        private class SimpleObservable : Observable {} 
+        private class SimpleObservable : Observable {}
     }
 }
