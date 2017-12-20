@@ -342,7 +342,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var random = new Random(21);
             using (var view = new HeightStructuresFailureMechanismView())
             {
-                IMapControl map = ((RingtoetsMapControl)view.Controls[0]).MapControl;
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
                 var assessmentSection = new ObservableTestAssessmentSectionStub
