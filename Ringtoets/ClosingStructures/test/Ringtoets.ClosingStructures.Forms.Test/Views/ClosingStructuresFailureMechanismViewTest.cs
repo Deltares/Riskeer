@@ -400,10 +400,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                object designWaterLevel = ((MapPointData) hydraulicBoundaryLocationsMapData).Features.Select(ft => ft.MetaData["Toetspeil"]).Single();
-                object waveHeights = ((MapPointData) hydraulicBoundaryLocationsMapData).Features.Select(ft => ft.MetaData["Golfhoogte"]).Single();
-                Assert.IsNaN((RoundedDouble) designWaterLevel);
-                Assert.IsNaN((RoundedDouble) waveHeights);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                hydraulicBoundaryLocationsMapData);
 
                 // When
                 hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
@@ -411,10 +409,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 hydraulicBoundaryLocation.NotifyObservers();
 
                 // Then
-                designWaterLevel = ((MapPointData) hydraulicBoundaryLocationsMapData).Features.Select(ft => ft.MetaData["Toetspeil"]).Single();
-                waveHeights = ((MapPointData) hydraulicBoundaryLocationsMapData).Features.Select(ft => ft.MetaData["Golfhoogte"]).Single();
-                Assert.AreEqual(hydraulicBoundaryLocation.DesignWaterLevel, (RoundedDouble) designWaterLevel);
-                Assert.AreEqual(hydraulicBoundaryLocation.WaveHeight, (RoundedDouble) waveHeights);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                hydraulicBoundaryLocationsMapData);
             }
         }
 

@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
@@ -211,53 +213,18 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         }
 
         [Test]
-        public void AssertHydraulicBoundaryLocationsMapData_DatabaseNullMapDataHasFeatures_ThrowAssertionException()
-        {
-            // Setup
-            var mapData = new MapPointData("Hydraulische randvoorwaarden")
-            {
-                Features = new[]
-                {
-                    new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            Enumerable.Empty<Point2D>()
-                        })
-                    }),
-                    new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            Enumerable.Empty<Point2D>()
-                        })
-                    })
-                }
-            };
-
-            // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(null, mapData);
-
-            // Assert
-            Assert.Throws<AssertionException>(test);
-        }
-
-        [Test]
         public void AssertHydraulicBoundaryLocationsMapData_FeaturesNotSameAsLocations_ThrowAssertionException()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
             {
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(1, "test1", 0, 0)
-                }
+                new HydraulicBoundaryLocation(1, "test1", 1, 0)
             };
 
             var mapData = new MapPointData("Hydraulische randvoorwaarden");
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryLocations, mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -267,12 +234,9 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void AssertHydraulicBoundaryLocationsMapData_FeatureGeometryNotSameAsLocations_ThrowAssertionException()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
             {
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(1, "test1", 1, 0)
-                }
+                new HydraulicBoundaryLocation(1, "test1", 1, 0)
             };
 
             var mapData = new MapPointData("Hydraulische randvoorwaarden")
@@ -293,48 +257,20 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryLocations, mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AssertHydraulicBoundaryLocationsMapData_MapDataNameNotCorrect_ThrowAssertionException()
+        public void AssertHydraulicBoundaryLocationsMapData_WithHydraulicBoundaryLocationsMapDataCorrect_DoesNotThrow()
         {
             // Setup
-            var mapData = new MapPointData("test");
-
-            // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(null, mapData);
-
-            // Assert
-            Assert.Throws<AssertionException>(test);
-        }
-
-        [Test]
-        public void AssertHydraulicBoundaryLocationsMapData_WithoutDatabaseMapDataCorrect_DoesNotThrow()
-        {
-            // Setup
-            var mapData = new MapPointData("Hydraulische randvoorwaarden");
-
-            // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(null, mapData);
-
-            // Assert
-            Assert.DoesNotThrow(test);
-        }
-
-        [Test]
-        public void AssertHydraulicBoundaryLocationsMapData_WithDatabaseMapDataCorrect_DoesNotThrow()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1, 0);
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
             {
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(1, "test1", 1, 0)
-                }
+                hydraulicBoundaryLocation
             };
 
             var mapData = new MapPointData("Hydraulische randvoorwaarden")
@@ -355,10 +291,151 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryLocations, mapData);
 
             // Assert
             Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetHydraulicBoundaryLocationUnequalOutputMapFeatures))]
+        public void AssertHydraulicBoundaryLocationOutputsMapData_MapDataOutputFeaturesNotSameAsLocations_ThrowAssertionException(
+            IEnumerable<MapFeature> mapFeatures)
+        {
+            // Setup
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
+            {
+                new HydraulicBoundaryLocation(1, "test1", 1, 0)
+            };
+
+            var mapData = new MapPointData("Hydraulische randvoorwaarden")
+            {
+                Features = mapFeatures
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(hydraulicBoundaryLocations, mapData);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetHydraulicBoundaryLocationEqualOutputMapFeatures))]
+        public void AssertHydraulicBoundaryLocationOutputsMapData_MapDataOutputFeaturesSameAsLocations_DoesNotThrowAssertionException(
+            HydraulicBoundaryLocation location,
+            MapFeature mapFeature)
+        {
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
+            {
+                location
+            };
+
+            var mapData = new MapPointData("Hydraulische randvoorwaarden")
+            {
+                Features = new[]
+                {
+                    mapFeature
+                }
+            };
+
+            // Call
+            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(hydraulicBoundaryLocations, mapData);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationUnequalOutputMapFeatures()
+        {
+            var random = new Random(21);
+            var mapGeometry = new MapGeometry(new[]
+            {
+                new[]
+                {
+                    new Point2D(1, 0)
+                }
+            });
+
+            var differentWaveHeightMapFeature = new MapFeature(new[]
+            {
+                mapGeometry
+            });
+            differentWaveHeightMapFeature.MetaData["Golfhoogte"] = random.NextRoundedDouble();
+            differentWaveHeightMapFeature.MetaData["Toetspeil"] = RoundedDouble.NaN;
+            var mapFeatures = new List<MapFeature>
+            {
+                differentWaveHeightMapFeature
+            };
+            yield return new TestCaseData(mapFeatures)
+                .SetName("Different WaveHeight");
+
+            var differentDesignWaterLevelMapFeature = new MapFeature(new[]
+            {
+                mapGeometry
+            });
+            differentDesignWaterLevelMapFeature.MetaData["Golfhoogte"] = RoundedDouble.NaN;
+            differentDesignWaterLevelMapFeature.MetaData["Toetspeil"] = random.NextRoundedDouble();
+            mapFeatures = new List<MapFeature>
+            {
+                differentDesignWaterLevelMapFeature
+            };
+            yield return new TestCaseData(mapFeatures)
+                .SetName("Different DesignWaterLevel");
+
+            var mapFeatureOne = new MapFeature(new[]
+            {
+                mapGeometry
+            });
+            mapFeatureOne.MetaData["Golfhoogte"] = RoundedDouble.NaN;
+            mapFeatureOne.MetaData["Toetspeil"] = RoundedDouble.NaN;
+            var mapFeatureTwo = new MapFeature(new[]
+            {
+                mapGeometry
+            });
+            mapFeatureTwo.MetaData["Golfhoogte"] = RoundedDouble.NaN;
+            mapFeatureTwo.MetaData["Toetspeil"] = RoundedDouble.NaN;
+            mapFeatures = new List<MapFeature>
+            {
+                mapFeatureOne,
+                mapFeatureTwo
+            };
+            yield return new TestCaseData(mapFeatures)
+                .SetName("Different MapFeaturesCount");
+        }
+
+        private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationEqualOutputMapFeatures()
+        {
+            var location = new HydraulicBoundaryLocation(1, "test1", 1, 0);
+            var mapGeometry = new MapGeometry(new[]
+            {
+                new[]
+                {
+                    new Point2D(1, 0)
+                }
+            });
+
+            var mapFeatureNoOutput = new MapFeature(new[]
+            {
+                mapGeometry
+            });
+            mapFeatureNoOutput.MetaData["Golfhoogte"] = RoundedDouble.NaN;
+            mapFeatureNoOutput.MetaData["Toetspeil"] = RoundedDouble.NaN;
+            yield return new TestCaseData(location, mapFeatureNoOutput)
+                .SetName("LocationWithoutOutput");
+
+            var random = new Random(21);
+            location = new HydraulicBoundaryLocation(1, "test1", 1, 0);
+            location.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            location.WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            var mapFeatureWithOutput = new MapFeature(new[]
+            {
+                mapGeometry
+            });
+            mapFeatureWithOutput.MetaData["Golfhoogte"] = location.WaveHeight;
+            mapFeatureWithOutput.MetaData["Toetspeil"] = location.DesignWaterLevel;
+            yield return new TestCaseData(location, mapFeatureWithOutput)
+                .SetName("LocationWithOutput");
         }
 
         #endregion
