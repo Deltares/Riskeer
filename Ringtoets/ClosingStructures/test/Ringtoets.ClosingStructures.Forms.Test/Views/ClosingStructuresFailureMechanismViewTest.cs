@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -334,7 +336,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithHydraulicBoundaryDatabaseData_WhenHydraulicBoundaryDatabaseUpdatedAndNotified_ThenMapDataUpdated()
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
             using (var view = new ClosingStructuresFailureMechanismView())
@@ -363,10 +365,56 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 // When
                 assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
-                assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+                assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
                 // Then 
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenLocationUpdatedAndNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var random = new Random(21);
+            using (var view = new ClosingStructuresFailureMechanismView())
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+                var assessmentSection = new ObservableTestAssessmentSectionStub
+                {
+                    HydraulicBoundaryDatabase =
+                    {
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
+                };
+
+                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSection);
+
+                view.Data = failureMechanismContext;
+
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+
+                // Precondition
+                object designWaterLevel = ((MapPointData) hydraulicBoundaryLocationsMapData).Features.Select(ft => ft.MetaData["Toetspeil"]).Single();
+                object waveHeights = ((MapPointData) hydraulicBoundaryLocationsMapData).Features.Select(ft => ft.MetaData["Golfhoogte"]).Single();
+                Assert.IsNaN((RoundedDouble) designWaterLevel);
+                Assert.IsNaN((RoundedDouble) waveHeights);
+
+                // When
+                hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                hydraulicBoundaryLocation.WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                hydraulicBoundaryLocation.NotifyObservers();
+
+                // Then
+                designWaterLevel = ((MapPointData) hydraulicBoundaryLocationsMapData).Features.Select(ft => ft.MetaData["Toetspeil"]).Single();
+                waveHeights = ((MapPointData) hydraulicBoundaryLocationsMapData).Features.Select(ft => ft.MetaData["Golfhoogte"]).Single();
+                Assert.AreEqual(hydraulicBoundaryLocation.DesignWaterLevel, (RoundedDouble) designWaterLevel);
+                Assert.AreEqual(hydraulicBoundaryLocation.WaveHeight, (RoundedDouble) waveHeights);
             }
         }
 
