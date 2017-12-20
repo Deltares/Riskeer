@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Service
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            if (!hydraulicBoundaryDatabase.IsCoupled())
+            if (!hydraulicBoundaryDatabase.IsLinked())
             {
                 return Resources.HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported;
             }

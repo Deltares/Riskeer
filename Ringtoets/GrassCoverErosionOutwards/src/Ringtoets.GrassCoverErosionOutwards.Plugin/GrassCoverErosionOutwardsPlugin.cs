@@ -204,7 +204,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
                                                                                  .Build(),
-                ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase.IsCoupled()
+                ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText)
             };
@@ -482,7 +482,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         private static object[] GetHydraulicBoundariesGroupContextChildNodeObjects(HydraulicBoundariesGroupContext hydraulicBoundariesGroupContext)
         {
             IAssessmentSection assessmentSection = hydraulicBoundariesGroupContext.AssessmentSection;
-            if (!assessmentSection.HydraulicBoundaryDatabase.IsCoupled())
+            if (!assessmentSection.HydraulicBoundaryDatabase.IsLinked())
             {
                 return new object[0];
             }

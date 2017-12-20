@@ -117,7 +117,7 @@ namespace Application.Ringtoets.Storage.Create
 
         private static void AddEntityForHydraulicDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, AssessmentSectionEntity entity, PersistenceRegistry registry)
         {
-            if (hydraulicBoundaryDatabase.IsCoupled())
+            if (hydraulicBoundaryDatabase.IsLinked())
             {
                 entity.HydraulicDatabaseLocation = hydraulicBoundaryDatabase.FilePath.DeepClone();
                 entity.HydraulicDatabaseVersion = hydraulicBoundaryDatabase.Version.DeepClone();

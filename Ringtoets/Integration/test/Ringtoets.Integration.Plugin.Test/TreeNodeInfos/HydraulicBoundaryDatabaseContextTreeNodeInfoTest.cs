@@ -317,7 +317,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual($"Database op pad '{testFile}' gekoppeld.", msgs[1]);
                     });
 
-                    Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.IsCoupled());
+                    Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.IsLinked());
                     Assert.AreEqual(testFile, assessmentSection.HydraulicBoundaryDatabase.FilePath);
                     Assert.AreEqual("Dutch coast South19-11-2015 12:0013", assessmentSection.HydraulicBoundaryDatabase.Version);
                     CollectionAssert.IsNotEmpty(assessmentSection.HydraulicBoundaryDatabase.Locations);
@@ -373,7 +373,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     string expectedMessage = $"Fout bij het lezen van bestand '{testFile}': kon geen locaties verkrijgen van de database.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
-                    Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsCoupled());
+                    Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsLinked());
                 }
             }
             mocks.VerifyAll();
@@ -426,7 +426,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         $"Fout bij het lezen van bestand '{testFile}': het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
-                    Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsCoupled());
+                    Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsLinked());
                 }
             }
             mocks.VerifyAll();
@@ -467,7 +467,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations);
 
             // Precondition
-            Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.IsCoupled());
+            Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.IsLinked());
             CollectionAssert.IsNotEmpty(assessmentSection.HydraulicBoundaryDatabase.Locations);
 
             string currentFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
@@ -506,7 +506,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     string expectedMessage = $"Database op pad '{validFilePath}' gekoppeld.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
-                    Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.IsCoupled());
+                    Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.IsLinked());
                     Assert.AreEqual(currentFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
                     Assert.AreEqual(currentVersion, assessmentSection.HydraulicBoundaryDatabase.Version);
                     CollectionAssert.AreEqual(currentLocations, assessmentSection.HydraulicBoundaryDatabase.Locations);

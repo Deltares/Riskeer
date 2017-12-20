@@ -29,15 +29,15 @@ namespace Ringtoets.Common.Data.Hydraulics
     public static class HydraulicBoundaryDatabaseExtensions
     {
         /// <summary>
-        /// Checks whether the hydraulic boundary database is coupled to a database file.
+        /// Checks whether the hydraulic boundary database is linked to a database file.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to check
-        /// for being coupled.</param>
-        /// <returns><c>true</c> if the hydraulic boundary database is coupled;
+        /// for being linked.</param>
+        /// <returns><c>true</c> if the hydraulic boundary database is linked;
         /// <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        public static bool IsCoupled(this HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        public static bool IsLinked(this HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (hydraulicBoundaryDatabase == null)
             {

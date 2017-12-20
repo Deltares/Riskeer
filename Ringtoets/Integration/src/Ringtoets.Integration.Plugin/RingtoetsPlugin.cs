@@ -516,7 +516,7 @@ namespace Ringtoets.Integration.Plugin
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(
                     context.WrappedData.HydraulicBoundaryDatabase.Locations, filePath,
                     RingtoetsIntegrationPluginResources.DesignWaterLevel_Description, RingtoetsIntegrationPluginResources.WaveHeight_Description),
-                IsEnabled = context => context.WrappedData.HydraulicBoundaryDatabase.IsCoupled(),
+                IsEnabled = context => context.WrappedData.HydraulicBoundaryDatabase.IsLinked(),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description)
             };
@@ -654,7 +654,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = hydraulicBoundaryDatabase => RingtoetsFormsResources.HydraulicBoundaryDatabase_DisplayName,
                 Image = hydraulicBoundaryDatabase => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase.IsCoupled()
+                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = HydraulicBoundaryDatabaseChildNodeObjects,
@@ -835,8 +835,8 @@ namespace Ringtoets.Integration.Plugin
             {
                 return;
             }
-            IEnumerable<AssessmentSection> sectionsWithHydraulicBoundaryDatabaseCoupled = ringtoetsProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase.IsCoupled());
-            foreach (AssessmentSection section in sectionsWithHydraulicBoundaryDatabaseCoupled)
+            IEnumerable<AssessmentSection> sectionsWithHydraulicBoundaryDatabaseLinked = ringtoetsProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase.IsLinked());
+            foreach (AssessmentSection section in sectionsWithHydraulicBoundaryDatabaseLinked)
             {
                 string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(section.HydraulicBoundaryDatabase.FilePath,
                                                                                                        section.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
@@ -1376,7 +1376,7 @@ namespace Ringtoets.Integration.Plugin
 
         private static object[] HydraulicBoundaryDatabaseChildNodeObjects(HydraulicBoundaryDatabaseContext nodeData)
         {
-            if (nodeData.WrappedData.HydraulicBoundaryDatabase.IsCoupled())
+            if (nodeData.WrappedData.HydraulicBoundaryDatabase.IsLinked())
             {
                 return new object[]
                 {
@@ -1515,7 +1515,7 @@ namespace Ringtoets.Integration.Plugin
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
             bool haveEqualVersion = HydraulicBoundaryDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
-            bool isClearConfirmationRequired = hydraulicBoundaryDatabase.IsCoupled() && !haveEqualVersion;
+            bool isClearConfirmationRequired = hydraulicBoundaryDatabase.IsLinked() && !haveEqualVersion;
             if (isClearConfirmationRequired && !IsClearCalculationConfirmationGiven())
             {
                 return;

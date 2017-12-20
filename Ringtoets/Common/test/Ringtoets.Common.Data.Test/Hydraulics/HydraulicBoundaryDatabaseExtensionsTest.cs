@@ -29,10 +29,10 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     public class HydraulicBoundaryDatabaseExtensionsTest
     {
         [Test]
-        public void IsCoupled_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
+        public void IsLinked_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraulicBoundaryDatabaseExtensions.IsCoupled(null);
+            TestDelegate test = () => HydraulicBoundaryDatabaseExtensions.IsLinked(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         [TestCase(null, false)]
         [TestCase("", false)]
         [TestCase("Test", true)]
-        public void IsCoupled_SpecificFilePath_ReturnsExpectedValue(string filePath, bool expectedValue)
+        public void IsLinked_SpecificFilePath_ReturnsExpectedValue(string filePath, bool expectedValue)
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             };
 
             // Call
-            bool isCoupled = hydraulicBoundaryDatabase.IsCoupled();
+            bool isCoupled = hydraulicBoundaryDatabase.IsLinked();
 
             // Assert
             Assert.AreEqual(expectedValue, isCoupled);

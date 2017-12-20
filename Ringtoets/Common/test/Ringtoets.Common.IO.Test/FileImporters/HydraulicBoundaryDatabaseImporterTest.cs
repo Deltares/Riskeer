@@ -361,7 +361,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 Assert.AreEqual(loggedException.Message, expectedLog.Item1);
             });
             Assert.IsFalse(importResult);
-            Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsCoupled(), "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
+            Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsLinked(), "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
 
             mocks.VerifyAll();
         }
