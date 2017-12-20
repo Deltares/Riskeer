@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Integration.Forms.Properties;
 
@@ -35,11 +36,12 @@ namespace Ringtoets.Integration.Forms.Views
     public partial class AssessmentSectionView : UserControl, IMapView
     {
         private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryDatabaseObserver;
-
+        private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
+
+        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
 
         private IAssessmentSection data;
 
@@ -50,16 +52,10 @@ namespace Ringtoets.Integration.Forms.Views
         {
             InitializeComponent();
 
-            assessmentSectionObserver = new Observer(() =>
-            {
-                if (!ReferenceEquals(hydraulicBoundaryDatabaseObserver.Observable, data.HydraulicBoundaryDatabase))
-                {
-                    hydraulicBoundaryDatabaseObserver.Observable = data.HydraulicBoundaryDatabase;
-                }
-
-                UpdateMapData();
-            });
-            hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
+            assessmentSectionObserver = new Observer(UpdateMapData);
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData);
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
+                UpdateMapData, hbl => hbl);
 
             mapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -80,7 +76,8 @@ namespace Ringtoets.Integration.Forms.Views
                 data = value as IAssessmentSection;
 
                 assessmentSectionObserver.Observable = data;
-                hydraulicBoundaryDatabaseObserver.Observable = data?.HydraulicBoundaryDatabase;
+                hydraulicBoundaryLocationsObserver.Observable = data?.HydraulicBoundaryDatabase.Locations;
+                hydraulicBoundaryLocationObserver.Observable = data?.HydraulicBoundaryDatabase.Locations;
 
                 if (data == null)
                 {
@@ -106,7 +103,8 @@ namespace Ringtoets.Integration.Forms.Views
         protected override void Dispose(bool disposing)
         {
             assessmentSectionObserver.Dispose();
-            hydraulicBoundaryDatabaseObserver.Dispose();
+            hydraulicBoundaryLocationsObserver.Dispose();
+            hydraulicBoundaryLocationObserver.Dispose();
 
             if (disposing)
             {
