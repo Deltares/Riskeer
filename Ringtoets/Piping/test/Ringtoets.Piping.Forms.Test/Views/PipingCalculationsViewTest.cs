@@ -1306,16 +1306,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
                     new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
                 }
-            };
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            });
         }
 
         private PipingCalculationsView ShowSimplePipingCalculationsViewWithSurfaceLines(IAssessmentSection assessmentSection)

@@ -1673,15 +1673,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     hydraulicBoundaryLocation
                 }
-            };
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            });
 
             mockRepository.ReplayAll();
 

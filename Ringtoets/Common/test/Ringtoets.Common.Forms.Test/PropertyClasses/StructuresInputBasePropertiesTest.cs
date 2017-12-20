@@ -368,15 +368,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     hydraulicBoundaryLocation
                 }
-            };
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            });
 
             mockRepository.ReplayAll();
 
@@ -473,15 +472,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     hydraulicBoundaryLocation
                 }
-            };
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            });
 
             mockRepository.ReplayAll();
 

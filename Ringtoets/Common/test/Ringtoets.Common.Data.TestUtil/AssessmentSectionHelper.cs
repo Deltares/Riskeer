@@ -60,7 +60,6 @@ namespace Ringtoets.Common.Data.TestUtil
                                                                      string filePath = null)
         {
             IFailureMechanism[] failureMechanisms = GetFailureMechanisms(failureMechanism);
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(filePath);
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("21");
@@ -70,7 +69,7 @@ namespace Ringtoets.Common.Data.TestUtil
                                                                                    0.1,
                                                                                    1.0 / 30000));
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(GetHydraulicBoundaryDatabase(filePath));
 
             assessmentSection.Replay();
 

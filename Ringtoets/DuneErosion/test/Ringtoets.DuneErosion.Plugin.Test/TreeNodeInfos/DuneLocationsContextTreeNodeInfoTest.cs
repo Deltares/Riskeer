@@ -254,13 +254,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath,
                     Version = "1.0"
-                };
-
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+                });
 
                 var failureMechanism = new DuneErosionFailureMechanism
                 {
@@ -299,13 +298,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath,
                     Version = "1.0"
-                };
-
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+                });
 
                 var failureMechanism = new DuneErosionFailureMechanism();
 
@@ -343,13 +341,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath,
                     Version = "1.0"
-                };
-
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+                });
 
                 var failureMechanism = new DuneErosionFailureMechanism
                 {
@@ -411,12 +408,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 });
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     FilePath = validFilePath
-                };
-
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+                });
                 assessmentSection.Stub(a => a.Id).Return("13-1");
                 assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
                 {
@@ -509,12 +505,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath
-            };
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            });
             assessmentSection.Stub(a => a.Id).Return("13-1");
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
@@ -585,15 +580,14 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 CanUsePreprocessor = true,
                 UsePreprocessor = true,
                 PreprocessorDirectory = preprocessorDirectory
-            };
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            });
             assessmentSection.Stub(a => a.Id).Return("13-1");
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
@@ -663,15 +657,14 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 CanUsePreprocessor = true,
                 UsePreprocessor = false,
                 PreprocessorDirectory = "InvalidPreprocessorDirectory"
-            };
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            });
             assessmentSection.Stub(a => a.Id).Return("13-1");
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {

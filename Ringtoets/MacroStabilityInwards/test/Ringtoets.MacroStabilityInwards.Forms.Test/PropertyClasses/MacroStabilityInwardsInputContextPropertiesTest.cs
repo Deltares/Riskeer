@@ -1241,16 +1241,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     hydraulicBoundaryLocation
                 }
-            };
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            });
 
             mockRepository.ReplayAll();
 

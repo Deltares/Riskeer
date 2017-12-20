@@ -354,15 +354,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     hydraulicBoundaryLocation
                 }
-            };
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            });
 
             mockRepository.ReplayAll();
 
@@ -434,15 +433,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     hydraulicBoundaryLocation
                 }
-            };
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            });
 
             mockRepository.ReplayAll();
 
@@ -473,7 +471,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void GetSelectableLocations_InputWithLocationsNoDikeProfile_ReturnsLocationsSortedById()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
@@ -482,9 +480,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(3, "D", 0, 3),
                     new HydraulicBoundaryLocation(2, "B", 0, 4)
                 }
-            };
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            });
 
             mockRepository.ReplayAll();
 
@@ -512,7 +508,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_InputWithLocationsAndNoDikeProfile_ReturnsLocationsSortedByDistanceThenById()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
@@ -523,9 +519,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(3, "C", 0, 200),
                     new HydraulicBoundaryLocation(2, "B", 0, 200)
                 }
-            };
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            });
 
             mockRepository.ReplayAll();
 
@@ -558,7 +552,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void GivenLocationAndReferencePoint_WhenUpdatingDikeProfile_ThenUpdateSelectableBoundaryLocations()
         {
             // Given
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
@@ -569,9 +563,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(3, "C", 0, 200),
                     new HydraulicBoundaryLocation(2, "B", 0, 200)
                 }
-            };
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            });
 
             mockRepository.ReplayAll();
 
