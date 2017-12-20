@@ -296,44 +296,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithAssessmentSectionData_WhenAssessmentSectionUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var random = new Random(21);
-            using (var view = new HeightStructuresFailureMechanismView())
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-                var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(),
-                                                                                          assessmentSection);
-
-                view.Data = failureMechanismContext;
-
-                MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
-
-                // Precondition
-                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine,
-                                                             referenceLineMapData);
-
-                // When
-                var referenceLine = new ReferenceLine();
-                referenceLine.SetGeometry(new[]
-                {
-                    new Point2D(random.NextDouble(), random.NextDouble()),
-                    new Point2D(random.NextDouble(), random.NextDouble())
-                });
-                assessmentSection.ReferenceLine = referenceLine;
-                assessmentSection.NotifyObservers();
-
-                // Then
-                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine,
-                                                             referenceLineMapData);
-            }
-        }
-
-        [Test]
         public void GivenViewWithHydraulicBoundarLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
