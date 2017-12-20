@@ -59,8 +59,7 @@ namespace Ringtoets.Integration.Forms.Views
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
 
             return currentRow != null
-                       ? new WaveHeightLocationContext(((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject,
-                                                       AssessmentSection.HydraulicBoundaryDatabase)
+                       ? new WaveHeightLocationContext(((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject)
                        : null;
         }
 

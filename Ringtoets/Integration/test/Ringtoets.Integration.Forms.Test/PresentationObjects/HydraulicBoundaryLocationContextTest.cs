@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -35,11 +33,8 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         [Test]
         public void Constructor_NullHydraulicBoundaryLocation_ThrowsArgumentNullException()
         {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
             // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationContext(null, hydraulicBoundaryDatabase);
+            TestDelegate test = () => new TestHydraulicBoundaryLocationContext(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -47,72 +42,23 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_NullHydraulicBoundariesDatabase_ThrowsArgumentNullException()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
-
-            // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryDatabase", paramName);
-        }
-
-        [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
 
             // Call
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>>(context);
-            Assert.AreSame(hydraulicBoundaryDatabase, context.HydraulicBoundaryDatabase);
             Assert.AreSame(hydraulicBoundaryLocation, context.WrappedData);
-        }
-
-        [TestFixture]
-        private class HydraulicBoundaryLocationContextEqualsTest
-            : EqualsTestFixture<TestHydraulicBoundaryLocationContext, DerivedTestHydraulicBoundaryLocationContext>
-        {
-            private static readonly HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            private static readonly HydraulicBoundaryLocation hydraulicLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
-
-            protected override TestHydraulicBoundaryLocationContext CreateObject()
-            {
-                return new TestHydraulicBoundaryLocationContext(hydraulicLocation, hydraulicBoundaryDatabase);
-            }
-
-            protected override DerivedTestHydraulicBoundaryLocationContext CreateDerivedObject()
-            {
-                return new DerivedTestHydraulicBoundaryLocationContext(hydraulicLocation, hydraulicBoundaryDatabase);
-            }
-
-            private static IEnumerable<TestCaseData> GetUnequalTestCases()
-            {
-                yield return new TestCaseData(new TestHydraulicBoundaryLocationContext(hydraulicLocation, new HydraulicBoundaryDatabase()))
-                    .SetName("Hydraulic Boundary Database");
-                yield return new TestCaseData(new TestHydraulicBoundaryLocationContext(new HydraulicBoundaryLocation(1, "Different location name", 2.0, 3.0),
-                                                                                       hydraulicBoundaryDatabase))
-                    .SetName("Location");
-            }
         }
 
         private class TestHydraulicBoundaryLocationContext : HydraulicBoundaryLocationContext
         {
-            public TestHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
-                : base(wrappedData, hydraulicBoundaryDatabase) {}
-        }
-
-        private class DerivedTestHydraulicBoundaryLocationContext : TestHydraulicBoundaryLocationContext
-        {
-            public DerivedTestHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
-                : base(wrappedData, hydraulicBoundaryDatabase) {}
+            public TestHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData)
+                : base(wrappedData) {}
         }
     }
 }

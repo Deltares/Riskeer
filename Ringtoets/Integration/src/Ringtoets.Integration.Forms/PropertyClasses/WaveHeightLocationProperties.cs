@@ -35,13 +35,13 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryLocation"/> with <see cref="WaveHeight"/> for properties panel.
     /// </summary>
-    public class WaveHeightLocationContextProperties : HydraulicBoundaryLocationProperties
+    public class WaveHeightLocationProperties : HydraulicBoundaryLocationProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveHeightLocationContextProperties"/>.
+        /// Creates a new instance of <see cref="WaveHeightLocationProperties"/>.
         /// </summary>
-        public WaveHeightLocationContextProperties()
-            : base(new ConstructionProperties
+        public WaveHeightLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            : base(hydraulicBoundaryLocation, new ConstructionProperties
             {
                 IdIndex = 1,
                 NameIndex = 2,
@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.WaveHeight;
+                return data.WaveHeight;
             }
         }
 
@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WrappedData.WaveHeightCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.WaveHeightCalculation.Output;
                 return output?.TargetProbability ?? double.NaN;
             }
         }
@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WrappedData.WaveHeightCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.WaveHeightCalculation.Output;
                 return output?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WrappedData.WaveHeightCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.WaveHeightCalculation.Output;
                 return output?.CalculatedProbability ?? double.NaN;
             }
         }
@@ -116,7 +116,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WrappedData.WaveHeightCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.WaveHeightCalculation.Output;
                 return output?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }
@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.WrappedData.WaveHeightCalculationConvergence).DisplayName;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.WaveHeightCalculationConvergence).DisplayName;
             }
         }
 
@@ -141,22 +141,23 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+                return data.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
             }
             set
             {
-                data.WrappedData.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
-                data.WrappedData.NotifyObservers();
+                data.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
             }
         }
 
         protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
-            if (data.WrappedData.WaveHeightCalculation.HasOutput
-                && data.WrappedData.WaveHeightCalculation.Output.HasGeneralResult)
+            if (data.WaveHeightCalculation.HasOutput
+                && data.WaveHeightCalculation.Output.HasGeneralResult)
             {
-                return data.WrappedData.WaveHeightCalculation.Output.GeneralResult;
+                return data.WaveHeightCalculation.Output.GeneralResult;
             }
+
             return null;
         }
     }

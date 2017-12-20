@@ -266,22 +266,22 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DesignWaterLevelLocationsContext),
-                    typeof(DesignWaterLevelLocationsContextProperties));
+                    typeof(DesignWaterLevelLocationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DesignWaterLevelLocationContext),
-                    typeof(DesignWaterLevelLocationContextProperties));
+                    typeof(DesignWaterLevelLocationProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveHeightLocationsContext),
-                    typeof(WaveHeightLocationsContextProperties));
+                    typeof(WaveHeightLocationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveHeightLocationContext),
-                    typeof(WaveHeightLocationContextProperties));
+                    typeof(WaveHeightLocationProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

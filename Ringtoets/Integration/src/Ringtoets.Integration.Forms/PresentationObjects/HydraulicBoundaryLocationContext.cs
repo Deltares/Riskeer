@@ -33,37 +33,11 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> 
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> 
         /// which the <see cref="HydraulicBoundaryLocationContext"/> belongs to.</param>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="Common.Data.Hydraulics.HydraulicBoundaryDatabase"/> 
-        /// which the <see cref="HydraulicBoundaryLocationContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData,
-                                                   HydraulicBoundaryDatabase hydraulicBoundaryDatabase
-        ) : base(wrappedData)
-        {
-            if (hydraulicBoundaryDatabase == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
-            }
-            HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-        }
-
-        /// <summary>
-        /// Gets the <see cref="Common.Data.Hydraulics.HydraulicBoundaryDatabase"/>.
-        /// </summary>
-        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; }
-
-        public override bool Equals(WrappedObjectContextBase<HydraulicBoundaryLocation> other)
-        {
-            return base.Equals(other)
-                   && ReferenceEquals(((HydraulicBoundaryLocationContext) other).HydraulicBoundaryDatabase, HydraulicBoundaryDatabase);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode()
-                   ^ HydraulicBoundaryDatabase.GetHashCode();
-        }
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
+        /// is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationContext(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            : base(hydraulicBoundaryLocation) {}
     }
 }

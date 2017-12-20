@@ -35,13 +35,13 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryLocation"/> with <see cref="DesignWaterLevel"/> for properties panel.
     /// </summary>
-    public class DesignWaterLevelLocationContextProperties : HydraulicBoundaryLocationProperties
+    public class DesignWaterLevelLocationProperties : HydraulicBoundaryLocationProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelLocationContextProperties"/>.
+        /// Creates a new instance of <see cref="DesignWaterLevelLocationProperties"/>.
         /// </summary>
-        public DesignWaterLevelLocationContextProperties()
-            : base(new ConstructionProperties
+        public DesignWaterLevelLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            : base(hydraulicBoundaryLocation, new ConstructionProperties
             {
                 IdIndex = 1,
                 NameIndex = 2,
@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.DesignWaterLevel;
+                return data.DesignWaterLevel;
             }
         }
 
@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WrappedData.DesignWaterLevelCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.DesignWaterLevelCalculation.Output;
                 return output?.TargetProbability ?? double.NaN;
             }
         }
@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WrappedData.DesignWaterLevelCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.DesignWaterLevelCalculation.Output;
                 return output?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WrappedData.DesignWaterLevelCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.DesignWaterLevelCalculation.Output;
                 return output?.CalculatedProbability ?? double.NaN;
             }
         }
@@ -116,7 +116,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WrappedData.DesignWaterLevelCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.DesignWaterLevelCalculation.Output;
                 return output?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }
@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.WrappedData.DesignWaterLevelCalculationConvergence).DisplayName;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.DesignWaterLevelCalculationConvergence).DisplayName;
             }
         }
 
@@ -141,21 +141,21 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+                return data.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
             }
             set
             {
-                data.WrappedData.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
-                data.WrappedData.NotifyObservers();
+                data.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
             }
         }
 
         protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
-            if (data.WrappedData.DesignWaterLevelCalculation.HasOutput
-                && data.WrappedData.DesignWaterLevelCalculation.Output.HasGeneralResult)
+            if (data.DesignWaterLevelCalculation.HasOutput
+                && data.DesignWaterLevelCalculation.Output.HasGeneralResult)
             {
-                return data.WrappedData.DesignWaterLevelCalculation.Output.GeneralResult;
+                return data.DesignWaterLevelCalculation.Output.GeneralResult;
             }
             return null;
         }

@@ -271,6 +271,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 throw new InvalidOperationException("Gui cannot be null");
             }
+
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
 
@@ -313,18 +314,24 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateInstance = context => new StructuresOutputProperties(context.WrappedData.Output)
             };
-            yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsContextProperties>
+            yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsProperties>
             {
-                CreateInstance = context => new DesignWaterLevelLocationsContextProperties(
-                    context.WrappedData.HydraulicBoundaryDatabase)
+                CreateInstance = context => new DesignWaterLevelLocationsProperties(
+                    context.WrappedData.HydraulicBoundaryDatabase.Locations)
             };
-            yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationContextProperties>();
-            yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsContextProperties>
+            yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationProperties>
             {
-                CreateInstance = context => new WaveHeightLocationsContextProperties(
-                    context.WrappedData.HydraulicBoundaryDatabase)
+                CreateInstance = context => new DesignWaterLevelLocationProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationContextProperties>();
+            yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsProperties>
+            {
+                CreateInstance = context => new WaveHeightLocationsProperties(
+                    context.WrappedData.HydraulicBoundaryDatabase.Locations)
+            };
+            yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationProperties>
+            {
+                CreateInstance = context => new WaveHeightLocationProperties(context.WrappedData)
+            };
             yield return new PropertyInfo<ForeshoreProfile, ForeshoreProfileProperties>();
             yield return new PropertyInfo<ForeshoreProfilesContext, ForeshoreProfileCollectionProperties>
             {
@@ -635,7 +642,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = categoryTreeFolder => categoryTreeFolder.Name,
                 Image = categoryTreeFolder => GetFolderIcon(categoryTreeFolder.Category),
-                ChildNodeObjects = categoryTreeFolder => categoryTreeFolder.Contents.Cast<object>().ToArray(),
+                ChildNodeObjects = categoryTreeFolder => categoryTreeFolder.Contents.ToArray(),
                 ContextMenuStrip = CategoryTreeFolderContextMenu
             };
 
@@ -835,6 +842,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 return;
             }
+
             IEnumerable<AssessmentSection> sectionsWithHydraulicBoundaryDatabaseLinked = ringtoetsProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase.IsLinked());
             foreach (AssessmentSection section in sectionsWithHydraulicBoundaryDatabaseLinked)
             {
@@ -922,10 +930,11 @@ namespace Ringtoets.Integration.Plugin
             if (assessmentSection != null)
             {
                 return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<IHasSectionResults<FailureMechanismSectionResult>>()
-                    .Any(fm => ReferenceEquals(viewData, fm.SectionResults));
+                       .GetFailureMechanisms()
+                       .OfType<IHasSectionResults<FailureMechanismSectionResult>>()
+                       .Any(fm => ReferenceEquals(viewData, fm.SectionResults));
             }
+
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
@@ -1131,11 +1140,11 @@ namespace Ringtoets.Integration.Plugin
         private static IEnumerable<object> WrapFailureMechanismsInContexts(IAssessmentSection assessmentSection)
         {
             return assessmentSection
-                .GetFailureMechanisms()
-                .Select(failureMechanism => failureMechanismAssociations
-                            .First(a => a.Match(failureMechanism))
-                            .Create(failureMechanism, assessmentSection))
-                .ToArray();
+                   .GetFailureMechanisms()
+                   .Select(failureMechanism => failureMechanismAssociations
+                                               .First(a => a.Match(failureMechanism))
+                                               .Create(failureMechanism, assessmentSection))
+                   .ToArray();
         }
 
         private static void AssessmentSectionOnNodeRenamed(IAssessmentSection nodeData, string newName)
@@ -1225,71 +1234,85 @@ namespace Ringtoets.Integration.Plugin
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(duneErosion.SectionResults, nodeData);
             }
+
             if (grassCoverSlipOffInwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(grassCoverSlipOffInwards.SectionResults, nodeData);
             }
+
             if (grassCoverSlipOffOutwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(grassCoverSlipOffOutwards.SectionResults, nodeData);
             }
+
             if (microstability != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(microstability.SectionResults, nodeData);
             }
+
             if (pipingStructure != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(pipingStructure.SectionResults, nodeData);
             }
+
             if (stabilityStoneCover != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(stabilityStoneCover.SectionResults, nodeData);
             }
+
             if (technicalInnovation != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(technicalInnovation.SectionResults, nodeData);
             }
+
             if (strengthStabilityLengthwiseConstruction != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(strengthStabilityLengthwiseConstruction.SectionResults, nodeData);
             }
+
             if (waterPressureAsphaltCover != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(waterPressureAsphaltCover.SectionResults, nodeData);
             }
+
             if (waveImpactAsphaltCover != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(waveImpactAsphaltCover.SectionResults, nodeData);
             }
+
             if (closingStructures != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(closingStructures.SectionResults, nodeData);
             }
+
             if (macroStabilityInwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(macroStabilityInwards.SectionResults, nodeData);
             }
+
             if (macrostabilityOutwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<MacrostabilityOutwardsFailureMechanismSectionResult>(macrostabilityOutwards.SectionResults, nodeData);
             }
+
             if (stabilityPointConstruction != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(stabilityPointConstruction.SectionResults, nodeData);
             }
+
             failureMechanismSectionResultContexts[1] = nodeData.OutputComments;
             return failureMechanismSectionResultContexts;
         }
@@ -1432,6 +1455,7 @@ namespace Ringtoets.Integration.Plugin
                     {
                         return;
                     }
+
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),

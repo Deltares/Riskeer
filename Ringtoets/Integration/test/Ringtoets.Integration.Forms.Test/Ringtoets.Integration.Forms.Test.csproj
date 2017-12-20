@@ -39,7 +39,6 @@
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
     <Compile Include="PropertyClasses\BackgroundDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesIntegrationTest.cs" />
-    <Compile Include="PresentationObjects\DesignWaterLevelLocationContextTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContextTest.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
@@ -48,15 +47,15 @@
     <Compile Include="PresentationObjects\WaveHeightLocationsContextTest.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelLocationsContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelLocationContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelLocationsPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\WaveHeightLocationContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\WaveHeightLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAloneFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
-    <Compile Include="PropertyClasses\WaveHeightLocationsContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\WaveHeightLocationsPropertiesTest.cs" />
     <Compile Include="ReferenceLineMetaSelectionDialogTest.cs" />
     <Compile Include="RingtoetsSettingsHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
