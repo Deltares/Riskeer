@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private const int stochasticSoilProfileColumnIndex = 2;
         private const int selectableHydraulicBoundaryLocationColumnIndex = 4;
 
-        private readonly Observer assessmentSectionObserver;
+        private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput> inputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario> calculationObserver;
@@ -76,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             InitializeListBox();
 
             failureMechanismObserver = new Observer(OnFailureMechanismUpdate);
-            assessmentSectionObserver = new Observer(UpdateSelectableHydraulicBoundaryLocationsColumn);
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateSelectableHydraulicBoundaryLocationsColumn);
             // The concat is needed to observe the input of calculations in child groups.
             inputObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput>(UpdateDataGridViewDataSource, cg => cg.Children
                                                                                                                                       .Concat<object>(cg.Children
@@ -129,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 assessmentSection = value;
 
-                assessmentSectionObserver.Observable = assessmentSection;
+                hydraulicBoundaryLocationsObserver.Observable = assessmentSection?.HydraulicBoundaryDatabase.Locations;
 
                 UpdateSelectableHydraulicBoundaryLocationsColumn();
             }
@@ -184,7 +184,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 dataGridViewControl.CellFormatting -= OnCellFormatting;
                 dataGridViewControl.CurrentRowChanged -= DataGridViewOnCurrentRowChangedHandler;
 
-                assessmentSectionObserver.Dispose();
+                hydraulicBoundaryLocationsObserver.Dispose();
                 failureMechanismObserver.Dispose();
                 inputObserver.Dispose();
                 calculationObserver.Dispose();
