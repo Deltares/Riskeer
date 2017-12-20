@@ -288,26 +288,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenViewWithAssessmentSectionData_WhenAssessmentSectionUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
+            var random = new Random(21);
             using (var view = new GrassCoverErosionInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
-                        }
-                    }
-                };
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
                 view.Data = failureMechanismContext;
 
-                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -322,15 +314,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 mocks.ReplayAll();
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 // When
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Clear();
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
+                var referenceLine = new ReferenceLine();
+                referenceLine.SetGeometry(new[]
+                {
+                    new Point2D(random.NextDouble(), random.NextDouble()),
+                    new Point2D(random.NextDouble(), random.NextDouble())
+                });
+                assessmentSection.ReferenceLine = referenceLine;
                 assessmentSection.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 mocks.VerifyAll();
             }
