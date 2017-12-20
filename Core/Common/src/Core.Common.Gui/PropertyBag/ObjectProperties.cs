@@ -46,7 +46,7 @@ namespace Core.Common.Gui.PropertyBag
         }
 
         [Browsable(false)]
-        public object Data
+        public virtual object Data
         {
             get
             {
@@ -60,12 +60,12 @@ namespace Core.Common.Gui.PropertyBag
             }
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             refreshRequiredObserver?.Dispose();
         }
 
-        private void OnRefreshRequired()
+        protected void OnRefreshRequired()
         {
             RefreshRequired?.Invoke(this, new EventArgs());
         }

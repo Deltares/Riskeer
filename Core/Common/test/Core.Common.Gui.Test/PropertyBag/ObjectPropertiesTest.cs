@@ -104,18 +104,17 @@ namespace Core.Common.Gui.Test.PropertyBag
         public void GivenObjectPropertiesWithObservableDataSet_WhenNotifyingObserverAfterDispose_RefreshRequiredEventNotRaised()
         {
             // Given
-            var refreshRequiredRaised = 0;
-
             var observable = new SimpleObservable();
-            using (var properties = new ObjectProperties<SimpleObservable>
+            var properties = new ObjectProperties<SimpleObservable>
             {
                 Data = observable
-            })
-            {
-                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-            }
+            };
+
+            var refreshRequiredRaised = 0;
+            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
             // When
+            properties.Dispose();
             observable.NotifyObservers();
 
             // Then

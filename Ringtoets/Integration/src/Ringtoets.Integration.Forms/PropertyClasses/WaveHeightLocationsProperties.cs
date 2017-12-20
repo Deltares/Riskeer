@@ -37,6 +37,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class WaveHeightLocationsProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
     {
+        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
+
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightLocationProperties"/>.
         /// </summary>
@@ -49,7 +51,23 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
 
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(OnRefreshRequired, list => list);
+
             Data = hydraulicBoundaryLocations;
+        }
+
+        public override object Data
+        {
+            get
+            {
+                return base.Data;
+            }
+            set
+            {
+                base.Data = value;
+
+                hydraulicBoundaryLocationObserver.Observable = value as ObservableList<HydraulicBoundaryLocation>;
+            }
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
@@ -62,6 +80,13 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             {
                 return data.Select(loc => new WaveHeightLocationProperties(loc)).ToArray();
             }
+        }
+
+        public override void Dispose()
+        {
+            hydraulicBoundaryLocationObserver.Dispose();
+
+            base.Dispose();
         }
     }
 }

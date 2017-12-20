@@ -110,5 +110,50 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Locaties uit de hydraulische randvoorwaardendatabase.",
                                                                             true);
         }
+
+        [Test]
+        public void GivenPropertyControlWithData_WhenSingleLocationUpdated_RefreshRequiredEventRaised()
+        {
+            // Given
+            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateWaveHeightCalculated(1.5);
+            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
+            {
+                location
+            };
+
+            var properties = new WaveHeightLocationsProperties(hydraulicBoundaryLocations);
+
+            var refreshRequiredRaised = 0;
+            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+
+            // When
+            location.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(1, refreshRequiredRaised);
+        }
+
+        [Test]
+        public void GivenPropertyControlWithData_WhenSingleLocationUpdatedAfterDispose_RefreshRequiredEventNotRaised()
+        {
+            // Given
+            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateWaveHeightCalculated(1.5);
+            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
+            {
+                location
+            };
+
+            var properties = new WaveHeightLocationsProperties(hydraulicBoundaryLocations);
+
+            var refreshRequiredRaised = 0;
+            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+
+            // When
+            properties.Dispose();
+            location.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(0, refreshRequiredRaised);
+        }
     }
 }
