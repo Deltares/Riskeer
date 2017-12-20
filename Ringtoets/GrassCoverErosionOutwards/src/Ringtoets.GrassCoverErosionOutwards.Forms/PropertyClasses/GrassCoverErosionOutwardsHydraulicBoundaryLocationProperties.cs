@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -30,7 +31,6 @@ using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
@@ -39,13 +39,31 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// ViewModel of <see cref="HydraulicBoundaryLocation"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public abstract class GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties :
-        ObjectProperties<GrassCoverErosionOutwardsHydraulicBoundaryLocationContext>
+    public abstract class GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocation>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
-        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties(ConstructionProperties propertyIndexes)
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location.</param>
+        /// <param name="propertyIndexes">The <see cref="ConstructionProperties"/> containing the property indices.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
+        /// or <paramref name="propertyIndexes"/> is <c>null</c>.</exception>
+        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                                               ConstructionProperties propertyIndexes)
         {
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+            }
+
+            if (propertyIndexes == null)
+            {
+                throw new ArgumentNullException(nameof(propertyIndexes));
+            }
+
+            Data = hydraulicBoundaryLocation;
             propertyIndexLookup = new Dictionary<string, int>
             {
                 {
@@ -80,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.Id;
+                return data.Id;
             }
         }
 
@@ -92,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.Name;
+                return data.Name;
             }
         }
 
@@ -104,7 +122,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.Location;
+                return data.Location;
             }
         }
 

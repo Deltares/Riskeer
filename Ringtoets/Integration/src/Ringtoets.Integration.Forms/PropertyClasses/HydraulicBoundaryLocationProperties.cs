@@ -43,6 +43,13 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationProperties"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location.</param>
+        /// <param name="propertyIndexes">The <see cref="ConstructionProperties"/> containing the property indices.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
+        /// or <paramref name="propertyIndexes"/> is <c>null</c>.</exception>
         protected HydraulicBoundaryLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation, ConstructionProperties propertyIndexes)
         {
             if (hydraulicBoundaryLocation == null)

@@ -28,24 +28,23 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with 
-    /// <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for properties panel.
+    /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
+    public class GrassCoverErosionOutwardsWaveHeightLocationsProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
     {
         private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsProperties"/>.
         /// </summary>
         /// <param name="locations">The locations to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties(ObservableList<HydraulicBoundaryLocation> locations)
+        public GrassCoverErosionOutwardsWaveHeightLocationsProperties(ObservableList<HydraulicBoundaryLocation> locations)
         {
             if (locations == null)
             {
@@ -75,14 +74,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_Description))]
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties[] Locations
+        public GrassCoverErosionOutwardsWaveHeightLocationProperties[] Locations
         {
             get
             {
-                return data.Select(loc => new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
-                {
-                    Data = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(loc, data)
-                }).ToArray();
+                return data.Select(loc => new GrassCoverErosionOutwardsWaveHeightLocationProperties(loc)).ToArray();
             }
         }
 

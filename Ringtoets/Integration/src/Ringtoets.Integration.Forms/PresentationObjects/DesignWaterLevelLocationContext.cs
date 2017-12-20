@@ -33,11 +33,11 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationContext"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/>
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/>
         /// which the <see cref="DesignWaterLevelLocationContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
         /// is <c>null</c>.</exception>
-        public DesignWaterLevelLocationContext(HydraulicBoundaryLocation hydraulicBoundaryLocation)
-            : base(hydraulicBoundaryLocation) {}
+        public DesignWaterLevelLocationContext(HydraulicBoundaryLocation wrappedData)
+            : base(wrappedData) {}
     }
 }

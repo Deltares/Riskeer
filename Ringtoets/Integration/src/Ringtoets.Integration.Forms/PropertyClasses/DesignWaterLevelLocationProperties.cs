@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
@@ -40,6 +41,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationProperties"/>.
         /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
+        /// is <c>null</c>.</exception>
         public DesignWaterLevelLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation)
             : base(hydraulicBoundaryLocation, new ConstructionProperties
             {
@@ -157,6 +161,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             {
                 return data.DesignWaterLevelCalculation.Output.GeneralResult;
             }
+
             return null;
         }
     }

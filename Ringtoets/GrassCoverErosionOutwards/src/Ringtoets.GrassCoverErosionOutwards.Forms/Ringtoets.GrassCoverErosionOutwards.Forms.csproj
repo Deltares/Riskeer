@@ -24,7 +24,7 @@
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightLocationsContext.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveConditionsInputContextProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveConditionsOutputProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelLocationContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundariesGroupContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext.cs" />
@@ -37,10 +37,10 @@
     </Compile>
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsFailureMechanismProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightLocationContextProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightLocationsContextProperties.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelLocationProperties.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightLocationProperties.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightLocationsProperties.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismView.cs">
       <SubType>UserControl</SubType>
     </Compile>

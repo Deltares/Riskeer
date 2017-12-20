@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
@@ -37,13 +38,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// ViewModel of <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> 
     /// for properties panel of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationProperties"/>.
         /// </summary>
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties()
-            : base(new ConstructionProperties
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
+        /// is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            : base(hydraulicBoundaryLocation, new ConstructionProperties
             {
                 IdIndex = 1,
                 NameIndex = 2,
@@ -63,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.DesignWaterLevel;
+                return data.DesignWaterLevel;
             }
         }
 
@@ -76,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WrappedData.DesignWaterLevelCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.DesignWaterLevelCalculation.Output;
                 return output?.TargetProbability ?? double.NaN;
             }
         }
@@ -90,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WrappedData.DesignWaterLevelCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.DesignWaterLevelCalculation.Output;
                 return output?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
@@ -104,7 +108,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WrappedData.DesignWaterLevelCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.DesignWaterLevelCalculation.Output;
                 return output?.CalculatedProbability ?? double.NaN;
             }
         }
@@ -118,7 +122,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WrappedData.DesignWaterLevelCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.DesignWaterLevelCalculation.Output;
                 return output?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }
@@ -131,7 +135,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.WrappedData.DesignWaterLevelCalculationConvergence).DisplayName;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.DesignWaterLevelCalculationConvergence).DisplayName;
             }
         }
 
@@ -143,22 +147,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+                return data.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
             }
             set
             {
-                data.WrappedData.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
-                data.WrappedData.NotifyObservers();
+                data.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
             }
         }
 
         protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
-            if (data.WrappedData.DesignWaterLevelCalculation.HasOutput
-                && data.WrappedData.DesignWaterLevelCalculation.Output.HasGeneralResult)
+            if (data.DesignWaterLevelCalculation.HasOutput
+                && data.DesignWaterLevelCalculation.Output.HasGeneralResult)
             {
-                return data.WrappedData.DesignWaterLevelCalculation.Output.GeneralResult;
+                return data.DesignWaterLevelCalculation.Output.GeneralResult;
             }
+
             return null;
         }
     }

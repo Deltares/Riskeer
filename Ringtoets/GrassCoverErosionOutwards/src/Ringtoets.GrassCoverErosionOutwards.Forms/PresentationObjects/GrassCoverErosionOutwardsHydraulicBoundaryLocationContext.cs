@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -39,36 +38,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> 
         /// belongs to.</param>
-        /// <param name="hydraulicBoundaryLocations">The <see cref="ObservableList{T}"/> 
-        /// containing all the hydraulic boundary locations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData,
-                                                                            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
-            : base(wrappedData)
-        {
-            if (hydraulicBoundaryLocations == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
-            }
-
-            HydraulicBoundaryLocations = hydraulicBoundaryLocations;
-        }
-
-        /// <summary>
-        /// Gets the <see cref="ObservableList{T}"/> containing all hydraulic boundary locations.
-        /// </summary>
-        public ObservableList<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; }
-
-        public override bool Equals(WrappedObjectContextBase<HydraulicBoundaryLocation> other)
-        {
-            return base.Equals(other)
-                   && ReferenceEquals(((GrassCoverErosionOutwardsHydraulicBoundaryLocationContext) other).HydraulicBoundaryLocations, HydraulicBoundaryLocations);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode()
-                   ^ HydraulicBoundaryLocations.GetHashCode();
-        }
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
+        /// is <c>null</c>.</exception>
+        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData)
+            : base(wrappedData) {}
     }
 }
