@@ -38,6 +38,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationsContextProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
     {
+        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsContextProperties"/>.
         /// </summary>
@@ -49,7 +51,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(locations));
             }
+
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(OnRefreshRequired, list => list);
+
             Data = locations;
+        }
+
+        public override object Data
+        {
+            get
+            {
+                return base.Data;
+            }
+            set
+            {
+                base.Data = value;
+
+                hydraulicBoundaryLocationObserver.Observable = value as ObservableList<HydraulicBoundaryLocation>;
+            }
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
@@ -65,6 +84,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
                     Data = new GrassCoverErosionOutwardsWaveHeightLocationContext(loc, data)
                 }).ToArray();
             }
+        }
+
+        public override void Dispose()
+        {
+            hydraulicBoundaryLocationObserver.Dispose();
+
+            base.Dispose();
         }
     }
 }

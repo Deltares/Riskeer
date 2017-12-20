@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateWaveHeightCalculated(1.5);
+            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.5);
             var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
             {
                 location
@@ -115,7 +115,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GivenPropertyControlWithData_WhenSingleLocationUpdated_RefreshRequiredEventRaised()
         {
             // Given
-            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateWaveHeightCalculated(1.5);
+            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.5);
             var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
             {
                 location
@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GivenPropertyControlWithData_WhenSingleLocationUpdatedAfterDispose_RefreshRequiredEventNotRaised()
         {
             // Given
-            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateWaveHeightCalculated(1.5);
+            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.5);
             var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
             {
                 location
