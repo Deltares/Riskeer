@@ -75,10 +75,10 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             };
 
             // Call
-            bool isCoupled = hydraulicBoundaryDatabase.IsLinked();
+            bool isLinked = hydraulicBoundaryDatabase.IsLinked();
 
             // Assert
-            Assert.AreEqual(expectedValue, isCoupled);
+            Assert.AreEqual(expectedValue, isLinked);
         }
 
         [TestCase(false, "Test", "")]

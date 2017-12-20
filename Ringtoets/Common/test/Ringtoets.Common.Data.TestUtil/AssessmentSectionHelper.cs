@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Data.TestUtil
     public static class AssessmentSectionHelper
     {
         /// <summary>
-        /// Creates a stub of <see cref="IAssessmentSection"/> with a <see cref="HydraulicBoundaryDatabase"/> that is not coupled.
+        /// Creates a stub of <see cref="IAssessmentSection"/> with a <see cref="HydraulicBoundaryDatabase"/> that is not linked.
         /// </summary>
         /// <param name="mockRepository">The mock repository to create the stub with.</param>
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>

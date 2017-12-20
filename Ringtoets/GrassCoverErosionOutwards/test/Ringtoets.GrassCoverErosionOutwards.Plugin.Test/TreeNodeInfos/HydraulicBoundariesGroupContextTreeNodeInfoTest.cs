@@ -152,7 +152,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_HydraulicBoundaryDatabaseNotCoupled_ReturnNoChildNodes()
+        public void ChildNodeObjects_HydraulicBoundaryDatabaseNotLinked_ReturnNoChildNodes()
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
@@ -169,7 +169,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_HydraulicBoundaryDatabaseCoupled_ReturnChildDataNodes()
+        public void ChildNodeObjects_HydraulicBoundaryDatabaseLinked_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -205,7 +205,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_HydraulicBoundaryDatabaseNotCoupled_ReturnDisabledColor()
+        public void ForeColor_HydraulicBoundaryDatabaseNotLinked_ReturnDisabledColor()
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
@@ -222,7 +222,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_HydraulicBoundaryDatabaseCoupled_ReturnEnabledColor()
+        public void ForeColor_HydraulicBoundaryDatabaseLinked_ReturnEnabledColor()
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();

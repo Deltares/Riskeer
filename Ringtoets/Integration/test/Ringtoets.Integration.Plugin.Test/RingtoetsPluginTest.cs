@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseNotCoupled_ThenNoWarning()
+        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseNotLinked_ThenNoWarning()
         {
             // Given
             var mocks = new MockRepository();
@@ -118,7 +118,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseCoupledToExistingLocation_ThenNoWarning()
+        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseLinkedToExistingLocation_ThenNoWarning()
         {
             // Given
             var mocks = new MockRepository();
@@ -164,7 +164,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseCoupledToNonExistingLocation_ThenWarning()
+        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseLinkedToNonExistingLocation_ThenWarning()
         {
             // Given
             var mocks = new MockRepository();

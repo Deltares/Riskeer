@@ -594,7 +594,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryDatabaseNotCoupled_ThenValidationItemDisabled()
+        public void GivenAssessmentSectionWithHydraulicBoundaryDatabaseNotLinked_ThenValidationItemDisabled()
         {
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
@@ -646,7 +646,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryDatabaseCoupledToInvalidFile_ThenValidationItemDisabled()
+        public void GivenAssessmentSectionWithHydraulicBoundaryDatabaseLinkedToInvalidFile_ThenValidationItemDisabled()
         {
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
@@ -1104,7 +1104,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryDatabaseNotCoupled_ThenCalculationItemDisabled()
+        public void GivenAssessmentSectionWithHydraulicBoundaryDatabaseNotLinked_ThenCalculationItemDisabled()
         {
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
@@ -1156,7 +1156,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryDatabaseCoupledToInvalidFile_ThenCalculationItemDisabled()
+        public void GivenAssessmentSectionWithHydraulicBoundaryDatabaseLinkedToInvalidFile_ThenCalculationItemDisabled()
         {
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();

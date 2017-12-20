@@ -148,7 +148,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_HydraulicBoundaryDatabaseNotCoupled_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_HydraulicBoundaryDatabaseNotLinked_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike));

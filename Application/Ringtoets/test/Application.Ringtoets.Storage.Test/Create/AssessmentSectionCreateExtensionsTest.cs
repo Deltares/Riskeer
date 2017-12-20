@@ -180,7 +180,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_HydraulicBoundaryDatabaseNotCoupled_SetsExpectedPropertiesToEntity()
+        public void Create_HydraulicBoundaryDatabaseNotLinked_SetsExpectedPropertiesToEntity()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -197,7 +197,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_HydraulicBoundaryDatabaseCoupledWithCanUsePreprocessorFalse_SetsExpectedPropertiesToEntity()
+        public void Create_HydraulicBoundaryDatabaseLinkedWithCanUsePreprocessorFalse_SetsExpectedPropertiesToEntity()
         {
             // Setup
             const string testFilePath = "path";
@@ -228,7 +228,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_HydraulicBoundaryDatabaseCoupledWithCanUsePreprocessorTrue_SetsExpectedPropertiesToEntity()
+        public void Create_HydraulicBoundaryDatabaseLinkedWithCanUsePreprocessorTrue_SetsExpectedPropertiesToEntity()
         {
             // Setup
             const string testFilePath = "path";

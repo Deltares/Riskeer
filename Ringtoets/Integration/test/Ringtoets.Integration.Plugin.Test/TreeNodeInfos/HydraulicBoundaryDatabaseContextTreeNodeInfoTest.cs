@@ -169,7 +169,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_HydraulicBoundaryDatabaseNotCoupled_ReturnDisabledColor()
+        public void ForeColor_HydraulicBoundaryDatabaseNotLinked_ReturnDisabledColor()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -188,7 +188,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_HydraulicBoundaryDatabaseCoupled_ReturnEnabledColor()
+        public void ForeColor_HydraulicBoundaryDatabaseLinked_ReturnEnabledColor()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -213,7 +213,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_HydraulicBoundaryDatabaseNotCoupled_ReturnsEmpty()
+        public void ChildNodeObjects_HydraulicBoundaryDatabaseNotLinked_ReturnsEmpty()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -232,7 +232,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_HydraulicBoundaryDatabaseCoupled_ReturnsChildrenOfData()
+        public void ChildNodeObjects_HydraulicBoundaryDatabaseLinked_ReturnsChildrenOfData()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -263,7 +263,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenNoDatabaseCoupled_WhenOpeningValidFileFromContextMenu_ThenDatabaseCoupledObserversNotifiedAndLogMessagesAdded()
+        public void GivenNoDatabaseLinked_WhenOpeningValidFileFromContextMenu_ThenDatabaseLinkedObserversNotifiedAndLogMessagesAdded()
         {
             // Given
             var assessmentSectionObserver = mocks.StrictMock<IObserver>();
@@ -329,7 +329,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenNoDatabaseCoupled_WhenOpeningInvalidFileFromContextMenu_ThenNoDatabaseCoupledNoObserversNotifiedAndLogMessagesAdded()
+        public void GivenNoDatabaseLinked_WhenOpeningInvalidFileFromContextMenu_ThenNoDatabaseLinkedNoObserversNotifiedAndLogMessagesAdded()
         {
             // Given
             var assessmentSectionObserver = mocks.StrictMock<IObserver>();
@@ -381,7 +381,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenNoDatabaseCoupled_WhenOpeningValidFileWithoutHLCDFromContextMenu_ThenNoDatabaseCoupledNoObserversNotifiedAndLogMessagesAdded()
+        public void GivenNoDatabaseLinked_WhenOpeningValidFileWithoutHLCDFromContextMenu_ThenNoDatabaseLinkedNoObserversNotifiedAndLogMessagesAdded()
         {
             // Given
             var assessmentSectionObserver = mocks.StrictMock<IObserver>();
@@ -434,7 +434,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenDatabaseCoupled_WhenOpeningSameFileFromContextMenu_ThenCalculationsWillNotBeClearedAndNoObserversNotified()
+        public void GivenDatabaseLinked_WhenOpeningSameFileFromContextMenu_ThenCalculationsWillNotBeClearedAndNoObserversNotified()
         {
             // Given
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");

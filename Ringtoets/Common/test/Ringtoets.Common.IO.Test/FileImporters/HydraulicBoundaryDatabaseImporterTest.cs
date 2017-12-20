@@ -268,7 +268,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void GivenDatabaseCoupled_WhenImportingToSameDatabaseOnDifferentPath_ThenFilePathUpdatedAndSpecificObserversNotified()
+        public void GivenDatabaseLinked_WhenImportingToSameDatabaseOnDifferentPath_ThenFilePathUpdatedAndSpecificObserversNotified()
         {
             // Given
             var mocks = new MockRepository();
@@ -302,7 +302,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void GivenDatabaseCoupled_WhenImportingToSameDatabaseOnSamePath_ThenObserversNotNotified()
+        public void GivenDatabaseLinked_WhenImportingToSameDatabaseOnSamePath_ThenObserversNotNotified()
         {
             // Given
             var mocks = new MockRepository();

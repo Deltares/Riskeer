@@ -158,7 +158,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void AssessmentSection_WithSurfaceLinesHydraulicBoundaryDatabaseNotCoupled_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
+        public void AssessmentSection_WithSurfaceLinesHydraulicBoundaryDatabaseNotLinked_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();

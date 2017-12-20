@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_HydraulicBoundaryDatabaseNotCoupled_ReturnFalse()
+        public void IsEnabled_HydraulicBoundaryDatabaseNotLinked_ReturnFalse()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_HydraulicBoundaryDatabaseCoupled_ReturnTrue()
+        public void IsEnabled_HydraulicBoundaryDatabaseLinked_ReturnTrue()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
