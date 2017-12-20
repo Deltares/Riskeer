@@ -45,9 +45,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     {
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryDatabaseObserver;
+        private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly Observer dikeProfilesObserver;
 
+        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
         private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculation> calculationObserver;
@@ -73,18 +74,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             InitializeComponent();
 
             failureMechanismObserver = new Observer(UpdateAllMapData);
-            assessmentSectionObserver = new Observer(() =>
-            {
-                if (!ReferenceEquals(hydraulicBoundaryDatabaseObserver.Observable, data.Parent.HydraulicBoundaryDatabase))
-                {
-                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
-                }
-
-                UpdateAllMapData();
-            });
-            hydraulicBoundaryDatabaseObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData);
+            assessmentSectionObserver = new Observer(UpdateAllMapData);
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData);
             dikeProfilesObserver = new Observer(UpdateDikeProfilesMapData);
 
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
+                UpdateHydraulicBoundaryLocationsMapData, hbl => hbl);
             calculationInputObserver = new RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput>(
                 UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<GrassCoverErosionInwardsCalculation>()
                                                                                  .Select(pc => pc.InputParameters)));
@@ -126,7 +121,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 {
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
-                    hydraulicBoundaryDatabaseObserver.Observable = null;
+                    hydraulicBoundaryLocationsObserver.Observable = null;
+                    hydraulicBoundaryLocationObserver.Observable = null;
+
                     calculationInputObserver.Observable = null;
                     calculationGroupObserver.Observable = null;
                     calculationObserver.Observable = null;
@@ -140,7 +137,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 {
                     failureMechanismObserver.Observable = data.WrappedData;
                     assessmentSectionObserver.Observable = data.Parent;
-                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
+                    hydraulicBoundaryLocationsObserver.Observable = data.Parent.HydraulicBoundaryDatabase.Locations;
+                    hydraulicBoundaryLocationObserver.Observable = data.Parent.HydraulicBoundaryDatabase.Locations;
                     calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
                     calculationObserver.Observable = data.WrappedData.CalculationsGroup;
@@ -167,7 +165,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
-            hydraulicBoundaryDatabaseObserver.Dispose();
+            hydraulicBoundaryLocationsObserver.Dispose();
+            hydraulicBoundaryLocationObserver.Dispose();
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();
