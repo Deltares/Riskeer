@@ -38,6 +38,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         {
             // Call
             TestDelegate call = () => new Gui.Forms.PropertyGridView.PropertyGridView(null);
+
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("propertyResolver", paramName);
@@ -151,7 +152,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         }
 
         [Test]
-        public void GivenPropertyGridViewWithObservableSet_WhenRefreshRequiredEventRaised_ThenRefreshTriggered()
+        public void GivenPropertyGridViewWithDataSet_WhenRefreshRequiredEventRaised_ThenRefreshTriggered()
         {
             // Given
             var dataObject = new object();
@@ -174,6 +175,101 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
 
                 // Then
                 Assert.AreEqual(1, propertyGridView.RefreshCalled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenDisposedPropertyGridViewWithDataSet_WhenRefreshRequiredEventRaised_ThenRefreshNotTriggered()
+        {
+            // Given
+            var dataObject = new object();
+
+            var mockRepository = new MockRepository();
+            var objectProperties = mockRepository.Stub<IObjectProperties>();
+            var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
+            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(objectProperties));
+            mockRepository.ReplayAll();
+
+            var propertyGridView = new TestGuiPropertyGridView(propertyResolver)
+            {
+                Data = dataObject
+            };
+
+            propertyGridView.Dispose();
+
+            // When
+            objectProperties.Raise(p => p.RefreshRequired += null,
+                                   objectProperties,
+                                   EventArgs.Empty);
+
+            // Then
+            Assert.AreEqual(0, propertyGridView.RefreshCalled);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenPropertyGridViewWithNewDataSet_WhenRefreshRequiredEventRaisedOnNewlySetData_ThenRefreshTriggered()
+        {
+            // Given
+            var dataObject1 = new object();
+            var dataObject2 = new object();
+
+            var mockRepository = new MockRepository();
+            var objectProperties1 = mockRepository.Stub<IObjectProperties>();
+            var objectProperties2 = mockRepository.Stub<IObjectProperties>();
+            var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
+            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject1)).Return(new DynamicPropertyBag(objectProperties1));
+            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject2)).Return(new DynamicPropertyBag(objectProperties2));
+            mockRepository.ReplayAll();
+
+            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver)
+            {
+                Data = dataObject1
+            })
+            {
+                propertyGridView.Data = dataObject2;
+
+                // When
+                objectProperties2.Raise(p => p.RefreshRequired += null,
+                                        objectProperties2,
+                                        EventArgs.Empty);
+
+                // Then
+                Assert.AreEqual(1, propertyGridView.RefreshCalled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenPropertyGridViewWithNewDataSet_WhenRefreshRequiredEventRaisedOnPreviouslySetData_ThenRefreshNotTriggered()
+        {
+            // Given
+            var dataObject1 = new object();
+            var dataObject2 = new object();
+
+            var mockRepository = new MockRepository();
+            var objectProperties1 = mockRepository.Stub<IObjectProperties>();
+            var objectProperties2 = mockRepository.Stub<IObjectProperties>();
+            var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
+            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject1)).Return(new DynamicPropertyBag(objectProperties1));
+            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject2)).Return(new DynamicPropertyBag(objectProperties2));
+            mockRepository.ReplayAll();
+
+            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver)
+            {
+                Data = dataObject1
+            })
+            {
+                propertyGridView.Data = dataObject2;
+
+                // When
+                objectProperties1.Raise(p => p.RefreshRequired += null,
+                                        objectProperties1,
+                                        EventArgs.Empty);
+
+                // Then
+                Assert.AreEqual(0, propertyGridView.RefreshCalled);
             }
             mockRepository.VerifyAll();
         }

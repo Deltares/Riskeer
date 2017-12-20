@@ -245,7 +245,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
 
         private class PropertiesForA : ObjectProperties<object> {}
 
-        private class AlternativePropertiesForA : ObjectProperties<A> {}
+        private class AlternativePropertiesForA : ObjectProperties<object> {}
 
         private class InheritsFromPropertiesForA : PropertiesForA {}
 

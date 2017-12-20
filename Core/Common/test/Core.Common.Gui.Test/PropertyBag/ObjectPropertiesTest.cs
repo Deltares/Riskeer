@@ -39,7 +39,6 @@ namespace Core.Common.Gui.Test.PropertyBag
             {
                 // Assert
                 Assert.IsInstanceOf<IObjectProperties>(properties);
-                Assert.IsInstanceOf<IDisposable>(properties);
                 Assert.IsNull(properties.Data);
             }
         }
@@ -101,7 +100,55 @@ namespace Core.Common.Gui.Test.PropertyBag
         }
 
         [Test]
-        public void GivenObjectPropertiesWithObservableDataSet_WhenNotifyingObserverAfterDispose_RefreshRequiredEventNotRaised()
+        public void GivenObjectPropertiesWithNewObservableDataSet_WhenNotifyingPreviouslySetObserver_RefreshRequiredEventNotRaised()
+        {
+            // Given
+            var observable1 = new SimpleObservable();
+            var observable2 = new SimpleObservable();
+            using (var properties = new ObjectProperties<SimpleObservable>
+            {
+                Data = observable1
+            })
+            {
+                properties.Data = observable2;
+
+                var refreshRequiredRaised = 0;
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+
+                // When
+                observable1.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(0, refreshRequiredRaised);
+            }
+        }
+
+        [Test]
+        public void GivenObjectPropertiesWithNewObservableDataSet_WhenNotifyingNewlySetObserver_RefreshRequiredEventRaised()
+        {
+            // Given
+            var observable1 = new SimpleObservable();
+            var observable2 = new SimpleObservable();
+            using (var properties = new ObjectProperties<SimpleObservable>
+            {
+                Data = observable1
+            })
+            {
+                properties.Data = observable2;
+
+                var refreshRequiredRaised = 0;
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+
+                // When
+                observable2.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(1, refreshRequiredRaised);
+            }
+        }
+
+        [Test]
+        public void GivenDisposedObjectPropertiesWithObservableDataSet_WhenNotifyingObserver_RefreshRequiredEventNotRaised()
         {
             // Given
             var observable = new SimpleObservable();
@@ -113,8 +160,9 @@ namespace Core.Common.Gui.Test.PropertyBag
             var refreshRequiredRaised = 0;
             properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
-            // When
             properties.Dispose();
+
+            // When
             observable.NotifyObservers();
 
             // Then
