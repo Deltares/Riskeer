@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.Base;
 
 namespace Core.Common.Gui.PropertyBag
 {
@@ -29,7 +31,19 @@ namespace Core.Common.Gui.PropertyBag
     /// <typeparam name="T">Type of <see cref="Data"/>.</typeparam>
     public class ObjectProperties<T> : IObjectProperties
     {
+        private readonly Observer refreshRequiredObserver;
+
         protected T data;
+
+        public event EventHandler<EventArgs> RefreshRequired;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ObjectProperties{T}"/>.
+        /// </summary>
+        public ObjectProperties()
+        {
+            refreshRequiredObserver = new Observer(OnRefreshRequired);
+        }
 
         [Browsable(false)]
         public object Data
@@ -41,7 +55,19 @@ namespace Core.Common.Gui.PropertyBag
             set
             {
                 data = (T) value;
+
+                refreshRequiredObserver.Observable = value as IObservable;
             }
+        }
+
+        public void Dispose()
+        {
+            refreshRequiredObserver?.Dispose();
+        }
+
+        private void OnRefreshRequired()
+        {
+            RefreshRequired?.Invoke(this, new EventArgs());
         }
     }
 }

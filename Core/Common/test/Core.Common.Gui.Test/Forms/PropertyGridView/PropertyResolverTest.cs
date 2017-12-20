@@ -243,15 +243,9 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
 
         private class A {}
 
-        private class PropertiesForA : IObjectProperties
-        {
-            public object Data { get; set; }
-        }
+        private class PropertiesForA : ObjectProperties<object> {}
 
-        private class AlternativePropertiesForA : IObjectProperties
-        {
-            public object Data { get; set; }
-        }
+        private class AlternativePropertiesForA : ObjectProperties<A> {}
 
         private class InheritsFromPropertiesForA : PropertiesForA {}
 
@@ -260,11 +254,6 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         private class B
         {
             public string Name { get; set; }
-        }
-
-        private class PropertiesForB : IObjectProperties
-        {
-            public object Data { get; set; }
         }
 
         #endregion

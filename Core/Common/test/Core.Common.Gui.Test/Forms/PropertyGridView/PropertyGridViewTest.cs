@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.PropertyBag;
@@ -58,7 +57,6 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
                 // Assert
                 Assert.IsInstanceOf<PropertyGrid>(propertyGridView);
                 Assert.IsInstanceOf<IView>(propertyGridView);
-                Assert.IsInstanceOf<IObserver>(propertyGridView);
                 Assert.IsNull(propertyGridView.Data);
                 Assert.AreEqual(PropertySort.Categorized, propertyGridView.PropertySort);
 
@@ -153,27 +151,28 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         }
 
         [Test]
-        public void GivenPropertyGridViewWithObservableSet_WhenNotifyObserverCalled_ThenRefreshTriggered()
+        public void GivenPropertyGridViewWithObservableSet_WhenRefreshRequiredEventRaised_ThenRefreshTriggered()
         {
             // Given
             var dataObject = new object();
-            var observerable = new SimpleObservable();
 
             var mockRepository = new MockRepository();
             var objectProperties = mockRepository.Stub<IObjectProperties>();
-            objectProperties.Data = observerable;
-
             var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
             propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(objectProperties));
             mockRepository.ReplayAll();
 
-            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
+            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver)
+            {
+                Data = dataObject
+            })
             {
                 // When
-                propertyGridView.Data = dataObject;
+                objectProperties.Raise(p => p.RefreshRequired += null,
+                                       objectProperties,
+                                       EventArgs.Empty);
 
                 // Then
-                observerable.NotifyObservers();
                 Assert.AreEqual(1, propertyGridView.RefreshCalled);
             }
             mockRepository.VerifyAll();
@@ -213,7 +212,5 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
                 base.Refresh();
             }
         }
-
-        private class SimpleObservable : Observable {}
     }
 }

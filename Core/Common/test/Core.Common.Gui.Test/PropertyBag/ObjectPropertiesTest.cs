@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Reflection;
+using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 
@@ -38,6 +39,7 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             // Assert
             Assert.IsInstanceOf<IObjectProperties>(properties);
+            Assert.IsInstanceOf<IDisposable>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -73,5 +75,50 @@ namespace Core.Common.Gui.Test.PropertyBag
             // Assert
             Assert.AreEqual(BrowsableAttribute.No, browsableAttribute);
         }
+
+        [Test]
+        public void GivenObjectPropertiesWithObservableDataSet_WhenNotifyingObserver_RefreshRequiredEventRaised()
+        {
+            // Given
+            var observable = new SimpleObservable();
+            using (var properties = new ObjectProperties<SimpleObservable>()
+            {
+                Data = observable
+            })
+            {
+                var refreshRequiredRaised = 0;
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+
+                // When
+                observable.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(1, refreshRequiredRaised);
+            }
+        }
+
+        [Test]
+        public void GivenObjectPropertiesWithObservableDataSet_WhenNotifyingObserverAfterDispose_RefreshRequiredEventNotRaised()
+        {
+            // Given
+            var refreshRequiredRaised = 0;
+
+            var observable = new SimpleObservable();
+            using (var properties = new ObjectProperties<SimpleObservable>()
+            {
+                Data = observable
+            })
+            {
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+            }
+
+            // When
+            observable.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(0, refreshRequiredRaised);
+        }
+
+        private class SimpleObservable : Observable {} 
     }
 }

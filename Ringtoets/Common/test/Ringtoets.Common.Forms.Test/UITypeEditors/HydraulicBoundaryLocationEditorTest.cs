@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             return new SelectableHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "", 0, 0), null);
         }
 
-        private class ObjectPropertiesWithSelectableHydraulicBoundaryLocation : IHasHydraulicBoundaryLocationProperty
+        private class ObjectPropertiesWithSelectableHydraulicBoundaryLocation : ObjectProperties<object>, IHasHydraulicBoundaryLocationProperty
         {
             private readonly IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations;
 
@@ -125,8 +125,6 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
                 SelectedHydraulicBoundaryLocation = selectedHydraulicBoundaryLocation;
                 this.selectableHydraulicBoundaryLocations = selectableHydraulicBoundaryLocations;
             }
-
-            public object Data { get; set; }
 
             public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation { get; }
 

@@ -103,7 +103,7 @@ namespace Core.Plugins.Map.Test.UITypeEditors
             return new SelectableMetaDataAttribute(string.Empty);
         }
 
-        private class ObjectPropertiesWithSelectableMetaDataAttribute : IHasMetaData
+        private class ObjectPropertiesWithSelectableMetaDataAttribute : ObjectProperties<object>, IHasMetaData
         {
             private readonly IEnumerable<SelectableMetaDataAttribute> selectableMetaDataAttributes;
 
@@ -113,8 +113,6 @@ namespace Core.Plugins.Map.Test.UITypeEditors
                 SelectedMetaDataAttribute = selectableMetaDataAttribute;
                 this.selectableMetaDataAttributes = selectableMetaDataAttributes;
             }
-
-            public object Data { get; set; }
 
             public SelectableMetaDataAttribute SelectedMetaDataAttribute { get; }
 

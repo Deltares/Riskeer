@@ -25,7 +25,6 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Permissions;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.PropertyBag;
@@ -35,11 +34,12 @@ namespace Core.Common.Gui.Forms.PropertyGridView
     /// <summary>
     /// View for displaying the properties of an data object.
     /// </summary>
-    public class PropertyGridView : PropertyGrid, IView, IObserver
+    public class PropertyGridView : PropertyGrid, IView
     {
         private readonly IPropertyResolver propertyResolver;
+
         private object data;
-        private IObservable observable;
+        private IObjectProperties objectProperties;
 
         /// <summary>
         /// This delegate enabled asynchronous calls to methods without arguments.
@@ -68,19 +68,6 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             this.propertyResolver = propertyResolver;
         }
 
-        public void UpdateObserver()
-        {
-            if (InvokeRequired)
-            {
-                ArgumentlessDelegate d = UpdateObserver;
-                Invoke(d, new object[0]);
-            }
-            else
-            {
-                Refresh();
-            }
-        }
-
         protected override void OnPropertySortChanged(EventArgs e)
         {
             // Needed for maintaining property order (no support for both categorized and alphabetical sorting)
@@ -94,9 +81,22 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
         protected override void Dispose(bool disposing)
         {
-            observable?.Detach(this);
+            DisposeObjectProperties();
 
             base.Dispose(disposing);
+        }
+
+        private void RefreshPropertyGridView()
+        {
+            if (InvokeRequired)
+            {
+                ArgumentlessDelegate d = RefreshPropertyGridView;
+                Invoke(d, new object[0]);
+            }
+            else
+            {
+                Refresh();
+            }
         }
 
         #region IView Members
@@ -115,33 +115,34 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                     return;
                 }
 
-                DetachObservable();
+                DisposeObjectProperties();
 
                 data = value;
-                AttachObservable();
+
+                SelectedObject = GetObjectProperties(data);
+
+                var dynamicPropertyBag = SelectedObject as DynamicPropertyBag;
+                objectProperties = dynamicPropertyBag?.WrappedObject as IObjectProperties;
+
+                if (objectProperties != null)
+                {
+                    objectProperties.RefreshRequired += HandleRefreshRequired;
+                }
             }
         }
 
-        private void DetachObservable()
+        private void DisposeObjectProperties()
         {
-            if (observable != null)
-            {
-                observable.Detach(this);
-                observable = null;
-            }
-        }
-
-        private void AttachObservable()
-        {
-            SelectedObject = GetObjectProperties(data);
-
-            var dynamicPropertyBag = SelectedObject as DynamicPropertyBag;
-            var objectProperties = dynamicPropertyBag?.WrappedObject as IObjectProperties;
             if (objectProperties != null)
             {
-                observable = objectProperties.Data as IObservable;
-                observable?.Attach(this);
+                objectProperties.RefreshRequired -= HandleRefreshRequired;
+                objectProperties.Dispose();
             }
+        }
+
+        private void HandleRefreshRequired(object sender, EventArgs e)
+        {
+            RefreshPropertyGridView();
         }
 
         private object GetObjectProperties(object sourceData)
