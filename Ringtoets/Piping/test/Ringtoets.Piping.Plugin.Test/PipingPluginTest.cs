@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Plugin.Test
     public class PipingPluginTest
     {
         [Test]
-        [Apartment(ApartmentState.STA)] // For creation of XAML UI component (PipingRibbon)
+        [Apartment(ApartmentState.STA)]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call

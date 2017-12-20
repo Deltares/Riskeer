@@ -132,11 +132,6 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.TechnicalInnovations));
             Assert.AreEqual(order, entity.Order);
 
-            Assert.IsNull(entity.HydraulicDatabaseLocation);
-            Assert.IsNull(entity.HydraulicDatabaseVersion);
-            CollectionAssert.IsEmpty(entity.HydraulicLocationEntities);
-            CollectionAssert.IsEmpty(entity.HydraRingPreprocessorEntities);
-
             Assert.IsNull(entity.ReferenceLinePointXml);
 
             Assert.AreEqual(1, entity.BackgroundDataEntities.Count);
@@ -185,7 +180,24 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithCanUsePreprocessorFalse_SetsPropertiesAndLocationsToEntity()
+        public void Create_HydraulicBoundaryDatabaseNotCoupled_SetsExpectedPropertiesToEntity()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var registry = new PersistenceRegistry();
+
+            // Call
+            AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
+
+            // Assert
+            Assert.IsNull(entity.HydraulicDatabaseLocation);
+            Assert.IsNull(entity.HydraulicDatabaseVersion);
+            CollectionAssert.IsEmpty(entity.HydraulicLocationEntities);
+            CollectionAssert.IsEmpty(entity.HydraRingPreprocessorEntities);
+        }
+
+        [Test]
+        public void Create_HydraulicBoundaryDatabaseCoupledWithCanUsePreprocessorFalse_SetsExpectedPropertiesToEntity()
         {
             // Setup
             const string testFilePath = "path";
@@ -216,7 +228,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithCanUsePreprocessorTrue_SetsPropertiesAndLocationsToEntity()
+        public void Create_HydraulicBoundaryDatabaseCoupledWithCanUsePreprocessorTrue_SetsExpectedPropertiesToEntity()
         {
             // Setup
             const string testFilePath = "path";

@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class AssessmentSectionHelperTest
     {
         [Test]
-        public void CreateAssessmentSectionStub_WithoutFailureMechanimAndFilePath_ReturnsExpectedAssessmentSectionStub()
+        public void CreateAssessmentSectionStub_WithoutFailureMechanismAndFilePath_ReturnsExpectedAssessmentSectionStub()
         {
             // Setup
             var mocks = new MockRepository();

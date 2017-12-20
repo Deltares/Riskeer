@@ -585,7 +585,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)] // Due to creating fluent Ribbon
+        [Apartment(ApartmentState.STA)]
         public void Activate_WithGui_ExpectedProperties()
         {
             // Setup

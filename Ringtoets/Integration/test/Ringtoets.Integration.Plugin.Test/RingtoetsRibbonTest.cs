@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.Plugin.Test
     public class RingtoetsRibbonTest
     {
         [Test]
-        [Apartment(ApartmentState.STA)] // Due to creating fluent Ribbon
+        [Apartment(ApartmentState.STA)]
         public void GetRibbonControl_Always_ReturnRibbon()
         {
             // Setup
@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)] // Due to creating fluent Ribbon
+        [Apartment(ApartmentState.STA)]
         public void AddAssessmentSectionButtonCommand_AddAssessmentSectionButtonClicked_ExecutesCommand()
         {
             // Setup
