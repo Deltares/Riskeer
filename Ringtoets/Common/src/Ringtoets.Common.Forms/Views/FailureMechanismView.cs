@@ -61,15 +61,7 @@ namespace Ringtoets.Common.Forms.Views
             InitializeComponent();
 
             failureMechanismObserver = new Observer(UpdateMapData);
-            assessmentSectionObserver = new Observer(() =>
-            {
-                if (!ReferenceEquals(hydraulicBoundaryLocationsObserver.Observable, data.Parent.HydraulicBoundaryDatabase))
-                {
-                    hydraulicBoundaryLocationsObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
-                }
-
-                UpdateMapData();
-            });
+            assessmentSectionObserver = new Observer(UpdateMapData);
             hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData);
             hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
                 UpdateMapData, hbl => hbl);
