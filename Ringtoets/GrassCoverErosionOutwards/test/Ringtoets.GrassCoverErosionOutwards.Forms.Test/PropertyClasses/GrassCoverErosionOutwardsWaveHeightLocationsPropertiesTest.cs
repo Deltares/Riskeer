@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -29,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
@@ -36,17 +36,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveHeightLocationsPropertiesTest
     {
-        [Test]
-        public void Constructor_WithoutLocations_ExpectedValues()
-        {
-            // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveHeightLocationsProperties(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("locations", paramName);
-        }
-
         [Test]
         public void Constructor_WithLocations_ExpectedValues()
         {
@@ -58,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 hydraulicBoundaryLocations);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocation>>>(properties);
+            Assert.IsInstanceOf<HydraulicBoundaryLocationsProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocations, properties.Data);
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             const string expectedLocationsDisplayName = "Locaties";
@@ -102,51 +91,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(location.Location, locationProperties.Location);
             Assert.AreEqual(location.WaveHeight, locationProperties.WaveHeight, location.WaveHeight.GetAccuracy());
             Assert.AreEqual("Ja", locationProperties.Convergence);
-        }
-
-        [Test]
-        public void GivenPropertyControlWithData_WhenSingleLocationUpdated_RefreshRequiredEventRaised()
-        {
-            // Given
-            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateWaveHeightCalculated(1.5);
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                location
-            };
-
-            var properties = new GrassCoverErosionOutwardsWaveHeightLocationsProperties(hydraulicBoundaryLocations);
-
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-            // When
-            location.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(1, refreshRequiredRaised);
-        }
-
-        [Test]
-        public void GivenPropertyControlWithData_WhenSingleLocationUpdatedAfterDispose_RefreshRequiredEventNotRaised()
-        {
-            // Given
-            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateWaveHeightCalculated(1.5);
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                location
-            };
-
-            var properties = new GrassCoverErosionOutwardsWaveHeightLocationsProperties(hydraulicBoundaryLocations);
-
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-            // When
-            properties.Dispose();
-            location.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(0, refreshRequiredRaised);
         }
     }
 }

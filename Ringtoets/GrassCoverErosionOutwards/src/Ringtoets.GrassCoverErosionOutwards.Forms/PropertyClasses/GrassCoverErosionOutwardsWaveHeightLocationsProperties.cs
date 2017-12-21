@@ -24,10 +24,10 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
@@ -35,40 +35,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with 
     /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveHeightLocationsProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
+    public class GrassCoverErosionOutwardsWaveHeightLocationsProperties : HydraulicBoundaryLocationsProperties
     {
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsProperties"/>.
         /// </summary>
         /// <param name="locations">The locations to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveHeightLocationsProperties(ObservableList<HydraulicBoundaryLocation> locations)
-        {
-            if (locations == null)
-            {
-                throw new ArgumentNullException(nameof(locations));
-            }
-
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(OnRefreshRequired, list => list);
-
-            Data = locations;
-        }
-
-        public override object Data
-        {
-            get
-            {
-                return base.Data;
-            }
-            set
-            {
-                base.Data = value;
-
-                hydraulicBoundaryLocationObserver.Observable = value as ObservableList<HydraulicBoundaryLocation>;
-            }
-        }
+            : base(locations) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
@@ -80,13 +55,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             {
                 return data.Select(loc => new GrassCoverErosionOutwardsWaveHeightLocationProperties(loc)).ToArray();
             }
-        }
-
-        public override void Dispose()
-        {
-            hydraulicBoundaryLocationObserver.Dispose();
-
-            base.Dispose();
         }
     }
 }

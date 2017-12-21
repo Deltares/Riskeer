@@ -24,7 +24,7 @@ using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> for properties panel.

@@ -19,12 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -39,17 +37,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private const int requiredLocationsPropertyIndex = 0;
 
         [Test]
-        public void Constructor_WithoutDatabase_ExpectedValues()
-        {
-            // Call
-            TestDelegate test = () => new WaveHeightLocationsProperties(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocations", paramName);
-        }
-
-        [Test]
         public void Constructor_WithDatabase_ExpectedValues()
         {
             // Setup
@@ -59,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new WaveHeightLocationsProperties(hydraulicBoundaryDatabase);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocation>>>(properties);
+            Assert.IsInstanceOf<HydraulicBoundaryDatabaseProperties>(properties);
             Assert.AreSame(hydraulicBoundaryDatabase, properties.Data);
         }
 
@@ -109,51 +96,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Locaties",
                                                                             "Locaties uit de hydraulische randvoorwaardendatabase.",
                                                                             true);
-        }
-
-        [Test]
-        public void GivenPropertyControlWithData_WhenSingleLocationUpdated_RefreshRequiredEventRaised()
-        {
-            // Given
-            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateWaveHeightCalculated(1.5);
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                location
-            };
-
-            var properties = new WaveHeightLocationsProperties(hydraulicBoundaryLocations);
-
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-            // When
-            location.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(1, refreshRequiredRaised);
-        }
-
-        [Test]
-        public void GivenPropertyControlWithData_WhenSingleLocationUpdatedAfterDispose_RefreshRequiredEventNotRaised()
-        {
-            // Given
-            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateWaveHeightCalculated(1.5);
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                location
-            };
-
-            var properties = new WaveHeightLocationsProperties(hydraulicBoundaryLocations);
-
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-            // When
-            properties.Dispose();
-            location.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(0, refreshRequiredRaised);
         }
     }
 }
