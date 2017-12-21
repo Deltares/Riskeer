@@ -96,7 +96,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             const string name = "Hydraulische randvoorwaarden";
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
+                                                               assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -131,7 +132,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
+                                                                assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -173,7 +175,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                        assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -198,7 +201,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     FilePath = "databaseFile"
                 }
             };
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                        assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -217,7 +221,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                        assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -242,7 +247,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     FilePath = "databaseFile"
                 }
             };
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                        assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -254,10 +260,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(2, objects.Length);
                 var designWaterLevelLocationsContext = (DesignWaterLevelLocationsContext) objects[0];
-                Assert.AreSame(assessmentSection, designWaterLevelLocationsContext.WrappedData);
+                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, designWaterLevelLocationsContext.WrappedData);
 
                 var waveHeightLocationsContext = (WaveHeightLocationsContext) objects[1];
-                Assert.AreSame(assessmentSection, waveHeightLocationsContext.WrappedData);
+                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, waveHeightLocationsContext.WrappedData);
             }
         }
 
@@ -278,7 +284,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             string testFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -342,7 +349,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             string testFile = Path.Combine(testDataPath, "empty.sqlite");
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -394,7 +402,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             string testFile = Path.Combine(testDataPathNoHlcd, "HRD dutch coast south.sqlite");
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -453,7 +462,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             assessmentSection.Attach(assessmentObserver);
 
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                        assessmentSection);
 
             var pipingOutput = new TestPipingOutput();
             var pipingSemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();

@@ -19,10 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
@@ -31,20 +34,34 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
     public class WaveHeightLocationsContextTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
+
             // Call
-            var presentationObject = new WaveHeightLocationsContext(assessmentSection);
+            var presentationObject = new WaveHeightLocationsContext(locations, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(presentationObject);
-            Assert.AreSame(assessmentSection, presentationObject.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(presentationObject);
+            Assert.AreSame(locations, presentationObject.WrappedData);
+            Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }

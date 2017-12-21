@@ -110,13 +110,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var context = new DesignWaterLevelLocationsContext(assessmentSection);
+            ObservableList<HydraulicBoundaryLocation> locations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            var context = new DesignWaterLevelLocationsContext(locations, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, viewData);
+            Assert.AreSame(locations, viewData);
         }
 
         [Test]
@@ -124,7 +125,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var context = new DesignWaterLevelLocationsContext(assessmentSection);
+            var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                               assessmentSection);
 
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
@@ -153,7 +155,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var context = new DesignWaterLevelLocationsContext(assessmentSection);
+            var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                               assessmentSection);
 
             using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), new ObservableTestAssessmentSectionStub()))
             using (var ringtoetsPlugin = new RingtoetsPlugin())

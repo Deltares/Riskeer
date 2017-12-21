@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                     }
                 }
             };
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
             const string filePath = "test";
 
             using (var plugin = new RingtoetsPlugin())
@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -131,7 +131,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                     FilePath = "databaseFile"
                 }
             };
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {

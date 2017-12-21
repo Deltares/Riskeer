@@ -25,9 +25,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
@@ -43,14 +41,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(context);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryDatabaseContext>>(properties);
-            Assert.AreSame(context, properties.Data);
+            Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryDatabase>>(properties);
+            Assert.AreSame(hydraulicBoundaryDatabase, properties.Data);
         }
 
         [Test]
@@ -61,19 +59,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const bool usePreprocessor = true;
             const string preprocessorDirectory = @"C:\preprocessor";
 
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike)
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                HydraulicBoundaryDatabase =
-                {
-                    FilePath = filePath,
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = usePreprocessor,
-                    PreprocessorDirectory = preprocessorDirectory
-                }
-            });
+                FilePath = filePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = usePreprocessor,
+                PreprocessorDirectory = preprocessorDirectory
+            };
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabaseContext);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
 
             // Assert
             Assert.AreEqual(filePath, properties.FilePath);
@@ -88,18 +83,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_CanUsePreprocessorTrue_PropertiesHaveExpectedAttributesValues(bool usePreprocessor)
         {
             // Setup
-            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike)
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                HydraulicBoundaryDatabase =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = usePreprocessor,
-                    PreprocessorDirectory = "Preprocessor"
-                }
-            });
+                CanUsePreprocessor = true,
+                UsePreprocessor = usePreprocessor,
+                PreprocessorDirectory = "Preprocessor"
+            };
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(context);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -130,10 +122,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_CanUsePreprocessorFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(context);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -151,10 +143,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_HydraulicBoundaryDatabaseNotLinked_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(context);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -179,25 +171,22 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             mocks.ReplayAll();
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                HydraulicBoundaryDatabase =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = !usePreprocessor,
-                    PreprocessorDirectory = "Preprocessor"
-                }
+                CanUsePreprocessor = true,
+                UsePreprocessor = !usePreprocessor,
+                PreprocessorDirectory = "Preprocessor"
             };
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
-            var properties = new HydraulicBoundaryDatabaseProperties(context);
 
-            assessmentSection.Attach(observer);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
+
+            hydraulicBoundaryDatabase.Attach(observer);
 
             // Call
             properties.UsePreprocessor = usePreprocessor;
 
             // Assert
-            Assert.AreEqual(usePreprocessor, assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor);
+            Assert.AreEqual(usePreprocessor, hydraulicBoundaryDatabase.UsePreprocessor);
             mocks.VerifyAll();
         }
 
@@ -206,23 +195,20 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             const string newPreprocessorDirectory = @"C:/path";
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                HydraulicBoundaryDatabase =
-                {
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = "Preprocessor"
-                }
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = "Preprocessor"
             };
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
-            var properties = new HydraulicBoundaryDatabaseProperties(context);
+
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
 
             // Call
             properties.PreprocessorDirectory = newPreprocessorDirectory;
 
             // Assert
-            Assert.AreEqual(newPreprocessorDirectory, assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory);
+            Assert.AreEqual(newPreprocessorDirectory, hydraulicBoundaryDatabase.PreprocessorDirectory);
         }
 
         [Test]
@@ -231,19 +217,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             [Values(true, false)] bool usePreprocessor)
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             if (canUsePreprocessor)
             {
-                assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
-                assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = usePreprocessor;
-                assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "Preprocessor";
+                hydraulicBoundaryDatabase.CanUsePreprocessor = true;
+                hydraulicBoundaryDatabase.UsePreprocessor = usePreprocessor;
+                hydraulicBoundaryDatabase.PreprocessorDirectory = "Preprocessor";
             }
 
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
-
             // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(context);
+            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.FilePath)));

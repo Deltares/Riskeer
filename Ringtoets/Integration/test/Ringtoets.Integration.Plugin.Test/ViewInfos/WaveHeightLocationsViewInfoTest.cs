@@ -110,13 +110,15 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var context = new WaveHeightLocationsContext(assessmentSection);
+            ObservableList<HydraulicBoundaryLocation> locations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+
+            var context = new WaveHeightLocationsContext(locations, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, viewData);
+            Assert.AreSame(locations, viewData);
         }
 
         [Test]
@@ -124,7 +126,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var context = new WaveHeightLocationsContext(assessmentSection);
+            var context = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection);
 
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
@@ -154,9 +156,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var context = new WaveHeightLocationsContext(assessmentSection);
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
+            var context = new WaveHeightLocationsContext(locations, assessmentSection);
 
-            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection))
+            using (var view = new WaveHeightLocationsView(locations, assessmentSection))
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));

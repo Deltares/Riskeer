@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -60,7 +61,9 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             mockRepository.ReplayAll();
 
-            var context = new DesignWaterLevelLocationsContext(assessmentSection);
+            ObservableList<HydraulicBoundaryLocation> locations = hydraulicBoundaryDatabase.Locations;
+
+            var context = new DesignWaterLevelLocationsContext(locations, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -71,7 +74,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.IsInstanceOf<DesignWaterLevelLocationsProperties>(objectProperties);
-                Assert.AreSame(hydraulicBoundaryDatabase.Locations, objectProperties.Data);
+                Assert.AreSame(locations, objectProperties.Data);
             }
             mockRepository.VerifyAll();
         }

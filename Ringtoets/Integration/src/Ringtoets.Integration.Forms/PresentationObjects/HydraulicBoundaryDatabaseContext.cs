@@ -30,13 +30,27 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryDatabase"/>.
     /// </summary>
-    public class HydraulicBoundaryDatabaseContext : ObservableWrappedObjectContextBase<AssessmentSection>
+    public class HydraulicBoundaryDatabaseContext : ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseContext"/>.
         /// </summary>
-        /// <param name="wrappedAssessmentSection">The <see cref="IAssessmentSection"/> which the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedAssessmentSection"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseContext(AssessmentSection wrappedAssessmentSection) : base(wrappedAssessmentSection) {}
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryDatabase"/> that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public HydraulicBoundaryDatabaseContext(HydraulicBoundaryDatabase wrappedData,
+                                                AssessmentSection assessmentSection) : base(wrappedData)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+            AssessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets the assessment section that the context belongs to.
+        /// </summary>
+        public AssessmentSection AssessmentSection { get; }
     }
 }

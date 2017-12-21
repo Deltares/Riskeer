@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -56,11 +57,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         private MockRepository mockRepository;
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
-        public override void Setup()
-        {
-            mockRepository = new MockRepository();
-        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -142,7 +138,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
-            var nodeData = new WaveHeightLocationsContext(assessmentSection);
+            var nodeData = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), 
+                                                          assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -172,7 +169,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
 
-            var nodeData = new WaveHeightLocationsContext(assessmentSection);
+            var nodeData = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                          assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -211,7 +209,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
 
-            var nodeData = new WaveHeightLocationsContext(assessmentSection);
+            var nodeData = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                          assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -248,13 +247,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter"), "complete.sqlite")
-            });
+            };
 
-            var nodeData = new WaveHeightLocationsContext(assessmentSection);
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            var nodeData = new WaveHeightLocationsContext(hydraulicBoundaryDatabase.Locations,
+                                                          assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -304,7 +306,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var context = new WaveHeightLocationsContext(assessmentSection);
+            var context = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                         assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -371,7 +374,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var context = new WaveHeightLocationsContext(assessmentSection);
+            var context = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                         assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -437,7 +441,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var context = new WaveHeightLocationsContext(assessmentSection);
+            var context = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                         assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -502,7 +507,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Id = string.Empty
             };
 
-            var context = new WaveHeightLocationsContext(assessmentSection);
+            var context = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                         assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -557,6 +563,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             }
             mockRepository.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            mockRepository = new MockRepository();
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
