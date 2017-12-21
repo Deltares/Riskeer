@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
@@ -46,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new DesignWaterLevelLocationsProperties(hydraulicBoundaryLocations);
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryDatabaseProperties>(properties);
+            Assert.IsInstanceOf<HydraulicBoundaryLocationsProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocations, properties.Data);
         }
 
