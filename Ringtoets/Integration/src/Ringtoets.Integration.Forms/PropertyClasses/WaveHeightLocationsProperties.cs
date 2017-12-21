@@ -24,7 +24,6 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -35,40 +34,15 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/>  with 
     /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> for properties panel.
     /// </summary>
-    public class WaveHeightLocationsProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
+    public class WaveHeightLocationsProperties : HydraulicBoundaryLocationsProperties
     {
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
-
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightLocationProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to set as data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
         public WaveHeightLocationsProperties(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
-        {
-            if (hydraulicBoundaryLocations == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
-            }
-
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(OnRefreshRequired, list => list);
-
-            Data = hydraulicBoundaryLocations;
-        }
-
-        public override object Data
-        {
-            get
-            {
-                return base.Data;
-            }
-            set
-            {
-                base.Data = value;
-
-                hydraulicBoundaryLocationObserver.Observable = value as ObservableList<HydraulicBoundaryLocation>;
-            }
-        }
+            : base(hydraulicBoundaryLocations) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
@@ -80,13 +54,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             {
                 return data.Select(loc => new WaveHeightLocationProperties(loc)).ToArray();
             }
-        }
-
-        public override void Dispose()
-        {
-            hydraulicBoundaryLocationObserver.Dispose();
-
-            base.Dispose();
         }
     }
 }

@@ -20,40 +20,55 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base;
-using Core.Common.Gui.Converters;
-using Core.Common.Util.Attributes;
+using Core.Common.Gui.PropertyBag;
 using Ringtoets.Common.Data.Hydraulics;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with 
-    /// <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for properties panel.
+    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> for properties panel.
     /// </summary>
-    public class DesignWaterLevelLocationsProperties : HydraulicBoundaryLocationsProperties
+    public abstract class HydraulicBoundaryLocationsProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
     {
+        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
+
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelLocationProperties"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationsProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocations">The list of hydraulic boundary locations to set as data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
-        public DesignWaterLevelLocationsProperties(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
-            : base(hydraulicBoundaryLocations) {}
+        protected HydraulicBoundaryLocationsProperties(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        {
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+            }
 
-        [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
-        public DesignWaterLevelLocationProperties[] Locations
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(OnRefreshRequired, list => list);
+
+            Data = hydraulicBoundaryLocations;
+        }
+
+        public override object Data
         {
             get
             {
-                return data.Select(loc => new DesignWaterLevelLocationProperties(loc)).ToArray();
+                return base.Data;
             }
+            set
+            {
+                base.Data = value;
+
+                hydraulicBoundaryLocationObserver.Observable = value as ObservableList<HydraulicBoundaryLocation>;
+            }
+        }
+
+        public override void Dispose()
+        {
+            hydraulicBoundaryLocationObserver.Dispose();
+
+            base.Dispose();
         }
     }
 }

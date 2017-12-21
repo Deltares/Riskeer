@@ -65,6 +65,9 @@ namespace Core.Common.Gui.PropertyBag
             refreshRequiredObserver?.Dispose();
         }
 
+        /// <summary>
+        /// Method for raising <see cref="RefreshRequired"/>.
+        /// </summary>
         protected void OnRefreshRequired()
         {
             RefreshRequired?.Invoke(this, new EventArgs());
