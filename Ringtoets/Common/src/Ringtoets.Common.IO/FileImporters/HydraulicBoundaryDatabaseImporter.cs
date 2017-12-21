@@ -74,7 +74,6 @@ namespace Ringtoets.Common.IO.FileImporters
                 if (hydraulicBoundaryDatabase.FilePath != filePath)
                 {
                     hydraulicBoundaryDatabase.FilePath = filePath;
-                    assessmentSection.NotifyObservers();
                     hydraulicBoundaryDatabase.NotifyObservers();
                 }
             }
@@ -103,7 +102,6 @@ namespace Ringtoets.Common.IO.FileImporters
                     hydraulicBoundaryDatabase.CanUsePreprocessor = false;
                 }
 
-                assessmentSection.NotifyObservers();
                 hydraulicBoundaryDatabase.NotifyObservers();
                 hydraulicBoundaryDatabase.Locations.NotifyObservers();
 

@@ -266,8 +266,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenNoDatabaseLinked_WhenOpeningValidFileFromContextMenu_ThenDatabaseLinkedObserversNotifiedAndLogMessagesAdded()
         {
             // Given
-            var assessmentSectionObserver = mocks.StrictMock<IObserver>();
-            assessmentSectionObserver.Expect(o => o.UpdateObserver());
+            var hydraulicBoundaryDatabaseObserver = mocks.StrictMock<IObserver>();
+            hydraulicBoundaryDatabaseObserver.Expect(o => o.UpdateObserver());
+
+            var hydraulicBoundaryLocationsObserver = mocks.StrictMock<IObserver>();
+            hydraulicBoundaryLocationsObserver.Expect(o => o.UpdateObserver());
 
             var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
             grassCoverErosionOutwardsLocationsObserver.Expect(o => o.UpdateObserver());
@@ -291,7 +294,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                assessmentSection.Attach(assessmentSectionObserver);
+                assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(hydraulicBoundaryLocationsObserver);
                 assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
                 DialogBoxHandler = (name, wnd) =>

@@ -193,7 +193,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-            assessmentSection.Expect(section => section.NotifyObservers());
 
             var databaseObserver = mocks.StrictMock<IObserver>();
             databaseObserver.Expect(o => o.UpdateObserver());
@@ -232,7 +231,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-            assessmentSection.Expect(section => section.NotifyObservers());
 
             var databaseObserver = mocks.StrictMock<IObserver>();
             databaseObserver.Expect(o => o.UpdateObserver());
@@ -273,7 +271,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Given
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Twice(); // Needed for first import
 
             var databaseObserver = mocks.StrictMock<IObserver>();
             databaseObserver.Expect(o => o.UpdateObserver());
@@ -307,7 +304,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Given
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-            assessmentSection.Expect(section => section.NotifyObservers()); // Expectation from first import
 
             var databaseObserver = mocks.StrictMock<IObserver>();
             var locationsObserver = mocks.StrictMock<IObserver>();
