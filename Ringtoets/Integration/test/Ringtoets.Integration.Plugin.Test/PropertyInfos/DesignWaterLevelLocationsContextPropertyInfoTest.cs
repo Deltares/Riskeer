@@ -51,14 +51,13 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_SetsHydraulicBoundaryDatabaseAsData()
+        public void CreateInstance_Always_SetsHydraulicBoundaryLocationsAsData()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             mockRepository.ReplayAll();
 
             ObservableList<HydraulicBoundaryLocation> locations = hydraulicBoundaryDatabase.Locations;

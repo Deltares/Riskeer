@@ -58,6 +58,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
+        public override void Setup()
+        {
+            mockRepository = new MockRepository();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -563,11 +568,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             }
             mockRepository.VerifyAll();
-        }
-
-        public override void Setup()
-        {
-            mockRepository = new MockRepository();
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)

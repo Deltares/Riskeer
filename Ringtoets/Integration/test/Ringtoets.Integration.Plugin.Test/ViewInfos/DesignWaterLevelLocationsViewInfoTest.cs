@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsHydraulicBoundaryDatabase()
+        public void GetViewData_Always_ReturnsHydraulicBoundaryLocations()
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
