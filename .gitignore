@@ -19,7 +19,6 @@ TestResult.xml
 
 # Custom
 Application/Ringtoets/src/Application.Ringtoets.Setup/Examples.wxs
-Application/Ringtoets/src/Application.Ringtoets.Setup/GenerateVariables.wxi
 Application/Ringtoets/src/Application.Ringtoets.Setup/RingtoetsPayload.wxs
 Application/Ringtoets/src/Application.Ringtoets.Setup/ThirdPartyLicensesPayload.wxs
 Core/Common/src/Core.Common.Version/GlobalAssembly.cs

@@ -10,13 +10,12 @@
 		Custom Field: ReleaseVersion
 		Field is injected into WiX with the same name to make it available there as well.
 	-->
-    <ReleaseVersion>17.3.1</ReleaseVersion>
+    <ReleaseVersion>18.1.1.1</ReleaseVersion>
     <!--
 		Environment Variable: BUILD_NUMBER
 		Field could be set by BuildServer. If not present, it will be skipped.
 	-->
-    <OutputName Condition=" '$(BUILD_NUMBER)' == '' ">Ringtoets Setup ($(ReleaseVersion))</OutputName>
-    <OutputName Condition=" '$(BUILD_NUMBER)' != '' ">Ringtoets Setup ($(ReleaseVersion).$(BUILD_NUMBER))</OutputName>
+    <OutputName>Ringtoets Setup ($(ReleaseVersion))</OutputName>
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
@@ -177,8 +176,6 @@
     <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\voorlandprofielen.shx" />
     <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\WBI2017_Waddenzee_West_6-3_v01.config.sqlite" />
     <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\WBI2017_Waddenzee_West_6-3_v01.sqlite" />
-    <Content Include="GenerateVariables.wxi" />
-    <Content Include="GenerateVariables.wxi.svn" />
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.dbf" />
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.prj" />
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.qpj" />
@@ -247,8 +244,7 @@
   <PropertyGroup>
     <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\..\bin\$(Configuration) -cg RingtoetsApplicationComponents -gg -dr BINDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RingtoetsPayload.wxs"
 "$(WIX)bin\heat.exe" dir $(ProjectDir)licenses -cg ThirdPartyLicenseComponents -gg -dr BINDIR -var var.InstallerLicensesFolder -sfrag -sreg -srd -o "$(ProjectDir)ThirdPartyLicensesPayload.wxs"
-"$(WIX)bin\heat.exe" dir $(ProjectDir)Examples -cg Examples -gg -dr CommonDocumentsExamples -var var.ExamplesFolder -sfrag -sreg -srd -o "$(ProjectDir)Examples.wxs"
-$(ProjectDir)..\..\..\..\build\svn_insert_version.cmd $(ProjectDir) GenerateVariables.wxi.svn GenerateVariables.wxi%3b</PreBuildEvent>
+"$(WIX)bin\heat.exe" dir $(ProjectDir)Examples -cg Examples -gg -dr CommonDocumentsExamples -var var.ExamplesFolder -sfrag -sreg -srd -o "$(ProjectDir)Examples.wxs"</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <!-- GenerateVariables.wxi will be generated on pre-build. -->
-  <?include GenerateVariables.wxi ?>
   <!-- Static variables. -->
   <?include Variables.wxi ?>
   
-  <Product Id="*" Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.FullReleaseVersion)" Manufacturer="!(loc.Manufacturer)" UpgradeCode="8c52b205-2bc3-4281-9d81-080fb1b2105d">
+  <Product Id="*" Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.ReleaseVersion)" Manufacturer="!(loc.Manufacturer)" UpgradeCode="8c52b205-2bc3-4281-9d81-080fb1b2105d">
     <!--Comment left empty on purpose to remove auto-generated text.-->
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Languages="1043" Manufacturer="!(loc.Manufacturer)" Comments=" "/>
     
