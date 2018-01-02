@@ -30,14 +30,10 @@
     <DefineConstants>TRACE;DEVELOPMENT</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstaller|x86'">
-    <OutputPath>$(SolutionDir)\bin\Release\</OutputPath>
-    <OutDir>$(OutputPath)</OutDir>
     <DefineConstants>TRACE</DefineConstants>
     <DebugType>none</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstallerWithDemoProject|x86'">
-    <OutputPath>$(SolutionDir)\bin\Release\</OutputPath>
-    <OutDir>$(OutputPath)</OutDir>
     <DefineConstants>TRACE;DEVELOPMENT</DefineConstants>
     <DebugType>none</DebugType>
   </PropertyGroup>
