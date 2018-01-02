@@ -22,17 +22,23 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE;INCLUDE_DEMOPROJECT</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;INCLUDE_DEMOPROJECT;DEVELOPMENT</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE;INCLUDE_DEMOPROJECT</DefineConstants>
+    <DefineConstants>TRACE;INCLUDE_DEMOPROJECT;DEVELOPMENT</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstaller|x86'">
     <OutputPath>$(SolutionDir)\bin\Release\</OutputPath>
     <OutDir>$(OutputPath)</OutDir>
     <DefineConstants>TRACE</DefineConstants>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstallerWithDemoProject|x86'">
+    <OutputPath>$(SolutionDir)\bin\Release\</OutputPath>
+    <OutDir>$(OutputPath)</OutDir>
+    <DefineConstants>TRACE;DEVELOPMENT</DefineConstants>
     <DebugType>none</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
