@@ -22,12 +22,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE;INCLUDE_DEMOPROJECT;DEVELOPMENT</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;DEVELOPMENT</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE;INCLUDE_DEMOPROJECT;DEVELOPMENT</DefineConstants>
+    <DefineConstants>TRACE;DEVELOPMENT</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstaller|x86'">
     <OutputPath>$(SolutionDir)\bin\Release\</OutputPath>
@@ -118,7 +118,7 @@
       <Name>Core.Plugins.ProjectExplorer</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Demo\Ringtoets\src\Demo.Ringtoets\Demo.Ringtoets.csproj" Condition="$(DefineConstants.Contains('INCLUDE_DEMOPROJECT'))">
+    <ProjectReference Include="..\..\..\..\Demo\Ringtoets\src\Demo.Ringtoets\Demo.Ringtoets.csproj" Condition="$(DefineConstants.Contains('DEVELOPMENT'))">
       <Project>{ffe3a667-3a4c-4f48-bc6b-1589867fcb41}</Project>
       <Name>Demo.Ringtoets</Name>
       <Private>False</Private>

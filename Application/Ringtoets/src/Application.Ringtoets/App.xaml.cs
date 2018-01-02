@@ -62,7 +62,7 @@ using Ringtoets.StabilityStoneCover.Plugin;
 using Ringtoets.WaveImpactAsphaltCover.Plugin;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using MessageBox = System.Windows.MessageBox;
-#if INCLUDE_DEMOPROJECT
+#if DEVELOPMENT
 using Demo.Ringtoets.GUIs;
 
 #endif
@@ -174,7 +174,7 @@ namespace Application.Ringtoets
                     new MacroStabilityInwardsPlugin(),
                     new ChartPlugin(),
                     new MapPlugin()
-#if INCLUDE_DEMOPROJECT
+#if DEVELOPMENT
                     ,
                     new DemoProjectPlugin()
 #endif
