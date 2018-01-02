@@ -58,14 +58,13 @@ namespace Core.Common.TestUtil
         /// </summary>
         /// <returns>The folder path.</returns>
         /// <remarks>Caller is responsible for cleaning up files put in the folder.</remarks>
-        /// <exception cref="IOException">Thrown when the folder doesn't exist.</exception>
         /// <seealso cref="GetScratchPadPath(string)"/>
         public static string GetScratchPadPath()
         {
-            string scratchPadPath = Path.Combine(Path.GetDirectoryName(SolutionRoot), "Scratchpad");
+            string scratchPadPath = Path.Combine(Path.GetTempPath(), "Ringtoets_Scratchpad");
             if (!Directory.Exists(scratchPadPath))
             {
-                throw new IOException("The 'Scratchpad' folder has been deleted from the trunk, while tests require the existence of this folder for writing to disk temporarily.");
+                Directory.CreateDirectory(scratchPadPath);
             }
             return scratchPadPath;
         }
@@ -76,7 +75,6 @@ namespace Core.Common.TestUtil
         /// <param name="path">The file or folder path inside the 'scratchpad' folder.</param>
         /// <returns>The folder path.</returns>
         /// <remarks>Caller is responsible for cleaning up files put in the folder.</remarks>
-        /// <exception cref="IOException">Thrown when the folder doesn't exist.</exception>
         /// <seealso cref="GetScratchPadPath()"/>
         public static string GetScratchPadPath(string path)
         {
