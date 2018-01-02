@@ -209,8 +209,6 @@ namespace Core.Common.TestUtil.Test
             path = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage);
             Assert.IsTrue(Directory.Exists(path));
 
-            path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui);
-            Assert.IsTrue(Directory.Exists(path));
             path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Util);
             Assert.IsTrue(Directory.Exists(path));
             path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.IO);
@@ -251,8 +249,6 @@ namespace Core.Common.TestUtil.Test
             Assert.IsTrue(Directory.Exists(path));
 
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO);
-            Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.Plugin);
             Assert.IsTrue(Directory.Exists(path));
 
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityStoneCover.IO);

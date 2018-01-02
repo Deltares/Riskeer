@@ -53,10 +53,8 @@ namespace Core.Common.TestUtil
         {
             public static class Common
             {
-                public static readonly TestDataPath Gui = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.Gui.Test");
                 public static readonly TestDataPath Util = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.Util.Test");
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.IO.Test");
-                public static readonly TestDataPath TestUtil = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.TestUtil.Test");
             }
 
             public static class Components
@@ -79,11 +77,6 @@ namespace Core.Common.TestUtil
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Common", "test", "Ringtoets.Common.IO.Test");
                 public static readonly TestDataPath Service = System.IO.Path.Combine("Ringtoets", "Common", "test", "Ringtoets.Common.Service.Test");
-            }
-
-            public static class DuneErosion
-            {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "DuneErosion", "test", "Ringtoets.DuneErosion.IO.Test");
             }
 
             public static class GrassCoverErosionInwards
@@ -118,13 +111,11 @@ namespace Core.Common.TestUtil
             public static class MacroStabilityInwards
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "MacroStabilityInwards", "test", "Ringtoets.MacroStabilityInwards.IO.Test");
-                public static readonly TestDataPath Plugin = System.IO.Path.Combine("Ringtoets", "MacroStabilityInwards", "test", "Ringtoets.MacroStabilityInwards.Plugin.Test");
             }
 
             public static class Piping
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Piping", "test", "Ringtoets.Piping.IO.Test");
-                public static readonly TestDataPath Plugin = System.IO.Path.Combine("Ringtoets", "Piping", "test", "Ringtoets.Piping.Plugin.Test");
             }
 
             public static class Revetment

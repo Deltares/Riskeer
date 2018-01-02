@@ -109,15 +109,18 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void Constructor_EmptyFolder_ThrowsCriticalFileReadException()
         {
             // Setup
-            string pathToEmptyFolder = Path.Combine(testDataPath, "EmptyFolder");
+            string pathToEmptyFolder = Path.Combine(TestHelper.GetScratchPadPath(), "EmptyReferenceLineFolder");
 
             // Call
-            TestDelegate call = () => new ReferenceLineMetaImporter(pathToEmptyFolder);
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), pathToEmptyFolder))
+            {
+                TestDelegate call = () => new ReferenceLineMetaImporter(pathToEmptyFolder);
 
-            // Assert
-            string expectedExceptionMessage = $@"Geen shapebestand om trajecten te specificeren gevonden in de map '{pathToEmptyFolder}'.";
-            var exception = Assert.Throws<CriticalFileReadException>(call);
-            Assert.AreEqual(expectedExceptionMessage, exception.Message);
+                // Assert
+                string expectedExceptionMessage = $@"Geen shapebestand om trajecten te specificeren gevonden in de map '{pathToEmptyFolder}'.";
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                Assert.AreEqual(expectedExceptionMessage, exception.Message);
+            }
         }
 
         [Test]

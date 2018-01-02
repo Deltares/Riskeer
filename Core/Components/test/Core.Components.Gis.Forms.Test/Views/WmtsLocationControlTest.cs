@@ -486,6 +486,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
             const string name = @"someName";
             const string url = @"someUrl";
+            const string noConfigFolderName = "noConfig";
 
             DialogBoxHandler = (formName, wnd) =>
             {
@@ -505,8 +506,9 @@ namespace Core.Components.Gis.Forms.Test.Views
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = Path.Combine(TestHelper.GetScratchPadPath(), noConfigFolderName)
             }))
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), noConfigFolderName))
             using (new FileDisposeHelper(Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
                                                       wmtsconnectioninfoConfigFile)))
             using (new UseCustomTileSourceFactoryConfig(tileFactory))
@@ -589,6 +591,7 @@ namespace Core.Components.Gis.Forms.Test.Views
 
             const string name = @"someName";
             const string url = @"someUrl";
+            const string noConfigFolderName = "noConfig";
 
             DialogBoxHandler = (formName, wnd) =>
             {
@@ -608,8 +611,9 @@ namespace Core.Components.Gis.Forms.Test.Views
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
-                ApplicationLocalUserSettingsDirectory = TestHelper.GetTestDataPath(testPath, "noConfig")
+                ApplicationLocalUserSettingsDirectory = Path.Combine(TestHelper.GetScratchPadPath(), noConfigFolderName)
             }))
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), noConfigFolderName))
             {
                 string configFilePath = Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(),
                                                      wmtsconnectioninfoConfigFile);
@@ -906,6 +910,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 Assert.IsNull(actual);
                 return;
             }
+
             var actualWmtsMapData = (WmtsMapData) actual;
             Assert.AreEqual(expected.Name, actualWmtsMapData.Name);
             Assert.AreEqual(expected.PreferredFormat, actualWmtsMapData.PreferredFormat);
