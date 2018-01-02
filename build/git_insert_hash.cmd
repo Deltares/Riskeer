@@ -1,5 +1,5 @@
 REM This script is used for adding the GIT (short) hash to the properties of
-REM a .Net assembly.
+REM a .Net assembly (AssemblyInformationalVersion).
 REM It has to be positioned in the present dir, where the solution is,
 REM because the this script (the pre-build-events in the .Net projects)
 REM refer to $(SolutionDir)
