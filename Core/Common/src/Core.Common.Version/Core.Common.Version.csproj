@@ -13,7 +13,7 @@
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
-    <None Include="GlobalAssembly.cs.svn" />
+    <None Include="GlobalAssembly.cs.template" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
