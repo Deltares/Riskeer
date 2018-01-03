@@ -53,8 +53,6 @@ namespace Core.Common.Util.Reflection
                 return info;
             }
 
-            info.Version = assembly.GetName().Version.ToString();
-
             var assemblyTitleAttribute = GetAssemblyAttributeValue<AssemblyTitleAttribute>(assembly);
             if (assemblyTitleAttribute != null)
             {
@@ -84,6 +82,11 @@ namespace Core.Common.Util.Reflection
             {
                 info.Company = assemblyCompanyAttribute.Company;
             }
+
+            var assemblyInformationalVersionAttribute = GetAssemblyAttributeValue<AssemblyInformationalVersionAttribute>(assembly);
+            info.Version = assemblyInformationalVersionAttribute != null
+                               ? assemblyInformationalVersionAttribute.InformationalVersion
+                               : assembly.GetName().Version.ToString();
 
             return info;
         }
