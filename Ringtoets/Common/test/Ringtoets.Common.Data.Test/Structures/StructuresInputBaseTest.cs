@@ -246,7 +246,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.ModelFactorSuperCriticalFlow = distributionToSet;
 
             // Assert
-            AssertDistributionCorrectlySet(input.ModelFactorSuperCriticalFlow, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.ModelFactorSuperCriticalFlow, distributionToSet, expectedDistribution);
         }
 
         #endregion
@@ -275,7 +275,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.StormDuration = distributionToSet;
 
             // Assert
-            AssertDistributionCorrectlySet(input.StormDuration, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.StormDuration, distributionToSet, expectedDistribution);
         }
 
         #endregion
@@ -380,7 +380,7 @@ namespace Ringtoets.Common.Data.Test.Structures
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.AllowedLevelIncreaseStorage, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.AllowedLevelIncreaseStorage, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -406,7 +406,7 @@ namespace Ringtoets.Common.Data.Test.Structures
                 Mean = mean,
                 CoefficientOfVariation = variation
             };
-            AssertDistributionCorrectlySet(input.StorageStructureArea, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.StorageStructureArea, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -432,7 +432,7 @@ namespace Ringtoets.Common.Data.Test.Structures
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.FlowWidthAtBottomProtection, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.FlowWidthAtBottomProtection, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -458,7 +458,7 @@ namespace Ringtoets.Common.Data.Test.Structures
                 Mean = mean,
                 CoefficientOfVariation = variation
             };
-            AssertDistributionCorrectlySet(input.CriticalOvertoppingDischarge, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.CriticalOvertoppingDischarge, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -517,7 +517,7 @@ namespace Ringtoets.Common.Data.Test.Structures
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.WidthFlowApertures, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.WidthFlowApertures, distributionToSet, expectedDistribution);
         }
 
         #endregion
@@ -758,18 +758,6 @@ namespace Ringtoets.Common.Data.Test.Structures
         private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
-        }
-
-        private static void AssertDistributionCorrectlySet(IDistribution distributionToAssert, IDistribution setDistribution, IDistribution expectedDistribution)
-        {
-            Assert.AreNotSame(setDistribution, distributionToAssert);
-            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
-        }
-
-        private static void AssertDistributionCorrectlySet(IVariationCoefficientDistribution distributionToAssert, IVariationCoefficientDistribution setDistribution, IVariationCoefficientDistribution expectedDistribution)
-        {
-            Assert.AreNotSame(setDistribution, distributionToAssert);
-            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
         }
 
         #endregion

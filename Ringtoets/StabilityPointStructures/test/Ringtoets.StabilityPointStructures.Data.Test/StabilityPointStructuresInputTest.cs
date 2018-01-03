@@ -487,7 +487,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.InsideWaterLevelFailureConstruction, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.InsideWaterLevelFailureConstruction, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -513,7 +513,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.InsideWaterLevel, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.InsideWaterLevel, distributionToSet, expectedDistribution);
         }
 
         #endregion
@@ -559,7 +559,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             input.DrainCoefficient = distributionToSet;
 
             // Assert
-            AssertDistributionCorrectlySet(input.DrainCoefficient, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.DrainCoefficient, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -585,7 +585,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             input.FlowVelocityStructureClosable = distributionToSet;
 
             // Assert
-            AssertDistributionCorrectlySet(input.FlowVelocityStructureClosable, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.FlowVelocityStructureClosable, distributionToSet, expectedDistribution);
         }
 
         #endregion
@@ -615,7 +615,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.LevelCrestStructure, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.LevelCrestStructure, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -641,7 +641,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.ThresholdHeightOpenWeir, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.ThresholdHeightOpenWeir, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -667,7 +667,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.AreaFlowApertures, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.AreaFlowApertures, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -693,7 +693,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 CoefficientOfVariation = variation
             };
-            AssertDistributionCorrectlySet(input.ConstructiveStrengthLinearLoadModel, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.ConstructiveStrengthLinearLoadModel, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -719,7 +719,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 CoefficientOfVariation = variation
             };
-            AssertDistributionCorrectlySet(input.ConstructiveStrengthQuadraticLoadModel, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.ConstructiveStrengthQuadraticLoadModel, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -745,7 +745,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 CoefficientOfVariation = variation
             };
-            AssertDistributionCorrectlySet(input.StabilityLinearLoadModel, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.StabilityLinearLoadModel, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -771,7 +771,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 CoefficientOfVariation = variation
             };
-            AssertDistributionCorrectlySet(input.StabilityQuadraticLoadModel, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.StabilityQuadraticLoadModel, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -830,7 +830,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 CoefficientOfVariation = variation
             };
-            AssertDistributionCorrectlySet(input.FailureCollisionEnergy, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.FailureCollisionEnergy, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -856,7 +856,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 CoefficientOfVariation = variation
             };
-            AssertDistributionCorrectlySet(input.ShipMass, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.ShipMass, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -882,7 +882,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 CoefficientOfVariation = variation
             };
-            AssertDistributionCorrectlySet(input.ShipVelocity, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.ShipVelocity, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -941,7 +941,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.BankWidth, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.BankWidth, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -1049,18 +1049,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
-        }
-
-        private static void AssertDistributionCorrectlySet(IDistribution distributionToAssert, IDistribution setDistribution, IDistribution expectedDistribution)
-        {
-            Assert.AreNotSame(setDistribution, distributionToAssert);
-            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
-        }
-
-        private static void AssertDistributionCorrectlySet(IVariationCoefficientDistribution distributionToAssert, IVariationCoefficientDistribution setDistribution, IVariationCoefficientDistribution expectedDistribution)
-        {
-            Assert.AreNotSame(setDistribution, distributionToAssert);
-            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
         }
 
         #endregion

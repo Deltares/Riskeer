@@ -618,7 +618,7 @@ namespace Ringtoets.Piping.Data.Test
             input.PhreaticLevelExit = distributionToSet;
 
             // Assert
-            AssertDistributionCorrectlySet(input.PhreaticLevelExit, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.PhreaticLevelExit, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -644,7 +644,7 @@ namespace Ringtoets.Piping.Data.Test
             input.DampingFactorExit = distributionToSet;
 
             // Assert
-            AssertDistributionCorrectlySet(input.DampingFactorExit, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.DampingFactorExit, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -1311,12 +1311,6 @@ namespace Ringtoets.Piping.Data.Test
             });
 
             return surfaceLine;
-        }
-
-        private static void AssertDistributionCorrectlySet(IDistribution distributionToAssert, IDistribution setDistribution, IDistribution expectedDistribution)
-        {
-            Assert.AreNotSame(setDistribution, distributionToAssert);
-            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
         }
     }
 }

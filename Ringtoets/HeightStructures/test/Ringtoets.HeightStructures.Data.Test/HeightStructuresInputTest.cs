@@ -235,7 +235,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.LevelCrestStructure, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.LevelCrestStructure, distributionToSet, expectedDistribution);
         }
 
         #endregion
@@ -337,12 +337,6 @@ namespace Ringtoets.HeightStructures.Data.Test
         private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
-        }
-
-        private static void AssertDistributionCorrectlySet(IDistribution distributionToAssert, IDistribution setDistribution, IDistribution expectedDistribution)
-        {
-            Assert.AreNotSame(setDistribution, distributionToAssert);
-            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
         }
 
         #endregion

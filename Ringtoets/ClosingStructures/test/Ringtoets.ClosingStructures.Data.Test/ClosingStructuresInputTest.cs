@@ -327,7 +327,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.InsideWaterLevel, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.InsideWaterLevel, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -398,7 +398,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             input.DrainCoefficient = distributionToSet;
 
             // Assert
-            AssertDistributionCorrectlySet(input.DrainCoefficient, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.DrainCoefficient, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -444,7 +444,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.ThresholdHeightOpenWeir, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.ThresholdHeightOpenWeir, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -470,7 +470,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.AreaFlowApertures, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.AreaFlowApertures, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -562,7 +562,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            AssertDistributionCorrectlySet(input.LevelCrestStructureNotClosing, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.LevelCrestStructureNotClosing, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -649,12 +649,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
         private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
-        }
-
-        private static void AssertDistributionCorrectlySet(IDistribution distributionToAssert, IDistribution setDistribution, IDistribution expectedDistribution)
-        {
-            Assert.AreNotSame(setDistribution, distributionToAssert);
-            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
         }
 
         #endregion

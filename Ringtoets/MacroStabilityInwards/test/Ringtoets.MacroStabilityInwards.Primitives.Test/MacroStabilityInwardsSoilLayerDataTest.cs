@@ -146,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
                 Shift = distributionToSet.Shift
             };
-            AssertDistributionCorrectlySet(data.AbovePhreaticLevel, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(data.AbovePhreaticLevel, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -173,7 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
                 Shift = distributionToSet.Shift
             };
-            AssertDistributionCorrectlySet(data.BelowPhreaticLevel, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(data.BelowPhreaticLevel, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -200,7 +200,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
                 Shift = data.Cohesion.Shift
             };
-            AssertDistributionCorrectlySet(data.Cohesion, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(data.Cohesion, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -227,7 +227,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
                 Shift = data.FrictionAngle.Shift
             };
-            AssertDistributionCorrectlySet(data.FrictionAngle, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(data.FrictionAngle, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -254,7 +254,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
                 Shift = data.StrengthIncreaseExponent.Shift
             };
-            AssertDistributionCorrectlySet(data.StrengthIncreaseExponent, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(data.StrengthIncreaseExponent, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -281,7 +281,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
                 Shift = data.StrengthIncreaseExponent.Shift
             };
-            AssertDistributionCorrectlySet(data.ShearStrengthRatio, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(data.ShearStrengthRatio, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -308,15 +308,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
                 Shift = data.Pop.Shift
             };
-            AssertDistributionCorrectlySet(data.Pop, distributionToSet, expectedDistribution);
-        }
-
-        private static void AssertDistributionCorrectlySet(IVariationCoefficientDistribution distributionToAssert,
-                                                           IVariationCoefficientDistribution setDistribution,
-                                                           IVariationCoefficientDistribution expectedDistribution)
-        {
-            Assert.AreNotSame(setDistribution, distributionToAssert);
-            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
+            DistributionTestHelper.AssertDistributionCorrectlySet(data.Pop, distributionToSet, expectedDistribution);
         }
 
         [TestFixture]
