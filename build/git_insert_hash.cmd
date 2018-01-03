@@ -13,7 +13,7 @@ SET INTEXTFILE=%2
 SET OUTTEXTFILE=%3
 SET TEMPTEXTFILE= %OUTTEXTFILE%.temp
 
-CD %1
+CD /D %1
 
 REM GET THE GIT SHORT HASH
 FOR /f %%i in ('git rev-parse --short HEAD') do set GIT_HASH=%%i
