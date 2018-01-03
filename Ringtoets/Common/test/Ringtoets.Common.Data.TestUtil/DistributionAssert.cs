@@ -113,6 +113,25 @@ namespace Ringtoets.Common.Data.TestUtil
             AreEqualValue(expectedDistribution.CoefficientOfVariation, actualDistribution.CoefficientOfVariation);
         }
 
+        /// <summary>
+        /// Determines if the properties of the actual <see cref="VariationCoefficientLogNormalDistribution"/> are the same as 
+        /// the expected <see cref="VariationCoefficientLogNormalDistribution"/>.
+        /// </summary>
+        /// <param name="expectedDistribution">The expected <see cref="VariationCoefficientLogNormalDistribution"/>.</param>
+        /// <param name="actualDistribution">The actual <see cref="VariationCoefficientLogNormalDistribution"/>.</param>
+        /// <exception cref="AssertionException">Thrown when the following differences are found between 
+        /// the <paramref name="expectedDistribution"/> and <paramref name="actualDistribution"/>:
+        /// <list type="bullet">
+        /// <item>The probabilistic distribution types.</item>
+        /// <item>The values for the mean and/or the variation.</item>
+        /// <item>The precision for the mean, variation and/or shift.</item>
+        /// </list></exception>
+        public static void AreEqual(VariationCoefficientLogNormalDistribution expectedDistribution, VariationCoefficientLogNormalDistribution actualDistribution)
+        {
+            AreEqual((IVariationCoefficientDistribution)expectedDistribution, actualDistribution);
+            AreEqualValue(expectedDistribution.Shift, actualDistribution.Shift);
+        }
+
         private static void AreEqualValue(RoundedDouble expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue.NumberOfDecimalPlaces, actualValue.NumberOfDecimalPlaces);

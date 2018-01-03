@@ -299,25 +299,25 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     new MigrationLogMessage("17.2", newVersion, "  + Toetsspoor: 'Piping'"),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde van '-0.125' voor de variatiecoëfficiënt van parameter 'd70' van ondergrondlaag 'DiameterD70Variation' is ongeldig en is veranderd naar NaN."),
+                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '-0.125' voor de variatiecoëfficiënt van parameter 'd70' van ondergrondlaag 'DiameterD70Variation' is ongeldig en is veranderd naar NaN."),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde van '-1.0' voor het gemiddelde van parameter 'Doorlatendheid' van ondergrondlaag 'PermeabilityMean' is ongeldig en is veranderd naar NaN."),
+                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '-1.0' voor het gemiddelde van parameter 'Doorlatendheid' van ondergrondlaag 'PermeabilityMean' is ongeldig en is veranderd naar NaN."),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde van '-1.0e-06' voor het gemiddelde van parameter 'd70' van ondergrondlaag 'DiameterD70Mean' is ongeldig en is veranderd naar NaN."),
+                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '-1.0e-06' voor het gemiddelde van parameter 'd70' van ondergrondlaag 'DiameterD70Mean' is ongeldig en is veranderd naar NaN."),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde van '-10.0' voor de standaard afwijking van parameter 'Verzadigd gewicht' van ondergrondlaag 'BelowPhreaticLevelDeviation' is ongeldig en is veranderd naar NaN."),
+                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '-10.0' voor de standaardafwijking van parameter 'Verzadigd gewicht' van ondergrondlaag 'BelowPhreaticLevelDeviation' is ongeldig en is veranderd naar NaN."),
                     messages[i++]);
                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde van '-10.0' voor de variatiecoëfficiënt van parameter 'Doorlatendheid' van ondergrondlaag 'PermeabilityVariation' is ongeldig en is veranderd naar NaN."),
+                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '-10.0' voor de variatiecoëfficiënt van parameter 'Doorlatendheid' van ondergrondlaag 'PermeabilityVariation' is ongeldig en is veranderd naar NaN."),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde van '0.0' voor het gemiddelde van parameter 'Verzadigd gewicht' van ondergrondlaag 'BelowPhreaticLevelMean' is ongeldig en is veranderd naar NaN."),
+                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '0.0' voor het gemiddelde van parameter 'Verzadigd gewicht' van ondergrondlaag 'BelowPhreaticLevelMean' is ongeldig en is veranderd naar NaN."),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde van '15.0' voor de verschuiving van parameter 'Verzadigd gewicht' van ondergrondlaag 'BelowPhreaticLevelShift' is ongeldig en is veranderd naar NaN."),
+                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '15.0' voor de verschuiving van parameter 'Verzadigd gewicht' van ondergrondlaag 'BelowPhreaticLevelShift' is ongeldig en is veranderd naar NaN."),
                     messages[i]);
                
             }

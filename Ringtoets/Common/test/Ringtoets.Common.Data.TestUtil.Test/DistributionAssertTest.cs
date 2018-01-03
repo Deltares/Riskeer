@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 
@@ -117,6 +119,45 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         [TestCaseSource(nameof(DifferentVariationCoefficientDistributionProperties))]
         public void AreDistributionPropertiesEqual_DifferentVariationCoefficientDistributionProperties_ThrowsAssertionException(IVariationCoefficientDistribution distributionOne,
                                                                                                                                 IVariationCoefficientDistribution distributionTwo)
+        {
+            // Call
+            TestDelegate call = () => DistributionAssert.AreEqual(distributionOne, distributionTwo);
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AreDistributionPropertiesEqual_IdenticalVariationCoefficientLogNormalDistributionProperties_DoesNotThrowException()
+        {
+            // Setup
+            var random = new Random(21);
+            const int nrOfDecimals = 4;
+            var mean = random.NextRoundedDouble();
+            var coefficientOfVariation = random.NextRoundedDouble();
+            var shift = random.NextRoundedDouble();
+
+            // Call
+            TestDelegate call = () => DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(nrOfDecimals)
+            {
+                Mean = mean,
+                CoefficientOfVariation = coefficientOfVariation,
+                Shift = shift
+            }, new VariationCoefficientLogNormalDistribution(nrOfDecimals)
+            {
+                Mean = mean,
+                CoefficientOfVariation = coefficientOfVariation,
+                Shift = shift
+            });
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(DifferentVariationCoefficientLogNormalDistributions))]
+        public void AreDistributionPropertiesEqual_DifferentVariationCoefficientLogNormalDistributionProperties_ThrowsAssertionException(VariationCoefficientLogNormalDistribution distributionOne,
+                                                                                                                                         VariationCoefficientLogNormalDistribution distributionTwo)
         {
             // Call
             TestDelegate call = () => DistributionAssert.AreEqual(distributionOne, distributionTwo);
@@ -473,17 +514,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                         CoefficientOfVariation = (RoundedDouble) 2
                     }).SetName("DifferentRoundingVariationCoefficientNormalDistribution");
                 yield return new TestCaseData(
-                    new VariationCoefficientLogNormalDistribution(2)
-                    {
-                        Mean = (RoundedDouble) 1,
-                        CoefficientOfVariation = (RoundedDouble) 2
-                    },
-                    new VariationCoefficientLogNormalDistribution(3)
-                    {
-                        Mean = (RoundedDouble) 1,
-                        CoefficientOfVariation = (RoundedDouble) 2
-                    }).SetName("DifferentRoundingVariationCoefficientLogNormalDistribution");
-                yield return new TestCaseData(
                     new VariationCoefficientNormalDistribution(2)
                     {
                         Mean = (RoundedDouble) 1,
@@ -495,6 +525,28 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                         CoefficientOfVariation = (RoundedDouble) 2
                     }).SetName("DifferentMeanVariationCoefficientNormalDistribution");
                 yield return new TestCaseData(
+                    new VariationCoefficientNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        CoefficientOfVariation = (RoundedDouble) 1
+                    },
+                    new VariationCoefficientNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        CoefficientOfVariation = (RoundedDouble) 2
+                    }).SetName("DifferentVariationVariationCoefficientNormalDistribution");
+                yield return new TestCaseData(
+                    new VariationCoefficientLogNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        CoefficientOfVariation = (RoundedDouble) 2
+                    },
+                    new VariationCoefficientLogNormalDistribution(3)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        CoefficientOfVariation = (RoundedDouble) 2
+                    }).SetName("DifferentRoundingVariationCoefficientLogNormalDistribution");
+                yield return new TestCaseData(
                     new VariationCoefficientLogNormalDistribution(2)
                     {
                         Mean = (RoundedDouble) 1,
@@ -505,17 +557,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                         Mean = (RoundedDouble) 2,
                         CoefficientOfVariation = (RoundedDouble) 2
                     }).SetName("DifferentMeanVariationCoefficientLogNormalDistribution");
-                yield return new TestCaseData(
-                    new VariationCoefficientNormalDistribution(2)
-                    {
-                        Mean = (RoundedDouble) 1,
-                        CoefficientOfVariation = (RoundedDouble) 1
-                    },
-                    new VariationCoefficientNormalDistribution(2)
-                    {
-                        Mean = (RoundedDouble) 1,
-                        CoefficientOfVariation = (RoundedDouble) 2
-                    }).SetName("DifferentStandardDeviationVariationCoefficientNormalDistribution");
+
                 yield return new TestCaseData(
                     new VariationCoefficientLogNormalDistribution(2)
                     {
@@ -526,8 +568,59 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         CoefficientOfVariation = (RoundedDouble) 2
-                    }).SetName("DifferentStandardDeviationVariationCoefficientLogNormalDistribution");
+                    }).SetName("DifferentVariationVariationCoefficientLogNormalDistribution");
             }
+        }
+
+        private static IEnumerable<TestCaseData> DifferentVariationCoefficientLogNormalDistributions()
+        {
+            yield return new TestCaseData(
+                new VariationCoefficientLogNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 2
+                },
+                new VariationCoefficientLogNormalDistribution(3)
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 2
+                }).SetName("DifferentRoundingVariationCoefficientLogNormalDistribution");
+            yield return new TestCaseData(
+                new VariationCoefficientLogNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 2
+                },
+                new VariationCoefficientLogNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble) 2,
+                    CoefficientOfVariation = (RoundedDouble) 2
+                }).SetName("DifferentMeanVariationCoefficientLogNormalDistribution");
+
+            yield return new TestCaseData(
+                new VariationCoefficientLogNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 1
+                },
+                new VariationCoefficientLogNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 2
+                }).SetName("DifferentVariationVariationCoefficientLogNormalDistribution");
+            yield return new TestCaseData(
+                new VariationCoefficientLogNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 1,
+                    Shift = (RoundedDouble) 0.5
+                },
+                new VariationCoefficientLogNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 1,
+                    Shift = (RoundedDouble) 0.4
+                }).SetName("DifferentShiftVariationCoefficientLogNormalDistribution");
         }
 
         #endregion

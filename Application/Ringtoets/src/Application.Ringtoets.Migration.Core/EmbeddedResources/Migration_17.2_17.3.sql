@@ -255,7 +255,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"De waarde van '" || source.[BelowPhreaticLevelMean] ||  "' voor het gemiddelde van parameter 'Verzadigd gewicht' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	"De waarde '" || source.[BelowPhreaticLevelMean] ||  "' voor het gemiddelde van parameter 'Verzadigd gewicht' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
@@ -271,7 +271,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"De waarde van '" || source.[BelowPhreaticLevelDeviation] ||  "' voor de standaard afwijking van parameter 'Verzadigd gewicht' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	"De waarde '" || source.[BelowPhreaticLevelDeviation] ||  "' voor de standaardafwijking van parameter 'Verzadigd gewicht' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
@@ -286,7 +286,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"De waarde van '" || source.[BelowPhreaticLevelShift] ||  "' voor de verschuiving van parameter 'Verzadigd gewicht' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	"De waarde '" || source.[BelowPhreaticLevelShift] ||  "' voor de verschuiving van parameter 'Verzadigd gewicht' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
@@ -301,7 +301,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"De waarde van '" || source.[DiameterD70Mean] ||  "' voor het gemiddelde van parameter 'd70' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	"De waarde '" || source.[DiameterD70Mean] ||  "' voor het gemiddelde van parameter 'd70' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
@@ -316,7 +316,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"De waarde van '" || source.[DiameterD70CoefficientOfVariation] || "' voor de variatieco" || CAST(X'c3ab' AS TEXT) || "ffici" || CAST(X'c3ab' AS TEXT) || "nt van parameter 'd70' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	"De waarde '" || source.[DiameterD70CoefficientOfVariation] || "' voor de variatieco" || CAST(X'c3ab' AS TEXT) || "ffici" || CAST(X'c3ab' AS TEXT) || "nt van parameter 'd70' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
@@ -331,7 +331,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"De waarde van '" || source.[PermeabilityMean] ||  "' voor het gemiddelde van parameter 'Doorlatendheid' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	"De waarde '" || source.[PermeabilityMean] ||  "' voor het gemiddelde van parameter 'Doorlatendheid' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
@@ -346,7 +346,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"De waarde van '" || source.[PermeabilityCoefficientOfVariation] || "' voor de variatieco" || CAST(X'c3ab' AS TEXT) || "ffici" || CAST(X'c3ab' AS TEXT) || "nt van parameter 'Doorlatendheid' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
+	"De waarde '" || source.[PermeabilityCoefficientOfVariation] || "' voor de variatieco" || CAST(X'c3ab' AS TEXT) || "ffici" || CAST(X'c3ab' AS TEXT) || "nt van parameter 'Doorlatendheid' van ondergrondlaag '" || source.[MaterialName] || "' is ongeldig en is veranderd naar NaN."
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)

@@ -479,7 +479,7 @@ namespace Application.Ringtoets.Migration.Test
                                         $@"Gevolgen van de migratie van versie 17.2 naar versie 17.3:{Environment.NewLine}" +
                                         $@"* Traject: 'assessmentSection'{Environment.NewLine}" +
                                         $@"  + Toetsspoor: 'Piping'{Environment.NewLine}" +
-                                        $@"    - De waarde van '3.2' voor de verschuiving van parameter 'Verzadigd gewicht' van ondergrondlaag 'HotPinkLayer' is ongeldig en is veranderd naar NaN.");
+                                        $@"    - De waarde '3.2' voor de verschuiving van parameter 'Verzadigd gewicht' van ondergrondlaag 'HotPinkLayer' is ongeldig en is veranderd naar NaN.");
 
                 var expectedLogMessagesAndLevel = new[]
                 {

@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Primitives.Test
                 StandardDeviation = distributionToSet.StandardDeviation,
                 Shift = distributionToSet.Shift
             };
-            AssertDistributionCorrectlySet(layer.BelowPhreaticLevel, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(layer.BelowPhreaticLevel, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -121,7 +121,7 @@ namespace Ringtoets.Piping.Primitives.Test
                 CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
                 Shift = layer.DiameterD70.Shift
             };
-            AssertDistributionCorrectlySet(layer.DiameterD70, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(layer.DiameterD70, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -148,7 +148,7 @@ namespace Ringtoets.Piping.Primitives.Test
                 CoefficientOfVariation = distributionToSet.CoefficientOfVariation,
                 Shift = layer.DiameterD70.Shift
             };
-            AssertDistributionCorrectlySet(layer.Permeability, distributionToSet, expectedDistribution);
+            DistributionTestHelper.AssertDistributionCorrectlySet(layer.Permeability, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -182,22 +182,6 @@ namespace Ringtoets.Piping.Primitives.Test
             Assert.AreEqual(materialName, layer.MaterialName);
         }
 
-        private static void AssertDistributionCorrectlySet(IDistribution distributionToAssert,
-                                                           IDistribution setDistribution,
-                                                           IDistribution expectedDistribution)
-        {
-            Assert.AreNotSame(setDistribution, distributionToAssert);
-            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
-        }
-
-        private static void AssertDistributionCorrectlySet(IVariationCoefficientDistribution distributionToAssert,
-                                                           IVariationCoefficientDistribution setDistribution,
-                                                           IVariationCoefficientDistribution expectedDistribution)
-        {
-            Assert.AreNotSame(setDistribution, distributionToAssert);
-            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
-        }
-
         [TestFixture]
         private class PipingSoilLayerEqualsTest : EqualsTestFixture<PipingSoilLayer, TestLayer>
         {
@@ -219,8 +203,6 @@ namespace Ringtoets.Piping.Primitives.Test
                 PipingSoilLayer baseLayer = CreateRandomLayer(seed);
 
                 var random = new Random(seed);
-                double offset = random.NextDouble();
-
                 yield return new TestCaseData(new PipingSoilLayer(double.NaN)
                 {
                     MaterialName = "Different Name",

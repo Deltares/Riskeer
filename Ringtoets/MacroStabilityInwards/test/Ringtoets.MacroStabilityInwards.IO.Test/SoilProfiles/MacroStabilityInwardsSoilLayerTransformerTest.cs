@@ -127,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             {
                 Mean = (RoundedDouble) belowPhreaticLevelMean,
                 CoefficientOfVariation = (RoundedDouble) belowPhreaticLevelCoefficientOfVariation,
-                Shift = (RoundedDouble) abovePhreaticLevelShift
+                Shift = (RoundedDouble) belowPhreaticLevelShift
             }, data.BelowPhreaticLevel);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
