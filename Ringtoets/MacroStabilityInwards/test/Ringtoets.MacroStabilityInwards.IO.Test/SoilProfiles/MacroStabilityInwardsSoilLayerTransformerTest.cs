@@ -116,49 +116,43 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Color expectedColor = Color.FromArgb(Convert.ToInt32(color));
             Assert.AreEqual(expectedColor, data.Color);
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) abovePhreaticLevelMean,
-                CoefficientOfVariation = (RoundedDouble) abovePhreaticLevelCoefficientOfVariation,
-                Shift = (RoundedDouble) abovePhreaticLevelShift
-            }, data.AbovePhreaticLevel);
+            Assert.AreEqual(abovePhreaticLevelMean, data.AbovePhreaticLevel.Mean,
+                            data.AbovePhreaticLevel.GetAccuracy());
+            Assert.AreEqual(abovePhreaticLevelCoefficientOfVariation, data.AbovePhreaticLevel.CoefficientOfVariation,
+                            data.AbovePhreaticLevel.GetAccuracy());
+            Assert.AreEqual(abovePhreaticLevelShift, data.AbovePhreaticLevel.Shift,
+                            data.AbovePhreaticLevel.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) belowPhreaticLevelMean,
-                CoefficientOfVariation = (RoundedDouble) belowPhreaticLevelCoefficientOfVariation,
-                Shift = (RoundedDouble) belowPhreaticLevelShift
-            }, data.BelowPhreaticLevel);
+            Assert.AreEqual(belowPhreaticLevelMean, data.BelowPhreaticLevel.Mean,
+                            data.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(belowPhreaticLevelCoefficientOfVariation, data.BelowPhreaticLevel.CoefficientOfVariation,
+                            data.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(belowPhreaticLevelShift, data.BelowPhreaticLevel.Shift,
+                            data.BelowPhreaticLevel.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) cohesionMean,
-                CoefficientOfVariation = (RoundedDouble) cohesionCoefficientOfVariation
-            }, data.Cohesion);
+            Assert.AreEqual(cohesionMean, data.Cohesion.Mean,
+                            data.Cohesion.GetAccuracy());
+            Assert.AreEqual(cohesionCoefficientOfVariation, data.Cohesion.CoefficientOfVariation,
+                            data.Cohesion.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) frictionAngleMean,
-                CoefficientOfVariation = (RoundedDouble) frictionAngleCoefficientOfVariation
-            }, data.FrictionAngle);
+            Assert.AreEqual(frictionAngleMean, data.FrictionAngle.Mean,
+                            data.FrictionAngle.GetAccuracy());
+            Assert.AreEqual(frictionAngleCoefficientOfVariation, data.FrictionAngle.CoefficientOfVariation,
+                            data.FrictionAngle.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) shearStrengthRatioMean,
-                CoefficientOfVariation = (RoundedDouble) shearStrengthRatioCoefficientOfVariation
-            }, data.ShearStrengthRatio);
+            Assert.AreEqual(shearStrengthRatioMean, data.ShearStrengthRatio.Mean,
+                            data.ShearStrengthRatio.GetAccuracy());
+            Assert.AreEqual(shearStrengthRatioCoefficientOfVariation, data.ShearStrengthRatio.CoefficientOfVariation,
+                            data.ShearStrengthRatio.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) strengthIncreaseExponentMean,
-                CoefficientOfVariation = (RoundedDouble) strengthIncreaseExponentCoefficientOfVariation
-            }, data.StrengthIncreaseExponent);
+            Assert.AreEqual(strengthIncreaseExponentMean, data.StrengthIncreaseExponent.Mean,
+                            data.StrengthIncreaseExponent.GetAccuracy());
+            Assert.AreEqual(strengthIncreaseExponentCoefficientOfVariation, data.StrengthIncreaseExponent.CoefficientOfVariation,
+                            data.StrengthIncreaseExponent.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) popMean,
-                CoefficientOfVariation = (RoundedDouble) popCoefficientOfVariation
-            }, data.Pop);
+            Assert.AreEqual(popMean, data.Pop.Mean, data.Pop.GetAccuracy());
+            Assert.AreEqual(popCoefficientOfVariation, data.Pop.CoefficientOfVariation,
+                            data.Pop.GetAccuracy());
         }
 
         [Test]
@@ -700,49 +694,44 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(original.IsAquifer.Equals(1.0), actual.Data.IsAquifer);
             Assert.AreEqual(Color.FromArgb(Convert.ToInt32(original.Color)), actual.Data.Color);
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) original.AbovePhreaticLevelMean,
-                CoefficientOfVariation = (RoundedDouble) original.AbovePhreaticLevelCoefficientOfVariation,
-                Shift = (RoundedDouble) original.AbovePhreaticLevelShift
-            }, actual.Data.AbovePhreaticLevel);
+            MacroStabilityInwardsSoilLayerData soilLayerData = actual.Data;
+            Assert.AreEqual(original.AbovePhreaticLevelMean, soilLayerData.AbovePhreaticLevel.Mean,
+                             soilLayerData.AbovePhreaticLevel.GetAccuracy());
+            Assert.AreEqual(original.AbovePhreaticLevelCoefficientOfVariation, soilLayerData.AbovePhreaticLevel.CoefficientOfVariation,
+                            soilLayerData.AbovePhreaticLevel.GetAccuracy());
+            Assert.AreEqual(original.AbovePhreaticLevelShift, soilLayerData.AbovePhreaticLevel.Shift,
+                            soilLayerData.AbovePhreaticLevel.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) original.BelowPhreaticLevelMean,
-                CoefficientOfVariation = (RoundedDouble) original.BelowPhreaticLevelCoefficientOfVariation,
-                Shift = (RoundedDouble) original.BelowPhreaticLevelShift
-            }, actual.Data.BelowPhreaticLevel);
+            Assert.AreEqual(original.BelowPhreaticLevelMean, soilLayerData.BelowPhreaticLevel.Mean,
+                            soilLayerData.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(original.BelowPhreaticLevelCoefficientOfVariation, soilLayerData.BelowPhreaticLevel.CoefficientOfVariation,
+                            soilLayerData.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(original.BelowPhreaticLevelShift, soilLayerData.BelowPhreaticLevel.Shift,
+                            soilLayerData.BelowPhreaticLevel.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) original.CohesionMean,
-                CoefficientOfVariation = (RoundedDouble) original.CohesionCoefficientOfVariation
-            }, actual.Data.Cohesion);
+            Assert.AreEqual(original.CohesionMean, soilLayerData.Cohesion.Mean,
+                            soilLayerData.Cohesion.GetAccuracy());
+            Assert.AreEqual(original.CohesionCoefficientOfVariation, soilLayerData.Cohesion.CoefficientOfVariation,
+                            soilLayerData.Cohesion.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) original.FrictionAngleMean,
-                CoefficientOfVariation = (RoundedDouble) original.FrictionAngleCoefficientOfVariation
-            }, actual.Data.FrictionAngle);
+            Assert.AreEqual(original.FrictionAngleMean, soilLayerData.FrictionAngle.Mean,
+                            soilLayerData.FrictionAngle.GetAccuracy());
+            Assert.AreEqual(original.FrictionAngleCoefficientOfVariation, soilLayerData.FrictionAngle.CoefficientOfVariation,
+                            soilLayerData.FrictionAngle.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) original.ShearStrengthRatioMean,
-                CoefficientOfVariation = (RoundedDouble) original.ShearStrengthRatioCoefficientOfVariation
-            }, actual.Data.ShearStrengthRatio);
+            Assert.AreEqual(original.ShearStrengthRatioMean, soilLayerData.ShearStrengthRatio.Mean,
+                            soilLayerData.ShearStrengthRatio.GetAccuracy());
+            Assert.AreEqual(original.ShearStrengthRatioCoefficientOfVariation, soilLayerData.ShearStrengthRatio.CoefficientOfVariation,
+                            soilLayerData.ShearStrengthRatio.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) original.StrengthIncreaseExponentMean,
-                CoefficientOfVariation = (RoundedDouble) original.StrengthIncreaseExponentCoefficientOfVariation
-            }, actual.Data.StrengthIncreaseExponent);
+            Assert.AreEqual(original.StrengthIncreaseExponentMean, soilLayerData.StrengthIncreaseExponent.Mean,
+                            soilLayerData.StrengthIncreaseExponent.GetAccuracy());
+            Assert.AreEqual(original.StrengthIncreaseExponentCoefficientOfVariation, soilLayerData.StrengthIncreaseExponent.CoefficientOfVariation,
+                            soilLayerData.StrengthIncreaseExponent.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) original.PopMean,
-                CoefficientOfVariation = (RoundedDouble) original.PopCoefficientOfVariation
-            }, actual.Data.Pop);
+            Assert.AreEqual(original.PopMean, soilLayerData.Pop.Mean, soilLayerData.Pop.GetAccuracy());
+            Assert.AreEqual(original.PopCoefficientOfVariation, soilLayerData.Pop.CoefficientOfVariation,
+                            soilLayerData.Pop.GetAccuracy());
         }
 
         #region Test Data: Color test cases

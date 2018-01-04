@@ -219,11 +219,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(preconsolidationStress.ZCoordinate,
                             transformedPreconsolidationStress.Location.Y);
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) preconsolidationStress.StressMean,
-                CoefficientOfVariation = (RoundedDouble) preconsolidationStress.StressCoefficientOfVariation
-            }, transformedPreconsolidationStress.Stress);
+            VariationCoefficientLogNormalDistribution stressDistribution = transformedPreconsolidationStress.Stress;
+            Assert.AreEqual(preconsolidationStress.StressMean, stressDistribution.Mean, stressDistribution.GetAccuracy());
+            Assert.AreEqual(preconsolidationStress.StressCoefficientOfVariation, stressDistribution.CoefficientOfVariation, stressDistribution.GetAccuracy());
         }
     }
 }

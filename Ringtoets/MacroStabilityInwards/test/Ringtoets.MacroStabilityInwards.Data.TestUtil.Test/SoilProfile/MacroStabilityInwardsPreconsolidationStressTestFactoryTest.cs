@@ -43,11 +43,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
             Assert.IsNotNull(stress);
             Assert.AreEqual(new Point2D(13, 34), stress.Location);
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 10.09,
-                CoefficientOfVariation = (RoundedDouble) 20.05
-            }, stress.Stress);
+            VariationCoefficientLogNormalDistribution stressDistribution = stress.Stress;
+            Assert.AreEqual(10.09, stressDistribution.Mean, stressDistribution.GetAccuracy());
+            Assert.AreEqual(20.05, stressDistribution.CoefficientOfVariation, stressDistribution.GetAccuracy());
         }
     }
 }

@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var location = new Point2D(random.NextDouble(), random.NextDouble());
             var distribution = new VariationCoefficientLogNormalDistribution
             {
-                Mean = (RoundedDouble) 0.005,
+                Mean = random.NextRoundedDouble(0.1, double.MaxValue),
                 CoefficientOfVariation = random.NextRoundedDouble()
             };
 
@@ -95,32 +95,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             {
                 Mean = distribution.Mean,
                 CoefficientOfVariation = distribution.CoefficientOfVariation
-            }, stress.Stress);
-        }
-
-        [Test]
-        public void Constructor_DistributionArgumentsNaN_ReturnsExpectedValues()
-        {
-            // Setup
-            var random = new Random(21);
-
-            var location = new Point2D(random.NextDouble(), random.NextDouble());
-            var distribution = new VariationCoefficientLogNormalDistribution
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
-            };
-
-            // Call
-            var stress = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
-
-            // Assert
-            Assert.AreEqual(location, stress.Location);
-
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
             }, stress.Stress);
         }
 
