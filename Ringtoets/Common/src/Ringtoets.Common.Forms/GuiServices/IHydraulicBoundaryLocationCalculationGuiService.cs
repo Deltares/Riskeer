@@ -45,8 +45,8 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <param name="messageProvider">The message provider for the services.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageProvider"/>,
-        /// <paramref name="locations"/> or <paramref name="getCalculationFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/>,
+        /// <paramref name="getCalculationFunc"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
         void CalculateDesignWaterLevels(string hydraulicBoundaryDatabaseFilePath,
                                         string preprocessorDirectory,
                                         IEnumerable<HydraulicBoundaryLocation> locations,
@@ -67,8 +67,8 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <param name="messageProvider">The message provider for the services.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageProvider"/>,
-        /// <paramref name="locations"/> or <paramref name="getCalculationFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/>,
+        /// <paramref name="getCalculationFunc"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
         void CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,
                                   string preprocessorDirectory,
                                   IEnumerable<HydraulicBoundaryLocation> locations,
