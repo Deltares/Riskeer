@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Data.Hydraulics
 
             if (hydraulicBoundaryLocationCalculation == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
             }
 
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;

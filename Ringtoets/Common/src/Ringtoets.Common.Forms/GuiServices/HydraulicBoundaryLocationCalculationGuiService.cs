@@ -65,14 +65,19 @@ namespace Ringtoets.Common.Forms.GuiServices
                                                double norm,
                                                ICalculationMessageProvider messageProvider)
         {
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException(nameof(messageProvider));
-            }
-
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
+            }
+
+            if (getCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getCalculationFunc));
+            }
+
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
             }
 
             RunActivities(hydraulicBoundaryDatabaseFilePath,
@@ -91,14 +96,19 @@ namespace Ringtoets.Common.Forms.GuiServices
                                          double norm,
                                          ICalculationMessageProvider messageProvider)
         {
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException(nameof(messageProvider));
-            }
-
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
+            }
+
+            if (getCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getCalculationFunc));
+            }
+
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
             }
 
             RunActivities(hydraulicBoundaryDatabaseFilePath,

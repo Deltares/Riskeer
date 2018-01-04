@@ -299,7 +299,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
             IEnumerable<HydraulicBoundaryLocation> locations = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, 1, null)).IgnoreArguments().WhenCalled(
                 invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]; });
             mockRepository.ReplayAll();
 
@@ -361,7 +361,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, 1, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
@@ -423,7 +423,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, 1, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
@@ -484,7 +484,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, 1, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
