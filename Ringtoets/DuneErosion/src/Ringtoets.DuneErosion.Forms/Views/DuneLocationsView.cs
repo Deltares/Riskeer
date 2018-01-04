@@ -42,20 +42,25 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly Observer duneLocationsObserver;
         private readonly Observer assessmentSectionObserver;
 
-        private DuneErosionFailureMechanism failureMechanism;
-        private ObservableList<DuneLocation> locations;
+        private readonly ObservableList<DuneLocation> locations;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationsView"/>.
         /// </summary>
         /// <param name="locations">The locations to show in the view.</param>
+        /// <param name="failureMechanism">The failure mechanism which the locations belong to.</param>
         /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DuneLocationsView(ObservableList<DuneLocation> locations, IAssessmentSection assessmentSection)
+        public DuneLocationsView(ObservableList<DuneLocation> locations, DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             if (assessmentSection == null)
@@ -69,6 +74,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             assessmentSectionObserver = new Observer(UpdateCalculateForSelectedButton);
 
             this.locations = locations;
+            FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
             duneLocationsObserver.Observable = locations;
@@ -85,21 +91,10 @@ namespace Ringtoets.DuneErosion.Forms.Views
         public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
-        /// Gets or sets the <see cref="DuneErosionFailureMechanism"/> for which the
+        /// Gets the <see cref="DuneErosionFailureMechanism"/> for which the
         /// locations are shown.
         /// </summary>
-        public DuneErosionFailureMechanism FailureMechanism
-        {
-            get
-            {
-                return failureMechanism;
-            }
-            set
-            {
-                failureMechanism = value;
-                UpdateCalculateForSelectedButton();
-            }
-        }
+        public DuneErosionFailureMechanism FailureMechanism { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="DuneLocationCalculationGuiService"/> 
@@ -141,7 +136,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
             return currentRow != null
-                       ? new DuneLocationContext((ObservableList<DuneLocation>) Data, ((DuneLocationRow) currentRow.DataBoundItem).CalculatableObject)
+                       ? new DuneLocationContext(locations, ((DuneLocationRow) currentRow.DataBoundItem).CalculatableObject)
                        : null;
         }
 

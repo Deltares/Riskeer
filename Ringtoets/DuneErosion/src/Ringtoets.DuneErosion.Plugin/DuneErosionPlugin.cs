@@ -122,10 +122,9 @@ namespace Ringtoets.DuneErosion.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseDuneLocationViewForData,
-                CreateInstance = context => new DuneLocationsView(context.WrappedData, context.AssessmentSection),
+                CreateInstance = context => new DuneLocationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
                 AfterCreate = (view, context) =>
                 {
-                    view.FailureMechanism = context.FailureMechanism;
                     view.CalculationGuiService = duneLocationCalculationGuiService;
                 },
                 AdditionalDataCheck = context => context.WrappedData.Any()
@@ -342,12 +341,6 @@ namespace Ringtoets.DuneErosion.Plugin
 
         private static bool CloseDuneLocationViewForData(DuneLocationsView view, object dataToCloseFor)
         {
-            DuneErosionFailureMechanism viewFailureMechanism = null;
-            if (view.AssessmentSection != null)
-            {
-                viewFailureMechanism = view.AssessmentSection.GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
-            }
-
             var failureMechanismContext = dataToCloseFor as DuneErosionFailureMechanismContext;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;
@@ -359,9 +352,9 @@ namespace Ringtoets.DuneErosion.Plugin
 
             if (failureMechanismContext != null)
             {
-                failureMechanism = failureMechanismContext.Parent.GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
+                failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(failureMechanism, viewFailureMechanism);
+            return failureMechanism != null && ReferenceEquals(failureMechanism, view.FailureMechanism);
         }
 
         #endregion

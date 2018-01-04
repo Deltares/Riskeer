@@ -83,7 +83,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new DuneLocationsView(null, assessmentSection);
+            TestDelegate call = () => new DuneLocationsView(null, new DuneErosionFailureMechanism(),  assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -91,10 +91,25 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new DuneLocationsView(new ObservableList<DuneLocation>(), null,  assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DuneLocationsView(new ObservableList<DuneLocation>(), null);
+            TestDelegate call = () => new DuneLocationsView(new ObservableList<DuneLocation>(), new DuneErosionFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -108,12 +123,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var failureMechanism = new DuneErosionFailureMechanism();
+
             // Call
-            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(), assessmentSection))
+            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(), failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<DuneLocationsViewBase>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
             }
         }
@@ -126,7 +144,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            DuneLocationsView view = ShowDuneLocationsView(new ObservableList<DuneLocation>(), assessmentSection);
+            DuneLocationsView view = ShowDuneLocationsView(new DuneErosionFailureMechanism(), assessmentSection);
 
             // Assert
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
@@ -234,7 +252,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(), assessmentSection))
+            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(), new DuneErosionFailureMechanism(), assessmentSection))
             {
                 // Assert
                 Assert.IsNull(view.Selection);
@@ -269,8 +287,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void GivenFullyConfiguredDuneLocationsView_WhenDuneLocationsUpdatedAndNotified_ThenDataGridViewRowCorrectlyUpdated()
         {
             // Given
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView();
-            var locations = (ObservableList<DuneLocation>) view.Data;
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
+            ObservableList<DuneLocation> locations = view.FailureMechanism.DuneLocations;
 
             // Precondition
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
@@ -321,8 +342,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void GivenFullyConfiguredDuneLocationsView_WhenEachDuneLocationOutputClearedAndNotified_ThenDataGridViewRowsRefreshedWithNewValues()
         {
             // Given
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView();
-            var locations = (ObservableList<DuneLocation>) view.Data;
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
+            ObservableList<DuneLocation> locations = view.FailureMechanism.DuneLocations;
 
             // Precondition
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
@@ -359,18 +383,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void CalculateForSelectedButton_OneLocationSelected_CalculateForSelectedLocationAndKeepOriginalSelection()
         {
             // Setup
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView();
-
-            var locations = (ObservableList<DuneLocation>) view.Data;
-
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-            object originalDataSource = dataGridView.DataSource;
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
-
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("1");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -381,6 +393,17 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
+            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
+            ObservableList<DuneLocation> locations = view.FailureMechanism.DuneLocations;
+
+            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+            object originalDataSource = dataGridView.DataSource;
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
                              .Return(new TestDunesBoundaryConditionsCalculator());
@@ -388,10 +411,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             locations.Attach(observer);
 
-            view.FailureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
+            view.FailureMechanism.Contribution = 10;
+
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
             using (var viewParent = new Form())
@@ -471,13 +492,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
             }
-
-            var failureMechanism = new DuneErosionFailureMechanism();
+            
             if (contributionNotZero)
             {
-                failureMechanism.Contribution = 5;
+                view.FailureMechanism.Contribution = 5;
             }
-            view.FailureMechanism = failureMechanism;
 
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
@@ -512,10 +531,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            view.FailureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
+            view.FailureMechanism.Contribution = 10;
+
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
             using (var viewParent = new Form())
@@ -564,10 +581,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            view.FailureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
+            view.FailureMechanism.Contribution = 10;
+
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
             using (var viewParent = new Form())
@@ -618,10 +633,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            view.FailureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
+            view.FailureMechanism.Contribution = 10;
+
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
             using (var viewParent = new Form())
@@ -667,13 +680,16 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 }
             };
 
-            DuneLocationsView view = ShowDuneLocationsView(locations, assessmentSection);
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocations.AddRange(locations);
+
+            DuneLocationsView view = ShowDuneLocationsView(failureMechanism, assessmentSection);
             return view;
         }
 
-        private DuneLocationsView ShowDuneLocationsView(ObservableList<DuneLocation> locations, IAssessmentSection assessmentSection)
+        private DuneLocationsView ShowDuneLocationsView(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            var view = new DuneLocationsView(locations, assessmentSection);
+            var view = new DuneLocationsView(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();

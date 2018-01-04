@@ -74,13 +74,12 @@ namespace Ringtoets.DuneErosion.Integration.Test
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
             }
-
-            var failureMechanism = new DuneErosionFailureMechanism();
+            
             if (!contributionAfterChangeNotZero)
             {
-                failureMechanism.Contribution = 5;
+                view.FailureMechanism.Contribution = 5;
+                view.AssessmentSection.NotifyObservers();
             }
-            view.FailureMechanism = failureMechanism;
 
             // Precondition
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
@@ -89,7 +88,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
             Assert.AreNotEqual(expectedErrorMessage, errorProvider.GetError(button));
 
             // When
-            failureMechanism.Contribution = contributionAfterChangeNotZero ? 5 : 0;
+            view.FailureMechanism.Contribution = contributionAfterChangeNotZero ? 5 : 0;
             view.AssessmentSection.NotifyObservers();
 
             // Then
@@ -123,14 +122,17 @@ namespace Ringtoets.DuneErosion.Integration.Test
                 }
             };
 
-            DuneLocationsView view = ShowDuneLocationsView(locations);
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocations.AddRange(locations);
+
+            DuneLocationsView view = ShowDuneLocationsView(failureMechanism);
 
             return view;
         }
 
-        private DuneLocationsView ShowDuneLocationsView(ObservableList<DuneLocation> locations)
+        private DuneLocationsView ShowDuneLocationsView(DuneErosionFailureMechanism failureMechanism)
         {
-            var view = new DuneLocationsView(locations, new AssessmentSection(AssessmentSectionComposition.Dike));
+            var view = new DuneLocationsView(failureMechanism.DuneLocations, failureMechanism, new AssessmentSection(AssessmentSectionComposition.Dike));
 
             testForm.Controls.Add(view);
             testForm.Show();
