@@ -42,6 +42,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly Observer duneLocationsObserver;
         private readonly Observer assessmentSectionObserver;
 
+        private readonly Observer failureMechanismObserver;
+
         private readonly ObservableList<DuneLocation> locations;
 
         /// <summary>
@@ -70,15 +72,22 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
             InitializeComponent();
 
-            duneLocationsObserver = new Observer(UpdateDuneLocations);
-            assessmentSectionObserver = new Observer(UpdateCalculateForSelectedButton);
-
             this.locations = locations;
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
-            duneLocationsObserver.Observable = locations;
-            assessmentSectionObserver.Observable = assessmentSection;
+            duneLocationsObserver = new Observer(UpdateDuneLocations)
+            {
+                Observable = locations
+            };
+            assessmentSectionObserver = new Observer(UpdateCalculateForSelectedButton)
+            {
+                Observable = assessmentSection
+            };
+            failureMechanismObserver = new Observer(UpdateCalculateForSelectedButton)
+            {
+                Observable = failureMechanism
+            };
 
             UpdateDataGridViewDataSource();
         }
@@ -106,6 +115,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             duneLocationsObserver.Dispose();
             assessmentSectionObserver.Dispose();
+            failureMechanismObserver.Dispose();
+
             base.Dispose(disposing);
         }
 
@@ -171,7 +182,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
                                             AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                             FailureMechanism.GetMechanismSpecificNorm(AssessmentSection.FailureMechanismContribution.Norm));
 
-            ((IObservable) Data).NotifyObservers();
+            locations.NotifyObservers();
         }
 
         private void UpdateDuneLocations()

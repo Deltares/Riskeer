@@ -393,14 +393,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
-            ObservableList<DuneLocation> locations = view.FailureMechanism.DuneLocations;
-
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-            object originalDataSource = dataGridView.DataSource;
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
-
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
@@ -409,9 +401,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(new TestDunesBoundaryConditionsCalculator());
             mocks.ReplayAll();
 
-            locations.Attach(observer);
+            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
+            ObservableList<DuneLocation> locations = view.FailureMechanism.DuneLocations;
 
-            view.FailureMechanism.Contribution = 10;
+            var dataGridView = (DataGridView)view.Controls.Find("dataGridView", true)[0];
+            object originalDataSource = dataGridView.DataSource;
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+
+            locations.Attach(observer);
 
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
@@ -471,12 +469,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(false, false, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, false, message)")]
-        [TestCase(true, false, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, false, message)")]
-        [TestCase(false, true, "Er zijn geen berekeningen geselecteerd.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, true, message)")]
-        [TestCase(true, true, "", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, true, message)")]
+        [TestCase(false, true, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, false, message)")]
+        [TestCase(true, true, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, false, message)")]
+        [TestCase(false, false, "Er zijn geen berekeningen geselecteerd.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, true, message)")]
+        [TestCase(true, false, "", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, true, message)")]
         public void GivenDuneLocationsView_WhenSpecificCombinationOfRowSelectionAndFailureMechanismContributionSet_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
-                                                                                                                                                              bool contributionNotZero,
+                                                                                                                                                              bool contributionZero,
                                                                                                                                                               string expectedErrorMessage)
         {
             // Given
@@ -493,14 +491,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
             }
             
-            if (contributionNotZero)
+            if (contributionZero)
             {
-                view.FailureMechanism.Contribution = 5;
+                view.FailureMechanism.Contribution = 0;
+                view.FailureMechanism.NotifyObservers();
             }
 
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
-            Assert.AreEqual(rowSelected && contributionNotZero, button.Enabled);
+            Assert.AreEqual(rowSelected && !contributionZero, button.Enabled);
             var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
             Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
         }
@@ -519,19 +518,17 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
-
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
-
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            view.FailureMechanism.Contribution = 10;
+            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
+
+            var dataGridView = (DataGridView)view.Controls.Find("dataGridView", true)[0];
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
@@ -569,19 +566,17 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
-
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
-
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            view.FailureMechanism.Contribution = 10;
+            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
+
+            var dataGridView = (DataGridView)view.Controls.Find("dataGridView", true)[0];
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
@@ -621,19 +616,17 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
-
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
-
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            view.FailureMechanism.Contribution = 10;
+            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
+
+            var dataGridView = (DataGridView)view.Controls.Find("dataGridView", true)[0];
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
@@ -680,7 +673,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 }
             };
 
-            var failureMechanism = new DuneErosionFailureMechanism();
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = 10
+            };
             failureMechanism.DuneLocations.AddRange(locations);
 
             DuneLocationsView view = ShowDuneLocationsView(failureMechanism, assessmentSection);
