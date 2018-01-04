@@ -37,6 +37,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class DesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
     {
+        private readonly double norm;
         private readonly DesignWaterLevelCalculationMessageProvider messageProvider;
 
         /// <summary>
@@ -44,14 +45,19 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         /// <param name="locations">The locations to show in the view.</param>
         /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
+        /// <param name="norm">The norm to use during calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> or 
         /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public DesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocation> locations, IAssessmentSection assessmentSection)
+        public DesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
+                                             IAssessmentSection assessmentSection,
+                                             double norm)
             : base(locations, assessmentSection)
         {
             InitializeComponent();
 
             messageProvider = new DesignWaterLevelCalculationMessageProvider();
+
+            this.norm = norm;
         }
 
         protected override object CreateSelectedItemFromCurrentRow()
@@ -69,7 +75,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                              AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                              locations,
                                                              hbl => hbl.DesignWaterLevelCalculation,
-                                                             AssessmentSection.FailureMechanismContribution.Norm,
+                                                             norm,
                                                              messageProvider);
         }
 
