@@ -252,7 +252,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                            .Concat(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
                                            .Concat(new IObservable[]
                                            {
-                                               grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
                                                duneErosionFailureMechanism.DuneLocations,
                                                assessmentSection
                                            })
@@ -377,7 +376,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                            .Concat(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
                                            .Concat(new IObservable[]
                                            {
-                                               grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations,
                                                duneErosionFailureMechanism.DuneLocations,
                                                assessmentSection
                                            })

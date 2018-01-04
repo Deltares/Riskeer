@@ -118,9 +118,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
 
             var hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
-            hydraulicBoundaryDatabaseObserver.Expect(hbdo => hbdo.UpdateObserver());
             var grassCoverErosionOutwardsObserver = mockRepository.StrictMock<IObserver>();
-            grassCoverErosionOutwardsObserver.Expect(o => o.UpdateObserver());
 
             var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();

@@ -327,7 +327,6 @@ namespace Ringtoets.Integration.Service.Test
             if (HasHydraulicBoundaryLocationOutput(grassCoverErosionLocation))
             {
                 expectedAffectedItems.Add(grassCoverErosionLocation);
-                expectedAffectedItems.Add(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
             }
             if (duneLocation.Output != null)
             {
@@ -393,7 +392,6 @@ namespace Ringtoets.Integration.Service.Test
             if (HasHydraulicBoundaryLocationOutput(grassCoverErosionLocation))
             {
                 expectedAffectedItems.Add(grassCoverErosionLocation);
-                expectedAffectedItems.Add(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
             }
             if (duneLocation.Output != null)
             {
@@ -451,12 +449,10 @@ namespace Ringtoets.Integration.Service.Test
             if (HasHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation))
             {
                 expectedAffectedItems.Add(hydraulicBoundaryLocation);
-                expectedAffectedItems.Add(hydraulicBoundaryDatabase);
             }
             if (HasHydraulicBoundaryLocationOutput(grassCoverErosionLocation))
             {
                 expectedAffectedItems.Add(grassCoverErosionLocation);
-                expectedAffectedItems.Add(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
             }
             if (duneLocation.Output != null)
             {
