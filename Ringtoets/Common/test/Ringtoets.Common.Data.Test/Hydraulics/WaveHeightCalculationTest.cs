@@ -30,30 +30,24 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     [TestFixture]
     public class WaveHeightCalculationTest
     {
-        private static IEnumerable<TestCaseData> HydraulicBoundaryLocationsToCalculate
+        private static IEnumerable<TestCaseData> HydraulicBoundaryLocationCalculationsToPerform
         {
             get
             {
-                yield return new TestCaseData(new TestHydraulicBoundaryLocation("WithOutputWithoutIllustrationPoints")
+                yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
                 {
-                    WaveHeightCalculation =
+                    InputParameters =
                     {
-                        InputParameters =
-                        {
-                            ShouldIllustrationPointsBeCalculated = true
-                        },
-                        Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
-                    }
+                        ShouldIllustrationPointsBeCalculated = true
+                    },
+                    Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
                 }, true);
 
-                yield return new TestCaseData(new TestHydraulicBoundaryLocation("WithoutOutput"), true);
+                yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(), true);
 
-                yield return new TestCaseData(new TestHydraulicBoundaryLocation("WithValidOutput")
+                yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
                 {
-                    WaveHeightCalculation =
-                    {
-                        Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
-                    }
+                    Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
                 }, false);
             }
         }
@@ -81,22 +75,17 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void Constructor_ValidHydraulicBoundaryLocation_SetsProperties(
-            [Values(true, false)] bool calculateIllustrationPoints)
+        public void Constructor_ValidInputParameters_SetsProperties([Values(true, false)] bool calculateIllustrationPoints)
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 1, 1)
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation
             {
-                WaveHeightCalculation =
+                InputParameters =
                 {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = calculateIllustrationPoints
-                    }
+                    ShouldIllustrationPointsBeCalculated = calculateIllustrationPoints
                 }
             };
-
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocation.WaveHeightCalculation;
 
             // Call
             var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
@@ -105,19 +94,17 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.IsInstanceOf<IHydraulicBoundaryWrapperCalculation>(calculation);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, calculation.Id);
             Assert.AreSame(hydraulicBoundaryLocation.Name, calculation.Name);
-
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, calculation.CalculateIllustrationPoints);
-
             Assert.AreSame(hydraulicBoundaryLocation, calculation.ObservableObject);
         }
 
         [Test]
-        [TestCaseSource(nameof(HydraulicBoundaryLocationsToCalculate))]
-        public void IsCalculated_HydraulicBoundaryLocationsToCalculate_ReturnIsCalculated(
-            HydraulicBoundaryLocation hydraulicBoundaryLocation, bool shouldBeCalculated)
+        [TestCaseSource(nameof(HydraulicBoundaryLocationCalculationsToPerform))]
+        public void IsCalculated_NotFullyCalculated_ReturnIsCalculated(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+                                                                       bool shouldBeCalculated)
         {
             // Setup
-            var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocation.WaveHeightCalculation);
+            var calculation = new DesignWaterLevelCalculation(new TestHydraulicBoundaryLocation(), hydraulicBoundaryLocationCalculation);
 
             // Call
             bool isCalculated = calculation.IsCalculated();
@@ -131,14 +118,15 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocation.WaveHeightCalculation);
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation();
+            var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
             var output = new TestHydraulicBoundaryLocationOutput(1);
 
             // Call
             calculation.Output = output;
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryLocation.WaveHeightCalculation.Output, output);
+            Assert.AreSame(hydraulicBoundaryLocationCalculation.Output, output);
         }
     }
 }
