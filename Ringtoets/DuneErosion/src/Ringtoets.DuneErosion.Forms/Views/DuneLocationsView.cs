@@ -40,8 +40,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
     public partial class DuneLocationsView : DuneLocationsViewBase
     {
         private readonly Observer duneLocationsObserver;
-        private readonly Observer assessmentSectionObserver;
-
         private readonly Observer failureMechanismObserver;
         private readonly RecursiveObserver<ObservableList<DuneLocation>, DuneLocation> duneLocationObserver;
 
@@ -54,7 +52,9 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <param name="failureMechanism">The failure mechanism which the locations belong to.</param>
         /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DuneLocationsView(ObservableList<DuneLocation> locations, DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public DuneLocationsView(ObservableList<DuneLocation> locations,
+                                 DuneErosionFailureMechanism failureMechanism,
+                                 IAssessmentSection assessmentSection)
         {
             if (locations == null)
             {
@@ -84,10 +84,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
             duneLocationObserver = new RecursiveObserver<ObservableList<DuneLocation>, DuneLocation>(dataGridViewControl.RefreshDataGridView, list => list)
             {
                 Observable = locations
-            };
-            assessmentSectionObserver = new Observer(UpdateCalculateForSelectedButton)
-            {
-                Observable = assessmentSection
             };
             failureMechanismObserver = new Observer(UpdateCalculateForSelectedButton)
             {
@@ -120,7 +116,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             duneLocationsObserver.Dispose();
             duneLocationObserver.Dispose();
-            assessmentSectionObserver.Dispose();
             failureMechanismObserver.Dispose();
 
             base.Dispose(disposing);

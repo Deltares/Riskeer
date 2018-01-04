@@ -78,7 +78,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
             if (!contributionAfterChangeNotZero)
             {
                 view.FailureMechanism.Contribution = 5;
-                view.AssessmentSection.NotifyObservers();
+                view.FailureMechanism.NotifyObservers();
             }
 
             // Precondition
@@ -89,7 +89,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
 
             // When
             view.FailureMechanism.Contribution = contributionAfterChangeNotZero ? 5 : 0;
-            view.AssessmentSection.NotifyObservers();
+            view.FailureMechanism.NotifyObservers();
 
             // Then
             Assert.AreEqual(rowSelected && contributionAfterChangeNotZero, button.Enabled);

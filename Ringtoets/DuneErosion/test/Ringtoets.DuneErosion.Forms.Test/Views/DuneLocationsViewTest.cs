@@ -229,22 +229,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void GivenDuneLocationsView_WhenSettingAssessmentSectionAndDisposingView_ThenCorrectlyAttachAndDetachAssessmentSection()
-        {
-            // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.Attach(Arg<IObserver>.Is.NotNull)).IgnoreArguments();
-            assessmentSection.Expect(a => a.Detach(Arg<IObserver>.Is.NotNull)).IgnoreArguments();
-            mocks.ReplayAll();
-
-            // Call
-            ShowFullyConfiguredDuneLocationsView(assessmentSection);
-
-            // Assert
-            // Assertions based on mock expectancies
-        }
-
-        [Test]
         public void Selection_WithoutLocations_ReturnsNull()
         {
             // Setup
