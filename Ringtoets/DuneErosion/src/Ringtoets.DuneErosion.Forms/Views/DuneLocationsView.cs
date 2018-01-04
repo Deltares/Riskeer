@@ -43,6 +43,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly Observer assessmentSectionObserver;
 
         private readonly Observer failureMechanismObserver;
+        private readonly RecursiveObserver<ObservableList<DuneLocation>, DuneLocation> duneLocationObserver;
 
         private readonly ObservableList<DuneLocation> locations;
 
@@ -76,7 +77,11 @@ namespace Ringtoets.DuneErosion.Forms.Views
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
-            duneLocationsObserver = new Observer(UpdateDuneLocations)
+            duneLocationsObserver = new Observer(UpdateDataGridViewDataSource)
+            {
+                Observable = locations
+            };
+            duneLocationObserver = new RecursiveObserver<ObservableList<DuneLocation>, DuneLocation>(dataGridViewControl.RefreshDataGridView, list => list)
             {
                 Observable = locations
             };
@@ -114,6 +119,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         protected override void Dispose(bool disposing)
         {
             duneLocationsObserver.Dispose();
+            duneLocationObserver.Dispose();
             assessmentSectionObserver.Dispose();
             failureMechanismObserver.Dispose();
 
@@ -181,39 +187,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
                                             AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                             AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                             FailureMechanism.GetMechanismSpecificNorm(AssessmentSection.FailureMechanismContribution.Norm));
-
-            locations.NotifyObservers();
-        }
-
-        private void UpdateDuneLocations()
-        {
-            if (IsDataGridDataSourceChanged())
-            {
-                UpdateDataGridViewDataSource();
-            }
-            else
-            {
-                dataGridViewControl.RefreshDataGridView();
-            }
-        }
-
-        private bool IsDataGridDataSourceChanged()
-        {
-            DataGridViewRowCollection rows = dataGridViewControl.Rows;
-            int rowCount = rows.Count;
-            if (rowCount != locations.Count)
-            {
-                return true;
-            }
-            for (var i = 0; i < rowCount; i++)
-            {
-                DuneLocation locationFromGrid = ((DuneLocationRow) rows[i].DataBoundItem).CalculatableObject;
-                if (!ReferenceEquals(locationFromGrid, locations[i]))
-                {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }

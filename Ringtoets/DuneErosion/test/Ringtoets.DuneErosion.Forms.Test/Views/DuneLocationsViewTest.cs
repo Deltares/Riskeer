@@ -393,8 +393,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var locationsObserver = mocks.StrictMock<IObserver>();
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
@@ -409,7 +408,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-            locations.Attach(observer);
+            locations.Attach(locationsObserver);
 
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
