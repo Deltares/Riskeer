@@ -275,7 +275,6 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                 context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                 context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                 context.FailureMechanism.GetMechanismSpecificNorm(context.AssessmentSection.FailureMechanismContribution.Norm));
-                    context.NotifyObservers();
                 });
 
             string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
