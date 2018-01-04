@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -30,21 +29,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
     public class GrassCoverErosionOutwardsWaveHeightLocationContextTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2.0, 3.0);
-            var locations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                hydraulicBoundaryLocation
-            };
 
             // Call
-            var presentationObject = new GrassCoverErosionOutwardsWaveHeightLocationContext(hydraulicBoundaryLocation, locations);
+            var presentationObject = new GrassCoverErosionOutwardsWaveHeightLocationContext(hydraulicBoundaryLocation);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationContext>(presentationObject);
-            Assert.AreSame(locations, presentationObject.HydraulicBoundaryLocations);
             Assert.AreSame(hydraulicBoundaryLocation, presentationObject.WrappedData);
         }
     }

@@ -20,14 +20,12 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {
@@ -38,72 +36,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var foreshoreProfile = new TestForeshoreProfile();
-
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.ForeshoreProfiles.AddRange(new[]
-            {
-                foreshoreProfile
-            }, "path");
-            failureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
-
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            WaveConditionsInput input = calculation.InputParameters;
-
-            // Call
-            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                input,
-                calculation,
-                failureMechanism);
-
-            // Assert
-            Assert.IsInstanceOf<WrappedObjectContextBase<WaveConditionsInput>>(context);
-            Assert.AreSame(input, context.WrappedData);
-            CollectionAssert.AreEqual(new[]
-            {
-                foreshoreProfile
-            }, context.ForeshoreProfiles);
-            CollectionAssert.AreEqual(new[]
-            {
-                hydraulicBoundaryLocation
-            }, context.HydraulicBoundaryLocations);
-        }
-
-        [Test]
-        public void Constructor_InputNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                null,
-                new TestWaveConditionsCalculation(),
-                failureMechanism);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("wrappedData", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Setup
             var input = new WaveConditionsInput();
+            var calculation = new TestWaveConditionsCalculation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                input,
-                null,
-                failureMechanism);
+            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(input,
+                                                                                  calculation,
+                                                                                  failureMechanism);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculation", exception.ParamName);
+            Assert.IsInstanceOf<WaveConditionsInputContext>(context);
+            Assert.AreSame(input, context.WrappedData);
+            Assert.AreSame(calculation, context.Calculation);
+            Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, context.HydraulicBoundaryLocations);
+            Assert.AreSame(failureMechanism.ForeshoreProfiles, context.ForeshoreProfiles);
         }
 
         [Test]
@@ -111,12 +58,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var input = new WaveConditionsInput();
+            var calculation = new TestWaveConditionsCalculation();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                input,
-                new TestWaveConditionsCalculation(),
-                null);
+            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(input,
+                                                                                              calculation,
+                                                                                              null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

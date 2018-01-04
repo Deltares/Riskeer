@@ -152,7 +152,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                     new WaveConditionsCalculationConfigurationImporter<StabilityStoneCoverWaveConditionsCalculation>(
                         filePath,
                         context.WrappedData,
-                        context.HydraulicBoundaryLocations,
+                        context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                         context.ForeshoreProfiles));
         }
 
@@ -441,8 +441,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
         {
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = nodeData.AssessmentSection.HydraulicBoundaryDatabase;
-            bool locationsAvailable = hydraulicBoundaryDatabase != null && hydraulicBoundaryDatabase.Locations.Any();
+            bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations.Any();
 
             string stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
                                                                                          ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip

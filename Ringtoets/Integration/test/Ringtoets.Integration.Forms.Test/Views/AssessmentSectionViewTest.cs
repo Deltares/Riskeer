@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -173,17 +174,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     new Point2D(2.0, 1.0)
                 });
 
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
-                    }
-                };
-
                 var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
+                    HydraulicBoundaryDatabase =
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                        }
+                    },
                     ReferenceLine = referenceLine
                 };
 
@@ -196,67 +195,87 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 MapDataCollection mapData = view.Map.Data;
                 Assert.IsNotNull(mapData);
 
-                AssertHydraulicBoundaryDatabaseData(mapData, hydraulicBoundaryDatabase);
-                AssertReferenceLineData(mapData, referenceLine);
+                MapData hydraulicBoundaryLocationsMapData = mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                AssertHydraulicBoundarLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                       hydraulicBoundaryLocationsMapData);
+
+                MapData referenceLineMapData = mapData.Collection.ElementAt(referenceLineIndex);
+                AssertReferenceLineMapData(referenceLine, referenceLineMapData);
             }
         }
 
         [Test]
-        public void GivenChangedHydraulicBoundaryDatabase_WhenAssessmentSectionObserversNotified_MapDataUpdated()
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenLocationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
+            var random = new Random(21);
             using (var view = new AssessmentSectionView())
             {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
                 var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                    HydraulicBoundaryDatabase =
+                    {
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 };
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
 
                 view.Data = assessmentSection;
-                MapDataCollection mapData = view.Map.Data;
+
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
-
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                hydraulicBoundaryLocationsMapData);
 
                 // When
-                assessmentSection.NotifyObservers();
+                hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                hydraulicBoundaryLocation.WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                hydraulicBoundaryLocation.NotifyObservers();
 
                 // Then
-                AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                hydraulicBoundaryLocationsMapData);
             }
         }
 
         [Test]
-        public void GivenChangedHydraulicBoundaryDatabase_WhenHydraulicBoundaryDatabaseObserversNotified_MapDataUpdated()
+        public void GivenViewWithHydraulicBoundaryLocationsDatabase_WhenChangingHydraulicBoundaryLocationsDataAndObserversNotified_MapDataUpdated()
         {
             // Given
             using (var view = new AssessmentSectionView())
             {
                 var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                    HydraulicBoundaryDatabase =
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                        }
+                    }
                 };
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
 
                 view.Data = assessmentSection;
                 MapDataCollection mapData = view.Map.Data;
+                MapData hydraulicBoundaryLocationsMapData = mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
-
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-                assessmentSection.NotifyObservers();
+                AssertHydraulicBoundarLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                       hydraulicBoundaryLocationsMapData);
 
                 // When
                 assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "new 2", 2, 3));
-                assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+                assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
                 // Then
-                AssertHydraulicBoundaryDatabaseData(mapData, assessmentSection.HydraulicBoundaryDatabase);
+                AssertHydraulicBoundarLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                       hydraulicBoundaryLocationsMapData);
             }
         }
 
@@ -287,15 +306,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 view.Data = assessmentSection;
                 MapDataCollection mapData = view.Map.Data;
 
+                MapData referenceLineMapData = mapData.Collection.ElementAt(referenceLineIndex);
+
                 // Precondition
-                AssertReferenceLineData(mapData, assessmentSection.ReferenceLine);
+                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 // Call
                 assessmentSection.ReferenceLine.SetGeometry(pointsUpdate);
                 assessmentSection.NotifyObservers();
 
                 // Assert
-                AssertReferenceLineData(mapData, assessmentSection.ReferenceLine);
+                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
             }
         }
 
@@ -311,10 +332,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 var assessmentSection2 = new ObservableTestAssessmentSectionStub
                 {
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
+                    HydraulicBoundaryDatabase =
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
+                        }
+                    },
                     ReferenceLine = new ReferenceLine()
                 };
-                assessmentSection2.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
+
                 assessmentSection2.ReferenceLine.SetGeometry(new List<Point2D>
                 {
                     new Point2D(2.0, 1.0),
@@ -343,12 +370,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     new Point2D(2.0, 1.0)
                 });
 
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
-
                 var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
+                    HydraulicBoundaryDatabase =
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                        }
+                    },
                     ReferenceLine = referenceLine
                 };
 
@@ -367,7 +397,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var hrLocationsMapData = (MapPointData) mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex - 1);
                 Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
 
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Clear();
                 assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
 
                 // Call
@@ -382,20 +412,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
-        private static void AssertHydraulicBoundaryDatabaseData(MapDataCollection mapData, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        private static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData referenceLineMapData)
         {
-            var hrLocationsMapData = (MapPointData) mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-            CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations.Select(l => l.Location), hrLocationsMapData.Features.First().MapGeometries.First().PointCollections.First());
-            Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
-            Assert.IsTrue(hrLocationsMapData.IsVisible);
+            MapDataTestHelper.AssertReferenceLineMapData(referenceLine, referenceLineMapData);
+            Assert.IsTrue(referenceLineMapData.IsVisible);
         }
 
-        private static void AssertReferenceLineData(MapDataCollection mapData, ReferenceLine referenceLine)
+        private static void AssertHydraulicBoundarLocationsMapData(IEnumerable<HydraulicBoundaryLocation> locations, MapData hydraulicBoundaryLocationsMapData)
         {
-            var referenceLineMapData = (MapLineData) mapData.Collection.ElementAt(referenceLineIndex);
-            CollectionAssert.AreEqual(referenceLine.Points, referenceLineMapData.Features.First().MapGeometries.First().PointCollections.First());
-            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
-            Assert.IsTrue(referenceLineMapData.IsVisible);
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(locations, hydraulicBoundaryLocationsMapData);
+            Assert.IsTrue(hydraulicBoundaryLocationsMapData.IsVisible);
         }
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)

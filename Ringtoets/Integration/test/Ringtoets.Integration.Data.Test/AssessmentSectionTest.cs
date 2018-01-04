@@ -114,6 +114,13 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(composition, section.Composition);
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = section.HydraulicBoundaryDatabase;
+            Assert.IsNotNull(hydraulicBoundaryDatabase);
+            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
+            Assert.IsNull(hydraulicBoundaryDatabase.Version);
+            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
+
             CollectionAssert.IsEmpty(section.Piping.StochasticSoilModels);
             CollectionAssert.IsEmpty(section.Piping.SurfaceLines);
 
@@ -434,21 +441,6 @@ namespace Ringtoets.Integration.Data.Test
             // Assert
             Assert.AreEqual(double.NaN, assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
             Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
-        }
-
-        [Test]
-        public void HydraulicBoundaryDatabase_SetNewValue_GetNewValue()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-            // Call
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-
-            // Assert
-            Assert.AreSame(hydraulicBoundaryDatabase, assessmentSection.HydraulicBoundaryDatabase);
         }
 
         private IFailureMechanism[] GetExpectedContributingFailureMechanisms(AssessmentSection section)

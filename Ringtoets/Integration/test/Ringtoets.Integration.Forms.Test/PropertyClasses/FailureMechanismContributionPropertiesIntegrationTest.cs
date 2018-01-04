@@ -61,17 +61,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const int numberOfCalculations = 3;
 
             TestHydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    hydraulicBoundaryLocation
-                }
-            };
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
+                }
             };
 
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
@@ -127,7 +126,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(failureMechanismContributionObserver);
-            hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
             emptyPipingCalculation.Attach(emptyPipingCalculationObserver);
             emptyGrassCoverErosionInwardsCalculation.Attach(emptyGrassCoverErosionInwardsCalculationObserver);
@@ -178,17 +177,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             TestHydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    hydraulicBoundaryLocation
-                }
-            };
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
+                }
             };
 
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
@@ -236,7 +234,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(failureMechanismContributionObserver);
-            hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
             emptyPipingCalculation.Attach(emptyPipingCalculationObserver);
             emptyGrassCoverErosionInwardsCalculation.Attach(emptyGrassCoverErosionInwardsCalculationObserver);
@@ -290,17 +288,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private void SetPropertyAndVerifyNotificationsAndOutputForHydraulicBoundarySetAndCalculationsNoOutput(Action<FailureMechanismContributionProperties> setPropertyAction)
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    TestHydraulicBoundaryLocation.CreateFullyCalculated()
-                }
-            };
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        TestHydraulicBoundaryLocation.CreateFullyCalculated()
+                    }
+                }
             };
 
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
@@ -324,7 +320,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observer);
-            hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
             emptyPipingCalculation.Attach(calculationObserver);
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
@@ -361,12 +357,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             const int numberOfCalculations = 3;
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        new TestHydraulicBoundaryLocation()
+                    }
+                }
             };
 
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
@@ -415,7 +414,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observer);
-            hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
             emptyPipingCalculation.Attach(emptyPipingCalculationObserver);
             emptyGrassCoverErosionInwardsCalculation.Attach(emptyGrassCoverErosionInwardsCalculationObserver);
@@ -544,12 +543,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private void SetPropertyAndVerifyNotificationsAndOutputForHydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutput(Action<FailureMechanismContributionProperties> setPropertyAction)
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        new TestHydraulicBoundaryLocation()
+                    }
+                }
             };
 
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
@@ -575,7 +577,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             emptyPipingCalculation.Attach(calculationObserver);
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
             emptyHeightStructuresCalculation.Attach(calculationObserver);
-            hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
             var properties = new FailureMechanismContributionProperties(
                 failureMechanismContribution,
@@ -599,7 +601,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mockRepository.VerifyAll(); // No update observer expected.
         }
 
-        private void SetPropertyAndVerifyNotificationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(Action<FailureMechanismContributionProperties> setPropertyAction)
+        private void SetPropertyAndVerifyNotificationsAndNoOutputForHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(Action<FailureMechanismContributionProperties> setPropertyAction)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -774,21 +776,21 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         #region NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput
 
         [Test]
-        public void LowerLimitNorm_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        public void LowerLimitNorm_NoHydraulicBoundaryDatabaseOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
         {
-            SetPropertyAndVerifyNotificationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
+            SetPropertyAndVerifyNotificationsAndNoOutputForHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
         }
 
         [Test]
-        public void SignalingNorm_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        public void SignalingNorm_NoHydraulicBoundaryDatabaseOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
         {
-            SetPropertyAndVerifyNotificationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.SignalingNorm = newSignalingNorm);
+            SetPropertyAndVerifyNotificationsAndNoOutputForHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.SignalingNorm = newSignalingNorm);
         }
 
         [Test]
-        public void NormativeNorm_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        public void NormativeNorm_NoHydraulicBoundaryDatabaseOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
         {
-            SetPropertyAndVerifyNotificationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.NormativeNorm = newNormativeNorm);
+            SetPropertyAndVerifyNotificationsAndNoOutputForHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.NormativeNorm = newNormativeNorm);
         }
 
         #endregion

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -234,14 +235,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point2D(6.0, 4.0)
                 };
 
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
-                    }
-                };
-
                 var referenceLine = new ReferenceLine();
                 referenceLine.SetGeometry(new[]
                 {
@@ -251,7 +244,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
+                    HydraulicBoundaryDatabase =
+                    {
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                        }
+                    },
                     ReferenceLine = referenceLine
                 };
 
@@ -324,89 +323,29 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, mapDataList[hydraulicBoundaryLocationsIndex]);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, mapDataList[hydraulicBoundaryLocationsIndex]);
                 AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, mapDataList[stochasticSoilModelsIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<PipingCalculationScenario>(), mapDataList[calculationsIndex]);
             }
         }
 
         [Test]
-        public void GivenViewWithAssessmentSectionData_WhenAssessmentSectionUpdatedAndNotified_ThenMapDataUpdated()
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
-                    }
-                };
-                var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0),
-                        new HydraulicBoundaryLocation(3, "test3", 2.3, 4.6)
-                    }
-                };
-
                 var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase1
-                };
-
-                view.Data = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
-
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
-                observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
-                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-                // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase1.Locations, hydraulicBoundaryLocationsMapData);
-
-                // When
-                assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase2;
-                assessmentSection.NotifyObservers();
-
-                // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase2.Locations, hydraulicBoundaryLocationsMapData);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void GivenViewWithHydraulicBoundaryDatabaseData_WhenHydraulicBoundaryDatabaseUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            using (var view = new PipingFailureMechanismView())
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
+                    HydraulicBoundaryDatabase =
                     {
-                        new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                        Locations =
+                        {
+                            new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                        }
                     }
-                };
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
                 };
 
                 view.Data = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
@@ -419,74 +358,57 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
 
                 // When
-                hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
-                hydraulicBoundaryDatabase.NotifyObservers();
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
+                assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void GivenAssessmentSectionWithHydraulicBoundaryDatabase_WhenNewDatabaseIsSetAndNotified_ThenMapDataUpdatedAndObserversNotified()
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenLocationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
+            var random = new Random(21);
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var currentHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "old 1", 1, 2)
-                    }
-                };
-                var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "new 1", 1, 2)
-                    }
-                };
-
+                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
                 var assessmentSection = new ObservableTestAssessmentSectionStub
                 {
-                    HydraulicBoundaryDatabase = currentHydraulicBoundaryDatabase
+                    HydraulicBoundaryDatabase =
+                    {
+                        Locations =
+                        {
+                            hydraulicBoundaryLocation
+                        }
+                    }
                 };
 
-                view.Data = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
-                observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver()).Repeat.Twice();
-                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
+                view.Data = failureMechanismContext;
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(currentHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                hydraulicBoundaryLocationsMapData);
 
                 // When
-                assessmentSection.HydraulicBoundaryDatabase = newHydraulicBoundaryDatabase;
-                assessmentSection.NotifyObservers();
-                newHydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "new 2", 2, 3));
-                newHydraulicBoundaryDatabase.NotifyObservers();
+                hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                hydraulicBoundaryLocation.WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                hydraulicBoundaryLocation.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(newHydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
-                mocks.VerifyAll();
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                hydraulicBoundaryLocationsMapData);
             }
         }
 

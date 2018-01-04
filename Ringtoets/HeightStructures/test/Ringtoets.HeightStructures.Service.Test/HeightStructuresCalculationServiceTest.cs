@@ -67,10 +67,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string expectedValidationMessage = "De waarde voor 'oriëntatie' moet een concreet getal zijn.";
 
@@ -110,10 +110,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             // Setup
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
-                                                                                                       mockRepository);
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             string expectedValidationMessage = $"De verwachtingswaarde voor '{parameterName}' moet een concreet getal zijn.";
 
@@ -154,10 +153,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             string expectedValidationMessage = $"De verwachtingswaarde voor '{parameterName}' moet een positief getal zijn.";
 
@@ -201,10 +200,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             string expectedValidationMessage = $"De standaardafwijking voor '{parameterName}' moet groter zijn dan of gelijk zijn aan 0.";
 
@@ -247,10 +246,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             string expectedValidationMessage = $"De variatiecoëfficiënt voor '{parameterName}' moet groter zijn dan of gelijk zijn aan 0.";
 
@@ -292,10 +291,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -330,10 +329,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
             mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var calculation = new TestHeightStructuresCalculation
             {

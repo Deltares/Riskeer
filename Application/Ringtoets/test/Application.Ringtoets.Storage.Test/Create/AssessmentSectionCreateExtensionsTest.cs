@@ -132,10 +132,6 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.TechnicalInnovations));
             Assert.AreEqual(order, entity.Order);
 
-            Assert.IsNull(entity.HydraulicDatabaseLocation);
-            Assert.IsNull(entity.HydraulicDatabaseVersion);
-            CollectionAssert.IsEmpty(entity.HydraulicLocationEntities);
-
             Assert.IsNull(entity.ReferenceLinePointXml);
 
             Assert.AreEqual(1, entity.BackgroundDataEntities.Count);
@@ -184,7 +180,24 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithHydraulicBoundaryDatabaseCanUsePreprocessorFalse_SetsPropertiesAndLocationsToEntity()
+        public void Create_HydraulicBoundaryDatabaseNotLinked_SetsExpectedPropertiesToEntity()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var registry = new PersistenceRegistry();
+
+            // Call
+            AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
+
+            // Assert
+            Assert.IsNull(entity.HydraulicDatabaseLocation);
+            Assert.IsNull(entity.HydraulicDatabaseVersion);
+            CollectionAssert.IsEmpty(entity.HydraulicLocationEntities);
+            CollectionAssert.IsEmpty(entity.HydraRingPreprocessorEntities);
+        }
+
+        [Test]
+        public void Create_HydraulicBoundaryDatabaseLinkedWithCanUsePreprocessorFalse_SetsExpectedPropertiesToEntity()
         {
             // Setup
             const string testFilePath = "path";
@@ -192,7 +205,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = testFilePath,
                     Version = testVersion,
@@ -211,11 +224,11 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(testFilePath, entity.HydraulicDatabaseLocation);
             Assert.AreEqual(testVersion, entity.HydraulicDatabaseVersion);
             Assert.AreEqual(1, entity.HydraulicLocationEntities.Count);
-            Assert.AreEqual(0, entity.HydraRingPreprocessorEntities.Count);
+            CollectionAssert.IsEmpty(entity.HydraRingPreprocessorEntities);
         }
 
         [Test]
-        public void Create_WithHydraulicBoundaryDatabaseCanUsePreprocessorTrue_SetsPropertiesAndLocationsToEntity()
+        public void Create_HydraulicBoundaryDatabaseLinkedWithCanUsePreprocessorTrue_SetsExpectedPropertiesToEntity()
         {
             // Setup
             const string testFilePath = "path";
@@ -225,7 +238,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = testFilePath,
                     Version = testVersion,

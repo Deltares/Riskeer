@@ -875,8 +875,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     new Point2D(0, 0)
                 }));
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                    pipingFailureMechanism, mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     new CalculationGroup(),
                                                                                     Enumerable.Empty<PipingSurfaceLine>(),
@@ -986,8 +985,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     new Point2D(0, 0)
                 }));
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                    pipingFailureMechanism, mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
 
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     new CalculationGroup(),

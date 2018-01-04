@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.TestUtil.Test
         }
 
         [Test]
-        public void ImportReferenceLine_AssesmentSectionNull_ThrowsArgumentNullException()
+        public void ImportReferenceLine_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => DataImportHelper.ImportReferenceLine(null);

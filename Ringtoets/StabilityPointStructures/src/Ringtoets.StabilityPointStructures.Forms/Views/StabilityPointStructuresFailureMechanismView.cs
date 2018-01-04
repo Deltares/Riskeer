@@ -46,10 +46,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     {
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryDatabaseObserver;
+        private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly Observer foreshoreProfilesObserver;
         private readonly Observer structuresObserver;
 
+        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
         private readonly RecursiveObserver<CalculationGroup, StabilityPointStructuresInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, StructuresCalculation<StabilityPointStructuresInput>> calculationObserver;
@@ -76,19 +77,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             InitializeComponent();
 
             failureMechanismObserver = new Observer(UpdateMapData);
-            assessmentSectionObserver = new Observer(() =>
-            {
-                if (!ReferenceEquals(hydraulicBoundaryDatabaseObserver.Observable, data.Parent.HydraulicBoundaryDatabase))
-                {
-                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
-                }
-
-                UpdateMapData();
-            });
-            hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
+            assessmentSectionObserver = new Observer(UpdateMapData);
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData);
             foreshoreProfilesObserver = new Observer(UpdateMapData);
             structuresObserver = new Observer(UpdateMapData);
 
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
+                UpdateMapData, hbl => hbl);
             calculationInputObserver = new RecursiveObserver<CalculationGroup, StabilityPointStructuresInput>(
                 UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<StabilityPointStructuresInput>>().Select(pc => pc.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
@@ -130,7 +125,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                 {
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
-                    hydraulicBoundaryDatabaseObserver.Observable = null;
+                    hydraulicBoundaryLocationsObserver.Observable = null;
+                    hydraulicBoundaryLocationObserver.Observable = null;
                     foreshoreProfilesObserver.Observable = null;
                     foreshoreProfileObserver.Observable = null;
                     structuresObserver.Observable = null;
@@ -145,7 +141,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                 {
                     failureMechanismObserver.Observable = data.WrappedData;
                     assessmentSectionObserver.Observable = data.Parent;
-                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
+                    hydraulicBoundaryLocationsObserver.Observable = data.Parent.HydraulicBoundaryDatabase.Locations;
+                    hydraulicBoundaryLocationObserver.Observable = data.Parent.HydraulicBoundaryDatabase.Locations;
                     foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
                     foreshoreProfileObserver.Observable = data.WrappedData.ForeshoreProfiles;
                     structuresObserver.Observable = data.WrappedData.StabilityPointStructures;
@@ -173,7 +170,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
-            hydraulicBoundaryDatabaseObserver.Dispose();
+            hydraulicBoundaryLocationsObserver.Dispose();
+            hydraulicBoundaryLocationObserver.Dispose();
             foreshoreProfilesObserver.Dispose();
             foreshoreProfileObserver.Dispose();
             calculationInputObserver.Dispose();

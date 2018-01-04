@@ -439,7 +439,7 @@ namespace Ringtoets.Integration.Service.Test
 
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 grassCoverErosionOutwardsFailureMechanism,

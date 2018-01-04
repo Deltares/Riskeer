@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
@@ -35,38 +36,53 @@ namespace Ringtoets.Common.Forms.Views
     /// Base view for <see cref="HydraulicBoundaryLocation"/> views which should be derived in 
     /// order to get a consistent look and feel.
     /// </summary>
-    public abstract partial class HydraulicBoundaryLocationsView
-        : LocationsView<HydraulicBoundaryLocation>
+    public abstract partial class HydraulicBoundaryLocationsView : LocationsView<HydraulicBoundaryLocation>
     {
-        private IEnumerable<HydraulicBoundaryLocation> locations;
+        private readonly ObservableList<HydraulicBoundaryLocation> locations;
+
+        private readonly Observer hydraulicBoundaryLocationsObserver;
+        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsView"/>.
         /// </summary>
+        /// <param name="locations">The locations to show in the view.</param>
         /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationsView(IAssessmentSection assessmentSection)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> or
+        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
+                                                 IAssessmentSection assessmentSection)
         {
+            if (locations == null)
+            {
+                throw new ArgumentNullException(nameof(locations));
+            }
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             AssessmentSection = assessmentSection;
+
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateDataGridViewDataSource);
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(HandleHydraulicBoundaryLocationUpdate, list => list);
+
+            this.locations = locations;
+
+            hydraulicBoundaryLocationsObserver.Observable = locations;
+            hydraulicBoundaryLocationObserver.Observable = locations;
+
+            UpdateDataGridViewDataSource();
         }
 
-        public override object Data
+        public override object Data { get; set; }
+
+        protected override void Dispose(bool disposing)
         {
-            get
-            {
-                return locations;
-            }
-            set
-            {
-                locations = value as IEnumerable<HydraulicBoundaryLocation>;
-                UpdateDataGridViewDataSource();
-            }
+            hydraulicBoundaryLocationsObserver.Dispose();
+            hydraulicBoundaryLocationObserver.Dispose();
+
+            base.Dispose(disposing);
         }
 
         /// <summary>

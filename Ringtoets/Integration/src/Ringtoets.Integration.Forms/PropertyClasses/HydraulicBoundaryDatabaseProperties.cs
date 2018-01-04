@@ -27,7 +27,6 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -36,22 +35,22 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryDatabase"/> for properties panel.
     /// </summary>
-    public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabaseContext>
+    public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabase>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseContext">The context to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabaseContext"/>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/>
         /// is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseProperties(HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext)
+        public HydraulicBoundaryDatabaseProperties(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            if (hydraulicBoundaryDatabaseContext == null)
+            if (hydraulicBoundaryDatabase == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabaseContext));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            Data = hydraulicBoundaryDatabaseContext;
+            Data = hydraulicBoundaryDatabase;
         }
 
         [PropertyOrder(1)]
@@ -62,7 +61,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.HydraulicBoundaryDatabase != null ? data.WrappedData.HydraulicBoundaryDatabase.FilePath : string.Empty;
+                return data.IsLinked() ? data.FilePath : string.Empty;
             }
         }
 
@@ -75,12 +74,12 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.HydraulicBoundaryDatabase.UsePreprocessor;
+                return data.UsePreprocessor;
             }
             set
             {
-                data.WrappedData.HydraulicBoundaryDatabase.UsePreprocessor = value;
-                data.WrappedData.NotifyObservers();
+                data.UsePreprocessor = value;
+                data.NotifyObservers();
             }
         }
 
@@ -94,11 +93,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.HydraulicBoundaryDatabase.PreprocessorDirectory;
+                return data.PreprocessorDirectory;
             }
             set
             {
-                data.WrappedData.HydraulicBoundaryDatabase.PreprocessorDirectory = value;
+                data.PreprocessorDirectory = value;
             }
         }
 
@@ -111,14 +110,14 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.HydraulicBoundaryDatabase.PreprocessorDirectory;
+                return data.PreprocessorDirectory;
             }
         }
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            bool canUsePreprocessor = data.WrappedData.HydraulicBoundaryDatabase?.CanUsePreprocessor ?? false;
+            bool canUsePreprocessor = data.CanUsePreprocessor;
 
             if (propertyName.Equals(nameof(UsePreprocessor)) && !canUsePreprocessor)
             {

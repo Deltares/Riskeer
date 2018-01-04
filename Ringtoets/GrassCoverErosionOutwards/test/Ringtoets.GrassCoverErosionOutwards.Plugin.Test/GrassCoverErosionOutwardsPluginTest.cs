@@ -129,12 +129,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext),
-                    typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties));
+                    typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext),
-                    typeof(GrassCoverErosionOutwardsWaveHeightLocationsContextProperties));
+                    typeof(GrassCoverErosionOutwardsWaveHeightLocationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -149,12 +149,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationContext),
-                    typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties));
+                    typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionOutwardsWaveHeightLocationContext),
-                    typeof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties));
+                    typeof(GrassCoverErosionOutwardsWaveHeightLocationProperties));
             }
         }
 

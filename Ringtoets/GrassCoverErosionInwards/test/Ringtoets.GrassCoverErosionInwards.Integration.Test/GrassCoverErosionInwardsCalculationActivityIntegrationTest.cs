@@ -60,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
                 }

@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Plugin.Test
     public class RingtoetsPluginTest : NUnitFormTest
     {
         [Test]
-        [Apartment(ApartmentState.STA)] // For creation of XAML UI component
+        [Apartment(ApartmentState.STA)]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
@@ -80,8 +80,8 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)] // For creation of XAML UI component
-        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithoutHydraulicBoundaryDatabase_ThenNoWarning()
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseNotLinked_ThenNoWarning()
         {
             // Given
             var mocks = new MockRepository();
@@ -96,8 +96,16 @@ namespace Ringtoets.Integration.Plugin.Test
                     plugin.Gui = gui;
                     gui.Run();
 
+                    var project = new RingtoetsProject
+                    {
+                        AssessmentSections =
+                        {
+                            new AssessmentSection(AssessmentSectionComposition.Dike)
+                        }
+                    };
+
                     // When
-                    Action action = () => gui.SetProject(new RingtoetsProject(), null);
+                    Action action = () => gui.SetProject(project, null);
 
                     // Then
                     TestHelper.AssertLogMessagesCount(action, 0);
@@ -109,8 +117,8 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)] // For creation of XAML UI component
-        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseWithExistingLocation_ThenNoWarning()
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseLinkedToExistingLocation_ThenNoWarning()
         {
             // Given
             var mocks = new MockRepository();
@@ -128,15 +136,19 @@ namespace Ringtoets.Integration.Plugin.Test
                     plugin.Gui = gui;
                     gui.Run();
 
-                    var project = new RingtoetsProject();
-                    var section = new AssessmentSection(AssessmentSectionComposition.Dike)
+                    var project = new RingtoetsProject
                     {
-                        HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                        AssessmentSections =
                         {
-                            FilePath = testFilePath
+                            new AssessmentSection(AssessmentSectionComposition.Dike)
+                            {
+                                HydraulicBoundaryDatabase =
+                                {
+                                    FilePath = testFilePath
+                                }
+                            }
                         }
                     };
-                    project.AssessmentSections.Add(section);
 
                     // When
                     Action action = () => gui.SetProject(project, null);
@@ -151,8 +163,8 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)] // For creation of XAML UI component
-        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseWithNonExistingLocation_ThenWarning()
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseLinkedToNonExistingLocation_ThenWarning()
         {
             // Given
             var mocks = new MockRepository();
@@ -164,26 +176,30 @@ namespace Ringtoets.Integration.Plugin.Test
             {
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var project = new RingtoetsProject();
-                    const string nonExistingFileExistingFile = "not_existing_file";
-
-                    var section = new AssessmentSection(AssessmentSectionComposition.Dike)
-                    {
-                        HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                        {
-                            FilePath = nonExistingFileExistingFile
-                        }
-                    };
-                    project.AssessmentSections.Add(section);
-
                     plugin.Gui = gui;
                     gui.Run();
+
+                    const string nonExistingFile = "not_existing_file";
+
+                    var project = new RingtoetsProject
+                    {
+                        AssessmentSections =
+                        {
+                            new AssessmentSection(AssessmentSectionComposition.Dike)
+                            {
+                                HydraulicBoundaryDatabase =
+                                {
+                                    FilePath = nonExistingFile
+                                }
+                            }
+                        }
+                    };
 
                     // When
                     Action action = () => gui.SetProject(project, null);
 
                     // Then
-                    string fileMissingMessage = $"Fout bij het lezen van bestand '{nonExistingFileExistingFile}': het bestand bestaat niet.";
+                    string fileMissingMessage = $"Fout bij het lezen van bestand '{nonExistingFile}': het bestand bestaat niet.";
                     string message = string.Format(
                         RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
                         fileMissingMessage);
@@ -250,22 +266,22 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DesignWaterLevelLocationsContext),
-                    typeof(DesignWaterLevelLocationsContextProperties));
+                    typeof(DesignWaterLevelLocationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DesignWaterLevelLocationContext),
-                    typeof(DesignWaterLevelLocationContextProperties));
+                    typeof(DesignWaterLevelLocationProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveHeightLocationsContext),
-                    typeof(WaveHeightLocationsContextProperties));
+                    typeof(WaveHeightLocationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveHeightLocationContext),
-                    typeof(WaveHeightLocationContextProperties));
+                    typeof(WaveHeightLocationProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -569,7 +585,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)] // Due to creating fluent Ribbon
+        [Apartment(ApartmentState.STA)]
         public void Activate_WithGui_ExpectedProperties()
         {
             // Setup

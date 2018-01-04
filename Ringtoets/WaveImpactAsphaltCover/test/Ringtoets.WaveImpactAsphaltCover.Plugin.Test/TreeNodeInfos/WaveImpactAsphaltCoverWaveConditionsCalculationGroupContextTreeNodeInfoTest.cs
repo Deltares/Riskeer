@@ -235,7 +235,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                                null,
                                                                                                failureMechanism,
@@ -287,7 +287,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                                null,
                                                                                                failureMechanism,
@@ -352,7 +352,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                                parentGroup,
                                                                                                failureMechanism,
@@ -409,7 +409,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                                parentGroup,
                                                                                                failureMechanism,
@@ -473,7 +473,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_WithoutParentNodeWithoutHydraulicLocationsDefaultBehavior_ReturnContextMenuWithoutRenameRemove()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
@@ -573,13 +573,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     new TestHydraulicBoundaryLocation()
                 }
-            };
+            });
+
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
@@ -683,7 +684,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var group = new CalculationGroup();
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                                failureMechanism.WaveConditionsCalculationGroup,
                                                                                                failureMechanism,
@@ -714,7 +715,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_CalculateAllAndValidateAllDisabled()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_CalculateAllAndValidateAllDisabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -723,7 +724,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
                 group.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                                failureMechanism.WaveConditionsCalculationGroup,
                                                                                                failureMechanism,
@@ -754,7 +755,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_CalculateAllAndValidateAllDisabled()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_CalculateAllAndValidateAllDisabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -763,11 +764,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
                 group.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    FilePath = ""
-                };
+
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                                failureMechanism.WaveConditionsCalculationGroup,
                                                                                                failureMechanism,
@@ -791,7 +790,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
                     Assert.IsFalse(validateItem.Enabled);
                     Assert.IsFalse(calculateItem.Enabled);
-                    const string message = "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': bestandspad mag niet leeg of ongedefinieerd zijn.";
+                    const string message = "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand 'invalidFilePath': het bestand bestaat niet.";
                     Assert.AreEqual(message, calculateItem.ToolTipText);
                     Assert.AreEqual(message, validateItem.ToolTipText);
                 }
@@ -811,11 +810,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
                 group.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     FilePath = validHydroDatabasePath
-                };
+                });
+
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                                failureMechanism.WaveConditionsCalculationGroup,
                                                                                                failureMechanism,
@@ -1023,16 +1024,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"),
-                CanUsePreprocessor = true,
-                UsePreprocessor = false,
-                PreprocessorDirectory = "InvalidPreprocessorDirectory"
-            };
+            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = false;
+            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                            failureMechanism.WaveConditionsCalculationGroup,
@@ -1098,16 +1095,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"),
-                CanUsePreprocessor = true,
-                UsePreprocessor = true,
-                PreprocessorDirectory = TestHelper.GetScratchPadPath()
-            };
+            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = TestHelper.GetScratchPadPath();
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                            failureMechanism.WaveConditionsCalculationGroup,
@@ -1173,16 +1166,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"),
-                CanUsePreprocessor = true,
-                UsePreprocessor = true,
-                PreprocessorDirectory = "InvalidPreprocessorDirectory"
-            };
+            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                            failureMechanism.WaveConditionsCalculationGroup,
@@ -1479,7 +1468,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
 
                 var group = new CalculationGroup();
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -1549,14 +1538,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
                 var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     Locations =
                     {
                         hydraulicBoundaryLocation1,
                         hydraulicBoundaryLocation2
                     }
-                };
+                });
 
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
@@ -1615,13 +1605,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     Locations =
                     {
                         new TestHydraulicBoundaryLocation()
                     }
-                };
+                });
 
                 var observer = mocks.StrictMock<IObserver>();
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
@@ -1701,7 +1692,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                           null,
@@ -1750,7 +1741,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                           null,
@@ -1795,7 +1786,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationGroupWithCalculationWithForeshoreProfileAndInputOutOfSync_ContextMenuItemUpdateForeshoreProfilesEnabledAndToolTipSet()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
@@ -1846,7 +1837,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var calculationInputObserver = mocks.StrictMock<IObserver>();
             calculationInputObserver.Expect(o => o.UpdateObserver());
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation

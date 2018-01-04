@@ -19,16 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Core.Common.Gui.PropertyBag
 {
     /// <summary>
     /// Interface for object properties.
     /// </summary>
-    public interface IObjectProperties
+    public interface IObjectProperties : IDisposable
     {
         /// <summary>
         /// Gets or sets the data of the object properties.
         /// </summary>
         object Data { get; set; }
+
+        /// <summary>
+        /// Fired when the property grid should be refreshed.
+        /// </summary>
+        event EventHandler<EventArgs> RefreshRequired;
     }
 }

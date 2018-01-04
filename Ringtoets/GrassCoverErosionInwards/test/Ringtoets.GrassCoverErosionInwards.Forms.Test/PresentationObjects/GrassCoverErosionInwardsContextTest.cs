@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 
@@ -55,7 +52,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             Assert.AreSame(target, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            CollectionAssert.IsEmpty(context.AvailableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
 
@@ -91,32 +87,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void AvailableHydraulicBoundaryLocations_HydraulicBoundaryDatabaseSet_ReturnsAllHydraulicBoundaryLocations()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
-
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var target = new ObservableObject();
-            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanism, assessmentSection);
-
-            // Call
-            IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations = context.AvailableHydraulicBoundaryLocations;
-
-            // Assert
-            Assert.AreEqual(1, availableHydraulicBoundaryLocations.Count());
-            Assert.AreEqual(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
         }
 
         private class ObservableObject : Observable {}

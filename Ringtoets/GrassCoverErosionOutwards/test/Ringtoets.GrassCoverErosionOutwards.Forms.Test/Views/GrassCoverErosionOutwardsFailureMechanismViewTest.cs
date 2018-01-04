@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -279,7 +281,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithHydraulicBoundaryDatabaseData_WhenHydraulicBoundaryDatabaseUpdatedAndNotified_ThenMapDataUpdated()
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryDatabaseUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
             using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
@@ -309,6 +311,44 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism.HydraulicBoundaryLocations, hydraulicBoundaryLocationsMapData);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenLocationUpdatedAndNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var random = new Random(21);
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+                {
+                    HydraulicBoundaryLocations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
+                };
+
+                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+                view.Data = failureMechanismContext;
+
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+
+                // Precondition
+                AssertHydraulicBoundaryLocationOutputsMapData(failureMechanism.HydraulicBoundaryLocations, hydraulicBoundaryLocationsMapData);
+
+                // When
+                hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                hydraulicBoundaryLocation.WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                hydraulicBoundaryLocation.NotifyObservers();
+
+                // Then
+                AssertHydraulicBoundaryLocationOutputsMapData(failureMechanism.HydraulicBoundaryLocations, hydraulicBoundaryLocationsMapData);
             }
         }
 
@@ -718,6 +758,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(dataBeforeUpdate, map.Data);
             }
+        }
+
+        private static void AssertHydraulicBoundaryLocationOutputsMapData(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                                          MapData mapData)
+        {
+            var hydraulicLocationsMapData = (MapPointData) mapData;
+            IEnumerable<HydraulicBoundaryLocation> hydraulocationBoundaryLocationsArray = hydraulicBoundaryLocations.ToArray();
+            CollectionAssert.AreEqual(hydraulocationBoundaryLocationsArray.Select(hbl => hbl.DesignWaterLevel),
+                                      hydraulicLocationsMapData.Features.Select(ft => (RoundedDouble) ft.MetaData["Waterstand bij doorsnede-eis"]));
+            CollectionAssert.AreEqual(hydraulocationBoundaryLocationsArray.Select(hbl => hbl.WaveHeight),
+                                      hydraulicLocationsMapData.Features.Select(ft => (RoundedDouble) ft.MetaData["Golfhoogte bij doorsnede-eis"]));
         }
 
         private static void AssertCalculationsMapData(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations, MapData mapData)

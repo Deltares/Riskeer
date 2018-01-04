@@ -1672,16 +1672,17 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     hydraulicBoundaryLocation
                 }
-            };
+            });
+
+            mockRepository.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
 
@@ -1723,8 +1724,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -1735,7 +1734,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(2, "B", 0, 4)
                 }
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
@@ -1763,8 +1765,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -1777,7 +1777,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(2, "B", 0, 200)
                 }
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
 
@@ -1816,9 +1819,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -1831,7 +1831,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(2, "B", 0, 200)
                 }
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            observable.Expect(o => o.NotifyObservers());
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+
+            mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
 

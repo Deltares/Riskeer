@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
+using Core.Common.Base;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
@@ -32,7 +33,6 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            using (var view = new DesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub()))
+            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), new ObservableTestAssessmentSectionStub()))
             {
                 // Call
                 string viewName = info.GetViewName(view, Enumerable.Empty<HydraulicBoundaryLocation>());
@@ -106,32 +106,27 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsHydraulicBoundaryDatabase()
+        public void GetViewData_Always_ReturnsHydraulicBoundaryLocations()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
-            };
-            var context = new DesignWaterLevelLocationsContext(assessmentSection);
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            ObservableList<HydraulicBoundaryLocation> locations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            var context = new DesignWaterLevelLocationsContext(locations, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryDatabase.Locations, viewData);
+            Assert.AreSame(locations, viewData);
         }
 
         [Test]
         public void CreateInstance_Always_SetExpectedProperties()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-            };
-            var context = new DesignWaterLevelLocationsContext(assessmentSection);
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                               assessmentSection);
 
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
@@ -151,8 +146,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
@@ -161,11 +154,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
             mocks.ReplayAll();
 
-            var context = new DesignWaterLevelLocationsContext(assessmentSection);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                               assessmentSection);
 
-            using (var view = new DesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub()))
+            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), new ObservableTestAssessmentSectionStub()))
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(DesignWaterLevelLocationsView));
@@ -188,7 +181,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new DesignWaterLevelLocationsView(assessmentSection))
+            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -205,7 +198,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSectionA = new ObservableTestAssessmentSectionStub();
             var assessmentSectionB = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new DesignWaterLevelLocationsView(assessmentSectionA))
+            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSectionA))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSectionB);
@@ -221,23 +214,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSectionA = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new DesignWaterLevelLocationsView(assessmentSectionA))
-            {
-                view.Data = assessmentSectionA;
-
-                // Call
-                bool closeForData = info.CloseForData(view, new object());
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseViewForData_ViewDataNull_ReturnsFalse()
-        {
-            // Setup
-            using (var view = new DesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub()))
+            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSectionA))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new object());

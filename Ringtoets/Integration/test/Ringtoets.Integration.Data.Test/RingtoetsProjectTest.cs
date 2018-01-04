@@ -147,9 +147,9 @@ namespace Ringtoets.Integration.Data.Test
                     .SetName("Description");
 
                 var random = new Random(21);
-                RingtoetsProject differentAsessmentSections = CreateProject();
-                differentAsessmentSections.AssessmentSections.Add(new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
-                yield return new TestCaseData(differentAsessmentSections)
+                RingtoetsProject differentAssessmentSections = CreateProject();
+                differentAssessmentSections.AssessmentSections.Add(new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
+                yield return new TestCaseData(differentAssessmentSections)
                     .SetName("AssessmentSections");
             }
 

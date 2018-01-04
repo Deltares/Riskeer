@@ -212,7 +212,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 (context, filePath) => new StabilityPointStructuresCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,
-                    context.AvailableHydraulicBoundaryLocations,
+                    context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                     context.AvailableForeshoreProfiles,
                     context.AvailableStructures,
                     context.FailureMechanism));

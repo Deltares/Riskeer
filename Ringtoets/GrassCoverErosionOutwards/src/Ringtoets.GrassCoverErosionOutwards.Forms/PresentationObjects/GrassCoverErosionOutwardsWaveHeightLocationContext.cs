@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
@@ -36,11 +35,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> 
         /// which the <see cref="GrassCoverErosionOutwardsWaveHeightLocationContext"/> belongs to.</param>
-        /// <param name="hydraulicBoundaryLocations">The <see cref="ObservableList{T}"/> which 
-        /// the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveHeightLocationContext(HydraulicBoundaryLocation wrappedData,
-                                                                  ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
-            : base(wrappedData, hydraulicBoundaryLocations) {}
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
+        /// is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsWaveHeightLocationContext(HydraulicBoundaryLocation wrappedData)
+            : base(wrappedData) {}
     }
 }

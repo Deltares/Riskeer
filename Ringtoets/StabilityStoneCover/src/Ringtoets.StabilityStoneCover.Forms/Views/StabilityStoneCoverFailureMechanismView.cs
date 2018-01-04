@@ -46,9 +46,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
     {
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryDatabaseObserver;
+        private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly Observer foreshoreProfilesObserver;
 
+        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
         private readonly RecursiveObserver<CalculationGroup, WaveConditionsInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, StabilityStoneCoverWaveConditionsCalculation> calculationObserver;
@@ -73,18 +74,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             InitializeComponent();
 
             failureMechanismObserver = new Observer(UpdateMapData);
-            assessmentSectionObserver = new Observer(() =>
-            {
-                if (!ReferenceEquals(hydraulicBoundaryDatabaseObserver.Observable, data.Parent.HydraulicBoundaryDatabase))
-                {
-                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
-                }
-
-                UpdateMapData();
-            });
-            hydraulicBoundaryDatabaseObserver = new Observer(UpdateMapData);
+            assessmentSectionObserver = new Observer(UpdateMapData);
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData);
             foreshoreProfilesObserver = new Observer(UpdateMapData);
 
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
+                UpdateMapData, hbl => hbl);
             calculationInputObserver = new RecursiveObserver<CalculationGroup, WaveConditionsInput>(
                 UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StabilityStoneCoverWaveConditionsCalculation>().Select(pc => pc.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
@@ -123,7 +118,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                 {
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
-                    hydraulicBoundaryDatabaseObserver.Observable = null;
+                    hydraulicBoundaryLocationsObserver.Observable = null;
+                    hydraulicBoundaryLocationObserver.Observable = null;
                     foreshoreProfilesObserver.Observable = null;
                     foreshoreProfileObserver.Observable = null;
                     calculationInputObserver.Observable = null;
@@ -136,7 +132,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                 {
                     failureMechanismObserver.Observable = data.WrappedData;
                     assessmentSectionObserver.Observable = data.Parent;
-                    hydraulicBoundaryDatabaseObserver.Observable = data.Parent.HydraulicBoundaryDatabase;
+                    hydraulicBoundaryLocationsObserver.Observable = data.Parent.HydraulicBoundaryDatabase.Locations;
+                    hydraulicBoundaryLocationObserver.Observable = data.Parent.HydraulicBoundaryDatabase.Locations;
                     foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
                     foreshoreProfileObserver.Observable = data.WrappedData.ForeshoreProfiles;
                     calculationInputObserver.Observable = data.WrappedData.WaveConditionsCalculationGroup;
@@ -162,7 +159,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
-            hydraulicBoundaryDatabaseObserver.Dispose();
+            hydraulicBoundaryLocationsObserver.Dispose();
+            hydraulicBoundaryLocationObserver.Dispose();
             foreshoreProfilesObserver.Dispose();
             foreshoreProfileObserver.Dispose();
             calculationInputObserver.Dispose();

@@ -711,8 +711,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(validCalculation);
                 failureMechanism.CalculationsGroup.Children.Add(invalidCalculation);
 
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                    failureMechanism, mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var mainWindow = mocks.Stub<IMainWindow>();

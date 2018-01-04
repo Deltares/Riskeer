@@ -100,15 +100,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de golfhoogtes bij doorsnede-eis te berekenen..
-        /// </summary>
-        public static string GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Als u een parameter in een toetsspoor wijzigt, zal de uitvoer van alle randvoorwaarden locaties en berekeningen in dit toetsspoor verwijderd worden.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
@@ -191,15 +182,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         public static string GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip {
             get {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de waterstanden bij doorsnede-eis te berekenen..
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate", resourceCulture);
             }
         }
         

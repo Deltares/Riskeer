@@ -55,7 +55,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
                 }
@@ -298,7 +298,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath
                 }
@@ -330,7 +330,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
                     CanUsePreprocessor = true,
@@ -365,7 +365,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
                     CanUsePreprocessor = true,

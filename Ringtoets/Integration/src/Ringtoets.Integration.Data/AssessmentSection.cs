@@ -83,9 +83,10 @@ namespace Ringtoets.Integration.Data
                 Name = defaultWellKnownTileSource.GetDisplayName()
             };
 
+            HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
             Piping = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
-
             MacroStabilityInwards = new MacroStabilityInwardsFailureMechanism();
             MacrostabilityOutwards = new MacrostabilityOutwardsFailureMechanism();
             Microstability = new MicrostabilityFailureMechanism();
@@ -225,7 +226,7 @@ namespace Ringtoets.Integration.Data
 
         public FailureMechanismContribution FailureMechanismContribution { get; }
 
-        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
+        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; }
 
         public BackgroundData BackgroundData { get; }
 

@@ -36,65 +36,44 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {
     /// <summary>
-    /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
+    /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>
+    /// for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
     {
-        private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryLocationsObserver;
-
-        private GrassCoverErosionOutwardsFailureMechanism failureMechanism;
+        private readonly GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider messageProvider;
+        private readonly Observer failureMechanismObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsView"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationsView(IAssessmentSection assessmentSection)
-            : base(assessmentSection)
+        /// <param name="failureMechanism">The failure mechanism that the locations belong to.</param>
+        /// <param name="assessmentSection">The assessment section that the locations belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or
+        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationsView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                      IAssessmentSection assessmentSection)
+            : base(failureMechanism?.HydraulicBoundaryLocations, assessmentSection)
         {
-            assessmentSectionObserver = new Observer(UpdateCalculateForSelectedButton);
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocations);
+            FailureMechanism = failureMechanism;
+            messageProvider = new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider();
 
-            assessmentSectionObserver.Observable = AssessmentSection;
-        }
-
-        public override object Data
-        {
-            get
+            failureMechanismObserver = new Observer(UpdateCalculateForSelectedButton)
             {
-                return base.Data;
-            }
-            set
-            {
-                var data = (ObservableList<HydraulicBoundaryLocation>) value;
-                base.Data = data;
-                hydraulicBoundaryLocationsObserver.Observable = data;
-            }
+                Observable = failureMechanism
+            };
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for which the
+        /// Gets the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for which the
         /// hydraulic boundary locations are shown.
         /// </summary>
-        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism
-        {
-            get
-            {
-                return failureMechanism;
-            }
-            set
-            {
-                failureMechanism = value;
-                UpdateCalculateForSelectedButton();
-            }
-        }
+        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
 
         protected override void Dispose(bool disposing)
         {
-            assessmentSectionObserver.Dispose();
-            hydraulicBoundaryLocationsObserver.Dispose();
+            failureMechanismObserver.Dispose();
+
             base.Dispose(disposing);
         }
 
@@ -110,78 +89,34 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
 
             return currentRow != null
-                       ? new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject,
-                                                                                      (ObservableList<HydraulicBoundaryLocation>) Data)
+                       ? new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject)
                        : null;
         }
 
         protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
         {
-            if (AssessmentSection?.HydraulicBoundaryDatabase == null)
-            {
-                return;
-            }
-
             double mechanismSpecificNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
                 AssessmentSection.FailureMechanismContribution.Norm,
                 FailureMechanism.Contribution,
                 FailureMechanism.GeneralInput.N);
 
-            bool successfulCalculation = CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                          AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                                          locations,
-                                                                                          mechanismSpecificNorm,
-                                                                                          new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
-            if (successfulCalculation)
-            {
-                ((IObservable) Data).NotifyObservers();
-            }
+            CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                             AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                             locations,
+                                                             mechanismSpecificNorm,
+                                                             messageProvider);
         }
 
         protected override string ValidateCalculatableObjects()
         {
-            if (FailureMechanism != null && FailureMechanism.Contribution <= 0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
-            return base.ValidateCalculatableObjects();
+            return FailureMechanism != null && FailureMechanism.Contribution <= 0
+                       ? RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero
+                       : base.ValidateCalculatableObjects();
         }
 
         protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
         {
             return location.DesignWaterLevelCalculation;
-        }
-
-        private void UpdateHydraulicBoundaryLocations()
-        {
-            if (IsDataGridDataSourceChanged())
-            {
-                UpdateDataGridViewDataSource();
-            }
-            else
-            {
-                HandleHydraulicBoundaryDatabaseUpdate();
-            }
-        }
-
-        private bool IsDataGridDataSourceChanged()
-        {
-            var locations = (ObservableList<HydraulicBoundaryLocation>) Data;
-            int count = dataGridViewControl.Rows.Count;
-            if (count != locations.Count)
-            {
-                return true;
-            }
-            for (var i = 0; i < count; i++)
-            {
-                HydraulicBoundaryLocation locationFromGrid = ((HydraulicBoundaryLocationRow) dataGridViewControl.Rows[i].DataBoundItem).CalculatableObject;
-                if (!ReferenceEquals(locationFromGrid, locations[i]))
-                {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }

@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 
@@ -31,17 +33,29 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
     public class HydraulicBoundaryDatabaseContextTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            var presentationObject = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var presentationObject = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<AssessmentSection>>(presentationObject);
-            Assert.AreSame(assessmentSection, presentationObject.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>>(presentationObject);
+            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, presentationObject.WrappedData);
+            Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new HydraulicBoundaryDatabaseContext(new HydraulicBoundaryDatabase(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }

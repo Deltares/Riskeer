@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
@@ -30,13 +31,28 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
     /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocation"/> 
     /// with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
     /// </summary>
-    public class DesignWaterLevelLocationsContext : ObservableWrappedObjectContextBase<IAssessmentSection>
+    public class DesignWaterLevelLocationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationsContext"/>.
         /// </summary>
-        /// <param name="wrappedAssessmentSection">The <see cref="IAssessmentSection"/> which the <see cref="DesignWaterLevelLocationsContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedAssessmentSection"/> is <c>null</c>.</exception>
-        public DesignWaterLevelLocationsContext(IAssessmentSection wrappedAssessmentSection) : base(wrappedAssessmentSection) {}
+        /// <param name="wrappedData">The locations that the <see cref="DesignWaterLevelLocationsContext"/> belongs to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="DesignWaterLevelLocationsContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public DesignWaterLevelLocationsContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
+                                                IAssessmentSection assessmentSection) : base(wrappedData)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            AssessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets the assessment section that the context belongs to.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
     }
 }

@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 
@@ -111,31 +109,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, context.ForeshoreProfiles);
-            CollectionAssert.IsEmpty(context.HydraulicBoundaryLocations);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void HydraulicBoundaryLocations_HydraulicBoundaryDatabaseSet_ReturnsAllHydraulicBoundaryLocations()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            var target = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new SimpleStabilityStoneCoverContext(target, failureMechanism, assessmentSection);
-
-            // Call
-            IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations = context.HydraulicBoundaryLocations;
-
-            // Assert
-            Assert.AreSame(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
 

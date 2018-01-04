@@ -137,17 +137,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionInwardsFailureMechanism,
-                                                                                                                              mockRepository);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                CanUsePreprocessor = true,
-                UsePreprocessor = true,
-                PreprocessorDirectory = "NonExistingPreprocessorDirectory"
-            };
+            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "NonExistingPreprocessorDirectory";
+
+            mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -465,17 +463,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionInwardsFailureMechanism,
-                                                                                                                              mockRepository);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                CanUsePreprocessor = true,
-                UsePreprocessor = true,
-                PreprocessorDirectory = testDataPath
-            };
+            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = testDataPath;
+
+            mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -510,17 +506,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionInwardsFailureMechanism,
-                                                                                                                              mockRepository);
-            mockRepository.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                CanUsePreprocessor = true,
-                UsePreprocessor = false,
-                PreprocessorDirectory = "InvalidPreprocessorDirectory"
-            };
+            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = false;
+            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
+
+            mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -2693,7 +2687,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
@@ -2703,17 +2699,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
 
             mockRepository.ReplayAll();
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                }
-            };
-
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -2747,7 +2732,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
@@ -2756,21 +2743,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(dikeHeightCalculator);
             calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, validPreprocessorDirectory)).Return(overtoppingRateCalculator);
 
+            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = validPreprocessorDirectory;
+
             mockRepository.ReplayAll();
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                },
-                CanUsePreprocessor = true,
-                UsePreprocessor = true,
-                PreprocessorDirectory = validPreprocessorDirectory
-            };
-
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -2807,7 +2784,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator();
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
@@ -2816,21 +2793,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath, string.Empty)).Return(dikeHeightCalculator);
             calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath, string.Empty)).Return(overtoppingRateCalculator);
 
+            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = false;
+            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "NonExistingPreprocessorDirectory";
+
             mockRepository.ReplayAll();
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                },
-                CanUsePreprocessor = true,
-                UsePreprocessor = false,
-                PreprocessorDirectory = "NonExistingPreprocessorDirectory"
-            };
-
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {

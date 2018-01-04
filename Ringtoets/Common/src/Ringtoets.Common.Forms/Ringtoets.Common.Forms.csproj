@@ -58,6 +58,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\DesignVariableProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationsProperties.cs" />
     <Compile Include="PropertyClasses\IllustrationPointProperties.cs" />
     <Compile Include="PropertyClasses\SubMechanismIllustrationPointValuesProperties.cs" />
     <Compile Include="PropertyClasses\SubMechanismIllustrationPointProperties.cs" />

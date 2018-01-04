@@ -22,47 +22,38 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/>  with 
-    /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> for properties panel.
+    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with 
+    /// <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for properties panel.
     /// </summary>
-    public class WaveHeightLocationsContextProperties : ObjectProperties<HydraulicBoundaryDatabase>
+    public class DesignWaterLevelLocationsProperties : HydraulicBoundaryLocationsProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveHeightLocationContextProperties"/>.
+        /// Creates a new instance of <see cref="DesignWaterLevelLocationProperties"/>.
         /// </summary>
-        /// <param name="database">The database to set as data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="database"/> is <c>null</c>.</exception>
-        public WaveHeightLocationsContextProperties(HydraulicBoundaryDatabase database)
-        {
-            if (database == null)
-            {
-                throw new ArgumentNullException(nameof(database));
-            }
-            Data = database;
-        }
+        /// <param name="hydraulicBoundaryLocations">The list of hydraulic boundary locations to set as data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
+        public DesignWaterLevelLocationsProperties(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+            : base(hydraulicBoundaryLocations) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
-        public WaveHeightLocationContextProperties[] Locations
+        public DesignWaterLevelLocationProperties[] Locations
         {
             get
             {
-                return data.Locations.Select(loc => new WaveHeightLocationContextProperties
-                {
-                    Data = new WaveHeightLocationContext(loc, data)
-                }).ToArray();
+                return data.Select(loc => new DesignWaterLevelLocationProperties(loc)).ToArray();
             }
         }
     }

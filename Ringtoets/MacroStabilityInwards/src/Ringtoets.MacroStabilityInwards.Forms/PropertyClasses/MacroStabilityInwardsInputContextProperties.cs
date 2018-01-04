@@ -150,7 +150,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             Point2D referencePoint = SurfaceLine?.ReferenceLineIntersectionWorldPoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AvailableHydraulicBoundaryLocations, referencePoint);
+                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
         }
 
         #region Hydraulic data

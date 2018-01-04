@@ -867,8 +867,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 group.Children.Add(invalidCalculation);
 
                 var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                    failureMechanism, mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 parentGroup,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -944,8 +943,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                    failureMechanism, mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 parentGroup,

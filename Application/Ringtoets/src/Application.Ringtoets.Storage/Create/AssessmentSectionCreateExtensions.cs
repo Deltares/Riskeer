@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Create
                 Order = order
             };
 
-            AddEntityForHydraulicDatabase(section, entity, registry);
+            AddEntityForHydraulicDatabase(section.HydraulicBoundaryDatabase, entity, registry);
             AddEntityForReferenceLine(section, entity);
 
             entity.BackgroundDataEntities.Add(section.BackgroundData.Create());
@@ -115,25 +115,25 @@ namespace Application.Ringtoets.Storage.Create
             }
         }
 
-        private static void AddEntityForHydraulicDatabase(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
+        private static void AddEntityForHydraulicDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, AssessmentSectionEntity entity, PersistenceRegistry registry)
         {
-            if (section.HydraulicBoundaryDatabase != null)
+            if (hydraulicBoundaryDatabase.IsLinked())
             {
-                entity.HydraulicDatabaseLocation = section.HydraulicBoundaryDatabase.FilePath.DeepClone();
-                entity.HydraulicDatabaseVersion = section.HydraulicBoundaryDatabase.Version.DeepClone();
+                entity.HydraulicDatabaseLocation = hydraulicBoundaryDatabase.FilePath.DeepClone();
+                entity.HydraulicDatabaseVersion = hydraulicBoundaryDatabase.Version.DeepClone();
 
-                if (section.HydraulicBoundaryDatabase.CanUsePreprocessor)
+                if (hydraulicBoundaryDatabase.CanUsePreprocessor)
                 {
                     entity.HydraRingPreprocessorEntities.Add(new HydraRingPreprocessorEntity
                     {
-                        UsePreprocessor = Convert.ToByte(section.HydraulicBoundaryDatabase.UsePreprocessor),
-                        PreprocessorDirectory = section.HydraulicBoundaryDatabase.PreprocessorDirectory.DeepClone()
+                        UsePreprocessor = Convert.ToByte(hydraulicBoundaryDatabase.UsePreprocessor),
+                        PreprocessorDirectory = hydraulicBoundaryDatabase.PreprocessorDirectory.DeepClone()
                     });
                 }
 
-                for (var i = 0; i < section.HydraulicBoundaryDatabase.Locations.Count; i++)
+                for (var i = 0; i < hydraulicBoundaryDatabase.Locations.Count; i++)
                 {
-                    HydraulicBoundaryLocation hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations[i];
+                    HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations[i];
                     entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(registry, i));
                 }
             }

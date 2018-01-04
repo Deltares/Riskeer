@@ -271,6 +271,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 throw new InvalidOperationException("Gui cannot be null");
             }
+
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
 
@@ -293,7 +294,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>
             {
-                CreateInstance = context => new HydraulicBoundaryDatabaseProperties(context)
+                CreateInstance = context => new HydraulicBoundaryDatabaseProperties(context.WrappedData)
             };
             yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionProperties>
             {
@@ -313,18 +314,24 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateInstance = context => new StructuresOutputProperties(context.WrappedData.Output)
             };
-            yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsContextProperties>
+            yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsProperties>
             {
-                CreateInstance = context => new DesignWaterLevelLocationsContextProperties(
-                    context.WrappedData.HydraulicBoundaryDatabase)
+                CreateInstance = context => new DesignWaterLevelLocationsProperties(
+                    context.WrappedData)
             };
-            yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationContextProperties>();
-            yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsContextProperties>
+            yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationProperties>
             {
-                CreateInstance = context => new WaveHeightLocationsContextProperties(
-                    context.WrappedData.HydraulicBoundaryDatabase)
+                CreateInstance = context => new DesignWaterLevelLocationProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationContextProperties>();
+            yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsProperties>
+            {
+                CreateInstance = context => new WaveHeightLocationsProperties(
+                    context.WrappedData)
+            };
+            yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationProperties>
+            {
+                CreateInstance = context => new WaveHeightLocationProperties(context.WrappedData)
+            };
             yield return new PropertyInfo<ForeshoreProfile, ForeshoreProfileProperties>();
             yield return new PropertyInfo<ForeshoreProfilesContext, ForeshoreProfileCollectionProperties>
             {
@@ -372,20 +379,20 @@ namespace Ringtoets.Integration.Plugin
             yield return new ViewInfo<DesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocation>, DesignWaterLevelLocationsView>
             {
                 GetViewName = (view, context) => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
-                GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase?.Locations,
+                GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
-                CreateInstance = context => new DesignWaterLevelLocationsView(context.WrappedData),
+                CreateInstance = context => new DesignWaterLevelLocationsView(context.WrappedData, context.AssessmentSection),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new ViewInfo<WaveHeightLocationsContext, IEnumerable<HydraulicBoundaryLocation>, WaveHeightLocationsView>
             {
                 GetViewName = (view, context) => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
-                GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase?.Locations,
+                GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
-                CreateInstance = context => new WaveHeightLocationsView(context.WrappedData),
+                CreateInstance = context => new WaveHeightLocationsView(context.WrappedData, context.AssessmentSection),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
@@ -514,9 +521,9 @@ namespace Ringtoets.Integration.Plugin
             {
                 Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(
-                    context.WrappedData.HydraulicBoundaryDatabase.Locations, filePath,
+                    context.WrappedData.Locations, filePath,
                     RingtoetsIntegrationPluginResources.DesignWaterLevel_Description, RingtoetsIntegrationPluginResources.WaveHeight_Description),
-                IsEnabled = context => context.WrappedData.HydraulicBoundaryDatabase != null,
+                IsEnabled = context => context.WrappedData.IsLinked(),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description)
             };
@@ -635,7 +642,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = categoryTreeFolder => categoryTreeFolder.Name,
                 Image = categoryTreeFolder => GetFolderIcon(categoryTreeFolder.Category),
-                ChildNodeObjects = categoryTreeFolder => categoryTreeFolder.Contents.Cast<object>().ToArray(),
+                ChildNodeObjects = categoryTreeFolder => categoryTreeFolder.Contents.ToArray(),
                 ContextMenuStrip = CategoryTreeFolderContextMenu
             };
 
@@ -654,9 +661,9 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = hydraulicBoundaryDatabase => RingtoetsFormsResources.HydraulicBoundaryDatabase_DisplayName,
                 Image = hydraulicBoundaryDatabase => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null
-                                           ? Color.FromKnownColor(KnownColor.GrayText)
-                                           : Color.FromKnownColor(KnownColor.ControlText),
+                ForeColor = context => context.WrappedData.IsLinked()
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = HydraulicBoundaryDatabaseChildNodeObjects,
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
@@ -835,8 +842,9 @@ namespace Ringtoets.Integration.Plugin
             {
                 return;
             }
-            IEnumerable<AssessmentSection> sectionsWithDatabase = ringtoetsProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase != null);
-            foreach (AssessmentSection section in sectionsWithDatabase)
+
+            IEnumerable<AssessmentSection> sectionsWithHydraulicBoundaryDatabaseLinked = ringtoetsProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase.IsLinked());
+            foreach (AssessmentSection section in sectionsWithHydraulicBoundaryDatabaseLinked)
             {
                 string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(section.HydraulicBoundaryDatabase.FilePath,
                                                                                                        section.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
@@ -926,6 +934,7 @@ namespace Ringtoets.Integration.Plugin
                     .OfType<IHasSectionResults<FailureMechanismSectionResult>>()
                     .Any(fm => ReferenceEquals(viewData, fm.SectionResults));
             }
+
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
@@ -1118,7 +1127,7 @@ namespace Ringtoets.Integration.Plugin
                 nodeData.BackgroundData,
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
-                new HydraulicBoundaryDatabaseContext(nodeData),
+                new HydraulicBoundaryDatabaseContext(nodeData.HydraulicBoundaryDatabase, nodeData),
                 nodeData.Comments
             };
 
@@ -1225,71 +1234,85 @@ namespace Ringtoets.Integration.Plugin
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(duneErosion.SectionResults, nodeData);
             }
+
             if (grassCoverSlipOffInwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(grassCoverSlipOffInwards.SectionResults, nodeData);
             }
+
             if (grassCoverSlipOffOutwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(grassCoverSlipOffOutwards.SectionResults, nodeData);
             }
+
             if (microstability != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(microstability.SectionResults, nodeData);
             }
+
             if (pipingStructure != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(pipingStructure.SectionResults, nodeData);
             }
+
             if (stabilityStoneCover != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(stabilityStoneCover.SectionResults, nodeData);
             }
+
             if (technicalInnovation != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(technicalInnovation.SectionResults, nodeData);
             }
+
             if (strengthStabilityLengthwiseConstruction != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(strengthStabilityLengthwiseConstruction.SectionResults, nodeData);
             }
+
             if (waterPressureAsphaltCover != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(waterPressureAsphaltCover.SectionResults, nodeData);
             }
+
             if (waveImpactAsphaltCover != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(waveImpactAsphaltCover.SectionResults, nodeData);
             }
+
             if (closingStructures != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(closingStructures.SectionResults, nodeData);
             }
+
             if (macroStabilityInwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(macroStabilityInwards.SectionResults, nodeData);
             }
+
             if (macrostabilityOutwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<MacrostabilityOutwardsFailureMechanismSectionResult>(macrostabilityOutwards.SectionResults, nodeData);
             }
+
             if (stabilityPointConstruction != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(stabilityPointConstruction.SectionResults, nodeData);
             }
+
             failureMechanismSectionResultContexts[1] = nodeData.OutputComments;
             return failureMechanismSectionResultContexts;
         }
@@ -1376,15 +1399,18 @@ namespace Ringtoets.Integration.Plugin
 
         private static object[] HydraulicBoundaryDatabaseChildNodeObjects(HydraulicBoundaryDatabaseContext nodeData)
         {
-            if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
+            if (nodeData.WrappedData.IsLinked())
             {
-                return new object[0];
+                return new object[]
+                {
+                    new DesignWaterLevelLocationsContext(nodeData.WrappedData.Locations,
+                                                         nodeData.AssessmentSection),
+                    new WaveHeightLocationsContext(nodeData.WrappedData.Locations,
+                                                   nodeData.AssessmentSection)
+                };
             }
-            return new object[]
-            {
-                new DesignWaterLevelLocationsContext(nodeData.WrappedData),
-                new WaveHeightLocationsContext(nodeData.WrappedData)
-            };
+
+            return new object[0];
         }
 
         private ContextMenuStrip DesignWaterLevelLocationsContextMenuStrip(DesignWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
@@ -1400,20 +1426,15 @@ namespace Ringtoets.Integration.Plugin
                         return;
                     }
 
-                    IAssessmentSection assessmentSection = nodeData.WrappedData;
-                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                                           assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                                                                           assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                                                                           new DesignWaterLevelCalculationMessageProvider());
-                    if (successfulCalculation)
-                    {
-                        nodeData.NotifyObservers();
-                        assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
-                    }
+                    IAssessmentSection assessmentSection = nodeData.AssessmentSection;
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                              assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                              assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                              assessmentSection.FailureMechanismContribution.Norm,
+                                                                                              new DesignWaterLevelCalculationMessageProvider());
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.WrappedData, designWaterLevelItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, designWaterLevelItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1436,20 +1457,16 @@ namespace Ringtoets.Integration.Plugin
                     {
                         return;
                     }
-                    IAssessmentSection assessmentSection = nodeData.WrappedData;
-                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                                     assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                                                                     assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                                                     assessmentSection.FailureMechanismContribution.Norm,
-                                                                                                                     new WaveHeightCalculationMessageProvider());
-                    if (successfulCalculation)
-                    {
-                        nodeData.NotifyObservers();
-                        assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
-                    }
+
+                    IAssessmentSection assessmentSection = nodeData.AssessmentSection;
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                        assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                        assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                        assessmentSection.FailureMechanismContribution.Norm,
+                                                                                        new WaveHeightCalculationMessageProvider());
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.WrappedData, waveHeightItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, waveHeightItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1475,7 +1492,7 @@ namespace Ringtoets.Integration.Plugin
             var connectionItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect,
                 RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
-                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => SelectDatabaseFile(nodeData.WrappedData));
+                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => SelectDatabaseFile(nodeData.AssessmentSection));
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(connectionItem)
@@ -1523,29 +1540,25 @@ namespace Ringtoets.Integration.Plugin
         {
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            bool isHydraulicBoundaryDatabaseSet = hydraulicBoundaryDatabase != null;
-            bool isClearConfirmationRequired = isHydraulicBoundaryDatabaseSet && !HydraulicBoundaryDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
-            bool isClearConfirmationGiven = isClearConfirmationRequired && IsClearCalculationConfirmationGiven();
-
-            if (isHydraulicBoundaryDatabaseSet && isClearConfirmationRequired && !isClearConfirmationGiven)
+            bool haveEqualVersion = HydraulicBoundaryDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
+            bool isClearConfirmationRequired = hydraulicBoundaryDatabase.IsLinked() && !haveEqualVersion;
+            if (isClearConfirmationRequired && !IsClearCalculationConfirmationGiven())
             {
                 return;
             }
 
-            HydraulicBoundaryDatabase previousHydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
             {
                 if (hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
                 {
-                    if (isClearConfirmationGiven)
+                    if (isClearConfirmationRequired)
                     {
                         ClearCalculations(assessmentSection);
                     }
 
-                    if (!ReferenceEquals(previousHydraulicBoundaryDatabase, assessmentSection.HydraulicBoundaryDatabase))
+                    if (!haveEqualVersion)
                     {
-                        HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase?.Locations.ToArray()
-                                                                                 ?? new HydraulicBoundaryLocation[0];
+                        HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
 
                         assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
                         assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
@@ -1556,6 +1569,7 @@ namespace Ringtoets.Integration.Plugin
 
                         assessmentSection.DuneErosion.DuneLocations.NotifyObservers();
                     }
+
                     log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
                                    assessmentSection.HydraulicBoundaryDatabase.FilePath);
                 }

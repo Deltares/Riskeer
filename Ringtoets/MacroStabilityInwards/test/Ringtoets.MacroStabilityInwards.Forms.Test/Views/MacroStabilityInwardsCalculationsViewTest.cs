@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -151,11 +152,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void AssessmentSection_WithSurfaceLinesHydraulicBoundaryDatabaseNull_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
+        public void AssessmentSection_WithSurfaceLinesHydraulicBoundaryDatabaseNotLinked_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
             using (MacroStabilityInwardsCalculationsView macroStabilityInwardsCalculationsView = ShowSimpleMacroStabilityInwardsCalculationsViewWithSurfaceLines(
@@ -931,6 +934,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+            assessmentSection.Replay();
+
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailuremechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
@@ -1125,13 +1132,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2);
-            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4);
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation1);
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation2);
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
+                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                }
+            });
         }
 
         private MacroStabilityInwardsCalculationsView ShowSimpleMacroStabilityInwardsCalculationsViewWithSurfaceLines(IAssessmentSection assessmentSection)
@@ -1215,10 +1223,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4);
-
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation1);
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation2);
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>

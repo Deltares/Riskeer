@@ -75,11 +75,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
             // Call
-            using (var view = new DesignWaterLevelLocationsView(assessmentSection))
+            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
@@ -91,11 +91,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
             // Call
-            ShowDesignWaterLevelLocationsView(assessmentSection, testForm);
+            ShowDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, testForm);
 
             // Assert
             DataGridView locationsDataGridView = GetLocationsDataGridView();
@@ -124,10 +124,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
+        public void Constructor_WithLocations_DataGridViewCorrectlyInitialized()
         {
-            // Setup & Call
-            ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
+            // Setup 
+            var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
+
+            // Call
+            ShowFullyConfiguredDesignWaterLevelLocationsView(testHydraulicBoundaryDatabase.Locations, testForm);
 
             // Assert
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
@@ -181,12 +184,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_HydraulicBoundaryDatabaseUpdated_DataGridViewCorrectlyUpdated()
+        public void DesignWaterLevelLocationsView_HydraulicBoundaryDatabaseLocationsUpdated_DataGridViewCorrectlyUpdated()
         {
-            // Setup
-            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
-            IAssessmentSection assessmentSection = view.AssessmentSection;
-            var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            // Setup 
+            var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
+            ObservableList<HydraulicBoundaryLocation> locations = testHydraulicBoundaryDatabase.Locations;
+            ShowFullyConfiguredDesignWaterLevelLocationsView(locations, testForm);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
                 DesignWaterLevelCalculation =
@@ -198,17 +201,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     Output = new TestHydraulicBoundaryLocationOutput(10.23)
                 }
             };
-            newHydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Precondition
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
             DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
             Assert.AreEqual(5, rows.Count);
 
-            assessmentSection.HydraulicBoundaryDatabase = newHydraulicBoundaryDatabase;
+            locations.Clear();
+            locations.Add(hydraulicBoundaryLocation);
 
             // Call
-            assessmentSection.NotifyObservers();
+            locations.NotifyObservers();
 
             // Assert
             Assert.AreEqual(1, rows.Count);
@@ -223,10 +226,38 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_HydraulicBoundaryDatabaseUpdated_IllustrationPointsControlCorrectlyUpdated()
+        public void DesignWaterLevelLocationsView_HydraulicBoundaryLocationUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
-            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
+            var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
+            ObservableList<HydraulicBoundaryLocation> locations = testHydraulicBoundaryDatabase.Locations;
+            ShowFullyConfiguredDesignWaterLevelLocationsView(locations, testForm);
+
+            // Precondition
+            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
+            DataGridViewCellCollection cells = rows[0].Cells;
+            Assert.AreEqual(6, cells.Count);
+            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+
+            HydraulicBoundaryLocation location = locations.First();
+
+            // Call
+            location.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
+            location.NotifyObservers();
+
+            // Assert
+            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+        }
+
+        [Test]
+        public void DesignWaterLevelLocationsView_HydraulicBoundaryLocationUpdated_IllustrationPointsControlCorrectlyUpdated()
+        {
+            // Setup
+            var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
+            ObservableList<HydraulicBoundaryLocation> locations = testHydraulicBoundaryDatabase.Locations;
+            ShowFullyConfiguredDesignWaterLevelLocationsView(locations, testForm);
+
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
 
@@ -245,8 +276,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var output = new TestHydraulicBoundaryLocationOutput(generalResult);
 
             // Call
-            view.AssessmentSection.HydraulicBoundaryDatabase.Locations[3].DesignWaterLevelCalculation.Output = output;
-            view.AssessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = locations[3];
+            hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = output;
+            hydraulicBoundaryLocation.NotifyObservers();
 
             // Assert
             IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
@@ -254,30 +286,21 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevels(bool isSuccessful)
+        public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevels()
         {
             // Setup
-            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
-            IAssessmentSection assessmentSection = view.AssessmentSection;
+            var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
+            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(testHydraulicBoundaryDatabase.Locations, testForm);
+
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
             DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
-            var observer = mockRepository.StrictMock<IObserver>();
-            assessmentSection.HydraulicBoundaryDatabase.Attach(observer);
-
-            if (isSuccessful)
-            {
-                observer.Expect(o => o.UpdateObserver());
-            }
-
             IEnumerable<HydraulicBoundaryLocation> locations = null;
             guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
-                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]; }).Return(isSuccessful);
+                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]; });
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiService;
@@ -289,7 +312,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             HydraulicBoundaryLocation[] hydraulicBoundaryLocations = locations.ToArray();
             Assert.AreEqual(1, hydraulicBoundaryLocations.Length);
-            HydraulicBoundaryLocation expectedLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
+            HydraulicBoundaryLocation expectedLocation = testHydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, hydraulicBoundaryLocations.First());
         }
 
@@ -297,7 +320,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
-            ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
+            var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
+            ShowFullyConfiguredDesignWaterLevelLocationsView(testHydraulicBoundaryDatabase.Locations, testForm);
 
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
             DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
@@ -323,9 +347,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 FilePath = databaseFilePath
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
-            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.Id).Return(string.Empty);
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
@@ -345,12 +369,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
                     normValue = (double) invocation.Arguments[3];
                     messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
-                }).Return(true);
+                });
 
             mockRepository.ReplayAll();
 
-            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection, testForm);
-            view.Data = hydraulicBoundaryDatabase.Locations;
+            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -386,9 +409,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 UsePreprocessor = true,
                 PreprocessorDirectory = preprocessorDirectory
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
-            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.Id).Return(string.Empty);
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
@@ -408,12 +431,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
                     normValue = (double) invocation.Arguments[3];
                     messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
-                }).Return(true);
+                });
 
             mockRepository.ReplayAll();
 
-            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection, testForm);
-            view.Data = hydraulicBoundaryDatabase.Locations;
+            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -448,9 +470,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 UsePreprocessor = false,
                 PreprocessorDirectory = "InvalidPreprocessorDirectory"
             };
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
-            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.Id).Return(string.Empty);
+            assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
@@ -470,12 +492,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
                     normValue = (double) invocation.Arguments[3];
                     messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
-                }).Return(true);
+                });
 
             mockRepository.ReplayAll();
 
-            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection, testForm);
-            view.Data = hydraulicBoundaryDatabase.Locations;
+            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -526,9 +547,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                 });
         }
 
-        private static DesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(IAssessmentSection assessmentSection, Form form)
+        private static DesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
+                                                                                       IAssessmentSection assessmentSection,
+                                                                                       Form form)
         {
-            var view = new DesignWaterLevelLocationsView(assessmentSection);
+            var view = new DesignWaterLevelLocationsView(locations, assessmentSection);
 
             form.Controls.Add(view);
             form.Show();
@@ -536,17 +559,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             return view;
         }
 
-        private static DesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView(Form form)
+        private static DesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
+                                                                                                      Form form)
         {
-            var assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
-            };
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection, form);
-
-            view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            return view;
+            return ShowDesignWaterLevelLocationsView(locations, assessmentSection, form);
         }
 
         private class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase
@@ -614,6 +632,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [TestFixture]
         private class ViewSynchronizationTest : LocationsViewSynchronizationTester<HydraulicBoundaryLocation>
         {
+            private ObservableList<HydraulicBoundaryLocation> locations;
+
             protected override int OutputColumnIndex
             {
                 get
@@ -622,49 +642,27 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 }
             }
 
+            [SetUp]
+            public override void Setup()
+            {
+                var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
+                locations = testHydraulicBoundaryDatabase.Locations;
+                base.Setup();
+            }
+
             protected override object GetLocationSelection(LocationsView<HydraulicBoundaryLocation> view, object selectedRowObject)
             {
-                IAssessmentSection assessmentSection = view.AssessmentSection;
-
-                return new DesignWaterLevelLocationContext(((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject,
-                                                           assessmentSection.HydraulicBoundaryDatabase);
+                return new DesignWaterLevelLocationContext(((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject);
             }
 
             protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
             {
-                return ShowFullyConfiguredDesignWaterLevelLocationsView(form);
+                return ShowFullyConfiguredDesignWaterLevelLocationsView(locations, form);
             }
 
-            protected override void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
+            protected override ObservableList<HydraulicBoundaryLocation> GetLocationsInView(LocationsView<HydraulicBoundaryLocation> view)
             {
-                IAssessmentSection assessmentSection = view.AssessmentSection;
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0);
-
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        hydraulicBoundaryLocation
-                    }
-                };
-
-                assessmentSection.NotifyObservers();
-            }
-
-            protected override void ClearLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
-            {
-                IAssessmentSection assessmentSection = view.AssessmentSection;
-
-                assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.DesignWaterLevelCalculation.Output = null);
-                assessmentSection.NotifyObservers();
-            }
-
-            protected override void AddLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
-            {
-                IAssessmentSection assessmentSection = view.AssessmentSection;
-
-                assessmentSection.HydraulicBoundaryDatabase.Locations.First().DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
-                assessmentSection.NotifyObservers();
+                return locations;
             }
         }
     }

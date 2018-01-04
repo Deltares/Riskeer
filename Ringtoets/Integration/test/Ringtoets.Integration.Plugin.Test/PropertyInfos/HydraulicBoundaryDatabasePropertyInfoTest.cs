@@ -61,14 +61,15 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_ReturnHydraulicBoundaryDatabaseProperties()
         {
             // Setup
-            var context = new HydraulicBoundaryDatabaseContext(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryDatabaseProperties>(objectProperties);
-            Assert.AreSame(context, objectProperties.Data);
+            Assert.AreSame(context.WrappedData, objectProperties.Data);
         }
     }
 }

@@ -147,31 +147,10 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_HydraulicDatabaseDoesNotExist_SuccessfulCalculationFalse()
-        {
-            // Setup
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-                // Call
-                bool successfulCalculation = guiService.CalculateDesignWaterLevels("Does not exist", validPreprocessorDirectory, Enumerable.Empty<HydraulicBoundaryLocation>(), 1, calculationMessageProvider);
-
-                // Assert
-                Assert.IsFalse(successfulCalculation);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void CalculateDesignWaterLevels_ValidPathEmptyList_NoLog()
         {
             // Setup
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
@@ -181,6 +160,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             };
 
             using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
@@ -189,33 +169,6 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void CalculateDesignWaterLevels_ValidPathEmptyList_SuccessfulCalculationTrue()
-        {
-            // Setup
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                // Expect an activity dialog which is automatically closed
-            };
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-                // Call
-                bool successfulCalculation = guiService.CalculateDesignWaterLevels(validFilePath, validPreprocessorDirectory, Enumerable.Empty<HydraulicBoundaryLocation>(), 1, calculationMessageProvider);
-
-                // Assert
-                Assert.IsTrue(successfulCalculation);
             }
             mockRepository.VerifyAll();
         }
@@ -268,44 +221,6 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                     StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[7]);
                 });
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void CalculateDesignWaterLevels_ValidPathOneLocationInTheList_SuccessfulCalculationTrue()
-        {
-            // Setup
-            const string hydraulicLocationName = "name";
-
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(new TestDesignWaterLevelCalculator());
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
-            calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(string.Empty);
-            mockRepository.ReplayAll();
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                // Expect an activity dialog which is automatically closed
-            };
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-                // Call
-                bool successfulCalculation = guiService.CalculateDesignWaterLevels(validFilePath,
-                                                                                   validPreprocessorDirectory,
-                                                                                   new List<HydraulicBoundaryLocation>
-                                                                                   {
-                                                                                       new TestHydraulicBoundaryLocation(hydraulicLocationName)
-                                                                                   },
-                                                                                   1, calculationMessageProvider);
-
-                // Assert
-                Assert.IsTrue(successfulCalculation);
             }
             mockRepository.VerifyAll();
         }
@@ -385,28 +300,6 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateWaveHeights_HydraulicDatabaseDoesNotExist_SuccessfulCalculationFalse()
-        {
-            // Setup
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-                // Call
-                bool successfulCalculation = guiService.CalculateWaveHeights("Does not exist", validPreprocessorDirectory, Enumerable.Empty<HydraulicBoundaryLocation>(), 1, calculationMessageProvider);
-
-                // Assert
-                Assert.IsFalse(successfulCalculation);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void CalculateWaveHeights_ValidPathEmptyList_NoLog()
         {
             // Setup
@@ -429,33 +322,6 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void CalculateWaveHeights_ValidPathEmptyList_SuccessfulCalculationTrue()
-        {
-            // Setup
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                // Expect an activity dialog which is automatically closed
-            };
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-                // Call
-                bool successfulCalculation = guiService.CalculateWaveHeights(validFilePath, validPreprocessorDirectory, Enumerable.Empty<HydraulicBoundaryLocation>(), 1, calculationMessageProvider);
-
-                // Assert
-                Assert.IsTrue(successfulCalculation);
             }
             mockRepository.VerifyAll();
         }
@@ -508,44 +374,6 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                     StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[7]);
                 });
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void CalculateWaveHeights_ValidPathOneLocationInTheList_SuccessfulCalculationTrue()
-        {
-            // Setup
-            const string hydraulicLocationName = "name";
-
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(new TestWaveHeightCalculator());
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
-            calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(string.Empty);
-            mockRepository.ReplayAll();
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                // Expect an activity dialog which is automatically closed
-            };
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-                // Call
-                bool successfulCalculation = guiService.CalculateWaveHeights(validFilePath,
-                                                                             validPreprocessorDirectory,
-                                                                             new List<HydraulicBoundaryLocation>
-                                                                             {
-                                                                                 new TestHydraulicBoundaryLocation(hydraulicLocationName)
-                                                                             },
-                                                                             1, calculationMessageProvider);
-
-                // Assert
-                Assert.IsTrue(successfulCalculation);
             }
             mockRepository.VerifyAll();
         }

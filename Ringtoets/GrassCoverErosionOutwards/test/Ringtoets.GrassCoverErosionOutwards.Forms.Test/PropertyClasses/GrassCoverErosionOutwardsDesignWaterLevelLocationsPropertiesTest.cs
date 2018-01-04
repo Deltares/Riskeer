@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
@@ -28,24 +27,14 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContextPropertiesTest
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsPropertiesTest
     {
-        [Test]
-        public void Constructor_WithoutLocations_ExpectedValues()
-        {
-            // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("locations", paramName);
-        }
-
         [Test]
         public void Constructor_WithLocations_ExpectedValues()
         {
@@ -53,11 +42,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties(
+            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties(
                 hydraulicBoundaryLocations);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocation>>>(properties);
+            Assert.IsInstanceOf<HydraulicBoundaryLocationsProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocations, properties.Data);
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -86,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.2);
 
             // Call
-            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties(
+            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties(
                 new ObservableList<HydraulicBoundaryLocation>
                 {
                     location
@@ -94,9 +83,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(1, properties.Locations.Length);
-            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties, ExpandableArrayConverter>(
-                nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties.Locations));
-            GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties locationProperties = properties.Locations[0];
+            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties, ExpandableArrayConverter>(
+                nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties.Locations));
+            GrassCoverErosionOutwardsDesignWaterLevelLocationProperties locationProperties = properties.Locations[0];
             Assert.AreEqual(location.Name, locationProperties.Name);
             Assert.AreEqual(location.Id, locationProperties.Id);
             Assert.AreEqual(location.Location, locationProperties.Location);

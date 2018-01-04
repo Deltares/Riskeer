@@ -105,7 +105,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                     new WaveConditionsCalculationConfigurationImporter<WaveImpactAsphaltCoverWaveConditionsCalculation>(
                         filePath,
                         context.WrappedData,
-                        context.HydraulicBoundaryLocations,
+                        context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                         context.ForeshoreProfiles));
         }
 
@@ -445,8 +445,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
         {
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = nodeData.AssessmentSection.HydraulicBoundaryDatabase;
-            bool locationsAvailable = hydraulicBoundaryDatabase != null && hydraulicBoundaryDatabase.Locations.Any();
+            bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations.Any();
 
             string waveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
                                                                                             ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip

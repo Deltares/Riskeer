@@ -114,13 +114,14 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHydraulicBoundaryDatabaseFeatures_HydraulicBoundaryDatabaseNull_ReturnsEmptyFeaturesCollection()
+        public void CreateHydraulicBoundaryDatabaseFeatures_HydraulicBoundaryDatabaseNull_ThrowArgumentNullException()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(null);
+            TestDelegate test = () => RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(null);
 
             // Assert
-            CollectionAssert.IsEmpty(features);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
         }
 
         [Test]

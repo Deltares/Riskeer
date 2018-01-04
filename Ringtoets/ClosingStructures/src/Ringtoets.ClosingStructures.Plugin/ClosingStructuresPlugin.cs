@@ -214,7 +214,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 (context, filePath) => new ClosingStructuresCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,
-                    context.AvailableHydraulicBoundaryLocations,
+                    context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                     context.AvailableForeshoreProfiles,
                     context.AvailableStructures,
                     context.FailureMechanism));

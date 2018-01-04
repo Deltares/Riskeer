@@ -212,14 +212,15 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                             null,
                                                                                             failureMechanism,
                                                                                             assessmentSection);
 
-            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
+            var orderedMocks = new MockRepository();
+            var menuBuilder = orderedMocks.StrictMock<IContextMenuBuilder>();
+            using (orderedMocks.Ordered())
             {
                 menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
@@ -250,12 +251,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
+                orderedMocks.ReplayAll();
 
                 // Call
                 info.ContextMenuStrip(groupContext, null, treeViewControl);
             }
             // Assert
-            // Assert expectancies called in TearDown()
+            orderedMocks.VerifyAll();
         }
 
         [Test]
@@ -264,7 +266,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                             null,
                                                                                             failureMechanism,
@@ -449,7 +451,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_WithoutParentNodeWithoutHydraulicLocationsDefaultBehavior_ReturnContextMenuWithoutRenameRemove()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -540,13 +542,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
                     new TestHydraulicBoundaryLocation()
                 }
-            };
+            });
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
@@ -673,7 +676,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoHydraulicBoundaryDatabase_CalculateAllAndValidateAllDisabled()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_CalculateAllAndValidateAllDisabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -684,7 +687,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                             failureMechanism.WaveConditionsCalculationGroup,
                                                                                             failureMechanism,
@@ -715,7 +718,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotValid_CalculateAllAndValidateAllDisabled()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_CalculateAllAndValidateAllDisabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -726,11 +729,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    FilePath = ""
-                };
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                             failureMechanism.WaveConditionsCalculationGroup,
                                                                                             failureMechanism,
@@ -754,7 +754,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
                     Assert.IsFalse(validateItem.Enabled);
                     Assert.IsFalse(calculateItem.Enabled);
-                    const string message = "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': bestandspad mag niet leeg of ongedefinieerd zijn.";
+                    const string message = "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand 'invalidFilePath': het bestand bestaat niet.";
                     Assert.AreEqual(message, calculateItem.ToolTipText);
                     Assert.AreEqual(message, validateItem.ToolTipText);
                 }
@@ -777,10 +777,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     FilePath = validHydroDatabasePath
-                };
+                });
+
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                             failureMechanism.WaveConditionsCalculationGroup,
                                                                                             failureMechanism,
@@ -1000,16 +1001,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"),
-                CanUsePreprocessor = true,
-                UsePreprocessor = false,
-                PreprocessorDirectory = "InvalidPreprocessorDirectory"
-            };
+            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = false;
+            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism.WaveConditionsCalculationGroup,
@@ -1075,16 +1072,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"),
-                CanUsePreprocessor = true,
-                UsePreprocessor = true,
-                PreprocessorDirectory = TestHelper.GetScratchPadPath()
-            };
+            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = TestHelper.GetScratchPadPath();
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism.WaveConditionsCalculationGroup,
@@ -1150,16 +1143,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
-                failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"),
-                CanUsePreprocessor = true,
-                UsePreprocessor = true,
-                PreprocessorDirectory = "InvalidPreprocessorDirectory"
-            };
+            assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism.WaveConditionsCalculationGroup,
@@ -1538,14 +1527,15 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
                 var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     Locations =
                     {
                         hydraulicBoundaryLocation1,
                         hydraulicBoundaryLocation2
                     }
-                };
+                });
 
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
@@ -1606,13 +1596,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
                     Locations =
                     {
                         new TestHydraulicBoundaryLocation()
                     }
-                };
+                });
 
                 var observer = mocks.StrictMock<IObserver>();
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
@@ -1693,7 +1683,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
 
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                        null,
@@ -1743,7 +1733,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
 
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                        null,
@@ -1788,7 +1778,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationGroupWithCalculationWithForeshoreProfileAndInputOutOfSync_ContextMenuItemUpdateForeshoreProfilesEnabledAndToolTipSet()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -1839,7 +1829,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var calculationInputObserver = mocks.StrictMock<IObserver>();
             calculationInputObserver.Expect(o => o.UpdateObserver());
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation

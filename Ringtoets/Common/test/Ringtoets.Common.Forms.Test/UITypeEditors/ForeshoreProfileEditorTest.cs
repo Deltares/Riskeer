@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             }
         }
 
-        private class ObjectPropertiesWithForeshoreProfile : IHasForeshoreProfileProperty
+        private class ObjectPropertiesWithForeshoreProfile : ObjectProperties<object>, IHasForeshoreProfileProperty
         {
             private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
 
@@ -136,8 +136,6 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
                 ForeshoreProfile = foreshoreProfile;
                 this.availableForeshoreProfiles = availableForeshoreProfiles;
             }
-
-            public object Data { get; set; }
 
             public ForeshoreProfile ForeshoreProfile { get; }
 

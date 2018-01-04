@@ -33,18 +33,17 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
+using Ringtoets.Integration.Forms.PropertyClasses;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
+namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaveHeightLocationContextPropertiesTest
+    public class DesignWaterLevelLocationPropertiesTest
     {
         private const int idPropertyIndex = 0;
         private const int namePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
-        private const int waveHeightPropertyIndex = 3;
+        private const int designWaterLevelPropertyIndex = 3;
         private const int targetProbabilityPropertyIndex = 4;
         private const int targetReliabilityPropertyIndex = 5;
         private const int calculatedProbabilityPropertyIndex = 6;
@@ -55,12 +54,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
+
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveHeightLocationContextProperties();
+            var properties = new DesignWaterLevelLocationProperties(hydraulicBoundaryLocation);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.IsInstanceOf<HydraulicBoundaryLocationProperties>(properties);
+            Assert.AreSame(hydraulicBoundaryLocation, properties.Data);
         }
 
         [Test]
@@ -70,33 +72,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveHeightLocationContextProperties
-            {
-                Data = new GrassCoverErosionOutwardsWaveHeightLocationContext(hydraulicBoundaryLocation, new ObservableList<HydraulicBoundaryLocation>
-                {
-                    hydraulicBoundaryLocation
-                })
-            };
+            var properties = new DesignWaterLevelLocationProperties(hydraulicBoundaryLocation);
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryLocation.Id, properties.Id);
             Assert.AreEqual(hydraulicBoundaryLocation.Name, properties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Location, properties.Location);
-            Assert.IsNaN(properties.WaveHeight);
-            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationContextProperties, NoValueRoundedDoubleConverter>(
-                nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.WaveHeight));
+            Assert.IsNaN(properties.DesignWaterLevel);
+            TestHelper.AssertTypeConverter<DesignWaterLevelLocationProperties, NoValueRoundedDoubleConverter>(
+                nameof(DesignWaterLevelLocationProperties.DesignWaterLevel));
             Assert.AreEqual(double.NaN, properties.TargetProbability);
-            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationContextProperties, NoProbabilityValueDoubleConverter>(
-                nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.TargetProbability));
+            TestHelper.AssertTypeConverter<DesignWaterLevelLocationProperties, NoProbabilityValueDoubleConverter>(
+                nameof(DesignWaterLevelLocationProperties.TargetProbability));
             Assert.IsNaN(properties.TargetReliability);
-            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationContextProperties, NoValueRoundedDoubleConverter>(
-                nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.TargetReliability));
+            TestHelper.AssertTypeConverter<DesignWaterLevelLocationProperties, NoValueRoundedDoubleConverter>(
+                nameof(DesignWaterLevelLocationProperties.TargetReliability));
             Assert.AreEqual(double.NaN, properties.CalculatedProbability);
-            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationContextProperties, NoProbabilityValueDoubleConverter>(
-                nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.CalculatedProbability));
+            TestHelper.AssertTypeConverter<DesignWaterLevelLocationProperties, NoProbabilityValueDoubleConverter>(
+                nameof(DesignWaterLevelLocationProperties.CalculatedProbability));
             Assert.IsNaN(properties.CalculatedReliability);
-            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationContextProperties, NoValueRoundedDoubleConverter>(
-                nameof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties.CalculatedReliability));
+            TestHelper.AssertTypeConverter<DesignWaterLevelLocationProperties, NoValueRoundedDoubleConverter>(
+                nameof(DesignWaterLevelLocationProperties.CalculatedReliability));
             Assert.IsEmpty(properties.Convergence);
             Assert.AreEqual(hydraulicBoundaryLocation.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
         }
@@ -104,20 +100,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GetProperties_FullyConfiguredLocation_ReturnsExpectedValues(bool withIllustrationPoints)
+        public void GetProperties_ValidDesignWaterLevel_ReturnsExpectedValues(bool withIllustrationPoints)
         {
             // Setup
             var random = new Random();
-            const long id = 1;
+            const long id = 1234L;
             const double x = 567.0;
             const double y = 890.0;
-            const string name = "name";
+            const string name = "<some name>";
 
             double targetProbability = random.NextDouble();
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
-            double waveHeight = random.NextDouble();
+            double designWaterLevel = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
             var illustrationPoints = new[]
@@ -136,7 +132,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                                illustrationPoints)
                     : null;
 
-            var hydraulicBoundaryLocationOutput = new HydraulicBoundaryLocationOutput(waveHeight,
+            var hydraulicBoundaryLocationOutput = new HydraulicBoundaryLocationOutput(designWaterLevel,
                                                                                       targetProbability,
                                                                                       targetReliability,
                                                                                       calculatedProbability,
@@ -146,29 +142,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
-                WaveHeightCalculation =
+                DesignWaterLevelCalculation =
                 {
                     Output = hydraulicBoundaryLocationOutput
                 }
             };
-            var locations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                hydraulicBoundaryLocation
-            };
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationContext(hydraulicBoundaryLocation, locations);
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveHeightLocationContextProperties
-            {
-                Data = context
-            };
+            var properties = new DesignWaterLevelLocationProperties(hydraulicBoundaryLocation);
 
             // Assert
             Assert.AreEqual(id, properties.Id);
             Assert.AreEqual(name, properties.Name);
             var coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
-            Assert.AreEqual(waveHeight, properties.WaveHeight, properties.WaveHeight.GetAccuracy());
+            Assert.AreEqual(designWaterLevel, properties.DesignWaterLevel, properties.DesignWaterLevel.GetAccuracy());
 
             Assert.AreEqual(targetProbability, properties.TargetProbability);
             Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
@@ -195,20 +183,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveHeightLocationContextProperties
-            {
-                Data = new GrassCoverErosionOutwardsWaveHeightLocationContext(hydraulicBoundaryLocation, new ObservableList<HydraulicBoundaryLocation>
-                {
-                    hydraulicBoundaryLocation
-                })
-            };
+            var properties = new DesignWaterLevelLocationProperties(hydraulicBoundaryLocation);
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-
-            Assert.AreEqual(10, dynamicProperties.Count);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string resultCategory = "Resultaat";
@@ -234,11 +216,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Coördinaten van de hydraulische randvoorwaardenlocatie.",
                                                                             true);
 
-            PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
+            PropertyDescriptor designWaterLevelProperty = dynamicProperties[designWaterLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(designWaterLevelProperty,
                                                                             resultCategory,
-                                                                            "Golfhoogte bij doorsnede-eis [m]",
-                                                                            "Berekende golfhoogte bij doorsnede-eis.",
+                                                                            "Toetspeil [m+NAP]",
+                                                                            "Berekend toetspeil.",
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
@@ -273,7 +255,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
                                                                             resultCategory,
                                                                             "Convergentie",
-                                                                            "Is convergentie bereikt in de berekening van de golfhoogte bij doorsnede-eis?",
+                                                                            "Is convergentie bereikt in de toetspeil berekening?",
                                                                             true);
 
             PropertyDescriptor calculateIllustrationPointsProperty = dynamicProperties[shouldCalculateIllustrationPointsIndex];
@@ -294,7 +276,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
             {
-                WaveHeightCalculation =
+                DesignWaterLevelCalculation =
                 {
                     InputParameters =
                     {
@@ -303,23 +285,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 }
             };
 
-            var locations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                hydraulicBoundaryLocation
-            };
+            hydraulicBoundaryLocation.Attach(observer);
 
-            locations.Attach(observer);
-
-            var properties = new GrassCoverErosionOutwardsWaveHeightLocationContextProperties
-            {
-                Data = new GrassCoverErosionOutwardsWaveHeightLocationContext(hydraulicBoundaryLocation, locations)
-            };
+            var properties = new DesignWaterLevelLocationProperties(hydraulicBoundaryLocation);
 
             // Call
             properties.ShouldIllustrationPointsBeCalculated = true;
 
             // Assert
-            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             mocks.VerifyAll();
         }
     }

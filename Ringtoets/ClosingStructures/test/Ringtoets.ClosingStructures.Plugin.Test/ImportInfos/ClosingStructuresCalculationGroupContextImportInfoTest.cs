@@ -31,6 +31,7 @@ using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.IO.Configurations;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
@@ -62,7 +63,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             var context = new ClosingStructuresCalculationGroupContext(new CalculationGroup(),

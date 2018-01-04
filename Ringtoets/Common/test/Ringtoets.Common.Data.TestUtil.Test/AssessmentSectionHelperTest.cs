@@ -33,7 +33,32 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class AssessmentSectionHelperTest
     {
         [Test]
-        public void CreateAssessmentSectionStub_WithoutFilePathSet_ReturnsStubbedAssessmentSectionWithHRDWithoutPath()
+        public void CreateAssessmentSectionStub_WithoutFailureMechanismAndFilePath_ReturnsExpectedAssessmentSectionStub()
+        {
+            // Setup
+            var mocks = new MockRepository();
+
+            // Call
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            mocks.ReplayAll();
+
+            // Assert
+            Assert.IsNotNull(assessmentSection);
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            Assert.IsNotNull(hydraulicBoundaryDatabase);
+            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
+            Assert.IsNull(hydraulicBoundaryDatabase.Version);
+            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
+            Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateAssessmentSectionStub_WithFailureMechanismOnly_ReturnsExpectedAssessmentSectionStub()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
@@ -47,13 +72,19 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsNotNull(assessmentSection);
             Assert.AreEqual("21", assessmentSection.Id);
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+
             Assert.IsNotNull(hydraulicBoundaryDatabase);
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
+            Assert.IsNull(hydraulicBoundaryDatabase.Version);
             Assert.AreEqual(1, hydraulicBoundaryDatabase.Locations.Count);
             HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(1300001, hydraulicBoundaryLocation.Id);
             Assert.IsEmpty(hydraulicBoundaryLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), hydraulicBoundaryLocation.Location);
+            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
+            Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
+
             CollectionAssert.AreEqual(new[]
             {
                 failureMechanism
@@ -63,11 +94,12 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(1.0 / 10, contribution.LowerLimitNorm);
             Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
             Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
+
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateAssessmentSectionStub_WithFilePathSet_ReturnsStubbedAssessmentSectionWithHRDWithPath()
+        public void CreateAssessmentSectionStub_WithFailureMechanismAndFilePath_ReturnsExpectedAssessmentSectionStub()
         {
             // Setup
             const string path = "C://temp";
@@ -81,14 +113,20 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsNotNull(assessmentSection);
             Assert.AreEqual("21", assessmentSection.Id);
+
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             Assert.IsNotNull(hydraulicBoundaryDatabase);
             Assert.AreEqual(path, hydraulicBoundaryDatabase.FilePath);
+            Assert.IsNull(hydraulicBoundaryDatabase.Version);
             Assert.AreEqual(1, hydraulicBoundaryDatabase.Locations.Count);
             HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(1300001, hydraulicBoundaryLocation.Id);
             Assert.IsEmpty(hydraulicBoundaryLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), hydraulicBoundaryLocation.Location);
+            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
+            Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
+
             CollectionAssert.AreEqual(new[]
             {
                 failureMechanism
@@ -98,54 +136,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(1.0 / 10, contribution.LowerLimitNorm);
             Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
             Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
-            mocks.VerifyAll();
-        }
 
-        [Test]
-        public void CreateAssessmentSectionStubWithoutBoundaryDatabase_Always_ReturnsStubbedAssessmentSectionWithoutHRD()
-        {
-            var failureMechanism = new TestFailureMechanism();
-            var mocks = new MockRepository();
-
-            // Call
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            // Assert
-            Assert.IsNotNull(assessmentSection);
-            Assert.AreEqual("21", assessmentSection.Id);
-            Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
-            CollectionAssert.AreEqual(new[]
-            {
-                failureMechanism
-            }, assessmentSection.GetFailureMechanisms());
-
-            FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
-            Assert.AreEqual(1.0 / 10, contribution.LowerLimitNorm);
-            Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
-            Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms_ReturnsStubbedAssessmentSectionWithoutHRDOrFailureMechanisms()
-        {
-            var mocks = new MockRepository();
-
-            // Call
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
-            mocks.ReplayAll();
-
-            // Assert
-            Assert.IsNotNull(assessmentSection);
-            Assert.AreEqual("21", assessmentSection.Id);
-            Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
-            CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms());
-
-            FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
-            Assert.AreEqual(1.0 / 10, contribution.LowerLimitNorm);
-            Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
-            Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
             mocks.VerifyAll();
         }
     }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -45,21 +46,23 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(DesignWaterLevelLocationsContext), info.DataType);
-                Assert.AreEqual(typeof(DesignWaterLevelLocationsContextProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(DesignWaterLevelLocationsProperties), info.PropertyObjectType);
             }
         }
 
         [Test]
-        public void CreateInstance_Always_SetsHydraulicBoundaryDatabaseAsData()
+        public void CreateInstance_Always_SetsHydraulicBoundaryLocationsAsData()
         {
             // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mockRepository.ReplayAll();
 
-            var context = new DesignWaterLevelLocationsContext(assessmentSection);
+            ObservableList<HydraulicBoundaryLocation> locations = hydraulicBoundaryDatabase.Locations;
+
+            var context = new DesignWaterLevelLocationsContext(locations, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -69,8 +72,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<DesignWaterLevelLocationsContextProperties>(objectProperties);
-                Assert.AreSame(hydraulicBoundaryDatabase, objectProperties.Data);
+                Assert.IsInstanceOf<DesignWaterLevelLocationsProperties>(objectProperties);
+                Assert.AreSame(locations, objectProperties.Data);
             }
             mockRepository.VerifyAll();
         }

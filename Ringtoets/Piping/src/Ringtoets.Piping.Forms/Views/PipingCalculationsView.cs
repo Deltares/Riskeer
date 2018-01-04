@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Forms.Views
         private const int stochasticSoilProfileColumnIndex = 2;
         private const int selectableHydraulicBoundaryLocationColumnIndex = 4;
 
-        private readonly Observer assessmentSectionObserver;
+        private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly RecursiveObserver<CalculationGroup, PipingInput> pipingInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> pipingCalculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, PipingCalculationScenario> pipingCalculationObserver;
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Forms.Views
             InitializeListBox();
 
             pipingFailureMechanismObserver = new Observer(OnPipingFailureMechanismUpdate);
-            assessmentSectionObserver = new Observer(UpdateSelectableHydraulicBoundaryLocationsColumn);
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateSelectableHydraulicBoundaryLocationsColumn);
             // The concat is needed to observe the input of calculations in child groups.
             pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
             pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 assessmentSection = value;
 
-                assessmentSectionObserver.Observable = assessmentSection;
+                hydraulicBoundaryLocationsObserver.Observable = assessmentSection?.HydraulicBoundaryDatabase.Locations;
 
                 UpdateSelectableHydraulicBoundaryLocationsColumn();
             }
@@ -181,7 +181,7 @@ namespace Ringtoets.Piping.Forms.Views
                 dataGridViewControl.CellFormatting -= OnCellFormatting;
                 dataGridViewControl.CurrentRowChanged -= DataGridViewOnCurrentRowChangedHandler;
 
-                assessmentSectionObserver.Dispose();
+                hydraulicBoundaryLocationsObserver.Dispose();
                 pipingFailureMechanismObserver.Dispose();
                 pipingInputObserver.Dispose();
                 pipingCalculationObserver.Dispose();
@@ -410,7 +410,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(PipingCalculation pipingCalculation)
         {
-            if (assessmentSection?.HydraulicBoundaryDatabase == null || pipingCalculation.InputParameters.UseAssessmentLevelManualInput)
+            if (assessmentSection == null || pipingCalculation.InputParameters.UseAssessmentLevelManualInput)
             {
                 return Enumerable.Empty<SelectableHydraulicBoundaryLocation>();
             }
@@ -523,7 +523,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
         {
-            if (assessmentSection?.HydraulicBoundaryDatabase == null)
+            if (assessmentSection == null)
             {
                 return null;
             }

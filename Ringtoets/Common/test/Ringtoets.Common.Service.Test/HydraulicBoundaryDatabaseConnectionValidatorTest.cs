@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -32,10 +33,24 @@ namespace Ringtoets.Common.Service.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         [Test]
-        public void Validate_DatabaseNull_ReturnErrorMessage()
+        public void Validate_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
         {
             // Call
-            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(null);
+            TestDelegate test = () => HydraulicBoundaryDatabaseConnectionValidator.Validate(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("hydraulicBoundaryDatabase", paramName);
+        }
+
+        [Test]
+        public void Validate_HydraulicBoundaryDatabaseNotLinked_ReturnErrorMessage()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Call
+            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
 
             // Assert
             const string expectedMessage = "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.";
@@ -43,33 +58,16 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Validate_DatabaseWithEmptyFilepath_ReturnErrorMessage()
+        public void Validate_HydraulicBoundaryDatabaseLinkedToNotExistingDatabaseFile_ReturnsErrorMessage()
         {
             // Setup
-            var database = new HydraulicBoundaryDatabase
-            {
-                FilePath = string.Empty
-            };
-
-            // Call
-            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(database);
-
-            // Assert
-            const string expectedMessage = "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': bestandspad mag niet leeg of ongedefinieerd zijn.";
-            Assert.AreEqual(expectedMessage, message);
-        }
-
-        [Test]
-        public void Validate_DatabaseWithFilepathToNotExistingDatabase_ReturnErrorMessage()
-        {
-            // Setup
-            var database = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = "I_do_not_exist.db"
             };
 
             // Call
-            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(database);
+            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
 
             // Assert
             const string expectedMessage = "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand 'I_do_not_exist.db': het bestand bestaat niet.";
@@ -77,38 +75,38 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Validate_ExistingFileWithHlcd_ReturnsNull()
-        {
-            // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            var database = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            };
-
-            // Call
-            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(database);
-
-            // Assert
-            Assert.IsNull(message);
-        }
-
-        [Test]
-        public void ValidatePathForCalculation_ExistingFileWithoutSettings_ReturnsMessageWithError()
+        public void Validate_HydraulicBoundaryDatabaseLinkedToExistingDatabaseFileWithoutSettings_ReturnsErrorMessage()
         {
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "invalidSettingsSchema", "complete.sqlite");
-            var database = new HydraulicBoundaryDatabase
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = invalidFilePath
             };
 
             // Call
-            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(database);
+            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
 
             // Assert
             const string expectedMessage = "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. De rekeninstellingen database heeft niet het juiste schema.";
             Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void Validate_HydraulicBoundaryDatabaseLinkedToValidDatabaseFile_ReturnsNull()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
+
+            // Call
+            string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
+
+            // Assert
+            Assert.IsNull(message);
         }
     }
 }

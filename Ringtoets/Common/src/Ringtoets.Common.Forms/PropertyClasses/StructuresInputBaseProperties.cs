@@ -205,7 +205,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             Point2D referenceLocation = data.WrappedData.Structure?.Location;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AvailableHydraulicBoundaryLocations, referenceLocation);
+                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referenceLocation);
         }
 
         public abstract IEnumerable<TStructure> GetAvailableStructures();

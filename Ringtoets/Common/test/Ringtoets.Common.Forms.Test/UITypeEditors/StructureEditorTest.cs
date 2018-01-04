@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             mockRepository.VerifyAll();
         }
 
-        private class ObjectPropertiesWithStructure : IHasStructureProperty<TestStructure>
+        private class ObjectPropertiesWithStructure : ObjectProperties<object>, IHasStructureProperty<TestStructure>
         {
             private readonly IEnumerable<TestStructure> availableStructures;
 
@@ -113,8 +113,6 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
                 Structure = structure;
                 this.availableStructures = availableStructures;
             }
-
-            public object Data { get; set; }
 
             public TestStructure Structure { get; }
 

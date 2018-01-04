@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -32,6 +33,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.HydraRing;
 
@@ -186,13 +188,20 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ValidFileWithCanUsePreprocessorFalse_DataImportedAndAssessmentSectionNotified()
+        public void Import_ValidFileWithCanUsePreprocessorFalse_DataImportedAndObserversNotified()
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers());
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+
+            var databaseObserver = mocks.StrictMock<IObserver>();
+            databaseObserver.Expect(o => o.UpdateObserver());
+            var locationsObserver = mocks.StrictMock<IObserver>();
+            locationsObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
+
+            assessmentSection.HydraulicBoundaryDatabase.Attach(databaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(locationsObserver);
 
             string directory = Path.Combine(testDataPath, "WithUsePreprocessor");
             string validFilePath = Path.Combine(directory, "completeUsePreprocessorFalse.sqlite");
@@ -217,13 +226,20 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ValidFileWithCanUsePreprocessorTrue_DataImportedAndAssessmentSectionNotified()
+        public void Import_ValidFileWithCanUsePreprocessorTrue_DataImportedAndObserversNotified()
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers());
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+
+            var databaseObserver = mocks.StrictMock<IObserver>();
+            databaseObserver.Expect(o => o.UpdateObserver());
+            var locationsObserver = mocks.StrictMock<IObserver>();
+            locationsObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
+
+            assessmentSection.HydraulicBoundaryDatabase.Attach(databaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(locationsObserver);
 
             string directory = Path.Combine(testDataPath, "WithUsePreprocessor");
             string validFilePath = Path.Combine(directory, "completeUsePreprocessorTrue.sqlite");
@@ -250,12 +266,15 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ImportingToSameDatabaseOnDifferentPath_FilePathUpdatedAndAssessmentSectionNotified()
+        public void GivenDatabaseLinked_WhenImportingToSameDatabaseOnDifferentPath_ThenFilePathUpdatedAndSpecificObserversNotified()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Twice();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+
+            var databaseObserver = mocks.StrictMock<IObserver>();
+            databaseObserver.Expect(o => o.UpdateObserver());
+            var locationsObserver = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
@@ -263,10 +282,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             importer.Import(assessmentSection, validFilePath);
 
-            // Call
+            assessmentSection.HydraulicBoundaryDatabase.Attach(databaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(locationsObserver);
+
+            // When
             bool importResult = importer.Import(assessmentSection, copyValidFilePath);
 
-            // Assert
+            // Then
             Assert.IsTrue(importResult);
             Assert.AreEqual(copyValidFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
             IEnumerable<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
@@ -277,22 +299,27 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ImportingToSameDatabaseOnSamePath_AssessmentSectionNotNotified()
+        public void GivenDatabaseLinked_WhenImportingToSameDatabaseOnSamePath_ThenObserversNotNotified()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers());
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+
+            var databaseObserver = mocks.StrictMock<IObserver>();
+            var locationsObserver = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
 
             importer.Import(assessmentSection, validFilePath);
 
-            // Call
+            assessmentSection.HydraulicBoundaryDatabase.Attach(databaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(locationsObserver);
+
+            // When
             bool importResult = importer.Import(assessmentSection, validFilePath);
 
-            // Assert
+            // Then
             Assert.IsTrue(importResult);
             Assert.AreEqual(validFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
             IEnumerable<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
@@ -307,8 +334,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             string corruptPath = Path.Combine(testDataPath, "corruptschema.sqlite");
@@ -331,7 +357,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 Assert.AreEqual(loggedException.Message, expectedLog.Item1);
             });
             Assert.IsFalse(importResult);
-            Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase, "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
+            Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsLinked(), "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
 
             mocks.VerifyAll();
         }
