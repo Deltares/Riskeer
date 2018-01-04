@@ -30,20 +30,31 @@ namespace Ringtoets.Common.Data.Hydraulics
     public class WaveHeightCalculation : IHydraulicBoundaryWrapperCalculation
     {
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
+        private readonly HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculation"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to wrap.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> 
-        /// is <c>null</c>.</exception>
-        public WaveHeightCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location the
+        /// <paramref name="hydraulicBoundaryLocationCalculation"/> belongs to.</param>
+        /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location
+        /// calculation to wrap.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
+        /// or <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
+        public WaveHeightCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
         {
             if (hydraulicBoundaryLocation == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
+
+            if (hydraulicBoundaryLocationCalculation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+            }
+
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            this.hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculation;
         }
 
         /// <summary>
@@ -77,7 +88,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return hydraulicBoundaryLocation.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+                return hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
             }
         }
 
@@ -85,25 +96,24 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return hydraulicBoundaryLocation.WaveHeightCalculation.Output;
+                return hydraulicBoundaryLocationCalculation.Output;
             }
             set
             {
-                hydraulicBoundaryLocation.WaveHeightCalculation.Output = value;
+                hydraulicBoundaryLocationCalculation.Output = value;
             }
         }
 
         /// <summary>
-        /// Gets a value indicating whether this calculation has already been calculated.
+        /// Gets a value indicating whether the wrapped calculation has already been calculated.
         /// </summary>
         /// <returns><c>true</c> if the calculation is fully calculated, <c>false</c> otherwise.</returns>
         /// <remarks>A calculation is fully calculated, depending on if the illustration points 
         /// are set to be calculated.</remarks>
         public bool IsCalculated()
         {
-            HydraulicBoundaryLocationCalculation calculation = hydraulicBoundaryLocation.WaveHeightCalculation;
-            return calculation.HasOutput
-                   && calculation.InputParameters.ShouldIllustrationPointsBeCalculated == calculation.Output.HasGeneralResult;
+            return hydraulicBoundaryLocationCalculation.HasOutput
+                   && hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated == hydraulicBoundaryLocationCalculation.Output.HasGeneralResult;
         }
     }
 }
