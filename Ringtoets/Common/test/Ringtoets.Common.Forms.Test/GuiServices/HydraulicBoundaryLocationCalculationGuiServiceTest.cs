@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                                                                                 validPreprocessorDirectory,
                                                                                 null,
                                                                                 hbl => new HydraulicBoundaryLocationCalculation(),
-                                                                                1,
+                                                                                0.01,
                                                                                 calculationMessageProvider);
 
                 // Assert
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                                                                                 validPreprocessorDirectory,
                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                 null,
-                                                                                1,
+                                                                                0.01,
                                                                                 calculationMessageProvider);
 
                 // Assert
@@ -149,7 +149,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                                                                                 validPreprocessorDirectory,
                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                 hbl => new HydraulicBoundaryLocationCalculation(),
-                                                                                1,
+                                                                                0.01,
                                                                                 null);
 
                 // Assert
@@ -179,7 +179,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                                                                           validPreprocessorDirectory,
                                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                           hbl => new HydraulicBoundaryLocationCalculation(),
-                                                                          1,
+                                                                          0.01,
                                                                           calculationMessageProvider);
 
                 // Assert
@@ -217,7 +217,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                                                                           validPreprocessorDirectory,
                                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                           hbl => new HydraulicBoundaryLocationCalculation(),
-                                                                          1,
+                                                                          0.01,
                                                                           calculationMessageProvider);
 
                 // Assert
@@ -260,7 +260,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                                                                               new TestHydraulicBoundaryLocation(hydraulicLocationName)
                                                                           },
                                                                           hbl => new HydraulicBoundaryLocationCalculation(),
-                                                                          1,
+                                                                          0.01,
                                                                           calculationMessageProvider);
 
                 // Assert
