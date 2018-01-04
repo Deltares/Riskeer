@@ -1430,6 +1430,7 @@ namespace Ringtoets.Integration.Plugin
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                               assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                               assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                              hbl => hbl.DesignWaterLevelCalculation,
                                                                                               assessmentSection.FailureMechanismContribution.Norm,
                                                                                               new DesignWaterLevelCalculationMessageProvider());
                 });
@@ -1462,6 +1463,7 @@ namespace Ringtoets.Integration.Plugin
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                         assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                        hbl => hbl.WaveHeightCalculation,
                                                                                         assessmentSection.FailureMechanismContribution.Norm,
                                                                                         new WaveHeightCalculationMessageProvider());
                 });

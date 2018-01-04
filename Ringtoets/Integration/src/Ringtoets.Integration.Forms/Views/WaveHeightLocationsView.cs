@@ -68,6 +68,7 @@ namespace Ringtoets.Integration.Forms.Views
             CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                        AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                        locations,
+                                                       hbl => hbl.WaveHeightCalculation,
                                                        AssessmentSection.FailureMechanismContribution.Norm,
                                                        messageProvider);
         }

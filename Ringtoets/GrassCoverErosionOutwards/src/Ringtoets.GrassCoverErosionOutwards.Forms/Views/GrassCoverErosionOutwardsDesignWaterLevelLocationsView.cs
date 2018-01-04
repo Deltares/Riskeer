@@ -103,6 +103,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                              AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                              locations,
+                                                             hbl => hbl.DesignWaterLevelCalculation,
                                                              mechanismSpecificNorm,
                                                              messageProvider);
         }
