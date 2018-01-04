@@ -262,6 +262,7 @@ namespace Ringtoets.Common.Service.Test
                 Assert.AreEqual(calculation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
             }
+
             Assert.AreEqual(ActivityState.Executed, activity.State);
             mockRepository.VerifyAll();
         }
@@ -387,6 +388,7 @@ namespace Ringtoets.Common.Service.Test
                                           .IgnoreArguments()
                                           .Return(failureMessage);
             }
+
             mockRepository.ReplayAll();
 
             var output = new TestHydraulicBoundaryLocationOutput(double.NaN, CalculationConvergence.CalculatedConverged);
@@ -418,6 +420,7 @@ namespace Ringtoets.Common.Service.Test
                 Assert.AreSame(output, hydraulicBoundaryLocationCalculation.Output);
                 Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -473,6 +476,7 @@ namespace Ringtoets.Common.Service.Test
                 });
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -506,6 +510,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 calculationMessageProvider.Stub(calc => calc.GetCalculationFailedWithErrorReportMessage(locationName, lastErrorFileContent)).Return(string.Empty);
             }
+
             mockRepository.ReplayAll();
 
             var calculation = new DesignWaterLevelCalculation(hydraulicBoundaryLocation, new HydraulicBoundaryLocationCalculation());
@@ -525,6 +530,7 @@ namespace Ringtoets.Common.Service.Test
                 // Assert
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
+
             mockRepository.VerifyAll();
         }
 
