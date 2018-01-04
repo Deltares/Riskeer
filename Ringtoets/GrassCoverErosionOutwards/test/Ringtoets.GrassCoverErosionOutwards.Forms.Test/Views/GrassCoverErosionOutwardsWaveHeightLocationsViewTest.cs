@@ -414,8 +414,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
-                    normValue = (double) invocation.Arguments[3];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                    normValue = (double) invocation.Arguments[4];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
 
             mockRepository.ReplayAll();
@@ -476,8 +476,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
-                    normValue = (double) invocation.Arguments[3];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                    normValue = (double) invocation.Arguments[4];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
 
             mockRepository.ReplayAll();
@@ -541,8 +541,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
-                    normValue = (double) invocation.Arguments[3];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                    normValue = (double) invocation.Arguments[4];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
 
             mockRepository.ReplayAll();
