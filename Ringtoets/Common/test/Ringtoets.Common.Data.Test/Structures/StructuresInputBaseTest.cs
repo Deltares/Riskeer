@@ -166,7 +166,7 @@ namespace Ringtoets.Common.Data.Test.Structures
                 FailureProbabilityStructureWithErosion = 0.99
             };
 
-            VariationCoefficientLogNormalDistribution expectedStormDuraation = input.StormDuration;
+            VariationCoefficientLogNormalDistribution expectedStormDuration = input.StormDuration;
             NormalDistribution expectedModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow;
             double expectedFailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
@@ -177,7 +177,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             input.Structure = null;
 
             // Then
-            DistributionAssert.AreEqual(expectedStormDuraation, input.StormDuration);
+            DistributionAssert.AreEqual(expectedStormDuration, input.StormDuration);
             DistributionAssert.AreEqual(expectedModelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
 
             AssertAreEqual(double.NaN, input.StructureNormalOrientation);

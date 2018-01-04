@@ -253,8 +253,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             var random = new Random(22);
             var input = new GrassCoverErosionInwardsInput();
-            var mean = (RoundedDouble) (0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
+            RoundedDouble mean = random.NextRoundedDouble(0.01, double.MaxValue);
+            RoundedDouble standardDeviation = random.NextRoundedDouble(0.01, double.MaxValue);
             var expectedDistribution = new LogNormalDistribution(4)
             {
                 Mean = mean,
@@ -270,8 +270,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             input.CriticalFlowRate = distributionToSet;
 
             // Assert
-            Assert.AreNotSame(distributionToSet, input.CriticalFlowRate);
-            DistributionAssert.AreEqual(expectedDistribution, input.CriticalFlowRate);
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.CriticalFlowRate,
+                                                                  distributionToSet,
+                                                                  expectedDistribution);
         }
 
         [Test]

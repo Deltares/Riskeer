@@ -23,10 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
@@ -187,24 +185,22 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             Assert.AreEqual(top, pipingSoilLayer.Top);
 
-            DistributionAssert.AreEqual(new LogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) layer.BelowPhreaticLevelMean,
-                StandardDeviation = (RoundedDouble) layer.BelowPhreaticLevelDeviation,
-                Shift = (RoundedDouble) layer.BelowPhreaticLevelShift
-            }, pipingSoilLayer.BelowPhreaticLevel);
+            Assert.AreEqual(layer.BelowPhreaticLevelMean, pipingSoilLayer.BelowPhreaticLevel.Mean,
+                            pipingSoilLayer.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(layer.BelowPhreaticLevelDeviation, pipingSoilLayer.BelowPhreaticLevel.StandardDeviation,
+                            pipingSoilLayer.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(layer.BelowPhreaticLevelShift, pipingSoilLayer.BelowPhreaticLevel.Shift,
+                            pipingSoilLayer.BelowPhreaticLevel.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(6)
-            {
-                Mean = (RoundedDouble) layer.DiameterD70Mean,
-                CoefficientOfVariation = (RoundedDouble) layer.DiameterD70CoefficientOfVariation
-            }, pipingSoilLayer.DiameterD70);
+            Assert.AreEqual(layer.DiameterD70Mean, pipingSoilLayer.DiameterD70.Mean,
+                            pipingSoilLayer.DiameterD70.GetAccuracy());
+            Assert.AreEqual(layer.DiameterD70CoefficientOfVariation, pipingSoilLayer.DiameterD70.CoefficientOfVariation,
+                            pipingSoilLayer.DiameterD70.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(6)
-            {
-                Mean = (RoundedDouble) layer.PermeabilityMean,
-                CoefficientOfVariation = (RoundedDouble) layer.PermeabilityCoefficientOfVariation
-            }, pipingSoilLayer.Permeability);
+            Assert.AreEqual(layer.PermeabilityMean, pipingSoilLayer.Permeability.Mean,
+                            pipingSoilLayer.Permeability.GetAccuracy());
+            Assert.AreEqual(layer.PermeabilityCoefficientOfVariation, pipingSoilLayer.Permeability.CoefficientOfVariation,
+                            pipingSoilLayer.Permeability.GetAccuracy());
         }
 
         [Test]
@@ -374,24 +370,22 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             Color expectedColor = Color.FromArgb(Convert.ToInt32(color));
             Assert.AreEqual(expectedColor, resultLayer.Color);
 
-            DistributionAssert.AreEqual(new LogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) layer.BelowPhreaticLevelMean,
-                StandardDeviation = (RoundedDouble) layer.BelowPhreaticLevelDeviation,
-                Shift = (RoundedDouble) layer.BelowPhreaticLevelShift
-            }, resultLayer.BelowPhreaticLevel);
+            Assert.AreEqual(layer.BelowPhreaticLevelMean, resultLayer.BelowPhreaticLevel.Mean,
+                            resultLayer.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(layer.BelowPhreaticLevelDeviation, resultLayer.BelowPhreaticLevel.StandardDeviation,
+                            resultLayer.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(layer.BelowPhreaticLevelShift, resultLayer.BelowPhreaticLevel.Shift,
+                            resultLayer.BelowPhreaticLevel.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(6)
-            {
-                Mean = (RoundedDouble) layer.DiameterD70Mean,
-                CoefficientOfVariation = (RoundedDouble) layer.DiameterD70CoefficientOfVariation
-            }, resultLayer.DiameterD70);
+            Assert.AreEqual(layer.DiameterD70Mean, resultLayer.DiameterD70.Mean,
+                            resultLayer.DiameterD70.GetAccuracy());
+            Assert.AreEqual(layer.DiameterD70CoefficientOfVariation, resultLayer.DiameterD70.CoefficientOfVariation,
+                            resultLayer.DiameterD70.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(6)
-            {
-                Mean = (RoundedDouble) layer.PermeabilityMean,
-                CoefficientOfVariation = (RoundedDouble) layer.PermeabilityCoefficientOfVariation
-            }, resultLayer.Permeability);
+            Assert.AreEqual(layer.PermeabilityMean, resultLayer.Permeability.Mean,
+                            resultLayer.Permeability.GetAccuracy());
+            Assert.AreEqual(layer.PermeabilityCoefficientOfVariation, resultLayer.Permeability.CoefficientOfVariation,
+                            resultLayer.Permeability.GetAccuracy());
         }
 
         [Test]
