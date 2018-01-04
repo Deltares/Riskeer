@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Util.Test
 
         [Test]
         [TestCase("9000.0")]
-        [TestCase("17.4")]
+        [TestCase("18.2")]
         public void IsNewerThanCurrentString_NewerVersion_ReturnsTrue(string newerVersion)
         {
             // Call
@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Util.Test
 
         [Test]
         [TestCase("5")]
-        [TestCase("17.0")]
+        [TestCase("18.0")]
         public void IsNewerThanCurrentString_OlderVersion_ReturnsFalse(string olderVersion)
         {
             // Call
@@ -138,7 +138,8 @@ namespace Ringtoets.Common.Util.Test
                 new TestCaseData("5"),
                 new TestCaseData("17.1"),
                 new TestCaseData("17.2"),
-                new TestCaseData("17.3")
+                new TestCaseData("17.3"),
+                new TestCaseData("18.1")
             };
         }
 
