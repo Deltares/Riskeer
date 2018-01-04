@@ -182,6 +182,7 @@ namespace Application.Ringtoets.Migration.Test
                 expectedLogMessages.Add(Tuple.Create($"Het migreren van het projectbestand '{sourceFilePath}' is geannuleerd.",
                                                      LogLevelConstant.Warn));
             }
+
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessages, expectedLogMessages.Count);
 
             MigrationRequired expectedResult = confirmContinuation ? MigrationRequired.Yes : MigrationRequired.Aborted;
@@ -477,6 +478,8 @@ namespace Application.Ringtoets.Migration.Test
                                         $@"  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).{Environment.NewLine}" +
                                         $@"  + De norm van het dijktraject is gelijk gesteld aan de signaleringswaarde.{Environment.NewLine}" +
                                         $@"Gevolgen van de migratie van versie 17.2 naar versie 17.3:{Environment.NewLine}" +
+                                        $@"* Geen aanpassingen.{Environment.NewLine}" +
+                                        $@"Gevolgen van de migratie van versie 17.3 naar versie 18.1:{Environment.NewLine}" +
                                         $@"* Traject: 'assessmentSection'{Environment.NewLine}" +
                                         $@"  + Toetsspoor: 'Piping'{Environment.NewLine}" +
                                         $@"    - De waarde '3.2' voor de verschuiving van parameter 'Verzadigd gewicht' van ondergrondlaag 'HotPinkLayer' is ongeldig en is veranderd naar NaN.");
@@ -630,6 +633,7 @@ namespace Application.Ringtoets.Migration.Test
                 string logPath = Path.Combine(TestHelper.GetScratchPadPath(logDirectory), "RingtoetsMigrationLog.sqlite");
                 Assert.IsFalse(File.Exists(logPath));
             }
+
             mocks.VerifyAll();
         }
 
@@ -669,6 +673,7 @@ namespace Application.Ringtoets.Migration.Test
                 string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RingtoetsMigrationLog.sqlite");
                 Assert.IsFalse(File.Exists(logPath));
             }
+
             mocks.VerifyAll();
         }
     }

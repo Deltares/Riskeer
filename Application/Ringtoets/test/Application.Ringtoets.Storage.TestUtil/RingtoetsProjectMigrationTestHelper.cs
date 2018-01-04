@@ -69,6 +69,8 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             yield return "164";
             yield return "171";
+            yield return "172";
+            yield return "173";
         }
 
         /// <summary>

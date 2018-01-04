@@ -60,8 +60,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertVersions(reader);
                     AssertDatabase(reader);
 
-                    AssertPipingSoilLayers(reader);
-
                     AssertHydraRingPreprocessor(reader);
                 }
 
@@ -157,6 +155,43 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.2", newVersion, "* Geen aanpassingen."),
                         messages[3]);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenEmpty172Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade()
+        {
+            // Given
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
+                                                               "Empty valid Release 17.2.rtd");
+            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+
+            string targetFilePath = TestHelper.GetScratchPadPath(
+                nameof(GivenEmpty171Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade));
+            string logFilePath = TestHelper.GetScratchPadPath(
+                string.Concat(nameof(GivenEmpty171Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade), ".log"));
+            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            {
+                LogPath = logFilePath
+            };
+
+            using (new FileDisposeHelper(logFilePath))
+            using (new FileDisposeHelper(targetFilePath))
+            {
+                // When
+                migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+
+                using (var reader = new MigrationLogDatabaseReader(logFilePath))
+                {
+                    ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
+                    Assert.AreEqual(2, messages.Count);
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.2", newVersion, "Gevolgen van de migratie van versie 17.2 naar versie 17.3:"),
+                        messages[0]);
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.2", newVersion, "* Geen aanpassingen."),
+                        messages[1]);
                 }
             }
         }
@@ -287,39 +322,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(10, messages.Count);
+                Assert.AreEqual(2, messages.Count);
                 var i = 0;
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.2", newVersion, "Gevolgen van de migratie van versie 17.2 naar versie 17.3:"),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "* Traject: 'PipingSoilLayer'"),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "  + Toetsspoor: 'Piping'"),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '-0.125' voor de variatiecoëfficiënt van parameter 'd70' van ondergrondlaag 'DiameterD70Variation' is ongeldig en is veranderd naar NaN."),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '-1.0' voor het gemiddelde van parameter 'Doorlatendheid' van ondergrondlaag 'PermeabilityMean' is ongeldig en is veranderd naar NaN."),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '-1.0e-06' voor het gemiddelde van parameter 'd70' van ondergrondlaag 'DiameterD70Mean' is ongeldig en is veranderd naar NaN."),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '-10.0' voor de standaardafwijking van parameter 'Verzadigd gewicht' van ondergrondlaag 'BelowPhreaticLevelDeviation' is ongeldig en is veranderd naar NaN."),
-                    messages[i++]);
-               AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '-10.0' voor de variatiecoëfficiënt van parameter 'Doorlatendheid' van ondergrondlaag 'PermeabilityVariation' is ongeldig en is veranderd naar NaN."),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '0.0' voor het gemiddelde van parameter 'Verzadigd gewicht' van ondergrondlaag 'BelowPhreaticLevelMean' is ongeldig en is veranderd naar NaN."),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "    - De waarde '15.0' voor de verschuiving van parameter 'Verzadigd gewicht' van ondergrondlaag 'BelowPhreaticLevelShift' is ongeldig en is veranderd naar NaN."),
+                    new MigrationLogMessage("17.2", newVersion, "* Geen aanpassingen."),
                     messages[i]);
-               
             }
         }
 
@@ -345,31 +355,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT COUNT() = 0 " +
                 "FROM [HydraRingPreprocessorEntity];";
             reader.AssertReturnedDataIsValid(validatePreprocessorSettings);
-        }
-
-        private static void AssertPipingSoilLayers(MigratedDatabaseReader reader)
-        {
-            const string validateBelowPhreaticLevel =
-                "SELECT COUNT() = 0 " +
-                "FROM PipingSoilLayerEntity " +
-                "WHERE [BelowPhreaticLevelMean] < [BelowPhreaticLevelShift] " +
-                "OR [BelowPhreaticLevelMean] <= 0 " +
-                "OR [BelowPhreaticLevelDeviation] < 0;";
-            reader.AssertReturnedDataIsValid(validateBelowPhreaticLevel);
-
-            const string validateDiameter70 =
-                "SELECT COUNT() = 0 " +
-                "FROM PipingSoilLayerEntity " +
-                "WHERE [DiameterD70Mean] <= 0 " +
-                "OR [DiameterD70CoefficientOfVariation] < 0;";
-            reader.AssertReturnedDataIsValid(validateDiameter70);
-
-            const string validatePermeability =
-                "SELECT COUNT() = 0 " +
-                "FROM PipingSoilLayerEntity " +
-                "WHERE [PermeabilityMean] <= 0 " +
-                "OR [PermeabilityCoefficientOfVariation] < 0;";
-            reader.AssertReturnedDataIsValid(validatePermeability);
         }
     }
 }
