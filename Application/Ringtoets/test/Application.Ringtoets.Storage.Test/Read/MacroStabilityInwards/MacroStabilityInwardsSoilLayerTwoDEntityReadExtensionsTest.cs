@@ -26,10 +26,8 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
@@ -106,49 +104,28 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             MacroStabilityInwardsSoilLayerData data = layer.Data;
             Assert.AreEqual(entity.MaterialName, data.MaterialName);
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN,
-                Shift = RoundedDouble.NaN
-            }, data.AbovePhreaticLevel);
+            Assert.IsNaN(data.AbovePhreaticLevel.Mean);
+            Assert.IsNaN(data.AbovePhreaticLevel.CoefficientOfVariation);
+            Assert.IsNaN(data.AbovePhreaticLevel.Shift);
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN,
-                Shift = RoundedDouble.NaN
-            }, data.BelowPhreaticLevel);
+            Assert.IsNaN(data.BelowPhreaticLevel.Mean);
+            Assert.IsNaN(data.BelowPhreaticLevel.CoefficientOfVariation);
+            Assert.IsNaN(data.BelowPhreaticLevel.Shift);
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
-            }, data.Cohesion);
+            Assert.IsNaN(data.Cohesion.Mean);
+            Assert.IsNaN(data.Cohesion.CoefficientOfVariation);
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
-            }, data.FrictionAngle);
+            Assert.IsNaN(data.FrictionAngle.Mean);
+            Assert.IsNaN(data.FrictionAngle.CoefficientOfVariation);
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
-            }, data.ShearStrengthRatio);
+            Assert.IsNaN(data.ShearStrengthRatio.Mean);
+            Assert.IsNaN(data.ShearStrengthRatio.CoefficientOfVariation);
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
-            }, data.StrengthIncreaseExponent);
+            Assert.IsNaN(data.StrengthIncreaseExponent.Mean);
+            Assert.IsNaN(data.StrengthIncreaseExponent.CoefficientOfVariation);
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
-            }, data.Pop);
+            Assert.IsNaN(data.Pop.Mean);
+            Assert.IsNaN(data.Pop.CoefficientOfVariation);
         }
 
         private static void AssertMacroStabilityInwardsSoilLayer2D(MacroStabilityInwardsSoilLayerTwoDEntity entity,
@@ -160,49 +137,43 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             Assert.AreEqual(entity.Color, data.Color.ToInt64());
             Assert.AreEqual(entity.MaterialName, data.MaterialName);
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) entity.AbovePhreaticLevelMean.ToNullAsNaN(),
-                CoefficientOfVariation = (RoundedDouble) entity.AbovePhreaticLevelCoefficientOfVariation.ToNullAsNaN(),
-                Shift = (RoundedDouble) entity.AbovePhreaticLevelShift.ToNullAsNaN()
-            }, data.AbovePhreaticLevel);
+            Assert.AreEqual(entity.AbovePhreaticLevelMean ?? double.NaN, data.AbovePhreaticLevel.Mean,
+                            data.AbovePhreaticLevel.GetAccuracy());
+            Assert.AreEqual(entity.AbovePhreaticLevelCoefficientOfVariation ?? double.NaN, data.AbovePhreaticLevel.CoefficientOfVariation,
+                            data.AbovePhreaticLevel.GetAccuracy());
+            Assert.AreEqual(entity.AbovePhreaticLevelShift ?? double.NaN, data.AbovePhreaticLevel.Shift,
+                            data.AbovePhreaticLevel.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) entity.BelowPhreaticLevelMean.ToNullAsNaN(),
-                CoefficientOfVariation = (RoundedDouble) entity.BelowPhreaticLevelCoefficientOfVariation.ToNullAsNaN(),
-                Shift = (RoundedDouble) entity.BelowPhreaticLevelShift.ToNullAsNaN()
-            }, data.BelowPhreaticLevel);
+            Assert.AreEqual(entity.BelowPhreaticLevelMean ?? double.NaN, data.BelowPhreaticLevel.Mean,
+                            data.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(entity.BelowPhreaticLevelCoefficientOfVariation ?? double.NaN, data.BelowPhreaticLevel.CoefficientOfVariation,
+                            data.BelowPhreaticLevel.GetAccuracy());
+            Assert.AreEqual(entity.BelowPhreaticLevelShift ?? double.NaN, data.BelowPhreaticLevel.Shift,
+                            data.BelowPhreaticLevel.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) entity.CohesionMean.ToNullAsNaN(),
-                CoefficientOfVariation = (RoundedDouble) entity.CohesionCoefficientOfVariation.ToNullAsNaN()
-            }, data.Cohesion);
+            Assert.AreEqual(entity.CohesionMean ?? double.NaN, data.Cohesion.Mean,
+                            data.Cohesion.GetAccuracy());
+            Assert.AreEqual(entity.CohesionCoefficientOfVariation ?? double.NaN, data.Cohesion.CoefficientOfVariation,
+                            data.Cohesion.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) entity.FrictionAngleMean.ToNullAsNaN(),
-                CoefficientOfVariation = (RoundedDouble) entity.FrictionAngleCoefficientOfVariation.ToNullAsNaN()
-            }, data.FrictionAngle);
+            Assert.AreEqual(entity.FrictionAngleMean ?? double.NaN, data.FrictionAngle.Mean,
+                            data.FrictionAngle.GetAccuracy());
+            Assert.AreEqual(entity.FrictionAngleCoefficientOfVariation ?? double.NaN, data.FrictionAngle.CoefficientOfVariation,
+                            data.FrictionAngle.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) entity.ShearStrengthRatioMean.ToNullAsNaN(),
-                CoefficientOfVariation = (RoundedDouble) entity.ShearStrengthRatioCoefficientOfVariation.ToNullAsNaN()
-            }, data.ShearStrengthRatio);
+            Assert.AreEqual(entity.ShearStrengthRatioMean ?? double.NaN, data.ShearStrengthRatio.Mean,
+                            data.ShearStrengthRatio.GetAccuracy());
+            Assert.AreEqual(entity.ShearStrengthRatioCoefficientOfVariation ?? double.NaN, data.ShearStrengthRatio.CoefficientOfVariation,
+                            data.ShearStrengthRatio.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) entity.StrengthIncreaseExponentMean.ToNullAsNaN(),
-                CoefficientOfVariation = (RoundedDouble) entity.StrengthIncreaseExponentCoefficientOfVariation.ToNullAsNaN()
-            }, data.StrengthIncreaseExponent);
+            Assert.AreEqual(entity.StrengthIncreaseExponentMean ?? double.NaN, data.StrengthIncreaseExponent.Mean,
+                            data.StrengthIncreaseExponent.GetAccuracy());
+            Assert.AreEqual(entity.StrengthIncreaseExponentCoefficientOfVariation ?? double.NaN, data.StrengthIncreaseExponent.CoefficientOfVariation,
+                            data.StrengthIncreaseExponent.GetAccuracy());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) entity.PopMean.ToNullAsNaN(),
-                CoefficientOfVariation = (RoundedDouble) entity.PopCoefficientOfVariation.ToNullAsNaN()
-            }, data.Pop);
+            Assert.AreEqual(entity.PopMean ?? double.NaN, data.Pop.Mean, data.Pop.GetAccuracy());
+            Assert.AreEqual(entity.PopCoefficientOfVariation ?? double.NaN, data.Pop.CoefficientOfVariation,
+                            data.Pop.GetAccuracy());
 
             CollectionAssert.AreEqual(new Point2DXmlSerializer().FromXml(entity.OuterRingXml),
                                       layer.OuterRing.Points);

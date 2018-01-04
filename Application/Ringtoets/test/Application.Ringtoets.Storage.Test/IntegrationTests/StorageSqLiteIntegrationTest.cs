@@ -44,7 +44,6 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -523,46 +522,55 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     AssertCalculationGroup(expectedChildGroup, (CalculationGroup) actualChild);
                 }
+
                 var expectedPipingCalculation = expectedChild as PipingCalculationScenario;
                 if (expectedPipingCalculation != null)
                 {
                     AssertPipingCalculationScenario(expectedPipingCalculation, (PipingCalculationScenario) actualChild);
                 }
+
                 var expectedMacroStabilityInwardsCalculation = expectedChild as MacroStabilityInwardsCalculationScenario;
                 if (expectedMacroStabilityInwardsCalculation != null)
                 {
                     AssertMacroStabilityInwardsCalculationScenario(expectedMacroStabilityInwardsCalculation, (MacroStabilityInwardsCalculationScenario) actualChild);
                 }
+
                 var expectedGrassCoverErosionInwardsCalculation = expectedChild as GrassCoverErosionInwardsCalculation;
                 if (expectedGrassCoverErosionInwardsCalculation != null)
                 {
                     AssertGrassCoverErosionInwardsCalculation(expectedGrassCoverErosionInwardsCalculation, (GrassCoverErosionInwardsCalculation) actualChild);
                 }
+
                 var expectedGrassCoverErosionOutwardsCalculation = expectedChild as GrassCoverErosionOutwardsWaveConditionsCalculation;
                 if (expectedGrassCoverErosionOutwardsCalculation != null)
                 {
                     AssertGrassCoverErosionOutwardsWaveConditionsCalculation(expectedGrassCoverErosionOutwardsCalculation, (GrassCoverErosionOutwardsWaveConditionsCalculation) actualChild);
                 }
+
                 var expectedHeightStructuresCalculation = expectedChild as StructuresCalculation<HeightStructuresInput>;
                 if (expectedHeightStructuresCalculation != null)
                 {
                     AssertStructuresCalculation(expectedHeightStructuresCalculation, (StructuresCalculation<HeightStructuresInput>) actualChild);
                 }
+
                 var expectedClosingStructuresCalculation = expectedChild as StructuresCalculation<ClosingStructuresInput>;
                 if (expectedClosingStructuresCalculation != null)
                 {
                     AssertStructuresCalculation(expectedClosingStructuresCalculation, (StructuresCalculation<ClosingStructuresInput>) actualChild);
                 }
+
                 var expectedStabilityPointStructuresCalculation = expectedChild as StructuresCalculation<StabilityPointStructuresInput>;
                 if (expectedStabilityPointStructuresCalculation != null)
                 {
                     AssertStructuresCalculation(expectedStabilityPointStructuresCalculation, (StructuresCalculation<StabilityPointStructuresInput>) actualChild);
                 }
+
                 var expectedStabilityStoneCoverWaveConditionsCalculation = expectedChild as StabilityStoneCoverWaveConditionsCalculation;
                 if (expectedStabilityStoneCoverWaveConditionsCalculation != null)
                 {
                     AssertStabilityStoneCoverWaveConditionsCalculation(expectedStabilityStoneCoverWaveConditionsCalculation, (StabilityStoneCoverWaveConditionsCalculation) actualChild);
                 }
+
                 var expectedWaveImpactAsphaltCoverWaveConditionsCalculation = expectedChild as WaveImpactAsphaltCoverWaveConditionsCalculation;
                 if (expectedWaveImpactAsphaltCoverWaveConditionsCalculation != null)
                 {
@@ -1086,6 +1094,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.IsNull(actualOutput);
                 return;
             }
+
             Assert.AreEqual(expectedOutput.WaterLevel, actualOutput.WaterLevel);
             Assert.AreEqual(expectedOutput.WaveHeight, actualOutput.WaveHeight);
             Assert.AreEqual(expectedOutput.WavePeriod, actualOutput.WavePeriod);
@@ -1515,43 +1524,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedData.Color.ToArgb(), actualData.Color.ToArgb());
             Assert.AreEqual(expectedData.UsePop, actualData.UsePop);
             Assert.AreEqual(expectedData.ShearStrengthModel, actualData.ShearStrengthModel);
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = expectedData.AbovePhreaticLevel.Mean,
-                CoefficientOfVariation = expectedData.AbovePhreaticLevel.CoefficientOfVariation,
-                Shift = expectedData.AbovePhreaticLevel.Shift
-            }, actualData.AbovePhreaticLevel);
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = expectedData.BelowPhreaticLevel.Mean,
-                CoefficientOfVariation = expectedData.BelowPhreaticLevel.CoefficientOfVariation,
-                Shift = expectedData.BelowPhreaticLevel.Shift
-            }, actualData.BelowPhreaticLevel);
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = expectedData.Cohesion.Mean,
-                CoefficientOfVariation = expectedData.Cohesion.CoefficientOfVariation
-            }, actualData.Cohesion);
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = expectedData.FrictionAngle.Mean,
-                CoefficientOfVariation = expectedData.FrictionAngle.CoefficientOfVariation
-            }, actualData.FrictionAngle);
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = expectedData.ShearStrengthRatio.Mean,
-                CoefficientOfVariation = expectedData.ShearStrengthRatio.CoefficientOfVariation
-            }, actualData.ShearStrengthRatio);
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = expectedData.StrengthIncreaseExponent.Mean,
-                CoefficientOfVariation = expectedData.StrengthIncreaseExponent.CoefficientOfVariation
-            }, actualData.StrengthIncreaseExponent);
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = expectedData.Pop.Mean,
-                CoefficientOfVariation = expectedData.Pop.CoefficientOfVariation
-            }, actualData.Pop);
+            DistributionAssert.AreEqual(expectedData.AbovePhreaticLevel, actualData.AbovePhreaticLevel);
+            DistributionAssert.AreEqual(expectedData.BelowPhreaticLevel, actualData.BelowPhreaticLevel);
+            DistributionAssert.AreEqual(expectedData.Cohesion, actualData.Cohesion);
+            DistributionAssert.AreEqual(expectedData.FrictionAngle, actualData.FrictionAngle);
+            DistributionAssert.AreEqual(expectedData.ShearStrengthRatio, actualData.ShearStrengthRatio);
+            DistributionAssert.AreEqual(expectedData.StrengthIncreaseExponent, actualData.StrengthIncreaseExponent);
+            DistributionAssert.AreEqual(expectedData.Pop, actualData.Pop);
         }
 
         private static void AssertMacroStabilityInwardsSurfaceLine(MacroStabilityInwardsSurfaceLine expectedSurfaceLine,
@@ -2108,6 +2087,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.IsNull(actualOutput);
                 return;
             }
+
             Assert.AreEqual(expectedOutput.Result, actualOutput.Result);
             Assert.AreEqual(expectedOutput.TargetProbability, actualOutput.TargetProbability);
             Assert.AreEqual(expectedOutput.TargetReliability, actualOutput.TargetReliability);
