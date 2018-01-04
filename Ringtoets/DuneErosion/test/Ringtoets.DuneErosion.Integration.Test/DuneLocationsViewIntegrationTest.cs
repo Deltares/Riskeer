@@ -67,7 +67,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
         {
             // Given
             DuneLocationsView view = ShowFullyConfiguredDuneLocationsView();
-            view.AssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             if (rowSelected)
             {
@@ -100,8 +99,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
 
         private DuneLocationsView ShowFullyConfiguredDuneLocationsView()
         {
-            DuneLocationsView view = ShowDuneLocationsView();
-            view.Data = new ObservableList<DuneLocation>
+            var locations = new ObservableList<DuneLocation>
             {
                 new DuneLocation(1, "1", new Point2D(1.0, 1.0), new DuneLocation.ConstructionProperties
                 {
@@ -125,12 +123,14 @@ namespace Ringtoets.DuneErosion.Integration.Test
                 }
             };
 
+            DuneLocationsView view = ShowDuneLocationsView(locations);
+
             return view;
         }
 
-        private DuneLocationsView ShowDuneLocationsView()
+        private DuneLocationsView ShowDuneLocationsView(ObservableList<DuneLocation> locations)
         {
-            var view = new DuneLocationsView();
+            var view = new DuneLocationsView(locations, new AssessmentSection(AssessmentSectionComposition.Dike));
 
             testForm.Controls.Add(view);
             testForm.Show();

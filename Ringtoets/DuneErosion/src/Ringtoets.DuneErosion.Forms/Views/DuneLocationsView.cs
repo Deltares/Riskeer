@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -41,51 +42,47 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly Observer duneLocationsObserver;
         private readonly Observer assessmentSectionObserver;
 
-        private IAssessmentSection assessmentSection;
         private DuneErosionFailureMechanism failureMechanism;
         private ObservableList<DuneLocation> locations;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationsView"/>.
         /// </summary>
-        public DuneLocationsView()
+        /// <param name="locations">The locations to show in the view.</param>
+        /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public DuneLocationsView(ObservableList<DuneLocation> locations, IAssessmentSection assessmentSection)
         {
+            if (locations == null)
+            {
+                throw new ArgumentNullException(nameof(locations));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             InitializeComponent();
 
             duneLocationsObserver = new Observer(UpdateDuneLocations);
             assessmentSectionObserver = new Observer(UpdateCalculateForSelectedButton);
+
+            this.locations = locations;
+            AssessmentSection = assessmentSection;
+
+            duneLocationsObserver.Observable = locations;
+            assessmentSectionObserver.Observable = assessmentSection;
+
+            UpdateDataGridViewDataSource();
         }
 
-        public override object Data
-        {
-            get
-            {
-                return locations;
-            }
-            set
-            {
-                var data = (ObservableList<DuneLocation>) value;
-                locations = data;
-                UpdateDataGridViewDataSource();
-                duneLocationsObserver.Observable = data;
-            }
-        }
+        public override object Data { get; set; }
 
         /// <summary>
-        /// Gets or sets the assessment section.
+        /// Gets the assessment section.
         /// </summary>
-        public IAssessmentSection AssessmentSection
-        {
-            get
-            {
-                return assessmentSection;
-            }
-            set
-            {
-                assessmentSection = value;
-                assessmentSectionObserver.Observable = assessmentSection;
-            }
-        }
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="DuneErosionFailureMechanism"/> for which the
