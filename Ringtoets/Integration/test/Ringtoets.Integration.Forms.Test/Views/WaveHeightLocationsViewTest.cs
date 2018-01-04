@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection))
+            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, 0.01))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowWaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, testForm);
+            ShowWaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, 0.01, testForm);
 
             // Assert
             DataGridView locationsDataGridView = GetLocationsDataGridView();
@@ -341,6 +341,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
+            const double norm = 0.01;
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase
@@ -373,7 +374,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            WaveHeightLocationsView view = ShowWaveHeightLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, testForm);
+            WaveHeightLocationsView view = ShowWaveHeightLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -388,7 +389,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual("", preprocessorDirectoryValue);
-            Assert.AreEqual(normValue, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
@@ -400,6 +401,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const string preprocessorDirectory = "PreprocessorDirectory";
+            const double norm = 0.01;
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase
@@ -435,7 +437,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            WaveHeightLocationsView view = ShowWaveHeightLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, testForm);
+            WaveHeightLocationsView view = ShowWaveHeightLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -450,7 +452,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(preprocessorDirectory, preprocessorDirectoryValue);
-            Assert.AreEqual(normValue, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
@@ -461,6 +463,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
+            const double norm = 0.01;
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase
@@ -496,7 +499,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            WaveHeightLocationsView view = ShowWaveHeightLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, testForm);
+            WaveHeightLocationsView view = ShowWaveHeightLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -511,7 +514,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(string.Empty, preprocessorDirectoryValue);
-            Assert.AreEqual(normValue, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
@@ -549,9 +552,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private static WaveHeightLocationsView ShowWaveHeightLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
                                                                            IAssessmentSection assessmentSection,
+                                                                           double norm,
                                                                            Form form)
         {
-            var view = new WaveHeightLocationsView(locations, assessmentSection);
+            var view = new WaveHeightLocationsView(locations, assessmentSection, norm);
 
             form.Controls.Add(view);
             form.Show();
@@ -564,7 +568,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            return ShowWaveHeightLocationsView(locations, assessmentSection, form);
+            return ShowWaveHeightLocationsView(locations, assessmentSection, 0.01, form);
         }
 
         private class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase
