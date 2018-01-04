@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Migration.Core.Test
 
         [Test]
         [TestCase("16.4")]
-        [TestCase("17.3")]
+        [TestCase("18.1")]
         public void IsVersionSupported_UnsupportedVersion_ReturnsFalse(string fromVersion)
         {
             // Setup

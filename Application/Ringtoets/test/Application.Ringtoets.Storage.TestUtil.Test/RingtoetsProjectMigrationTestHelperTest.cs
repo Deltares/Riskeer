@@ -86,13 +86,15 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             string[] versions = RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions().ToArray();
 
             // Assert
-            const int expectedNrOfVersions = 2;
+            const int expectedNrOfVersions = 4;
             Assert.AreEqual(expectedNrOfVersions, versions.Length);
 
             IEnumerable<string> expectedProjectVersions = new[]
             {
                 "5",
-                "17.1"
+                "17.1",
+                "17.2",
+                "17.3"
             };
             List<string> returnedProjectVersions = versions.Select(v => new RingtoetsVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
                                                                                                                               $"FullTestProject{v}.rtd")).GetVersion()).ToList();
