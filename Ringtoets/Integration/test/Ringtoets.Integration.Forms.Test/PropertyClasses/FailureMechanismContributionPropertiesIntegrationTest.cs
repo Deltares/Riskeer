@@ -52,8 +52,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
         private const string messageCalculationsremoved = "De resultaten van {0} berekeningen zijn verwijderd.";
         private const NormType newNormativeNorm = NormType.Signaling;
-        private readonly double newLowerLimitNorm = 0.01;
-        private readonly double newSignalingNorm = 0.000001;
+        private const double newLowerLimitNorm = 0.01;
+        private const double newSignalingNorm = 0.000001;
 
         private void SetPropertyAndVerifyNotificationsAndOutputForAllDataSet(Action<FailureMechanismContributionProperties> setPropertyAction)
         {
@@ -308,29 +308,31 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
             var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var failureMechanismContributionObserver = mockRepository.StrictMock<IObserver>();
+            failureMechanismContributionObserver.Expect(o => o.UpdateObserver());
             var calculationObserver = mockRepository.StrictMock<IObserver>(); // No update observers expected.
-            var hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
-            hydraulicBoundaryDatabaseObserver.Expect(hbdo => hbdo.UpdateObserver());
+            var hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>(); // No update observers expected.
+            var hydraulicBoundaryLocationObserver = mockRepository.StrictMock<IObserver>();
+            hydraulicBoundaryLocationObserver.Expect(o => o.UpdateObserver());
 
             var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
-            failureMechanismContribution.Attach(observer);
+            failureMechanismContribution.Attach(failureMechanismContributionObserver);
             assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
             emptyPipingCalculation.Attach(calculationObserver);
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
             emptyHeightStructuresCalculation.Attach(calculationObserver);
 
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            hydraulicBoundaryLocation.Attach(hydraulicBoundaryLocationObserver);
+
             var properties = new FailureMechanismContributionProperties(
                 failureMechanismContribution,
                 assessmentSection,
                 new FailureMechanismContributionNormChangeHandler(assessmentSection),
                 new AssessmentSectionCompositionChangeHandler(viewCommands));
-
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -686,19 +688,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         #region HydraulicBoundarySetAndCalculationsNoOutput
 
         [Test]
-        public void LowerLimitNorm_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryDatabaseObserversNotifiedAndMessagesLogged()
+        public void LowerLimitNorm_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryLocationObserversNotifiedAndMessagesLogged()
         {
             SetPropertyAndVerifyNotificationsAndOutputForHydraulicBoundarySetAndCalculationsNoOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
         }
 
         [Test]
-        public void SignalingNorm_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryDatabaseObserversNotifiedAndMessagesLogged()
+        public void SignalingNorm_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryLocationObserversNotifiedAndMessagesLogged()
         {
             SetPropertyAndVerifyNotificationsAndOutputForHydraulicBoundarySetAndCalculationsNoOutput(properties => properties.SignalingNorm = newSignalingNorm);
         }
 
         [Test]
-        public void NormativeNorm_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryDatabaseObserversNotifiedAndMessagesLogged()
+        public void NormativeNorm_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryLocationObserversNotifiedAndMessagesLogged()
         {
             SetPropertyAndVerifyNotificationsAndOutputForHydraulicBoundarySetAndCalculationsNoOutput(properties => properties.NormativeNorm = newNormativeNorm);
         }
