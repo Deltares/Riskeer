@@ -55,14 +55,11 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
-        public DuneLocationContextProperties[] Locations
+        public DuneLocationProperties[] Locations
         {
             get
             {
-                return data.Select(loc => new DuneLocationContextProperties
-                {
-                    Data = new DuneLocationContext(data, loc)
-                }).ToArray();
+                return data.Select(loc => new DuneLocationProperties(loc)).ToArray();
             }
         }
     }

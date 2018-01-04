@@ -147,9 +147,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         protected override object CreateSelectedItemFromCurrentRow()
         {
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
-            return currentRow != null
-                       ? new DuneLocationContext(locations, ((DuneLocationRow) currentRow.DataBoundItem).CalculatableObject)
-                       : null;
+            return ((DuneLocationRow) currentRow?.DataBoundItem)?.CalculatableObject;
         }
 
         protected override void SetDataSource()

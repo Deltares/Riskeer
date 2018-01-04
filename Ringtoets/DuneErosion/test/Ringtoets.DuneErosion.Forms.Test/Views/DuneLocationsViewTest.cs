@@ -259,12 +259,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             selectedLocationRow.Cells[0].Value = true;
 
             // Assert
-            var selection = view.Selection as DuneLocationContext;
+            var selection = view.Selection as DuneLocation;
             var dataBoundItem = selectedLocationRow.DataBoundItem as DuneLocationRow;
 
             Assert.NotNull(selection);
             Assert.NotNull(dataBoundItem);
-            Assert.AreSame(dataBoundItem.CalculatableObject, selection.DuneLocation);
+            Assert.AreSame(dataBoundItem.CalculatableObject, selection);
         }
 
         [Test]

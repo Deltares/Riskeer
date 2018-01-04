@@ -65,7 +65,10 @@ namespace Ringtoets.DuneErosion.Plugin
                 CreateInstance = context => new DuneLocationsContextProperties(context.WrappedData)
             };
 
-            yield return new PropertyInfo<DuneLocationContext, DuneLocationContextProperties>();
+            yield return new PropertyInfo<DuneLocation, DuneLocationProperties>
+            {
+                CreateInstance = location => new DuneLocationProperties(location)
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -89,7 +92,9 @@ namespace Ringtoets.DuneErosion.Plugin
             {
                 Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.Count > 0 ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ForeColor = context => context.WrappedData.Count > 0
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = DuneLocationsContextMenuStrip
             };
         }
