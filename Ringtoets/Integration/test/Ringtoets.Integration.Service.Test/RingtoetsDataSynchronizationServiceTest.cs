@@ -331,7 +331,6 @@ namespace Ringtoets.Integration.Service.Test
             if (duneLocation.Output != null)
             {
                 expectedAffectedItems.Add(duneLocation);
-                expectedAffectedItems.Add(duneErosionFailureMechanism.DuneLocations);
             }
 
             // Call
@@ -396,7 +395,6 @@ namespace Ringtoets.Integration.Service.Test
             if (duneLocation.Output != null)
             {
                 expectedAffectedItems.Add(duneLocation);
-                expectedAffectedItems.Add(duneErosionFailureMechanism.DuneLocations);
             }
 
             // Call
@@ -457,7 +455,6 @@ namespace Ringtoets.Integration.Service.Test
             if (duneLocation.Output != null)
             {
                 expectedAffectedItems.Add(duneLocation);
-                expectedAffectedItems.Add(duneErosionFailureMechanism.DuneLocations);
             }
 
             // Call
