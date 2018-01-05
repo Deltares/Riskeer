@@ -85,7 +85,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Call
             using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                   assessmentSection))
+                                                                                   assessmentSection,
+                                                                                   0.01))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
@@ -101,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsWaveHeightLocationsView(null, assessmentSection);
+            TestDelegate call = () => new GrassCoverErosionOutwardsWaveHeightLocationsView(null, assessmentSection, 0.01);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -116,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowWaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, testForm);
+            ShowWaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, 0.01, testForm);
 
             // Assert
             DataGridView locationsDataGridView = GetLocationsDataGridView();
@@ -393,6 +394,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
+            const double norm = 0.01;
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -422,7 +424,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = databaseFilePath;
 
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, norm, testForm);
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
@@ -436,7 +438,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             double expectedNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                assessmentSection.FailureMechanismContribution.Norm,
+                norm,
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);
 
@@ -455,6 +457,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
+            const double norm = 0.01;
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -488,7 +491,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             hydraulicBoundaryDatabase.UsePreprocessor = true;
             hydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorDirectory;
 
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, norm, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -502,7 +505,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             double expectedNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                assessmentSection.FailureMechanismContribution.Norm,
+                norm,
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);
 
@@ -520,6 +523,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
+            const double norm = 0.01;
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -553,7 +557,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             hydraulicBoundaryDatabase.UsePreprocessor = false;
             hydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, norm, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -567,7 +571,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             double expectedNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                assessmentSection.FailureMechanismContribution.Norm,
+                norm,
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);
 
@@ -612,6 +616,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
         private static GrassCoverErosionOutwardsWaveHeightLocationsView ShowWaveHeightLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
                                                                                                     IAssessmentSection assessmentSection,
+                                                                                                    double norm,
                                                                                                     Form form)
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -620,7 +625,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             };
             failureMechanism.HydraulicBoundaryLocations.AddRange(locations);
 
-            var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(failureMechanism, assessmentSection);
+            var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(failureMechanism, assessmentSection, norm);
 
             form.Controls.Add(view);
             form.Show();
@@ -628,7 +633,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             return view;
         }
 
-        private static GrassCoverErosionOutwardsWaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView(IAssessmentSection assessmentSection, Form form)
+        private static GrassCoverErosionOutwardsWaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView(IAssessmentSection assessmentSection,
+                                                                                                                   Form form)
+        {
+            return ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, 0.01, form);
+        }
+
+        private static GrassCoverErosionOutwardsWaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView(IAssessmentSection assessmentSection,
+                                                                                                                   double norm,
+                                                                                                                   Form form)
         {
             var topLevelIllustrationPoints = new[]
             {
@@ -683,7 +696,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 }
             };
 
-            return ShowWaveHeightLocationsView(locations, assessmentSection, form);
+            return ShowWaveHeightLocationsView(locations, assessmentSection, norm, form);
         }
 
         [TestFixture]
