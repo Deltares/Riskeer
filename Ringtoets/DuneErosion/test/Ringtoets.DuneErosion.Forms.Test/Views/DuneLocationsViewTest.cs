@@ -39,7 +39,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.GuiServices;
-using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -83,7 +82,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new DuneLocationsView(null, new DuneErosionFailureMechanism(),  assessmentSection);
+            TestDelegate call = () => new DuneLocationsView(null, new DuneErosionFailureMechanism(), assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -98,7 +97,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new DuneLocationsView(new ObservableList<DuneLocation>(), null,  assessmentSection);
+            TestDelegate call = () => new DuneLocationsView(new ObservableList<DuneLocation>(), null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -387,7 +386,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
             ObservableList<DuneLocation> locations = view.FailureMechanism.DuneLocations;
 
-            var dataGridView = (DataGridView)view.Controls.Find("dataGridView", true)[0];
+            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
             object originalDataSource = dataGridView.DataSource;
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -473,7 +472,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
             }
-            
+
             if (contributionZero)
             {
                 view.FailureMechanism.Contribution = 0;
@@ -509,7 +508,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
 
-            var dataGridView = (DataGridView)view.Controls.Find("dataGridView", true)[0];
+            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
@@ -557,7 +556,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
 
-            var dataGridView = (DataGridView)view.Controls.Find("dataGridView", true)[0];
+            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
@@ -607,7 +606,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
 
-            var dataGridView = (DataGridView)view.Controls.Find("dataGridView", true)[0];
+            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 

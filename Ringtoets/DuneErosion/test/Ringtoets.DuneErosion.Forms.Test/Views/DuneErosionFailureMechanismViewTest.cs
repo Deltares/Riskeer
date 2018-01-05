@@ -612,6 +612,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 CollectionAssert.AreEqual(duneLocationsArray.Select(duneLocation => duneLocation.Location),
                                           duneLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
             }
+
             Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
         }
     }

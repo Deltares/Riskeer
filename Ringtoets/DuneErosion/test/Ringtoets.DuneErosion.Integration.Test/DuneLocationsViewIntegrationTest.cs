@@ -74,7 +74,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
             }
-            
+
             if (!contributionAfterChangeNotZero)
             {
                 view.FailureMechanism.Contribution = 5;

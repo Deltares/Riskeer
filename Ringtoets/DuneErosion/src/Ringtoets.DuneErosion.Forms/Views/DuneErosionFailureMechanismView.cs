@@ -133,6 +133,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

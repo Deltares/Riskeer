@@ -128,10 +128,7 @@ namespace Ringtoets.DuneErosion.Plugin
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseDuneLocationViewForData,
                 CreateInstance = context => new DuneLocationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = duneLocationCalculationGuiService;
-                },
+                AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
                 AdditionalDataCheck = context => context.WrappedData.Any()
             };
         }
@@ -157,6 +154,7 @@ namespace Ringtoets.DuneErosion.Plugin
             {
                 throw new InvalidOperationException("Gui cannot be null");
             }
+
             duneLocationCalculationGuiService = new DuneLocationCalculationGuiService(Gui.MainWindow);
         }
 
@@ -311,14 +309,16 @@ namespace Ringtoets.DuneErosion.Plugin
             if (assessmentSection != null)
             {
                 return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<DuneErosionFailureMechanism>()
-                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                       .GetFailureMechanisms()
+                       .OfType<DuneErosionFailureMechanism>()
+                       .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
             }
+
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
+
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
@@ -358,6 +358,7 @@ namespace Ringtoets.DuneErosion.Plugin
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
+
             return failureMechanism != null && ReferenceEquals(failureMechanism, view.FailureMechanism);
         }
 

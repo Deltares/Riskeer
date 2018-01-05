@@ -75,6 +75,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.AreEqual("Hydraulische randvoorwaarden", viewName);
             }
+
             mocks.VerifyAll();
         }
 
@@ -194,6 +195,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
+
             mocks.VerifyAll();
         }
 
@@ -212,7 +214,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var locations = new ObservableList<DuneLocation>();
 
             var data = new DuneLocationsContext(
-                locations ,
+                locations,
                 failureMechanism,
                 assessmentSection);
 
@@ -227,6 +229,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsInstanceOf<DuneLocationCalculationGuiService>(view.CalculationGuiService);
             }
+
             mocks.VerifyAll();
         }
 
@@ -254,6 +257,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -284,6 +288,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -315,6 +320,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -349,6 +355,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -374,6 +381,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -393,6 +401,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
     }
