@@ -118,7 +118,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             });
 
             var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(failureMechanism,
-                                                                            new AssessmentSection(AssessmentSectionComposition.Dike));
+                                                                            new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                                            0.01);
 
             testForm.Controls.Add(view);
             testForm.Show();
