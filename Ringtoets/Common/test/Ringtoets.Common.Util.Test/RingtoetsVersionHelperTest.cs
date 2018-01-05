@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Util.Test
 
         [Test]
         [TestCase("5")]
-        [TestCase("18.0")]
+        [TestCase("17.3")]
         public void IsNewerThanCurrentString_OlderVersion_ReturnsFalse(string olderVersion)
         {
             // Call

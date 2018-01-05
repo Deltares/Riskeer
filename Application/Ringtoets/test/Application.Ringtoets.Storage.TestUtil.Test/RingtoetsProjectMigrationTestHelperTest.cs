@@ -80,15 +80,16 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         }
 
         [Test]
-        public void GetAllOutdatedSupportedProjectFileVersions_AlwaysReturnsAllProjectFilePathsToSupportedProjectVersions()
+        public void GetAllOutdatedSupportedProjectFileVersions_Always_ReturnsAllProjectFilePathsToSupportedProjectVersions()
         {
-            // Call
+            // Setup
             string[] versions = RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions().ToArray();
+            
+            // Call
+            List<string> returnedProjectVersions = versions.Select(v => new RingtoetsVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
+                                                                                                                              $"FullTestProject{v}.rtd")).GetVersion()).ToList();
 
             // Assert
-            const int expectedNrOfVersions = 4;
-            Assert.AreEqual(expectedNrOfVersions, versions.Length);
-
             IEnumerable<string> expectedProjectVersions = new[]
             {
                 "5",
@@ -96,8 +97,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
                 "17.2",
                 "17.3"
             };
-            List<string> returnedProjectVersions = versions.Select(v => new RingtoetsVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
-                                                                                                                              $"FullTestProject{v}.rtd")).GetVersion()).ToList();
             CollectionAssert.AreEqual(expectedProjectVersions, returnedProjectVersions);
         }
 

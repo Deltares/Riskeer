@@ -105,86 +105,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         [Test]
-        public void GivenEmpty164Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade()
-        {
-            // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
-                                                               "Empty valid Release 16.4.rtd");
-            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
-
-            string targetFilePath = TestHelper.GetScratchPadPath(
-                nameof(GivenEmpty164Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade));
-            string logFilePath = TestHelper.GetScratchPadPath(
-                string.Concat(nameof(GivenEmpty164Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade), ".log"));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
-            {
-                LogPath = logFilePath
-            };
-
-            using (new FileDisposeHelper(logFilePath))
-            using (new FileDisposeHelper(targetFilePath))
-            {
-                // When
-                migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
-
-                using (var reader = new MigrationLogDatabaseReader(logFilePath))
-                {
-                    ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
-                    Assert.AreEqual(4, messages.Count);
-                    AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("5", "17.1", "Gevolgen van de migratie van versie 16.4 naar versie 17.1:"),
-                        messages[0]);
-                    AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("5", "17.1", "* Geen aanpassingen."),
-                        messages[1]);
-                    AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
-                        messages[2]);
-                    AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.1", "17.2", "* Geen aanpassingen."),
-                        messages[3]);
-                }
-            }
-        }
-
-        [Test]
-        public void GivenEmpty171Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade()
-        {
-            // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
-                                                               "Empty valid Release 17.1.rtd");
-            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
-
-            string targetFilePath = TestHelper.GetScratchPadPath(
-                nameof(GivenEmpty171Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade));
-            string logFilePath = TestHelper.GetScratchPadPath(
-                string.Concat(nameof(GivenEmpty171Project_WhenNoChangesMade_ThenLogDatabaseContainsMessagesSayingNoChangesMade), ".log"));
-            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
-            {
-                LogPath = logFilePath
-            };
-
-            using (new FileDisposeHelper(logFilePath))
-            using (new FileDisposeHelper(targetFilePath))
-            {
-                // When
-                migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
-
-                using (var reader = new MigrationLogDatabaseReader(logFilePath))
-                {
-                    ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
-                    Assert.AreEqual(2, messages.Count);
-                    AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
-                        messages[0]);
-                    AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.1", "17.2", "* Geen aanpassingen."),
-                        messages[1]);
-                }
-            }
-        }
-
-        [Test]
         [SetCulture("en-US")]
         [TestCaseSource(nameof(GetTrajectCombinations))]
         public void Given171ProjectOfTrajectWithNorm_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase(NormType setNormType,
@@ -250,10 +170,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     Assert.AreEqual(5, messages.Count);
 
                     var i = 0;
-                    AssertMigrationLogMessageEqual(
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
                         messages[i++]);
-                    AssertMigrationLogMessageEqual(
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", $"* Traject: '{trajectId}'"),
                         messages[i++]);
 
@@ -337,10 +257,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     Assert.AreEqual(5, messages.Count);
 
                     var i = 0;
-                    AssertMigrationLogMessageEqual(
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
                         messages[i++]);
-                    AssertMigrationLogMessageEqual(
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", "* Traject: '2-1'"),
                         messages[i++]);
 
@@ -379,8 +299,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Array normTypes = Enum.GetValues(typeof(NormType));
 
             IEnumerable<AssessmentSectionReturnPeriod> uniqueTrajectPeriods = GetAllTrajectTestCaseData()
-                .GroupBy(t => Tuple.Create(t.SignalingReturnPeriod, t.LowerLimitPeriod))
-                .Select(t => t.First());
+                                                                              .GroupBy(t => Tuple.Create(t.SignalingReturnPeriod, t.LowerLimitPeriod))
+                                                                              .Select(t => t.First());
             foreach (AssessmentSectionReturnPeriod data in uniqueTrajectPeriods)
             {
                 foreach (NormType normType in normTypes)
@@ -1110,16 +1030,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             string lowerLimitLogSuffix = normType == NormType.LowerLimit
                                              ? " (voorheen de waarde van de norm)"
                                              : "";
-            AssertMigrationLogMessageEqual(
+            MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                 new MigrationLogMessage("17.1", newVersion, $"  + De ondergrens is gelijk gesteld aan 1/{lowerLimitReturnPeriod}{lowerLimitLogSuffix}."),
                 messages[0]);
             string signalingLogSuffix = normType == NormType.Signaling
                                             ? " (voorheen de waarde van de norm)"
                                             : "";
-            AssertMigrationLogMessageEqual(
+            MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                 new MigrationLogMessage("17.1", newVersion, $"  + De signaleringswaarde is gelijk gesteld aan 1/{signalingReturnPeriod}{signalingLogSuffix}."),
                 messages[1]);
-            AssertMigrationLogMessageEqual(
+            MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                 new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(normType)}."),
                 messages[2]);
         }
@@ -1138,19 +1058,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             Assert.AreEqual(2, messages.Length);
 
-            AssertMigrationLogMessageEqual(
+            MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                 new MigrationLogMessage("17.1", newVersion, "    - Het geregistreerde resultaat voor toetslaag 3 in 'Vak 1' ('5.0') kon niet worden geconverteerd naar een geldige kans en is verwijderd."),
                 messages[0]);
-            AssertMigrationLogMessageEqual(
+            MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                 new MigrationLogMessage("17.1", newVersion, "    - Het geregistreerde resultaat voor toetslaag 3 in 'Vak 2' ('-10.0') kon niet worden geconverteerd naar een geldige kans en is verwijderd."),
                 messages[1]);
-        }
-
-        private static void AssertMigrationLogMessageEqual(MigrationLogMessage expected, MigrationLogMessage actual)
-        {
-            Assert.AreEqual(expected.ToVersion, actual.ToVersion);
-            Assert.AreEqual(expected.FromVersion, actual.FromVersion);
-            Assert.AreEqual(expected.Message, actual.Message);
         }
 
         private static void AssertLogDatabase(string logFilePath)
@@ -1161,14 +1074,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 Assert.AreEqual(50, messages.Count);
                 var i = 0;
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' waarbij het toetspeil handmatig is ingevuld."),
                     messages[i++]);
 
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'assessmentSection'"),
                     messages[i++]);
                 AssertAssessmentSectionNormMigrationMessage(new[]
@@ -1177,38 +1090,38 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     messages[i++],
                     messages[i++]
                 }, 30000, 30000, NormType.Signaling);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '10' is veranderd naar '104'."),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '1' is veranderd naar '102'."),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Golfklappen op asfaltbekleding'"),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '10' is veranderd naar '10000000000000000000004'."),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Stabiliteit steenzetting'"),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '100' is veranderd naar '10000000000000000000006'."),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '1' is veranderd naar '103'."),
                     messages[i++]);
 
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'Demo traject'"),
                     messages[i++]);
                 AssertAssessmentSectionNormMigrationMessage(new[]
@@ -1217,20 +1130,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     messages[i++],
                     messages[i++]
                 }, 1000, 30000, NormType.Signaling);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '10' is veranderd naar '104'."),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '10' is veranderd naar '104'."),
                     messages[i++]);
 
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'Empty'"),
                     messages[i++]);
                 AssertAssessmentSectionNormMigrationMessage(new[]
@@ -1240,7 +1153,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     messages[i++]
                 }, 1000, 1000, NormType.Signaling);
 
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'assessmentSectionResults'"),
                     messages[i++]);
                 AssertAssessmentSectionNormMigrationMessage(new[]
@@ -1249,7 +1162,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     messages[i++],
                     messages[i++]
                 }, 1000, 3000, NormType.Signaling);
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Piping'"),
                     messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
@@ -1257,7 +1170,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     messages[i++],
                     messages[i++]
                 });
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'"),
                     messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
@@ -1265,7 +1178,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     messages[i++],
                     messages[i++]
                 });
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
                     messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
@@ -1273,7 +1186,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     messages[i++],
                     messages[i++]
                 });
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
                     messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
@@ -1281,7 +1194,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     messages[i++],
                     messages[i++]
                 });
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Macrostabiliteit binnenwaarts'"),
                     messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
@@ -1289,7 +1202,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     messages[i++],
                     messages[i++]
                 });
-                AssertMigrationLogMessageEqual(
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
                     messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]

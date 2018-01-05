@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using Application.Ringtoets.Migration.Core;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
@@ -30,6 +32,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     [TestFixture]
     public class MigrationIntegrationTest
     {
+        private const string latestVersion = "18.1";
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core);
 
         [Test]
@@ -65,6 +68,61 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             finally
             {
                 File.Delete(sourceFilePath);
+            }
+        }
+
+        [Test]
+        public void GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsMessagesSayingNoChangesMade()
+        {
+            // Given
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
+                                                               "Empty valid Release 16.4.rtd");
+            var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+
+            string targetFilePath = TestHelper.GetScratchPadPath(
+                nameof(GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsMessagesSayingNoChangesMade));
+            string logFilePath = TestHelper.GetScratchPadPath(
+                string.Concat(nameof(GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsMessagesSayingNoChangesMade), ".log"));
+            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            {
+                LogPath = logFilePath
+            };
+
+            using (new FileDisposeHelper(logFilePath))
+            using (new FileDisposeHelper(targetFilePath))
+            {
+                // When
+                migrator.Migrate(fromVersionedFile, latestVersion, targetFilePath);
+
+                using (var reader = new MigrationLogDatabaseReader(logFilePath))
+                {
+                    ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
+                    Assert.AreEqual(8, messages.Count);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("5", "17.1", "Gevolgen van de migratie van versie 16.4 naar versie 17.1:"),
+                        messages[0]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("5", "17.1", "* Geen aanpassingen."),
+                        messages[1]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
+                        messages[2]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", "* Geen aanpassingen."),
+                        messages[3]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.2", "17.3", "Gevolgen van de migratie van versie 17.2 naar versie 17.3:"),
+                        messages[4]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.2", "17.3", "* Geen aanpassingen."),
+                        messages[5]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.3", latestVersion, $"Gevolgen van de migratie van versie 17.3 naar versie {latestVersion}:"),
+                        messages[6]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.3", latestVersion, "* Geen aanpassingen."),
+                        messages[7]);
+                }
             }
         }
 
