@@ -22,6 +22,7 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -115,6 +116,112 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Locaties",
                                                                             "Locaties uit de hydraulische randvoorwaardendatabase.",
                                                                             true);
+        }
+
+        [Test]
+        public void GivenPropertyControlWithData_WhenSingleLocationUpdated_RefreshRequiredEventRaised()
+        {
+            // Given
+            DuneLocation location = new TestDuneLocation();
+            var duneLocations = new ObservableList<DuneLocation>
+            {
+                location
+            };
+
+            var properties = new DuneLocationsContextProperties(duneLocations);
+
+            var refreshRequiredRaised = 0;
+            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+
+            // When
+            location.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(1, refreshRequiredRaised);
+        }
+
+        [Test]
+        public void GivenDisposedPropertyControlWithData_WhenSingleLocationUpdated_RefreshRequiredEventNotRaised()
+        {
+            // Given
+            DuneLocation location = new TestDuneLocation();
+            var duneLocations = new ObservableList<DuneLocation>
+            {
+                location
+            };
+
+            var properties = new DuneLocationsContextProperties(duneLocations);
+
+            var refreshRequiredRaised = 0;
+            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+
+            properties.Dispose();
+
+            // When
+            location.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(0, refreshRequiredRaised);
+        }
+
+        [Test]
+        public void GivenPropertyControlWithNewData_WhenSingleLocationUpdatedInPreviouslySetData_RefreshRequiredEventNotRaised()
+        {
+            // Given
+            DuneLocation location1 = new TestDuneLocation();
+            DuneLocation location2 = new TestDuneLocation();
+            var duneLocations1 = new ObservableList<DuneLocation>
+            {
+                location1
+            };
+            var duneLocations2 = new ObservableList<DuneLocation>
+            {
+                location2
+            };
+
+            var properties = new DuneLocationsContextProperties(duneLocations1)
+            {
+                Data = duneLocations2
+            };
+
+            var refreshRequiredRaised = 0;
+            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+
+            // When
+            location1.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(0, refreshRequiredRaised);
+        }
+
+        [Test]
+        public void GivenPropertyControlWithNewData_WhenSingleLocationUpdatedInNewlySetData_RefreshRequiredEventRaised()
+        {
+            // Given
+            DuneLocation location1 = new TestDuneLocation();
+            DuneLocation location2 = new TestDuneLocation();
+            var duneLocations1 = new ObservableList<DuneLocation>
+            {
+                location1
+            };
+            var duneLocations2 = new ObservableList<DuneLocation>
+            {
+                location2
+            };
+
+            var properties = new DuneLocationsContextProperties(duneLocations1)
+            {
+                Data = duneLocations2
+            };
+
+            var refreshRequiredRaised = 0;
+            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+
+            // When
+            location2.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(1, refreshRequiredRaised);
         }
     }
 }

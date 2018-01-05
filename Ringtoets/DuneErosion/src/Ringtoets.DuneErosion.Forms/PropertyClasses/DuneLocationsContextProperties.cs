@@ -37,6 +37,8 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     /// </summary>
     public class DuneLocationsContextProperties : ObjectProperties<ObservableList<DuneLocation>>
     {
+        private readonly RecursiveObserver<ObservableList<DuneLocation>, DuneLocation> locationObserver;
+
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationsContextProperties"/>.
         /// </summary>
@@ -48,7 +50,24 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(locations));
             }
+
+            locationObserver = new RecursiveObserver<ObservableList<DuneLocation>, DuneLocation>(OnRefreshRequired, list => list);
+
             Data = locations;
+        }
+
+        public override object Data
+        {
+            get
+            {
+                return base.Data;
+            }
+            set
+            {
+                base.Data = value;
+
+                locationObserver.Observable = value as ObservableList<DuneLocation>;
+            }
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
@@ -61,6 +80,13 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             {
                 return data.Select(loc => new DuneLocationProperties(loc)).ToArray();
             }
+        }
+
+        public override void Dispose()
+        {
+            locationObserver.Dispose();
+
+            base.Dispose();
         }
     }
 }
