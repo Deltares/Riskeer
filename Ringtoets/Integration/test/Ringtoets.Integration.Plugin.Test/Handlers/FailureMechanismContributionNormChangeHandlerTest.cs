@@ -137,8 +137,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                             .Concat(assessmentSection.DuneErosion.DuneLocations.Where(dl => dl.Output != null))
                                             .Concat(new IObservable[]
                                             {
-                                                assessmentSection.FailureMechanismContribution,
-                                                assessmentSection.DuneErosion.DuneLocations
+                                                assessmentSection.FailureMechanismContribution
                                             }).ToList();
 
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
@@ -191,8 +190,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                  .Concat(assessmentSection.DuneErosion.DuneLocations.Where(dl => dl.Output != null))
                                  .Concat(new IObservable[]
                                  {
-                                     assessmentSection.FailureMechanismContribution,
-                                     assessmentSection.DuneErosion.DuneLocations
+                                     assessmentSection.FailureMechanismContribution
                                  }).ToList();
 
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);

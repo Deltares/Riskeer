@@ -252,7 +252,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                            .Concat(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
                                            .Concat(new IObservable[]
                                            {
-                                               duneErosionFailureMechanism.DuneLocations,
                                                assessmentSection
                                            })
                                            .Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
@@ -317,8 +316,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations.Where(dl => dl.Output != null)
                                                                                           .Concat(new IObservable[]
                                                                                           {
-                                                                                              assessmentSection,
-                                                                                              duneErosionFailureMechanism.DuneLocations
+                                                                                              assessmentSection
                                                                                           })
                                                                                           .ToList();
 
@@ -376,7 +374,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                            .Concat(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
                                            .Concat(new IObservable[]
                                            {
-                                               duneErosionFailureMechanism.DuneLocations,
                                                assessmentSection
                                            })
                                            .Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
@@ -429,8 +426,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations.Where(dl => dl.Output != null)
                                                                                           .Concat(new IObservable[]
                                                                                           {
-                                                                                              assessmentSection,
-                                                                                              duneErosionFailureMechanism.DuneLocations
+                                                                                              assessmentSection
                                                                                           })
                                                                                           .ToList();
 

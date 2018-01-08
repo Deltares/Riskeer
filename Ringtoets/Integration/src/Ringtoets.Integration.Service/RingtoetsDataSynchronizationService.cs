@@ -284,7 +284,10 @@ namespace Ringtoets.Integration.Service
                     IEnumerable<IObservable> affectedHydraulicBoundaryLocations =
                         RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
 
-                    changedObservables.AddRange(affectedHydraulicBoundaryLocations);
+                    if (affectedHydraulicBoundaryLocations.Any())
+                    {
+                        changedObservables.AddRange(affectedHydraulicBoundaryLocations);
+                    }
                 }
 
                 if (duneErosionFailureMechanism != null)
@@ -294,7 +297,6 @@ namespace Ringtoets.Integration.Service
 
                     if (affectedDuneLocations.Any())
                     {
-                        changedObservables.Add(duneErosionFailureMechanism.DuneLocations);
                         changedObservables.AddRange(affectedDuneLocations);
                     }
                 }

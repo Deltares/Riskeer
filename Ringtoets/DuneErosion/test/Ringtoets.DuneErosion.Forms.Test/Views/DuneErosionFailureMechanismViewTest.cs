@@ -24,6 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -310,6 +311,48 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
+        public void UpdateObserver_SingleDuneLocationUpdated_MapDataUpdated()
+        {
+            // Setup
+            using (var view = new DuneErosionFailureMechanismView())
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var duneLocation = new TestDuneLocation();
+
+                var failureMechanism = new DuneErosionFailureMechanism
+                {
+                    DuneLocations =
+                    {
+                        duneLocation
+                    }
+                };
+                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+
+                view.Data = failureMechanismContext;
+
+                var duneLocationsMapData = map.Data.Collection.ElementAt(duneLocationsIndex) as MapPointData;
+
+                // Precondition
+                MapFeature duneLocationFeature = duneLocationsMapData.Features.First();
+                Assert.IsNaN((double) duneLocationFeature.MetaData["Rekenwaarde Tp"]);
+                Assert.IsNaN((double) duneLocationFeature.MetaData["Rekenwaarde Hs"]);
+                Assert.IsNaN((double) duneLocationFeature.MetaData["Rekenwaarde waterstand"]);
+
+                // Call
+                duneLocation.Output = new TestDuneLocationOutput();
+                duneLocation.NotifyObservers();
+
+                // Assert
+                MapFeature duneLocationFeatureUpdated = duneLocationsMapData.Features.First();
+                Assert.AreEqual(duneLocation.Output.WavePeriod, (double) duneLocationFeatureUpdated.MetaData["Rekenwaarde Tp"]);
+                Assert.AreEqual(duneLocation.Output.WaveHeight, (double) duneLocationFeatureUpdated.MetaData["Rekenwaarde Hs"]);
+                Assert.AreEqual(duneLocation.Output.WaterLevel, (double) duneLocationFeatureUpdated.MetaData["Rekenwaarde waterstand"]);
+            }
+        }
+
+        [Test]
         public void GivenAssessmentSectionWithDuneLocations_WhenNewDuneLocationsAreSetAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -566,9 +609,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 DuneLocation[] duneLocationsArray = duneLocations.ToArray();
 
                 Assert.AreEqual(duneLocationsArray.Length, duneLocationsMapData.Features.Count());
-                CollectionAssert.AreEqual(duneLocationsArray.Select(hrp => hrp.Location),
+                CollectionAssert.AreEqual(duneLocationsArray.Select(duneLocation => duneLocation.Location),
                                           duneLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
             }
+
             Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
         }
     }

@@ -42,6 +42,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
         private readonly Observer duneLocationsObserver;
+        private readonly RecursiveObserver<ObservableList<DuneLocation>, DuneLocation> duneLocationObserver;
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
@@ -62,6 +63,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             failureMechanismObserver = new Observer(UpdateMapData);
             assessmentSectionObserver = new Observer(UpdateMapData);
             duneLocationsObserver = new Observer(UpdateMapData);
+            duneLocationObserver = new RecursiveObserver<ObservableList<DuneLocation>, DuneLocation>(UpdateMapData, list => list);
 
             mapDataCollection = new MapDataCollection(DuneErosionDataResources.DuneErosionFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -92,6 +94,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
                     failureMechanismObserver.Observable = null;
                     assessmentSectionObserver.Observable = null;
                     duneLocationsObserver.Observable = null;
+                    duneLocationObserver.Observable = null;
 
                     ringtoetsMapControl.RemoveAllData();
                 }
@@ -102,6 +105,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
                     mapDataCollection.Name = data.WrappedData.Name;
                     duneLocationsObserver.Observable = data.WrappedData.DuneLocations;
+                    duneLocationObserver.Observable = data.WrappedData.DuneLocations;
 
                     SetMapDataFeatures();
 
@@ -123,11 +127,13 @@ namespace Ringtoets.DuneErosion.Forms.Views
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
             duneLocationsObserver.Dispose();
+            duneLocationObserver.Dispose();
 
             if (disposing)
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

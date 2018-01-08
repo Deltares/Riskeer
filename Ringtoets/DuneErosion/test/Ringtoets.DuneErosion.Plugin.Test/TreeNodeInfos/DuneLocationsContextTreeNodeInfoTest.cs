@@ -33,6 +33,7 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -432,8 +433,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
+                var locationObserver = mocks.StrictMock<IObserver>();
+                locationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(failureMechanism.DuneLocations.Count);
+                var locationsObsever = mocks.StrictMock<IObserver>();
 
                 int nrOfCalculators = failureMechanism.DuneLocations.Count;
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
@@ -443,7 +445,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                  .Times(nrOfCalculators);
                 mocks.ReplayAll();
 
-                failureMechanism.DuneLocations.Attach(observer);
+                failureMechanism.DuneLocations.Attach(locationsObsever);
+                failureMechanism.DuneLocations.ForEachElementDo(location => location.Attach(locationObserver));
 
                 plugin.Gui = gui;
                 plugin.Activate();

@@ -41,7 +41,8 @@ namespace Application.Ringtoets.Migration.Core.Test
                 {
                     new TestCaseData("5"),
                     new TestCaseData("17.1"),
-                    new TestCaseData("17.2")
+                    new TestCaseData("17.2"),
+                    new TestCaseData("17.3")
                 };
             }
         }

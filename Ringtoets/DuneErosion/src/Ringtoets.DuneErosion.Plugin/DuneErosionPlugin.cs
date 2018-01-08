@@ -65,7 +65,10 @@ namespace Ringtoets.DuneErosion.Plugin
                 CreateInstance = context => new DuneLocationsContextProperties(context.WrappedData)
             };
 
-            yield return new PropertyInfo<DuneLocationContext, DuneLocationContextProperties>();
+            yield return new PropertyInfo<DuneLocation, DuneLocationProperties>
+            {
+                CreateInstance = location => new DuneLocationProperties(location)
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -89,7 +92,9 @@ namespace Ringtoets.DuneErosion.Plugin
             {
                 Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.Count > 0 ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ForeColor = context => context.WrappedData.Count > 0
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = DuneLocationsContextMenuStrip
             };
         }
@@ -122,12 +127,8 @@ namespace Ringtoets.DuneErosion.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseDuneLocationViewForData,
-                AfterCreate = (view, context) =>
-                {
-                    view.AssessmentSection = context.AssessmentSection;
-                    view.FailureMechanism = context.FailureMechanism;
-                    view.CalculationGuiService = duneLocationCalculationGuiService;
-                },
+                CreateInstance = context => new DuneLocationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
+                AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
                 AdditionalDataCheck = context => context.WrappedData.Any()
             };
         }
@@ -153,6 +154,7 @@ namespace Ringtoets.DuneErosion.Plugin
             {
                 throw new InvalidOperationException("Gui cannot be null");
             }
+
             duneLocationCalculationGuiService = new DuneLocationCalculationGuiService(Gui.MainWindow);
         }
 
@@ -271,7 +273,6 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                 context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                 context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                 context.FailureMechanism.GetMechanismSpecificNorm(context.AssessmentSection.FailureMechanismContribution.Norm));
-                    context.NotifyObservers();
                 });
 
             string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
@@ -308,14 +309,16 @@ namespace Ringtoets.DuneErosion.Plugin
             if (assessmentSection != null)
             {
                 return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<DuneErosionFailureMechanism>()
-                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                       .GetFailureMechanisms()
+                       .OfType<DuneErosionFailureMechanism>()
+                       .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
             }
+
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
+
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
@@ -342,12 +345,6 @@ namespace Ringtoets.DuneErosion.Plugin
 
         private static bool CloseDuneLocationViewForData(DuneLocationsView view, object dataToCloseFor)
         {
-            DuneErosionFailureMechanism viewFailureMechanism = null;
-            if (view.AssessmentSection != null)
-            {
-                viewFailureMechanism = view.AssessmentSection.GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
-            }
-
             var failureMechanismContext = dataToCloseFor as DuneErosionFailureMechanismContext;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;
@@ -359,9 +356,10 @@ namespace Ringtoets.DuneErosion.Plugin
 
             if (failureMechanismContext != null)
             {
-                failureMechanism = failureMechanismContext.Parent.GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
+                failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(failureMechanism, viewFailureMechanism);
+
+            return failureMechanism != null && ReferenceEquals(failureMechanism, view.FailureMechanism);
         }
 
         #endregion

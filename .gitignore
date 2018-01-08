@@ -36,6 +36,7 @@ _TeamCity*
 
 # NuGet Packages
 *.nupkg
+packages/
 
 ### Windows ###
 # Windows thumbnail cache files

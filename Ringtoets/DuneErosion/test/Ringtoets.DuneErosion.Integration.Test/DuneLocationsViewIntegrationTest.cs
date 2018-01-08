@@ -67,7 +67,6 @@ namespace Ringtoets.DuneErosion.Integration.Test
         {
             // Given
             DuneLocationsView view = ShowFullyConfiguredDuneLocationsView();
-            view.AssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             if (rowSelected)
             {
@@ -76,12 +75,11 @@ namespace Ringtoets.DuneErosion.Integration.Test
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
             }
 
-            var failureMechanism = new DuneErosionFailureMechanism();
             if (!contributionAfterChangeNotZero)
             {
-                failureMechanism.Contribution = 5;
+                view.FailureMechanism.Contribution = 5;
+                view.FailureMechanism.NotifyObservers();
             }
-            view.FailureMechanism = failureMechanism;
 
             // Precondition
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
@@ -90,8 +88,8 @@ namespace Ringtoets.DuneErosion.Integration.Test
             Assert.AreNotEqual(expectedErrorMessage, errorProvider.GetError(button));
 
             // When
-            failureMechanism.Contribution = contributionAfterChangeNotZero ? 5 : 0;
-            view.AssessmentSection.NotifyObservers();
+            view.FailureMechanism.Contribution = contributionAfterChangeNotZero ? 5 : 0;
+            view.FailureMechanism.NotifyObservers();
 
             // Then
             Assert.AreEqual(rowSelected && contributionAfterChangeNotZero, button.Enabled);
@@ -100,8 +98,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
 
         private DuneLocationsView ShowFullyConfiguredDuneLocationsView()
         {
-            DuneLocationsView view = ShowDuneLocationsView();
-            view.Data = new ObservableList<DuneLocation>
+            var locations = new ObservableList<DuneLocation>
             {
                 new DuneLocation(1, "1", new Point2D(1.0, 1.0), new DuneLocation.ConstructionProperties
                 {
@@ -125,12 +122,17 @@ namespace Ringtoets.DuneErosion.Integration.Test
                 }
             };
 
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocations.AddRange(locations);
+
+            DuneLocationsView view = ShowDuneLocationsView(failureMechanism);
+
             return view;
         }
 
-        private DuneLocationsView ShowDuneLocationsView()
+        private DuneLocationsView ShowDuneLocationsView(DuneErosionFailureMechanism failureMechanism)
         {
-            var view = new DuneLocationsView();
+            var view = new DuneLocationsView(failureMechanism.DuneLocations, failureMechanism, new AssessmentSection(AssessmentSectionComposition.Dike));
 
             testForm.Controls.Add(view);
             testForm.Show();

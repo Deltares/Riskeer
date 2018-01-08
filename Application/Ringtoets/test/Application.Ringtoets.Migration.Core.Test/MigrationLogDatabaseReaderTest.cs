@@ -22,6 +22,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
@@ -83,10 +84,10 @@ namespace Application.Ringtoets.Migration.Core.Test
 
                 // Assert
                 Assert.AreEqual(2, messages.Count);
-                AssertMigrationLogMessageEqual(new MigrationLogMessage("version 1", "version 2", "some message"),
-                                               messages[0]);
-                AssertMigrationLogMessageEqual(new MigrationLogMessage("version 2", "version 3", "different message"),
-                                               messages[1]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(new MigrationLogMessage("version 1", "version 2", "some message"),
+                                                                      messages[0]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(new MigrationLogMessage("version 2", "version 3", "different message"),
+                                                                      messages[1]);
             }
         }
 
@@ -123,13 +124,6 @@ namespace Application.Ringtoets.Migration.Core.Test
                 // Assert
                 Assert.AreEqual(0, messages.Count);
             }
-        }
-
-        private static void AssertMigrationLogMessageEqual(MigrationLogMessage expected, MigrationLogMessage actual)
-        {
-            Assert.AreEqual(expected.ToVersion, actual.ToVersion);
-            Assert.AreEqual(expected.FromVersion, actual.FromVersion);
-            Assert.AreEqual(expected.Message, actual.Message);
         }
     }
 }
