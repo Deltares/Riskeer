@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, 0.01))
+            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, () => 0.01))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
@@ -571,7 +571,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                                            double norm,
                                                                            Form form)
         {
-            var view = new WaveHeightLocationsView(locations, assessmentSection, norm);
+            var view = new WaveHeightLocationsView(locations, assessmentSection, () => norm);
 
             form.Controls.Add(view);
             form.Show();
