@@ -424,7 +424,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = databaseFilePath;
 
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, normValue, testForm);
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, norm, testForm);
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
             ObservableList<HydraulicBoundaryLocation> locations = failureMechanism.HydraulicBoundaryLocations;
             DataGridView locationsDataGridView = GetLocationsDataGridView();

@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -92,8 +93,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void CreateInstance_Always_SetsExpectedProperties()
         {
             // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var gui = mockRepository.Stub<IGui>();
             var window = mockRepository.Stub<IMainWindow>();
             gui.Stub(gs => gs.MainWindow).Return(window);
