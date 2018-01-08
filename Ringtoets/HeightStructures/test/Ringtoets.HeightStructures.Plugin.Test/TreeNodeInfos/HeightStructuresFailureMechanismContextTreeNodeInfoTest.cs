@@ -132,7 +132,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(4, inputsFolder.Contents.Count());
             var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
+            Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
             var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);

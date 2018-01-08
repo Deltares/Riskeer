@@ -212,7 +212,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(3, inputsFolder.Contents.Count());
                 var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
                 Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
-                Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
+                Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
                 var foreshoreProfilesContext = (ForeshoreProfilesContext) inputsFolder.Contents.ElementAt(1);
                 Assert.AreSame(failureMechanism.ForeshoreProfiles, foreshoreProfilesContext.WrappedData);

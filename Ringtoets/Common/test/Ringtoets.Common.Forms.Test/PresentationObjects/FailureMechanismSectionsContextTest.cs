@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IFailureMechanism>>(context);
             Assert.AreSame(failureMechanism, context.WrappedData);
-            Assert.AreSame(assessmentSection, context.ParentAssessmentSection);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();
         }
 

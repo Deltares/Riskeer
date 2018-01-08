@@ -34,23 +34,23 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSectionsContext"/> class.
         /// </summary>
-        /// <param name="wrappedFailureMechanism">The failure mechanism to wrap.</param>
-        /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedFailureMechanism"/>.</param>
+        /// <param name="wrappedData">The failure mechanism to wrap.</param>
+        /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public FailureMechanismSectionsContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection assessmentSection)
-            : base(wrappedFailureMechanism)
+        public FailureMechanismSectionsContext(IFailureMechanism wrappedData, IAssessmentSection assessmentSection)
+            : base(wrappedData)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            ParentAssessmentSection = assessmentSection;
+            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
         /// Gets the assessment section which the context belongs to.
         /// </summary>
-        public IAssessmentSection ParentAssessmentSection { get; }
+        public IAssessmentSection AssessmentSection { get; }
     }
 }

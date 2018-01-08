@@ -184,7 +184,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputFolder.Contents.ElementAt(0);
                 Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
-                Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
+                Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
                 var inputComment = (Comment) inputFolder.Contents.ElementAt(1);
                 Assert.AreSame(failureMechanism.InputComments, inputComment);

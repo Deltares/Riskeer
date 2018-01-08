@@ -483,9 +483,9 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.SectionsIcon,
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description),
-                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null,
+                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
                 CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
-                                                                                                 context.ParentAssessmentSection.ReferenceLine,
+                                                                                                 context.AssessmentSection.ReferenceLine,
                                                                                                  filePath)
             };
             yield return new ImportInfo<ForeshoreProfilesContext>
