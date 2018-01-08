@@ -85,7 +85,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Call
             using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                         assessmentSection))
+                                                                                         assessmentSection,
+                                                                                         0.01))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
@@ -101,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(null, assessmentSection);
+            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(null, assessmentSection, 0.01);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -116,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, testForm);
+            ShowDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, 0.01, testForm);
 
             // Assert
             DataGridView locationsDataGridView = GetLocationsDataGridView();
@@ -304,7 +305,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
             HydraulicBoundaryLocation[] calculatedLocations = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation => { calculatedLocations = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray(); });
 
             mockRepository.ReplayAll();
@@ -393,6 +394,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
+            const double norm = 0.01;
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -408,21 +410,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
-                    normValue = (double) invocation.Arguments[3];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                    normValue = (double) invocation.Arguments[4];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
 
             mockRepository.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = databaseFilePath;
 
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, normValue, testForm);
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
             ObservableList<HydraulicBoundaryLocation> locations = failureMechanism.HydraulicBoundaryLocations;
             DataGridView locationsDataGridView = GetLocationsDataGridView();
@@ -437,7 +439,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             double expectedNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                assessmentSection.FailureMechanismContribution.Norm,
+                norm,
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);
 
@@ -456,6 +458,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
+            const double norm = 0.01;
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -471,14 +474,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
-                    normValue = (double) invocation.Arguments[3];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                    normValue = (double) invocation.Arguments[4];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
 
             mockRepository.ReplayAll();
@@ -489,7 +492,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             hydraulicBoundaryDatabase.UsePreprocessor = true;
             hydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorDirectory;
 
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, norm, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -503,7 +506,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             double expectedNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                assessmentSection.FailureMechanismContribution.Norm,
+                norm,
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);
 
@@ -521,6 +524,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
+            const double norm = 0.01;
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -536,14 +540,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
-                    normValue = (double) invocation.Arguments[3];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                    normValue = (double) invocation.Arguments[4];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
 
             mockRepository.ReplayAll();
@@ -554,7 +558,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             hydraulicBoundaryDatabase.UsePreprocessor = false;
             hydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, norm, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -568,7 +572,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             double expectedNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                assessmentSection.FailureMechanismContribution.Norm,
+                norm,
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);
 
@@ -613,6 +617,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
         private static GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
                                                                                                                 IAssessmentSection assessmentSection,
+                                                                                                                double norm,
                                                                                                                 Form form)
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -621,7 +626,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             };
             failureMechanism.HydraulicBoundaryLocations.AddRange(locations);
 
-            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism, assessmentSection);
+            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism, assessmentSection, norm);
 
             form.Controls.Add(view);
             form.Show();
@@ -629,7 +634,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             return view;
         }
 
-        private static GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView(IAssessmentSection assessmentSection, Form form)
+        private static GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView(IAssessmentSection assessmentSection,
+                                                                                                                               Form form)
+        {
+            return ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, 0.01, form);
+        }
+
+        private static GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView(IAssessmentSection assessmentSection,
+                                                                                                                               double norm,
+                                                                                                                               Form form)
         {
             var topLevelIllustrationPoints = new[]
             {
@@ -684,7 +697,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 }
             };
 
-            return ShowDesignWaterLevelLocationsView(locations, assessmentSection, form);
+            return ShowDesignWaterLevelLocationsView(locations, assessmentSection, norm, form);
         }
 
         [TestFixture]

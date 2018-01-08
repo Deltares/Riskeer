@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection))
+            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, 0.01))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, testForm);
+            ShowDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, 0.01, testForm);
 
             // Assert
             DataGridView locationsDataGridView = GetLocationsDataGridView();
@@ -299,7 +299,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
             IEnumerable<HydraulicBoundaryLocation> locations = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]; });
             mockRepository.ReplayAll();
 
@@ -341,6 +341,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
+            const double norm = 0.01;
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase
@@ -361,19 +362,19 @@ namespace Ringtoets.Integration.Forms.Test.Views
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
-                    normValue = (double) invocation.Arguments[3];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                    normValue = (double) invocation.Arguments[4];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
 
             mockRepository.ReplayAll();
 
-            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, testForm);
+            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -388,7 +389,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(messageProviderValue);
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual("", preprocessorDirectoryValue);
-            Assert.AreEqual(normValue, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
@@ -400,6 +401,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const string preprocessorDirectory = "PreprocessorDirectory";
+            const double norm = 0.01;
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase
@@ -423,19 +425,19 @@ namespace Ringtoets.Integration.Forms.Test.Views
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
-                    normValue = (double) invocation.Arguments[3];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                    normValue = (double) invocation.Arguments[4];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
 
             mockRepository.ReplayAll();
 
-            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, testForm);
+            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -450,7 +452,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(messageProviderValue);
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(preprocessorDirectory, preprocessorDirectoryValue);
-            Assert.AreEqual(normValue, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
@@ -461,6 +463,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
+            const double norm = 0.01;
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase
@@ -484,19 +487,19 @@ namespace Ringtoets.Integration.Forms.Test.Views
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
-                    normValue = (double) invocation.Arguments[3];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                    normValue = (double) invocation.Arguments[4];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
 
             mockRepository.ReplayAll();
 
-            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, testForm);
+            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -511,7 +514,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(messageProviderValue);
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(string.Empty, preprocessorDirectoryValue);
-            Assert.AreEqual(normValue, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
@@ -549,9 +552,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private static DesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
                                                                                        IAssessmentSection assessmentSection,
+                                                                                       double norm,
                                                                                        Form form)
         {
-            var view = new DesignWaterLevelLocationsView(locations, assessmentSection);
+            var view = new DesignWaterLevelLocationsView(locations, assessmentSection, norm);
 
             form.Controls.Add(view);
             form.Show();
@@ -564,7 +568,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            return ShowDesignWaterLevelLocationsView(locations, assessmentSection, form);
+            return ShowDesignWaterLevelLocationsView(locations, assessmentSection, 0.01, form);
         }
 
         private class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase

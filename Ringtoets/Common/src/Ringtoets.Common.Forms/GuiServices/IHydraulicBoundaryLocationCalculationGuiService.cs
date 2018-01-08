@@ -39,16 +39,18 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
         /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
+        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The message provider for the services.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabaseFilePath"/>,
-        /// <paramref name="preprocessorDirectory"/>, <paramref name="messageProvider"/> or
-        /// or <paramref name="locations"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/>,
+        /// <paramref name="getCalculationFunc"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
         void CalculateDesignWaterLevels(string hydraulicBoundaryDatabaseFilePath,
                                         string preprocessorDirectory,
                                         IEnumerable<HydraulicBoundaryLocation> locations,
+                                        Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                         double norm,
                                         ICalculationMessageProvider messageProvider);
 
@@ -59,16 +61,18 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
         /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
+        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The message provider for the services.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabaseFilePath"/>,
-        /// <paramref name="preprocessorDirectory"/>, <paramref name="messageProvider"/> or
-        /// or <paramref name="locations"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/>,
+        /// <paramref name="getCalculationFunc"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
         void CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,
                                   string preprocessorDirectory,
                                   IEnumerable<HydraulicBoundaryLocation> locations,
+                                  Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                   double norm,
                                   ICalculationMessageProvider messageProvider);
     }

@@ -30,30 +30,24 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     [TestFixture]
     public class WaveHeightCalculationTest
     {
-        private static IEnumerable<TestCaseData> HydraulicBoundaryLocationsToCalculate
+        private static IEnumerable<TestCaseData> HydraulicBoundaryLocationCalculationsToPerform
         {
             get
             {
-                yield return new TestCaseData(new TestHydraulicBoundaryLocation("WithOutputWithoutIllustrationPoints")
+                yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
                 {
-                    WaveHeightCalculation =
+                    InputParameters =
                     {
-                        InputParameters =
-                        {
-                            ShouldIllustrationPointsBeCalculated = true
-                        },
-                        Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
-                    }
+                        ShouldIllustrationPointsBeCalculated = true
+                    },
+                    Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
                 }, true);
 
-                yield return new TestCaseData(new TestHydraulicBoundaryLocation("WithoutOutput"), true);
+                yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(), true);
 
-                yield return new TestCaseData(new TestHydraulicBoundaryLocation("WithValidOutput")
+                yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
                 {
-                    WaveHeightCalculation =
-                    {
-                        Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
-                    }
+                    Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
                 }, false);
             }
         }
@@ -62,7 +56,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         public void Constructor_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WaveHeightCalculation(null);
+            TestDelegate call = () => new WaveHeightCalculation(null, new HydraulicBoundaryLocationCalculation());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -70,42 +64,47 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void Constructor_ValidHydraulicBoundaryLocation_SetsProperties(
-            [Values(true, false)] bool calculateIllustrationPoints)
+        public void Constructor_HydraulicBoundaryLocationCalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new WaveHeightCalculation(new TestHydraulicBoundaryLocation(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("hydraulicBoundaryLocationCalculation", paramName);
+        }
+
+        [Test]
+        public void Constructor_ValidInputParameters_SetsProperties([Values(true, false)] bool calculateIllustrationPoints)
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 1, 1)
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation
             {
-                WaveHeightCalculation =
+                InputParameters =
                 {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = calculateIllustrationPoints
-                    }
+                    ShouldIllustrationPointsBeCalculated = calculateIllustrationPoints
                 }
             };
 
             // Call
-            var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation);
+            var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
 
             // Assert
             Assert.IsInstanceOf<IHydraulicBoundaryWrapperCalculation>(calculation);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, calculation.Id);
             Assert.AreSame(hydraulicBoundaryLocation.Name, calculation.Name);
-
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocation.WaveHeightCalculation;
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, calculation.CalculateIllustrationPoints);
-
             Assert.AreSame(hydraulicBoundaryLocation, calculation.ObservableObject);
         }
 
         [Test]
-        [TestCaseSource(nameof(HydraulicBoundaryLocationsToCalculate))]
-        public void IsCalculated_HydraulicBoundaryLocationsToCalculate_ReturnIsCalculated(
-            HydraulicBoundaryLocation hydraulicBoundaryLocation, bool shouldBeCalculated)
+        [TestCaseSource(nameof(HydraulicBoundaryLocationCalculationsToPerform))]
+        public void IsCalculated_NotFullyCalculated_ReturnIsCalculated(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+                                                                       bool shouldBeCalculated)
         {
             // Setup
-            var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation);
+            var calculation = new DesignWaterLevelCalculation(new TestHydraulicBoundaryLocation(), hydraulicBoundaryLocationCalculation);
 
             // Call
             bool isCalculated = calculation.IsCalculated();
@@ -119,14 +118,15 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation);
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation();
+            var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
             var output = new TestHydraulicBoundaryLocationOutput(1);
 
             // Call
             calculation.Output = output;
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryLocation.WaveHeightCalculation.Output, output);
+            Assert.AreSame(hydraulicBoundaryLocationCalculation.Output, output);
         }
     }
 }

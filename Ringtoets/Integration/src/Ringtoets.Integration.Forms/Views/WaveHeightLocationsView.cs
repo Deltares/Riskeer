@@ -37,6 +37,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class WaveHeightLocationsView : HydraulicBoundaryLocationsView
     {
+        private readonly double norm;
         private readonly WaveHeightCalculationMessageProvider messageProvider;
 
         /// <summary>
@@ -44,14 +45,19 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         /// <param name="locations">The locations to show in the view.</param>
         /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
+        /// <param name="norm">The norm to use during calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> or 
         /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public WaveHeightLocationsView(ObservableList<HydraulicBoundaryLocation> locations, IAssessmentSection assessmentSection)
+        public WaveHeightLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
+                                       IAssessmentSection assessmentSection,
+                                       double norm)
             : base(locations, assessmentSection)
         {
             InitializeComponent();
 
             messageProvider = new WaveHeightCalculationMessageProvider();
+
+            this.norm = norm;
         }
 
         protected override object CreateSelectedItemFromCurrentRow()
@@ -68,7 +74,8 @@ namespace Ringtoets.Integration.Forms.Views
             CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                        AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                        locations,
-                                                       AssessmentSection.FailureMechanismContribution.Norm,
+                                                       hbl => hbl.WaveHeightCalculation,
+                                                       norm,
                                                        messageProvider);
         }
 

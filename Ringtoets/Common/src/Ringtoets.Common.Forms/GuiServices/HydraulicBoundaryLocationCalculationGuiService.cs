@@ -54,28 +54,35 @@ namespace Ringtoets.Common.Forms.GuiServices
             {
                 throw new ArgumentNullException(nameof(viewParent));
             }
+
             this.viewParent = viewParent;
         }
 
         public void CalculateDesignWaterLevels(string hydraulicBoundaryDatabaseFilePath,
                                                string preprocessorDirectory,
                                                IEnumerable<HydraulicBoundaryLocation> locations,
+                                               Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                                double norm,
                                                ICalculationMessageProvider messageProvider)
         {
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException(nameof(messageProvider));
-            }
-
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
             }
 
+            if (getCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getCalculationFunc));
+            }
+
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
+            }
+
             RunActivities(hydraulicBoundaryDatabaseFilePath,
                           preprocessorDirectory,
-                          locations.Select(location => new DesignWaterLevelCalculationActivity(new DesignWaterLevelCalculation(location),
+                          locations.Select(location => new DesignWaterLevelCalculationActivity(new DesignWaterLevelCalculation(location, getCalculationFunc(location)),
                                                                                                hydraulicBoundaryDatabaseFilePath,
                                                                                                preprocessorDirectory,
                                                                                                norm,
@@ -85,22 +92,28 @@ namespace Ringtoets.Common.Forms.GuiServices
         public void CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,
                                          string preprocessorDirectory,
                                          IEnumerable<HydraulicBoundaryLocation> locations,
+                                         Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                          double norm,
                                          ICalculationMessageProvider messageProvider)
         {
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException(nameof(messageProvider));
-            }
-
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
             }
 
+            if (getCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getCalculationFunc));
+            }
+
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
+            }
+
             RunActivities(hydraulicBoundaryDatabaseFilePath,
                           preprocessorDirectory,
-                          locations.Select(location => new WaveHeightCalculationActivity(new WaveHeightCalculation(location),
+                          locations.Select(location => new WaveHeightCalculationActivity(new WaveHeightCalculation(location, getCalculationFunc(location)),
                                                                                          hydraulicBoundaryDatabaseFilePath,
                                                                                          preprocessorDirectory,
                                                                                          norm,

@@ -43,16 +43,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     {
         private readonly GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider messageProvider;
         private readonly Observer failureMechanismObserver;
+        private readonly double norm;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism that the locations belong to.</param>
         /// <param name="assessmentSection">The assessment section that the locations belong to.</param>
+        /// <param name="norm">The norm to derive a mechanism specific norm from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or
         /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsDesignWaterLevelLocationsView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                      IAssessmentSection assessmentSection)
+                                                                      IAssessmentSection assessmentSection,
+                                                                      double norm)
             : base(failureMechanism?.HydraulicBoundaryLocations, assessmentSection)
         {
             FailureMechanism = failureMechanism;
@@ -62,6 +65,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             {
                 Observable = failureMechanism
             };
+
+            this.norm = norm;
         }
 
         /// <summary>
@@ -96,13 +101,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
         {
             double mechanismSpecificNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                AssessmentSection.FailureMechanismContribution.Norm,
+                norm,
                 FailureMechanism.Contribution,
                 FailureMechanism.GeneralInput.N);
 
             CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                              AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                              locations,
+                                                             hbl => hbl.DesignWaterLevelCalculation,
                                                              mechanismSpecificNorm,
                                                              messageProvider);
         }
