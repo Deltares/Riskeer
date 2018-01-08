@@ -86,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Call
             using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                    assessmentSection,
-                                                                                   0.01))
+                                                                                   () => 0.01))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
@@ -102,11 +102,28 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsWaveHeightLocationsView(null, assessmentSection, 0.01);
+            TestDelegate call = () => new GrassCoverErosionOutwardsWaveHeightLocationsView(null, assessmentSection, () => 0.01);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("locations", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_GetNormFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new GrassCoverErosionOutwardsWaveHeightLocationsView(new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                           assessmentSection,
+                                                                                           null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getNormFunc", exception.ParamName);
         }
 
         [Test]
@@ -625,7 +642,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             };
             failureMechanism.HydraulicBoundaryLocations.AddRange(locations);
 
-            var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(failureMechanism, assessmentSection, norm);
+            var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(failureMechanism, assessmentSection, () => norm);
 
             form.Controls.Add(view);
             form.Show();

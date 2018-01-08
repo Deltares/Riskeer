@@ -119,7 +119,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism,
                                                                                   new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                                                  0.01);
+                                                                                  () => 0.01);
 
             testForm.Controls.Add(view);
             testForm.Show();

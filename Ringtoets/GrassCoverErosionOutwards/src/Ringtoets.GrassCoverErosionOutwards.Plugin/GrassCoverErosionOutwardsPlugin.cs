@@ -147,7 +147,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GetViewName = (view, locations) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName,
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(context.FailureMechanism, context.AssessmentSection, context.AssessmentSection.FailureMechanismContribution.Norm),
+                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(context.FailureMechanism, context.AssessmentSection, () => context.AssessmentSection.FailureMechanismContribution.Norm),
                 AfterCreate = (view, context) =>
                 {
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
@@ -164,7 +164,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseGrassCoverErosionOutwardsLocationsViewForData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationsView(context.FailureMechanism, context.AssessmentSection, context.AssessmentSection.FailureMechanismContribution.Norm),
+                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationsView(context.FailureMechanism, context.AssessmentSection, () => context.AssessmentSection.FailureMechanismContribution.Norm),
                 AfterCreate = (view, context) =>
                 {
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
