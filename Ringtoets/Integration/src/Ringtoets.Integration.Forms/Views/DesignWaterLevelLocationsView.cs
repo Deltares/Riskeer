@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class DesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
     {
-        private readonly double norm;
+        private readonly Func<double> getNormFunc;
         private readonly DesignWaterLevelCalculationMessageProvider messageProvider;
 
         /// <summary>
@@ -45,19 +45,23 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         /// <param name="locations">The locations to show in the view.</param>
         /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
-        /// <param name="norm">The norm to use during calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> or 
-        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to use during calculations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public DesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
                                              IAssessmentSection assessmentSection,
-                                             double norm)
+                                             Func<double> getNormFunc)
             : base(locations, assessmentSection)
         {
+            if (getNormFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormFunc));
+            }
+
             InitializeComponent();
 
             messageProvider = new DesignWaterLevelCalculationMessageProvider();
 
-            this.norm = norm;
+            this.getNormFunc = getNormFunc;
         }
 
         protected override object CreateSelectedItemFromCurrentRow()
@@ -75,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                              AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                              locations,
                                                              hbl => hbl.DesignWaterLevelCalculation,
-                                                             norm,
+                                                             getNormFunc(),
                                                              messageProvider);
         }
 

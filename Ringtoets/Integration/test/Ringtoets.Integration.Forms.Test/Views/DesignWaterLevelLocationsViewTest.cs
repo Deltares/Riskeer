@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -69,6 +70,21 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             testForm.Dispose();
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_GetNormFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("getNormFunc", exception.ParamName);
         }
 
         [Test]
