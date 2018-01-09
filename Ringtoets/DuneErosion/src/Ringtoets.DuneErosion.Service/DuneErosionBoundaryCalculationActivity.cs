@@ -108,7 +108,7 @@ namespace Ringtoets.DuneErosion.Service
         {
             get
             {
-                return duneLocation.Output != null;
+                return duneLocation.Calculation.Output != null;
             }
         }
     }

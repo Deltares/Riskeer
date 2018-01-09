@@ -64,9 +64,9 @@ namespace Ringtoets.DuneErosion.Forms.Factories
                 feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;
                 feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RingtoetsDuneErosionDataResources.DuneLocation_Offset_format,
                                                                                        CultureInfo.InvariantCulture);
-                feature.MetaData[Resources.MetaData_WaterLevel] = location.Output?.WaterLevel ?? double.NaN;
-                feature.MetaData[Resources.MetaData_WaveHeight] = location.Output?.WaveHeight ?? double.NaN;
-                feature.MetaData[Resources.MetaData_WavePeriod] = location.Output?.WavePeriod ?? double.NaN;
+                feature.MetaData[Resources.MetaData_WaterLevel] = location.Calculation.Output?.WaterLevel ?? double.NaN;
+                feature.MetaData[Resources.MetaData_WaveHeight] = location.Calculation.Output?.WaveHeight ?? double.NaN;
+                feature.MetaData[Resources.MetaData_WavePeriod] = location.Calculation.Output?.WavePeriod ?? double.NaN;
                 feature.MetaData[Resources.MetaData_D50] = location.D50;
 
                 features[i] = feature;

@@ -107,7 +107,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             get
             {
-                return CalculatableObject.Output?.WaterLevel ?? RoundedDouble.NaN;
+                return CalculatableObject.Calculation.Output?.WaterLevel ?? RoundedDouble.NaN;
             }
         }
 
@@ -119,7 +119,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             get
             {
-                return CalculatableObject.Output?.WaveHeight ?? RoundedDouble.NaN;
+                return CalculatableObject.Calculation.Output?.WaveHeight ?? RoundedDouble.NaN;
             }
         }
 
@@ -131,7 +131,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             get
             {
-                return CalculatableObject.Output?.WavePeriod ?? RoundedDouble.NaN;
+                return CalculatableObject.Calculation.Output?.WavePeriod ?? RoundedDouble.NaN;
             }
         }
 

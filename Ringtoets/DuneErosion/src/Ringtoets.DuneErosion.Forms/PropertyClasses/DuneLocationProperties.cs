@@ -123,7 +123,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output?.WaterLevel ?? RoundedDouble.NaN;
+                return data.Calculation.Output?.WaterLevel ?? RoundedDouble.NaN;
             }
         }
 
@@ -135,7 +135,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output?.WaveHeight ?? RoundedDouble.NaN;
+                return data.Calculation.Output?.WaveHeight ?? RoundedDouble.NaN;
             }
         }
 
@@ -147,7 +147,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output?.WavePeriod ?? RoundedDouble.NaN;
+                return data.Calculation.Output?.WavePeriod ?? RoundedDouble.NaN;
             }
         }
 
@@ -171,7 +171,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output?.TargetProbability ?? double.NaN;
+                return data.Calculation.Output?.TargetProbability ?? double.NaN;
             }
         }
 
@@ -183,7 +183,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output?.TargetReliability ?? RoundedDouble.NaN;
+                return data.Calculation.Output?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -195,7 +195,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output?.CalculatedProbability ?? double.NaN;
+                return data.Calculation.Output?.CalculatedProbability ?? double.NaN;
             }
         }
 
@@ -207,7 +207,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Output?.CalculatedReliability ?? RoundedDouble.NaN;
+                return data.Calculation.Output?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }
 

@@ -139,7 +139,7 @@ namespace Ringtoets.DuneErosion.Plugin
             {
                 Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 CreateFileExporter = (context, filePath) => new DuneLocationsExporter(context.WrappedData, filePath),
-                IsEnabled = context => context.WrappedData.Any(dl => dl.Output != null),
+                IsEnabled = context => context.WrappedData.Any(dl => dl.Calculation.Output != null),
                 FileFilterGenerator = new FileFilterGenerator(
                     Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension,
                     Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description)

@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
                 Order = order
             };
 
-            CreateDuneLocationOutput(entity, location.Output);
+            CreateDuneLocationOutput(entity, location.Calculation.Output);
 
             registry.Register(entity, location);
             return entity;

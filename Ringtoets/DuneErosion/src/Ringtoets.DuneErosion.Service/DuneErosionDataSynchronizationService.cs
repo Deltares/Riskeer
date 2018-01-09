@@ -141,9 +141,9 @@ namespace Ringtoets.DuneErosion.Service
 
         private static IEnumerable<IObservable> ClearDuneLocationOutput(DuneLocation location)
         {
-            if (location.Output != null)
+            if (location.Calculation.Output != null)
             {
-                location.Output = null;
+                location.Calculation.Output = null;
                 yield return location;
             }
         }

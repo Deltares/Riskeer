@@ -149,7 +149,7 @@ namespace Ringtoets.DuneErosion.Service
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    duneLocation.Output = CreateDuneLocationOutput(duneLocationName, calculationInput.Beta, norm);
+                    duneLocation.Calculation.Output = CreateDuneLocationOutput(duneLocationName, calculationInput.Beta, norm);
                 }
             }
             catch (HydraRingCalculationException)

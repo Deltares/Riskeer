@@ -87,7 +87,7 @@ namespace Ringtoets.DuneErosion.IO
                 location.D50.ToString(null, CultureInfo.InvariantCulture)
             };
 
-            stringComponents.InsertRange(2, GetOutputValues(location.Output));
+            stringComponents.InsertRange(2, GetOutputValues(location.Calculation.Output));
 
             return string.Join(separator, stringComponents);
         }
