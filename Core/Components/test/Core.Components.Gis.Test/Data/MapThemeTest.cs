@@ -82,7 +82,7 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        public void Constructor_ValidArguments_ReturnsExpectedValues()
+        public void Constructor_ValidArguments_SetsExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();

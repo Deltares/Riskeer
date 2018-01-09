@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
-using Core.Components.DotSpatial.TestUtil;
+using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
@@ -36,15 +36,19 @@ namespace Core.Components.Gis.Test.Data
         [Test]
         public void Constructor_ValidName_NameAndDefaultValuesSet()
         {
+            // Setup
+            const string name = "test data";
+
             // Call
-            var data = new TestFeatureBasedMapData("test data");
+            var data = new TestFeatureBasedMapData(name);
 
             // Assert
-            Assert.AreEqual("test data", data.Name);
+            Assert.AreEqual(name, data.Name);
             CollectionAssert.IsEmpty(data.Features);
             Assert.IsFalse(data.ShowLabels);
             Assert.IsNull(data.SelectedMetaDataAttribute);
             CollectionAssert.IsEmpty(data.MetaData);
+            Assert.IsNull(data.MapTheme);
         }
 
         [Test]
@@ -142,6 +146,11 @@ namespace Core.Components.Gis.Test.Data
                 "Attribute2",
                 "Attribute3"
             }, metaData);
+        }
+
+        private class TestFeatureBasedMapData : FeatureBasedMapData
+        {
+            public TestFeatureBasedMapData(string name) : base(name) {}
         }
     }
 }

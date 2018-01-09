@@ -90,6 +90,11 @@ namespace Core.Components.Gis.Data
         }
 
         /// <summary>
+        /// Gets or sets the map theme of the <see cref="FeatureBasedMapData"/>.
+        /// </summary>
+        public MapTheme MapTheme { get; set; }
+
+        /// <summary>
         /// This method validates newly set features.
         /// </summary>
         /// <param name="featuresToValidate">The new features to validate.</param>
