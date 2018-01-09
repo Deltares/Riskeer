@@ -21,12 +21,15 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using Core.Common.TestUtil;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -148,6 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
                 Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
             }
+
             mocks.VerifyAll();
         }
 
@@ -174,6 +178,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
                 Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
             }
+
             mocks.VerifyAll();
         }
 
@@ -204,6 +209,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
                 Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
             }
+
             mocks.VerifyAll();
         }
 
@@ -270,6 +276,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
                 Assert.AreEqual("Model E", stochasticSoilModelsComboboxItems[2].ToString());
             }
+
             mocks.VerifyAll();
         }
 
@@ -297,6 +304,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("<geen>", soilProfilesComboboxItems[0].ToString());
                 Assert.AreEqual("Profile 5", soilProfilesComboboxItems[1].ToString());
             }
+
             mocks.VerifyAll();
         }
 
@@ -332,10 +340,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("30", cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
                 Assert.AreEqual("Location 2 (5 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
             }
+
             mocks.VerifyAll();
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void MacroStabilityInwardsCalculationsView_SelectingCellInRow_SelectionChangedFired()
         {
             // Setup
@@ -343,21 +353,32 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            MacroStabilityInwardsCalculationsView macroStabilityInwardsCalculationsView = ShowFullyConfiguredMacroStabilityInwardsCalculationsView(
-                assessmentSection);
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
-            var selectionChangedCount = 0;
-            macroStabilityInwardsCalculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
+            MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailuremechanism();
+            using (var calculationsView = new MacroStabilityInwardsCalculationsView
+            {
+                AssessmentSection = assessmentSection,
+                MacroStabilityInwardsFailureMechanism = failureMechanism,
+                Data = ConfigureCalculationGroup(assessmentSection, failureMechanism)
+            })
+            {
+                var selectionChangedCount = 0;
+                calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+                var control = TypeUtils.GetField<DataGridViewControl>(calculationsView, "dataGridViewControl");
+                WindowsFormsTestHelper.Show(control);
 
-            // Call                
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
-            // Assert
-            Assert.AreEqual(1, selectionChangedCount);
+                // Call                
+                EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
 
+                // Assert
+                Assert.AreEqual(1, selectionChangedCount);
+            }
+            WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
         }
 
@@ -391,6 +412,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(2, selectionChangedCount);
             }
+
             mocks.VerifyAll();
         }
 
@@ -861,6 +883,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var dataRow = (MacroStabilityInwardsCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
                 Assert.AreSame(dataRow.MacroStabilityInwardsCalculation, ((MacroStabilityInwardsInputContext) selection).MacroStabilityInwardsCalculation);
             }
+
             mocks.VerifyAll();
         }
 
@@ -901,6 +924,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 calculation.Output = null;
             }
+
             mocks.VerifyAll();
         }
 
@@ -965,6 +989,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 calculation.Output = null;
             }
+
             mocks.VerifyAll();
         }
 
@@ -1004,6 +1029,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var cell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
                 Assert.AreEqual("50", cell.FormattedValue);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1060,6 +1086,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1089,6 +1116,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var currentCellUpdated = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
                 Assert.AreEqual(useAssessmentLevelManualInput, currentCellUpdated.ReadOnly);
             }
+
             mocks.VerifyAll();
         }
 

@@ -22,12 +22,15 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using Core.Common.TestUtil;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -350,6 +353,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void PipingCalculationsView_SelectingCellInRow_SelectionChangedFired()
         {
             // Setup
@@ -357,21 +361,32 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection);
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
-            var selectionChangedCount = 0;
-            pipingCalculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
+            PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
+            using (var calculationsView = new PipingCalculationsView
+            {
+                AssessmentSection = assessmentSection,
+                PipingFailureMechanism = failureMechanism,
+                Data = ConfigureCalculationGroup(assessmentSection, failureMechanism)
+            })
+            {
+                var selectionChangedCount = 0;
+                calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+                var control = TypeUtils.GetField<DataGridViewControl>(calculationsView, "dataGridViewControl");
+                WindowsFormsTestHelper.Show(control);
 
-            // Call                
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
-            // Assert
-            Assert.AreEqual(1, selectionChangedCount);
+                // Call                
+                EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
 
+                // Assert
+                Assert.AreEqual(1, selectionChangedCount);
+            }
+            WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
         }
 
