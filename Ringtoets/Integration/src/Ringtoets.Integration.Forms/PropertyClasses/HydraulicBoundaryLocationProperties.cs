@@ -50,8 +50,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location.</param>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation at stake.</param>
         /// <param name="propertyIndexes">The <see cref="ConstructionProperties"/> containing the property indices.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
-        /// or <paramref name="propertyIndexes"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         protected HydraulicBoundaryLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                       HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                                       ConstructionProperties propertyIndexes)
