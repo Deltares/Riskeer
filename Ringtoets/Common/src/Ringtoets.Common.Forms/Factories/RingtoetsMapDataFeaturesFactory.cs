@@ -183,7 +183,7 @@ namespace Ringtoets.Common.Forms.Factories
             return sections != null && sections.Any()
                        ? new[]
                        {
-                           CreateSingleLineMapFeature(sections.Select(sl => sl.GetStart()))
+                           CreateSingleLineMapFeature(sections.Select(sl => sl.StartPoint))
                        }
                        : new MapFeature[0];
         }
@@ -200,7 +200,7 @@ namespace Ringtoets.Common.Forms.Factories
             return sections != null && sections.Any()
                        ? new[]
                        {
-                           CreateSingleLineMapFeature(sections.Select(sl => sl.GetLast()))
+                           CreateSingleLineMapFeature(sections.Select(sl => sl.EndPoint))
                        }
                        : new MapFeature[0];
         }

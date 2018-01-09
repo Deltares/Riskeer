@@ -177,7 +177,7 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             var sectionsStartPointData = (MapPointData) mapData;
             Assert.AreEqual(1, sectionsStartPointData.Features.Count());
-            CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
+            CollectionAssert.AreEqual(sections.Select(s => s.StartPoint), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             var sectionsEndPointData = (MapPointData) mapData;
             Assert.AreEqual(1, sectionsEndPointData.Features.Count());
-            CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsEndPointData.Features.First().MapGeometries.First().PointCollections.First());
+            CollectionAssert.AreEqual(sections.Select(s => s.EndPoint), sectionsEndPointData.Features.First().MapGeometries.First().PointCollections.First());
         }
 
         /// <summary>

@@ -35,14 +35,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
     /// </summary>
     public class FailureMechanismSection
     {
-        private readonly Point2D geometryStart;
-        private readonly Point2D geometryEnd;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSection"/> class.
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="geometryPoints">The geometry points.</param>
+        /// <param name="name">The name of the section.</param>
+        /// <param name="geometryPoints">The geometry points of the section.</param>
         /// <exception cref="ArgumentNullException">Thrown when:<list type="bullet">
         /// <item><paramref name="name"/> is <c>null</c>.</item>
         /// <item><paramref name="geometryPoints"/> is <c>null</c>.</item> </list></exception>
@@ -71,8 +68,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
             Name = name;
             Points = geometryPoints;
-            geometryStart = geometryPoints.First();
-            geometryEnd = geometryPoints.Last();
+            StartPoint = geometryPoints.First();
+            EndPoint = geometryPoints.Last();
         }
 
         /// <summary>
@@ -86,20 +83,14 @@ namespace Ringtoets.Common.Data.FailureMechanism
         public IEnumerable<Point2D> Points { get; }
 
         /// <summary>
-        /// Gets the geometric start of the section.
+        /// Gets the start point of the section.
         /// </summary>
-        public Point2D GetStart()
-        {
-            return geometryStart;
-        }
+        public Point2D StartPoint { get; }
 
         /// <summary>
-        /// Gets the geometric end of the section.
+        /// Gets the end point of the section.
         /// </summary>
-        public Point2D GetLast()
-        {
-            return geometryEnd;
-        }
+        public Point2D EndPoint { get; }
 
         /// <summary>
         /// Gets the length of the section.

@@ -212,7 +212,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 view.FailureMechanism.AddSection(new FailureMechanismSection("SectionC", new[]
                 {
-                    view.FailureMechanism.Sections.Last().GetLast(),
+                    view.FailureMechanism.Sections.Last().EndPoint,
                     new Point2D(30, 30)
                 }));
 

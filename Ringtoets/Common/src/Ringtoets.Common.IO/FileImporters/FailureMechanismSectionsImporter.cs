@@ -181,12 +181,11 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             foreach (FailureMechanismSection failureMechanismSection in mechanismSections)
             {
-                if (GetDistanceToReferenceLine(failureMechanismSection.GetStart(), referenceLine) > snappingTolerance)
+                if (GetDistanceToReferenceLine(failureMechanismSection.StartPoint, referenceLine) > snappingTolerance)
                 {
                     return true;
                 }
-
-                if (GetDistanceToReferenceLine(failureMechanismSection.GetLast(), referenceLine) > snappingTolerance)
+                if (GetDistanceToReferenceLine(failureMechanismSection.EndPoint, referenceLine) > snappingTolerance)
                 {
                     return true;
                 }
@@ -250,7 +249,7 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             double shortestDistance = double.MaxValue;
             FailureMechanismSection closestSectionToReferenceLineStart = null;
-            Dictionary<double, FailureMechanismSection> sectionReferenceLineDistances = sourceList.ToDictionary(s => referenceLine.Points.First().GetEuclideanDistanceTo(s.GetStart()), s => s);
+            Dictionary<double, FailureMechanismSection> sectionReferenceLineDistances = sourceList.ToDictionary(s => referenceLine.Points.First().GetEuclideanDistanceTo(s.StartPoint), s => s);
 
             foreach (KeyValuePair<double, FailureMechanismSection> sectionReferenceLineDistance in sectionReferenceLineDistances)
             {
@@ -270,11 +269,11 @@ namespace Ringtoets.Common.IO.FileImporters
             var doneGrowingToEnd = false;
             while (!doneGrowingToEnd)
             {
-                Point2D endPointToConnect = resultList[resultList.Count - 1].GetLast();
+                Point2D endPointToConnect = resultList[resultList.Count - 1].EndPoint;
 
                 double shortestDistance = double.MaxValue;
                 FailureMechanismSection closestSectionToConnectWith = null;
-                Dictionary<double, FailureMechanismSection> sectionConnectionDistances = sourceList.ToDictionary(s => endPointToConnect.GetEuclideanDistanceTo(s.GetStart()), s => s);
+                Dictionary<double, FailureMechanismSection> sectionConnectionDistances = sourceList.ToDictionary(s => endPointToConnect.GetEuclideanDistanceTo(s.StartPoint), s => s);
                 foreach (KeyValuePair<double, FailureMechanismSection> sectionConnectionDistance in sectionConnectionDistances)
                 {
                     double distance = sectionConnectionDistance.Key;

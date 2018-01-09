@@ -577,9 +577,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Point2D[] referenceLineGeometry = referenceLine.Points.ToArray();
 
             // 1. Start & End coherence:
-            Assert.AreEqual(referenceLineGeometry[0], sections[0].GetStart(),
+            Assert.AreEqual(referenceLineGeometry[0], sections[0].StartPoint,
                             "Start of the sections should correspond to the Start of the reference line.");
-            Assert.AreEqual(referenceLineGeometry[referenceLineGeometry.Length - 1], sections[sections.Length - 1].GetLast(),
+            Assert.AreEqual(referenceLineGeometry[referenceLineGeometry.Length - 1], sections[sections.Length - 1].EndPoint,
                             "End of the sections should correspond to the End of the reference line.");
 
             // 2. Total length coherence:
@@ -589,7 +589,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                             "The length of all sections should sum up to the length of the reference line.");
 
             // 3. Section Start and End coherence
-            IEnumerable<Point2D> allStartAndEndPoints = sections.Select(s => s.GetStart()).Concat(sections.Select(s => s.GetLast()));
+            IEnumerable<Point2D> allStartAndEndPoints = sections.Select(s => s.StartPoint).Concat(sections.Select(s => s.EndPoint));
             foreach (Point2D point in allStartAndEndPoints)
             {
                 Assert.Less(GetDistanceToReferenceLine(point, referenceLine), 1e-6,
@@ -605,7 +605,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
                 if (sectionTowardsStart != null)
                 {
-                    Assert.AreEqual(sectionTowardsStart.GetLast(), sectionTowardsEnd.GetStart(),
+                    Assert.AreEqual(sectionTowardsStart.EndPoint, sectionTowardsEnd.StartPoint,
                                     "All sections should be connected and in order of connectedness.");
                 }
             }

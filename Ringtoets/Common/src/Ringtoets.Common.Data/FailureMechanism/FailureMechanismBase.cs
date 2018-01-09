@@ -149,7 +149,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// be connected to elements already defined in <see cref="Sections"/>.</exception>
         private void InsertSectionWhileMaintainingConnectivityOrder(FailureMechanismSection sectionToInsert)
         {
-            if (sections[sections.Count - 1].GetLast().Equals(sectionToInsert.GetStart()))
+            if (sections[sections.Count - 1].EndPoint.Equals(sectionToInsert.StartPoint))
             {
                 sections.Add(sectionToInsert);
             }

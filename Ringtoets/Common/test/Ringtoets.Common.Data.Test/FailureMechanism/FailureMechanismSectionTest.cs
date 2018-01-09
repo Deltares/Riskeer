@@ -48,6 +48,8 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             Assert.AreEqual(expectedName, section.Name);
             Assert.AreSame(points, section.Points);
+            Assert.AreSame(points[0], section.StartPoint);
+            Assert.AreSame(points[1], section.EndPoint);
         }
 
         [Test]
@@ -101,42 +103,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             const string expectedMessage = "One or multiple elements are null.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void GetStart_SectionWithPoints_ReturnFirstPoint()
-        {
-            // Setup
-            var geometryPoints = new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            };
-            var section = new FailureMechanismSection("A", geometryPoints);
-
-            // Call
-            Point2D startingPoint = section.GetStart();
-
-            // Assert
-            Assert.AreEqual(geometryPoints[0], startingPoint);
-        }
-
-        [Test]
-        public void GetEnd_SectionWithPoints_ReturnLastPoint()
-        {
-            // Setup
-            var geometryPoints = new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            };
-            var section = new FailureMechanismSection("A", geometryPoints);
-
-            // Call
-            Point2D endingPoint = section.GetLast();
-
-            // Assert
-            Assert.AreEqual(geometryPoints[1], endingPoint);
         }
 
         [Test]
