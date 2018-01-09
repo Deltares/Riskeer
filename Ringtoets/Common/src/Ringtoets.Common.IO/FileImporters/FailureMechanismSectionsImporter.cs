@@ -83,6 +83,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_too_far_from_current_referenceline);
                 return false;
             }
+
             if (IsTotalLengthOfSectionsTooDifferentFromReferenceLineLength(referenceLine, readFailureMechanismSections))
             {
                 LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_too_different_from_referenceline_length);
@@ -131,6 +132,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 LogCriticalFileReadError(e);
             }
+
             return null;
         }
 
@@ -183,11 +185,13 @@ namespace Ringtoets.Common.IO.FileImporters
                 {
                     return true;
                 }
+
                 if (GetDistanceToReferenceLine(failureMechanismSection.GetLast(), referenceLine) > snappingTolerance)
                 {
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -200,8 +204,7 @@ namespace Ringtoets.Common.IO.FileImporters
         private static bool IsTotalLengthOfSectionsTooDifferentFromReferenceLineLength(ReferenceLine referenceLine, IEnumerable<FailureMechanismSection> mechanismSections)
         {
             double totalSectionsLength = mechanismSections.Sum(s => GetSectionLength(s));
-            double referenceLineLength = GetLengthOfLine(referenceLine.Points);
-            return Math.Abs(totalSectionsLength - referenceLineLength) > lengthDifferenceTolerance;
+            return Math.Abs(totalSectionsLength - referenceLine.Length) > lengthDifferenceTolerance;
         }
 
         private void AddImportedDataToModel(IEnumerable<FailureMechanismSection> failureMechanismSections)
@@ -281,6 +284,7 @@ namespace Ringtoets.Common.IO.FileImporters
                         closestSectionToConnectWith = sectionConnectionDistance.Value;
                     }
                 }
+
                 if (closestSectionToConnectWith == null)
                 {
                     doneGrowingToEnd = true;
@@ -298,7 +302,7 @@ namespace Ringtoets.Common.IO.FileImporters
             double[] orderedSectionLengths = orderedReadSections.Select(GetSectionLength).ToArray();
 
             // Correct last section to fully match referenceLine length:
-            double difference = GetLengthOfLine(referenceLine.Points) - orderedSectionLengths.Sum(l => l);
+            double difference = referenceLine.Length - orderedSectionLengths.Sum(l => l);
             orderedSectionLengths[orderedSectionLengths.Length - 1] += difference;
 
             return orderedSectionLengths;
@@ -306,12 +310,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private static double GetSectionLength(FailureMechanismSection section)
         {
-            return GetLengthOfLine(section.Points);
-        }
-
-        private static double GetLengthOfLine(IEnumerable<Point2D> linePoints)
-        {
-            return GetLineSegments(linePoints).Sum(segment => segment.Length);
+            return section.GetSectionLength();
         }
 
         private static IEnumerable<Segment2D> GetLineSegments(IEnumerable<Point2D> linePoints)

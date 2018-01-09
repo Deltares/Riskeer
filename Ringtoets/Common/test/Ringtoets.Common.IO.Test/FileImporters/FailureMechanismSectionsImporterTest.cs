@@ -583,8 +583,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                             "End of the sections should correspond to the End of the reference line.");
 
             // 2. Total length coherence:
-            double totalLengthOfSections = sections.Sum(s => GetLengthOfLine(s.Points));
-            double totalLengthOfReferenceLine = GetLengthOfLine(referenceLineGeometry);
+            double totalLengthOfSections = sections.Sum(s => GetLineSegments(s.Points).Sum(segment => segment.Length));
+            double totalLengthOfReferenceLine = referenceLine.Length;
             Assert.AreEqual(totalLengthOfReferenceLine, totalLengthOfSections, 1e-6,
                             "The length of all sections should sum up to the length of the reference line.");
 
@@ -614,13 +614,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         private double GetDistanceToReferenceLine(Point2D point, ReferenceLine referenceLine)
         {
             return GetLineSegments(referenceLine.Points)
-                .Select(segment => segment.GetEuclideanDistanceToPoint(point))
-                .Min();
-        }
-
-        private double GetLengthOfLine(IEnumerable<Point2D> linePoints)
-        {
-            return GetLineSegments(linePoints).Sum(segment => segment.Length);
+                   .Select(segment => segment.GetEuclideanDistanceToPoint(point))
+                   .Min();
         }
 
         private IEnumerable<Segment2D> GetLineSegments(IEnumerable<Point2D> linePoints)

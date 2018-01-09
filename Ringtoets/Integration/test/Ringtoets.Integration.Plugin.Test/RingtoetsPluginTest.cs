@@ -221,7 +221,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(19, propertyInfos.Length);
+                Assert.AreEqual(20, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -317,6 +317,11 @@ namespace Ringtoets.Integration.Plugin.Test
                     propertyInfos,
                     typeof(IllustrationPointContext<SubMechanismIllustrationPoint>),
                     typeof(SubMechanismIllustrationPointProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ReferenceLineContext),
+                    typeof(ReferenceLineProperties));
             }
         }
 
@@ -501,6 +506,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     assessmentSection.FailureMechanismContribution
                 }, childrenWithViewDefinitions);
             }
+
             mocks.VerifyAll();
         }
 

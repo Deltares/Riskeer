@@ -342,4 +342,16 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_UsePreprocessor_DisplayName" xml:space="preserve">
     <value>Gebruik preprocessor</value>
   </data>
+  <data name="ReferenceLineProperties_Geometry_DisplayName" xml:space="preserve">
+    <value>Coördinaten</value>
+  </data>
+  <data name="ReferenceLineProperties_Geometry_Description" xml:space="preserve">
+    <value>Lijst met coördinaten van punten op de referentielijn.</value>
+  </data>
+  <data name="ReferenceLineProperties_Length_DisplayName" xml:space="preserve">
+    <value>Lengte [m]</value>
+  </data>
+  <data name="ReferenceLineProperties_Length_Description" xml:space="preserve">
+    <value>Totale lengte van het traject in meters.</value>
+  </data>
 </root>

@@ -46,6 +46,11 @@ namespace Ringtoets.Common.Data.AssessmentSection
         public IEnumerable<Point2D> Points { get; private set; }
 
         /// <summary>
+        /// Gets the total length of the reference line.
+        /// </summary>
+        public double Length { get; private set; }
+
+        /// <summary>
         /// Sets the geometry of the reference line.
         /// </summary>
         /// <param name="newPoints">The sequence of points defining the reference line geometry.</param>
@@ -56,6 +61,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
             {
                 throw new ArgumentNullException(nameof(newPoints), RingtoetsCommonDataResources.ReferenceLine_SetGeometry_New_geometry_cannot_be_null);
             }
+
             Point2D[] point2Ds = newPoints.ToArray();
             if (point2Ds.Any(p => p == null))
             {
@@ -63,6 +69,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
             }
 
             Points = point2Ds;
+            Length = Math2D.Length(Points);
         }
     }
 }

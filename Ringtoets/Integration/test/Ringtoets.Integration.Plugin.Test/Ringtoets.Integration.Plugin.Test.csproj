@@ -51,6 +51,7 @@
     <Compile Include="PropertyInfos\DesignWaterLevelLocationsContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\FailureMechanismContributionContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\FaultTreeIllustrationPointContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\ReferenceLinePropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\HydraulicBoundaryDatabasePropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\SubMechanismIllustrationPointContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\SelectedTopLevelSubMechanismIllustrationPointPropertyInfoTest.cs" />

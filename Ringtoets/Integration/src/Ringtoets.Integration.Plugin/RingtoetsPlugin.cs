@@ -359,6 +359,10 @@ namespace Ringtoets.Integration.Plugin
                                                                                         context.WindDirectionName,
                                                                                         context.ClosingSituation)
             };
+            yield return new PropertyInfo<ReferenceLineContext, ReferenceLineProperties>
+            {
+                CreateInstance = context => new ReferenceLineProperties(context.WrappedData.ReferenceLine)
+            };
         }
 
         /// <summary>
@@ -930,9 +934,9 @@ namespace Ringtoets.Integration.Plugin
             if (assessmentSection != null)
             {
                 return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<IHasSectionResults<FailureMechanismSectionResult>>()
-                    .Any(fm => ReferenceEquals(viewData, fm.SectionResults));
+                       .GetFailureMechanisms()
+                       .OfType<IHasSectionResults<FailureMechanismSectionResult>>()
+                       .Any(fm => ReferenceEquals(viewData, fm.SectionResults));
             }
 
             if (failureMechanismContext != null)
@@ -1140,11 +1144,11 @@ namespace Ringtoets.Integration.Plugin
         private static IEnumerable<object> WrapFailureMechanismsInContexts(IAssessmentSection assessmentSection)
         {
             return assessmentSection
-                .GetFailureMechanisms()
-                .Select(failureMechanism => failureMechanismAssociations
-                            .First(a => a.Match(failureMechanism))
-                            .Create(failureMechanism, assessmentSection))
-                .ToArray();
+                   .GetFailureMechanisms()
+                   .Select(failureMechanism => failureMechanismAssociations
+                                               .First(a => a.Match(failureMechanism))
+                                               .Create(failureMechanism, assessmentSection))
+                   .ToArray();
         }
 
         private static void AssessmentSectionOnNodeRenamed(IAssessmentSection nodeData, string newName)

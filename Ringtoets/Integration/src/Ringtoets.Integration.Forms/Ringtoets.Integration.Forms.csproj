@@ -39,6 +39,7 @@
     <Compile Include="PropertyClasses\DesignWaterLevelLocationsProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelLocationProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionProperties.cs" />
+    <Compile Include="PropertyClasses\ReferenceLineProperties.cs" />
     <Compile Include="PropertyClasses\WaveHeightLocationProperties.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectProperties.cs" />
     <Compile Include="PropertyClasses\StandAloneFailureMechanismContextProperties.cs" />

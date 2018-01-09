@@ -37,6 +37,7 @@
     <Compile Include="BackgroundMapDataSelectionDialogTest.cs" />
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
+    <Compile Include="PropertyClasses\ReferenceLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\BackgroundDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesIntegrationTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContextTest.cs" />

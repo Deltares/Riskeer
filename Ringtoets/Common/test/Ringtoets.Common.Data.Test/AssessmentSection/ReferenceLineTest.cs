@@ -41,15 +41,16 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        public void SetGeometry_ValidCoordinates_UpdatePoints()
+        public void SetGeometry_ValidCoordinates_UpdatePointsAndLength()
         {
             // Setup
             var referenceLine = new ReferenceLine();
 
             var newPoints = new[]
             {
-                new Point2D(3, 5),
-                new Point2D(1, 2)
+                new Point2D(1, 1),
+                new Point2D(1, 4),
+                new Point2D(4, 4)
             };
 
             // Call
@@ -58,6 +59,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             // Assert
             CollectionAssert.AreEqual(newPoints, referenceLine.Points);
             Assert.AreNotSame(newPoints, referenceLine.Points);
+            Assert.AreEqual(6.0, referenceLine.Length);
         }
 
         [Test]
