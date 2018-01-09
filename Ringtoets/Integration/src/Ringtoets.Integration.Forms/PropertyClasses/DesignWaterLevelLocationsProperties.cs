@@ -37,13 +37,21 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class DesignWaterLevelLocationsProperties : HydraulicBoundaryLocationsProperties
     {
+        private readonly Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc;
+
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocations">The list of hydraulic boundary locations to set as data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
-        public DesignWaterLevelLocationsProperties(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
-            : base(hydraulicBoundaryLocations) {}
+        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public DesignWaterLevelLocationsProperties(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                   Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+            : base(hydraulicBoundaryLocations)
+        {
+            this.getCalculationFunc = getCalculationFunc;
+        }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
@@ -53,7 +61,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(loc => new DesignWaterLevelLocationProperties(loc, loc.DesignWaterLevelCalculation)).ToArray();
+                return data.Select(loc => new DesignWaterLevelLocationProperties(loc, getCalculationFunc(loc))).ToArray();
             }
         }
     }
