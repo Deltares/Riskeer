@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(loc => new DesignWaterLevelLocationProperties(loc)).ToArray();
+                return data.Select(loc => new DesignWaterLevelLocationProperties(loc, loc.DesignWaterLevelCalculation)).ToArray();
             }
         }
     }

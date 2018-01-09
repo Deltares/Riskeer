@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(loc => new WaveHeightLocationProperties(loc)).ToArray();
+                return data.Select(loc => new WaveHeightLocationProperties(loc, loc.WaveHeightCalculation)).ToArray();
             }
         }
     }
