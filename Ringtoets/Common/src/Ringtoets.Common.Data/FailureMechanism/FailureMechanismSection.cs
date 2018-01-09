@@ -53,14 +53,17 @@ namespace Ringtoets.Common.Data.FailureMechanism
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (geometryPoints == null)
             {
                 throw new ArgumentNullException(nameof(geometryPoints));
             }
+
             if (!geometryPoints.Any())
             {
                 throw new ArgumentException(Resources.FailureMechanismSection_Section_must_have_at_least_1_geometry_point, nameof(geometryPoints));
             }
+
             if (geometryPoints.Any(p => p == null))
             {
                 throw new ArgumentException(@"One or multiple elements are null.", nameof(geometryPoints));
@@ -70,6 +73,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             Points = geometryPoints;
             StartPoint = geometryPoints.First();
             EndPoint = geometryPoints.Last();
+            Length = Math2D.Length(geometryPoints);
         }
 
         /// <summary>
@@ -95,9 +99,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Gets the length of the section.
         /// </summary>
-        public double GetSectionLength()
-        {
-            return Math2D.ConvertLinePointsToLineSegments(Points).Sum(segment => segment.Length);
-        }
+        public double Length { get; }
     }
 }

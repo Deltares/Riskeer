@@ -403,7 +403,7 @@ namespace Ringtoets.Common.Forms.Factories
             });
 
             feature.MetaData[Resources.MetaData_Name] = section.Name;
-            feature.MetaData[Resources.MetaData_Length] = new RoundedDouble(2, Math2D.Length(section.Points));
+            feature.MetaData[Resources.MetaData_Length] = new RoundedDouble(2, section.Length);
 
             return feature;
         }
