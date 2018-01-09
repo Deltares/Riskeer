@@ -48,6 +48,7 @@ namespace Ringtoets.DuneErosion.Data
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));
@@ -60,6 +61,8 @@ namespace Ringtoets.DuneErosion.Data
             Offset = new RoundedDouble(1, properties.Offset);
             Orientation = new RoundedDouble(1, properties.Orientation);
             D50 = new RoundedDouble(6, properties.D50);
+
+            Calculation = new DuneLocationCalculation();
         }
 
         /// <summary>
@@ -98,9 +101,9 @@ namespace Ringtoets.DuneErosion.Data
         public RoundedDouble D50 { get; }
 
         /// <summary>
-        /// Gets or sets the output of a dune erosion calculation.
+        /// Gets the dune erosion calculation.
         /// </summary>
-        public DuneLocationOutput Output { get; set; }
+        public DuneLocationCalculation Calculation { get; }
 
         /// <summary>
         /// Gets the convergence status of the dune erosion calculation.
@@ -109,7 +112,7 @@ namespace Ringtoets.DuneErosion.Data
         {
             get
             {
-                return Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
+                return Calculation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
             }
         }
 

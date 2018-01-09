@@ -86,7 +86,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             Assert.AreEqual(offset, duneLocation.Offset.Value);
             Assert.AreEqual(orientation, duneLocation.Orientation.Value);
             Assert.AreEqual(d50, duneLocation.D50.Value);
-            Assert.IsNull(duneLocation.Output);
+            Assert.IsNotNull(duneLocation.Calculation);
             Assert.AreEqual(CalculationConvergence.NotCalculated, duneLocation.CalculationConvergence);
         }
 
@@ -146,10 +146,10 @@ namespace Ringtoets.DuneErosion.Data.Test
                                                 new DuneLocationOutput.ConstructionProperties());
 
             // Call
-            duneLocation.Output = output;
+            duneLocation.Calculation.Output = output;
 
             // Assert
-            Assert.AreSame(output, duneLocation.Output);
+            Assert.AreSame(output, duneLocation.Calculation.Output);
             Assert.AreEqual(converged, duneLocation.CalculationConvergence);
         }
     }
