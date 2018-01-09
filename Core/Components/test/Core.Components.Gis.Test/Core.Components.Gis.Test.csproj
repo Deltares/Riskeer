@@ -19,6 +19,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Categories\RangeCriteriaTest.cs" />
     <Compile Include="Data\Categories\ValueCriteriaTest.cs" />
     <Compile Include="Data\MapThemeTest.cs" />
     <Compile Include="Data\ImageBasedMapDataTest.cs" />

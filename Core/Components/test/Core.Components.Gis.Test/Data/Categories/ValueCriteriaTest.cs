@@ -52,13 +52,13 @@ namespace Core.Components.Gis.Test.Data.Categories
         {
             // Setup
             var random = new Random(21);
-            const ValueCriteriaOperator invalidValue = (ValueCriteriaOperator) 9999;
+            const ValueCriteriaOperator invalidOperator = (ValueCriteriaOperator) 9999;
             
             // Call
-            TestDelegate call = () => new ValueCriteria(invalidValue, random.NextDouble());
+            TestDelegate call = () => new ValueCriteria(invalidOperator, random.NextDouble());
 
             // Assert
-            string expectedMessage = $"The value of argument 'valueOperator' ({invalidValue}) is invalid for Enum type '{nameof(ValueCriteriaOperator)}'.";
+            string expectedMessage = $"The value of argument 'valueOperator' ({invalidOperator}) is invalid for Enum type '{nameof(ValueCriteriaOperator)}'.";
             string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
             Assert.AreEqual("valueOperator", parameterName);
         }
