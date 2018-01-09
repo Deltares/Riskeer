@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
@@ -202,7 +203,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private static bool IsTotalLengthOfSectionsTooDifferentFromReferenceLineLength(ReferenceLine referenceLine, IEnumerable<FailureMechanismSection> mechanismSections)
         {
-            double totalSectionsLength = mechanismSections.Sum(s => GetSectionLength(s));
+            double totalSectionsLength = mechanismSections.Sum(s => s.Length);
             return Math.Abs(totalSectionsLength - referenceLine.Length) > lengthDifferenceTolerance;
         }
 
@@ -298,18 +299,13 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private static double[] GetReferenceLineCutoffLengths(ReferenceLine referenceLine, IEnumerable<FailureMechanismSection> orderedReadSections)
         {
-            double[] orderedSectionLengths = orderedReadSections.Select(GetSectionLength).ToArray();
+            double[] orderedSectionLengths = orderedReadSections.Select(section => section.Length.Value).ToArray();
 
             // Correct last section to fully match referenceLine length:
             double difference = referenceLine.Length - orderedSectionLengths.Sum(l => l);
             orderedSectionLengths[orderedSectionLengths.Length - 1] += difference;
 
             return orderedSectionLengths;
-        }
-
-        private static double GetSectionLength(FailureMechanismSection section)
-        {
-            return section.GetSectionLength();
         }
 
         private static IEnumerable<Segment2D> GetLineSegments(IEnumerable<Point2D> linePoints)
