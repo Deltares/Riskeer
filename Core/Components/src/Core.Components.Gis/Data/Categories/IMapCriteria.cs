@@ -19,24 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using System.Drawing;
+using System;
 
 namespace Core.Components.Gis.Data.Categories
 {
-    /// <summary>
-    /// Interface for map categories.
-    /// </summary>
-    public interface IMapCategory
-    {
-        /// <summary>
-        /// The color of the map category.
-        /// </summary>
-        Color Color { get; }
-
-        /// <summary>
-        /// The criteria that is associated with the map category.
-        /// </summary>
-        IEnumerable<IMapCriteria> Criteria { get; }
-    }
+    public interface IMapCriteria {}
 }
