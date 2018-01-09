@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -54,6 +56,65 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<FailureMechanismSection>>(properties);
             Assert.AreSame(section, properties.Data);
+            TestHelper.AssertTypeConverter<FailureMechanismSectionProperties, ExpandableObjectConverter>();
+
+            Assert.AreEqual(section.Name, properties.Name);
+            Assert.AreEqual(section.Length, properties.Length);
+            Assert.AreEqual(section.StartPoint, properties.StartPoint);
+            Assert.AreEqual(section.EndPoint, properties.EndPoint);
+        }
+
+        [Test]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
+            // Call
+            var properties = new FailureMechanismSectionProperties(section);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(4, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            "Algemeen",
+                                                                            "Naam",
+                                                                            "De naam van het vak.",
+                                                                            true);
+            PropertyDescriptor lengthProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthProperty,
+                                                                            "Algemeen",
+                                                                            "Lengte [m]",
+                                                                            "De totale lengte van het vak in meters.",
+                                                                            true);
+            PropertyDescriptor startPointProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(startPointProperty,
+                                                                            "Algemeen",
+                                                                            "Beginpunt (X-coördinaat, Y-coördinaat)",
+                                                                            "Beginpunt van het vak.",
+                                                                            true);
+            PropertyDescriptor endPointProperty = dynamicProperties[3];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(endPointProperty,
+                                                                            "Algemeen",
+                                                                            "Eindpunt (X-coördinaat, Y-coördinaat)",
+                                                                            "Eindpunt van het vak.",
+                                                                            true);
+        }
+
+        [Test]
+        public void ToString_ValidData_ReturnSectionName()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var properties = new FailureMechanismSectionProperties(section);
+
+            // Call
+            string toString = properties.ToString();
+
+            // Assert
+            Assert.AreEqual(section.Name, toString);
         }
     }
 }

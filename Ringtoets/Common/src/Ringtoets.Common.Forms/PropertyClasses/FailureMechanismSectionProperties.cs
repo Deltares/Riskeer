@@ -20,14 +20,23 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.Base.TypeConverters;
+using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="FailureMechanismSection"/> for properties panel.
     /// </summary>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class FailureMechanismSectionProperties : ObjectProperties<FailureMechanismSection>
     {
         /// <summary>
@@ -44,6 +53,60 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
 
             Data = section;
+        }
+
+        [PropertyOrder(1)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSection_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSection_Name_Description))]
+        public string Name
+        {
+            get
+            {
+                return data.Name;
+            }
+        }
+
+        [PropertyOrder(2)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSection_Length_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSection_Length_Description))]
+        [TypeConverter(typeof(RoundedDoubleConverter))]
+        public RoundedDouble Length
+        {
+            get
+            {
+                return data.Length;
+            }
+        }
+
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSection_StartPoint_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSection_StartPoint_Description))]
+        public Point2D StartPoint
+        {
+            get
+            {
+                return data.StartPoint;
+            }
+        }
+
+        [PropertyOrder(4)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSection_EndPoint_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSection_EndPoint_Description))]
+        public Point2D EndPoint
+        {
+            get
+            {
+                return data.EndPoint;
+            }
+        }
+
+        public override string ToString()
+        {
+            return data.Name;
         }
     }
 }

@@ -1418,6 +1418,78 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Eindpunt van het vak..
+        /// </summary>
+        public static string FailureMechanismSection_EndPoint_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanismSection_EndPoint_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eindpunt (X-coördinaat, Y-coördinaat).
+        /// </summary>
+        public static string FailureMechanismSection_EndPoint_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSection_EndPoint_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De totale lengte van het vak in meters..
+        /// </summary>
+        public static string FailureMechanismSection_Length_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanismSection_Length_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lengte [m].
+        /// </summary>
+        public static string FailureMechanismSection_Length_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSection_Length_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De naam van het vak..
+        /// </summary>
+        public static string FailureMechanismSection_Name_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanismSection_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string FailureMechanismSection_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSection_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beginpunt van het vak..
+        /// </summary>
+        public static string FailureMechanismSection_StartPoint_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanismSection_StartPoint_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beginpunt (X-coördinaat, Y-coördinaat).
+        /// </summary>
+        public static string FailureMechanismSection_StartPoint_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSection_StartPoint_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap FailureMechanismSectionResultIcon {

@@ -1250,4 +1250,28 @@ Pf = {1}</value>
   <data name="FailureMechanismSections_Description" xml:space="preserve">
     <value>Vakindeling waarmee de waterkering voor dit toetsspoor is geschematiseerd ten behoeve van de beoordeling.</value>
   </data>
+  <data name="FailureMechanismSection_EndPoint_Description" xml:space="preserve">
+    <value>Eindpunt van het vak.</value>
+  </data>
+  <data name="FailureMechanismSection_EndPoint_DisplayName" xml:space="preserve">
+    <value>Eindpunt (X-coördinaat, Y-coördinaat)</value>
+  </data>
+  <data name="FailureMechanismSection_Length_Description" xml:space="preserve">
+    <value>De totale lengte van het vak in meters.</value>
+  </data>
+  <data name="FailureMechanismSection_Length_DisplayName" xml:space="preserve">
+    <value>Lengte [m]</value>
+  </data>
+  <data name="FailureMechanismSection_Name_Description" xml:space="preserve">
+    <value>De naam van het vak.</value>
+  </data>
+  <data name="FailureMechanismSection_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="FailureMechanismSection_StartPoint_Description" xml:space="preserve">
+    <value>Beginpunt van het vak.</value>
+  </data>
+  <data name="FailureMechanismSection_StartPoint_DisplayName" xml:space="preserve">
+    <value>Beginpunt (X-coördinaat, Y-coördinaat)</value>
+  </data>
 </root>
