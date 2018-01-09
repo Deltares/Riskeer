@@ -12,6 +12,8 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Categories\IMapCategory.cs" />
+    <Compile Include="Data\MapTheme.cs" />
     <Compile Include="Data\ImageBasedMapData.cs" />
     <Compile Include="Data\Removable\IRemovable.cs" />
     <Compile Include="Data\MapData.cs" />
@@ -70,5 +72,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Categories\" />
   </ItemGroup>
 </Project>

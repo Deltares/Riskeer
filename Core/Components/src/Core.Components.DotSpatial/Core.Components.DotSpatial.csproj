@@ -43,7 +43,6 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Categories\IMapCategory.cs" />
     <Compile Include="Converter\FeatureBasedMapDataConverter.cs" />
     <Compile Include="Layer\BruTile\BruTileLayer.cs" />
     <Compile Include="Layer\ImageBasedMapDataLayerFactory.cs" />

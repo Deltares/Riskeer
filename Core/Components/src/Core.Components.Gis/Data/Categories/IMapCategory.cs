@@ -21,7 +21,7 @@
 
 using System.Drawing;
 
-namespace Core.Components.DotSpatial.Categories
+namespace Core.Components.Gis.Data.Categories
 {
     /// <summary>
     /// Interface for map categories.
