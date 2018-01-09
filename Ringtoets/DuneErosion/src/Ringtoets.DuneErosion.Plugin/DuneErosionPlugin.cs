@@ -60,9 +60,9 @@ namespace Ringtoets.DuneErosion.Plugin
                 CreateInstance = context => new DuneErosionFailureMechanismProperties(context.WrappedData,
                                                                                       new DuneErosionFailureMechanismPropertyChangeHandler())
             };
-            yield return new PropertyInfo<DuneLocationsContext, DuneLocationsContextProperties>
+            yield return new PropertyInfo<DuneLocationsContext, DuneLocationsProperties>
             {
-                CreateInstance = context => new DuneLocationsContextProperties(context.WrappedData)
+                CreateInstance = context => new DuneLocationsProperties(context.WrappedData)
             };
 
             yield return new PropertyInfo<DuneLocation, DuneLocationProperties>
