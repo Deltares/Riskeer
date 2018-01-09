@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using Core.Common.Gui.PropertyBag;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
@@ -27,5 +29,22 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSection"/> for properties panel.
     /// </summary>
-    public class FailureMechanismSectionsProperties {}
+    public class FailureMechanismSectionsProperties : ObjectProperties<IEnumerable<FailureMechanismSection>>
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismSectionsProperties"/>.
+        /// </summary>
+        /// <param name="sections">The sections to show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sections"/>
+        /// is <c>null</c>.</exception>
+        public FailureMechanismSectionsProperties(IEnumerable<FailureMechanismSection> sections)
+        {
+            if (sections == null)
+            {
+                throw new ArgumentNullException(nameof(sections));
+            }
+
+            Data = sections;
+        }
+    }
 }

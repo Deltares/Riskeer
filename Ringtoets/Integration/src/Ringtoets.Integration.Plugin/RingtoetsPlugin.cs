@@ -359,6 +359,10 @@ namespace Ringtoets.Integration.Plugin
                                                                                         context.WindDirectionName,
                                                                                         context.ClosingSituation)
             };
+            yield return new PropertyInfo<FailureMechanismSectionsContext, FailureMechanismSectionsProperties>
+            {
+                CreateInstance = context => new FailureMechanismSectionsProperties(context.WrappedData.Sections)
+            };
             yield return new PropertyInfo<ReferenceLineContext, ReferenceLineProperties>
             {
                 CreateInstance = context => new ReferenceLineProperties(context.WrappedData.ReferenceLine)

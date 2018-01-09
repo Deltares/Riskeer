@@ -19,13 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class FailureMechanismSectionPropertiesTest
     {
-        
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var properties = new FailureMechanismSectionProperties();
+
+            // Assert
+            Assert.IsInstanceOf<ObjectProperties<FailureMechanismSection>>(properties);
+            Assert.IsNull(properties.Data);
+        }
     }
 }

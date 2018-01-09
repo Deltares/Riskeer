@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Gui.PropertyBag;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
@@ -26,5 +27,5 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="FailureMechanismSection"/> for properties panel.
     /// </summary>
-    public class FailureMechanismSectionProperties {}
+    public class FailureMechanismSectionProperties : ObjectProperties<FailureMechanismSection> {}
 }

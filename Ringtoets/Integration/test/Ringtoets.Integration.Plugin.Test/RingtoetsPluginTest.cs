@@ -320,6 +320,11 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
+                    typeof(FailureMechanismSectionsContext),
+                    typeof(FailureMechanismSectionsProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
                     typeof(ReferenceLineContext),
                     typeof(ReferenceLineProperties));
             }
