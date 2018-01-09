@@ -42,19 +42,22 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// Creates a new instance of <see cref="WaveHeightLocationProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
-        /// is <c>null</c>.</exception>
-        public WaveHeightLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation)
-            : base(hydraulicBoundaryLocation, new ConstructionProperties
-            {
-                IdIndex = 1,
-                NameIndex = 2,
-                LocationIndex = 3,
-                GoverningWindDirectionIndex = 11,
-                StochastsIndex = 12,
-                DurationsIndex = 13,
-                IllustrationPointsIndex = 14
-            }) {}
+        /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation at stake.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public WaveHeightLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
+            : base(hydraulicBoundaryLocation,
+                   hydraulicBoundaryLocationCalculation,
+                   new ConstructionProperties
+                   {
+                       IdIndex = 1,
+                       NameIndex = 2,
+                       LocationIndex = 3,
+                       GoverningWindDirectionIndex = 11,
+                       StochastsIndex = 12,
+                       DurationsIndex = 13,
+                       IllustrationPointsIndex = 14
+                   }) {}
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
@@ -65,7 +68,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WaveHeight;
+                return hydraulicBoundaryLocationCalculation.Output?.Result ?? RoundedDouble.NaN;
             }
         }
 
@@ -78,8 +81,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WaveHeightCalculation.Output;
-                return output?.TargetProbability ?? double.NaN;
+                return hydraulicBoundaryLocationCalculation.Output?.TargetProbability ?? double.NaN;
             }
         }
 
@@ -92,8 +94,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WaveHeightCalculation.Output;
-                return output?.TargetReliability ?? RoundedDouble.NaN;
+                return hydraulicBoundaryLocationCalculation.Output?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -106,8 +107,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WaveHeightCalculation.Output;
-                return output?.CalculatedProbability ?? double.NaN;
+                return hydraulicBoundaryLocationCalculation.Output?.CalculatedProbability ?? double.NaN;
             }
         }
 
@@ -120,8 +120,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.WaveHeightCalculation.Output;
-                return output?.CalculatedReliability ?? RoundedDouble.NaN;
+                return hydraulicBoundaryLocationCalculation.Output?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -133,7 +132,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.WaveHeightCalculationConvergence).DisplayName;
+                CalculationConvergence convergence = hydraulicBoundaryLocationCalculation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
+
+                return new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             }
         }
 
@@ -145,21 +146,21 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+                return hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
             }
             set
             {
-                data.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
+                hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
                 data.NotifyObservers();
             }
         }
 
         protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
-            if (data.WaveHeightCalculation.HasOutput
-                && data.WaveHeightCalculation.Output.HasGeneralResult)
+            if (hydraulicBoundaryLocationCalculation.HasOutput
+                && hydraulicBoundaryLocationCalculation.Output.HasGeneralResult)
             {
-                return data.WaveHeightCalculation.Output.GeneralResult;
+                return hydraulicBoundaryLocationCalculation.Output.GeneralResult;
             }
 
             return null;
