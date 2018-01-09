@@ -134,7 +134,7 @@ namespace Ringtoets.Common.IO
             MapFeature feature = features[0];
 
             string name = GetSectionName(feature);
-            IEnumerable<Point2D> geometryPoints = GetSectionGeometry(feature);
+            Point2D[] geometryPoints = GetSectionGeometry(feature).ToArray();
             return new FailureMechanismSection(name, geometryPoints);
         }
 
@@ -158,7 +158,7 @@ namespace Ringtoets.Common.IO
                 throw CreateCriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
             }
 
-            return mapGeometries[0].PointCollections.First().Select(p => new Point2D(p)).ToArray();
+            return mapGeometries[0].PointCollections.First().Select(p => new Point2D(p));
         }
 
         private CriticalFileReadException CreateCriticalFileReadException(string message)

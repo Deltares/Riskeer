@@ -47,8 +47,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <item><paramref name="name"/> is <c>null</c>.</item>
         /// <item><paramref name="geometryPoints"/> is <c>null</c>.</item> </list></exception>
         /// <exception cref="ArgumentException">Thrown when:<list type="bullet">
+        /// <item><paramref name="geometryPoints"/> does not have at least one geometry point.</item>
         /// <item>One or more <paramref name="geometryPoints"/> elements are <c>null</c>.</item>
-        /// <item><paramref name="geometryPoints"/> does not have at lease one geometry point.</item>
         /// </list></exception>
         public FailureMechanismSection(string name, IEnumerable<Point2D> geometryPoints)
         {
@@ -60,20 +60,19 @@ namespace Ringtoets.Common.Data.FailureMechanism
             {
                 throw new ArgumentNullException(nameof(geometryPoints));
             }
-            Point2D[] point2Ds = geometryPoints.ToArray();
-            if (point2Ds.Any(p => p == null))
-            {
-                throw new ArgumentException(@"One or multiple elements are null.", nameof(geometryPoints));
-            }
-            if (point2Ds.Length == 0)
+            if (!geometryPoints.Any())
             {
                 throw new ArgumentException(Resources.FailureMechanismSection_Section_must_have_at_least_1_geometry_point, nameof(geometryPoints));
             }
+            if (geometryPoints.Any(p => p == null))
+            {
+                throw new ArgumentException(@"One or multiple elements are null.", nameof(geometryPoints));
+            }
 
             Name = name;
-            Points = point2Ds;
-            geometryStart = point2Ds[0];
-            geometryEnd = point2Ds[point2Ds.Length - 1];
+            Points = geometryPoints;
+            geometryStart = geometryPoints.First();
+            geometryEnd = geometryPoints.Last();
         }
 
         /// <summary>

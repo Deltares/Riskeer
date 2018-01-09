@@ -47,28 +47,41 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
             // Assert
             Assert.AreEqual(expectedName, section.Name);
-            Assert.AreNotSame(points, section.Points);
-            CollectionAssert.AreEqual(points, section.Points);
+            Assert.AreSame(points, section.Points);
         }
 
         [Test]
-        public void Constructor_NameIsNull_ThrowArugmentNullException()
+        public void Constructor_NameNull_ThrowArugmentNullException()
         {
             // Call
             TestDelegate call = () => new FailureMechanismSection(null, Enumerable.Empty<Point2D>());
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("name", exception.ParamName);
+
         }
 
         [Test]
-        public void Constructor_GeometryPointsIsNull_ThrowArgumentNullException()
+        public void Constructor_GeometryPointsNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => new FailureMechanismSection("name", null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("geometryPoints", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_GeometryIsEmpty_ThrowArgumentException()
+        {
+            // Call
+            TestDelegate call = () => new FailureMechanismSection("", Enumerable.Empty<Point2D>());
+
+            // Assert
+            const string expectedMessage = "Vak moet minstens uit één punt bestaan.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
@@ -87,17 +100,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
             // Assert
             const string expectedMessage = "One or multiple elements are null.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void Constructor_GeometryIsEmpty_ThrowArgumentException()
-        {
-            // Call
-            TestDelegate call = () => new FailureMechanismSection("", Enumerable.Empty<Point2D>());
-
-            // Assert
-            const string expectedMessage = "Vak moet minstens uit één punt bestaan.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
