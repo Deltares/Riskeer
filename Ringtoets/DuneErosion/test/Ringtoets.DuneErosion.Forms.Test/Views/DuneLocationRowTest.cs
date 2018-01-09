@@ -47,12 +47,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 D50 = 0.000183
             })
             {
-                Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                Calculation =
                 {
-                    WaterLevel = 3.0,
-                    WaveHeight = 4.0,
-                    WavePeriod = 5.0
-                })
+                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                    {
+                        WaterLevel = 3.0,
+                        WaveHeight = 4.0,
+                        WavePeriod = 5.0
+                    })
+                }
             };
 
             // Call
@@ -67,9 +70,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(location.CoastalAreaId, row.CoastalAreaId);
             Assert.AreEqual(location.Offset.ToString("0.#", CultureInfo.InvariantCulture), row.Offset);
             Assert.AreEqual(location.D50, row.D50);
-            Assert.AreEqual(location.Output.WaterLevel, row.WaterLevel);
-            Assert.AreEqual(location.Output.WaveHeight, row.WaveHeight);
-            Assert.AreEqual(location.Output.WavePeriod, row.WavePeriod);
+            Assert.AreEqual(location.Calculation.Output.WaterLevel, row.WaterLevel);
+            Assert.AreEqual(location.Calculation.Output.WaveHeight, row.WaveHeight);
+            Assert.AreEqual(location.Calculation.Output.WavePeriod, row.WavePeriod);
 
             TestHelper.AssertTypeConverter<DuneLocationRow, NoValueRoundedDoubleConverter>(
                 nameof(DuneLocationRow.WaterLevel));

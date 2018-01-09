@@ -133,7 +133,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.DuneLocations.Add(new TestDuneLocation
             {
-                Output = new TestDuneLocationOutput()
+                Calculation =
+                {
+                    Output = new TestDuneLocationOutput()
+                }
             });
             var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 

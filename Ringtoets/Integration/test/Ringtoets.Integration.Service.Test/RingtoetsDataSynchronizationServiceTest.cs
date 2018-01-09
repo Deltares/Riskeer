@@ -328,7 +328,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 expectedAffectedItems.Add(grassCoverErosionLocation);
             }
-            if (duneLocation.Output != null)
+            if (duneLocation.Calculation.Output != null)
             {
                 expectedAffectedItems.Add(duneLocation);
             }
@@ -342,7 +342,7 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
             Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation.HasOutput);
             Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation.HasOutput);
-            Assert.IsNull(duneLocation.Output);
+            Assert.IsNull(duneLocation.Calculation.Output);
 
             mockRepository.VerifyAll();
         }
@@ -392,7 +392,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 expectedAffectedItems.Add(grassCoverErosionLocation);
             }
-            if (duneLocation.Output != null)
+            if (duneLocation.Calculation.Output != null)
             {
                 expectedAffectedItems.Add(duneLocation);
             }
@@ -410,7 +410,7 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
             Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation.HasOutput);
             Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation.HasOutput);
-            Assert.IsNull(duneLocation.Output);
+            Assert.IsNull(duneLocation.Calculation.Output);
         }
 
         [Test]
@@ -452,7 +452,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 expectedAffectedItems.Add(grassCoverErosionLocation);
             }
-            if (duneLocation.Output != null)
+            if (duneLocation.Calculation.Output != null)
             {
                 expectedAffectedItems.Add(duneLocation);
             }
@@ -468,7 +468,7 @@ namespace Ringtoets.Integration.Service.Test
             Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
             Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation.HasOutput);
             Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation.HasOutput);
-            Assert.IsNull(duneLocation.Output);
+            Assert.IsNull(duneLocation.Calculation.Output);
 
             mockRepository.VerifyAll();
         }
@@ -1624,14 +1624,20 @@ namespace Ringtoets.Integration.Service.Test
                 new TestHydraulicBoundaryLocation(),
                 new TestDuneLocation
                 {
-                    Output = new TestDuneLocationOutput()
+                    Calculation =
+                    {
+                        Output = new TestDuneLocationOutput()
+                    }
                 }
             ).SetName($"GrassLocationWithoutOutputDuneLocationWithOutput_{testName}");
             yield return new TestCaseData(
                 TestHydraulicBoundaryLocation.CreateFullyCalculated(),
                 new TestDuneLocation
                 {
-                    Output = new TestDuneLocationOutput()
+                    Calculation =
+                    {
+                        Output = new TestDuneLocationOutput()
+                    }
                 }
             ).SetName($"GrassAndDuneLocationWithOutput_{testName}");
         }
@@ -1645,7 +1651,10 @@ namespace Ringtoets.Integration.Service.Test
                     new TestHydraulicBoundaryLocation(),
                     new TestDuneLocation
                     {
-                        Output = new TestDuneLocationOutput()
+                        Calculation =
+                        {
+                            Output = new TestDuneLocationOutput()
+                        }
                     }
                 ).SetName("HydraulicBoundaryAndDuneLocationWithOutput");
                 yield return new TestCaseData(
@@ -1658,7 +1667,10 @@ namespace Ringtoets.Integration.Service.Test
                     TestHydraulicBoundaryLocation.CreateFullyCalculated(),
                     new TestDuneLocation
                     {
-                        Output = new TestDuneLocationOutput()
+                        Calculation =
+                        {
+                            Output = new TestDuneLocationOutput()
+                        }
                     }
                 ).SetName("AllTypesWithOutput");
                 yield return new TestCaseData(
@@ -1671,7 +1683,10 @@ namespace Ringtoets.Integration.Service.Test
                     new TestHydraulicBoundaryLocation(),
                     new TestDuneLocation
                     {
-                        Output = new TestDuneLocationOutput()
+                        Calculation =
+                        {
+                            Output = new TestDuneLocationOutput()
+                        }
                     }
                 ).SetName("HydraulicBoundaryLocationWithoutOutputDuneLocationWithOutput");
                 yield return new TestCaseData(
@@ -1684,7 +1699,10 @@ namespace Ringtoets.Integration.Service.Test
                     TestHydraulicBoundaryLocation.CreateFullyCalculated(),
                     new TestDuneLocation
                     {
-                        Output = new TestDuneLocationOutput()
+                        Calculation =
+                        {
+                            Output = new TestDuneLocationOutput()
+                        }
                     }
                 ).SetName("HydraulicBoundaryLocationWithoutOutputGrassAndDuneLocationWithOutput");
                 yield return new TestCaseData(

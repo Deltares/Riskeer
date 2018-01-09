@@ -61,7 +61,7 @@ namespace Ringtoets.DuneErosion.Service
             CalculationServiceHelper.LogValidationBegin();
 
             string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
-                                                                                                                  preprocessorDirectory);
+                                                                                                                   preprocessorDirectory);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
                 CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
@@ -91,7 +91,7 @@ namespace Ringtoets.DuneErosion.Service
 
         /// <summary>
         /// Performs a dune erosion calculation based on the supplied <see cref="DuneLocation"/>
-        /// and sets the <see cref="DuneLocation.Output"/> if the calculation is successful.
+        /// and sets the <see cref="DuneLocationCalculation.Output"/> if the calculation is successful.
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="duneLocation">The <see cref="DuneLocation"/> that holds information required 

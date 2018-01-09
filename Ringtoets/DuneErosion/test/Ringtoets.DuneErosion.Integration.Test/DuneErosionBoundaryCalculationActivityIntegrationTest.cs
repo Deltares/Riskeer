@@ -149,7 +149,10 @@ namespace Ringtoets.DuneErosion.Integration.Test
             var initialOutput = new TestDuneLocationOutput();
             var duneLocation = new TestDuneLocation
             {
-                Output = initialOutput
+                Calculation =
+                {
+                    Output = initialOutput
+                }
             };
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
                                                                       validFilePath,
@@ -163,7 +166,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
 
                 // Assert
                 Assert.AreEqual(ActivityState.Skipped, activity.State);
-                Assert.AreSame(initialOutput, duneLocation.Output);
+                Assert.AreSame(initialOutput, duneLocation.Calculation.Output);
             }
 
             mockRepository.VerifyAll();

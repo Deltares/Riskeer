@@ -134,10 +134,10 @@ namespace Ringtoets.DuneErosion.IO.Test
             DuneLocation locationNoOutput = CreateDuneLocationForExport(9, 9740, 1.9583e-4);
 
             DuneLocation locationUncalculatedOutput = CreateDuneLocationForExport(10, 9770.1, 1.9583e-4);
-            locationUncalculatedOutput.Output = CreateDuneLocationOutputForExport(double.NaN, double.NaN, double.NaN);
+            locationUncalculatedOutput.Calculation.Output = CreateDuneLocationOutputForExport(double.NaN, double.NaN, double.NaN);
 
             DuneLocation locationCalculatedOutput = CreateDuneLocationForExport(11, 9771.34, 1.337e-4);
-            locationCalculatedOutput.Output = CreateDuneLocationOutputForExport(5.89, 14.11, 8.53);
+            locationCalculatedOutput.Calculation.Output = CreateDuneLocationOutputForExport(5.89, 14.11, 8.53);
 
             DuneLocation[] duneLocations =
             {

@@ -174,7 +174,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
             public ChangePropertyTestCase(ICollection<DuneLocation> locations)
             {
                 Locations = locations;
-                ExpectedAffectedLocations = locations.Where(c => c.Output != null).ToArray();
+                ExpectedAffectedLocations = locations.Where(c => c.Calculation.Output != null).ToArray();
             }
 
             public ICollection<DuneLocation> Locations { get; }
@@ -244,7 +244,10 @@ namespace Ringtoets.DuneErosion.Forms.Test
         {
             return new TestDuneLocation
             {
-                Output = new TestDuneLocationOutput()
+                Calculation =
+                {
+                    Output = new TestDuneLocationOutput()
+                }
             };
         }
     }

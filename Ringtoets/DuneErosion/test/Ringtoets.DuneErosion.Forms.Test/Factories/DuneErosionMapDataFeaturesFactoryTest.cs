@@ -68,7 +68,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
             };
             DuneLocation[] locations = points.Select(p => new ValidDuneLocation(p)
             {
-                Output = new TestDuneLocationOutput()
+                Calculation =
+                {
+                    Output = new TestDuneLocationOutput()
+                }
             }).Cast<DuneLocation>().ToArray();
 
             // Call
@@ -82,12 +85,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
                 Assert.AreEqual(locations[i].Name, features[i].MetaData["Naam"]);
                 Assert.AreEqual(locations[i].CoastalAreaId, features[i].MetaData["Kustvaknummer"]);
                 Assert.AreEqual(locations[i].Offset.ToString("0.#", CultureInfo.InvariantCulture), features[i].MetaData["Metrering"]);
-                Assert.AreEqual(locations[i].Output.WaterLevel, (double) features[i].MetaData["Rekenwaarde waterstand"],
-                                locations[i].Output.WaterLevel.GetAccuracy());
-                Assert.AreEqual(locations[i].Output.WaveHeight, (double) features[i].MetaData["Rekenwaarde Hs"],
-                                locations[i].Output.WaveHeight.GetAccuracy());
-                Assert.AreEqual(locations[i].Output.WavePeriod, (double) features[i].MetaData["Rekenwaarde Tp"],
-                                locations[i].Output.WavePeriod.GetAccuracy());
+                Assert.AreEqual(locations[i].Calculation.Output.WaterLevel, (double) features[i].MetaData["Rekenwaarde waterstand"],
+                                locations[i].Calculation.Output.WaterLevel.GetAccuracy());
+                Assert.AreEqual(locations[i].Calculation.Output.WaveHeight, (double) features[i].MetaData["Rekenwaarde Hs"],
+                                locations[i].Calculation.Output.WaveHeight.GetAccuracy());
+                Assert.AreEqual(locations[i].Calculation.Output.WavePeriod, (double) features[i].MetaData["Rekenwaarde Tp"],
+                                locations[i].Calculation.Output.WavePeriod.GetAccuracy());
                 Assert.AreEqual(locations[i].D50, (RoundedDouble) features[i].MetaData["Rekenwaarde d50"],
                                 locations[i].D50.GetAccuracy());
                 Assert.AreEqual(8, features[i].MetaData.Keys.Count);

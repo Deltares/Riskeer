@@ -147,7 +147,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                                 D50 = d50
                                             })
             {
-                Output = output
+                Calculation =
+                {
+                    Output = output
+                }
             };
 
             // Call

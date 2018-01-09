@@ -203,7 +203,10 @@ namespace Ringtoets.DuneErosion.Service.Test
             // Setup
             var duneLocation = new TestDuneLocation("locationName")
             {
-                Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties())
+                Calculation =
+                {
+                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties())
+                }
             };
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
@@ -255,7 +258,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             }
 
             // Assert
-            DuneLocationOutput duneLocationOutput = duneLocation.Output;
+            DuneLocationOutput duneLocationOutput = duneLocation.Calculation.Output;
             Assert.IsNotNull(duneLocationOutput);
             Assert.AreEqual(expectedWaterLevel, duneLocationOutput.WaterLevel, duneLocationOutput.WaterLevel.GetAccuracy());
             Assert.AreEqual(expectedWaveHeight, duneLocationOutput.WaveHeight, duneLocationOutput.WaveHeight.GetAccuracy());
@@ -342,7 +345,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                 });
 
-                Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, duneLocation.Output.CalculationConvergence);
+                Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, duneLocation.Calculation.Output.CalculationConvergence);
             }
             mockRepository.VerifyAll();
         }

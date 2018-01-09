@@ -399,12 +399,12 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             List<DuneLocation> duneLocations = failureMechanism.DuneLocations;
 
             Assert.AreEqual(3, duneLocations.Count);
-            Assert.IsNull(duneLocations[0].Output);
+            Assert.IsNull(duneLocations[0].Calculation.Output);
 
-            Assert.IsNotNull(duneLocations[1].Output);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, duneLocations[1].Output.CalculationConvergence);
-            Assert.IsNotNull(duneLocations[2].Output);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, duneLocations[2].Output.CalculationConvergence);
+            Assert.IsNotNull(duneLocations[1].Calculation.Output);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, duneLocations[1].Calculation.Output.CalculationConvergence);
+            Assert.IsNotNull(duneLocations[2].Calculation.Output);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, duneLocations[2].Calculation.Output.CalculationConvergence);
 
             Assert.AreEqual(3, failureMechanism.SectionResults.Count());
         }

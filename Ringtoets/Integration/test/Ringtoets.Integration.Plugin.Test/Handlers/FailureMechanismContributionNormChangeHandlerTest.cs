@@ -134,7 +134,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                             .Concat(assessmentSection.GetFailureMechanisms())
                                             .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
                                             .Concat(assessmentSection.HydraulicBoundaryDatabase.Locations)
-                                            .Concat(assessmentSection.DuneErosion.DuneLocations.Where(dl => dl.Output != null))
+                                            .Concat(assessmentSection.DuneErosion.DuneLocations.Where(dl => dl.Calculation.Output != null))
                                             .Concat(new IObservable[]
                                             {
                                                 assessmentSection.FailureMechanismContribution
@@ -166,7 +166,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             }
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
             {
-                Assert.IsNull(duneLocation.Output);
+                Assert.IsNull(duneLocation.Calculation.Output);
             }
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
@@ -187,7 +187,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 assessmentSection.GetFailureMechanisms().Cast<IObservable>()
                                  .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
                                  .Concat(assessmentSection.HydraulicBoundaryDatabase.Locations)
-                                 .Concat(assessmentSection.DuneErosion.DuneLocations.Where(dl => dl.Output != null))
+                                 .Concat(assessmentSection.DuneErosion.DuneLocations.Where(dl => dl.Calculation.Output != null))
                                  .Concat(new IObservable[]
                                  {
                                      assessmentSection.FailureMechanismContribution
@@ -211,7 +211,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             }
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
             {
-                Assert.IsNull(duneLocation.Output);
+                Assert.IsNull(duneLocation.Calculation.Output);
             }
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
@@ -303,7 +303,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 Assert.IsTrue(location.DesignWaterLevelCalculation.HasOutput);
                 Assert.IsTrue(location.WaveHeightCalculation.HasOutput);
             }
-            Assert.IsNotNull(assessmentSection.DuneErosion.DuneLocations[1].Output);
+            Assert.IsNotNull(assessmentSection.DuneErosion.DuneLocations[1].Calculation.Output);
             CollectionAssert.IsEmpty(affectedObjects);
         }
 

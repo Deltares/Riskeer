@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             AssertFailureMechanismsHaveAllPossibleCalculationConfigurations(assessmentSection);
             Assert.True(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.All(loc => !(loc.DesignWaterLevelCalculation.HasOutput
                                                                                                             && loc.WaveHeightCalculation.HasOutput)));
-            Assert.True(assessmentSection.DuneErosion.DuneLocations.All(dl => dl.Output == null));
+            Assert.True(assessmentSection.DuneErosion.DuneLocations.All(dl => dl.Calculation.Output == null));
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             AssertFailureMechanismsHaveAllPossibleCalculationConfigurations(assessmentSection);
             Assert.True(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.All(loc => !(loc.DesignWaterLevelCalculation.HasOutput
                                                                                                             && loc.WaveHeightCalculation.HasOutput)));
-            Assert.True(assessmentSection.DuneErosion.DuneLocations.All(dl => dl.Output == null));
+            Assert.True(assessmentSection.DuneErosion.DuneLocations.All(dl => dl.Calculation.Output == null));
         }
 
         [Test]
@@ -644,12 +644,12 @@ namespace Ringtoets.Integration.TestUtil.Test
 
         private static void AssertDuneErosionFailureMechanismCalculationConfigurationsWithOutputs(DuneErosionFailureMechanism failureMechanism)
         {
-            Assert.True(failureMechanism.DuneLocations.Any(dl => dl.Output != null));
+            Assert.True(failureMechanism.DuneLocations.Any(dl => dl.Calculation.Output != null));
         }
 
         private static void AssertDuneErosionFailureMechanismCalculationConfigurationsWithoutOutputs(DuneErosionFailureMechanism failureMechanism)
         {
-            Assert.True(failureMechanism.DuneLocations.Any(dl => dl.Output == null));
+            Assert.True(failureMechanism.DuneLocations.Any(dl => dl.Calculation.Output == null));
         }
 
         #endregion

@@ -99,7 +99,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             Assert.AreEqual(offset, location.Offset, location.Offset.GetAccuracy());
             Assert.AreEqual(orientation, location.Orientation, location.Orientation.GetAccuracy());
             Assert.AreEqual(d50, location.D50, location.D50.GetAccuracy());
-            Assert.IsNull(location.Output);
+            Assert.IsNull(location.Calculation.Output);
 
             Assert.IsTrue(collector.Contains(entity));
         }
@@ -139,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             Assert.IsNaN(location.Offset);
             Assert.IsNaN(location.Orientation);
             Assert.IsNaN(location.D50);
-            Assert.IsNull(location.Output);
+            Assert.IsNull(location.Calculation.Output);
 
             Assert.IsTrue(collector.Contains(entity));
         }
@@ -180,7 +180,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
 
             // Assert
             Assert.IsNotNull(location);
-            AssertDuneLocationOutput(duneLocationOutputEntity, location.Output);
+            AssertDuneLocationOutput(duneLocationOutputEntity, location.Calculation.Output);
         }
 
         [Test]

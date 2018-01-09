@@ -159,8 +159,12 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
 
             var location = new TestDuneLocation
             {
-                Output = duneLocationOutput
+                Calculation =
+                {
+                    Output = duneLocationOutput
+                }
             };
+
             var registry = new PersistenceRegistry();
 
             // Call

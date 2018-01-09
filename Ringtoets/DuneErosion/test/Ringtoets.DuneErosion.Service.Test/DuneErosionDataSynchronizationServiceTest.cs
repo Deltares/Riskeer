@@ -231,7 +231,10 @@ namespace Ringtoets.DuneErosion.Service.Test
             // Setup
             var location = new TestDuneLocation
             {
-                Output = new TestDuneLocationOutput()
+                Calculation =
+                {
+                    Output = new TestDuneLocationOutput()
+                }
             };
 
             // Call
@@ -242,7 +245,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 });
 
             // Assert
-            Assert.IsNull(location.Output);
+            Assert.IsNull(location.Calculation.Output);
             CollectionAssert.AreEqual(
                 new[]
                 {

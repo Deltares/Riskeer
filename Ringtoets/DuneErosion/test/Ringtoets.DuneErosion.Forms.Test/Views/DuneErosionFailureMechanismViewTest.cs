@@ -341,14 +341,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Assert.IsNaN((double) duneLocationFeature.MetaData["Rekenwaarde waterstand"]);
 
                 // Call
-                duneLocation.Output = new TestDuneLocationOutput();
+                duneLocation.Calculation.Output = new TestDuneLocationOutput();
                 duneLocation.NotifyObservers();
 
                 // Assert
                 MapFeature duneLocationFeatureUpdated = duneLocationsMapData.Features.First();
-                Assert.AreEqual(duneLocation.Output.WavePeriod, (double) duneLocationFeatureUpdated.MetaData["Rekenwaarde Tp"]);
-                Assert.AreEqual(duneLocation.Output.WaveHeight, (double) duneLocationFeatureUpdated.MetaData["Rekenwaarde Hs"]);
-                Assert.AreEqual(duneLocation.Output.WaterLevel, (double) duneLocationFeatureUpdated.MetaData["Rekenwaarde waterstand"]);
+                Assert.AreEqual(duneLocation.Calculation.Output.WavePeriod, (double) duneLocationFeatureUpdated.MetaData["Rekenwaarde Tp"]);
+                Assert.AreEqual(duneLocation.Calculation.Output.WaveHeight, (double) duneLocationFeatureUpdated.MetaData["Rekenwaarde Hs"]);
+                Assert.AreEqual(duneLocation.Calculation.Output.WaterLevel, (double) duneLocationFeatureUpdated.MetaData["Rekenwaarde waterstand"]);
             }
         }
 

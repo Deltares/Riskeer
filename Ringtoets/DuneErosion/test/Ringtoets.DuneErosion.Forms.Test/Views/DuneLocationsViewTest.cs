@@ -291,12 +291,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 D50 = 0.000321
             })
             {
-                Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                Calculation =
                 {
-                    WaterLevel = 3.21,
-                    WaveHeight = 4.32,
-                    WavePeriod = 5.43
-                })
+                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                    {
+                        WaterLevel = 3.21,
+                        WaveHeight = 4.32,
+                        WavePeriod = 5.43
+                    })
+                }
             };
             locations.Clear();
             locations.Add(duneLocation);
@@ -348,7 +351,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // When
             locations.ForEach(loc =>
             {
-                loc.Output = null;
+                loc.Calculation.Output = null;
                 loc.NotifyObservers();
             });
 
@@ -646,12 +649,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     D50 = 0.000123
                 })
                 {
-                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                    Calculation =
                     {
-                        WaterLevel = 1.23,
-                        WaveHeight = 2.34,
-                        WavePeriod = 3.45
-                    })
+                        Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                        {
+                            WaterLevel = 1.23,
+                            WaveHeight = 2.34,
+                            WavePeriod = 3.45
+                        })
+                    }
                 }
             };
 

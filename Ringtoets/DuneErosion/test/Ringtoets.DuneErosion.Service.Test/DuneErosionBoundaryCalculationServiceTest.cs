@@ -232,7 +232,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                 });
 
             // Precondition
-            Assert.IsNull(duneLocation.Output);
+            Assert.IsNull(duneLocation.Calculation.Output);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -258,14 +258,14 @@ namespace Ringtoets.DuneErosion.Service.Test
                 double targetReliability = StatisticsConverter.ProbabilityToReliability(mechanismSpecificNorm);
                 double calculatedProbability = StatisticsConverter.ReliabilityToProbability(calculator.ReliabilityIndex);
 
-                Assert.IsNotNull(duneLocation.Output);
-                Assert.AreEqual(calculator.ReliabilityIndex, duneLocation.Output.CalculatedReliability.Value);
-                Assert.AreEqual(calculatedProbability, duneLocation.Output.CalculatedProbability);
-                Assert.AreEqual(mechanismSpecificNorm, duneLocation.Output.TargetProbability);
-                Assert.AreEqual(targetReliability, duneLocation.Output.TargetReliability, duneLocation.Output.TargetReliability.GetAccuracy());
-                Assert.AreEqual(calculator.WaterLevel, duneLocation.Output.WaterLevel, duneLocation.Output.WaterLevel.GetAccuracy());
-                Assert.AreEqual(calculator.WaveHeight, duneLocation.Output.WaveHeight, duneLocation.Output.WaveHeight.GetAccuracy());
-                Assert.AreEqual(calculator.WavePeriod, duneLocation.Output.WavePeriod, duneLocation.Output.WavePeriod.GetAccuracy());
+                Assert.IsNotNull(duneLocation.Calculation.Output);
+                Assert.AreEqual(calculator.ReliabilityIndex, duneLocation.Calculation.Output.CalculatedReliability.Value);
+                Assert.AreEqual(calculatedProbability, duneLocation.Calculation.Output.CalculatedProbability);
+                Assert.AreEqual(mechanismSpecificNorm, duneLocation.Calculation.Output.TargetProbability);
+                Assert.AreEqual(targetReliability, duneLocation.Calculation.Output.TargetReliability, duneLocation.Calculation.Output.TargetReliability.GetAccuracy());
+                Assert.AreEqual(calculator.WaterLevel, duneLocation.Calculation.Output.WaterLevel, duneLocation.Calculation.Output.WaterLevel.GetAccuracy());
+                Assert.AreEqual(calculator.WaveHeight, duneLocation.Calculation.Output.WaveHeight, duneLocation.Calculation.Output.WaveHeight.GetAccuracy());
+                Assert.AreEqual(calculator.WavePeriod, duneLocation.Calculation.Output.WavePeriod, duneLocation.Calculation.Output.WavePeriod.GetAccuracy());
             }
 
             mockRepository.VerifyAll();
@@ -437,7 +437,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                     });
                 Assert.IsTrue(exceptionThrown);
-                Assert.IsNull(duneLocation.Output);
+                Assert.IsNull(duneLocation.Calculation.Output);
             }
 
             mockRepository.VerifyAll();
@@ -507,7 +507,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                     });
                 Assert.IsTrue(exceptionThrown);
-                Assert.IsNull(duneLocation.Output);
+                Assert.IsNull(duneLocation.Calculation.Output);
             }
 
             mockRepository.VerifyAll();
@@ -580,7 +580,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                     });
                 Assert.IsTrue(exceptionThrown);
-                Assert.IsNull(duneLocation.Output);
+                Assert.IsNull(duneLocation.Calculation.Output);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
 

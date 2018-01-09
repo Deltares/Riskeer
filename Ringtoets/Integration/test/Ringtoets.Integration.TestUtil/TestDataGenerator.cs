@@ -105,12 +105,12 @@ namespace Ringtoets.Integration.TestUtil
         /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/> and 
         /// possible configurations of the parent and nested calculations, but without the output of the 
         /// <see cref="HydraulicBoundaryLocation.DesignWaterLevelCalculation"/>, <see cref="HydraulicBoundaryLocation.WaveHeightCalculation"/> 
-        /// and <see cref="DuneLocation.Output"/>.
+        /// and <see cref="DuneLocation.Calculation"/>.
         /// </summary>
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
         /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible calculation configurations of the parent and 
-        /// nested calculations inside the failure mechanisms, but without the output of the <see cref="HydraulicBoundaryLocation.DesignWaterLevelCalculation"/>
-        /// , <see cref="HydraulicBoundaryLocation.WaveHeightCalculation"/> and <see cref="DuneLocation.Output"/>.</returns>
+        /// nested calculations inside the failure mechanisms, but without the output of the <see cref="HydraulicBoundaryLocation.DesignWaterLevelCalculation"/>,
+        /// <see cref="HydraulicBoundaryLocation.WaveHeightCalculation"/> and <see cref="DuneLocation.Calculation"/>.</returns>
         public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
@@ -1019,12 +1019,15 @@ namespace Ringtoets.Integration.TestUtil
                                                               D50 = 0.00008
                                                           })
             {
-                Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                Calculation =
                 {
-                    WaterLevel = hydraulicBoundaryLocation.DesignWaterLevel + 0.2,
-                    WaveHeight = hydraulicBoundaryLocation.WaveHeight + 0.3,
-                    WavePeriod = 10
-                })
+                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                    {
+                        WaterLevel = hydraulicBoundaryLocation.DesignWaterLevel + 0.2,
+                        WaveHeight = hydraulicBoundaryLocation.WaveHeight + 0.3,
+                        WavePeriod = 10
+                    })
+                }
             };
 
             failureMechanism.DuneLocations.Add(duneLocation);

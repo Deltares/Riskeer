@@ -732,8 +732,11 @@ namespace Application.Ringtoets.Storage.TestUtil
             var locationWithOutput = new DuneLocation(13, "DuneLocation with output", new Point2D(791, 456),
                                                       new DuneLocation.ConstructionProperties())
             {
-                Output = new DuneLocationOutput(CalculationConvergence.NotCalculated,
-                                                new DuneLocationOutput.ConstructionProperties())
+                Calculation =
+                {
+                    Output = new DuneLocationOutput(CalculationConvergence.NotCalculated,
+                                                    new DuneLocationOutput.ConstructionProperties())
+                }
             };
 
             var locationCalculated = new DuneLocation(14, "DuneLocation with calculated output",
@@ -745,17 +748,20 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                           D50 = 4
                                                       })
             {
-                Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged,
-                                                new DuneLocationOutput.ConstructionProperties
-                                                {
-                                                    WaterLevel = 10,
-                                                    WaveHeight = 20,
-                                                    WavePeriod = 30,
-                                                    TargetProbability = 0.4,
-                                                    TargetReliability = 50,
-                                                    CalculatedProbability = 0.6,
-                                                    CalculatedReliability = 70
-                                                })
+                Calculation =
+                {
+                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged,
+                                                    new DuneLocationOutput.ConstructionProperties
+                                                    {
+                                                        WaterLevel = 10,
+                                                        WaveHeight = 20,
+                                                        WavePeriod = 30,
+                                                        TargetProbability = 0.4,
+                                                        TargetReliability = 50,
+                                                        CalculatedProbability = 0.6,
+                                                        CalculatedReliability = 70
+                                                    })
+                }
             };
 
             failureMechanism.DuneLocations.Add(locationWithoutOutput);
