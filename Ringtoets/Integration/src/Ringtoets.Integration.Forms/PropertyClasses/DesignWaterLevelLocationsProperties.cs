@@ -50,6 +50,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                                                    Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
             : base(hydraulicBoundaryLocations)
         {
+            if (getCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getCalculationFunc));
+            }
+
             this.getCalculationFunc = getCalculationFunc;
         }
 
