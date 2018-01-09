@@ -486,7 +486,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ImportInfo<FailureMechanismSectionsContext>
             {
-                Name = RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
+                Name = RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.SectionsIcon,
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
@@ -638,7 +638,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.SectionsIcon,
                 ForeColor = context => context.WrappedData.Sections.Any()
                                            ? Color.FromKnownColor(KnownColor.ControlText)

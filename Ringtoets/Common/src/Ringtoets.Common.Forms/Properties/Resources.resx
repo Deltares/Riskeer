@@ -208,7 +208,7 @@
   <data name="FailureMechanismSections_EndPoints_DisplayName" xml:space="preserve">
     <value>eindpunten</value>
   </data>
-  <data name="FailureMechanism_Sections_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismSections_DisplayName" xml:space="preserve">
     <value>Vakindeling</value>
   </data>
   <data name="ReferenceLineIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -1246,5 +1246,8 @@ Pf = {1}</value>
   </data>
   <data name="IllustrationPoint_IllustrationPointValues_DisplayName" xml:space="preserve">
     <value>Waarden in het illustratiepunt</value>
+  </data>
+  <data name="FailureMechanismSections_Description" xml:space="preserve">
+    <value>Vakindeling waarmee de waterkering voor dit toetsspoor is geschematiseerd ten behoeve van de beoordeling.</value>
   </data>
 </root>

@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -30,14 +32,28 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     public class FailureMechanismSectionPropertiesTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            var properties = new FailureMechanismSectionProperties();
+            TestDelegate call = () => new FailureMechanismSectionProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("section", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
+            // Call
+            var properties = new FailureMechanismSectionProperties(section);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<FailureMechanismSection>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(section, properties.Data);
         }
     }
 }

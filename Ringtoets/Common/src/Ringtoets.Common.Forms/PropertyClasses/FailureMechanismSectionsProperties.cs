@@ -21,8 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
@@ -45,6 +51,19 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
 
             Data = sections;
+        }
+
+        [PropertyOrder(1)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSections_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSections_Description))]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        public FailureMechanismSectionProperties[] Sections
+        {
+            get
+            {
+                return data.Select(section => new FailureMechanismSectionProperties(section)).ToArray();
+            }
         }
     }
 }

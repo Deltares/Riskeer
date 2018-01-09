@@ -21,8 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -55,6 +58,32 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IEnumerable<FailureMechanismSection>>>(properties);
             Assert.AreSame(sections, properties.Data);
+
+            TestHelper.AssertTypeConverter<FailureMechanismSectionsProperties, ExpandableArrayConverter>(
+                nameof(FailureMechanismSectionsProperties.Sections));
+            Assert.IsNotNull(properties.Sections);
+            Assert.AreEqual(sections.Count(), properties.Sections.Length);
+        }
+
+        [Test]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
+
+            // Call
+            var properties = new FailureMechanismSectionsProperties(sections);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(1, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            "Algemeen",
+                                                                            "Vakindeling",
+                                                                            "Vakindeling waarmee de waterkering voor dit toetsspoor is geschematiseerd ten behoeve van de beoordeling.",
+                                                                            true);
         }
     }
 }

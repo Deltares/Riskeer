@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateFailureMechanismSectionsMapData()
         {
-            return new MapLineData(Resources.FailureMechanism_Sections_DisplayName,
+            return new MapLineData(Resources.FailureMechanismSections_DisplayName,
                                    new LineStyle
                                    {
                                        Color = Color.Khaki,
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapPointData"/>.</returns>
         public static MapPointData CreateFailureMechanismSectionsStartPointMapData()
         {
-            string mapDataName = $"{Resources.FailureMechanism_Sections_DisplayName} ({Resources.FailureMechanismSections_StartPoints_DisplayName})";
+            string mapDataName = $"{Resources.FailureMechanismSections_DisplayName} ({Resources.FailureMechanismSections_StartPoints_DisplayName})";
 
             Color color = Color.DarkKhaki;
             return new MapPointData(mapDataName,
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapPointData"/>.</returns>
         public static MapPointData CreateFailureMechanismSectionsEndPointMapData()
         {
-            string mapDataName = $"{Resources.FailureMechanism_Sections_DisplayName} ({Resources.FailureMechanismSections_EndPoints_DisplayName})";
+            string mapDataName = $"{Resources.FailureMechanismSections_DisplayName} ({Resources.FailureMechanismSections_EndPoints_DisplayName})";
 
             Color color = Color.DarkKhaki;
             return new MapPointData(mapDataName,
