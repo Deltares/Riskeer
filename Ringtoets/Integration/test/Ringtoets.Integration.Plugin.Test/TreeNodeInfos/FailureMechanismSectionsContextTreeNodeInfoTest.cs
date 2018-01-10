@@ -76,6 +76,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
             }
+
             mocks.VerifyAll();
         }
 
@@ -95,6 +96,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual("Vakindeling", text);
             }
+
             mocks.VerifyAll();
         }
 
@@ -114,6 +116,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.SectionsIcon, image);
             }
+
             mocks.VerifyAll();
         }
 
@@ -124,6 +127,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
+                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
@@ -150,6 +155,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     info.ContextMenuStrip(context, null, treeViewControl);
                 }
             }
+
             // Assert
             mocks.VerifyAll();
         }
@@ -175,6 +181,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
             }
+
             mocks.VerifyAll();
         }
 
@@ -206,6 +213,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
+
             mocks.VerifyAll();
         }
 

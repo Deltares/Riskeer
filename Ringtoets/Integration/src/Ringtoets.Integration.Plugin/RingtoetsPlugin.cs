@@ -451,6 +451,13 @@ namespace Ringtoets.Integration.Plugin
                 CloseForData = CloseCommentViewForData
             };
 
+            yield return new ViewInfo<FailureMechanismSectionsContext, FailureMechanismSectionsView>
+            {
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
+                Image = RingtoetsCommonFormsResources.SectionsIcon,
+                CloseForData = CloseFailureMechanismSectionsViewForData,
+            };
+
             yield return new ViewInfo<WaveConditionsInputContext, ICalculation<WaveConditionsInput>, WaveConditionsInputView>
             {
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -1038,6 +1045,30 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
+        #region FailureMechanismSectionsView ViewInfo
+
+        private static bool CloseFailureMechanismSectionsViewForData(FailureMechanismSectionsView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as IFailureMechanism;
+            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            if (assessmentSection != null)
+            {
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .FirstOrDefault(fm => fm == ((FailureMechanismSectionsContext) view.Data).WrappedData);
+            }
+
+            return failureMechanism != null && ReferenceEquals(((FailureMechanismSectionsContext) view.Data).WrappedData, failureMechanism);
+        }
+
+        #endregion
+
         #region WaveConditionsInputViewInfo
 
         private static IWaveConditionsInputViewStyle GetWaveConditionsInputViewStyle(WaveConditionsInputContext context)
@@ -1071,6 +1102,8 @@ namespace Ringtoets.Integration.Plugin
         private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
                       .AddImportItem()
                       .Build();
         }
