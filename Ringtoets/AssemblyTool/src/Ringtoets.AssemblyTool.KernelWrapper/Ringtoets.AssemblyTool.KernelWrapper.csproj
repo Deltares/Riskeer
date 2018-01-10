@@ -12,6 +12,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculators\CategoryBoundaries\ICategoryBoundariesCalculator.cs" />
+    <Compile Include="Kernels\CategoryBoundaries\ICategoryBoundariesKernel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
