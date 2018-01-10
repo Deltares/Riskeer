@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
@@ -299,7 +298,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private static double[] GetReferenceLineCutoffLengths(ReferenceLine referenceLine, IEnumerable<FailureMechanismSection> orderedReadSections)
         {
-            double[] orderedSectionLengths = orderedReadSections.Select(section => section.Length.Value).ToArray();
+            double[] orderedSectionLengths = orderedReadSections.Select(section => section.Length).ToArray();
 
             // Correct last section to fully match referenceLine length:
             double difference = referenceLine.Length - orderedSectionLengths.Sum(l => l);

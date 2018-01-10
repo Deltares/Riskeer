@@ -21,11 +21,8 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.TypeConverters;
 using Core.Common.Gui.Attributes;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -71,8 +68,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSection_Length_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSection_Length_Description))]
-        [TypeConverter(typeof(RoundedDoubleConverter))]
-        public RoundedDouble Length
+        public double Length
         {
             get
             {
