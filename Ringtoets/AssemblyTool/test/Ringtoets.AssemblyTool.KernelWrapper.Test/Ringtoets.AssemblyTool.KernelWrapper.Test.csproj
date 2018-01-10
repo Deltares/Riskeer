@@ -15,7 +15,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calculators\CategoryBoundaries\CategoryBoundariesCalculatorTest.cs" />
+    <Compile Include="Calculators\CategoryBoundaries\AssemblyCategoryBoundariesCalculatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

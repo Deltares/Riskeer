@@ -22,9 +22,9 @@
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries
 {
     /// <summary>
-    /// Class representing category boundaries calculator.
+    /// Class representing an assembly category boundaries calculator.
     /// </summary>
-    public class CategoryBoundariesCalculator : ICategoryBoundariesCalculator
+    public class AssemblyCategoryBoundariesCalculator : IAssemblyCategoryBoundariesCalculator
     {
     }
 }

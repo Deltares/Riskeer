@@ -25,16 +25,16 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundaries
 {
     [TestFixture]
-    public class CategoryBoundariesCalculatorTest
+    public class AssemblyCategoryBoundariesCalculatorTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var calculator = new CategoryBoundariesCalculator();
+            var calculator = new AssemblyCategoryBoundariesCalculator();
 
             // Assert
-            Assert.IsInstanceOf<ICategoryBoundariesCalculator>(calculator);
+            Assert.IsInstanceOf<IAssemblyCategoryBoundariesCalculator>(calculator);
         }
     }
 }

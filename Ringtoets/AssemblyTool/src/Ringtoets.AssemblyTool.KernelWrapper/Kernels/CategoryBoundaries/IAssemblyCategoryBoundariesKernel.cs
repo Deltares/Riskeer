@@ -19,17 +19,19 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
+
+namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries
 {
     /// <summary>
-    /// Interface representing a category boundaries calculator.
+    /// Interface representing assembly category boundaries kernel input, methods and output.
     /// </summary>
     /// <remarks>
     /// This interface is introduced for being able to test the conversion of:
     /// <list type="bullet">
-    /// <item>Ringtoets category boundaries input into calculator input;</item>
-    /// <item>calculator output into Ringtoets category boundaries output.</item>
+    /// <item><see cref="AssemblyCategoryBoundariesCalculator"/> input into kernel input;</item>
+    /// <item>kernel output into <see cref="AssemblyCategoryBoundariesCalculator"/> output.</item>
     /// </list>
     /// </remarks>
-    public interface ICategoryBoundariesCalculator {}
+    public interface IAssemblyCategoryBoundariesKernel {}
 }
