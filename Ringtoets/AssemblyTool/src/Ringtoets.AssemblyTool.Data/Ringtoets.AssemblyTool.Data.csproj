@@ -12,6 +12,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Input\AssemblyCategoriesCalculatorInput.cs" />
+    <Compile Include="Output\AssemblyCategoryBoundariesResult.cs" />
+    <Compile Include="Output\AssessmentSectionAssemblyCategoryResult.cs" />
+    <Compile Include="Output\AssessmentSectionAssemblyCategoryResultType.cs" />
+    <Compile Include="Output\IAssemblyCategoryResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
