@@ -14,8 +14,10 @@
   <ItemGroup>
     <Compile Include="Calculators\CategoryBoundaries\AssemblyCategoryBoundariesCalculator.cs" />
     <Compile Include="Calculators\CategoryBoundaries\IAssemblyCategoryBoundariesCalculator.cs" />
+    <Compile Include="Kernels\AssemblyToolKernelWrapperFactory.cs" />
     <Compile Include="Kernels\CategoryBoundaries\AssemblyCategoryBoundariesKernelWrapper.cs" />
     <Compile Include="Kernels\CategoryBoundaries\IAssemblyCategoryBoundariesKernel.cs" />
+    <Compile Include="Kernels\IAssemblyToolKernelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
