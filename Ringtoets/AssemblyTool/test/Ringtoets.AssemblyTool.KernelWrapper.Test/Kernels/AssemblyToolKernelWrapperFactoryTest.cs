@@ -21,6 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
@@ -64,6 +65,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
 
             // Assert
             Assert.AreSame(firstFactory, secondFactory);
+        }
+
+        [Test]
+        public void CreateAssemblyCategoryBoundariesKernel_Always_ReturnsAssemblyCategoryBoundariesKernelWrapper()
+        {
+            // Setup
+            IAssemblyToolKernelFactory factory = AssemblyToolKernelWrapperFactory.Instance;
+
+            // Call
+            IAssemblyCategoryBoundariesKernel assemblyCategoryBoundariesKernel = factory.CreateAssemblyCategoryBoundariesKernel();
+
+            // Assert
+            Assert.IsInstanceOf<AssemblyCategoryBoundariesKernelWrapper>(assemblyCategoryBoundariesKernel);
         }
     }
 }

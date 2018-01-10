@@ -37,7 +37,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
         {
             get
             {
-                return instance ?? new AssemblyToolKernelWrapperFactory();
+                return instance ?? (instance = new AssemblyToolKernelWrapperFactory());
             }
             set
             {
@@ -47,7 +47,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
 
         public IAssemblyCategoryBoundariesKernel CreateAssemblyCategoryBoundariesKernel()
         {
-            throw new NotImplementedException();
+            return new AssemblyCategoryBoundariesKernelWrapper();
         }
     }
 }
