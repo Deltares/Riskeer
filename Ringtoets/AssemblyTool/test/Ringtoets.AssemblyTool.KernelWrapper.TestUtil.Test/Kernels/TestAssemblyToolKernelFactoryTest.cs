@@ -21,49 +21,36 @@
 
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
+namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
 {
     [TestFixture]
-    public class AssemblyToolKernelWrapperFactoryTest
+    public class TestAssemblyToolKernelFactoryTest
     {
         [Test]
-        public void Instance_Always_ReturnsAnInstance()
+        public void Constructor_ExpectedProperties()
         {
             // Call
-            IAssemblyToolKernelFactory factory = AssemblyToolKernelWrapperFactory.Instance;
+            var factory = new TestAssemblyToolKernelFactory();
 
             // Assert
-            Assert.IsInstanceOf<AssemblyToolKernelWrapperFactory>(factory);
+            Assert.IsInstanceOf<IAssemblyToolKernelFactory>(factory);
+            Assert.IsNotNull(factory.LastCreatedAssemblyCategoryBoundariesKernel);
         }
 
         [Test]
-        public void Instance_WhenSetToNull_ReturnsNewInstance()
+        public void CreateAssemblyCategoryBoundariesKernel_Always_ReturnLastCreatedAssemblyCategoryBoundariesKernel()
         {
             // Setup
-            IAssemblyToolKernelFactory firstFactory = AssemblyToolKernelWrapperFactory.Instance;
-            AssemblyToolKernelWrapperFactory.Instance = null;
+            var factory = new TestAssemblyToolKernelFactory();
 
             // Call
-            IAssemblyToolKernelFactory secondFactory = AssemblyToolKernelWrapperFactory.Instance;
+            IAssemblyCategoryBoundariesKernel kernel = factory.CreateAssemblyCategoryBoundariesKernel();
 
             // Assert
-            Assert.AreNotSame(firstFactory, secondFactory);
-        }
-
-        [Test]
-        public void Instance_WhenSetToInstance_ReturnsThatInstance()
-        {
-            // Setup
-            var firstFactory = new TestAssemblyToolKernelFactory();
-            AssemblyToolKernelWrapperFactory.Instance = firstFactory;
-
-            // Call
-            IAssemblyToolKernelFactory secondFactory = AssemblyToolKernelWrapperFactory.Instance;
-
-            // Assert
-            Assert.AreSame(firstFactory, secondFactory);
+            Assert.AreSame(factory.LastCreatedAssemblyCategoryBoundariesKernel, kernel);
         }
     }
 }

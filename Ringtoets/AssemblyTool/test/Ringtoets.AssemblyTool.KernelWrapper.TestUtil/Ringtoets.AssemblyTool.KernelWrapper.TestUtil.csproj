@@ -11,11 +11,19 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Kernels\CategoryBoundaries\AssemblyCategoryBoundariesKernelStub.cs" />
+    <Compile Include="Kernels\TestAssemblyToolKernelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
+      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
+      <Name>Ringtoets.AssemblyTool.KernelWrapper</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
