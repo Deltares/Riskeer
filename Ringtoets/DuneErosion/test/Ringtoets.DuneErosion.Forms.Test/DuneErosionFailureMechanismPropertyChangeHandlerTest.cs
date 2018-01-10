@@ -133,10 +133,8 @@ namespace Ringtoets.DuneErosion.Forms.Test
             {
                 failureMechanism
             });
-            if (testCase.ExpectedAffectedLocations.Any())
-            {
-                expectedAffectedObjects.Add(failureMechanism.DuneLocations);
-            }
+            expectedAffectedObjects.AddRange(testCase.ExpectedAffectedLocations);
+
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
 

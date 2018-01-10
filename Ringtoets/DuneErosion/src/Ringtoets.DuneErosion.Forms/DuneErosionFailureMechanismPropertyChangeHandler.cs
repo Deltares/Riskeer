@@ -51,15 +51,7 @@ namespace Ringtoets.DuneErosion.Forms
 
         protected override IEnumerable<IObservable> PropertyChanged(DuneErosionFailureMechanism failureMechanism)
         {
-            var affectedObjects = new List<IObservable>(base.PropertyChanged(failureMechanism));
-
-            IEnumerable<IObservable> affectedLocations = DuneErosionDataSynchronizationService.ClearDuneLocationOutput(failureMechanism.DuneLocations);
-
-            if (affectedLocations.Any())
-            {
-                affectedObjects.Add(failureMechanism.DuneLocations);
-            }
-            return affectedObjects;
+            return DuneErosionDataSynchronizationService.ClearDuneLocationOutput(failureMechanism.DuneLocations);
         }
     }
 }
