@@ -19,9 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-
-[assembly: AssemblyTitle("Ringtoets.AssemblyTool.KernelWrapper")]
-[assembly: AssemblyProduct("Ringtoets.AssemblyTool.KernelWrapper")]
-[assembly: InternalsVisibleTo("Ringtoets.AssemblyTool.KernelWrapper.Test")]
+namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries
+{
+    /// <summary>
+    /// Class that wraps assembly kernel for performing an assembly category boundaries calculation.
+    /// </summary>
+    internal class AssemblyCategoryBoundariesKernelWrapper : IAssemblyCategoryBoundariesKernel {}
+}

@@ -19,9 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
+using NUnit.Framework;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries;
 
-[assembly: AssemblyTitle("Ringtoets.AssemblyTool.KernelWrapper")]
-[assembly: AssemblyProduct("Ringtoets.AssemblyTool.KernelWrapper")]
-[assembly: InternalsVisibleTo("Ringtoets.AssemblyTool.KernelWrapper.Test")]
+namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels.CategoryBoundaries
+{
+    [TestFixture]
+    public class AssemblyCategoryBoundariesKernelWrapperTest
+    {
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var kernelWrapper = new AssemblyCategoryBoundariesKernelWrapper();
+
+            // Assert
+            Assert.IsInstanceOf<IAssemblyCategoryBoundariesKernel>(kernelWrapper);
+        }
+    }
+}

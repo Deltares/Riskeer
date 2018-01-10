@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculators\CategoryBoundaries\AssemblyCategoryBoundariesCalculatorTest.cs" />
+    <Compile Include="Kernels\CategoryBoundaries\AssemblyCategoryBoundariesKernelWrapperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
