@@ -27,7 +27,6 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
@@ -64,31 +63,20 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
+            var random = new Random(39);
             var referenceLine = new ReferenceLine();
             var geometry = new List<Point2D>
             {
-                new Point2D(0.1234, 0.1236),
-                new Point2D(5.1234, 0.1236)
+                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble())
             };
-
             referenceLine.SetGeometry(geometry);
+
             var properties = new ReferenceLineProperties(referenceLine);
 
             // Call & Assert
-            Assert.AreEqual(2, properties.Length.NumberOfDecimalPlaces);
-            Assert.AreEqual(referenceLine.Length, properties.Length, properties.Length.GetAccuracy());
-
-            Point2D[] expectedPoints =
-            {
-                new Point2D(0.123, 0.124),
-                new Point2D(5.123, 0.124)
-            };
-            var index = 0;
-            foreach (Point2D roundedPoint in properties.Geometry)
-            {
-                Assert.AreEqual(expectedPoints[index], roundedPoint);
-                index++;
-            }
+            Assert.AreEqual(referenceLine.Length, properties.Length);
+            CollectionAssert.AreEqual(geometry, properties.Geometry);
         }
 
         [Test]
