@@ -52,6 +52,6 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets the length of the section
         /// </summary>
-        public RoundedDouble Length { get; }
+        public double Length { get; }
     }
 }
