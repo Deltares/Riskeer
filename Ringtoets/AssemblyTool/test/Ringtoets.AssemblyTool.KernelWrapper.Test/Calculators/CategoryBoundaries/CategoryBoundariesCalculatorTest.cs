@@ -19,19 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries
+namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundaries
 {
-    /// <summary>
-    /// Interface representing category boundaries kernel input, methods and output.
-    /// </summary>
-    /// <remarks>
-    /// This interface is introduced for being able to test the conversion of:
-    /// <list type="bullet">
-    /// <item><see cref="CategoryBoundariesCalculator"/> input into kernel input;</item>
-    /// <item>kernel output into <see cref="CategoryBoundariesCalculator"/> output.</item>
-    /// </list>
-    /// </remarks>
-    public interface ICategoryBoundariesKernel {}
+    [TestFixture]
+    public class CategoryBoundariesCalculatorTest
+    {
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var calculator = new CategoryBoundariesCalculator();
+
+            // Assert
+            Assert.IsInstanceOf<ICategoryBoundariesCalculator>(calculator);
+        }
+    }
 }
