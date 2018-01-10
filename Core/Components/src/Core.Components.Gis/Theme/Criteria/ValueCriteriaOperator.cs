@@ -19,24 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using System.Drawing;
-
-namespace Core.Components.Gis.Data.Categories
+namespace Core.Components.Gis.Theme.Criteria
 {
     /// <summary>
-    /// Interface for map categories.
+    /// Defines the operators of an equality based criterion.
     /// </summary>
-    public interface IMapCategory
+    public enum ValueCriteriaOperator
     {
         /// <summary>
-        /// The color of the map category.
+        /// Represents the operator '=='
         /// </summary>
-        Color Color { get; }
+        EqualValue = 1,
 
         /// <summary>
-        /// The criteria that is associated with the map category.
+        /// Represents the operator '!='
         /// </summary>
-        IEnumerable<IMapCriteria> Criteria { get; }
+        UnequalValue = 2
     }
 }

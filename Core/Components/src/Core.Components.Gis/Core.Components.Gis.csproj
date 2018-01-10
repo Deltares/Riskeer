@@ -12,13 +12,13 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Categories\IMapCategory.cs" />
-    <Compile Include="Data\Categories\IMapCriteria.cs" />
-    <Compile Include="Data\Categories\RangeCriteria.cs" />
-    <Compile Include="Data\Categories\RangeCriteriaOperator.cs" />
-    <Compile Include="Data\Categories\ValueCriteria.cs" />
-    <Compile Include="Data\Categories\ValueCriteriaOperator.cs" />
-    <Compile Include="Data\MapTheme.cs" />
+    <Compile Include="Theme\IMapCategory.cs" />
+    <Compile Include="Theme\Criteria\IMapCriteria.cs" />
+    <Compile Include="Theme\Criteria\RangeCriteria.cs" />
+    <Compile Include="Theme\Criteria\RangeCriteriaOperator.cs" />
+    <Compile Include="Theme\Criteria\ValueCriteria.cs" />
+    <Compile Include="Theme\Criteria\ValueCriteriaOperator.cs" />
+    <Compile Include="Theme\MapTheme.cs" />
     <Compile Include="Data\ImageBasedMapData.cs" />
     <Compile Include="Data\Removable\IRemovable.cs" />
     <Compile Include="Data\MapData.cs" />
@@ -78,7 +78,5 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Categories\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

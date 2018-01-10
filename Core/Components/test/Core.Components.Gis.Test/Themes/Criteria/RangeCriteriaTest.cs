@@ -22,10 +22,10 @@
 using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Core.Components.Gis.Data.Categories;
+using Core.Components.Gis.Theme.Criteria;
 using NUnit.Framework;
 
-namespace Core.Components.Gis.Test.Data.Categories
+namespace Core.Components.Gis.Test.Themes.Criteria
 {
     [TestFixture]
     public class RangeCriteriaTest

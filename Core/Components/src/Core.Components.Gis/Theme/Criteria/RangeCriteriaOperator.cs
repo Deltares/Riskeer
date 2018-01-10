@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Core.Components.Gis.Data.Categories
+namespace Core.Components.Gis.Theme.Criteria
 {
     /// <summary>
     /// Defines the operators of the range criteria operator.

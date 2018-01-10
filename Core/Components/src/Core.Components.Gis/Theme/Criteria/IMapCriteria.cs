@@ -19,21 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Core.Components.Gis.Data.Categories
+namespace Core.Components.Gis.Theme.Criteria
 {
-    /// <summary>
-    /// Defines the operators of an equality based criterion.
-    /// </summary>
-    public enum ValueCriteriaOperator
-    {
-        /// <summary>
-        /// Represents the operator '=='
-        /// </summary>
-        EqualValue = 1,
-
-        /// <summary>
-        /// Represents the operator '!='
-        /// </summary>
-        UnequalValue = 2
-    }
+    public interface IMapCriteria {}
 }

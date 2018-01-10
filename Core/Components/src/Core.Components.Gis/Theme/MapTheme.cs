@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Components.Gis.Data.Categories;
+using Core.Components.Gis.Theme;
 
-namespace Core.Components.Gis.Data
+namespace Core.Components.Gis.Themes
 {
     /// <summary>
     /// Class that contains the definition for a categorial theming of 

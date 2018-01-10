@@ -23,12 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
-using Core.Components.Gis.Data;
-using Core.Components.Gis.Data.Categories;
+using Core.Components.Gis.Theme;
+using Core.Components.Gis.Themes;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Components.Gis.Test.Data
+namespace Core.Components.Gis.Test.Themes
 {
     [TestFixture]
     public class MapThemeTest
