@@ -22,9 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Components.Gis.Theme;
 
-namespace Core.Components.Gis.Themes
+namespace Core.Components.Gis.Theme
 {
     /// <summary>
     /// Class that contains the definition for a categorial theming of 
@@ -36,29 +35,29 @@ namespace Core.Components.Gis.Themes
         /// Creates a new instance of <see cref="MapTheme"/>.
         /// </summary>
         /// <param name="attributeName">The name of the attribute to which the theme is applicable for.</param>
-        /// <param name="mapCategories">The map categories that are applicable for the theme.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapCategories"/> is <c>null</c>.</exception>
+        /// <param name="categoryThemes">The category themes that are applicable for the map theme.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categoryThemes"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="attributeName"/> is null, empty or consists of only whitespace.</item>
-        /// <item><paramref name="mapCategories"/> is empty.</item>
+        /// <item><paramref name="categoryThemes"/> is empty.</item>
         /// </list></exception>
-        public MapTheme(string attributeName, IEnumerable<IMapCategory> mapCategories)
+        public MapTheme(string attributeName, IEnumerable<CategoryTheme> categoryThemes)
         {
             if (string.IsNullOrWhiteSpace(attributeName))
             {
                 throw new ArgumentException(@"AttributeName is null, empty or consists of whitespace.", nameof(attributeName));
             }
-            if (mapCategories == null)
+            if (categoryThemes == null)
             {
-                throw new ArgumentNullException(nameof(mapCategories));
+                throw new ArgumentNullException(nameof(categoryThemes));
             }
-            if (!mapCategories.Any())
+            if (!categoryThemes.Any())
             {
-                throw new ArgumentException(@"MapCategories is empty.", nameof(mapCategories));
+                throw new ArgumentException(@"MapCategories is empty.", nameof(categoryThemes));
             }
 
-            MapCategories = mapCategories;
+            CategoryThemes = categoryThemes;
             AttributeName = attributeName;
         }
 
@@ -68,8 +67,8 @@ namespace Core.Components.Gis.Themes
         public string AttributeName { get; }
 
         /// <summary>
-        /// Gets the categories that are applicable for the theme.
+        /// Gets the category themes that are applicable for the theme.
         /// </summary>
-        public IEnumerable<IMapCategory> MapCategories { get; }
+        public IEnumerable<CategoryTheme> CategoryThemes { get; }
     }
 }

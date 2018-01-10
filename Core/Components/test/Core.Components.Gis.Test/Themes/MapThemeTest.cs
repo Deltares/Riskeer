@@ -23,10 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
+using Core.Components.Gis.TestUtil.Theme;
 using Core.Components.Gis.Theme;
-using Core.Components.Gis.Themes;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Components.Gis.Test.Themes
 {
@@ -34,30 +33,24 @@ namespace Core.Components.Gis.Test.Themes
     public class MapThemeTest
     {
         [Test]
-        [TestCase("   ")]
-        [TestCase("")]
         [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
         public void Constructor_InvalidAttribute_ThrowsArgumentException(string invalidAttributeName)
         {
-            // Setup
-            var mocks = new MockRepository();
-            var mapCategory = mocks.Stub<IMapCategory>();
-            mocks.ReplayAll();
-
             // Call
-            TestDelegate call = () => new MapTheme(invalidAttributeName, new []
+            TestDelegate call = () => new MapTheme(invalidAttributeName, new[]
             {
-                mapCategory
+                CategoryThemeTestFactory.CreateCategoryTheme()
             });
 
             // Assert
             const string expectedMessage = "AttributeName is null, empty or consists of whitespace.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_MapCategoriesNull_ThrowsArgumentNullException()
+        public void Constructor_CategoryThemesNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new MapTheme("Arbitrary attribute", null);
@@ -68,10 +61,10 @@ namespace Core.Components.Gis.Test.Themes
         }
 
         [Test]
-        public void Constructor_MapCategoriesEmpty_ThrowsArgumentException()
+        public void Constructor_CategoryThemesEmpty_ThrowsArgumentException()
         {
             // Setup
-            IEnumerable<IMapCategory> mapCategories = Enumerable.Empty<IMapCategory>();
+            IEnumerable<CategoryTheme> mapCategories = Enumerable.Empty<CategoryTheme>();
 
             // Call
             TestDelegate call = () => new MapTheme("Arbitrary attribute", mapCategories);
@@ -85,14 +78,10 @@ namespace Core.Components.Gis.Test.Themes
         public void Constructor_ValidArguments_SetsExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mapCategory = mocks.Stub<IMapCategory>();
-            mocks.ReplayAll();
-
             const string attributeName = "Arbitrary attribute";
             var mapCategories = new[]
             {
-                mapCategory
+                CategoryThemeTestFactory.CreateCategoryTheme()
             };
 
             // Call
@@ -100,8 +89,7 @@ namespace Core.Components.Gis.Test.Themes
 
             // Assert
             Assert.AreEqual(attributeName, theme.AttributeName);
-            Assert.AreSame(mapCategories, theme.MapCategories);
-            mocks.VerifyAll();
+            Assert.AreSame(mapCategories, theme.CategoryThemes);
         }
     }
 }

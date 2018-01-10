@@ -9,9 +9,12 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Theme\CategoryThemeTestFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Theme\TestCriteria.cs" />
     <Compile Include="TestImageBasedMapData.cs" />
     <Compile Include="WmtsMapDataTestHelper.cs" />
   </ItemGroup>

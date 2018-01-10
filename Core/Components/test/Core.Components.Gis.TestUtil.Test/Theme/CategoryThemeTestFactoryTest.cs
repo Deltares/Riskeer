@@ -19,25 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Drawing;
-using Core.Components.Gis.Theme.Criteria;
+using Core.Components.Gis.TestUtil.Theme;
+using NUnit.Framework;
 
-namespace Core.Components.Gis.Theme
+namespace Core.Components.Gis.TestUtil.Test.Theme
 {
-    /// <summary>
-    /// Interface for map categories.
-    /// </summary>
-    public interface IMapCategory // TODO: IThemeCategory --> make concrete class?
+    [TestFixture]
+    public class CategoryThemeTestFactoryTest
     {
-        /// <summary>
-        /// The color of the map category.
-        /// </summary>
-        Color Color { get; }
+        [Test]
+        public void CreateDefaultCategoryTheme_ReturnsCategoryTheme()
+        {
+            // Call
+            var theme = CategoryThemeTestFactory.CreateCategoryTheme();
 
-        /// <summary>
-        /// The criteria that is associated with the map category.
-        /// </summary>
-        IEnumerable<ICriteria> Criteria { get; } // TODO: IThemeCriteria
+            // Assert
+            Assert.AreEqual(Color.Aqua, theme.Color);
+            Assert.IsNotNull(theme.Criteria);
+        }
     }
 }

@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Features;
-using Core.Components.Gis.Themes;
+using Core.Components.Gis.Theme;
 
 namespace Core.Components.Gis.Data
 {

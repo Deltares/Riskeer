@@ -12,7 +12,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Theme\IMapCategory.cs" />
+    <Compile Include="Theme\CategoryTheme.cs" />
     <Compile Include="Theme\Criteria\ICriteria.cs" />
     <Compile Include="Theme\Criteria\RangeCriteria.cs" />
     <Compile Include="Theme\Criteria\RangeCriteriaOperator.cs" />

@@ -19,6 +19,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Themes\CategoryThemeTest.cs" />
     <Compile Include="Themes\Criteria\RangeCriteriaTest.cs" />
     <Compile Include="Themes\Criteria\ValueCriteriaTest.cs" />
     <Compile Include="Themes\MapThemeTest.cs" />
