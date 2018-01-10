@@ -27,7 +27,7 @@ namespace Core.Components.Gis.Theme.Criteria
     /// <summary>
     /// Criteria which can be used to specifiy ranges. 
     /// </summary>
-    public class RangeCriteria : IMapCriteria
+    public class RangeCriteria : ICriteria
     {
         /// <summary>
         /// Creates a new instance of <see cref="RangeCriteria"/>.

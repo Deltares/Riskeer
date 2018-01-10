@@ -21,5 +21,5 @@
 
 namespace Core.Components.Gis.Theme.Criteria
 {
-    public interface IMapCriteria {}
+    public interface ICriteria {}
 }

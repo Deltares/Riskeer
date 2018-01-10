@@ -42,7 +42,7 @@ namespace Core.Components.Gis.Test.Themes.Criteria
             var criteria = new ValueCriteria(valueOperator, value);
 
             // Assert
-            Assert.IsInstanceOf<IMapCriteria>(criteria);
+            Assert.IsInstanceOf<ICriteria>(criteria);
             Assert.AreEqual(valueOperator, criteria.ValueOperator);
             Assert.AreEqual(value, criteria.Value);
         }

@@ -13,7 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Theme\IMapCategory.cs" />
-    <Compile Include="Theme\Criteria\IMapCriteria.cs" />
+    <Compile Include="Theme\Criteria\ICriteria.cs" />
     <Compile Include="Theme\Criteria\RangeCriteria.cs" />
     <Compile Include="Theme\Criteria\RangeCriteriaOperator.cs" />
     <Compile Include="Theme\Criteria\ValueCriteria.cs" />

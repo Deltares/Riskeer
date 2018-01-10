@@ -27,7 +27,7 @@ namespace Core.Components.Gis.Theme.Criteria
     /// <summary>
     /// Criteria to be used for equal or unequal values.
     /// </summary>
-    public class ValueCriteria : IMapCriteria
+    public class ValueCriteria : ICriteria
     {
         /// <summary>
         /// Creates a new instance of <see cref="ValueCriteria"/>.

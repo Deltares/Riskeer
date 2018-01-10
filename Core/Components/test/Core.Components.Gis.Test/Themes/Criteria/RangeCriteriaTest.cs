@@ -44,7 +44,7 @@ namespace Core.Components.Gis.Test.Themes.Criteria
             var criteria = new RangeCriteria(rangeCriteriaOperator, lowerBound, upperBound);
 
             // Assert
-            Assert.IsInstanceOf<IMapCriteria>(criteria);
+            Assert.IsInstanceOf<ICriteria>(criteria);
             Assert.AreEqual(rangeCriteriaOperator, criteria.RangeCriteriaOperator);
             Assert.AreEqual(lowerBound, criteria.LowerBound);
             Assert.AreEqual(upperBound, criteria.UpperBound);

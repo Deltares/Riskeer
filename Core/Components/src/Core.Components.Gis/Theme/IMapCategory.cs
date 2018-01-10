@@ -38,6 +38,6 @@ namespace Core.Components.Gis.Theme
         /// <summary>
         /// The criteria that is associated with the map category.
         /// </summary>
-        IEnumerable<IMapCriteria> Criteria { get; } // TODO: IThemeCriteria
+        IEnumerable<ICriteria> Criteria { get; } // TODO: IThemeCriteria
     }
 }
