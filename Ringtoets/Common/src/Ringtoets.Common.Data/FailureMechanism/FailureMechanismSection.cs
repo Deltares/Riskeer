@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Properties;
@@ -74,7 +73,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             Points = geometryPoints;
             StartPoint = geometryPoints.First();
             EndPoint = geometryPoints.Last();
-            Length = new RoundedDouble(2, Math2D.Length(geometryPoints));
+            Length = Math2D.Length(geometryPoints);
         }
 
         /// <summary>
@@ -100,6 +99,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Gets the length of the section.
         /// </summary>
-        public RoundedDouble Length { get; }
+        public double Length { get; }
     }
 }

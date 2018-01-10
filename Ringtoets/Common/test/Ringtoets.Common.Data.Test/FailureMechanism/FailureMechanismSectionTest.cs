@@ -50,8 +50,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             Assert.AreSame(points, section.Points);
             Assert.AreSame(points[0], section.StartPoint);
             Assert.AreSame(points[1], section.EndPoint);
-            Assert.AreEqual(Math2D.Length(points), section.Length, 1e-2);
-            Assert.AreEqual(2, section.Length.NumberOfDecimalPlaces);
+            Assert.AreEqual(Math2D.Length(points), section.Length);
         }
 
         [Test]
