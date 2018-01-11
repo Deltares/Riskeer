@@ -81,9 +81,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(duneLocation.CoastalAreaId, row.CoastalAreaId);
             Assert.AreEqual(duneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), row.Offset);
             Assert.AreEqual(duneLocation.D50, row.D50);
-            Assert.AreEqual(duneLocation.Calculation.Output.WaterLevel, row.WaterLevel);
-            Assert.AreEqual(duneLocation.Calculation.Output.WaveHeight, row.WaveHeight);
-            Assert.AreEqual(duneLocation.Calculation.Output.WavePeriod, row.WavePeriod);
+            Assert.AreEqual(duneLocationCalculation.Output.WaterLevel, row.WaterLevel);
+            Assert.AreEqual(duneLocationCalculation.Output.WaveHeight, row.WaveHeight);
+            Assert.AreEqual(duneLocationCalculation.Output.WavePeriod, row.WavePeriod);
 
             TestHelper.AssertTypeConverter<DuneLocationRow, NoValueRoundedDoubleConverter>(
                 nameof(DuneLocationRow.WaterLevel));

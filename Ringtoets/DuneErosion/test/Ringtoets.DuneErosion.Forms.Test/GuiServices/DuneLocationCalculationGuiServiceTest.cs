@@ -72,6 +72,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
 
                 // Call
                 TestDelegate test = () => guiService.Calculate(null,
+                                                               dl => new DuneLocationCalculation(),
                                                                validFilePath,
                                                                validPreprocessorDirectory,
                                                                1.0 / 30000);
@@ -79,6 +80,27 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);
                 Assert.AreEqual("locations", exception.ParamName);
+            }
+        }
+
+        [Test]
+        public void Calculate_GetCalculationFuncNull_ThrowArgumentNullException()
+        {
+            // Setup
+            using (var viewParent = new Form())
+            {
+                var guiService = new DuneLocationCalculationGuiService(viewParent);
+
+                // Call
+                TestDelegate test = () => guiService.Calculate(Enumerable.Empty<DuneLocation>(),
+                                                               null,
+                                                               validFilePath,
+                                                               validPreprocessorDirectory,
+                                                               1.0 / 30000);
+
+                // Assert
+                var exception = Assert.Throws<ArgumentNullException>(test);
+                Assert.AreEqual("getCalculationFunc", exception.ParamName);
             }
         }
 
@@ -119,6 +141,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
 
                 // Call
                 TestHelper.AssertLogMessages(() => guiService.Calculate(duneLocations,
+                                                                        dl => new DuneLocationCalculation(),
                                                                         validFilePath,
                                                                         validPreprocessorDirectory,
                                                                         1.0 / 200),
@@ -167,7 +190,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocation>(), databasePath, validPreprocessorDirectory, 1);
+                Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocation>(),
+                                                         dl => new DuneLocationCalculation(),
+                                                         databasePath,
+                                                         validPreprocessorDirectory,
+                                                         1.0 / 30000);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -177,6 +204,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                     StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
                 });
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -197,14 +225,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.Calculate(
-                    new List<DuneLocation>
-                    {
-                        new TestDuneLocation(hydraulicLocationName)
-                    },
-                    validFilePath,
-                    validPreprocessorDirectory,
-                    1);
+                Action call = () => guiService.Calculate(new List<DuneLocation>
+                                                         {
+                                                             new TestDuneLocation(hydraulicLocationName)
+                                                         },
+                                                         dl => new DuneLocationCalculation(),
+                                                         validFilePath,
+                                                         validPreprocessorDirectory,
+                                                         1.0 / 30000);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -223,6 +251,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                     StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[7]);
                 });
             }
+
             mockRepository.VerifyAll();
         }
     }
