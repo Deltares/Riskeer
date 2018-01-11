@@ -27,7 +27,7 @@ using Core.Components.Gis.TestUtil.Theme;
 using Core.Components.Gis.Theme;
 using NUnit.Framework;
 
-namespace Core.Components.Gis.Test.Themes
+namespace Core.Components.Gis.Test.Theme
 {
     [TestFixture]
     public class MapThemeTest

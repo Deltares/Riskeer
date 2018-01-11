@@ -21,5 +21,8 @@
 
 namespace Core.Components.Gis.Theme.Criteria
 {
+    /// <summary>
+    /// Interface for criteria to apply to classify data.
+    /// </summary>
     public interface ICriteria {}
 }

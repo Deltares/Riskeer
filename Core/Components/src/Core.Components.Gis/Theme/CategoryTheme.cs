@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using Core.Components.Gis.Theme.Criteria;
 
@@ -29,7 +28,7 @@ namespace Core.Components.Gis.Theme
     /// <summary>
     /// Class to define themes for categories.
     /// </summary>
-    public class CategoryTheme 
+    public class CategoryTheme
     {
         /// <summary>
         /// Creates a new instance of <see cref="CategoryTheme"/>.
@@ -57,6 +56,6 @@ namespace Core.Components.Gis.Theme
         /// <summary>
         /// Gets the criteria that is associated with the category theme.
         /// </summary>
-        public ICriteria Criteria { get; } 
+        public ICriteria Criteria { get; }
     }
 }

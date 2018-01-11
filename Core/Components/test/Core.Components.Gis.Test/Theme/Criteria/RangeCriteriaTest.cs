@@ -25,7 +25,7 @@ using Core.Common.TestUtil;
 using Core.Components.Gis.Theme.Criteria;
 using NUnit.Framework;
 
-namespace Core.Components.Gis.Test.Themes.Criteria
+namespace Core.Components.Gis.Test.Theme.Criteria
 {
     [TestFixture]
     public class RangeCriteriaTest

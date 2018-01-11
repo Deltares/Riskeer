@@ -19,10 +19,10 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Themes\CategoryThemeTest.cs" />
-    <Compile Include="Themes\Criteria\RangeCriteriaTest.cs" />
-    <Compile Include="Themes\Criteria\ValueCriteriaTest.cs" />
-    <Compile Include="Themes\MapThemeTest.cs" />
+    <Compile Include="Theme\CategoryThemeTest.cs" />
+    <Compile Include="Theme\Criteria\RangeCriteriaTest.cs" />
+    <Compile Include="Theme\Criteria\ValueCriteriaTest.cs" />
+    <Compile Include="Theme\MapThemeTest.cs" />
     <Compile Include="Data\ImageBasedMapDataTest.cs" />
     <Compile Include="Data\MapDataCollectionExtensionsTest.cs" />
     <Compile Include="Data\MapDataCollectionTest.cs" />

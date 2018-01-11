@@ -20,47 +20,51 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
+using System.Drawing;
 using Core.Common.TestUtil;
+using Core.Components.Gis.Theme;
 using Core.Components.Gis.Theme.Criteria;
 using NUnit.Framework;
+using Rhino.Mocks;
 
-namespace Core.Components.Gis.Test.Themes.Criteria
+namespace Core.Components.Gis.Test.Theme
 {
     [TestFixture]
-    public class ValueCriteriaTest
+    public class CategoryThemeTest
     {
         [Test]
-        public void Constructor_ReturnsExpectedProperties()
+        public void Constructor_CriteriaNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
-            var valueOperator = random.NextEnumValue<ValueCriteriaOperator>();
-            double value = random.NextDouble();
+            Color themeColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
 
             // Call
-            var criteria = new ValueCriteria(valueOperator, value);
+            TestDelegate call = () => new CategoryTheme(themeColor, null);
 
             // Assert
-            Assert.IsInstanceOf<ICriteria>(criteria);
-            Assert.AreEqual(valueOperator, criteria.ValueOperator);
-            Assert.AreEqual(value, criteria.Value);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("criteria", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_InvalidEqualityBasedOperator_ThrowsInvalidEnumArgumentException()
+        public void Constructor_ValidArguments_ReturnsExpectedProperties()
         {
             // Setup
+            var mocks = new MockRepository();
+            var criteria = mocks.Stub<ICriteria>();
+            mocks.ReplayAll();
+
             var random = new Random(21);
-            const ValueCriteriaOperator invalidOperator = (ValueCriteriaOperator) 9999;
-            
+            Color themeColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
+
             // Call
-            TestDelegate call = () => new ValueCriteria(invalidOperator, random.NextDouble());
+            var category = new CategoryTheme(themeColor, criteria);
 
             // Assert
-            string expectedMessage = $"The value of argument 'valueOperator' ({invalidOperator}) is invalid for Enum type '{nameof(ValueCriteriaOperator)}'.";
-            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
-            Assert.AreEqual("valueOperator", parameterName);
+            Assert.AreEqual(themeColor, category.Color);
+            Assert.AreSame(criteria, category.Criteria);
+            mocks.VerifyAll();
         }
     }
 }
