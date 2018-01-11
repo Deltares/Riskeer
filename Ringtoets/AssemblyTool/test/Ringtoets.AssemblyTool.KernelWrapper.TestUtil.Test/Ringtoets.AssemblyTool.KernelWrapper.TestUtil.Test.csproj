@@ -18,6 +18,7 @@
     <Compile Include="Calculators\CategoryBoundaries\AssemblyCategoryBoundariesCalculatorStubTest.cs" />
     <Compile Include="Calculators\TestAssemblyToolCalculatorFactoryTest.cs" />
     <Compile Include="Kernels\CategoryBoundaries\AssemblyCategoryBoundariesKernelStubTest.cs" />
+    <Compile Include="Kernels\AssemblyToolKernelFactoryConfigTest.cs" />
     <Compile Include="Kernels\TestAssemblyToolKernelFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -19,48 +19,49 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data.Input;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.CategoryBoundaries;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
+namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
 {
     [TestFixture]
-    public class TestAssemblyToolCalculatorFactoryTest
+    public class AssemblyToolKernelFactoryConfigTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_NewInstanceCanBeDisposed()
         {
             // Call
-            var factory = new TestAssemblyToolCalculatorFactory();
+            var factory = new AssemblyToolKernelFactoryConfig();
 
             // Assert
-            Assert.IsInstanceOf<IAssemblyToolCalculatorFactory>(factory);
-            Assert.IsNotNull(factory.LastCreatedAssemblyCategoryBoundariesCalculator);
-            Assert.IsNull(factory.LastCreatedAssemblyCategoryBoundariesCalculator.Input);
+            Assert.IsInstanceOf<IDisposable>(factory);
+            Assert.DoesNotThrow(() => factory.Dispose());
         }
 
         [Test]
-        public void CreateAssemblyCategoryBoundariesCalculator_Always_ReturnStubWithInputSet()
+        public void Constructor_SetsTestFactoryForAssemblyToolKernelWrapperFactory()
         {
-            // Setup
-            var factory = new TestAssemblyToolCalculatorFactory();
-            var input = new AssemblyCategoryBoundariesCalculatorInput(0, 0);
-
+            // Call
             using (new AssemblyToolKernelFactoryConfig())
             {
-                // Call
-                var calculator = (AssemblyCategoryBoundariesCalculatorStub) factory.CreateAssemblyCategoryBoundariesCalculator(
-                    input,
-                    AssemblyToolKernelWrapperFactory.Instance);
-
                 // Assert
-                Assert.AreSame(input, calculator.Input);
+                Assert.IsInstanceOf<TestAssemblyToolKernelFactory>(AssemblyToolKernelWrapperFactory.Instance);
             }
+        }
+
+        [Test]
+        public void Dispose_Always_ResetsFactoryToPreviousValue()
+        {
+            // Setup
+            IAssemblyToolKernelFactory expectedFactory = AssemblyToolKernelWrapperFactory.Instance;
+
+            // Call
+            using (new AssemblyToolKernelFactoryConfig()) {}
+
+            // Assert
+            Assert.AreSame(expectedFactory, AssemblyToolKernelWrapperFactory.Instance);
         }
     }
 }
