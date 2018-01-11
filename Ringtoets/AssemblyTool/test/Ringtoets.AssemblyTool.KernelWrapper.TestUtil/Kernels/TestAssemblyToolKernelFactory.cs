@@ -41,7 +41,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
         /// <summary>
         /// The last created assembly category boundaries kernel.
         /// </summary>
-        public IAssemblyCategoryBoundariesKernel LastCreatedAssemblyCategoryBoundariesKernel { get; }
+        public AssemblyCategoryBoundariesKernelStub LastCreatedAssemblyCategoryBoundariesKernel { get; }
 
         public IAssemblyCategoryBoundariesKernel CreateAssemblyCategoryBoundariesKernel()
         {

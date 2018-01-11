@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using AssemblyTool.Kernel;
+using AssemblyTool.Kernel.CategoriesOutput;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries
@@ -44,6 +46,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries
         /// Sets the signaling norm.
         /// </summary>
         double SignalingNorm { set; }
+
+        /// <summary>
+        /// Gets the assessment section categories output.
+        /// </summary>
+        CalculationOutput<AssessmentSectionCategoriesOutput[]> AssessmentSectionCategoriesOutput { get; }
 
         /// <summary>
         /// Performs the calculation.

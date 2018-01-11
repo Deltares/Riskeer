@@ -22,8 +22,11 @@
 using System;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.CategoryBoundaries;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundaries
 {
@@ -74,6 +77,31 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundari
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("input", exception.ParamName);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CalculateAssessmentSectionCategories_WithInput_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(11);
+            double lowerBoundaryNorm = random.NextDouble();
+            double signalingNorm = random.NextDouble();
+            var input = new AssemblyCategoryBoundariesCalculatorInput(signalingNorm, lowerBoundaryNorm);
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelWrapperFactory.Instance;
+                AssemblyCategoryBoundariesKernelStub kernel = factory.LastCreatedAssemblyCategoryBoundariesKernel;
+
+                var calculator = new AssemblyCategoryBoundariesCalculator(factory);
+
+                // Call
+                calculator.CalculateAssessmentSectionCategories(input);
+
+                // Assert
+                Assert.AreEqual(lowerBoundaryNorm, kernel.LowerBoundaryNorm);
+                Assert.AreEqual(signalingNorm, kernel.SignalingNorm);
+            }
         }
     }
 }

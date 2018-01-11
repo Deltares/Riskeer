@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using AssemblyTool.Kernel;
+using AssemblyTool.Kernel.CategoriesOutput;
+
 namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries
 {
     /// <summary>
@@ -45,8 +48,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries
             }
         }
 
+        public CalculationOutput<AssessmentSectionCategoriesOutput[]> AssessmentSectionCategoriesOutput { get; private set; }
+
         public void Calculate()
         {
+            AssessmentSectionCategoriesOutput = CategoriesCalculator.CalculateAssessmentSectionCategories(
+                signalingNorm, lowerBoundaryNorm);
         }
     }
 }

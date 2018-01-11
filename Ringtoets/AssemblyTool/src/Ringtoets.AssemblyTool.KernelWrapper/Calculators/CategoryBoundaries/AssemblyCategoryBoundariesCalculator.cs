@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using AssemblyTool.Kernel;
+using AssemblyTool.Kernel.CategoriesOutput;
 using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries
 {
@@ -54,6 +57,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries
             {
                 throw new ArgumentNullException(nameof(input));
             }
+
+            IAssemblyCategoryBoundariesKernel kernel = factory.CreateAssemblyCategoryBoundariesKernel();
+            kernel.LowerBoundaryNorm = input.LowerBoundaryNorm;
+            kernel.SignalingNorm = input.SignalingNorm;
+
+            kernel.Calculate();
+
+            CalculationOutput<AssessmentSectionCategoriesOutput[]> output = kernel.AssessmentSectionCategoriesOutput;
 
             return null;
         }
