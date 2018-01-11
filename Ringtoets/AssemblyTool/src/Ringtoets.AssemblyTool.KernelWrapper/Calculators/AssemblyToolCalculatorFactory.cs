@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 
@@ -50,10 +49,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
             }
         }
 
-        public IAssemblyCategoryBoundariesCalculator CreateAssemblyCategoryBoundariesCalculator(AssemblyCategoryBoundariesCalculatorInput input,
-                                                                                                IAssemblyToolKernelFactory factory)
+        public IAssemblyCategoryBoundariesCalculator CreateAssemblyCategoryBoundariesCalculator(IAssemblyToolKernelFactory factory)
         {
-            return new AssemblyCategoryBoundariesCalculator(input, factory);
+            return new AssemblyCategoryBoundariesCalculator(factory);
         }
     }
 }

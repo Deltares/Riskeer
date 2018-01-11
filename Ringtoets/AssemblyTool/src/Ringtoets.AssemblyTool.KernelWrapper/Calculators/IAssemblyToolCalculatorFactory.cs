@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 
@@ -34,12 +33,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
         /// <summary>
         /// Creates an assembly category boundaries calculator.
         /// </summary>
-        /// <param name="input">The <see cref="AssemblyCategoryBoundariesCalculatorInput"/> containing
-        /// all the values required for performing the assembly category boundaries calculation.</param>
         /// <param name="factory">The factory responsible for creating the assembly category boundaries kernel.</param>
         /// <returns>The assembly category boundaries calculator.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        IAssemblyCategoryBoundariesCalculator CreateAssemblyCategoryBoundariesCalculator(AssemblyCategoryBoundariesCalculatorInput input,
-                                                                                         IAssemblyToolKernelFactory factory);
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
+        IAssemblyCategoryBoundariesCalculator CreateAssemblyCategoryBoundariesCalculator(IAssemblyToolKernelFactory factory);
     }
 }

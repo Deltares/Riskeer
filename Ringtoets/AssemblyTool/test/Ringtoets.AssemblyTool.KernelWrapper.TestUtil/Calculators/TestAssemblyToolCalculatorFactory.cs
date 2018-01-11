@@ -45,11 +45,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators
         /// </summary>
         public AssemblyCategoryBoundariesCalculatorStub LastCreatedAssemblyCategoryBoundariesCalculator { get; }
 
-        public IAssemblyCategoryBoundariesCalculator CreateAssemblyCategoryBoundariesCalculator(AssemblyCategoryBoundariesCalculatorInput input,
-                                                                                                IAssemblyToolKernelFactory factory)
+        public IAssemblyCategoryBoundariesCalculator CreateAssemblyCategoryBoundariesCalculator(IAssemblyToolKernelFactory factory)
         {
-            LastCreatedAssemblyCategoryBoundariesCalculator.Input = input;
-
             return LastCreatedAssemblyCategoryBoundariesCalculator;
         }
     }

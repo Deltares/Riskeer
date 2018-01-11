@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
@@ -80,7 +79,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators
             {
                 // Call
                 IAssemblyCategoryBoundariesCalculator calculator = factory.CreateAssemblyCategoryBoundariesCalculator(
-                    new AssemblyCategoryBoundariesCalculatorInput(0, 0),
                     AssemblyToolKernelWrapperFactory.Instance);
 
                 // Assert

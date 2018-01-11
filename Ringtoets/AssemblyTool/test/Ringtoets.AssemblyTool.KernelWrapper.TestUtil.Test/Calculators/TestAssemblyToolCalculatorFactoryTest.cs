@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.CategoryBoundaries;
@@ -49,17 +49,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
         {
             // Setup
             var factory = new TestAssemblyToolCalculatorFactory();
-            var input = new AssemblyCategoryBoundariesCalculatorInput(0, 0);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
                 // Call
-                var calculator = (AssemblyCategoryBoundariesCalculatorStub) factory.CreateAssemblyCategoryBoundariesCalculator(
-                    input,
+                IAssemblyCategoryBoundariesCalculator calculator = factory.CreateAssemblyCategoryBoundariesCalculator(
                     AssemblyToolKernelWrapperFactory.Instance);
 
                 // Assert
-                Assert.AreSame(input, calculator.Input);
+                Assert.IsInstanceOf<AssemblyCategoryBoundariesCalculatorStub>(calculator);
             }
         }
     }
