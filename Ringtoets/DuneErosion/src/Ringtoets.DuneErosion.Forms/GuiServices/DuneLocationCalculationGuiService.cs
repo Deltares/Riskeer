@@ -97,6 +97,7 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
             ActivityProgressDialogRunner.Run(
                 viewParent,
                 locations.Select(l => new DuneErosionBoundaryCalculationActivity(l,
+                                                                                 getCalculationFunc(l),
                                                                                  hydraulicBoundaryDatabaseFilePath,
                                                                                  preprocessorDirectory,
                                                                                  norm)).ToArray());

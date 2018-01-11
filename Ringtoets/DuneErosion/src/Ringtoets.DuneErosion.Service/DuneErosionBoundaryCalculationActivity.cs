@@ -33,6 +33,7 @@ namespace Ringtoets.DuneErosion.Service
     public class DuneErosionBoundaryCalculationActivity : HydraRingActivityBase
     {
         private readonly DuneLocation duneLocation;
+        private readonly DuneLocationCalculation duneLocationCalculation;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly string preprocessorDirectory;
         private readonly double norm;
@@ -42,16 +43,17 @@ namespace Ringtoets.DuneErosion.Service
         /// Creates a new instance of <see cref="DuneErosionBoundaryCalculationActivity"/>.
         /// </summary>
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to perform the calculation for.</param>
+        /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to perform.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that 
         /// should be used for performing the calculation.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/>,
-        /// <paramref name="hydraulicBoundaryDatabaseFilePath"/> or <paramref name="preprocessorDirectory"/>
-        ///  is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> or
+        /// <paramref name="duneLocationCalculation"/> is <c>null</c>.</exception>
         public DuneErosionBoundaryCalculationActivity(DuneLocation duneLocation,
+                                                      DuneLocationCalculation duneLocationCalculation,
                                                       string hydraulicBoundaryDatabaseFilePath,
                                                       string preprocessorDirectory,
                                                       double norm)
@@ -61,7 +63,13 @@ namespace Ringtoets.DuneErosion.Service
                 throw new ArgumentNullException(nameof(duneLocation));
             }
 
+            if (duneLocationCalculation == null)
+            {
+                throw new ArgumentNullException(nameof(duneLocationCalculation));
+            }
+
             this.duneLocation = duneLocation;
+            this.duneLocationCalculation = duneLocationCalculation;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
@@ -108,7 +116,7 @@ namespace Ringtoets.DuneErosion.Service
         {
             get
             {
-                return duneLocation.Calculation.Output != null;
+                return duneLocationCalculation.Output != null;
             }
         }
     }

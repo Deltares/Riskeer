@@ -59,9 +59,11 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var duneLocation = new TestDuneLocation();
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             // Call
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      duneLocationCalculation,
                                                                       validFilePath,
                                                                       validPreprocessorDirectory,
                                                                       1.0 / 30000);
@@ -78,6 +80,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Call
             TestDelegate test = () => new DuneErosionBoundaryCalculationActivity(null,
+                                                                                 new DuneLocationCalculation(),
                                                                                  validFilePath,
                                                                                  validPreprocessorDirectory,
                                                                                  1.0 / 30000);
@@ -88,6 +91,21 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
+        public void Constructor_DuneLocationCalculationNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new DuneErosionBoundaryCalculationActivity(new TestDuneLocation(),
+                                                                                 null,
+                                                                                 validFilePath,
+                                                                                 validPreprocessorDirectory,
+                                                                                 1.0 / 30000);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("duneLocationCalculation", exception.ParamName);
+        }
+
+        [Test]
         public void Run_InvalidHydraulicBoundaryDatabase_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
@@ -95,8 +113,10 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             const string locationName = "testLocation";
             var duneLocation = new TestDuneLocation(locationName);
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      duneLocationCalculation,
                                                                       invalidFilePath,
                                                                       validPreprocessorDirectory,
                                                                       0.5);
@@ -125,8 +145,10 @@ namespace Ringtoets.DuneErosion.Service.Test
             const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
             const string locationName = "testLocation";
             var duneLocation = new TestDuneLocation(locationName);
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      duneLocationCalculation,
                                                                       validFilePath,
                                                                       invalidPreprocessorDirectory,
                                                                       0.5);
@@ -156,6 +178,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             const string locationName = "some name";
             var duneLocation = new TestDuneLocation(locationName);
+            var duneLocationCalculation = new DuneLocationCalculation();
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
                 Converged = true
@@ -166,6 +189,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             mockRepository.ReplayAll();
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      duneLocationCalculation,
                                                                       validFilePath,
                                                                       validPreprocessorDirectory,
                                                                       norm);
@@ -193,6 +217,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 Assert.AreEqual(duneLocation.Id, calculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), calculationInput.Beta);
             }
+
             Assert.AreEqual(ActivityState.Executed, activity.State);
             mockRepository.VerifyAll();
         }
@@ -201,15 +226,14 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Run_DuneLocationOutputSet_ValidationAndCalculationNotPerformedAndStateSkipped()
         {
             // Setup
-            var duneLocation = new TestDuneLocation("locationName")
+            var duneLocation = new TestDuneLocation("locationName");
+            var duneLocationCalculation = new DuneLocationCalculation
             {
-                Calculation =
-                {
-                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties())
-                }
+                Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties())
             };
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      duneLocationCalculation,
                                                                       validFilePath,
                                                                       validPreprocessorDirectory,
                                                                       0.5);
@@ -233,6 +257,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             double expectedReliabilityIndex = random.NextDouble();
 
             var duneLocation = new TestDuneLocation();
+            var duneLocationCalculation = new DuneLocationCalculation();
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
                 WaterLevel = expectedWaterLevel,
@@ -247,6 +272,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             mockRepository.ReplayAll();
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      duneLocationCalculation,
                                                                       validFilePath,
                                                                       validPreprocessorDirectory,
                                                                       norm);
@@ -258,7 +284,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             }
 
             // Assert
-            DuneLocationOutput duneLocationOutput = duneLocation.Calculation.Output;
+            DuneLocationOutput duneLocationOutput = duneLocationCalculation.Output;
             Assert.IsNotNull(duneLocationOutput);
             Assert.AreEqual(expectedWaterLevel, duneLocationOutput.WaterLevel, duneLocationOutput.WaterLevel.GetAccuracy());
             Assert.AreEqual(expectedWaveHeight, duneLocationOutput.WaveHeight, duneLocationOutput.WaveHeight.GetAccuracy());
@@ -287,8 +313,10 @@ namespace Ringtoets.DuneErosion.Service.Test
             mockRepository.ReplayAll();
 
             var duneLocation = new TestDuneLocation("dune location");
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      duneLocationCalculation,
                                                                       validFilePath,
                                                                       validPreprocessorDirectory,
                                                                       0.5);
@@ -302,6 +330,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 string calculationfailedMessage = $"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' is mislukt. {detailedReport}";
                 TestHelper.AssertLogMessageIsGenerated(call, calculationfailedMessage, 7);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -320,8 +349,10 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             const string locationName = "some name";
             var duneLocation = new TestDuneLocation(locationName);
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      duneLocationCalculation,
                                                                       validFilePath,
                                                                       validPreprocessorDirectory,
                                                                       0.5);
@@ -347,6 +378,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, duneLocation.Calculation.Output.CalculationConvergence);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -359,6 +391,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var duneLocation = new TestDuneLocation();
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
@@ -371,6 +404,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             mockRepository.ReplayAll();
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
+                                                                      duneLocationCalculation,
                                                                       validFilePath,
                                                                       validPreprocessorDirectory,
                                                                       0.5);
@@ -383,6 +417,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 // Assert
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -395,6 +430,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var duneLocation = new TestDuneLocation();
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -402,6 +438,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             mockRepository.ReplayAll();
 
             var activity = new DuneErosionBoundaryCalculationActivityWithState(duneLocation,
+                                                                               duneLocationCalculation,
                                                                                validFilePath,
                                                                                validPreprocessorDirectory,
                                                                                1.0,
@@ -417,11 +454,13 @@ namespace Ringtoets.DuneErosion.Service.Test
         private class DuneErosionBoundaryCalculationActivityWithState : DuneErosionBoundaryCalculationActivity
         {
             public DuneErosionBoundaryCalculationActivityWithState(DuneLocation duneLocation,
+                                                                   DuneLocationCalculation duneLocationCalculation,
                                                                    string hydraulicBoundaryDatabaseFilePath,
                                                                    string preprocessorDirectory,
                                                                    double norm,
                                                                    ActivityState state)
                 : base(duneLocation,
+                       duneLocationCalculation,
                        hydraulicBoundaryDatabaseFilePath,
                        preprocessorDirectory,
                        norm)
