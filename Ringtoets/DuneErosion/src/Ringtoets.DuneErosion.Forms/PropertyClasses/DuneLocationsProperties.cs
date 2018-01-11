@@ -36,21 +36,32 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     /// </summary>
     public class DuneLocationsProperties : ObjectProperties<ObservableList<DuneLocation>>
     {
+        private readonly Func<DuneLocation, DuneLocationCalculation> getCalculationFunc;
         private readonly RecursiveObserver<ObservableList<DuneLocation>, DuneLocation> locationObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationsProperties"/>.
         /// </summary>
-        /// <param name="locations">The locations to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
-        public DuneLocationsProperties(ObservableList<DuneLocation> locations)
+        /// <param name="locations">The list of dune locations to set as data.</param>
+        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="DuneLocationCalculation"/>
+        /// based on <see cref="DuneLocation"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public DuneLocationsProperties(ObservableList<DuneLocation> locations,
+                                       Func<DuneLocation, DuneLocationCalculation> getCalculationFunc)
         {
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
             }
 
+            if (getCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getCalculationFunc));
+            }
+
             locationObserver = new RecursiveObserver<ObservableList<DuneLocation>, DuneLocation>(OnRefreshRequired, list => list);
+
+            this.getCalculationFunc = getCalculationFunc;
 
             Data = locations;
         }
@@ -77,7 +88,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(loc => new DuneLocationProperties(loc, loc.Calculation)).ToArray();
+                return data.Select(loc => new DuneLocationProperties(loc, getCalculationFunc(loc))).ToArray();
             }
         }
 

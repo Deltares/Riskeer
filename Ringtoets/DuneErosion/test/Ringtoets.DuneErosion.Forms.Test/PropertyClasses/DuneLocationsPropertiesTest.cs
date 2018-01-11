@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -40,6 +41,17 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         private const int requiredLocationsPropertyIndex = 0;
 
         [Test]
+        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new DuneLocationsProperties(new ObservableList<DuneLocation>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getCalculationFunc", exception.ParamName);
+        }
+
+        [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
@@ -50,7 +62,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new DuneLocationsProperties(locations);
+            var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation());
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DuneLocationProperties));
@@ -90,7 +102,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new DuneLocationsProperties(locations);
+            var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation());
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
@@ -118,7 +130,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 location
             };
 
-            var properties = new DuneLocationsProperties(duneLocations);
+            var properties = new DuneLocationsProperties(duneLocations, l => new DuneLocationCalculation());
 
             var refreshRequiredRaised = 0;
             properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
@@ -140,7 +152,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 location
             };
 
-            var properties = new DuneLocationsProperties(duneLocations);
+            var properties = new DuneLocationsProperties(duneLocations, l => new DuneLocationCalculation());
 
             var refreshRequiredRaised = 0;
             properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
@@ -169,7 +181,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 location2
             };
 
-            var properties = new DuneLocationsProperties(duneLocations1)
+            var properties = new DuneLocationsProperties(duneLocations1, l => new DuneLocationCalculation())
             {
                 Data = duneLocations2
             };
@@ -199,7 +211,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 location2
             };
 
-            var properties = new DuneLocationsProperties(duneLocations1)
+            var properties = new DuneLocationsProperties(duneLocations1, l => new DuneLocationCalculation())
             {
                 Data = duneLocations2
             };
