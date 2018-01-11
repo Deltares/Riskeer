@@ -26,7 +26,7 @@ using Ringtoets.AssemblyTool.Data.Input;
 namespace Ringtoets.AssemblyTool.Data.Test.Input
 {
     [TestFixture]
-    public class AssemblyCategoriesCalculatorInputTest
+    public class AssemblyCategoryBoundariesCalculatorInputTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -37,7 +37,7 @@ namespace Ringtoets.AssemblyTool.Data.Test.Input
             double lowerBoundaryNorm = random.NextDouble();
 
             // Call
-            var calculatorInput = new AssemblyCategoriesCalculatorInput(signalingNorm, lowerBoundaryNorm);
+            var calculatorInput = new AssemblyCategoryBoundariesCalculatorInput(signalingNorm, lowerBoundaryNorm);
 
             // Assert
             Assert.AreEqual(signalingNorm, calculatorInput.SignalingNorm);

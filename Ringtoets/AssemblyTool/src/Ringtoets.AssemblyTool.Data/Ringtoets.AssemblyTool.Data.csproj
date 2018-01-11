@@ -11,7 +11,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Input\AssemblyCategoriesCalculatorInput.cs" />
+    <Compile Include="Input\AssemblyCategoryBoundariesCalculatorInput.cs" />
     <Compile Include="Output\AssemblyCategoryBoundariesResult.cs" />
     <Compile Include="Output\AssessmentSectionAssemblyCategoryResult.cs" />
     <Compile Include="Output\AssessmentSectionAssemblyCategoryResultType.cs" />
