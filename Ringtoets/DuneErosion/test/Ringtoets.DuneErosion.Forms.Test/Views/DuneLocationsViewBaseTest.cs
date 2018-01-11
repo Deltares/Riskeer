@@ -254,7 +254,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
         private class TestCalculatableRow : DuneLocationRow
         {
-            public TestCalculatableRow(TestCalculatableObject calculatableObject) : base(calculatableObject)
+            public TestCalculatableRow(TestCalculatableObject calculatableObject) : base(calculatableObject, dl => new DuneLocationCalculation())
             {
                 ShouldCalculate = calculatableObject.IsChecked;
             }
@@ -305,8 +305,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             protected override void CalculateForSelectedRows()
             {
                 ObjectsToCalculate = GetCalculatableRows()
-                    .Where(r => r.ShouldCalculate)
-                    .Select(row => row.CalculatableObject);
+                                     .Where(r => r.ShouldCalculate)
+                                     .Select(row => row.CalculatableObject);
             }
         }
     }

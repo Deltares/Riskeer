@@ -40,39 +40,37 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Constructor_WithOutput_ExpectedValues(double offSet)
         {
             // Setup
-            var location = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties
+            var duneLocation = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties
             {
                 CoastalAreaId = 2,
                 Offset = offSet,
                 D50 = 0.000183
-            })
+            });
+            var duneLocationCalculation = new DuneLocationCalculation
             {
-                Calculation =
+                Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
                 {
-                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
-                    {
-                        WaterLevel = 3.0,
-                        WaveHeight = 4.0,
-                        WavePeriod = 5.0
-                    })
-                }
+                    WaterLevel = 3.0,
+                    WaveHeight = 4.0,
+                    WavePeriod = 5.0
+                })
             };
 
             // Call
-            var row = new DuneLocationRow(location);
+            var row = new DuneLocationRow(duneLocation, dl => duneLocationCalculation);
 
             // Assert
             Assert.IsInstanceOf<CalculatableRow<DuneLocation>>(row);
-            Assert.AreSame(location, row.CalculatableObject);
-            Assert.AreEqual(location.Id, row.Id);
-            Assert.AreEqual(location.Name, row.Name);
-            Assert.AreSame(location.Location, row.Location);
-            Assert.AreEqual(location.CoastalAreaId, row.CoastalAreaId);
-            Assert.AreEqual(location.Offset.ToString("0.#", CultureInfo.InvariantCulture), row.Offset);
-            Assert.AreEqual(location.D50, row.D50);
-            Assert.AreEqual(location.Calculation.Output.WaterLevel, row.WaterLevel);
-            Assert.AreEqual(location.Calculation.Output.WaveHeight, row.WaveHeight);
-            Assert.AreEqual(location.Calculation.Output.WavePeriod, row.WavePeriod);
+            Assert.AreSame(duneLocation, row.CalculatableObject);
+            Assert.AreEqual(duneLocation.Id, row.Id);
+            Assert.AreEqual(duneLocation.Name, row.Name);
+            Assert.AreSame(duneLocation.Location, row.Location);
+            Assert.AreEqual(duneLocation.CoastalAreaId, row.CoastalAreaId);
+            Assert.AreEqual(duneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), row.Offset);
+            Assert.AreEqual(duneLocation.D50, row.D50);
+            Assert.AreEqual(duneLocationCalculation.Output.WaterLevel, row.WaterLevel);
+            Assert.AreEqual(duneLocationCalculation.Output.WaveHeight, row.WaveHeight);
+            Assert.AreEqual(duneLocationCalculation.Output.WavePeriod, row.WavePeriod);
 
             TestHelper.AssertTypeConverter<DuneLocationRow, NoValueRoundedDoubleConverter>(
                 nameof(DuneLocationRow.WaterLevel));
@@ -86,10 +84,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Constructor_WithoutOutput_ExpectedValues()
         {
             // Setup
-            var location = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties());
+            var duneLocation = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties());
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             // Call
-            var row = new DuneLocationRow(location);
+            var row = new DuneLocationRow(duneLocation, dl => duneLocationCalculation);
 
             // Assert
             Assert.IsNaN(row.WaterLevel);

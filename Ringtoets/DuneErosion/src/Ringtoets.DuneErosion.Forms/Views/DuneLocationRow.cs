@@ -36,13 +36,25 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// </summary>
     public class DuneLocationRow : CalculatableRow<DuneLocation>
     {
+        private readonly Func<DuneLocation, DuneLocationCalculation> getCalculationFunc;
+
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationRow"/>.
         /// </summary>
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to wrap.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> is <c>null</c>.</exception>
-        public DuneLocationRow(DuneLocation duneLocation)
-            : base(duneLocation) {}
+        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="DuneLocationCalculation"/>
+        /// based on <see cref="DuneLocation"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public DuneLocationRow(DuneLocation duneLocation, Func<DuneLocation, DuneLocationCalculation> getCalculationFunc)
+            : base(duneLocation)
+        {
+            if (getCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getCalculationFunc));
+            }
+
+            this.getCalculationFunc = getCalculationFunc;
+        }
 
         /// <summary>
         /// Gets the <see cref="DuneLocation.Name"/>.
@@ -107,7 +119,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             get
             {
-                return CalculatableObject.Calculation.Output?.WaterLevel ?? RoundedDouble.NaN;
+                return getCalculationFunc(CalculatableObject).Output?.WaterLevel ?? RoundedDouble.NaN;
             }
         }
 
@@ -119,7 +131,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             get
             {
-                return CalculatableObject.Calculation.Output?.WaveHeight ?? RoundedDouble.NaN;
+                return getCalculationFunc(CalculatableObject).Output?.WaveHeight ?? RoundedDouble.NaN;
             }
         }
 
@@ -131,7 +143,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             get
             {
-                return CalculatableObject.Calculation.Output?.WavePeriod ?? RoundedDouble.NaN;
+                return getCalculationFunc(CalculatableObject).Output?.WavePeriod ?? RoundedDouble.NaN;
             }
         }
 

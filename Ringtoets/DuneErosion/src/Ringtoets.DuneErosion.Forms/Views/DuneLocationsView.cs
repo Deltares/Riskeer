@@ -160,7 +160,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         protected override void SetDataSource()
         {
-            dataGridViewControl.SetDataSource(locations?.Select(l => new DuneLocationRow(l)).ToArray());
+            dataGridViewControl.SetDataSource(locations?.Select(l => new DuneLocationRow(l, getCalculationFunc)).ToArray());
         }
 
         protected override void CalculateForSelectedRows()
