@@ -134,10 +134,7 @@ namespace Core.Components.DotSpatial.Converter
         /// Creates a new scheme to be applied on the data.
         /// </summary>
         /// <returns>The newly created <see cref="IFeatureScheme"/>.</returns>
-        protected virtual IFeatureScheme CreateScheme()
-        {
-            return null;
-        }
+        protected abstract IFeatureScheme CreateScheme();
 
         /// <summary>
         /// Creates a new <see cref="IFeatureCategory"/> based on <paramref name="mapData"/>.
@@ -145,10 +142,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="mapData">The map data to base the category on.</param>
         /// <returns>The newly created <see cref="IFeatureCategory"/>.</returns>
         /// <remarks><c>Null</c> should never be returned as this will break DotSpatial.</remarks>
-        protected virtual IFeatureCategory CreateDefaultCategory(TFeatureBasedMapData mapData)
-        {
-            return null;
-        }
+        protected abstract IFeatureCategory CreateDefaultCategory(TFeatureBasedMapData mapData);
 
         /// <summary>
         /// Creates a new <see cref="IFeatureCategory"/> with a different color than specified in the <paramref name="mapData"/>.
@@ -157,10 +151,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="color">The desired color of the category.</param>
         /// <returns>The newly created <see cref="IFeatureCategory"/>.</returns>
         /// <remarks><c>Null</c> should never be returned as this will break DotSpatial.</remarks>
-        protected virtual IFeatureCategory CreateCategory(TFeatureBasedMapData mapData, Color color)
-        {
-            return null;
-        }
+        protected abstract IFeatureCategory CreateCategory(TFeatureBasedMapData mapData, Color color);
 
         /// <summary>
         /// Creates the <see cref="IFeatureScheme"/> based on the <paramref name="mapData"/>.

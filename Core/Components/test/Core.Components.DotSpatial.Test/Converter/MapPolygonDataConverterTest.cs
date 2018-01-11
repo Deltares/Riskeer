@@ -29,6 +29,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
+using Core.Components.Gis.Theme;
+using Core.Components.Gis.Theme.Criteria;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
@@ -267,6 +269,189 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             AssertAreEqual(new PolygonSymbolizer(expectedFillColor, Color.Transparent, 0), mapPolygonLayer.Symbolizer);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_MapPointDataWithStyleAndValueCriteria_ConvertDataToMapPointLayer()
+        {
+            // Setup
+            const string metadataAttribute = "Meta";
+            var random = new Random(21);
+
+            var unequalCriteria = new ValueCriteria(ValueCriteriaOperator.UnequalValue,
+                                                    random.NextDouble());
+            var equalCriteria = new ValueCriteria(ValueCriteriaOperator.EqualValue,
+                                                  random.NextDouble());
+            var theme = new MapTheme(metadataAttribute, new[]
+            {
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  equalCriteria),
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  unequalCriteria)
+            });
+
+            var polygonStyle = new PolygonStyle
+            {
+                FillColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                StrokeThickness = random.Next(1, 48)
+            };
+            var mapPointData = new MapPolygonData("test", polygonStyle)
+            {
+                Features = new[]
+                {
+                    CreateMapFeatureWithMetaData(metadataAttribute)
+                },
+                MapTheme = theme
+            };
+
+            var mapPointLayer = new MapPolygonLayer();
+
+            var converter = new MapPolygonDataConverter();
+
+            // Call
+            converter.ConvertLayerProperties(mapPointData, mapPointLayer);
+
+            // Assert
+            PolygonSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle, polygonStyle.FillColor);
+
+            IPolygonScheme appliedScheme = mapPointLayer.Symbology;
+            Assert.AreEqual(3, appliedScheme.Categories.Count);
+
+            IPolygonCategory baseCategory = appliedScheme.Categories[0];
+            AssertAreEqual(expectedSymbolizer, baseCategory.Symbolizer);
+            Assert.IsNull(baseCategory.FilterExpression);
+
+            IPolygonCategory equalSchemeCategory = appliedScheme.Categories[1];
+            string expectedFilter = $"[1] = {equalCriteria.Value}";
+            Assert.AreEqual(expectedFilter, equalSchemeCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle,
+                                                          theme.CategoryThemes.ElementAt(0).Color);
+            AssertAreEqual(expectedSymbolizer, equalSchemeCategory.Symbolizer);
+
+            IPolygonCategory unEqualSchemeCategory = appliedScheme.Categories[2];
+            expectedFilter = $"[1] != {unequalCriteria.Value}";
+            Assert.AreEqual(expectedFilter, unEqualSchemeCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle,
+                                                          theme.CategoryThemes.ElementAt(1).Color);
+            AssertAreEqual(expectedSymbolizer, unEqualSchemeCategory.Symbolizer);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_MapPointDataWithStyleAndRangeCriteria_ConvertDataToMapPointLayer()
+        {
+            // Setup
+            const string metadataAttribute = "Meta";
+            var random = new Random(21);
+
+            var allBoundsInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.AllBoundsInclusive,
+                                                               random.NextDouble(),
+                                                               1 + random.NextDouble());
+            var lowerBoundInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.LowerBoundInclusive,
+                                                                random.NextDouble(),
+                                                                1 + random.NextDouble());
+            var upperBoundInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.UpperBoundInclusive,
+                                                                random.NextDouble(),
+                                                                1 + random.NextDouble());
+            var allBoundsExclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.AllBoundsExclusive,
+                                                               random.NextDouble(),
+                                                               1 + random.NextDouble());
+            var theme = new MapTheme(metadataAttribute, new[]
+            {
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  allBoundsInclusiveCriteria),
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  lowerBoundInclusiveCriteria),
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  upperBoundInclusiveCriteria),
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  allBoundsExclusiveCriteria)
+            });
+
+            var polygonStyle = new PolygonStyle
+            {
+                FillColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                StrokeThickness = random.Next(1, 48)
+            };
+            var mapPointData = new MapPolygonData("test", polygonStyle)
+            {
+                Features = new[]
+                {
+                    CreateMapFeatureWithMetaData(metadataAttribute)
+                },
+                MapTheme = theme
+            };
+
+            var mapPointLayer = new MapPolygonLayer();
+
+            var converter = new MapPolygonDataConverter();
+
+            // Call
+            converter.ConvertLayerProperties(mapPointData, mapPointLayer);
+
+            // Assert
+            PolygonSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle, polygonStyle.FillColor);
+
+            IPolygonScheme appliedScheme = mapPointLayer.Symbology;
+            Assert.AreEqual(5, appliedScheme.Categories.Count);
+
+            IPolygonCategory baseCategory = appliedScheme.Categories[0];
+            AssertAreEqual(expectedSymbolizer, baseCategory.Symbolizer);
+            Assert.IsNull(baseCategory.FilterExpression);
+
+            IPolygonCategory allBoundsInclusiveCategory = appliedScheme.Categories[1];
+            string expectedFilter = $"[1] >= {allBoundsInclusiveCriteria.LowerBound} AND [1] <= {allBoundsInclusiveCriteria.UpperBound}";
+            Assert.AreEqual(expectedFilter, allBoundsInclusiveCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle,
+                                                          theme.CategoryThemes.ElementAt(0).Color);
+            AssertAreEqual(expectedSymbolizer, allBoundsInclusiveCategory.Symbolizer);
+
+            IPolygonCategory lowerBoundInclusiveCategory = appliedScheme.Categories[2];
+            expectedFilter = $"[1] >= {lowerBoundInclusiveCriteria.LowerBound} AND [1] < {lowerBoundInclusiveCriteria.UpperBound}";
+            Assert.AreEqual(expectedFilter, lowerBoundInclusiveCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle,
+                                                          theme.CategoryThemes.ElementAt(1).Color);
+            AssertAreEqual(expectedSymbolizer, lowerBoundInclusiveCategory.Symbolizer);
+
+            IPolygonCategory upperBoundInclusiveCategory = appliedScheme.Categories[3];
+            expectedFilter = $"[1] > {upperBoundInclusiveCriteria.LowerBound} AND [1] <= {upperBoundInclusiveCriteria.UpperBound}";
+            Assert.AreEqual(expectedFilter, upperBoundInclusiveCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle,
+                                                          theme.CategoryThemes.ElementAt(2).Color);
+            AssertAreEqual(expectedSymbolizer, upperBoundInclusiveCategory.Symbolizer);
+
+            IPolygonCategory allBoundsExclusiveCategory = appliedScheme.Categories[4];
+            expectedFilter = $"[1] > {allBoundsExclusiveCriteria.LowerBound} AND [1] < {allBoundsExclusiveCriteria.UpperBound}";
+            Assert.AreEqual(expectedFilter, allBoundsExclusiveCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle,
+                                                          theme.CategoryThemes.ElementAt(3).Color);
+            AssertAreEqual(expectedSymbolizer, allBoundsExclusiveCategory.Symbolizer);
+        }
+
+        private static MapFeature CreateMapFeatureWithMetaData(string metadataAttributeName)
+        {
+            var random = new Random(21);
+            var mapFeature = new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(random.NextDouble(), random.NextDouble())
+                    }
+                })
+            });
+            mapFeature.MetaData[metadataAttributeName] = new object();
+
+            return mapFeature;
+        }
+
+        private static PolygonSymbolizer CreateExpectedSymbolizer(PolygonStyle expectedPolygonStyle,
+                                                                  Color expectedFillColor)
+        {
+            var expectedSymbolizer = new PolygonSymbolizer(expectedFillColor, expectedPolygonStyle.StrokeColor, expectedPolygonStyle.StrokeThickness);
+            return expectedSymbolizer;
         }
 
         private static Point2D[] CreateRectangularRing(double xy1, double xy2)

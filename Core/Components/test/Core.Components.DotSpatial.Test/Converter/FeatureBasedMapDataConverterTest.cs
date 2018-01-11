@@ -522,6 +522,21 @@ namespace Core.Components.DotSpatial.Test.Converter
                 return new PointSymbolizer();
             }
 
+            protected override IFeatureScheme CreateScheme()
+            {
+                throw new NotImplementedException();
+            }
+
+            protected override IFeatureCategory CreateDefaultCategory(TestFeatureBasedMapData mapData)
+            {
+                throw new NotImplementedException();
+            }
+
+            protected override IFeatureCategory CreateCategory(TestFeatureBasedMapData mapData, Color color)
+            {
+                throw new NotImplementedException();
+            }
+
             protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
             {
                 yield return new Feature(new Point(1.1, 2.2));
