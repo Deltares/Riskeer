@@ -1463,7 +1463,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam.
+        ///   Looks up a localized string similar to Vaknaam.
         /// </summary>
         public static string FailureMechanismSection_Name_DisplayName {
             get {

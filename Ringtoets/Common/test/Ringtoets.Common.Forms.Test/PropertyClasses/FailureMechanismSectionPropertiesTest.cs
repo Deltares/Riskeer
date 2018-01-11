@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor nameProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             "Algemeen",
-                                                                            "Naam",
+                                                                            "Vaknaam",
                                                                             "De naam van het vak.",
                                                                             true);
             PropertyDescriptor lengthProperty = dynamicProperties[1];

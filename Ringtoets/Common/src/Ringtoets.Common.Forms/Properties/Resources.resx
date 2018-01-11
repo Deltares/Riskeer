@@ -1266,7 +1266,7 @@ Pf = {1}</value>
     <value>De naam van het vak.</value>
   </data>
   <data name="FailureMechanismSection_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
+    <value>Vaknaam</value>
   </data>
   <data name="FailureMechanismSection_StartPoint_Description" xml:space="preserve">
     <value>Beginpunt van het vak.</value>

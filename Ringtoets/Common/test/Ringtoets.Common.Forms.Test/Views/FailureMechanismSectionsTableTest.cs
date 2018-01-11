@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 // Assert
                 DataGridViewColumn nameColumn = table.GetColumnFromIndex(nameColumnIndex);
-                Assert.AreEqual("Naam", nameColumn.HeaderText);
+                Assert.AreEqual("Vaknaam", nameColumn.HeaderText);
                 DataGridViewColumn lengthColumn = table.GetColumnFromIndex(lengthColumnIndex);
                 Assert.AreEqual("Lengte [m]", lengthColumn.HeaderText);
 
