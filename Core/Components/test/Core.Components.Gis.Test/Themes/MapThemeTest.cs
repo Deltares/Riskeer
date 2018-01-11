@@ -57,7 +57,7 @@ namespace Core.Components.Gis.Test.Themes
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("mapCategories", exception.ParamName);
+            Assert.AreEqual("categoryThemes", exception.ParamName);
         }
 
         [Test]
