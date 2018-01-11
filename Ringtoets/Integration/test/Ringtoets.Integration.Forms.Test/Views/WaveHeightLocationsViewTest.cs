@@ -73,6 +73,24 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                  null,
+                                                                  assessmentSection,
+                                                                  () => 0.01);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("getCalculationFunc", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_GetNormFuncNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -80,7 +98,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, null);
+            TestDelegate test = () => new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                  hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                  assessmentSection,
+                                                                  null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -95,7 +116,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, () => 0.01))
+            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                          hbl => new HydraulicBoundaryLocationCalculation(),
+                                                          assessmentSection,
+                                                          () => 0.01))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
@@ -571,7 +595,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                                            double norm,
                                                                            Form form)
         {
-            var view = new WaveHeightLocationsView(locations, assessmentSection, () => norm);
+            var view = new WaveHeightLocationsView(locations,
+                                                   hbl => new HydraulicBoundaryLocationCalculation(),
+                                                   assessmentSection,
+                                                   () => norm);
 
             form.Controls.Add(view);
             form.Show();

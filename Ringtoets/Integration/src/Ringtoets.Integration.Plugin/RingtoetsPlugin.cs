@@ -403,7 +403,10 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
-                CreateInstance = context => new WaveHeightLocationsView(context.WrappedData, context.AssessmentSection, () => context.AssessmentSection.FailureMechanismContribution.Norm),
+                CreateInstance = context => new WaveHeightLocationsView(context.WrappedData,
+                                                                        hbl => hbl.WaveHeightCalculation,
+                                                                        context.AssessmentSection,
+                                                                        () => context.AssessmentSection.FailureMechanismContribution.Norm),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 

@@ -39,19 +39,28 @@ namespace Ringtoets.Integration.Forms.Views
     {
         private readonly Func<double> getNormFunc;
         private readonly WaveHeightCalculationMessageProvider messageProvider;
+        private readonly Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightLocationsView"/>.
         /// </summary>
         /// <param name="locations">The locations to show in the view.</param>
+        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to use during calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public WaveHeightLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
+                                       Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                        IAssessmentSection assessmentSection,
                                        Func<double> getNormFunc)
             : base(locations, assessmentSection)
         {
+            if (getCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getCalculationFunc));
+            }
+
             if (getNormFunc == null)
             {
                 throw new ArgumentNullException(nameof(getNormFunc));
@@ -61,6 +70,7 @@ namespace Ringtoets.Integration.Forms.Views
 
             messageProvider = new WaveHeightCalculationMessageProvider();
 
+            this.getCalculationFunc = getCalculationFunc;
             this.getNormFunc = getNormFunc;
         }
 
@@ -78,7 +88,7 @@ namespace Ringtoets.Integration.Forms.Views
             CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                        AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                        locations,
-                                                       hbl => hbl.WaveHeightCalculation,
+                                                       getCalculationFunc,
                                                        getNormFunc(),
                                                        messageProvider);
         }

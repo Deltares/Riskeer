@@ -65,7 +65,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), new ObservableTestAssessmentSectionStub(), () => 0.01))
+            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                          hbl => new HydraulicBoundaryLocationCalculation(),
+                                                          new ObservableTestAssessmentSectionStub(),
+                                                          () => 0.01))
             {
                 // Call
                 string viewName = info.GetViewName(view, Enumerable.Empty<HydraulicBoundaryLocation>());
@@ -159,7 +162,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var locations = new ObservableList<HydraulicBoundaryLocation>();
             var context = new WaveHeightLocationsContext(locations, assessmentSection);
 
-            using (var view = new WaveHeightLocationsView(locations, assessmentSection, () => 0.01))
+            using (var view = new WaveHeightLocationsView(locations,
+                                                          hbl => new HydraulicBoundaryLocationCalculation(),
+                                                          assessmentSection,
+                                                          () => 0.01))
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
@@ -172,6 +178,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(view.CalculationGuiService);
             }
+
             mocks.VerifyAll();
         }
 
@@ -181,7 +188,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, () => 0.01))
+            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                          hbl => new HydraulicBoundaryLocationCalculation(),
+                                                          assessmentSection,
+                                                          () => 0.01))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -198,7 +208,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSectionA = new ObservableTestAssessmentSectionStub();
             var assessmentSectionB = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSectionA, () => 0.01))
+            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                          hbl => new HydraulicBoundaryLocationCalculation(),
+                                                          assessmentSectionA,
+                                                          () => 0.01))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSectionB);
@@ -214,9 +227,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSectionA = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSectionA, () => 0.01))
+            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                          hbl => new HydraulicBoundaryLocationCalculation(),
+                                                          assessmentSectionA,
+                                                          () => 0.01))
             {
-
                 // Call
                 bool closeForData = info.CloseForData(view, new object());
 
