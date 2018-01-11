@@ -11,6 +11,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculators\AssemblyToolCalculatorFactoryConfig.cs" />
     <Compile Include="Calculators\CategoryBoundaries\AssemblyCategoryBoundariesCalculatorStub.cs" />
     <Compile Include="Calculators\TestAssemblyToolCalculatorFactory.cs" />
     <Compile Include="Kernels\CategoryBoundaries\AssemblyCategoryBoundariesKernelStub.cs" />
