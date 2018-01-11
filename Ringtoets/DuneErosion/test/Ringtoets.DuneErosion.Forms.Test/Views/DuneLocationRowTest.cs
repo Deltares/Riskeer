@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Globalization;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -27,6 +28,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.Views;
 
 namespace Ringtoets.DuneErosion.Forms.Test.Views
@@ -34,6 +36,17 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
     [TestFixture]
     public class DuneLocationRowTest
     {
+        [Test]
+        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new DuneLocationRow(new TestDuneLocation(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getCalculationFunc", exception.ParamName);
+        }
+
         [Test]
         [TestCase(34.1)]
         [TestCase(34.0)]
@@ -68,9 +81,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(duneLocation.CoastalAreaId, row.CoastalAreaId);
             Assert.AreEqual(duneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), row.Offset);
             Assert.AreEqual(duneLocation.D50, row.D50);
-            Assert.AreEqual(duneLocationCalculation.Output.WaterLevel, row.WaterLevel);
-            Assert.AreEqual(duneLocationCalculation.Output.WaveHeight, row.WaveHeight);
-            Assert.AreEqual(duneLocationCalculation.Output.WavePeriod, row.WavePeriod);
+            Assert.AreEqual(duneLocation.Calculation.Output.WaterLevel, row.WaterLevel);
+            Assert.AreEqual(duneLocation.Calculation.Output.WaveHeight, row.WaveHeight);
+            Assert.AreEqual(duneLocation.Calculation.Output.WavePeriod, row.WavePeriod);
 
             TestHelper.AssertTypeConverter<DuneLocationRow, NoValueRoundedDoubleConverter>(
                 nameof(DuneLocationRow.WaterLevel));
