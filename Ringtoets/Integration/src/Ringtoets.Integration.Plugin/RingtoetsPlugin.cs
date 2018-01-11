@@ -390,7 +390,10 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
-                CreateInstance = context => new DesignWaterLevelLocationsView(context.WrappedData, context.AssessmentSection, () => context.AssessmentSection.FailureMechanismContribution.Norm),
+                CreateInstance = context => new DesignWaterLevelLocationsView(context.WrappedData,
+                                                                              hbl => hbl.DesignWaterLevelCalculation,
+                                                                              context.AssessmentSection,
+                                                                              () => context.AssessmentSection.FailureMechanismContribution.Norm),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
@@ -455,7 +458,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
                 Image = RingtoetsCommonFormsResources.SectionsIcon,
-                CloseForData = CloseFailureMechanismSectionsViewForData,
+                CloseForData = CloseFailureMechanismSectionsViewForData
             };
 
             yield return new ViewInfo<WaveConditionsInputContext, ICalculation<WaveConditionsInput>, WaveConditionsInputView>
