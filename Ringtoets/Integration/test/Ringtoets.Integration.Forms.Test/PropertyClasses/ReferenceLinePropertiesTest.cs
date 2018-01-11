@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Geometry;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -56,6 +57,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ReferenceLine>>(properties);
+            TestHelper.AssertTypeConverter<ReferenceLineProperties, ExpandableArrayConverter>(
+                nameof(ReferenceLineProperties.Geometry));
+
             Assert.AreSame(referenceLine, properties.Data);
         }
 
