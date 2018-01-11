@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.AssemblyTool.Data.Input;
+using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries
@@ -43,6 +45,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries
                 throw new ArgumentNullException(nameof(factory));
             }
             this.factory = factory;
+        }
+
+        public AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
+            AssemblyCategoryBoundariesCalculatorInput input)
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            return null;
         }
     }
 }

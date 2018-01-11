@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.CategoryBoundaries;
 
@@ -37,6 +38,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             // Assert
             Assert.IsInstanceOf<IAssemblyCategoryBoundariesCalculator>(calculator);
             Assert.IsNull(calculator.Input);
+            Assert.IsNull(calculator.AssessmentSectionCategoriesOutput);
+        }
+
+        [Test]
+        public void CalculateAssessmentSectionCategories_Always_ReturnResultWithEmptyCategories()
+        {
+            // Setup
+            var calculator = new AssemblyCategoryBoundariesCalculatorStub();
+
+            // Call
+            AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> result = calculator.CalculateAssessmentSectionCategories(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(result.Categories);
         }
     }
 }

@@ -56,5 +56,24 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundari
             Assert.IsInstanceOf<IAssemblyCategoryBoundariesCalculator>(calculator);
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void CalculateAssessmentSectionCategories_InputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var factory = mocks.Stub<IAssemblyToolKernelFactory>();
+            mocks.ReplayAll();
+
+            var calculator = new AssemblyCategoryBoundariesCalculator(factory);
+
+            // Call
+            TestDelegate call = () => calculator.CalculateAssessmentSectionCategories(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("input", exception.ParamName);
+            mocks.VerifyAll();
+        }
     }
 }

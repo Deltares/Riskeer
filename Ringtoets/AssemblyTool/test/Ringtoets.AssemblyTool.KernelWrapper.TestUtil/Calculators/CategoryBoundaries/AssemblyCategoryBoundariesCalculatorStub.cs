@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.AssemblyTool.Data.Input;
+using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.CategoryBoundaries
@@ -33,5 +34,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.CategoryBoun
         /// Gets or sets the assembly category boundaries calculator input.
         /// </summary>
         public AssemblyCategoryBoundariesCalculatorInput Input { get; set; }
+
+        /// <summary>
+        /// Gets the output of the <see cref="CalculateAssessmentSectionCategories"/> calculation.
+        /// </summary>
+        public AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> AssessmentSectionCategoriesOutput { get; private set; }
+
+        public AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
+            AssemblyCategoryBoundariesCalculatorInput input)
+        {
+            return AssessmentSectionCategoriesOutput
+                   ?? (AssessmentSectionCategoriesOutput = new AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult>(
+                           new AssessmentSectionAssemblyCategoryResult[0]));
+        }
     }
 }
