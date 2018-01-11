@@ -19,8 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundaries
 {
@@ -28,13 +32,52 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundari
     public class AssemblyCategoryBoundariesCalculatorTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_InputNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var factory = mocks.Stub<IAssemblyToolKernelFactory>();
+            mocks.ReplayAll();
+
             // Call
-            var calculator = new AssemblyCategoryBoundariesCalculator();
+            TestDelegate call = () => new AssemblyCategoryBoundariesCalculator(null, factory);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("input", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FactoryNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var input = new AssemblyCategoryBoundariesCalculatorInput(0, 0);
+
+            // Call
+            TestDelegate call = () => new AssemblyCategoryBoundariesCalculator(input, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("factory", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ValidParameters_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var factory = mocks.Stub<IAssemblyToolKernelFactory>();
+            mocks.ReplayAll();
+
+            var input = new AssemblyCategoryBoundariesCalculatorInput(0, 0);
+
+            // Call
+            var calculator = new AssemblyCategoryBoundariesCalculator(input, factory);
 
             // Assert
             Assert.IsInstanceOf<IAssemblyCategoryBoundariesCalculator>(calculator);
+            mocks.VerifyAll();
         }
     }
 }
