@@ -40,24 +40,32 @@ namespace Ringtoets.DuneErosion.Forms.Views
     {
         private readonly Observer duneLocationsObserver;
         private readonly Observer failureMechanismObserver;
-        private readonly RecursiveObserver<ObservableList<DuneLocation>, DuneLocation> duneLocationObserver;
-
         private readonly ObservableList<DuneLocation> locations;
+        private readonly Func<DuneLocation, DuneLocationCalculation> getCalculationFunc;
+        private readonly RecursiveObserver<ObservableList<DuneLocation>, DuneLocation> duneLocationObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationsView"/>.
         /// </summary>
         /// <param name="locations">The locations to show in the view.</param>
+        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="DuneLocationCalculation"/>
+        /// based on <see cref="DuneLocation"/>.</param>
         /// <param name="failureMechanism">The failure mechanism which the locations belong to.</param>
         /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public DuneLocationsView(ObservableList<DuneLocation> locations,
+                                 Func<DuneLocation, DuneLocationCalculation> getCalculationFunc,
                                  DuneErosionFailureMechanism failureMechanism,
                                  IAssessmentSection assessmentSection)
         {
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
+            }
+
+            if (getCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getCalculationFunc));
             }
 
             if (failureMechanism == null)
@@ -73,6 +81,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             InitializeComponent();
 
             this.locations = locations;
+            this.getCalculationFunc = getCalculationFunc;
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 

@@ -82,11 +82,32 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new DuneLocationsView(null, new DuneErosionFailureMechanism(), assessmentSection);
+            TestDelegate call = () => new DuneLocationsView(null,
+                                                            dl => new DuneLocationCalculation(),
+                                                            new DuneErosionFailureMechanism(),
+                                                            assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("locations", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new DuneLocationsView(new ObservableList<DuneLocation>(),
+                                                            null,
+                                                            new DuneErosionFailureMechanism(),
+                                                            assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getCalculationFunc", exception.ParamName);
         }
 
         [Test]
@@ -97,7 +118,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new DuneLocationsView(new ObservableList<DuneLocation>(), null, assessmentSection);
+            TestDelegate call = () => new DuneLocationsView(new ObservableList<DuneLocation>(),
+                                                            dl => new DuneLocationCalculation(),
+                                                            null,
+                                                            assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -108,7 +132,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DuneLocationsView(new ObservableList<DuneLocation>(), new DuneErosionFailureMechanism(), null);
+            TestDelegate call = () => new DuneLocationsView(new ObservableList<DuneLocation>(),
+                                                            dl => new DuneLocationCalculation(),
+                                                            new DuneErosionFailureMechanism(),
+                                                            null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -125,7 +152,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(), failureMechanism, assessmentSection))
+            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
+                                                    dl => new DuneLocationCalculation(),
+                                                    failureMechanism,
+                                                    assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<DuneLocationsViewBase>(view);
@@ -235,7 +265,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(), new DuneErosionFailureMechanism(), assessmentSection))
+            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
+                                                    dl => new DuneLocationCalculation(),
+                                                    new DuneErosionFailureMechanism(),
+                                                    assessmentSection))
             {
                 // Assert
                 Assert.IsNull(view.Selection);
@@ -673,7 +706,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
         private DuneLocationsView ShowDuneLocationsView(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            var view = new DuneLocationsView(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var view = new DuneLocationsView(failureMechanism.DuneLocations,
+                                             dl => dl.Calculation,
+                                             failureMechanism,
+                                             assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();

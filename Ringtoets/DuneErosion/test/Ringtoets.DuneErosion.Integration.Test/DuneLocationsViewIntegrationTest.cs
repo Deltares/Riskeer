@@ -135,7 +135,10 @@ namespace Ringtoets.DuneErosion.Integration.Test
 
         private DuneLocationsView ShowDuneLocationsView(DuneErosionFailureMechanism failureMechanism)
         {
-            var view = new DuneLocationsView(failureMechanism.DuneLocations, failureMechanism, new AssessmentSection(AssessmentSectionComposition.Dike));
+            var view = new DuneLocationsView(failureMechanism.DuneLocations,
+                                             dl => dl.Calculation,
+                                             failureMechanism,
+                                             new AssessmentSection(AssessmentSectionComposition.Dike));
 
             testForm.Controls.Add(view);
             testForm.Show();

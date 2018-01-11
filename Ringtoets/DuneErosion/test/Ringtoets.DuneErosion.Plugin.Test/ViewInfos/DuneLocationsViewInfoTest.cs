@@ -67,7 +67,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(), new DuneErosionFailureMechanism(), assessmentSection))
+            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
+                                                    dl => new DuneLocationCalculation(),
+                                                    new DuneErosionFailureMechanism(),
+                                                    assessmentSection))
             {
                 // Call
                 string viewName = info.GetViewName(view, Enumerable.Empty<DuneLocation>());
@@ -221,7 +224,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             plugin.Gui = gui;
             plugin.Activate();
 
-            using (var view = new DuneLocationsView(locations, failureMechanism, assessmentSection))
+            using (var view = new DuneLocationsView(locations,
+                                                    dl => new DuneLocationCalculation(),
+                                                    failureMechanism,
+                                                    assessmentSection))
             {
                 // Call
                 info.AfterCreate(view, data);
@@ -249,7 +255,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
-            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(), failureMechanism, assessmentSection))
+            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
+                                                    dl => new DuneLocationCalculation(),
+                                                    failureMechanism,
+                                                    assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -280,7 +289,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(), new DuneErosionFailureMechanism(), assessmentSectionA))
+            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
+                                                    dl => new DuneLocationCalculation(),
+                                                    new DuneErosionFailureMechanism(),
+                                                    assessmentSectionA))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSectionB);
@@ -312,7 +324,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 failureMechanism,
                 assessmentSection);
 
-            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(), failureMechanism, assessmentSection))
+            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
+                                                    dl => new DuneLocationCalculation(),
+                                                    failureMechanism,
+                                                    assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, duneErosionFailureMechanismContext);
@@ -347,7 +362,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 new DuneErosionFailureMechanism(),
                 assessmentSectionB);
 
-            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(), new DuneErosionFailureMechanism(), assessmentSectionA))
+            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
+                                                    dl => new DuneLocationCalculation(),
+                                                    new DuneErosionFailureMechanism(),
+                                                    assessmentSectionA))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, duneErosionFailureMechanismContext);
@@ -373,7 +391,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
-            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(), new DuneErosionFailureMechanism(), assessmentSection))
+            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
+                                                    dl => new DuneLocationCalculation(),
+                                                    new DuneErosionFailureMechanism(),
+                                                    assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new object());
@@ -393,7 +414,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(), new DuneErosionFailureMechanism(), assessmentSection))
+            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
+                                                    dl => new DuneLocationCalculation(),
+                                                    new DuneErosionFailureMechanism(),
+                                                    assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new object());
