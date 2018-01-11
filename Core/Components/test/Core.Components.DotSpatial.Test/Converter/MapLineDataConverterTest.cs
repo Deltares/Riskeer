@@ -30,6 +30,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
+using Core.Components.Gis.Theme;
+using Core.Components.Gis.Theme.Criteria;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
@@ -188,6 +190,201 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             AssertAreEqual(new LineSymbolizer(expectedColor, expectedColor, width, MapDataHelper.Convert(lineStyle), LineCap.Round), mapLineLayer.Symbolizer);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_MapLineDataWithStyleAndValueCriteria_ConvertDataToMapPointLayer()
+        {
+            // Setup
+            const string metadataAttribute = "Meta";
+            var random = new Random(21);
+
+            var unequalCriteria = new ValueCriteria(ValueCriteriaOperator.UnequalValue,
+                                                    random.NextDouble());
+            var equalCriteria = new ValueCriteria(ValueCriteriaOperator.EqualValue,
+                                                  random.NextDouble());
+            var theme = new MapTheme(metadataAttribute, new[]
+            {
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  equalCriteria),
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  unequalCriteria)
+            });
+
+            var lineStyle = new LineStyle
+            {
+                Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                Width = random.Next(1, 48),
+                DashStyle = LineDashStyle.DashDotDot
+            };
+            var mapLineData = new MapLineData("test", lineStyle)
+            {
+                Features = new[]
+                {
+                    CreateMapFeatureWithMetaData(metadataAttribute)
+                },
+                MapTheme = theme
+            };
+
+            var mapLineLayer = new MapLineLayer();
+
+            var converter = new MapLineDataConverter();
+
+            // Call
+            converter.ConvertLayerProperties(mapLineData, mapLineLayer);
+
+            // Assert
+            const DashStyle expectedDashStyle = DashStyle.DashDotDot;
+            ILineSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
+                                                                          expectedDashStyle,
+                                                                          lineStyle.Color);
+
+            ILineScheme appliedScheme = mapLineLayer.Symbology;
+            Assert.AreEqual(3, appliedScheme.Categories.Count);
+
+            ILineCategory baseCategory = appliedScheme.Categories[0];
+            AssertAreEqual(expectedSymbolizer, baseCategory.Symbolizer);
+            Assert.IsNull(baseCategory.FilterExpression);
+
+            ILineCategory equalSchemeCategory = appliedScheme.Categories[1];
+            string expectedFilter = $"[1] = {equalCriteria.Value}";
+            Assert.AreEqual(expectedFilter, equalSchemeCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
+                                                          expectedDashStyle,
+                                                          theme.CategoryThemes.ElementAt(0).Color);
+            AssertAreEqual(expectedSymbolizer, equalSchemeCategory.Symbolizer);
+
+            ILineCategory unEqualSchemeCategory = appliedScheme.Categories[2];
+            expectedFilter = $"[1] != {unequalCriteria.Value}";
+            Assert.AreEqual(expectedFilter, unEqualSchemeCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
+                                                          expectedDashStyle,
+                                                          theme.CategoryThemes.ElementAt(1).Color);
+            AssertAreEqual(expectedSymbolizer, unEqualSchemeCategory.Symbolizer);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_MapLineDataWithStyleAndRangeCriteria_ConvertDataToMapPointLayer()
+        {
+            // Setup
+            const string metadataAttribute = "Meta";
+            var random = new Random(21);
+
+            var allBoundsInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.AllBoundsInclusive,
+                                                               random.NextDouble(),
+                                                               1 + random.NextDouble());
+            var lowerBoundInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.LowerBoundInclusive,
+                                                                random.NextDouble(),
+                                                                1 + random.NextDouble());
+            var upperBoundInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.UpperBoundInclusive,
+                                                                random.NextDouble(),
+                                                                1 + random.NextDouble());
+            var allBoundsExclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.AllBoundsExclusive,
+                                                               random.NextDouble(),
+                                                               1 + random.NextDouble());
+            var theme = new MapTheme(metadataAttribute, new[]
+            {
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  allBoundsInclusiveCriteria),
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  lowerBoundInclusiveCriteria),
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  upperBoundInclusiveCriteria),
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  allBoundsExclusiveCriteria)
+            });
+
+            var lineStyle = new LineStyle
+            {
+                Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                Width = random.Next(1, 48),
+                DashStyle = LineDashStyle.DashDotDot
+            };
+            var mapLineData = new MapLineData("test", lineStyle)
+            {
+                Features = new[]
+                {
+                    CreateMapFeatureWithMetaData(metadataAttribute)
+                },
+                MapTheme = theme
+            };
+
+            var mapLineLayer = new MapLineLayer();
+
+            var converter = new MapLineDataConverter();
+
+            // Call
+            converter.ConvertLayerProperties(mapLineData, mapLineLayer);
+
+            // Assert
+            const DashStyle expectedDashStyle = DashStyle.DashDotDot;
+            ILineSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
+                                                                          expectedDashStyle,
+                                                                          lineStyle.Color);
+
+            ILineScheme appliedScheme = mapLineLayer.Symbology;
+            Assert.AreEqual(5, appliedScheme.Categories.Count);
+
+            ILineCategory baseCategory = appliedScheme.Categories[0];
+            AssertAreEqual(expectedSymbolizer, baseCategory.Symbolizer);
+            Assert.IsNull(baseCategory.FilterExpression);
+
+            ILineCategory allBoundsInclusiveCategory = appliedScheme.Categories[1];
+            string expectedFilter = $"[1] >= {allBoundsInclusiveCriteria.LowerBound} AND [1] <= {allBoundsInclusiveCriteria.UpperBound}";
+            Assert.AreEqual(expectedFilter, allBoundsInclusiveCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
+                                                          expectedDashStyle,
+                                                          theme.CategoryThemes.ElementAt(0).Color);
+            AssertAreEqual(expectedSymbolizer, allBoundsInclusiveCategory.Symbolizer);
+
+            ILineCategory lowerBoundInclusiveCategory = appliedScheme.Categories[2];
+            expectedFilter = $"[1] >= {lowerBoundInclusiveCriteria.LowerBound} AND [1] < {lowerBoundInclusiveCriteria.UpperBound}";
+            Assert.AreEqual(expectedFilter, lowerBoundInclusiveCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
+                                                          expectedDashStyle,
+                                                          theme.CategoryThemes.ElementAt(1).Color);
+            AssertAreEqual(expectedSymbolizer, lowerBoundInclusiveCategory.Symbolizer);
+
+            ILineCategory upperBoundInclusiveCategory = appliedScheme.Categories[3];
+            expectedFilter = $"[1] > {upperBoundInclusiveCriteria.LowerBound} AND [1] <= {upperBoundInclusiveCriteria.UpperBound}";
+            Assert.AreEqual(expectedFilter, upperBoundInclusiveCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
+                                                          expectedDashStyle,
+                                                          theme.CategoryThemes.ElementAt(2).Color);
+            AssertAreEqual(expectedSymbolizer, upperBoundInclusiveCategory.Symbolizer);
+
+            ILineCategory allBoundsExclusiveCategory = appliedScheme.Categories[4];
+            expectedFilter = $"[1] > {allBoundsExclusiveCriteria.LowerBound} AND [1] < {allBoundsExclusiveCriteria.UpperBound}";
+            Assert.AreEqual(expectedFilter, allBoundsExclusiveCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
+                                                          expectedDashStyle,
+                                                          theme.CategoryThemes.ElementAt(3).Color);
+            AssertAreEqual(expectedSymbolizer, allBoundsExclusiveCategory.Symbolizer);
+        }
+
+        private static ILineSymbolizer CreateExpectedSymbolizer(LineStyle expectedLineStyle,
+                                                                DashStyle expectedDashStyle,
+                                                                Color expectedColor)
+        {
+            return new LineSymbolizer(expectedColor, expectedColor, expectedLineStyle.Width, expectedDashStyle, LineCap.Round);
+        }
+
+        private static MapFeature CreateMapFeatureWithMetaData(string metadataAttributeName)
+        {
+            var random = new Random(21);
+            var mapFeature = new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(random.NextDouble(), random.NextDouble())
+                    }
+                })
+            });
+            mapFeature.MetaData[metadataAttributeName] = new object();
+
+            return mapFeature;
         }
 
         private static void AssertAreEqual(ILineSymbolizer firstSymbolizer, ILineSymbolizer secondSymbolizer)

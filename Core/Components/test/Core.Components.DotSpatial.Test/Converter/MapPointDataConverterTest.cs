@@ -259,16 +259,6 @@ namespace Core.Components.DotSpatial.Test.Converter
             AssertAreEqual(expectedSymbolizer, unEqualSchemeCategory.Symbolizer);
         }
 
-        private static PointSymbolizer CreateExpectedSymbolizer(PointStyle expectedPointStyle,
-                                                                PointShape expectedPointShape,
-                                                                Color expectedColor)
-        {
-            var expectedSymbolizer = new PointSymbolizer(expectedColor, expectedPointShape, expectedPointStyle.Size);
-            expectedSymbolizer.SetOutline(expectedPointStyle.StrokeColor, expectedPointStyle.StrokeThickness);
-
-            return expectedSymbolizer;
-        }
-
         [Test]
         public void ConvertLayerProperties_MapPointDataWithStyleAndRangeCriteria_ConvertDataToMapPointLayer()
         {
@@ -368,6 +358,16 @@ namespace Core.Components.DotSpatial.Test.Converter
                                                           expectedPointShape,
                                                           theme.CategoryThemes.ElementAt(3).Color);
             AssertAreEqual(expectedSymbolizer, allBoundsExclusiveCategory.Symbolizer);
+        }
+
+        private static PointSymbolizer CreateExpectedSymbolizer(PointStyle expectedPointStyle,
+                                                                PointShape expectedPointShape,
+                                                                Color expectedColor)
+        {
+            var expectedSymbolizer = new PointSymbolizer(expectedColor, expectedPointShape, expectedPointStyle.Size);
+            expectedSymbolizer.SetOutline(expectedPointStyle.StrokeColor, expectedPointStyle.StrokeThickness);
+
+            return expectedSymbolizer;
         }
 
         private static MapFeature CreateMapFeatureWithMetaData(string metadataAttributeName)
