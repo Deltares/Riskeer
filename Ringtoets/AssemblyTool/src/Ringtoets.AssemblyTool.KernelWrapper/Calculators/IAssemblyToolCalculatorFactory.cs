@@ -21,37 +21,25 @@
 
 using System;
 using Ringtoets.AssemblyTool.Data.Input;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries
+namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
 {
     /// <summary>
-    /// Class representing an assembly category boundaries calculator.
+    /// Interface for a factory which creates calculators for performing assembly tool calculations.
     /// </summary>
-    public class AssemblyCategoryBoundariesCalculator : IAssemblyCategoryBoundariesCalculator
+    public interface IAssemblyToolCalculatorFactory
     {
-        private readonly AssemblyCategoryBoundariesCalculatorInput input;
-        private readonly IAssemblyToolKernelFactory factory;
-
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyCategoryBoundariesCalculator"/>.
+        /// Creates an assembly category boundaries calculator.
         /// </summary>
         /// <param name="input">The <see cref="AssemblyCategoryBoundariesCalculatorInput"/> containing
         /// all the values required for performing the assembly category boundaries calculation.</param>
         /// <param name="factory">The factory responsible for creating the assembly category boundaries kernel.</param>
+        /// <returns>The assembly category boundaries calculator.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AssemblyCategoryBoundariesCalculator(AssemblyCategoryBoundariesCalculatorInput input, IAssemblyToolKernelFactory factory)
-        {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-            if (factory == null)
-            {
-                throw new ArgumentNullException(nameof(factory));
-            }
-            this.input = input;
-            this.factory = factory;
-        }
+        IAssemblyCategoryBoundariesCalculator CreateAssemblyCategoryBoundariesCalculator(AssemblyCategoryBoundariesCalculatorInput input,
+                                                                                         IAssemblyToolKernelFactory factory);
     }
 }

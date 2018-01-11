@@ -17,6 +17,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculators\AssemblyToolCalculatorFactoryTest.cs" />
     <Compile Include="Calculators\CategoryBoundaries\AssemblyCategoryBoundariesCalculatorTest.cs" />
     <Compile Include="Kernels\AssemblyToolKernelWrapperFactoryTest.cs" />
     <Compile Include="Kernels\CategoryBoundaries\AssemblyCategoryBoundariesKernelWrapperTest.cs" />

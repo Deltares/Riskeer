@@ -14,6 +14,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculators\CategoryBoundaries\AssemblyCategoryBoundariesCalculatorStubTest.cs" />
+    <Compile Include="Calculators\TestAssemblyToolCalculatorFactoryTest.cs" />
     <Compile Include="Kernels\CategoryBoundaries\AssemblyCategoryBoundariesKernelStubTest.cs" />
     <Compile Include="Kernels\TestAssemblyToolKernelFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -25,6 +27,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
+      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
+      <Name>Ringtoets.AssemblyTool.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
       <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
       <Name>Ringtoets.AssemblyTool.KernelWrapper</Name>
