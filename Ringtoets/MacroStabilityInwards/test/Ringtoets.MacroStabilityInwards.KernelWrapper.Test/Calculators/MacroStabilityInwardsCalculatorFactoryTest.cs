@@ -26,6 +26,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
@@ -80,21 +81,24 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
             // Setup
             IMacroStabilityInwardsCalculatorFactory factory = MacroStabilityInwardsCalculatorFactory.Instance;
 
-            // Call
-            IUpliftVanCalculator upliftVanCalculator = factory.CreateUpliftVanCalculator(
-                new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                    DrainageConstruction = new DrainageConstruction(),
-                    SlipPlane = new UpliftVanSlipPlane()
-                }),
-                new TestMacroStabilityInwardsKernelFactory());
+            using (new MacroStabilityInwardsKernelFactoryConfig())
+            {
+                // Call
+                IUpliftVanCalculator upliftVanCalculator = factory.CreateUpliftVanCalculator(
+                    new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
+                    {
+                        SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                        SoilProfile = new TestSoilProfile(),
+                        PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                        PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                        DrainageConstruction = new DrainageConstruction(),
+                        SlipPlane = new UpliftVanSlipPlane()
+                    }),
+                    MacroStabilityInwardsKernelWrapperFactory.Instance);
 
-            // Assert
-            Assert.IsInstanceOf<UpliftVanCalculator>(upliftVanCalculator);
+                // Assert
+                Assert.IsInstanceOf<UpliftVanCalculator>(upliftVanCalculator);
+            }
         }
 
         [Test]
@@ -103,18 +107,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
             // Setup
             IMacroStabilityInwardsCalculatorFactory factory = MacroStabilityInwardsCalculatorFactory.Instance;
 
-            // Call
-            IWaternetCalculator waternetCalculator = factory.CreateWaternetExtremeCalculator(
-                new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
-                {
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsets = new PhreaticLineOffsets(),
-                    DrainageConstruction = new DrainageConstruction()
-                }), new TestMacroStabilityInwardsKernelFactory());
+            using (new MacroStabilityInwardsKernelFactoryConfig())
+            {
+                // Call
+                IWaternetCalculator waternetCalculator = factory.CreateWaternetExtremeCalculator(
+                    new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
+                    {
+                        SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                        SoilProfile = new TestSoilProfile(),
+                        PhreaticLineOffsets = new PhreaticLineOffsets(),
+                        DrainageConstruction = new DrainageConstruction()
+                    }), MacroStabilityInwardsKernelWrapperFactory.Instance);
 
-            // Assert
-            Assert.IsInstanceOf<WaternetExtremeCalculator>(waternetCalculator);
+                // Assert
+                Assert.IsInstanceOf<WaternetExtremeCalculator>(waternetCalculator);
+            }
         }
 
         [Test]
@@ -123,18 +130,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
             // Setup
             IMacroStabilityInwardsCalculatorFactory factory = MacroStabilityInwardsCalculatorFactory.Instance;
 
-            // Call
-            IWaternetCalculator waternetCalculator = factory.CreateWaternetDailyCalculator(
-                new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
-                {
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsets = new PhreaticLineOffsets(),
-                    DrainageConstruction = new DrainageConstruction()
-                }), new TestMacroStabilityInwardsKernelFactory());
+            using (new MacroStabilityInwardsKernelFactoryConfig())
+            {
+                // Call
+                IWaternetCalculator waternetCalculator = factory.CreateWaternetDailyCalculator(
+                    new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
+                    {
+                        SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                        SoilProfile = new TestSoilProfile(),
+                        PhreaticLineOffsets = new PhreaticLineOffsets(),
+                        DrainageConstruction = new DrainageConstruction()
+                    }), MacroStabilityInwardsKernelWrapperFactory.Instance);
 
-            // Assert
-            Assert.IsInstanceOf<WaternetDailyCalculator>(waternetCalculator);
+                // Assert
+                Assert.IsInstanceOf<WaternetDailyCalculator>(waternetCalculator);
+            }
         }
     }
 }

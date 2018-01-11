@@ -95,16 +95,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
         {
             // Setup
             WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
-            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
 
-            WaternetKernelStub waternetKernel = testMacroStabilityInwardsKernelFactory.LastCreatedWaternetKernel;
-            SetCompleteKernelOutput(waternetKernel);
+            using (new MacroStabilityInwardsKernelFactoryConfig())
+            {
+                var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
+                WaternetKernelStub waternetKernel = factory.LastCreatedWaternetKernel;
+                SetCompleteKernelOutput(waternetKernel);
 
-            // Call
-            new TestWaternetCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
+                // Call
+                new TestWaternetCalculator(input, factory).Calculate();
 
-            // Assert
-            Assert.IsTrue(waternetKernel.Calculated);
+                // Assert
+                Assert.IsTrue(waternetKernel.Calculated);
+            }
         }
 
         [Test]
@@ -112,42 +115,48 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
         {
             // Setup
             WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
-            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
 
-            WaternetKernelStub waternetKernel = testMacroStabilityInwardsKernelFactory.LastCreatedWaternetKernel;
-            waternetKernel.ThrowExceptionOnCalculate = true;
+            using (new MacroStabilityInwardsKernelFactoryConfig())
+            {
+                var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
+                WaternetKernelStub waternetKernel = factory.LastCreatedWaternetKernel;
+                waternetKernel.ThrowExceptionOnCalculate = true;
 
-            // Call
-            TestDelegate test = () => new TestWaternetCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
+                // Call
+                TestDelegate test = () => new TestWaternetCalculator(input, factory).Calculate();
 
-            // Assert
-            var exception = Assert.Throws<WaternetCalculatorException>(test);
-            Assert.IsInstanceOf<WaternetKernelWrapperException>(exception.InnerException);
-            Assert.AreEqual(exception.InnerException.Message, exception.Message);
+                // Assert
+                var exception = Assert.Throws<WaternetCalculatorException>(test);
+                Assert.IsInstanceOf<WaternetKernelWrapperException>(exception.InnerException);
+                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            }
         }
 
         [Test]
         public void Calculate_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
-            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
 
-            WaternetKernelStub kernel = testMacroStabilityInwardsKernelFactory.LastCreatedWaternetKernel;
-            SetCompleteKernelOutput(kernel);
-
-            // Call
-            WaternetCalculatorResult result = new TestWaternetCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
-
-            // Assert
-            Assert.IsNotNull(result);
-            var expectedPhreaticLines = new List<GeometryPointString>
+            using (new MacroStabilityInwardsKernelFactoryConfig())
             {
-                kernel.Waternet.PhreaticLine
-            };
-            expectedPhreaticLines.AddRange(kernel.Waternet.HeadLineList);
+                var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
+                WaternetKernelStub kernel = factory.LastCreatedWaternetKernel;
+                SetCompleteKernelOutput(kernel);
 
-            WaternetCalculatorOutputAssert.AssertPhreaticLines(expectedPhreaticLines.ToArray(), result.PhreaticLines.ToArray());
-            WaternetCalculatorOutputAssert.AssertWaternetLines(kernel.Waternet.WaternetLineList.ToArray(), result.WaternetLines.ToArray());
+                // Call
+                WaternetCalculatorResult result = new TestWaternetCalculator(input, factory).Calculate();
+
+                // Assert
+                Assert.IsNotNull(result);
+                var expectedPhreaticLines = new List<GeometryPointString>
+                {
+                    kernel.Waternet.PhreaticLine
+                };
+                expectedPhreaticLines.AddRange(kernel.Waternet.HeadLineList);
+
+                WaternetCalculatorOutputAssert.AssertPhreaticLines(expectedPhreaticLines.ToArray(), result.PhreaticLines.ToArray());
+                WaternetCalculatorOutputAssert.AssertWaternetLines(kernel.Waternet.WaternetLineList.ToArray(), result.WaternetLines.ToArray());
+            }
         }
 
         private static void SetCompleteKernelOutput(WaternetKernelStub kernel)

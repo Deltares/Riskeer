@@ -28,7 +28,6 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators
@@ -66,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             });
 
             // Call
-            var calculator = (UpliftVanCalculatorStub) factory.CreateUpliftVanCalculator(input, new TestMacroStabilityInwardsKernelFactory());
+            var calculator = (UpliftVanCalculatorStub) factory.CreateUpliftVanCalculator(input, null);
 
             // Assert
             Assert.AreSame(input, calculator.Input);
