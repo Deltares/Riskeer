@@ -208,7 +208,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Korrelgrootte.
+        ///   Looks up a localized string similar to d70.
         /// </summary>
         public static string SoilLayer_DiameterD70Distribution_DisplayName {
             get {

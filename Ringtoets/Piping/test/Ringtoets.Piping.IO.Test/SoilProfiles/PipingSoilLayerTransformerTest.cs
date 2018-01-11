@@ -1164,7 +1164,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             invalidDiameterD70Distribution.PermeabilityDistributionType = validDistributionType;
             invalidDiameterD70Distribution.PermeabilityShift = validShift;
 
-            yield return new TestCaseData(invalidDiameterD70Distribution, "Korrelgrootte"
+            yield return new TestCaseData(invalidDiameterD70Distribution, "d70"
             ).SetName(string.Format(testNameFormat, typeName));
 
             SoilLayerBase invalidPermeabilityDistribution = soilLayer();
@@ -1205,7 +1205,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             invalidDiameterD70Shift.PermeabilityDistributionType = validDistributionType;
             invalidDiameterD70Shift.PermeabilityShift = validShift;
 
-            yield return new TestCaseData(invalidDiameterD70Shift, "Korrelgrootte"
+            yield return new TestCaseData(invalidDiameterD70Shift, "d70"
             ).SetName(string.Format(testNameFormat, typeName));
 
             SoilLayerBase invalidPermeabilityShift = soilLayer();
@@ -1251,7 +1251,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             SoilLayerBase invalidDiameterD70 = soilLayer();
             invalidDiameterD70.DiameterD70Mean = invalidMean;
-            yield return new TestCaseData(invalidDiameterD70, "Korrelgrootte"
+            yield return new TestCaseData(invalidDiameterD70, "d70"
             ).SetName(string.Format(testNameFormat, typeName));
         }
 

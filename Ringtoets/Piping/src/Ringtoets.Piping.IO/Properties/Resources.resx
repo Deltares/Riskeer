@@ -127,7 +127,7 @@
     <value>Verzadigd gewicht</value>
   </data>
   <data name="SoilLayer_DiameterD70Distribution_DisplayName" xml:space="preserve">
-    <value>Korrelgrootte</value>
+    <value>d70</value>
   </data>
   <data name="SoilLayer_PermeabilityDistribution_DisplayName" xml:space="preserve">
     <value>Doorlatendheid</value>

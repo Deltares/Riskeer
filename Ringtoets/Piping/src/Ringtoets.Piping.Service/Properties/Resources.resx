@@ -154,7 +154,7 @@
     <value>Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.</value>
   </data>
   <data name="PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_Attempt_to_determine_values_for_DiameterD70_and_DarcyPermeability_from_top_layer" xml:space="preserve">
-    <value>Meerdere aaneengesloten watervoerende lagen gevonden. Er wordt geprobeerd de korrelgrootte en doorlatendheid van de bovenste watervoerende laag af te leiden.</value>
+    <value>Meerdere aaneengesloten watervoerende lagen gevonden. Er wordt geprobeerd de d70 en doorlatendheid van de bovenste watervoerende laag af te leiden.</value>
   </data>
   <data name="PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_Attempt_to_determine_value_from_combination" xml:space="preserve">
     <value>Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.</value>

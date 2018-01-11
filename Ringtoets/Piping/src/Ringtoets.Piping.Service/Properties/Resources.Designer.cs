@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Service.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meerdere aaneengesloten watervoerende lagen gevonden. Er wordt geprobeerd de korrelgrootte en doorlatendheid van de bovenste watervoerende laag af te leiden..
+        ///   Looks up a localized string similar to Meerdere aaneengesloten watervoerende lagen gevonden. Er wordt geprobeerd de d70 en doorlatendheid van de bovenste watervoerende laag af te leiden..
         /// </summary>
         internal static string PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_Attempt_to_determine_values_for_DiameterD70_and_DarcyPermeability_from_top_layer {
             get {
