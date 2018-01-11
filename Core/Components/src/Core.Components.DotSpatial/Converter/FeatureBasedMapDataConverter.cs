@@ -27,6 +27,8 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Theme;
+using Core.Components.Gis.Theme.Criteria;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
@@ -73,6 +75,7 @@ namespace Core.Components.DotSpatial.Converter
                     AddFeatureToLayer(layer, feature, mapFeature, attributeMapping);
                 }
             }
+
             layer.DataSet.InitializeVertices();
             layer.DataSet.UpdateExtent();
 
@@ -106,7 +109,7 @@ namespace Core.Components.DotSpatial.Converter
             }
             else
             {
-                layer.Symbology = CreateScheme(data);
+                layer.Symbology = CreateCategorySchemes(data);
             }
         }
 
@@ -127,9 +130,65 @@ namespace Core.Components.DotSpatial.Converter
         /// <remarks><c>Null</c> should never be returned as this will break DotSpatial.</remarks>
         protected abstract IFeatureSymbolizer CreateSymbolizer(TFeatureBasedMapData mapData);
 
-        protected virtual IFeatureScheme CreateScheme(TFeatureBasedMapData mapData)
+        /// <summary>
+        /// Creates a new scheme to be applied on the data.
+        /// </summary>
+        /// <returns>The newly created <see cref="IFeatureScheme"/>.</returns>
+        protected virtual IFeatureScheme CreateScheme()
         {
             return null;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="IFeatureCategory"/> based on <paramref name="mapData"/>.
+        /// </summary>
+        /// <param name="mapData">The map data to base the category on.</param>
+        /// <returns>The newly created <see cref="IFeatureCategory"/>.</returns>
+        /// <remarks><c>Null</c> should never be returned as this will break DotSpatial.</remarks>
+        protected virtual IFeatureCategory CreateDefaultCategory(TFeatureBasedMapData mapData)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="IFeatureCategory"/> with a different color than specified in the <paramref name="mapData"/>.
+        /// </summary>
+        /// <param name="mapData">The map data to base the category on.</param>
+        /// <param name="color">The desired color of the category.</param>
+        /// <returns>The newly created <see cref="IFeatureCategory"/>.</returns>
+        /// <remarks><c>Null</c> should never be returned as this will break DotSpatial.</remarks>
+        protected virtual IFeatureCategory CreateCategory(TFeatureBasedMapData mapData, Color color)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Creates the <see cref="IFeatureScheme"/> based on the <paramref name="mapData"/>.
+        /// </summary>
+        /// <param name="mapData">The map data to base the scheme on.</param>
+        /// <returns>The newly created <see cref="IFeatureScheme"/>.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown when the attribute could not be found 
+        /// in the available metadata.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="mapData"/>
+        /// could not be successfully converted to a scheme.</exception>
+        private IFeatureScheme CreateCategorySchemes(TFeatureBasedMapData mapData)
+        {
+            IFeatureScheme scheme = CreateScheme();
+            scheme.ClearCategories();
+            scheme.AddCategory(CreateDefaultCategory(mapData));
+
+            MapTheme mapTheme = mapData.MapTheme;
+            Dictionary<string, int> attributeMapping = GetAttributeMapping(mapData);
+            int attributeIndex = attributeMapping[mapTheme.AttributeName];
+
+            foreach (CategoryTheme categoryTheme in mapTheme.CategoryThemes)
+            {
+                IFeatureCategory category = CreateCategory(mapData, categoryTheme.Color);
+                category.FilterExpression = CreateFilterExpression(attributeIndex, categoryTheme.Criteria);
+                scheme.AddCategory(category);
+            }
+
+            return scheme;
         }
 
         /// <summary>
@@ -191,7 +250,7 @@ namespace Core.Components.DotSpatial.Converter
         /// This method is used for obtaining a mapping between map data attribute names and DotSpatial
         /// attribute names. This mapping is needed because DotSpatial can't handle special characters.
         /// </remarks>
-        protected static Dictionary<string, int> GetAttributeMapping(TFeatureBasedMapData data)
+        private static Dictionary<string, int> GetAttributeMapping(TFeatureBasedMapData data)
         {
             return Enumerable.Range(0, data.MetaData.Count())
                              .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);
@@ -214,6 +273,82 @@ namespace Core.Components.DotSpatial.Converter
             }
 
             return labelLayer;
+        }
+
+        /// <summary>
+        /// Creates a filter expression based for an attribute and the criteria to apply.
+        /// </summary>
+        /// <param name="attributeIndex">The index of the attribute in the metadata table.</param>
+        /// <param name="criteria">The criteria to convert to an expression.</param>
+        /// <returns>The filter expression based on the <paramref name="attributeIndex"/>
+        /// and <paramref name="criteria"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when the <see cref="ICriteria"/>
+        /// cannot be used to create a filter expression.</exception>
+        private static string CreateFilterExpression(int attributeIndex, ICriteria criteria)
+        {
+            var valueCriteria = criteria as ValueCriteria;
+            if (valueCriteria != null)
+            {
+                return CreateValueFilterExpression(attributeIndex, valueCriteria);
+            }
+
+            var rangeCriteria = criteria as RangeCriteria;
+            if (rangeCriteria != null)
+            {
+                return CreateRangeCriteriaFilterExpression(attributeIndex, rangeCriteria);
+            }
+
+            throw new NotSupportedException($"Can't convert a {nameof(ICriteria)} of type {criteria.GetType()}"); // TODO WTI-1551: Test this exception
+        }
+
+        /// <summary>
+        /// Creates a filter expression based for an attribute and the value criteria to apply.
+        /// </summary>
+        /// <param name="attributeIndex">The index of the attribute in the metadata table.</param>
+        /// <param name="valueCriteria">The criteria to convert to an expression.</param>
+        /// <returns>The filter expression based on the <paramref name="attributeIndex"/>
+        /// and <paramref name="valueCriteria"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when the <see cref="ValueCriteriaOperator"/>
+        /// cannot be used to create a filter expression.</exception>
+        private static string CreateValueFilterExpression(int attributeIndex, ValueCriteria valueCriteria)
+        {
+            ValueCriteriaOperator valueOperator = valueCriteria.ValueOperator;
+            switch (valueOperator)
+            {
+                case ValueCriteriaOperator.EqualValue:
+                    return $"[{attributeIndex}] = {valueCriteria.Value}";
+                case ValueCriteriaOperator.UnequalValue:
+                    return $"[{attributeIndex}] != {valueCriteria.Value}";
+                default:
+                    throw new NotSupportedException($"The enum value {nameof(ValueCriteriaOperator)}.{valueOperator} is not supported.");
+            }
+        }
+
+        /// <summary>
+        /// Creates a filter expression based for an attribute and the range criteria to apply.
+        /// </summary>
+        /// <param name="attributeIndex">The index of the attribute in the metadata table.</param>
+        /// <param name="rangeCriteria">The criteria to convert to an expression.</param>
+        /// <returns>The filter expression based on the <paramref name="attributeIndex"/>
+        /// and <paramref name="rangeCriteria"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when the <see cref="RangeCriteriaOperator"/>
+        /// cannot be used to create a filter expression.</exception>
+        private static string CreateRangeCriteriaFilterExpression(int attributeIndex, RangeCriteria rangeCriteria)
+        {
+            RangeCriteriaOperator rangeCriteriaOperator = rangeCriteria.RangeCriteriaOperator;
+            switch (rangeCriteriaOperator)
+            {
+                case RangeCriteriaOperator.AllBoundsInclusive:
+                    return $"[{attributeIndex}] >= {rangeCriteria.LowerBound} AND [{attributeIndex}] <= {rangeCriteria.UpperBound}";
+                case RangeCriteriaOperator.LowerBoundInclusive:
+                    return $"[{attributeIndex}] >= {rangeCriteria.LowerBound} AND [{attributeIndex}] < {rangeCriteria.UpperBound}";
+                case RangeCriteriaOperator.UpperBoundInclusive:
+                    return $"[{attributeIndex}] > {rangeCriteria.LowerBound} AND [{attributeIndex}] <= {rangeCriteria.UpperBound}";
+                case RangeCriteriaOperator.AllBoundsExclusive:
+                    return $"[{attributeIndex}] > {rangeCriteria.LowerBound} AND [{attributeIndex}] < {rangeCriteria.UpperBound}";
+                default:
+                    throw new NotSupportedException($"The enum value {nameof(RangeCriteriaOperator)}.{rangeCriteriaOperator} is not supported.");
+            }
         }
     }
 }
