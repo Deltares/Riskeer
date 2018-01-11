@@ -107,7 +107,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(geometryProperty,
                                                                             generalCategoryName,
                                                                             "Coördinaten",
-                                                                            "Lijst met coördinaten van punten op de referentielijn.",
+                                                                            "Lijst van alle coördinaten (X-coördinaat, Y-coördinaat) die samen de referentielijn vormen.",
                                                                             true);
         }
     }

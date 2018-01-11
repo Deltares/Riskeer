@@ -652,7 +652,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lijst met coördinaten van punten op de referentielijn..
+        ///   Looks up a localized string similar to Lijst van alle coördinaten (X-coördinaat, Y-coördinaat) die samen de referentielijn vormen..
         /// </summary>
         public static string ReferenceLineProperties_Geometry_Description {
             get {
