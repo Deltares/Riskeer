@@ -1418,7 +1418,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eindpunt van het vak..
+        ///   Looks up a localized string similar to Eindpunt van het vak (X-coördinaat, Y-coördinaat)..
         /// </summary>
         public static string FailureMechanismSection_EndPoint_Description {
             get {
@@ -1427,7 +1427,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eindpunt (X-coördinaat, Y-coördinaat).
+        ///   Looks up a localized string similar to Eindpunt.
         /// </summary>
         public static string FailureMechanismSection_EndPoint_DisplayName {
             get {
@@ -1472,7 +1472,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Beginpunt van het vak..
+        ///   Looks up a localized string similar to Beginpunt van het vak (X-coördinaat, Y-coördinaat)..
         /// </summary>
         public static string FailureMechanismSection_StartPoint_Description {
             get {
@@ -1481,7 +1481,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Beginpunt (X-coördinaat, Y-coördinaat).
+        ///   Looks up a localized string similar to Beginpunt.
         /// </summary>
         public static string FailureMechanismSection_StartPoint_DisplayName {
             get {

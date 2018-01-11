@@ -579,7 +579,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // 1. Start & End coherence:
             Assert.AreEqual(referenceLineGeometry[0], sections[0].StartPoint,
                             "Start of the sections should correspond to the Start of the reference line.");
-            Assert.AreEqual(referenceLineGeometry[referenceLineGeometry.Length - 1], sections[sections.Length - 1].EndPoint,
+            Assert.AreEqual(referenceLineGeometry.Last(), sections.Last().EndPoint,
                             "End of the sections should correspond to the End of the reference line.");
 
             // 2. Total length coherence:

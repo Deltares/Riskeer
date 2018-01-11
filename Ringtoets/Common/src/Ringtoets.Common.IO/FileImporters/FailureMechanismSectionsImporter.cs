@@ -269,7 +269,7 @@ namespace Ringtoets.Common.IO.FileImporters
             var doneGrowingToEnd = false;
             while (!doneGrowingToEnd)
             {
-                Point2D endPointToConnect = resultList[resultList.Count - 1].EndPoint;
+                Point2D endPointToConnect = resultList.Last().EndPoint;
 
                 double shortestDistance = double.MaxValue;
                 FailureMechanismSection closestSectionToConnectWith = null;

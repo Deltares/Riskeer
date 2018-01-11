@@ -92,14 +92,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor startPointProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(startPointProperty,
                                                                             "Algemeen",
-                                                                            "Beginpunt (X-coördinaat, Y-coördinaat)",
-                                                                            "Beginpunt van het vak.",
+                                                                            "Beginpunt",
+                                                                            "Beginpunt van het vak (X-coördinaat, Y-coördinaat).",
                                                                             true);
             PropertyDescriptor endPointProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(endPointProperty,
                                                                             "Algemeen",
-                                                                            "Eindpunt (X-coördinaat, Y-coördinaat)",
-                                                                            "Eindpunt van het vak.",
+                                                                            "Eindpunt",
+                                                                            "Eindpunt van het vak (X-coördinaat, Y-coördinaat).",
                                                                             true);
         }
 
