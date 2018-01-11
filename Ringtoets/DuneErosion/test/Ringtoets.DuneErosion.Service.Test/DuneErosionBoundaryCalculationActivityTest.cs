@@ -376,7 +376,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                 });
 
-                Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, duneLocation.Calculation.Output.CalculationConvergence);
+                Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, duneLocationCalculation.Output.CalculationConvergence);
             }
 
             mockRepository.VerifyAll();

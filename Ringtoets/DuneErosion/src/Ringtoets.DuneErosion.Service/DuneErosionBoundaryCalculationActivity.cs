@@ -96,6 +96,7 @@ namespace Ringtoets.DuneErosion.Service
             if (State != ActivityState.Skipped)
             {
                 calculationService.Calculate(duneLocation,
+                                             duneLocationCalculation,
                                              norm,
                                              hydraulicBoundaryDatabaseFilePath,
                                              preprocessorDirectory);
