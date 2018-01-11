@@ -99,7 +99,15 @@ namespace Core.Components.DotSpatial.Converter
             layer.Name = data.Name;
             layer.ShowLabels = data.ShowLabels;
             ((IMapFeatureLayer) layer).LabelLayer = GetLabelLayer(GetAttributeMapping(data), layer.DataSet, data.SelectedMetaDataAttribute);
-            layer.Symbolizer = CreateSymbolizer(data);
+
+            if (data.MapTheme == null)
+            {
+                layer.Symbolizer = CreateSymbolizer(data);
+            }
+            else
+            {
+                layer.Symbology = CreateScheme(data);
+            }
         }
 
         /// <summary>
@@ -118,6 +126,11 @@ namespace Core.Components.DotSpatial.Converter
         /// <returns>The newly created <see cref="IFeatureSymbolizer"/>.</returns>
         /// <remarks><c>Null</c> should never be returned as this will break DotSpatial.</remarks>
         protected abstract IFeatureSymbolizer CreateSymbolizer(TFeatureBasedMapData mapData);
+
+        protected virtual IFeatureScheme CreateScheme(TFeatureBasedMapData mapData)
+        {
+            return null;
+        }
 
         /// <summary>
         /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to an <see cref="IEnumerable{T}"/>
@@ -178,7 +191,7 @@ namespace Core.Components.DotSpatial.Converter
         /// This method is used for obtaining a mapping between map data attribute names and DotSpatial
         /// attribute names. This mapping is needed because DotSpatial can't handle special characters.
         /// </remarks>
-        private static Dictionary<string, int> GetAttributeMapping(TFeatureBasedMapData data)
+        protected static Dictionary<string, int> GetAttributeMapping(TFeatureBasedMapData data)
         {
             return Enumerable.Range(0, data.MetaData.Count())
                              .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);

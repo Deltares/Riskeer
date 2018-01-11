@@ -27,6 +27,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Projections.dll</HintPath>
     </Reference>
+    <Reference Include="DotSpatial.Serialization, Version=1.8.0.0, Culture=neutral, PublicKeyToken=441f200f827611e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Serialization.dll</HintPath>
+    </Reference>
     <Reference Include="DotSpatial.Symbology, Version=1.8.0.0, Culture=neutral, PublicKeyToken=6178c08da7998387, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Symbology.dll</HintPath>
@@ -104,7 +108,7 @@
       <Name>Core.Components.DotSpatial</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
+      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
       <Name>Core.Components.Gis</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj">

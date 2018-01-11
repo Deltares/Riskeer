@@ -19,10 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Theme;
+using Core.Components.Gis.Theme.Criteria;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
@@ -42,9 +45,75 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override IFeatureSymbolizer CreateSymbolizer(MapPointData mapData)
         {
+            return CreatePointSymbolizer(mapData);
+        }
+
+        protected override IFeatureScheme CreateScheme(MapPointData mapData)
+        {
+            PointSymbolizer symbolizer = CreatePointSymbolizer(mapData);
+
+            IFeatureScheme scheme = new PointScheme();
+            scheme.ClearCategories();
+            scheme.AddCategory(new PointCategory(symbolizer));
+
+            MapTheme mapTheme = mapData.MapTheme;
+            Dictionary<string, int> attributeMapping = GetAttributeMapping(mapData);
+            int attributeIndex = attributeMapping[mapTheme.AttributeName];
+            foreach (CategoryTheme categoryTheme in mapTheme.CategoryThemes)
+            {
+                var category = new PointCategory(CreatePointSymbolizer(mapData));
+                category.SetColor(categoryTheme.Color);
+                category.FilterExpression = CreateFilterExpression(attributeIndex, categoryTheme.Criteria);
+                scheme.AddCategory(category);
+            }
+
+            return scheme;
+        }
+
+        private static PointSymbolizer CreatePointSymbolizer(MapPointData mapData)
+        {
             var symbolizer = new PointSymbolizer(mapData.Style.Color, MapDataHelper.Convert(mapData.Style.Symbol), mapData.Style.Size);
             symbolizer.SetOutline(mapData.Style.StrokeColor, mapData.Style.StrokeThickness);
             return symbolizer;
+        }
+
+        private static string CreateFilterExpression(int attributeIndex, ICriteria criteria)
+        {
+            var valueCriteria = criteria as ValueCriteria;
+            if (valueCriteria != null)
+            {
+                ValueCriteriaOperator valueOperator = valueCriteria.ValueOperator;
+                switch (valueOperator)
+                {
+                    case ValueCriteriaOperator.EqualValue:
+                        return $"[{attributeIndex}] = {valueCriteria.Value}";
+                    case ValueCriteriaOperator.UnequalValue:
+                        return $"[{attributeIndex}] != {valueCriteria.Value}";
+                    default:
+                        throw new NotSupportedException($"The enum value {nameof(ValueCriteriaOperator)}.{valueOperator} is not supported.");
+                }
+            }
+
+            var rangeCriteria = criteria as RangeCriteria;
+            if (rangeCriteria != null)
+            {
+                RangeCriteriaOperator rangeCriteriaOperator = rangeCriteria.RangeCriteriaOperator;
+                switch (rangeCriteriaOperator)
+                {
+                    case RangeCriteriaOperator.AllBoundsInclusive:
+                        return $"[{attributeIndex}] >= {rangeCriteria.LowerBound} AND [{attributeIndex}] <= {rangeCriteria.UpperBound}";
+                    case RangeCriteriaOperator.LowerBoundInclusive:
+                        return $"[{attributeIndex}] >= {rangeCriteria.LowerBound} AND [{attributeIndex}] < {rangeCriteria.UpperBound}";
+                    case RangeCriteriaOperator.UpperBoundInclusive:
+                        return $"[{attributeIndex}] > {rangeCriteria.LowerBound} AND [{attributeIndex}] <= {rangeCriteria.UpperBound}";
+                    case RangeCriteriaOperator.AllBoundsExclusive:
+                        return $"[{attributeIndex}] > {rangeCriteria.LowerBound} AND [{attributeIndex}] < {rangeCriteria.UpperBound}";
+                    default:
+                        throw new NotSupportedException($"The enum value {nameof(RangeCriteriaOperator)}.{rangeCriteriaOperator} is not supported.");
+                }
+            }
+
+            throw new NotSupportedException($"Can't convert a {nameof(ICriteria)} of type {criteria.GetType()}"); // TODO WTI-1551: Test this exception
         }
 
         private static IEnumerable<Coordinate> GetAllMapFeatureCoordinates(MapFeature feature)

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -28,6 +29,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
+using Core.Components.Gis.Theme;
+using Core.Components.Gis.Theme.Criteria;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
@@ -150,9 +153,11 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         [Combinatorial]
         public void ConvertLayerProperties_MapPointDataWithStyle_ConvertsStyleToMapPointLayer(
-            [Values(KnownColor.AliceBlue, KnownColor.Azure)] KnownColor color,
+            [Values(KnownColor.AliceBlue, KnownColor.Azure)]
+            KnownColor color,
             [Values(1, 5)] int width,
-            [Values(PointSymbol.Circle, PointSymbol.Square)] PointSymbol pointStyle)
+            [Values(PointSymbol.Circle, PointSymbol.Square)]
+            PointSymbol pointStyle)
         {
             // Setup
             var converter = new MapPointDataConverter();
@@ -179,6 +184,208 @@ namespace Core.Components.DotSpatial.Test.Converter
             expectedSymbolizer.SetOutline(expectedColor, 1);
 
             AssertAreEqual(expectedSymbolizer, mapPointLayer.Symbolizer);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_MapPointDataWithStyleAndValueCriteria_ConvertDataToMapPointLayer()
+        {
+            // Setup
+            const string metadataAttribute = "Meta";
+            var random = new Random(21);
+
+            var unequalCriteria = new ValueCriteria(ValueCriteriaOperator.UnequalValue,
+                                                    random.NextDouble());
+            var equalCriteria = new ValueCriteria(ValueCriteriaOperator.EqualValue,
+                                                  random.NextDouble());
+            var theme = new MapTheme(metadataAttribute, new[]
+            {
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  equalCriteria),
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  unequalCriteria)
+            });
+
+            var pointStyle = new PointStyle
+            {
+                Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                Size = random.Next(1, 48),
+                Symbol = PointSymbol.Circle,
+                StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                StrokeThickness = random.Next(1, 48)
+            };
+            var mapPointData = new MapPointData("test", pointStyle)
+            {
+                Features = new[]
+                {
+                    CreateMapFeatureWithMetaData(metadataAttribute)
+                },
+                MapTheme = theme
+            };
+
+            var mapPointLayer = new MapPointLayer();
+
+            var converter = new MapPointDataConverter();
+
+            // Call
+            converter.ConvertLayerProperties(mapPointData, mapPointLayer);
+
+            // Assert
+            const PointShape expectedPointShape = PointShape.Ellipse;
+            PointSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(pointStyle,
+                                                                          expectedPointShape,
+                                                                          pointStyle.Color);
+
+            IPointScheme appliedScheme = mapPointLayer.Symbology;
+            Assert.AreEqual(3, appliedScheme.Categories.Count);
+
+            IPointCategory baseCategory = appliedScheme.Categories[0];
+            AssertAreEqual(expectedSymbolizer, baseCategory.Symbolizer);
+            Assert.IsNull(baseCategory.FilterExpression);
+
+            IPointCategory equalSchemeCategory = appliedScheme.Categories[1];
+            string expectedFilter = $"[1] = {equalCriteria.Value}";
+            Assert.AreEqual(expectedFilter, equalSchemeCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(pointStyle,
+                                                          expectedPointShape,
+                                                          theme.CategoryThemes.ElementAt(0).Color);
+            AssertAreEqual(expectedSymbolizer, equalSchemeCategory.Symbolizer);
+
+            IPointCategory unEqualSchemeCategory = appliedScheme.Categories[2];
+            expectedFilter = $"[1] != {unequalCriteria.Value}";
+            Assert.AreEqual(expectedFilter, unEqualSchemeCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(pointStyle,
+                                                          expectedPointShape,
+                                                          theme.CategoryThemes.ElementAt(1).Color);
+            AssertAreEqual(expectedSymbolizer, unEqualSchemeCategory.Symbolizer);
+        }
+
+        private static PointSymbolizer CreateExpectedSymbolizer(PointStyle expectedPointStyle,
+                                                                PointShape expectedPointShape,
+                                                                Color expectedColor)
+        {
+            var expectedSymbolizer = new PointSymbolizer(expectedColor, expectedPointShape, expectedPointStyle.Size);
+            expectedSymbolizer.SetOutline(expectedPointStyle.StrokeColor, expectedPointStyle.StrokeThickness);
+
+            return expectedSymbolizer;
+        }
+
+        [Test]
+        public void ConvertLayerProperties_MapPointDataWithStyleAndRangeCriteria_ConvertDataToMapPointLayer()
+        {
+            // Setup
+            const string metadataAttribute = "Meta";
+            var random = new Random(21);
+
+            var allBoundsInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.AllBoundsInclusive,
+                                                               random.NextDouble(),
+                                                               1 + random.NextDouble());
+            var lowerBoundInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.LowerBoundInclusive,
+                                                                random.NextDouble(),
+                                                                1 + random.NextDouble());
+            var upperBoundInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.UpperBoundInclusive,
+                                                                random.NextDouble(),
+                                                                1 + random.NextDouble());
+            var allBoundsExclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.AllBoundsExclusive,
+                                                               random.NextDouble(),
+                                                               1 + random.NextDouble());
+            var theme = new MapTheme(metadataAttribute, new[]
+            {
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  allBoundsInclusiveCriteria),
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  lowerBoundInclusiveCriteria),
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  upperBoundInclusiveCriteria),
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  allBoundsExclusiveCriteria)
+            });
+
+            var pointStyle = new PointStyle
+            {
+                Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                Size = random.Next(1, 48),
+                Symbol = PointSymbol.Circle,
+                StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                StrokeThickness = random.Next(1, 48)
+            };
+            var mapPointData = new MapPointData("test", pointStyle)
+            {
+                Features = new[]
+                {
+                    CreateMapFeatureWithMetaData(metadataAttribute)
+                },
+                MapTheme = theme
+            };
+
+            var mapPointLayer = new MapPointLayer();
+
+            var converter = new MapPointDataConverter();
+
+            // Call
+            converter.ConvertLayerProperties(mapPointData, mapPointLayer);
+
+            // Assert
+            const PointShape expectedPointShape = PointShape.Ellipse;
+            PointSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(pointStyle,
+                                                                          expectedPointShape,
+                                                                          pointStyle.Color);
+
+            IPointScheme appliedScheme = mapPointLayer.Symbology;
+            Assert.AreEqual(5, appliedScheme.Categories.Count);
+
+            IPointCategory baseCategory = appliedScheme.Categories[0];
+            AssertAreEqual(expectedSymbolizer, baseCategory.Symbolizer);
+            Assert.IsNull(baseCategory.FilterExpression);
+
+            IPointCategory allBoundsInclusiveCategory = appliedScheme.Categories[1];
+            string expectedFilter = $"[1] >= {allBoundsInclusiveCriteria.LowerBound} AND [1] <= {allBoundsInclusiveCriteria.UpperBound}";
+            Assert.AreEqual(expectedFilter, allBoundsInclusiveCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(pointStyle,
+                                                          expectedPointShape,
+                                                          theme.CategoryThemes.ElementAt(0).Color);
+            AssertAreEqual(expectedSymbolizer, allBoundsInclusiveCategory.Symbolizer);
+
+            IPointCategory lowerBoundInclusiveCategory = appliedScheme.Categories[2];
+            expectedFilter = $"[1] >= {lowerBoundInclusiveCriteria.LowerBound} AND [1] < {lowerBoundInclusiveCriteria.UpperBound}";
+            Assert.AreEqual(expectedFilter, lowerBoundInclusiveCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(pointStyle,
+                                                          expectedPointShape,
+                                                          theme.CategoryThemes.ElementAt(1).Color);
+            AssertAreEqual(expectedSymbolizer, lowerBoundInclusiveCategory.Symbolizer);
+
+            IPointCategory upperBoundInclusiveCategory = appliedScheme.Categories[3];
+            expectedFilter = $"[1] > {upperBoundInclusiveCriteria.LowerBound} AND [1] <= {upperBoundInclusiveCriteria.UpperBound}";
+            Assert.AreEqual(expectedFilter, upperBoundInclusiveCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(pointStyle,
+                                                          expectedPointShape,
+                                                          theme.CategoryThemes.ElementAt(2).Color);
+            AssertAreEqual(expectedSymbolizer, upperBoundInclusiveCategory.Symbolizer);
+
+            IPointCategory allBoundsExclusiveCategory = appliedScheme.Categories[4];
+            expectedFilter = $"[1] > {allBoundsExclusiveCriteria.LowerBound} AND [1] < {allBoundsExclusiveCriteria.UpperBound}";
+            Assert.AreEqual(expectedFilter, allBoundsExclusiveCategory.FilterExpression);
+            expectedSymbolizer = CreateExpectedSymbolizer(pointStyle,
+                                                          expectedPointShape,
+                                                          theme.CategoryThemes.ElementAt(3).Color);
+            AssertAreEqual(expectedSymbolizer, allBoundsExclusiveCategory.Symbolizer);
+        }
+
+        private static MapFeature CreateMapFeatureWithMetaData(string metadataAttributeName)
+        {
+            var random = new Random(21);
+            var mapFeature = new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    new[]
+                    {
+                        new Point2D(random.NextDouble(), random.NextDouble())
+                    }
+                })
+            });
+            mapFeature.MetaData[metadataAttributeName] = new object();
+
+            return mapFeature;
         }
 
         private static void AssertAreEqual(IPointSymbolizer expectedSymbolizer, IPointSymbolizer actualSymbolizer)
