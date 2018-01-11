@@ -7,6 +7,9 @@
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
+    <Reference Include="AssemblyToolKernel">
+      <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\AssemblyToolKernel.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
