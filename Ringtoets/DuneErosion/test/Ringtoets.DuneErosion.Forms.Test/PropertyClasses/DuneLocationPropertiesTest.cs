@@ -58,7 +58,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         public void Constructor_DuneLocationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DuneLocationProperties(null);
+            TestDelegate call = () => new DuneLocationProperties(null, new DuneLocationCalculation());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -66,13 +66,25 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void Constructor_DuneLocationCalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new DuneLocationProperties(new TestDuneLocation(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
         public void GetProperties_ValidData_ReturnsExpectedValues()
         {
             // Setup
             var duneLocation = new TestDuneLocation();
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             // Call
-            var properties = new DuneLocationProperties(duneLocation);
+            var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
 
             // Assert
             Assert.AreEqual(duneLocation.Id, properties.Id);
@@ -138,29 +150,27 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                     CalculatedProbability = calculatedProbability,
                     CalculatedReliability = calculatedReliability
                 });
-            var location = new DuneLocation(id, name, new Point2D(x, y),
-                                            new DuneLocation.ConstructionProperties
-                                            {
-                                                CoastalAreaId = coastalAreaId,
-                                                Offset = offset,
-                                                Orientation = orientation,
-                                                D50 = d50
-                                            })
+            var duneLocation = new DuneLocation(id, name, new Point2D(x, y),
+                                                new DuneLocation.ConstructionProperties
+                                                {
+                                                    CoastalAreaId = coastalAreaId,
+                                                    Offset = offset,
+                                                    Orientation = orientation,
+                                                    D50 = d50
+                                                });
+            var duneLocationCalculation = new DuneLocationCalculation
             {
-                Calculation =
-                {
-                    Output = output
-                }
+                Output = output
             };
 
             // Call
-            var properties = new DuneLocationProperties(location);
+            var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
 
             // Assert
             Assert.AreEqual(id, properties.Id);
             Assert.AreEqual(name, properties.Name);
             Assert.AreEqual(coastalAreaId, properties.CoastalAreaId);
-            Assert.AreEqual(location.Offset.ToString("0.#", CultureInfo.InvariantCulture), properties.Offset);
+            Assert.AreEqual(duneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), properties.Offset);
             var expectedLocation = new Point2D(x, y);
             Assert.AreEqual(expectedLocation, properties.Location);
 
@@ -183,9 +193,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         {
             // Setup
             var duneLocation = new TestDuneLocation();
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             // Call
-            var properties = new DuneLocationProperties(duneLocation);
+            var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
@@ -298,14 +309,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         [TestCase(3.1, "3.1")]
         public void Offset_Always_FormatToString(double offset, string expectedPropertyValue)
         {
-            var location = new DuneLocation(1, "test", new Point2D(0, 0),
-                                            new DuneLocation.ConstructionProperties
-                                            {
-                                                Offset = offset
-                                            });
+            var duneLocation = new DuneLocation(1, "test", new Point2D(0, 0),
+                                                new DuneLocation.ConstructionProperties
+                                                {
+                                                    Offset = offset
+                                                });
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             // Call
-            var properties = new DuneLocationProperties(location);
+            var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
 
             // Assert
             Assert.AreEqual(expectedPropertyValue, properties.Offset);

@@ -77,7 +77,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(loc => new DuneLocationProperties(loc)).ToArray();
+                return data.Select(loc => new DuneLocationProperties(loc, loc.Calculation)).ToArray();
             }
         }
 

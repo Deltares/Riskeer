@@ -42,18 +42,27 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class DuneLocationProperties : ObjectProperties<DuneLocation>
     {
+        private readonly DuneLocationCalculation calculation;
+
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationProperties"/>.
         /// </summary>
-        /// <param name="location">The location to create the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
-        /// is <c>null</c>.</exception>
-        public DuneLocationProperties(DuneLocation location)
+        /// <param name="location">The dune location.</param>
+        /// <param name="calculation">The dune location calculation at stake.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public DuneLocationProperties(DuneLocation location, DuneLocationCalculation calculation)
         {
             if (location == null)
             {
                 throw new ArgumentNullException(nameof(location));
             }
+
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+
+            this.calculation = calculation;
 
             Data = location;
         }
@@ -123,7 +132,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Calculation.Output?.WaterLevel ?? RoundedDouble.NaN;
+                return calculation.Output?.WaterLevel ?? RoundedDouble.NaN;
             }
         }
 
@@ -135,7 +144,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Calculation.Output?.WaveHeight ?? RoundedDouble.NaN;
+                return calculation.Output?.WaveHeight ?? RoundedDouble.NaN;
             }
         }
 
@@ -147,7 +156,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Calculation.Output?.WavePeriod ?? RoundedDouble.NaN;
+                return calculation.Output?.WavePeriod ?? RoundedDouble.NaN;
             }
         }
 
@@ -171,7 +180,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Calculation.Output?.TargetProbability ?? double.NaN;
+                return calculation.Output?.TargetProbability ?? double.NaN;
             }
         }
 
@@ -183,7 +192,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Calculation.Output?.TargetReliability ?? RoundedDouble.NaN;
+                return calculation.Output?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -195,7 +204,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Calculation.Output?.CalculatedProbability ?? double.NaN;
+                return calculation.Output?.CalculatedProbability ?? double.NaN;
             }
         }
 
@@ -207,7 +216,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Calculation.Output?.CalculatedReliability ?? RoundedDouble.NaN;
+                return calculation.Output?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -218,7 +227,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.CalculationConvergence).DisplayName;
+                CalculationConvergence convergence = calculation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
+
+                return new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             }
         }
 
