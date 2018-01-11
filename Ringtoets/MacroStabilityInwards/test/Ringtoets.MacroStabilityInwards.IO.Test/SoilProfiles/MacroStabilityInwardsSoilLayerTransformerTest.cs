@@ -23,10 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
@@ -294,15 +292,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
         [Test]
         [TestCaseSource(nameof(IncorrectShiftedLogNormalDistributionsSoilLayer1D))]
-        public void SoilLayer1DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameter)
+        public void SoilLayer1DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameterName)
         {
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
-                                                                $"Parameter '{parameter}' moet verschoven lognormaal verdeeld zijn.");
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName, parameterName, "Parameter moet verschoven lognormaal verdeeld zijn.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -315,28 +312,26 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
-                                                                $"Parameter '{parameter}' moet lognormaal verdeeld zijn.");
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName, parameter, "Parameter moet lognormaal verdeeld zijn.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
         [TestCaseSource(nameof(IncorrectNonShiftedLogNormalDistributionsShiftSoilLayer1D))]
-        public void SoilLayer1DTransform_IncorrectLogNormalDistributionShift_ThrowImportedDataTransformException(SoilLayer1D layer, string parameter)
+        public void SoilLayer1DTransform_IncorrectLogNormalDistributionShift_ThrowImportedDataTransformException(SoilLayer1D layer, string parameterName)
         {
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
-                                                                $"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName, parameterName, "Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
         [TestCaseSource(nameof(InvalidStochasticDistributionValuesSoilLayer1D))]
-        public void SoilLayer1DTransform_InvalidStochasticDistributionValues_ThrowImportedDataTransformException(SoilLayer1D layer, string parameter)
+        public void SoilLayer1DTransform_InvalidStochasticDistributionValues_ThrowImportedDataTransformException(SoilLayer1D layer, string parameterName)
         {
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
@@ -346,7 +341,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             Exception innerException = exception.InnerException;
             Assert.IsInstanceOf<ArgumentOutOfRangeException>(innerException);
-            string expectedMessage = $"Er is een fout opgetreden bij het inlezen van grondlaag '{layer.MaterialName}' voor parameter '{parameter}': {innerException.Message}";
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName, parameterName, innerException.Message);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -545,43 +540,40 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         [Test]
         [TestCaseSource(nameof(IncorrectShiftedLogNormalDistributionsTypeSoilLayer2D))]
         public void SoilLayer2DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException(
-            SoilLayer2D layer, string parameter)
+            SoilLayer2D layer, string parameterName)
         {
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
-                                                                $"Parameter '{parameter}' moet verschoven lognormaal verdeeld zijn.");
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName, parameterName, "Parameter moet verschoven lognormaal verdeeld zijn.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
         [TestCaseSource(nameof(IncorrectNonShiftedLogNormalDistributionsTypeSoilLayer2D))]
-        public void SoilLayer2DTransform_IncorrectLogNormalDistributionType_ThrowImportedDataTransformException(SoilLayer2D layer, string parameter)
+        public void SoilLayer2DTransform_IncorrectLogNormalDistributionType_ThrowImportedDataTransformException(SoilLayer2D layer, string parameterName)
         {
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
-                                                                $"Parameter '{parameter}' moet lognormaal verdeeld zijn.");
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName, parameterName, "Parameter moet lognormaal verdeeld zijn.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
         [TestCaseSource(nameof(IncorrectNonShiftedLogNormalDistributionsShiftSoilLayer2D))]
-        public void SoilLayer2DTransform_IncorrectLogNormalDistributionShift_ThrowImportedDataTransformException(SoilLayer2D layer, string parameter)
+        public void SoilLayer2DTransform_IncorrectLogNormalDistributionShift_ThrowImportedDataTransformException(SoilLayer2D layer, string parameterName)
         {
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
-                                                                $"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName, parameterName, "Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -602,7 +594,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
         [Test]
         [TestCaseSource(nameof(InvalidStochasticDistributionValuesSoilLayer2D))]
-        public void SoilLayer2DTransform_InvalidStochasticDistributionValues_ThrowImportedDataTransformException(SoilLayer2D layer, string parameter)
+        public void SoilLayer2DTransform_InvalidStochasticDistributionValues_ThrowImportedDataTransformException(SoilLayer2D layer, string parameterName)
         {
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
@@ -612,7 +604,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             Exception innerException = exception.InnerException;
             Assert.IsInstanceOf<ArgumentOutOfRangeException>(innerException);
-            string expectedMessage = $"Er is een fout opgetreden bij het inlezen van grondlaag '{layer.MaterialName}' voor parameter '{parameter}': {innerException.Message}";
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName, parameterName, innerException.Message);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -661,6 +653,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             return $"Er is een fout opgetreden bij het inlezen van grondlaag '{materialName}': {errorMessage}";
         }
 
+        private static string CreateExpectedErrorMessageForParameterVariable(string materialName, string parameterName, string errorMessage)
+        {
+            return $"Er is een fout opgetreden bij het inlezen van grondlaag '{materialName}' voor parameter '{parameterName}': {errorMessage}";
+        }
+
         private static void AssertSoilLayer(SoilLayer2D original, MacroStabilityInwardsSoilLayer2D actual)
         {
             AssertOuterRing(original, actual);
@@ -696,7 +693,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             MacroStabilityInwardsSoilLayerData soilLayerData = actual.Data;
             Assert.AreEqual(original.AbovePhreaticLevelMean, soilLayerData.AbovePhreaticLevel.Mean,
-                             soilLayerData.AbovePhreaticLevel.GetAccuracy());
+                            soilLayerData.AbovePhreaticLevel.GetAccuracy());
             Assert.AreEqual(original.AbovePhreaticLevelCoefficientOfVariation, soilLayerData.AbovePhreaticLevel.CoefficientOfVariation,
                             soilLayerData.AbovePhreaticLevel.GetAccuracy());
             Assert.AreEqual(original.AbovePhreaticLevelShift, soilLayerData.AbovePhreaticLevel.Shift,

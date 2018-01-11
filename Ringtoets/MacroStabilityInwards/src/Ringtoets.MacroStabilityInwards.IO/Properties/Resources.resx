@@ -175,9 +175,6 @@
   <data name="MacroStabilityInwardsSoilLayerTransformer_TransformSegmentToRing_Invalid_geometry_for_Ring" xml:space="preserve">
     <value>De laag bevat een ongeldige geometrie.</value>
   </data>
-  <data name="PreconsolidationStress_DisplayName" xml:space="preserve">
-    <value>Grensspanning</value>
-  </data>
   <data name="MacroStabiliteitBinnenwaartsGridsSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MacroStabiliteitBinnenwaartsGridsSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

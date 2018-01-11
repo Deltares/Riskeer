@@ -62,8 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             try
             {
                 DistributionHelper.ValidateLogNormalDistribution(preconsolidationStress.StressDistributionType,
-                                                                 preconsolidationStress.StressShift,
-                                                                 Resources.PreconsolidationStress_DisplayName);
+                                                                 preconsolidationStress.StressShift);
 
                 var distribution = new VariationCoefficientLogNormalDistribution
                 {

@@ -128,8 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
             var coordinate = new Point2D(preconsolidationStress.XCoordinate, preconsolidationStress.ZCoordinate);
-            string expectedMessage = CreateExpectedErrorMessage(coordinate,
-                                                                "Parameter 'Grensspanning' moet lognormaal verdeeld zijn.");
+            string expectedMessage = CreateExpectedErrorMessage(coordinate, "Parameter moet lognormaal verdeeld zijn.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -150,8 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
             var coordinate = new Point2D(preconsolidationStress.XCoordinate, preconsolidationStress.ZCoordinate);
-            string expectedMessage = CreateExpectedErrorMessage(coordinate,
-                                                                "Parameter 'Grensspanning' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
+            string expectedMessage = CreateExpectedErrorMessage(coordinate, "Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 

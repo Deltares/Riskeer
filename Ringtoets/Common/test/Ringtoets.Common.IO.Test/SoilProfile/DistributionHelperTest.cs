@@ -30,41 +30,21 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     public class DistributionHelperTest
     {
         [Test]
-        public void ValidateLogNormalDistribution_ParameterNameNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var random = new Random(21);
-            long distributionType = random.Next();
-            double shift = random.NextDouble();
-
-            // Call
-            TestDelegate call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType,
-                                                                                       shift,
-                                                                                       null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("parameterName", exception.ParamName);
-        }
-
-        [Test]
         public void ValidateLogNormalDistribution_InvalidDistributionType_ThrowsDistributionValidationException()
         {
             // Setup
             const long distributionType = -1;
-            const string parameterName = "Just a name";
 
             var random = new Random(21);
             double shift = random.NextDouble();
             
             // Call
             TestDelegate call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType,
-                                                                                       shift,
-                                                                                       parameterName);
+                                                                                       shift);
 
             // Assert
             var exception = Assert.Throws<DistributionValidationException>(call);
-            Assert.AreEqual($"Parameter '{parameterName}' moet lognormaal verdeeld zijn.", exception.Message);
+            Assert.AreEqual($"Parameter moet lognormaal verdeeld zijn.", exception.Message);
         }
 
         [Test]
@@ -72,19 +52,17 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             // Setup
             const long distributionType = SoilLayerConstants.LogNormalDistributionValue;
-            const string parameterName = "Just a name";
 
             var random = new Random(21);
             double shift = random.NextDouble();
 
             // Call
             TestDelegate call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType,
-                                                                                       shift,
-                                                                                       parameterName);
+                                                                                       shift);
 
             // Assert
             var exception = Assert.Throws<DistributionValidationException>(call);
-            Assert.AreEqual($"Parameter '{parameterName}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
+            Assert.AreEqual($"Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
         }
 
         [Test]
@@ -95,9 +73,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const double shift = 0;
 
             // Call
-            TestDelegate call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType,
-                                                                                       shift,
-                                                                                       string.Empty);
+            TestDelegate call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType, shift);
 
             // Assert
             Assert.DoesNotThrow(call);
@@ -109,31 +85,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Setup
             var random = new Random(21);
             double shift = random.NextDouble();
-            const string parameterName = "Just a name";
 
             // Call
-            TestDelegate call = () => DistributionHelper.ValidateLogNormalDistribution(null,
-                                                                                       shift,
-                                                                                       parameterName);
+            TestDelegate call = () => DistributionHelper.ValidateLogNormalDistribution(null, shift);
 
             // Assert
             Assert.DoesNotThrow(call);
-        }
-
-        [Test]
-        public void ValidateShiftedLogNormalDistribution_ParameterNameNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var random = new Random(21);
-            long distributionType = random.Next();
-
-            // Call
-            TestDelegate call = () => DistributionHelper.ValidateShiftedLogNormalDistribution(distributionType,
-                                                                                              null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("parameterName", exception.ParamName);
         }
 
         [Test]
@@ -141,15 +98,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             // Setup
             const long invalidDistributionType = -1;
-            const string parameterName = "Just a name";
 
             // Call
-            TestDelegate call = () => DistributionHelper.ValidateShiftedLogNormalDistribution(invalidDistributionType,
-                                                                                              parameterName);
+            TestDelegate call = () => DistributionHelper.ValidateShiftedLogNormalDistribution(invalidDistributionType);
 
             // Assert
             var exception = Assert.Throws<DistributionValidationException>(call);
-            Assert.AreEqual($"Parameter '{parameterName}' moet verschoven lognormaal verdeeld zijn.", exception.Message);
+            Assert.AreEqual($"Parameter moet verschoven lognormaal verdeeld zijn.", exception.Message);
         }
 
         [Test]
@@ -159,22 +114,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const long distributionType = SoilLayerConstants.LogNormalDistributionValue;
 
             // Call
-            TestDelegate call = () => DistributionHelper.ValidateShiftedLogNormalDistribution(distributionType,
-                                                                                              string.Empty);
-
-            // Assert
-            Assert.DoesNotThrow(call);
-        }
-
-        [Test]
-        public void ValidateShiftedLogNormalDistribution_DistributionTypeNull_DoesNotThrowException()
-        {
-            // Setup
-            const string parameterName = "Just a name";
-
-            // Call
-            TestDelegate call = () => DistributionHelper.ValidateShiftedLogNormalDistribution(null,
-                                                                                              parameterName);
+            TestDelegate call = () => DistributionHelper.ValidateShiftedLogNormalDistribution(distributionType);
 
             // Assert
             Assert.DoesNotThrow(call);

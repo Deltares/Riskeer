@@ -301,15 +301,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grensspanning.
-        /// </summary>
-        public static string PreconsolidationStress_DisplayName {
-            get {
-                return ResourceManager.GetString("PreconsolidationStress_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Onverzadigd gewicht.
         /// </summary>
         public static string SoilLayerData_AbovePhreaticLevelDistribution_Description {

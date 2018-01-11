@@ -1776,29 +1776,29 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; moet verschoven lognormaal verdeeld zijn..
+        ///   Looks up a localized string similar to Parameter moet verschoven lognormaal verdeeld zijn..
         /// </summary>
-        public static string Stochastic_parameter_0_has_no_shifted_lognormal_distribution {
+        public static string StochasticDistribution_has_no_shifted_lognormal_distribution {
             get {
-                return ResourceManager.GetString("Stochastic_parameter_0_has_no_shifted_lognormal_distribution", resourceCulture);
+                return ResourceManager.GetString("StochasticDistribution_has_no_shifted_lognormal_distribution", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; moet lognormaal verdeeld zijn..
+        ///   Looks up a localized string similar to Parameter moet lognormaal verdeeld zijn..
         /// </summary>
-        public static string Stochastic_parameter_0_must_be_a_lognormal_distribution {
+        public static string StochasticDistribution_must_be_a_lognormal_distribution {
             get {
-                return ResourceManager.GetString("Stochastic_parameter_0_must_be_a_lognormal_distribution", resourceCulture);
+                return ResourceManager.GetString("StochasticDistribution_must_be_a_lognormal_distribution", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0..
+        ///   Looks up a localized string similar to Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0..
         /// </summary>
-        public static string Stochastic_parameter_0_must_be_a_lognormal_distribution_with_zero_shift {
+        public static string StochasticDistribution_must_be_a_lognormal_distribution_with_zero_shift {
             get {
-                return ResourceManager.GetString("Stochastic_parameter_0_must_be_a_lognormal_distribution_with_zero_shift", resourceCulture);
+                return ResourceManager.GetString("StochasticDistribution_must_be_a_lognormal_distribution_with_zero_shift", resourceCulture);
             }
         }
         

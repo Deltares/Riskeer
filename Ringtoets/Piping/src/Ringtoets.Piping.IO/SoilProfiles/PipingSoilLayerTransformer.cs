@@ -160,24 +160,69 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// stochastic parameters is not defined as lognormal or is shifted when it should not be.</exception>
         private static void ValidateStochasticParameters(SoilLayerBase soilLayer)
         {
+            string soilLayerName = soilLayer.MaterialName;
+            ValidateStochasticShiftedLogNormalDistributionParameter(soilLayerName,
+                                                                    soilLayer.BelowPhreaticLevelDistributionType,
+                                                                    Resources.SoilLayer_BelowPhreaticLevelDistribution_DisplayName);
+
+            ValidateStochasticLogNormalDistributionParameter(soilLayerName,
+                                                             soilLayer.DiameterD70DistributionType,
+                                                             soilLayer.DiameterD70Shift,
+                                                             Resources.SoilLayer_DiameterD70Distribution_DisplayName);
+
+            ValidateStochasticLogNormalDistributionParameter(soilLayerName,
+                                                             soilLayer.PermeabilityDistributionType,
+                                                             soilLayer.PermeabilityShift,
+                                                             Resources.SoilLayer_PermeabilityDistribution_DisplayName);
+        }
+
+        /// <summary>
+        /// Validates the distribution properties of a parameter which is defined as a
+        /// log normal distribution.
+        /// </summary>
+        /// <param name="soilLayerName">The name of the soil layer.</param>
+        /// <param name="distributionType">The distribution type of the parameter.</param>
+        /// <param name="shift">The shift of the parameter.</param>
+        /// <param name="parameterName">The name of the parameter.</param>
+        /// <exception cref="ImportedDataTransformException">Thrown when the distribution properties are invalid.</exception>
+        private static void ValidateStochasticLogNormalDistributionParameter(string soilLayerName,
+                                                                             long? distributionType,
+                                                                             double shift,
+                                                                             string parameterName)
+        {
             try
             {
-                DistributionHelper.ValidateShiftedLogNormalDistribution(
-                    soilLayer.BelowPhreaticLevelDistributionType,
-                    Resources.SoilLayer_BelowPhreaticLevelDistribution_DisplayName);
                 DistributionHelper.ValidateLogNormalDistribution(
-                    soilLayer.DiameterD70DistributionType,
-                    soilLayer.DiameterD70Shift,
-                    Resources.SoilLayer_DiameterD70Distribution_DisplayName);
-                DistributionHelper.ValidateLogNormalDistribution(
-                    soilLayer.PermeabilityDistributionType,
-                    soilLayer.PermeabilityShift,
-                    Resources.SoilLayer_PermeabilityDistribution_DisplayName);
+                    distributionType,
+                    shift);
             }
             catch (DistributionValidationException e)
             {
-                string errorMessage = CreateErrorMessage(soilLayer.MaterialName,
-                                                         e.Message);
+                string errorMessage = CreateErrorMessageForParameter(soilLayerName, parameterName, e.Message);
+                throw new ImportedDataTransformException(errorMessage, e);
+            }
+        }
+
+        /// <summary>
+        /// Validates the distribution properties of a parameter which is defined as a
+        /// log normal distribution.
+        /// </summary>
+        /// <param name="soilLayerName">The name of the soil layer.</param>
+        /// <param name="distributionType">The distribution type of the parameter.</param>
+        /// <param name="parameterName">The name of the parameter.</param>
+        /// <exception cref="ImportedDataTransformException">Thrown when the distribution properties are invalid.</exception>
+        private static void ValidateStochasticShiftedLogNormalDistributionParameter(string soilLayerName,
+                                                                                    long? distributionType,
+                                                                                    string parameterName)
+        {
+            try
+            {
+                DistributionHelper.ValidateShiftedLogNormalDistribution(
+                    distributionType);
+            }
+            catch (DistributionValidationException e)
+            {
+                string errorMessage = CreateErrorMessageForParameter(soilLayerName, parameterName, e.Message);
                 throw new ImportedDataTransformException(errorMessage, e);
             }
         }
@@ -235,10 +280,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
             catch (ArgumentOutOfRangeException e)
             {
-                string errorMessage = string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_,
-                                                    soilLayerName,
-                                                    parameterName,
-                                                    e.Message);
+                string errorMessage = CreateErrorMessageForParameter(soilLayerName, parameterName, e.Message);
                 throw new ImportedDataTransformException(errorMessage, e);
             }
         }
@@ -271,10 +313,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
             catch (ArgumentOutOfRangeException e)
             {
-                string errorMessage = string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_,
-                                                    soilLayerName,
-                                                    parameterName,
-                                                    e.Message);
+                string errorMessage = CreateErrorMessageForParameter(soilLayerName, parameterName, e.Message);
                 throw new ImportedDataTransformException(errorMessage, e);
             }
         }
@@ -294,6 +333,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                     result.Add(tuple);
                 }
             }
+
             return result;
         }
 
@@ -307,6 +347,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 double second = orderedHeights[i + 1];
                 result.Add(Tuple.Create(first, second));
             }
+
             return result;
         }
 
@@ -332,7 +373,16 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                                                          string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX));
                 throw new ImportedDataTransformException(errorMessage);
             }
+
             return Math2D.SegmentsIntersectionWithVerticalLine(segment2Ds, atX).Select(p => p.Y);
+        }
+
+        private static string CreateErrorMessageForParameter(string soilLayerName, string parameterName, string errorMessage)
+        {
+            return string.Format(RingtoetsCommonIOResources.Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_,
+                                 soilLayerName,
+                                 parameterName,
+                                 errorMessage);
         }
 
         private static string CreateErrorMessage(string soilLayerName, string errorMessage)

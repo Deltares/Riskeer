@@ -218,8 +218,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
-                                                                "Parameter 'Verzadigd gewicht' moet verschoven lognormaal verdeeld zijn.");
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName,
+                                                                                     "Verzadigd gewicht",
+                                                                                     "Parameter moet verschoven lognormaal verdeeld zijn.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -235,35 +236,39 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             Exception innerException = exception.InnerException;
             Assert.IsInstanceOf<ArgumentOutOfRangeException>(innerException);
-            string expectedMessage = $"Er is een fout opgetreden bij het inlezen van grondlaag '{layer.MaterialName}' voor parameter '{parameter}': {innerException.Message}";
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName,
+                                                                                     parameter,
+                                                                                     innerException.Message);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
         [TestCaseSource(nameof(IncorrectLogNormalDistributionsTypeSoilLayer1D))]
-        public void SoilLayer1DTransform_IncorrectLogNormalDistributionType_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameter)
+        public void SoilLayer1DTransform_IncorrectLogNormalDistributionType_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameterName)
         {
             // Call
             TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
-                                                                $"Parameter '{parameter}' moet lognormaal verdeeld zijn.");
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName,
+                                                                                     parameterName,
+                                                                                     "Parameter moet lognormaal verdeeld zijn.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
         [TestCaseSource(nameof(IncorrectLogNormalDistributionsShiftSoilLayer1D))]
-        public void SoilLayer1DTransform_IncorrectLogNormalDistributionShift_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameter)
+        public void SoilLayer1DTransform_IncorrectLogNormalDistributionShift_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameterName)
         {
             // Call
             TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
-                                                                $"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName,
+                                                                                     parameterName,
+                                                                                     "Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -1034,14 +1039,15 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
-                                                                "Parameter 'Verzadigd gewicht' moet verschoven lognormaal verdeeld zijn.");
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName,
+                                                                                     "Verzadigd gewicht",
+                                                                                     "Parameter moet verschoven lognormaal verdeeld zijn.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
         [TestCaseSource(nameof(IncorrectLogNormalDistributionsTypeSoilLayer2D))]
-        public void SoilLayer2DTransform_IncorrectLogNormalDistributionType_ThrowsImportedDataTransformException(SoilLayer2D layer, string parameter)
+        public void SoilLayer2DTransform_IncorrectLogNormalDistributionType_ThrowsImportedDataTransformException(SoilLayer2D layer, string parameterName)
         {
             // Setup
             double bottom;
@@ -1051,14 +1057,13 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
-                                                                $"Parameter '{parameter}' moet lognormaal verdeeld zijn.");
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName, parameterName, "Parameter moet lognormaal verdeeld zijn.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
         [TestCaseSource(nameof(IncorrectLogNormalDistributionsShiftSoilLayer2D))]
-        public void SoilLayer2DTransform_IncorrectLogNormalDistributionShift_ThrowsImportedDataTransformException(SoilLayer2D layer, string parameter)
+        public void SoilLayer2DTransform_IncorrectLogNormalDistributionShift_ThrowsImportedDataTransformException(SoilLayer2D layer, string parameterName)
         {
             // Setup
             double bottom;
@@ -1068,14 +1073,16 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            string expectedMessage = CreateExpectedErrorMessage(layer.MaterialName,
-                                                                $"Parameter '{parameter}' moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
+
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName,
+                                                                                     parameterName,
+                                                                                     "Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
         [TestCaseSource(nameof(InvalidStochasticDistributionValuesSoilLayer2D))]
-        public void SoilLayer2DTransform_InvalidStochasticDistributionValues_ThrowsImportedDataTransformException(SoilLayer2D layer, string parameter)
+        public void SoilLayer2DTransform_InvalidStochasticDistributionValues_ThrowsImportedDataTransformException(SoilLayer2D layer, string parameterName)
         {
             // Setup
             double bottom;
@@ -1088,7 +1095,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             Exception innerException = exception.InnerException;
             Assert.IsInstanceOf<ArgumentOutOfRangeException>(innerException);
-            string expectedMessage = $"Er is een fout opgetreden bij het inlezen van grondlaag '{layer.MaterialName}' voor parameter '{parameter}': {innerException.Message}";
+            string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName, parameterName, innerException.Message);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -1120,6 +1127,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 .SetName("Color result Purple");
             yield return new TestCaseData((double) -65281, Color.FromArgb(255, 0, 255))
                 .SetName("Color result Pink");
+        }
+
+        private static string CreateExpectedErrorMessageForParameterVariable(string materialName, string parameterName, string errorMessage)
+        {
+            return $"Er is een fout opgetreden bij het inlezen van grondlaag '{materialName}' voor parameter '{parameterName}': {errorMessage}";
         }
 
         private static string CreateExpectedErrorMessage(string materialName, string errorMessage)
