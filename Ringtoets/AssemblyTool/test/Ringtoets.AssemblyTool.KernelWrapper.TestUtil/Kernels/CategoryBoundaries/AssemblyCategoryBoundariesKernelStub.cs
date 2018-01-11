@@ -26,5 +26,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.CategoryBoundari
     /// <summary>
     /// Assembly category boundaries kernel stub for testing purposes.
     /// </summary>
-    public class AssemblyCategoryBoundariesKernelStub : IAssemblyCategoryBoundariesKernel {}
+    public class AssemblyCategoryBoundariesKernelStub : IAssemblyCategoryBoundariesKernel
+    {
+        /// <summary>
+        /// Gets a value indicating whether <see cref="Calculate"/> was called or not.
+        /// </summary>
+        public bool Calculated { get; private set; }
+
+        public double LowerBoundaryNorm { get; set; }
+
+        public double SignalingNorm { get; set; }
+
+        public void Calculate()
+        {
+            Calculated = true;
+        }
+    }
 }

@@ -24,5 +24,29 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries
     /// <summary>
     /// Class that wraps assembly kernel for performing an assembly category boundaries calculation.
     /// </summary>
-    internal class AssemblyCategoryBoundariesKernelWrapper : IAssemblyCategoryBoundariesKernel {}
+    internal class AssemblyCategoryBoundariesKernelWrapper : IAssemblyCategoryBoundariesKernel
+    {
+        private double lowerBoundaryNorm;
+        private double signalingNorm;
+
+        public double LowerBoundaryNorm
+        {
+            set
+            {
+                lowerBoundaryNorm = value;
+            }
+        }
+
+        public double SignalingNorm
+        {
+            set
+            {
+                signalingNorm = value;
+            }
+        }
+
+        public void Calculate()
+        {
+        }
+    }
 }

@@ -36,6 +36,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.CategoryBou
 
             // Assert
             Assert.IsInstanceOf<IAssemblyCategoryBoundariesKernel>(kernelStub);
+            Assert.IsFalse(kernelStub.Calculated);
+        }
+
+        [Test]
+        public void Calculate_Always_SetCalculatedTrue()
+        {
+            // Setup
+            var kernelStub = new AssemblyCategoryBoundariesKernelStub();
+
+            // Call
+            kernelStub.Calculate();
+
+            // Assert
+            Assert.IsTrue(kernelStub.Calculated);
         }
     }
 }

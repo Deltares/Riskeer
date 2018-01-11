@@ -33,5 +33,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries
     /// <item>kernel output into <see cref="AssemblyCategoryBoundariesCalculator"/> output.</item>
     /// </list>
     /// </remarks>
-    public interface IAssemblyCategoryBoundariesKernel {}
+    public interface IAssemblyCategoryBoundariesKernel
+    {
+        /// <summary>
+        /// Sets the lower boundary norm.
+        /// </summary>
+        double LowerBoundaryNorm { set; }
+
+        /// <summary>
+        /// Sets the signaling norm.
+        /// </summary>
+        double SignalingNorm { set; }
+
+        /// <summary>
+        /// Performs the calculation.
+        /// </summary>
+        void Calculate();
+    }
 }
