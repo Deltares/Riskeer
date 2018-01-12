@@ -20,9 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using AssemblyTool.Kernel;
+using AssemblyTool.Kernel.CategoriesOutput;
+using AssemblyTool.Kernel.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data.Input;
+using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
@@ -92,6 +98,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundari
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelWrapperFactory.Instance;
                 AssemblyCategoryBoundariesKernelStub kernel = factory.LastCreatedAssemblyCategoryBoundariesKernel;
+                kernel.AssessmentSectionCategoriesOutput = CreateKernelOutput();
 
                 var calculator = new AssemblyCategoryBoundariesCalculator(factory);
 
@@ -102,6 +109,48 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundari
                 Assert.AreEqual(lowerBoundaryNorm, kernel.LowerBoundaryNorm);
                 Assert.AreEqual(signalingNorm, kernel.SignalingNorm);
             }
+        }
+
+        [Test]
+        public void CalculateAssessmentSectionCategories_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
+        {
+            // Setup
+            var random = new Random(11);
+            double lowerBoundaryNorm = random.NextDouble();
+            double signalingNorm = random.NextDouble();
+            var input = new AssemblyCategoryBoundariesCalculatorInput(signalingNorm, lowerBoundaryNorm);
+            CalculationOutput<AssessmentSectionCategoriesOutput[]> output = CreateKernelOutput();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelWrapperFactory.Instance;
+                AssemblyCategoryBoundariesKernelStub kernel = factory.LastCreatedAssemblyCategoryBoundariesKernel;
+                kernel.AssessmentSectionCategoriesOutput = output;
+
+                var calculator = new AssemblyCategoryBoundariesCalculator(factory);
+
+                // Call
+                AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> result = calculator.CalculateAssessmentSectionCategories(input);
+
+                // Assert
+                Assert.AreEqual(output.Result.Length, result.Categories.Count());
+
+                CollectionAssert.AreEqual(output.Result.Select(o => o.LowerBoundary), result.Categories.Select(r => r.LowerBoundary));
+                CollectionAssert.AreEqual(output.Result.Select(o => o.UpperBoundary), result.Categories.Select(r => r.UpperBoundary));
+            }
+        }
+
+        private static CalculationOutput<AssessmentSectionCategoriesOutput[]> CreateKernelOutput()
+        {
+            var random = new Random(11);
+
+            return new CalculationOutput<AssessmentSectionCategoriesOutput[]>(new[]
+            {
+                new AssessmentSectionCategoriesOutput(random.NextEnumValue<AssessmentSectionAssemblyCategory>(), random.Next(1), random.Next(1, 2)),
+                new AssessmentSectionCategoriesOutput(random.NextEnumValue<AssessmentSectionAssemblyCategory>(), random.Next(1), random.Next(1, 2)),
+                new AssessmentSectionCategoriesOutput(random.NextEnumValue<AssessmentSectionAssemblyCategory>(), random.Next(1), random.Next(1, 2)),
+                new AssessmentSectionCategoriesOutput(random.NextEnumValue<AssessmentSectionAssemblyCategory>(), random.Next(1), random.Next(1, 2))
+            });
         }
     }
 }

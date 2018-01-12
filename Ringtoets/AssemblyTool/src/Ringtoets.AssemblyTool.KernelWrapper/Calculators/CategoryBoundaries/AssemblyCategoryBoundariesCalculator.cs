@@ -24,6 +24,7 @@ using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.CategoriesOutput;
 using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.Data.Output;
+using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries;
 
@@ -64,9 +65,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries
 
             kernel.Calculate();
 
-            CalculationOutput<AssessmentSectionCategoriesOutput[]> output = kernel.AssessmentSectionCategoriesOutput;
-
-            return null;
+            return AssemblyCategoryBoundariesResultCreator.CreateAssessmentSectionResult(kernel.AssessmentSectionCategoriesOutput);
         }
     }
 }
