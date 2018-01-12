@@ -19,9 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Commands;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
+using Core.Components.Gis.Theme;
+using Core.Components.Gis.Theme.Criteria;
 
 namespace Demo.Ringtoets.Commands
 {
@@ -46,7 +54,68 @@ namespace Demo.Ringtoets.Commands
 
         public void Execute()
         {
-            viewCommands.OpenView(new object());
+            var mapDataCollection = new MapDataCollection("Demo kaart categorial theming");
+
+            var random = new Random(21);
+            var mapPointData = new MapPointData("Punt Data met Gelijke criterium")
+            {
+                Features = CreateMapPointFeaturesWithMetaData(40),
+                Style =
+                {
+                    Size = 10
+                },
+                MapTheme = new MapTheme("Waarde", new[]
+                {
+                    new CategoryTheme(Color.DarkOrange, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, 40))),
+                    new CategoryTheme(Color.OrangeRed, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, 40))),
+                    new CategoryTheme(Color.SkyBlue, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, 40))),
+                    new CategoryTheme(Color.GreenYellow, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, 40)))
+                })
+            };
+            mapDataCollection.Add(mapPointData);
+
+            var mapPointDataUnequalCriteria = new MapPointData("Punt Data met Ongelijk criterium")
+            {
+                Features = CreateMapPointFeaturesWithMetaData(15),
+                Style =
+                {
+                    Size = 10
+                },
+                MapTheme = new MapTheme("Waarde", new[]
+                {
+                    new CategoryTheme(Color.GreenYellow, new ValueCriteria(ValueCriteriaOperator.UnequalValue, 5))
+                })
+            };
+            mapDataCollection.Add(mapPointDataUnequalCriteria);
+
+            viewCommands.OpenView(mapDataCollection);
+        }
+
+        private static IEnumerable<MapFeature> CreateMapPointFeaturesWithMetaData(int nrOfPoints)
+        {
+            var features = new MapFeature[nrOfPoints];
+            for (var i = 0; i < nrOfPoints; i++)
+            {
+                MapFeature feature = GetFeatureWithPoints(new[]
+                {
+                    new Point2D(i, i)
+                });
+                feature.MetaData["Waarde"] = i;
+                features[i] = feature;
+            }
+
+            return features;
+        }
+
+        private static MapFeature GetFeatureWithPoints(Point2D[] points)
+        {
+            return new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    points
+                })
+            });
         }
     }
 }

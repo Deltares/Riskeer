@@ -307,9 +307,9 @@ namespace Core.Components.DotSpatial.Converter
             switch (valueOperator)
             {
                 case ValueCriteriaOperator.EqualValue:
-                    return $"[{attributeIndex}] = {valueCriteria.Value}";
+                    return $"[{attributeIndex}] = '{valueCriteria.Value}'";
                 case ValueCriteriaOperator.UnequalValue:
-                    return $"NOT [{attributeIndex}] = {valueCriteria.Value}";
+                    return $"NOT [{attributeIndex}] = '{valueCriteria.Value}'";
                 default:
                     throw new NotSupportedException($"The enum value {nameof(ValueCriteriaOperator)}.{valueOperator} is not supported.");
             }
