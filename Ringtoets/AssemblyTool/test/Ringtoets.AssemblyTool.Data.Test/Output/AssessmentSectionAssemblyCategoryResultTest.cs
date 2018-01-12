@@ -34,7 +34,7 @@ namespace Ringtoets.AssemblyTool.Data.Test.Output
         public void Constructor_InvalidAssessmentSectionAssemblyCategoryResultType_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => new AssessmentSectionAssemblyCategoryResult((AssessmentSectionAssemblyCategoryResultType) 99, 0, 0);
+            TestDelegate test = () => new AssessmentSectionAssemblyCategoryResult(0, 0, (AssessmentSectionAssemblyCategoryResultType) 99);
 
             // Assert
             const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'AssessmentSectionAssemblyCategoryResultType'.";
@@ -46,18 +46,14 @@ namespace Ringtoets.AssemblyTool.Data.Test.Output
         {
             // Setup
             var random = new Random(11);
-            double lowerBoundary = random.Next();
-            double upperBoundary = random.Next();
             var category = random.NextEnumValue<AssessmentSectionAssemblyCategoryResultType>();
 
             // Call
-            var categoryResult = new AssessmentSectionAssemblyCategoryResult(category, lowerBoundary, upperBoundary);
+            var categoryResult = new AssessmentSectionAssemblyCategoryResult(0, 0, category);
 
             // Assert
-            Assert.IsInstanceOf<IAssemblyCategoryResult>(categoryResult);
+            Assert.IsInstanceOf<AssemblyCategoryResult>(categoryResult);
             Assert.AreEqual(category, categoryResult.Category);
-            Assert.AreEqual(lowerBoundary, categoryResult.LowerBoundary);
-            Assert.AreEqual(upperBoundary, categoryResult.UpperBoundary);
         }
     }
 }

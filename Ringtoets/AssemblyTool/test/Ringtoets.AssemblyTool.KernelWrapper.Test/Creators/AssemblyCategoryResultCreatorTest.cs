@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using AssemblyTool.Kernel;
@@ -33,13 +34,13 @@ using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class AssemblyCategoryBoundariesResultCreatorTest
+    public class AssemblyCategoryResultCreatorTest
     {
         [Test]
         public void CreateAssessmentSectionResult_OutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AssemblyCategoryBoundariesResultCreator.CreateAssessmentSectionResult(null);
+            TestDelegate call = () => AssemblyCategoryResultCreator.CreateAssessmentSectionAssemblyCategoryResult(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -61,10 +62,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> result = AssemblyCategoryBoundariesResultCreator.CreateAssessmentSectionResult(output);
+            IEnumerable<AssessmentSectionAssemblyCategoryResult> result = AssemblyCategoryResultCreator.CreateAssessmentSectionAssemblyCategoryResult(output);
 
             // Assert
-            AssemblyCategoryBoundariesResultAssert.AssertAssessmentSectionAssemblyCategoryBoundariesResult(output, result);
+            AssemblyCategoryResultAssert.AssertAssessmentSectionAssemblyCategoriesResult(output, result);
         }
 
         [Test]
@@ -77,7 +78,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            TestDelegate test = () => AssemblyCategoryBoundariesResultCreator.CreateAssessmentSectionResult(output);
+            TestDelegate test = () => AssemblyCategoryResultCreator.CreateAssessmentSectionAssemblyCategoryResult(output);
 
             // Assert
             const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'AssessmentSectionAssemblyCategory'.";
@@ -101,11 +102,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> result = AssemblyCategoryBoundariesResultCreator.CreateAssessmentSectionResult(output);
+            IEnumerable<AssessmentSectionAssemblyCategoryResult> result = AssemblyCategoryResultCreator.CreateAssessmentSectionAssemblyCategoryResult(output);
 
             // Assert
-            Assert.AreEqual(1, result.Categories.Count());
-            AssessmentSectionAssemblyCategoryResult categoryResult = result.Categories.First();
+            Assert.AreEqual(1, result.Count());
+            AssessmentSectionAssemblyCategoryResult categoryResult = result.First();
 
             Assert.AreEqual(expectedCategoryResultType, categoryResult.Category);
         }

@@ -21,21 +21,21 @@
 
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.CategoriesOutput;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries
+namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories
 {
     /// <summary>
-    /// Interface representing assembly category boundaries kernel input, methods and output.
+    /// Interface representing assembly categories kernel input, methods and output.
     /// </summary>
     /// <remarks>
     /// This interface is introduced for being able to test the conversion of:
     /// <list type="bullet">
-    /// <item><see cref="AssemblyCategoryBoundariesCalculator"/> input into kernel input;</item>
-    /// <item>kernel output into <see cref="AssemblyCategoryBoundariesCalculator"/> output.</item>
+    /// <item><see cref="AssemblyCategoriesCalculator"/> input into kernel input;</item>
+    /// <item>kernel output into <see cref="AssemblyCategoriesCalculator"/> output.</item>
     /// </list>
     /// </remarks>
-    public interface IAssemblyCategoryBoundariesKernel
+    public interface IAssemblyCategoriesKernel
     {
         /// <summary>
         /// Performs the calculation.

@@ -19,36 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
-
-namespace Ringtoets.Common.Data.AssemblyTool
+namespace Ringtoets.AssemblyTool.Data.Output
 {
     /// <summary>
-    /// Class that defines the assembly category boundaries.
+    /// Base class of the assembly category result of an assembly categories calculation.
     /// </summary>
-    /// <typeparam name="T">The type of the assembly categories.</typeparam>
-    public class AssemblyCategoryBoundaries<T> where T : AssemblyCategory
+    public abstract class AssemblyCategoryResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyCategoryBoundaries{T}"/>.
+        /// Creates a new instance of <see cref="AssemblyCategoryResult"/>.
         /// </summary>
-        /// <param name="categories">The categories of the category boundaries.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
-        /// is <c>null</c>.</exception>
-        public AssemblyCategoryBoundaries(IEnumerable<T> categories)
+        /// <param name="lowerBoundary">The lower boundary of the category.</param>
+        /// <param name="upperBoundary">The upper boundary of the category.</param>
+        protected AssemblyCategoryResult(double lowerBoundary, double upperBoundary)
         {
-            if (categories == null)
-            {
-                throw new ArgumentNullException(nameof(categories));
-            }
-
-            Categories = categories;
+            LowerBoundary = lowerBoundary;
+            UpperBoundary = upperBoundary;
         }
+        /// <summary>
+        /// Gets the lower boundary of the assembly category.
+        /// </summary>
+        public double LowerBoundary { get; }
 
         /// <summary>
-        /// Gets the categories of the category boundaries.
+        /// Gets the upper boundary of the assembly category.
         /// </summary>
-        public IEnumerable<T> Categories { get; }
+        public double UpperBoundary { get; }
     }
 }

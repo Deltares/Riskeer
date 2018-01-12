@@ -20,33 +20,34 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.Data.Output;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries
+namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 {
     /// <summary>
-    /// Interface representing an assembly category boundaries calculator.
+    /// Interface representing an assembly categories calculator.
     /// </summary>
     /// <remarks>
     /// This interface is introduced for being able to test the conversion of:
     /// <list type="bullet">
-    /// <item>Ringtoets assembly category boundaries input into calculator input;</item>
-    /// <item>calculator output into Ringtoets assembly category boundaries output.</item>
+    /// <item>Ringtoets assembly categories input into calculator input;</item>
+    /// <item>calculator output into Ringtoets assembly categories output.</item>
     /// </list>
     /// </remarks>
-    public interface IAssemblyCategoryBoundariesCalculator
+    public interface IAssemblyCategoriesCalculator
     {
         /// <summary>
         /// Performs the calculation for getting the assessment section categories.
         /// </summary>
-        /// <param name="input">The <see cref="AssemblyCategoryBoundariesCalculatorInput"/> containing
-        /// all the values required for performing the assembly category boundaries calculation.</param>
-        /// <returns>A <see cref="AssemblyCategoryBoundariesResult{T}"/> with categories of
+        /// <param name="input">The <see cref="AssemblyCategoriesCalculatorInput"/> containing
+        /// all the values required for performing the assembly categories calculation.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="AssessmentSectionAssemblyCategoryResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
-        AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
-            AssemblyCategoryBoundariesCalculatorInput input);
+        IEnumerable<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
+            AssemblyCategoriesCalculatorInput input);
     }
 }

@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
@@ -70,7 +70,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateAssemblyCategoryBoundariesCalculator_WithCalculatorInput_ReturnsAssemblyCategoryBoundariesCalculator()
+        public void CreateAssemblyCategoriesCalculator_WithCalculatorInput_ReturnsAssemblyCategoriesCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
@@ -78,11 +78,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators
             using (new AssemblyToolKernelFactoryConfig())
             {
                 // Call
-                IAssemblyCategoryBoundariesCalculator calculator = factory.CreateAssemblyCategoryBoundariesCalculator(
+                IAssemblyCategoriesCalculator calculator = factory.CreateAssemblyCategoriesCalculator(
                     AssemblyToolKernelWrapperFactory.Instance);
 
                 // Assert
-                Assert.IsInstanceOf<AssemblyCategoryBoundariesCalculator>(calculator);
+                Assert.IsInstanceOf<AssemblyCategoriesCalculator>(calculator);
             }
         }
     }

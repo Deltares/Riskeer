@@ -11,11 +11,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Input\AssemblyCategoryBoundariesCalculatorInput.cs" />
-    <Compile Include="Output\AssemblyCategoryBoundariesResult.cs" />
+    <Compile Include="Input\AssemblyCategoriesCalculatorInput.cs" />
     <Compile Include="Output\AssessmentSectionAssemblyCategoryResult.cs" />
     <Compile Include="Output\AssessmentSectionAssemblyCategoryResultType.cs" />
-    <Compile Include="Output\IAssemblyCategoryResult.cs" />
+    <Compile Include="Output\AssemblyCategoryResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

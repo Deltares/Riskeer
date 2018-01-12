@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.CategoriesOutput;
@@ -30,25 +31,25 @@ using Ringtoets.AssemblyTool.Data.Output;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test
 {
     /// <summary>
-    /// Class for asserting category boundaries result.
+    /// Class for asserting categories result.
     /// </summary>
-    public static class AssemblyCategoryBoundariesResultAssert
+    public static class AssemblyCategoryResultAssert
     {
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
         /// <param name="original">The original <see cref="CalculationOutput{AssessmentSectionCategoriesOutput}"/>.</param>
-        /// <param name="actual">The actual <see cref="AssemblyCategoryBoundariesResult{AssessmentSectionAssemblyCategoryResult}"/>.</param>
+        /// <param name="actual">The actual <see cref="IEnumerable{AssessmentSectionAssemblyCategoryResult}"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertAssessmentSectionAssemblyCategoryBoundariesResult(CalculationOutput<AssessmentSectionCategoriesOutput[]> original,
-                                                                                   AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> actual)
+        public static void AssertAssessmentSectionAssemblyCategoriesResult(CalculationOutput<AssessmentSectionCategoriesOutput[]> original,
+                                                                                   IEnumerable<AssessmentSectionAssemblyCategoryResult> actual)
         {
-            Assert.AreEqual(original.Result.Length, actual.Categories.Count());
+            Assert.AreEqual(original.Result.Length, actual.Count());
 
-            CollectionAssert.AreEqual(original.Result.Select(o => GetResultType(o.Category)), actual.Categories.Select(r => r.Category));
-            CollectionAssert.AreEqual(original.Result.Select(o => o.LowerBoundary), actual.Categories.Select(r => r.LowerBoundary));
-            CollectionAssert.AreEqual(original.Result.Select(o => o.UpperBoundary), actual.Categories.Select(r => r.UpperBoundary));
+            CollectionAssert.AreEqual(original.Result.Select(o => GetResultType(o.Category)), actual.Select(r => r.Category));
+            CollectionAssert.AreEqual(original.Result.Select(o => o.LowerBoundary), actual.Select(r => r.LowerBoundary));
+            CollectionAssert.AreEqual(original.Result.Select(o => o.UpperBoundary), actual.Select(r => r.UpperBoundary));
         }
 
         private static AssessmentSectionAssemblyCategoryResultType GetResultType(AssessmentSectionAssemblyCategory category)

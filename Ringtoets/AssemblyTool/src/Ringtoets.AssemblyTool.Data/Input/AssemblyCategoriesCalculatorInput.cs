@@ -22,16 +22,16 @@
 namespace Ringtoets.AssemblyTool.Data.Input
 {
     /// <summary>
-    /// This class contains all the parameters that are required to perform an assembly category boundaries calculation.
+    /// This class contains all the parameters that are required to perform an assembly categories calculation.
     /// </summary>
-    public class AssemblyCategoryBoundariesCalculatorInput
+    public class AssemblyCategoriesCalculatorInput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyCategoryBoundariesCalculatorInput"/>.
+        /// Creates a new instance of <see cref="AssemblyCategoriesCalculatorInput"/>.
         /// </summary>
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
         /// <param name="lowerBoundaryNorm">The lower boundary norm to use in the calculation.</param>
-        public AssemblyCategoryBoundariesCalculatorInput(double signalingNorm, double lowerBoundaryNorm)
+        public AssemblyCategoriesCalculatorInput(double signalingNorm, double lowerBoundaryNorm)
         {
             SignalingNorm = signalingNorm;
             LowerBoundaryNorm = lowerBoundaryNorm;

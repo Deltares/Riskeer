@@ -20,38 +20,28 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data.Output;
+using Ringtoets.AssemblyTool.Data.Input;
 
-namespace Ringtoets.AssemblyTool.Data.Test.Output
+namespace Ringtoets.AssemblyTool.Data.Test.Input
 {
     [TestFixture]
-    public class AssemblyCategoryBoundariesResultTest
+    public class AssemblyCategoriesCalculatorInputTest
     {
-        [Test]
-        public void Constructor_CategoriesNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new AssemblyCategoryBoundariesResult<IAssemblyCategoryResult>(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("categories", exception.ParamName);
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            IEnumerable<IAssemblyCategoryResult> categories = Enumerable.Empty<IAssemblyCategoryResult>();
+            var random = new Random(11);
+            double signalingNorm = random.NextDouble();
+            double lowerBoundaryNorm = random.NextDouble();
 
             // Call
-            var result = new AssemblyCategoryBoundariesResult<IAssemblyCategoryResult>(categories);
+            var calculatorInput = new AssemblyCategoriesCalculatorInput(signalingNorm, lowerBoundaryNorm);
 
             // Assert
-            Assert.AreSame(categories, result.Categories);
+            Assert.AreEqual(signalingNorm, calculatorInput.SignalingNorm);
+            Assert.AreEqual(lowerBoundaryNorm, calculatorInput.LowerBoundaryNorm);
         }
     }
 }

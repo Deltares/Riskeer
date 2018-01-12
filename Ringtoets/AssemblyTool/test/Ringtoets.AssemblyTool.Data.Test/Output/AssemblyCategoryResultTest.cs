@@ -19,21 +19,35 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.AssemblyTool.Data.Output
-{
-    /// <summary>
-    /// Interface for the assembly category result of a category boundaries calculation.
-    /// </summary>
-    public interface IAssemblyCategoryResult
-    {
-        /// <summary>
-        /// Gets the lower boundary of the assembly category.
-        /// </summary>
-        double LowerBoundary { get; }
+using System;
+using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data.Output;
 
-        /// <summary>
-        /// Gets the upper boundary of the assembly category.
-        /// </summary>
-        double UpperBoundary { get; }
+namespace Ringtoets.AssemblyTool.Data.Test.Output
+{
+    [TestFixture]
+    public class AssemblyCategoryResultTest
+    {
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            var random = new Random(11);
+
+            double lowerBoundary = random.NextDouble();
+            double upperBoundary = random.NextDouble();
+
+            // Call
+            var category = new SimpleCategoryResult(lowerBoundary, upperBoundary);
+
+            // Assert
+            Assert.AreEqual(lowerBoundary, category.LowerBoundary);
+            Assert.AreEqual(upperBoundary, category.UpperBoundary);
+        }
+
+        private class SimpleCategoryResult : AssemblyCategoryResult
+        {
+            public SimpleCategoryResult(double lowerBoundary, double upperBoundary) 
+               : base(lowerBoundary, upperBoundary) {}
+        }
     }
 }

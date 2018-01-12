@@ -20,12 +20,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyCategoryBoundariesResultAssert.cs" />
+    <Compile Include="AssemblyCategoryResultAssert.cs" />
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryTest.cs" />
-    <Compile Include="Calculators\CategoryBoundaries\AssemblyCategoryBoundariesCalculatorTest.cs" />
-    <Compile Include="Creators\AssemblyCategoryBoundariesResultCreatorTest.cs" />
+    <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorTest.cs" />
+    <Compile Include="Creators\AssemblyCategoryResultCreatorTest.cs" />
     <Compile Include="Kernels\AssemblyToolKernelWrapperFactoryTest.cs" />
-    <Compile Include="Kernels\CategoryBoundaries\AssemblyCategoryBoundariesKernelWrapperTest.cs" />
+    <Compile Include="Kernels\Categories\AssemblyCategoriesKernelWrapperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

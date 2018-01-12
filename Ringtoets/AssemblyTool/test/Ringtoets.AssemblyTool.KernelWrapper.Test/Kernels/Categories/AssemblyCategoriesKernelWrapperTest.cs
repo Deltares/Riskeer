@@ -19,29 +19,37 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using AssemblyTool.Kernel;
+using AssemblyTool.Kernel.CategoriesOutput;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data.Input;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 
-namespace Ringtoets.AssemblyTool.Data.Test.Input
+namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels.CategoryBoundaries
 {
     [TestFixture]
-    public class AssemblyCategoryBoundariesCalculatorInputTest
+    public class AssemblyCategoriesKernelWrapperTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var random = new Random(11);
-            double signalingNorm = random.NextDouble();
-            double lowerBoundaryNorm = random.NextDouble();
-
             // Call
-            var calculatorInput = new AssemblyCategoryBoundariesCalculatorInput(signalingNorm, lowerBoundaryNorm);
+            var kernelWrapper = new AssemblyCategoriesKernelWrapper();
 
             // Assert
-            Assert.AreEqual(signalingNorm, calculatorInput.SignalingNorm);
-            Assert.AreEqual(lowerBoundaryNorm, calculatorInput.LowerBoundaryNorm);
+            Assert.IsInstanceOf<IAssemblyCategoriesKernel>(kernelWrapper);
+        }
+
+        [Test]
+        public void Calculate_Always_ReturnsOutput()
+        {
+            // Setup
+            var kernelWrapper = new AssemblyCategoriesKernelWrapper();
+
+            // Call
+            CalculationOutput<AssessmentSectionCategoriesOutput[]> output = kernelWrapper.Calculate(0, 0);
+
+            // Assert
+            Assert.IsNotNull(output);
         }
     }
 }

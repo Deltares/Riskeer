@@ -19,11 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators
 {
@@ -37,17 +36,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators
         /// </summary>
         public TestAssemblyToolCalculatorFactory()
         {
-            LastCreatedAssemblyCategoryBoundariesCalculator = new AssemblyCategoryBoundariesCalculatorStub();
+            LastCreatedAssemblyCategoriesCalculator = new AssemblyCategoriesCalculatorStub();
         }
 
         /// <summary>
-        /// Gets the last created <see cref="AssemblyCategoryBoundariesCalculatorStub"/>.
+        /// Gets the last created <see cref="AssemblyCategoriesCalculatorStub"/>.
         /// </summary>
-        public AssemblyCategoryBoundariesCalculatorStub LastCreatedAssemblyCategoryBoundariesCalculator { get; }
+        public AssemblyCategoriesCalculatorStub LastCreatedAssemblyCategoriesCalculator { get; }
 
-        public IAssemblyCategoryBoundariesCalculator CreateAssemblyCategoryBoundariesCalculator(IAssemblyToolKernelFactory factory)
+        public IAssemblyCategoriesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactory factory)
         {
-            return LastCreatedAssemblyCategoryBoundariesCalculator;
+            return LastCreatedAssemblyCategoriesCalculator;
         }
     }
 }

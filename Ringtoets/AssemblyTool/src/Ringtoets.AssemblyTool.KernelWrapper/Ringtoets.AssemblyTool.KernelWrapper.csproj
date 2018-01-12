@@ -15,13 +15,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculators\AssemblyToolCalculatorFactory.cs" />
-    <Compile Include="Calculators\CategoryBoundaries\AssemblyCategoryBoundariesCalculator.cs" />
-    <Compile Include="Calculators\CategoryBoundaries\IAssemblyCategoryBoundariesCalculator.cs" />
+    <Compile Include="Calculators\Categories\AssemblyCategoriesCalculator.cs" />
+    <Compile Include="Calculators\Categories\IAssemblyCategoriesCalculator.cs" />
     <Compile Include="Calculators\IAssemblyToolCalculatorFactory.cs" />
-    <Compile Include="Creators\AssemblyCategoryBoundariesResultCreator.cs" />
+    <Compile Include="Creators\AssemblyCategoryResultCreator.cs" />
     <Compile Include="Kernels\AssemblyToolKernelWrapperFactory.cs" />
-    <Compile Include="Kernels\CategoryBoundaries\AssemblyCategoryBoundariesKernelWrapper.cs" />
-    <Compile Include="Kernels\CategoryBoundaries\IAssemblyCategoryBoundariesKernel.cs" />
+    <Compile Include="Kernels\Categories\AssemblyCategoriesKernelWrapper.cs" />
+    <Compile Include="Kernels\Categories\IAssemblyCategoriesKernel.cs" />
     <Compile Include="Kernels\IAssemblyToolKernelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

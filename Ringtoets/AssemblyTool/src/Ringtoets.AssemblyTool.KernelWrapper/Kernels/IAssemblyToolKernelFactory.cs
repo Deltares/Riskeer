@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
 {
@@ -29,9 +29,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
     public interface IAssemblyToolKernelFactory
     {
         /// <summary>
-        /// Creates an assembly category boundaries kernel.
+        /// Creates an assembly categories kernel.
         /// </summary>
-        /// <returns>A new <see cref="IAssemblyCategoryBoundariesKernel"/>.</returns>
-        IAssemblyCategoryBoundariesKernel CreateAssemblyCategoryBoundariesKernel();
+        /// <returns>A new <see cref="IAssemblyCategoriesKernel"/>.</returns>
+        IAssemblyCategoriesKernel CreateAssemblyCategoriesKernel();
     }
 }

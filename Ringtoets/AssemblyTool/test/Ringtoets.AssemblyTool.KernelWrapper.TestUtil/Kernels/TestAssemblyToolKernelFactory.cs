@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
 {
@@ -35,17 +35,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
         /// </summary>
         public TestAssemblyToolKernelFactory()
         {
-            LastCreatedAssemblyCategoryBoundariesKernel = new AssemblyCategoryBoundariesKernelStub();
+            LastCreatedAssemblyCategoriesKernel = new AssemblyCategoriesKernelStub();
         }
 
         /// <summary>
-        /// The last created assembly category boundaries kernel.
+        /// The last created assembly categories kernel.
         /// </summary>
-        public AssemblyCategoryBoundariesKernelStub LastCreatedAssemblyCategoryBoundariesKernel { get; }
+        public AssemblyCategoriesKernelStub LastCreatedAssemblyCategoriesKernel { get; }
 
-        public IAssemblyCategoryBoundariesKernel CreateAssemblyCategoryBoundariesKernel()
+        public IAssemblyCategoriesKernel CreateAssemblyCategoriesKernel()
         {
-            return LastCreatedAssemblyCategoryBoundariesKernel;
+            return LastCreatedAssemblyCategoriesKernel;
         }
     }
 }

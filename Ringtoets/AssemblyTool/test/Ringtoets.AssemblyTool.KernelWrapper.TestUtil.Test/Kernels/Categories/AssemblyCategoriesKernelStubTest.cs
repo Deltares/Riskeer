@@ -23,22 +23,22 @@ using System;
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.CategoriesOutput;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.CategoryBoundaries
+namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
 {
     [TestFixture]
-    public class AssemblyCategoryBoundariesKernelStubTest
+    public class AssemblyCategoriesKernelStubTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var kernelStub = new AssemblyCategoryBoundariesKernelStub();
+            var kernelStub = new AssemblyCategoriesKernelStub();
 
             // Assert
-            Assert.IsInstanceOf<IAssemblyCategoryBoundariesKernel>(kernelStub);
+            Assert.IsInstanceOf<IAssemblyCategoriesKernel>(kernelStub);
             Assert.IsFalse(kernelStub.Calculated);
         }
 
@@ -50,7 +50,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.CategoryBou
             double lowerBoundaryNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
 
-            var kernelStub = new AssemblyCategoryBoundariesKernelStub();
+            var kernelStub = new AssemblyCategoriesKernelStub();
             
             // Call
             kernelStub.Calculate(signalingNorm, lowerBoundaryNorm);
@@ -64,7 +64,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.CategoryBou
         public void Calculate_Always_SetCalculatedTrue()
         {
             // Setup
-            var kernelStub = new AssemblyCategoryBoundariesKernelStub();
+            var kernelStub = new AssemblyCategoriesKernelStub();
 
             // Call
             kernelStub.Calculate(0, 0);
@@ -77,7 +77,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.CategoryBou
         public void Calculate_Always_ReturnAssessmentSectionCategoriesOutput()
         {
             // Setup
-            var kernelStub = new AssemblyCategoryBoundariesKernelStub
+            var kernelStub = new AssemblyCategoriesKernelStub
             {
                 AssessmentSectionCategoriesOutput = new CalculationOutput<AssessmentSectionCategoriesOutput[]>(new AssessmentSectionCategoriesOutput[0])
             };

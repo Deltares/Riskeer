@@ -21,10 +21,10 @@
 
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
@@ -40,12 +40,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
 
             // Assert
             Assert.IsInstanceOf<IAssemblyToolCalculatorFactory>(factory);
-            Assert.IsNotNull(factory.LastCreatedAssemblyCategoryBoundariesCalculator);
-            Assert.IsNull(factory.LastCreatedAssemblyCategoryBoundariesCalculator.Input);
+            Assert.IsNotNull(factory.LastCreatedAssemblyCategoriesCalculator);
+            Assert.IsNull(factory.LastCreatedAssemblyCategoriesCalculator.Input);
         }
 
         [Test]
-        public void CreateAssemblyCategoryBoundariesCalculator_Always_ReturnStubWithInputSet()
+        public void CreateAssemblyCategoriesCalculator_Always_ReturnStubWithInputSet()
         {
             // Setup
             var factory = new TestAssemblyToolCalculatorFactory();
@@ -53,11 +53,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
             using (new AssemblyToolKernelFactoryConfig())
             {
                 // Call
-                IAssemblyCategoryBoundariesCalculator calculator = factory.CreateAssemblyCategoryBoundariesCalculator(
+                IAssemblyCategoriesCalculator calculator = factory.CreateAssemblyCategoriesCalculator(
                     AssemblyToolKernelWrapperFactory.Instance);
 
                 // Assert
-                Assert.IsInstanceOf<AssemblyCategoryBoundariesCalculatorStub>(calculator);
+                Assert.IsInstanceOf<AssemblyCategoriesCalculatorStub>(calculator);
             }
         }
     }

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
@@ -31,11 +31,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
     public interface IAssemblyToolCalculatorFactory
     {
         /// <summary>
-        /// Creates an assembly category boundaries calculator.
+        /// Creates an assembly categories calculator.
         /// </summary>
-        /// <param name="factory">The factory responsible for creating the assembly category boundaries kernel.</param>
-        /// <returns>The assembly category boundaries calculator.</returns>
+        /// <param name="factory">The factory responsible for creating the assembly categories kernel.</param>
+        /// <returns>The assembly categories calculator.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
-        IAssemblyCategoryBoundariesCalculator CreateAssemblyCategoryBoundariesCalculator(IAssemblyToolKernelFactory factory);
+        IAssemblyCategoriesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactory factory);
     }
 }

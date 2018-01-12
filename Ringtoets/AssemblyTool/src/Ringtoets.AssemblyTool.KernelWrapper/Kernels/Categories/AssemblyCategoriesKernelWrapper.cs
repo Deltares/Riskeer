@@ -21,43 +21,17 @@
 
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.CategoriesOutput;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.CategoryBoundaries
+namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories
 {
     /// <summary>
-    /// Assembly category boundaries kernel stub for testing purposes.
+    /// Class that wraps assembly kernel for performing an assembly categories calculation.
     /// </summary>
-    public class AssemblyCategoryBoundariesKernelStub : IAssemblyCategoryBoundariesKernel
+    internal class AssemblyCategoriesKernelWrapper : IAssemblyCategoriesKernel
     {
-        /// <summary>
-        /// Gets a value indicating whether <see cref="Calculate"/> was called or not.
-        /// </summary>
-        public bool Calculated { get; private set; }
-
-        /// <summary>
-        /// Gets the lower boundary norm.
-        /// </summary>
-        public double LowerBoundaryNorm { get; private set; }
-
-        /// <summary>
-        /// Gets the upper boundary norm.
-        /// </summary>
-        public double SignalingNorm { get; private set; }
-        
-        /// <summary>
-        /// Gets the assessment section categories output.
-        /// </summary>
-        public CalculationOutput<AssessmentSectionCategoriesOutput[]> AssessmentSectionCategoriesOutput { get; set; }
-
         public CalculationOutput<AssessmentSectionCategoriesOutput[]> Calculate(double signalingNorm, double lowerBoundaryNorm)
         {
-            LowerBoundaryNorm = lowerBoundaryNorm;
-            SignalingNorm = signalingNorm;
-
-            Calculated = true;
-
-            return AssessmentSectionCategoriesOutput;
+            return CategoriesCalculator.CalculateAssessmentSectionCategories(signalingNorm, lowerBoundaryNorm);
         }
     }
 }

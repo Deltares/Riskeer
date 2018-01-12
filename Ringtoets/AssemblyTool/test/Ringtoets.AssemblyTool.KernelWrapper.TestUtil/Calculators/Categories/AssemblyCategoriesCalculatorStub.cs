@@ -19,36 +19,33 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
+using Ringtoets.AssemblyTool.Data.Input;
+using Ringtoets.AssemblyTool.Data.Output;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 
-namespace Ringtoets.AssemblyTool.Data.Output
+namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
 {
     /// <summary>
-    /// The assembly category boundaries result of a category boundaries calculation.
+    /// Assembly categories calculator stub for testing purposes.
     /// </summary>
-    /// <typeparam name="T">The type of the assembly categories.</typeparam>
-    public class AssemblyCategoryBoundariesResult<T> where T : IAssemblyCategoryResult
+    public class AssemblyCategoriesCalculatorStub : IAssemblyCategoriesCalculator
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyCategoryBoundariesResult{T}"/>.
+        /// Gets or sets the assembly categories calculator input.
         /// </summary>
-        /// <param name="categories">The categories of the result.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
-        /// is <c>null</c>.</exception>
-        public AssemblyCategoryBoundariesResult(IEnumerable<T> categories)
-        {
-            if (categories == null)
-            {
-                throw new ArgumentNullException(nameof(categories));
-            }
-
-            Categories = categories;
-        }
+        public AssemblyCategoriesCalculatorInput Input { get; set; }
 
         /// <summary>
-        /// Gets the categories of the result.
+        /// Gets the output of the <see cref="CalculateAssessmentSectionCategories"/> calculation.
         /// </summary>
-        public IEnumerable<T> Categories { get; }
+        public IEnumerable<AssessmentSectionAssemblyCategoryResult> AssessmentSectionCategoriesOutput { get; private set; }
+
+        public IEnumerable<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
+            AssemblyCategoriesCalculatorInput input)
+        {
+            return AssessmentSectionCategoriesOutput
+                   ?? (AssessmentSectionCategoriesOutput = new AssessmentSectionAssemblyCategoryResult[0]);
+        }
     }
 }

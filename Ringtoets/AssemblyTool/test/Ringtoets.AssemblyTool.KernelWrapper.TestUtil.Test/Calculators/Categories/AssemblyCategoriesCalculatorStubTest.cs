@@ -19,37 +19,40 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.CategoriesOutput;
+using System.Collections.Generic;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries;
+using Ringtoets.AssemblyTool.Data.Output;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels.CategoryBoundaries
+namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categories
 {
     [TestFixture]
-    public class AssemblyCategoryBoundariesKernelWrapperTest
+    public class AssemblyCategoriesCalculatorStubTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var kernelWrapper = new AssemblyCategoryBoundariesKernelWrapper();
+            var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Assert
-            Assert.IsInstanceOf<IAssemblyCategoryBoundariesKernel>(kernelWrapper);
+            Assert.IsInstanceOf<IAssemblyCategoriesCalculator>(calculator);
+            Assert.IsNull(calculator.Input);
+            Assert.IsNull(calculator.AssessmentSectionCategoriesOutput);
         }
 
         [Test]
-        public void Calculate_Always_ReturnsOutput()
+        public void CalculateAssessmentSectionCategories_Always_ReturnEmptyCategories()
         {
             // Setup
-            var kernelWrapper = new AssemblyCategoryBoundariesKernelWrapper();
+            var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Call
-            CalculationOutput<AssessmentSectionCategoriesOutput[]> output = kernelWrapper.Calculate(0, 0);
+            IEnumerable<AssessmentSectionAssemblyCategoryResult> result = calculator.CalculateAssessmentSectionCategories(null);
 
             // Assert
-            Assert.IsNotNull(output);
+            CollectionAssert.IsEmpty(result);
         }
     }
 }

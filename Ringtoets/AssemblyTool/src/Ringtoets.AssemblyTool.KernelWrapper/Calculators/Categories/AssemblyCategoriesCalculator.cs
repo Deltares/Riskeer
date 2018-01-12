@@ -20,29 +20,30 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.CategoriesOutput;
 using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries
+namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 {
     /// <summary>
-    /// Class representing an assembly category boundaries calculator.
+    /// Class representing an assembly categories calculator.
     /// </summary>
-    public class AssemblyCategoryBoundariesCalculator : IAssemblyCategoryBoundariesCalculator
+    public class AssemblyCategoriesCalculator : IAssemblyCategoriesCalculator
     {
         private readonly IAssemblyToolKernelFactory factory;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyCategoryBoundariesCalculator"/>.
+        /// Creates a new instance of <see cref="AssemblyCategoriesCalculator"/>.
         /// </summary>
-        /// <param name="factory">The factory responsible for creating the assembly category boundaries kernel.</param>
+        /// <param name="factory">The factory responsible for creating the assembly categories kernel.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AssemblyCategoryBoundariesCalculator(IAssemblyToolKernelFactory factory)
+        public AssemblyCategoriesCalculator(IAssemblyToolKernelFactory factory)
         {
             if (factory == null)
             {
@@ -51,18 +52,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries
             this.factory = factory;
         }
 
-        public AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
-            AssemblyCategoryBoundariesCalculatorInput input)
+        public IEnumerable<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
+            AssemblyCategoriesCalculatorInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
-            IAssemblyCategoryBoundariesKernel kernel = factory.CreateAssemblyCategoryBoundariesKernel();
+            IAssemblyCategoriesKernel kernel = factory.CreateAssemblyCategoriesKernel();
             CalculationOutput<AssessmentSectionCategoriesOutput[]> output = kernel.Calculate(input.SignalingNorm, input.LowerBoundaryNorm);
 
-            return AssemblyCategoryBoundariesResultCreator.CreateAssessmentSectionResult(output);
+            return AssemblyCategoryResultCreator.CreateAssessmentSectionAssemblyCategoryResult(output);
         }
     }
 }

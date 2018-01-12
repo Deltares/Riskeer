@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.CategoriesOutput;
 using AssemblyTool.Kernel.Data;
@@ -28,21 +29,21 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.Data.Output;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.CategoryBoundaries;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundaries
+namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 {
     [TestFixture]
-    public class AssemblyCategoryBoundariesCalculatorTest
+    public class AssemblyCategoriesCalculatorTest
     {
         [Test]
         public void Constructor_FactoryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssemblyCategoryBoundariesCalculator(null);
+            TestDelegate call = () => new AssemblyCategoriesCalculator(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -58,10 +59,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundari
             mocks.ReplayAll();
 
             // Call
-            var calculator = new AssemblyCategoryBoundariesCalculator(factory);
+            var calculator = new AssemblyCategoriesCalculator(factory);
 
             // Assert
-            Assert.IsInstanceOf<IAssemblyCategoryBoundariesCalculator>(calculator);
+            Assert.IsInstanceOf<IAssemblyCategoriesCalculator>(calculator);
             mocks.VerifyAll();
         }
 
@@ -73,7 +74,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundari
             var factory = mocks.Stub<IAssemblyToolKernelFactory>();
             mocks.ReplayAll();
 
-            var calculator = new AssemblyCategoryBoundariesCalculator(factory);
+            var calculator = new AssemblyCategoriesCalculator(factory);
 
             // Call
             TestDelegate call = () => calculator.CalculateAssessmentSectionCategories(null);
@@ -91,15 +92,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundari
             var random = new Random(11);
             double lowerBoundaryNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
-            var input = new AssemblyCategoryBoundariesCalculatorInput(signalingNorm, lowerBoundaryNorm);
+            var input = new AssemblyCategoriesCalculatorInput(signalingNorm, lowerBoundaryNorm);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelWrapperFactory.Instance;
-                AssemblyCategoryBoundariesKernelStub kernel = factory.LastCreatedAssemblyCategoryBoundariesKernel;
+                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.AssessmentSectionCategoriesOutput = CreateKernelOutput();
 
-                var calculator = new AssemblyCategoryBoundariesCalculator(factory);
+                var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
                 calculator.CalculateAssessmentSectionCategories(input);
@@ -117,22 +118,22 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundari
             var random = new Random(11);
             double lowerBoundaryNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
-            var input = new AssemblyCategoryBoundariesCalculatorInput(signalingNorm, lowerBoundaryNorm);
+            var input = new AssemblyCategoriesCalculatorInput(signalingNorm, lowerBoundaryNorm);
             CalculationOutput<AssessmentSectionCategoriesOutput[]> output = CreateKernelOutput();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelWrapperFactory.Instance;
-                AssemblyCategoryBoundariesKernelStub kernel = factory.LastCreatedAssemblyCategoryBoundariesKernel;
+                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.AssessmentSectionCategoriesOutput = output;
 
-                var calculator = new AssemblyCategoryBoundariesCalculator(factory);
+                var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
-                AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> result = calculator.CalculateAssessmentSectionCategories(input);
+                IEnumerable<AssessmentSectionAssemblyCategoryResult> result = calculator.CalculateAssessmentSectionCategories(input);
 
                 // Assert
-                AssemblyCategoryBoundariesResultAssert.AssertAssessmentSectionAssemblyCategoryBoundariesResult(output, result);
+                AssemblyCategoryResultAssert.AssertAssessmentSectionAssemblyCategoriesResult(output, result);
             }
         }
 

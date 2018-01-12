@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using AssemblyTool.Kernel;
@@ -30,23 +31,23 @@ using Ringtoets.AssemblyTool.Data.Output;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="AssemblyCategoryBoundariesResult{T}"/> instances.
+    /// Creates <see cref="AssemblyCategoryResult"/> instances.
     /// </summary>
-    internal static class AssemblyCategoryBoundariesResultCreator
+    internal static class AssemblyCategoryResultCreator
     {
         /// <summary>
-        /// Creates a <see cref="AssemblyCategoryBoundariesResult{AssessmentSectionAssemblyCategoryResult}"/>
+        /// Creates an <see cref="IEnumerable{AssessmentSectionAssemblyCategoryResult}"/>
         /// based on the information given in the <paramref name="output"/>.
         /// </summary>
         /// <param name="output">The output to create the result for.</param>
-        /// <returns>A new <see cref="AssemblyCategoryBoundariesResult{AssessmentSectionAssemblyCategoryResult}"/>
+        /// <returns>An <see cref="IEnumerable{AssessmentSectionAssemblyCategoryResult}"/>
         /// with information taken from the <paramref name="output"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="AssessmentSectionAssemblyCategory"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="AssessmentSectionAssemblyCategory"/>
         /// is a valid value but unsupported.</exception>
-        public static AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> CreateAssessmentSectionResult(
+        public static IEnumerable<AssessmentSectionAssemblyCategoryResult> CreateAssessmentSectionAssemblyCategoryResult(
             CalculationOutput<AssessmentSectionCategoriesOutput[]> output)
         {
             if (output == null)
@@ -54,12 +55,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(output));
             }
 
-            AssessmentSectionAssemblyCategoryResult[] categories = output.Result.Select(
-                categoriesOutput => new AssessmentSectionAssemblyCategoryResult(ConvertAssessmentSectionCategoryType(categoriesOutput.Category),
-                                                                                categoriesOutput.LowerBoundary,
-                                                                                categoriesOutput.UpperBoundary)).ToArray();
-
-            return new AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult>(categories);
+            return output.Result.Select(
+                categoriesOutput => new AssessmentSectionAssemblyCategoryResult(categoriesOutput.LowerBoundary,
+                                                                                categoriesOutput.UpperBoundary, ConvertAssessmentSectionCategoryType(categoriesOutput.Category))).ToArray();
         }
 
         /// <summary>

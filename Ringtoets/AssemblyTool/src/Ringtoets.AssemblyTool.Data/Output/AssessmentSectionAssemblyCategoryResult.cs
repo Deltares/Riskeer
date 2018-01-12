@@ -25,20 +25,20 @@ using System.ComponentModel;
 namespace Ringtoets.AssemblyTool.Data.Output
 {
     /// <summary>
-    /// The assembly category result of an assessment section category boundaries calculation.
+    /// The assembly category result of an assessment section categories calculation.
     /// </summary>
-    public class AssessmentSectionAssemblyCategoryResult : IAssemblyCategoryResult
+    public class AssessmentSectionAssemblyCategoryResult : AssemblyCategoryResult
     {
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionAssemblyCategoryResult"/>.
         /// </summary>
-        /// <param name="category">The category type of the result.</param>
         /// <param name="lowerBoundary">The lower boundary of the category.</param>
         /// <param name="upperBoundary">The upper boundary of the category.</param>
+        /// <param name="category">The category type of the result.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// contains an invalid value.</exception>
-        public AssessmentSectionAssemblyCategoryResult(AssessmentSectionAssemblyCategoryResultType category,
-                                                       double lowerBoundary, double upperBoundary)
+        public AssessmentSectionAssemblyCategoryResult(double lowerBoundary, double upperBoundary, AssessmentSectionAssemblyCategoryResultType category)
+            : base(lowerBoundary, upperBoundary)
         {
             if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyCategoryResultType), category))
             {
@@ -48,17 +48,11 @@ namespace Ringtoets.AssemblyTool.Data.Output
             }
 
             Category = category;
-            LowerBoundary = lowerBoundary;
-            UpperBoundary = upperBoundary;
         }
 
         /// <summary>
         /// Gets the category type of the result.
         /// </summary>
         public AssessmentSectionAssemblyCategoryResultType Category { get; }
-
-        public double LowerBoundary { get; }
-
-        public double UpperBoundary { get; }
     }
 }

@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// This class contains all the parameters that are required to perform a category boundaries calculation.
+    /// This class contains all the parameters that are required to perform an assembly categories calculation.
     /// </summary>
     public class AssemblyCategoryInput
     {
