@@ -21,6 +21,7 @@
     <Compile Include="Creators\AssemblyCategoryResultCreator.cs" />
     <Compile Include="Kernels\AssemblyToolKernelWrapperFactory.cs" />
     <Compile Include="Kernels\Categories\AssemblyCategoriesKernelWrapper.cs" />
+    <Compile Include="Kernels\Categories\AssemblyCategoriesKernelWrapperException.cs" />
     <Compile Include="Kernels\Categories\IAssemblyCategoriesKernel.cs" />
     <Compile Include="Kernels\IAssemblyToolKernelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
