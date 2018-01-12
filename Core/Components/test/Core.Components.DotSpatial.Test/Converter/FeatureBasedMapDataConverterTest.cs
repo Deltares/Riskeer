@@ -610,7 +610,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
         [Test]
         [TestCase(ValueCriteriaOperator.EqualValue, "[1] = {0}", TestName = "EqualValue")]
-        [TestCase(ValueCriteriaOperator.UnequalValue, "[1] != {0}", TestName = "UnequalValue")]
+        [TestCase(ValueCriteriaOperator.UnequalValue, "NOT [1] = {0}", TestName = "UnequalValue")]
         public void ConvertLayerProperties_MapDataWithMapThemeAndValidValueCriteria_SetsCorrectFilterExpression(ValueCriteriaOperator criteriaOperator,
                                                                                                                 string expressionFormat)
         {

@@ -255,7 +255,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             AssertAreEqual(expectedSymbolizer, equalSchemeCategory.Symbolizer);
 
             ILineCategory unEqualSchemeCategory = appliedScheme.Categories[2];
-            expectedFilter = $"[1] != {unequalCriteria.Value}";
+            expectedFilter = $"NOT [1] = {unequalCriteria.Value}";
             Assert.AreEqual(expectedFilter, unEqualSchemeCategory.FilterExpression);
             expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
                                                           expectedDashStyle,
