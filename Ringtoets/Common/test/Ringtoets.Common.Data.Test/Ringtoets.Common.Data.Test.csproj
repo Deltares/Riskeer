@@ -20,6 +20,11 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyTool\AssemblyCategoryBoundariesTest.cs" />
+    <Compile Include="AssemblyTool\AssemblyCategoryInputTest.cs" />
+    <Compile Include="AssemblyTool\AssemblyCategoryTest.cs" />
+    <Compile Include="AssemblyTool\AssessmentSectionAssemblyCategoryTest.cs" />
+    <Compile Include="AssemblyTool\AssessmentSectionAssemblyCategoryTypeTest.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionCompositionTest.cs" />
     <Compile Include="AssessmentSection\BackgroundDataTest.cs" />
     <Compile Include="AssessmentSection\ReferenceLineMetaTest.cs" />

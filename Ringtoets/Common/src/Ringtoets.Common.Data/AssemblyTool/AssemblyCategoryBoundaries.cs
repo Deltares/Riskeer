@@ -19,32 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.AssemblyTool.Data.Input
+using System;
+using System.Collections.Generic;
+
+namespace Ringtoets.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// This class contains all the parameters that are required to perform an assembly category boundaries calculation.
+    /// Class that defines the assembly category boundaries.
     /// </summary>
-    public class AssemblyCategoryBoundariesCalculatorInput
+    /// <typeparam name="T">The type of the assembly categories.</typeparam>
+    public class AssemblyCategoryBoundaries<T> where T : AssemblyCategory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyCategoryBoundariesCalculatorInput"/>.
+        /// Creates a new instance of <see cref="AssemblyCategoryBoundaries{T}"/>.
         /// </summary>
-        /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
-        /// <param name="lowerBoundaryNorm">The lower boundary norm to use in the calculation.</param>
-        public AssemblyCategoryBoundariesCalculatorInput(double signalingNorm, double lowerBoundaryNorm)
+        /// <param name="categories">The categories of the category boundaries.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
+        /// is <c>null</c>.</exception>
+        public AssemblyCategoryBoundaries(IEnumerable<T> categories)
         {
-            SignalingNorm = signalingNorm;
-            LowerBoundaryNorm = lowerBoundaryNorm;
+            if (categories == null)
+            {
+                throw new ArgumentNullException(nameof(categories));
+            }
+
+            Categories = categories;
         }
 
         /// <summary>
-        /// Gets the signaling norm to use in the calculation.
+        /// Gets the categories of the category boundaries.
         /// </summary>
-        public double SignalingNorm { get; }
-
-        /// <summary>
-        /// Gets the lower boundary norm to use in the calculation.
-        /// </summary>
-        public double LowerBoundaryNorm { get; }
+        public IEnumerable<T> Categories { get; }
     }
 }

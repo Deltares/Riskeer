@@ -19,17 +19,29 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.AssemblyTool.Data.Output
+using System;
+using NUnit.Framework;
+using Ringtoets.Common.Data.AssemblyTool;
+
+namespace Ringtoets.Common.Data.Test.AssemblyTool
 {
-    /// <summary>
-    /// Enum defining the assembly categories result for an assessment section.
-    /// </summary>
-    public enum AssessmentSectionAssemblyCategoryResultType
+    [TestFixture]
+    public class AssemblyCategoryInputTest
     {
-        APlus = 1,
-        A = 2,
-        B = 3,
-        C = 4,
-        D = 5
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(11);
+            double signalingNorm = random.NextDouble();
+            double lowerBoundaryNorm = random.NextDouble();
+
+            // Call
+            var input = new AssemblyCategoryInput(signalingNorm, lowerBoundaryNorm);
+
+            // Assert
+            Assert.AreEqual(signalingNorm, input.SignalingNorm);
+            Assert.AreEqual(lowerBoundaryNorm, input.LowerBoundaryNorm);
+        }
     }
 }

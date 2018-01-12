@@ -19,32 +19,32 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.AssemblyTool.Data.Input
+namespace Ringtoets.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// This class contains all the parameters that are required to perform an assembly category boundaries calculation.
+    /// Assembly category base.
     /// </summary>
-    public class AssemblyCategoryBoundariesCalculatorInput
+    public abstract class AssemblyCategory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyCategoryBoundariesCalculatorInput"/>.
+        /// Creates a new instance of <see cref="AssemblyCategory"/>.
         /// </summary>
-        /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
-        /// <param name="lowerBoundaryNorm">The lower boundary norm to use in the calculation.</param>
-        public AssemblyCategoryBoundariesCalculatorInput(double signalingNorm, double lowerBoundaryNorm)
+        /// <param name="lowerBoundary">The lower boundary of the category.</param>
+        /// <param name="upperBoundary">The upper boundary of the category.</param>
+        protected AssemblyCategory(double lowerBoundary, double upperBoundary)
         {
-            SignalingNorm = signalingNorm;
-            LowerBoundaryNorm = lowerBoundaryNorm;
+            LowerBoundary = lowerBoundary;
+            UpperBoundary = upperBoundary;
         }
 
         /// <summary>
-        /// Gets the signaling norm to use in the calculation.
+        /// Gets the lower boundary of the assembly category.
         /// </summary>
-        public double SignalingNorm { get; }
+        public double LowerBoundary { get; }
 
         /// <summary>
-        /// Gets the lower boundary norm to use in the calculation.
+        /// Gets the upper boundary of the assembly category.
         /// </summary>
-        public double LowerBoundaryNorm { get; }
+        public double UpperBoundary { get; }
     }
 }

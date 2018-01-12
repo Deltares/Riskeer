@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.AssemblyTool.Data.Output
+namespace Ringtoets.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// Enum defining the assembly categories result for an assessment section.
+    /// Enum defining the assembly categories for an assessment section.
     /// </summary>
-    public enum AssessmentSectionAssemblyCategoryResultType
+    public enum AssessmentSectionAssemblyCategoryType
     {
         APlus = 1,
         A = 2,

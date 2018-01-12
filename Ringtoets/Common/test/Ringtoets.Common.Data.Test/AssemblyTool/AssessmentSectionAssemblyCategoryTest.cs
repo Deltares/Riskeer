@@ -1,0 +1,59 @@
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.ComponentModel;
+using Core.Common.TestUtil;
+using NUnit.Framework;
+using Ringtoets.Common.Data.AssemblyTool;
+
+namespace Ringtoets.Common.Data.Test.AssemblyTool
+{
+    [TestFixture]
+    public class AssessmentSectionAssemblyCategoryTest
+    {
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(11);
+            var categoryType = random.NextEnumValue<AssessmentSectionAssemblyCategoryType>();
+
+            // Call
+            var category = new AssessmentSectionAssemblyCategory(0, 0, categoryType);
+
+            // Assert
+            Assert.IsInstanceOf<AssemblyCategory>(category);
+            Assert.AreEqual(categoryType, category.Type);
+        }
+
+        [Test]
+        public void Constructor_InvalidEnumValue_ThrowsInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new AssessmentSectionAssemblyCategory(0, 0, (AssessmentSectionAssemblyCategoryType) 99);
+
+            // Assert
+            const string expectedMessage = "The value of argument 'type' (99) is invalid for Enum type 'AssessmentSectionAssemblyCategoryType'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+    }
+}
