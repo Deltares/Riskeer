@@ -61,7 +61,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void Calculate_Always_SetCalculatedTrue()
+        public void Calculate_ThrowExceptionOnCalculateFalse_SetCalculatedTrue()
         {
             // Setup
             var kernelStub = new AssemblyCategoriesKernelStub();
@@ -74,7 +74,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void Calculate_Always_ReturnAssessmentSectionCategoriesOutput()
+        public void Calculate_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategoriesOutput()
         {
             // Setup
             var kernelStub = new AssemblyCategoriesKernelStub
@@ -87,6 +87,30 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
 
             // Assert
             Assert.AreSame(kernelStub.AssessmentSectionCategoriesOutput, output);
+        }
+
+        [Test]
+        public void Calculate_ThrowExceptionOnCalculateTrue_ThrowsAssemblyCategoriesKernelWrapperException()
+        {
+            // Setup
+            var kernel = new AssemblyCategoriesKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            TestDelegate test = () => kernel.Calculate(0, 0);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyCategoriesKernelWrapperException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.AssessmentSectionCategoriesOutput);
+            Assert.IsTrue(kernel.ThrowExceptionOnCalculate);
         }
     }
 }

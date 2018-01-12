@@ -43,6 +43,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
         /// <param name="lowerBoundaryNorm">The lower boundary norm to use in the calculation.</param>
         /// <returns>The calculation output.</returns>
+        /// <exception cref="AssemblyCategoriesKernelWrapperException">Thrown when an error occurs
+        /// when performing the calculation.</exception>
         CalculationOutput<AssessmentSectionCategoriesOutput[]> Calculate(double signalingNorm, double lowerBoundaryNorm);
     }
 }

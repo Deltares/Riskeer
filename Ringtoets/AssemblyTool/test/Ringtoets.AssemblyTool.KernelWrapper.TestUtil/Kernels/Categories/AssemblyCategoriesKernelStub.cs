@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.CategoriesOutput;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
@@ -44,7 +45,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         /// Gets the upper boundary norm.
         /// </summary>
         public double SignalingNorm { get; private set; }
-        
+
+        /// <summary>
+        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// </summary>
+        public bool ThrowExceptionOnCalculate { get; set; }
+
         /// <summary>
         /// Gets the assessment section categories output.
         /// </summary>
@@ -52,6 +58,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
         public CalculationOutput<AssessmentSectionCategoriesOutput[]> Calculate(double signalingNorm, double lowerBoundaryNorm)
         {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new AssemblyCategoriesKernelWrapperException("Message", new Exception());
+            }
+
             LowerBoundaryNorm = lowerBoundaryNorm;
             SignalingNorm = signalingNorm;
 
