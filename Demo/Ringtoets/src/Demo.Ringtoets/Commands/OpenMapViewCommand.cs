@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Commands;
@@ -201,7 +202,7 @@ namespace Demo.Ringtoets.Commands
             viewCommands.OpenView(mapDataCollection);
         }
 
-        private static MapFeature[] GetFeatureWithPoints(Point2D[] points)
+        private static IEnumerable<MapFeature> GetFeatureWithPoints(Point2D[] points)
         {
             return new[]
             {
