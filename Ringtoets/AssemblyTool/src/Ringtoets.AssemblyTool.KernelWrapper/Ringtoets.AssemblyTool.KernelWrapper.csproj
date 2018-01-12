@@ -16,6 +16,7 @@
   <ItemGroup>
     <Compile Include="Calculators\AssemblyToolCalculatorFactory.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculator.cs" />
+    <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorException.cs" />
     <Compile Include="Calculators\Categories\IAssemblyCategoriesCalculator.cs" />
     <Compile Include="Calculators\IAssemblyToolCalculatorFactory.cs" />
     <Compile Include="Creators\AssemblyCategoryResultCreator.cs" />
