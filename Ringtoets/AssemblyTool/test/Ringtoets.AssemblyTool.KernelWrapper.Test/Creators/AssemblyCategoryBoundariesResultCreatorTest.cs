@@ -64,10 +64,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> result = AssemblyCategoryBoundariesResultCreator.CreateAssessmentSectionResult(output);
 
             // Assert
-            Assert.AreEqual(output.Result.Length, result.Categories.Count());
-
-            CollectionAssert.AreEqual(output.Result.Select(o => o.LowerBoundary), result.Categories.Select(r => r.LowerBoundary));
-            CollectionAssert.AreEqual(output.Result.Select(o => o.UpperBoundary), result.Categories.Select(r => r.UpperBoundary));
+            AssemblyCategoryBoundariesResultAssert.AssertAssessmentSectionAssemblyCategoryBoundariesResult(output, result);
         }
 
         [Test]

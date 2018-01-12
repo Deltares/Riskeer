@@ -20,6 +20,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyCategoryBoundariesResultAssert.cs" />
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryTest.cs" />
     <Compile Include="Calculators\CategoryBoundaries\AssemblyCategoryBoundariesCalculatorTest.cs" />
     <Compile Include="Creators\AssemblyCategoryBoundariesResultCreatorTest.cs" />

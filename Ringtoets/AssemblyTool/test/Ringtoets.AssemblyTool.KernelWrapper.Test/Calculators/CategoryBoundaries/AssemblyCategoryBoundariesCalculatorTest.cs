@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.CategoriesOutput;
 using AssemblyTool.Kernel.Data;
@@ -133,10 +132,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.CategoryBoundari
                 AssemblyCategoryBoundariesResult<AssessmentSectionAssemblyCategoryResult> result = calculator.CalculateAssessmentSectionCategories(input);
 
                 // Assert
-                Assert.AreEqual(output.Result.Length, result.Categories.Count());
-
-                CollectionAssert.AreEqual(output.Result.Select(o => o.LowerBoundary), result.Categories.Select(r => r.LowerBoundary));
-                CollectionAssert.AreEqual(output.Result.Select(o => o.UpperBoundary), result.Categories.Select(r => r.UpperBoundary));
+                AssemblyCategoryBoundariesResultAssert.AssertAssessmentSectionAssemblyCategoryBoundariesResult(output, result);
             }
         }
 
