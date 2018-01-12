@@ -60,12 +60,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.CategoryBoundaries
             }
 
             IAssemblyCategoryBoundariesKernel kernel = factory.CreateAssemblyCategoryBoundariesKernel();
-            kernel.LowerBoundaryNorm = input.LowerBoundaryNorm;
-            kernel.SignalingNorm = input.SignalingNorm;
+            CalculationOutput<AssessmentSectionCategoriesOutput[]> output = kernel.Calculate(input.SignalingNorm, input.LowerBoundaryNorm);
 
-            kernel.Calculate();
-
-            return AssemblyCategoryBoundariesResultCreator.CreateAssessmentSectionResult(kernel.AssessmentSectionCategoriesOutput);
+            return AssemblyCategoryBoundariesResultCreator.CreateAssessmentSectionResult(output);
         }
     }
 }

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using AssemblyTool.Kernel;
+using AssemblyTool.Kernel.CategoriesOutput;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries;
 
@@ -35,6 +37,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels.CategoryBoundaries
 
             // Assert
             Assert.IsInstanceOf<IAssemblyCategoryBoundariesKernel>(kernelWrapper);
+        }
+
+        [Test]
+        public void Calculate_Always_ReturnsOutput()
+        {
+            // Setup
+            var kernelWrapper = new AssemblyCategoryBoundariesKernelWrapper();
+
+            // Call
+            CalculationOutput<AssessmentSectionCategoriesOutput[]> output = kernelWrapper.Calculate(0, 0);
+
+            // Assert
+            Assert.IsNotNull(output);
         }
     }
 }

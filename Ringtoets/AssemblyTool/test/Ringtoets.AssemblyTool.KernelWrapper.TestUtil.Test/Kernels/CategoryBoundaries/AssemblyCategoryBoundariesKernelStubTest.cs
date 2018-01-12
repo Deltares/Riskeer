@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using AssemblyTool.Kernel;
+using AssemblyTool.Kernel.CategoriesOutput;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.CategoryBoundaries;
@@ -40,16 +43,50 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.CategoryBou
         }
 
         [Test]
+        public void Calculate_Always_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(11);
+            double lowerBoundaryNorm = random.NextDouble();
+            double signalingNorm = random.NextDouble();
+
+            var kernelStub = new AssemblyCategoryBoundariesKernelStub();
+            
+            // Call
+            kernelStub.Calculate(signalingNorm, lowerBoundaryNorm);
+
+            // Assert
+            Assert.AreEqual(signalingNorm, kernelStub.SignalingNorm);
+            Assert.AreEqual(lowerBoundaryNorm, kernelStub.LowerBoundaryNorm);
+        }
+
+        [Test]
         public void Calculate_Always_SetCalculatedTrue()
         {
             // Setup
             var kernelStub = new AssemblyCategoryBoundariesKernelStub();
 
             // Call
-            kernelStub.Calculate();
+            kernelStub.Calculate(0, 0);
 
             // Assert
             Assert.IsTrue(kernelStub.Calculated);
+        }
+
+        [Test]
+        public void Calculate_Always_ReturnAssessmentSectionCategoriesOutput()
+        {
+            // Setup
+            var kernelStub = new AssemblyCategoryBoundariesKernelStub
+            {
+                AssessmentSectionCategoriesOutput = new CalculationOutput<AssessmentSectionCategoriesOutput[]>(new AssessmentSectionCategoriesOutput[0])
+            };
+
+            // Call
+            CalculationOutput<AssessmentSectionCategoriesOutput[]> output = kernelStub.Calculate(0, 0);
+
+            // Assert
+            Assert.AreSame(kernelStub.AssessmentSectionCategoriesOutput, output);
         }
     }
 }

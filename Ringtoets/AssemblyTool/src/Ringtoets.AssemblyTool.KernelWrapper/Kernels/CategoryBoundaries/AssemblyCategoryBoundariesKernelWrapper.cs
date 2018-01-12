@@ -29,31 +29,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries
     /// </summary>
     internal class AssemblyCategoryBoundariesKernelWrapper : IAssemblyCategoryBoundariesKernel
     {
-        private double lowerBoundaryNorm;
-        private double signalingNorm;
-
-        public double LowerBoundaryNorm
+        public CalculationOutput<AssessmentSectionCategoriesOutput[]> Calculate(double signalingNorm, double lowerBoundaryNorm)
         {
-            set
-            {
-                lowerBoundaryNorm = value;
-            }
-        }
-
-        public double SignalingNorm
-        {
-            set
-            {
-                signalingNorm = value;
-            }
-        }
-
-        public CalculationOutput<AssessmentSectionCategoriesOutput[]> AssessmentSectionCategoriesOutput { get; private set; }
-
-        public void Calculate()
-        {
-            AssessmentSectionCategoriesOutput = CategoriesCalculator.CalculateAssessmentSectionCategories(
-                signalingNorm, lowerBoundaryNorm);
+            return CategoriesCalculator.CalculateAssessmentSectionCategories(signalingNorm, lowerBoundaryNorm);
         }
     }
 }

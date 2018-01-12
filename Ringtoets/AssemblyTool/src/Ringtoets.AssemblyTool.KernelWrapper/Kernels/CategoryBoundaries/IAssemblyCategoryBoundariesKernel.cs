@@ -38,23 +38,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.CategoryBoundaries
     public interface IAssemblyCategoryBoundariesKernel
     {
         /// <summary>
-        /// Sets the lower boundary norm.
-        /// </summary>
-        double LowerBoundaryNorm { set; }
-
-        /// <summary>
-        /// Sets the signaling norm.
-        /// </summary>
-        double SignalingNorm { set; }
-
-        /// <summary>
-        /// Gets the assessment section categories output.
-        /// </summary>
-        CalculationOutput<AssessmentSectionCategoriesOutput[]> AssessmentSectionCategoriesOutput { get; }
-
-        /// <summary>
         /// Performs the calculation.
         /// </summary>
-        void Calculate();
+        /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
+        /// <param name="lowerBoundaryNorm">The lower boundary norm to use in the calculation.</param>
+        /// <returns>The calculation output.</returns>
+        CalculationOutput<AssessmentSectionCategoriesOutput[]> Calculate(double signalingNorm, double lowerBoundaryNorm);
     }
 }

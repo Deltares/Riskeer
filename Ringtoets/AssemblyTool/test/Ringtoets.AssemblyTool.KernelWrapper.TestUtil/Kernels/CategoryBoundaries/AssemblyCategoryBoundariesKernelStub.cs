@@ -35,15 +35,29 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.CategoryBoundari
         /// </summary>
         public bool Calculated { get; private set; }
 
-        public double LowerBoundaryNorm { get; set; }
+        /// <summary>
+        /// Gets the lower boundary norm.
+        /// </summary>
+        public double LowerBoundaryNorm { get; private set; }
 
-        public double SignalingNorm { get; set; }
-
+        /// <summary>
+        /// Gets the upper boundary norm.
+        /// </summary>
+        public double SignalingNorm { get; private set; }
+        
+        /// <summary>
+        /// Gets the assessment section categories output.
+        /// </summary>
         public CalculationOutput<AssessmentSectionCategoriesOutput[]> AssessmentSectionCategoriesOutput { get; set; }
 
-        public void Calculate()
+        public CalculationOutput<AssessmentSectionCategoriesOutput[]> Calculate(double signalingNorm, double lowerBoundaryNorm)
         {
+            LowerBoundaryNorm = lowerBoundaryNorm;
+            SignalingNorm = signalingNorm;
+
             Calculated = true;
+
+            return AssessmentSectionCategoriesOutput;
         }
     }
 }
