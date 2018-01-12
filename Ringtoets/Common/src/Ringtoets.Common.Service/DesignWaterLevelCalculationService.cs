@@ -273,13 +273,12 @@ namespace Ringtoets.Common.Service
         /// <returns>A <see cref="HydraulicBoundaryLocationOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(
-            ICalculationMessageProvider messageProvider,
-            string hydraulicBoundaryLocationName,
-            double targetReliability,
-            double targetProbability,
-            bool? calculatorConverged,
-            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
+        private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(ICalculationMessageProvider messageProvider,
+                                                                                      string hydraulicBoundaryLocationName,
+                                                                                      double targetReliability,
+                                                                                      double targetProbability,
+                                                                                      bool? calculatorConverged,
+                                                                                      GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
         {
             double designWaterLevel = calculator.DesignWaterLevel;
             double reliability = calculator.ReliabilityIndex;

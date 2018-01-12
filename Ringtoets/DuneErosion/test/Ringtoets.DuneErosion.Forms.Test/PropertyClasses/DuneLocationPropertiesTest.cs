@@ -322,5 +322,20 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(expectedPropertyValue, properties.Offset);
         }
+
+        [Test]
+        public void ToString_Always_ExpectedValue()
+        {
+            // Setup
+            var duneLocation = new DuneLocation(1, "Name", new Point2D(0.0, 1.1), new DuneLocation.ConstructionProperties());
+            var duneLocationCalculation = new DuneLocationCalculation();
+            var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
+
+            // Call
+            string result = properties.ToString();
+
+            // Assert
+            Assert.AreEqual($"{duneLocation.Name} {duneLocation.Location}", result);
+        }
     }
 }

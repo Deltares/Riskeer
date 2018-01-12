@@ -41,6 +41,17 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         private const int requiredLocationsPropertyIndex = 0;
 
         [Test]
+        public void Constructor_LocationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new DuneLocationsProperties(null, hbl => new DuneLocationCalculation());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("locations", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
         {
             // Call
@@ -107,6 +118,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
             Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
+
+            Assert.AreSame(locations, properties.Data);
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(1, dynamicProperties.Count);

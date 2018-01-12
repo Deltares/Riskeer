@@ -425,6 +425,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var hydraulicBoundaryDatabaseFilePathValue = "";
             var preprocessorDirectoryValue = "";
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
+            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
             guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
@@ -433,6 +434,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
+                    getCalculationFunc = (Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>) invocation.Arguments[3];
                     normValue = (double) invocation.Arguments[4];
                     messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
@@ -467,6 +469,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
+            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation, getCalculationFunc(expectedLocation));
         }
 
         [Test]
@@ -489,6 +492,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var hydraulicBoundaryDatabaseFilePathValue = "";
             var preprocessorDirectoryValue = "";
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
+            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
             guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
@@ -497,6 +501,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
+                    getCalculationFunc = (Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>)invocation.Arguments[3];
                     normValue = (double) invocation.Arguments[4];
                     messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
@@ -534,6 +539,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = failureMechanism.HydraulicBoundaryLocations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
+            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation, getCalculationFunc(expectedLocation));
         }
 
         [Test]
@@ -555,6 +561,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var hydraulicBoundaryDatabaseFilePathValue = "";
             var preprocessorDirectoryValue = "";
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
+            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
             guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
@@ -563,6 +570,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
+                    getCalculationFunc = (Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>)invocation.Arguments[3];
                     normValue = (double) invocation.Arguments[4];
                     messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
@@ -600,6 +608,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = failureMechanism.HydraulicBoundaryLocations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
+            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation, getCalculationFunc(expectedLocation));
         }
 
         private DataGridView GetLocationsDataGridView()
