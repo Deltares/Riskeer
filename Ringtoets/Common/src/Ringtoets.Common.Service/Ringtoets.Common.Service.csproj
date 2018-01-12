@@ -17,6 +17,7 @@
   <ItemGroup>
     <Compile Include="AssemblyTool\AssemblyCategoryInputConverter.cs" />
     <Compile Include="AssemblyTool\AssemblyCategoryConverter.cs" />
+    <Compile Include="AssemblyTool\AssemblyToolCategoriesCalculationService.cs" />
     <Compile Include="CalculationServiceHelper.cs" />
     <Compile Include="ClearResults.cs" />
     <Compile Include="HydraRingInputParser.cs" />

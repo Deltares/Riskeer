@@ -47,7 +47,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
             Input = input;
 
             return AssessmentSectionCategoriesOutput
-                   ?? (AssessmentSectionCategoriesOutput = new AssessmentSectionAssemblyCategoryResult[0]);
+                   ?? (AssessmentSectionCategoriesOutput = new[]
+                   {
+                       new AssessmentSectionAssemblyCategoryResult(1, 2, AssessmentSectionAssemblyCategoryResultType.A),
+                       new AssessmentSectionAssemblyCategoryResult(2.01, 3, AssessmentSectionAssemblyCategoryResultType.B),
+                       new AssessmentSectionAssemblyCategoryResult(3.01, 4, AssessmentSectionAssemblyCategoryResultType.C)
+                   });
         }
     }
 }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.Data.Output;
@@ -44,16 +45,30 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_Always_ReturnEmptyCategories()
+        public void CalculateAssessmentSectionCategories_Always_ReturnsCategories()
         {
             // Setup
             var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Call
-            IEnumerable<AssessmentSectionAssemblyCategoryResult> result = calculator.CalculateAssessmentSectionCategories(null);
+            AssessmentSectionAssemblyCategoryResult[] result = calculator.CalculateAssessmentSectionCategories(null).ToArray();
 
             // Assert
-            CollectionAssert.IsEmpty(result);
+            Assert.AreEqual(3, result.Length);
+            CollectionAssert.AreEqual(new[]
+            {
+                1, 2.01, 3.01
+            }, result.Select(r => r.LowerBoundary));
+            CollectionAssert.AreEqual(new[]
+            {
+                2, 3, 4
+            }, result.Select(r => r.UpperBoundary));
+            CollectionAssert.AreEqual(new[]
+            {
+                AssessmentSectionAssemblyCategoryResultType.A,
+                AssessmentSectionAssemblyCategoryResultType.B,
+                AssessmentSectionAssemblyCategoryResultType.C
+            }, result.Select(r => r.Category));
         }
 
         [Test]
