@@ -60,10 +60,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
                 throw new ArgumentNullException(nameof(input));
             }
 
-            IAssemblyCategoriesKernel kernel = factory.CreateAssemblyCategoriesKernel();
-            CalculationOutput<AssessmentSectionCategoriesOutput[]> output = kernel.Calculate(input.SignalingNorm, input.LowerBoundaryNorm);
+            try
+            {
+                IAssemblyCategoriesKernel kernel = factory.CreateAssemblyCategoriesKernel();
+                CalculationOutput<AssessmentSectionCategoriesOutput[]> output = kernel.Calculate(input.SignalingNorm, input.LowerBoundaryNorm);
 
-            return AssemblyCategoryResultCreator.CreateAssessmentSectionAssemblyCategoryResult(output);
+                return AssemblyCategoryResultCreator.CreateAssessmentSectionAssemblyCategoryResult(output);
+            }
+            catch (AssemblyCategoriesKernelWrapperException e)
+            {
+                throw new AssemblyCategoriesCalculatorException(e.Message, e);
+            }
         }
     }
 }

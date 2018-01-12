@@ -47,6 +47,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <see cref="AssessmentSectionAssemblyCategoryResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
+        /// when performing the calculation.</exception>
         IEnumerable<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
             AssemblyCategoriesCalculatorInput input);
     }

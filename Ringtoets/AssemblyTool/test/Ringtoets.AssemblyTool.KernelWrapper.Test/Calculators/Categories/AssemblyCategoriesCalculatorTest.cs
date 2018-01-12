@@ -31,6 +31,7 @@ using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
@@ -134,6 +135,33 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
                 // Assert
                 AssemblyCategoryResultAssert.AssertAssessmentSectionAssemblyCategoriesResult(output, result);
+            }
+        }
+
+        [Test]
+        public void CalculateAssessmentSectionCategories_KernelThrowsAssemblyCategoriesKernelWrapperException_ThrowAssemblyCategoriesCalculatorException()
+        {
+            // Setup
+            var random = new Random(11);
+            double lowerBoundaryNorm = random.NextDouble();
+            double signalingNorm = random.NextDouble();
+            var input = new AssemblyCategoriesCalculatorInput(signalingNorm, lowerBoundaryNorm);
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelWrapperFactory.Instance;
+                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                kernel.ThrowExceptionOnCalculate = true;
+
+                var calculator = new AssemblyCategoriesCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.CalculateAssessmentSectionCategories(input);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
+                Assert.IsInstanceOf<AssemblyCategoriesKernelWrapperException>(exception.InnerException);
+                Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
         }
 
