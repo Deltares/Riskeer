@@ -69,7 +69,6 @@
     <Compile Include="IllustrationPoints\SubMechanismIllustrationPointStochast.cs" />
     <Compile Include="IllustrationPoints\Stochast.cs" />
     <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPoint.cs" />
-    <Compile Include="Hydraulics\IHydraulicBoundaryCalculationWrapper.cs" />
     <Compile Include="IMechanismStochasticSoilModel.cs" />
     <Compile Include="IMechanismSurfaceLine.cs" />
     <Compile Include="MechanismSurfaceLineBase.cs" />
