@@ -165,7 +165,7 @@ namespace Ringtoets.Common.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
-            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            var calculation = mockRepository.Stub<IHydraulicBoundaryCalculationWrapper>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
             calculation.Expect(c => c.Id).Return(100);
             calculation.Expect(c => c.CalculateIllustrationPoints).Return(calculateIllustrationPoints);
@@ -222,7 +222,7 @@ namespace Ringtoets.Common.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, preprocessorDirectory)).Return(calculator);
 
-            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            var calculation = mockRepository.Stub<IHydraulicBoundaryCalculationWrapper>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
             calculation.Expect(c => c.Id).Return(100);
             calculation.Expect(c => c.CalculateIllustrationPoints).Return(false);
@@ -263,7 +263,7 @@ namespace Ringtoets.Common.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
-            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            var calculation = mockRepository.Stub<IHydraulicBoundaryCalculationWrapper>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
             calculation.Expect(c => c.Id).Return(100);
             calculation.Expect(c => c.CalculateIllustrationPoints).Return(readIllustrationPoints);
@@ -317,7 +317,7 @@ namespace Ringtoets.Common.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
-            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            var calculation = mockRepository.Stub<IHydraulicBoundaryCalculationWrapper>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
             calculation.Expect(c => c.Id).Return(100);
             calculation.Expect(c => c.CalculateIllustrationPoints).Return(true);
@@ -370,7 +370,7 @@ namespace Ringtoets.Common.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
-            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            var calculation = mockRepository.Stub<IHydraulicBoundaryCalculationWrapper>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
             calculation.Stub(c => c.Id).Return(100);
             calculation.Stub(c => c.CalculateIllustrationPoints).Return(true);
@@ -425,7 +425,7 @@ namespace Ringtoets.Common.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
-            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            var calculation = mockRepository.Stub<IHydraulicBoundaryCalculationWrapper>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
             calculation.Expect(c => c.Id).Return(100);
 
@@ -465,7 +465,7 @@ namespace Ringtoets.Common.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
-            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            var calculation = mockRepository.Stub<IHydraulicBoundaryCalculationWrapper>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
             calculation.Expect(c => c.Id).Return(100);
             calculation.Expect(c => c.CalculateIllustrationPoints).Return(true);
@@ -513,7 +513,7 @@ namespace Ringtoets.Common.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
-            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            var calculation = mockRepository.Stub<IHydraulicBoundaryCalculationWrapper>();
             calculation.Stub(c => c.Name).Return("punt_flw_ 1");
             calculation.Expect(c => c.Id).Return(100);
             calculation.Expect(c => c.CalculateIllustrationPoints).Return(false);
@@ -555,7 +555,7 @@ namespace Ringtoets.Common.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
-            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            var calculation = mockRepository.Stub<IHydraulicBoundaryCalculationWrapper>();
             calculation.Stub(c => c.Name).Return("name");
             calculation.Expect(c => c.Id).Return(0);
 
@@ -604,7 +604,7 @@ namespace Ringtoets.Common.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
-            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            var calculation = mockRepository.Stub<IHydraulicBoundaryCalculationWrapper>();
             calculation.Stub(c => c.Name).Return(locationName);
             calculation.Expect(c => c.Id).Return(0);
 

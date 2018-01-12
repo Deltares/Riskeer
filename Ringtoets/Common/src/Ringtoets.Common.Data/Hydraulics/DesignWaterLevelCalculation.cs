@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.Hydraulics
     /// <summary>
     /// Adapter class for a design water level calculation.
     /// </summary>
-    public class DesignWaterLevelCalculation : IHydraulicBoundaryWrapperCalculation
+    public class DesignWaterLevelCalculation : IHydraulicBoundaryCalculationWrapper
     {
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
         private readonly HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation;

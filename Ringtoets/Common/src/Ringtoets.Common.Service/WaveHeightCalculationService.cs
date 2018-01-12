@@ -116,7 +116,7 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        public void Calculate(IHydraulicBoundaryWrapperCalculation waveHeightCalculation,
+        public void Calculate(IHydraulicBoundaryCalculationWrapper waveHeightCalculation,
                               string hydraulicBoundaryDatabaseFilePath,
                               string preprocessorDirectory,
                               double norm,
@@ -202,7 +202,7 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        private void PerformCalculation(IHydraulicBoundaryWrapperCalculation waveHeightCalculation,
+        private void PerformCalculation(IHydraulicBoundaryCalculationWrapper waveHeightCalculation,
                                         string hydraulicBoundaryDatabaseFilePath,
                                         bool usePreprocessor,
                                         double norm,
@@ -302,7 +302,7 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Creates the input for an wave height calculation.
         /// </summary>
-        /// <param name="waveHeightCalculation">The <see cref="IHydraulicBoundaryWrapperCalculation"/>
+        /// <param name="waveHeightCalculation">The <see cref="IHydraulicBoundaryCalculationWrapper"/>
         /// to create the input from.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
@@ -319,7 +319,7 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list>
         /// </exception>
-        private static WaveHeightCalculationInput CreateInput(IHydraulicBoundaryWrapperCalculation waveHeightCalculation,
+        private static WaveHeightCalculationInput CreateInput(IHydraulicBoundaryCalculationWrapper waveHeightCalculation,
                                                               double norm,
                                                               string hydraulicBoundaryDatabaseFilePath,
                                                               bool usePreprocessor)

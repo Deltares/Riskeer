@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.Hydraulics
     /// <summary>
     /// Adapter class for a wave height calculation.
     /// </summary>
-    public class WaveHeightCalculation : IHydraulicBoundaryWrapperCalculation
+    public class WaveHeightCalculation : IHydraulicBoundaryCalculationWrapper
     {
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
         private readonly HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation;
