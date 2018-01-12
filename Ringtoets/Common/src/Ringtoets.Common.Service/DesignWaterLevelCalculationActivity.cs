@@ -32,34 +32,33 @@ namespace Ringtoets.Common.Service
     /// </summary>
     public class DesignWaterLevelCalculationActivity : HydraRingActivityBase
     {
-        private readonly DesignWaterLevelCalculation designWaterLevelCalculation;
         private readonly double norm;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly string preprocessorDirectory;
         private readonly ICalculationMessageProvider messageProvider;
         private readonly DesignWaterLevelCalculationService calculationService;
+        private readonly HydraulicBoundaryCalculationWrapper calculationWrapper;
 
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationActivity"/>.
         /// </summary>
-        /// <param name="designWaterLevelCalculation">The <see cref="DesignWaterLevelCalculation"/> to perform the calculation for.</param>
+        /// <param name="calculationWrapper">The <see cref="HydraulicBoundaryCalculationWrapper"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelCalculation"/>,
-        /// <paramref name="hydraulicBoundaryDatabaseFilePath"/>, <paramref name="preprocessorDirectory"/> or
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationWrapper"/> or
         /// <paramref name="messageProvider"/>is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationActivity(DesignWaterLevelCalculation designWaterLevelCalculation,
+        public DesignWaterLevelCalculationActivity(HydraulicBoundaryCalculationWrapper calculationWrapper,
                                                    string hydraulicBoundaryDatabaseFilePath,
                                                    string preprocessorDirectory,
                                                    double norm,
                                                    ICalculationMessageProvider messageProvider)
         {
-            if (designWaterLevelCalculation == null)
+            if (calculationWrapper == null)
             {
-                throw new ArgumentNullException(nameof(designWaterLevelCalculation));
+                throw new ArgumentNullException(nameof(calculationWrapper));
             }
 
             if (messageProvider == null)
@@ -67,7 +66,7 @@ namespace Ringtoets.Common.Service
                 throw new ArgumentNullException(nameof(messageProvider));
             }
 
-            this.designWaterLevelCalculation = designWaterLevelCalculation;
+            this.calculationWrapper = calculationWrapper;
             this.messageProvider = messageProvider;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.preprocessorDirectory = preprocessorDirectory;
@@ -75,7 +74,7 @@ namespace Ringtoets.Common.Service
 
             calculationService = new DesignWaterLevelCalculationService();
 
-            Description = messageProvider.GetActivityDescription(designWaterLevelCalculation.Name);
+            Description = messageProvider.GetActivityDescription(calculationWrapper.Name);
         }
 
         protected override bool Validate()
@@ -93,12 +92,11 @@ namespace Ringtoets.Common.Service
         {
             if (State != ActivityState.Skipped)
             {
-                calculationService.Calculate(
-                    designWaterLevelCalculation,
-                    hydraulicBoundaryDatabaseFilePath,
-                    preprocessorDirectory,
-                    norm,
-                    messageProvider);
+                calculationService.Calculate(calculationWrapper,
+                                             hydraulicBoundaryDatabaseFilePath,
+                                             preprocessorDirectory,
+                                             norm,
+                                             messageProvider);
             }
         }
 
@@ -109,14 +107,14 @@ namespace Ringtoets.Common.Service
 
         protected override void OnFinish()
         {
-            designWaterLevelCalculation.ObservableObject.NotifyObservers();
+            calculationWrapper.ObservableObject.NotifyObservers();
         }
 
         private bool AlreadyCalculated
         {
             get
             {
-                return designWaterLevelCalculation.IsCalculated();
+                return calculationWrapper.IsCalculated();
             }
         }
     }

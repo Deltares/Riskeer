@@ -43,7 +43,7 @@
     <Compile Include="FailureMechanism\AssessmentLayerTwoAResultTest.cs" />
     <Compile Include="Helpers\SoilLayerDataHelperTest.cs" />
     <Compile Include="Hydraulics\CalculationConvergenceTest.cs" />
-    <Compile Include="Hydraulics\DesignWaterLevelCalculationTest.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryCalculationWrapperTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabaseExtensionsTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabaseTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationInputTest.cs" />
@@ -68,7 +68,6 @@
     <Compile Include="IllustrationPoints\TopLevelIllustrationPointBaseTest.cs" />
     <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\WindDirectionTest.cs" />
-    <Compile Include="Hydraulics\WaveHeightCalculationTest.cs" />
     <Compile Include="MechanismSurfaceLineBaseTest.cs" />
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculatorTest.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariableCalculatorTest.cs" />

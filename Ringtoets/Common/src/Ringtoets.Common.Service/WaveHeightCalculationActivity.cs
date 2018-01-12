@@ -32,34 +32,33 @@ namespace Ringtoets.Common.Service
     /// </summary>
     public class WaveHeightCalculationActivity : HydraRingActivityBase
     {
-        private readonly WaveHeightCalculation waveHeightCalculation;
         private readonly double norm;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly string preprocessorDirectory;
         private readonly ICalculationMessageProvider messageProvider;
         private readonly WaveHeightCalculationService calculationService;
+        private readonly HydraulicBoundaryCalculationWrapper calculationWrapper;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationActivity"/>.
         /// </summary>
-        /// <param name="waveHeightCalculation">The <see cref="WaveHeightCalculation"/> to perform the calculation for.</param>
+        /// <param name="calculationWrapper">The <see cref="HydraulicBoundaryCalculationWrapper"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveHeightCalculation"/>,
-        /// <paramref name="hydraulicBoundaryDatabaseFilePath"/>, <paramref name="preprocessorDirectory"/> or
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationWrapper"/> or
         /// <paramref name="messageProvider"/>is <c>null</c>.</exception>
-        public WaveHeightCalculationActivity(WaveHeightCalculation waveHeightCalculation,
+        public WaveHeightCalculationActivity(HydraulicBoundaryCalculationWrapper calculationWrapper,
                                              string hydraulicBoundaryDatabaseFilePath,
                                              string preprocessorDirectory,
                                              double norm,
                                              ICalculationMessageProvider messageProvider)
         {
-            if (waveHeightCalculation == null)
+            if (calculationWrapper == null)
             {
-                throw new ArgumentNullException(nameof(waveHeightCalculation));
+                throw new ArgumentNullException(nameof(calculationWrapper));
             }
 
             if (messageProvider == null)
@@ -67,13 +66,13 @@ namespace Ringtoets.Common.Service
                 throw new ArgumentNullException(nameof(messageProvider));
             }
 
-            this.waveHeightCalculation = waveHeightCalculation;
+            this.calculationWrapper = calculationWrapper;
             this.messageProvider = messageProvider;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
 
-            Description = messageProvider.GetActivityDescription(waveHeightCalculation.Name);
+            Description = messageProvider.GetActivityDescription(calculationWrapper.Name);
 
             calculationService = new WaveHeightCalculationService();
         }
@@ -93,12 +92,11 @@ namespace Ringtoets.Common.Service
         {
             if (State != ActivityState.Skipped)
             {
-                calculationService.Calculate(
-                    waveHeightCalculation,
-                    hydraulicBoundaryDatabaseFilePath,
-                    preprocessorDirectory,
-                    norm,
-                    messageProvider);
+                calculationService.Calculate(calculationWrapper,
+                                             hydraulicBoundaryDatabaseFilePath,
+                                             preprocessorDirectory,
+                                             norm,
+                                             messageProvider);
             }
         }
 
@@ -109,14 +107,14 @@ namespace Ringtoets.Common.Service
 
         protected override void OnFinish()
         {
-            waveHeightCalculation.ObservableObject.NotifyObservers();
+            calculationWrapper.ObservableObject.NotifyObservers();
         }
 
         private bool AlreadyCalculated
         {
             get
             {
-                return waveHeightCalculation.IsCalculated();
+                return calculationWrapper.IsCalculated();
             }
         }
     }
