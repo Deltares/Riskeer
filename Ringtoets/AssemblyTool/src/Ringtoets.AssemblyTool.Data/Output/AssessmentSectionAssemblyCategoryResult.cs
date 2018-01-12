@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.ComponentModel;
-
 namespace Ringtoets.AssemblyTool.Data.Output
 {
     /// <summary>
@@ -35,18 +32,9 @@ namespace Ringtoets.AssemblyTool.Data.Output
         /// <param name="lowerBoundary">The lower boundary of the category.</param>
         /// <param name="upperBoundary">The upper boundary of the category.</param>
         /// <param name="category">The category type of the result.</param>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
-        /// contains an invalid value.</exception>
         public AssessmentSectionAssemblyCategoryResult(double lowerBoundary, double upperBoundary, AssessmentSectionAssemblyCategoryResultType category)
             : base(lowerBoundary, upperBoundary)
         {
-            if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyCategoryResultType), category))
-            {
-                throw new InvalidEnumArgumentException(nameof(category),
-                                                       (int) category,
-                                                       typeof(AssessmentSectionAssemblyCategoryResultType));
-            }
-
             Category = category;
         }
 

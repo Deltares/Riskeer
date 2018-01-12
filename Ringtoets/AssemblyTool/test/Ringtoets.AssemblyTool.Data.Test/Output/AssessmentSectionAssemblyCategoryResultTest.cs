@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data.Output;
@@ -30,17 +29,6 @@ namespace Ringtoets.AssemblyTool.Data.Test.Output
     [TestFixture]
     public class AssessmentSectionAssemblyCategoryResultTest
     {
-        [Test]
-        public void Constructor_InvalidAssessmentSectionAssemblyCategoryResultType_ThrowsInvalidEnumArgumentException()
-        {
-            // Call
-            TestDelegate test = () => new AssessmentSectionAssemblyCategoryResult(0, 0, (AssessmentSectionAssemblyCategoryResultType) 99);
-
-            // Assert
-            const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'AssessmentSectionAssemblyCategoryResultType'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
-        }
-
         [Test]
         public void Constructor_ValidValues_ExpectedValues()
         {

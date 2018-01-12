@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssemblyTool;
@@ -43,17 +42,6 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
             // Assert
             Assert.IsInstanceOf<AssemblyCategory>(category);
             Assert.AreEqual(categoryType, category.Type);
-        }
-
-        [Test]
-        public void Constructor_InvalidEnumValue_ThrowsInvalidEnumArgumentException()
-        {
-            // Call
-            TestDelegate test = () => new AssessmentSectionAssemblyCategory(0, 0, (AssessmentSectionAssemblyCategoryType) 99);
-
-            // Assert
-            const string expectedMessage = "The value of argument 'type' (99) is invalid for Enum type 'AssessmentSectionAssemblyCategoryType'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
     }
 }
