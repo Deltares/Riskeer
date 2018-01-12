@@ -24,7 +24,7 @@ using AssemblyTool.Kernel.CategoriesOutput;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels.CategoryBoundaries
+namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels.Categories
 {
     [TestFixture]
     public class AssemblyCategoriesKernelWrapperTest
