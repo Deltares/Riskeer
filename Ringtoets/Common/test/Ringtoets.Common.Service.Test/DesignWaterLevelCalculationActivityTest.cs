@@ -135,7 +135,7 @@ namespace Ringtoets.Common.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("designWaterLevelCalculation", exception.ParamName);
+            Assert.AreEqual("calculationWrapper", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
