@@ -34,7 +34,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         /// <summary>
         /// Gets or sets the assembly categories calculator input.
         /// </summary>
-        public AssemblyCategoriesCalculatorInput Input { get; set; }
+        public AssemblyCategoriesCalculatorInput Input { get; private set; }
 
         /// <summary>
         /// Gets the output of the <see cref="CalculateAssessmentSectionCategories"/> calculation.
@@ -44,6 +44,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public IEnumerable<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
             AssemblyCategoriesCalculatorInput input)
         {
+            Input = input;
+
             return AssessmentSectionCategoriesOutput
                    ?? (AssessmentSectionCategoriesOutput = new AssessmentSectionAssemblyCategoryResult[0]);
         }

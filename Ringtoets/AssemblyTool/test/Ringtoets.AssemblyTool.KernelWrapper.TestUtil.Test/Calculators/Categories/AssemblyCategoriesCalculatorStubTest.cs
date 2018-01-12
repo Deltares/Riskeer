@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
@@ -53,6 +54,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
 
             // Assert
             CollectionAssert.IsEmpty(result);
+        }
+
+        [Test]
+        public void CalculateAssessmentSectionCategories_Always_SetsInput()
+        {
+            // Setup
+            var input = new AssemblyCategoriesCalculatorInput(0, 0);
+            var calculator = new AssemblyCategoriesCalculatorStub();
+
+            // Call
+            calculator.CalculateAssessmentSectionCategories(input);
+
+            // Assert
+            Assert.AreSame(input, calculator.Input);
         }
     }
 }
