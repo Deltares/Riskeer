@@ -200,7 +200,7 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        private void PerformCalculation(IHydraulicBoundaryCalculationWrapper calculationWrapper,
+        private void PerformCalculation(HydraulicBoundaryCalculationWrapper calculationWrapper,
                                         string hydraulicBoundaryDatabaseFilePath,
                                         bool usePreprocessor,
                                         double norm,
@@ -301,7 +301,7 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Creates the input for a design water level calculation.
         /// </summary>
-        /// <param name="designWaterLevelCalculation">The <see cref="IHydraulicBoundaryCalculationWrapper"/>
+        /// <param name="calculationWrapper">The <see cref="HydraulicBoundaryCalculationWrapper"/>
         /// to create the input from.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
@@ -318,12 +318,12 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list>
         /// </exception>
-        private static AssessmentLevelCalculationInput CreateInput(IHydraulicBoundaryCalculationWrapper designWaterLevelCalculation,
+        private static AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryCalculationWrapper calculationWrapper,
                                                                    double norm,
                                                                    string hydraulicBoundaryDatabaseFilePath,
                                                                    bool usePreprocessor)
         {
-            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, designWaterLevelCalculation.Id, norm);
+            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, calculationWrapper.Id, norm);
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(assessmentLevelCalculationInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 

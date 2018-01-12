@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.Hydraulics
     /// <summary>
     /// Wrapper of an hydraulic boundary location calculation.
     /// </summary>
-    public class HydraulicBoundaryCalculationWrapper : IHydraulicBoundaryCalculationWrapper
+    public class HydraulicBoundaryCalculationWrapper
     {
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
         private readonly HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation;

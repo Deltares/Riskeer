@@ -91,7 +91,6 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var calculation = new HydraulicBoundaryCalculationWrapper(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
 
             // Assert
-            Assert.IsInstanceOf<IHydraulicBoundaryCalculationWrapper>(calculation);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, calculation.Id);
             Assert.AreSame(hydraulicBoundaryLocation.Name, calculation.Name);
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, calculation.CalculateIllustrationPoints);
