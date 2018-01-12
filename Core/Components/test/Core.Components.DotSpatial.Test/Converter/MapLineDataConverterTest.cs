@@ -273,10 +273,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             var allBoundsInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.AllBoundsInclusive,
                                                                random.NextDouble(),
                                                                1 + random.NextDouble());
-            var lowerBoundInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.LowerBoundInclusive,
+            var lowerBoundInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.LowerBoundInclusiveUpperBoundExclusive,
                                                                 random.NextDouble(),
                                                                 1 + random.NextDouble());
-            var upperBoundInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.UpperBoundInclusive,
+            var upperBoundInclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.LowerBoundExclusiveUpperBoundInclusive,
                                                                 random.NextDouble(),
                                                                 1 + random.NextDouble());
             var allBoundsExclusiveCriteria = new RangeCriteria(RangeCriteriaOperator.AllBoundsExclusive,

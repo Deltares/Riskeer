@@ -30,6 +30,9 @@ using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.TestUtil.Theme;
+using Core.Components.Gis.Theme;
+using Core.Components.Gis.Theme.Criteria;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
@@ -419,6 +422,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual("[2]", labelCategory.Expression);
         }
 
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void ConvertLayerProperties_MapData_ShowLabelsSetToLayer(bool showLabels)
@@ -438,6 +442,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(showLabels, mapLayer.ShowLabels);
         }
 
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void ConvertLayerProperties_MapData_IsVisibleSetToLayer(bool isVisible)
@@ -457,6 +462,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(isVisible, mapLayer.IsVisible);
         }
 
+        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("Unknown")]
@@ -507,6 +513,247 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.IsNull(mapLayer.LabelLayer.Symbology.Categories[0].Expression);
         }
 
+        [Test]
+        public void ConvertLayerProperties_MapDataWithMapThemeAndUnsupportedCriteria_ThrowsNotSupportedException()
+        {
+            // Setup
+            var random = new Random(21);
+            const string metadataAttributeName = "Meta";
+
+            var featureScheme = new PointScheme();
+            var defaultCategory = new PointCategory();
+            var category = new PointCategory();
+
+            var unsupportedCriteria = new TestCriteria();
+            var theme = new MapTheme(metadataAttributeName, new[]
+            {
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  unsupportedCriteria)
+            });
+
+            var mapData = new TestFeatureBasedMapData("test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                    {
+                        MetaData =
+                        {
+                            {
+                                metadataAttributeName, new object()
+                            }
+                        }
+                    }
+                },
+                MapTheme = theme
+            };
+
+            var testConverter = new TestFeatureBasedMapDataConverter
+            {
+                CreatedFeatureScheme = featureScheme,
+                CreatedDefaultCategory = defaultCategory,
+                CreatedCategory = category
+            };
+
+            var mapLayer = new TestFeatureLayer();
+
+            // Call
+            TestDelegate call = () => testConverter.ConvertLayerProperties(mapData, mapLayer);
+
+            // Assert
+            var exception = Assert.Throws<NotSupportedException>(call);
+            string expectedMessage = $"Can't convert a {nameof(ICriteria)} of type {unsupportedCriteria.GetType()}";
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_MapDataWithMapThemeAndMetadataNameNotInFatures_ThrowsKeyNotFoundException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var featureScheme = new PointScheme();
+            var defaultCategory = new PointCategory();
+            var category = new PointCategory();
+
+            var theme = new MapTheme("Meta", new[]
+            {
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  new ValueCriteria(random.NextEnum<ValueCriteriaOperator>(),
+                                                    random.NextDouble()))
+            });
+
+            var mapData = new TestFeatureBasedMapData("test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                },
+                MapTheme = theme
+            };
+
+            var testConverter = new TestFeatureBasedMapDataConverter
+            {
+                CreatedFeatureScheme = featureScheme,
+                CreatedDefaultCategory = defaultCategory,
+                CreatedCategory = category
+            };
+
+            var mapLayer = new TestFeatureLayer();
+
+            // Call
+            TestDelegate call = () => testConverter.ConvertLayerProperties(mapData, mapLayer);
+
+            // Assert
+            Assert.Throws<KeyNotFoundException>(call);
+        }
+
+        [Test]
+        [TestCase(ValueCriteriaOperator.EqualValue, "[1] = {0}", TestName = "EqualValue")]
+        [TestCase(ValueCriteriaOperator.UnequalValue, "[1] != {0}", TestName = "UnequalValue")]
+        public void ConvertLayerProperties_MapDataWithMapThemeAndValidValueCriteria_SetsCorrectFilterExpression(ValueCriteriaOperator criteriaOperator,
+                                                                                                                string expressionFormat)
+        {
+            // Setup
+            var random = new Random(21);
+            const string metadataAttributeName = "Meta";
+            double value = random.NextDouble();
+
+            var featureScheme = new PointScheme();
+            var defaultCategory = new PointCategory();
+            var category = new PointCategory();
+
+            var valueCriteria = new ValueCriteria(criteriaOperator,
+                                                  value);
+            var theme = new MapTheme(metadataAttributeName, new[]
+            {
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  valueCriteria)
+            });
+
+            var mapData = new TestFeatureBasedMapData("test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                    {
+                        MetaData =
+                        {
+                            {
+                                metadataAttributeName, new object()
+                            }
+                        }
+                    }
+                },
+                MapTheme = theme
+            };
+
+            var testConverter = new TestFeatureBasedMapDataConverter
+            {
+                CreatedFeatureScheme = featureScheme,
+                CreatedDefaultCategory = defaultCategory,
+                CreatedCategory = category
+            };
+
+            var mapLayer = new TestFeatureLayer();
+
+            // Call
+            testConverter.ConvertLayerProperties(mapData, mapLayer);
+
+            // Assert
+            Assert.AreSame(featureScheme, mapLayer.Symbology);
+
+            Assert.IsNull(defaultCategory.FilterExpression);
+            string expectedFilterExpression = string.Format(expressionFormat, value);
+            Assert.AreEqual(expectedFilterExpression, category.FilterExpression);
+
+            CollectionAssert.AreEqual(new[]
+            {
+                defaultCategory,
+                category
+            }, mapLayer.Symbology.Categories);
+
+            CollectionAssert.AreEqual(new[]
+            {
+                Tuple.Create(mapData, Color.Transparent),
+                Tuple.Create(mapData, theme.CategoryThemes.Single().Color)
+            }, testConverter.CreatedCategories);
+        }
+
+        [Test]
+        [TestCase(RangeCriteriaOperator.AllBoundsInclusive, "[1] >= {0} AND [1] <= {1}", TestName = "AllBoundsInclusive")]
+        [TestCase(RangeCriteriaOperator.LowerBoundInclusiveUpperBoundExclusive, "[1] >= {0} AND [1] < {1}", TestName = "LowerBoundInclusiveUpperBoundExclusive")]
+        [TestCase(RangeCriteriaOperator.LowerBoundExclusiveUpperBoundInclusive, "[1] > {0} AND [1] <= {1}", TestName = "LowerBoundExclusiveUpperBoundInclusive")]
+        [TestCase(RangeCriteriaOperator.AllBoundsExclusive, "[1] > {0} AND [1] < {1}", TestName = "AllBoundsExclusive")]
+        public void ConvertLayerProperties_MapDataWithMapThemeAndValidRangeCriteria_SetsCorrectFilterExpression(RangeCriteriaOperator criteriaOperator,
+                                                                                                                string expressionFormat)
+        {
+            // Setup
+            var random = new Random(21);
+            const string metadataAttributeName = "Meta";
+            double lowerBound = random.NextDouble();
+            double upperBound = 1 + lowerBound;
+
+            var featureScheme = new PointScheme();
+            var defaultCategory = new PointCategory();
+            var category = new PointCategory();
+
+            var rangeCriteria = new RangeCriteria(criteriaOperator, lowerBound, upperBound);
+            var theme = new MapTheme(metadataAttributeName, new[]
+            {
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  rangeCriteria)
+            });
+
+            var mapData = new TestFeatureBasedMapData("test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                    {
+                        MetaData =
+                        {
+                            {
+                                metadataAttributeName, new object()
+                            }
+                        }
+                    }
+                },
+                MapTheme = theme
+            };
+
+            var testConverter = new TestFeatureBasedMapDataConverter
+            {
+                CreatedFeatureScheme = featureScheme,
+                CreatedDefaultCategory = defaultCategory,
+                CreatedCategory = category
+            };
+
+            var mapLayer = new TestFeatureLayer();
+
+            // Call
+            testConverter.ConvertLayerProperties(mapData, mapLayer);
+
+            // Assert
+            Assert.AreSame(featureScheme, mapLayer.Symbology);
+
+            Assert.IsNull(defaultCategory.FilterExpression);
+            string expectedFilterExpression = string.Format(expressionFormat, lowerBound, upperBound);
+            Assert.AreEqual(expectedFilterExpression, category.FilterExpression);
+
+            CollectionAssert.AreEqual(new[]
+            {
+                defaultCategory,
+                category
+            }, mapLayer.Symbology.Categories);
+
+            CollectionAssert.AreEqual(new[]
+            {
+                Tuple.Create(mapData, Color.Transparent),
+                Tuple.Create(mapData, theme.CategoryThemes.Single().Color)
+            }, testConverter.CreatedCategories);
+        }
+
         private class TestFeatureLayer : MapPointLayer
         {
             public TestFeatureLayer() : base(new FeatureSet())
@@ -517,6 +764,27 @@ namespace Core.Components.DotSpatial.Test.Converter
 
         private class TestFeatureBasedMapDataConverter : FeatureBasedMapDataConverter<TestFeatureBasedMapData, TestFeatureLayer>
         {
+            private readonly List<Tuple<TestFeatureBasedMapData, Color>> createdCategories;
+
+            public TestFeatureBasedMapDataConverter()
+            {
+                createdCategories = new List<Tuple<TestFeatureBasedMapData, Color>>();
+            }
+
+            public IFeatureCategory CreatedDefaultCategory { private get; set; }
+
+            public IFeatureCategory CreatedCategory { private get; set; }
+
+            public IFeatureScheme CreatedFeatureScheme { private get; set; }
+
+            public IEnumerable<Tuple<TestFeatureBasedMapData, Color>> CreatedCategories
+            {
+                get
+                {
+                    return createdCategories;
+                }
+            }
+
             protected override IFeatureSymbolizer CreateSymbolizer(TestFeatureBasedMapData mapData)
             {
                 return new PointSymbolizer();
@@ -524,17 +792,19 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             protected override IFeatureScheme CreateScheme()
             {
-                throw new NotImplementedException();
+                return CreatedFeatureScheme;
             }
 
             protected override IFeatureCategory CreateDefaultCategory(TestFeatureBasedMapData mapData)
             {
-                throw new NotImplementedException();
+                createdCategories.Add(Tuple.Create(mapData, Color.Transparent));
+                return CreatedDefaultCategory;
             }
 
             protected override IFeatureCategory CreateCategory(TestFeatureBasedMapData mapData, Color color)
             {
-                throw new NotImplementedException();
+                createdCategories.Add(Tuple.Create(mapData, color));
+                return CreatedCategory;
             }
 
             protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)

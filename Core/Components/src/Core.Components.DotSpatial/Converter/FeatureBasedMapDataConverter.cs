@@ -131,7 +131,7 @@ namespace Core.Components.DotSpatial.Converter
         protected abstract IFeatureSymbolizer CreateSymbolizer(TFeatureBasedMapData mapData);
 
         /// <summary>
-        /// Creates a new scheme to be applied on the data.
+        /// Creates a new <see cref="IFeatureScheme"/> to be applied on the data.
         /// </summary>
         /// <returns>The newly created <see cref="IFeatureScheme"/>.</returns>
         protected abstract IFeatureScheme CreateScheme();
@@ -289,7 +289,7 @@ namespace Core.Components.DotSpatial.Converter
                 return CreateRangeCriteriaFilterExpression(attributeIndex, rangeCriteria);
             }
 
-            throw new NotSupportedException($"Can't convert a {nameof(ICriteria)} of type {criteria.GetType()}"); // TODO WTI-1551: Test this exception
+            throw new NotSupportedException($"Can't convert a {nameof(ICriteria)} of type {criteria.GetType()}");
         }
 
         /// <summary>
@@ -331,9 +331,9 @@ namespace Core.Components.DotSpatial.Converter
             {
                 case RangeCriteriaOperator.AllBoundsInclusive:
                     return $"[{attributeIndex}] >= {rangeCriteria.LowerBound} AND [{attributeIndex}] <= {rangeCriteria.UpperBound}";
-                case RangeCriteriaOperator.LowerBoundInclusive:
+                case RangeCriteriaOperator.LowerBoundInclusiveUpperBoundExclusive:
                     return $"[{attributeIndex}] >= {rangeCriteria.LowerBound} AND [{attributeIndex}] < {rangeCriteria.UpperBound}";
-                case RangeCriteriaOperator.UpperBoundInclusive:
+                case RangeCriteriaOperator.LowerBoundExclusiveUpperBoundInclusive:
                     return $"[{attributeIndex}] > {rangeCriteria.LowerBound} AND [{attributeIndex}] <= {rangeCriteria.UpperBound}";
                 case RangeCriteriaOperator.AllBoundsExclusive:
                     return $"[{attributeIndex}] > {rangeCriteria.LowerBound} AND [{attributeIndex}] < {rangeCriteria.UpperBound}";

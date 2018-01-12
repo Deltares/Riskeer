@@ -34,12 +34,12 @@ namespace Core.Components.Gis.Theme.Criteria
         /// <summary>
         /// Represents an interval: Lower bound &lt;= X &lt; Upper bound
         /// </summary>
-        LowerBoundInclusive = 2,
+        LowerBoundInclusiveUpperBoundExclusive = 2,
 
         /// <summary>
         /// Represents an interval: Lower bound &lt; X &lt;= Upper bound
         /// </summary>
-        UpperBoundInclusive = 3,
+        LowerBoundExclusiveUpperBoundInclusive = 3,
 
         /// <summary>
         /// Represents an interval: Lower bound &lt; X &lt; Upper bound
