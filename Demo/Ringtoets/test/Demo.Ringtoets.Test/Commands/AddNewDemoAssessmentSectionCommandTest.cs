@@ -188,15 +188,14 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertGrassCoverErosionOutwardsFailureMechanism(AssessmentSection demoAssessmentSection)
         {
-            HydraulicBoundaryLocation[] hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations;
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocationsGrassOutwards = demoAssessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations;
 
-            Assert.AreEqual(demoAssessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Count, hydraulicBoundaryLocations.Length);
-
-            AssertDesignWaterLevelValuesOnGrassCoverErosionOutwardsHydraulicBoundaryLocation(demoAssessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.ToArray());
-            AssertDesignWaterLevelConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
-
-            AssertWaveHeightValuesOnGrassCoverErosionOutwardsHydraulicBoundaryLocation(demoAssessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.ToArray());
-            AssertWaveHeightConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
+            Assert.AreEqual(hydraulicBoundaryLocations.Count, hydraulicBoundaryLocationsGrassOutwards.Count);
+            AssertDesignWaterLevelValuesOnGrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocationsGrassOutwards);
+            AssertDesignWaterLevelConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocationsGrassOutwards);
+            AssertWaveHeightValuesOnGrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocationsGrassOutwards);
+            AssertWaveHeightConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocationsGrassOutwards);
 
             Assert.AreEqual(1, demoAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Count);
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = demoAssessmentSection.GrassCoverErosionOutwards
@@ -211,7 +210,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
         }
 
-        private static void AssertDesignWaterLevelValuesOnGrassCoverErosionOutwardsHydraulicBoundaryLocation(HydraulicBoundaryLocation[] locations)
+        private static void AssertDesignWaterLevelValuesOnGrassCoverErosionOutwardsHydraulicBoundaryLocation(ObservableList<HydraulicBoundaryLocation> locations)
         {
             Assert.AreEqual((RoundedDouble) 7.19, locations[0].DesignWaterLevel, locations[0].DesignWaterLevel.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 7.19, locations[1].DesignWaterLevel, locations[1].DesignWaterLevel.GetAccuracy());
@@ -233,15 +232,15 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual((RoundedDouble) 7.80, locations[17].DesignWaterLevel, locations[17].DesignWaterLevel.GetAccuracy());
         }
 
-        private static void AssertDesignWaterLevelConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(HydraulicBoundaryLocation[] locations)
+        private static void AssertDesignWaterLevelConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(ObservableList<HydraulicBoundaryLocation> locations)
         {
             foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
             {
-                Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+                Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.CalculationConvergence);
             }
         }
 
-        private static void AssertWaveHeightValuesOnGrassCoverErosionOutwardsHydraulicBoundaryLocation(HydraulicBoundaryLocation[] locations)
+        private static void AssertWaveHeightValuesOnGrassCoverErosionOutwardsHydraulicBoundaryLocation(ObservableList<HydraulicBoundaryLocation> locations)
         {
             Assert.AreEqual((RoundedDouble) 4.99, locations[0].WaveHeight, locations[0].WaveHeight.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 5.04, locations[1].WaveHeight, locations[1].WaveHeight.GetAccuracy());
@@ -263,11 +262,11 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual((RoundedDouble) 5.34, locations[17].WaveHeight, locations[17].WaveHeight.GetAccuracy());
         }
 
-        private static void AssertWaveHeightConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(HydraulicBoundaryLocation[] locations)
+        private static void AssertWaveHeightConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(ObservableList<HydraulicBoundaryLocation> locations)
         {
             foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
             {
-                Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+                Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculation.Output.CalculationConvergence);
             }
         }
 

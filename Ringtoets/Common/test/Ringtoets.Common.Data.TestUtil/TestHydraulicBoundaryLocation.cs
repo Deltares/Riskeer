@@ -91,11 +91,11 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <see cref="HydraulicBoundaryLocationCalculation.Output"/> set for
         /// <see cref="HydraulicBoundaryLocation.WaveHeightCalculation"/>.
         /// </summary>
-        /// <param name="waveheight">The wave height result to set in the output.</param>
+        /// <param name="waveHeight">The wave height result to set in the output.</param>
         /// <returns>A new <see cref="TestHydraulicBoundaryLocation"/>.</returns>
-        public static TestHydraulicBoundaryLocation CreateWaveHeightCalculated(double waveheight)
+        public static TestHydraulicBoundaryLocation CreateWaveHeightCalculated(double waveHeight)
         {
-            return new TestHydraulicBoundaryLocation(null, waveheight);
+            return new TestHydraulicBoundaryLocation(null, waveHeight);
         }
     }
 }
