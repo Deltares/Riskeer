@@ -24,7 +24,7 @@ using System.Drawing;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Theme;
 
-namespace Core.Components.Gis.TestUtil.Theme
+namespace Core.Components.Gis.TestUtil
 {
     /// <summary>
     /// Creates valid instances of <see cref="CategoryTheme"/> which can be used for testing.

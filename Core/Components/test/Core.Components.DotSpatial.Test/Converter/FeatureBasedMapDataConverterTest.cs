@@ -30,7 +30,6 @@ using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
-using Core.Components.Gis.TestUtil.Theme;
 using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;

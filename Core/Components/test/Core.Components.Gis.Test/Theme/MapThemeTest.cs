@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
-using Core.Components.Gis.TestUtil.Theme;
+using Core.Components.Gis.TestUtil;
 using Core.Components.Gis.Theme;
 using NUnit.Framework;
 

@@ -20,10 +20,9 @@
 // All rights reserved.
 
 using System.Drawing;
-using Core.Components.Gis.TestUtil.Theme;
 using NUnit.Framework;
 
-namespace Core.Components.Gis.TestUtil.Test.Theme
+namespace Core.Components.Gis.TestUtil.Test
 {
     [TestFixture]
     public class CategoryThemeTestFactoryTest

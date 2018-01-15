@@ -16,7 +16,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Theme\CategoryThemeTestFactoryTest.cs" />
+    <Compile Include="CategoryThemeTestFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestImageBasedMapDataTest.cs" />
     <Compile Include="WmtsMapDataTestHelperTest.cs" />
