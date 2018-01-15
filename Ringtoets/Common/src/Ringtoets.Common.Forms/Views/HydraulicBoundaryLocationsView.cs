@@ -38,11 +38,11 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public abstract partial class HydraulicBoundaryLocationsView : LocationsView<HydraulicBoundaryLocation>
     {
+        protected readonly Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc;
+
         private readonly ObservableList<HydraulicBoundaryLocation> locations;
         private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
-
-        protected readonly Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsView"/>.
@@ -87,6 +87,11 @@ namespace Ringtoets.Common.Forms.Views
 
         public override object Data { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationGuiService"/>.
+        /// </summary>
+        public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
+
         protected override void Dispose(bool disposing)
         {
             hydraulicBoundaryLocationsObserver.Dispose();
@@ -94,11 +99,6 @@ namespace Ringtoets.Common.Forms.Views
 
             base.Dispose(disposing);
         }
-
-        /// <summary>
-        /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationGuiService"/>.
-        /// </summary>
-        public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
 
         protected override void InitializeDataGridView()
         {

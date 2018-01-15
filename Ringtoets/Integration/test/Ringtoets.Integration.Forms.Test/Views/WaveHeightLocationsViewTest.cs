@@ -73,24 +73,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                  null,
-                                                                  assessmentSection,
-                                                                  () => 0.01);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("getCalculationFunc", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_GetNormFuncNull_ThrowsArgumentNullException()
         {
             // Setup

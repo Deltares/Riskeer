@@ -39,7 +39,6 @@ namespace Ringtoets.Integration.Forms.Views
     {
         private readonly Func<double> getNormFunc;
         private readonly DesignWaterLevelCalculationMessageProvider messageProvider;
-        private readonly Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationsView"/>.
@@ -54,13 +53,8 @@ namespace Ringtoets.Integration.Forms.Views
                                              Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                              IAssessmentSection assessmentSection,
                                              Func<double> getNormFunc)
-            : base(locations, assessmentSection)
+            : base(locations, getCalculationFunc, assessmentSection)
         {
-            if (getCalculationFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getCalculationFunc));
-            }
-
             if (getNormFunc == null)
             {
                 throw new ArgumentNullException(nameof(getNormFunc));
@@ -70,7 +64,6 @@ namespace Ringtoets.Integration.Forms.Views
 
             messageProvider = new DesignWaterLevelCalculationMessageProvider();
 
-            this.getCalculationFunc = getCalculationFunc;
             this.getNormFunc = getNormFunc;
         }
 
