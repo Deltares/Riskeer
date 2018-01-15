@@ -42,27 +42,19 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     public abstract class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocation>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
-        protected readonly HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location.</param>
-        /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation at stake.</param>
         /// <param name="propertyIndexes">The <see cref="ConstructionProperties"/> containing the property indices.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         protected HydraulicBoundaryLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                      HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                                       ConstructionProperties propertyIndexes)
         {
             if (hydraulicBoundaryLocation == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
-            }
-
-            if (hydraulicBoundaryLocationCalculation == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
             }
 
             if (propertyIndexes == null)
@@ -71,8 +63,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
 
             Data = hydraulicBoundaryLocation;
-
-            this.hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculation;
 
             propertyIndexLookup = new Dictionary<string, int>
             {

@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationProperties(null, new HydraulicBoundaryLocationCalculation());
+            TestDelegate test = () => new TestHydraulicBoundaryLocationProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -51,23 +51,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_HydraulicBoundaryLocationCalculationNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationProperties(new TestHydraulicBoundaryLocation(), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocationCalculation", paramName);
-        }
-
-        [Test]
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationProperties(new TestHydraulicBoundaryLocation(),
-                                                                                  new HydraulicBoundaryLocationCalculation(),
-                                                                                  null);
+            TestDelegate test = () => new TestHydraulicBoundaryLocationProperties(new TestHydraulicBoundaryLocation(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -252,7 +239,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Call
             var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties(
                 hydraulicBoundaryLocation,
-                new HydraulicBoundaryLocationCalculation(),
                 new HydraulicBoundaryLocationProperties.ConstructionProperties
                 {
                     IllustrationPointsIndex = 1,
@@ -304,22 +290,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult;
 
             public TestHydraulicBoundaryLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation)
-                : base(hydraulicBoundaryLocation,
-                       new HydraulicBoundaryLocationCalculation(),
-                       new ConstructionProperties()) {}
+                : base(hydraulicBoundaryLocation, new ConstructionProperties()) {}
 
-            public TestHydraulicBoundaryLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                           HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-                : base(hydraulicBoundaryLocation,
-                       hydraulicBoundaryLocationCalculation,
-                       new ConstructionProperties()) {}
-
-            public TestHydraulicBoundaryLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                           HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                                           ConstructionProperties propertyIndexes)
-                : base(hydraulicBoundaryLocation,
-                       hydraulicBoundaryLocationCalculation,
-                       propertyIndexes) {}
+            public TestHydraulicBoundaryLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation, ConstructionProperties propertyIndexes)
+                : base(hydraulicBoundaryLocation, propertyIndexes) {}
 
             protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
             {

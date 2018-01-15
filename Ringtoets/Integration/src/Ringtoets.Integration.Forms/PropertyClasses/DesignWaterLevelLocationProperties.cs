@@ -38,6 +38,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class DesignWaterLevelLocationProperties : HydraulicBoundaryLocationProperties
     {
+        private readonly HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation;
+
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationProperties"/>.
         /// </summary>
@@ -47,7 +49,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         public DesignWaterLevelLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                   HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
             : base(hydraulicBoundaryLocation,
-                   hydraulicBoundaryLocationCalculation,
                    new ConstructionProperties
                    {
                        IdIndex = 1,
@@ -57,7 +58,15 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                        StochastsIndex = 12,
                        DurationsIndex = 13,
                        IllustrationPointsIndex = 14
-                   }) {}
+                   })
+        {
+            if (hydraulicBoundaryLocationCalculation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
+            }
+
+            this.hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculation;
+        }
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]

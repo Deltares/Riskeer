@@ -51,6 +51,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private const int shouldCalculateIllustrationPointsIndex = 9;
 
         [Test]
+        public void Constructor_HydraulicBoundaryLocationCalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new WaveHeightLocationProperties(new TestHydraulicBoundaryLocation(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("hydraulicBoundaryLocationCalculation", paramName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
