@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
 {
@@ -39,11 +40,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         /// <summary>
         /// Gets the output of the <see cref="CalculateAssessmentSectionCategories"/> calculation.
         /// </summary>
-        public IEnumerable<AssessmentSectionAssemblyCategoryResult> AssessmentSectionCategoriesOutput { get; private set; }
+        public IEnumerable<AssessmentSectionAssemblyCategoryResult> AssessmentSectionCategoriesOutput { get; set; }
+
+        /// <summary>
+        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// </summary>
+        public bool ThrowExceptionOnCalculate { get; set; }
 
         public IEnumerable<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
             AssemblyCategoriesCalculatorInput input)
         {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new AssemblyCategoriesCalculatorException("Message", new AssemblyCategoriesKernelWrapperException());
+            }
+
             Input = input;
 
             return AssessmentSectionCategoriesOutput
