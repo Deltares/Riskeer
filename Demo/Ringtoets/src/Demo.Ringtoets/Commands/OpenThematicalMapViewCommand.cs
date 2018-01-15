@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Commands;
@@ -56,39 +57,84 @@ namespace Demo.Ringtoets.Commands
         {
             var mapDataCollection = new MapDataCollection("Demo kaart categorial theming");
 
-            var random = new Random(21);
-            var mapPointData = new MapPointData("Punt Data met Gelijke criterium")
+            var mapPointDataEqualCriteria = new MapPointData("Punt data met gelijk criterium")
             {
                 Features = CreateMapPointFeaturesWithMetaData(40),
                 Style =
                 {
                     Size = 10
-                },
-                MapTheme = new MapTheme("Waarde", new[]
-                {
-                    new CategoryTheme(Color.DarkOrange, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, 40))),
-                    new CategoryTheme(Color.OrangeRed, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, 40))),
-                    new CategoryTheme(Color.SkyBlue, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, 40))),
-                    new CategoryTheme(Color.GreenYellow, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, 40)))
-                })
+                }
             };
-            mapDataCollection.Add(mapPointData);
+            SetEqualCriteria(mapPointDataEqualCriteria);
+            mapDataCollection.Add(mapPointDataEqualCriteria);
 
-            var mapPointDataUnequalCriteria = new MapPointData("Punt Data met Ongelijk criterium")
+            var mapPointDataUnequalCriteria = new MapPointData("Punt data met ongelijk criterium")
             {
                 Features = CreateMapPointFeaturesWithMetaData(15),
                 Style =
                 {
                     Size = 10
-                },
-                MapTheme = new MapTheme("Waarde", new[]
-                {
-                    new CategoryTheme(Color.GreenYellow, new ValueCriteria(ValueCriteriaOperator.UnequalValue, 5))
-                })
+                }
             };
+            SetUnequalCriteria(mapPointDataUnequalCriteria);
             mapDataCollection.Add(mapPointDataUnequalCriteria);
 
+            var mapLineDataEqualCriteria = new MapLineData("Lijn data met gelijk criterium")
+            {
+                Features = CreateMapLineFeaturesWithMetaData(40)
+            };
+            SetEqualCriteria(mapLineDataEqualCriteria);
+            mapDataCollection.Add(mapLineDataEqualCriteria);
+
+            var mapLineDataUnequalCriteria = new MapLineData("Lijn data met ongelijk criterium")
+            {
+                Features = CreateMapLineFeaturesWithMetaData(10)
+            };
+            SetUnequalCriteria(mapLineDataUnequalCriteria);
+            mapDataCollection.Add(mapLineDataUnequalCriteria);
+
+            var mapPolygonDataEqualCriteria = new MapPolygonData("Polygon data met gelijk criterium")
+            {
+                Features = CreatePolygonFeaturesWithMetaData(40)
+            };
+            SetEqualCriteria(mapPolygonDataEqualCriteria);
+            mapDataCollection.Add(mapPolygonDataEqualCriteria);
+
+            var mapPolygonDataUnequalCriteria = new MapPolygonData("Polygon data met ongelijk criterium")
+            {
+                Features = CreatePolygonFeaturesWithMetaData(10)
+            };
+            SetUnequalCriteria(mapPolygonDataUnequalCriteria);
+            mapDataCollection.Add(mapPolygonDataUnequalCriteria);
+
             viewCommands.OpenView(mapDataCollection);
+        }
+
+        private static void SetEqualCriteria(FeatureBasedMapData mapData)
+        {
+            var random = new Random(13);
+            int nrOfFeatures = mapData.Features.Count();
+            var theme = new MapTheme("Waarde", new[]
+            {
+                new CategoryTheme(Color.DarkOrange, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, nrOfFeatures))),
+                new CategoryTheme(Color.OrangeRed, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, nrOfFeatures))),
+                new CategoryTheme(Color.SkyBlue, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, nrOfFeatures))),
+                new CategoryTheme(Color.GreenYellow, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, nrOfFeatures)))
+            });
+
+            mapData.MapTheme = theme;
+        }
+
+        private static void SetUnequalCriteria(FeatureBasedMapData mapData)
+        {
+            var random = new Random(37);
+            int nrOfFeatures = mapData.Features.Count();
+            var theme = new MapTheme("Waarde", new[]
+            {
+                new CategoryTheme(Color.Purple, new ValueCriteria(ValueCriteriaOperator.UnequalValue, random.Next(0, nrOfFeatures)))
+            });
+
+            mapData.MapTheme = theme;
         }
 
         private static IEnumerable<MapFeature> CreateMapPointFeaturesWithMetaData(int nrOfPoints)
@@ -102,6 +148,52 @@ namespace Demo.Ringtoets.Commands
                 });
                 feature.MetaData["Waarde"] = i;
                 features[i] = feature;
+            }
+
+            return features;
+        }
+
+        private static IEnumerable<MapFeature> CreateMapLineFeaturesWithMetaData(int nrOfLines)
+        {
+            var features = new MapFeature[nrOfLines];
+            double xCoordinate = 0;
+            for (var i = 0; i < nrOfLines; i++)
+            {
+                MapFeature feature = GetFeatureWithPoints(new[]
+                {
+                    new Point2D(xCoordinate, 0),
+                    new Point2D(xCoordinate++, 10)
+                });
+                feature.MetaData["Waarde"] = i;
+                features[i] = feature;
+            }
+
+            return features;
+        }
+
+        private static IEnumerable<MapFeature> CreatePolygonFeaturesWithMetaData(int nrOfPolygons)
+        {
+            const double offset = 3;
+            double leftCoordinate = 0;
+            double rightCoordinate = 1;
+
+            var features = new MapFeature[nrOfPolygons];
+
+            for (var i = 0; i < nrOfPolygons; i++)
+            {
+                MapFeature feature = GetFeatureWithPoints(new[]
+                {
+                    new Point2D(leftCoordinate, 0),
+                    new Point2D(leftCoordinate, 5),
+                    new Point2D(rightCoordinate, 5),
+                    new Point2D(rightCoordinate, 0),                   
+                    new Point2D(leftCoordinate, 0)
+                });
+                feature.MetaData["Waarde"] = i;
+                features[i] = feature;
+
+                leftCoordinate += offset;
+                rightCoordinate += offset;
             }
 
             return features;
