@@ -629,7 +629,7 @@ namespace Demo.Ringtoets.Test.Commands
         {
             foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
             {
-                Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+                Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.CalculationConvergence);
             }
         }
 
@@ -659,7 +659,7 @@ namespace Demo.Ringtoets.Test.Commands
         {
             foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
             {
-                Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+                Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculation.Output.CalculationConvergence);
             }
         }
 

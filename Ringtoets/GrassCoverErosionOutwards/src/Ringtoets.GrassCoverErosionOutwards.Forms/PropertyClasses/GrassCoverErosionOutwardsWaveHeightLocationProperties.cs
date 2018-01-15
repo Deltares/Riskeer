@@ -135,7 +135,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.WaveHeightCalculationConvergence).DisplayName;
+                CalculationConvergence convergence = data.WaveHeightCalculation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
+                return new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             }
         }
 
