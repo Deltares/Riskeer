@@ -24,7 +24,6 @@ using System.Drawing;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Theme;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Components.Gis.Test.Theme
 {
@@ -32,7 +31,7 @@ namespace Core.Components.Gis.Test.Theme
     public class CategoryThemeTest
     {
         [Test]
-        public void Constructor_CriteriaNull_ThrowsArgumentNullException()
+        public void Constructor_CriterionNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -43,7 +42,7 @@ namespace Core.Components.Gis.Test.Theme
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("criteria", exception.ParamName);
+            Assert.AreEqual("criterion", exception.ParamName);
         }
 
         [Test]
@@ -51,17 +50,17 @@ namespace Core.Components.Gis.Test.Theme
         {
             // Setup
             var random = new Random(21);
-            var criteria = new ValueCriteria(random.NextEnumValue<ValueCriteriaOperator>(),
-                                             random.NextDouble());
+            var criterion = new ValueCriterion(random.NextEnumValue<ValueCriterionOperator>(),
+                                               random.NextDouble());
 
             Color themeColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
 
             // Call
-            var category = new CategoryTheme(themeColor, criteria);
+            var category = new CategoryTheme(themeColor, criterion);
 
             // Assert
             Assert.AreEqual(themeColor, category.Color);
-            Assert.AreSame(criteria, category.Criteria);
+            Assert.AreSame(criterion, category.Criterion);
         }
     }
 }

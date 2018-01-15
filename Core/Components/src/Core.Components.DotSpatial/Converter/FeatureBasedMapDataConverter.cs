@@ -185,7 +185,7 @@ namespace Core.Components.DotSpatial.Converter
             foreach (CategoryTheme categoryTheme in mapTheme.CategoryThemes)
             {
                 IFeatureCategory category = CreateCategory(mapData, categoryTheme.Color);
-                category.FilterExpression = CreateFilterExpression(attributeIndex, categoryTheme.Criteria);
+                category.FilterExpression = CreateFilterExpression(attributeIndex, categoryTheme.Criterion);
                 scheme.AddCategory(category);
             }
 
@@ -269,22 +269,22 @@ namespace Core.Components.DotSpatial.Converter
         /// Creates a filter expression based for an attribute and the criteria to apply.
         /// </summary>
         /// <param name="attributeIndex">The index of the attribute in the metadata table.</param>
-        /// <param name="criteria">The criteria to convert to an expression.</param>
+        /// <param name="criterion">The criterion to convert to an expression.</param>
         /// <returns>The filter expression based on the <paramref name="attributeIndex"/>
-        /// and <paramref name="criteria"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when the <paramref name="criteria"/>
+        /// and <paramref name="criterion"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="criterion"/>
         /// cannot be used to create a filter expression.</exception>
-        private static string CreateFilterExpression(int attributeIndex, ValueCriteria criteria)
+        private static string CreateFilterExpression(int attributeIndex, ValueCriterion criterion)
         {
-            ValueCriteriaOperator valueOperator = criteria.ValueOperator;
+            ValueCriterionOperator valueOperator = criterion.ValueOperator;
             switch (valueOperator)
             {
-                case ValueCriteriaOperator.EqualValue:
-                    return $"[{attributeIndex}] = '{criteria.Value}'";
-                case ValueCriteriaOperator.UnequalValue:
-                    return $"NOT [{attributeIndex}] = '{criteria.Value}'";
+                case ValueCriterionOperator.EqualValue:
+                    return $"[{attributeIndex}] = '{criterion.Value}'";
+                case ValueCriterionOperator.UnequalValue:
+                    return $"NOT [{attributeIndex}] = '{criterion.Value}'";
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(ValueCriteriaOperator)}.{valueOperator} is not supported.");
+                    throw new NotSupportedException($"The enum value {nameof(ValueCriterionOperator)}.{valueOperator} is not supported.");
             }
         }
     }

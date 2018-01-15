@@ -116,10 +116,10 @@ namespace Demo.Ringtoets.Commands
             int nrOfFeatures = mapData.Features.Count();
             var theme = new MapTheme("Waarde", new[]
             {
-                new CategoryTheme(Color.DarkOrange, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, nrOfFeatures))),
-                new CategoryTheme(Color.OrangeRed, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, nrOfFeatures))),
-                new CategoryTheme(Color.SkyBlue, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, nrOfFeatures))),
-                new CategoryTheme(Color.GreenYellow, new ValueCriteria(ValueCriteriaOperator.EqualValue, random.Next(0, nrOfFeatures)))
+                new CategoryTheme(Color.DarkOrange, new ValueCriterion(ValueCriterionOperator.EqualValue, random.Next(0, nrOfFeatures))),
+                new CategoryTheme(Color.OrangeRed, new ValueCriterion(ValueCriterionOperator.EqualValue, random.Next(0, nrOfFeatures))),
+                new CategoryTheme(Color.SkyBlue, new ValueCriterion(ValueCriterionOperator.EqualValue, random.Next(0, nrOfFeatures))),
+                new CategoryTheme(Color.GreenYellow, new ValueCriterion(ValueCriterionOperator.EqualValue, random.Next(0, nrOfFeatures)))
             });
 
             mapData.MapTheme = theme;
@@ -131,7 +131,7 @@ namespace Demo.Ringtoets.Commands
             int nrOfFeatures = mapData.Features.Count();
             var theme = new MapTheme("Waarde", new[]
             {
-                new CategoryTheme(Color.Purple, new ValueCriteria(ValueCriteriaOperator.UnequalValue, random.Next(0, nrOfFeatures)))
+                new CategoryTheme(Color.Purple, new ValueCriterion(ValueCriterionOperator.UnequalValue, random.Next(0, nrOfFeatures)))
             });
 
             mapData.MapTheme = theme;

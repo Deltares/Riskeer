@@ -28,18 +28,18 @@ using NUnit.Framework;
 namespace Core.Components.Gis.Test.Theme
 {
     [TestFixture]
-    public class ValueCriteriaTest
+    public class ValueCriterionTest
     {
         [Test]
         public void Constructor_ReturnsExpectedProperties()
         {
             // Setup
             var random = new Random(21);
-            var valueOperator = random.NextEnumValue<ValueCriteriaOperator>();
+            var valueOperator = random.NextEnumValue<ValueCriterionOperator>();
             double value = random.NextDouble();
 
             // Call
-            var criteria = new ValueCriteria(valueOperator, value);
+            var criteria = new ValueCriterion(valueOperator, value);
 
             // Assert
             Assert.AreEqual(valueOperator, criteria.ValueOperator);
@@ -47,17 +47,17 @@ namespace Core.Components.Gis.Test.Theme
         }
 
         [Test]
-        public void Constructor_InvalidEqualityBasedOperator_ThrowsInvalidEnumArgumentException()
+        public void Constructor_InvalidOperator_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             var random = new Random(21);
-            const ValueCriteriaOperator invalidOperator = (ValueCriteriaOperator) 9999;
+            const ValueCriterionOperator invalidOperator = (ValueCriterionOperator) 9999;
             
             // Call
-            TestDelegate call = () => new ValueCriteria(invalidOperator, random.NextDouble());
+            TestDelegate call = () => new ValueCriterion(invalidOperator, random.NextDouble());
 
             // Assert
-            string expectedMessage = $"The value of argument 'valueOperator' ({invalidOperator}) is invalid for Enum type '{nameof(ValueCriteriaOperator)}'.";
+            string expectedMessage = $"The value of argument 'valueOperator' ({invalidOperator}) is invalid for Enum type '{nameof(ValueCriterionOperator)}'.";
             string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
             Assert.AreEqual("valueOperator", parameterName);
         }

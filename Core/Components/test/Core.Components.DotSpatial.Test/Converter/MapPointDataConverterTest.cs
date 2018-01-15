@@ -192,16 +192,16 @@ namespace Core.Components.DotSpatial.Test.Converter
             const string metadataAttribute = "Meta";
             var random = new Random(21);
 
-            var unequalCriteria = new ValueCriteria(ValueCriteriaOperator.UnequalValue,
-                                                    random.NextDouble());
-            var equalCriteria = new ValueCriteria(ValueCriteriaOperator.EqualValue,
-                                                  random.NextDouble());
+            var unequalCriterion = new ValueCriterion(ValueCriterionOperator.UnequalValue,
+                                                     random.NextDouble());
+            var equalCriterion = new ValueCriterion(ValueCriterionOperator.EqualValue,
+                                                   random.NextDouble());
             var theme = new MapTheme(metadataAttribute, new[]
             {
                 new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  equalCriteria),
+                                  equalCriterion),
                 new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  unequalCriteria)
+                                  unequalCriterion)
             });
 
             var pointStyle = new PointStyle
@@ -242,7 +242,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.IsNull(baseCategory.FilterExpression);
 
             IPointCategory equalSchemeCategory = appliedScheme.Categories[1];
-            string expectedFilter = $"[1] = '{equalCriteria.Value}'";
+            string expectedFilter = $"[1] = '{equalCriterion.Value}'";
             Assert.AreEqual(expectedFilter, equalSchemeCategory.FilterExpression);
             expectedSymbolizer = CreateExpectedSymbolizer(pointStyle,
                                                           expectedPointShape,
@@ -250,7 +250,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             AssertAreEqual(expectedSymbolizer, equalSchemeCategory.Symbolizer);
 
             IPointCategory unEqualSchemeCategory = appliedScheme.Categories[2];
-            expectedFilter = $"NOT [1] = '{unequalCriteria.Value}'";
+            expectedFilter = $"NOT [1] = '{unequalCriterion.Value}'";
             Assert.AreEqual(expectedFilter, unEqualSchemeCategory.FilterExpression);
             expectedSymbolizer = CreateExpectedSymbolizer(pointStyle,
                                                           expectedPointShape,

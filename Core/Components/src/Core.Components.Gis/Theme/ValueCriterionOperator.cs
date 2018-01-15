@@ -24,7 +24,7 @@ namespace Core.Components.Gis.Theme
     /// <summary>
     /// Defines the operators of an equality based criterion.
     /// </summary>
-    public enum ValueCriteriaOperator
+    public enum ValueCriterionOperator
     {
         /// <summary>
         /// Represents the operator '=='

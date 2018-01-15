@@ -198,16 +198,16 @@ namespace Core.Components.DotSpatial.Test.Converter
             const string metadataAttribute = "Meta";
             var random = new Random(21);
 
-            var unequalCriteria = new ValueCriteria(ValueCriteriaOperator.UnequalValue,
+            var unequalCriterion = new ValueCriterion(ValueCriterionOperator.UnequalValue,
+                                                      random.NextDouble());
+            var equalCriterion = new ValueCriterion(ValueCriterionOperator.EqualValue,
                                                     random.NextDouble());
-            var equalCriteria = new ValueCriteria(ValueCriteriaOperator.EqualValue,
-                                                  random.NextDouble());
             var theme = new MapTheme(metadataAttribute, new[]
             {
                 new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  equalCriteria),
+                                  equalCriterion),
                 new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  unequalCriteria)
+                                  unequalCriterion)
             });
 
             var lineStyle = new LineStyle
@@ -246,7 +246,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.IsNull(baseCategory.FilterExpression);
 
             ILineCategory equalSchemeCategory = appliedScheme.Categories[1];
-            string expectedFilter = $"[1] = '{equalCriteria.Value}'";
+            string expectedFilter = $"[1] = '{equalCriterion.Value}'";
             Assert.AreEqual(expectedFilter, equalSchemeCategory.FilterExpression);
             expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
                                                           expectedDashStyle,
@@ -254,7 +254,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             AssertAreEqual(expectedSymbolizer, equalSchemeCategory.Symbolizer);
 
             ILineCategory unEqualSchemeCategory = appliedScheme.Categories[2];
-            expectedFilter = $"NOT [1] = '{unequalCriteria.Value}'";
+            expectedFilter = $"NOT [1] = '{unequalCriterion.Value}'";
             Assert.AreEqual(expectedFilter, unEqualSchemeCategory.FilterExpression);
             expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
                                                           expectedDashStyle,

@@ -25,24 +25,24 @@ using System.ComponentModel;
 namespace Core.Components.Gis.Theme
 {
     /// <summary>
-    /// Criteria to be used for equal or unequal values.
+    /// Criterion to be used for equal or unequal values.
     /// </summary>
-    public class ValueCriteria
+    public class ValueCriterion
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ValueCriteria"/>.
+        /// Creates a new instance of <see cref="ValueCriterion"/>.
         /// </summary>
-        /// <param name="valueOperator">The <see cref="ValueCriteriaOperator"/> belonging to this criteria.</param>
+        /// <param name="valueOperator">The <see cref="ValueCriterionOperator"/> belonging to this criterion.</param>
         /// <param name="value">The value to apply when using this criteria.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="valueOperator"/>
-        /// contains an invalid value for <see cref="ValueCriteriaOperator"/>.</exception>
-        public ValueCriteria(ValueCriteriaOperator valueOperator, double value)
+        /// contains an invalid value for <see cref="ValueCriterionOperator"/>.</exception>
+        public ValueCriterion(ValueCriterionOperator valueOperator, double value)
         {
-            if (!Enum.IsDefined(typeof(ValueCriteriaOperator), valueOperator))
+            if (!Enum.IsDefined(typeof(ValueCriterionOperator), valueOperator))
             {
                 throw new InvalidEnumArgumentException(nameof(valueOperator),
                                                        (int) valueOperator,
-                                                       typeof(ValueCriteriaOperator));
+                                                       typeof(ValueCriterionOperator));
             }
 
             ValueOperator = valueOperator;
@@ -52,7 +52,7 @@ namespace Core.Components.Gis.Theme
         /// <summary>
         /// Gets the operator for the criteria.
         /// </summary>
-        public ValueCriteriaOperator ValueOperator { get; }
+        public ValueCriterionOperator ValueOperator { get; }
 
         /// <summary>
         /// Gets the value that belongs to the criteria.

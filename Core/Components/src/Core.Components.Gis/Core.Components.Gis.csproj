@@ -13,8 +13,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Theme\CategoryTheme.cs" />
-    <Compile Include="Theme\ValueCriteria.cs" />
-    <Compile Include="Theme\ValueCriteriaOperator.cs" />
+    <Compile Include="Theme\ValueCriterion.cs" />
+    <Compile Include="Theme\ValueCriterionOperator.cs" />
     <Compile Include="Theme\MapTheme.cs" />
     <Compile Include="Data\ImageBasedMapData.cs" />
     <Compile Include="Data\Removable\IRemovable.cs" />

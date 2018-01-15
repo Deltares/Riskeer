@@ -33,18 +33,18 @@ namespace Core.Components.Gis.Theme
         /// Creates a new instance of <see cref="CategoryTheme"/>.
         /// </summary>
         /// <param name="themeColor">The color to be applied for the theme.</param>
-        /// <param name="criteria">The criteria belonging to the category.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="criteria"/>
+        /// <param name="criterion">The criterion belonging to the category.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="criterion"/>
         /// is <c>null</c>.</exception>
-        public CategoryTheme(Color themeColor, ValueCriteria criteria)
+        public CategoryTheme(Color themeColor, ValueCriterion criterion)
         {
-            if (criteria == null)
+            if (criterion == null)
             {
-                throw new ArgumentNullException(nameof(criteria));
+                throw new ArgumentNullException(nameof(criterion));
             }
 
             Color = themeColor;
-            Criteria = criteria;
+            Criterion = criterion;
         }
 
         /// <summary>
@@ -53,8 +53,8 @@ namespace Core.Components.Gis.Theme
         public Color Color { get; }
 
         /// <summary>
-        /// Gets the criteria that is associated with the category theme.
+        /// Gets the criterion that is associated with the category theme.
         /// </summary>
-        public ValueCriteria Criteria { get; }
+        public ValueCriterion Criterion { get; }
     }
 }

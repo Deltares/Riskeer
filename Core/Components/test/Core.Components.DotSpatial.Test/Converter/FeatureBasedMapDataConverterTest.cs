@@ -524,8 +524,8 @@ namespace Core.Components.DotSpatial.Test.Converter
             var theme = new MapTheme("Meta", new[]
             {
                 new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  new ValueCriteria(random.NextEnum<ValueCriteriaOperator>(),
-                                                    random.NextDouble()))
+                                  new ValueCriterion(random.NextEnum<ValueCriterionOperator>(),
+                                                     random.NextDouble()))
             });
 
             var mapData = new TestFeatureBasedMapData("test data")
@@ -554,9 +554,9 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        [TestCase(ValueCriteriaOperator.EqualValue, "[1] = '{0}'", TestName = "EqualValue")]
-        [TestCase(ValueCriteriaOperator.UnequalValue, "NOT [1] = '{0}'", TestName = "UnequalValue")]
-        public void ConvertLayerProperties_MapDataWithMapThemeAndValidValueCriteria_SetsCorrectFilterExpression(ValueCriteriaOperator criteriaOperator,
+        [TestCase(ValueCriterionOperator.EqualValue, "[1] = '{0}'", TestName = "EqualValue")]
+        [TestCase(ValueCriterionOperator.UnequalValue, "NOT [1] = '{0}'", TestName = "UnequalValue")]
+        public void ConvertLayerProperties_MapDataWithMapThemeAndValidValueCriteria_SetsCorrectFilterExpression(ValueCriterionOperator criterionOperator,
                                                                                                                 string expressionFormat)
         {
             // Setup
@@ -568,12 +568,12 @@ namespace Core.Components.DotSpatial.Test.Converter
             var defaultCategory = new PointCategory();
             var category = new PointCategory();
 
-            var valueCriteria = new ValueCriteria(criteriaOperator,
-                                                  value);
+            var valueCriterion = new ValueCriterion(criterionOperator,
+                                                    value);
             var theme = new MapTheme(metadataAttributeName, new[]
             {
                 new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  valueCriteria)
+                                  valueCriterion)
             });
 
             var mapData = new TestFeatureBasedMapData("test data")

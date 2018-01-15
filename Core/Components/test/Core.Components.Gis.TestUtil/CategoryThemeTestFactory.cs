@@ -39,8 +39,8 @@ namespace Core.Components.Gis.TestUtil
         {
             var random = new Random(21);
             return new CategoryTheme(Color.Aqua,
-                                     new ValueCriteria(random.NextEnumValue<ValueCriteriaOperator>(),
-                                                       random.NextDouble()));
+                                     new ValueCriterion(random.NextEnumValue<ValueCriterionOperator>(),
+                                                        random.NextDouble()));
         }
     }
 }

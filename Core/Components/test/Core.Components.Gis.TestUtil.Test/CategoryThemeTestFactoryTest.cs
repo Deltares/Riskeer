@@ -35,7 +35,7 @@ namespace Core.Components.Gis.TestUtil.Test
 
             // Assert
             Assert.AreEqual(Color.Aqua, theme.Color);
-            Assert.IsNotNull(theme.Criteria);
+            Assert.IsNotNull(theme.Criterion);
         }
     }
 }
