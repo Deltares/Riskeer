@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Core.Components.Gis.Theme.Criteria
+namespace Core.Components.Gis.Theme
 {
     /// <summary>
     /// Interface for criteria to apply to classify data.

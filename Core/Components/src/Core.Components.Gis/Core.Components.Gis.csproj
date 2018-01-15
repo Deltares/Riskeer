@@ -13,9 +13,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Theme\CategoryTheme.cs" />
-    <Compile Include="Theme\Criteria\ICriteria.cs" />
-    <Compile Include="Theme\Criteria\ValueCriteria.cs" />
-    <Compile Include="Theme\Criteria\ValueCriteriaOperator.cs" />
+    <Compile Include="Theme\ICriteria.cs" />
+    <Compile Include="Theme\ValueCriteria.cs" />
+    <Compile Include="Theme\ValueCriteriaOperator.cs" />
     <Compile Include="Theme\MapTheme.cs" />
     <Compile Include="Data\ImageBasedMapData.cs" />
     <Compile Include="Data\Removable\IRemovable.cs" />

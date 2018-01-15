@@ -23,7 +23,6 @@ using System;
 using System.Drawing;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Theme;
-using Core.Components.Gis.Theme.Criteria;
 using NUnit.Framework;
 using Rhino.Mocks;
 

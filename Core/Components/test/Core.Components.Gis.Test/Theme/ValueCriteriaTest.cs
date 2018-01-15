@@ -22,10 +22,10 @@
 using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Core.Components.Gis.Theme.Criteria;
+using Core.Components.Gis.Theme;
 using NUnit.Framework;
 
-namespace Core.Components.Gis.Test.Theme.Criteria
+namespace Core.Components.Gis.Test.Theme
 {
     [TestFixture]
     public class ValueCriteriaTest

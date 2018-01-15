@@ -28,7 +28,6 @@ using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Theme;
-using Core.Components.Gis.Theme.Criteria;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;

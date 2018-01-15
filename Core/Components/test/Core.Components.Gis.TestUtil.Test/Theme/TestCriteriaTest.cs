@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Components.Gis.TestUtil.Theme;
-using Core.Components.Gis.Theme.Criteria;
+using Core.Components.Gis.Theme;
 using NUnit.Framework;
 
 namespace Core.Components.Gis.TestUtil.Test.Theme

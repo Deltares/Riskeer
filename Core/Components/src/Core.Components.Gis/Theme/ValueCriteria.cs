@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Core.Components.Gis.Theme.Criteria
+namespace Core.Components.Gis.Theme
 {
     /// <summary>
     /// Criteria to be used for equal or unequal values.

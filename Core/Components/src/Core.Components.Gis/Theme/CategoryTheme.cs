@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using Core.Components.Gis.Theme.Criteria;
 
 namespace Core.Components.Gis.Theme
 {

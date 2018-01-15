@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Components.Gis.Theme.Criteria;
+using Core.Components.Gis.Theme;
 
 namespace Core.Components.Gis.TestUtil.Theme
 {

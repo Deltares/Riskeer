@@ -30,7 +30,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Theme;
-using Core.Components.Gis.Theme.Criteria;
 using Demo.Ringtoets.Properties;
 
 namespace Demo.Ringtoets.Commands
