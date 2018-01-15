@@ -39,24 +39,33 @@ namespace Ringtoets.Common.Forms.Views
     public abstract partial class HydraulicBoundaryLocationsView : LocationsView<HydraulicBoundaryLocation>
     {
         private readonly ObservableList<HydraulicBoundaryLocation> locations;
-
         private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
+
+        protected readonly Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsView"/>.
         /// </summary>
         /// <param name="locations">The locations to show in the view.</param>
+        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> or
-        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         protected HydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
+                                                 Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                                  IAssessmentSection assessmentSection)
         {
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
             }
+
+            if (getCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getCalculationFunc));
+            }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
@@ -68,6 +77,7 @@ namespace Ringtoets.Common.Forms.Views
             hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(HandleHydraulicBoundaryLocationUpdate, list => list);
 
             this.locations = locations;
+            this.getCalculationFunc = getCalculationFunc;
 
             hydraulicBoundaryLocationsObserver.Observable = locations;
             hydraulicBoundaryLocationObserver.Observable = locations;

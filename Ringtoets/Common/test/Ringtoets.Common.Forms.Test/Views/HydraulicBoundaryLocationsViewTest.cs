@@ -71,10 +71,25 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                             null,
+                                                                             new ObservableTestAssessmentSectionStub());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getCalculationFunc", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocation>(), null);
+            TestDelegate call = () => new TestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                             hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                             null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -293,11 +308,16 @@ namespace Ringtoets.Common.Forms.Test.Views
         private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView
         {
             public TestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations)
-                : base(locations, new ObservableTestAssessmentSectionStub()) {}
+                : base(locations,
+                       hbl => new HydraulicBoundaryLocationCalculation(),
+                       new ObservableTestAssessmentSectionStub()) {}
 
             public TestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
+                                                      Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                                       IAssessmentSection assessmentSection)
-                : base(locations, assessmentSection) {}
+                : base(locations,
+                       getCalculationFunc,
+                       assessmentSection) {}
 
             public HydraulicBoundaryLocation GetCalculationsCallArgument { get; private set; }
 
