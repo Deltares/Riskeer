@@ -97,12 +97,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationContext, GrassCoverErosionOutwardsDesignWaterLevelLocationProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationProperties(context.WrappedData)
+                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationProperties(context.WrappedData, context.WrappedData.DesignWaterLevelCalculation)
             };
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightLocationContext, GrassCoverErosionOutwardsWaveHeightLocationProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationProperties(context.WrappedData)
+                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationProperties(context.WrappedData, context.WrappedData.WaveHeightCalculation)
             };
         }
 
@@ -150,10 +150,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(context.FailureMechanism,
                                                                                                        context.AssessmentSection,
                                                                                                        () => context.AssessmentSection.FailureMechanismContribution.Norm),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                },
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
                 CloseForData = CloseDesignWaterLevelLocationsViewForData
             };
 
@@ -169,10 +166,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationsView(context.FailureMechanism,
                                                                                                  context.AssessmentSection,
                                                                                                  () => context.AssessmentSection.FailureMechanismContribution.Norm),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
         }
 
@@ -323,6 +317,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 throw new InvalidOperationException("Gui cannot be null");
             }
+
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
         }
 
@@ -355,14 +350,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             if (assessmentSection != null)
             {
                 return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                       .GetFailureMechanisms()
+                       .OfType<GrassCoverErosionOutwardsFailureMechanism>()
+                       .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
             }
+
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
+
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
@@ -406,6 +403,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 failureMechanism = failureMechanismContext.Parent.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
             }
+
             return failureMechanism != null && ReferenceEquals(failureMechanism, viewFailureMechanism);
         }
 
@@ -654,9 +652,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             bool isNestedGroup = parentData is GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
 
             GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = group
-                .GetCalculations()
-                .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                .ToArray();
+                                                                                .GetCalculations()
+                                                                                .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                                .ToArray();
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
 
@@ -871,33 +869,33 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = nodeData.WrappedData;
 
             return builder
-                .AddExportItem()
-                .AddSeparator()
-                .AddDuplicateCalculationItem(calculation, nodeData)
-                .AddSeparator()
-                .AddRenameItem()
-                .AddUpdateForeshoreProfileOfCalculationItem(calculation,
-                                                            inquiryHelper,
-                                                            SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
-                .AddSeparator()
-                .AddValidateCalculationItem(
-                    nodeData,
-                    Validate,
-                    ValidateAllDataAvailableAndGetErrorMessage)
-                .AddPerformCalculationItem(
-                    calculation,
-                    nodeData,
-                    PerformCalculation,
-                    ValidateAllDataAvailableAndGetErrorMessage)
-                .AddSeparator()
-                .AddClearCalculationOutputItem(calculation)
-                .AddDeleteItem()
-                .AddSeparator()
-                .AddCollapseAllItem()
-                .AddExpandAllItem()
-                .AddSeparator()
-                .AddPropertiesItem()
-                .Build();
+                   .AddExportItem()
+                   .AddSeparator()
+                   .AddDuplicateCalculationItem(calculation, nodeData)
+                   .AddSeparator()
+                   .AddRenameItem()
+                   .AddUpdateForeshoreProfileOfCalculationItem(calculation,
+                                                               inquiryHelper,
+                                                               SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+                   .AddSeparator()
+                   .AddValidateCalculationItem(
+                       nodeData,
+                       Validate,
+                       ValidateAllDataAvailableAndGetErrorMessage)
+                   .AddPerformCalculationItem(
+                       calculation,
+                       nodeData,
+                       PerformCalculation,
+                       ValidateAllDataAvailableAndGetErrorMessage)
+                   .AddSeparator()
+                   .AddClearCalculationOutputItem(calculation)
+                   .AddDeleteItem()
+                   .AddSeparator()
+                   .AddCollapseAllItem()
+                   .AddExpandAllItem()
+                   .AddSeparator()
+                   .AddPropertiesItem()
+                   .Build();
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)

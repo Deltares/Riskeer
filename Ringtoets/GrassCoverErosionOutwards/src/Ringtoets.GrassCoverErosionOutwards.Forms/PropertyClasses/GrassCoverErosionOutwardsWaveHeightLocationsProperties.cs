@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(loc => new GrassCoverErosionOutwardsWaveHeightLocationProperties(loc)).ToArray();
+                return data.Select(loc => new GrassCoverErosionOutwardsWaveHeightLocationProperties(loc, loc.WaveHeightCalculation)).ToArray();
             }
         }
     }

@@ -40,13 +40,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties
     {
+        private readonly HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>
-        /// is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation at stake.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                                           HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
             : base(hydraulicBoundaryLocation, new ConstructionProperties
             {
                 IdIndex = 1,
@@ -56,7 +59,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
                 StochastsIndex = 12,
                 DurationsIndex = 13,
                 IllustrationPointsIndex = 14
-            }) {}
+            })
+        {
+            if (hydraulicBoundaryLocationCalculation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
+            }
+
+            this.hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculation;
+        }
 
         [PropertyOrder(4)]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
@@ -67,7 +78,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.DesignWaterLevel;
+                return hydraulicBoundaryLocationCalculation.Output?.Result ?? RoundedDouble.NaN;
             }
         }
 
@@ -80,8 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.DesignWaterLevelCalculation.Output;
-                return output?.TargetProbability ?? double.NaN;
+                return hydraulicBoundaryLocationCalculation.Output?.TargetProbability ?? double.NaN;
             }
         }
 
@@ -94,8 +104,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.DesignWaterLevelCalculation.Output;
-                return output?.TargetReliability ?? RoundedDouble.NaN;
+                return hydraulicBoundaryLocationCalculation.Output?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -108,8 +117,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.DesignWaterLevelCalculation.Output;
-                return output?.CalculatedProbability ?? double.NaN;
+                return hydraulicBoundaryLocationCalculation.Output?.CalculatedProbability ?? double.NaN;
             }
         }
 
@@ -122,8 +130,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.DesignWaterLevelCalculation.Output;
-                return output?.CalculatedReliability ?? RoundedDouble.NaN;
+                return hydraulicBoundaryLocationCalculation.Output?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -135,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                CalculationConvergence convergence = data.DesignWaterLevelCalculation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
+                CalculationConvergence convergence = hydraulicBoundaryLocationCalculation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
                 return new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             }
         }
@@ -148,21 +155,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+                return hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
             }
             set
             {
-                data.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
+                hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
                 data.NotifyObservers();
             }
         }
 
         protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
-            if (data.DesignWaterLevelCalculation.HasOutput
-                && data.DesignWaterLevelCalculation.Output.HasGeneralResult)
+            if (hydraulicBoundaryLocationCalculation.HasOutput
+                && hydraulicBoundaryLocationCalculation.Output.HasGeneralResult)
             {
-                return data.DesignWaterLevelCalculation.Output.GeneralResult;
+                return hydraulicBoundaryLocationCalculation.Output.GeneralResult;
             }
 
             return null;
