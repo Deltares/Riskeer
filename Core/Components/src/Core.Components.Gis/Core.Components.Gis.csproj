@@ -14,8 +14,6 @@
   <ItemGroup>
     <Compile Include="Theme\CategoryTheme.cs" />
     <Compile Include="Theme\Criteria\ICriteria.cs" />
-    <Compile Include="Theme\Criteria\RangeCriteria.cs" />
-    <Compile Include="Theme\Criteria\RangeCriteriaOperator.cs" />
     <Compile Include="Theme\Criteria\ValueCriteria.cs" />
     <Compile Include="Theme\Criteria\ValueCriteriaOperator.cs" />
     <Compile Include="Theme\MapTheme.cs" />

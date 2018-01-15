@@ -154,6 +154,17 @@ namespace Core.Components.DotSpatial.Converter
         protected abstract IFeatureCategory CreateCategory(TFeatureBasedMapData mapData, Color color);
 
         /// <summary>
+        /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to an <see cref="IEnumerable{T}"/>
+        /// of <see cref="Coordinate"/>.
+        /// </summary>
+        /// <param name="points">The <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to convert.</param>
+        /// <returns>The converted <see cref="IEnumerable{T}"/> of <see cref="Coordinate"/>.</returns>
+        protected static IEnumerable<Coordinate> ConvertPoint2DElementsToCoordinates(IEnumerable<Point2D> points)
+        {
+            return points.Select(point => new Coordinate(point.X, point.Y)).ToArray();
+        }
+
+        /// <summary>
         /// Creates the <see cref="IFeatureScheme"/> based on the <paramref name="mapData"/>.
         /// </summary>
         /// <param name="mapData">The map data to base the scheme on.</param>
@@ -180,17 +191,6 @@ namespace Core.Components.DotSpatial.Converter
             }
 
             return scheme;
-        }
-
-        /// <summary>
-        /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to an <see cref="IEnumerable{T}"/>
-        /// of <see cref="Coordinate"/>.
-        /// </summary>
-        /// <param name="points">The <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to convert.</param>
-        /// <returns>The converted <see cref="IEnumerable{T}"/> of <see cref="Coordinate"/>.</returns>
-        protected static IEnumerable<Coordinate> ConvertPoint2DElementsToCoordinates(IEnumerable<Point2D> points)
-        {
-            return points.Select(point => new Coordinate(point.X, point.Y)).ToArray();
         }
 
         private static void ValidateParameters(TFeatureBasedMapData data, TMapFeatureLayer layer)
@@ -283,12 +283,6 @@ namespace Core.Components.DotSpatial.Converter
                 return CreateValueFilterExpression(attributeIndex, valueCriteria);
             }
 
-            var rangeCriteria = criteria as RangeCriteria;
-            if (rangeCriteria != null)
-            {
-                return CreateRangeCriteriaFilterExpression(attributeIndex, rangeCriteria);
-            }
-
             throw new NotSupportedException($"Can't convert a {nameof(ICriteria)} of type {criteria.GetType()}");
         }
 
@@ -312,33 +306,6 @@ namespace Core.Components.DotSpatial.Converter
                     return $"NOT [{attributeIndex}] = '{valueCriteria.Value}'";
                 default:
                     throw new NotSupportedException($"The enum value {nameof(ValueCriteriaOperator)}.{valueOperator} is not supported.");
-            }
-        }
-
-        /// <summary>
-        /// Creates a filter expression based for an attribute and the range criteria to apply.
-        /// </summary>
-        /// <param name="attributeIndex">The index of the attribute in the metadata table.</param>
-        /// <param name="rangeCriteria">The criteria to convert to an expression.</param>
-        /// <returns>The filter expression based on the <paramref name="attributeIndex"/>
-        /// and <paramref name="rangeCriteria"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when the <see cref="RangeCriteriaOperator"/>
-        /// cannot be used to create a filter expression.</exception>
-        private static string CreateRangeCriteriaFilterExpression(int attributeIndex, RangeCriteria rangeCriteria)
-        {
-            RangeCriteriaOperator rangeCriteriaOperator = rangeCriteria.RangeCriteriaOperator;
-            switch (rangeCriteriaOperator)
-            {
-                case RangeCriteriaOperator.AllBoundsInclusive:
-                    return $"[{attributeIndex}] >= {rangeCriteria.LowerBound} AND [{attributeIndex}] <= {rangeCriteria.UpperBound}";
-                case RangeCriteriaOperator.LowerBoundInclusiveUpperBoundExclusive:
-                    return $"[{attributeIndex}] >= {rangeCriteria.LowerBound} AND [{attributeIndex}] < {rangeCriteria.UpperBound}";
-                case RangeCriteriaOperator.LowerBoundExclusiveUpperBoundInclusive:
-                    return $"[{attributeIndex}] > {rangeCriteria.LowerBound} AND [{attributeIndex}] <= {rangeCriteria.UpperBound}";
-                case RangeCriteriaOperator.AllBoundsExclusive:
-                    return $"[{attributeIndex}] > {rangeCriteria.LowerBound} AND [{attributeIndex}] < {rangeCriteria.UpperBound}";
-                default:
-                    throw new NotSupportedException($"The enum value {nameof(RangeCriteriaOperator)}.{rangeCriteriaOperator} is not supported.");
             }
         }
     }
