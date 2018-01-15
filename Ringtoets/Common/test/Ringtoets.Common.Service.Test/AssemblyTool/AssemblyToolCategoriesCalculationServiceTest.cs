@@ -20,14 +20,19 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.TestUtil;
+using log4net.Core;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data.Input;
 using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Service.AssemblyTool;
 
 namespace Ringtoets.Common.Service.Test.AssemblyTool
@@ -93,6 +98,69 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
                 CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));
                 CollectionAssert.AreEqual(calculatorOutput.Select(co => co.UpperBoundary), output.Select(o => o.UpperBoundary));
                 CollectionAssert.AreEqual(calculatorOutput.Select(co => GetAssessmentSectionAssemblyCategoryType(co.Category)), output.Select(o => o.Type));
+            }
+        }
+
+        [Test]
+        public void CalculateAssessmentSectionAssemblyCategories_CalculatorThrowsException_LogErrorAndReturnEmptyOutput()
+        {
+            var input = new AssemblyCategoryInput(0, 0);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                //Call
+                IEnumerable<AssessmentSectionAssemblyCategory> output = null;
+                Action test = () => output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input);
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(test, tuples =>
+                {
+                    Tuple<string, Level, Exception>[] messages = tuples as Tuple<string, Level, Exception>[] ?? tuples.ToArray();
+                    Assert.AreEqual(1, messages.Length);
+
+                    Tuple<string, Level, Exception> tuple1 = messages[0];
+                    Assert.AreEqual("Er is een onverwachte fout opgetreden bij het bepalen van categoriegrenzen.", tuple1.Item1);
+                    Assert.AreEqual(Level.Error, tuple1.Item2);
+                    Assert.IsInstanceOf<AssemblyCategoriesCalculatorException>(tuple1.Item3);
+                });
+                CollectionAssert.IsEmpty(output);
+            }
+        }
+
+        [Test]
+        public void CalculateAssessmentSectionAssemblyCategories_ErrorInConversion_LogErrorAndReturnEmptyOutput()
+        {
+            var input = new AssemblyCategoryInput(0, 0);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+                calculator.AssessmentSectionCategoriesOutput = new[]
+                {
+                    new AssessmentSectionAssemblyCategoryResult(0, 1, (AssessmentSectionAssemblyCategoryResultType) 99)
+                };
+
+                //Call
+                IEnumerable<AssessmentSectionAssemblyCategory> output = null;
+                Action test = () => output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input);
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(test, tuples =>
+                {
+                    Tuple<string, Level, Exception>[] messages = tuples as Tuple<string, Level, Exception>[] ?? tuples.ToArray();
+                    Assert.AreEqual(1, messages.Length);
+
+                    Tuple<string, Level, Exception> tuple1 = messages[0];
+                    Assert.AreEqual("Er is een onverwachte fout opgetreden bij het bepalen van categoriegrenzen.", tuple1.Item1);
+                    Assert.AreEqual(Level.Error, tuple1.Item2);
+                    Assert.IsInstanceOf<AssemblyCategoryConversionException>(tuple1.Item3);
+                });
+                CollectionAssert.IsEmpty(output);
             }
         }
 

@@ -26,6 +26,8 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Service.Properties;
 
 namespace Ringtoets.Common.Service.AssemblyTool
 {
@@ -50,10 +52,18 @@ namespace Ringtoets.Common.Service.AssemblyTool
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
                 AssemblyToolKernelWrapperFactory.Instance);
 
-            IEnumerable<AssessmentSectionAssemblyCategoryResult> categories = calculator.CalculateAssessmentSectionCategories(
-                AssemblyCategoryInputConverter.Convert(input));
+            try
+            {
+                IEnumerable<AssessmentSectionAssemblyCategoryResult> categories = calculator.CalculateAssessmentSectionCategories(
+                    AssemblyCategoryInputConverter.Convert(input));
 
-            return AssemblyCategoryConverter.ConvertAssessmentSectionAssemblyCategories(categories);
+                return AssemblyCategoryConverter.ConvertAssessmentSectionAssemblyCategories(categories);
+            }
+            catch (Exception e) when (e is AssemblyCategoriesCalculatorException || e is AssemblyCategoryConversionException)
+            {
+                CalculationServiceHelper.LogExceptionAsError(Resources.AssemblyToolCategoriesCalculationService_CalculateAssessmentSectionAssemblyCategories_Error_in_assembly_categories_calculation, e);
+                return new AssessmentSectionAssemblyCategory[0];
+            }
         }
     }
 }
