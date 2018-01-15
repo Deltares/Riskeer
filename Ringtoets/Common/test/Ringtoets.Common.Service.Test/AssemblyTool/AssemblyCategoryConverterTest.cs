@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Service.AssemblyTool;
 
 namespace Ringtoets.Common.Service.Test.AssemblyTool
@@ -79,8 +80,10 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
             TestDelegate test = () => AssemblyCategoryConverter.ConvertAssessmentSectionAssemblyCategories(result);
 
             // Assert
-            const string expectedMessage = "The value of argument 'categoryType' (99) is invalid for Enum type 'AssessmentSectionAssemblyCategoryResultType'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+            const string expectedMessage = "The value of argument 'categoryType' (99) is invalid for Enum type 'AssessmentSectionAssemblyCategoryResultType'.\r\nParameter name: categoryType";
+            var exception = Assert.Throws<AssemblyCategoryConversionException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
         [Test]

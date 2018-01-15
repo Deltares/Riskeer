@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Linq;
 using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.Common.Data.Exceptions;
 
 namespace Ringtoets.Common.Service.AssemblyTool
 {
@@ -39,10 +40,9 @@ namespace Ringtoets.Common.Service.AssemblyTool
         /// <param name="result">The result to convert.</param>
         /// <returns>The converted categories.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="AssessmentSectionAssemblyCategoryResultType"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="AssessmentSectionAssemblyCategoryResultType"/>
-        /// is a valid value but unsupported.</exception>
+        /// <exception cref="AssemblyCategoryConversionException">Thrown when
+        /// <see cref="AssessmentSectionAssemblyCategoryResultType"/> is an invalid value 
+        /// or a valid value but unsupported.</exception>
         public static IEnumerable<AssessmentSectionAssemblyCategory> ConvertAssessmentSectionAssemblyCategories(
             IEnumerable<AssessmentSectionAssemblyCategoryResult> result)
         {
@@ -59,14 +59,20 @@ namespace Ringtoets.Common.Service.AssemblyTool
         /// </summary>
         /// <param name="result">The result to convert.</param>
         /// <returns>The converted category.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="AssessmentSectionAssemblyCategoryResultType"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="AssessmentSectionAssemblyCategoryResultType"/>
-        /// is a valid value but unsupported.</exception>
+        /// <exception cref="AssemblyCategoryConversionException">Thrown when
+        /// <see cref="AssessmentSectionAssemblyCategoryResultType"/> is an invalid value 
+        /// or a valid value but unsupported.</exception>
         private static AssessmentSectionAssemblyCategory ConvertAssessmentSectionAssemblyCategory(AssessmentSectionAssemblyCategoryResult result)
         {
-            return new AssessmentSectionAssemblyCategory(result.LowerBoundary, result.UpperBoundary,
-                                                         ConvertAssessmentSectionAssemblyCategoryType(result.Category));
+            try
+            {
+                return new AssessmentSectionAssemblyCategory(result.LowerBoundary, result.UpperBoundary,
+                                                             ConvertAssessmentSectionAssemblyCategoryType(result.Category));
+            }
+            catch (Exception e) when (e is InvalidEnumArgumentException || e is NotSupportedException)
+            {
+                throw new AssemblyCategoryConversionException(e.Message, e);
+            }
         }
 
         /// <summary>
