@@ -658,7 +658,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             failureMechanism.HydraulicBoundaryLocations.AddRange(locations);
 
             var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism,
-                                                                                  hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                                  hbl => hbl.DesignWaterLevelCalculation,
                                                                                   assessmentSection,
                                                                                   () => norm);
 
