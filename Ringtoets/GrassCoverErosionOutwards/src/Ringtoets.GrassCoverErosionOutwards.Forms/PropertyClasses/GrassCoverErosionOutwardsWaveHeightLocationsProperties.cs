@@ -37,13 +37,26 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationsProperties : HydraulicBoundaryLocationsProperties
     {
+        private readonly Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsProperties"/>.
         /// </summary>
         /// <param name="locations">The locations to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveHeightLocationsProperties(ObservableList<HydraulicBoundaryLocation> locations)
-            : base(locations) {}
+        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsWaveHeightLocationsProperties(ObservableList<HydraulicBoundaryLocation> locations,
+                                                                      Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+            : base(locations)
+        {
+            if (getCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getCalculationFunc));
+            }
+
+            this.getCalculationFunc = getCalculationFunc;
+        }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
@@ -53,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(loc => new GrassCoverErosionOutwardsWaveHeightLocationProperties(loc, loc.WaveHeightCalculation)).ToArray();
+                return data.Select(loc => new GrassCoverErosionOutwardsWaveHeightLocationProperties(loc, getCalculationFunc(loc))).ToArray();
             }
         }
     }
