@@ -147,7 +147,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 plugin.Gui = gui;
                 plugin.Activate();
 
-                using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(grassCoverErosionOutwardsFailureMechanism, assessmentSection, () => 0.01))
+                using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(grassCoverErosionOutwardsFailureMechanism,
+                                                                                             hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                                             assessmentSection,
+                                                                                             () => 0.01))
                 {
                     // Call
                     info.AfterCreate(view, data);
@@ -177,7 +180,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism, assessmentSection, () => 0.01))
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism,
+                                                                                         hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                                         assessmentSection,
+                                                                                         () => 0.01))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -213,7 +219,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism, assessmentSectionA, () => 0.01))
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism,
+                                                                                         hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                                         assessmentSectionA,
+                                                                                         () => 0.01))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -247,6 +256,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 assessmentSection);
 
             using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                         hbl => new HydraulicBoundaryLocationCalculation(),
                                                                                          assessmentSection,
                                                                                          () => 0.01))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -286,7 +296,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 new GrassCoverErosionOutwardsFailureMechanism(),
                 assessmentSectionB);
 
-            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSectionA, () => 0.01))
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                         hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                                         assessmentSectionA,
+                                                                                         () => 0.01))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -315,7 +328,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection, () => 0.01))
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                         hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                                         assessmentSection,
+                                                                                         () => 0.01))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
