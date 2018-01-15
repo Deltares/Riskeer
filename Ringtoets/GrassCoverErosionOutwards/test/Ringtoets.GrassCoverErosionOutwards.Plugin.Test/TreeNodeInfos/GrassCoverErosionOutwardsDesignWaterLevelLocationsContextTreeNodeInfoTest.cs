@@ -608,7 +608,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         });
                         Assert.AreEqual(0, hydraulicBoundaryLocation.DesignWaterLevel,
                                         hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.CalculationConvergence);
                     }
                 }
             }
