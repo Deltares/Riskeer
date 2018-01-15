@@ -169,8 +169,21 @@ namespace Ringtoets.Integration.TestUtil
         public static GrassCoverErosionOutwardsFailureMechanism GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
-            SetFullyConfiguredFailureMechanism(failureMechanism, hydroLocation);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+            {
+                DesignWaterLevelCalculation =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(
+                        1.1, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged, null)
+                },
+                WaveHeightCalculation =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(
+                        2.2, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged, null)
+                }
+            };
+
+            SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
 
             return failureMechanism;
         }
