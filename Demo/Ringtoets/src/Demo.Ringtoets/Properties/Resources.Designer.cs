@@ -40,7 +40,7 @@ namespace Demo.Ringtoets.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -191,6 +191,15 @@ namespace Demo.Ringtoets.Properties {
         public static string General_Map {
             get {
                 return ResourceManager.GetString("General_Map", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thematische Kaart.
+        /// </summary>
+        public static string General_ThematicMap {
+            get {
+                return ResourceManager.GetString("General_ThematicMap", resourceCulture);
             }
         }
         
@@ -381,6 +390,69 @@ namespace Demo.Ringtoets.Properties {
         public static string OpenMapViewCommand_Execute_Vlieland {
             get {
                 return ResourceManager.GetString("OpenMapViewCommand_Execute_Vlieland", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Demo kaart categorial theming.
+        /// </summary>
+        public static string OpenThematicalMapViewCommand_Execute_Demo_map_with_theming {
+            get {
+                return ResourceManager.GetString("OpenThematicalMapViewCommand_Execute_Demo_map_with_theming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijn data met gelijk criterium.
+        /// </summary>
+        public static string OpenThematicalMapViewCommand_Execute_MapLineData_with_EqualValueCriteria {
+            get {
+                return ResourceManager.GetString("OpenThematicalMapViewCommand_Execute_MapLineData_with_EqualValueCriteria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijn data met ongelijk criterium.
+        /// </summary>
+        public static string OpenThematicalMapViewCommand_Execute_MapLineData_with_UnequalValueCriteria {
+            get {
+                return ResourceManager.GetString("OpenThematicalMapViewCommand_Execute_MapLineData_with_UnequalValueCriteria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punt data met gelijk criterium.
+        /// </summary>
+        public static string OpenThematicalMapViewCommand_Execute_MapPointData_with_EqualValueCriteria {
+            get {
+                return ResourceManager.GetString("OpenThematicalMapViewCommand_Execute_MapPointData_with_EqualValueCriteria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punt data met ongelijk criterium.
+        /// </summary>
+        public static string OpenThematicalMapViewCommand_Execute_MapPointData_with_UnequalValueCriteria {
+            get {
+                return ResourceManager.GetString("OpenThematicalMapViewCommand_Execute_MapPointData_with_UnequalValueCriteria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Polygon data met gelijk criterium.
+        /// </summary>
+        public static string OpenThematicalMapViewCommand_Execute_MapPolygonData_with_EqualValueCriteria {
+            get {
+                return ResourceManager.GetString("OpenThematicalMapViewCommand_Execute_MapPolygonData_with_EqualValueCriteria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Polygon data met ongelijk criterium.
+        /// </summary>
+        public static string OpenThematicalMapViewCommand_Execute_MapPolygonData_with_UnequalValueCriteria {
+            get {
+                return ResourceManager.GetString("OpenThematicalMapViewCommand_Execute_MapPolygonData_with_UnequalValueCriteria", resourceCulture);
             }
         }
     }

@@ -31,6 +31,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Theme;
 using Core.Components.Gis.Theme.Criteria;
+using Demo.Ringtoets.Properties;
 
 namespace Demo.Ringtoets.Commands
 {
@@ -55,52 +56,52 @@ namespace Demo.Ringtoets.Commands
 
         public void Execute()
         {
-            var mapDataCollection = new MapDataCollection("Demo kaart categorial theming");
+            var mapDataCollection = new MapDataCollection(Resources.OpenThematicalMapViewCommand_Execute_Demo_map_with_theming);
 
-            var mapPointDataEqualCriteria = new MapPointData("Punt data met gelijk criterium")
+            var mapPointDataEqualCriteria = new MapPointData(Resources.OpenThematicalMapViewCommand_Execute_MapPointData_with_EqualValueCriteria)
             {
-                Features = CreateMapPointFeaturesWithMetaData(40),
+                Features = CreateMapPointFeaturesWithMetaData(100),
                 Style =
                 {
-                    Size = 10
+                    Size = 5
                 }
             };
             SetEqualCriteria(mapPointDataEqualCriteria);
             mapDataCollection.Add(mapPointDataEqualCriteria);
 
-            var mapPointDataUnequalCriteria = new MapPointData("Punt data met ongelijk criterium")
+            var mapPointDataUnequalCriteria = new MapPointData(Resources.OpenThematicalMapViewCommand_Execute_MapPointData_with_UnequalValueCriteria)
             {
                 Features = CreateMapPointFeaturesWithMetaData(15),
                 Style =
                 {
-                    Size = 10
+                    Size = 5
                 }
             };
             SetUnequalCriteria(mapPointDataUnequalCriteria);
             mapDataCollection.Add(mapPointDataUnequalCriteria);
 
-            var mapLineDataEqualCriteria = new MapLineData("Lijn data met gelijk criterium")
+            var mapLineDataEqualCriteria = new MapLineData(Resources.OpenThematicalMapViewCommand_Execute_MapLineData_with_EqualValueCriteria)
             {
-                Features = CreateMapLineFeaturesWithMetaData(40)
+                Features = CreateMapLineFeaturesWithMetaData(100)
             };
             SetEqualCriteria(mapLineDataEqualCriteria);
             mapDataCollection.Add(mapLineDataEqualCriteria);
 
-            var mapLineDataUnequalCriteria = new MapLineData("Lijn data met ongelijk criterium")
+            var mapLineDataUnequalCriteria = new MapLineData(Resources.OpenThematicalMapViewCommand_Execute_MapLineData_with_UnequalValueCriteria)
             {
                 Features = CreateMapLineFeaturesWithMetaData(10)
             };
             SetUnequalCriteria(mapLineDataUnequalCriteria);
             mapDataCollection.Add(mapLineDataUnequalCriteria);
 
-            var mapPolygonDataEqualCriteria = new MapPolygonData("Polygon data met gelijk criterium")
+            var mapPolygonDataEqualCriteria = new MapPolygonData(Resources.OpenThematicalMapViewCommand_Execute_MapPolygonData_with_EqualValueCriteria)
             {
                 Features = CreatePolygonFeaturesWithMetaData(40)
             };
             SetEqualCriteria(mapPolygonDataEqualCriteria);
             mapDataCollection.Add(mapPolygonDataEqualCriteria);
 
-            var mapPolygonDataUnequalCriteria = new MapPolygonData("Polygon data met ongelijk criterium")
+            var mapPolygonDataUnequalCriteria = new MapPolygonData(Resources.OpenThematicalMapViewCommand_Execute_MapPolygonData_with_UnequalValueCriteria)
             {
                 Features = CreatePolygonFeaturesWithMetaData(10)
             };

@@ -34,7 +34,8 @@ namespace Demo.Ringtoets.Ribbons
     /// </summary>
     public partial class RingtoetsDemoProjectRibbon : IRibbonCommandHandler
     {
-        private readonly ICommand addNewAssessmentSection, openMapViewCommand, openChartViewCommand, openStackChartViewCommand, openPointedTreeGraphViewCommand;
+        private readonly ICommand addNewAssessmentSection, openMapViewCommand, openThematicMapViewCommand,
+                                  openChartViewCommand, openStackChartViewCommand, openPointedTreeGraphViewCommand;
 
         public RingtoetsDemoProjectRibbon(IProjectOwner projectOwner, IViewCommands viewCommands)
         {
@@ -43,6 +44,7 @@ namespace Demo.Ringtoets.Ribbons
             addNewAssessmentSection = new AddNewDemoAssessmentSectionCommand(projectOwner, viewCommands);
             openChartViewCommand = new OpenChartViewCommand(viewCommands);
             openMapViewCommand = new OpenMapViewCommand(viewCommands);
+            openThematicMapViewCommand = new OpenThematicalMapViewCommand(viewCommands);
             openStackChartViewCommand = new OpenStackChartViewCommand(viewCommands);
             openPointedTreeGraphViewCommand = new OpenPointedTreeGraphViewCommand(viewCommands);
         }
@@ -67,6 +69,11 @@ namespace Demo.Ringtoets.Ribbons
         private void ButtonOpenMapView_Click(object sender, RoutedEventArgs e)
         {
             openMapViewCommand.Execute();
+        }
+
+        private void ButtonOpenThematicMapView_Click(object sender, RoutedEventArgs e)
+        {
+            openThematicMapViewCommand.Execute();
         }
 
         private void ButtonOpenStackChartView_Click(object sender, RoutedEventArgs e)

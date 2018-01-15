@@ -106,6 +106,32 @@ namespace Demo.Ringtoets.Test.Ribbons
 
         [Test]
         [Apartment(ApartmentState.STA)]
+        public void OpenThematicMapViewButton_OnClick_OpensView()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            viewCommands.Expect(vc => vc.OpenView(null)).IgnoreArguments();
+
+            mocks.ReplayAll();
+
+            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewCommands);
+
+            var button = ribbon.GetRibbonControl().FindName("OpenThematicMapViewButton") as Button;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have an open thematic map view button");
+
+            // Call
+            button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
         public void OpenStackChartViewButton_OnClick_ExecutesOpenStackChartViewCommand()
         {
             // Setup
