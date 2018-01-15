@@ -49,13 +49,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism that the locations belong to.</param>
+        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="assessmentSection">The assessment section that the locations belong to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to derive a mechanism specific norm from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveHeightLocationsView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                                                 IAssessmentSection assessmentSection,
                                                                 Func<double> getNormFunc)
-            : base(failureMechanism?.HydraulicBoundaryLocations, assessmentSection)
+            : base(failureMechanism?.HydraulicBoundaryLocations, getCalculationFunc, assessmentSection)
         {
             if (getNormFunc == null)
             {
@@ -114,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                        AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                        locations,
-                                                       hbl => hbl.WaveHeightCalculation,
+                                                       getCalculationFunc,
                                                        mechanismSpecificNorm,
                                                        messageProvider);
         }
@@ -128,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
         {
-            return location.WaveHeightCalculation;
+            return getCalculationFunc(location);
         }
     }
 }
