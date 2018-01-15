@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
         {
-            return location.DesignWaterLevelCalculation;
+            return getCalculationFunc(location);
         }
     }
 }
