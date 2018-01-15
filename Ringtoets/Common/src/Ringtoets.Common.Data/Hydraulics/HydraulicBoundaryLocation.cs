@@ -45,6 +45,7 @@ namespace Ringtoets.Common.Data.Hydraulics
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             Id = id;
             Name = name;
             Location = new Point2D(coordinateX, coordinateY);
@@ -91,17 +92,6 @@ namespace Ringtoets.Common.Data.Hydraulics
             }
         }
 
-        /// <summary>
-        /// Gets the convergence status of the design water level calculation.
-        /// </summary>
-        public CalculationConvergence DesignWaterLevelCalculationConvergence
-        {
-            get
-            {
-                return DesignWaterLevelCalculation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
-            }
-        }
-
         #endregion
 
         #region Wave height
@@ -119,17 +109,6 @@ namespace Ringtoets.Common.Data.Hydraulics
             get
             {
                 return WaveHeightCalculation.Output?.Result ?? RoundedDouble.NaN;
-            }
-        }
-
-        /// <summary>
-        /// Gets the convergence status of the wave height calculation.
-        /// </summary>
-        public CalculationConvergence WaveHeightCalculationConvergence
-        {
-            get
-            {
-                return WaveHeightCalculation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
             }
         }
 
