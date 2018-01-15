@@ -605,7 +605,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                                            Form form)
         {
             var view = new WaveHeightLocationsView(locations,
-                                                   hbl => new HydraulicBoundaryLocationCalculation(),
+                                                   hbl => hbl.WaveHeightCalculation,
                                                    assessmentSection,
                                                    () => norm);
 
