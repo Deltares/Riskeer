@@ -58,6 +58,7 @@
     <Compile Include="Legend\MapPolygonDataTreeNodeInfoTest.cs" />
     <Compile Include="MapRibbonTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyClasses\CategoryThemePropertiesTest.cs" />
     <Compile Include="PropertyClasses\FeatureBasedMapDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MapDataCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MapLineDataPropertiesTest.cs" />
@@ -119,6 +120,10 @@
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Components\test\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj">
+      <Project>{F0FB401A-3494-4237-9E6D-02CDF77912A8}</Project>
+      <Name>Core.Components.Gis.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Plugins.Map\Core.Plugins.Map.csproj">
       <Project>{610e0a9c-1997-4c43-a10e-39d4c66ada93}</Project>

@@ -325,4 +325,19 @@
   <data name="MapPolygonData_StrokeThickness_Description" xml:space="preserve">
     <value>De dikte van de lijn van de vlakken waarmee deze kaartlaag wordt weergegeven.</value>
   </data>
+  <data name="CategoryThemeProperties_Color_Description" xml:space="preserve">
+    <value>De kleur waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="CategoryThemeProperties_Criterion_Description" xml:space="preserve">
+    <value>Het criterium van deze categorie.</value>
+  </data>
+  <data name="CategoryThemeProperties_Criterion_DisplayName" xml:space="preserve">
+    <value>Criterium</value>
+  </data>
+  <data name="CategoryThemeProperties_Criterion_ValueCriterionOperatorEqualValue_AttributeName_0_Value_1_" xml:space="preserve">
+    <value>{0} = {1}</value>
+  </data>
+  <data name="CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeName_0_Value_1_" xml:space="preserve">
+    <value>{0} ≠ {1}</value>
+  </data>
 </root>

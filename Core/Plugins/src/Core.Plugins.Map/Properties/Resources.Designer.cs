@@ -128,6 +128,53 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De kleur waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string CategoryThemeProperties_Color_Description {
+            get {
+                return ResourceManager.GetString("CategoryThemeProperties_Color_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het criterium van deze categorie..
+        /// </summary>
+        public static string CategoryThemeProperties_Criterion_Description {
+            get {
+                return ResourceManager.GetString("CategoryThemeProperties_Criterion_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Criterium.
+        /// </summary>
+        public static string CategoryThemeProperties_Criterion_DisplayName {
+            get {
+                return ResourceManager.GetString("CategoryThemeProperties_Criterion_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} = {1}.
+        /// </summary>
+        public static string CategoryThemeProperties_Criterion_ValueCriterionOperatorEqualValue_AttributeName_0_Value_1_ {
+            get {
+                return ResourceManager.GetString("CategoryThemeProperties_Criterion_ValueCriterionOperatorEqualValue_AttributeName_" +
+                        "0_Value_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ≠ {1}.
+        /// </summary>
+        public static string CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeName_0_Value_1_ {
+            get {
+                return ResourceManager.GetString("CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeNam" +
+                        "e_0_Value_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag..
         /// </summary>
         public static string FeatureBasedMapdata_SelectedMetaDataAttribute_Description {
