@@ -272,37 +272,17 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="criteria">The criteria to convert to an expression.</param>
         /// <returns>The filter expression based on the <paramref name="attributeIndex"/>
         /// and <paramref name="criteria"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when the <see cref="ICriteria"/>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="criteria"/>
         /// cannot be used to create a filter expression.</exception>
-        private static string CreateFilterExpression(int attributeIndex, ICriteria criteria)
+        private static string CreateFilterExpression(int attributeIndex, ValueCriteria criteria)
         {
-            var valueCriteria = criteria as ValueCriteria;
-            if (valueCriteria != null)
-            {
-                return CreateValueFilterExpression(attributeIndex, valueCriteria);
-            }
-
-            throw new NotSupportedException($"Can't convert a {nameof(ICriteria)} of type {criteria.GetType()}");
-        }
-
-        /// <summary>
-        /// Creates a filter expression based for an attribute and the value criteria to apply.
-        /// </summary>
-        /// <param name="attributeIndex">The index of the attribute in the metadata table.</param>
-        /// <param name="valueCriteria">The criteria to convert to an expression.</param>
-        /// <returns>The filter expression based on the <paramref name="attributeIndex"/>
-        /// and <paramref name="valueCriteria"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when the <see cref="ValueCriteriaOperator"/>
-        /// cannot be used to create a filter expression.</exception>
-        private static string CreateValueFilterExpression(int attributeIndex, ValueCriteria valueCriteria)
-        {
-            ValueCriteriaOperator valueOperator = valueCriteria.ValueOperator;
+            ValueCriteriaOperator valueOperator = criteria.ValueOperator;
             switch (valueOperator)
             {
                 case ValueCriteriaOperator.EqualValue:
-                    return $"[{attributeIndex}] = '{valueCriteria.Value}'";
+                    return $"[{attributeIndex}] = '{criteria.Value}'";
                 case ValueCriteriaOperator.UnequalValue:
-                    return $"NOT [{attributeIndex}] = '{valueCriteria.Value}'";
+                    return $"NOT [{attributeIndex}] = '{criteria.Value}'";
                 default:
                     throw new NotSupportedException($"The enum value {nameof(ValueCriteriaOperator)}.{valueOperator} is not supported.");
             }

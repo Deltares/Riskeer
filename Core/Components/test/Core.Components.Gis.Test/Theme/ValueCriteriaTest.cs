@@ -42,7 +42,6 @@ namespace Core.Components.Gis.Test.Theme
             var criteria = new ValueCriteria(valueOperator, value);
 
             // Assert
-            Assert.IsInstanceOf<ICriteria>(criteria);
             Assert.AreEqual(valueOperator, criteria.ValueOperator);
             Assert.AreEqual(value, criteria.Value);
         }

@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
+using Core.Common.TestUtil;
 using Core.Components.Gis.Theme;
 
 namespace Core.Components.Gis.TestUtil.Theme
@@ -35,7 +37,10 @@ namespace Core.Components.Gis.TestUtil.Theme
         /// <returns>A fully configured <see cref="CategoryTheme"/>.</returns>
         public static CategoryTheme CreateCategoryTheme()
         {
-            return new CategoryTheme(Color.Aqua, new TestCriteria());
+            var random = new Random(21);
+            return new CategoryTheme(Color.Aqua,
+                                     new ValueCriteria(random.NextEnumValue<ValueCriteriaOperator>(),
+                                                       random.NextDouble()));
         }
     }
 }

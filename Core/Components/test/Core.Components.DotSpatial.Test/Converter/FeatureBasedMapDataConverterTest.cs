@@ -513,59 +513,6 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void ConvertLayerProperties_MapDataWithMapThemeAndUnsupportedCriteria_ThrowsNotSupportedException()
-        {
-            // Setup
-            var random = new Random(21);
-            const string metadataAttributeName = "Meta";
-
-            var featureScheme = new PointScheme();
-            var defaultCategory = new PointCategory();
-            var category = new PointCategory();
-
-            var unsupportedCriteria = new TestCriteria();
-            var theme = new MapTheme(metadataAttributeName, new[]
-            {
-                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  unsupportedCriteria)
-            });
-
-            var mapData = new TestFeatureBasedMapData("test data")
-            {
-                Features = new[]
-                {
-                    new MapFeature(Enumerable.Empty<MapGeometry>())
-                    {
-                        MetaData =
-                        {
-                            {
-                                metadataAttributeName, new object()
-                            }
-                        }
-                    }
-                },
-                MapTheme = theme
-            };
-
-            var testConverter = new TestFeatureBasedMapDataConverter
-            {
-                CreatedFeatureScheme = featureScheme,
-                CreatedDefaultCategory = defaultCategory,
-                CreatedCategory = category
-            };
-
-            var mapLayer = new TestFeatureLayer();
-
-            // Call
-            TestDelegate call = () => testConverter.ConvertLayerProperties(mapData, mapLayer);
-
-            // Assert
-            var exception = Assert.Throws<NotSupportedException>(call);
-            string expectedMessage = $"Can't convert a {nameof(ICriteria)} of type {unsupportedCriteria.GetType()}";
-            Assert.AreEqual(expectedMessage, exception.Message);
-        }
-
-        [Test]
         public void ConvertLayerProperties_MapDataWithMapThemeAndMetadataNameNotInFatures_ThrowsKeyNotFoundException()
         {
             // Setup

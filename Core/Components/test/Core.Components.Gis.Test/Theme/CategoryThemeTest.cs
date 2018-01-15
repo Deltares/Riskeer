@@ -50,11 +50,10 @@ namespace Core.Components.Gis.Test.Theme
         public void Constructor_ValidArguments_ReturnsExpectedProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var criteria = mocks.Stub<ICriteria>();
-            mocks.ReplayAll();
-
             var random = new Random(21);
+            var criteria = new ValueCriteria(random.NextEnumValue<ValueCriteriaOperator>(),
+                                             random.NextDouble());
+
             Color themeColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
 
             // Call
@@ -63,7 +62,6 @@ namespace Core.Components.Gis.Test.Theme
             // Assert
             Assert.AreEqual(themeColor, category.Color);
             Assert.AreSame(criteria, category.Criteria);
-            mocks.VerifyAll();
         }
     }
 }

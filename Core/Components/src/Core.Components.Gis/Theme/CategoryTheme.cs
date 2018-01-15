@@ -36,7 +36,7 @@ namespace Core.Components.Gis.Theme
         /// <param name="criteria">The criteria belonging to the category.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="criteria"/>
         /// is <c>null</c>.</exception>
-        public CategoryTheme(Color themeColor, ICriteria criteria)
+        public CategoryTheme(Color themeColor, ValueCriteria criteria)
         {
             if (criteria == null)
             {
@@ -55,6 +55,6 @@ namespace Core.Components.Gis.Theme
         /// <summary>
         /// Gets the criteria that is associated with the category theme.
         /// </summary>
-        public ICriteria Criteria { get; }
+        public ValueCriteria Criteria { get; }
     }
 }
