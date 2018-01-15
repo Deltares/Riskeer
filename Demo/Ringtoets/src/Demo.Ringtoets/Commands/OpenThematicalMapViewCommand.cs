@@ -59,7 +59,7 @@ namespace Demo.Ringtoets.Commands
 
             var mapPointDataEqualCriteria = new MapPointData(Resources.OpenThematicalMapViewCommand_Execute_MapPointData_with_EqualValueCriteria)
             {
-                Features = CreateMapPointFeaturesWithMetaData(100),
+                Features = CreateMapPointFeaturesWithMetaData(40),
                 Style =
                 {
                     Size = 5
@@ -81,7 +81,7 @@ namespace Demo.Ringtoets.Commands
 
             var mapLineDataEqualCriteria = new MapLineData(Resources.OpenThematicalMapViewCommand_Execute_MapLineData_with_EqualValueCriteria)
             {
-                Features = CreateMapLineFeaturesWithMetaData(100)
+                Features = CreateMapLineFeaturesWithMetaData(40)
             };
             SetEqualCriteria(mapLineDataEqualCriteria);
             mapDataCollection.Add(mapLineDataEqualCriteria);
