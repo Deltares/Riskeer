@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.DuneErosion.Data
 {
@@ -104,17 +103,6 @@ namespace Ringtoets.DuneErosion.Data
         /// Gets the dune erosion calculation.
         /// </summary>
         public DuneLocationCalculation Calculation { get; }
-
-        /// <summary>
-        /// Gets the convergence status of the dune erosion calculation.
-        /// </summary>
-        public CalculationConvergence CalculationConvergence
-        {
-            get
-            {
-                return Calculation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
-            }
-        }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="DuneLocation"/>.
