@@ -39,9 +39,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
     [TestFixture]
     public class MapLineDataPropertiesTest
     {
-        private const int colorPropertyIndex = 5;
-        private const int widthPropertyIndex = 6;
-        private const int stylePropertyIndex = 7;
+        private const int colorPropertyIndex = 6;
+        private const int widthPropertyIndex = 7;
+        private const int stylePropertyIndex = 8;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -76,7 +76,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(9, dynamicProperties.Count);
             const string styleCategory = "Stijl";
 
             PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];

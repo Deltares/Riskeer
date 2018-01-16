@@ -42,6 +42,8 @@ namespace Core.Plugins.Map.PropertyClasses
         private const int isVisiblePropertyIndex = 2;
         private const int showLabelsPropertyIndex = 3;
         private const int selectedMetaDataAttributePropertyIndex = 4;
+        private const int styleTypePropertyIndex = 5;
+        private const int mapThemeAttributeNamePropertyIndex = 6;
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Layer))]
@@ -96,6 +98,38 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
+        [PropertyOrder(styleTypePropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapdata_StyleType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FeatureBasedMapdata_StyleType_Description))]
+        public string StyleType
+        {
+            get
+            {
+                if (data.MapTheme != null)
+                {
+                    return Resources.FeatureBasedMapData_StyleType_Categories;
+                }
+
+                return Resources.FeatureBasedMapData_StyleType_Single_symbol;
+            }
+        }
+
+        [PropertyOrder(mapThemeAttributeNamePropertyIndex)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapdata_MapThemeAttributeName_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FeatureBasedMapdata_MapThemeAttributeName_Description))]
+        public string MapThemeAttributeName
+        {
+            get
+            {
+                return data.MapTheme != null 
+                           ? data.MapTheme.AttributeName
+                           : string.Empty;
+            }
+        }
+
         [PropertyOrder(selectedMetaDataAttributePropertyIndex)]
         [DynamicVisible]
         [DynamicReadOnly]
@@ -119,13 +153,29 @@ namespace Core.Plugins.Map.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadonlyValidator(string propertyName)
         {
-            return !data.MetaData.Any();
+            if (propertyName == nameof(ShowLabels)
+                || propertyName == nameof(SelectedMetaDataAttribute))
+            {
+                return !data.MetaData.Any();
+            }
+
+            return false;
         }
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return data.ShowLabels;
+            if (propertyName == nameof(SelectedMetaDataAttribute))
+            {
+                return data.ShowLabels;
+            }
+
+            if (propertyName == nameof(MapThemeAttributeName))
+            {
+                return data.MapTheme != null;
+            }
+
+            return false;
         }
 
         public IEnumerable<SelectableMetaDataAttribute> GetAvailableMetaDataAttributes()

@@ -27,6 +27,8 @@ using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.TestUtil;
+using Core.Components.Gis.Theme;
 using Core.Plugins.Map.PropertyClasses;
 using Core.Plugins.Map.UITypeEditors;
 using NUnit.Framework;
@@ -42,6 +44,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         private const int isVisiblePropertyIndex = 2;
         private const int showLabelsPropertyIndex = 3;
         private const int selectedMetaDataAttributePropertyIndex = 4;
+        private const int stylePropertyIndex = 5;
+        private const int mapThemeAttributeNamePropertyIndex = 5;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -56,10 +60,20 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewMapPointDataInstance_ReturnCorrectPropertyValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Data_SetNewMapPointDataInstance_ReturnCorrectPropertyValues(bool hasMapTheme)
         {
             // Setup
-            var mapPointData = new MapPointData("Test");
+            var mapPointData = new MapPointData("Test")
+            {
+                MapTheme = hasMapTheme
+                               ? new MapTheme("Attribute", new[]
+                               {
+                                   CategoryThemeTestFactory.CreateCategoryTheme()
+                               })
+                               : null
+            };
             var properties = new TestFeatureBasedMapDataProperties();
 
             // Call
@@ -72,6 +86,16 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
             Assert.IsEmpty(properties.SelectedMetaDataAttribute.MetaDataAttribute);
             Assert.AreEqual(mapPointData.MetaData, properties.GetAvailableMetaDataAttributes());
+
+            string expectedStyleTypeValue = hasMapTheme
+                                                ? "Categorie"
+                                                : "Enkel symbool";
+            Assert.AreEqual(expectedStyleTypeValue, properties.StyleType);
+
+            string expectedAttributeName = hasMapTheme
+                                  ? mapPointData.MapTheme.AttributeName
+                                  : string.Empty;
+            Assert.AreEqual(expectedAttributeName, properties.MapThemeAttributeName);
         }
 
         [Test]
@@ -98,10 +122,11 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             const string layerCategory = "Kaartlaag";
             const string labelCategory = "Labels";
+            const string styleCategory = "Stijl";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -134,6 +159,13 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                             labelCategory,
                                                                             "Op basis van",
                                                                             "Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag.");
+
+            PropertyDescriptor styleTypeProperty = dynamicProperties[stylePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleTypeProperty,
+                                                                            styleCategory,
+                                                                            "Type",
+                                                                            "Het type van de stijl die is wordt toegepast voor het weergeven van deze kaartlaag.",
+                                                                            true);
         }
 
         [Test]
@@ -241,7 +273,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(showLabels ? 5 : 4, dynamicProperties.Count);
+            Assert.AreEqual(showLabels ? 6 : 5, dynamicProperties.Count);
 
             if (showLabels)
             {
@@ -250,6 +282,44 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                                 "Labels",
                                                                                 "Op basis van",
                                                                                 "Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag.");
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void MapThemeRelatedProperties_MapDataWithMapThemeConfiguration_PropertiesShouldBeVisible(bool hasMapTheme)
+        {
+            // Setup
+            var mapPointData = new MapPointData("Test")
+            {
+                MapTheme = hasMapTheme
+                               ? new MapTheme("Attribute", new[]
+                               {
+                                   CategoryThemeTestFactory.CreateCategoryTheme()
+                               })
+                               : null
+            };
+
+            // Call
+            var properties = new TestFeatureBasedMapDataProperties
+            {
+                Data = mapPointData
+            };
+
+            // Assert
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(hasMapTheme ? 6 : 5, dynamicProperties.Count);
+
+            if (hasMapTheme)
+            {
+                PropertyDescriptor mapThemeAttributeNameProperty = dynamicProperties[mapThemeAttributeNamePropertyIndex];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(mapThemeAttributeNameProperty,
+                                                                                "Stijl",
+                                                                                "Op basis van",
+                                                                                "Toont de eigenschap op basis waarvan de kaartlaag is gecategoriseerd.",
+                                                                                true);
             }
         }
 

@@ -175,6 +175,24 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan de kaartlaag is gecategoriseerd..
+        /// </summary>
+        public static string FeatureBasedMapdata_MapThemeAttributeName_Description {
+            get {
+                return ResourceManager.GetString("FeatureBasedMapdata_MapThemeAttributeName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Op basis van.
+        /// </summary>
+        public static string FeatureBasedMapdata_MapThemeAttributeName_DisplayName {
+            get {
+                return ResourceManager.GetString("FeatureBasedMapdata_MapThemeAttributeName_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag..
         /// </summary>
         public static string FeatureBasedMapdata_SelectedMetaDataAttribute_Description {
@@ -207,6 +225,42 @@ namespace Core.Plugins.Map.Properties {
         public static string FeatureBasedMapData_ShowLabels_DisplayName {
             get {
                 return ResourceManager.GetString("FeatureBasedMapData_ShowLabels_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie.
+        /// </summary>
+        public static string FeatureBasedMapData_StyleType_Categories {
+            get {
+                return ResourceManager.GetString("FeatureBasedMapData_StyleType_Categories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het type van de stijl die is wordt toegepast voor het weergeven van deze kaartlaag..
+        /// </summary>
+        public static string FeatureBasedMapdata_StyleType_Description {
+            get {
+                return ResourceManager.GetString("FeatureBasedMapdata_StyleType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string FeatureBasedMapdata_StyleType_DisplayName {
+            get {
+                return ResourceManager.GetString("FeatureBasedMapdata_StyleType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enkel symbool.
+        /// </summary>
+        public static string FeatureBasedMapData_StyleType_Single_symbol {
+            get {
+                return ResourceManager.GetString("FeatureBasedMapData_StyleType_Single_symbol", resourceCulture);
             }
         }
         

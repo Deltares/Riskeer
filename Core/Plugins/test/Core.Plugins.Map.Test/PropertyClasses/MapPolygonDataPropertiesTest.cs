@@ -38,9 +38,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
     [TestFixture]
     public class MapPolygonDataPropertiesTest
     {
-        private const int fillColorPropertyIndex = 5;
-        private const int strokeColorPropertyIndex = 6;
-        private const int strokeThicknessPropertyIndex = 7;
+        private const int fillColorPropertyIndex = 6;
+        private const int strokeColorPropertyIndex = 7;
+        private const int strokeThicknessPropertyIndex = 8;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -75,7 +75,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(9, dynamicProperties.Count);
             const string styleCategory = "Stijl";
 
             PropertyDescriptor colorProperty = dynamicProperties[fillColorPropertyIndex];

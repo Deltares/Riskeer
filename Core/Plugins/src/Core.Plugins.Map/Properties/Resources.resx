@@ -340,4 +340,22 @@
   <data name="CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeName_0_Value_1_" xml:space="preserve">
     <value>{0} ≠ {1}</value>
   </data>
+  <data name="FeatureBasedMapdata_MapThemeAttributeName_Description" xml:space="preserve">
+    <value>Toont de eigenschap op basis waarvan de kaartlaag is gecategoriseerd.</value>
+  </data>
+  <data name="FeatureBasedMapdata_MapThemeAttributeName_DisplayName" xml:space="preserve">
+    <value>Op basis van</value>
+  </data>
+  <data name="FeatureBasedMapdata_StyleType_Description" xml:space="preserve">
+    <value>Het type van de stijl die is wordt toegepast voor het weergeven van deze kaartlaag.</value>
+  </data>
+  <data name="FeatureBasedMapdata_StyleType_DisplayName" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="FeatureBasedMapData_StyleType_Categories" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="FeatureBasedMapData_StyleType_Single_symbol" xml:space="preserve">
+    <value>Enkel symbool</value>
+  </data>
 </root>

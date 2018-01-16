@@ -39,11 +39,11 @@ namespace Core.Plugins.Map.Test.PropertyClasses
     [TestFixture]
     public class MapPointDataPropertiesTest
     {
-        private const int colorPropertyIndex = 5;
-        private const int strokeColorPropertyIndex = 6;
-        private const int strokeThicknessPropertyIndex = 7;
-        private const int sizePropertyIndex = 8;
-        private const int symbolPropertyIndex = 9;
+        private const int colorPropertyIndex = 6;
+        private const int strokeColorPropertyIndex = 7;
+        private const int strokeThicknessPropertyIndex = 8;
+        private const int sizePropertyIndex = 9;
+        private const int symbolPropertyIndex = 10;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -78,7 +78,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(10, dynamicProperties.Count);
+            Assert.AreEqual(11, dynamicProperties.Count);
             const string styleCategory = "Stijl";
 
             PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
