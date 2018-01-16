@@ -149,8 +149,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsNotNull(location);
-            Assert.AreEqual(designWaterLevel, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual(waveHeight, location.WaveHeight, location.WaveHeight.GetAccuracy());
             AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, location.DesignWaterLevelCalculation.Output);
             AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, location.WaveHeightCalculation.Output);
         }
@@ -220,16 +218,14 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsNotNull(location);
-            Assert.AreEqual(designWaterLevel, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual(waveHeight, location.WaveHeight, location.WaveHeight.GetAccuracy());
 
             HydraulicBoundaryLocationCalculation designWaterLevelCalculation = location.DesignWaterLevelCalculation;
             AssertShouldIllustrationPointsBeCalculated(shouldDesignWaterLevelIllustrationPointsBeCalculated, designWaterLevelCalculation);
-            AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, location.DesignWaterLevelCalculation.Output);
+            AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, designWaterLevelCalculation.Output);
 
             HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation;
             AssertShouldIllustrationPointsBeCalculated(shouldWaveHeightIllustrationPointsBeCalculated, waveHeightCalculation);
-            AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, location.WaveHeightCalculation.Output);
+            AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, waveHeightCalculation.Output);
         }
 
         [Test]
@@ -265,6 +261,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
                 Assert.IsNull(actual);
                 return;
             }
+
             Assert.IsNotNull(expected.Result);
             Assert.AreEqual((RoundedDouble) expected.Result, actual.Result, actual.Result.GetAccuracy());
             Assert.IsNotNull(expected.TargetReliability);
