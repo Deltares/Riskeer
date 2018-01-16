@@ -100,26 +100,6 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        [PropertyOrder(selectedMetaDataAttributePropertyIndex)]
-        [DynamicVisible]
-        [DynamicReadOnly]
-        [Editor(typeof(MetaDataAttributeEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Label))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapdata_SelectedMetaDataAttribute_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.FeatureBasedMapdata_SelectedMetaDataAttribute_Description))]
-        public SelectableMetaDataAttribute SelectedMetaDataAttribute
-        {
-            get
-            {
-                return new SelectableMetaDataAttribute(data.SelectedMetaDataAttribute ?? string.Empty);
-            }
-            set
-            {
-                data.SelectedMetaDataAttribute = value.MetaDataAttribute;
-                data.NotifyObservers();
-            }
-        }
-
         [PropertyOrder(styleTypePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapdata_StyleType_DisplayName))]
@@ -169,8 +149,28 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
+        [PropertyOrder(selectedMetaDataAttributePropertyIndex)]
+        [DynamicVisible]
+        [DynamicReadOnly]
+        [Editor(typeof(MetaDataAttributeEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Label))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapdata_SelectedMetaDataAttribute_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FeatureBasedMapdata_SelectedMetaDataAttribute_Description))]
+        public SelectableMetaDataAttribute SelectedMetaDataAttribute
+        {
+            get
+            {
+                return new SelectableMetaDataAttribute(data.SelectedMetaDataAttribute ?? string.Empty);
+            }
+            set
+            {
+                data.SelectedMetaDataAttribute = value.MetaDataAttribute;
+                data.NotifyObservers();
+            }
+        }
+
         [DynamicReadOnlyValidationMethod]
-        public bool DynamicReadonlyValidator(string propertyName)
+        public virtual bool DynamicReadonlyValidator(string propertyName)
         {
             if (propertyName == nameof(ShowLabels)
                 || propertyName == nameof(SelectedMetaDataAttribute))
@@ -182,7 +182,7 @@ namespace Core.Plugins.Map.PropertyClasses
         }
 
         [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
+        public virtual bool DynamicVisibleValidationMethod(string propertyName)
         {
             if (propertyName == nameof(SelectedMetaDataAttribute))
             {

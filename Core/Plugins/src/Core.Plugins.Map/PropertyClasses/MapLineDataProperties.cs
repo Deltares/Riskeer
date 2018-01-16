@@ -47,6 +47,7 @@ namespace Core.Plugins.Map.PropertyClasses
         }
 
         [PropertyOrder(5)]
+        [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_Color_Description))]
@@ -66,6 +67,7 @@ namespace Core.Plugins.Map.PropertyClasses
         }
 
         [PropertyOrder(6)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeThickness_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_Width_Description))]
@@ -83,6 +85,7 @@ namespace Core.Plugins.Map.PropertyClasses
         }
 
         [PropertyOrder(7)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapLineData_DashStyle_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_DashStyle_Description))]
@@ -98,6 +101,27 @@ namespace Core.Plugins.Map.PropertyClasses
                 data.Style.DashStyle = value;
                 data.NotifyObservers();
             }
+        }
+
+        public override bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (propertyName == nameof(Color))
+            {
+                return data.MapTheme == null;
+            }
+
+            return base.DynamicVisibleValidationMethod(propertyName);
+        }
+
+        public override bool DynamicReadonlyValidator(string propertyName)
+        {
+            if (propertyName == nameof(Width)
+                || propertyName == nameof(DashStyle))
+            {
+                return data.MapTheme != null;
+            }
+
+            return base.DynamicReadonlyValidator(propertyName);
         }
     }
 }
