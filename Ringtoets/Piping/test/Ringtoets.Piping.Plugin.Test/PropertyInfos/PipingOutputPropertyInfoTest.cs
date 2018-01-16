@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingOutputContextProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingOutputProperties));
         }
 
         [TearDown]
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<PipingOutputContextProperties>(objectProperties);
+            Assert.IsInstanceOf<PipingOutputProperties>(objectProperties);
             Assert.AreSame(output, objectProperties.Data);
         }
     }

@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(PipingOutputContext),
-                    typeof(PipingOutputContextProperties));
+                    typeof(PipingOutputProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

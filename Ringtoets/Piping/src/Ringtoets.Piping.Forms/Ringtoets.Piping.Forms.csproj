@@ -43,7 +43,7 @@
     <Compile Include="PropertyClasses\NormalDistributionDesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\PipingFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingInputContextProperties.cs" />
-    <Compile Include="PropertyClasses\PipingOutputContextProperties.cs" />
+    <Compile Include="PropertyClasses\PipingOutputProperties.cs" />
     <Compile Include="PropertyClasses\PipingSurfaceLineCollectionProperties.cs" />
     <Compile Include="PropertyClasses\ShiftedLogNormalDistributionDesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\PipingStochasticSoilModelCollectionProperties.cs" />
