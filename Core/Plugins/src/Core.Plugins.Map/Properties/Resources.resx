@@ -358,4 +358,7 @@
   <data name="FeatureBasedMapData_StyleType_Single_symbol" xml:space="preserve">
     <value>Enkel symbool</value>
   </data>
+  <data name="FeatureBasedMapdata_Categories_DisplayName" xml:space="preserve">
+    <value>Categorieën</value>
+  </data>
 </root>

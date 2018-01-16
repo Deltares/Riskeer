@@ -40,7 +40,7 @@ namespace Core.Plugins.Map.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -171,6 +171,15 @@ namespace Core.Plugins.Map.Properties {
             get {
                 return ResourceManager.GetString("CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeNam" +
                         "e_0_Value_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorieën.
+        /// </summary>
+        public static string FeatureBasedMapdata_Categories_DisplayName {
+            get {
+                return ResourceManager.GetString("FeatureBasedMapdata_Categories_DisplayName", resourceCulture);
             }
         }
         

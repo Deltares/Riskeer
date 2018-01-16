@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq;
 using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
@@ -44,6 +45,7 @@ namespace Core.Plugins.Map.PropertyClasses
         private const int selectedMetaDataAttributePropertyIndex = 4;
         private const int styleTypePropertyIndex = 5;
         private const int mapThemeAttributeNamePropertyIndex = 6;
+        private const int mapThemeCategoryPropertyIndex = 7;
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Layer))]
@@ -98,6 +100,26 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
+        [PropertyOrder(selectedMetaDataAttributePropertyIndex)]
+        [DynamicVisible]
+        [DynamicReadOnly]
+        [Editor(typeof(MetaDataAttributeEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Label))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapdata_SelectedMetaDataAttribute_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FeatureBasedMapdata_SelectedMetaDataAttribute_Description))]
+        public SelectableMetaDataAttribute SelectedMetaDataAttribute
+        {
+            get
+            {
+                return new SelectableMetaDataAttribute(data.SelectedMetaDataAttribute ?? string.Empty);
+            }
+            set
+            {
+                data.SelectedMetaDataAttribute = value.MetaDataAttribute;
+                data.NotifyObservers();
+            }
+        }
+
         [PropertyOrder(styleTypePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapdata_StyleType_DisplayName))]
@@ -124,29 +146,26 @@ namespace Core.Plugins.Map.PropertyClasses
         {
             get
             {
-                return data.MapTheme != null 
+                return data.MapTheme != null
                            ? data.MapTheme.AttributeName
                            : string.Empty;
             }
         }
 
-        [PropertyOrder(selectedMetaDataAttributePropertyIndex)]
+        [PropertyOrder(mapThemeCategoryPropertyIndex)]
         [DynamicVisible]
-        [DynamicReadOnly]
-        [Editor(typeof(MetaDataAttributeEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Label))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapdata_SelectedMetaDataAttribute_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.FeatureBasedMapdata_SelectedMetaDataAttribute_Description))]
-        public SelectableMetaDataAttribute SelectedMetaDataAttribute
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapdata_Categories_DisplayName))]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        public CategoryThemeProperties[] Categories
         {
             get
             {
-                return new SelectableMetaDataAttribute(data.SelectedMetaDataAttribute ?? string.Empty);
-            }
-            set
-            {
-                data.SelectedMetaDataAttribute = value.MetaDataAttribute;
-                data.NotifyObservers();
+                return data.MapTheme != null
+                           ? data.MapTheme.CategoryThemes
+                                 .Select(theme => new CategoryThemeProperties(data.MapTheme.AttributeName, theme))
+                                 .ToArray()
+                           : new CategoryThemeProperties[0];
             }
         }
 
@@ -170,7 +189,8 @@ namespace Core.Plugins.Map.PropertyClasses
                 return data.ShowLabels;
             }
 
-            if (propertyName == nameof(MapThemeAttributeName))
+            if (propertyName == nameof(MapThemeAttributeName)
+                || propertyName == nameof(Categories))
             {
                 return data.MapTheme != null;
             }
