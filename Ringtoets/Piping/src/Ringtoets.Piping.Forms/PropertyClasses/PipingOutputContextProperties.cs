@@ -19,21 +19,48 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="PipingOutputContext"/> for properties panel.
+    /// ViewModel of <see cref="PipingOutput"/> for properties panel.
     /// </summary>
-    public class PipingOutputContextProperties : ObjectProperties<PipingOutputContext>
+    public class PipingOutputContextProperties : ObjectProperties<PipingOutput>
     {
+        private readonly PipingSemiProbabilisticOutput semiProbabilisticOutput;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingOutputContextProperties"/>.
+        /// </summary>
+        /// <param name="output">The output to show the properties for.</param>
+        /// <param name="semiProbabilisticOutput">The semi probabilistic output to
+        /// show properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
+        public PipingOutputContextProperties(PipingOutput output, PipingSemiProbabilisticOutput semiProbabilisticOutput)
+        {
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
+            }
+
+            if (semiProbabilisticOutput == null)
+            {
+                throw new ArgumentNullException(nameof(semiProbabilisticOutput));
+            }
+
+            Data = output;
+            this.semiProbabilisticOutput = semiProbabilisticOutput;
+        }
+
         [ResourcesCategory(typeof(Resources), nameof(Resources.PipingOutputContext_Categories_Uplift), 1, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingOutputContext_UpliftEffectiveStress_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingOutputContext_UpliftEffectiveStress_Description))]
@@ -42,7 +69,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.UpliftEffectiveStress;
+                return data.UpliftEffectiveStress;
             }
         }
 
@@ -54,7 +81,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SemiProbabilisticOutput.UpliftFactorOfSafety;
+                return semiProbabilisticOutput.UpliftFactorOfSafety;
             }
         }
 
@@ -66,7 +93,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SemiProbabilisticOutput.UpliftReliability;
+                return semiProbabilisticOutput.UpliftReliability;
             }
         }
 
@@ -78,7 +105,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.SemiProbabilisticOutput.UpliftProbability);
+                return ProbabilityFormattingHelper.Format(semiProbabilisticOutput.UpliftProbability);
             }
         }
 
@@ -90,7 +117,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.HeaveGradient;
+                return data.HeaveGradient;
             }
         }
 
@@ -102,7 +129,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SemiProbabilisticOutput.HeaveFactorOfSafety;
+                return semiProbabilisticOutput.HeaveFactorOfSafety;
             }
         }
 
@@ -114,7 +141,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SemiProbabilisticOutput.HeaveReliability;
+                return semiProbabilisticOutput.HeaveReliability;
             }
         }
 
@@ -126,7 +153,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.SemiProbabilisticOutput.HeaveProbability);
+                return ProbabilityFormattingHelper.Format(semiProbabilisticOutput.HeaveProbability);
             }
         }
 
@@ -138,7 +165,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.SellmeijerCreepCoefficient;
+                return data.SellmeijerCreepCoefficient;
             }
         }
 
@@ -150,7 +177,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.SellmeijerCriticalFall;
+                return data.SellmeijerCriticalFall;
             }
         }
 
@@ -162,7 +189,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.SellmeijerReducedFall;
+                return data.SellmeijerReducedFall;
             }
         }
 
@@ -174,7 +201,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SemiProbabilisticOutput.SellmeijerFactorOfSafety;
+                return semiProbabilisticOutput.SellmeijerFactorOfSafety;
             }
         }
 
@@ -186,7 +213,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SemiProbabilisticOutput.SellmeijerReliability;
+                return semiProbabilisticOutput.SellmeijerReliability;
             }
         }
 
@@ -198,7 +225,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.SemiProbabilisticOutput.SellmeijerProbability);
+                return ProbabilityFormattingHelper.Format(semiProbabilisticOutput.SellmeijerProbability);
             }
         }
 
@@ -210,7 +237,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.SemiProbabilisticOutput.RequiredProbability);
+                return ProbabilityFormattingHelper.Format(semiProbabilisticOutput.RequiredProbability);
             }
         }
 
@@ -222,7 +249,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SemiProbabilisticOutput.RequiredReliability;
+                return semiProbabilisticOutput.RequiredReliability;
             }
         }
 
@@ -234,7 +261,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.SemiProbabilisticOutput.PipingProbability);
+                return ProbabilityFormattingHelper.Format(semiProbabilisticOutput.PipingProbability);
             }
         }
 
@@ -246,7 +273,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SemiProbabilisticOutput.PipingReliability;
+                return semiProbabilisticOutput.PipingReliability;
             }
         }
 
@@ -258,7 +285,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SemiProbabilisticOutput.PipingFactorOfSafety;
+                return semiProbabilisticOutput.PipingFactorOfSafety;
             }
         }
     }

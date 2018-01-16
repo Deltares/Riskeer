@@ -27,7 +27,6 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
@@ -36,14 +35,39 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
     public class PipingOutputContextPropertiesTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_OutputNull_ThrowsArgumentNullException()
         {
             // Call
-            var properties = new PipingOutputContextProperties();
+            TestDelegate call = () => new PipingOutputContextProperties(null, new TestPipingSemiProbabilisticOutput());
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<PipingOutputContext>>(properties);
-            Assert.IsNull(properties.Data);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("output", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_SemiProbabilisticOutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new PipingOutputContextProperties(new TestPipingOutput(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("semiProbabilisticOutput", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var output = new TestPipingOutput();
+
+            // Call
+            var properties = new PipingOutputContextProperties(output, new TestPipingSemiProbabilisticOutput());
+
+            // Assert
+            Assert.IsInstanceOf<ObjectProperties<PipingOutput>>(properties);
+            Assert.AreSame(output, properties.Data);
         }
 
         [Test]
@@ -98,12 +122,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             });
 
             // Call
-            var properties = new PipingOutputContextProperties
-            {
-                Data = new PipingOutputContext(output, semiProbabilisticOutput)
-            };
+            var properties = new PipingOutputContextProperties(output, semiProbabilisticOutput);
 
-            // Call & Assert
+            // Assert
             const string probabilityFormat = "1/{0:n0}";
             Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, properties.UpliftFactorOfSafety.GetAccuracy());
             Assert.AreEqual(upliftReliability, properties.UpliftReliability, properties.UpliftReliability.GetAccuracy());
@@ -165,12 +186,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 pipingReliability,
                 pipingFactorOfSafety);
 
-            var properties = new PipingOutputContextProperties
-            {
-                Data = new PipingOutputContext(new TestPipingOutput(), semiProbabilisticOutput)
-            };
+            var properties = new PipingOutputContextProperties(new TestPipingOutput(), semiProbabilisticOutput);
 
-            // Call & Assert
+            // Assert
             const string probability = "1/Oneindig";
             Assert.AreEqual(probability, properties.UpliftProbability);
             Assert.AreEqual(probability, properties.HeaveProbability);
@@ -216,10 +234,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 pipingFactorOfSafety);
 
             // Call
-            var properties = new PipingOutputContextProperties
-            {
-                Data = new PipingOutputContext(new TestPipingOutput(), semiProbabilisticOutput)
-            };
+            var properties = new PipingOutputContextProperties(new TestPipingOutput(), semiProbabilisticOutput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
