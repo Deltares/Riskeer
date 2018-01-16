@@ -71,9 +71,6 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation2);
             AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation3);
             AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation4);
-
-            Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
         }
 
         [Test]

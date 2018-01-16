@@ -40,13 +40,15 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsEmpty(testLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), testLocation.Location);
 
-            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculation>(testLocation.DesignWaterLevelCalculation);
-            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculation>(testLocation.WaveHeightCalculation);
-            Assert.IsNull(testLocation.DesignWaterLevelCalculation.Output);
-            Assert.IsNull(testLocation.WaveHeightCalculation.Output);
+            AssertHydraulicBoundaryLocationCalculation(testLocation.DesignWaterLevelCalculation);
+            AssertHydraulicBoundaryLocationCalculation(testLocation.DesignWaterLevelCalculation2);
+            AssertHydraulicBoundaryLocationCalculation(testLocation.DesignWaterLevelCalculation3);
+            AssertHydraulicBoundaryLocationCalculation(testLocation.DesignWaterLevelCalculation4);
 
-            Assert.IsNaN(testLocation.DesignWaterLevel);
-            Assert.IsNaN(testLocation.WaveHeight);
+            AssertHydraulicBoundaryLocationCalculation(testLocation.WaveHeightCalculation);
+            AssertHydraulicBoundaryLocationCalculation(testLocation.WaveHeightCalculation2);
+            AssertHydraulicBoundaryLocationCalculation(testLocation.WaveHeightCalculation3);
+            AssertHydraulicBoundaryLocationCalculation(testLocation.WaveHeightCalculation4);
         }
 
         [Test]
@@ -156,12 +158,19 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                 Assert.IsNull(actual);
                 return;
             }
+
             Assert.AreEqual(expected.Result, actual.Result, expected.Result.GetAccuracy());
             Assert.AreEqual(expected.TargetReliability, actual.TargetReliability, expected.TargetReliability.GetAccuracy());
             Assert.AreEqual(expected.TargetProbability, actual.TargetProbability);
             Assert.AreEqual(expected.CalculatedReliability, actual.CalculatedReliability, expected.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(expected.CalculatedProbability, actual.CalculatedProbability);
             Assert.AreEqual(expected.CalculationConvergence, actual.CalculationConvergence);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
+        {
+            Assert.IsNotNull(hydraulicBoundaryLocationCalculation);
+            Assert.IsNull(hydraulicBoundaryLocationCalculation.Output);
         }
     }
 }
