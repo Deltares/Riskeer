@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -37,18 +38,30 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// </summary>
     public class FailureMechanismSectionsProperties : ObjectProperties<IEnumerable<FailureMechanismSection>>
     {
+        private readonly Observer failureMechanismObserver;
+
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionsProperties"/>.
         /// </summary>
         /// <param name="sections">The sections to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sections"/>
-        /// is <c>null</c>.</exception>
-        public FailureMechanismSectionsProperties(IEnumerable<FailureMechanismSection> sections)
+        /// <param name="failureMechanism">The failure mechanisms which the sections belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public FailureMechanismSectionsProperties(IEnumerable<FailureMechanismSection> sections, IFailureMechanism failureMechanism)
         {
             if (sections == null)
             {
                 throw new ArgumentNullException(nameof(sections));
             }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            failureMechanismObserver = new Observer(OnRefreshRequired)
+            {
+                Observable = failureMechanism
+            };
 
             Data = sections;
         }
@@ -64,6 +77,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 return data.Select(section => new FailureMechanismSectionProperties(section)).ToArray();
             }
+        }
+
+        public override void Dispose()
+        {
+            failureMechanismObserver.Dispose();
+
+            base.Dispose();
         }
     }
 }

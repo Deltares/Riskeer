@@ -27,7 +27,9 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -38,22 +40,46 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_FailureMechanismSectionsNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsProperties(null);
+            TestDelegate call = () => new FailureMechanismSectionsProperties(null, failureMechanism);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("sections", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismSectionsProperties(sections, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
-            var properties = new FailureMechanismSectionsProperties(sections);
+            var properties = new FailureMechanismSectionsProperties(sections, failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IEnumerable<FailureMechanismSection>>>(properties);
@@ -63,16 +89,21 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 nameof(FailureMechanismSectionsProperties.Sections));
             Assert.IsNotNull(properties.Sections);
             Assert.AreEqual(sections.Count(), properties.Sections.Length);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
-            var properties = new FailureMechanismSectionsProperties(sections);
+            var properties = new FailureMechanismSectionsProperties(sections, failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -84,6 +115,26 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Vakindeling",
                                                                             "Vakindeling waarmee de waterkering voor dit toetsspoor is geschematiseerd ten behoeve van de beoordeling.",
                                                                             true);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_RefreshRequiredEventRaised()
+        {
+            // Given
+            var failureMechanism = new TestFailureMechanism();
+            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
+
+            var properties = new FailureMechanismSectionsProperties(sections, failureMechanism);
+
+            var refreshRequiredRaised = 0;
+            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+
+            // When
+            failureMechanism.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(1, refreshRequiredRaised);
         }
     }
 }

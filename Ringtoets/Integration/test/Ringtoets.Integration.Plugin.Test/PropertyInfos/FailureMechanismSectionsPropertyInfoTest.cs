@@ -65,6 +65,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Sections).Return(Enumerable.Empty<FailureMechanismSection>());
+            failureMechanism.Stub(fm => fm.Attach(null)).IgnoreArguments();
+            failureMechanism.Stub(fm => fm.Detach(null)).IgnoreArguments();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 

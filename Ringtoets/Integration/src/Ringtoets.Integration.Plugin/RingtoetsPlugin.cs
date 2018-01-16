@@ -361,7 +361,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<FailureMechanismSectionsContext, FailureMechanismSectionsProperties>
             {
-                CreateInstance = context => new FailureMechanismSectionsProperties(context.WrappedData.Sections)
+                CreateInstance = context => new FailureMechanismSectionsProperties(context.WrappedData.Sections, context.WrappedData)
             };
             yield return new PropertyInfo<ReferenceLineContext, ReferenceLineProperties>
             {
