@@ -74,6 +74,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                })
                                : null
             };
+
             var properties = new TestFeatureBasedMapDataProperties();
 
             // Call
@@ -93,8 +94,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(expectedStyleTypeValue, properties.StyleType);
 
             string expectedAttributeName = hasMapTheme
-                                  ? mapPointData.MapTheme.AttributeName
-                                  : string.Empty;
+                                               ? mapPointData.MapTheme.AttributeName
+                                               : string.Empty;
             Assert.AreEqual(expectedAttributeName, properties.MapThemeAttributeName);
         }
 
@@ -321,6 +322,150 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                                 "Toont de eigenschap op basis waarvan de kaartlaag is gecategoriseerd.",
                                                                                 true);
             }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicReadOnlyValidator_MapHasMetaData_ReturnsExpectedValuesForRelevantProperties(bool hasMetaData)
+        {
+            // Setup
+            var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
+            if (hasMetaData)
+            {
+                feature.MetaData["key"] = "value";
+            }
+
+            var mapPointData = new MapPointData("Test")
+            {
+                Features = new[]
+                {
+                    feature
+                }
+            };
+
+            var properties = new TestFeatureBasedMapDataProperties
+            {
+                Data = mapPointData
+            };
+
+            // Call
+            bool isShowLabelReadOnly = properties.DynamicReadonlyValidator(
+                nameof(TestFeatureBasedMapDataProperties.ShowLabels));
+            bool isSelectedMetaDataReadOnly = properties.DynamicReadonlyValidator(
+                nameof(TestFeatureBasedMapDataProperties.SelectedMetaDataAttribute));
+
+            // Assert
+            Assert.AreNotEqual(hasMetaData, isShowLabelReadOnly);
+            Assert.AreNotEqual(hasMetaData, isSelectedMetaDataReadOnly);
+        }
+
+        [Test]
+        public void DynamicReadOnlyValidator_AnyOtherProperty_ReturnsFalse()
+        {
+            // Setup
+            var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
+            feature.MetaData["Key"] = "value";
+
+            var mapPointData = new MapPointData("Test")
+            {
+                Features = new[]
+                {
+                    feature
+                }
+            };
+
+            var properties = new TestFeatureBasedMapDataProperties
+            {
+                Data = mapPointData
+            };
+
+            // Call
+            bool isOtherPropertyReadOnly = properties.DynamicReadonlyValidator(string.Empty);
+
+            // Assert
+            Assert.IsFalse(isOtherPropertyReadOnly);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_ShowLabels_ReturnsExpectedValuesForRelevantProperties(bool showLabels)
+        {
+            // Setup
+            var mapPointData = new MapPointData("Test")
+            {
+                ShowLabels = showLabels
+            };
+
+            var properties = new TestFeatureBasedMapDataProperties
+            {
+                Data = mapPointData
+            };
+
+            // Call
+            bool isSelectedMetaDataAttributeVisible = properties.DynamicVisibleValidationMethod(
+                nameof(TestFeatureBasedMapDataProperties.SelectedMetaDataAttribute));
+
+            // Assert
+            Assert.AreEqual(showLabels, isSelectedMetaDataAttributeVisible);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_MapDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
+        {
+            // Setup
+            var mapPointData = new MapPointData("Test")
+            {
+                MapTheme = hasMapTheme
+                               ? new MapTheme("Attribute", new[]
+                               {
+                                   CategoryThemeTestFactory.CreateCategoryTheme()
+                               })
+                               : null
+            };
+
+            var properties = new TestFeatureBasedMapDataProperties
+            {
+                Data = mapPointData
+            };
+
+            // Call
+            bool isMapThemeAttributeNameVisible = properties.DynamicVisibleValidationMethod(
+                nameof(TestFeatureBasedMapDataProperties.MapThemeAttributeName));
+
+            // Assert
+            Assert.AreEqual(hasMapTheme, isMapThemeAttributeNameVisible);
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_AnyOtherProperty_ReturnsTrue()
+        {
+            var mapPointData = new MapPointData("Test")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                },
+                ShowLabels = true,
+                MapTheme = new MapTheme("Attribute", new[]
+                {
+                    CategoryThemeTestFactory.CreateCategoryTheme()
+                })
+            };
+
+            var properties = new TestFeatureBasedMapDataProperties
+            {
+                Data = mapPointData
+            };
+
+            // Call
+            bool isOtherPropertyVisible = properties.DynamicVisibleValidationMethod(string.Empty);
+
+            // Assert
+            Assert.IsFalse(isOtherPropertyVisible);
         }
 
         private class TestFeatureBasedMapDataProperties : FeatureBasedMapDataProperties<MapPointData>
