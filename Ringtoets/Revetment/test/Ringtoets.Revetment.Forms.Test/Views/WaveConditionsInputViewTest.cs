@@ -62,7 +62,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 yield return new TestCaseData(new Func<WaveConditionsInput, double>(wci =>
                 {
                     const double expectedWaterLevel = 5.2;
-                    wci.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged);
+                    wci.HydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged);
                     wci.HydraulicBoundaryLocation.NotifyObservers();
                     return expectedWaterLevel;
                 })).SetName("UpdateWaterLevel");
@@ -75,7 +75,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                     wci.HydraulicBoundaryLocation = newLocation;
                     wci.NotifyObservers();
 
-                    newLocation.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged);
+                    newLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged);
                     newLocation.NotifyObservers();
 
                     return expectedWaterLevel;
@@ -87,7 +87,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
                     var newLocation = new TestHydraulicBoundaryLocation
                     {
-                        DesignWaterLevelCalculation =
+                        DesignWaterLevelCalculation1 =
                         {
                             Output = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged)
                         }

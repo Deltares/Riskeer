@@ -340,13 +340,13 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             yield return new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5)
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     Output = new HydraulicBoundaryLocationOutput(12.4, double.NaN,
                                                                  double.NaN, double.NaN,
                                                                  double.NaN, CalculationConvergence.CalculatedConverged, null)
                 },
-                WaveHeightCalculation =
+                WaveHeightCalculation1 =
                 {
                     Output = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.CalculatedNotConverged, null)
                 }
@@ -360,7 +360,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                        GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint());
             yield return new HydraulicBoundaryLocation(13002, "test2", 135.2, 5293.8)
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     InputParameters =
                     {
@@ -368,7 +368,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                     },
                     Output = designWaterLevelOutput
                 },
-                WaveHeightCalculation =
+                WaveHeightCalculation1 =
                 {
                     InputParameters =
                     {

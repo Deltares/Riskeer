@@ -241,7 +241,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             mockRepository.ReplayAll();
 
             StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = null;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = null;
 
             var isValid = true;
 

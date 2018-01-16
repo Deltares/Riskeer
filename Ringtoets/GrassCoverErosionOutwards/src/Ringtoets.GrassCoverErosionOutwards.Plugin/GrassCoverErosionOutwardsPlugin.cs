@@ -80,12 +80,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext, GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties(context.WrappedData,
-                                                                                                             hbl => hbl.DesignWaterLevelCalculation)
+                                                                                                             hbl => hbl.DesignWaterLevelCalculation1)
             };
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightLocationsContext, GrassCoverErosionOutwardsWaveHeightLocationsProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationsProperties(context.WrappedData,
-                                                                                                       hbl => hbl.WaveHeightCalculation)
+                                                                                                       hbl => hbl.WaveHeightCalculation1)
             };
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsOutput, GrassCoverErosionOutwardsWaveConditionsOutputProperties>();
@@ -100,13 +100,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationContext, GrassCoverErosionOutwardsDesignWaterLevelLocationProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationProperties(context.WrappedData,
-                                                                                                            context.WrappedData.DesignWaterLevelCalculation)
+                                                                                                            context.WrappedData.DesignWaterLevelCalculation1)
             };
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightLocationContext, GrassCoverErosionOutwardsWaveHeightLocationProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationProperties(context.WrappedData,
-                                                                                                      context.WrappedData.WaveHeightCalculation)
+                                                                                                      context.WrappedData.WaveHeightCalculation1)
             };
         }
 
@@ -152,7 +152,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(context.FailureMechanism,
-                                                                                                       hbl => hbl.DesignWaterLevelCalculation,
+                                                                                                       hbl => hbl.DesignWaterLevelCalculation1,
                                                                                                        context.AssessmentSection,
                                                                                                        () => context.AssessmentSection.FailureMechanismContribution.Norm),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
@@ -169,7 +169,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 CloseForData = CloseGrassCoverErosionOutwardsLocationsViewForData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationsView(context.FailureMechanism,
-                                                                                                 hbl => hbl.WaveHeightCalculation,
+                                                                                                 hbl => hbl.WaveHeightCalculation1,
                                                                                                  context.AssessmentSection,
                                                                                                  () => context.AssessmentSection.FailureMechanismContribution.Norm),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
@@ -540,7 +540,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                         nodeData.WrappedData,
-                        hbl => hbl.DesignWaterLevelCalculation,
+                        hbl => hbl.DesignWaterLevelCalculation1,
                         mechanismSpecificNorm,
                         new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
                 });
@@ -591,7 +591,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                         nodeData.WrappedData,
-                        hbl => hbl.WaveHeightCalculation,
+                        hbl => hbl.WaveHeightCalculation1,
                         mechanismSpecificNorm,
                         new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
                 });

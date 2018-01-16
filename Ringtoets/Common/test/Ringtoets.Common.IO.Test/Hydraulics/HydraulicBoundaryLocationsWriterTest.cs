@@ -90,11 +90,11 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(111.111)
                 },
-                WaveHeightCalculation =
+                WaveHeightCalculation1 =
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(222.222)
                 }

@@ -301,8 +301,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                                                 hydraulicBoundaryLocationsMapData);
 
                 // Call
-                hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                hydraulicBoundaryLocation.WaveHeightCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
                 hydraulicBoundaryLocation.NotifyObservers();
 
                 // Assert

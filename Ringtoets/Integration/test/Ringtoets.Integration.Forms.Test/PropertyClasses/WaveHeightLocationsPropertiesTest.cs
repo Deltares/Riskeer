@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Call
             var properties = new WaveHeightLocationsProperties(hydraulicBoundaryDatabase,
-                                                               hbl => hbl.WaveHeightCalculation);
+                                                               hbl => hbl.WaveHeightCalculation1);
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(WaveHeightLocationProperties));

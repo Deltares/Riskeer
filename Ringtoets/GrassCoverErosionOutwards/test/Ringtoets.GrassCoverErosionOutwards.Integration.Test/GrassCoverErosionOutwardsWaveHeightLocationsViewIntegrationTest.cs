@@ -103,14 +103,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
                 new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                 {
-                    DesignWaterLevelCalculation =
+                    DesignWaterLevelCalculation1 =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(1.23)
                     }
                 },
                 new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    WaveHeightCalculation =
+                    WaveHeightCalculation1 =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(2.45)
                     }
@@ -118,7 +118,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             });
 
             var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(failureMechanism,
-                                                                            hbl => hbl.WaveHeightCalculation,
+                                                                            hbl => hbl.WaveHeightCalculation1,
                                                                             new AssessmentSection(AssessmentSectionComposition.Dike),
                                                                             () => 0.01);
 

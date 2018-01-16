@@ -242,7 +242,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             mockRepository.ReplayAll();
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = null;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = null;
 
             var isValid = true;
 
@@ -982,7 +982,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "locationName", 0, 0)
                     {
-                        DesignWaterLevelCalculation =
+                        DesignWaterLevelCalculation1 =
                         {
                             Output = new TestHydraulicBoundaryLocationOutput(9.3)
                         }

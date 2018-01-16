@@ -94,11 +94,11 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             Assert.AreEqual(x, location.Location.X, 1e-6);
             Assert.AreEqual(y, location.Location.Y, 1e-6);
 
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = location.DesignWaterLevelCalculation;
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = location.DesignWaterLevelCalculation1;
             Assert.AreEqual(shouldDesignWaterLevelIllustrationPointsBeCalculated, designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             Assert.IsFalse(designWaterLevelCalculation.HasOutput);
 
-            HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation;
+            HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation1;
             Assert.AreEqual(shouldWaveHeightIllustrationPointsBeCalculated, waveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             Assert.IsFalse(waveHeightCalculation.HasOutput);
 
@@ -149,8 +149,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsNotNull(location);
-            AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, location.DesignWaterLevelCalculation.Output);
-            AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, location.WaveHeightCalculation.Output);
+            AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, location.DesignWaterLevelCalculation1.Output);
+            AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, location.WaveHeightCalculation1.Output);
         }
 
         [Test]
@@ -219,11 +219,11 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             // Assert
             Assert.IsNotNull(location);
 
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = location.DesignWaterLevelCalculation;
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = location.DesignWaterLevelCalculation1;
             Assert.AreEqual(shouldDesignWaterLevelIllustrationPointsBeCalculated, designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, designWaterLevelCalculation.Output);
 
-            HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation;
+            HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation1;
             Assert.AreEqual(shouldWaveHeightIllustrationPointsBeCalculated, waveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, waveHeightCalculation.Output);
         }

@@ -489,11 +489,11 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(152.3, hydraulicBoundaryLocation.Location.X);
             Assert.AreEqual(2938.5, hydraulicBoundaryLocation.Location.Y);
 
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = hydraulicBoundaryLocation.DesignWaterLevelCalculation;
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = hydraulicBoundaryLocation.DesignWaterLevelCalculation1;
             Assert.IsFalse(designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(designWaterLevelCalculation);
 
-            HydraulicBoundaryLocationCalculation waveHeightCalculation = hydraulicBoundaryLocation.WaveHeightCalculation;
+            HydraulicBoundaryLocationCalculation waveHeightCalculation = hydraulicBoundaryLocation.WaveHeightCalculation1;
             Assert.IsFalse(waveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             AssertHydraulicBoundaryLocationWaveHeightCalculation(waveHeightCalculation);
 
@@ -504,13 +504,13 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(5293.8, hydraulicBoundaryLocationWithIllustrationPoints.Location.Y);
 
             HydraulicBoundaryLocationCalculation designWaterLevelCalculationWithIllustrationPoints =
-                hydraulicBoundaryLocationWithIllustrationPoints.DesignWaterLevelCalculation;
+                hydraulicBoundaryLocationWithIllustrationPoints.DesignWaterLevelCalculation1;
             Assert.IsTrue(designWaterLevelCalculationWithIllustrationPoints.InputParameters.ShouldIllustrationPointsBeCalculated);
             AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(designWaterLevelCalculationWithIllustrationPoints);
             AssertGeneralResultTopLevelSubMechanismIllustrationPoint(designWaterLevelCalculationWithIllustrationPoints.Output.GeneralResult);
 
             HydraulicBoundaryLocationCalculation waveHeightCalculationWithIllustrationPoints =
-                hydraulicBoundaryLocationWithIllustrationPoints.WaveHeightCalculation;
+                hydraulicBoundaryLocationWithIllustrationPoints.WaveHeightCalculation1;
             Assert.IsTrue(waveHeightCalculationWithIllustrationPoints.InputParameters.ShouldIllustrationPointsBeCalculated);
             AssertHydraulicBoundaryLocationWaveHeightCalculation(waveHeightCalculationWithIllustrationPoints);
             AssertGeneralResultTopLevelSubMechanismIllustrationPoint(waveHeightCalculationWithIllustrationPoints.Output.GeneralResult);

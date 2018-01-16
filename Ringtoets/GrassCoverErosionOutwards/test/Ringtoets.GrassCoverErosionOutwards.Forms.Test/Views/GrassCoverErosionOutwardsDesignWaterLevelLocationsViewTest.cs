@@ -247,7 +247,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     InputParameters =
                     {
@@ -305,7 +305,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             ObservableList<HydraulicBoundaryLocation> locations = view.FailureMechanism.HydraulicBoundaryLocations;
 
             // Call
-            locations[3].DesignWaterLevelCalculation.Output = output;
+            locations[3].DesignWaterLevelCalculation1.Output = output;
             locations[3].NotifyObservers();
 
             // Assert
@@ -474,7 +474,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
-            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation, getCalculationFunc(expectedLocation));
+            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation1, getCalculationFunc(expectedLocation));
         }
 
         [Test]
@@ -544,7 +544,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = failureMechanism.HydraulicBoundaryLocations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
-            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation, getCalculationFunc(expectedLocation));
+            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation1, getCalculationFunc(expectedLocation));
         }
 
         [Test]
@@ -613,7 +613,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = failureMechanism.HydraulicBoundaryLocations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
-            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation, getCalculationFunc(expectedLocation));
+            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation1, getCalculationFunc(expectedLocation));
         }
 
         private DataGridView GetLocationsDataGridView()
@@ -658,7 +658,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             failureMechanism.HydraulicBoundaryLocations.AddRange(locations);
 
             var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism,
-                                                                                  hbl => hbl.DesignWaterLevelCalculation,
+                                                                                  hbl => hbl.DesignWaterLevelCalculation1,
                                                                                   assessmentSection,
                                                                                   () => norm);
 
@@ -696,21 +696,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
                 new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                 {
-                    DesignWaterLevelCalculation =
+                    DesignWaterLevelCalculation1 =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(1.23)
                     }
                 },
                 new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    WaveHeightCalculation =
+                    WaveHeightCalculation1 =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(2.45)
                     }
                 },
                 new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
                 {
-                    DesignWaterLevelCalculation =
+                    DesignWaterLevelCalculation1 =
                     {
                         InputParameters =
                         {
@@ -720,7 +720,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 },
                 new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
                 {
-                    DesignWaterLevelCalculation =
+                    DesignWaterLevelCalculation1 =
                     {
                         InputParameters =
                         {

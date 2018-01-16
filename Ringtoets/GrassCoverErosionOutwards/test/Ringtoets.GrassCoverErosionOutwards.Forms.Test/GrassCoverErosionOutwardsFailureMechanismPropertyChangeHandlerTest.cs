@@ -184,7 +184,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
                 Calculations = calculations;
                 ExpectedAffectedCalculations = calculations.Where(c => c.HasOutput).ToArray();
                 Locations = locations;
-                ExpectedAffectedLocations = locations.Where(c => c.DesignWaterLevelCalculation.HasOutput || c.WaveHeightCalculation.HasOutput).ToArray();
+                ExpectedAffectedLocations = locations.Where(c => c.DesignWaterLevelCalculation1.HasOutput || c.WaveHeightCalculation1.HasOutput).ToArray();
             }
 
             public ICollection<HydraulicBoundaryLocation> Locations { get; }
@@ -315,11 +315,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
         {
             return new TestHydraulicBoundaryLocation
             {
-                WaveHeightCalculation =
+                WaveHeightCalculation1 =
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(0.5)
                 },
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(2.3)
                 }

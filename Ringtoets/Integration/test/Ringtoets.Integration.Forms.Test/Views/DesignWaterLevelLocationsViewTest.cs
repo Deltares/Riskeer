@@ -214,7 +214,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             ShowFullyConfiguredDesignWaterLevelLocationsView(locations, testForm);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     InputParameters =
                     {
@@ -265,7 +265,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             HydraulicBoundaryLocation location = locations.First();
 
             // Call
-            location.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
+            location.DesignWaterLevelCalculation1.InputParameters.ShouldIllustrationPointsBeCalculated = true;
             location.NotifyObservers();
 
             // Assert
@@ -299,7 +299,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Call
             HydraulicBoundaryLocation hydraulicBoundaryLocation = locations[3];
-            hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = output;
+            hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = output;
             hydraulicBoundaryLocation.NotifyObservers();
 
             // Assert
@@ -417,7 +417,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
-            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation, getCalculationFunc(expectedLocation));
+            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation1, getCalculationFunc(expectedLocation));
         }
 
         [Test]
@@ -483,7 +483,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
-            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation, getCalculationFunc(expectedLocation));
+            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation1, getCalculationFunc(expectedLocation));
         }
 
         [Test]
@@ -548,7 +548,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
-            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation, getCalculationFunc(expectedLocation));
+            Assert.AreSame(expectedLocation.DesignWaterLevelCalculation1, getCalculationFunc(expectedLocation));
         }
 
         private DataGridView GetLocationsDataGridView()
@@ -587,7 +587,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                                                        Form form)
         {
             var view = new DesignWaterLevelLocationsView(locations,
-                                                         hbl => hbl.DesignWaterLevelCalculation,
+                                                         hbl => hbl.DesignWaterLevelCalculation1,
                                                          assessmentSection,
                                                          () => norm);
 
@@ -617,21 +617,21 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
                 Locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                 {
-                    DesignWaterLevelCalculation =
+                    DesignWaterLevelCalculation1 =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(1.23)
                     }
                 });
                 Locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    WaveHeightCalculation =
+                    WaveHeightCalculation1 =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(2.45)
                     }
                 });
                 Locations.Add(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
                 {
-                    DesignWaterLevelCalculation =
+                    DesignWaterLevelCalculation1 =
                     {
                         InputParameters =
                         {
@@ -655,7 +655,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 Locations.Add(new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
                 {
-                    DesignWaterLevelCalculation =
+                    DesignWaterLevelCalculation1 =
                     {
                         InputParameters =
                         {

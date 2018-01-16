@@ -107,7 +107,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationProperties, NoValueRoundedDoubleConverter>(
                 nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationProperties.CalculatedReliability));
             Assert.IsEmpty(properties.Convergence);
-            Assert.AreEqual(hydraulicBoundaryLocation.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
+            Assert.AreEqual(hydraulicBoundaryLocation.DesignWaterLevelCalculation1.InputParameters.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
         }
 
         [Test]

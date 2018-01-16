@@ -152,8 +152,8 @@ namespace Ringtoets.Common.Forms.Factories
                 MapFeature feature = CreateSinglePointMapFeature(location.Location);
                 feature.MetaData[Resources.MetaData_ID] = location.Id;
                 feature.MetaData[Resources.MetaData_Name] = location.Name;
-                feature.MetaData[designWaterLevelAttributeName] = location.DesignWaterLevelCalculation.Output?.Result ?? RoundedDouble.NaN;
-                feature.MetaData[waveHeightAttributeName] = location.WaveHeightCalculation.Output?.Result ?? RoundedDouble.NaN;
+                feature.MetaData[designWaterLevelAttributeName] = location.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
+                feature.MetaData[waveHeightAttributeName] = location.WaveHeightCalculation1.Output?.Result ?? RoundedDouble.NaN;
 
                 features[i] = feature;
             }

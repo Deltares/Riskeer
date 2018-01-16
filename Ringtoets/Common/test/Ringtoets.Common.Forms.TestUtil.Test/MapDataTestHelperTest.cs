@@ -426,8 +426,8 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             var random = new Random(21);
             location = new HydraulicBoundaryLocation(1, "test1", 1, 0);
-            location.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-            location.WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            location.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            location.WaveHeightCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
             var mapFeatureWithOutput = new MapFeature(new[]
             {
                 mapGeometry

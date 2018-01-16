@@ -563,7 +563,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                             Assert.AreEqual($"Golfhoogte berekenen voor locatie '{locationName}' is gelukt.", msgs[7]);
                         });
-                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, location.WaveHeightCalculation.Output.CalculationConvergence);
+                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, location.WaveHeightCalculation1.Output.CalculationConvergence);
                     }
                 }
             }

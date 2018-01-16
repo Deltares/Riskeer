@@ -278,21 +278,21 @@ namespace Ringtoets.Common.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
                 new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                 {
-                    DesignWaterLevelCalculation =
+                    DesignWaterLevelCalculation1 =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(1.23)
                     }
                 },
                 new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    WaveHeightCalculation =
+                    WaveHeightCalculation1 =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(2.45)
                     }
                 },
                 new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
                 {
-                    WaveHeightCalculation =
+                    WaveHeightCalculation1 =
                     {
                         InputParameters =
                         {
@@ -341,7 +341,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
             {
                 GetCalculationsCallArgument = location;
-                return ItemToCreate ?? location.WaveHeightCalculation;
+                return ItemToCreate ?? location.WaveHeightCalculation1;
             }
         }
     }

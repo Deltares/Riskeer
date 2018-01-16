@@ -161,8 +161,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             foreach (HydraulicBoundaryLocation location in assessmentSection.HydraulicBoundaryDatabase.Locations
                                                                             .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
             {
-                Assert.IsFalse(location.DesignWaterLevelCalculation.HasOutput);
-                Assert.IsFalse(location.WaveHeightCalculation.HasOutput);
+                Assert.IsFalse(location.DesignWaterLevelCalculation1.HasOutput);
+                Assert.IsFalse(location.WaveHeightCalculation1.HasOutput);
             }
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
             {
@@ -206,8 +206,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             foreach (HydraulicBoundaryLocation location in assessmentSection.HydraulicBoundaryDatabase.Locations
                                                                             .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
             {
-                Assert.IsFalse(location.DesignWaterLevelCalculation.HasOutput);
-                Assert.IsFalse(location.WaveHeightCalculation.HasOutput);
+                Assert.IsFalse(location.DesignWaterLevelCalculation1.HasOutput);
+                Assert.IsFalse(location.WaveHeightCalculation1.HasOutput);
             }
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
             {
@@ -300,8 +300,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             foreach (HydraulicBoundaryLocation location in assessmentSection.HydraulicBoundaryDatabase.Locations
                                                                             .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
             {
-                Assert.IsTrue(location.DesignWaterLevelCalculation.HasOutput);
-                Assert.IsTrue(location.WaveHeightCalculation.HasOutput);
+                Assert.IsTrue(location.DesignWaterLevelCalculation1.HasOutput);
+                Assert.IsTrue(location.WaveHeightCalculation1.HasOutput);
             }
             Assert.IsNotNull(assessmentSection.DuneErosion.DuneLocations[1].Calculation.Output);
             CollectionAssert.IsEmpty(affectedObjects);

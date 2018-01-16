@@ -58,11 +58,11 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             HydraulicBoundaryLocation location = new TestHydraulicBoundaryLocation
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
                 },
-                WaveHeightCalculation =
+                WaveHeightCalculation1 =
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(waveHeight)
                 }
@@ -76,8 +76,8 @@ namespace Ringtoets.Common.Service.Test
             IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
 
             // Assert
-            Assert.IsFalse(location.DesignWaterLevelCalculation.HasOutput);
-            Assert.IsFalse(location.WaveHeightCalculation.HasOutput);
+            Assert.IsFalse(location.DesignWaterLevelCalculation1.HasOutput);
+            Assert.IsFalse(location.WaveHeightCalculation1.HasOutput);
             Assert.IsNaN(location.DesignWaterLevel);
             Assert.IsNaN(location.WaveHeight);
 

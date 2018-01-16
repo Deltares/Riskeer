@@ -828,7 +828,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 {
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
                     {
-                        DesignWaterLevelCalculation =
+                        DesignWaterLevelCalculation1 =
                         {
                             Output = new TestHydraulicBoundaryLocationOutput(12.0)
                         }
@@ -849,7 +849,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 {
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
                     {
-                        DesignWaterLevelCalculation =
+                        DesignWaterLevelCalculation1 =
                         {
                             Output = new TestHydraulicBoundaryLocationOutput(12.0)
                         }
@@ -1901,7 +1901,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 {
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
                     {
-                        DesignWaterLevelCalculation =
+                        DesignWaterLevelCalculation1 =
                         {
                             Output = new TestHydraulicBoundaryLocationOutput(9.3)
                         }

@@ -469,7 +469,7 @@ namespace Ringtoets.Revetment.Data.Test
             // Call
             waveConditionsInput.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
                 }
@@ -796,7 +796,7 @@ namespace Ringtoets.Revetment.Data.Test
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
-                    DesignWaterLevelCalculation =
+                    DesignWaterLevelCalculation1 =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
                     }
@@ -823,7 +823,7 @@ namespace Ringtoets.Revetment.Data.Test
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
-                    DesignWaterLevelCalculation =
+                    DesignWaterLevelCalculation1 =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(5.78)
                     }
@@ -877,7 +877,7 @@ namespace Ringtoets.Revetment.Data.Test
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
-                    DesignWaterLevelCalculation =
+                    DesignWaterLevelCalculation1 =
                     {
                         Output = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
                     }

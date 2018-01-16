@@ -222,10 +222,10 @@ namespace Ringtoets.Common.Service
 
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation location)
         {
-            if (location.DesignWaterLevelCalculation.HasOutput || location.WaveHeightCalculation.HasOutput)
+            if (location.DesignWaterLevelCalculation1.HasOutput || location.WaveHeightCalculation1.HasOutput)
             {
-                location.DesignWaterLevelCalculation.Output = null;
-                location.WaveHeightCalculation.Output = null;
+                location.DesignWaterLevelCalculation1.Output = null;
+                location.WaveHeightCalculation1.Output = null;
 
                 return new[]
                 {

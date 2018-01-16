@@ -2064,15 +2064,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
             Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
 
-            HydraulicBoundaryLocationCalculation expectedDesignWaterLevelCalculation = expectedBoundaryLocation.DesignWaterLevelCalculation;
-            HydraulicBoundaryLocationCalculation actualDesignWaterLevelCalculation = actualBoundaryLocation.DesignWaterLevelCalculation;
+            HydraulicBoundaryLocationCalculation expectedDesignWaterLevelCalculation = expectedBoundaryLocation.DesignWaterLevelCalculation1;
+            HydraulicBoundaryLocationCalculation actualDesignWaterLevelCalculation = actualBoundaryLocation.DesignWaterLevelCalculation1;
             Assert.AreEqual(expectedDesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated,
                             actualDesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             AssertHydraulicBoundaryLocationOutput(expectedDesignWaterLevelCalculation.Output,
                                                   actualDesignWaterLevelCalculation.Output);
 
-            HydraulicBoundaryLocationCalculation expectedWaveHeightCalculation = expectedBoundaryLocation.WaveHeightCalculation;
-            HydraulicBoundaryLocationCalculation actualWaveHeightCalculation = actualBoundaryLocation.WaveHeightCalculation;
+            HydraulicBoundaryLocationCalculation expectedWaveHeightCalculation = expectedBoundaryLocation.WaveHeightCalculation1;
+            HydraulicBoundaryLocationCalculation actualWaveHeightCalculation = actualBoundaryLocation.WaveHeightCalculation1;
             Assert.AreEqual(expectedWaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated,
                             actualWaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             AssertHydraulicBoundaryLocationOutput(expectedWaveHeightCalculation.Output,

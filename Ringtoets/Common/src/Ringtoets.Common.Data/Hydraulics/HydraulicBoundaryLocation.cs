@@ -50,11 +50,11 @@ namespace Ringtoets.Common.Data.Hydraulics
             Name = name;
             Location = new Point2D(coordinateX, coordinateY);
 
-            DesignWaterLevelCalculation = new HydraulicBoundaryLocationCalculation();
+            DesignWaterLevelCalculation1 = new HydraulicBoundaryLocationCalculation();
             DesignWaterLevelCalculation2 = new HydraulicBoundaryLocationCalculation();
             DesignWaterLevelCalculation3 = new HydraulicBoundaryLocationCalculation();
             DesignWaterLevelCalculation4 = new HydraulicBoundaryLocationCalculation();
-            WaveHeightCalculation = new HydraulicBoundaryLocationCalculation();
+            WaveHeightCalculation1 = new HydraulicBoundaryLocationCalculation();
             WaveHeightCalculation2 = new HydraulicBoundaryLocationCalculation();
             WaveHeightCalculation3 = new HydraulicBoundaryLocationCalculation();
             WaveHeightCalculation4 = new HydraulicBoundaryLocationCalculation();
@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Gets the first design water level calculation.
         /// </summary>
-        public HydraulicBoundaryLocationCalculation DesignWaterLevelCalculation { get; }
+        public HydraulicBoundaryLocationCalculation DesignWaterLevelCalculation1 { get; }
 
         /// <summary>
         /// Gets the second design water level calculation.
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return DesignWaterLevelCalculation.Output?.Result ?? RoundedDouble.NaN;
+                return DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
             }
         }
 
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Gets the first wave height calculation.
         /// </summary>
-        public HydraulicBoundaryLocationCalculation WaveHeightCalculation { get; }
+        public HydraulicBoundaryLocationCalculation WaveHeightCalculation1 { get; }
 
         /// <summary>
         /// Gets the second wave height calculation.
@@ -144,7 +144,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             get
             {
-                return WaveHeightCalculation.Output?.Result ?? RoundedDouble.NaN;
+                return WaveHeightCalculation1.Output?.Result ?? RoundedDouble.NaN;
             }
         }
 

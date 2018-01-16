@@ -56,13 +56,13 @@ namespace Application.Ringtoets.Storage.Create
                 Name = location.Name.DeepClone(),
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
-                ShouldDesignWaterLevelIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.DesignWaterLevelCalculation),
-                ShouldWaveHeightIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.WaveHeightCalculation),
+                ShouldDesignWaterLevelIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.DesignWaterLevelCalculation1),
+                ShouldWaveHeightIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.WaveHeightCalculation1),
                 Order = order
             };
 
-            CreateHydraulicLocationOutput(entity, location.DesignWaterLevelCalculation.Output, HydraulicLocationOutputType.DesignWaterLevel);
-            CreateHydraulicLocationOutput(entity, location.WaveHeightCalculation.Output, HydraulicLocationOutputType.WaveHeight);
+            CreateHydraulicLocationOutput(entity, location.DesignWaterLevelCalculation1.Output, HydraulicLocationOutputType.DesignWaterLevel);
+            CreateHydraulicLocationOutput(entity, location.WaveHeightCalculation1.Output, HydraulicLocationOutputType.WaveHeight);
 
             registry.Register(entity, location);
             return entity;
@@ -111,14 +111,14 @@ namespace Application.Ringtoets.Storage.Create
                 Name = location.Name.DeepClone(),
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
-                ShouldDesignWaterLevelIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.DesignWaterLevelCalculation),
-                ShouldWaveHeightIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.WaveHeightCalculation),
+                ShouldDesignWaterLevelIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.DesignWaterLevelCalculation1),
+                ShouldWaveHeightIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.WaveHeightCalculation1),
                 Order = order
             };
 
-            CreateGrassCoverErosionOutwardsHydraulicLocationOutput(entity, location.DesignWaterLevelCalculation.Output,
+            CreateGrassCoverErosionOutwardsHydraulicLocationOutput(entity, location.DesignWaterLevelCalculation1.Output,
                                                                    HydraulicLocationOutputType.DesignWaterLevel);
-            CreateGrassCoverErosionOutwardsHydraulicLocationOutput(entity, location.WaveHeightCalculation.Output,
+            CreateGrassCoverErosionOutwardsHydraulicLocationOutput(entity, location.WaveHeightCalculation1.Output,
                                                                    HydraulicLocationOutputType.WaveHeight);
 
             registry.Register(entity, location);

@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationsProperties(hydraulicBoundaryLocations,
-                                                                                        hbl => hbl.DesignWaterLevelCalculation);
+                                                                                        hbl => hbl.DesignWaterLevelCalculation1);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationsProperties>(properties);
@@ -95,7 +95,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationsProperties(hydraulicBoundaryLocations,
-                                                                                        hbl => hbl.WaveHeightCalculation);
+                                                                                        hbl => hbl.WaveHeightCalculation1);
 
             // Assert
             Assert.AreEqual(1, properties.Locations.Length);

@@ -340,8 +340,8 @@ namespace Ringtoets.Integration.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation.HasOutput);
-            Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation.HasOutput);
+            Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation1.HasOutput);
+            Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation1.HasOutput);
             Assert.IsNull(duneLocation.Calculation.Output);
 
             mockRepository.VerifyAll();
@@ -408,8 +408,8 @@ namespace Ringtoets.Integration.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation.HasOutput);
-            Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation.HasOutput);
+            Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation1.HasOutput);
+            Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation1.HasOutput);
             Assert.IsNull(duneLocation.Calculation.Output);
         }
 
@@ -464,10 +464,10 @@ namespace Ringtoets.Integration.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
-            Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation.HasOutput);
-            Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput);
+            Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation1.HasOutput);
+            Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation1.HasOutput);
             Assert.IsNull(duneLocation.Calculation.Output);
 
             mockRepository.VerifyAll();
@@ -1605,7 +1605,7 @@ namespace Ringtoets.Integration.Service.Test
 
         private static bool HasHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            return hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput || hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput;
+            return hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput || hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput;
         }
 
         #region TestData

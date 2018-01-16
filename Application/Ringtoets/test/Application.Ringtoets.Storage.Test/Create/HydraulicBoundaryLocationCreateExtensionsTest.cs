@@ -65,14 +65,14 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY)
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     InputParameters =
                     {
                         ShouldIllustrationPointsBeCalculated = shouldDesignWaterLevelIllustrationPointsBeCalculated
                     }
                 },
-                WaveHeightCalculation =
+                WaveHeightCalculation1 =
                 {
                     InputParameters =
                     {
@@ -130,11 +130,11 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     Output = hydraulicBoundaryLocationDesignWaterLevelOutput
                 },
-                WaveHeightCalculation =
+                WaveHeightCalculation1 =
                 {
                     Output = hydraulicBoundaryLocationWaveHeightOutput
                 }
@@ -176,7 +176,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     InputParameters =
                     {
@@ -184,7 +184,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     },
                     Output = hydraulicBoundaryLocationDesignWaterLevelOutput
                 },
-                WaveHeightCalculation =
+                WaveHeightCalculation1 =
                 {
                     InputParameters =
                     {
@@ -261,14 +261,14 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY)
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     InputParameters =
                     {
                         ShouldIllustrationPointsBeCalculated = shouldDesignWaterLevelIllustrationPointsBeCalculated
                     }
                 },
-                WaveHeightCalculation =
+                WaveHeightCalculation1 =
                 {
                     InputParameters =
                     {
@@ -327,11 +327,11 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     Output = hydraulicBoundaryLocationDesignWaterLevelOutput
                 },
-                WaveHeightCalculation =
+                WaveHeightCalculation1 =
                 {
                     Output = hydraulicBoundaryLocationWaveHeightOutput
                 }
@@ -373,7 +373,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     InputParameters =
                     {
@@ -381,7 +381,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     },
                     Output = hydraulicBoundaryLocationDesignWaterLevelOutput
                 },
-                WaveHeightCalculation =
+                WaveHeightCalculation1 =
                 {
                     InputParameters =
                     {

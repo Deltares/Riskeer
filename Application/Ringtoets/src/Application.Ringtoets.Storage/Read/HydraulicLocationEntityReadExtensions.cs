@@ -59,8 +59,8 @@ namespace Application.Ringtoets.Storage.Read
                                                                           entity.LocationX.ToNullAsNaN(),
                                                                           entity.LocationY.ToNullAsNaN());
 
-            SetDesignWaterLevelCalculation(entity, hydraulicBoundaryLocation.DesignWaterLevelCalculation);
-            SetWaveHeightCalculation(entity, hydraulicBoundaryLocation.WaveHeightCalculation);
+            SetDesignWaterLevelCalculation(entity, hydraulicBoundaryLocation.DesignWaterLevelCalculation1);
+            SetWaveHeightCalculation(entity, hydraulicBoundaryLocation.WaveHeightCalculation1);
 
             collector.Read(entity, hydraulicBoundaryLocation);
 

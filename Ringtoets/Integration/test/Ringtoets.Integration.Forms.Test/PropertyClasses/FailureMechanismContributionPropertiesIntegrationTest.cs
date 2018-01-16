@@ -271,10 +271,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(originalNormativeNorm, failureMechanismContribution.NormativeNorm);
             Assert.AreEqual(originalNorm, failureMechanismContribution.Norm);
 
-            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
-            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
-            Assert.IsTrue(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
-            Assert.IsTrue(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
+            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput);
+            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput);
+            Assert.IsTrue(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput);
+            Assert.IsTrue(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput);
             Assert.IsNotNull(pipingCalculation.Output);
             Assert.IsNotNull(pipingCalculation.SemiProbabilisticOutput);
             Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
@@ -804,8 +804,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
         private static void AssertHydraulicBoundaryLocationOutputClear(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput);
         }
 
         private static void AssertNormValues(FailureMechanismContributionProperties properties, FailureMechanismContribution failureMechanismContribution)

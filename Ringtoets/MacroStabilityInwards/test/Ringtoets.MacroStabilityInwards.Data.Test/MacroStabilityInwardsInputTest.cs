@@ -343,7 +343,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double calculatedAssessmentLevel = new Random(21).NextDouble();
             HydraulicBoundaryLocation testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
             {
-                DesignWaterLevelCalculation =
+                DesignWaterLevelCalculation1 =
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(calculatedAssessmentLevel)
                 }

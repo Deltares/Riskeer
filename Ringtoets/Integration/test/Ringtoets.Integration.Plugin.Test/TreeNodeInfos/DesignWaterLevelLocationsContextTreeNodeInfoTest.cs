@@ -556,7 +556,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             Assert.AreEqual($"Toetspeil berekenen voor locatie '{location.Name}' is gelukt.", msgs[7]);
                         });
                         Assert.AreEqual(0, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
-                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, location.DesignWaterLevelCalculation.Output.CalculationConvergence);
+                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, location.DesignWaterLevelCalculation1.Output.CalculationConvergence);
                     }
                 }
             }

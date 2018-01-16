@@ -674,7 +674,7 @@ namespace Ringtoets.Piping.Data.Test
             input.HydraulicBoundaryLocation = testHydraulicBoundaryLocation;
 
             double calculatedAssessmentLevel = new Random(21).NextDouble();
-            testHydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(calculatedAssessmentLevel);
+            testHydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(calculatedAssessmentLevel);
 
             // Call
             RoundedDouble newAssessmentLevel = input.AssessmentLevel;

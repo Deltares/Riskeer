@@ -152,7 +152,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
                         {
                             HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
                             {
-                                DesignWaterLevelCalculation =
+                                DesignWaterLevelCalculation1 =
                                 {
                                     Output = new TestHydraulicBoundaryLocationOutput(28.36844)
                                 }

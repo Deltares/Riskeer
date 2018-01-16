@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Call
             var properties = new DesignWaterLevelLocationsProperties(hydraulicBoundaryLocations,
-                                                                     hbl => hbl.DesignWaterLevelCalculation);
+                                                                     hbl => hbl.DesignWaterLevelCalculation1);
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DesignWaterLevelLocationProperties));
