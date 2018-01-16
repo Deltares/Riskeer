@@ -122,46 +122,28 @@ namespace Demo.Ringtoets.Test.Commands
             mocks.VerifyAll();
         }
 
-        private static void AssertCharacteristicPointsOnSurfaceLines(PipingSurfaceLine[] surfaceLines)
+        #region General
+
+        private static void AssertDesignWaterLevel(double expectedValue, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            PipingSurfaceLine surfaceLine1 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0001");
-            PipingSurfaceLine surfaceLine2 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0002");
-            PipingSurfaceLine surfaceLine3 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0003");
-            PipingSurfaceLine surfaceLine4 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0004");
+            RoundedDouble designWaterLevel = hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.Result;
 
-            Assert.IsNotNull(surfaceLine1);
-            Assert.IsNotNull(surfaceLine2);
-            Assert.IsNotNull(surfaceLine3);
-            Assert.IsNotNull(surfaceLine4);
-
-            Assert.AreEqual(new Point3D(155883.762, 569864.416, 0.53), surfaceLine1.DitchPolderSide);
-            Assert.AreEqual(new Point3D(155882.067, 569866.157, -1.9), surfaceLine1.BottomDitchPolderSide);
-            Assert.AreEqual(new Point3D(155874.184, 569874.252, -1.9), surfaceLine1.BottomDitchDikeSide);
-            Assert.AreEqual(new Point3D(155872.224, 569876.265, 0.91), surfaceLine1.DitchDikeSide);
-            Assert.AreEqual(new Point3D(155864.173, 569884.532, 0.95), surfaceLine1.DikeToeAtPolder);
-            Assert.AreEqual(new Point3D(155797.109, 569953.4, -4), surfaceLine1.DikeToeAtRiver);
-
-            Assert.IsNull(surfaceLine2.DitchPolderSide);
-            Assert.IsNull(surfaceLine2.BottomDitchPolderSide);
-            Assert.IsNull(surfaceLine2.BottomDitchDikeSide);
-            Assert.IsNull(surfaceLine2.DitchDikeSide);
-            Assert.AreEqual(new Point3D(155558.754, 569618.729, 1.45), surfaceLine2.DikeToeAtPolder);
-            Assert.AreEqual(new Point3D(155505.259, 569701.229, -4), surfaceLine2.DikeToeAtRiver);
-
-            Assert.AreEqual(new Point3D(155063.763, 569276.113, -0.5), surfaceLine3.DitchPolderSide);
-            Assert.AreEqual(new Point3D(155063.272, 569276.926, -1.45), surfaceLine3.BottomDitchPolderSide);
-            Assert.AreEqual(new Point3D(155056.855, 569287.56, -1.45), surfaceLine3.BottomDitchDikeSide);
-            Assert.AreEqual(new Point3D(155056.297, 569288.485, -0.37), surfaceLine3.DitchDikeSide);
-            Assert.AreEqual(new Point3D(155047.587, 569302.917, 1.42), surfaceLine3.DikeToeAtPolder);
-            Assert.AreEqual(new Point3D(154999.006, 569383.419, -4), surfaceLine3.DikeToeAtRiver);
-
-            Assert.IsNull(surfaceLine4.DitchPolderSide);
-            Assert.IsNull(surfaceLine4.BottomDitchPolderSide);
-            Assert.IsNull(surfaceLine4.BottomDitchDikeSide);
-            Assert.IsNull(surfaceLine4.DitchDikeSide);
-            Assert.AreEqual(new Point3D(154682.383, 568112.623, 1.55), surfaceLine4.DikeToeAtPolder);
-            Assert.AreEqual(new Point3D(154586.088, 568119.17, -4), surfaceLine4.DikeToeAtRiver);
+            Assert.AreEqual((RoundedDouble) expectedValue, designWaterLevel, designWaterLevel.GetAccuracy());
         }
+
+        private static void AssertWaveHeight(double expectedValue, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            RoundedDouble waveHeight = hydraulicBoundaryLocation.WaveHeightCalculation.Output.Result;
+
+            Assert.AreEqual((RoundedDouble) expectedValue, waveHeight, waveHeight.GetAccuracy());
+        }
+
+        private static void AssertCalculationConvergence(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        {
+            Assert.IsTrue(calculations.All(c => c.Output.CalculationConvergence == CalculationConvergence.CalculatedConverged));
+        }
+
+        #endregion
 
         #region FailureMechanisms
 
@@ -192,10 +174,10 @@ namespace Demo.Ringtoets.Test.Commands
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocationsGrassOutwards = demoAssessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations;
 
             Assert.AreEqual(hydraulicBoundaryLocations.Count, hydraulicBoundaryLocationsGrassOutwards.Count);
-            AssertDesignWaterLevelValuesOnGrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocationsGrassOutwards);
-            AssertDesignWaterLevelConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocationsGrassOutwards);
-            AssertWaveHeightValuesOnGrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocationsGrassOutwards);
-            AssertWaveHeightConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocationsGrassOutwards);
+            AssertDesignWaterLevelsForGrassCoverErosionOutwards(hydraulicBoundaryLocationsGrassOutwards);
+            AssertCalculationConvergence(hydraulicBoundaryLocationsGrassOutwards.Select(l => l.DesignWaterLevelCalculation));
+            AssertWaveHeightsForGrassCoverErosionOutwards(hydraulicBoundaryLocationsGrassOutwards);
+            AssertCalculationConvergence(hydraulicBoundaryLocationsGrassOutwards.Select(l => l.WaveHeightCalculation));
 
             Assert.AreEqual(1, demoAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Count);
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = demoAssessmentSection.GrassCoverErosionOutwards
@@ -205,69 +187,53 @@ namespace Demo.Ringtoets.Test.Commands
             AssertExpectedGrassCoverErosionOutwardsWaveConditionsInput(calculation.InputParameters);
         }
 
+        private static void AssertDesignWaterLevelsForGrassCoverErosionOutwards(ObservableList<HydraulicBoundaryLocation> locations)
+        {
+            AssertDesignWaterLevel(7.19, locations[0]);
+            AssertDesignWaterLevel(7.19, locations[1]);
+            AssertDesignWaterLevel(7.18, locations[2]);
+            AssertDesignWaterLevel(7.18, locations[3]);
+            AssertDesignWaterLevel(7.18, locations[4]);
+            AssertDesignWaterLevel(7.39, locations[5]);
+            AssertDesignWaterLevel(7.39, locations[6]);
+            AssertDesignWaterLevel(7.39, locations[7]);
+            AssertDesignWaterLevel(7.40, locations[8]);
+            AssertDesignWaterLevel(7.40, locations[9]);
+            AssertDesignWaterLevel(7.40, locations[10]);
+            AssertDesignWaterLevel(7.40, locations[11]);
+            AssertDesignWaterLevel(7.40, locations[12]);
+            AssertDesignWaterLevel(7.41, locations[13]);
+            AssertDesignWaterLevel(7.41, locations[14]);
+            AssertDesignWaterLevel(6.91, locations[15]);
+            AssertDesignWaterLevel(7.53, locations[16]);
+            AssertDesignWaterLevel(7.80, locations[17]);
+        }
+
+        private static void AssertWaveHeightsForGrassCoverErosionOutwards(ObservableList<HydraulicBoundaryLocation> locations)
+        {
+            AssertWaveHeight(4.99, locations[0]);
+            AssertWaveHeight(5.04, locations[1]);
+            AssertWaveHeight(4.87, locations[2]);
+            AssertWaveHeight(4.73, locations[3]);
+            AssertWaveHeight(4.59, locations[4]);
+            AssertWaveHeight(3.35, locations[5]);
+            AssertWaveHeight(3.83, locations[6]);
+            AssertWaveHeight(4.00, locations[7]);
+            AssertWaveHeight(4.20, locations[8]);
+            AssertWaveHeight(4.41, locations[9]);
+            AssertWaveHeight(4.50, locations[10]);
+            AssertWaveHeight(4.57, locations[11]);
+            AssertWaveHeight(4.63, locations[12]);
+            AssertWaveHeight(4.68, locations[13]);
+            AssertWaveHeight(4.17, locations[14]);
+            AssertWaveHeight(11.13, locations[15]);
+            AssertWaveHeight(9.24, locations[16]);
+            AssertWaveHeight(5.34, locations[17]);
+        }
+
         private static void AssertExpectedGrassCoverErosionOutwardsWaveConditionsInput(WaveConditionsInput inputParameters)
         {
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
-        }
-
-        private static void AssertDesignWaterLevelValuesOnGrassCoverErosionOutwardsHydraulicBoundaryLocation(ObservableList<HydraulicBoundaryLocation> locations)
-        {
-            Assert.AreEqual((RoundedDouble) 7.19, locations[0].DesignWaterLevel, locations[0].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.19, locations[1].DesignWaterLevel, locations[1].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.18, locations[2].DesignWaterLevel, locations[2].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.18, locations[3].DesignWaterLevel, locations[3].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.18, locations[4].DesignWaterLevel, locations[4].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.39, locations[5].DesignWaterLevel, locations[5].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.39, locations[6].DesignWaterLevel, locations[6].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.39, locations[7].DesignWaterLevel, locations[7].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.40, locations[8].DesignWaterLevel, locations[8].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.40, locations[9].DesignWaterLevel, locations[9].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.40, locations[10].DesignWaterLevel, locations[10].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.40, locations[11].DesignWaterLevel, locations[11].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.40, locations[12].DesignWaterLevel, locations[12].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.41, locations[13].DesignWaterLevel, locations[13].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.41, locations[14].DesignWaterLevel, locations[14].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 6.91, locations[15].DesignWaterLevel, locations[15].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.53, locations[16].DesignWaterLevel, locations[16].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 7.80, locations[17].DesignWaterLevel, locations[17].DesignWaterLevel.GetAccuracy());
-        }
-
-        private static void AssertDesignWaterLevelConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(ObservableList<HydraulicBoundaryLocation> locations)
-        {
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
-            {
-                Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.CalculationConvergence);
-            }
-        }
-
-        private static void AssertWaveHeightValuesOnGrassCoverErosionOutwardsHydraulicBoundaryLocation(ObservableList<HydraulicBoundaryLocation> locations)
-        {
-            Assert.AreEqual((RoundedDouble) 4.99, locations[0].WaveHeight, locations[0].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.04, locations[1].WaveHeight, locations[1].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.87, locations[2].WaveHeight, locations[2].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.73, locations[3].WaveHeight, locations[3].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.59, locations[4].WaveHeight, locations[4].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.35, locations[5].WaveHeight, locations[5].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.83, locations[6].WaveHeight, locations[6].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.00, locations[7].WaveHeight, locations[7].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.20, locations[8].WaveHeight, locations[8].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.41, locations[9].WaveHeight, locations[9].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.50, locations[10].WaveHeight, locations[10].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.57, locations[11].WaveHeight, locations[11].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.63, locations[12].WaveHeight, locations[12].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.68, locations[13].WaveHeight, locations[13].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.17, locations[14].WaveHeight, locations[14].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 11.13, locations[15].WaveHeight, locations[15].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 9.24, locations[16].WaveHeight, locations[16].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.34, locations[17].WaveHeight, locations[17].WaveHeight.GetAccuracy());
-        }
-
-        private static void AssertWaveHeightConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(ObservableList<HydraulicBoundaryLocation> locations)
-        {
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
-            {
-                Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculation.Output.CalculationConvergence);
-            }
         }
 
         #endregion
@@ -390,6 +356,47 @@ namespace Demo.Ringtoets.Test.Commands
                 pipingCalculationScenario,
                 demoAssessmentSection.Piping.SectionResults.ToArray(),
                 demoAssessmentSection.Piping.Calculations.OfType<PipingCalculationScenario>());
+        }
+
+        private static void AssertCharacteristicPointsOnSurfaceLines(PipingSurfaceLine[] surfaceLines)
+        {
+            PipingSurfaceLine surfaceLine1 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0001");
+            PipingSurfaceLine surfaceLine2 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0002");
+            PipingSurfaceLine surfaceLine3 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0003");
+            PipingSurfaceLine surfaceLine4 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0004");
+
+            Assert.IsNotNull(surfaceLine1);
+            Assert.IsNotNull(surfaceLine2);
+            Assert.IsNotNull(surfaceLine3);
+            Assert.IsNotNull(surfaceLine4);
+
+            Assert.AreEqual(new Point3D(155883.762, 569864.416, 0.53), surfaceLine1.DitchPolderSide);
+            Assert.AreEqual(new Point3D(155882.067, 569866.157, -1.9), surfaceLine1.BottomDitchPolderSide);
+            Assert.AreEqual(new Point3D(155874.184, 569874.252, -1.9), surfaceLine1.BottomDitchDikeSide);
+            Assert.AreEqual(new Point3D(155872.224, 569876.265, 0.91), surfaceLine1.DitchDikeSide);
+            Assert.AreEqual(new Point3D(155864.173, 569884.532, 0.95), surfaceLine1.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(155797.109, 569953.4, -4), surfaceLine1.DikeToeAtRiver);
+
+            Assert.IsNull(surfaceLine2.DitchPolderSide);
+            Assert.IsNull(surfaceLine2.BottomDitchPolderSide);
+            Assert.IsNull(surfaceLine2.BottomDitchDikeSide);
+            Assert.IsNull(surfaceLine2.DitchDikeSide);
+            Assert.AreEqual(new Point3D(155558.754, 569618.729, 1.45), surfaceLine2.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(155505.259, 569701.229, -4), surfaceLine2.DikeToeAtRiver);
+
+            Assert.AreEqual(new Point3D(155063.763, 569276.113, -0.5), surfaceLine3.DitchPolderSide);
+            Assert.AreEqual(new Point3D(155063.272, 569276.926, -1.45), surfaceLine3.BottomDitchPolderSide);
+            Assert.AreEqual(new Point3D(155056.855, 569287.56, -1.45), surfaceLine3.BottomDitchDikeSide);
+            Assert.AreEqual(new Point3D(155056.297, 569288.485, -0.37), surfaceLine3.DitchDikeSide);
+            Assert.AreEqual(new Point3D(155047.587, 569302.917, 1.42), surfaceLine3.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(154999.006, 569383.419, -4), surfaceLine3.DikeToeAtRiver);
+
+            Assert.IsNull(surfaceLine4.DitchPolderSide);
+            Assert.IsNull(surfaceLine4.BottomDitchPolderSide);
+            Assert.IsNull(surfaceLine4.BottomDitchDikeSide);
+            Assert.IsNull(surfaceLine4.DitchDikeSide);
+            Assert.AreEqual(new Point3D(154682.383, 568112.623, 1.55), surfaceLine4.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(154586.088, 568119.17, -4), surfaceLine4.DikeToeAtRiver);
         }
 
         private static void AssertExpectedPipingInput(PipingInput inputParameters)
@@ -595,72 +602,57 @@ namespace Demo.Ringtoets.Test.Commands
             string directoryName = Path.GetDirectoryName(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath);
             Assert.IsNotNull(directoryName);
             Assert.IsTrue(File.Exists(Path.Combine(directoryName, "HLCD.sqlite")));
-            HydraulicBoundaryLocation[] hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
-            Assert.AreEqual(18, hydraulicBoundaryLocations.Length);
-            AssertDesignWaterLevelValuesOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
-            AssertDesignWaterLevelCalculationConvergenceOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
-            AssertWaveHeightValuesOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
-            AssertWaveHeightCalculationConvergenceOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
+
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations;
+            Assert.AreEqual(18, hydraulicBoundaryLocations.Count);
+            AssertDesignWaterLevelsForAssessmentSection(hydraulicBoundaryLocations);
+            AssertCalculationConvergence(hydraulicBoundaryLocations.Select(hbl => hbl.DesignWaterLevelCalculation));
+            AssertWaveHeightValuesForAssessmentSection(hydraulicBoundaryLocations);
+            AssertCalculationConvergence(hydraulicBoundaryLocations.Select(hbl => hbl.WaveHeightCalculation));
         }
 
-        private static void AssertDesignWaterLevelValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] locations)
+        private static void AssertDesignWaterLevelsForAssessmentSection(ObservableList<HydraulicBoundaryLocation> locations)
         {
-            Assert.AreEqual((RoundedDouble) 5.78, locations[0].DesignWaterLevel, locations[0].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.77, locations[1].DesignWaterLevel, locations[1].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.77, locations[2].DesignWaterLevel, locations[2].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.77, locations[3].DesignWaterLevel, locations[3].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.77, locations[4].DesignWaterLevel, locations[4].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.93, locations[5].DesignWaterLevel, locations[5].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.93, locations[6].DesignWaterLevel, locations[6].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.93, locations[7].DesignWaterLevel, locations[7].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.93, locations[8].DesignWaterLevel, locations[8].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.93, locations[9].DesignWaterLevel, locations[9].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.93, locations[10].DesignWaterLevel, locations[10].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.93, locations[11].DesignWaterLevel, locations[11].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.93, locations[12].DesignWaterLevel, locations[12].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.93, locations[13].DesignWaterLevel, locations[13].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.93, locations[14].DesignWaterLevel, locations[14].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.54, locations[15].DesignWaterLevel, locations[15].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 5.86, locations[16].DesignWaterLevel, locations[16].DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 6.0, locations[17].DesignWaterLevel, locations[17].DesignWaterLevel.GetAccuracy());
+            AssertDesignWaterLevel(5.78, locations[0]);
+            AssertDesignWaterLevel(5.77, locations[1]);
+            AssertDesignWaterLevel(5.77, locations[2]);
+            AssertDesignWaterLevel(5.77, locations[3]);
+            AssertDesignWaterLevel(5.77, locations[4]);
+            AssertDesignWaterLevel(5.93, locations[5]);
+            AssertDesignWaterLevel(5.93, locations[6]);
+            AssertDesignWaterLevel(5.93, locations[7]);
+            AssertDesignWaterLevel(5.93, locations[8]);
+            AssertDesignWaterLevel(5.93, locations[9]);
+            AssertDesignWaterLevel(5.93, locations[10]);
+            AssertDesignWaterLevel(5.93, locations[11]);
+            AssertDesignWaterLevel(5.93, locations[12]);
+            AssertDesignWaterLevel(5.93, locations[13]);
+            AssertDesignWaterLevel(5.93, locations[14]);
+            AssertDesignWaterLevel(5.54, locations[15]);
+            AssertDesignWaterLevel(5.86, locations[16]);
+            AssertDesignWaterLevel(6.00, locations[17]);
         }
 
-        private static void AssertDesignWaterLevelCalculationConvergenceOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] locations)
+        private static void AssertWaveHeightValuesForAssessmentSection(ObservableList<HydraulicBoundaryLocation> locations)
         {
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
-            {
-                Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.CalculationConvergence);
-            }
-        }
-
-        private static void AssertWaveHeightValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] locations)
-        {
-            Assert.AreEqual((RoundedDouble) 4.13, locations[0].WaveHeight, locations[0].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.19, locations[1].WaveHeight, locations[1].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.02, locations[2].WaveHeight, locations[2].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.87, locations[3].WaveHeight, locations[3].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.73, locations[4].WaveHeight, locations[4].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 2.65, locations[5].WaveHeight, locations[5].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.04, locations[6].WaveHeight, locations[6].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.20, locations[7].WaveHeight, locations[7].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.35, locations[8].WaveHeight, locations[8].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.53, locations[9].WaveHeight, locations[9].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.62, locations[10].WaveHeight, locations[10].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.68, locations[11].WaveHeight, locations[11].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.73, locations[12].WaveHeight, locations[12].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.75, locations[13].WaveHeight, locations[13].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 3.30, locations[14].WaveHeight, locations[14].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 9.57, locations[15].WaveHeight, locations[15].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 8.02, locations[16].WaveHeight, locations[16].WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 4.11, locations[17].WaveHeight, locations[17].WaveHeight.GetAccuracy());
-        }
-
-        private static void AssertWaveHeightCalculationConvergenceOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] locations)
-        {
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
-            {
-                Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculation.Output.CalculationConvergence);
-            }
+            AssertWaveHeight(4.13, locations[0]);
+            AssertWaveHeight(4.19, locations[1]);
+            AssertWaveHeight(4.02, locations[2]);
+            AssertWaveHeight(3.87, locations[3]);
+            AssertWaveHeight(3.73, locations[4]);
+            AssertWaveHeight(2.65, locations[5]);
+            AssertWaveHeight(3.04, locations[6]);
+            AssertWaveHeight(3.20, locations[7]);
+            AssertWaveHeight(3.35, locations[8]);
+            AssertWaveHeight(3.53, locations[9]);
+            AssertWaveHeight(3.62, locations[10]);
+            AssertWaveHeight(3.68, locations[11]);
+            AssertWaveHeight(3.73, locations[12]);
+            AssertWaveHeight(3.75, locations[13]);
+            AssertWaveHeight(3.30, locations[14]);
+            AssertWaveHeight(9.57, locations[15]);
+            AssertWaveHeight(8.02, locations[16]);
+            AssertWaveHeight(4.11, locations[17]);
         }
 
         #endregion
