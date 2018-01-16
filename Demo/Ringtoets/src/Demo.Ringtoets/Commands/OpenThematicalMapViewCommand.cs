@@ -62,7 +62,7 @@ namespace Demo.Ringtoets.Commands
                 Features = CreateMapPointFeaturesWithMetaData(40),
                 Style =
                 {
-                    Size = 5
+                    Size = 10
                 }
             };
             SetEqualCriteria(mapPointDataEqualCriteria);
@@ -73,7 +73,7 @@ namespace Demo.Ringtoets.Commands
                 Features = CreateMapPointFeaturesWithMetaData(15),
                 Style =
                 {
-                    Size = 5
+                    Size = 10
                 }
             };
             SetUnequalCriteria(mapPointDataUnequalCriteria);
@@ -139,15 +139,21 @@ namespace Demo.Ringtoets.Commands
 
         private static IEnumerable<MapFeature> CreateMapPointFeaturesWithMetaData(int nrOfPoints)
         {
+            const double offset = 12;
+            double xCoordinate = 0;
+
             var features = new MapFeature[nrOfPoints];
+
             for (var i = 0; i < nrOfPoints; i++)
             {
                 MapFeature feature = GetFeatureWithPoints(new[]
                 {
-                    new Point2D(i, i)
+                    new Point2D(xCoordinate, 0)
                 });
                 feature.MetaData["Waarde"] = i;
                 features[i] = feature;
+
+                xCoordinate += offset;
             }
 
             return features;
@@ -155,8 +161,10 @@ namespace Demo.Ringtoets.Commands
 
         private static IEnumerable<MapFeature> CreateMapLineFeaturesWithMetaData(int nrOfLines)
         {
-            var features = new MapFeature[nrOfLines];
             double xCoordinate = 0;
+
+            var features = new MapFeature[nrOfLines];
+
             for (var i = 0; i < nrOfLines; i++)
             {
                 MapFeature feature = GetFeatureWithPoints(new[]
@@ -186,7 +194,7 @@ namespace Demo.Ringtoets.Commands
                     new Point2D(leftCoordinate, 0),
                     new Point2D(leftCoordinate, 5),
                     new Point2D(rightCoordinate, 5),
-                    new Point2D(rightCoordinate, 0),                   
+                    new Point2D(rightCoordinate, 0),
                     new Point2D(leftCoordinate, 0)
                 });
                 feature.MetaData["Waarde"] = i;
