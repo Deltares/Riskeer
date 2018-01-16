@@ -46,7 +46,8 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        [PropertyOrder(5)]
+        [PropertyOrder(8)]
+        [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapPointData_Color_Description))]
@@ -65,7 +66,8 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        [PropertyOrder(6)]
+        [PropertyOrder(9)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeColor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapPointData_StrokeColor_Description))]
@@ -84,7 +86,8 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        [PropertyOrder(7)]
+        [PropertyOrder(10)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeThickness_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapPointData_StrokeThickness_Description))]
@@ -101,7 +104,8 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        [PropertyOrder(8)]
+        [PropertyOrder(11)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapPointData_Size_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapPointData_Size_Description))]
@@ -118,7 +122,8 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        [PropertyOrder(9)]
+        [PropertyOrder(12)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapPointData_Symbol_Displayname))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapPointData_Symbol_Description))]
@@ -134,6 +139,29 @@ namespace Core.Plugins.Map.PropertyClasses
                 data.Style.Symbol = value;
                 data.NotifyObservers();
             }
+        }
+
+        public override bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (propertyName == nameof(Color))
+            {
+                return data.MapTheme == null;
+            }
+
+            return base.DynamicVisibleValidationMethod(propertyName);
+        }
+
+        public override bool DynamicReadonlyValidator(string propertyName)
+        {
+            if (propertyName == nameof(StrokeColor)
+                || propertyName == nameof(StrokeThickness)
+                || propertyName == nameof(Size)
+                || propertyName == nameof(Symbol))
+            {
+                return data.MapTheme != null;
+            }
+
+            return base.DynamicReadonlyValidator(propertyName);
         }
     }
 }

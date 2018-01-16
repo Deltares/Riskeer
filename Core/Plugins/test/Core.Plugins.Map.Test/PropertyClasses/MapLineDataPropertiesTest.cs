@@ -45,7 +45,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         private const int widthPropertyIndex = 7;
         private const int stylePropertyIndex = 8;
 
-        private const int widthWithMapThemePropertyIndex = 7;
+        private const int widthWithMapThemePropertyIndex = 8;
         private const int styleWithMapThemePropertyIndex = 9;
 
         [Test]
@@ -66,10 +66,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Setup
             var mapLineData = new MapLineData("Test")
             {
-                Features = new[]
-                {
-                    new MapFeature(Enumerable.Empty<MapGeometry>())
-                },
                 ShowLabels = true
             };
 
@@ -111,10 +107,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Setup
             var mapLineData = new MapLineData("Test")
             {
-                Features = new[]
-                {
-                    new MapFeature(Enumerable.Empty<MapGeometry>())
-                },
                 ShowLabels = true,
                 MapTheme = new MapTheme("Attribute", new[]
                 {
@@ -379,7 +371,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         public void DynamicVisibleValidationMethod_AnyOtherProperty_ReturnsTrue()
         {
-            var mapPointData = new MapLineData("Test")
+            var mapLineData = new MapLineData("Test")
             {
                 Features = new[]
                 {
@@ -394,7 +386,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             var properties = new MapLineDataProperties
             {
-                Data = mapPointData
+                Data = mapLineData
             };
 
             // Call

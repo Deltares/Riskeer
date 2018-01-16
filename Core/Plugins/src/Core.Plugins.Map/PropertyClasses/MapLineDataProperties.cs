@@ -46,7 +46,7 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        [PropertyOrder(5)]
+        [PropertyOrder(8)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
@@ -66,7 +66,7 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        [PropertyOrder(6)]
+        [PropertyOrder(9)]
         [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeThickness_DisplayName))]
@@ -84,7 +84,7 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        [PropertyOrder(7)]
+        [PropertyOrder(10)]
         [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapLineData_DashStyle_DisplayName))]
