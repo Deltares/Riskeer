@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
@@ -35,6 +36,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsPropertiesTest
     {
+        [Test]
+        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
+
+            // Call
+            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties(hydraulicBoundaryLocations, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getCalculationFunc", exception.ParamName);
+        }
+
         [Test]
         public void Constructor_WithLocations_ExpectedValues()
         {
