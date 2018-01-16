@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
@@ -60,11 +61,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ReferenceLineProperties_Length_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ReferenceLineProperties_Length_Description))]
-        public double Length
+        public RoundedDouble Length
         {
             get
             {
-                return data.Length;
+                return new RoundedDouble(2, data.Length);
             }
         }
 

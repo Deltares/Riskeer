@@ -47,6 +47,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
 
         /// <summary>
         /// Gets the total length of the reference line.
+        /// [m]
         /// </summary>
         public double Length { get; private set; }
 

@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Forms.Factories
                 MapFeature feature = CreateSingleLineMapFeature(referenceLine.Points);
                 feature.MetaData[Resources.MetaData_ID] = id;
                 feature.MetaData[Resources.MetaData_Name] = name;
-                feature.MetaData[Resources.MetaData_Length] = new RoundedDouble(2, Math2D.Length(referenceLine.Points));
+                feature.MetaData[Resources.MetaData_Length] = new RoundedDouble(2, referenceLine.Length);
 
                 return new[]
                 {
@@ -131,10 +131,12 @@ namespace Ringtoets.Common.Forms.Factories
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
+
             if (designWaterLevelAttributeName == null)
             {
                 throw new ArgumentNullException(nameof(designWaterLevelAttributeName));
             }
+
             if (waveHeightAttributeName == null)
             {
                 throw new ArgumentNullException(nameof(waveHeightAttributeName));
@@ -227,8 +229,10 @@ namespace Ringtoets.Common.Forms.Factories
                     mapFeatures[i] = feature;
                     i++;
                 }
+
                 return mapFeatures;
             }
+
             return new MapFeature[0];
         }
 
@@ -255,8 +259,10 @@ namespace Ringtoets.Common.Forms.Factories
 
                     mapFeatures[i] = feature;
                 }
+
                 return mapFeatures;
             }
+
             return new MapFeature[0];
         }
 
@@ -282,8 +288,10 @@ namespace Ringtoets.Common.Forms.Factories
                     mapFeatures[i] = feature;
                     i++;
                 }
+
                 return mapFeatures;
             }
+
             return new MapFeature[0];
         }
 
@@ -341,6 +349,7 @@ namespace Ringtoets.Common.Forms.Factories
 
                     features[i] = feature;
                 }
+
                 return features;
             }
 

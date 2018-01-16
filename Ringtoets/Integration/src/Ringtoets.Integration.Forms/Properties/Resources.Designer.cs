@@ -670,7 +670,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Totale lengte van het traject in meters..
+        ///   Looks up a localized string similar to Totale lengte van het traject in meters (afgerond)..
         /// </summary>
         public static string ReferenceLineProperties_Length_Description {
             get {
@@ -679,7 +679,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengte [m].
+        ///   Looks up a localized string similar to Lengte* [m].
         /// </summary>
         public static string ReferenceLineProperties_Length_DisplayName {
             get {

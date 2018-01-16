@@ -2111,7 +2111,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengte.
+        ///   Looks up a localized string similar to Lengte*.
         /// </summary>
         public static string MetaData_Length {
             get {

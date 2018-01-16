@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(name, mapFeature.MetaData["Naam"]);
 
             var expectedLength = new RoundedDouble(2, Math2D.Length(points));
-            Assert.AreEqual(expectedLength, (RoundedDouble) mapFeature.MetaData["Lengte"], expectedLength.GetAccuracy());
+            Assert.AreEqual(expectedLength, (RoundedDouble) mapFeature.MetaData["Lengte*"], expectedLength.GetAccuracy());
             AssertEqualPointCollections(points, mapFeature.MapGeometries.ElementAt(0));
         }
 
@@ -295,7 +295,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
 
                 Assert.AreEqual(sections[i].Name, features.ElementAt(i).MetaData["Naam"]);
                 var expectedLength = new RoundedDouble(2, Math2D.Length(sections[i].Points));
-                Assert.AreEqual(expectedLength, (RoundedDouble) features.ElementAt(i).MetaData["Lengte"], expectedLength.GetAccuracy());
+                Assert.AreEqual(expectedLength, (RoundedDouble) features.ElementAt(i).MetaData["Lengte*"], expectedLength.GetAccuracy());
 
                 AssertEqualPointCollections(sections[i].Points, features.ElementAt(i).MapGeometries.First());
             }

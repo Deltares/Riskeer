@@ -839,7 +839,7 @@
     <value>Koppelingsafstand</value>
   </data>
   <data name="MetaData_Length" xml:space="preserve">
-    <value>Lengte</value>
+    <value>Lengte*</value>
   </data>
   <data name="DistributionType_TruncatedNormal" xml:space="preserve">
     <value>Normaal (afgekapt)</value>

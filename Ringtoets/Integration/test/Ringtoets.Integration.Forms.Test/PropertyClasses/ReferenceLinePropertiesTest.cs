@@ -28,6 +28,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
@@ -79,7 +80,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new ReferenceLineProperties(referenceLine);
 
             // Call & Assert
-            Assert.AreEqual(referenceLine.Length, properties.Length);
+            Assert.AreEqual(2, properties.Length.NumberOfDecimalPlaces);
+            Assert.AreEqual(referenceLine.Length, properties.Length, properties.Length.GetAccuracy());
             CollectionAssert.AreEqual(geometry, properties.Geometry);
         }
 
@@ -99,8 +101,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor lengthProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthProperty,
                                                                             generalCategoryName,
-                                                                            "Lengte [m]",
-                                                                            "Totale lengte van het traject in meters.",
+                                                                            "Lengte* [m]",
+                                                                            "Totale lengte van het traject in meters (afgerond).",
                                                                             true);
 
             PropertyDescriptor geometryProperty = dynamicProperties[1];

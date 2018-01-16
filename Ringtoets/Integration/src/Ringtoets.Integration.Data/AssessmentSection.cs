@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -219,8 +218,8 @@ namespace Ringtoets.Integration.Data
             set
             {
                 referenceLine = value;
-                Piping.PipingProbabilityAssessmentInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
-                MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
+                Piping.PipingProbabilityAssessmentInput.SectionLength = value?.Length ?? double.NaN;
+                MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength = value?.Length ?? double.NaN;
             }
         }
 
@@ -313,6 +312,7 @@ namespace Ringtoets.Integration.Data
                 default:
                     throw new NotSupportedException($"The enum value {nameof(AssessmentSectionComposition)}.{newComposition} is not supported.");
             }
+
             Composition = newComposition;
             SetFailureMechanismRelevancy();
         }
