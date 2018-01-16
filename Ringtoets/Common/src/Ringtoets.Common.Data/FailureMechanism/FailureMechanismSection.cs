@@ -98,6 +98,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
         /// <summary>
         /// Gets the length of the section.
+        /// [m]
         /// </summary>
         public double Length { get; }
     }

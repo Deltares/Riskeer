@@ -457,11 +457,13 @@ namespace Ringtoets.Integration.Plugin
                 CloseForData = CloseCommentViewForData
             };
 
-            yield return new ViewInfo<FailureMechanismSectionsContext, FailureMechanismSectionsView>
+            yield return new ViewInfo<FailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsView>
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
                 Image = RingtoetsCommonFormsResources.SectionsIcon,
-                CloseForData = CloseFailureMechanismSectionsViewForData
+                CloseForData = CloseFailureMechanismSectionsViewForData,
+                CreateInstance = context => new FailureMechanismSectionsView(context.WrappedData.Sections, context.WrappedData),
+                GetViewData = context => context.WrappedData.Sections
             };
 
             yield return new ViewInfo<WaveConditionsInputContext, ICalculation<WaveConditionsInput>, WaveConditionsInputView>
@@ -1056,8 +1058,8 @@ namespace Ringtoets.Integration.Plugin
         private static bool CloseFailureMechanismSectionsViewForData(FailureMechanismSectionsView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as IFailureMechanism;
             var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            var failureMechanism = o as IFailureMechanism;
 
             if (failureMechanismContext != null)
             {
@@ -1067,10 +1069,10 @@ namespace Ringtoets.Integration.Plugin
             if (assessmentSection != null)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                    .FirstOrDefault(fm => fm == ((FailureMechanismSectionsContext) view.Data).WrappedData);
+                                                    .FirstOrDefault(fm => fm == view.FailureMechanism);
             }
 
-            return failureMechanism != null && ReferenceEquals(((FailureMechanismSectionsContext) view.Data).WrappedData, failureMechanism);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         #endregion

@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.Views
 {
+    /// <summary>
+    /// This class represents a row of <see cref="FailureMechanismSection"/>.
+    /// </summary>
     public class FailureMechanismSectionRow
     {
         /// <summary>
@@ -50,7 +52,8 @@ namespace Ringtoets.Common.Forms.Views
         public string Name { get; }
 
         /// <summary>
-        /// Gets the length of the section
+        /// Gets the length of the section.
+        /// [m]
         /// </summary>
         public double Length { get; }
     }

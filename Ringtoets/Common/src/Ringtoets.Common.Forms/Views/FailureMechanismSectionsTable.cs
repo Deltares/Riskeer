@@ -27,6 +27,10 @@ using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
 {
+    /// <summary>
+    /// This class defines a table in which properties of <see cref="FailureMechanismSection"/> instances
+    /// are shown as rows.
+    /// </summary>
     public class FailureMechanismSectionsTable : DataGridViewControl
     {
         /// <summary>
@@ -44,7 +48,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <param name="sections">The collection of sections to show.</param>
         public void SetData(IEnumerable<FailureMechanismSection> sections)
         {
-            SetDataSource(sections?.Select((section, index) => new FailureMechanismSectionRow(section)).ToArray());
+            SetDataSource(sections?.Select(section => new FailureMechanismSectionRow(section)).ToArray());
         }
 
         private void AddColumns()

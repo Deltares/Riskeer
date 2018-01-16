@@ -454,6 +454,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionsContext),
+                    typeof(IEnumerable<FailureMechanismSection>),
                     typeof(FailureMechanismSectionsView));
             }
         }

@@ -19,50 +19,60 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// View for the <see cref="FailureMechanismSection"/>, from which the <see cref="FailureMechanismSection.Name"/>
-    /// and <see cref="FailureMechanismSection.Length"/> can be seen in a grid.
+    /// View for a collection of <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public partial class FailureMechanismSectionsView : UserControl, IView, IObserver
+    public partial class FailureMechanismSectionsView : UserControl, IView
     {
-        private FailureMechanismSectionsContext data;
+        private readonly Observer failureMechanismObserver;
+        private readonly IEnumerable<FailureMechanismSection> sections;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionsView"/>.
         /// </summary>
-        public FailureMechanismSectionsView()
+        /// <param name="sections">The sections to be displayed in the view.</param>
+        /// <param name="failureMechanism">The failure mechanism the view belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public FailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections, IFailureMechanism failureMechanism)
         {
+            if (sections == null)
+            {
+                throw new ArgumentNullException(nameof(sections));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             InitializeComponent();
-        }
 
-        public object Data
-        {
-            get
+            failureMechanismObserver = new Observer(UpdateTableData)
             {
-                return data;
-            }
-            set
-            {
-                data?.Detach(this);
-                data = value as FailureMechanismSectionsContext;
-                data?.Attach(this);
+                Observable = failureMechanism
+            };
 
-                UpdateTableData();
-            }
-        }
+            this.sections = sections;
+            FailureMechanism = failureMechanism;
 
-        public void UpdateObserver()
-        {
             UpdateTableData();
         }
+
+        /// <summary>
+        /// The <see cref="IFailureMechanism"/> the sections view belong to.
+        /// </summary>
+        public IFailureMechanism FailureMechanism { get; }
+
+        public object Data { get; set; }
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -70,6 +80,8 @@ namespace Ringtoets.Common.Forms.Views
         /// <param name="disposing"><c>true</c> if managed resources should be disposed; otherwise, <c>false</c>.</param>
         protected override void Dispose(bool disposing)
         {
+            failureMechanismObserver.Dispose();
+
             if (disposing)
             {
                 components?.Dispose();
@@ -80,7 +92,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdateTableData()
         {
-            failureMechanismSectionsTable.SetData(((FailureMechanismSectionsContext) Data)?.WrappedData.Sections);
+            failureMechanismSectionsTable.SetData(sections);
         }
     }
 }

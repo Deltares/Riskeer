@@ -27,10 +27,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
@@ -40,107 +38,67 @@ namespace Ringtoets.Common.Forms.Test.Views
     public class FailureMechanismSectionsViewTest
     {
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_SectionsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new FailureMechanismSectionsView(null, failureMechanism);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("sections", paramName);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var view = new FailureMechanismSectionsView())
+            TestDelegate test = () => new FailureMechanismSectionsView(Enumerable.Empty<FailureMechanismSection>(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithSections_CreatesViewAndTableWithData()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var random = new Random(39);
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var sections = new[]
+            {
+                new FailureMechanismSection("a", new[]
+                {
+                    new Point2D(random.NextDouble(), random.NextDouble())
+                })
+            };
+            mocks.ReplayAll();
+
+            // Call
+            using (var view = new FailureMechanismSectionsView(sections, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreEqual(1, view.Controls.Count);
-            }
-        }
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
 
-        [Test]
-        public void DefaultConstructor_Always_AddEmptyTableControl()
-        {
-            // Call
-            using (var view = new FailureMechanismSectionsView())
-            {
-                // Assert
                 FailureMechanismSectionsTable tableControl = GetSectionsTable(view);
                 Assert.NotNull(tableControl);
                 Assert.AreEqual(DockStyle.Fill, tableControl.Dock);
-                CollectionAssert.IsEmpty(tableControl.Rows);
-            }
-        }
-
-        [Test]
-        public void Data_FailureMechanismSectionsContext_DataSet()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            using (var view = new FailureMechanismSectionsView())
-            {
-                var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
-
-                // Call
-                view.Data = context;
-
-                // Assert
-                Assert.AreSame(context, view.Data);
+                Assert.AreEqual(1, tableControl.Rows.Count);
             }
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Data_OtherThanFailureMechanismSectionsContext_DataNull()
-        {
-            // Setup
-            using (var view = new FailureMechanismSectionsView())
-            {
-                var data = new object();
-
-                // Call
-                view.Data = data;
-
-                // Assert
-                Assert.IsNull(view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_SetToNull_TableDataCleared()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var random = new Random(39);
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble())
-            }));
-            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
-
-            using (var view = new FailureMechanismSectionsView
-            {
-                Data = context
-            })
-            {
-                FailureMechanismSectionsTable sectionsTable = GetSectionsTable(view);
-
-                // Precondition
-                Assert.NotNull(sectionsTable);
-                Assert.AreEqual(1, sectionsTable.Rows.Count);
-
-                // Call
-                view.Data = null;
-
-                // Assert
-                Assert.IsNull(view.Data);
-                CollectionAssert.IsEmpty(sectionsTable.Rows);
-            }
         }
 
         [Test]
@@ -148,10 +106,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
-
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
@@ -159,30 +115,27 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 new Point2D(0.0, 0.0)
             }));
-            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismSectionsView
-            {
-                Data = context
-            })
+            using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
             {
                 FailureMechanismSectionsTable sectionsTable = GetSectionsTable(view);
+                failureMechanism.Attach(observer);
 
                 // Precondition
                 Assert.AreEqual(1, sectionsTable.Rows.Count);
 
                 // When
-                context.WrappedData.Attach(observer);
-                context.WrappedData.AddSection(new FailureMechanismSection("A", new[]
+                failureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(0.0, 0.0)
                 }));
-                context.WrappedData.NotifyObservers();
+                failureMechanism.NotifyObservers();
 
                 // Then
                 Assert.AreEqual(2, sectionsTable.Rows.Count);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -190,10 +143,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
-
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
@@ -201,27 +152,24 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 new Point2D(0.0, 0.0)
             }));
-            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismSectionsView
-            {
-                Data = context
-            })
+            using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
             {
                 FailureMechanismSectionsTable sectionsTable = GetSectionsTable(view);
+                failureMechanism.Attach(observer);
 
                 // Precondition
                 Assert.AreEqual(1, sectionsTable.Rows.Count);
 
                 // When
-                context.WrappedData.Attach(observer);
-                context.WrappedData.ClearAllSections();
-                context.WrappedData.NotifyObservers();
+                failureMechanism.ClearAllSections();
+                failureMechanism.NotifyObservers();
 
                 // Then
                 Assert.AreEqual(0, sectionsTable.Rows.Count);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         private static FailureMechanismSectionsTable GetSectionsTable(FailureMechanismSectionsView view)

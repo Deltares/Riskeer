@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Forms.Test.Views
     public class FailureMechanismSectionRowTest
     {
         [Test]
-        public void Constructor_SliceNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismSectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new FailureMechanismSectionRow(null);
@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithSlice_ExpectedValues()
+        public void Constructor_WithFailureMechanismSection_ExpectedValues()
         {
             // Setup
             var section = new FailureMechanismSection("test", new[]
@@ -55,8 +55,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             var sectionRow = new FailureMechanismSectionRow(section);
 
             // Assert
-            Assert.AreEqual("test", sectionRow.Name);
-            Assert.AreEqual(10.0, sectionRow.Length);
+            Assert.AreEqual(section.Name, sectionRow.Name);
+            Assert.AreEqual(section.Length, sectionRow.Length);
         }
     }
 }
