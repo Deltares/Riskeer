@@ -31,20 +31,21 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     public class HydraulicBoundaryLocationTest
     {
         [Test]
-        public void Constructor_NullName_ThrowsArgumentNullException()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HydraulicBoundaryLocation(0L, null, 0.0, 0.0);
+            TestDelegate test = () => new HydraulicBoundaryLocation(0, null, 0.0, 0.0);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("name", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ValidParameters_PropertiesAsExpected()
         {
             // Setup
-            const long id = 1234L;
+            const long id = 1234;
             const string name = "<some name>";
             const double x = 567.0;
             const double y = 890.0;
@@ -58,20 +59,21 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual(id, hydraulicBoundaryLocation.Id);
             Assert.AreEqual(name, hydraulicBoundaryLocation.Name);
             Point2D location = hydraulicBoundaryLocation.Location;
-            Assert.IsInstanceOf<Point2D>(location);
             Assert.AreEqual(x, location.X);
             Assert.AreEqual(y, location.Y);
 
-            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculation>(hydraulicBoundaryLocation.DesignWaterLevelCalculation);
-            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculation>(hydraulicBoundaryLocation.WaveHeightCalculation);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation2);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation3);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation4);
+
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation2);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation3);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation4);
 
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
-            Assert.IsNull(hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output);
-
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
-            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
-            Assert.IsNull(hydraulicBoundaryLocation.WaveHeightCalculation.Output);
         }
 
         [Test]
@@ -86,6 +88,12 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
             // Assert
             Assert.AreEqual(testName, result);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
+        {
+            Assert.IsNotNull(hydraulicBoundaryLocationCalculation);
+            Assert.IsNull(hydraulicBoundaryLocationCalculation.Output);
         }
     }
 }
