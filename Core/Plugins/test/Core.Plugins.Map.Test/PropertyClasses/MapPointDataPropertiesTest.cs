@@ -62,10 +62,17 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.IsInstanceOf<FeatureBasedMapDataProperties<MapPointData>>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Punten", properties.Type);
+
+            TestHelper.AssertTypeConverter<MapPointDataProperties, ColorTypeConverter>(
+                nameof(MapPointDataProperties.Color));
+            TestHelper.AssertTypeConverter<MapPointDataProperties, ColorTypeConverter>(
+                nameof(MapPointDataProperties.StrokeColor));
+            TestHelper.AssertTypeConverter<MapPointDataProperties, EnumTypeConverter>(
+                nameof(MapPointDataProperties.Symbol));
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_MapPointDataWithoutMapTheme_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var mapPointData = new MapPointData("Test")
@@ -89,14 +96,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             const string styleCategory = "Stijl";
 
             PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
-            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
                                                                             styleCategory,
                                                                             "Kleur",
                                                                             "De kleur van de symbolen waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorPropertyIndex];
-            Assert.IsInstanceOf<ColorTypeConverter>(strokeColorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
                                                                             styleCategory,
                                                                             "Lijnkleur",
@@ -115,7 +120,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                             "De grootte van de symbolen waarmee deze kaartlaag wordt weergegeven.");
 
             PropertyDescriptor symbolProperty = dynamicProperties[symbolPropertyIndex];
-            Assert.IsInstanceOf<EnumTypeConverter>(symbolProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(symbolProperty,
                                                                             styleCategory,
                                                                             "Symbool",
@@ -123,7 +127,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_MapLineDataWithMapTheme_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_MapPointDataWithMapTheme_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var mapPointData = new MapPointData("Test")
@@ -151,7 +155,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             const string styleCategory = "Stijl";
 
             PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorWithMapThemePropertyIndex];
-            Assert.IsInstanceOf<ColorTypeConverter>(strokeColorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
                                                                             styleCategory,
                                                                             "Lijnkleur",
@@ -275,7 +278,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 feature.MetaData["key"] = "value";
             }
 
-            var mapData = new MapLineData("Test")
+            var mapData = new MapPointData("Test")
             {
                 Features = new[]
                 {
@@ -283,7 +286,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 }
             };
 
-            var properties = new MapLineDataProperties
+            var properties = new MapPointDataProperties
             {
                 Data = mapData
             };
@@ -302,7 +305,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicReadOnlyValidator_MapLineDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
+        public void DynamicReadOnlyValidator_MapPointDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
         {
             // Setup
             var mapData = new MapPointData("Test")
@@ -374,19 +377,19 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_ShowLabels_ReturnsExpectedValuesForRelevantProperties(bool showLabels)
         {
             // Setup
-            var mapLineData = new MapLineData("Test")
+            var mapPointData = new MapPointData("Test")
             {
                 ShowLabels = showLabels
             };
 
-            var properties = new MapLineDataProperties
+            var properties = new MapPointDataProperties
             {
-                Data = mapLineData
+                Data = mapPointData
             };
 
             // Call
             bool isSelectedMetaDataAttributeVisible = properties.DynamicVisibleValidationMethod(
-                nameof(MapLineDataProperties.SelectedMetaDataAttribute));
+                nameof(MapPointDataProperties.SelectedMetaDataAttribute));
 
             // Assert
             Assert.AreEqual(showLabels, isSelectedMetaDataAttributeVisible);
@@ -395,7 +398,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicVisibleValidationMethod_MapDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
+        public void DynamicVisibleValidationMethod_MapPointDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
         {
             // Setup
             var mapPointData = new MapPointData("Test")

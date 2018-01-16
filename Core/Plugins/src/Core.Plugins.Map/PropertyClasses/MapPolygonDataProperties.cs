@@ -44,7 +44,8 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        [PropertyOrder(5)]
+        [PropertyOrder(8)]
+        [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_FillColor_Description))]
@@ -63,7 +64,8 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        [PropertyOrder(6)]
+        [PropertyOrder(9)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeColor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_StrokeColor_Description))]
@@ -82,7 +84,8 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        [PropertyOrder(7)]
+        [PropertyOrder(10)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeThickness_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_StrokeThickness_Description))]
@@ -97,6 +100,27 @@ namespace Core.Plugins.Map.PropertyClasses
                 data.Style.StrokeThickness = value;
                 data.NotifyObservers();
             }
+        }
+
+        public override bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (propertyName == nameof(FillColor))
+            {
+                return data.MapTheme == null;
+            }
+
+            return base.DynamicVisibleValidationMethod(propertyName);
+        }
+
+        public override bool DynamicReadonlyValidator(string propertyName)
+        {
+            if (propertyName == nameof(StrokeColor)
+                || propertyName == nameof(StrokeThickness))
+            {
+                return data.MapTheme != null;
+            }
+
+            return base.DynamicReadonlyValidator(propertyName);
         }
     }
 }

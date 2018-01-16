@@ -58,6 +58,11 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.IsInstanceOf<FeatureBasedMapDataProperties<MapLineData>>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Lijnen", properties.Type);
+
+            TestHelper.AssertTypeConverter<MapLineDataProperties, ColorTypeConverter>(
+                nameof(MapLineDataProperties.Color));
+            TestHelper.AssertTypeConverter<MapLineDataProperties, EnumTypeConverter>(
+                nameof(MapLineDataProperties.DashStyle));
         }
 
         [Test]
@@ -81,7 +86,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             const string styleCategory = "Stijl";
 
             PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
-            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
                                                                             styleCategory,
                                                                             "Kleur",
@@ -133,7 +137,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor styleProperty = dynamicProperties[styleWithMapThemePropertyIndex];
-            Assert.IsInstanceOf<EnumTypeConverter>(styleProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
                                                                             styleCategory,
                                                                             "Lijnstijl",
@@ -336,7 +339,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicVisibleValidationMethod_MapDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
+        public void DynamicVisibleValidationMethod_MapLineDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
         {
             // Setup
             var mapLineData = new MapLineData("Test")
