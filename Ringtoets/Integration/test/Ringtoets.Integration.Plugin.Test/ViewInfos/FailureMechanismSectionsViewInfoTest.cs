@@ -68,16 +68,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
             var view = mocks.StrictMock<FailureMechanismSectionsView>();
             mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
 
             // Call
             string viewName = info.GetViewName(view, failureMechanism.Sections);
 
             // Assert
             Assert.AreEqual("Vakindeling", viewName);
-
             mocks.VerifyAll();
         }
 
@@ -85,10 +85,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsFailureMechanismSections()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var failureMechanism = new TestFailureMechanism();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -96,7 +96,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(failureMechanism.Sections, viewData);
-
             mocks.VerifyAll();
         }
 
@@ -115,10 +114,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new TestFailureMechanism();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             mocks.ReplayAll();
 
+            var failureMechanism = new TestFailureMechanism();
             using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
             {
                 // Call
@@ -127,7 +126,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
             mocks.VerifyAll();
         }
 
@@ -135,8 +133,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -205,7 +203,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
             mocks.VerifyAll();
         }
 
@@ -227,7 +224,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
             mocks.VerifyAll();
         }
     }

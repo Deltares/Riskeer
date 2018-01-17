@@ -67,12 +67,14 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithSections_CreatesViewAndTableWithData()
+        public void Constructor_WithData_CreatesViewAndTableWithData()
         {
             // Setup
             var mocks = new MockRepository();
-            var random = new Random(39);
             var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var random = new Random(39);
             var sections = new[]
             {
                 new FailureMechanismSection("a", new[]
@@ -80,7 +82,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                     new Point2D(random.NextDouble(), random.NextDouble())
                 })
             };
-            mocks.ReplayAll();
 
             // Call
             using (var view = new FailureMechanismSectionsView(sections, failureMechanism))
