@@ -68,9 +68,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             Assert.IsNull(testLocation.DesignWaterLevelCalculation1.Output);
             Assert.IsNull(testLocation.WaveHeightCalculation1.Output);
-
-            Assert.IsNaN(testLocation.DesignWaterLevel);
-            Assert.IsNaN(testLocation.WaveHeight);
         }
 
         [Test]
