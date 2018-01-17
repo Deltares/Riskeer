@@ -21,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DerivedPipingInputTest.cs" />
+    <Compile Include="DerivedPipingOutputFactoryTest.cs" />
     <Compile Include="GeneralPipingInputTest.cs" />
     <Compile Include="PipingCalculationScenarioExtensionsTest.cs" />
     <Compile Include="PipingCalculationScenarioTest.cs" />
