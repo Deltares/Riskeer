@@ -41,14 +41,14 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <summary>
         /// Creates a calculated scenario for which the surface line on the input intersects with <paramref name="section"/>.
         /// </summary>
-        /// <param name="probability">The value for <see cref="PipingSemiProbabilisticOutput.PipingProbability"/>.</param>
+        /// <param name="probability">The value for <see cref="DerivedPipingOutput.PipingProbability"/>.</param>
         /// <param name="section">The section for which an intersection will be created.</param>
         /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
         public static PipingCalculationScenario CreatePipingCalculationScenario(double probability, FailureMechanismSection section)
         {
             PipingCalculationScenario scenario = CreateNotCalculatedPipingCalculationScenario(section);
             var random = new Random(21);
-            scenario.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(
+            scenario.SemiProbabilisticOutput = new DerivedPipingOutput(
                 random.NextDouble(),
                 random.NextDouble(),
                 random.NextDouble(),

@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Plugin
             };
             yield return new PropertyInfo<PipingOutputContext, PipingOutputProperties>
             {
-                CreateInstance = context => new PipingOutputProperties(context.WrappedData, context.SemiProbabilisticOutput)
+                CreateInstance = context => new PipingOutputProperties(context.WrappedData, context.DerivedOutput)
             };
             yield return new PropertyInfo<PipingSurfaceLinesContext, PipingSurfaceLineCollectionProperties>
             {

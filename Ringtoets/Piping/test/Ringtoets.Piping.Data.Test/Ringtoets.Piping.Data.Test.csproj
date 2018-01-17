@@ -31,7 +31,7 @@
     <Compile Include="PipingInputTest.cs" />
     <Compile Include="PipingOutputTest.cs" />
     <Compile Include="PipingSemiProbabilisticDesignVariableFactoryTest.cs" />
-    <Compile Include="PipingSemiProbabilisticOutputTest.cs" />
+    <Compile Include="DerivedPipingOutputTest.cs" />
     <Compile Include="PipingSoilProfileExtensionsTest.cs" />
     <Compile Include="PipingSurfaceLineCollectionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

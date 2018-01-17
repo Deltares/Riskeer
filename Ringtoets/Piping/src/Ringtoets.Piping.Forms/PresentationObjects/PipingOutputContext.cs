@@ -26,7 +26,7 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {
     /// <summary>
-    /// A presentation layer object which wraps a <see cref="PipingOutput"/> and a <see cref="PipingSemiProbabilisticOutput"/>.
+    /// A presentation layer object which wraps a <see cref="PipingOutput"/> and a <see cref="Data.DerivedPipingOutput"/>.
     /// </summary>
     public class PipingOutputContext : WrappedObjectContextBase<PipingOutput>
     {
@@ -34,21 +34,22 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// Creates a new instance of <see cref="PipingOutputContext"/>.
         /// </summary>
         /// <param name="pipingOutput">The <see cref="PipingOutput"/> object to wrap.</param>
-        /// <param name="semiProbabilisticOutput">The <see cref="PipingSemiProbabilisticOutput"/>
+        /// <param name="derivedOutput">The <see cref="DerivedPipingOutput"/>
         /// created from <paramref name="pipingOutput"/>.</param>
-        public PipingOutputContext(PipingOutput pipingOutput, PipingSemiProbabilisticOutput semiProbabilisticOutput)
+        public PipingOutputContext(PipingOutput pipingOutput, DerivedPipingOutput derivedOutput)
             : base(pipingOutput)
         {
-            if (semiProbabilisticOutput == null)
+            if (derivedOutput == null)
             {
-                throw new ArgumentNullException(nameof(semiProbabilisticOutput));
+                throw new ArgumentNullException(nameof(derivedOutput));
             }
-            SemiProbabilisticOutput = semiProbabilisticOutput;
+
+            DerivedOutput = derivedOutput;
         }
 
         /// <summary>
-        /// Gets the semi-probabilistic output created from the piping output.
+        /// Gets the derived output created from the piping output.
         /// </summary>
-        public PipingSemiProbabilisticOutput SemiProbabilisticOutput { get; }
+        public DerivedPipingOutput DerivedOutput { get; }
     }
 }

@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Service
 
             calculator.Calculate();
 
-            calculation.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(
+            calculation.SemiProbabilisticOutput = new DerivedPipingOutput(
                 calculator.upliftFactorOfSafety,
                 calculator.upliftReliability,
                 calculator.upliftProbability,
