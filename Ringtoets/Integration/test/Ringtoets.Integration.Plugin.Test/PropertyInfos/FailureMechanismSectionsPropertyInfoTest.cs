@@ -66,7 +66,6 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Sections).Return(Enumerable.Empty<FailureMechanismSection>());
             failureMechanism.Stub(fm => fm.Attach(null)).IgnoreArguments();
-            failureMechanism.Stub(fm => fm.Detach(null)).IgnoreArguments();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -78,6 +77,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionsProperties>(objectProperties);
             Assert.AreSame(failureMechanism.Sections, objectProperties.Data);
+
+            mocks.VerifyAll();
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="FailureMechanismSectionsProperties"/>.
         /// </summary>
         /// <param name="sections">The sections to show the properties for.</param>
-        /// <param name="failureMechanism">The failure mechanisms which the sections belong to.</param>
+        /// <param name="failureMechanism">The failure mechanism which the sections belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public FailureMechanismSectionsProperties(IEnumerable<FailureMechanismSection> sections, IFailureMechanism failureMechanism)
         {
