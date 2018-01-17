@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// The <see cref="IFailureMechanism"/> the sections view belong to.
+        /// Gets the <see cref="IFailureMechanism"/> the view belongs to.
         /// </summary>
         public IFailureMechanism FailureMechanism { get; }
 
