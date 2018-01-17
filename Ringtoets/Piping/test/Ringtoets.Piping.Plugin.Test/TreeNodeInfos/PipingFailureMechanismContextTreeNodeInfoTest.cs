@@ -188,7 +188,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             Assert.AreEqual(3, outputsFolder.Contents.Count());
             var failureMechanismScenariosContext = (PipingScenariosContext) outputsFolder.Contents.ElementAt(0);
-            Assert.AreSame(pipingFailureMechanism, failureMechanismScenariosContext.ParentFailureMechanism);
+            Assert.AreSame(pipingFailureMechanism, failureMechanismScenariosContext.FailureMechanism);
             Assert.AreSame(pipingFailureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
 
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);

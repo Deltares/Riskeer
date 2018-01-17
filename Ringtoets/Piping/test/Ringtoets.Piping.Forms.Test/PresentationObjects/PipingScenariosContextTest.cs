@@ -22,6 +22,8 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -35,26 +37,51 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new PipingFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
             // Call
-            var context = new PipingScenariosContext(calculationGroup, failureMechanism);
+            var context = new PipingScenariosContext(calculationGroup, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<CalculationGroup>>(context);
             Assert.AreSame(calculationGroup, context.WrappedData);
-            Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_FailuremechanismNull_ThrowArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+
+            // Call
+            TestDelegate test = () => new PipingScenariosContext(calculationGroup, null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
             var calculationGroup = new CalculationGroup();
 
             // Call
-            TestDelegate test = () => new PipingScenariosContext(calculationGroup, null);
+            TestDelegate test = () => new PipingScenariosContext(calculationGroup, new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

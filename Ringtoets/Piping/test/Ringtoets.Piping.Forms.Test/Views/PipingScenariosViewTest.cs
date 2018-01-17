@@ -31,8 +31,10 @@ using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Views;
@@ -53,10 +55,26 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private Form testForm;
 
         [Test]
-        public void Constructor_DefaultValues()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var pipingScenarioView = new PipingScenariosView())
+            TestDelegate call = () => new PipingScenariosView(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            using (var pipingScenarioView = new PipingScenariosView(assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(pipingScenarioView);
@@ -64,6 +82,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsNull(pipingScenarioView.Data);
                 Assert.IsNull(pipingScenarioView.PipingFailureMechanism);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -393,7 +412,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private PipingScenariosView ShowPipingScenarioView()
         {
-            var pipingScenarioView = new PipingScenariosView();
+            var pipingScenarioView = new PipingScenariosView(new ObservableTestAssessmentSectionStub());
 
             testForm.Controls.Add(pipingScenarioView);
             testForm.Show();

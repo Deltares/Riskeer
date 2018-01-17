@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
@@ -38,6 +39,7 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public partial class PipingScenariosView : UserControl, IView
     {
+        private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, PipingInput> pipingInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> pipingCalculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, PipingCalculationScenario> pipingCalculationObserver;
@@ -48,11 +50,21 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Creates a new instance of the <see cref="PipingScenariosView"/> class.
         /// </summary>
-        public PipingScenariosView()
+        /// <param name="assessmentSection">The assessment section the scenarios belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public PipingScenariosView(IAssessmentSection assessmentSection)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             InitializeComponent();
             InitializeDataGridView();
             InitializeListBox();
+
+            this.assessmentSection = assessmentSection;
 
             pipingFailureMechanismObserver = new Observer(OnPipingFailureMechanismUpdate);
 
@@ -175,7 +187,7 @@ namespace Ringtoets.Piping.Forms.Views
                 .OfType<PipingCalculationScenario>()
                 .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
-            List<PipingScenarioRow> dataSource = pipingCalculations.Select(pc => new PipingScenarioRow(pc)).ToList();
+            List<PipingScenarioRow> dataSource = pipingCalculations.Select(pc => new PipingScenarioRow(pc, pipingFailureMechanism, assessmentSection)).ToList();
             dataGridViewControl.SetDataSource(dataSource);
         }
 
