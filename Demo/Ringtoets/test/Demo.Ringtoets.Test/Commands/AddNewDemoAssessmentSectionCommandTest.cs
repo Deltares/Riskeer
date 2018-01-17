@@ -424,14 +424,7 @@ namespace Demo.Ringtoets.Test.Commands
                             inputParameters.DampingFactorExit.GetAccuracy());
             Assert.AreEqual(2.836, PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                             inputParameters.PhreaticLevelExit.GetAccuracy());
-            Assert.AreEqual(0.011453, PipingSemiProbabilisticDesignVariableFactory.GetDiameter70(inputParameters).GetDesignValue(),
-                            inputParameters.Diameter70.GetAccuracy());
-            Assert.AreEqual(1.179896, PipingSemiProbabilisticDesignVariableFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
-                            inputParameters.DarcyPermeability.GetAccuracy());
-            Assert.AreEqual(17.5, PipingSemiProbabilisticDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
-                            inputParameters.SaturatedVolumicWeightOfCoverageLayer.GetAccuracy());
 
-            Assert.AreEqual(5.41, inputParameters.PiezometricHeadExit, 1e-2);
             Assert.AreEqual(106.13, inputParameters.ExitPointL, 1e-2);
             Assert.AreEqual(81.18, PipingSemiProbabilisticDesignVariableFactory.GetSeepageLength(inputParameters).GetDesignValue(),
                             inputParameters.DampingFactorExit.GetAccuracy());

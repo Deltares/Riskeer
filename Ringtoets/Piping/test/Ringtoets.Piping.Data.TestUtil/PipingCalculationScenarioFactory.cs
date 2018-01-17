@@ -205,18 +205,6 @@ namespace Ringtoets.Piping.Data.TestUtil
                     {
                         Mean = (RoundedDouble) 2.0
                     },
-                    SeepageLength =
-                    {
-                        Mean = (RoundedDouble) 1.0
-                    },
-                    ThicknessAquiferLayer =
-                    {
-                        Mean = (RoundedDouble) 1.0
-                    },
-                    ThicknessCoverageLayer =
-                    {
-                        Mean = (RoundedDouble) 1.0
-                    },
                     SurfaceLine = surfaceLine,
                     StochasticSoilProfile = stochasticSoilProfile,
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
