@@ -187,7 +187,8 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Performs a calculation for the design water level.
         /// </summary>
-        /// <param name="calculationWrapper">The calculation wrapper to use.</param>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location the <paramref name="hydraulicBoundaryLocationCalculation"/> belongs to.</param>
+        /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
         /// <param name="norm">The norm of the assessment section.</param>
@@ -200,13 +201,14 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        private void PerformCalculation(HydraulicBoundaryCalculationWrapper calculationWrapper,
+        private void PerformCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                        HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                         string hydraulicBoundaryDatabaseFilePath,
                                         bool usePreprocessor,
                                         double norm,
                                         ICalculationMessageProvider messageProvider)
         {
-            AssessmentLevelCalculationInput calculationInput = CreateInput(calculationWrapper, norm, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
+            AssessmentLevelCalculationInput calculationInput = CreateInput(hydraulicBoundaryLocation.Id, norm, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
             calculator.Calculate(calculationInput);
 
@@ -218,21 +220,21 @@ namespace Ringtoets.Common.Service
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = null;
             try
             {
-                generalResult = calculationWrapper.CalculateIllustrationPoints
+                generalResult = hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated
                                     ? GetGeneralResult(calculator.IllustrationPointsResult)
                                     : null;
             }
             catch (ArgumentException e)
             {
                 log.Warn(string.Format(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
-                                       calculationWrapper.Name,
+                                       hydraulicBoundaryLocation.Name,
                                        e.Message));
             }
 
             HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
-                messageProvider, calculationWrapper.Name, calculationInput.Beta, norm, calculator.Converged, generalResult);
+                messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm, calculator.Converged, generalResult);
 
-            calculationWrapper.Output = hydraulicBoundaryLocationOutput;
+            hydraulicBoundaryLocationCalculation.Output = hydraulicBoundaryLocationOutput;
         }
 
         /// <summary>
@@ -300,8 +302,7 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Creates the input for a design water level calculation.
         /// </summary>
-        /// <param name="calculationWrapper">The <see cref="HydraulicBoundaryCalculationWrapper"/>
-        /// to create the input from.</param>
+        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
         /// boundary database.</param>
@@ -317,12 +318,12 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list>
         /// </exception>
-        private static AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryCalculationWrapper calculationWrapper,
+        private static AssessmentLevelCalculationInput CreateInput(long hydraulicBoundaryLocationId,
                                                                    double norm,
                                                                    string hydraulicBoundaryDatabaseFilePath,
                                                                    bool usePreprocessor)
         {
-            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, calculationWrapper.Id, norm);
+            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocationId, norm);
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(assessmentLevelCalculationInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
