@@ -256,7 +256,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.PiezometricHeadExit;
+                return new DerivedPipingInput(data.WrappedData).PiezometricHeadExit;
             }
         }
 
