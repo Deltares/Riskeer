@@ -317,8 +317,6 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        #region Derived input
-
         /// <summary>
         /// Gets or sets the outside high water level.
         /// [m+NAP]
@@ -346,20 +344,6 @@ namespace Ringtoets.Piping.Data
                 assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
         }
-
-        /// <summary>
-        /// Gets the piezometric head at the exit point.
-        /// [m]
-        /// </summary>
-        public RoundedDouble PiezometricHeadExit
-        {
-            get
-            {
-                return new DerivedPipingInput(this).PiezometricHeadExit;
-            }
-        }
-
-        #endregion
 
         #region General input parameters
 
@@ -512,78 +496,6 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the horizontal distance between entry and exit point.
-        /// [m]
-        /// </summary>
-        public VariationCoefficientLogNormalDistribution SeepageLength
-        {
-            get
-            {
-                return new DerivedPipingInput(this).SeepageLength;
-            }
-        }
-
-        /// <summary>
-        /// Gets the sieve size through which 70% of the grains of the top part of the aquifer pass.
-        /// [m]
-        /// </summary>
-        public VariationCoefficientLogNormalDistribution Diameter70
-        {
-            get
-            {
-                return new DerivedPipingInput(this).DiameterD70;
-            }
-        }
-
-        /// <summary>
-        /// Gets the Darcy-speed with which water flows through the aquifer layer.
-        /// [m/s]
-        /// </summary>
-        public VariationCoefficientLogNormalDistribution DarcyPermeability
-        {
-            get
-            {
-                return new DerivedPipingInput(this).DarcyPermeability;
-            }
-        }
-
-        /// <summary>
-        /// Gets the total thickness of the aquifer layers at the exit point.
-        /// [m]
-        /// </summary>
-        public LogNormalDistribution ThicknessAquiferLayer
-        {
-            get
-            {
-                return new DerivedPipingInput(this).ThicknessAquiferLayer;
-            }
-        }
-
-        /// <summary>
-        /// Gets the total thickness of the coverage layer at the exit point.
-        /// [m]
-        /// </summary>
-        public LogNormalDistribution ThicknessCoverageLayer
-        {
-            get
-            {
-                return new DerivedPipingInput(this).ThicknessCoverageLayer;
-            }
-        }
-
-        /// <summary>
-        /// Gets the effective thickness of the coverage layer at the exit point.
-        /// [m]
-        /// </summary>
-        public LogNormalDistribution EffectiveThicknessCoverageLayer
-        {
-            get
-            {
-                return new DerivedPipingInput(this).EffectiveThicknessCoverageLayer;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the damping factor at the exit point.
         /// </summary>
         public LogNormalDistribution DampingFactorExit
@@ -596,17 +508,6 @@ namespace Ringtoets.Piping.Data
             {
                 dampingFactorExit.Mean = value.Mean;
                 dampingFactorExit.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets the volumic weight of the saturated coverage layer.
-        /// </summary>
-        public LogNormalDistribution SaturatedVolumicWeightOfCoverageLayer
-        {
-            get
-            {
-                return new DerivedPipingInput(this).SaturatedVolumicWeightOfCoverageLayer;
             }
         }
 
