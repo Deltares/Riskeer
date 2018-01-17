@@ -211,8 +211,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 hydraulicBoundaryLocation
             };
 
-            TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView(locations);
-
             var topLevelIllustrationPoints = new[]
             {
                 new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
@@ -227,7 +225,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 Output = output
             };
-            view.ItemToCreate = calculation;
+
+            TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView(locations, hbl => calculation);
 
             // Call
             IEnumerable<IllustrationPointControlItem> actualControlItems =
@@ -259,13 +258,15 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private void ShowTestHydraulicBoundaryLocationsView()
         {
-            ShowTestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocation>());
+            ShowTestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+                                                   hbl => new HydraulicBoundaryLocationCalculation());
         }
 
-        private TestHydraulicBoundaryLocationsView ShowTestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations)
+        private TestHydraulicBoundaryLocationsView ShowTestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
+                                                                                          Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
         {
             var view = new TestHydraulicBoundaryLocationsView(locations,
-                                                              hbl => new HydraulicBoundaryLocationCalculation(),
+                                                              getCalculationFunc,
                                                               new ObservableTestAssessmentSectionStub());
 
             testForm.Controls.Add(view);
@@ -306,7 +307,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 }
             });
 
-            return ShowTestHydraulicBoundaryLocationsView(locations);
+            return ShowTestHydraulicBoundaryLocationsView(locations,
+                                                          hbl => hbl.WaveHeightCalculation1);
         }
 
         private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView
@@ -319,8 +321,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                        assessmentSection) {}
 
             public HydraulicBoundaryLocation GetCalculationsCallArgument { get; private set; }
-
-            public HydraulicBoundaryLocationCalculation ItemToCreate { private get; set; }
 
             public IEnumerable<IllustrationPointControlItem> PublicGetIllustrationPointControlItems()
             {
@@ -340,7 +340,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
             {
                 GetCalculationsCallArgument = location;
-                return ItemToCreate ?? location.WaveHeightCalculation1;
+
+                return getCalculationFunc(location);
             }
         }
     }
