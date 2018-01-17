@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Forms.Views
             CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                              AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                              locations,
-                                                             getCalculationFunc,
+                                                             GetCalculationFunc,
                                                              getNormFunc(),
                                                              messageProvider);
         }

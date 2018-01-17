@@ -117,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                        AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                        locations,
-                                                       getCalculationFunc,
+                                                       GetCalculationFunc,
                                                        mechanismSpecificNorm,
                                                        messageProvider);
         }

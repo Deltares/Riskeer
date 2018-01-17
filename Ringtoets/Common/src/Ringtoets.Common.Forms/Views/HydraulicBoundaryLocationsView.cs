@@ -38,10 +38,8 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public abstract partial class HydraulicBoundaryLocationsView : LocationsView<HydraulicBoundaryLocation>
     {
-        protected readonly Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc;
-
-        private readonly ObservableList<HydraulicBoundaryLocation> locations;
         private readonly Observer hydraulicBoundaryLocationsObserver;
+        private readonly ObservableList<HydraulicBoundaryLocation> locations;
         private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
 
         /// <summary>
@@ -77,7 +75,7 @@ namespace Ringtoets.Common.Forms.Views
             hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(HandleHydraulicBoundaryLocationUpdate, list => list);
 
             this.locations = locations;
-            this.getCalculationFunc = getCalculationFunc;
+            GetCalculationFunc = getCalculationFunc;
 
             hydraulicBoundaryLocationsObserver.Observable = locations;
             hydraulicBoundaryLocationObserver.Observable = locations;
@@ -91,6 +89,12 @@ namespace Ringtoets.Common.Forms.Views
         /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationGuiService"/>.
         /// </summary>
         public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
+
+        /// <summary>
+        /// Gets the <see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// based on <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
+        protected Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> GetCalculationFunc { get; }
 
         protected override void Dispose(bool disposing)
         {
@@ -145,7 +149,7 @@ namespace Ringtoets.Common.Forms.Views
 
             HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = getCalculationFunc(location);
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetCalculationFunc(location);
             HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = hydraulicBoundaryLocationCalculation.Output;
             if (hydraulicBoundaryLocationCalculation.HasOutput
                 && hydraulicBoundaryLocationOutput.HasGeneralResult)
@@ -172,10 +176,10 @@ namespace Ringtoets.Common.Forms.Views
         /// <param name="location">The location for which to create a new row.</param>
         /// <returns>The newly created row.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c> or
-        /// <see cref="getCalculationFunc"/> returns <c>null</c>.</exception>
+        /// <see cref="GetCalculationFunc"/> returns <c>null</c>.</exception>
         private HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
         {
-            return new HydraulicBoundaryLocationRow(location, getCalculationFunc(location));
+            return new HydraulicBoundaryLocationRow(location, GetCalculationFunc(location));
         }
     }
 }
