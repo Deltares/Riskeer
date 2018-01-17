@@ -114,7 +114,8 @@ namespace Ringtoets.Common.Forms.GuiServices
 
             RunActivities(hydraulicBoundaryDatabaseFilePath,
                           preprocessorDirectory,
-                          locations.Select(location => new WaveHeightCalculationActivity(new HydraulicBoundaryCalculationWrapper(location, getCalculationFunc(location)), 
+                          locations.Select(location => new WaveHeightCalculationActivity(location,
+                                                                                         getCalculationFunc(location), 
                                                                                          hydraulicBoundaryDatabaseFilePath,
                                                                                          preprocessorDirectory,
                                                                                          norm,
