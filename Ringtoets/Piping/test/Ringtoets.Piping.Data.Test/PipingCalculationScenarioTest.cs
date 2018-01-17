@@ -189,7 +189,6 @@ namespace Ringtoets.Piping.Data.Test
             PipingCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
 
             original.Output = PipingTestDataGenerator.GetRandomPipingOutput();
-            original.SemiProbabilisticOutput = PipingTestDataGenerator.GetRandomPipingSemiProbabilisticOutput();
 
             // Call
             object clone = original.Clone();

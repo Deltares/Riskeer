@@ -78,7 +78,6 @@ namespace Ringtoets.Piping.Service
             PipingDataSynchronizationService.ClearCalculationOutput(calculation);
 
             PipingCalculationService.Calculate(calculation);
-            PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, norm, contribution);
         }
 
         protected override void OnCancel()
