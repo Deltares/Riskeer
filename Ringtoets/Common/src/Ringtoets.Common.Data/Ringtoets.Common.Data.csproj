@@ -48,7 +48,6 @@
     <Compile Include="FailureMechanism\AssessmentLayerOneState.cs" />
     <Compile Include="Helpers\SoilLayerDataHelper.cs" />
     <Compile Include="Hydraulics\CalculationConvergence.cs" />
-    <Compile Include="Hydraulics\HydraulicBoundaryCalculationWrapper.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabaseExtensions.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocation.cs" />

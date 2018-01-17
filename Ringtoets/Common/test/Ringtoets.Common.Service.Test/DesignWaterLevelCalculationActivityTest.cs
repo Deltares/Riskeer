@@ -250,7 +250,8 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
             mockRepository.ReplayAll();
 
-            var activity = new DesignWaterLevelCalculationActivity(new TestHydraulicBoundaryLocation(locationName),
+            var location = new TestHydraulicBoundaryLocation(locationName);
+            var activity = new DesignWaterLevelCalculationActivity(location,
                                                                    new HydraulicBoundaryLocationCalculation(),
                                                                    validFilePath,
                                                                    validPreprocessorDirectory,
@@ -277,7 +278,7 @@ namespace Ringtoets.Common.Service.Test
 
                 AssessmentLevelCalculationInput designWaterLevelCalculationInput = calculator.ReceivedInputs.Single();
 
-                Assert.AreEqual(new HydraulicBoundaryCalculationWrapper(new TestHydraulicBoundaryLocation(locationName), new HydraulicBoundaryLocationCalculation()).Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
+                Assert.AreEqual(location.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
             }
 
