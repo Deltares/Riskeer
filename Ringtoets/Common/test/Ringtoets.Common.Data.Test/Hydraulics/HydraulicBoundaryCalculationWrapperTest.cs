@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.Test.Hydraulics
 {
@@ -84,7 +85,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                 InputParameters =
                 {
                     ShouldIllustrationPointsBeCalculated = calculateIllustrationPoints
-                }
+                },
+                Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
             };
 
             // Call
@@ -93,8 +95,9 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             // Assert
             Assert.AreEqual(hydraulicBoundaryLocation.Id, calculationWrapper.Id);
             Assert.AreSame(hydraulicBoundaryLocation.Name, calculationWrapper.Name);
-            Assert.AreEqual(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, calculationWrapper.CalculateIllustrationPoints);
             Assert.AreSame(hydraulicBoundaryLocation, calculationWrapper.ObservableObject);
+            Assert.AreEqual(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, calculationWrapper.CalculateIllustrationPoints);
+            Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output, calculationWrapper.Output);
         }
 
         [Test]
@@ -114,7 +117,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void Output_ValidOutput_SetsOutput()
+        public void Output_ValidOutput_SetsOutputOnCalculation()
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -126,7 +129,6 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             calculationWrapper.Output = output;
 
             // Assert
-            Assert.AreSame(output, calculationWrapper.Output);
             Assert.AreSame(output, hydraulicBoundaryLocationCalculation.Output);
         }
     }

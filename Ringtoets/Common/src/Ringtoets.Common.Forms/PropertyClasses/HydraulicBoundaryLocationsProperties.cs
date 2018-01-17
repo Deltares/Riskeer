@@ -45,23 +45,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
 
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(OnRefreshRequired, list => list);
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(OnRefreshRequired, list => list)
+            {
+                Observable = hydraulicBoundaryLocations
+            };
 
             Data = hydraulicBoundaryLocations;
-        }
-
-        public override object Data
-        {
-            get
-            {
-                return base.Data;
-            }
-            set
-            {
-                base.Data = value;
-
-                hydraulicBoundaryLocationObserver.Observable = value as ObservableList<HydraulicBoundaryLocation>;
-            }
         }
 
         public override void Dispose()
