@@ -23,6 +23,9 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -59,8 +62,12 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void CreateInstance_Always_NewPropertiesWithPipingOutputAsData()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var output = new TestPipingOutput();
-            var context = new PipingOutputContext(output, new TestPipingSemiProbabilisticOutput());
+            var context = new PipingOutputContext(output, new PipingFailureMechanism(), assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
@@ -68,6 +75,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
             // Assert
             Assert.IsInstanceOf<PipingOutputProperties>(objectProperties);
             Assert.AreSame(output, objectProperties.Data);
+            mocks.VerifyAll();
         }
     }
 }

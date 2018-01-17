@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
@@ -35,7 +36,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// </summary>
     public class PipingOutputProperties : ObjectProperties<PipingOutput>
     {
-        private readonly DerivedPipingOutput derivedOutput;
+        private DerivedPipingOutput derivedOutput;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingOutputProperties"/>.
@@ -44,20 +45,16 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <param name="derivedOutput">The derived output to show properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public PipingOutputProperties(PipingOutput output, DerivedPipingOutput derivedOutput)
+        public PipingOutputProperties(PipingOutput output, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            if (derivedOutput == null)
+            if (output == null)
             {
-                throw new ArgumentNullException(nameof(derivedOutput));
-            }
-
-            if (derivedOutput == null)
-            {
-                throw new ArgumentNullException(nameof(derivedOutput));
+                throw new ArgumentNullException(nameof(output));
             }
 
             Data = output;
-            this.derivedOutput = derivedOutput;
+
+            CreateDerivedOutput(output, failureMechanism, assessmentSection);
         }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Uplift), 1, 4)]
@@ -286,6 +283,15 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 return derivedOutput.PipingFactorOfSafety;
             }
+        }
+
+        private void CreateDerivedOutput(PipingOutput output, PipingFailureMechanism failureMechanism,
+                                         IAssessmentSection assessmentSection)
+        {
+            derivedOutput = DerivedPipingOutputFactory.Create(output,
+                                                              failureMechanism.PipingProbabilityAssessmentInput,
+                                                              assessmentSection.FailureMechanismContribution.Norm,
+                                                              failureMechanism.Contribution);
         }
     }
 }

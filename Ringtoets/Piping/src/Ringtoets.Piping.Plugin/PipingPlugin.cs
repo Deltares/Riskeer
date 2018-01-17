@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Plugin
             };
             yield return new PropertyInfo<PipingOutputContext, PipingOutputProperties>
             {
-                CreateInstance = context => new PipingOutputProperties(context.WrappedData, context.DerivedOutput)
+                CreateInstance = context => new PipingOutputProperties(context.WrappedData, context.FailureMechanism, context.AssessmentSection)
             };
             yield return new PropertyInfo<PipingSurfaceLinesContext, PipingSurfaceLineCollectionProperties>
             {
@@ -752,26 +752,27 @@ namespace Ringtoets.Piping.Plugin
                           .Build();
         }
 
-        private static object[] PipingCalculationContextChildNodeObjects(PipingCalculationScenarioContext pipingCalculationScenarioContext)
+        private static object[] PipingCalculationContextChildNodeObjects(PipingCalculationScenarioContext context)
         {
-            PipingCalculationScenario pipingCalculationScenario = pipingCalculationScenarioContext.WrappedData;
+            PipingCalculationScenario pipingCalculationScenario = context.WrappedData;
 
             var childNodes = new List<object>
             {
                 pipingCalculationScenario.Comments,
                 new PipingInputContext(pipingCalculationScenario.InputParameters,
                                        pipingCalculationScenario,
-                                       pipingCalculationScenarioContext.AvailablePipingSurfaceLines,
-                                       pipingCalculationScenarioContext.AvailableStochasticSoilModels,
-                                       pipingCalculationScenarioContext.FailureMechanism,
-                                       pipingCalculationScenarioContext.AssessmentSection)
+                                       context.AvailablePipingSurfaceLines,
+                                       context.AvailableStochasticSoilModels,
+                                       context.FailureMechanism,
+                                       context.AssessmentSection)
             };
 
             if (pipingCalculationScenario.HasOutput)
             {
                 childNodes.Add(new PipingOutputContext(
                                    pipingCalculationScenario.Output,
-                                   pipingCalculationScenario.SemiProbabilisticOutput));
+                                   context.FailureMechanism,
+                                   context.AssessmentSection));
             }
             else
             {
