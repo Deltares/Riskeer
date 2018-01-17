@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -34,6 +35,7 @@ namespace Ringtoets.Piping.Data.Test
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
             // Assert
+            Assert.IsInstanceOf<IProbabilityAssessmentInput>(pipingProbabilityAssessmentInput);
             Assert.AreEqual(0.4, pipingProbabilityAssessmentInput.A);
             Assert.AreEqual(300, pipingProbabilityAssessmentInput.B);
 

@@ -28,6 +28,7 @@ using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -62,7 +63,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(8, propertyInfos.Length);
+                Assert.AreEqual(9, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -103,6 +104,11 @@ namespace Ringtoets.Piping.Plugin.Test
                     propertyInfos,
                     typeof(PipingStochasticSoilProfile),
                     typeof(PipingStochasticSoilProfileProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(PipingFailureMechanismSectionsContext),
+                    typeof(FailureMechanismSectionsProbabilityAssessmentProperties));
             }
         }
 

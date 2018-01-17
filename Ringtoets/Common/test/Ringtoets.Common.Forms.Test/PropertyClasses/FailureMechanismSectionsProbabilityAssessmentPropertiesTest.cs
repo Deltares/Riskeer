@@ -29,24 +29,49 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class FailureMechanismSectionsPropertiesTest
+    public class FailureMechanismSectionsProbabilityAssessmentPropertiesTest
     {
         [Test]
-        public void Constructor_FailureMechanismSectionsNull_ThrowsArgumentNullException()
+        public void Constructor_ProbabilityAssessmentInputNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
+            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
+
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsProperties(null, failureMechanism);
+            TestDelegate call = () => new FailureMechanismSectionsProbabilityAssessmentProperties(sections,
+                                                                                                  failureMechanism,
+                                                                                                  null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismSectionsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var probabilityAssessmentInput = mocks.Stub<IProbabilityAssessmentInput>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismSectionsProbabilityAssessmentProperties(null,
+                                                                                                  failureMechanism,
+                                                                                                  probabilityAssessmentInput);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -58,14 +83,20 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var probabilityAssessmentInput = mocks.Stub<IProbabilityAssessmentInput>();
+            mocks.ReplayAll();
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsProperties(sections, null);
+            TestDelegate call = () => new FailureMechanismSectionsProbabilityAssessmentProperties(sections,
+                                                                                                  null,
+                                                                                                  probabilityAssessmentInput);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -74,6 +105,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var probabilityAssessmentInput = mocks.Stub<IProbabilityAssessmentInput>();
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = new[]
@@ -82,7 +114,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            using (var properties = new FailureMechanismSectionsProperties(sections, failureMechanism))
+            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(sections,
+                                                                                                failureMechanism,
+                                                                                                probabilityAssessmentInput))
             {
                 // Assert
                 Assert.IsInstanceOf<ObjectProperties<IEnumerable<FailureMechanismSection>>>(properties);
@@ -102,12 +136,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var probabilityAssessmentInput = mocks.Stub<IProbabilityAssessmentInput>();
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
-            using (var properties = new FailureMechanismSectionsProperties(sections, failureMechanism))
+            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(sections,
+                                                                                                failureMechanism,
+                                                                                                probabilityAssessmentInput))
             {
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -128,10 +165,16 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_RefreshRequiredEventRaised()
         {
             // Given
+            var mocks = new MockRepository();
+            var probabilityAssessmentInput = mocks.Stub<IProbabilityAssessmentInput>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism();
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
-            using (var properties = new FailureMechanismSectionsProperties(sections, failureMechanism))
+            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(sections,
+                                                                                                failureMechanism,
+                                                                                                probabilityAssessmentInput))
             {
                 var refreshRequiredRaised = 0;
                 properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
@@ -141,6 +184,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
                 // Then
                 Assert.AreEqual(1, refreshRequiredRaised);
+                mocks.VerifyAll();
             }
         }
     }

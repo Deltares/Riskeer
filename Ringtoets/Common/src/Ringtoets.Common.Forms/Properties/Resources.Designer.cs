@@ -1490,6 +1490,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vakspecifieke waarde voor het in rekening brengen van het lengte-effect tijdens assemblage (afgerond)..
+        /// </summary>
+        public static string FailureMechanismSectionProbabilityAssessment_N_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionProbabilityAssessment_N_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N* [-].
+        /// </summary>
+        public static string FailureMechanismSectionProbabilityAssessment_N_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionProbabilityAssessment_N_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap FailureMechanismSectionResultIcon {

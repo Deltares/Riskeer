@@ -27,6 +27,7 @@ using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
@@ -60,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(8, propertyInfos.Length);
+                Assert.AreEqual(9, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -101,6 +102,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
                     propertyInfos,
                     typeof(MacroStabilityInwardsStochasticSoilProfile),
                     typeof(MacroStabilityInwardsStochasticSoilProfileProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(MacroStabilityInwardsFailureMechanismSectionsContext),
+                    typeof(FailureMechanismSectionsProbabilityAssessmentProperties));
             }
         }
 

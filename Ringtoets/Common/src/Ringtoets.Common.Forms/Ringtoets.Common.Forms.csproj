@@ -58,6 +58,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\DesignVariableProperties.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismSectionProbabilityAssessmentProperties.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismSectionsProbabilityAssessmentProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionsProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationsProperties.cs" />

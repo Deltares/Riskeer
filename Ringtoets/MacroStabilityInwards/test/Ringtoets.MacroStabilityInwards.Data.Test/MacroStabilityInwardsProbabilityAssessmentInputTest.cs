@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -34,6 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput();
 
             // Assert
+            Assert.IsInstanceOf<IProbabilityAssessmentInput>(probabilityAssessmentInput);
             Assert.AreEqual(0.033, probabilityAssessmentInput.A);
             Assert.AreEqual(50, probabilityAssessmentInput.B);
 

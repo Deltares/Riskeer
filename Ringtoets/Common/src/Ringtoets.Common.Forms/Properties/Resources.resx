@@ -442,6 +442,9 @@
   <data name="FailureMechanism_N_Description" xml:space="preserve">
     <value>De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.</value>
   </data>
+  <data name="FailureMechanismSectionProbabilityAssessment_N_Description" xml:space="preserve">
+    <value>Vakspecifieke waarde voor het in rekening brengen van het lengte-effect tijdens assemblage (afgerond).</value>
+  </data>
   <data name="FailureMechanism_N_DisplayName" xml:space="preserve">
     <value>N [-]</value>
   </data>
@@ -1273,5 +1276,8 @@ Pf = {1}</value>
   </data>
   <data name="FailureMechanismSection_StartPoint_DisplayName" xml:space="preserve">
     <value>Beginpunt</value>
+  </data>
+  <data name="FailureMechanismSectionProbabilityAssessment_N_DisplayName" xml:space="preserve">
+    <value>N* [-]</value>
   </data>
 </root>

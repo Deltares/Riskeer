@@ -23,6 +23,7 @@ using System;
 using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
@@ -30,7 +31,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class holds parameters which influence the probability estimate for a piping assessment.
     /// </summary>
-    public class PipingProbabilityAssessmentInput
+    public class PipingProbabilityAssessmentInput : IProbabilityAssessmentInput
     {
         private static readonly Range<double> validityRangeA = new Range<double>(0, 1);
         private double a;
@@ -46,10 +47,10 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets 'a' parameter used to factor in the 'length effect' when determining the
-        /// maximum tolerated probability of failure.
+        /// Gets or sets the length of the assessment section.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when value is not in the range [0, 1].</exception>
+        public double SectionLength { get; set; }
+
         public double A
         {
             get
@@ -68,15 +69,6 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        /// <summary>
-        /// Gets 'b' parameter used to factor in the 'length effect' when determining the
-        /// maximum tolerated probability of failure.
-        /// </summary>
         public double B { get; }
-
-        /// <summary>
-        /// Gets or sets the length of the assessment section.
-        /// </summary>
-        public double SectionLength { get; set; }
     }
 }

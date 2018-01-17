@@ -37,6 +37,7 @@ using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.SoilProfile;
@@ -94,6 +95,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             yield return new PropertyInfo<MacroStabilityInwardsStochasticSoilProfile, MacroStabilityInwardsStochasticSoilProfileProperties>
             {
                 CreateInstance = soilProfile => new MacroStabilityInwardsStochasticSoilProfileProperties(soilProfile)
+            };
+            yield return new PropertyInfo<MacroStabilityInwardsFailureMechanismSectionsContext, FailureMechanismSectionsProbabilityAssessmentProperties>
+            {
+                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentProperties(
+                    context.WrappedData.Sections,
+                    context.WrappedData,
+                    ((MacroStabilityInwardsFailureMechanism) context.WrappedData).MacroStabilityInwardsProbabilityAssessmentInput)
             };
         }
 
@@ -411,14 +419,16 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             if (assessmentSection != null)
             {
                 return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<MacroStabilityInwardsFailureMechanism>()
-                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                       .GetFailureMechanisms()
+                       .OfType<MacroStabilityInwardsFailureMechanism>()
+                       .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
             }
+
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
+
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
@@ -436,6 +446,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
+
             if (assessmentSection != null)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
@@ -460,6 +471,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
+
             if (assessmentSection != null)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
@@ -689,7 +701,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new MacroStabilityInwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new MacroStabilityInwardsSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new MacroStabilityInwardsStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
@@ -947,6 +959,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 view.ShowDialog();
                 GenerateCalculations(nodeData.WrappedData, view.SelectedItems, nodeData.AvailableStochasticSoilModels);
             }
+
             nodeData.NotifyObservers();
         }
 

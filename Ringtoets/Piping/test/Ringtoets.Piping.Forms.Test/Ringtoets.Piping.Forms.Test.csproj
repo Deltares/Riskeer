@@ -26,6 +26,7 @@
   <ItemGroup>
     <Compile Include="PipingCalculationConfigurationHelperTest.cs" />
     <Compile Include="PipingSurfaceLineSelectionDialogTest.cs" />
+    <Compile Include="PresentationObjects\PipingFailureMechanismSectionsContextTest.cs" />
     <Compile Include="PresentationObjects\PipingFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\PipingOutputContextTest.cs" />
     <Compile Include="PresentationObjects\PipingScenariosContextTest.cs" />

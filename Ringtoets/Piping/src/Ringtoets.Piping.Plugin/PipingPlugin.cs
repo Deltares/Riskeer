@@ -38,6 +38,7 @@ using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.SoilProfile;
@@ -92,6 +93,10 @@ namespace Ringtoets.Piping.Plugin
             yield return new PropertyInfo<PipingStochasticSoilProfile, PipingStochasticSoilProfileProperties>
             {
                 CreateInstance = stochasticSoilProfile => new PipingStochasticSoilProfileProperties(stochasticSoilProfile)
+            };
+            yield return new PropertyInfo<PipingFailureMechanismSectionsContext, FailureMechanismSectionsProbabilityAssessmentProperties>
+            {
+                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentProperties(context.WrappedData.Sections, context.WrappedData, ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
             };
         }
 
@@ -405,14 +410,16 @@ namespace Ringtoets.Piping.Plugin
             if (assessmentSection != null)
             {
                 return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<PipingFailureMechanism>()
-                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                       .GetFailureMechanisms()
+                       .OfType<PipingFailureMechanism>()
+                       .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
             }
+
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
+
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
@@ -430,6 +437,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 pipingFailureMechanism = pipingFailureMechanismContext.WrappedData;
             }
+
             if (assessmentSection != null)
             {
                 pipingFailureMechanism = assessmentSection.GetFailureMechanisms()
@@ -454,6 +462,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 pipingFailureMechanism = pipingFailureMechanismContext.WrappedData;
             }
+
             if (assessmentSection != null)
             {
                 pipingFailureMechanism = assessmentSection.GetFailureMechanisms()
@@ -683,7 +692,7 @@ namespace Ringtoets.Piping.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new PipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
@@ -1016,6 +1025,7 @@ namespace Ringtoets.Piping.Plugin
                 view.ShowDialog();
                 GeneratePipingCalculations(nodeData.WrappedData, view.SelectedItems, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput);
             }
+
             nodeData.NotifyObservers();
         }
 
@@ -1045,9 +1055,9 @@ namespace Ringtoets.Piping.Plugin
             string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip;
 
             PipingCalculationScenario[] calculationsToUpdate = calculations
-                .Where(calc => calc.InputParameters.SurfaceLine != null
-                               && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
-                .ToArray();
+                                                               .Where(calc => calc.InputParameters.SurfaceLine != null
+                                                                              && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
+                                                               .ToArray();
 
             if (!calculationsToUpdate.Any())
             {
