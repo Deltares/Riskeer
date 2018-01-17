@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator;
@@ -134,7 +135,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_CalculationWrapperNull_ThrowArgumentNullException()
+        public void Calculate_HydraulicBoundaryLocationNull_ThrowArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -142,11 +143,37 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new DesignWaterLevelCalculationService().Calculate(null, string.Empty, string.Empty, 1, calculationMessageProvider);
+            TestDelegate test = () => new DesignWaterLevelCalculationService().Calculate(null,
+                                                                                         new HydraulicBoundaryLocationCalculation(),
+                                                                                         string.Empty,
+                                                                                         string.Empty,
+                                                                                         1,
+                                                                                         calculationMessageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculationWrapper", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
+        }
+
+        [Test]
+        public void Calculate_HydraulicBoundaryLocationCalculationNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new DesignWaterLevelCalculationService().Calculate(new TestHydraulicBoundaryLocation(), 
+                                                                                         null,
+                                                                                         string.Empty,
+                                                                                         string.Empty,
+                                                                                         1,
+                                                                                         calculationMessageProvider);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("hydraulicBoundaryLocationCalculation", exception.ParamName);
         }
 
         [Test]
@@ -180,7 +207,8 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => new DesignWaterLevelCalculationService().Calculate(new HydraulicBoundaryCalculationWrapper(location, calculation),
+                Action call = () => new DesignWaterLevelCalculationService().Calculate(location,
+                                                                                       calculation,
                                                                                        validFilePath,
                                                                                        validPreprocessorDirectory,
                                                                                        1.0 / 30,
@@ -235,7 +263,8 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                new DesignWaterLevelCalculationService().Calculate(new HydraulicBoundaryCalculationWrapper(location, calculation),
+                new DesignWaterLevelCalculationService().Calculate(location,
+                                                                   calculation,
                                                                    validFilePath,
                                                                    preprocessorDirectory,
                                                                    1.0 / 30,
@@ -282,7 +311,8 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => new DesignWaterLevelCalculationService().Calculate(new HydraulicBoundaryCalculationWrapper(location, calculation),
+                Action call = () => new DesignWaterLevelCalculationService().Calculate(location,
+                                                                                       calculation,
                                                                                        validFilePath,
                                                                                        validPreprocessorDirectory,
                                                                                        norm,
@@ -338,7 +368,8 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => new DesignWaterLevelCalculationService().Calculate(new HydraulicBoundaryCalculationWrapper(location, calculation),
+                Action call = () => new DesignWaterLevelCalculationService().Calculate(location,
+                                                                                       calculation,
                                                                                        validFilePath,
                                                                                        validPreprocessorDirectory,
                                                                                        1.0 / 30,
@@ -395,7 +426,8 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => new DesignWaterLevelCalculationService().Calculate(new HydraulicBoundaryCalculationWrapper(location, calculation),
+                Action call = () => new DesignWaterLevelCalculationService().Calculate(location,
+                                                                                       calculation,
                                                                                        validFilePath,
                                                                                        validPreprocessorDirectory,
                                                                                        1.0 / 30,
@@ -449,12 +481,12 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                TestDelegate call = () => new DesignWaterLevelCalculationService()
-                    .Calculate(new HydraulicBoundaryCalculationWrapper(location, calculation),
-                               validFilePath,
-                               validPreprocessorDirectory,
-                               1.0 / 30,
-                               calculationMessageProvider);
+                TestDelegate call = () => new DesignWaterLevelCalculationService().Calculate(location,
+                                                                                             calculation,
+                                                                                             validFilePath,
+                                                                                             validPreprocessorDirectory,
+                                                                                             1.0 / 30,
+                                                                                             calculationMessageProvider);
 
                 // Assert
                 var thrownException = Assert.Throws<HydraRingFileParserException>(call);
@@ -493,12 +525,12 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => new DesignWaterLevelCalculationService()
-                    .Calculate(new HydraulicBoundaryCalculationWrapper(location, calculation),
-                               validFilePath,
-                               validPreprocessorDirectory,
-                               1.0 / 30,
-                               calculationMessageProvider);
+                Action call = () => new DesignWaterLevelCalculationService().Calculate(location,
+                                                                                       calculation,
+                                                                                       validFilePath,
+                                                                                       validPreprocessorDirectory,
+                                                                                       1.0 / 30,
+                                                                                       calculationMessageProvider);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -539,12 +571,12 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => new DesignWaterLevelCalculationService()
-                    .Calculate(new HydraulicBoundaryCalculationWrapper(location, calculation),
-                               validFilePath,
-                               validPreprocessorDirectory,
-                               1.0 / 30,
-                               calculationMessageProvider);
+                Action call = () => new DesignWaterLevelCalculationService().Calculate(location,
+                                                                                       calculation,
+                                                                                       validFilePath,
+                                                                                       validPreprocessorDirectory,
+                                                                                       1.0 / 30,
+                                                                                       calculationMessageProvider);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -584,7 +616,8 @@ namespace Ringtoets.Common.Service.Test
                 calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
-                service.Calculate(new HydraulicBoundaryCalculationWrapper(location, calculation),
+                service.Calculate(location,
+                                  calculation,
                                   validFilePath,
                                   validPreprocessorDirectory,
                                   norm,
@@ -645,7 +678,8 @@ namespace Ringtoets.Common.Service.Test
                 {
                     try
                     {
-                        new DesignWaterLevelCalculationService().Calculate(new HydraulicBoundaryCalculationWrapper(location, calculation),
+                        new DesignWaterLevelCalculationService().Calculate(location,
+                                                                           calculation,
                                                                            validFilePath,
                                                                            validPreprocessorDirectory,
                                                                            norm,
