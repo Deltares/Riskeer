@@ -63,7 +63,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_LocationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestHydraulicBoundaryLocationsView(null);
+            TestDelegate call = () => new TestHydraulicBoundaryLocationsView(null,
+                                                                             hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                             new ObservableTestAssessmentSectionStub());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -262,7 +264,9 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private TestHydraulicBoundaryLocationsView ShowTestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations)
         {
-            var view = new TestHydraulicBoundaryLocationsView(locations);
+            var view = new TestHydraulicBoundaryLocationsView(locations,
+                                                              hbl => new HydraulicBoundaryLocationCalculation(),
+                                                              new ObservableTestAssessmentSectionStub());
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -307,11 +311,6 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView
         {
-            public TestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations)
-                : base(locations,
-                       hbl => new HydraulicBoundaryLocationCalculation(),
-                       new ObservableTestAssessmentSectionStub()) {}
-
             public TestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
                                                       Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                                       IAssessmentSection assessmentSection)
