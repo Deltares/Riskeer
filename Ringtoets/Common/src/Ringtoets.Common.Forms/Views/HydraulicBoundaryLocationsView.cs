@@ -145,7 +145,7 @@ namespace Ringtoets.Common.Forms.Views
 
             HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetCalculation(location);
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = getCalculationFunc(location);
             HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = hydraulicBoundaryLocationCalculation.Output;
             if (hydraulicBoundaryLocationCalculation.HasOutput
                 && hydraulicBoundaryLocationOutput.HasGeneralResult)
@@ -167,24 +167,15 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocationCalculation"/> based on 
-        /// the <see cref="HydraulicBoundaryLocation"/> data.
-        /// </summary>
-        /// <param name="location">The <see cref="HydraulicBoundaryLocation"/>
-        /// to retrieve the calculation from.</param>
-        /// <returns>A <see cref="HydraulicBoundaryLocationCalculation"/>.</returns>
-        protected abstract HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location);
-
-        /// <summary>
         /// Creates a new row that is added to the data table.
         /// </summary>
         /// <param name="location">The location for which to create a new row.</param>
         /// <returns>The newly created row.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> or 
-        /// <see cref="GetCalculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c> or
+        /// <see cref="getCalculationFunc"/> returns <c>null</c>.</exception>
         private HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
         {
-            return new HydraulicBoundaryLocationRow(location, GetCalculation(location));
+            return new HydraulicBoundaryLocationRow(location, getCalculationFunc(location));
         }
     }
 }

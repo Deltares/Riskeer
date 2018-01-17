@@ -341,11 +341,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 return null;
             }
-
-            protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
-            {
-                return getCalculationFunc(location);
-            }
         }
     }
 }

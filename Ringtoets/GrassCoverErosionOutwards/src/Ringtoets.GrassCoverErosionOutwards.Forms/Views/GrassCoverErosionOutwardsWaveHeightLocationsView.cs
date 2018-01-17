@@ -128,10 +128,5 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                        ? RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero
                        : base.ValidateCalculatableObjects();
         }
-
-        protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
-        {
-            return getCalculationFunc(location);
-        }
     }
 }

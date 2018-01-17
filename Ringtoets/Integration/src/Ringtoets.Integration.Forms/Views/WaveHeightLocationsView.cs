@@ -92,10 +92,5 @@ namespace Ringtoets.Integration.Forms.Views
             dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationRow.Result),
                                                  Resources.HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName);
         }
-
-        protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
-        {
-            return getCalculationFunc(location);
-        }
     }
 }
