@@ -89,22 +89,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                         Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
                         StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
                     },
-                    SaturatedVolumicWeightOfCoverageLayer =
-                    {
-                        Mean = (RoundedDouble) random.GetFromRange(10.0, 9999.9999),
-                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
-                        Shift = (RoundedDouble) random.GetFromRange(1e-6, 10.0)
-                    },
-                    Diameter70 =
-                    {
-                        Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
-                        CoefficientOfVariation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
-                    },
-                    DarcyPermeability =
-                    {
-                        Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
-                        CoefficientOfVariation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
-                    },
                     UseAssessmentLevelManualInput = useAssessmentLevelManualInput
                 }
             };
