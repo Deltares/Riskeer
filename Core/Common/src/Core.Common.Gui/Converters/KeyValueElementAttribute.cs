@@ -31,7 +31,6 @@ namespace Core.Common.Gui.Converters
     [AttributeUsage(AttributeTargets.Property)]
     public class KeyValueElementAttribute : Attribute
     {
-        protected readonly string ValuePropertyName;
         private readonly string namePropertyName;
 
         /// <summary>
@@ -48,6 +47,7 @@ namespace Core.Common.Gui.Converters
             {
                 throw new ArgumentNullException(nameof(valuePropertyName));
             }
+
             if (namePropertyName == null)
             {
                 throw new ArgumentNullException(nameof(namePropertyName));
@@ -93,5 +93,10 @@ namespace Core.Common.Gui.Converters
 
             return Convert.ToString(valuePropertyInfo.GetValue(source, new object[0]));
         }
+
+        /// <summary>
+        /// Gets the name of the property to show as value.
+        /// </summary>
+        protected string ValuePropertyName { get; }
     }
 }

@@ -40,8 +40,6 @@ namespace Core.Components.BruTile.Configurations
     /// </remarks>
     public abstract class PersistentCacheConfiguration : IConfiguration
     {
-        protected readonly string PersistentCacheDirectoryPath;
-
         private FileCache fileCache;
         private ITileSource tileSource;
 
@@ -60,6 +58,7 @@ namespace Core.Components.BruTile.Configurations
                                                           persistentCacheDirectoryPath),
                                             nameof(persistentCacheDirectoryPath));
             }
+
             PersistentCacheDirectoryPath = persistentCacheDirectoryPath;
         }
 
@@ -94,6 +93,11 @@ namespace Core.Components.BruTile.Configurations
 
             OnInitialize();
         }
+
+        /// <summary>
+        /// Gets the path to the directory for this cache to keep its data.
+        /// </summary>
+        protected string PersistentCacheDirectoryPath { get; }
 
         /// <summary>
         /// Gets a deep copy of the configuration.
@@ -163,6 +167,7 @@ namespace Core.Components.BruTile.Configurations
             {
                 throw new CannotReceiveTilesException(Resources.Configuration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider, e);
             }
+
             Initialized = true;
         }
 

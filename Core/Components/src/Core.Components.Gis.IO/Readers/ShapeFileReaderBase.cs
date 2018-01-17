@@ -39,7 +39,6 @@ namespace Core.Components.Gis.IO.Readers
     /// </summary>
     public abstract class ShapeFileReaderBase : IDisposable
     {
-        protected readonly string FilePath;
         protected Shapefile ShapeFile;
 
         /// <summary>
@@ -107,6 +106,11 @@ namespace Core.Components.Gis.IO.Readers
         {
             ShapeFile?.Close();
         }
+
+        /// <summary>
+        /// Gets the path to the shapefile.
+        /// </summary>
+        protected string FilePath { get; }
 
         /// <summary>
         /// Adds shapefile feature attributes to a <see cref="MapFeature"/> as metadata.

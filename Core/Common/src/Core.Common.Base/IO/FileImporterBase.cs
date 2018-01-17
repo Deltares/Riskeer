@@ -33,8 +33,6 @@ namespace Core.Common.Base.IO
     /// <typeparam name="T">Object type that is the target for this importer.</typeparam>
     public abstract class FileImporterBase<T> : IFileImporter
     {
-        protected readonly ILog Log = LogManager.GetLogger(typeof(FileImporterBase<T>));
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FileImporterBase{T}"/> class.
         /// </summary>
@@ -53,6 +51,8 @@ namespace Core.Common.Base.IO
             {
                 throw new ArgumentNullException(nameof(importTarget));
             }
+
+            Log = LogManager.GetLogger(typeof(FileImporterBase<T>));
 
             FilePath = filePath;
             ImportTarget = importTarget;
@@ -111,6 +111,11 @@ namespace Core.Common.Base.IO
         /// Gets the path to the file to import from.
         /// </summary>
         protected string FilePath { get; }
+
+        /// <summary>
+        /// Gets a logger instance.
+        /// </summary>
+        protected ILog Log { get; }
 
         /// <summary>
         /// Gets the value indicating if a cancel request has been made. When true, no 
