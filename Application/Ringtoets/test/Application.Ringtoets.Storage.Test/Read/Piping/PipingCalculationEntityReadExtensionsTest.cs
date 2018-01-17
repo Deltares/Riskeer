@@ -122,7 +122,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
             Assert.IsNull(calculation.InputParameters.StochasticSoilProfile);
             Assert.IsNull(calculation.Output);
-            Assert.IsNull(calculation.SemiProbabilisticOutput);
         }
 
         [Test]
@@ -362,46 +361,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.IsNaN(output.SellmeijerCreepCoefficient);
             Assert.IsNaN(output.SellmeijerCriticalFall);
             Assert.IsNaN(output.SellmeijerReducedFall);
-        }
-
-        [Test]
-        public void Read_EntityWithPipingSemiProbabilisticOutputEntity_CalculationWithPipingSemiProbabilisticOutput()
-        {
-            // Setup
-            var entity = new PipingCalculationEntity
-            {
-                EntryPointL = 1,
-                ExitPointL = 2,
-                DampingFactorExitMean = 1,
-                PipingSemiProbabilisticOutputEntities =
-                {
-                    new PipingSemiProbabilisticOutputEntity()
-                }
-            };
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
-
-            // Assert
-            PipingSemiProbabilisticOutput output = calculation.SemiProbabilisticOutput;
-            Assert.IsNotNull(output);
-
-            Assert.IsNaN(output.HeaveFactorOfSafety);
-            Assert.IsNaN(output.HeaveProbability);
-            Assert.IsNaN(output.HeaveReliability);
-            Assert.IsNaN(output.PipingFactorOfSafety);
-            Assert.IsNaN(output.PipingProbability);
-            Assert.IsNaN(output.PipingReliability);
-            Assert.IsNaN(output.UpliftFactorOfSafety);
-            Assert.IsNaN(output.UpliftProbability);
-            Assert.IsNaN(output.UpliftReliability);
-            Assert.IsNaN(output.SellmeijerFactorOfSafety);
-            Assert.IsNaN(output.SellmeijerProbability);
-            Assert.IsNaN(output.SellmeijerReliability);
-            Assert.IsNaN(output.RequiredProbability);
-            Assert.IsNaN(output.RequiredReliability);
         }
 
         private static void AssertRoundedDouble(double? expectedValue, RoundedDouble actualValue)

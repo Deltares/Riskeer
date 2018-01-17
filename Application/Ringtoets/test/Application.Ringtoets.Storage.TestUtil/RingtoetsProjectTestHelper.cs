@@ -959,12 +959,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 StandardDeviation = (RoundedDouble) 4.4
                             }
                         },
-                        Output = new TestPipingOutput(),
-                        SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(7.7, 8.8, 0.9,
-                                                                                    10.10, 11.11, 0.12,
-                                                                                    13.13, 14.14, 0.15,
-                                                                                    0.16, 17.17,
-                                                                                    0.18, 19.19, 20.20)
+                        Output = new TestPipingOutput()
                     },
                     new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
                     {
@@ -996,8 +991,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             UseAssessmentLevelManualInput = true,
                             AssessmentLevel = (RoundedDouble) 6.0
                         },
-                        Output = new TestPipingOutput(),
-                        SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                        Output = new TestPipingOutput()
                     }
                 }
             });

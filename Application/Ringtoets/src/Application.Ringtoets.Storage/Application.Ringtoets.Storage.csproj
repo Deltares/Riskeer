@@ -452,7 +452,6 @@
     <Compile Include="Create\Piping\PipingFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\Piping\PipingFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\Piping\PipingOutputCreateExtensions.cs" />
-    <Compile Include="Create\Piping\PipingSemiProbabilisticOutputCreateExtensions.cs" />
     <Compile Include="Create\Piping\PipingSoilLayerCreateExtensions.cs" />
     <Compile Include="Create\Piping\PipingSoilProfileCreateExtensions.cs" />
     <Compile Include="Create\Piping\PipingSurfaceLineCreateExtensions.cs" />
@@ -490,7 +489,6 @@
     <Compile Include="Read\Piping\PipingCalculationOutputEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\PipingFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\PipingSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\Piping\PipingSemiProbabilisticOutputEntityReadExtensions.cs" />
     <Compile Include="Read\PipingStructures\PipingStructureSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\PipingSoilLayerEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\PipingSoilProfileEntityReadExtensions.cs" />

@@ -1256,7 +1256,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             AssertPipingInput(expectedPipingCalculation.InputParameters, actualPipingCalculation.InputParameters);
             AssertPipingOutput(expectedPipingCalculation.Output, actualPipingCalculation.Output);
-            AssertPipingSemiProbabilisticOutput(expectedPipingCalculation.SemiProbabilisticOutput, actualPipingCalculation.SemiProbabilisticOutput);
         }
 
         private static void AssertPipingInput(PipingInput expectedPipingInput, PipingInput actualPipingInput)
@@ -1304,36 +1303,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedOutput.SellmeijerReducedFall, actualOutput.SellmeijerReducedFall);
                 Assert.AreEqual(expectedOutput.SellmeijerFactorOfSafety, actualOutput.SellmeijerFactorOfSafety);
                 Assert.AreEqual(expectedOutput.SellmeijerZValue, actualOutput.SellmeijerZValue);
-            }
-        }
-
-        private static void AssertPipingSemiProbabilisticOutput(PipingSemiProbabilisticOutput expectedOutput,
-                                                                PipingSemiProbabilisticOutput actualOutput)
-        {
-            if (expectedOutput == null)
-            {
-                Assert.IsNull(actualOutput);
-            }
-            else
-            {
-                Assert.AreEqual(expectedOutput.HeaveFactorOfSafety, actualOutput.HeaveFactorOfSafety);
-                Assert.AreEqual(expectedOutput.HeaveProbability, actualOutput.HeaveProbability);
-                Assert.AreEqual(expectedOutput.HeaveReliability, actualOutput.HeaveReliability);
-
-                Assert.AreEqual(expectedOutput.SellmeijerFactorOfSafety, actualOutput.SellmeijerFactorOfSafety);
-                Assert.AreEqual(expectedOutput.SellmeijerProbability, actualOutput.SellmeijerProbability);
-                Assert.AreEqual(expectedOutput.SellmeijerReliability, actualOutput.SellmeijerReliability);
-
-                Assert.AreEqual(expectedOutput.UpliftFactorOfSafety, actualOutput.UpliftFactorOfSafety);
-                Assert.AreEqual(expectedOutput.UpliftProbability, actualOutput.UpliftProbability);
-                Assert.AreEqual(expectedOutput.UpliftReliability, actualOutput.UpliftReliability);
-
-                Assert.AreEqual(expectedOutput.RequiredReliability, actualOutput.RequiredReliability);
-                Assert.AreEqual(expectedOutput.RequiredProbability, actualOutput.RequiredProbability);
-
-                Assert.AreEqual(expectedOutput.PipingFactorOfSafety, actualOutput.PipingFactorOfSafety);
-                Assert.AreEqual(expectedOutput.PipingReliability, actualOutput.PipingReliability);
-                Assert.AreEqual(expectedOutput.PipingProbability, actualOutput.PipingProbability);
             }
         }
 

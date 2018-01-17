@@ -75,12 +75,6 @@ namespace Application.Ringtoets.Storage.Read.Piping
             {
                 calculation.Output = calculationOutputEntity.Read();
             }
-
-            PipingSemiProbabilisticOutputEntity semiProbabilisticOutputEntity = entity.PipingSemiProbabilisticOutputEntities.FirstOrDefault();
-            if (semiProbabilisticOutputEntity != null)
-            {
-                calculation.SemiProbabilisticOutput = semiProbabilisticOutputEntity.Read();
-            }
         }
 
         private static void ReadInputParameters(PipingInput inputParameters, PipingCalculationEntity entity, ReadConversionCollector collector)
