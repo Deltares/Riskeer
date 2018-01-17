@@ -214,7 +214,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.AreEqual(hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output.Result, calculation.InputParameters.AssessmentLevel);
+            Assert.IsNaN(calculation.InputParameters.AssessmentLevel);
         }
 
         [Test]
