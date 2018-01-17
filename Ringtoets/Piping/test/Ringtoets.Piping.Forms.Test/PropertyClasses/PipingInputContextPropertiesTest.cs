@@ -528,36 +528,34 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new PipingInputContextProperties(context, handler);
 
             // Assert
+            var derivedPipingInput = new DerivedPipingInput(inputParameters);
             Assert.AreEqual(inputParameters.PhreaticLevelExit.Mean, properties.PhreaticLevelExit.Mean);
             Assert.AreEqual(inputParameters.PhreaticLevelExit.StandardDeviation, properties.PhreaticLevelExit.StandardDeviation);
             Assert.AreEqual(inputParameters.DampingFactorExit.Mean, properties.DampingFactorExit.Mean);
             Assert.AreEqual(inputParameters.DampingFactorExit.StandardDeviation, properties.DampingFactorExit.StandardDeviation);
-            Assert.AreEqual(inputParameters.ThicknessCoverageLayer.Mean, properties.ThicknessCoverageLayer.Mean);
-            Assert.AreEqual(inputParameters.ThicknessCoverageLayer.StandardDeviation, properties.ThicknessCoverageLayer.StandardDeviation);
-            Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.Mean, properties.EffectiveThicknessCoverageLayer.Mean);
-            Assert.AreEqual(inputParameters.EffectiveThicknessCoverageLayer.StandardDeviation, properties.EffectiveThicknessCoverageLayer.StandardDeviation);
-            Assert.AreEqual(inputParameters.Diameter70.Mean, properties.Diameter70.Mean);
-            Assert.AreEqual(inputParameters.Diameter70.CoefficientOfVariation, properties.Diameter70.CoefficientOfVariation);
-            Assert.AreEqual(inputParameters.DarcyPermeability.Mean, properties.DarcyPermeability.Mean);
-            Assert.AreEqual(inputParameters.DarcyPermeability.CoefficientOfVariation, properties.DarcyPermeability.CoefficientOfVariation);
-            Assert.AreEqual(inputParameters.ThicknessAquiferLayer.Mean, properties.ThicknessAquiferLayer.Mean);
-            Assert.AreEqual(inputParameters.ThicknessAquiferLayer.StandardDeviation, properties.ThicknessAquiferLayer.StandardDeviation);
-            Assert.AreEqual(
-                inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean,
+            Assert.AreEqual(derivedPipingInput.ThicknessCoverageLayer.Mean, properties.ThicknessCoverageLayer.Mean);
+            Assert.AreEqual(derivedPipingInput.ThicknessCoverageLayer.StandardDeviation, properties.ThicknessCoverageLayer.StandardDeviation);
+            Assert.AreEqual(derivedPipingInput.EffectiveThicknessCoverageLayer.Mean, properties.EffectiveThicknessCoverageLayer.Mean);
+            Assert.AreEqual(derivedPipingInput.EffectiveThicknessCoverageLayer.StandardDeviation, properties.EffectiveThicknessCoverageLayer.StandardDeviation);
+            Assert.AreEqual(derivedPipingInput.DiameterD70.Mean, properties.Diameter70.Mean);
+            Assert.AreEqual(derivedPipingInput.DiameterD70.CoefficientOfVariation, properties.Diameter70.CoefficientOfVariation);
+            Assert.AreEqual(derivedPipingInput.DarcyPermeability.Mean, properties.DarcyPermeability.Mean);
+            Assert.AreEqual(derivedPipingInput.DarcyPermeability.CoefficientOfVariation, properties.DarcyPermeability.CoefficientOfVariation);
+            Assert.AreEqual(derivedPipingInput.ThicknessAquiferLayer.Mean, properties.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(derivedPipingInput.ThicknessAquiferLayer.StandardDeviation, properties.ThicknessAquiferLayer.StandardDeviation);
+            Assert.AreEqual(derivedPipingInput.SaturatedVolumicWeightOfCoverageLayer.Mean,
                 properties.SaturatedVolumicWeightOfCoverageLayer.Mean);
-            Assert.AreEqual(
-                inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation,
+            Assert.AreEqual(derivedPipingInput.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation,
                 properties.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation);
-            Assert.AreEqual(
-                inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift,
+            Assert.AreEqual(derivedPipingInput.SaturatedVolumicWeightOfCoverageLayer.Shift,
                 properties.SaturatedVolumicWeightOfCoverageLayer.Shift);
 
             Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevel);
-            Assert.AreEqual(inputParameters.PiezometricHeadExit, properties.PiezometricHeadExit);
+            Assert.AreEqual(derivedPipingInput.PiezometricHeadExit, properties.PiezometricHeadExit);
 
-            Assert.AreEqual(inputParameters.SeepageLength.Mean, properties.SeepageLength.Mean);
-            Assert.AreEqual(inputParameters.SeepageLength.CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
-            Assert.AreEqual(inputParameters.SeepageLength.Mean, properties.ExitPointL - properties.EntryPointL);
+            Assert.AreEqual(derivedPipingInput.SeepageLength.Mean, properties.SeepageLength.Mean);
+            Assert.AreEqual(derivedPipingInput.SeepageLength.CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
+            Assert.AreEqual(derivedPipingInput.SeepageLength.Mean, properties.ExitPointL - properties.EntryPointL);
             Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
 
             Assert.AreSame(surfaceLine, properties.SurfaceLine);

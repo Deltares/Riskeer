@@ -55,9 +55,12 @@ namespace Ringtoets.Piping.Service
             }
 
             CalculationServiceHelper.LogValidationBegin();
-            CalculationServiceHelper.LogMessagesAsWarning(GetInputWarnings(calculation.InputParameters).ToArray());
 
-            string[] inputValidationResults = ValidateInput(calculation.InputParameters).ToArray();
+            var derivedPipingInput = new DerivedPipingInput(calculation.InputParameters);
+
+            CalculationServiceHelper.LogMessagesAsWarning(GetInputWarnings(calculation.InputParameters, derivedPipingInput).ToArray());
+
+            string[] inputValidationResults = ValidateInput(calculation.InputParameters, derivedPipingInput).ToArray();
 
             if (inputValidationResults.Length > 0)
             {
@@ -66,7 +69,7 @@ namespace Ringtoets.Piping.Service
                 return false;
             }
 
-            List<string> validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Validate();
+            List<string> validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters, derivedPipingInput), PipingSubCalculatorFactory.Instance).Validate();
             CalculationServiceHelper.LogMessagesAsError(validationResults.ToArray());
 
             CalculationServiceHelper.LogValidationEnd();
@@ -93,7 +96,7 @@ namespace Ringtoets.Piping.Service
 
             try
             {
-                PipingCalculatorResult pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters),
+                PipingCalculatorResult pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters, new DerivedPipingInput(calculation.InputParameters)),
                                                                            PipingSubCalculatorFactory.Instance).Calculate();
 
                 calculation.Output = new PipingOutput(new PipingOutput.ConstructionProperties
@@ -121,11 +124,11 @@ namespace Ringtoets.Piping.Service
             }
         }
 
-        private static List<string> ValidateInput(PipingInput inputParameters)
+        private static List<string> ValidateInput(PipingInput inputParameters, DerivedPipingInput derivedPipingInput)
         {
             var validationResults = new List<string>();
 
-            validationResults.AddRange(ValidateHydraulics(inputParameters));
+            validationResults.AddRange(ValidateHydraulics(inputParameters, derivedPipingInput));
 
             IEnumerable<string> coreValidationError = ValidateCoreSurfaceLineAndSoilProfileProperties(inputParameters);
             validationResults.AddRange(coreValidationError);
@@ -137,13 +140,13 @@ namespace Ringtoets.Piping.Service
 
             if (!coreValidationError.Any())
             {
-                validationResults.AddRange(ValidateSoilLayers(inputParameters));
+                validationResults.AddRange(ValidateSoilLayers(inputParameters, derivedPipingInput));
             }
 
             return validationResults;
         }
 
-        private static IEnumerable<string> ValidateHydraulics(PipingInput inputParameters)
+        private static IEnumerable<string> ValidateHydraulics(PipingInput inputParameters, DerivedPipingInput derivedPipingInput)
         {
             var validationResults = new List<string>();
             if (!inputParameters.UseAssessmentLevelManualInput && inputParameters.HydraulicBoundaryLocation == null)
@@ -154,7 +157,7 @@ namespace Ringtoets.Piping.Service
             {
                 validationResults.AddRange(ValidateAssessmentLevel(inputParameters));
 
-                if (double.IsNaN(inputParameters.PiezometricHeadExit) || double.IsInfinity(inputParameters.PiezometricHeadExit))
+                if (double.IsNaN(derivedPipingInput.PiezometricHeadExit) || double.IsInfinity(derivedPipingInput.PiezometricHeadExit))
                 {
                     validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
                 }
@@ -200,10 +203,10 @@ namespace Ringtoets.Piping.Service
             return validationResults;
         }
 
-        private static IEnumerable<string> ValidateSoilLayers(PipingInput inputParameters)
+        private static IEnumerable<string> ValidateSoilLayers(PipingInput inputParameters, DerivedPipingInput derivedPipingInput)
         {
             var validationResults = new List<string>();
-            if (double.IsNaN(inputParameters.ThicknessAquiferLayer.Mean))
+            if (double.IsNaN(derivedPipingInput.ThicknessAquiferLayer.Mean))
             {
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer);
             }
@@ -263,7 +266,7 @@ namespace Ringtoets.Piping.Service
             return validationResult;
         }
 
-        private static List<string> GetInputWarnings(PipingInput inputParameters)
+        private static List<string> GetInputWarnings(PipingInput inputParameters, DerivedPipingInput derivedPipingInput)
         {
             var warnings = new List<string>();
 
@@ -274,13 +277,13 @@ namespace Ringtoets.Piping.Service
                 warnings.AddRange(GetMultipleAquiferLayersWarning(inputParameters, surfaceLineLevel));
                 warnings.AddRange(GetMultipleCoverageLayersWarning(inputParameters, surfaceLineLevel));
                 warnings.AddRange(GetDiameter70Warnings(inputParameters));
-                warnings.AddRange(GetThicknessCoverageLayerWarnings(inputParameters));
+                warnings.AddRange(GetThicknessCoverageLayerWarnings(inputParameters, derivedPipingInput));
             }
 
             return warnings;
         }
 
-        private static IEnumerable<string> GetThicknessCoverageLayerWarnings(PipingInput inputParameters)
+        private static IEnumerable<string> GetThicknessCoverageLayerWarnings(PipingInput inputParameters, DerivedPipingInput derivedPipingInput)
         {
             var warnings = new List<string>();
 
@@ -292,7 +295,7 @@ namespace Ringtoets.Piping.Service
             {
                 warnings.Add(Resources.PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine);
             }
-            if (double.IsNaN(inputParameters.ThicknessCoverageLayer.Mean))
+            if (double.IsNaN(derivedPipingInput.ThicknessCoverageLayer.Mean))
             {
                 warnings.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer);
             }
@@ -343,7 +346,7 @@ namespace Ringtoets.Piping.Service
                    !double.IsNaN(surfaceLineMissing.ExitPointL);
         }
 
-        private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters)
+        private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters, DerivedPipingInput derivedPipingInput)
         {
             return new PipingCalculatorInput(
                 new PipingCalculatorInput.ConstructionProperties
@@ -352,7 +355,7 @@ namespace Ringtoets.Piping.Service
                     SaturatedVolumicWeightOfCoverageLayer = PipingSemiProbabilisticDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
                     UpliftModelFactor = inputParameters.UpliftModelFactor,
                     AssessmentLevel = inputParameters.AssessmentLevel,
-                    PiezometricHeadExit = inputParameters.PiezometricHeadExit,
+                    PiezometricHeadExit = derivedPipingInput.PiezometricHeadExit,
                     DampingFactorExit = PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
                     PhreaticLevelExit = PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                     CriticalHeaveGradient = inputParameters.CriticalHeaveGradient,
