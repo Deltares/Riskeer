@@ -807,8 +807,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(seepageLength, properties.SeepageLength.Mean, 1e-6);
-            Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
-            Assert.AreEqual(properties.SeepageLength.Mean, inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
 
             mocks.VerifyAll();
         }
@@ -850,8 +849,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(1.5, properties.SeepageLength.Mean.Value);
-            Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
-            Assert.AreEqual(properties.SeepageLength.Mean, inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
 
             mocks.VerifyAll();
         }
