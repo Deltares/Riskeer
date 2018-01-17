@@ -46,7 +46,7 @@ namespace Core.Common.Gui.PropertyBag
         }
 
         [Browsable(false)]
-        public object Data
+        public virtual object Data
         {
             get
             {
