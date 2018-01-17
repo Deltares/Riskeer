@@ -226,14 +226,21 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Output = output
             };
 
-            TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView(locations, hbl => calculation);
+            HydraulicBoundaryLocation getCalculationsCallArgument = null;
+
+            TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView(locations, hbl =>
+            {
+                getCalculationsCallArgument = hbl;
+
+                return calculation;
+            });
 
             // Call
             IEnumerable<IllustrationPointControlItem> actualControlItems =
                 view.PublicGetIllustrationPointControlItems();
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryLocation, view.GetCalculationsCallArgument);
+            Assert.AreSame(hydraulicBoundaryLocation, getCalculationsCallArgument);
 
             IEnumerable<IllustrationPointControlItem> expectedControlItems =
                 CreateControlItems(generalResult);
@@ -320,8 +327,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                        getCalculationFunc,
                        assessmentSection) {}
 
-            public HydraulicBoundaryLocation GetCalculationsCallArgument { get; private set; }
-
             public IEnumerable<IllustrationPointControlItem> PublicGetIllustrationPointControlItems()
             {
                 return GetIllustrationPointControlItems();
@@ -339,8 +344,6 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
             {
-                GetCalculationsCallArgument = location;
-
                 return getCalculationFunc(location);
             }
         }
