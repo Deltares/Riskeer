@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -56,6 +57,37 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
             // Assert
             Assert.AreEqual(setOutput, hasOutput);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculations))]
+        public void IsCalculated_NotFullyCalculated_ReturnIsCalculated(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+                                                                       bool expectedIsCalculated)
+        {
+            // Call
+            bool isCalculated = hydraulicBoundaryLocationCalculation.IsCalculated();
+
+            // Assert
+            Assert.AreEqual(expectedIsCalculated, isCalculated);
+        }
+
+        private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculations()
+        {
+            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
+            {
+                InputParameters =
+                {
+                    ShouldIllustrationPointsBeCalculated = true
+                },
+                Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
+            }, false);
+
+            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(), false);
+
+            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
+            {
+                Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
+            }, true);
         }
     }
 }

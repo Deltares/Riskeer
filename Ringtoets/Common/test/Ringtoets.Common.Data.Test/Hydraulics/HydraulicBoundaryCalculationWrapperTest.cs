@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -31,28 +30,6 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     [TestFixture]
     public class HydraulicBoundaryCalculationWrapperTest
     {
-        private static IEnumerable<TestCaseData> HydraulicBoundaryLocationCalculationsToPerform
-        {
-            get
-            {
-                yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = true
-                    },
-                    Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
-                }, true);
-
-                yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(), true);
-
-                yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
-                }, false);
-            }
-        }
-
         [Test]
         public void Constructor_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
         {
@@ -98,22 +75,6 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreSame(hydraulicBoundaryLocation, calculationWrapper.ObservableObject);
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, calculationWrapper.CalculateIllustrationPoints);
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output, calculationWrapper.Output);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(HydraulicBoundaryLocationCalculationsToPerform))]
-        public void IsCalculated_NotFullyCalculated_ReturnIsCalculated(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                                                       bool shouldBeCalculated)
-        {
-            // Setup
-            var calculationWrapper = new HydraulicBoundaryCalculationWrapper(new TestHydraulicBoundaryLocation(),
-                                                                             hydraulicBoundaryLocationCalculation);
-
-            // Call
-            bool isCalculated = calculationWrapper.IsCalculated();
-
-            // Assert
-            Assert.AreEqual(!shouldBeCalculated, isCalculated);
         }
 
         [Test]
