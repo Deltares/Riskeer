@@ -1028,8 +1028,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                         StandardDeviation = (RoundedDouble) 15.15
                     }
                 },
-                Output = null,
-                SemiProbabilisticOutput = null
+                Output = null
             });
         }
 

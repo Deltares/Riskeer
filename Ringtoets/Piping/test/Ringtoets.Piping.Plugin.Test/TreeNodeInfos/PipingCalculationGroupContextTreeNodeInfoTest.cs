@@ -193,8 +193,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             });
 
             var pipingFailureMechanism = new TestPipingFailureMechanism();
@@ -327,8 +326,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             });
 
             var pipingFailureMechanism = new TestPipingFailureMechanism();
@@ -1104,12 +1102,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 PipingCalculationScenario calculation1 = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculation1.Name = "A";
                 calculation1.Output = new TestPipingOutput();
-                calculation1.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
                 calculation1.Attach(calculation1Observer);
                 PipingCalculationScenario calculation2 = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculation2.Name = "B";
                 calculation2.Output = new TestPipingOutput();
-                calculation2.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
                 calculation2.Attach(calculation2Observer);
 
                 var childGroup = new CalculationGroup();
@@ -1673,8 +1669,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                         EntryPointL = (RoundedDouble) 0,
                         ExitPointL = (RoundedDouble) 1
                     },
-                    Output = new TestPipingOutput(),
-                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                    Output = new TestPipingOutput()
                 };
                 calculation1.Attach(calculation1Observer);
                 calculation1.InputParameters.Attach(calculation1InputObserver);
@@ -1687,8 +1682,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                         EntryPointL = (RoundedDouble) 0,
                         ExitPointL = (RoundedDouble) 1
                     },
-                    Output = new TestPipingOutput(),
-                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                    Output = new TestPipingOutput()
                 };
                 calculation2.Attach(calculation2Observer);
                 calculation2.InputParameters.Attach(calculation2InputObserver);
@@ -1790,8 +1784,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                         EntryPointL = (RoundedDouble) 0,
                         ExitPointL = (RoundedDouble) 1
                     },
-                    Output = new TestPipingOutput(),
-                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                    Output = new TestPipingOutput()
                 };
                 calculation1.Attach(calculation1Observer);
                 calculation1.InputParameters.Attach(calculation1InputObserver);
@@ -1804,8 +1797,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                         EntryPointL = (RoundedDouble) 0,
                         ExitPointL = (RoundedDouble) 1
                     },
-                    Output = new TestPipingOutput(),
-                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                    Output = new TestPipingOutput()
                 };
                 calculation2.Attach(calculation2Observer);
                 calculation2.InputParameters.Attach(calculation2InputObserver);

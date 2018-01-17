@@ -55,18 +55,13 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public PipingOutput Output { get; set; }
 
-        /// <summary>
-        /// Gets or sets the semi-probabilistic calculation result.
-        /// </summary>
-        public PipingSemiProbabilisticOutput SemiProbabilisticOutput { get; set; }
-
         public string Name { get; set; }
 
         public bool HasOutput
         {
             get
             {
-                return Output != null || SemiProbabilisticOutput != null;
+                return Output != null;
             }
         }
 
@@ -75,7 +70,6 @@ namespace Ringtoets.Piping.Data
         public void ClearOutput()
         {
             Output = null;
-            SemiProbabilisticOutput = null;
         }
 
         public override object Clone()
@@ -88,11 +82,6 @@ namespace Ringtoets.Piping.Data
             if (Output != null)
             {
                 clone.Output = (PipingOutput) Output.Clone();
-            }
-
-            if (SemiProbabilisticOutput != null)
-            {
-                clone.SemiProbabilisticOutput = (PipingSemiProbabilisticOutput) SemiProbabilisticOutput.Clone();
             }
 
             return clone;

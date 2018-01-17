@@ -54,8 +54,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
 
             // Call
@@ -65,7 +64,6 @@ namespace Ringtoets.Piping.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             Assert.IsNull(calculation.Output);
-            Assert.IsNull(calculation.SemiProbabilisticOutput);
 
             CollectionAssert.AreEqual(new[]
             {
@@ -79,8 +77,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = null,
-                SemiProbabilisticOutput = null
+                Output = null
             };
 
             // Call

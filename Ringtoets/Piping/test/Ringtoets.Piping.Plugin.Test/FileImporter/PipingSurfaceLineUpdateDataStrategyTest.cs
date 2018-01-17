@@ -451,8 +451,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 {
                     SurfaceLine = surfaceLine
                 },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
 
             var failureMechanism = new PipingFailureMechanism();
@@ -499,8 +498,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 {
                     SurfaceLine = affectedSurfaceLine
                 },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
 
             var unaffectedGeometry = new[]
@@ -516,8 +514,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 {
                     SurfaceLine = unaffectedSurfaceLine
                 },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
 
             var failureMechanism = new PipingFailureMechanism();
@@ -583,8 +580,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 {
                     SurfaceLine = removedSurfaceLine
                 },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
 
             var unaffectedGeometry = new[]
@@ -600,8 +596,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 {
                     SurfaceLine = unaffectedSurfaceLine
                 },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1062,8 +1057,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                     SurfaceLine = affectedSurfaceLine,
                     EntryPointL = (RoundedDouble) 2
                 },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1129,8 +1123,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                     EntryPointL = (RoundedDouble) 0,
                     ExitPointL = (RoundedDouble) 3
                 },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
 
             var failureMechanism = new PipingFailureMechanism();

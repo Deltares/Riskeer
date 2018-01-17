@@ -111,8 +111,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
 
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -225,8 +224,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
-                    Output = new TestPipingOutput(),
-                    SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                    Output = new TestPipingOutput()
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -647,7 +645,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 PipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
                 calculation.Output = new TestPipingOutput();
-                calculation.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -710,7 +707,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 PipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
                 calculation.Output = new TestPipingOutput();
-                calculation.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -925,7 +921,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is mislukt.", msgs[8]);
                     });
                     Assert.IsNull(calculation.Output);
-                    Assert.IsNull(calculation.SemiProbabilisticOutput);
                 }
             }
         }
@@ -1039,7 +1034,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                         }
                     });
                     Assert.IsNotNull(calculation.Output);
-                    Assert.IsNotNull(calculation.SemiProbabilisticOutput);
                 }
             }
         }
@@ -1077,7 +1071,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 calculation.Output = new TestPipingOutput();
-                calculation.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
                 calculation.Attach(observer);
 
                 string messageBoxText = null, messageBoxTitle = null;

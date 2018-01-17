@@ -381,22 +381,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                             },
                             EntryPointL = (RoundedDouble) 7.7777,
                             ExitPointL = (RoundedDouble) 8.8888
-                        },
-                        SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(
-                            double.NaN,
-                            double.NaN,
-                            double.NaN,
-                            double.NaN,
-                            double.NaN,
-                            0.0005,
-                            double.NaN,
-                            double.NaN,
-                            1.5e-3,
-                            double.NaN,
-                            double.NaN,
-                            1.5e-3,
-                            double.NaN,
-                            double.NaN)
+                        }
                     }
                 }
             };
