@@ -124,24 +124,5 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             true);
             mocks.VerifyAll();
         }
-
-        [Test]
-        public void ToString_ValidData_ReturnSectionName()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var probabilityAssessmentInput = mocks.Stub<IProbabilityAssessmentInput>();
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var properties = new FailureMechanismSectionProbabilityAssessmentProperties(section, probabilityAssessmentInput);
-
-            // Call
-            string toString = properties.ToString();
-
-            // Assert
-            Assert.AreEqual(section.Name, toString);
-            mocks.VerifyAll();
-        }
     }
 }
