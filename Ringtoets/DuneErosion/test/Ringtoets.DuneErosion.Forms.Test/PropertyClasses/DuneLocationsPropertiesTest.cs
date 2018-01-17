@@ -21,14 +21,10 @@
 
 using System;
 using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PropertyClasses;
@@ -76,30 +72,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation());
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DuneLocationProperties));
             Assert.AreEqual(1, properties.Locations.Length);
-            TestHelper.AssertTypeConverter<DuneLocationsProperties, ExpandableArrayConverter>(
-                nameof(DuneLocationsProperties.Locations));
-
-            DuneLocationProperties duneLocationProperties = properties.Locations.First();
-            Assert.AreEqual(location.Id, duneLocationProperties.Id);
-            Assert.AreEqual(location.Name, duneLocationProperties.Name);
-            Assert.AreEqual(location.CoastalAreaId, duneLocationProperties.CoastalAreaId);
-            Assert.AreEqual(location.Offset.ToString("0.#", CultureInfo.InvariantCulture), duneLocationProperties.Offset);
-            Assert.AreEqual(location.Location, duneLocationProperties.Location);
-
-            Assert.IsNaN(duneLocationProperties.WaterLevel);
-            Assert.IsNaN(duneLocationProperties.WaveHeight);
-            Assert.IsNaN(duneLocationProperties.WavePeriod);
-            Assert.AreEqual(location.D50, duneLocationProperties.D50);
-
-            Assert.IsNaN(duneLocationProperties.TargetProbability);
-            Assert.IsNaN(duneLocationProperties.TargetReliability);
-            Assert.IsNaN(duneLocationProperties.CalculatedProbability);
-            Assert.IsNaN(duneLocationProperties.CalculatedReliability);
-
-            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(CalculationConvergence.NotCalculated).DisplayName;
-            Assert.AreEqual(convergenceValue, duneLocationProperties.Convergence);
+            Assert.AreSame(location, properties.Locations[0].Data);
         }
 
         [Test]
