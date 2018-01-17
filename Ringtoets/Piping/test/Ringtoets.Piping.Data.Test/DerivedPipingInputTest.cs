@@ -149,11 +149,10 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void EffectiveThicknessCoverageLayer_MeanSetSoilProfileSetToNull_ThicknessCoverageLayerNaN()
+        public void EffectiveThicknessCoverageLayer_SoilProfileSetToNull_ThicknessCoverageLayerNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ThicknessCoverageLayer.Mean = new RoundedDouble(2, new Random(21).NextDouble() + 1);
             var derivedInput = new DerivedPipingInput(input);
 
             input.StochasticSoilProfile = null;
@@ -280,11 +279,10 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessCoverageLayer_MeanSetSoilProfileSetToNull_ThicknessCoverageLayerNaN()
+        public void ThicknessCoverageLayer_SoilProfileSetToNull_ThicknessCoverageLayerNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ThicknessCoverageLayer.Mean = new RoundedDouble(2, new Random(21).NextDouble() + 1);
             var derivedInput = new DerivedPipingInput(input);
 
             input.StochasticSoilProfile = null;
