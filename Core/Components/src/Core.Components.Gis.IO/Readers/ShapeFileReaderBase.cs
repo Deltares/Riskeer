@@ -146,6 +146,7 @@ namespace Core.Components.Gis.IO.Readers
                         newValue = dataRowValue;
                     }
                 }
+
                 targetFeature.MetaData[column.ColumnName] = newValue;
             }
         }

@@ -44,11 +44,6 @@ namespace Ringtoets.Common.IO.Configurations
     {
         protected static readonly ILog Log = LogManager.GetLogger(typeof(StructuresCalculationStochastAssigner<TConfiguration, TInput, TStructure>));
 
-        /// <summary>
-        /// The configuration that is used for stochast parameter source.
-        /// </summary>
-        protected readonly TConfiguration Configuration;
-
         private readonly StructuresCalculation<TInput> calculation;
 
         /// <summary>
@@ -65,10 +60,12 @@ namespace Ringtoets.Common.IO.Configurations
             {
                 throw new ArgumentNullException(nameof(configuration));
             }
+
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             Configuration = configuration;
             this.calculation = calculation;
         }
@@ -85,6 +82,11 @@ namespace Ringtoets.Common.IO.Configurations
                    && GetStandardDeviationStochasts().All(SetStandardDeviationStochast)
                    && GetVariationCoefficientStochasts().All(SetVariationCoefficientStochast);
         }
+
+        /// <summary>
+        /// Gets the configuration that is used for stochast parameter source.
+        /// </summary>
+        protected TConfiguration Configuration { get; }
 
         /// <summary>
         /// Performs additional validations for structure specific stochasts.
@@ -172,6 +174,7 @@ namespace Ringtoets.Common.IO.Configurations
                                                   Configuration.Name);
                 return false;
             }
+
             if (Configuration.ModelFactorSuperCriticalFlow?.StandardDeviation != null
                 || Configuration.ModelFactorSuperCriticalFlow?.VariationCoefficient != null)
             {
@@ -179,6 +182,7 @@ namespace Ringtoets.Common.IO.Configurations
                                                   Configuration.Name);
                 return false;
             }
+
             return true;
         }
 
@@ -188,6 +192,7 @@ namespace Ringtoets.Common.IO.Configurations
             {
                 yield return Tuple.Create(stochastDefinition.StochastName, stochastDefinition.Configuration);
             }
+
             foreach (VariationCoefficientDefinition stochastDefinition in GetVariationCoefficientStochasts(true))
             {
                 yield return Tuple.Create(stochastDefinition.StochastName, stochastDefinition.Configuration);
@@ -219,10 +224,12 @@ namespace Ringtoets.Common.IO.Configurations
                 {
                     throw new ArgumentNullException(nameof(stochastName));
                 }
+
                 if (getter == null)
                 {
                     throw new ArgumentNullException(nameof(getter));
                 }
+
                 if (setter == null)
                 {
                     throw new ArgumentNullException(nameof(setter));
@@ -283,10 +290,12 @@ namespace Ringtoets.Common.IO.Configurations
                 {
                     throw new ArgumentNullException(nameof(stochastName));
                 }
+
                 if (getter == null)
                 {
                     throw new ArgumentNullException(nameof(getter));
                 }
+
                 if (setter == null)
                 {
                     throw new ArgumentNullException(nameof(setter));

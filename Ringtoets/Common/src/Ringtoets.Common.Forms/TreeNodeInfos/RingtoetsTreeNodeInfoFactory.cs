@@ -196,9 +196,13 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// </summary>
         private abstract class DroppingCalculationInContainerStrategy
         {
-            protected readonly CalculationGroup TargetCalculationGroup;
             private readonly CalculationGroup sourceCalculationGroup;
 
+            /// <summary>
+            /// Creates a new instance of <see cref="DroppingCalculationInContainerStrategy"/>.
+            /// </summary>
+            /// <param name="sourceCalculationGroup">The source <see cref="CalculationGroup"/>.</param>
+            /// <param name="targetCalculationGroup">The target <see cref="CalculationGroup"/>.</param>
             protected DroppingCalculationInContainerStrategy(CalculationGroup sourceCalculationGroup, CalculationGroup targetCalculationGroup)
             {
                 this.sourceCalculationGroup = sourceCalculationGroup;
@@ -218,6 +222,11 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
 
                 NotifyObservers();
             }
+
+            /// <summary>
+            /// Gets the target <see cref="CalculationGroup"/>.
+            /// </summary>
+            protected CalculationGroup TargetCalculationGroup { get; }
 
             /// <summary>
             /// Moves the <see cref="ICalculationBase"/> instance to its new location.

@@ -41,8 +41,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int waterLevelPolderPropertyIndex = 1;
         private const int offsetsPropertyIndex = 2;
 
-        protected readonly IObservablePropertyChangeHandler PropertyChangeHandler;
-
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsLocationInputBaseProperties{T}"/>.
         /// </summary>
@@ -55,10 +53,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (handler == null)
             {
                 throw new ArgumentNullException(nameof(handler));
             }
+
             this.data = data;
             PropertyChangeHandler = handler;
         }
@@ -96,5 +96,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             return string.Empty;
         }
+
+        /// <summary>
+        /// Gets the handler responsible for handling effects of a property change.
+        /// </summary>
+        protected IObservablePropertyChangeHandler PropertyChangeHandler { get; }
     }
 }

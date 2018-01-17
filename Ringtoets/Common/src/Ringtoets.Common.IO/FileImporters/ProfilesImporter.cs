@@ -45,7 +45,6 @@ namespace Ringtoets.Common.IO.FileImporters
     /// <seealso cref="FileImporterBase{T}"/>
     public abstract class ProfilesImporter<T> : FileImporterBase<T>
     {
-        protected readonly IImporterMessageProvider MessageProvider;
         private readonly ReferenceLine referenceLine;
         private readonly string typeDescriptor;
 
@@ -68,10 +67,12 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 throw new ArgumentNullException(nameof(referenceLine));
             }
+
             if (messageProvider == null)
             {
                 throw new ArgumentNullException(nameof(messageProvider));
             }
+
             if (typeDescriptor == null)
             {
                 throw new ArgumentNullException(nameof(typeDescriptor));
@@ -81,6 +82,11 @@ namespace Ringtoets.Common.IO.FileImporters
             this.typeDescriptor = typeDescriptor;
             MessageProvider = messageProvider;
         }
+
+        /// <summary>
+        /// Gets the message provider to provide messages during the import.
+        /// </summary>
+        protected IImporterMessageProvider MessageProvider { get; }
 
         protected override bool OnImport()
         {
@@ -148,6 +154,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 case DamType.Vertical:
                     return new BreakWater(BreakWaterType.Wall, dikeProfileData.DamHeight);
             }
+
             return null;
         }
 
@@ -188,6 +195,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 Log.Error(exception.Message);
             }
+
             return new ReadResult<ProfileLocation>(true);
         }
 
@@ -223,6 +231,7 @@ namespace Ringtoets.Common.IO.FileImporters
                     return new ReadResult<ProfileLocation>(true);
                 }
             }
+
             return new ReadResult<ProfileLocation>(false)
             {
                 Items = profileLocations
@@ -252,11 +261,13 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 throw new LineParseException(string.Format(Resources.ProfilesImporter_AddNextProfileLocation_Location_with_id_0_outside_referenceline, profileLocation.Id));
             }
+
             if (profileLocations.Any(dpl => dpl.Id.Equals(profileLocation.Id)))
             {
                 string message = string.Format(Resources.ProfilesImporter_AddNextProfileLocation_Location_with_id_0_already_read, profileLocation.Id);
                 throw new CriticalFileReadException(message);
             }
+
             profileLocations.Add(profileLocation);
         }
 
