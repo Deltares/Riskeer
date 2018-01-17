@@ -957,22 +957,6 @@ namespace Application.Ringtoets.Storage.TestUtil
                             {
                                 Mean = (RoundedDouble) 3.3,
                                 StandardDeviation = (RoundedDouble) 4.4
-                            },
-                            SaturatedVolumicWeightOfCoverageLayer =
-                            {
-                                Mean = (RoundedDouble) 7.7,
-                                StandardDeviation = (RoundedDouble) 6.6,
-                                Shift = (RoundedDouble) 5.5
-                            },
-                            Diameter70 =
-                            {
-                                Mean = (RoundedDouble) 8.8,
-                                CoefficientOfVariation = (RoundedDouble) 9.9
-                            },
-                            DarcyPermeability =
-                            {
-                                Mean = (RoundedDouble) 10.10,
-                                CoefficientOfVariation = (RoundedDouble) 11.11
                             }
                         },
                         Output = new TestPipingOutput(),
@@ -1008,22 +992,6 @@ namespace Application.Ringtoets.Storage.TestUtil
                             {
                                 Mean = (RoundedDouble) 3.3,
                                 StandardDeviation = (RoundedDouble) 4.4
-                            },
-                            SaturatedVolumicWeightOfCoverageLayer =
-                            {
-                                Mean = (RoundedDouble) 7.7,
-                                StandardDeviation = (RoundedDouble) 6.6,
-                                Shift = (RoundedDouble) 5.5
-                            },
-                            Diameter70 =
-                            {
-                                Mean = (RoundedDouble) 8.8,
-                                CoefficientOfVariation = (RoundedDouble) 9.9
-                            },
-                            DarcyPermeability =
-                            {
-                                Mean = (RoundedDouble) 10.10,
-                                CoefficientOfVariation = (RoundedDouble) 11.11
                             },
                             UseAssessmentLevelManualInput = true,
                             AssessmentLevel = (RoundedDouble) 6.0
@@ -1064,22 +1032,6 @@ namespace Application.Ringtoets.Storage.TestUtil
                     {
                         Mean = (RoundedDouble) 14.14,
                         StandardDeviation = (RoundedDouble) 15.15
-                    },
-                    SaturatedVolumicWeightOfCoverageLayer =
-                    {
-                        Mean = (RoundedDouble) 18.18,
-                        StandardDeviation = (RoundedDouble) 17.17,
-                        Shift = (RoundedDouble) 16.16
-                    },
-                    Diameter70 =
-                    {
-                        Mean = (RoundedDouble) 19.19,
-                        CoefficientOfVariation = (RoundedDouble) 20.20
-                    },
-                    DarcyPermeability =
-                    {
-                        Mean = (RoundedDouble) 21.21,
-                        CoefficientOfVariation = (RoundedDouble) 22.22
                     }
                 },
                 Output = null,
