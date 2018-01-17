@@ -1405,49 +1405,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void GivenCompletePipingInputContextProperties_WhenPhreaticLevelExitPropertiesSetThroughProperties_ThenPiezometricHeadExitUpdated(int propertyIndexToChange)
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-
-            PipingInput inputParameters = calculationItem.InputParameters;
-            var context = new PipingInputContext(inputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
-
-            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
-
-            var contextProperties = new PipingInputContextProperties(context, handler);
-            inputParameters.HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.0);
-
-            NormalDistributionDesignVariableProperties phreaticLevelExitProperty = contextProperties.PhreaticLevelExit;
-            mocks.ReplayAll();
-
-            // When
-            if (propertyIndexToChange == 1)
-            {
-                phreaticLevelExitProperty.Mean = (RoundedDouble) 2.3;
-            }
-            else if (propertyIndexToChange == 2)
-            {
-                phreaticLevelExitProperty.StandardDeviation = (RoundedDouble) 2.3;
-            }
-
-            // Then
-            Assert.IsFalse(double.IsNaN(inputParameters.PiezometricHeadExit));
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void GetAvailableSurfaceLines_Always_ReturnAllPipingSurfaceLines()
         {
             // Setup
