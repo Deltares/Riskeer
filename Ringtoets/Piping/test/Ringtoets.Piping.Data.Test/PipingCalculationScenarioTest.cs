@@ -132,12 +132,9 @@ namespace Ringtoets.Piping.Data.Test
         public void CalculationScenarioStatus_PipingOutputSet_ReturnsStatusDone()
         {
             // Setup
-            const double expectedProbability = 1.0 / 49862180;
-
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput(),
-//                SemiProbabilisticOutput = new TestDerivedPipingOutput(expectedProbability)
+                Output = new TestPipingOutput()
             };
 
             // Call

@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -89,13 +90,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Constructor_CalculationWithOutput_ExpectedValues()
         {
             // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.Output = new TestPipingOutput();
-            var failureMechanism = new PipingFailureMechanism();
 
             // Call
             var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);

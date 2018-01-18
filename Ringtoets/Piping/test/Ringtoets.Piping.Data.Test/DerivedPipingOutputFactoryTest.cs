@@ -57,11 +57,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(30000, 1.2, 7.36633055700265E-06)]
-        [TestCase(30000, 1.0, 4.13743266617776E-05)]
-        [TestCase(20000, 1.2, 9.53352884976163E-06)]
-        [TestCase(20000, 1.0, 5.24016937211752E-05)]
-        public void Create_ValidData_ReturnsExpectedValue(int returnPeriod, double factorOfSafety, double expectedResult)
+        public void Create_ValidData_ReturnsExpectedValue()
         {
             // Setup
             var probabilityAssessmentInput = new PipingProbabilityAssessmentInput
@@ -81,12 +77,12 @@ namespace Ringtoets.Piping.Data.Test
             DerivedPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(calculatorResult, probabilityAssessmentInput, norm, 1000);
 
             // Assert
-            Assert.AreEqual(7.3e-6, derivedOutput.UpliftProbability, 1e-6);
-            Assert.AreEqual(0.004, derivedOutput.HeaveProbability, 1e-6);
+            Assert.AreEqual(7.3663305570026214e-06, derivedOutput.UpliftProbability, 1e-6);
+            Assert.AreEqual(7.0183607399734309e-08, derivedOutput.HeaveProbability, 1e-6);
             Assert.AreEqual(1.0988e-5, derivedOutput.SellmeijerProbability, 1e-6);
-            Assert.AreEqual(1.33, derivedOutput.PipingReliability, derivedOutput.PipingReliability.GetAccuracy());
-            Assert.AreEqual(4.77, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(0.907, derivedOutput.PipingFactorOfSafety, derivedOutput.PipingFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(5.26477, derivedOutput.PipingReliability, derivedOutput.PipingReliability.GetAccuracy());
+            Assert.AreEqual(3.96281, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
+            Assert.AreEqual(1.329, derivedOutput.PipingFactorOfSafety, derivedOutput.PipingFactorOfSafety.GetAccuracy());
         }
     }
 }

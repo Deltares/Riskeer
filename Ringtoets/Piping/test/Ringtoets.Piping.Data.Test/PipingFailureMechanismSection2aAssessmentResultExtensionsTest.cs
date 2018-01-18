@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.TestUtil;
@@ -38,19 +39,16 @@ namespace Ringtoets.Piping.Data.Test
         public void GetAssessmentLayerTwoA_MultipleScenarios_ReturnsValueBasedOnRelevantAndDoneScenarios()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new PipingFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             const double contribution1 = 0.2;
             const double contribution2 = 0.8;
-            const double probability1 = 1.0 / 1000000.0;
-            const double probability2 = 1.0 / 2000000.0;
 
             PipingCalculationScenario pipingCalculationScenario1 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(section);
             PipingCalculationScenario pipingCalculationScenario2 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(section);
@@ -79,8 +77,7 @@ namespace Ringtoets.Piping.Data.Test
             double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(calculations, failureMechanism, assessmentSection);
 
             // Assert
-            const double expectedProbability = probability1 * contribution1 + probability2 * contribution2;
-            Assert.AreEqual(expectedProbability, assessmentLayerTwoA, 1e-8);
+            Assert.AreEqual(1.0194628510792693e-21, assessmentLayerTwoA);
             mocks.VerifyAll();
         }
 

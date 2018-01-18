@@ -37,6 +37,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 
@@ -237,10 +238,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(1.5e-3), cells[failureProbabilityPipingColumnIndex].FormattedValue);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(double.NaN), cells[failureProbabilityUpliftColumnIndex].FormattedValue);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.0005), cells[failureProbabilityHeaveColumnIndex].FormattedValue);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(1.5e-3), cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
+            Assert.AreEqual("1/980,908,719,666,769,000,000", cells[failureProbabilityPipingColumnIndex].FormattedValue);
+            Assert.AreEqual("1/204,463,909,053", cells[failureProbabilityUpliftColumnIndex].FormattedValue);
+            Assert.AreEqual("1/31,469,301", cells[failureProbabilityHeaveColumnIndex].FormattedValue);
+            Assert.AreEqual("1/980,908,719,666,769,000,000", cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -400,7 +401,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                             },
                             EntryPointL = (RoundedDouble) 7.7777,
                             ExitPointL = (RoundedDouble) 8.8888
-                        }
+                        },
+                        Output = new TestPipingOutput()
                     }
                 }
             };

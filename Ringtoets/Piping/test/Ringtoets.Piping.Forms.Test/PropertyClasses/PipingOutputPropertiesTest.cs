@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
+            Assert.AreEqual("output", paramName);
             mocks.VerifyAll();
         }
 
@@ -85,14 +85,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             var output = new TestPipingOutput();
 
             // Call
-            var properties = new PipingOutputProperties(output, new PipingFailureMechanism(), assessmentSection);
+            var properties = new PipingOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<PipingOutput>>(properties);
@@ -104,9 +105,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             var random = new Random(22);
             double upliftEffectiveStress = random.NextDouble();
@@ -114,6 +116,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             double sellmeijerCreepCoefficient = random.NextDouble();
             double sellmeijerCriticalFall = random.NextDouble();
             double sellmeijerReducedFall = random.NextDouble();
+            double upliftFactorOfSafety = random.NextDouble();
+            double heaveFactorOfSafety = random.NextDouble();
+            double sellmeijerFactorOfSafety = random.NextDouble();
 
             var output = new PipingOutput(new PipingOutput.ConstructionProperties
             {
@@ -121,28 +126,33 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 HeaveGradient = heaveGradient,
                 SellmeijerCreepCoefficient = sellmeijerCreepCoefficient,
                 SellmeijerCriticalFall = sellmeijerCriticalFall,
-                SellmeijerReducedFall = sellmeijerReducedFall
+                SellmeijerReducedFall = sellmeijerReducedFall,
+                UpliftFactorOfSafety = upliftFactorOfSafety,
+                HeaveFactorOfSafety = heaveFactorOfSafety,
+                SellmeijerFactorOfSafety = sellmeijerFactorOfSafety
             });
 
             // Call
-            var properties = new PipingOutputProperties(output, new PipingFailureMechanism(), assessmentSection);
+            var properties = new PipingOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
+            var expectedDerivedOutput = DerivedPipingOutputFactory.Create(output, failureMechanism.PipingProbabilityAssessmentInput,
+                                                                          assessmentSection.FailureMechanismContribution.Norm, failureMechanism.Contribution);
             const string probabilityFormat = "1/{0:n0}";
-            Assert.AreEqual(0, properties.UpliftFactorOfSafety, properties.UpliftFactorOfSafety.GetAccuracy());
-            Assert.AreEqual(0, properties.UpliftReliability, properties.UpliftReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / 0), properties.UpliftProbability);
-            Assert.AreEqual(0, properties.HeaveFactorOfSafety, properties.HeaveFactorOfSafety.GetAccuracy());
-            Assert.AreEqual(0, properties.HeaveReliability, properties.HeaveReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / 0), properties.HeaveProbability);
-            Assert.AreEqual(0, properties.SellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety.GetAccuracy());
-            Assert.AreEqual(0, properties.SellmeijerReliability, properties.SellmeijerReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / 0), properties.SellmeijerProbability);
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / 0), properties.RequiredProbability);
-            Assert.AreEqual(0, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / 0), properties.PipingProbability);
-            Assert.AreEqual(0, properties.PipingReliability, properties.PipingReliability.GetAccuracy());
-            Assert.AreEqual(0, properties.PipingFactorOfSafety, properties.PipingFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, properties.UpliftFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(expectedDerivedOutput.UpliftReliability, properties.UpliftReliability, properties.UpliftReliability.GetAccuracy());
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / expectedDerivedOutput.UpliftProbability), properties.UpliftProbability);
+            Assert.AreEqual(heaveFactorOfSafety, properties.HeaveFactorOfSafety, properties.HeaveFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(expectedDerivedOutput.HeaveReliability, properties.HeaveReliability, properties.HeaveReliability.GetAccuracy());
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / expectedDerivedOutput.HeaveProbability), properties.HeaveProbability);
+            Assert.AreEqual(sellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(expectedDerivedOutput.SellmeijerReliability, properties.SellmeijerReliability, properties.SellmeijerReliability.GetAccuracy());
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / expectedDerivedOutput.SellmeijerProbability), properties.SellmeijerProbability);
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / expectedDerivedOutput.RequiredProbability), properties.RequiredProbability);
+            Assert.AreEqual(expectedDerivedOutput.RequiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
+            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / expectedDerivedOutput.PipingProbability), properties.PipingProbability);
+            Assert.AreEqual(expectedDerivedOutput.PipingReliability, properties.PipingReliability, properties.PipingReliability.GetAccuracy());
+            Assert.AreEqual(expectedDerivedOutput.PipingFactorOfSafety, properties.PipingFactorOfSafety, properties.PipingFactorOfSafety.GetAccuracy());
 
             Assert.AreEqual(upliftEffectiveStress, properties.UpliftEffectiveStress, properties.UpliftEffectiveStress.GetAccuracy());
             Assert.AreEqual(heaveGradient, properties.HeaveGradient, properties.HeaveGradient.GetAccuracy());
@@ -153,36 +163,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithZeroValues_ReturnTranslatedFormat()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            var properties = new PipingOutputProperties(new TestPipingOutput(), new PipingFailureMechanism(), assessmentSection);
-
-            // Assert
-            const string probability = "1/Oneindig";
-            Assert.AreEqual(probability, properties.UpliftProbability);
-            Assert.AreEqual(probability, properties.HeaveProbability);
-            Assert.AreEqual(probability, properties.SellmeijerProbability);
-            Assert.AreEqual(probability, properties.RequiredProbability);
-            Assert.AreEqual(probability, properties.PipingProbability);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             // Call
-            var properties = new PipingOutputProperties(new TestPipingOutput(), new PipingFailureMechanism(), assessmentSection);
+            var properties = new PipingOutputProperties(new TestPipingOutput(), failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

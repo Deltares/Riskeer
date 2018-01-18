@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(PipingFailureMechanismSectionResultContext), info.DataType);
             Assert.AreEqual(typeof(IEnumerable<PipingFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -73,13 +73,19 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var context = new PipingFailureMechanismSectionResultContext(failureMechanism.SectionResults,
+                                                                         failureMechanism,
+                                                                         assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(failureMechanism.SectionResults, viewData);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -100,36 +106,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             }
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
-            // Call
-            Type viewType = info.ViewType;
-
-            // Assert
-            Assert.AreEqual(typeof(PipingFailureMechanismResultView), viewType);
-        }
-
-        [Test]
-        public void DataType_Always_ReturnsDataType()
-        {
-            // Call
-            Type dataType = info.DataType;
-
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>), dataType);
-        }
-
-        [Test]
-        public void ViewDataType_Always_ReturnsViewDataType()
-        {
-            // Call
-            Type viewDataType = info.ViewDataType;
-
-            // Assert
-            Assert.AreEqual(typeof(IEnumerable<PipingFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
@@ -331,12 +307,15 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults,
-                                                                                                        failureMechanism);
+
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             var view = mocks.StrictMock<PipingFailureMechanismResultView>();
             view.Expect(v => v.FailureMechanism = failureMechanism);
-
             mocks.ReplayAll();
+
+            var context = new PipingFailureMechanismSectionResultContext(failureMechanism.SectionResults,
+                                                                         failureMechanism,
+                                                                         assessmentSection);
 
             // Call
             info.AfterCreate(view, context);
@@ -350,8 +329,13 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults,
-                                                                                                        failureMechanism);
+
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var context = new PipingFailureMechanismSectionResultContext(failureMechanism.SectionResults,
+                                                                         failureMechanism,
+                                                                         assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }

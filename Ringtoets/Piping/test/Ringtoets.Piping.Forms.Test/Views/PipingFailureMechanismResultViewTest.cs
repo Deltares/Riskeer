@@ -370,7 +370,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
-                Assert.AreEqual($"1/{1 / 1:N0}",
+                Assert.AreEqual("1/980,908,719,666,769,000,000",
                                 formattedValue);
             }
         }

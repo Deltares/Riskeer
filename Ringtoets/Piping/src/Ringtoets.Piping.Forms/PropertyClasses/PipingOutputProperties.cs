@@ -42,7 +42,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// Creates a new instance of <see cref="PipingOutputProperties"/>.
         /// </summary>
         /// <param name="output">The output to show the properties for.</param>
-        /// <param name="derivedOutput">The derived output to show properties for.</param>
+        /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the output belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
         public PipingOutputProperties(PipingOutput output, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
@@ -50,6 +51,16 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             if (output == null)
             {
                 throw new ArgumentNullException(nameof(output));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             Data = output;
