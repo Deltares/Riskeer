@@ -317,7 +317,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsMeanExpectedThicknessAquiferLayer()
+        public void ThicknessAquiferLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsDistributionWithMeanNotNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -327,11 +327,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(1.0, thicknessAquiferLayer.Mean.Value);
+            AssertThicknessAquiferLayer(thicknessAquiferLayer, 1.0);
         }
 
         [Test]
-        public void ThicknessAquiferLayer_InputWithoutSoilProfile_ReturnMeanNaN()
+        public void ThicknessAquiferLayer_InputWithoutSoilProfile_ReturnsDistributionWithMeanNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -343,11 +343,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
-            Assert.IsNaN(thicknessAquiferLayer.Mean);
+            AssertThicknessAquiferLayer(thicknessAquiferLayer);
         }
 
         [Test]
-        public void ThicknessAquiferLayer_InputWithoutSurfaceLine_ReturnMeanNaN()
+        public void ThicknessAquiferLayer_InputWithoutSurfaceLine_ReturnsDistributionWithMeanNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -359,13 +359,13 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
-            Assert.IsNaN(thicknessAquiferLayer.Mean);
+            AssertThicknessAquiferLayer(thicknessAquiferLayer);
         }
 
         [Test]
         [TestCase(1e-6)]
         [TestCase(1)]
-        public void ThicknessAquiferLayer_SoilProfileSingleAquiferAboveSurfaceLine_ReturnMeanNaN(double deltaAboveSurfaceLine)
+        public void ThicknessAquiferLayer_SoilProfileSingleAquiferAboveSurfaceLine_ReturnsDistributionWithMeanNaN(double deltaAboveSurfaceLine)
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithSingleAquiferLayerAboveSurfaceLine(deltaAboveSurfaceLine);
@@ -375,11 +375,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
-            Assert.IsNaN(thicknessAquiferLayer.Mean);
+            AssertThicknessAquiferLayer(thicknessAquiferLayer);
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_MeanSetToTopmostConsecutiveAquiferLayerThickness()
+        public void ThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_ReturnsDistributionWithMeanSetToTopmostConsecutiveAquiferLayerThickness()
         {
             // Setup
             double expectedThickness;
@@ -390,11 +390,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(expectedThickness, thicknessAquiferLayer.Mean, 1e-6);
+            AssertThicknessAquiferLayer(thicknessAquiferLayer, expectedThickness);
         }
 
         [Test]
-        public void ThicknessAquiferLayer_ExitPointSetToNaN_ReturnMeanNaN()
+        public void ThicknessAquiferLayer_ExitPointSetToNaN_ReturnsDistributionWithMeanNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -406,11 +406,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
-            Assert.IsNaN(thicknessAquiferLayer.Mean);
+            AssertThicknessAquiferLayer(thicknessAquiferLayer);
         }
 
         [Test]
-        public void ThicknessAquiferLayer_ProfileWithoutAquiferLayer_ReturnMeanNaN()
+        public void ThicknessAquiferLayer_ProfileWithoutAquiferLayer_ReturnsDistributionWithMeanNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -430,11 +430,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
-            Assert.IsNaN(thicknessAquiferLayer.Mean);
+            AssertThicknessAquiferLayer(thicknessAquiferLayer);
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SoilProfileSingleAquiferUnderSurfaceLine_ReturnMeanExpectedThicknessAquiferLayer()
+        public void ThicknessAquiferLayer_SoilProfileSingleAquiferUnderSurfaceLine_ReturnsDistributionWithMeanNotNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquifer();
@@ -444,11 +444,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(1.0, thicknessAquiferLayer.Mean.Value);
+            AssertThicknessAquiferLayer(thicknessAquiferLayer, 1.0);
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_MeanSetToConsecutiveAquiferLayerThickness()
+        public void ThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_ReturnsDistributionWithMeanSetToConsecutiveAquiferLayerThickness()
         {
             // Setup
             double expectedThickness;
@@ -459,11 +459,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(expectedThickness, thicknessAquiferLayer.Mean);
+            AssertThicknessAquiferLayer(thicknessAquiferLayer, expectedThickness);
         }
 
         [Test]
-        public void ThicknessAquiferLayer_InputResultsInZeroAquiferThickness_ReturnMeanNaN()
+        public void ThicknessAquiferLayer_InputResultsInZeroAquiferThickness_ReturnsDistributionWithMeanNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -487,11 +487,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
-            Assert.IsNaN(thicknessAquiferLayer.Mean);
+            AssertThicknessAquiferLayer(thicknessAquiferLayer);
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SurfaceLineHalfWayProfileLayer_ConsecutiveThicknessSetToLayerHeightUnderSurfaceLine()
+        public void ThicknessAquiferLayer_SurfaceLineHalfWayProfileLayer_ReturnsDistributionWithMeanSetToLayerHeightUnderSurfaceLine()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -515,7 +515,7 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(2.0, thicknessAquiferLayer.Mean.Value, 1e-6);
+            AssertThicknessAquiferLayer(thicknessAquiferLayer, 2.0);
         }
 
         [Test]
@@ -1236,6 +1236,17 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             DistributionAssert.AreEqual(expected, thicknessCoverageLayer);
+        }
+
+        private static void AssertThicknessAquiferLayer(LogNormalDistribution thicknessAquiferLayer, double mean = double.NaN)
+        {
+            var expected = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) mean,
+                StandardDeviation = (RoundedDouble) 0.5
+            };
+
+            DistributionAssert.AreEqual(expected, thicknessAquiferLayer);
         }
     }
 }
