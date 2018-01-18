@@ -191,14 +191,17 @@ namespace Ringtoets.Piping.Service
             {
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_SurfaceLine_selected);
             }
+
             if (inputParameters.StochasticSoilProfile == null)
             {
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_StochasticSoilProfile_selected);
             }
+
             if (double.IsNaN(inputParameters.ExitPointL))
             {
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_ExitPointL);
             }
+
             return validationResults;
         }
 
@@ -239,6 +242,7 @@ namespace Ringtoets.Piping.Service
                     validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_Diameter70);
                 }
             }
+
             return validationResult;
         }
 
@@ -294,10 +298,12 @@ namespace Ringtoets.Piping.Service
             {
                 warnings.Add(Resources.PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine);
             }
+
             if (double.IsNaN(DerivedPipingInput.GetThicknessCoverageLayer(inputParameters).Mean))
             {
                 warnings.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer);
             }
+
             return warnings;
         }
 
@@ -311,6 +317,7 @@ namespace Ringtoets.Piping.Service
             {
                 warnings.Add(string.Format(Resources.PipingCalculationService_GetInputWarnings_Specified_DiameterD70_value_0_not_in_valid_range_of_model, diameter70Value));
             }
+
             return warnings;
         }
 
@@ -323,6 +330,7 @@ namespace Ringtoets.Piping.Service
             {
                 warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_Attempt_to_determine_value_from_combination);
             }
+
             return warnings;
         }
 
@@ -335,6 +343,7 @@ namespace Ringtoets.Piping.Service
             {
                 warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_Attempt_to_determine_values_for_DiameterD70_and_DarcyPermeability_from_top_layer);
             }
+
             return warnings;
         }
 
