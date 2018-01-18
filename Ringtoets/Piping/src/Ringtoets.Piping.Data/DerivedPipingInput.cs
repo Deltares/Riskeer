@@ -41,9 +41,10 @@ namespace Ringtoets.Piping.Data
         /// [m]
         /// </summary>
         /// <param name="input">The input to calculate the derived piping input for.</param>
+        /// <param name="assessmentLevel">The assessment level at stake.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <returns>Returns the corresponding derived input value.</returns>
-        public static RoundedDouble GetPiezometricHeadExit(PipingInput input)
+        public static RoundedDouble GetPiezometricHeadExit(PipingInput input, RoundedDouble assessmentLevel)
         {
             if (input == null)
             {
@@ -53,7 +54,7 @@ namespace Ringtoets.Piping.Data
             RoundedDouble dampingFactorExit = PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue();
             RoundedDouble phreaticLevelExit = PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
 
-            return new RoundedDouble(2, InputParameterCalculationService.CalculatePiezometricHeadAtExit(input.AssessmentLevel,
+            return new RoundedDouble(2, InputParameterCalculationService.CalculatePiezometricHeadAtExit(assessmentLevel,
                                                                                                         dampingFactorExit,
                                                                                                         phreaticLevelExit));
         }
