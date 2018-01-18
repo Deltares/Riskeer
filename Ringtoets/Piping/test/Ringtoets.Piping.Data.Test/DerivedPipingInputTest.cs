@@ -43,8 +43,11 @@ namespace Ringtoets.Piping.Data.Test
 
             using (new PipingSubCalculatorFactoryConfig())
             {
+                // Setup
+                var assessmentLevel = (RoundedDouble) 1.1;
+
                 // Call
-                RoundedDouble piezometricHead = DerivedPipingInput.GetPiezometricHeadExit(input);
+                RoundedDouble piezometricHead = DerivedPipingInput.GetPiezometricHeadExit(input, assessmentLevel);
 
                 // Assert
                 Assert.AreEqual(2, piezometricHead.NumberOfDecimalPlaces);
@@ -53,8 +56,7 @@ namespace Ringtoets.Piping.Data.Test
                 var factory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
                 PiezoHeadCalculatorStub piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
 
-                Assert.AreEqual(input.AssessmentLevel, piezometricHeadAtExitCalculator.HRiver,
-                                input.AssessmentLevel.GetAccuracy());
+                Assert.AreEqual(assessmentLevel, piezometricHeadAtExitCalculator.HRiver, assessmentLevel.GetAccuracy());
                 Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.PhiPolder,
                                 input.PhreaticLevelExit.GetAccuracy());
                 Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.RExit,
@@ -69,7 +71,7 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer(1.0, 1.0);
 
             // Call
-            RoundedDouble piezometricHead = DerivedPipingInput.GetPiezometricHeadExit(input);
+            RoundedDouble piezometricHead = DerivedPipingInput.GetPiezometricHeadExit(input, RoundedDouble.NaN);
 
             // Assert
             Assert.IsNaN(piezometricHead);
