@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -74,7 +75,9 @@ namespace Ringtoets.Piping.Plugin
             };
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>
             {
-                CreateInstance = context => new PipingInputContextProperties(context, new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
+                CreateInstance = context => new PipingInputContextProperties(context,
+                                                                             () => GetCalculatedAssessmentLevel(context.PipingCalculation),
+                                                                             new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<PipingOutputContext, PipingOutputContextProperties>();
             yield return new PropertyInfo<PipingSurfaceLinesContext, PipingSurfaceLineCollectionProperties>
@@ -605,6 +608,11 @@ namespace Ringtoets.Piping.Plugin
         }
 
         #endregion
+
+        private static RoundedDouble GetCalculatedAssessmentLevel(PipingCalculation calculation)
+        {
+            return calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
+        }
 
         #region PipingFailureMechanismContext TreeNodeInfo
 
