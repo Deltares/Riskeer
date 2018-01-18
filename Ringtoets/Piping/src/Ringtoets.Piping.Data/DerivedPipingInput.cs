@@ -36,8 +36,6 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class DerivedPipingInput
     {
-        private const double seepageLengthCoefficientOfVariation = 0.1;
-
         private readonly PipingInput input;
 
         /// <summary>
@@ -80,13 +78,13 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                var seepageLength = new VariationCoefficientLogNormalDistribution(2);
                 double seepageLengthMean = input.ExitPointL - input.EntryPointL;
 
-                seepageLength.Mean = (RoundedDouble) seepageLengthMean;
-                seepageLength.CoefficientOfVariation = (RoundedDouble) seepageLengthCoefficientOfVariation;
-
-                return seepageLength;
+                return new VariationCoefficientLogNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble) seepageLengthMean,
+                    CoefficientOfVariation = (RoundedDouble) 0.1
+                };
             }
         }
 

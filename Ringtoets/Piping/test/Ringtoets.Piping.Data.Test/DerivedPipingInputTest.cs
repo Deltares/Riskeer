@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void EffectiveThicknessCoverageLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsDistributionWithMeanNotNaN()
+        public void EffectiveThicknessCoverageLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsDistributionWithExpectedMean()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -203,7 +203,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessCoverageLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsDistributionWithMeanNotNaN()
+        public void ThicknessCoverageLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsDistributionWithExpectedMean()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -317,7 +317,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsDistributionWithMeanNotNaN()
+        public void ThicknessAquiferLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsDistributionWithExpectedMean()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -434,7 +434,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SoilProfileSingleAquiferUnderSurfaceLine_ReturnsDistributionWithMeanNotNaN()
+        public void ThicknessAquiferLayer_SoilProfileSingleAquiferUnderSurfaceLine_ReturnsDistributionWithExpectedMean()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquifer();
@@ -519,7 +519,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SeepageLength_ValidData_ReturnsSeepageLength()
+        public void SeepageLength_ValidData_ReturnsDistributionWithExpectedMean()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -529,12 +529,11 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution seepageLength = derivedInput.SeepageLength;
 
             // Assert
-            Assert.AreEqual(0.5, seepageLength.Mean.Value);
-            Assert.AreEqual(0.1, seepageLength.CoefficientOfVariation.Value);
+            AssertSeepageLength(seepageLength, 0.5);
         }
 
         [Test]
-        public void SeepageLength_EntryPointNaN_SeepageLengthNaN()
+        public void SeepageLength_EntryPointNaN_ReturnsDistributionWithMeanNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -546,12 +545,11 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution seepageLength = derivedInput.SeepageLength;
 
             // Assert
-            Assert.IsNaN(seepageLength.Mean);
-            Assert.AreEqual(0.1, seepageLength.CoefficientOfVariation);
+            AssertSeepageLength(seepageLength);
         }
 
         [Test]
-        public void SeepageLength_ExitPointNaN_SeepageLengthNaN()
+        public void SeepageLength_ExitPointNaN_ReturnsDistributionWithMeanNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -563,8 +561,7 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution seepageLength = derivedInput.SeepageLength;
 
             // Assert
-            Assert.IsNaN(seepageLength.Mean);
-            Assert.AreEqual(0.1, seepageLength.CoefficientOfVariation);
+            AssertSeepageLength(seepageLength);
         }
 
         [Test]
@@ -1247,6 +1244,17 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             DistributionAssert.AreEqual(expected, thicknessAquiferLayer);
+        }
+
+        private static void AssertSeepageLength(VariationCoefficientLogNormalDistribution seepageLength, double mean = double.NaN)
+        {
+            var expected = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) mean,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            DistributionAssert.AreEqual(expected, seepageLength);
         }
     }
 }
