@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
@@ -557,8 +556,8 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            var derivedInput = new DerivedPipingInput(input);
             input.StochasticSoilProfile = null;
+            var derivedInput = new DerivedPipingInput(input);
 
             // Call
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
@@ -574,8 +573,8 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            var derivedInput = new DerivedPipingInput(input);
             input.SurfaceLine = null;
+            var derivedInput = new DerivedPipingInput(input);
 
             // Call
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
@@ -591,8 +590,8 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            var derivedInput = new DerivedPipingInput(input);
             input.ExitPointL = RoundedDouble.NaN;
+            var derivedInput = new DerivedPipingInput(input);
 
             // Call
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;

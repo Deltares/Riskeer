@@ -66,25 +66,6 @@ namespace Ringtoets.Piping.Data.Test
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
-            var diameter70 = new VariationCoefficientLogNormalDistribution(6)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
-            };
-
-            var darcyPermeability = new VariationCoefficientLogNormalDistribution(6)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN
-            };
-
-            var saturatedVolumicWeightOfCoverageLayer = new LogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                StandardDeviation = RoundedDouble.NaN,
-                Shift = RoundedDouble.NaN
-            };
-
             var generalInputParameters = new GeneralPipingInput();
 
             // Call
@@ -96,8 +77,6 @@ namespace Ringtoets.Piping.Data.Test
 
             DistributionAssert.AreEqual(phreaticLevelExit, inputParameters.PhreaticLevelExit);
             DistributionAssert.AreEqual(dampingFactorExit, inputParameters.DampingFactorExit);
-            DistributionAssert.AreEqual(diameter70, inputParameters.Diameter70);
-            DistributionAssert.AreEqual(darcyPermeability, inputParameters.DarcyPermeability);
 
             Assert.IsNull(inputParameters.SurfaceLine);
             Assert.IsNull(inputParameters.StochasticSoilModel);
@@ -115,10 +94,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(generalInputParameters.WhitesDragCoefficient, inputParameters.WhitesDragCoefficient);
             Assert.AreEqual(generalInputParameters.BeddingAngle, inputParameters.BeddingAngle);
             Assert.AreEqual(generalInputParameters.MeanDiameter70, inputParameters.MeanDiameter70);
-
-            DistributionAssert.AreEqual(saturatedVolumicWeightOfCoverageLayer, inputParameters.SaturatedVolumicWeightOfCoverageLayer);
-            Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift.NumberOfDecimalPlaces);
-            Assert.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift);
 
             Assert.IsNaN(inputParameters.ExitPointL);
             Assert.AreEqual(2, inputParameters.ExitPointL.NumberOfDecimalPlaces);
