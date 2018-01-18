@@ -441,9 +441,9 @@ namespace Demo.Ringtoets.Test.Commands
 
             RoundedDouble assessmentLevel = calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output.Result;
 
-            Assert.IsTrue(PipingCalculationService.Validate(calculation, assessmentLevel));
+            Assert.IsTrue(PipingCalculationService.Validate(calculation));
 
-            PipingCalculationService.Calculate(calculation, assessmentLevel);
+            PipingCalculationService.Calculate(calculation);
             Assert.IsTrue(calculation.HasOutput);
             Assert.AreEqual(0.683, calculation.Output.HeaveFactorOfSafety, 1e-3);
             Assert.AreEqual(-0.139, calculation.Output.HeaveZValue, 1e-3);

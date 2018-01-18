@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms.Design;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -69,7 +70,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var properties = new PipingInputContextProperties(inputParametersContext, handler);
+            var properties = new PipingInputContextProperties(inputParametersContext, GetCalculatedTestAssessmentLevel, handler);
 
             var editor = new PipingInputContextSurfaceLineSelectionEditor();
             var someValue = new object();
@@ -124,7 +125,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var properties = new PipingInputContextProperties(inputParametersContext, handler);
+            var properties = new PipingInputContextProperties(inputParametersContext, GetCalculatedTestAssessmentLevel, handler);
 
             var editor = new PipingInputContextSurfaceLineSelectionEditor();
             var someValue = new object();
@@ -143,6 +144,11 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             Assert.AreSame(surfaceLine, result);
 
             mockRepository.VerifyAll();
+        }
+
+        private static RoundedDouble GetCalculatedTestAssessmentLevel()
+        {
+            return (RoundedDouble)1.1;
         }
 
         private static PipingSurfaceLine ValidSurfaceLine()
