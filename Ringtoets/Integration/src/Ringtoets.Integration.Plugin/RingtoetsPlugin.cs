@@ -365,7 +365,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<ReferenceLineContext, ReferenceLineProperties>
             {
-                CreateInstance = context => new ReferenceLineProperties(context.WrappedData.ReferenceLine)
+                CreateInstance = context => new ReferenceLineProperties(context.WrappedData)
             };
         }
 

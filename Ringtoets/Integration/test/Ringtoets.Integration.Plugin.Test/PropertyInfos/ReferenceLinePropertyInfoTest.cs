@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
             // Assert
             Assert.IsInstanceOf<ReferenceLineProperties>(objectProperties);
-            Assert.AreSame(context.WrappedData.ReferenceLine, objectProperties.Data);
+            Assert.AreSame(context.WrappedData, objectProperties.Data);
         }
     }
 }

@@ -27,6 +27,7 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -37,31 +38,35 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
     public class ReferenceLinePropertiesTest
     {
         [Test]
-        public void Constructor_ReferenceLineNull_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new ReferenceLineProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("referenceLine", paramName);
+            Assert.AreEqual("assessmentSection", paramName);
         }
 
         [Test]
-        public void Constructor_WithReferenceLine_ExpectedValues()
+        public void Constructor_WithAssessmentSection_ExpectedValues()
         {
             // Setup
-            var referenceLine = new ReferenceLine();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            mocks.ReplayAll();
 
             // Call
-            var properties = new ReferenceLineProperties(referenceLine);
+            var properties = new ReferenceLineProperties(assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ReferenceLine>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<IAssessmentSection>>(properties);
             TestHelper.AssertTypeConverter<ReferenceLineProperties, ExpandableArrayConverter>(
                 nameof(ReferenceLineProperties.Geometry));
 
-            Assert.AreSame(referenceLine, properties.Data);
+            Assert.AreSame(assessmentSection, properties.Data);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -69,6 +74,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(39);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var referenceLine = new ReferenceLine();
             var geometry = new List<Point2D>
             {
@@ -76,20 +83,27 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 new Point2D(random.NextDouble(), random.NextDouble())
             };
             referenceLine.SetGeometry(geometry);
+            assessmentSection.ReferenceLine = referenceLine;
+            mocks.ReplayAll();
 
-            var properties = new ReferenceLineProperties(referenceLine);
+            var properties = new ReferenceLineProperties(assessmentSection);
 
             // Call & Assert
             Assert.AreEqual(2, properties.Length.NumberOfDecimalPlaces);
             Assert.AreEqual(referenceLine.Length, properties.Length, properties.Length.GetAccuracy());
             CollectionAssert.AreEqual(geometry, properties.Geometry);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ValidData_PropertiesHaveExpectedAttributeValues()
         {
             // Call
-            var properties = new ReferenceLineProperties(new ReferenceLine());
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var properties = new ReferenceLineProperties(assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -109,8 +123,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(geometryProperty,
                                                                             generalCategoryName,
                                                                             "Coördinaten",
-                                                                            "Lijst van alle coördinaten (X-coördinaat, Y-coördinaat) die samen de referentielijn vormen.",
+                                                                            "Lijst van alle coördinaten (X-coördinaat, Y-coördinaat) " +
+                                                                            "die samen de referentielijn vormen.",
                                                                             true);
+            mocks.VerifyAll();
         }
     }
 }

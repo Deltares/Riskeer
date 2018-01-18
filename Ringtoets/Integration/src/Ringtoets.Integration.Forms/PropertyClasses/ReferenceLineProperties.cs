@@ -35,9 +35,10 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="ReferenceLine"/> for properties panel.
+    /// ViewModel of a <see cref="ReferenceLine"/> in the <see cref="IAssessmentSection"/>
+    /// for properties panel.
     /// </summary>
-    public class ReferenceLineProperties : ObjectProperties<ReferenceLine>
+    public class ReferenceLineProperties : ObjectProperties<IAssessmentSection>
     {
         private const int lengthPropertyIndex = 1;
         private const int geometryPropertyIndex = 2;
@@ -45,16 +46,16 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="ReferenceLineProperties"/>.
         /// </summary>
-        /// <param name="referenceLine">The <see cref="ReferenceLine"/> to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/> is <c>null</c>.</exception>
-        public ReferenceLineProperties(ReferenceLine referenceLine)
+        /// <param name="assessmentSection">The assessment section to show the reference line properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public ReferenceLineProperties(IAssessmentSection assessmentSection)
         {
-            if (referenceLine == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(referenceLine));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Data = referenceLine;
+            Data = assessmentSection;
         }
 
         [PropertyOrder(lengthPropertyIndex)]
@@ -65,7 +66,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, data.Length);
+                return new RoundedDouble(2, data.ReferenceLine.Length);
             }
         }
 
@@ -78,7 +79,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Points.ToArray();
+                return data.ReferenceLine.Points.ToArray();
             }
         }
     }
