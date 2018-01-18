@@ -33,19 +33,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
     public class AssemblyCategoriesCalculatorStub : IAssemblyCategoriesCalculator
     {
         /// <summary>
-        /// Gets or sets the assembly categories calculator input.
+        /// Gets the assembly categories calculator input.
         /// </summary>
         public AssemblyCategoriesCalculatorInput Input { get; private set; }
 
         /// <summary>
-        /// Gets the output of the <see cref="CalculateAssessmentSectionCategories"/> calculation.
+        /// Gets or sets the output of the <see cref="CalculateAssessmentSectionCategories"/> calculation.
         /// </summary>
         public IEnumerable<AssessmentSectionAssemblyCategoryResult> AssessmentSectionCategoriesOutput { get; set; }
 
         /// <summary>
         /// Indicator whether an exception must be thrown when performing the calculation.
         /// </summary>
-        public bool ThrowExceptionOnCalculate { get; set; }
+        public bool ThrowExceptionOnCalculate { private get; set; }
 
         public IEnumerable<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
             AssemblyCategoriesCalculatorInput input)

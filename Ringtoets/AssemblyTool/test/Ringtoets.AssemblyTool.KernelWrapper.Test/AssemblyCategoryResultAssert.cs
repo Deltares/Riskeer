@@ -43,7 +43,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
         public static void AssertAssessmentSectionAssemblyCategoriesResult(CalculationOutput<AssessmentSectionCategoriesOutput[]> original,
-                                                                                   IEnumerable<AssessmentSectionAssemblyCategoryResult> actual)
+                                                                           IEnumerable<AssessmentSectionAssemblyCategoryResult> actual)
         {
             Assert.AreEqual(original.Result.Length, actual.Count());
 

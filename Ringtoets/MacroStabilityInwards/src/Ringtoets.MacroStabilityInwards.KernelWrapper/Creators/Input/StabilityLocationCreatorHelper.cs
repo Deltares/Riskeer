@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="dikeSoilScenario"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="dikeSoilScenario"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         public static DikeSoilScenario ConvertDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario dikeSoilScenario)
         {
             if (!Enum.IsDefined(typeof(MacroStabilityInwardsDikeSoilScenario), dikeSoilScenario))
@@ -77,7 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="waternetCreationMode"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="waternetCreationMode"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         public static WtiStabilityWaternetCreationMode ConvertWaternetCreationMode(WaternetCreationMode waternetCreationMode)
         {
             if (!Enum.IsDefined(typeof(WaternetCreationMode), waternetCreationMode))
@@ -106,7 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="plLineCreationMethod"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="plLineCreationMethod"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         public static WtiStabilityPlLineCreationMethod ConvertPlLineCreationMethod(PlLineCreationMethod plLineCreationMethod)
         {
             if (!Enum.IsDefined(typeof(PlLineCreationMethod), plLineCreationMethod))

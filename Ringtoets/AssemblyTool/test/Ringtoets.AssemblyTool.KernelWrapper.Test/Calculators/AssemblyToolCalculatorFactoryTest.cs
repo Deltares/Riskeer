@@ -70,7 +70,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateAssemblyCategoriesCalculator_WithCalculatorInput_ReturnsAssemblyCategoriesCalculator()
+        public void CreateAssemblyCategoriesCalculator_WithKernelWrapperFactory_ReturnsAssemblyCategoriesCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;

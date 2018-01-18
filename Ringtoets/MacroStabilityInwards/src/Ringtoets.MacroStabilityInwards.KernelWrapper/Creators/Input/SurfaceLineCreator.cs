@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="landwardDirection"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="landwardDirection"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         public static SurfaceLine2 Create(MacroStabilityInwardsSurfaceLine surfaceLine, LandwardDirection landwardDirection)
         {
             if (surfaceLine == null)
@@ -87,7 +87,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="landwardDirection"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="landwardDirection"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         private static WtiStabilityLandwardDirection ConvertLandwardDirection(LandwardDirection landwardDirection)
         {
             if (!Enum.IsDefined(typeof(LandwardDirection), landwardDirection))

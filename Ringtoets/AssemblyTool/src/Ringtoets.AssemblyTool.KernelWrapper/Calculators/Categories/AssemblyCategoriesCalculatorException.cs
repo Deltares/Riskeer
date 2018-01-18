@@ -64,7 +64,5 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
         protected AssemblyCategoriesCalculatorException(SerializationInfo info, StreamingContext context) : base(info, context) {}
-
-        
     }
 }

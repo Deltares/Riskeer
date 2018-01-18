@@ -33,14 +33,18 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var random = new Random(11);
+            var random = new Random(39);
             var categoryType = random.NextEnumValue<AssessmentSectionAssemblyCategoryType>();
+            double lowerBoundary = random.NextDouble();
+            double upperBoundary = random.NextDouble();
 
             // Call
-            var category = new AssessmentSectionAssemblyCategory(0, 0, categoryType);
+            var category = new AssessmentSectionAssemblyCategory(lowerBoundary, upperBoundary, categoryType);
 
             // Assert
             Assert.IsInstanceOf<AssemblyCategory>(category);
+            Assert.AreEqual(lowerBoundary, category.LowerBoundary);
+            Assert.AreEqual(upperBoundary, category.UpperBoundary);
             Assert.AreEqual(categoryType, category.Type);
         }
     }

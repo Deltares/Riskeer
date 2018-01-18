@@ -135,6 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
         [Test]
         public void Calculate_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
+            // Setup
             WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
 
             using (new MacroStabilityInwardsKernelFactoryConfig())

@@ -41,7 +41,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
         }
 
         [Test]
-        public void Constructor_SetsTestFactoryForMacroStabilityInwardsCalculatorFactory()
+        public void Constructor_SetsTestFactoryForAssemblyToolCalculatorFactory()
         {
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())

@@ -35,20 +35,26 @@ namespace Ringtoets.Common.Service.AssemblyTool
     public static class AssemblyCategoryConverter
     {
         /// <summary>
-        /// Converts a list of <see cref="AssemblyCategoryResult"/> into a list of <see cref="AssemblyCategory"/>.
+        /// Converts an <see cref="IEnumerable{T}" /> of <see cref="AssemblyCategoryResult"/> into an
+        /// <see cref="IEnumerable{T}"/> of <see cref="AssemblyCategory"/>.
         /// </summary>
         /// <param name="result">The result to convert.</param>
         /// <returns>The converted categories.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCategoryConversionException">Thrown when
-        /// <see cref="AssessmentSectionAssemblyCategoryResultType"/> is an invalid value 
-        /// or a valid value but unsupported.</exception>
-        public static IEnumerable<AssessmentSectionAssemblyCategory> ConvertAssessmentSectionAssemblyCategories(
+        /// <exception cref="ArgumentException">Thrown when any element in <paramref name="result"/> is <c>null</c>.</exception>
+        /// <exception cref="AssemblyCategoryConversionException">Thrown when <paramref name="result"/>
+        /// cannot be successfully converted into an <see cref="AssessmentSectionAssemblyCategory"/>.</exception>
+        public static IEnumerable<AssessmentSectionAssemblyCategory> ConvertToAssessmentSectionAssemblyCategories(
             IEnumerable<AssessmentSectionAssemblyCategoryResult> result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
+            }
+
+            if (result.Contains(null))
+            {
+                throw new ArgumentException(@"Result cannot contain null.", nameof(result));
             }
 
             return result.Select(ConvertAssessmentSectionAssemblyCategory).ToArray();
@@ -59,9 +65,8 @@ namespace Ringtoets.Common.Service.AssemblyTool
         /// </summary>
         /// <param name="result">The result to convert.</param>
         /// <returns>The converted category.</returns>
-        /// <exception cref="AssemblyCategoryConversionException">Thrown when
-        /// <see cref="AssessmentSectionAssemblyCategoryResultType"/> is an invalid value 
-        /// or a valid value but unsupported.</exception>
+        /// <exception cref="AssemblyCategoryConversionException">Thrown when <paramref name="result"/>
+        /// cannot be successfully converted into an <see cref="AssessmentSectionAssemblyCategory"/>.</exception>
         private static AssessmentSectionAssemblyCategory ConvertAssessmentSectionAssemblyCategory(AssessmentSectionAssemblyCategoryResult result)
         {
             try
@@ -84,7 +89,7 @@ namespace Ringtoets.Common.Service.AssemblyTool
         /// /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="AssessmentSectionAssemblyCategoryResultType"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="AssessmentSectionAssemblyCategoryResultType"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         private static AssessmentSectionAssemblyCategoryType ConvertAssessmentSectionAssemblyCategoryType(
             AssessmentSectionAssemblyCategoryResultType categoryType)
         {

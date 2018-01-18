@@ -42,7 +42,7 @@ namespace Core.Components.GraphSharp.Converters
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="GraphNodeStyle.Shape"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="GraphNodeStyle.Shape"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         public static PointedTreeElementVertex Convert(GraphNode graphNode)
         {
             if (graphNode == null)
@@ -77,7 +77,7 @@ namespace Core.Components.GraphSharp.Converters
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shape"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="shape"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         private static PointedTreeVertexType ConvertType(GraphNodeShape shape)
         {
             if (!Enum.IsDefined(typeof(GraphNodeShape), shape))

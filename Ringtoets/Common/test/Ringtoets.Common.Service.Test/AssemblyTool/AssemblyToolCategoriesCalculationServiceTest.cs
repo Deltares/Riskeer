@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
-                //Call
+                // Call
                 AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input);
 
                 // Assert
@@ -78,6 +78,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
         [Test]
         public void CalculateAssessmentSectionAssemblyCategories_CalculationRan_ReturnsOutput()
         {
+            // Setup
             var random = new Random(11);
             double signalingNorm = random.NextDouble();
             double lowerBoundaryNorm = random.NextDouble();
@@ -88,7 +89,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
-                //Call
+                // Call
                 AssessmentSectionAssemblyCategory[] output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input).ToArray();
 
                 // Assert
@@ -104,6 +105,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
         [Test]
         public void CalculateAssessmentSectionAssemblyCategories_CalculatorThrowsException_LogErrorAndReturnEmptyOutput()
         {
+            // Setup
             var input = new AssemblyCategoryInput(0, 0);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -112,7 +114,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                //Call
+                // Call
                 IEnumerable<AssessmentSectionAssemblyCategory> output = null;
                 Action test = () => output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input);
 
@@ -134,6 +136,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
         [Test]
         public void CalculateAssessmentSectionAssemblyCategories_ErrorInConversion_LogErrorAndReturnEmptyOutput()
         {
+            // Setup
             var input = new AssemblyCategoryInput(0, 0);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -145,7 +148,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
                     new AssessmentSectionAssemblyCategoryResult(0, 1, (AssessmentSectionAssemblyCategoryResultType) 99)
                 };
 
-                //Call
+                // Call
                 IEnumerable<AssessmentSectionAssemblyCategory> output = null;
                 Action test = () => output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input);
 

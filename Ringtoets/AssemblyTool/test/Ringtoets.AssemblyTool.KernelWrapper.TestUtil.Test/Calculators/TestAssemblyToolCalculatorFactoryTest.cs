@@ -22,7 +22,6 @@
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
@@ -45,7 +44,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
         }
 
         [Test]
-        public void CreateAssemblyCategoriesCalculator_Always_ReturnStubWithInputSet()
+        public void CreateAssemblyCategoriesCalculator_Always_ReturnStub()
         {
             // Setup
             var factory = new TestAssemblyToolCalculatorFactory();
@@ -53,11 +52,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
             using (new AssemblyToolKernelFactoryConfig())
             {
                 // Call
-                IAssemblyCategoriesCalculator calculator = factory.CreateAssemblyCategoriesCalculator(
-                    AssemblyToolKernelWrapperFactory.Instance);
+                IAssemblyCategoriesCalculator calculator = factory.CreateAssemblyCategoriesCalculator(null);
 
                 // Assert
                 Assert.IsInstanceOf<AssemblyCategoriesCalculatorStub>(calculator);
+                Assert.AreSame(factory.LastCreatedAssemblyCategoriesCalculator, calculator);
             }
         }
     }

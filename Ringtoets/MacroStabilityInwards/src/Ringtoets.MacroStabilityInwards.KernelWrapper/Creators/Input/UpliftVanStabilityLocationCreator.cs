@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         public static StabilityLocation CreateExtreme(UpliftVanCalculatorInput input)
         {
             if (input == null)
@@ -76,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         public static StabilityLocation CreateDaily(UpliftVanCalculatorInput input)
         {
             if (input == null)

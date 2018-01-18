@@ -25,7 +25,7 @@ using System.Runtime.Serialization;
 namespace Ringtoets.Common.Data.Exceptions
 {
     /// <summary>
-    /// The exception that is thrown when converting assembly categories from the Assembly tool data was unsuccessful.
+    /// The exception that is thrown when converting assembly categories from the assembly tool data was unsuccessful.
     /// </summary>
     [Serializable]
     public class AssemblyCategoryConversionException : Exception
@@ -64,7 +64,5 @@ namespace Ringtoets.Common.Data.Exceptions
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
         protected AssemblyCategoryConversionException(SerializationInfo info, StreamingContext context) : base(info, context) {}
-
-        
     }
 }

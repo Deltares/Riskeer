@@ -43,7 +43,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void Calculate_Always_InputCorrectlySetToKernel()
+        public void Calculate_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernel()
         {
             // Setup
             var random = new Random(11);
@@ -110,7 +110,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             Assert.IsNotNull(exception.InnerException);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.AssessmentSectionCategoriesOutput);
-            Assert.IsTrue(kernel.ThrowExceptionOnCalculate);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ShearStrengthModel"/>,
         /// <see cref="DilatancyType"/> or <see cref="WaterPressureInterpolationModel"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="ShearStrengthModel"/>,
-        /// <see cref="DilatancyType"/> or <see cref="WaterPressureInterpolationModel"/> is a valid value but unsupported.</exception>
+        /// <see cref="DilatancyType"/> or <see cref="WaterPressureInterpolationModel"/> is a valid value, but unsupported.</exception>
         public static LayerWithSoil[] Create(SoilProfile soilProfile)
         {
             if (soilProfile == null)
@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ShearStrengthModel"/>,
         /// <see cref="DilatancyType"/> or <see cref="WaterPressureInterpolationModel"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="ShearStrengthModel"/>,
-        /// <see cref="DilatancyType"/> or <see cref="WaterPressureInterpolationModel"/> is a valid value but unsupported.</exception>
+        /// <see cref="DilatancyType"/> or <see cref="WaterPressureInterpolationModel"/> is a valid value, but unsupported.</exception>
         private static IEnumerable<LayerWithSoil> GetLayersWithSoilRecursively(IEnumerable<SoilLayer> soilLayers)
         {
             var layersWithSoil = new List<LayerWithSoil>();
@@ -122,7 +122,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         private static WtiStabilityShearStrengthModel ConvertShearStrengthModel(ShearStrengthModel shearStrengthModel)
         {
             if (!Enum.IsDefined(typeof(ShearStrengthModel), shearStrengthModel))
@@ -153,7 +153,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="dilatancyType"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="dilatancyType"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         private static WtiStabilityDilatancyType ConvertDilatancyType(DilatancyType dilatancyType)
         {
             if (!Enum.IsDefined(typeof(DilatancyType), dilatancyType))
@@ -184,7 +184,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="waterPressureInterpolationModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="waterPressureInterpolationModel"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         private static WaterpressureInterpolationModel ConvertWaterPressureInterpolationModel(WaterPressureInterpolationModel waterPressureInterpolationModel)
         {
             if (!Enum.IsDefined(typeof(WaterPressureInterpolationModel), waterPressureInterpolationModel))

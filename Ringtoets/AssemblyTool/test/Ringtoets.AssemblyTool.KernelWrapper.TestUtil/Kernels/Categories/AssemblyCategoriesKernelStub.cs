@@ -49,10 +49,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         /// <summary>
         /// Indicator whether an exception must be thrown when performing the calculation.
         /// </summary>
-        public bool ThrowExceptionOnCalculate { get; set; }
+        public bool ThrowExceptionOnCalculate { private get; set; }
 
         /// <summary>
-        /// Gets the assessment section categories output.
+        /// Gets or sets the assessment section categories output.
         /// </summary>
         public CalculationOutput<AssessmentSectionCategoriesOutput[]> AssessmentSectionCategoriesOutput { get; set; }
 

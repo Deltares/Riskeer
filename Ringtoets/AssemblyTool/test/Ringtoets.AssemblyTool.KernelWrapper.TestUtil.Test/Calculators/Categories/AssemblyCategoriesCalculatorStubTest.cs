@@ -57,11 +57,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             Assert.AreEqual(3, result.Length);
             CollectionAssert.AreEqual(new[]
             {
-                1, 2.01, 3.01
+                1,
+                2.01,
+                3.01
             }, result.Select(r => r.LowerBoundary));
             CollectionAssert.AreEqual(new[]
             {
-                2, 3, 4
+                2,
+                3,
+                4
             }, result.Select(r => r.UpperBoundary));
             CollectionAssert.AreEqual(new[]
             {
@@ -103,7 +107,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateTrue_ThrowAssemblyCategoreis()
+        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateTrue_ThrowsAssemblyCategoriesCalculatorException()
         {
             // Setup
             var calculator = new AssemblyCategoriesCalculatorStub

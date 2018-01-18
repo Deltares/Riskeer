@@ -36,10 +36,10 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
     public class AssemblyCategoryConverterTest
     {
         [Test]
-        public void ConvertAssessmentSectionAssemblyCategories_ResultNull_ThrowsArgumentNullException()
+        public void ConvertToAssessmentSectionAssemblyCategories_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AssemblyCategoryConverter.ConvertAssessmentSectionAssemblyCategories(null);
+            TestDelegate call = () => AssemblyCategoryConverter.ConvertToAssessmentSectionAssemblyCategories(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -47,7 +47,22 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
         }
 
         [Test]
-        public void ConvertAssessmentSectionAssemblyCategories_WithResult_ReturnAssessmentSectionAssemblyCategories()
+        public void ConvertToAssessmentSectionAssemblyCategories_ResultWithNullElement_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => AssemblyCategoryConverter.ConvertToAssessmentSectionAssemblyCategories(new AssessmentSectionAssemblyCategoryResult[]
+            {
+                null
+            });
+
+            // Assert
+            const string message = "Result cannot contain null.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+            Assert.AreEqual("result", exception.ParamName);
+        }
+
+        [Test]
+        public void ConvertToAssessmentSectionAssemblyCategories_WithResult_ReturnAssessmentSectionAssemblyCategories()
         {
             // Setup
             var random = new Random(11);
@@ -59,7 +74,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
             };
 
             // Call
-            IEnumerable<AssessmentSectionAssemblyCategory> categories = AssemblyCategoryConverter.ConvertAssessmentSectionAssemblyCategories(result);
+            IEnumerable<AssessmentSectionAssemblyCategory> categories = AssemblyCategoryConverter.ConvertToAssessmentSectionAssemblyCategories(result);
 
             // Assert
             Assert.AreEqual(result.Length, categories.Count());
@@ -68,7 +83,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
         }
 
         [Test]
-        public void ConvertAssessmentSectionAssemblyCategories_CategoryWithInvalidType_ThrowsInvalidEnumArgumentException()
+        public void ConvertToAssessmentSectionAssemblyCategories_CategoryWithInvalidType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             var result = new[]
@@ -77,7 +92,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
             };
 
             // Call
-            TestDelegate test = () => AssemblyCategoryConverter.ConvertAssessmentSectionAssemblyCategories(result);
+            TestDelegate test = () => AssemblyCategoryConverter.ConvertToAssessmentSectionAssemblyCategories(result);
 
             // Assert
             const string expectedMessage = "The value of argument 'categoryType' (99) is invalid for Enum type 'AssessmentSectionAssemblyCategoryResultType'.\r\nParameter name: categoryType";
@@ -92,7 +107,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
         [TestCase(AssessmentSectionAssemblyCategoryResultType.B, AssessmentSectionAssemblyCategoryType.B)]
         [TestCase(AssessmentSectionAssemblyCategoryResultType.C, AssessmentSectionAssemblyCategoryType.C)]
         [TestCase(AssessmentSectionAssemblyCategoryResultType.D, AssessmentSectionAssemblyCategoryType.D)]
-        public void ConvertAssessmentSectionAssemblyCategories_CategoryWithValidType_ExpectedAssessmentSectionAssemblyCategoryType(
+        public void ConvertToAssessmentSectionAssemblyCategories_CategoryWithValidType_ExpectedAssessmentSectionAssemblyCategoryType(
             AssessmentSectionAssemblyCategoryResultType resultType,
             AssessmentSectionAssemblyCategoryType expectedType)
         {
@@ -103,7 +118,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
             };
 
             // Call
-            IEnumerable<AssessmentSectionAssemblyCategory> categories = AssemblyCategoryConverter.ConvertAssessmentSectionAssemblyCategories(result);
+            IEnumerable<AssessmentSectionAssemblyCategory> categories = AssemblyCategoryConverter.ConvertToAssessmentSectionAssemblyCategories(result);
 
             // Assert
             Assert.AreEqual(1, categories.Count());

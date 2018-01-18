@@ -64,7 +64,5 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
         protected AssemblyCategoriesKernelWrapperException(SerializationInfo info, StreamingContext context) : base(info, context) {}
-
-        
     }
 }

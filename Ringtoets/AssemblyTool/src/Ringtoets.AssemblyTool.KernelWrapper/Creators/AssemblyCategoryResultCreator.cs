@@ -46,7 +46,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="AssessmentSectionAssemblyCategory"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="AssessmentSectionAssemblyCategory"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         public static IEnumerable<AssessmentSectionAssemblyCategoryResult> CreateAssessmentSectionAssemblyCategoryResult(
             CalculationOutput<AssessmentSectionCategoriesOutput[]> output)
         {
@@ -56,8 +56,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             }
 
             return output.Result.Select(
-                categoriesOutput => new AssessmentSectionAssemblyCategoryResult(categoriesOutput.LowerBoundary,
-                                                                                categoriesOutput.UpperBoundary, ConvertAssessmentSectionCategoryType(categoriesOutput.Category))).ToArray();
+                             categoriesOutput => new AssessmentSectionAssemblyCategoryResult(categoriesOutput.LowerBoundary,
+                                                                                             categoriesOutput.UpperBoundary,
+                                                                                             ConvertAssessmentSectionCategoryType(categoriesOutput.Category))).ToArray();
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         private static AssessmentSectionAssemblyCategoryResultType ConvertAssessmentSectionCategoryType(AssessmentSectionAssemblyCategory category)
         {
             if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyCategory), category))

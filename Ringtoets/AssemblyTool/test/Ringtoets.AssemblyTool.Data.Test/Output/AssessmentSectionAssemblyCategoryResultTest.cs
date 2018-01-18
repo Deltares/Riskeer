@@ -35,12 +35,16 @@ namespace Ringtoets.AssemblyTool.Data.Test.Output
             // Setup
             var random = new Random(11);
             var category = random.NextEnumValue<AssessmentSectionAssemblyCategoryResultType>();
+            double lowerBoundary = random.NextDouble();
+            double upperBoundary = random.NextDouble();
 
             // Call
-            var categoryResult = new AssessmentSectionAssemblyCategoryResult(0, 0, category);
+            var categoryResult = new AssessmentSectionAssemblyCategoryResult(lowerBoundary, upperBoundary, category);
 
             // Assert
             Assert.IsInstanceOf<AssemblyCategoryResult>(categoryResult);
+            Assert.AreEqual(lowerBoundary, categoryResult.LowerBoundary);
+            Assert.AreEqual(upperBoundary, categoryResult.UpperBoundary);
             Assert.AreEqual(category, categoryResult.Category);
         }
     }

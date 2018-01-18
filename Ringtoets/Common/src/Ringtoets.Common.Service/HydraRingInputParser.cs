@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Service
         /// <returns>A <see cref="HydraRingBreakWater"/> object, <c>null</c> if <see cref="IUseBreakWater.UseBreakWater"/>
         /// is <c>false</c></returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when the break water type is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when the break water type is a valid value but unsupported.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the break water type is a valid value, but unsupported.</exception>
         public static HydraRingBreakWater ParseBreakWater(IUseBreakWater input)
         {
             return input.UseBreakWater ? new HydraRingBreakWater(ConvertBreakWaterType(input.BreakWater.Type), input.BreakWater.Height) : null;
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Service
         /// <param name="type">The <see cref="BreakWaterType"/> to convert.</param>
         /// <returns>The integer value to be used by Hydra-Ring.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="type"/> is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="type"/> is a valid value but unsupported.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="type"/> is a valid value but, unsupported.</exception>
         private static int ConvertBreakWaterType(BreakWaterType type)
         {
             if (!Enum.IsDefined(type.GetType(), type))

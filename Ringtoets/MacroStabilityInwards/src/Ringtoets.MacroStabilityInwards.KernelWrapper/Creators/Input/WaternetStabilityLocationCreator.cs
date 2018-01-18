@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="WaternetCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="WaternetCalculatorInput.WaternetCreationMode"/> or <see cref="WaternetCalculatorInput.PlLineCreationMethod"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         public static StabilityLocation Create(WaternetCalculatorInput input)
         {
             if (input == null)

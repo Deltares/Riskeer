@@ -49,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when 
         /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         public static SoilProfile Convert(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
         {
             if (soilProfile == null)
@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when 
         /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         private static IEnumerable<SoilLayer> ConvertLayers(IEnumerable<MacroStabilityInwardsSoilLayer2D> layers)
         {
             return layers.Select(l =>
@@ -123,7 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
-        /// is a valid value but unsupported.</exception>
+        /// is a valid value, but unsupported.</exception>
         private static ShearStrengthModel ConvertShearStrengthModel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
         {
             if (!Enum.IsDefined(typeof(MacroStabilityInwardsShearStrengthModel), shearStrengthModel))

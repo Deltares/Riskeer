@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Service.AssemblyTool
                 IEnumerable<AssessmentSectionAssemblyCategoryResult> categories = calculator.CalculateAssessmentSectionCategories(
                     AssemblyCategoryInputConverter.Convert(input));
 
-                return AssemblyCategoryConverter.ConvertAssessmentSectionAssemblyCategories(categories);
+                return AssemblyCategoryConverter.ConvertToAssessmentSectionAssemblyCategories(categories);
             }
             catch (Exception e) when (e is AssemblyCategoriesCalculatorException || e is AssemblyCategoryConversionException)
             {
