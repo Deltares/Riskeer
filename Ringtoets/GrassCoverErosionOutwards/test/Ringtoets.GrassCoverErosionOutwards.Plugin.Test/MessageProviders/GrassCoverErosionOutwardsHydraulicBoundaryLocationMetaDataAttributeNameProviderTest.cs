@@ -26,16 +26,16 @@ using Ringtoets.GrassCoverErosionOutwards.Plugin.MessageProviders;
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.MessageProviders
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporterMetaDataAttributeNameProviderTest
+    public class GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProviderTest
     {
         [Test]
         public void Constructor_Always_ReturnsExpectedValues()
         {
             // Call
-            var provider = new GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporterMetaDataAttributeNameProvider();
+            var provider = new GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider();
 
             // Assert
-            Assert.IsInstanceOf<IHydraulicBoundaryLocationsExporterMetaDataAttributeNameProvider>(provider);
+            Assert.IsInstanceOf<IHydraulicBoundaryLocationMetaDataAttributeNameProvider>(provider);
 
             Assert.AreEqual("h(A+_A)", provider.DesignWaterLevelCalculation1Name);
             Assert.AreEqual("h(A_B)", provider.DesignWaterLevelCalculation2Name);

@@ -24,7 +24,7 @@ namespace Ringtoets.Common.IO.Hydraulics
     /// <summary>
     /// Interface for providing meta data attribute names during exports of hydraulic boundary locations.
     /// </summary>
-    public interface IHydraulicBoundaryLocationsExporterMetaDataAttributeNameProvider
+    public interface IHydraulicBoundaryLocationMetaDataAttributeNameProvider
     {
         /// <summary>
         /// Gets the meta data attribute name of the first design water level calculation.

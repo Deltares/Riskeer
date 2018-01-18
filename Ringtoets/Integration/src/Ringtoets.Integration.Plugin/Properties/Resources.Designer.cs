@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -140,15 +140,6 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(norm).
-        /// </summary>
-        public static string DesignWaterLevel_Description {
-            get {
-                return ResourceManager.GetString("DesignWaterLevel_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische randvoorwaarden en toetssporen verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
@@ -239,15 +230,6 @@ namespace Ringtoets.Integration.Plugin.Properties {
         public static string RingtoetsRibbon_GroupBox_New {
             get {
                 return ResourceManager.GetString("RingtoetsRibbon_GroupBox_New", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hs(norm).
-        /// </summary>
-        public static string WaveHeight_Description {
-            get {
-                return ResourceManager.GetString("WaveHeight_Description", resourceCulture);
             }
         }
     }

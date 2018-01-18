@@ -26,16 +26,16 @@ using Ringtoets.Integration.Plugin.MessageProviders;
 namespace Ringtoets.Integration.Plugin.Test.MessageProviders
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationsExporterMetaDataAttributeNameProviderTest
+    public class HydraulicBoundaryLocationMetaDataAttributeNameProviderTest
     {
         [Test]
         public void Constructor_Always_ReturnsExpectedValues()
         {
             // Call
-            var provider = new HydraulicBoundaryLocationsExporterMetaDataAttributeNameProvider();
+            var provider = new HydraulicBoundaryLocationMetaDataAttributeNameProvider();
 
             // Assert
-            Assert.IsInstanceOf<IHydraulicBoundaryLocationsExporterMetaDataAttributeNameProvider>(provider);
+            Assert.IsInstanceOf<IHydraulicBoundaryLocationMetaDataAttributeNameProvider>(provider);
 
             Assert.AreEqual("h(A+_A)", provider.DesignWaterLevelCalculation1Name);
             Assert.AreEqual("h(A_B)", provider.DesignWaterLevelCalculation2Name);

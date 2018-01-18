@@ -26,6 +26,7 @@ using System.Security.AccessControl;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Hydraulics;
@@ -39,43 +40,58 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var provider = mocks.Stub<IHydraulicBoundaryLocationMetaDataAttributeNameProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
             // Call
-            var hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(Enumerable.Empty<HydraulicBoundaryLocation>(), filePath, "Toetspeil", "Golfhoogte");
+            var hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(Enumerable.Empty<HydraulicBoundaryLocation>(), filePath, provider);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(hydraulicBoundaryLocationsExporter);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var provider = mocks.Stub<IHydraulicBoundaryLocationMetaDataAttributeNameProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationsExporter(null, filePath, "Toetspeil", "Golfhoogte");
+            TestDelegate call = () => new HydraulicBoundaryLocationsExporter(null, filePath, provider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FilePathNull_ThrowArgumentException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var provider = mocks.Stub<IHydraulicBoundaryLocationMetaDataAttributeNameProvider>();
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
 
             // Call
             TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[]
             {
                 hydraulicBoundaryLocation
-            }, null, "Toetspeil", "Golfhoogte");
+            }, null, provider);
 
             // Assert
             Assert.Throws<ArgumentException>(call);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -89,79 +105,29 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[]
             {
                 hydraulicBoundaryLocation
-            }, filePath, null, "Golfhoogte");
+            }, filePath, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("designWaterLevelName", exception.ParamName);
+            Assert.AreEqual("metaDataAttributeNameProvider", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_WaveHeightNameNull_ThrowArgumentNullException()
+        public void Export_ValidData_ReturnsTrueAndWritesCorrectData()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
+            var mocks = new MockRepository();
+            var provider = mocks.Stub<IHydraulicBoundaryLocationMetaDataAttributeNameProvider>();
+            provider.Stub(p => p.DesignWaterLevelCalculation1Name).Return("h(A+_A)");
+            provider.Stub(p => p.DesignWaterLevelCalculation2Name).Return("h(A_B)");
+            provider.Stub(p => p.DesignWaterLevelCalculation3Name).Return("h(B_C)");
+            provider.Stub(p => p.DesignWaterLevelCalculation4Name).Return("h(C_D)");
+            provider.Stub(p => p.WaveHeightCalculation1Name).Return("Hs(A+_A)");
+            provider.Stub(p => p.WaveHeightCalculation2Name).Return("Hs(A_B)");
+            provider.Stub(p => p.WaveHeightCalculation3Name).Return("Hs(B_C)");
+            provider.Stub(p => p.WaveHeightCalculation4Name).Return("Hs(C_D)");
+            mocks.ReplayAll();
 
-            string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
-
-            // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[]
-            {
-                hydraulicBoundaryLocation
-            }, filePath, "Toetspeil", null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("waveHeightName", exception.ParamName);
-        }
-
-        [Test]
-        public void Export_ValidData_ReturnTrueAndWritesFile()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
-            {
-                DesignWaterLevelCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(111.111)
-                },
-                WaveHeightCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(222.222)
-                }
-            };
-
-            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.shp");
-            const string baseName = "test";
-
-            var exporter = new HydraulicBoundaryLocationsExporter(new[]
-            {
-                hydraulicBoundaryLocation
-            }, filePath, "Toetspeil", "Golfhoogte");
-
-            bool isExported;
-            try
-            {
-                // Call
-                isExported = exporter.Export();
-
-                // Assert
-                AssertEssentialShapefileExists(directoryPath, baseName, true);
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
-            }
-
-            Assert.IsTrue(isExported);
-        }
-
-        [Test]
-        public void Export_ValidData_WritesCorrectData()
-        {
-            // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
             SetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation);
 
@@ -173,15 +139,16 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             var exporter = new HydraulicBoundaryLocationsExporter(new[]
             {
                 hydraulicBoundaryLocation
-            }, filePath, "Toetspeil", "Golfhoogte");
+            }, filePath, provider);
 
             // Precondition
             AssertEssentialShapefileExists(directoryPath, baseName, false);
 
+            bool isExported;
             try
             {
                 // Call
-                exporter.Export();
+                isExported = exporter.Export();
 
                 // Assert
                 AssertEssentialShapefileExists(directoryPath, baseName, true);
@@ -191,12 +158,27 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             {
                 Directory.Delete(directoryPath, true);
             }
+
+            Assert.IsTrue(isExported);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
         {
             // Setup
+            var mocks = new MockRepository();
+            var provider = mocks.Stub<IHydraulicBoundaryLocationMetaDataAttributeNameProvider>();
+            provider.Stub(p => p.DesignWaterLevelCalculation1Name).Return("h(A+_A)");
+            provider.Stub(p => p.DesignWaterLevelCalculation2Name).Return("h(A_B)");
+            provider.Stub(p => p.DesignWaterLevelCalculation3Name).Return("h(B_C)");
+            provider.Stub(p => p.DesignWaterLevelCalculation4Name).Return("h(C_D)");
+            provider.Stub(p => p.WaveHeightCalculation1Name).Return("Hs(A+_A)");
+            provider.Stub(p => p.WaveHeightCalculation2Name).Return("Hs(A_B)");
+            provider.Stub(p => p.WaveHeightCalculation3Name).Return("Hs(B_C)");
+            provider.Stub(p => p.WaveHeightCalculation4Name).Return("Hs(C_D)");
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
 
             string directoryPath = TestHelper.GetScratchPadPath("Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
@@ -206,7 +188,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             var exporter = new HydraulicBoundaryLocationsExporter(new[]
             {
                 hydraulicBoundaryLocation
-            }, filePath, "Toetspeil", "Golfhoogte");
+            }, filePath, provider);
 
             try
             {
@@ -227,6 +209,8 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             {
                 Directory.Delete(directoryPath, true);
             }
+
+            mocks.VerifyAll();
         }
 
         private static void SetHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation location)

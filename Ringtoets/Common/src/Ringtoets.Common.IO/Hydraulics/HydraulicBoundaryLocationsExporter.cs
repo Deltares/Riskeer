@@ -39,48 +39,42 @@ namespace Ringtoets.Common.IO.Hydraulics
 
         private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
         private readonly string filePath;
-        private readonly string designWaterLevelName;
-        private readonly string waveHeightName;
+        private readonly IHydraulicBoundaryLocationMetaDataAttributeNameProvider metaDataAttributeNameProvider;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsExporter"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
-        /// <param name="designWaterLevelName">The Dutch name of the content of the 
-        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> property.</param>
-        /// <param name="waveHeightName">The Dutch name of the content of the 
-        /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> property.</param>
+        /// <param name="metaDataAttributeNameProvider">The <see cref="IHydraulicBoundaryLocationMetaDataAttributeNameProvider"/>
+        /// to be used for setting meta data attribute names.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/>, 
-        /// <paramref name="designWaterLevelName"/> or <see cref="waveHeightName"/> is <c>null</c>.</exception>
+        /// <paramref name="metaDataAttributeNameProvider"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public HydraulicBoundaryLocationsExporter(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                  string filePath, string designWaterLevelName, string waveHeightName)
+                                                  string filePath,
+                                                  IHydraulicBoundaryLocationMetaDataAttributeNameProvider metaDataAttributeNameProvider)
         {
             if (hydraulicBoundaryLocations == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
-            if (designWaterLevelName == null)
+
+            if (metaDataAttributeNameProvider == null)
             {
-                throw new ArgumentNullException(nameof(designWaterLevelName));
-            }
-            if (waveHeightName == null)
-            {
-                throw new ArgumentNullException(nameof(waveHeightName));
+                throw new ArgumentNullException(nameof(metaDataAttributeNameProvider));
             }
 
             IOUtils.ValidateFilePath(filePath);
 
             this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
             this.filePath = filePath;
-            this.designWaterLevelName = designWaterLevelName;
-            this.waveHeightName = waveHeightName;
+            this.metaDataAttributeNameProvider = metaDataAttributeNameProvider;
         }
 
         public bool Export()
         {
-            var hydraulicBoundaryLocationsWriter = new HydraulicBoundaryLocationsWriter(designWaterLevelName, waveHeightName);
+            var hydraulicBoundaryLocationsWriter = new HydraulicBoundaryLocationsWriter(metaDataAttributeNameProvider);
 
             try
             {

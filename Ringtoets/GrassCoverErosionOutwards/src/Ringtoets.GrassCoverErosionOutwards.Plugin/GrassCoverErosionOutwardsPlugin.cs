@@ -51,6 +51,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
+using Ringtoets.GrassCoverErosionOutwards.Plugin.MessageProviders;
 using Ringtoets.GrassCoverErosionOutwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
@@ -260,7 +261,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 Name = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
                     new HydraulicBoundaryLocationsExporter(context.WrappedData,
-                                                           filePath, Resources.DesignWaterLevel_Description, Resources.WaveHeight_Description),
+                                                           filePath, new GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider()),
                 IsEnabled = context => context.WrappedData.Count > 0,
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIoResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIoResources.Shape_file_filter_Description)

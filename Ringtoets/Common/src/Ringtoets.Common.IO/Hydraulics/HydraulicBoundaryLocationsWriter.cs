@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Components.Gis.Data;
@@ -39,32 +38,22 @@ namespace Ringtoets.Common.IO.Hydraulics
     /// </summary>
     public class HydraulicBoundaryLocationsWriter
     {
-        private readonly string designWaterLevelName;
-        private readonly string waveHeightName;
+        private readonly IHydraulicBoundaryLocationMetaDataAttributeNameProvider metaDataAttributeNameProvider;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsWriter"/>.
         /// </summary>
-        /// <param name="designWaterLevelName">The Dutch name of the content of the 
-        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> property.</param>
-        /// <param name="waveHeightName">The Dutch name of the content of the
-        /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> property.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelName"/> or
-        /// <see cref="waveHeightName"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryLocationsWriter(string designWaterLevelName, string waveHeightName)
+        /// <param name="metaDataAttributeNameProvider">The <see cref="IHydraulicBoundaryLocationMetaDataAttributeNameProvider"/>
+        /// to be used for setting meta data attribute names.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="metaDataAttributeNameProvider"/> is <c>null</c>.</exception>
+        public HydraulicBoundaryLocationsWriter(IHydraulicBoundaryLocationMetaDataAttributeNameProvider metaDataAttributeNameProvider)
         {
-            if (designWaterLevelName == null)
+            if (metaDataAttributeNameProvider == null)
             {
-                throw new ArgumentNullException(nameof(designWaterLevelName));
+                throw new ArgumentNullException(nameof(metaDataAttributeNameProvider));
             }
 
-            if (waveHeightName == null)
-            {
-                throw new ArgumentNullException(nameof(waveHeightName));
-            }
-
-            this.designWaterLevelName = designWaterLevelName;
-            this.waveHeightName = waveHeightName;
+            this.metaDataAttributeNameProvider = metaDataAttributeNameProvider;
         }
 
         /// <summary>
@@ -122,14 +111,24 @@ namespace Ringtoets.Common.IO.Hydraulics
 
             mapFeature.MetaData.Add(Resources.HydraulicBoundaryLocation_Name, hydraulicBoundaryLocation.Name);
             mapFeature.MetaData.Add(Resources.HydraulicBoundaryLocation_Id, hydraulicBoundaryLocation.Id);
-            mapFeature.MetaData.Add("h(A+_A)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation1));
-            mapFeature.MetaData.Add("h(A_B)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation2));
-            mapFeature.MetaData.Add("h(B_C)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation3));
-            mapFeature.MetaData.Add("h(C_D)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation4));
-            mapFeature.MetaData.Add("Hs(A+_A)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation1));
-            mapFeature.MetaData.Add("Hs(A_B)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation2));
-            mapFeature.MetaData.Add("Hs(B_C)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation3));
-            mapFeature.MetaData.Add("Hs(C_D)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation4));
+
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.DesignWaterLevelCalculation1Name,
+                                    GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation1));
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.DesignWaterLevelCalculation2Name,
+                                    GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation2));
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.DesignWaterLevelCalculation3Name,
+                                    GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation3));
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.DesignWaterLevelCalculation4Name,
+                                    GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation4));
+
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.WaveHeightCalculation1Name,
+                                    GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation1));
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.WaveHeightCalculation2Name,
+                                    GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation2));
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.WaveHeightCalculation3Name,
+                                    GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation3));
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.WaveHeightCalculation4Name,
+                                    GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation4));
 
             return new MapPointData(hydraulicBoundaryLocation.Name)
             {

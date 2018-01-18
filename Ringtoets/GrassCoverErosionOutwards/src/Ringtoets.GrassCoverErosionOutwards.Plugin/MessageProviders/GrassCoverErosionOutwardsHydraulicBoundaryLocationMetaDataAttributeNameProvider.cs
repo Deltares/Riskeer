@@ -29,8 +29,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.MessageProviders
     /// This class provides the meta data attribute names during the export of <see cref="HydraulicBoundaryLocation"/>
     /// that are part of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporterMetaDataAttributeNameProvider
-        : IHydraulicBoundaryLocationsExporterMetaDataAttributeNameProvider
+    public class GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider
+        : IHydraulicBoundaryLocationMetaDataAttributeNameProvider
     {
         public string DesignWaterLevelCalculation1Name { get; } = "h(A+_A)";
         public string DesignWaterLevelCalculation2Name { get; } = "h(A_B)";

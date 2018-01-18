@@ -84,6 +84,7 @@ using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Handlers;
+using Ringtoets.Integration.Plugin.MessageProviders;
 using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -544,8 +545,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(
-                    context.WrappedData.Locations, filePath,
-                    RingtoetsIntegrationPluginResources.DesignWaterLevel_Description, RingtoetsIntegrationPluginResources.WaveHeight_Description),
+                    context.WrappedData.Locations, filePath, new HydraulicBoundaryLocationMetaDataAttributeNameProvider()),
                 IsEnabled = context => context.WrappedData.IsLinked(),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description)

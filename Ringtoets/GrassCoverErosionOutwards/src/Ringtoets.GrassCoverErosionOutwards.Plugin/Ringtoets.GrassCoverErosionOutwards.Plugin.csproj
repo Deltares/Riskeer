@@ -14,7 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GrassCoverErosionOutwardsPlugin.cs" />
-    <Compile Include="MessageProviders\GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporterMetaDataAttributeNameProvider.cs" />
+    <Compile Include="MessageProviders\GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

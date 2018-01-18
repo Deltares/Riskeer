@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Hydraulics;
@@ -34,60 +35,71 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
     public class HydraulicBoundaryLocationsWriterTest
     {
         [Test]
-        public void ParameteredConstructor_DesignWaterLevelNameNull_ThrowArgumentNullException()
+        public void Constructor_MetaDataAttributeNameProviderNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationsWriter(null, "bName");
+            TestDelegate call = () => new HydraulicBoundaryLocationsWriter(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("designWaterLevelName", exception.ParamName);
-        }
-
-        [Test]
-        public void ParameteredConstructor_WaveHeightNameNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationsWriter("aName", null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("waveHeightName", exception.ParamName);
+            Assert.AreEqual("metaDataAttributeNameProvider", exception.ParamName);
         }
 
         [Test]
         public void WriteHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var provider = mocks.Stub<IHydraulicBoundaryLocationMetaDataAttributeNameProvider>();
+            mocks.ReplayAll();
+
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("WriteHydraulicBoundaryLocations_NullhydraulicBoundaryLocations_ThrowArgumentNullException",
                                                                         "test.shp"));
 
-            var writer = new HydraulicBoundaryLocationsWriter("aName", "bName");
+            var writer = new HydraulicBoundaryLocationsWriter(provider);
 
             // Call
             TestDelegate call = () => writer.WriteHydraulicBoundaryLocations(null, filePath);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void WriteHydraulicBoundaryLocations_FilePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var writer = new HydraulicBoundaryLocationsWriter("aName", "bName");
+            var mocks = new MockRepository();
+            var provider = mocks.Stub<IHydraulicBoundaryLocationMetaDataAttributeNameProvider>();
+            mocks.ReplayAll();
+
+            var writer = new HydraulicBoundaryLocationsWriter(provider);
 
             // Call
             TestDelegate call = () => writer.WriteHydraulicBoundaryLocations(Enumerable.Empty<HydraulicBoundaryLocation>(), null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void WriteHydraulicBoundaryLocations_ValidData_WritesShapeFile()
         {
             // Setup
+            var mocks = new MockRepository();
+            var provider = mocks.Stub<IHydraulicBoundaryLocationMetaDataAttributeNameProvider>();
+            provider.Stub(p => p.DesignWaterLevelCalculation1Name).Return("h(A+_A)");
+            provider.Stub(p => p.DesignWaterLevelCalculation2Name).Return("h(A_B)");
+            provider.Stub(p => p.DesignWaterLevelCalculation3Name).Return("h(B_C)");
+            provider.Stub(p => p.DesignWaterLevelCalculation4Name).Return("h(C_D)");
+            provider.Stub(p => p.WaveHeightCalculation1Name).Return("Hs(A+_A)");
+            provider.Stub(p => p.WaveHeightCalculation2Name).Return("Hs(A_B)");
+            provider.Stub(p => p.WaveHeightCalculation3Name).Return("Hs(B_C)");
+            provider.Stub(p => p.WaveHeightCalculation4Name).Return("Hs(C_D)");
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
             SetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation);
 
@@ -96,7 +108,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             string filePath = Path.Combine(directoryPath, "test.shp");
             const string baseName = "test";
 
-            var writer = new HydraulicBoundaryLocationsWriter("Toetspeil", "Golfhoogte");
+            var writer = new HydraulicBoundaryLocationsWriter(provider);
 
             // Precondition
             AssertEssentialShapefileExists(directoryPath, baseName, false);
@@ -117,6 +129,8 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             {
                 Directory.Delete(directoryPath, true);
             }
+
+            mocks.VerifyAll();
         }
 
         private static void SetHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation location)
