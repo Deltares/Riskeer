@@ -45,7 +45,7 @@ namespace Core.Components.Gis.Test.Theme
             });
 
             // Assert
-            const string expectedMessage = "AttributeName is null, empty or consists of whitespace.";
+            const string expectedMessage = "attributeName is null, empty or consists of whitespace.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -70,7 +70,7 @@ namespace Core.Components.Gis.Test.Theme
             TestDelegate call = () => new MapTheme("Arbitrary attribute", mapCategories);
 
             // Assert
-            const string expectedMessage = "MapCategories is empty.";
+            const string expectedMessage = "categoryThemes is empty.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

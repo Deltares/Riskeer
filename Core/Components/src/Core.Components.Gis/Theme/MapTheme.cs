@@ -46,7 +46,7 @@ namespace Core.Components.Gis.Theme
         {
             if (string.IsNullOrWhiteSpace(attributeName))
             {
-                throw new ArgumentException(@"AttributeName is null, empty or consists of whitespace.", nameof(attributeName));
+                throw new ArgumentException($@"{nameof(attributeName)} is null, empty or consists of whitespace.", nameof(attributeName));
             }
             if (categoryThemes == null)
             {
@@ -54,7 +54,7 @@ namespace Core.Components.Gis.Theme
             }
             if (!categoryThemes.Any())
             {
-                throw new ArgumentException(@"MapCategories is empty.", nameof(categoryThemes));
+                throw new ArgumentException($@"{nameof(categoryThemes)} is empty.", nameof(categoryThemes));
             }
 
             CategoryThemes = categoryThemes;
