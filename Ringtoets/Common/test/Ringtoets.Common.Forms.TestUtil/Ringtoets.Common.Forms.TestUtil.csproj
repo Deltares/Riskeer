@@ -17,6 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LocationsViewSynchronizationTester.cs" />
+    <Compile Include="MapFeaturesTestHelper.cs" />
     <Compile Include="SetPropertyValueAfterConfirmationParameterTester.cs" />
     <Compile Include="ControlTestHelper.cs" />
     <Compile Include="DistributionPropertiesTestHelper.cs" />

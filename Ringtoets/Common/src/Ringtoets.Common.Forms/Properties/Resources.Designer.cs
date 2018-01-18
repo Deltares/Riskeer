@@ -2183,15 +2183,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte.
-        /// </summary>
-        public static string MetaData_WaveHeight {
-            get {
-                return ResourceManager.GetString("MetaData_WaveHeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hs(A+-&gt;A).
         /// </summary>
         public static string MetaData_WaveHeightCalculation1 {
