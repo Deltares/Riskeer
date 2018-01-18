@@ -34,175 +34,204 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Class responsible for calculating the derived piping input.
     /// </summary>
-    public class DerivedPipingInput
+    public static class DerivedPipingInput
     {
-        private readonly PipingInput input;
-
         /// <summary>
-        /// Creates a new instance of <see cref="DerivedPipingInput"/>.
+        /// Gets the piezometric head at the exit point.
+        /// [m]
         /// </summary>
         /// <param name="input">The input to calculate the derived piping input for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
-        public DerivedPipingInput(PipingInput input)
+        /// <returns>Returns the corresponding derived input value.</returns>
+        public static RoundedDouble GetPiezometricHeadExit(PipingInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
-            this.input = input;
-        }
+            RoundedDouble dampingFactorExit = PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue();
+            RoundedDouble phreaticLevelExit = PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
 
-        /// <summary>
-        /// Gets the piezometric head at the exit point.
-        /// [m]
-        /// </summary>
-        public RoundedDouble PiezometricHeadExit
-        {
-            get
-            {
-                RoundedDouble dampingFactorExit = PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue();
-                RoundedDouble phreaticLevelExit = PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
-
-                return new RoundedDouble(2, InputParameterCalculationService.CalculatePiezometricHeadAtExit(input.AssessmentLevel,
-                                                                                                            dampingFactorExit,
-                                                                                                            phreaticLevelExit));
-            }
+            return new RoundedDouble(2, InputParameterCalculationService.CalculatePiezometricHeadAtExit(input.AssessmentLevel,
+                                                                                                        dampingFactorExit,
+                                                                                                        phreaticLevelExit));
         }
 
         /// <summary>
         /// Gets the horizontal distance between entry and exit point.
         /// [m]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution SeepageLength
+        /// <param name="input">The input to calculate the derived piping input for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <returns>Returns the corresponding derived input value.</returns>
+        public static VariationCoefficientLogNormalDistribution GetSeepageLength(PipingInput input)
         {
-            get
+            if (input == null)
             {
-                double seepageLengthMean = input.ExitPointL - input.EntryPointL;
-
-                return new VariationCoefficientLogNormalDistribution(2)
-                {
-                    Mean = (RoundedDouble) seepageLengthMean,
-                    CoefficientOfVariation = (RoundedDouble) 0.1
-                };
+                throw new ArgumentNullException(nameof(input));
             }
+
+            double seepageLengthMean = input.ExitPointL - input.EntryPointL;
+
+            return new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) seepageLengthMean,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
         }
 
         /// <summary>
         /// Gets the total thickness of the coverage layers at the exit point.
         /// [m]
         /// </summary>
-        public LogNormalDistribution ThicknessCoverageLayer
+        /// <param name="input">The input to calculate the derived piping input for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <returns>Returns the corresponding derived input value.</returns>
+        public static LogNormalDistribution GetThicknessCoverageLayer(PipingInput input)
         {
-            get
+            if (input == null)
             {
-                var thicknessCoverageLayer = new LogNormalDistribution(2)
-                {
-                    Mean = RoundedDouble.NaN,
-                    StandardDeviation = (RoundedDouble) 0.5
-                };
-                UpdateThicknessCoverageLayerMean(thicknessCoverageLayer);
-
-                return thicknessCoverageLayer;
+                throw new ArgumentNullException(nameof(input));
             }
+
+            var thicknessCoverageLayer = new LogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble) 0.5
+            };
+
+            UpdateThicknessCoverageLayerMean(input, thicknessCoverageLayer);
+
+            return thicknessCoverageLayer;
         }
 
         /// <summary>
         /// Gets the effective thickness of the coverage layers at the exit point.
         /// [m]
         /// </summary>
-        public LogNormalDistribution EffectiveThicknessCoverageLayer
+        /// <param name="input">The input to calculate the derived piping input for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <returns>Returns the corresponding derived input value.</returns>
+        public static LogNormalDistribution GetEffectiveThicknessCoverageLayer(PipingInput input)
         {
-            get
+            if (input == null)
             {
-                var thicknessCoverageLayer = new LogNormalDistribution(2)
-                {
-                    Mean = RoundedDouble.NaN,
-                    StandardDeviation = (RoundedDouble) 0.5
-                };
-                UpdateEffectiveThicknessCoverageLayerMean(thicknessCoverageLayer);
-
-                return thicknessCoverageLayer;
+                throw new ArgumentNullException(nameof(input));
             }
+
+            var thicknessCoverageLayer = new LogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble) 0.5
+            };
+
+            UpdateEffectiveThicknessCoverageLayerMean(input, thicknessCoverageLayer);
+
+            return thicknessCoverageLayer;
         }
 
         /// <summary>
         /// Gets the total thickness of the aquifer layers at the exit point.
         /// [m]
         /// </summary>
-        public LogNormalDistribution ThicknessAquiferLayer
+        /// <param name="input">The input to calculate the derived piping input for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <returns>Returns the corresponding derived input value.</returns>
+        public static LogNormalDistribution GetThicknessAquiferLayer(PipingInput input)
         {
-            get
+            if (input == null)
             {
-                var thicknessAquiferLayer = new LogNormalDistribution(2)
-                {
-                    Mean = RoundedDouble.NaN,
-                    StandardDeviation = (RoundedDouble) 0.5
-                };
-                UpdateThicknessAquiferLayerMean(thicknessAquiferLayer);
-
-                return thicknessAquiferLayer;
+                throw new ArgumentNullException(nameof(input));
             }
+
+            var thicknessAquiferLayer = new LogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = (RoundedDouble) 0.5
+            };
+
+            UpdateThicknessAquiferLayerMean(input, thicknessAquiferLayer);
+
+            return thicknessAquiferLayer;
         }
 
         /// <summary>
         /// Gets the sieve size through which 70% of the grains of the top part of the aquifer pass.
         /// [m]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution DiameterD70
+        /// <param name="input">The input to calculate the derived piping input for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <returns>Returns the corresponding derived input value.</returns>
+        public static VariationCoefficientLogNormalDistribution GetDiameterD70(PipingInput input)
         {
-            get
+            if (input == null)
             {
-                PipingSoilLayer topMostAquiferLayer = GetConsecutiveAquiferLayers().FirstOrDefault();
-                return topMostAquiferLayer != null
-                           ? topMostAquiferLayer.DiameterD70
-                           : new VariationCoefficientLogNormalDistribution(6)
-                           {
-                               Mean = RoundedDouble.NaN,
-                               CoefficientOfVariation = RoundedDouble.NaN
-                           };
+                throw new ArgumentNullException(nameof(input));
             }
+
+            PipingSoilLayer topMostAquiferLayer = GetConsecutiveAquiferLayers(input).FirstOrDefault();
+
+            return topMostAquiferLayer != null
+                       ? topMostAquiferLayer.DiameterD70
+                       : new VariationCoefficientLogNormalDistribution(6)
+                       {
+                           Mean = RoundedDouble.NaN,
+                           CoefficientOfVariation = RoundedDouble.NaN
+                       };
         }
 
         /// <summary>
         /// Gets the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution DarcyPermeability
+        /// <param name="input">The input to calculate the derived piping input for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <returns>Returns the corresponding derived input value.</returns>
+        public static VariationCoefficientLogNormalDistribution GetDarcyPermeability(PipingInput input)
         {
-            get
+            if (input == null)
             {
-                var distribution = new VariationCoefficientLogNormalDistribution(6)
-                {
-                    Mean = RoundedDouble.NaN,
-                    CoefficientOfVariation = RoundedDouble.NaN
-                };
-                UpdateDarcyPermeabilityParameters(distribution);
-
-                return distribution;
+                throw new ArgumentNullException(nameof(input));
             }
+
+            var distribution = new VariationCoefficientLogNormalDistribution(6)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            };
+
+            UpdateDarcyPermeabilityParameters(input, distribution);
+
+            return distribution;
         }
 
         /// <summary>
         /// Gets the volumic weight of the saturated coverage layer.
         /// </summary>
-        public LogNormalDistribution SaturatedVolumicWeightOfCoverageLayer
+        /// <param name="input">The input to calculate the derived piping input for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <returns>Returns the corresponding derived input value.</returns>
+        public static LogNormalDistribution GetSaturatedVolumicWeightOfCoverageLayer(PipingInput input)
         {
-            get
+            if (input == null)
             {
-                var distribution = new LogNormalDistribution(2)
-                {
-                    Mean = RoundedDouble.NaN,
-                    StandardDeviation = RoundedDouble.NaN,
-                    Shift = RoundedDouble.NaN
-                };
-                UpdateSaturatedVolumicWeightOfCoverageLayerParameters(distribution);
-
-                return distribution;
+                throw new ArgumentNullException(nameof(input));
             }
+
+            var distribution = new LogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN,
+                Shift = RoundedDouble.NaN
+            };
+
+            UpdateSaturatedVolumicWeightOfCoverageLayerParameters(input, distribution);
+
+            return distribution;
         }
 
-        private void UpdateThicknessAquiferLayerMean(LogNormalDistribution thicknessAquiferLayer)
+        private static void UpdateThicknessAquiferLayerMean(PipingInput input, LogNormalDistribution thicknessAquiferLayer)
         {
             PipingStochasticSoilProfile stochasticSoilProfile = input.StochasticSoilProfile;
             PipingSurfaceLine surfaceLine = input.SurfaceLine;
@@ -220,7 +249,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private void UpdateThicknessCoverageLayerMean(LogNormalDistribution thicknessCoverageLayerDistribution)
+        private static void UpdateThicknessCoverageLayerMean(PipingInput input, LogNormalDistribution thicknessCoverageLayerDistribution)
         {
             PipingStochasticSoilProfile stochasticSoilProfile = input.StochasticSoilProfile;
             PipingSurfaceLine surfaceLine = input.SurfaceLine;
@@ -238,7 +267,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private void UpdateEffectiveThicknessCoverageLayerMean(LogNormalDistribution effectiveThicknessCoverageLayerDistribution)
+        private static void UpdateEffectiveThicknessCoverageLayerMean(PipingInput input, LogNormalDistribution effectiveThicknessCoverageLayerDistribution)
         {
             if (input.SurfaceLine != null && input.StochasticSoilProfile?.SoilProfile != null && !double.IsNaN(input.ExitPointL))
             {
@@ -257,14 +286,13 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private void UpdateDarcyPermeabilityParameters(VariationCoefficientLogNormalDistribution darcyPermeabilityDistribution)
+        private static void UpdateDarcyPermeabilityParameters(PipingInput input, VariationCoefficientLogNormalDistribution darcyPermeabilityDistribution)
         {
-            IEnumerable<PipingSoilLayer> aquiferLayers = GetConsecutiveAquiferLayers();
+            IEnumerable<PipingSoilLayer> aquiferLayers = GetConsecutiveAquiferLayers(input);
 
             int numberOfDecimals = GetNumberOfDecimals(darcyPermeabilityDistribution);
 
-            if (HasCorrectDarcyPermeabilityWeightDistributionParameterDefinition(
-                aquiferLayers))
+            if (HasCorrectDarcyPermeabilityWeightDistributionParameterDefinition(aquiferLayers))
             {
                 PipingSoilLayer topMostAquiferLayer = aquiferLayers.First();
 
@@ -278,9 +306,9 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private void UpdateSaturatedVolumicWeightOfCoverageLayerParameters(LogNormalDistribution volumicWeightDistribution)
+        private static void UpdateSaturatedVolumicWeightOfCoverageLayerParameters(PipingInput input, LogNormalDistribution volumicWeightDistribution)
         {
-            IEnumerable<PipingSoilLayer> coverageLayers = GetConsecutiveCoverageLayers();
+            IEnumerable<PipingSoilLayer> coverageLayers = GetConsecutiveCoverageLayers(input);
 
             int numberOfDecimals = GetNumberOfDecimals(volumicWeightDistribution);
 
@@ -355,9 +383,8 @@ namespace Ringtoets.Piping.Data
                    currentLayerDistribution.Shift == baseLayerDistribution.Shift;
         }
 
-        private static bool AreCoefficientEqual(
-            VariationCoefficientLogNormalDistribution currentLayerDistribution,
-            VariationCoefficientLogNormalDistribution baseLayerDistribution)
+        private static bool AreCoefficientEqual(VariationCoefficientLogNormalDistribution currentLayerDistribution,
+                                                VariationCoefficientLogNormalDistribution baseLayerDistribution)
         {
             return Math.Abs(baseLayerDistribution.CoefficientOfVariation - currentLayerDistribution.CoefficientOfVariation) < 1e-6;
         }
@@ -402,7 +429,7 @@ namespace Ringtoets.Piping.Data
             return weighedTotal / totalThickness;
         }
 
-        private IEnumerable<PipingSoilLayer> GetConsecutiveAquiferLayers()
+        private static IEnumerable<PipingSoilLayer> GetConsecutiveAquiferLayers(PipingInput input)
         {
             PipingSurfaceLine surfaceLine = input.SurfaceLine;
             PipingSoilProfile soilProfile = input.StochasticSoilProfile?.SoilProfile;
@@ -416,7 +443,7 @@ namespace Ringtoets.Piping.Data
             return new PipingSoilLayer[0];
         }
 
-        private IEnumerable<PipingSoilLayer> GetConsecutiveCoverageLayers()
+        private static IEnumerable<PipingSoilLayer> GetConsecutiveCoverageLayers(PipingInput input)
         {
             PipingSurfaceLine surfaceLine = input.SurfaceLine;
             PipingSoilProfile soilProfile = input.StochasticSoilProfile?.SoilProfile;
