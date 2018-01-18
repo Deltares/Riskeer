@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
 using Core.Components.Gis.Data;
@@ -128,30 +127,30 @@ namespace Ringtoets.Common.Forms.TestUtil
                 MapFeature mapFeature = hydraulicLocationsMapData.Features.ElementAt(i);
 
                 MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.DesignWaterLevelCalculation1,
-                                                            mapFeature,
-                                                            "h(A+->A)");
+                                                                                    mapFeature,
+                                                                                    "h(A+->A)");
                 MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.DesignWaterLevelCalculation2,
-                                                            mapFeature,
-                                                            "h(A->B)");
+                                                                                    mapFeature,
+                                                                                    "h(A->B)");
                 MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.DesignWaterLevelCalculation3,
-                                                            mapFeature,
-                                                            "h(B->C)");
+                                                                                    mapFeature,
+                                                                                    "h(B->C)");
                 MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.DesignWaterLevelCalculation4,
-                                                            mapFeature,
-                                                            "h(C->D)");
+                                                                                    mapFeature,
+                                                                                    "h(C->D)");
 
                 MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.WaveHeightCalculation1,
-                                                            mapFeature,
-                                                            "Hs(A+->A)");
+                                                                                    mapFeature,
+                                                                                    "Hs(A+->A)");
                 MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.WaveHeightCalculation2,
-                                                            mapFeature,
-                                                            "Hs(A->B)");
+                                                                                    mapFeature,
+                                                                                    "Hs(A->B)");
                 MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.WaveHeightCalculation3,
-                                                            mapFeature,
-                                                            "Hs(B->C)");
+                                                                                    mapFeature,
+                                                                                    "Hs(B->C)");
                 MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.WaveHeightCalculation4,
-                                                            mapFeature,
-                                                            "Hs(C->D)");
+                                                                                    mapFeature,
+                                                                                    "Hs(C->D)");
             }
         }
 
