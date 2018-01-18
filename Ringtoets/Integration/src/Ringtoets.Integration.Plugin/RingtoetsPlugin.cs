@@ -84,7 +84,7 @@ using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Handlers;
-using Ringtoets.Integration.Plugin.MessageProviders;
+using Ringtoets.Integration.Plugin.MetaDataAttributeNameProviders;
 using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.MacroStabilityInwards.Data;

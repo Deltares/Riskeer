@@ -21,15 +21,16 @@
 
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Hydraulics;
-using Ringtoets.Integration.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.Integration.Plugin.MessageProviders
+namespace Ringtoets.GrassCoverErosionOutwards.Plugin.MetaDataAttributeNameProviders
 {
     /// <summary>
     /// This class provides the meta data attribute names during the export of <see cref="HydraulicBoundaryLocation"/>
-    /// that are part of the <see cref="AssessmentSection"/>.
+    /// that are part of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class HydraulicBoundaryLocationMetaDataAttributeNameProvider : IHydraulicBoundaryLocationMetaDataAttributeNameProvider
+    public class GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider
+        : IHydraulicBoundaryLocationMetaDataAttributeNameProvider
     {
         public string DesignWaterLevelCalculation1Name { get; } = "h(A+_A)";
         public string DesignWaterLevelCalculation2Name { get; } = "h(A_B)";

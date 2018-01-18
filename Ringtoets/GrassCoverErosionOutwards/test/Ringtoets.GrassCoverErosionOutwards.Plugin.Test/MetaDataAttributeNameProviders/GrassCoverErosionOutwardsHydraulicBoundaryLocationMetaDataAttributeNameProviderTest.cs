@@ -21,18 +21,18 @@
 
 using NUnit.Framework;
 using Ringtoets.Common.IO.Hydraulics;
-using Ringtoets.Integration.Plugin.MessageProviders;
+using Ringtoets.GrassCoverErosionOutwards.Plugin.MetaDataAttributeNameProviders;
 
-namespace Ringtoets.Integration.Plugin.Test.MessageProviders
+namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.MetaDataAttributeNameProviders
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationMetaDataAttributeNameProviderTest
+    public class GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProviderTest
     {
         [Test]
         public void Constructor_Always_ReturnsExpectedValues()
         {
             // Call
-            var provider = new HydraulicBoundaryLocationMetaDataAttributeNameProvider();
+            var provider = new GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider();
 
             // Assert
             Assert.IsInstanceOf<IHydraulicBoundaryLocationMetaDataAttributeNameProvider>(provider);
