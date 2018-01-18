@@ -82,41 +82,6 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Probability_PipingOutputSet_ReturnsPipingOutputProbability()
-        {
-            // Setup
-            const double expectedProbability = 1.0 / 49862180;
-
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestDerivedPipingOutput(expectedProbability)
-            };
-
-            // Call
-            double probability = scenario.Probability;
-
-            // Assert
-            Assert.AreEqual(expectedProbability, probability);
-        }
-
-        [Test]
-        public void Probability_ScenarioStatusNotDone_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput());
-
-            // Call
-            TestDelegate call = () =>
-            {
-                double probability = scenario.Probability;
-            };
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(call);
-        }
-
-        [Test]
         public void CalculationScenarioStatus_OutputNull_ReturnsStatusNotCalculated()
         {
             // Setup
@@ -136,7 +101,7 @@ namespace Ringtoets.Piping.Data.Test
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = null
+//                SemiProbabilisticOutput = null
             };
 
             // Call
@@ -153,7 +118,7 @@ namespace Ringtoets.Piping.Data.Test
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestDerivedPipingOutput(double.NaN)
+//                SemiProbabilisticOutput = new TestDerivedPipingOutput(double.NaN)
             };
 
             // Call
@@ -172,7 +137,7 @@ namespace Ringtoets.Piping.Data.Test
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestDerivedPipingOutput(expectedProbability)
+//                SemiProbabilisticOutput = new TestDerivedPipingOutput(expectedProbability)
             };
 
             // Call

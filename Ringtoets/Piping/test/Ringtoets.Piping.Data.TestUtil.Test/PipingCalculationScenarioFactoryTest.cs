@@ -31,64 +31,6 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
     public class PipingCalculationScenarioFactoryTest
     {
         [Test]
-        public void CreatePipingCalculationScenario_WithNoSection_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => PipingCalculationScenarioFactory.CreatePipingCalculationScenario(double.NaN, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
-        }
-
-        [Test]
-        [TestCase(double.NaN)]
-        [TestCase(0.0)]
-        [TestCase(0.8)]
-        [TestCase(1.0)]
-        public void CreatePipingCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(double probability)
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            // Call
-            PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability, section);
-
-            // Assert
-            Assert.NotNull(scenario.Output);
-            Assert.NotNull(scenario.SemiProbabilisticOutput);
-            Assert.AreEqual(probability, scenario.SemiProbabilisticOutput.PipingProbability, 1e-6);
-            Assert.IsTrue(scenario.IsRelevant);
-        }
-
-        [Test]
-        public void CreateFailedPipingCalculationScenario_WithNoSection_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
-        }
-
-        [Test]
-        public void CreateFailedPipingCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSetToNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            // Call
-            PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
-
-            // Assert
-            Assert.NotNull(scenario.Output);
-            Assert.NotNull(scenario.SemiProbabilisticOutput);
-            Assert.IsNaN(scenario.SemiProbabilisticOutput.PipingProbability);
-            Assert.IsTrue(scenario.IsRelevant);
-        }
-
-        [Test]
         public void CreateIrrelevantPipingCalculationScenario_WithNoSection_ThrowsArgumentNullException()
         {
             // Call
@@ -134,7 +76,6 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
 
             // Assert
             Assert.IsNull(scenario.Output);
-            Assert.IsNull(scenario.SemiProbabilisticOutput);
             Assert.IsTrue(scenario.IsRelevant);
         }
 

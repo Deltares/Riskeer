@@ -119,11 +119,9 @@ namespace Ringtoets.Piping.Integration.Test
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Execute the first calculation and ensure the data grid view is updated
-                const double probability = 1.0 / 31846382.0;
                 pipingCalculation1.Output = new TestPipingOutput();
-                pipingCalculation1.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput(probability);
                 pipingCalculation1.NotifyObservers();
-                Assert.AreEqual($"1/{1.0 / pipingCalculation1.Probability:N0}",
+                Assert.AreEqual($"1/{1.0 / 31846382.0:N0}",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -131,7 +129,7 @@ namespace Ringtoets.Piping.Integration.Test
                 var pipingCalculation3 = new PipingCalculationScenario(new GeneralPipingInput());
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
-                Assert.AreEqual($"1/{1.0 / pipingCalculation1.Probability:N0}",
+                Assert.AreEqual($"1/{1.0 / 31846382.0:N0}",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -165,7 +163,7 @@ namespace Ringtoets.Piping.Integration.Test
                 // Set contribution again so we have a probability.
                 pipingCalculation1.Contribution = (RoundedDouble) 1.0;
                 pipingCalculation1.NotifyObservers();
-                Assert.AreEqual($"1/{1.0 / pipingCalculation1.Probability:N0}",
+                Assert.AreEqual($"1/{1.0 / 31846382.0:N0}",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 

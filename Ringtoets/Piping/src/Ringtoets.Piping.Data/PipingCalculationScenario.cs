@@ -59,31 +59,18 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        public double Probability
-        {
-            get
-            {
-                if (Status != CalculationScenarioStatus.Done)
-                {
-                    throw new InvalidOperationException("The probability can only be accessed when the status is done.");
-                }
-
-                return SemiProbabilisticOutput.PipingProbability;
-            }
-        }
-
         public CalculationScenarioStatus Status
         {
             get
             {
-                if (Output == null)
-                {
-                    return CalculationScenarioStatus.NotCalculated;
-                }
-
-                return SemiProbabilisticOutput == null || double.IsNaN(SemiProbabilisticOutput.PipingProbability)
-                           ? CalculationScenarioStatus.Failed
+                return Output == null
+                           ? CalculationScenarioStatus.NotCalculated
                            : CalculationScenarioStatus.Done;
+
+                //
+//                return SemiProbabilisticOutput == null || double.IsNaN(SemiProbabilisticOutput.PipingProbability)
+//                           ? CalculationScenarioStatus.Failed
+//                           : CalculationScenarioStatus.Done;
             }
         }
     }

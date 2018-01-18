@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
@@ -41,6 +42,7 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
+        private IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
@@ -99,7 +101,9 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 return null;
             }
-            return new PipingFailureMechanismSectionResultRow(sectionResult, FailureMechanism.Calculations.OfType<PipingCalculationScenario>());
+
+            return new PipingFailureMechanismSectionResultRow(sectionResult, FailureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                                                              (PipingFailureMechanism) FailureMechanism, assessmentSection);
         }
 
         protected override void AddDataGridColumns()

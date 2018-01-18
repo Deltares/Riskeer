@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
@@ -38,21 +39,42 @@ namespace Ringtoets.Piping.Forms.Views
     {
         private const double tolerance = 1e-6;
         private readonly IEnumerable<PipingCalculationScenario> calculations;
+        private readonly PipingFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="PipingFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
-        /// <param name="calculations"></param>
+        /// <param name="calculations">All calculations in the failure mechanism.</param>
+        /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult, IEnumerable<PipingCalculationScenario> calculations) : base(sectionResult)
+        public PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult,
+                                                      IEnumerable<PipingCalculationScenario> calculations,
+                                                      PipingFailureMechanism failureMechanism,
+                                                      IAssessmentSection assessmentSection)
+            : base(sectionResult)
         {
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             this.calculations = calculations;
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
         }
 
         /// <summary>
@@ -94,7 +116,7 @@ namespace Ringtoets.Piping.Forms.Views
                     return double.NaN;
                 }
 
-                return SectionResult.GetAssessmentLayerTwoA(relevantScenarios);
+                return SectionResult.GetAssessmentLayerTwoA(relevantScenarios, failureMechanism, assessmentSection);
             }
         }
 
