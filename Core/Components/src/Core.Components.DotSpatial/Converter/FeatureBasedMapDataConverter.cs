@@ -126,7 +126,7 @@ namespace Core.Components.DotSpatial.Converter
         /// </summary>
         /// <param name="mapData">The map data to create the symbolizer for.</param>
         /// <returns>The newly created <see cref="IFeatureSymbolizer"/>.</returns>
-        /// <remarks><c>Null</c> should never be returned as this will break DotSpatial.</remarks>
+        /// <remarks><c>null</c> should never be returned as this will break DotSpatial.</remarks>
         protected abstract IFeatureSymbolizer CreateSymbolizer(TFeatureBasedMapData mapData);
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace Core.Components.DotSpatial.Converter
         /// </summary>
         /// <param name="mapData">The map data to base the category on.</param>
         /// <returns>The newly created <see cref="IFeatureCategory"/>.</returns>
-        /// <remarks><c>Null</c> should never be returned as this will break DotSpatial.</remarks>
+        /// <remarks><c>null</c> should never be returned as this will break DotSpatial.</remarks>
         protected abstract IFeatureCategory CreateDefaultCategory(TFeatureBasedMapData mapData);
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="mapData">The map data to base the category on.</param>
         /// <param name="color">The desired color of the category.</param>
         /// <returns>The newly created <see cref="IFeatureCategory"/>.</returns>
-        /// <remarks><c>Null</c> should never be returned as this will break DotSpatial.</remarks>
+        /// <remarks><c>null</c> should never be returned as this will break DotSpatial.</remarks>
         protected abstract IFeatureCategory CreateCategory(TFeatureBasedMapData mapData, Color color);
 
         /// <summary>

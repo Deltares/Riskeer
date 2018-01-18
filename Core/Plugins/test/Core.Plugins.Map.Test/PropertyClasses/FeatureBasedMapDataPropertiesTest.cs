@@ -193,7 +193,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleTypeProperty,
                                                                             styleCategory,
                                                                             "Type",
-                                                                            "Het type van de stijl die is wordt toegepast voor het weergeven van deze kaartlaag.",
+                                                                            "Het type van de stijl die wordt toegepast voor het weergeven van deze kaartlaag.",
                                                                             true);
         }
 

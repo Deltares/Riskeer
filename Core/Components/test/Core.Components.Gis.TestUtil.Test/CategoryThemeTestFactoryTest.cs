@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
+using Core.Components.Gis.Theme;
 using NUnit.Framework;
 
 namespace Core.Components.Gis.TestUtil.Test
@@ -31,10 +31,10 @@ namespace Core.Components.Gis.TestUtil.Test
         public void CreateDefaultCategoryTheme_ReturnsCategoryTheme()
         {
             // Call
-            var theme = CategoryThemeTestFactory.CreateCategoryTheme();
+            CategoryTheme theme = CategoryThemeTestFactory.CreateCategoryTheme();
 
             // Assert
-            Assert.AreEqual(Color.Aqua, theme.Color);
+            Assert.IsNotNull(theme);
             Assert.IsNotNull(theme.Criterion);
         }
     }

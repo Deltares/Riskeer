@@ -72,6 +72,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Assert
             Assert.AreSame(theme, properties.Data);
             Assert.IsInstanceOf<ObjectProperties<CategoryTheme>>(properties);
+            TestHelper.AssertTypeConverter<CategoryThemeProperties, ExpandableObjectConverter>();
+            TestHelper.AssertTypeConverter<CategoryThemeProperties, ColorTypeConverter>(nameof(CategoryThemeProperties.Color));
         }
 
         [Test]
@@ -126,7 +128,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Assert
             string expectedValue = string.Format(formatExpression, attributeName, value);
             Assert.AreEqual(expectedValue, properties.Criterion);
-
             Assert.AreEqual(color, properties.Color);
         }
 

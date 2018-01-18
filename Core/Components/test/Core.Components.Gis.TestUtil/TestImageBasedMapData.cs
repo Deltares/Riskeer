@@ -31,7 +31,7 @@ namespace Core.Components.Gis.TestUtil
     public class TestImageBasedMapData : ImageBasedMapData
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestImageBasedMapData"/>
+        /// Creates a new instance of <see cref="TestImageBasedMapData"/>.
         /// </summary>
         /// <param name="name">The name of the map data.</param>
         /// <param name="isConfigured">The value for <see cref="ImageBasedMapData.IsConfigured"/>.</param>

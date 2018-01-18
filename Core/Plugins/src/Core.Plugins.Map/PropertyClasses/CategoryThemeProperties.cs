@@ -66,7 +66,6 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CategoryThemeProperties_Criterion_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CategoryThemeProperties_Criterion_Description))]
-        [TypeConverter(typeof(ColorTypeConverter))]
         public string Criterion
         {
             get

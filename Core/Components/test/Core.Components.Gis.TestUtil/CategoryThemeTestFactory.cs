@@ -32,13 +32,13 @@ namespace Core.Components.Gis.TestUtil
     public static class CategoryThemeTestFactory
     {
         /// <summary>
-        /// Creates a fully configured <see cref="CategoryTheme"/>
+        /// Creates a fully configured <see cref="CategoryTheme"/>.
         /// </summary>
         /// <returns>A fully configured <see cref="CategoryTheme"/>.</returns>
         public static CategoryTheme CreateCategoryTheme()
         {
             var random = new Random(21);
-            return new CategoryTheme(Color.Aqua,
+            return new CategoryTheme(Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
                                      new ValueCriterion(random.NextEnumValue<ValueCriterionOperator>(),
                                                         random.NextDouble()));
         }

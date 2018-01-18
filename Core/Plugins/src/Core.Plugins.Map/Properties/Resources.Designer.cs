@@ -247,7 +247,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het type van de stijl die is wordt toegepast voor het weergeven van deze kaartlaag..
+        ///   Looks up a localized string similar to Het type van de stijl die wordt toegepast voor het weergeven van deze kaartlaag..
         /// </summary>
         public static string FeatureBasedMapdata_StyleType_Description {
             get {
@@ -267,9 +267,9 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enkel symbool.
         /// </summary>
-        public static string FeatureBasedMapData_StyleType_Single_symbol {
+        public static string FeatureBasedMapData_StyleType_Single_Symbol {
             get {
-                return ResourceManager.GetString("FeatureBasedMapData_StyleType_Single_symbol", resourceCulture);
+                return ResourceManager.GetString("FeatureBasedMapData_StyleType_Single_Symbol", resourceCulture);
             }
         }
         

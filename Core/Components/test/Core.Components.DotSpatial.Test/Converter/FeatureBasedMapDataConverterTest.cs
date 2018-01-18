@@ -512,7 +512,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void ConvertLayerProperties_MapDataWithMapThemeAndMetadataNameNotInFatures_ThrowsKeyNotFoundException()
+        public void ConvertLayerProperties_MapDataWithMapThemeAndMetaDataNameNotInFeatures_ThrowsKeyNotFoundException()
         {
             // Setup
             var random = new Random(21);

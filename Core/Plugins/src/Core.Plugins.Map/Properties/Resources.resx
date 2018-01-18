@@ -347,7 +347,7 @@
     <value>Op basis van</value>
   </data>
   <data name="FeatureBasedMapdata_StyleType_Description" xml:space="preserve">
-    <value>Het type van de stijl die is wordt toegepast voor het weergeven van deze kaartlaag.</value>
+    <value>Het type van de stijl die wordt toegepast voor het weergeven van deze kaartlaag.</value>
   </data>
   <data name="FeatureBasedMapdata_StyleType_DisplayName" xml:space="preserve">
     <value>Type</value>
@@ -355,7 +355,7 @@
   <data name="FeatureBasedMapData_StyleType_Categories" xml:space="preserve">
     <value>Categorie</value>
   </data>
-  <data name="FeatureBasedMapData_StyleType_Single_symbol" xml:space="preserve">
+  <data name="FeatureBasedMapData_StyleType_Single_Symbol" xml:space="preserve">
     <value>Enkel symbool</value>
   </data>
   <data name="FeatureBasedMapdata_Categories_DisplayName" xml:space="preserve">

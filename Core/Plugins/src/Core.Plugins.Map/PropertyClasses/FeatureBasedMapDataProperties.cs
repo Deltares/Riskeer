@@ -113,7 +113,7 @@ namespace Core.Plugins.Map.PropertyClasses
                     return Resources.FeatureBasedMapData_StyleType_Categories;
                 }
 
-                return Resources.FeatureBasedMapData_StyleType_Single_symbol;
+                return Resources.FeatureBasedMapData_StyleType_Single_Symbol;
             }
         }
 
