@@ -135,6 +135,10 @@ namespace Ringtoets.Common.Forms.Test.Factories
             };
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.AddRange(points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)));
+            foreach (HydraulicBoundaryLocation location in hydraulicBoundaryDatabase.Locations)
+            {
+                SetHydraulicBoundaryLocationOutput(location);
+            }
 
             // Call
             IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
@@ -145,11 +149,11 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(expectedHydraulicBoundaryLocationsCount, features.Count());
             for (var i = 0; i < expectedHydraulicBoundaryLocationsCount; i++)
             {
-                Assert.AreEqual(4, features.ElementAt(i).MetaData.Keys.Count);
-                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).Id, features.ElementAt(i).MetaData["ID"]);
-                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).Name, features.ElementAt(i).MetaData["Naam"]);
-                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).DesignWaterLevel, features.ElementAt(i).MetaData["Toetspeil"]);
-                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).WaveHeight, features.ElementAt(i).MetaData["Golfhoogte"]);
+                MapFeature mapFeature = features.ElementAt(i);
+                Assert.AreEqual(10, mapFeature.MetaData.Keys.Count);
+                HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocations.ElementAt(i);
+
+                AssertHydraulicBoundaryLocationMetaData(hydraulicBoundaryLocation, mapFeature);
             }
 
             AssertEqualFeatureCollections(points, features);
@@ -809,6 +813,62 @@ namespace Ringtoets.Common.Forms.Test.Factories
             IEnumerable<Point2D>[] geometryPointCollections = mapGeometry.PointCollections.ToArray();
             Assert.AreEqual(1, geometryPointCollections.Length);
             Assert.AreSame(point, geometryPointCollections.First().First());
+        }
+
+        private static void SetHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation location)
+        {
+            var random = new Random(37);
+
+            location.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(double.NaN);
+            location.DesignWaterLevelCalculation2.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            location.DesignWaterLevelCalculation3.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+
+            location.WaveHeightCalculation1.Output = new TestHydraulicBoundaryLocationOutput(double.NaN);
+            location.WaveHeightCalculation2.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            location.WaveHeightCalculation3.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+        }
+
+        private static void AssertHydraulicBoundaryLocationMetaData(HydraulicBoundaryLocation hydraulicBoundaryLocation, MapFeature mapFeature)
+        {
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, mapFeature.MetaData["ID"]);
+            Assert.AreEqual(hydraulicBoundaryLocation.Name, mapFeature.MetaData["Naam"]);
+
+            AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.DesignWaterLevelCalculation1,
+                                                          mapFeature,
+                                                          "h(A+->A)");
+            AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.DesignWaterLevelCalculation2,
+                                                          mapFeature,
+                                                          "h(A->B)");
+            AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.DesignWaterLevelCalculation3,
+                                                          mapFeature,
+                                                          "h(B->C)");
+            AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.DesignWaterLevelCalculation4,
+                                                          mapFeature,
+                                                          "h(C->D)");
+
+            AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.WaveHeightCalculation1,
+                                                          mapFeature,
+                                                          "Hs(A+->A)");
+            AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.WaveHeightCalculation2,
+                                                          mapFeature,
+                                                          "Hs(A->B)");
+            AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.WaveHeightCalculation3,
+                                                          mapFeature,
+                                                          "Hs(B->C)");
+            AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.WaveHeightCalculation4,
+                                                          mapFeature,
+                                                          "Hs(C->D)");
+        }
+
+        private static void AssertHydraulicBoundaryLocationOutputResult(HydraulicBoundaryLocationCalculation calculation, MapFeature feature, string key)
+        {
+            RoundedDouble expectedValue = RoundedDouble.NaN;
+            if (calculation.Output != null)
+            {
+                expectedValue = calculation.Output.Result;
+            }
+
+            Assert.AreEqual(expectedValue, feature.MetaData[key]);
         }
 
         private static void AssertEqualFeatureCollections(Point2D[] points, IEnumerable<MapFeature> features)

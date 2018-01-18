@@ -109,9 +109,31 @@ namespace Ringtoets.Common.Forms.Factories
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            return CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryDatabase.Locations.ToArray(),
-                                                           Resources.DesignWaterLevel_DisplayName,
-                                                           Resources.MetaData_WaveHeight);
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
+
+            int hydraulicBoundaryLocationsCount = hydraulicBoundaryLocations.Count();
+            var features = new MapFeature[hydraulicBoundaryLocationsCount];
+
+            for (var i = 0; i < hydraulicBoundaryLocationsCount; i++)
+            {
+                HydraulicBoundaryLocation location = hydraulicBoundaryLocations.ElementAt(i);
+
+                MapFeature feature = CreateSinglePointMapFeature(location.Location);
+                feature.MetaData[Resources.MetaData_ID] = location.Id;
+                feature.MetaData[Resources.MetaData_Name] = location.Name;
+                feature.MetaData[Resources.MetaData_DesignWaterLevelCalculation1] = GetHydraulicBoundaryLocationOutput(location.DesignWaterLevelCalculation1);
+                feature.MetaData[Resources.MetaData_DesignWaterLevelCalculation2] = GetHydraulicBoundaryLocationOutput(location.DesignWaterLevelCalculation2);
+                feature.MetaData[Resources.MetaData_DesignWaterLevelCalculation3] = GetHydraulicBoundaryLocationOutput(location.DesignWaterLevelCalculation3);
+                feature.MetaData[Resources.MetaData_DesignWaterLevelCalculation4] = GetHydraulicBoundaryLocationOutput(location.DesignWaterLevelCalculation4);
+                feature.MetaData[Resources.MetaData_WaveHeightCalculation1] = GetHydraulicBoundaryLocationOutput(location.WaveHeightCalculation1);
+                feature.MetaData[Resources.MetaData_WaveHeightCalculation2] = GetHydraulicBoundaryLocationOutput(location.WaveHeightCalculation2);
+                feature.MetaData[Resources.MetaData_WaveHeightCalculation3] = GetHydraulicBoundaryLocationOutput(location.WaveHeightCalculation3);
+                feature.MetaData[Resources.MetaData_WaveHeightCalculation4] = GetHydraulicBoundaryLocationOutput(location.WaveHeightCalculation4);
+
+                features[i] = feature;
+            }
+
+            return features;
         }
 
         /// <summary>
@@ -379,6 +401,11 @@ namespace Ringtoets.Common.Forms.Factories
                     }
                 })
             });
+        }
+
+        private static RoundedDouble GetHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationCalculation calculation)
+        {
+            return calculation.Output?.Result ?? RoundedDouble.NaN;
         }
 
         private static MapCalculationData CreateMapCalculationData<TStructuresInput, TStructure>(

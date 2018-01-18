@@ -361,8 +361,14 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             {
                 mapGeometry
             });
-            differentWaveHeightMapFeature.MetaData["Golfhoogte"] = random.NextRoundedDouble();
-            differentWaveHeightMapFeature.MetaData["Toetspeil"] = RoundedDouble.NaN;
+            differentWaveHeightMapFeature.MetaData["h(A+->A)"] = random.NextRoundedDouble();
+            differentWaveHeightMapFeature.MetaData["h(A->B)"] = RoundedDouble.NaN;
+            differentWaveHeightMapFeature.MetaData["h(B->C)"] = RoundedDouble.NaN;
+            differentWaveHeightMapFeature.MetaData["h(C->D)"] = RoundedDouble.NaN;
+            differentWaveHeightMapFeature.MetaData["Hs(A+->A)"] = RoundedDouble.NaN;
+            differentWaveHeightMapFeature.MetaData["Hs(A->B)"] = RoundedDouble.NaN;
+            differentWaveHeightMapFeature.MetaData["Hs(B->C)"] = RoundedDouble.NaN;
+            differentWaveHeightMapFeature.MetaData["Hs(C->D)"] = RoundedDouble.NaN;
             var mapFeatures = new List<MapFeature>
             {
                 differentWaveHeightMapFeature
@@ -374,8 +380,14 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             {
                 mapGeometry
             });
-            differentDesignWaterLevelMapFeature.MetaData["Golfhoogte"] = RoundedDouble.NaN;
-            differentDesignWaterLevelMapFeature.MetaData["Toetspeil"] = random.NextRoundedDouble();
+            differentDesignWaterLevelMapFeature.MetaData["h(A+->A)"] = RoundedDouble.NaN;
+            differentDesignWaterLevelMapFeature.MetaData["h(A->B)"] = RoundedDouble.NaN;
+            differentDesignWaterLevelMapFeature.MetaData["h(B->C)"] = RoundedDouble.NaN;
+            differentDesignWaterLevelMapFeature.MetaData["h(C->D)"] = RoundedDouble.NaN;
+            differentDesignWaterLevelMapFeature.MetaData["Hs(A+->A)"] = random.NextRoundedDouble();
+            differentDesignWaterLevelMapFeature.MetaData["Hs(A->B)"] = RoundedDouble.NaN;
+            differentDesignWaterLevelMapFeature.MetaData["Hs(B->C)"] = RoundedDouble.NaN;
+            differentDesignWaterLevelMapFeature.MetaData["Hs(C->D)"] = RoundedDouble.NaN;
             mapFeatures = new List<MapFeature>
             {
                 differentDesignWaterLevelMapFeature
@@ -387,14 +399,26 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             {
                 mapGeometry
             });
-            mapFeatureOne.MetaData["Golfhoogte"] = RoundedDouble.NaN;
-            mapFeatureOne.MetaData["Toetspeil"] = RoundedDouble.NaN;
+            mapFeatureOne.MetaData["h(A+->A)"] = random.NextRoundedDouble();
+            mapFeatureOne.MetaData["h(A->B)"] = RoundedDouble.NaN;
+            mapFeatureOne.MetaData["h(B->C)"] = RoundedDouble.NaN;
+            mapFeatureOne.MetaData["h(C->D)"] = RoundedDouble.NaN;
+            mapFeatureOne.MetaData["Hs(A+->A)"] = RoundedDouble.NaN;
+            mapFeatureOne.MetaData["Hs(A->B)"] = RoundedDouble.NaN;
+            mapFeatureOne.MetaData["Hs(B->C)"] = RoundedDouble.NaN;
+            mapFeatureOne.MetaData["Hs(C->D)"] = RoundedDouble.NaN;
             var mapFeatureTwo = new MapFeature(new[]
             {
                 mapGeometry
             });
-            mapFeatureTwo.MetaData["Golfhoogte"] = RoundedDouble.NaN;
-            mapFeatureTwo.MetaData["Toetspeil"] = RoundedDouble.NaN;
+            mapFeatureTwo.MetaData["h(A+->A)"] = random.NextRoundedDouble();
+            mapFeatureTwo.MetaData["h(A->B)"] = RoundedDouble.NaN;
+            mapFeatureTwo.MetaData["h(B->C)"] = RoundedDouble.NaN;
+            mapFeatureTwo.MetaData["h(C->D)"] = RoundedDouble.NaN;
+            mapFeatureTwo.MetaData["Hs(A+->A)"] = RoundedDouble.NaN;
+            mapFeatureTwo.MetaData["Hs(A->B)"] = RoundedDouble.NaN;
+            mapFeatureTwo.MetaData["Hs(B->C)"] = RoundedDouble.NaN;
+            mapFeatureTwo.MetaData["Hs(C->D)"] = RoundedDouble.NaN;
             mapFeatures = new List<MapFeature>
             {
                 mapFeatureOne,
@@ -419,21 +443,39 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             {
                 mapGeometry
             });
-            mapFeatureNoOutput.MetaData["Golfhoogte"] = RoundedDouble.NaN;
-            mapFeatureNoOutput.MetaData["Toetspeil"] = RoundedDouble.NaN;
+            mapFeatureNoOutput.MetaData["h(A+->A)"] = RoundedDouble.NaN;
+            mapFeatureNoOutput.MetaData["h(A->B)"] = RoundedDouble.NaN;
+            mapFeatureNoOutput.MetaData["h(B->C)"] = RoundedDouble.NaN;
+            mapFeatureNoOutput.MetaData["h(C->D)"] = RoundedDouble.NaN;
+            mapFeatureNoOutput.MetaData["Hs(A+->A)"] = RoundedDouble.NaN;
+            mapFeatureNoOutput.MetaData["Hs(A->B)"] = RoundedDouble.NaN;
+            mapFeatureNoOutput.MetaData["Hs(B->C)"] = RoundedDouble.NaN;
+            mapFeatureNoOutput.MetaData["Hs(C->D)"] = RoundedDouble.NaN;
             yield return new TestCaseData(location, mapFeatureNoOutput)
                 .SetName("LocationWithoutOutput");
 
             var random = new Random(21);
             location = new HydraulicBoundaryLocation(1, "test1", 1, 0);
             location.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            location.DesignWaterLevelCalculation2.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            location.DesignWaterLevelCalculation3.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            location.DesignWaterLevelCalculation4.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
             location.WaveHeightCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            location.WaveHeightCalculation2.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            location.WaveHeightCalculation3.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            location.WaveHeightCalculation4.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
             var mapFeatureWithOutput = new MapFeature(new[]
             {
                 mapGeometry
             });
-            mapFeatureWithOutput.MetaData["Golfhoogte"] = location.WaveHeight;
-            mapFeatureWithOutput.MetaData["Toetspeil"] = location.DesignWaterLevel;
+            mapFeatureWithOutput.MetaData["h(A+->A)"] = location.DesignWaterLevelCalculation1.Output.Result;
+            mapFeatureWithOutput.MetaData["h(A->B)"] = location.DesignWaterLevelCalculation2.Output.Result;
+            mapFeatureWithOutput.MetaData["h(B->C)"] = location.DesignWaterLevelCalculation3.Output.Result;
+            mapFeatureWithOutput.MetaData["h(C->D)"] = location.DesignWaterLevelCalculation4.Output.Result;
+            mapFeatureWithOutput.MetaData["Hs(A+->A)"] = location.WaveHeightCalculation1.Output.Result;
+            mapFeatureWithOutput.MetaData["Hs(A->B)"] = location.WaveHeightCalculation2.Output.Result;
+            mapFeatureWithOutput.MetaData["Hs(B->C)"] = location.WaveHeightCalculation3.Output.Result;
+            mapFeatureWithOutput.MetaData["Hs(C->D)"] = location.WaveHeightCalculation4.Output.Result;
             yield return new TestCaseData(location, mapFeatureWithOutput)
                 .SetName("LocationWithOutput");
         }

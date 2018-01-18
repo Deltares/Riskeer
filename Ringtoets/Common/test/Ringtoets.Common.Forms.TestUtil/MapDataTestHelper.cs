@@ -119,11 +119,40 @@ namespace Ringtoets.Common.Forms.TestUtil
             var hydraulicLocationsMapData = (MapPointData) mapData;
 
             HydraulicBoundaryLocation[] hydraulicBoundaryLocationsArray = hydraulicBoundaryLocations.ToArray();
+            int expectedNrOfFeatures = hydraulicBoundaryLocationsArray.Length;
+            Assert.AreEqual(expectedNrOfFeatures, hydraulicLocationsMapData.Features.Count());
 
-            CollectionAssert.AreEqual(hydraulicBoundaryLocationsArray.Select(hbl => hbl.DesignWaterLevel),
-                                      hydraulicLocationsMapData.Features.Select(ft => (RoundedDouble) ft.MetaData["Toetspeil"]));
-            CollectionAssert.AreEqual(hydraulicBoundaryLocationsArray.Select(hbl => hbl.WaveHeight),
-                                      hydraulicLocationsMapData.Features.Select(ft => (RoundedDouble) ft.MetaData["Golfhoogte"]));
+            for (var i = 0; i < expectedNrOfFeatures; i++)
+            {
+                HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationsArray[i];
+                MapFeature mapFeature = hydraulicLocationsMapData.Features.ElementAt(i);
+
+                AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.DesignWaterLevelCalculation1,
+                                                            mapFeature,
+                                                            "h(A+->A)");
+                AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.DesignWaterLevelCalculation2,
+                                                            mapFeature,
+                                                            "h(A->B)");
+                AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.DesignWaterLevelCalculation3,
+                                                            mapFeature,
+                                                            "h(B->C)");
+                AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.DesignWaterLevelCalculation4,
+                                                            mapFeature,
+                                                            "h(C->D)");
+
+                AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.WaveHeightCalculation1,
+                                                            mapFeature,
+                                                            "Hs(A+->A)");
+                AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.WaveHeightCalculation2,
+                                                            mapFeature,
+                                                            "Hs(A->B)");
+                AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.WaveHeightCalculation3,
+                                                            mapFeature,
+                                                            "Hs(B->C)");
+                AssertHydraulicBoundaryLocationOutputResult(hydraulicBoundaryLocation.WaveHeightCalculation4,
+                                                            mapFeature,
+                                                            "Hs(C->D)");
+            }
         }
 
         /// <summary>
@@ -309,6 +338,17 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual(structuresArray.Length, structuresData.Features.Count());
             CollectionAssert.AreEqual(structuresArray.Select(hrp => hrp.Location),
                                       structuresData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
+        }
+
+        private static void AssertHydraulicBoundaryLocationOutputResult(HydraulicBoundaryLocationCalculation calculation, MapFeature feature, string key)
+        {
+            RoundedDouble expectedValue = RoundedDouble.NaN;
+            if (calculation.Output != null)
+            {
+                expectedValue = calculation.Output.Result;
+            }
+
+            Assert.AreEqual(expectedValue, feature.MetaData[key]);
         }
 
         private static IEnumerable<Point2D> GetWorldPoints(ForeshoreProfile foreshoreProfile)
