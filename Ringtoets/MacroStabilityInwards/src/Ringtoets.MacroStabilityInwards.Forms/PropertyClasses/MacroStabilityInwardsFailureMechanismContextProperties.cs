@@ -22,9 +22,11 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
@@ -95,7 +97,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
             return nameof(A).Equals(propertyName)
-                   || nameof(B).Equals(propertyName);
+                   || nameof(B).Equals(propertyName)
+                   || nameof(N).Equals(propertyName);
         }
 
         #region General
@@ -142,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(21)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_SemiProbabilisticParameters))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_LengthEffectParameters))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralMacroStabilityInwardsInput_A_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralMacroStabilityInwardsInput_A_Description))]
         public double A
@@ -159,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(22)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_SemiProbabilisticParameters))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_LengthEffectParameters))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralMacroStabilityInwardsInput_B_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralMacroStabilityInwardsInput_B_Description))]
         public double B
@@ -167,6 +170,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 return data.WrappedData.MacroStabilityInwardsProbabilityAssessmentInput.B;
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(23)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_LengthEffectParameters))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralMacroStabilityInwardsInput_N_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralMacroStabilityInwardsInput_N_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                return new RoundedDouble(2, data.WrappedData.MacroStabilityInwardsProbabilityAssessmentInput.GetSectionSpecificN(
+                    data.WrappedData.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength));
             }
         }
 

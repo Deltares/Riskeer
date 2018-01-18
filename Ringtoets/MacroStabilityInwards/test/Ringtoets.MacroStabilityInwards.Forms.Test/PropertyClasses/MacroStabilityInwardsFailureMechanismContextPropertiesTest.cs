@@ -27,6 +27,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -103,6 +105,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, properties.A);
             Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.B, properties.B);
+            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetSectionSpecificN(
+                                failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength), properties.N, properties.N.GetAccuracy());
 
             mockRepository.VerifyAll();
         }
@@ -129,10 +134,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
-            const string semiProbabilisticCategory = "Semi-probabilistische parameters";
+            const string semiProbabilisticCategory = "Lengte-effect parameters";
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -166,6 +171,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             semiProbabilisticCategory,
                                                                             "b [m]",
                                                                             "De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.",
+                                                                            true);
+
+            PropertyDescriptor NProperty = dynamicProperties[5];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(NProperty,
+                                                                            semiProbabilisticCategory,
+                                                                            "N* [-]",
+                                                                            "De parameter N die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
 
             mockRepository.VerifyAll();
@@ -327,6 +339,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
 

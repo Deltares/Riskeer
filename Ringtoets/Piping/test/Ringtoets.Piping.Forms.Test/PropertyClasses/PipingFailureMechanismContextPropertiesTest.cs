@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
@@ -121,6 +122,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, properties.A);
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.B, properties.B);
+            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.GetSectionSpecificN(
+                                failureMechanism.PipingProbabilityAssessmentInput.SectionLength), properties.N, properties.N.GetAccuracy());
 
             mockRepository.VerifyAll();
         }
@@ -147,12 +151,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(16, dynamicProperties.Count);
+            Assert.AreEqual(17, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string heaveCategory = "Heave";
             const string modelFactorCategory = "Modelinstellingen";
-            const string semiProbabilisticCategory = "Semi-probabilistische parameters";
+            const string semiProbabilisticCategory = "Lengte-effect parameters";
             const string sellmeijerCategory = "Terugschrijdende erosie (Sellmeijer)";
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
@@ -209,56 +213,63 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                                             "De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.",
                                                                             true);
 
-            PropertyDescriptor criticalHeaveGradientProperty = dynamicProperties[8];
+            PropertyDescriptor NProperty = dynamicProperties[8];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(NProperty,
+                                                                            semiProbabilisticCategory,
+                                                                            "N* [-]",
+                                                                            "De parameter N die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
+                                                                            true);
+
+            PropertyDescriptor criticalHeaveGradientProperty = dynamicProperties[9];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(criticalHeaveGradientProperty,
                                                                             heaveCategory,
                                                                             "Kritiek verhang m.b.t. heave [-]",
                                                                             "Kritiek verhang met betrekking tot heave.",
                                                                             true);
 
-            PropertyDescriptor volumetricWeightSandParticlesProperty = dynamicProperties[9];
+            PropertyDescriptor volumetricWeightSandParticlesProperty = dynamicProperties[10];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(volumetricWeightSandParticlesProperty,
                                                                             sellmeijerCategory,
                                                                             "Volumiek gewicht van de zandkorrels onder water [kN/m³]",
                                                                             "Het (ondergedompelde) volumegewicht van zandkorrelmateriaal van een zandlaag.",
                                                                             true);
 
-            PropertyDescriptor whitesDragCoefficientProperty = dynamicProperties[10];
+            PropertyDescriptor whitesDragCoefficientProperty = dynamicProperties[11];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(whitesDragCoefficientProperty,
                                                                             sellmeijerCategory,
                                                                             "Coëfficiënt van White [-]",
                                                                             "Sleepkrachtfactor volgens White.",
                                                                             true);
 
-            PropertyDescriptor beddingAngleProperty = dynamicProperties[11];
+            PropertyDescriptor beddingAngleProperty = dynamicProperties[12];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(beddingAngleProperty,
                                                                             sellmeijerCategory,
                                                                             "Rolweerstandshoek [°]",
                                                                             "Hoek in het krachtenevenwicht die aangeeft hoeveel weerstand de korrels bieden tegen rollen; ook beddingshoek genoemd.",
                                                                             true);
 
-            PropertyDescriptor waterKinematicViscosityProperty = dynamicProperties[12];
+            PropertyDescriptor waterKinematicViscosityProperty = dynamicProperties[13];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waterKinematicViscosityProperty,
                                                                             sellmeijerCategory,
                                                                             "Kinematische viscositeit van water bij 10° C [m²/s]",
                                                                             "Kinematische viscositeit van water bij 10° C.",
                                                                             true);
 
-            PropertyDescriptor gravityProperty = dynamicProperties[13];
+            PropertyDescriptor gravityProperty = dynamicProperties[14];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(gravityProperty,
                                                                             sellmeijerCategory,
                                                                             "Valversnelling [m/s²]",
                                                                             "Valversnelling.",
                                                                             true);
 
-            PropertyDescriptor meanDiameter70Property = dynamicProperties[14];
+            PropertyDescriptor meanDiameter70Property = dynamicProperties[15];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanDiameter70Property,
                                                                             sellmeijerCategory,
                                                                             "Referentiewaarde voor 70%-fraktiel in Sellmeijer regel [m]",
                                                                             "Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop de formule van Sellmeijer is gefit.",
                                                                             true);
 
-            PropertyDescriptor reductionFactorSellmeijerProperty = dynamicProperties[15];
+            PropertyDescriptor reductionFactorSellmeijerProperty = dynamicProperties[16];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(reductionFactorSellmeijerProperty,
                                                                             sellmeijerCategory,
                                                                             "Reductiefactor Sellmeijer [-]",
@@ -506,6 +517,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.WaterVolumetricWeight)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.SandParticlesVolumicWeight)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.WhitesDragCoefficient)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.BeddingAngle)));

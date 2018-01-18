@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -116,6 +117,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                    || nameof(WaterVolumetricWeight).Equals(propertyName)
                    || nameof(A).Equals(propertyName)
                    || nameof(B).Equals(propertyName)
+                   || nameof(N).Equals(propertyName)
                    || nameof(SandParticlesVolumicWeight).Equals(propertyName)
                    || nameof(WhitesDragCoefficient).Equals(propertyName)
                    || nameof(BeddingAngle).Equals(propertyName)
@@ -188,7 +190,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(21)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_SemiProbabilisticParameters))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_LengthEffectParameters))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_A_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_A_Description))]
         public double A
@@ -205,7 +207,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(22)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_SemiProbabilisticParameters))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_LengthEffectParameters))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_B_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_B_Description))]
         public double B
@@ -213,6 +215,20 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return data.WrappedData.PipingProbabilityAssessmentInput.B;
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(23)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_LengthEffectParameters))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_N_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_N_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                return new RoundedDouble(2, data.WrappedData.PipingProbabilityAssessmentInput.GetSectionSpecificN(
+                                             data.WrappedData.PipingProbabilityAssessmentInput.SectionLength));
             }
         }
 

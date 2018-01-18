@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -91,20 +91,20 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lengte-effect parameters.
+        /// </summary>
+        public static string Categories_LengthEffectParameters {
+            get {
+                return ResourceManager.GetString("Categories_LengthEffectParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Terugschrijdende erosie (Sellmeijer).
         /// </summary>
         public static string Categories_Sellmeijer {
             get {
                 return ResourceManager.GetString("Categories_Sellmeijer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Semi-probabilistische parameters.
-        /// </summary>
-        public static string Categories_SemiProbabilisticParameters {
-            get {
-                return ResourceManager.GetString("Categories_SemiProbabilisticParameters", resourceCulture);
             }
         }
         
@@ -195,6 +195,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string GeneralPipingInput_MeanDiameter70_DisplayName {
             get {
                 return ResourceManager.GetString("GeneralPipingInput_MeanDiameter70_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter N die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond)..
+        /// </summary>
+        public static string GeneralPipingInput_N_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_N_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N* [-].
+        /// </summary>
+        public static string GeneralPipingInput_N_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_N_DisplayName", resourceCulture);
             }
         }
         

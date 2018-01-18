@@ -118,11 +118,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Semi-probabilistische parameters.
+        ///   Looks up a localized string similar to Lengte-effect parameters.
         /// </summary>
-        public static string Categories_SemiProbabilisticParameters {
+        public static string Categories_LengthEffectParameters {
             get {
-                return ResourceManager.GetString("Categories_SemiProbabilisticParameters", resourceCulture);
+                return ResourceManager.GetString("Categories_LengthEffectParameters", resourceCulture);
             }
         }
         
@@ -276,6 +276,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string GeneralMacroStabilityInwardsInput_B_DisplayName {
             get {
                 return ResourceManager.GetString("GeneralMacroStabilityInwardsInput_B_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter N die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond)..
+        /// </summary>
+        public static string GeneralMacroStabilityInwardsInput_N_Description {
+            get {
+                return ResourceManager.GetString("GeneralMacroStabilityInwardsInput_N_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N* [-].
+        /// </summary>
+        public static string GeneralMacroStabilityInwardsInput_N_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralMacroStabilityInwardsInput_N_DisplayName", resourceCulture);
             }
         }
         
