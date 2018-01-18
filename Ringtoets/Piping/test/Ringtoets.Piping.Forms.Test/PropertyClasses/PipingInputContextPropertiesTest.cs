@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PipingInputContextProperties(null, handler);
+            TestDelegate test = () => new PipingInputContextProperties(null, () => (RoundedDouble) 1.1, handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -89,7 +89,35 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_HandlerNull_ThrowArgumentNullException()
+        public void Constructor_GetAssessmentLevelFuncNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
+            var context = new PipingInputContext(calculationItem.InputParameters,
+                                                 calculationItem,
+                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                 failureMechanism,
+                                                 assessmentSection);
+
+            // Call
+            TestDelegate test = () => new PipingInputContextProperties(context, null, handler);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("getAssessmentLevelFunc", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_PropertyChangeHandlerNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -107,11 +135,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  assessmentSection);
 
             // Call
-            TestDelegate test = () => new PipingInputContextProperties(context, null);
+            TestDelegate test = () => new PipingInputContextProperties(context, () => (RoundedDouble) 1.1, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("handler", exception.ParamName);
+            Assert.AreEqual("propertyChangeHandler", exception.ParamName);
             mocks.VerifyAll();
         }
 
