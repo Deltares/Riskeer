@@ -1046,11 +1046,9 @@ namespace Ringtoets.Piping.Service.Test
             UpliftCalculatorStub upliftCalculator = testFactory.LastCreatedUpliftCalculator;
             SellmeijerCalculatorStub sellmeijerCalculator = testFactory.LastCreatedSellmeijerCalculator;
 
-            var derivedPipingInput = new DerivedPipingInput(input);
-
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetThicknessCoverageLayer(input).GetDesignValue(),
                             heaveCalculator.DTotal,
-                            derivedPipingInput.ThicknessCoverageLayer.GetAccuracy());
+                            DerivedPipingInput.GetThicknessCoverageLayer(input).GetAccuracy());
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                             heaveCalculator.HExit,
                             input.PhreaticLevelExit.GetAccuracy());
@@ -1058,7 +1056,7 @@ namespace Ringtoets.Piping.Service.Test
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                             heaveCalculator.PhiPolder,
                             input.PhreaticLevelExit.GetAccuracy());
-            Assert.AreEqual(derivedPipingInput.PiezometricHeadExit.Value, heaveCalculator.PhiExit);
+            Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(input).Value, heaveCalculator.PhiExit);
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
                             heaveCalculator.RExit,
                             input.DampingFactorExit.GetAccuracy());
@@ -1068,7 +1066,7 @@ namespace Ringtoets.Piping.Service.Test
                             input.PhreaticLevelExit.GetAccuracy());
             Assert.AreEqual(input.AssessmentLevel.Value, upliftCalculator.HRiver);
             Assert.AreEqual(input.UpliftModelFactor, upliftCalculator.ModelFactorUplift);
-            Assert.AreEqual(derivedPipingInput.PiezometricHeadExit.Value, upliftCalculator.PhiExit);
+            Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(input).Value, upliftCalculator.PhiExit);
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                             upliftCalculator.PhiPolder,
                             input.PhreaticLevelExit.GetAccuracy());
@@ -1085,7 +1083,7 @@ namespace Ringtoets.Piping.Service.Test
 
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetSeepageLength(input).GetDesignValue(),
                             sellmeijerCalculator.SeepageLength,
-                            derivedPipingInput.SeepageLength.GetAccuracy());
+                            DerivedPipingInput.GetSeepageLength(input).GetAccuracy());
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                             sellmeijerCalculator.HExit,
                             input.PhreaticLevelExit.GetAccuracy());
@@ -1098,17 +1096,17 @@ namespace Ringtoets.Piping.Service.Test
             Assert.AreEqual(input.BeddingAngle, sellmeijerCalculator.BeddingAngle);
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetThicknessCoverageLayer(input).GetDesignValue(),
                             sellmeijerCalculator.DTotal,
-                            derivedPipingInput.ThicknessCoverageLayer.GetAccuracy());
+                            DerivedPipingInput.GetThicknessCoverageLayer(input).GetAccuracy());
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetDiameter70(input).GetDesignValue(),
                             sellmeijerCalculator.D70,
-                            derivedPipingInput.DiameterD70.GetAccuracy());
+                            DerivedPipingInput.GetDiameterD70(input).GetAccuracy());
             Assert.AreEqual(input.MeanDiameter70, sellmeijerCalculator.D70Mean);
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetThicknessAquiferLayer(input).GetDesignValue(),
                             sellmeijerCalculator.DAquifer,
-                            derivedPipingInput.ThicknessAquiferLayer.GetAccuracy());
+                            DerivedPipingInput.GetThicknessAquiferLayer(input).GetAccuracy());
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetDarcyPermeability(input).GetDesignValue(),
                             sellmeijerCalculator.DarcyPermeability,
-                            derivedPipingInput.DarcyPermeability.GetAccuracy());
+                            DerivedPipingInput.GetDarcyPermeability(input).GetAccuracy());
             Assert.AreEqual(input.SandParticlesVolumicWeight, sellmeijerCalculator.GammaSubParticles);
             Assert.AreEqual(input.Gravity, sellmeijerCalculator.Gravity);
         }
