@@ -43,14 +43,15 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates a new instance of <see cref="DerivedPipingInput"/>.
         /// </summary>
-        /// <param name="input">The input to calculate the derived piping input.</param>
+        /// <param name="input">The input to calculate the derived piping input for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         public DerivedPipingInput(PipingInput input)
         {
             if (input == null)
             {
-                throw new ArgumentNullException(nameof(input), @"Cannot create DerivedPipingInput without PipingInput.");
+                throw new ArgumentNullException(nameof(input));
             }
+
             this.input = input;
         }
 
@@ -426,11 +427,12 @@ namespace Ringtoets.Piping.Data
             if (surfaceLine != null && soilProfile != null && !double.IsNaN(exitPointL))
             {
                 PipingSoilLayer[] consecutiveAquitardLayersBelowLevel = soilProfile
-                    .GetConsecutiveCoverageLayersBelowLevel(surfaceLine.GetZAtL(exitPointL))
-                    .ToArray();
+                                                                        .GetConsecutiveCoverageLayersBelowLevel(surfaceLine.GetZAtL(exitPointL))
+                                                                        .ToArray();
 
                 return consecutiveAquitardLayersBelowLevel;
             }
+
             return new PipingSoilLayer[0];
         }
 
@@ -447,6 +449,7 @@ namespace Ringtoets.Piping.Data
                 {
                     return double.NaN;
                 }
+
                 throw;
             }
         }
@@ -464,6 +467,7 @@ namespace Ringtoets.Piping.Data
                 {
                     return double.NaN;
                 }
+
                 throw;
             }
         }

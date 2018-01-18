@@ -43,21 +43,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => new DerivedPipingInput(null);
 
             // Assert
-            const string expectedMessage = "Cannot create DerivedPipingInput without PipingInput.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void Constructor_WithPipingInput_DoesNotThrow()
-        {
-            // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer(1.0, 1.1);
-
-            // Call
-            TestDelegate call = () => new DerivedPipingInput(input);
-
-            // Assert
-            Assert.DoesNotThrow(call);
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("input", paramName);
         }
 
         [Test]
@@ -79,7 +66,8 @@ namespace Ringtoets.Piping.Data.Test
                 var factory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
                 PiezoHeadCalculatorStub piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
 
-                Assert.AreEqual(piezometricHeadAtExitCalculator.HRiver, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
+                Assert.AreEqual(input.AssessmentLevel, piezometricHeadAtExitCalculator.HRiver,
+                                input.AssessmentLevel.GetAccuracy());
                 Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.PhiPolder,
                                 input.PhreaticLevelExit.GetAccuracy());
                 Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.RExit,
@@ -116,6 +104,21 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void EffectiveThicknessCoverageLayer_InputWithoutSoilProfile_MeansSetToNaN()
+        {
+            // Setup
+            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            input.StochasticSoilProfile = null;
+            var derivedInput = new DerivedPipingInput(input);
+
+            // Call
+            LogNormalDistribution effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(effectiveThicknessCoverageLayer.Mean);
+        }
+
+        [Test]
         public void EffectiveThicknessCoverageLayer_InputWithoutSurfaceLine_MeansSetToNaN()
         {
             // Setup
@@ -124,11 +127,9 @@ namespace Ringtoets.Piping.Data.Test
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = null;
-            Action call = () => effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
+            LogNormalDistribution effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
             Assert.IsNaN(effectiveThicknessCoverageLayer.Mean);
         }
 
@@ -145,24 +146,6 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
 
             // Assert
-            Assert.IsNaN(effectiveThicknessCoverageLayer.Mean);
-        }
-
-        [Test]
-        public void EffectiveThicknessCoverageLayer_SoilProfileSetToNull_ThicknessCoverageLayerNaN()
-        {
-            // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            var derivedInput = new DerivedPipingInput(input);
-
-            input.StochasticSoilProfile = null;
-
-            // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = null;
-            Action call = () => effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
-
-            // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
             Assert.IsNaN(effectiveThicknessCoverageLayer.Mean);
         }
 
@@ -208,21 +191,6 @@ namespace Ringtoets.Piping.Data.Test
                     }
                 }, SoilProfileType.SoilProfile1D)
             );
-
-            // Call
-            LogNormalDistribution effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
-
-            // Assert
-            Assert.IsNaN(effectiveThicknessCoverageLayer.Mean);
-        }
-
-        [Test]
-        public void EffectiveThicknessCoverageLayer_InputWithoutSoilProfile_MeansSetToNaN()
-        {
-            // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.StochasticSoilProfile = null;
-            var derivedInput = new DerivedPipingInput(input);
 
             // Call
             LogNormalDistribution effectiveThicknessCoverageLayer = derivedInput.EffectiveThicknessCoverageLayer;
