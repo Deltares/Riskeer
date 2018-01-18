@@ -173,7 +173,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
         }
 
-        private RoundedDouble GetAssessmentLevel()
+        private RoundedDouble GetEffectiveAssessmentLevel()
         {
             return data.WrappedData.UseAssessmentLevelManualInput
                        ? data.WrappedData.AssessmentLevel
@@ -214,7 +214,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return GetAssessmentLevel();
+                return GetEffectiveAssessmentLevel();
             }
             set
             {
@@ -276,7 +276,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return DerivedPipingInput.GetPiezometricHeadExit(data.WrappedData, GetAssessmentLevel());
+                return DerivedPipingInput.GetPiezometricHeadExit(data.WrappedData, GetEffectiveAssessmentLevel());
             }
         }
 

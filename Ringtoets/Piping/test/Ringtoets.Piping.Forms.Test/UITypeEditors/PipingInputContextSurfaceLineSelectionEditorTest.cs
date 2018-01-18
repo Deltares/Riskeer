@@ -148,7 +148,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
 
         private static RoundedDouble GetCalculatedTestAssessmentLevel()
         {
-            return (RoundedDouble)1.1;
+            return (RoundedDouble) 1.1;
         }
 
         private static PipingSurfaceLine ValidSurfaceLine()

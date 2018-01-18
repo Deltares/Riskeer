@@ -159,7 +159,7 @@ namespace Ringtoets.Piping.Service
             {
                 validationResults.AddRange(ValidateAssessmentLevel(inputParameters, calculatedAssessmentLevel));
 
-                RoundedDouble piezometricHeadExit = DerivedPipingInput.GetPiezometricHeadExit(inputParameters, GetAssessmentLevel(inputParameters, calculatedAssessmentLevel));
+                RoundedDouble piezometricHeadExit = DerivedPipingInput.GetPiezometricHeadExit(inputParameters, GetEffectiveAssessmentLevel(inputParameters, calculatedAssessmentLevel));
                 if (double.IsNaN(piezometricHeadExit) || double.IsInfinity(piezometricHeadExit))
                 {
                     validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
@@ -367,7 +367,7 @@ namespace Ringtoets.Piping.Service
                     SaturatedVolumicWeightOfCoverageLayer = PipingSemiProbabilisticDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
                     UpliftModelFactor = inputParameters.UpliftModelFactor,
                     AssessmentLevel = inputParameters.AssessmentLevel,
-                    PiezometricHeadExit = DerivedPipingInput.GetPiezometricHeadExit(inputParameters, GetAssessmentLevel(inputParameters, calculatedAssessmentLevel)),
+                    PiezometricHeadExit = DerivedPipingInput.GetPiezometricHeadExit(inputParameters, GetEffectiveAssessmentLevel(inputParameters, calculatedAssessmentLevel)),
                     DampingFactorExit = PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
                     PhreaticLevelExit = PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                     CriticalHeaveGradient = inputParameters.CriticalHeaveGradient,
@@ -391,7 +391,7 @@ namespace Ringtoets.Piping.Service
                 });
         }
 
-        private static RoundedDouble GetAssessmentLevel(PipingInput input, RoundedDouble calculatedAssessmentLevel)
+        private static RoundedDouble GetEffectiveAssessmentLevel(PipingInput input, RoundedDouble calculatedAssessmentLevel)
         {
             return input.UseAssessmentLevelManualInput
                        ? input.AssessmentLevel
