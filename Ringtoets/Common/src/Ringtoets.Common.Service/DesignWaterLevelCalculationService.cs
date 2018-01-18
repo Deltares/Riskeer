@@ -101,8 +101,9 @@ namespace Ringtoets.Common.Service
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> or
-        /// <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>,
+        /// <paramref name="hydraulicBoundaryLocationCalculation"/> or <paramref name="messageProvider"/>
+        /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when 
         /// <list type="bullet">
         /// <item><paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
@@ -131,6 +132,11 @@ namespace Ringtoets.Common.Service
             if (hydraulicBoundaryLocationCalculation == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
+            }
+
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
             }
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);

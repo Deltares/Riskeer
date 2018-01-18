@@ -164,7 +164,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new WaveHeightCalculationService().Calculate(new TestHydraulicBoundaryLocation(), 
+            TestDelegate test = () => new WaveHeightCalculationService().Calculate(new TestHydraulicBoundaryLocation(),
                                                                                    null,
                                                                                    testDataPath,
                                                                                    validPreprocessorDirectory,
@@ -174,6 +174,22 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("hydraulicBoundaryLocationCalculation", exception.ParamName);
+        }
+
+        [Test]
+        public void Calculate_MessageProviderNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new WaveHeightCalculationService().Calculate(new TestHydraulicBoundaryLocation(),
+                                                                                   new HydraulicBoundaryLocationCalculation(),
+                                                                                   string.Empty,
+                                                                                   string.Empty,
+                                                                                   1,
+                                                                                   null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("messageProvider", exception.ParamName);
         }
 
         [Test]

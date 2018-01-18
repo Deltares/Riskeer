@@ -177,6 +177,22 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
+        public void Calculate_MessageProviderNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new DesignWaterLevelCalculationService().Calculate(new TestHydraulicBoundaryLocation(),
+                                                                                         new HydraulicBoundaryLocationCalculation(),
+                                                                                         string.Empty,
+                                                                                         string.Empty,
+                                                                                         1,
+                                                                                         null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("messageProvider", exception.ParamName);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Calculate_ValidDesignWaterLevelCalculationAndConverges_StartsCalculationWithRightParametersAndLogs(bool readIllustrationPoints)
