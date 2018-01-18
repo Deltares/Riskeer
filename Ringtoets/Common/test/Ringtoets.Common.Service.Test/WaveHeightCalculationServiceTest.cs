@@ -153,6 +153,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -174,6 +175,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("hydraulicBoundaryLocationCalculation", exception.ParamName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
