@@ -162,17 +162,8 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
         public void Export_ValidData_WritesCorrectData()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
-            {
-                DesignWaterLevelCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(111.111)
-                },
-                WaveHeightCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(222.222)
-                }
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
+            SetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation);
 
             string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
             Directory.CreateDirectory(directoryPath);
@@ -206,17 +197,7 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
         public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
-            {
-                DesignWaterLevelCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(111.111)
-                },
-                WaveHeightCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(222.222)
-                }
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
 
             string directoryPath = TestHelper.GetScratchPadPath("Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
             Directory.CreateDirectory(directoryPath);
@@ -248,6 +229,19 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             }
         }
 
+        private static void SetHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation location)
+        {
+            location.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(111.111);
+            location.DesignWaterLevelCalculation2.Output = new TestHydraulicBoundaryLocationOutput(333.333);
+            location.DesignWaterLevelCalculation3.Output = new TestHydraulicBoundaryLocationOutput(555.555);
+            location.DesignWaterLevelCalculation4.Output = new TestHydraulicBoundaryLocationOutput(777.777);
+
+            location.WaveHeightCalculation1.Output = new TestHydraulicBoundaryLocationOutput(222.222);
+            location.WaveHeightCalculation2.Output = new TestHydraulicBoundaryLocationOutput(444.444);
+            location.WaveHeightCalculation3.Output = new TestHydraulicBoundaryLocationOutput(666.666);
+            location.WaveHeightCalculation4.Output = new TestHydraulicBoundaryLocationOutput(888.888);
+        }
+
         private static void AssertEssentialShapefileExists(string directoryPath, string baseName, bool shouldExist)
         {
             string pathName = Path.Combine(directoryPath, baseName);
@@ -256,14 +250,14 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             Assert.AreEqual(shouldExist, File.Exists(pathName + ".dbf"));
         }
 
-        private void AssertEssentialShapefileMd5Hashes(string directoryPath, string baseName)
+        private static void AssertEssentialShapefileMd5Hashes(string directoryPath, string baseName)
         {
             string refPathName = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO), "PointShapefileMd5");
             string pathName = Path.Combine(directoryPath, baseName);
 
             AssertBinaryFileContent(refPathName, pathName, ".shp", 100, 28);
             AssertBinaryFileContent(refPathName, pathName, ".shx", 100, 8);
-            AssertBinaryFileContent(refPathName, pathName, ".dbf", 32, 441);
+            AssertBinaryFileContent(refPathName, pathName, ".dbf", 32, 741);
         }
 
         private static void AssertBinaryFileContent(string refPathName, string pathName, string extension, int headerLength, int bodyLength)

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Components.Gis.Data;
@@ -56,6 +57,7 @@ namespace Ringtoets.Common.IO.Hydraulics
             {
                 throw new ArgumentNullException(nameof(designWaterLevelName));
             }
+
             if (waveHeightName == null)
             {
                 throw new ArgumentNullException(nameof(waveHeightName));
@@ -81,6 +83,7 @@ namespace Ringtoets.Common.IO.Hydraulics
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
+
             if (filePath == null)
             {
                 throw new ArgumentNullException(nameof(filePath));
@@ -119,8 +122,14 @@ namespace Ringtoets.Common.IO.Hydraulics
 
             mapFeature.MetaData.Add(Resources.HydraulicBoundaryLocation_Name, hydraulicBoundaryLocation.Name);
             mapFeature.MetaData.Add(Resources.HydraulicBoundaryLocation_Id, hydraulicBoundaryLocation.Id);
-            mapFeature.MetaData.Add(designWaterLevelName, hydraulicBoundaryLocation.DesignWaterLevel.Value);
-            mapFeature.MetaData.Add(waveHeightName, hydraulicBoundaryLocation.WaveHeight.Value);
+            mapFeature.MetaData.Add("h(A+_A)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation1));
+            mapFeature.MetaData.Add("h(A_B)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation2));
+            mapFeature.MetaData.Add("h(B_C)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation3));
+            mapFeature.MetaData.Add("h(C_D)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation4));
+            mapFeature.MetaData.Add("Hs(A+_A)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation1));
+            mapFeature.MetaData.Add("Hs(A_B)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation2));
+            mapFeature.MetaData.Add("Hs(B_C)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation3));
+            mapFeature.MetaData.Add("Hs(C_D)", GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation4));
 
             return new MapPointData(hydraulicBoundaryLocation.Name)
             {
@@ -129,6 +138,11 @@ namespace Ringtoets.Common.IO.Hydraulics
                     mapFeature
                 }
             };
+        }
+
+        private static double GetHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationCalculation calculation)
+        {
+            return calculation.Output?.Result ?? double.NaN;
         }
     }
 }
