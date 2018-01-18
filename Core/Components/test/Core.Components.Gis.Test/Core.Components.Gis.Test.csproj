@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Theme\CategoryThemeTest.cs" />
+    <Compile Include="Theme\ValueCriterionOperatorTest.cs" />
     <Compile Include="Theme\ValueCriterionTest.cs" />
     <Compile Include="Theme\MapThemeTest.cs" />
     <Compile Include="Data\ImageBasedMapDataTest.cs" />
