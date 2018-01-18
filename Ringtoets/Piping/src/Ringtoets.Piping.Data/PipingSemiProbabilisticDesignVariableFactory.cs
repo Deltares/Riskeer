@@ -31,54 +31,56 @@ namespace Ringtoets.Piping.Data
         #region General parameters
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.SaturatedVolumicWeightOfCoverageLayer"/>.
+        /// Creates the design variable for <see cref="DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer"/>.
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetSaturatedVolumicWeightOfCoverageLayer(PipingInput parameters)
         {
-            var derivedPipingInput = new DerivedPipingInput(parameters);
+            LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(parameters);
+            LogNormalDistribution saturatedVolumicWeightOfCoverageLayer = DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(parameters);
 
-            if (double.IsNaN(derivedPipingInput.ThicknessCoverageLayer.Mean))
+            if (double.IsNaN(thicknessCoverageLayer.Mean))
             {
-                return new DeterministicDesignVariable<LogNormalDistribution>(derivedPipingInput.SaturatedVolumicWeightOfCoverageLayer);
+                return new DeterministicDesignVariable<LogNormalDistribution>(saturatedVolumicWeightOfCoverageLayer);
             }
 
-            return new LogNormalDistributionDesignVariable(derivedPipingInput.SaturatedVolumicWeightOfCoverageLayer)
+            return new LogNormalDistributionDesignVariable(saturatedVolumicWeightOfCoverageLayer)
             {
                 Percentile = 0.05
             };
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.ThicknessCoverageLayer"/>.
+        /// Creates the design variable for <see cref="DerivedPipingInput.GetThicknessCoverageLayer"/>.
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetThicknessCoverageLayer(PipingInput parameters)
         {
-            var derivedPipingInput = new DerivedPipingInput(parameters);
+            LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(parameters);
 
-            if (double.IsNaN(derivedPipingInput.ThicknessCoverageLayer.Mean))
+            if (double.IsNaN(thicknessCoverageLayer.Mean))
             {
-                return new DeterministicDesignVariable<LogNormalDistribution>(derivedPipingInput.ThicknessCoverageLayer);
+                return new DeterministicDesignVariable<LogNormalDistribution>(thicknessCoverageLayer);
             }
 
-            return new LogNormalDistributionDesignVariable(derivedPipingInput.ThicknessCoverageLayer)
+            return new LogNormalDistributionDesignVariable(thicknessCoverageLayer)
             {
                 Percentile = 0.05
             };
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.EffectiveThicknessCoverageLayer"/>.
+        /// Creates the design variable for <see cref="DerivedPipingInput.GetEffectiveThicknessCoverageLayer"/>.
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetEffectiveThicknessCoverageLayer(PipingInput parameters)
         {
-            var derivedPipingInput = new DerivedPipingInput(parameters);
+            LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(parameters);
+            LogNormalDistribution effectiveThicknessCoverageLayer = DerivedPipingInput.GetEffectiveThicknessCoverageLayer(parameters);
 
-            if (double.IsNaN(derivedPipingInput.ThicknessCoverageLayer.Mean))
+            if (double.IsNaN(thicknessCoverageLayer.Mean))
             {
-                return new DeterministicDesignVariable<LogNormalDistribution>(derivedPipingInput.EffectiveThicknessCoverageLayer);
+                return new DeterministicDesignVariable<LogNormalDistribution>(effectiveThicknessCoverageLayer);
             }
 
-            return new LogNormalDistributionDesignVariable(derivedPipingInput.EffectiveThicknessCoverageLayer)
+            return new LogNormalDistributionDesignVariable(effectiveThicknessCoverageLayer)
             {
                 Percentile = 0.05
             };
@@ -111,52 +113,44 @@ namespace Ringtoets.Piping.Data
         #region Piping parameters
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.SeepageLength"/>.
+        /// Creates the design variable for <see cref="DerivedPipingInput.GetSeepageLength"/>.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetSeepageLength(PipingInput parameters)
         {
-            var derivedPipingInput = new DerivedPipingInput(parameters);
-
-            return new VariationCoefficientLogNormalDistributionDesignVariable(derivedPipingInput.SeepageLength)
+            return new VariationCoefficientLogNormalDistributionDesignVariable(DerivedPipingInput.GetSeepageLength(parameters))
             {
                 Percentile = 0.05
             };
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.DiameterD70"/>.
+        /// Creates the design variable for <see cref="DerivedPipingInput.GetDiameterD70"/>.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetDiameter70(PipingInput parameters)
         {
-            var derivedPipingInput = new DerivedPipingInput(parameters);
-
-            return new VariationCoefficientLogNormalDistributionDesignVariable(derivedPipingInput.DiameterD70)
+            return new VariationCoefficientLogNormalDistributionDesignVariable(DerivedPipingInput.GetDiameterD70(parameters))
             {
                 Percentile = 0.05
             };
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.DarcyPermeability"/>.
+        /// Creates the design variable for <see cref="DerivedPipingInput.GetDarcyPermeability"/>.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetDarcyPermeability(PipingInput parameters)
         {
-            var derivedPipingInput = new DerivedPipingInput(parameters);
-
-            return new VariationCoefficientLogNormalDistributionDesignVariable(derivedPipingInput.DarcyPermeability)
+            return new VariationCoefficientLogNormalDistributionDesignVariable(DerivedPipingInput.GetDarcyPermeability(parameters))
             {
                 Percentile = 0.95
             };
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.ThicknessAquiferLayer"/>.
+        /// Creates the design variable for <see cref="DerivedPipingInput.GetThicknessAquiferLayer"/>.
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetThicknessAquiferLayer(PipingInput parameters)
         {
-            var derivedPipingInput = new DerivedPipingInput(parameters);
-
-            return new LogNormalDistributionDesignVariable(derivedPipingInput.ThicknessAquiferLayer)
+            return new LogNormalDistributionDesignVariable(DerivedPipingInput.GetThicknessAquiferLayer(parameters))
             {
                 Percentile = 0.95
             };
