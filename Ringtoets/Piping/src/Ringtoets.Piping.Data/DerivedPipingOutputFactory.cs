@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Data
                                                              probabilityAssessmentInput.B,
                                                              probabilityAssessmentInput.SectionLength,
                                                              norm,
-                                                             contribution);
+                                                             contribution / 100);
             double requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
 
             return new DerivedPipingOutput(upliftFactorOfSafety, upliftReliability,
@@ -89,13 +89,13 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Calculates the probability of occurrence of the piping failure mechanism.
         /// </summary>
-        /// <param name="probabilityOfHeave">The calculated probability of the heave sub mechanism.</param>
         /// <param name="probabilityOfUplift">The calculated probability of the uplift sub mechanism.</param>
+        /// <param name="probabilityOfHeave">The calculated probability of the heave sub mechanism.</param>        
         /// <param name="probabilityOfSellmeijer">The calculated probability of the Sellmeijer sub mechanism.</param>
         /// <returns>A value representing the probability of occurrence of piping.</returns>
-        private static double PipingProbability(double probabilityOfHeave, double probabilityOfUplift, double probabilityOfSellmeijer)
+        private static double PipingProbability(double probabilityOfUplift, double probabilityOfHeave, double probabilityOfSellmeijer)
         {
-            return Math.Min(Math.Min(probabilityOfHeave, probabilityOfUplift), probabilityOfSellmeijer);
+            return Math.Min(Math.Min(probabilityOfUplift, probabilityOfHeave), probabilityOfSellmeijer);
         }
 
         /// <summary>
