@@ -565,7 +565,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SaturatedVolumicWeightOfCoverageLayer_NoStochasticSoilProfile_ReturnsNaNForParameters()
+        public void SaturatedVolumicWeightOfCoverageLayer_NoStochasticSoilProfile_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -577,13 +577,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.Shift);
-            Assert.IsNaN(result.StandardDeviation);
+            AssertSaturatedVolumicWeightOfCoverageLayer(result);
         }
 
         [Test]
-        public void SaturatedVolumicWeightOfCoverageLayer_NoSurfaceLine_ReturnsNaNForParameters()
+        public void SaturatedVolumicWeightOfCoverageLayer_NoSurfaceLine_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -595,13 +593,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.Shift);
-            Assert.IsNaN(result.StandardDeviation);
+            AssertSaturatedVolumicWeightOfCoverageLayer(result);
         }
 
         [Test]
-        public void SaturatedVolumicWeightOfCoverageLayer_NoExitPointL_ReturnsNaNForParameters()
+        public void SaturatedVolumicWeightOfCoverageLayer_NoExitPointL_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -613,13 +609,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.Shift);
-            Assert.IsNaN(result.StandardDeviation);
+            AssertSaturatedVolumicWeightOfCoverageLayer(result);
         }
 
         [Test]
-        public void SaturatedVolumicWeightOfCoverageLayer_NoAquitardLayers_ReturnsNaNForParameters()
+        public void SaturatedVolumicWeightOfCoverageLayer_NoAquitardLayers_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -638,13 +632,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.Shift);
-            Assert.IsNaN(result.StandardDeviation);
+            AssertSaturatedVolumicWeightOfCoverageLayer(result);
         }
 
         [Test]
-        public void SaturatedVolumicWeightOfCoverageLayer_NoAquiferLayers_ReturnsNaNForParameters()
+        public void SaturatedVolumicWeightOfCoverageLayer_NoAquiferLayers_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -663,13 +655,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.Shift);
-            Assert.IsNaN(result.StandardDeviation);
+            AssertSaturatedVolumicWeightOfCoverageLayer(result);
         }
 
         [Test]
-        public void SaturatedVolumicWeightOfCoverageLayer_NoCoverageLayersAboveTopAquiferLayer_ReturnsNaNForParameters()
+        public void SaturatedVolumicWeightOfCoverageLayer_NoCoverageLayersAboveTopAquiferLayer_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -692,13 +682,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.Shift);
-            Assert.IsNaN(result.StandardDeviation);
+            AssertSaturatedVolumicWeightOfCoverageLayer(result);
         }
 
         [Test]
-        public void SaturatedVolumicWeightOfCoverageLayer_SingleLayer_ReturnsWithParametersFromLayer()
+        public void SaturatedVolumicWeightOfCoverageLayer_SingleLayer_ReturnsDistributionWithParametersFromLayer()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -730,13 +718,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.AreEqual(belowPhreaticLevelMean, result.Mean, result.Mean.GetAccuracy());
-            Assert.AreEqual(shift, result.Shift, result.Shift.GetAccuracy());
-            Assert.AreEqual(deviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+            AssertSaturatedVolumicWeightOfCoverageLayer(result, belowPhreaticLevelMean, deviation, shift);
         }
 
         [Test]
-        public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersEqualStandardDeviationAndShift_ReturnsWithWeightedMean()
+        public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersEqualStandardDeviationAndShift_ReturnsDistributionWithWeightedMean()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -778,9 +764,8 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.AreEqual((belowPhreaticLevelMeanA * 2.5 + belowPhreaticLevelMeanB * 1.0) / 3.5, result.Mean, result.Mean.GetAccuracy());
-            Assert.AreEqual(shift, result.Shift, result.Shift.GetAccuracy());
-            Assert.AreEqual(deviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+            double expectedMean = (belowPhreaticLevelMeanA * 2.5 + belowPhreaticLevelMeanB * 1.0) / 3.5;
+            AssertSaturatedVolumicWeightOfCoverageLayer(result, expectedMean, deviation, shift);
         }
 
         [Test]
@@ -790,7 +775,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(3, -1)]
         [TestCase(-0.01, 0)]
         [TestCase(0, -0.01)]
-        public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersInequalStandardDeviationOrShift_ReturnsNaNValues(double deviationDelta, double shiftDelta)
+        public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersInequalStandardDeviationOrShift_ReturnsDistributionWithParametersNaN(double deviationDelta, double shiftDelta)
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -832,13 +817,11 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.Shift);
-            Assert.IsNaN(result.StandardDeviation);
+            AssertSaturatedVolumicWeightOfCoverageLayer(result);
         }
 
         [Test]
-        public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersInequalStandardDeviationOrShiftButEqualWhenRounded_ReturnsWithWeightedMean()
+        public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersInequalStandardDeviationOrShiftButEqualWhenRounded_ReturnsDistributionWithWeightedMean()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -877,13 +860,12 @@ namespace Ringtoets.Piping.Data.Test
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.AreEqual((belowPhreaticLevelMeanA * 2.5 + belowPhreaticLevelMeanB * 1.0) / 3.5, result.Mean, result.Mean.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) 1.01, result.Shift);
-            Assert.AreEqual((RoundedDouble) 1.01, result.StandardDeviation);
+            double expectedMean = (belowPhreaticLevelMeanA * 2.5 + belowPhreaticLevelMeanB * 1.0) / 3.5;
+            AssertSaturatedVolumicWeightOfCoverageLayer(result, expectedMean, (RoundedDouble) 1.01, (RoundedDouble) 1.01);
         }
 
         [Test]
-        public void DarcyPermeability_NoStochasticSoilProfile_ReturnsNaNForParameters()
+        public void DarcyPermeability_NoStochasticSoilProfile_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -895,12 +877,11 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.CoefficientOfVariation);
+            AssertDarcyPermeability(result);
         }
 
         [Test]
-        public void DarcyPermeability_NoSurfaceLine_ReturnsNaNForParameters()
+        public void DarcyPermeability_NoSurfaceLine_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -912,12 +893,11 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.CoefficientOfVariation);
+            AssertDarcyPermeability(result);
         }
 
         [Test]
-        public void DarcyPermeability_NoExitPointL_ReturnsNaNForParameters()
+        public void DarcyPermeability_NoExitPointL_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -929,12 +909,11 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.CoefficientOfVariation);
+            AssertDarcyPermeability(result);
         }
 
         [Test]
-        public void DarcyPermeability_NoAquiferLayers_ReturnsNaNForParameters()
+        public void DarcyPermeability_NoAquiferLayers_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -950,12 +929,11 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.CoefficientOfVariation);
+            AssertDarcyPermeability(result);
         }
 
         [Test]
-        public void DarcyPermeability_MultipleAquiferLayersWithSameVariation_ReturnsWithWeightedMean()
+        public void DarcyPermeability_MultipleAquiferLayersWithSameVariation_ReturnsDistributionWithWeightedMean()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -993,12 +971,11 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             double weightedMean = (mean * 0.5 + mean2) / 1.5;
-            Assert.AreEqual(weightedMean, result.Mean, result.Mean.GetAccuracy());
-            Assert.AreEqual(coefficientOfVariation, result.CoefficientOfVariation, result.CoefficientOfVariation.GetAccuracy());
+            AssertDarcyPermeability(result, weightedMean, coefficientOfVariation);
         }
 
         [Test]
-        public void DarcyPermeability_SingleAquiferLayerWithRandomMeanAndDeviation_ReturnsWithWeightedMean()
+        public void DarcyPermeability_SingleAquiferLayerWithRandomMeanAndDeviation_ReturnsDistributionWithWeightedMean()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -1027,12 +1004,11 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             var expectedMean = new RoundedDouble(6, permeabilityMean);
             var expectedCoefficientOfVariation = new RoundedDouble(6, permeabilityCoefficientOfVariation);
-            Assert.AreEqual(expectedMean, result.Mean);
-            Assert.AreEqual(expectedCoefficientOfVariation, result.CoefficientOfVariation, result.CoefficientOfVariation.GetAccuracy());
+            AssertDarcyPermeability(result, expectedMean, expectedCoefficientOfVariation);
         }
 
         [Test]
-        public void DarcyPermeability_MultipleAquiferLayersWithDifferentMeanAndDeviation_ReturnsNaNForParameters()
+        public void DarcyPermeability_MultipleAquiferLayersWithDifferentMeanAndDeviation_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -1065,12 +1041,11 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.CoefficientOfVariation);
+            AssertDarcyPermeability(result);
         }
 
         [Test]
-        public void DiameterD70_NoStochasticSoilProfile_ReturnsNaNForParameters()
+        public void DiameterD70_NoStochasticSoilProfile_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -1082,12 +1057,11 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.CoefficientOfVariation);
+            AssertDiameterD70(result);
         }
 
         [Test]
-        public void DiameterD70_NoSurfaceLine_ReturnsNaNForParameters()
+        public void DiameterD70_NoSurfaceLine_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -1099,12 +1073,11 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.CoefficientOfVariation);
+            AssertDiameterD70(result);
         }
 
         [Test]
-        public void DiameterD70_NoExitPointL_ReturnsNaNForParameters()
+        public void DiameterD70_NoExitPointL_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -1116,12 +1089,11 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.CoefficientOfVariation);
+            AssertDiameterD70(result);
         }
 
         [Test]
-        public void DiameterD70_NoAquiferLayers_ReturnsNaNForParameters()
+        public void DiameterD70_NoAquiferLayers_ReturnsDistributionWithParametersNaN()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -1137,12 +1109,11 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
 
             // Assert
-            Assert.IsNaN(result.Mean);
-            Assert.IsNaN(result.CoefficientOfVariation);
+            AssertDiameterD70(result);
         }
 
         [Test]
-        public void DiameterD70_SingleAquiferLayers_ReturnsWithParametersFromLayer()
+        public void DiameterD70_SingleAquiferLayers_ReturnsDistributionWithParametersFromLayer()
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -1169,8 +1140,7 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
 
             // Assert
-            Assert.AreEqual(diameterD70Mean, result.Mean, result.GetAccuracy());
-            Assert.AreEqual(diameterD70CoefficientOfVariation, result.CoefficientOfVariation, result.GetAccuracy());
+            AssertDiameterD70(result, diameterD70Mean, diameterD70CoefficientOfVariation);
         }
 
         [Test]
@@ -1209,8 +1179,7 @@ namespace Ringtoets.Piping.Data.Test
             VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
 
             // Assert
-            Assert.AreEqual(diameterD70Mean, result.Mean, result.GetAccuracy());
-            Assert.AreEqual(diameterD70CoefficientOfVariation, result.CoefficientOfVariation, result.GetAccuracy());
+            AssertDiameterD70(result, diameterD70Mean, diameterD70CoefficientOfVariation);
         }
 
         private static void AssertEffectiveThicknessCoverageLayer(LogNormalDistribution effectiveThicknessCoverageLayer, double mean = double.NaN)
@@ -1255,6 +1224,47 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             DistributionAssert.AreEqual(expected, seepageLength);
+        }
+
+        private static void AssertSaturatedVolumicWeightOfCoverageLayer(LogNormalDistribution saturatedVolumicWeightOfCoverageLayer,
+                                                                        double mean = double.NaN,
+                                                                        double standardDeviation = double.NaN,
+                                                                        double shift = double.NaN)
+        {
+            var expected = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) mean,
+                StandardDeviation = (RoundedDouble) standardDeviation,
+                Shift = (RoundedDouble) shift
+            };
+
+            DistributionAssert.AreEqual(expected, saturatedVolumicWeightOfCoverageLayer);
+        }
+
+        private static void AssertDarcyPermeability(VariationCoefficientLogNormalDistribution darcyPermeability,
+                                                    double mean = double.NaN,
+                                                    double standardDeviation = double.NaN)
+        {
+            var expected = new VariationCoefficientLogNormalDistribution(6)
+            {
+                Mean = (RoundedDouble) mean,
+                CoefficientOfVariation = (RoundedDouble) standardDeviation
+            };
+
+            DistributionAssert.AreEqual(expected, darcyPermeability);
+        }
+
+        private static void AssertDiameterD70(VariationCoefficientLogNormalDistribution diameterD70,
+                                              double mean = double.NaN,
+                                              double coefficientOfVariation = double.NaN)
+        {
+            var expected = new VariationCoefficientLogNormalDistribution(6)
+            {
+                Mean = (RoundedDouble) mean,
+                CoefficientOfVariation = (RoundedDouble) coefficientOfVariation
+            };
+
+            DistributionAssert.AreEqual(expected, diameterD70);
         }
     }
 }

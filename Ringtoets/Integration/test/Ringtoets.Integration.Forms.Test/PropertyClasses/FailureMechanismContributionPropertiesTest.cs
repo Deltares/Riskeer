@@ -310,7 +310,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenAssessmentSectionComposition_WhenCancelingCompositionValueChange__ThenDataSameObserversNotNotified()
+        public void GivenAssessmentSectionComposition_WhenCancelingCompositionValueChange_ThenDataSameObserversNotNotified()
         {
             // Given
             const AssessmentSectionComposition originalComposition = AssessmentSectionComposition.Dike;
