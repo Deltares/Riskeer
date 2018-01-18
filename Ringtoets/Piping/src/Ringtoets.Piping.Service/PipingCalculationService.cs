@@ -45,9 +45,10 @@ namespace Ringtoets.Piping.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="PipingCalculation"/> for which to validate the values.</param>
+        /// <param name="calculatedAssessmentLevel">The calculated assessment level to use in case no manual assessment level is provided.</param>
         /// <returns><c>false</c> if <paramref name="calculation"/> contains validation errors; <c>true</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public static bool Validate(PipingCalculation calculation)
+        public static bool Validate(PipingCalculation calculation, RoundedDouble calculatedAssessmentLevel)
         {
             if (calculation == null)
             {
@@ -58,7 +59,7 @@ namespace Ringtoets.Piping.Service
 
             CalculationServiceHelper.LogMessagesAsWarning(GetInputWarnings(calculation.InputParameters).ToArray());
 
-            string[] inputValidationResults = ValidateInput(calculation.InputParameters).ToArray();
+            string[] inputValidationResults = ValidateInput(calculation.InputParameters, calculatedAssessmentLevel).ToArray();
 
             if (inputValidationResults.Length > 0)
             {
@@ -67,7 +68,9 @@ namespace Ringtoets.Piping.Service
                 return false;
             }
 
-            List<string> validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Validate();
+            List<string> validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters, calculatedAssessmentLevel),
+                                                                  PipingSubCalculatorFactory.Instance).Validate();
+
             CalculationServiceHelper.LogMessagesAsError(validationResults.ToArray());
 
             CalculationServiceHelper.LogValidationEnd();
@@ -81,9 +84,10 @@ namespace Ringtoets.Piping.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="PipingCalculation"/> to base the input for the calculation upon.</param>
+        /// <param name="calculatedAssessmentLevel">The calculated assessment level to use in case no manual assessment level is provided.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
-        public static void Calculate(PipingCalculation calculation)
+        public static void Calculate(PipingCalculation calculation, RoundedDouble calculatedAssessmentLevel)
         {
             if (calculation == null)
             {
@@ -94,7 +98,7 @@ namespace Ringtoets.Piping.Service
 
             try
             {
-                PipingCalculatorResult pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters),
+                PipingCalculatorResult pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters, calculatedAssessmentLevel),
                                                                            PipingSubCalculatorFactory.Instance).Calculate();
 
                 calculation.Output = new PipingOutput(new PipingOutput.ConstructionProperties
@@ -122,11 +126,11 @@ namespace Ringtoets.Piping.Service
             }
         }
 
-        private static List<string> ValidateInput(PipingInput inputParameters)
+        private static List<string> ValidateInput(PipingInput inputParameters, RoundedDouble calculatedAssessmentLevel)
         {
             var validationResults = new List<string>();
 
-            validationResults.AddRange(ValidateHydraulics(inputParameters));
+            validationResults.AddRange(ValidateHydraulics(inputParameters, calculatedAssessmentLevel));
 
             IEnumerable<string> coreValidationError = ValidateCoreSurfaceLineAndSoilProfileProperties(inputParameters);
             validationResults.AddRange(coreValidationError);
@@ -144,7 +148,7 @@ namespace Ringtoets.Piping.Service
             return validationResults;
         }
 
-        private static IEnumerable<string> ValidateHydraulics(PipingInput inputParameters)
+        private static IEnumerable<string> ValidateHydraulics(PipingInput inputParameters, RoundedDouble calculatedAssessmentLevel)
         {
             var validationResults = new List<string>();
             if (!inputParameters.UseAssessmentLevelManualInput && inputParameters.HydraulicBoundaryLocation == null)
@@ -153,9 +157,9 @@ namespace Ringtoets.Piping.Service
             }
             else
             {
-                validationResults.AddRange(ValidateAssessmentLevel(inputParameters));
+                validationResults.AddRange(ValidateAssessmentLevel(inputParameters, calculatedAssessmentLevel));
 
-                RoundedDouble piezometricHeadExit = DerivedPipingInput.GetPiezometricHeadExit(inputParameters);
+                RoundedDouble piezometricHeadExit = DerivedPipingInput.GetPiezometricHeadExit(inputParameters, GetAssessmentLevel(inputParameters, calculatedAssessmentLevel));
                 if (double.IsNaN(piezometricHeadExit) || double.IsInfinity(piezometricHeadExit))
                 {
                     validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
@@ -165,7 +169,7 @@ namespace Ringtoets.Piping.Service
             return validationResults;
         }
 
-        private static IEnumerable<string> ValidateAssessmentLevel(PipingInput inputParameters)
+        private static IEnumerable<string> ValidateAssessmentLevel(PipingInput inputParameters, RoundedDouble calculatedAssessmentLevel)
         {
             var validationResult = new List<string>();
 
@@ -175,7 +179,7 @@ namespace Ringtoets.Piping.Service
             }
             else
             {
-                if (double.IsNaN(inputParameters.AssessmentLevel))
+                if (double.IsNaN(calculatedAssessmentLevel))
                 {
                     validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
                 }
@@ -354,7 +358,7 @@ namespace Ringtoets.Piping.Service
                    !double.IsNaN(surfaceLineMissing.ExitPointL);
         }
 
-        private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters)
+        private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters, RoundedDouble calculatedAssessmentLevel)
         {
             return new PipingCalculatorInput(
                 new PipingCalculatorInput.ConstructionProperties
@@ -363,7 +367,7 @@ namespace Ringtoets.Piping.Service
                     SaturatedVolumicWeightOfCoverageLayer = PipingSemiProbabilisticDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
                     UpliftModelFactor = inputParameters.UpliftModelFactor,
                     AssessmentLevel = inputParameters.AssessmentLevel,
-                    PiezometricHeadExit = DerivedPipingInput.GetPiezometricHeadExit(inputParameters),
+                    PiezometricHeadExit = DerivedPipingInput.GetPiezometricHeadExit(inputParameters, GetAssessmentLevel(inputParameters, calculatedAssessmentLevel)),
                     DampingFactorExit = PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
                     PhreaticLevelExit = PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                     CriticalHeaveGradient = inputParameters.CriticalHeaveGradient,
@@ -385,6 +389,13 @@ namespace Ringtoets.Piping.Service
                     SurfaceLine = inputParameters.SurfaceLine,
                     SoilProfile = inputParameters.StochasticSoilProfile?.SoilProfile
                 });
+        }
+
+        private static RoundedDouble GetAssessmentLevel(PipingInput input, RoundedDouble calculatedAssessmentLevel)
+        {
+            return input.UseAssessmentLevelManualInput
+                       ? input.AssessmentLevel
+                       : calculatedAssessmentLevel;
         }
     }
 }
