@@ -205,7 +205,7 @@ namespace Ringtoets.Piping.Plugin
             };
 
             yield return new ViewInfo<
-                FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>,
+                PipingFailureMechanismSectionResultContext,
                 IEnumerable<PipingFailureMechanismSectionResult>,
                 PipingFailureMechanismResultView>
             {
@@ -213,7 +213,8 @@ namespace Ringtoets.Piping.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
+                CreateInstance = context => new PipingFailureMechanismResultView(context.AssessmentSection)
             };
 
             yield return new ViewInfo<PipingCalculationGroupContext, CalculationGroup, PipingCalculationsView>
@@ -268,7 +269,7 @@ namespace Ringtoets.Piping.Plugin
                 PipingCalculationGroupContextContextMenuStrip,
                 PipingCalculationGroupContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<PipingFailureMechanismSectionResultContext>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -708,8 +709,7 @@ namespace Ringtoets.Piping.Plugin
             return new object[]
             {
                 new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism),
+                new PipingFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
         }

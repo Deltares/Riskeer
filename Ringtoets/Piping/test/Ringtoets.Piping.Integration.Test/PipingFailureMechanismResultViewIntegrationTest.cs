@@ -46,8 +46,10 @@ namespace Ringtoets.Piping.Integration.Test
         {
             using (var form = new Form())
             {
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
                 // Show the view
-                var failureMechanismResultView = new PipingFailureMechanismResultView();
+                var failureMechanismResultView = new PipingFailureMechanismResultView(assessmentSection);
                 form.Controls.Add(failureMechanismResultView);
                 form.Show();
 
@@ -55,7 +57,6 @@ namespace Ringtoets.Piping.Integration.Test
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Set all necessary data to the view
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 failureMechanismResultView.Data = assessmentSection.Piping.SectionResults;
                 failureMechanismResultView.FailureMechanism = assessmentSection.Piping;
 

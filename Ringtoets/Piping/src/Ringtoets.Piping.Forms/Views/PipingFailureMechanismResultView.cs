@@ -42,13 +42,23 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-        private IAssessmentSection assessmentSection;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
         /// </summary>
-        public PipingFailureMechanismResultView()
+        /// <param name="assessmentSection">The assessment section that the failure mechanism belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public PipingFailureMechanismResultView(IAssessmentSection assessmentSection)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.assessmentSection = assessmentSection;
+
             DataGridViewControl.CellFormatting += ShowAssessmentLayerTwoAErrors;
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
 

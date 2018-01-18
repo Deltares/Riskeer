@@ -28,6 +28,7 @@
     <Compile Include="PipingSurfaceLineSelectionDialogTest.cs" />
     <Compile Include="PresentationObjects\PipingFailureMechanismSectionsContextTest.cs" />
     <Compile Include="PresentationObjects\PipingFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\PipingFailureMechanismSectionResultContextTest.cs" />
     <Compile Include="PresentationObjects\PipingOutputContextTest.cs" />
     <Compile Include="PresentationObjects\PipingScenariosContextTest.cs" />
     <Compile Include="PresentationObjects\PipingSurfaceLinesContextTest.cs" />

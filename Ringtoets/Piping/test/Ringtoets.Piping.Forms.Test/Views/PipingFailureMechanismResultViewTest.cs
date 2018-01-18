@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -29,7 +30,10 @@ using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
@@ -58,16 +62,34 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var view = new PipingFailureMechanismResultView())
+            TestDelegate call = () => new PipingFailureMechanismResultView(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            using (var view = new PipingFailureMechanismResultView(assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -525,7 +547,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private PipingFailureMechanismResultView ShowFailureMechanismResultsView()
         {
-            var failureMechanismResultView = new PipingFailureMechanismResultView();
+            var failureMechanismResultView = new PipingFailureMechanismResultView(new ObservableTestAssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
