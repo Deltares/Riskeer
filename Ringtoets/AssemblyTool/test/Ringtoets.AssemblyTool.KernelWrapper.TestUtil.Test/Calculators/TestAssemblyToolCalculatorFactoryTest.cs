@@ -49,15 +49,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
             // Setup
             var factory = new TestAssemblyToolCalculatorFactory();
 
-            using (new AssemblyToolKernelFactoryConfig())
-            {
-                // Call
-                IAssemblyCategoriesCalculator calculator = factory.CreateAssemblyCategoriesCalculator(null);
+            // Call
+            IAssemblyCategoriesCalculator calculator = factory.CreateAssemblyCategoriesCalculator(null);
 
-                // Assert
-                Assert.IsInstanceOf<AssemblyCategoriesCalculatorStub>(calculator);
-                Assert.AreSame(factory.LastCreatedAssemblyCategoriesCalculator, calculator);
-            }
+            // Assert
+            Assert.IsInstanceOf<AssemblyCategoriesCalculatorStub>(calculator);
+            Assert.AreSame(factory.LastCreatedAssemblyCategoriesCalculator, calculator);
         }
     }
 }
