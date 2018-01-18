@@ -55,14 +55,14 @@ namespace Ringtoets.Piping.Data
             if (calculationScenarios.Any())
             {
                 double totalAssessmentLayerTwoA = 0;
-                foreach (PipingCalculationScenario calculationScenario in calculationScenarios)
+                foreach (PipingCalculationScenario scenario in calculationScenarios)
                 {
-                    DerivedPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(calculationScenario.Output,
+                    DerivedPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(scenario.Output,
                                                                                           failurMechanism.PipingProbabilityAssessmentInput,
                                                                                           assessmentSection.FailureMechanismContribution.Norm,
                                                                                           failurMechanism.Contribution);
 
-                    totalAssessmentLayerTwoA += derivedOutput.PipingProbability * calculationScenario.Contribution;
+                    totalAssessmentLayerTwoA += derivedOutput.PipingProbability * (double) scenario.Contribution;
                 }
                 return totalAssessmentLayerTwoA;
             }
