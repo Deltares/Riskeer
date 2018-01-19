@@ -25,6 +25,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Permissions;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.PropertyBag;
@@ -34,7 +35,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
     /// <summary>
     /// View for displaying the properties of an data object.
     /// </summary>
-    public class PropertyGridView : PropertyGrid, IView
+    public class PropertyGridView : PropertyGrid, IView, IObserver
     {
         private readonly IPropertyResolver propertyResolver;
 
@@ -66,6 +67,11 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             PropertySort = PropertySort.Categorized;
 
             this.propertyResolver = propertyResolver;
+        }
+
+        public void UpdateObserver()
+        {
+            RefreshPropertyGridView();
         }
 
         protected override void OnPropertySortChanged(EventArgs e)
@@ -127,6 +133,9 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                 if (objectProperties != null)
                 {
                     objectProperties.RefreshRequired += HandleRefreshRequired;
+
+                    var observableObjectProperties = objectProperties.Data as IObservable;
+                    observableObjectProperties?.Attach(this);
                 }
             }
         }
@@ -139,6 +148,9 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
                 var disposableObjectProperties = objectProperties as IDisposable;
                 disposableObjectProperties?.Dispose();
+
+                var observableObjectProperties = objectProperties.Data as IObservable;
+                observableObjectProperties?.Detach(this);
             }
         }
 
@@ -171,10 +183,12 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                 {
                     return false;
                 }
+
                 while (root.Parent != null)
                 {
                     root = root.Parent;
                 }
+
                 // Find all expanded items and put them in a list.
                 var items = new List<GridItem>();
                 AddExpandedItems(root, items);
@@ -188,6 +202,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                     {
                         foundIndex = items.Count - 1;
                     }
+
                     SelectedGridItem = items[foundIndex];
                     if (SelectedGridItem.GridItems.Count > 0)
                     {
@@ -203,8 +218,10 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                         {
                             foundIndex = 0;
                         }
+
                         SelectedGridItem = items[foundIndex];
                     }
+
                     if (SelectedGridItem.GridItems.Count > 0)
                     {
                         SelectedGridItem.Expanded = true;
@@ -213,6 +230,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
                 return true;
             }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
