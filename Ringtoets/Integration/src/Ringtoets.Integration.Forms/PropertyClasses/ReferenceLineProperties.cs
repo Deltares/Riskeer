@@ -60,8 +60,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [PropertyOrder(lengthPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ReferenceLineProperties_Length_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ReferenceLineProperties_Length_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_Description))]
         public RoundedDouble Length
         {
             get

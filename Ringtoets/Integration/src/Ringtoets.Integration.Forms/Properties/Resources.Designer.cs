@@ -670,24 +670,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Totale lengte van het traject in meters (afgerond)..
-        /// </summary>
-        public static string ReferenceLineProperties_Length_Description {
-            get {
-                return ResourceManager.GetString("ReferenceLineProperties_Length_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lengte* [m].
-        /// </summary>
-        public static string ReferenceLineProperties_Length_DisplayName {
-            get {
-                return ResourceManager.GetString("ReferenceLineProperties_Length_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Database op pad &apos;{0}&apos; gekoppeld..
         /// </summary>
         public static string RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked {

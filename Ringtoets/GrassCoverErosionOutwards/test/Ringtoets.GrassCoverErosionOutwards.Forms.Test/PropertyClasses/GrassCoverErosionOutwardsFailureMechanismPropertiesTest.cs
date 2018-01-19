@@ -149,7 +149,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthEffectProperty,
                                                                             "Lengte-effect parameters",
                                                                             "N [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.");
+                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
 
             PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,

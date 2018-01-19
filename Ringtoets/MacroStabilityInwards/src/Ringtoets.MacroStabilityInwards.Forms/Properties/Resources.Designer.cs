@@ -118,15 +118,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengte-effect parameters.
-        /// </summary>
-        public static string Categories_LengthEffectParameters {
-            get {
-                return ResourceManager.GetString("Categories_LengthEffectParameters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Instellingen.
         /// </summary>
         public static string Categories_Settings {
@@ -240,60 +231,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string FrictionAngle_DisplayName {
             get {
                 return ResourceManager.GetString("FrictionAngle_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;a&apos; die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans..
-        /// </summary>
-        public static string GeneralMacroStabilityInwardsInput_A_Description {
-            get {
-                return ResourceManager.GetString("GeneralMacroStabilityInwardsInput_A_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to a [-].
-        /// </summary>
-        public static string GeneralMacroStabilityInwardsInput_A_DisplayName {
-            get {
-                return ResourceManager.GetString("GeneralMacroStabilityInwardsInput_A_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;b&apos; die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans..
-        /// </summary>
-        public static string GeneralMacroStabilityInwardsInput_B_Description {
-            get {
-                return ResourceManager.GetString("GeneralMacroStabilityInwardsInput_B_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to b [m].
-        /// </summary>
-        public static string GeneralMacroStabilityInwardsInput_B_DisplayName {
-            get {
-                return ResourceManager.GetString("GeneralMacroStabilityInwardsInput_B_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De parameter N die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond)..
-        /// </summary>
-        public static string GeneralMacroStabilityInwardsInput_N_Description {
-            get {
-                return ResourceManager.GetString("GeneralMacroStabilityInwardsInput_N_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to N* [-].
-        /// </summary>
-        public static string GeneralMacroStabilityInwardsInput_N_DisplayName {
-            get {
-                return ResourceManager.GetString("GeneralMacroStabilityInwardsInput_N_DisplayName", resourceCulture);
             }
         }
         

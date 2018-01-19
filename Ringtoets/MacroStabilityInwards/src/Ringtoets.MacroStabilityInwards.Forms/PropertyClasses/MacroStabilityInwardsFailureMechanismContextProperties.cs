@@ -30,7 +30,6 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
-using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
@@ -56,10 +55,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (handler == null)
             {
                 throw new ArgumentNullException(nameof(handler));
             }
+
             Data = data;
             propertyChangeHandler = handler;
         }
@@ -71,6 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             {
                 return false;
             }
+
             return true;
         }
 
@@ -98,6 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             return nameof(A).Equals(propertyName)
                    || nameof(B).Equals(propertyName)
+                   || nameof(SectionLength).Equals(propertyName)
                    || nameof(N).Equals(propertyName);
         }
 
@@ -145,9 +148,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(21)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_LengthEffectParameters))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralMacroStabilityInwardsInput_A_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralMacroStabilityInwardsInput_A_Description))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_A_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_A_Description))]
         public double A
         {
             get
@@ -162,9 +165,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(22)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_LengthEffectParameters))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralMacroStabilityInwardsInput_B_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralMacroStabilityInwardsInput_B_Description))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_B_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_B_Description))]
         public double B
         {
             get
@@ -175,15 +178,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(23)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_LengthEffectParameters))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralMacroStabilityInwardsInput_N_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralMacroStabilityInwardsInput_N_Description))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_Description))]
+        public RoundedDouble SectionLength
+        {
+            get
+            {
+                return new RoundedDouble(2, data.WrappedData.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(24)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_Description))]
         public RoundedDouble N
         {
             get
             {
                 return new RoundedDouble(2, data.WrappedData.MacroStabilityInwardsProbabilityAssessmentInput.GetSectionSpecificN(
-                    data.WrappedData.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength));
+                                             data.WrappedData.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength));
             }
         }
 

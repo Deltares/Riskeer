@@ -56,10 +56,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (handler == null)
             {
                 throw new ArgumentNullException(nameof(handler));
             }
+
             Data = data;
             propertyChangeHandler = handler;
         }
@@ -88,6 +90,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 return false;
             }
+
             return true;
         }
 
@@ -117,6 +120,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                    || nameof(WaterVolumetricWeight).Equals(propertyName)
                    || nameof(A).Equals(propertyName)
                    || nameof(B).Equals(propertyName)
+                   || nameof(SectionLength).Equals(propertyName)
                    || nameof(N).Equals(propertyName)
                    || nameof(SandParticlesVolumicWeight).Equals(propertyName)
                    || nameof(WhitesDragCoefficient).Equals(propertyName)
@@ -190,9 +194,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(21)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_LengthEffectParameters))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_A_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_A_Description))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_A_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_A_Description))]
         public double A
         {
             get
@@ -207,9 +211,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(22)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_LengthEffectParameters))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_B_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_B_Description))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_B_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_B_Description))]
         public double B
         {
             get
@@ -220,9 +224,22 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [DynamicVisible]
         [PropertyOrder(23)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_LengthEffectParameters))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_N_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_N_Description))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_Description))]
+        public RoundedDouble SectionLength
+        {
+            get
+            {
+                return new RoundedDouble(2, data.WrappedData.PipingProbabilityAssessmentInput.SectionLength);
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(24)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_Description))]
         public RoundedDouble N
         {
             get

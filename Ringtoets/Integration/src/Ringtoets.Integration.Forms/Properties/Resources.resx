@@ -348,10 +348,4 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="ReferenceLineProperties_Geometry_Description" xml:space="preserve">
     <value>Lijst van alle coördinaten (X-coördinaat, Y-coördinaat) die samen de referentielijn vormen.</value>
   </data>
-  <data name="ReferenceLineProperties_Length_DisplayName" xml:space="preserve">
-    <value>Lengte* [m]</value>
-  </data>
-  <data name="ReferenceLineProperties_Length_Description" xml:space="preserve">
-    <value>Totale lengte van het traject in meters (afgerond).</value>
-  </data>
 </root>

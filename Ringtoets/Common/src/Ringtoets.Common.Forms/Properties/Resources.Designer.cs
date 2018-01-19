@@ -1139,11 +1139,47 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;a&apos; die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans..
+        /// </summary>
+        public static string FailureMechanism_A_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_A_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to a [-].
+        /// </summary>
+        public static string FailureMechanism_A_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_A_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resultaat.
         /// </summary>
         public static string FailureMechanism_AssessmentResult_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_AssessmentResult_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;b&apos; die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans..
+        /// </summary>
+        public static string FailureMechanism_B_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_B_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to b [m].
+        /// </summary>
+        public static string FailureMechanism_B_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_B_DisplayName", resourceCulture);
             }
         }
         
@@ -1220,7 +1256,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling..
+        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling..
         /// </summary>
         public static string FailureMechanism_N_Description {
             get {
@@ -1234,6 +1270,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanism_N_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_N_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond)..
+        /// </summary>
+        public static string FailureMechanism_N_Rounded_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_N_Rounded_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N* [-].
+        /// </summary>
+        public static string FailureMechanism_N_Rounded_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_N_Rounded_DisplayName", resourceCulture);
             }
         }
         
@@ -2444,6 +2498,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Profile_Name_DisplayName {
             get {
                 return ResourceManager.GetString("Profile_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Totale lengte van het traject in meters (afgerond)..
+        /// </summary>
+        public static string ReferenceLine_Length_Description {
+            get {
+                return ResourceManager.GetString("ReferenceLine_Length_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lengte* [m].
+        /// </summary>
+        public static string ReferenceLine_Length_DisplayName {
+            get {
+                return ResourceManager.GetString("ReferenceLine_Length_DisplayName", resourceCulture);
             }
         }
         

@@ -295,21 +295,6 @@
   <data name="PipingInput_HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
     <value>Locatie met hydraulische randvoorwaarden</value>
   </data>
-  <data name="Categories_LengthEffectParameters" xml:space="preserve">
-    <value>Lengte-effect parameters</value>
-  </data>
-  <data name="GeneralPipingInput_A_Description" xml:space="preserve">
-    <value>De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.</value>
-  </data>
-  <data name="GeneralPipingInput_A_DisplayName" xml:space="preserve">
-    <value>a [-]</value>
-  </data>
-  <data name="GeneralPipingInput_B_Description" xml:space="preserve">
-    <value>De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.</value>
-  </data>
-  <data name="GeneralPipingInput_B_DisplayName" xml:space="preserve">
-    <value>b [m]</value>
-  </data>
   <data name="PipingOutputContext_PipingFactorOfSafety_Description" xml:space="preserve">
     <value>De veiligheidsfactor voor deze berekening.</value>
   </data>
@@ -507,11 +492,5 @@
   </data>
   <data name="PipingSurfaceLineCollection_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd.</value>
-  </data>
-  <data name="GeneralPipingInput_N_DisplayName" xml:space="preserve">
-    <value>N* [-]</value>
-  </data>
-  <data name="GeneralPipingInput_N_Description" xml:space="preserve">
-    <value>De parameter N die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).</value>
   </data>
 </root>
