@@ -23,9 +23,9 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
@@ -60,10 +60,10 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_ReturnReferenceLineProperties()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                ReferenceLine = new ReferenceLine()
-            };
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var context = new ReferenceLineContext(assessmentSection);
 
             // Call
@@ -72,6 +72,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             // Assert
             Assert.IsInstanceOf<ReferenceLineProperties>(objectProperties);
             Assert.AreSame(context.WrappedData, objectProperties.Data);
+            mocks.VerifyAll();
         }
     }
 }

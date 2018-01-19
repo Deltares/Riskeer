@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
@@ -77,7 +76,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var referenceLine = new ReferenceLine();
-            var geometry = new List<Point2D>
+            var geometry = new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble()),
                 new Point2D(random.NextDouble(), random.NextDouble())

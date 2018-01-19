@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Data = assessmentSection;
+            data = assessmentSection;
         }
 
         [PropertyOrder(lengthPropertyIndex)]
