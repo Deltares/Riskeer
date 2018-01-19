@@ -47,7 +47,6 @@ namespace Ringtoets.Piping.Data
         private RoundedDouble entryPointL;
         private PipingSurfaceLine surfaceLine;
         private RoundedDouble assessmentLevel;
-        private bool useAssessmentLevelManualInput;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
@@ -79,7 +78,6 @@ namespace Ringtoets.Piping.Data
             };
 
             assessmentLevel = new RoundedDouble(2, double.NaN);
-            useAssessmentLevelManualInput = false;
         }
 
         /// <summary>
@@ -194,22 +192,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or sets whether the assessment level is manual input for the calculation.
         /// </summary>
-        public bool UseAssessmentLevelManualInput
-        {
-            get
-            {
-                return useAssessmentLevelManualInput;
-            }
-            set
-            {
-                useAssessmentLevelManualInput = value;
-
-                if (useAssessmentLevelManualInput)
-                {
-                    HydraulicBoundaryLocation = null;
-                }
-            }
-        }
+        public bool UseAssessmentLevelManualInput { get; set; }
 
         /// <summary>
         /// Gets the value <c>true</c> if the entry point and exit point of the
@@ -232,6 +215,23 @@ namespace Ringtoets.Piping.Data
 
                 return Math.Abs(newEntryPointL - EntryPointL) < 1e-6
                        && Math.Abs(newExitPointL - ExitPointL) < 1e-6;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the outside high water level.
+        /// [m+NAP]
+        /// </summary>
+        /// <remarks>This property is only used for calculations when <see cref="UseAssessmentLevelManualInput"/> is <c>true</c>.</remarks>
+        public RoundedDouble AssessmentLevel
+        {
+            get
+            {
+                return assessmentLevel;
+            }
+            set
+            {
+                assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
         }
 
@@ -292,6 +292,7 @@ namespace Ringtoets.Piping.Data
             {
                 tempExitPointL = localGeometry.ElementAt(exitPointIndex).X;
             }
+
             if (isDifferentPoints && entryPointIndex > -1)
             {
                 tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
@@ -314,34 +315,6 @@ namespace Ringtoets.Piping.Data
                 string outOfRangeMessage = string.Format(Resources.PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_Range_0_,
                                                          validityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                 throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the outside high water level.
-        /// [m+NAP]
-        /// </summary>
-        /// <exception cref="InvalidOperationException">Thrown when the user attempts to set the 
-        /// assessment level while <see cref="UseAssessmentLevelManualInput"/> is <c>false</c>.</exception>
-        public RoundedDouble AssessmentLevel
-        {
-            get
-            {
-                if (!UseAssessmentLevelManualInput)
-                {
-                    return HydraulicBoundaryLocation?.DesignWaterLevel ?? RoundedDouble.NaN;
-                }
-
-                return assessmentLevel;
-            }
-            set
-            {
-                if (!UseAssessmentLevelManualInput)
-                {
-                    throw new InvalidOperationException("UseAssessmentLevelManualInput is false");
-                }
-
-                assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
         }
 
