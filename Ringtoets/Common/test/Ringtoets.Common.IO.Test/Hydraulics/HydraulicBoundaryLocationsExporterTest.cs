@@ -118,14 +118,14 @@ namespace Ringtoets.Common.IO.Test.Hydraulics
             // Setup
             var mocks = new MockRepository();
             var provider = mocks.Stub<IHydraulicBoundaryLocationMetaDataAttributeNameProvider>();
-            provider.Stub(p => p.DesignWaterLevelCalculation1AttributeName).Return("h(A+_A)");
-            provider.Stub(p => p.DesignWaterLevelCalculation2AttributeName).Return("h(A_B)");
-            provider.Stub(p => p.DesignWaterLevelCalculation3AttributeName).Return("h(B_C)");
-            provider.Stub(p => p.DesignWaterLevelCalculation4AttributeName).Return("h(C_D)");
-            provider.Stub(p => p.WaveHeightCalculation1AttributeName).Return("Hs(A+_A)");
-            provider.Stub(p => p.WaveHeightCalculation2AttributeName).Return("Hs(A_B)");
-            provider.Stub(p => p.WaveHeightCalculation3AttributeName).Return("Hs(B_C)");
-            provider.Stub(p => p.WaveHeightCalculation4AttributeName).Return("Hs(C_D)");
+            provider.Stub(p => p.DesignWaterLevelCalculation1AttributeName).Return("DWLC_1");
+            provider.Stub(p => p.DesignWaterLevelCalculation2AttributeName).Return("DWLC_2");
+            provider.Stub(p => p.DesignWaterLevelCalculation3AttributeName).Return("DWLC_3");
+            provider.Stub(p => p.DesignWaterLevelCalculation4AttributeName).Return("DWLC_4");
+            provider.Stub(p => p.WaveHeightCalculation1AttributeName).Return("WHC_1");
+            provider.Stub(p => p.WaveHeightCalculation2AttributeName).Return("WHC_2");
+            provider.Stub(p => p.WaveHeightCalculation3AttributeName).Return("WHC_3");
+            provider.Stub(p => p.WaveHeightCalculation4AttributeName).Return("WHC_4");
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
