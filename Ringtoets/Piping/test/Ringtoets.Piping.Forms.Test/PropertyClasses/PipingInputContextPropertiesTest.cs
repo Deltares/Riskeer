@@ -112,7 +112,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("getAssessmentLevelFunc", exception.ParamName);
+            Assert.AreEqual("getCalculatedAssessmentLevelFunc", exception.ParamName);
             mocks.VerifyAll();
         }
 
