@@ -88,19 +88,12 @@ namespace Application.Ringtoets.Storage.Create.Piping
 
         private static void SetHydraulicBoundaryLocationInputToEntity(PipingCalculationEntity entity, PipingInput inputParameters, PersistenceRegistry registry)
         {
-            bool useAssessmentLevelManualInput = inputParameters.UseAssessmentLevelManualInput;
-            entity.UseAssessmentLevelManualInput = Convert.ToByte(useAssessmentLevelManualInput);
-            if (useAssessmentLevelManualInput)
+            entity.UseAssessmentLevelManualInput = Convert.ToByte(inputParameters.UseAssessmentLevelManualInput);
+            entity.AssessmentLevel = inputParameters.AssessmentLevel.ToNaNAsNull();
+
+            if (inputParameters.HydraulicBoundaryLocation != null)
             {
-                entity.AssessmentLevel = inputParameters.AssessmentLevel.ToNaNAsNull();
-            }
-            else
-            {
-                if (inputParameters.HydraulicBoundaryLocation != null)
-                {
-                    entity.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(inputParameters.HydraulicBoundaryLocation);
-                }
-                entity.AssessmentLevel = null;
+                entity.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(inputParameters.HydraulicBoundaryLocation);
             }
         }
 

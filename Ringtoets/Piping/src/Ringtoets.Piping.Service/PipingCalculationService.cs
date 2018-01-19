@@ -360,14 +360,16 @@ namespace Ringtoets.Piping.Service
 
         private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters, RoundedDouble calculatedAssessmentLevel)
         {
+            RoundedDouble effectiveAssessmentLevel = GetEffectiveAssessmentLevel(inputParameters, calculatedAssessmentLevel);
+
             return new PipingCalculatorInput(
                 new PipingCalculatorInput.ConstructionProperties
                 {
                     WaterVolumetricWeight = inputParameters.WaterVolumetricWeight,
                     SaturatedVolumicWeightOfCoverageLayer = PipingSemiProbabilisticDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
                     UpliftModelFactor = inputParameters.UpliftModelFactor,
-                    AssessmentLevel = inputParameters.AssessmentLevel,
-                    PiezometricHeadExit = DerivedPipingInput.GetPiezometricHeadExit(inputParameters, GetEffectiveAssessmentLevel(inputParameters, calculatedAssessmentLevel)),
+                    AssessmentLevel = effectiveAssessmentLevel,
+                    PiezometricHeadExit = DerivedPipingInput.GetPiezometricHeadExit(inputParameters, effectiveAssessmentLevel),
                     DampingFactorExit = PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
                     PhreaticLevelExit = PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                     CriticalHeaveGradient = inputParameters.CriticalHeaveGradient,
