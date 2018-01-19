@@ -548,7 +548,7 @@ namespace Ringtoets.Piping.Plugin
         {
             foreach (PipingCalculation calculation in pipingCalculations)
             {
-                PipingCalculationService.Validate(calculation);
+                PipingCalculationService.Validate(calculation, GetCalculatedAssessmentLevel(calculation));
             }
         }
 
@@ -801,7 +801,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static void Validate(PipingCalculationScenarioContext context)
         {
-            PipingCalculationService.Validate(context.WrappedData);
+            PipingCalculationService.Validate(context.WrappedData, GetCalculatedAssessmentLevel(context.WrappedData));
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationScenarioContext context)
