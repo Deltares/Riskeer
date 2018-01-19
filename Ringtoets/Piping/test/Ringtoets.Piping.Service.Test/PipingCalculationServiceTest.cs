@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationService.Validate(null);
+            TestDelegate test = () => PipingCalculationService.Validate(null, RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_Always_LogStartAndEndOfValidatingInputs()
         {
             // Call
-            Action call = () => PipingCalculationService.Validate(testCalculation);
+            Action call = () => PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Service.Test
             invalidPipingCalculation.Output = output;
 
             // Call
-            bool isValid = PipingCalculationService.Validate(invalidPipingCalculation);
+            bool isValid = PipingCalculationService.Validate(invalidPipingCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             Assert.IsFalse(isValid);
@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+            Action call = () => isValid = PipingCalculationService.Validate(calculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -156,7 +156,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -179,7 +179,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -201,7 +201,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -225,7 +225,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -255,7 +255,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -279,7 +279,7 @@ namespace Ringtoets.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -334,7 +334,7 @@ namespace Ringtoets.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -368,7 +368,7 @@ namespace Ringtoets.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -415,7 +415,7 @@ namespace Ringtoets.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -465,7 +465,7 @@ namespace Ringtoets.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -538,7 +538,7 @@ namespace Ringtoets.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -603,7 +603,7 @@ namespace Ringtoets.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -661,7 +661,7 @@ namespace Ringtoets.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -726,7 +726,7 @@ namespace Ringtoets.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -795,7 +795,7 @@ namespace Ringtoets.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -850,7 +850,7 @@ namespace Ringtoets.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation);
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -917,7 +917,7 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            Action call = () => PipingCalculationService.Validate(testCalculation);
+            Action call = () => PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -942,7 +942,7 @@ namespace Ringtoets.Piping.Service.Test
             using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
-                PipingCalculationService.Validate(testCalculation);
+                PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
                 // Assert
                 AssertSubCalculatorInputs(input);
@@ -953,7 +953,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Calculate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationService.Calculate(null);
+            TestDelegate test = () => PipingCalculationService.Calculate(null, RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -966,10 +966,10 @@ namespace Ringtoets.Piping.Service.Test
             Action call = () =>
             {
                 // Precondition
-                Assert.IsTrue(PipingCalculationService.Validate(testCalculation));
+                Assert.IsTrue(PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel()));
 
                 // Call
-                PipingCalculationService.Calculate(testCalculation);
+                PipingCalculationService.Calculate(testCalculation, GetCalculatedTestAssessmentLevel());
             };
 
             // Assert
@@ -988,10 +988,10 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Precondition
             Assert.IsNull(testCalculation.Output);
-            Assert.IsTrue(PipingCalculationService.Validate(testCalculation));
+            Assert.IsTrue(PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel()));
 
             // Call
-            PipingCalculationService.Calculate(testCalculation);
+            PipingCalculationService.Calculate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             PipingOutput pipingOutput = testCalculation.Output;
@@ -1014,10 +1014,10 @@ namespace Ringtoets.Piping.Service.Test
             testCalculation.Output = output;
 
             // Precondition
-            Assert.IsTrue(PipingCalculationService.Validate(testCalculation));
+            Assert.IsTrue(PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel()));
 
             // Call
-            PipingCalculationService.Calculate(testCalculation);
+            PipingCalculationService.Calculate(testCalculation, GetCalculatedTestAssessmentLevel());
 
             // Assert
             Assert.AreNotSame(output, testCalculation.Output);
@@ -1032,7 +1032,7 @@ namespace Ringtoets.Piping.Service.Test
             using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
-                PipingCalculationService.Calculate(testCalculation);
+                PipingCalculationService.Calculate(testCalculation, GetCalculatedTestAssessmentLevel());
 
                 // Assert
                 AssertSubCalculatorInputs(input);
@@ -1056,7 +1056,7 @@ namespace Ringtoets.Piping.Service.Test
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                             heaveCalculator.PhiPolder,
                             input.PhreaticLevelExit.GetAccuracy());
-            Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(input).Value, heaveCalculator.PhiExit);
+            Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(input, GetCalculatedTestAssessmentLevel()).Value, heaveCalculator.PhiExit);
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
                             heaveCalculator.RExit,
                             input.DampingFactorExit.GetAccuracy());
@@ -1066,7 +1066,7 @@ namespace Ringtoets.Piping.Service.Test
                             input.PhreaticLevelExit.GetAccuracy());
             Assert.AreEqual(input.AssessmentLevel.Value, upliftCalculator.HRiver);
             Assert.AreEqual(input.UpliftModelFactor, upliftCalculator.ModelFactorUplift);
-            Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(input).Value, upliftCalculator.PhiExit);
+            Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(input, GetCalculatedTestAssessmentLevel()).Value, upliftCalculator.PhiExit);
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                             upliftCalculator.PhiPolder,
                             input.PhreaticLevelExit.GetAccuracy());
@@ -1109,6 +1109,11 @@ namespace Ringtoets.Piping.Service.Test
                             DerivedPipingInput.GetDarcyPermeability(input).GetAccuracy());
             Assert.AreEqual(input.SandParticlesVolumicWeight, sellmeijerCalculator.GammaSubParticles);
             Assert.AreEqual(input.Gravity, sellmeijerCalculator.Gravity);
+        }
+
+        private static RoundedDouble GetCalculatedTestAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
     }
 }

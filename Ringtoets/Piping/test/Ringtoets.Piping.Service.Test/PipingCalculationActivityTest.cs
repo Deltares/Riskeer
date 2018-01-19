@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Service.Test
             invalidPipingCalculation.SemiProbabilisticOutput = originalSemiProbabilisticOutput;
 
             var activity = new PipingCalculationActivity(invalidPipingCalculation,
-                                                         (RoundedDouble) 1.1,
+                                                         GetCalculatedTestAssessmentLevel(),
                                                          new PipingProbabilityAssessmentInput(),
                                                          int.MinValue,
                                                          double.NaN);
@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.Service.Test
 
             double norm = new Random(21).NextDouble();
             var activity = new PipingCalculationActivity(validPipingCalculation,
-                                                         (RoundedDouble) 1.1,
+                                                         GetCalculatedTestAssessmentLevel(),
                                                          new PipingProbabilityAssessmentInput(),
                                                          norm,
                                                          double.NaN);
@@ -181,7 +181,7 @@ namespace Ringtoets.Piping.Service.Test
             validPipingCalculation.Attach(observer);
 
             var activity = new PipingCalculationActivity(validPipingCalculation,
-                                                         (RoundedDouble) 1.1,
+                                                         GetCalculatedTestAssessmentLevel(),
                                                          new PipingProbabilityAssessmentInput(),
                                                          int.MinValue,
                                                          double.NaN);
@@ -193,6 +193,11 @@ namespace Ringtoets.Piping.Service.Test
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        private static RoundedDouble GetCalculatedTestAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
     }
 }
