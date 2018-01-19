@@ -86,6 +86,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             {
                 // Assert
                 Assert.IsInstanceOf<ObjectProperties<IEnumerable<FailureMechanismSection>>>(properties);
+                Assert.IsInstanceOf<IDisposable>(properties);
                 Assert.AreSame(sections, properties.Data);
 
                 TestHelper.AssertTypeConverter<FailureMechanismSectionsProperties, ExpandableArrayConverter>(

@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> for properties panel.
     /// </summary>
-    public abstract class HydraulicBoundaryLocationsProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
+    public abstract class HydraulicBoundaryLocationsProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>, IDisposable
     {
         private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
 
@@ -53,11 +53,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             Data = hydraulicBoundaryLocations;
         }
 
-        public override void Dispose()
+        public void Dispose()
         {
             hydraulicBoundaryLocationObserver.Dispose();
-
-            base.Dispose();
         }
     }
 }

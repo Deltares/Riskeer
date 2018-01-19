@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
+using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.DuneErosion.Data;
@@ -59,7 +60,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithData_ReturnExpectedValues()
+        public void Constructor_WithData_ReturnExpectedValues()
         {
             // Setup
             var location = new TestDuneLocation();
@@ -72,6 +73,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation());
 
             // Assert
+            Assert.IsInstanceOf<ObjectProperties<ObservableList<DuneLocation>>>(properties);
+            Assert.IsInstanceOf<IDisposable>(properties);
+
             Assert.AreEqual(1, properties.Locations.Length);
             Assert.AreSame(location, properties.Locations[0].Data);
         }

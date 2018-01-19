@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -40,6 +41,21 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("hydraulicBoundaryLocations", paramName);
+        }
+
+        [Test]
+        public void Constructor_ValidData_ExpectedValues()
+        {
+            // Setup
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
+
+            // Call
+            var properties = new TestHydraulicBoundaryLocationsProperties(locations);
+
+            // Assert
+            Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocation>>>(properties);
+            Assert.IsInstanceOf<IDisposable>(properties);
+            Assert.AreSame(locations, properties.Data);
         }
 
         [Test]

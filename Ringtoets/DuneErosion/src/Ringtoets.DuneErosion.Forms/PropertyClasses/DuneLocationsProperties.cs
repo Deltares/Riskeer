@@ -34,7 +34,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of an enumeration of <see cref="DuneLocation"/> for the properties panel.
     /// </summary>
-    public class DuneLocationsProperties : ObjectProperties<ObservableList<DuneLocation>>
+    public class DuneLocationsProperties : ObjectProperties<ObservableList<DuneLocation>>, IDisposable
     {
         private readonly Func<DuneLocation, DuneLocationCalculation> getCalculationFunc;
         private readonly RecursiveObserver<ObservableList<DuneLocation>, DuneLocation> locationObserver;
@@ -81,11 +81,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        public override void Dispose()
+        public void Dispose()
         {
             locationObserver.Dispose();
-
-            base.Dispose();
         }
     }
 }

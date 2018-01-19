@@ -29,21 +29,12 @@ namespace Core.Common.Gui.PropertyBag
     /// Base class for object properties with data of type <typeparamref name="T"/>.
     /// </summary>
     /// <typeparam name="T">Type of <see cref="Data"/>.</typeparam>
-    public class ObjectProperties<T> : IObjectProperties, IDisposable
+    public class ObjectProperties<T> : IObjectProperties
     {
-        private readonly Observer refreshRequiredObserver;
-
         protected T data;
 
         public event EventHandler<EventArgs> RefreshRequired;
 
-        /// <summary>
-        /// Creates a new instance of <see cref="ObjectProperties{T}"/>.
-        /// </summary>
-        public ObjectProperties()
-        {
-            refreshRequiredObserver = new Observer(OnRefreshRequired);
-        }
 
         [Browsable(false)]
         public object Data
@@ -55,14 +46,7 @@ namespace Core.Common.Gui.PropertyBag
             set
             {
                 data = (T) value;
-
-                refreshRequiredObserver.Observable = value as IObservable;
             }
-        }
-
-        public virtual void Dispose()
-        {
-            refreshRequiredObserver?.Dispose();
         }
 
         /// <summary>
