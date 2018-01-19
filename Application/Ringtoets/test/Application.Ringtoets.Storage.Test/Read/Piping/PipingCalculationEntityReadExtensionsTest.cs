@@ -55,7 +55,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
         [Test]
         [TestCase(true, false, 0.98, "haha", "hihi", 0.0, 3.4, 5.8, 123)]
-        [TestCase(false, false, 0.0, null, null, double.NaN, double.NaN, double.NaN, 321)]
         [TestCase(false, true, 0.0, null, null, double.NaN, double.NaN, double.NaN, 321)]
         public void Read_ValidEntity_ReturnPipingCalculationScenario(bool isRelevant, bool useAssessmentLevelManualInput, double contribution,
                                                                      string name, string comments, double entryPoint, double exitPoint,
@@ -112,10 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             AssertRoundedDouble(entity.DampingFactorExitStandardDeviation, calculation.InputParameters.DampingFactorExit.StandardDeviation);
 
             Assert.AreEqual(useAssessmentLevelManualInput, calculation.InputParameters.UseAssessmentLevelManualInput);
-            if (useAssessmentLevelManualInput)
-            {
-                Assert.AreEqual(entity.AssessmentLevel.ToNullAsNaN(), calculation.InputParameters.AssessmentLevel.Value);
-            }
+            Assert.AreEqual(entity.AssessmentLevel.ToNullAsNaN(), calculation.InputParameters.AssessmentLevel.Value);
 
             Assert.IsNull(calculation.InputParameters.SurfaceLine);
             Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
@@ -214,7 +210,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNaN(calculation.InputParameters.AssessmentLevel);
         }
 
         [Test]

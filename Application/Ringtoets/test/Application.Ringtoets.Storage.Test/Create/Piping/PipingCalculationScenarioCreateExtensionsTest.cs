@@ -126,31 +126,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void GivenCalculationWithAssessmentLevelAndUseManualInputFalse_WhenCreated_ThenEntityDoesNotSafeManualAssessmentLevel()
-        {
-            // Given
-            var random = new Random(21);
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    UseAssessmentLevelManualInput = true,
-                    AssessmentLevel = random.NextRoundedDouble()
-                }
-            };
-            scenario.InputParameters.UseAssessmentLevelManualInput = false;
-
-            var registry = new PersistenceRegistry();
-
-            // When
-            PipingCalculationEntity entity = scenario.Create(registry, 0);
-
-            // Then
-            Assert.IsNotNull(entity);
-            Assert.IsNull(entity.AssessmentLevel);
-        }
-
-        [Test]
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
