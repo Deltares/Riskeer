@@ -60,6 +60,7 @@ namespace Ringtoets.Piping.Service
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (pipingProbabilityAssessmentInput == null)
             {
                 throw new ArgumentNullException(nameof(pipingProbabilityAssessmentInput));

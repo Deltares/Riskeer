@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -145,7 +146,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
 
             // Assert
-            Assert.IsFalse(PipingCalculationService.Validate(scenario));
+            Assert.IsFalse(PipingCalculationService.Validate(scenario, (RoundedDouble) 1.1));
         }
 
         [Test]
@@ -155,7 +156,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Assert
-            Assert.IsTrue(PipingCalculationService.Validate(scenario));
+            Assert.IsTrue(PipingCalculationService.Validate(scenario, (RoundedDouble) 1.1));
         }
     }
 }
