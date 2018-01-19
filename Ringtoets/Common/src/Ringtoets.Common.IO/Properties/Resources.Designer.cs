@@ -1209,7 +1209,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(A+_A).
+        ///   Looks up a localized string similar to h(A+-&gt;A).
         /// </summary>
         public static string MetaData_DesignWaterLevelCalculation1AttributeName_Description {
             get {
@@ -1218,7 +1218,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(A_B).
+        ///   Looks up a localized string similar to h(A-&gt;B).
         /// </summary>
         public static string MetaData_DesignWaterLevelCalculation2AttributeName_Description {
             get {
@@ -1227,7 +1227,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(B_C).
+        ///   Looks up a localized string similar to h(B-&gt;C).
         /// </summary>
         public static string MetaData_DesignWaterLevelCalculation3AttributeName_Description {
             get {
@@ -1236,7 +1236,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(C_D).
+        ///   Looks up a localized string similar to h(C-&gt;D).
         /// </summary>
         public static string MetaData_DesignWaterLevelCalculation4AttributeName_Description {
             get {
@@ -1245,7 +1245,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(A+_A).
+        ///   Looks up a localized string similar to Hs(A+-&gt;A).
         /// </summary>
         public static string MetaData_WaveHeightCalculation1AttributeName_Description {
             get {
@@ -1254,7 +1254,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(A_B).
+        ///   Looks up a localized string similar to Hs(A-&gt;B).
         /// </summary>
         public static string MetaData_WaveHeightCalculation2AttributeName_Description {
             get {
@@ -1263,7 +1263,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(B_C).
+        ///   Looks up a localized string similar to Hs(B-&gt;C).
         /// </summary>
         public static string MetaData_WaveHeightCalculation3AttributeName_Description {
             get {
@@ -1272,7 +1272,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(C_D).
+        ///   Looks up a localized string similar to Hs(C-&gt;D).
         /// </summary>
         public static string MetaData_WaveHeightCalculation4AttributeName_Description {
             get {
