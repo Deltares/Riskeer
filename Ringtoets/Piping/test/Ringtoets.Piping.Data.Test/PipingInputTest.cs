@@ -28,7 +28,6 @@ using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.TestUtil;
@@ -100,20 +99,35 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsNaN(inputParameters.EntryPointL);
             Assert.AreEqual(2, inputParameters.EntryPointL.NumberOfDecimalPlaces);
 
-            Assert.IsInstanceOf<RoundedDouble>(inputParameters.AssessmentLevel);
             Assert.IsNaN(inputParameters.AssessmentLevel);
-
+            Assert.AreEqual(2, inputParameters.AssessmentLevel.NumberOfDecimalPlaces);
             Assert.IsFalse(inputParameters.UseAssessmentLevelManualInput);
         }
 
         [Test]
-        public void Constructor_GeneralPipingInputIsNull_ArgumentNullException()
+        public void Constructor_GeneralPipingInputNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new PipingInput(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void ExitPointL_Always_SameNumberOfDecimalsAsSurfaceLineLocalGeometry()
+        {
+            // Setup
+            var pipingInput = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = CreateSurfaceLine()
+            };
+
+            // Call
+            RoundedPoint2DCollection localGeometry = pipingInput.SurfaceLine.LocalGeometry;
+
+            // Assert
+            Assert.AreEqual(localGeometry.NumberOfDecimalPlaces, pipingInput.ExitPointL.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -133,22 +147,6 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void ExitPointL_Always_SameNumberOfDecimalsAsSurfaceLineLocalGeometry()
-        {
-            // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput())
-            {
-                SurfaceLine = CreateSurfaceLine()
-            };
-
-            // Call
-            RoundedPoint2DCollection localGeometry = pipingInput.SurfaceLine.LocalGeometry;
-
-            // Assert
-            Assert.AreEqual(localGeometry.NumberOfDecimalPlaces, pipingInput.ExitPointL.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -190,6 +188,20 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, input.ExitPointL.NumberOfDecimalPlaces);
             Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlaces, exitPointValue), input.ExitPointL);
+        }
+
+        [Test]
+        public void EntryPointL_Always_SameNumberOfDecimalsAsSurfaceLineLocalGeometry()
+        {
+            // Setup
+            PipingSurfaceLine surfaceLine = CreateSurfaceLine();
+            var pipingInput = new PipingInput(new GeneralPipingInput());
+
+            // Call
+            RoundedPoint2DCollection localGeometry = surfaceLine.LocalGeometry;
+
+            // Assert
+            Assert.AreEqual(localGeometry.NumberOfDecimalPlaces, pipingInput.EntryPointL.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -250,20 +262,6 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, input.EntryPointL.NumberOfDecimalPlaces);
             Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlaces, entryPointValue), input.EntryPointL);
-        }
-
-        [Test]
-        public void EntryPointL_Always_SameNumberOfDecimalsAsSurfaceLineLocalGeometry()
-        {
-            // Setup
-            PipingSurfaceLine surfaceLine = CreateSurfaceLine();
-            var pipingInput = new PipingInput(new GeneralPipingInput());
-
-            // Call
-            RoundedPoint2DCollection localGeometry = surfaceLine.LocalGeometry;
-
-            // Assert
-            Assert.AreEqual(localGeometry.NumberOfDecimalPlaces, pipingInput.EntryPointL.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -588,125 +586,20 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssessmentLevel_UseAssessmentLevelManualInputIsFalse_ReturnsNaN()
+        public void AssessmentLevel_SetToNew_ValueIsRounded()
         {
             // Setup
-            var input = new PipingInput(new GeneralPipingInput())
-            {
-                UseAssessmentLevelManualInput = false,
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-            };
-
-            // Call
-            RoundedDouble calculatedAssessmentLevel = input.AssessmentLevel;
-
-            // Assert
-            Assert.IsNaN(calculatedAssessmentLevel);
-        }
-
-        [Test]
-        public void AssessmentLevel_UseAssessmentLevelManualInputIsFalseWithHydraulicLocationSetAndDesignWaterLevelOutputSet_ReturnCalculatedAssessmentLevel()
-        {
-            // Setup
+            const double assessmentLevel = 1.111111;
             var input = new PipingInput(new GeneralPipingInput());
 
-            HydraulicBoundaryLocation testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            input.HydraulicBoundaryLocation = testHydraulicBoundaryLocation;
-
-            double calculatedAssessmentLevel = new Random(21).NextDouble();
-            testHydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(calculatedAssessmentLevel);
+            int originalNumberOfDecimalPlaces = input.AssessmentLevel.NumberOfDecimalPlaces;
 
             // Call
-            RoundedDouble newAssessmentLevel = input.AssessmentLevel;
+            input.AssessmentLevel = (RoundedDouble) assessmentLevel;
 
             // Assert
-            Assert.AreEqual(calculatedAssessmentLevel, newAssessmentLevel, input.AssessmentLevel.GetAccuracy());
-        }
-
-        [Test]
-        public void AssessmentLevel_UseAssessmentLevelManualInputFalseAndSettingValue_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var input = new PipingInput(new GeneralPipingInput())
-            {
-                UseAssessmentLevelManualInput = false
-            };
-
-            var testLevel = (RoundedDouble) new Random(21).NextDouble();
-
-            // Call 
-            TestDelegate call = () => input.AssessmentLevel = testLevel;
-
-            // Assert
-            string message = Assert.Throws<InvalidOperationException>(call).Message;
-            Assert.AreEqual("UseAssessmentLevelManualInput is false", message);
-        }
-
-        [Test]
-        public void AssessmentLevel_UseAssessmentLevelManualInputTrueAndSettingValue_ReturnSetValue()
-        {
-            // Setup
-            var input = new PipingInput(new GeneralPipingInput())
-            {
-                UseAssessmentLevelManualInput = true
-            };
-
-            var testLevel = (RoundedDouble) new Random(21).NextDouble();
-
-            // Call
-            input.AssessmentLevel = testLevel;
-
-            // Assert
-            Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(testLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
-        }
-
-        [Test]
-        public void GivenAssessmentLevelSetByHydraulicBoundaryLocation_WhenManualAssessmentLevelTrueAndNewLevelSet_ThenLevelUpdatedAndLocationRemoved()
-        {
-            // Given
-            var random = new Random(21);
-            var testLevel = (RoundedDouble) random.NextDouble();
-            var input = new PipingInput(new GeneralPipingInput())
-            {
-                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(testLevel)
-            };
-
-            var newLevel = (RoundedDouble) random.NextDouble();
-
-            // When
-            input.UseAssessmentLevelManualInput = true;
-            input.AssessmentLevel = newLevel;
-
-            // Then
-            Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(newLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
-            Assert.IsNull(input.HydraulicBoundaryLocation);
-        }
-
-        [Test]
-        public void GivenAssessmentLevelSetByManualInput_WhenManualAssessmentLevelFalseAndHydraulicBoundaryLocationSet_ThenAssessmentLevelUpdatedAndLocationSet()
-        {
-            // Given
-            var random = new Random(21);
-            var testLevel = (RoundedDouble) random.NextDouble();
-            var input = new PipingInput(new GeneralPipingInput())
-            {
-                UseAssessmentLevelManualInput = true,
-                AssessmentLevel = testLevel
-            };
-
-            var newLevel = (RoundedDouble) random.NextDouble();
-            TestHydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(newLevel);
-
-            // When
-            input.UseAssessmentLevelManualInput = false;
-            input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-
-            // Then
-            Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreSame(hydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
-            Assert.AreEqual(newLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
+            Assert.AreEqual(originalNumberOfDecimalPlaces, input.AssessmentLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlaces, assessmentLevel), input.AssessmentLevel);
         }
 
         [Test]
