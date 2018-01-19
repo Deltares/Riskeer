@@ -59,25 +59,14 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(getCalculationFunc));
             }
 
-            locationObserver = new RecursiveObserver<ObservableList<DuneLocation>, DuneLocation>(OnRefreshRequired, list => list);
+            locationObserver = new RecursiveObserver<ObservableList<DuneLocation>, DuneLocation>(OnRefreshRequired, list => list)
+            {
+                Observable = locations
+            };
 
             this.getCalculationFunc = getCalculationFunc;
 
             Data = locations;
-        }
-
-        public override object Data
-        {
-            get
-            {
-                return base.Data;
-            }
-            set
-            {
-                base.Data = value;
-
-                locationObserver.Observable = value as ObservableList<DuneLocation>;
-            }
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]

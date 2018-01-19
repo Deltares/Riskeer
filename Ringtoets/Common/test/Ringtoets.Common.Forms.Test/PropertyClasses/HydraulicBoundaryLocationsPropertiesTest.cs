@@ -88,66 +88,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(0, refreshRequiredRaised);
         }
 
-        [Test]
-        public void GivenPropertyControlWithNewData_WhenSingleLocationUpdatedInPreviouslySetData_RefreshRequiredEventNotRaised()
-        {
-            // Given
-            HydraulicBoundaryLocation location1 = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.5);
-            HydraulicBoundaryLocation location2 = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.5);
-            var hydraulicBoundaryLocations1 = new ObservableList<HydraulicBoundaryLocation>
-            {
-                location1
-            };
-            var hydraulicBoundaryLocations2 = new ObservableList<HydraulicBoundaryLocation>
-            {
-                location2
-            };
-
-            var properties = new TestHydraulicBoundaryLocationsProperties(hydraulicBoundaryLocations1)
-            {
-                Data = hydraulicBoundaryLocations2
-            };
-
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-            // When
-            location1.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(0, refreshRequiredRaised);
-        }
-
-        [Test]
-        public void GivenPropertyControlWithNewData_WhenSingleLocationUpdatedInNewlySetData_RefreshRequiredEventRaised()
-        {
-            // Given
-            HydraulicBoundaryLocation location1 = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.5);
-            HydraulicBoundaryLocation location2 = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.5);
-            var hydraulicBoundaryLocations1 = new ObservableList<HydraulicBoundaryLocation>
-            {
-                location1
-            };
-            var hydraulicBoundaryLocations2 = new ObservableList<HydraulicBoundaryLocation>
-            {
-                location2
-            };
-
-            var properties = new TestHydraulicBoundaryLocationsProperties(hydraulicBoundaryLocations1)
-            {
-                Data = hydraulicBoundaryLocations2
-            };
-
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-            // When
-            location2.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(1, refreshRequiredRaised);
-        }
-
         private class TestHydraulicBoundaryLocationsProperties : HydraulicBoundaryLocationsProperties
         {
             public TestHydraulicBoundaryLocationsProperties(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
