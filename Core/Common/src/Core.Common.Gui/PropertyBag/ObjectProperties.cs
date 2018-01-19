@@ -29,7 +29,7 @@ namespace Core.Common.Gui.PropertyBag
     /// Base class for object properties with data of type <typeparamref name="T"/>.
     /// </summary>
     /// <typeparam name="T">Type of <see cref="Data"/>.</typeparam>
-    public class ObjectProperties<T> : IObjectProperties
+    public class ObjectProperties<T> : IObjectProperties, IDisposable
     {
         private readonly Observer refreshRequiredObserver;
 

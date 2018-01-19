@@ -136,7 +136,9 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             if (objectProperties != null)
             {
                 objectProperties.RefreshRequired -= HandleRefreshRequired;
-                objectProperties.Dispose();
+
+                var disposableObjectProperties = objectProperties as IDisposable;
+                disposableObjectProperties?.Dispose();
             }
         }
 
