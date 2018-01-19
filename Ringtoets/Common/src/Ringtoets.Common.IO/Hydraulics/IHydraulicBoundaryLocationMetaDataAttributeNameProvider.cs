@@ -29,41 +29,41 @@ namespace Ringtoets.Common.IO.Hydraulics
         /// <summary>
         /// Gets the meta data attribute name of the first design water level calculation.
         /// </summary>
-        string DesignWaterLevelCalculation1Name { get; }
+        string DesignWaterLevelCalculation1AttributeName { get; }
 
         /// <summary>
         /// Gets the meta data attribute name of the second design water level calculation.
         /// </summary>
-        string DesignWaterLevelCalculation2Name { get; }
+        string DesignWaterLevelCalculation2AttributeName { get; }
 
         /// <summary>
         /// Gets the meta data attribute name of the third design water level calculation.
         /// </summary>
-        string DesignWaterLevelCalculation3Name { get; }
+        string DesignWaterLevelCalculation3AttributeName { get; }
 
         /// <summary>
         /// Gets the meta data attribute name of the fourth design water level calculation.
         /// </summary>
-        string DesignWaterLevelCalculation4Name { get; }
+        string DesignWaterLevelCalculation4AttributeName { get; }
 
         /// <summary>
         /// Gets the meta data attribute name of the first design wave height calculation.
         /// </summary>
-        string WaveHeightCalculation1Name { get; }
+        string WaveHeightCalculation1AttributeName { get; }
 
         /// <summary>
         /// Gets the meta data attribute name of the second design wave height calculation.
         /// </summary>
-        string WaveHeightCalculation2Name { get; }
+        string WaveHeightCalculation2AttributeName { get; }
 
         /// <summary>
         /// Gets the meta data attribute name of the third design wave height calculation.
         /// </summary>
-        string WaveHeightCalculation3Name { get; }
+        string WaveHeightCalculation3AttributeName { get; }
 
         /// <summary>
         /// Gets the meta data attribute name of the fourth design wave height calculation.
         /// </summary>
-        string WaveHeightCalculation4Name { get; }
+        string WaveHeightCalculation4AttributeName { get; }
     }
 }

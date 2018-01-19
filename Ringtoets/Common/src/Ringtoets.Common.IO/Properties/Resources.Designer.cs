@@ -1209,6 +1209,78 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h(A+_A).
+        /// </summary>
+        public static string MetaData_DesignWaterLevelCalculation1AttributeName_Description {
+            get {
+                return ResourceManager.GetString("MetaData_DesignWaterLevelCalculation1AttributeName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h(A_B).
+        /// </summary>
+        public static string MetaData_DesignWaterLevelCalculation2AttributeName_Description {
+            get {
+                return ResourceManager.GetString("MetaData_DesignWaterLevelCalculation2AttributeName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h(B_C).
+        /// </summary>
+        public static string MetaData_DesignWaterLevelCalculation3AttributeName_Description {
+            get {
+                return ResourceManager.GetString("MetaData_DesignWaterLevelCalculation3AttributeName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h(C_D).
+        /// </summary>
+        public static string MetaData_DesignWaterLevelCalculation4AttributeName_Description {
+            get {
+                return ResourceManager.GetString("MetaData_DesignWaterLevelCalculation4AttributeName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs(A+_A).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculation1AttributeName_Description {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculation1AttributeName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs(A_B).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculation2AttributeName_Description {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculation2AttributeName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs(B_C).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculation3AttributeName_Description {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculation3AttributeName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs(C_D).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculation4AttributeName_Description {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculation4AttributeName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///
@@ -1572,7 +1644,7 @@ namespace Ringtoets.Common.IO.Properties {
         ///	CONSTRAINT timeintegrationsettings_pk PRIMARY KEY (&quot;LocationID&quot;, &quot;CalculationTypeID&quot;),
         ///	CONSTRAINT calculationtypes_timeintegrationsettings_fk FOREIGN KEY (&quot;CalculationTypeID&quot;) REFERENCES CalculationTypes (&quot;CalculationTypeID&quot;) ON DELETE NO ACTION ON UPDATE NO ACTION
         ///);
-        ///CREATE TABLE &quot;Numeri [rest of string was truncated]&quot;;.
+        ///CREATE TABLE [rest of string was truncated]&quot;;.
         /// </summary>
         public static string settings_schema {
             get {

@@ -37,14 +37,14 @@ namespace Ringtoets.Integration.Plugin.Test.MetaDataAttributeNameProviders
             // Assert
             Assert.IsInstanceOf<IHydraulicBoundaryLocationMetaDataAttributeNameProvider>(provider);
 
-            Assert.AreEqual("h(A+_A)", provider.DesignWaterLevelCalculation1Name);
-            Assert.AreEqual("h(A_B)", provider.DesignWaterLevelCalculation2Name);
-            Assert.AreEqual("h(B_C)", provider.DesignWaterLevelCalculation3Name);
-            Assert.AreEqual("h(C_D)", provider.DesignWaterLevelCalculation4Name);
-            Assert.AreEqual("Hs(A+_A)", provider.WaveHeightCalculation1Name);
-            Assert.AreEqual("Hs(A_B)", provider.WaveHeightCalculation2Name);
-            Assert.AreEqual("Hs(B_C)", provider.WaveHeightCalculation3Name);
-            Assert.AreEqual("Hs(C_D)", provider.WaveHeightCalculation4Name);
+            Assert.AreEqual("h(A+_A)", provider.DesignWaterLevelCalculation1AttributeName);
+            Assert.AreEqual("h(A_B)", provider.DesignWaterLevelCalculation2AttributeName);
+            Assert.AreEqual("h(B_C)", provider.DesignWaterLevelCalculation3AttributeName);
+            Assert.AreEqual("h(C_D)", provider.DesignWaterLevelCalculation4AttributeName);
+            Assert.AreEqual("Hs(A+_A)", provider.WaveHeightCalculation1AttributeName);
+            Assert.AreEqual("Hs(A_B)", provider.WaveHeightCalculation2AttributeName);
+            Assert.AreEqual("Hs(B_C)", provider.WaveHeightCalculation3AttributeName);
+            Assert.AreEqual("Hs(C_D)", provider.WaveHeightCalculation4AttributeName);
         }
     }
 }

@@ -892,4 +892,28 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="Transform_Error_occurred_when_transforming_SoilLayer_0_for_Parameter_1_ErrorMessage_2_" xml:space="preserve">
     <value>Er is een fout opgetreden bij het inlezen van grondlaag '{0}' voor parameter '{1}': {2}</value>
   </data>
+  <data name="MetaData_DesignWaterLevelCalculation1AttributeName_Description" xml:space="preserve">
+    <value>h(A+_A)</value>
+  </data>
+  <data name="MetaData_DesignWaterLevelCalculation2AttributeName_Description" xml:space="preserve">
+    <value>h(A_B)</value>
+  </data>
+  <data name="MetaData_DesignWaterLevelCalculation3AttributeName_Description" xml:space="preserve">
+    <value>h(B_C)</value>
+  </data>
+  <data name="MetaData_DesignWaterLevelCalculation4AttributeName_Description" xml:space="preserve">
+    <value>h(C_D)</value>
+  </data>
+  <data name="MetaData_WaveHeightCalculation1AttributeName_Description" xml:space="preserve">
+    <value>Hs(A+_A)</value>
+  </data>
+  <data name="MetaData_WaveHeightCalculation2AttributeName_Description" xml:space="preserve">
+    <value>Hs(A_B)</value>
+  </data>
+  <data name="MetaData_WaveHeightCalculation3AttributeName_Description" xml:space="preserve">
+    <value>Hs(B_C)</value>
+  </data>
+  <data name="MetaData_WaveHeightCalculation4AttributeName_Description" xml:space="preserve">
+    <value>Hs(C_D)</value>
+  </data>
 </root>

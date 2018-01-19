@@ -22,6 +22,7 @@
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Integration.Data;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.MetaDataAttributeNameProviders
 {
@@ -31,13 +32,13 @@ namespace Ringtoets.Integration.Plugin.MetaDataAttributeNameProviders
     /// </summary>
     public class HydraulicBoundaryLocationMetaDataAttributeNameProvider : IHydraulicBoundaryLocationMetaDataAttributeNameProvider
     {
-        public string DesignWaterLevelCalculation1Name { get; } = "h(A+_A)";
-        public string DesignWaterLevelCalculation2Name { get; } = "h(A_B)";
-        public string DesignWaterLevelCalculation3Name { get; } = "h(B_C)";
-        public string DesignWaterLevelCalculation4Name { get; } = "h(C_D)";
-        public string WaveHeightCalculation1Name { get; } = "Hs(A+_A)";
-        public string WaveHeightCalculation2Name { get; } = "Hs(A_B)";
-        public string WaveHeightCalculation3Name { get; } = "Hs(B_C)";
-        public string WaveHeightCalculation4Name { get; } = "Hs(C_D)";
+        public string DesignWaterLevelCalculation1AttributeName { get; } = RingtoetsCommonIOResources.MetaData_DesignWaterLevelCalculation1AttributeName_Description;
+        public string DesignWaterLevelCalculation2AttributeName { get; } = RingtoetsCommonIOResources.MetaData_DesignWaterLevelCalculation2AttributeName_Description;
+        public string DesignWaterLevelCalculation3AttributeName { get; } = RingtoetsCommonIOResources.MetaData_DesignWaterLevelCalculation3AttributeName_Description;
+        public string DesignWaterLevelCalculation4AttributeName { get; } = RingtoetsCommonIOResources.MetaData_DesignWaterLevelCalculation4AttributeName_Description;
+        public string WaveHeightCalculation1AttributeName { get; } = RingtoetsCommonIOResources.MetaData_WaveHeightCalculation1AttributeName_Description;
+        public string WaveHeightCalculation2AttributeName { get; } = RingtoetsCommonIOResources.MetaData_WaveHeightCalculation2AttributeName_Description;
+        public string WaveHeightCalculation3AttributeName { get; } = RingtoetsCommonIOResources.MetaData_WaveHeightCalculation3AttributeName_Description;
+        public string WaveHeightCalculation4AttributeName { get; } = RingtoetsCommonIOResources.MetaData_WaveHeightCalculation4AttributeName_Description;
     }
 }

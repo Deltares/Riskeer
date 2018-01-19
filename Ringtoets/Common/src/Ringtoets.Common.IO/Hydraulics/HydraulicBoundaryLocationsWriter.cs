@@ -112,22 +112,22 @@ namespace Ringtoets.Common.IO.Hydraulics
             mapFeature.MetaData.Add(Resources.HydraulicBoundaryLocation_Name, hydraulicBoundaryLocation.Name);
             mapFeature.MetaData.Add(Resources.HydraulicBoundaryLocation_Id, hydraulicBoundaryLocation.Id);
 
-            mapFeature.MetaData.Add(metaDataAttributeNameProvider.DesignWaterLevelCalculation1Name,
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.DesignWaterLevelCalculation1AttributeName,
                                     GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation1));
-            mapFeature.MetaData.Add(metaDataAttributeNameProvider.DesignWaterLevelCalculation2Name,
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.DesignWaterLevelCalculation2AttributeName,
                                     GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation2));
-            mapFeature.MetaData.Add(metaDataAttributeNameProvider.DesignWaterLevelCalculation3Name,
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.DesignWaterLevelCalculation3AttributeName,
                                     GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation3));
-            mapFeature.MetaData.Add(metaDataAttributeNameProvider.DesignWaterLevelCalculation4Name,
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.DesignWaterLevelCalculation4AttributeName,
                                     GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.DesignWaterLevelCalculation4));
 
-            mapFeature.MetaData.Add(metaDataAttributeNameProvider.WaveHeightCalculation1Name,
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.WaveHeightCalculation1AttributeName,
                                     GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation1));
-            mapFeature.MetaData.Add(metaDataAttributeNameProvider.WaveHeightCalculation2Name,
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.WaveHeightCalculation2AttributeName,
                                     GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation2));
-            mapFeature.MetaData.Add(metaDataAttributeNameProvider.WaveHeightCalculation3Name,
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.WaveHeightCalculation3AttributeName,
                                     GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation3));
-            mapFeature.MetaData.Add(metaDataAttributeNameProvider.WaveHeightCalculation4Name,
+            mapFeature.MetaData.Add(metaDataAttributeNameProvider.WaveHeightCalculation4AttributeName,
                                     GetHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation.WaveHeightCalculation4));
 
             return new MapPointData(hydraulicBoundaryLocation.Name)
