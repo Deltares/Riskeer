@@ -552,13 +552,16 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private void CalculateAll(IEnumerable<PipingCalculation> calculations, PipingProbabilityAssessmentInput assessmentInput,
-                                  double norm, double contribution)
+        private void CalculateAll(IEnumerable<PipingCalculation> calculations,
+                                  PipingProbabilityAssessmentInput assessmentInput,
+                                  double norm,
+                                  double contribution)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
                 calculations
                     .Select(pc => new PipingCalculationActivity(pc,
+                                                                GetCalculatedAssessmentLevel(pc),
                                                                 assessmentInput,
                                                                 norm,
                                                                 contribution))
@@ -813,6 +816,7 @@ namespace Ringtoets.Piping.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              new PipingCalculationActivity(calculation,
+                                                                           GetCalculatedAssessmentLevel(calculation),
                                                                            context.FailureMechanism.PipingProbabilityAssessmentInput,
                                                                            context.AssessmentSection.FailureMechanismContribution.Norm,
                                                                            context.FailureMechanism.Contribution));
