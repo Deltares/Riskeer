@@ -410,11 +410,6 @@ namespace Ringtoets.Piping.Forms.Views
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(PipingCalculation pipingCalculation)
         {
-            if (assessmentSection == null || pipingCalculation.InputParameters.UseAssessmentLevelManualInput)
-            {
-                return Enumerable.Empty<SelectableHydraulicBoundaryLocation>();
-            }
-
             return GetSelectableHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                            pipingCalculation.InputParameters.SurfaceLine);
         }
