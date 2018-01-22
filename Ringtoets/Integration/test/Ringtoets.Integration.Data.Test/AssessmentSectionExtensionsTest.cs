@@ -21,11 +21,14 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -50,13 +53,11 @@ namespace Ringtoets.Integration.Data.Test
         {
             // Setup
             const int invalidValue = 9999;
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                FailureMechanismContribution =
-                {
-                    NormativeNorm = (NormType) invalidValue
-                }
-            };
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution((NormType) invalidValue));
+            mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => assessmentSection.GetNormativeAssessmentLevel(new TestHydraulicBoundaryLocation());
@@ -65,19 +66,18 @@ namespace Ringtoets.Integration.Data.Test
             string expectedMessage = $"The value of argument 'normType' ({invalidValue}) is invalid for Enum type '{nameof(NormType)}'.";
             string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
             Assert.AreEqual("normType", parameterName);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutputAndNormTypeSignaling_ReturnsCorrespondingAssessmentLevel()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                FailureMechanismContribution =
-                {
-                    NormativeNorm = NormType.Signaling
-                }
-            };
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(NormType.Signaling));
+            mocks.ReplayAll();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocationWithOutput = CreateHydraulicBoundaryLocationWithOutput();
 
@@ -86,19 +86,18 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryLocationWithOutput.DesignWaterLevelCalculation2.Output.Result, normativeAssessmentLevel);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutputAndNormTypeLowerLimit_ReturnsCorrespondingAssessmentLevel()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                FailureMechanismContribution =
-                {
-                    NormativeNorm = NormType.LowerLimit
-                }
-            };
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(NormType.LowerLimit));
+            mocks.ReplayAll();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocationWithOutput = CreateHydraulicBoundaryLocationWithOutput();
 
@@ -107,6 +106,8 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryLocationWithOutput.DesignWaterLevelCalculation3.Output.Result, normativeAssessmentLevel);
+
+            mocks.VerifyAll();
         }
 
         [TestCase(NormType.Signaling)]
@@ -114,19 +115,18 @@ namespace Ringtoets.Integration.Data.Test
         public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationNull_ReturnsNaN(NormType normType)
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                FailureMechanismContribution =
-                {
-                    NormativeNorm = normType
-                }
-            };
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(normType));
+            mocks.ReplayAll();
 
             // Call
             RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(null);
 
             // Assert
             Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
+
+            mocks.VerifyAll();
         }
 
         [TestCase(NormType.Signaling)]
@@ -134,19 +134,33 @@ namespace Ringtoets.Integration.Data.Test
         public void GetNormativeAssessmentLevel_NoCorrespondingAssessmentLevelOutput_ReturnsNaN(NormType normType)
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                FailureMechanismContribution =
-                {
-                    NormativeNorm = normType
-                }
-            };
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(normType));
+            mocks.ReplayAll();
 
             // Call
             RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(new TestHydraulicBoundaryLocation());
 
             // Assert
             Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
+
+            mocks.VerifyAll();
+        }
+
+        private static FailureMechanismContribution CreateFailureMechanismContribution(NormType normType)
+        {
+            var random = new Random(21);
+            int otherContribution = random.Next(0, 100);
+            const double norm = 1.0 / 30000;
+
+            return new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(),
+                                                    otherContribution,
+                                                    norm,
+                                                    norm)
+            {
+                NormativeNorm = normType
+            };
         }
 
         private static HydraulicBoundaryLocation CreateHydraulicBoundaryLocationWithOutput()

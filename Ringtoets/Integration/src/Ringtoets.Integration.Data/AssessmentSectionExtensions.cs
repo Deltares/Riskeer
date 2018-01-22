@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 
@@ -50,7 +51,7 @@ namespace Ringtoets.Integration.Data
         /// contains an invalid value of <see cref="NormType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="assessmentSection"/>
         /// contains a valid value of <see cref="NormType"/>, but unsupported.</exception>
-        public static RoundedDouble GetNormativeAssessmentLevel(this AssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        public static RoundedDouble GetNormativeAssessmentLevel(this IAssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             if (assessmentSection == null)
             {
