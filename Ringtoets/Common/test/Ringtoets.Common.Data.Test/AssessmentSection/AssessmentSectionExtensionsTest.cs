@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Integration.Data.Test
+namespace Ringtoets.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
     public class AssessmentSectionExtensionsTest
