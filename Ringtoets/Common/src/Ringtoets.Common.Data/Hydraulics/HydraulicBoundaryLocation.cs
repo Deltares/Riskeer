@@ -137,17 +137,6 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// </summary>
         public HydraulicBoundaryLocationCalculation WaveHeightCalculation4 { get; }
 
-        /// <summary>
-        /// Gets the wave height of the hydraulic boundary location.
-        /// </summary>
-        public RoundedDouble WaveHeight
-        {
-            get
-            {
-                return WaveHeightCalculation1.Output?.Result ?? RoundedDouble.NaN;
-            }
-        }
-
         #endregion
     }
 }

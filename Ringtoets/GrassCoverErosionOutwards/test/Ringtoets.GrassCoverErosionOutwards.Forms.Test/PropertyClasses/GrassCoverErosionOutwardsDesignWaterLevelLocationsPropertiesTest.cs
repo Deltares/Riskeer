@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
@@ -105,7 +106,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(location.Name, locationProperties.Name);
             Assert.AreEqual(location.Id, locationProperties.Id);
             Assert.AreEqual(location.Location, locationProperties.Location);
-            Assert.AreEqual(location.DesignWaterLevel, locationProperties.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
+
+            RoundedDouble designWaterLevel = location.DesignWaterLevelCalculation1.Output.Result;
+            Assert.AreEqual(designWaterLevel, locationProperties.DesignWaterLevel, designWaterLevel.GetAccuracy());
+
             Assert.AreEqual("Ja", locationProperties.Convergence);
         }
     }

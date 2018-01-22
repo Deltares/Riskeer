@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -91,7 +92,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(location.Name, designWaterLevelLocationProperties.Name);
             Assert.AreEqual(location.Id, designWaterLevelLocationProperties.Id);
             Assert.AreEqual(location.Location, designWaterLevelLocationProperties.Location);
-            Assert.AreEqual(location.DesignWaterLevel, designWaterLevelLocationProperties.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
+
+            RoundedDouble designWaterLevel = location.DesignWaterLevelCalculation1.Output.Result;
+            Assert.AreEqual(designWaterLevel, designWaterLevelLocationProperties.DesignWaterLevel, designWaterLevel.GetAccuracy());
         }
 
         [Test]
