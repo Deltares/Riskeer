@@ -343,6 +343,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
         [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void FailureMechanismResultView_AssessmentLayerTwoAHasValue_DoesNotShowsErrorTooltip(
@@ -370,7 +371,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
-                Assert.AreEqual("1/980,908,719,666,769,000,000",
+                Assert.AreEqual("1/980.908.719.666.769.000.000",
                                 formattedValue);
             }
         }

@@ -35,7 +35,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
@@ -83,6 +82,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsNull(pipingScenarioView.Data);
                 Assert.IsNull(pipingScenarioView.PipingFailureMechanism);
             }
+
             mocks.VerifyAll();
         }
 
@@ -212,6 +212,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void PipingScenarioView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
@@ -238,10 +239,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("1/980,908,719,666,769,000,000", cells[failureProbabilityPipingColumnIndex].FormattedValue);
-            Assert.AreEqual("1/204,463,909,053", cells[failureProbabilityUpliftColumnIndex].FormattedValue);
-            Assert.AreEqual("1/31,469,301", cells[failureProbabilityHeaveColumnIndex].FormattedValue);
-            Assert.AreEqual("1/980,908,719,666,769,000,000", cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
+            Assert.AreEqual("1/980.908.719.666.769.000.000", cells[failureProbabilityPipingColumnIndex].FormattedValue);
+            Assert.AreEqual("1/204.463.909.053", cells[failureProbabilityUpliftColumnIndex].FormattedValue);
+            Assert.AreEqual("1/31.469.301", cells[failureProbabilityHeaveColumnIndex].FormattedValue);
+            Assert.AreEqual("1/980.908.719.666.769.000.000", cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
         }
 
         [Test]

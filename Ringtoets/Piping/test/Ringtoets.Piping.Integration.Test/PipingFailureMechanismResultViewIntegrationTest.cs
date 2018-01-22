@@ -42,6 +42,7 @@ namespace Ringtoets.Piping.Integration.Test
         private const int assessmentLayerTwoAIndex = 2;
 
         [Test]
+        [SetCulture("nl-NL")]
         public void FailureMechanismResultView_DataImportedOrChanged_ChangesCorrectlyObservedAndSynced()
         {
             using (var form = new Form())
@@ -122,7 +123,7 @@ namespace Ringtoets.Piping.Integration.Test
                 // Execute the first calculation and ensure the data grid view is updated
                 pipingCalculation1.Output = new TestPipingOutput();
                 pipingCalculation1.NotifyObservers();
-                Assert.AreEqual("1/980,908,719,666,769,000,000",
+                Assert.AreEqual("1/980.908.719.666.769.000.000",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -130,7 +131,7 @@ namespace Ringtoets.Piping.Integration.Test
                 var pipingCalculation3 = new PipingCalculationScenario(new GeneralPipingInput());
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
-                Assert.AreEqual("1/980,908,719,666,769,000,000",
+                Assert.AreEqual("1/980.908.719.666.769.000.000",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -164,7 +165,7 @@ namespace Ringtoets.Piping.Integration.Test
                 // Set contribution again so we have a probability.
                 pipingCalculation1.Contribution = (RoundedDouble) 1.0;
                 pipingCalculation1.NotifyObservers();
-                Assert.AreEqual("1/980,908,719,666,769,000,000",
+                Assert.AreEqual("1/980.908.719.666.769.000.000",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
