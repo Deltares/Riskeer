@@ -50,12 +50,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var locations = new ObservableList<HydraulicBoundaryLocation>();
 
             // Call
-            var properties = new TestHydraulicBoundaryLocationsProperties(locations);
-
-            // Assert
-            Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocation>>>(properties);
-            Assert.IsInstanceOf<IDisposable>(properties);
-            Assert.AreSame(locations, properties.Data);
+            using (var properties = new TestHydraulicBoundaryLocationsProperties(locations))
+            {
+                // Assert
+                Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocation>>>(properties);
+                Assert.IsInstanceOf<IDisposable>(properties);
+                Assert.AreSame(locations, properties.Data);
+            }
         }
 
         [Test]
@@ -68,16 +69,17 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 location
             };
 
-            var properties = new TestHydraulicBoundaryLocationsProperties(hydraulicBoundaryLocations);
+            using(var properties = new TestHydraulicBoundaryLocationsProperties(hydraulicBoundaryLocations))
+            {
+                var refreshRequiredRaised = 0;
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+                // When
+                location.NotifyObservers();
 
-            // When
-            location.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(1, refreshRequiredRaised);
+                // Then
+                Assert.AreEqual(1, refreshRequiredRaised);
+            }
         }
 
         [Test]
@@ -90,18 +92,20 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 location
             };
 
-            var properties = new TestHydraulicBoundaryLocationsProperties(hydraulicBoundaryLocations);
+            using (var properties = new TestHydraulicBoundaryLocationsProperties(hydraulicBoundaryLocations))
+            {
 
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+                var refreshRequiredRaised = 0;
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
-            properties.Dispose();
+                properties.Dispose();
 
-            // When
-            location.NotifyObservers();
+                // When
+                location.NotifyObservers();
 
-            // Then
-            Assert.AreEqual(0, refreshRequiredRaised);
+                // Then
+                Assert.AreEqual(0, refreshRequiredRaised);
+            }
         }
 
         private class TestHydraulicBoundaryLocationsProperties : HydraulicBoundaryLocationsProperties

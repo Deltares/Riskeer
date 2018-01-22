@@ -165,6 +165,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             dataObjectProperties.Expect(d => ((IDisposable) d).Dispose());
             dataObjectProperties.Stub(d => ((IObjectProperties) d).RefreshRequired += null).IgnoreArguments();
             dataObjectProperties.Stub(d => ((IObjectProperties) d).RefreshRequired -= null).IgnoreArguments();
+            dataObjectProperties.Stub(d => ((IObjectProperties) d).Data).Return(dataObject);
 
             var newDataObject = new object();
             var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
@@ -194,6 +195,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             dataObjectProperties.Expect(d => ((IDisposable) d).Dispose());
             dataObjectProperties.Stub(d => ((IObjectProperties) d).RefreshRequired += null).IgnoreArguments();
             dataObjectProperties.Stub(d => ((IObjectProperties) d).RefreshRequired -= null).IgnoreArguments();
+            dataObjectProperties.Stub(d => ((IObjectProperties) d).Data).Return(dataObject);
 
             var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
             propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(dataObjectProperties));

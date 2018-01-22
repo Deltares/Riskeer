@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
 
 namespace Core.Common.Gui.PropertyBag
 {
@@ -34,7 +33,6 @@ namespace Core.Common.Gui.PropertyBag
         protected T data;
 
         public event EventHandler<EventArgs> RefreshRequired;
-
 
         [Browsable(false)]
         public object Data

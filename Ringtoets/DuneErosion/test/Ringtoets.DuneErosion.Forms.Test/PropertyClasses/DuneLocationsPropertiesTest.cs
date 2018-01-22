@@ -70,14 +70,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation());
+            using (var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation()))
+            {
+                // Assert
+                Assert.IsInstanceOf<ObjectProperties<ObservableList<DuneLocation>>>(properties);
+                Assert.IsInstanceOf<IDisposable>(properties);
 
-            // Assert
-            Assert.IsInstanceOf<ObjectProperties<ObservableList<DuneLocation>>>(properties);
-            Assert.IsInstanceOf<IDisposable>(properties);
-
-            Assert.AreEqual(1, properties.Locations.Length);
-            Assert.AreSame(location, properties.Locations[0].Data);
+                Assert.AreEqual(1, properties.Locations.Length);
+                Assert.AreSame(location, properties.Locations[0].Data);
+            }
         }
 
         [Test]
@@ -91,24 +92,25 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation());
+            using (var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation()))
+            {
+                // Assert
+                TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+                Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
 
-            // Assert
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
+                Assert.AreSame(locations, properties.Data);
 
-            Assert.AreSame(locations, properties.Data);
+                PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+                Assert.AreEqual(1, dynamicProperties.Count);
 
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(1, dynamicProperties.Count);
-
-            PropertyDescriptor locationsProperty = dynamicProperties[requiredLocationsPropertyIndex];
-            Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
-                                                                            "Algemeen",
-                                                                            "Locaties",
-                                                                            "Locaties uit de hydraulische randvoorwaardendatabase.",
-                                                                            true);
+                PropertyDescriptor locationsProperty = dynamicProperties[requiredLocationsPropertyIndex];
+                Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
+                                                                                "Algemeen",
+                                                                                "Locaties",
+                                                                                "Locaties uit de hydraulische randvoorwaardendatabase.",
+                                                                                true);
+            }
         }
 
         [Test]
@@ -121,16 +123,18 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 location
             };
 
-            var properties = new DuneLocationsProperties(duneLocations, l => new DuneLocationCalculation());
+            using (var properties = new DuneLocationsProperties(duneLocations, l => new DuneLocationCalculation()))
+            {
 
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+                var refreshRequiredRaised = 0;
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
-            // When
-            location.NotifyObservers();
+                // When
+                location.NotifyObservers();
 
-            // Then
-            Assert.AreEqual(1, refreshRequiredRaised);
+                // Then
+                Assert.AreEqual(1, refreshRequiredRaised);
+            }
         }
 
         [Test]
@@ -143,18 +147,20 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 location
             };
 
-            var properties = new DuneLocationsProperties(duneLocations, l => new DuneLocationCalculation());
+            using (var properties = new DuneLocationsProperties(duneLocations, l => new DuneLocationCalculation()))
+            {
 
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+                var refreshRequiredRaised = 0;
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
-            properties.Dispose();
+                properties.Dispose();
 
-            // When
-            location.NotifyObservers();
+                // When
+                location.NotifyObservers();
 
-            // Then
-            Assert.AreEqual(0, refreshRequiredRaised);
+                // Then
+                Assert.AreEqual(0, refreshRequiredRaised);
+            }
         }
     }
 }
