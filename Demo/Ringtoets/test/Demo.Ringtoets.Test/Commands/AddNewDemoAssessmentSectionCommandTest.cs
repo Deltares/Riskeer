@@ -418,7 +418,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual("PK001_0001_Piping", inputParameters.StochasticSoilModel.Name);
             Assert.AreEqual("W1-6_0_1D1", inputParameters.StochasticSoilProfile.SoilProfile.Name);
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
-            Assert.AreEqual(5.78, inputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output.Result, 1e-3);
+            Assert.AreEqual(5.78, inputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation3.Output.Result, 1e-3);
 
             Assert.AreEqual(0.875, PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
                             inputParameters.DampingFactorExit.GetAccuracy());
@@ -439,7 +439,7 @@ namespace Demo.Ringtoets.Test.Commands
             PipingInput inputParameters = calculation.InputParameters;
             AssertExpectedPipingInput(inputParameters);
 
-            RoundedDouble assessmentLevel = calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output.Result;
+            RoundedDouble assessmentLevel = calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation3.Output.Result;
 
             Assert.IsTrue(PipingCalculationService.Validate(calculation, assessmentLevel));
 
