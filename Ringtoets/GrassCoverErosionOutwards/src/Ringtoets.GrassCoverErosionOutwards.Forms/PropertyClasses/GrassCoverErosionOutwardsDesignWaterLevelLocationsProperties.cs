@@ -32,8 +32,8 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with 
-    /// <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for properties panel.
+    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with
+    /// a design water level calculation result for properties panel.
     /// </summary>
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties : HydraulicBoundaryLocationsProperties
     {

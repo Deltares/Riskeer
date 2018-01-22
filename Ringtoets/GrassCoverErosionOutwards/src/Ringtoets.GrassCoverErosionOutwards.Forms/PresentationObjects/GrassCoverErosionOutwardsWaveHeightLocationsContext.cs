@@ -30,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocation"/> 
-    /// with <see cref="HydraulicBoundaryLocation.WaveHeight"/> for a given norm.
+    /// with a wave height calculation result for a given norm.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
     {

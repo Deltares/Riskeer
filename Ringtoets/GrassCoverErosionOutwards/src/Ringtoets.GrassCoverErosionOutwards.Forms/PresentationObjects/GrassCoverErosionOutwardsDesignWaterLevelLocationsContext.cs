@@ -30,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocation"/> 
-    /// with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for a given norm.
+    /// with a design water level calculation result for a given norm.
     /// </summary>
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
     {
