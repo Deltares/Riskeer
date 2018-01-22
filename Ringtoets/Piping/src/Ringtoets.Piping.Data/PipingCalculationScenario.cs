@@ -66,11 +66,6 @@ namespace Ringtoets.Piping.Data
                 return Output == null
                            ? CalculationScenarioStatus.NotCalculated
                            : CalculationScenarioStatus.Done;
-
-                //
-//                return SemiProbabilisticOutput == null || double.IsNaN(SemiProbabilisticOutput.PipingProbability)
-//                           ? CalculationScenarioStatus.Failed
-//                           : CalculationScenarioStatus.Done;
             }
         }
     }

@@ -25,7 +25,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.TestUtil;
@@ -77,7 +76,7 @@ namespace Ringtoets.Piping.Data.Test
             double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(calculations, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(1.0194628510792693e-21, assessmentLayerTwoA);
+            Assert.AreEqual(1.0231368235852602e-10, assessmentLayerTwoA);
             mocks.VerifyAll();
         }
 
@@ -157,6 +156,45 @@ namespace Ringtoets.Piping.Data.Test
             {
                 pipingCalculationScenario
             }, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetAssessmentLayerTwoA_ScenarioWithNanResults_ReturnsNaN()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+
+            const double contribution1 = 0.2;
+            const double contribution2 = 0.8;
+
+            PipingCalculationScenario pipingCalculationScenario1 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(section);
+            PipingCalculationScenario pipingCalculationScenario2 = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
+
+            pipingCalculationScenario1.IsRelevant = true;
+            pipingCalculationScenario1.Contribution = (RoundedDouble)contribution1;
+
+            pipingCalculationScenario2.IsRelevant = true;
+            pipingCalculationScenario2.Contribution = (RoundedDouble)contribution2;
+            pipingCalculationScenario2.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
+
+            var calculations = new[]
+            {
+                pipingCalculationScenario1,
+                pipingCalculationScenario2
+            };
+
+            // Call
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(calculations, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);

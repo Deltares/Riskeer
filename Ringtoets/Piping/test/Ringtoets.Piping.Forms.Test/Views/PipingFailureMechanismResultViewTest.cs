@@ -406,37 +406,38 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
-//        [Test]
-//        [TestCase(AssessmentLayerOneState.NotAssessed)]
-//        [TestCase(AssessmentLayerOneState.NoVerdict)]
-//        public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
-//        {
-//            // Setup
-//            const int rowIndex = 0;
-//
-//            var pipingFailureMechanism = new PipingFailureMechanism();
-//            using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
-//            {
-//                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(
-//                    pipingFailureMechanism.Sections.First());
-//                pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
-//                view.Data = pipingFailureMechanism.SectionResults;
-//
-//                var gridTester = new ControlTester("dataGridView");
-//                var dataGridView = (DataGridView) gridTester.TheObject;
-//
-//                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
-//                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
-//
-//                // Call
-//                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-//
-//                // Assert
-//                Assert.AreEqual("Alle berekeningen voor dit vak moeten een geldige uitkomst hebben.",
-//                                dataGridViewCell.ErrorText);
-//                Assert.AreEqual("-", formattedValue);
-//            }
-//        }
+        [Test]
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        {
+            // Setup
+            const int rowIndex = 0;
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
+            {
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(
+                    pipingFailureMechanism.Sections.First());
+                calculationScenario.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
+                pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
+                view.Data = pipingFailureMechanism.SectionResults;
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
+
+                // Call
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual("Alle berekeningen voor dit vak moeten een geldige uitkomst hebben.",
+                                dataGridViewCell.ErrorText);
+                Assert.AreEqual("-", formattedValue);
+            }
+        }
 
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
@@ -496,33 +497,34 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
-//        [Test]
-//        public void FailureMechanismResultView_AssessmentLayerOneStateSufficientAndAssessmentLayerTwoAHasError_DoesNotShowError()
-//        {
-//            // Setup
-//            const int rowIndex = 0;
-//
-//            var pipingFailureMechanism = new PipingFailureMechanism();
-//            using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
-//            {
-//                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(
-//                    pipingFailureMechanism.Sections.First());
-//                pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
-//
-//                var gridTester = new ControlTester("dataGridView");
-//                var dataGridView = (DataGridView) gridTester.TheObject;
-//
-//                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
-//
-//                // Call
-//                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = AssessmentLayerOneState.Sufficient;
-//                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-//
-//                // Assert
-//                Assert.IsEmpty(dataGridViewCell.ErrorText);
-//                Assert.AreEqual("-", formattedValue);
-//            }
-//        }
+        [Test]
+        public void FailureMechanismResultView_AssessmentLayerOneStateSufficientAndAssessmentLayerTwoAHasError_DoesNotShowError()
+        {
+            // Setup
+            const int rowIndex = 0;
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
+            {
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(
+                    pipingFailureMechanism.Sections.First());
+                calculationScenario.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
+                pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = AssessmentLayerOneState.Sufficient;
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+                Assert.AreEqual("-", formattedValue);
+            }
+        }
 
         private PipingFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView(PipingFailureMechanism failureMechanism)
         {

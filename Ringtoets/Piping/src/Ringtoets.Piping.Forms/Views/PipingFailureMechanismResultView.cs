@@ -184,7 +184,8 @@ namespace Ringtoets.Piping.Forms.Views
                 currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed;
                 return;
             }
-            if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
+            
+            if (double.IsNaN(resultRow.AssessmentLayerTwoA))
             {
                 currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output;
                 return;
