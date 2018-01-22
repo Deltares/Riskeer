@@ -35,8 +35,7 @@ using Ringtoets.Common.Service.MessageProviders;
 namespace Ringtoets.Common.Forms.GuiServices
 {
     /// <summary>
-    /// This class is responsible for calculating the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>
-    /// and <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
+    /// This class is responsible for calculating design water levels and wave heights.
     /// </summary>
     public class HydraulicBoundaryLocationCalculationGuiService : IHydraulicBoundaryLocationCalculationGuiService
     {

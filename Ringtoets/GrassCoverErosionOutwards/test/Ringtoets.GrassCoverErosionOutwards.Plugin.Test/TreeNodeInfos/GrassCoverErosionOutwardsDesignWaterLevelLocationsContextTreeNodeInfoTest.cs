@@ -606,9 +606,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                             CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                             Assert.AreEqual($"Waterstand bij doorsnede-eis berekenen voor locatie '{hydraulicBoundaryLocation.Name}' is gelukt.", msgs[7]);
                         });
-                        Assert.AreEqual(0, hydraulicBoundaryLocation.DesignWaterLevel,
-                                        hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output.CalculationConvergence);
+
+                        HydraulicBoundaryLocationOutput output = hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output;
+                        Assert.AreEqual(0, output.Result, output.Result.GetAccuracy());
+                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
                     }
                 }
             }

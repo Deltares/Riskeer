@@ -212,6 +212,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
             ObservableList<HydraulicBoundaryLocation> locations = testHydraulicBoundaryDatabase.Locations;
             ShowFullyConfiguredDesignWaterLevelLocationsView(locations, testForm);
+
+            const double designWaterLevel = 10.23;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
                 DesignWaterLevelCalculation1 =
@@ -220,7 +222,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     {
                         ShouldIllustrationPointsBeCalculated = true
                     },
-                    Output = new TestHydraulicBoundaryLocationOutput(10.23)
+                    Output = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
                 }
             };
 
@@ -244,7 +246,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("10", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(10, 10).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual(hydraulicBoundaryLocation.DesignWaterLevel, cells[locationDesignWaterlevelColumnIndex].Value);
+            Assert.AreEqual(designWaterLevel, cells[locationDesignWaterlevelColumnIndex].Value);
         }
 
         [Test]

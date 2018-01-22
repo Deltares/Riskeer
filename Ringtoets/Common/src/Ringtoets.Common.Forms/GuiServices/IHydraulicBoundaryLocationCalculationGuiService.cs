@@ -27,13 +27,12 @@ using Ringtoets.Common.Service.MessageProviders;
 namespace Ringtoets.Common.Forms.GuiServices
 {
     /// <summary>
-    /// Interface for <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> and 
-    /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> calculations.
+    /// Interface for design water level and wave height calculations.
     /// </summary>
     public interface IHydraulicBoundaryLocationCalculationGuiService
     {
         /// <summary>
-        /// Performs the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> calculation for all <paramref name="locations"/>.
+        /// Performs the design water level calculation for all <paramref name="locations"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
@@ -55,7 +54,7 @@ namespace Ringtoets.Common.Forms.GuiServices
                                         ICalculationMessageProvider messageProvider);
 
         /// <summary>
-        /// Performs the <see cref="HydraulicBoundaryLocation.WaveHeight"/> calculation for all <paramref name="locations"/>.
+        /// Performs the wave height calculation for all <paramref name="locations"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
