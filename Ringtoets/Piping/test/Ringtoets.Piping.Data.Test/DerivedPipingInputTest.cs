@@ -36,6 +36,17 @@ namespace Ringtoets.Piping.Data.Test
     public class DerivedPipingInputTest
     {
         [Test]
+        public void GetPiezometricHeadExit_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DerivedPipingInput.GetPiezometricHeadExit(null, RoundedDouble.NaN);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("input", paramName);
+        }
+
+        [Test]
         public void GetPiezometricHeadExit_ValidInput_SetsParametersForCalculatorAndReturnsNotNaN()
         {
             // Setup
@@ -75,6 +86,17 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsNaN(piezometricHead);
+        }
+
+        [Test]
+        public void GetEffectiveThicknessCoverageLayer_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DerivedPipingInput.GetEffectiveThicknessCoverageLayer(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("input", paramName);
         }
 
         [Test]
@@ -186,6 +208,17 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void GetThicknessCoverageLayer_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DerivedPipingInput.GetThicknessCoverageLayer(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("input", paramName);
+        }
+
+        [Test]
         public void GetThicknessCoverageLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsDistributionWithExpectedMean()
         {
             // Setup
@@ -291,6 +324,17 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             AssertThicknessCoverageLayer(thicknessCoverageLayer);
+        }
+
+        [Test]
+        public void GetThicknessAquiferLayer_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DerivedPipingInput.GetThicknessAquiferLayer(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("input", paramName);
         }
 
         [Test]
@@ -485,6 +529,17 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void GetSeepageLength_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DerivedPipingInput.GetSeepageLength(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("input", paramName);
+        }
+
+        [Test]
         public void GetSeepageLength_ValidData_ReturnsDistributionWithExpectedMean()
         {
             // Setup
@@ -525,6 +580,17 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             AssertSeepageLength(seepageLength);
+        }
+
+        [Test]
+        public void GetSaturatedVolumicWeightOfCoverageLayer_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("input", paramName);
         }
 
         [Test]
@@ -818,6 +884,17 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void GetDarcyPermeability_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DerivedPipingInput.GetDarcyPermeability(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("input", paramName);
+        }
+
+        [Test]
         public void GetDarcyPermeability_SoilProfileNull_ReturnsDistributionWithParametersNaN()
         {
             // Setup
@@ -988,6 +1065,17 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             AssertDarcyPermeability(result);
+        }
+
+        [Test]
+        public void GetDiameterD70_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DerivedPipingInput.GetDiameterD70(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("input", paramName);
         }
 
         [Test]
