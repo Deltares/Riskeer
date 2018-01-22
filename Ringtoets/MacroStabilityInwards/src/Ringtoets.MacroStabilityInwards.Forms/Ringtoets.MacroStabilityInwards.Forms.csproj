@@ -48,7 +48,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\MacroStabilityInwardsDrainageProperties.cs" />
-    <Compile Include="PropertyClasses\MacroStabilityInwardsFailureMechanismContextProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsGridProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsGridSettingsProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsInputContextProperties.cs" />

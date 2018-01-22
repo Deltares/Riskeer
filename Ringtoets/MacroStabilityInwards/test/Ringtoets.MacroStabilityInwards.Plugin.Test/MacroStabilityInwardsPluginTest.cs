@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(MacroStabilityInwardsFailureMechanismContext),
-                    typeof(MacroStabilityInwardsFailureMechanismContextProperties));
+                    typeof(MacroStabilityInwardsFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
