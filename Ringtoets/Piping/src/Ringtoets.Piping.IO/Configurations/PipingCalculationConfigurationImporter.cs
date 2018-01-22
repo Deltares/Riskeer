@@ -121,14 +121,14 @@ namespace Ringtoets.Piping.IO.Configurations
                 return false;
             }
 
-            if (location != null)
-            {
-                pipingCalculation.InputParameters.HydraulicBoundaryLocation = location;
-            }
-            else if (calculationConfiguration.AssessmentLevel.HasValue)
+            if (calculationConfiguration.AssessmentLevel.HasValue)
             {
                 pipingCalculation.InputParameters.UseAssessmentLevelManualInput = true;
                 pipingCalculation.InputParameters.AssessmentLevel = (RoundedDouble) calculationConfiguration.AssessmentLevel.Value;
+            }
+            else if (location != null)
+            {
+                pipingCalculation.InputParameters.HydraulicBoundaryLocation = location;
             }
 
             return true;

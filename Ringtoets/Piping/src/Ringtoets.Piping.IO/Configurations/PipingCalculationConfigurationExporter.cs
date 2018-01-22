@@ -63,13 +63,13 @@ namespace Ringtoets.Piping.IO.Configurations
                 Scenario = calculation.ToScenarioConfiguration()
             };
 
-            if (input.HydraulicBoundaryLocation != null)
-            {
-                calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
-            }
-            else if (input.UseAssessmentLevelManualInput)
+            if (input.UseAssessmentLevelManualInput)
             {
                 calculationConfiguration.AssessmentLevel = input.AssessmentLevel;
+            }
+            else if (input.HydraulicBoundaryLocation != null)
+            {
+                calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
             }
 
             if (input.SurfaceLine != null)

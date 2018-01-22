@@ -341,6 +341,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                     "Toetspeil [m+NAP]",
                     "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.");
             }
+
             mocks.VerifyAll();
         }
 
