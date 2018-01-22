@@ -529,7 +529,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void UseCustomAssessmentLevel_SetValidValue_SetsValueAndUpdatesObservers()
+        public void UseAssessmentLevelManualInput_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();
@@ -1457,7 +1457,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicReadOnlyValidationMethod_AssessmentLevel_DependsOnUseCustomAssessmentLevel(bool useCustomAssessmentLevel)
+        public void DynamicReadOnlyValidationMethod_AssessmentLevel_DependsOnUseAssessmentLevelManualInput(bool useAssessmentLevelManualInput)
         {
             // Setup
             var mocks = new MockRepository();
@@ -1471,7 +1471,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
-                    UseAssessmentLevelManualInput = useCustomAssessmentLevel
+                    UseAssessmentLevelManualInput = useAssessmentLevelManualInput
                 }
             };
 
@@ -1486,7 +1486,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             bool result = properties.DynamicReadOnlyValidationMethod("AssessmentLevel");
 
             // Assert
-            Assert.AreNotEqual(useCustomAssessmentLevel, result);
+            Assert.AreNotEqual(useAssessmentLevelManualInput, result);
         }
 
         [Test]
@@ -1520,7 +1520,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicVisibleValidationMethod_SelectedHydraulicBoundaryLocation_DependsOnUseCustomAssessmentLevel(bool useCustomAssessmentLevel)
+        public void DynamicVisibleValidationMethod_SelectedHydraulicBoundaryLocation_DependsOnUseAssessmentLevelManualInput(bool useAssessmentLevelManualInput)
         {
             // Setup
             var mocks = new MockRepository();
@@ -1534,7 +1534,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
-                    UseAssessmentLevelManualInput = useCustomAssessmentLevel
+                    UseAssessmentLevelManualInput = useAssessmentLevelManualInput
                 }
             };
 
@@ -1549,7 +1549,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             bool result = properties.DynamicVisibleValidationMethod("SelectedHydraulicBoundaryLocation");
 
             // Assert
-            Assert.AreNotEqual(useCustomAssessmentLevel, result);
+            Assert.AreNotEqual(useAssessmentLevelManualInput, result);
         }
 
         [Test]
