@@ -21,6 +21,7 @@
     <Compile Include="AssemblyTool\AssessmentSectionAssemblyCategory.cs" />
     <Compile Include="AssemblyTool\AssessmentSectionAssemblyCategoryType.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionComposition.cs" />
+    <Compile Include="AssessmentSection\AssessmentSectionExtensions.cs" />
     <Compile Include="AssessmentSection\BackgroundData.cs" />
     <Compile Include="AssessmentSection\IAssessmentSection.cs" />
     <Compile Include="AssessmentSection\IBackgroundDataConfiguration.cs" />

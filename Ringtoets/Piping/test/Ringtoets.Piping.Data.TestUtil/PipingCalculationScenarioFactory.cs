@@ -163,7 +163,18 @@ namespace Ringtoets.Piping.Data.TestUtil
             surfaceLine.SetBottomDitchPolderSideAt(fourthCharacteristicPointLocation);
             surfaceLine.SetDitchPolderSideAt(fifthCharacteristicPointLocation);
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.0);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelCalculation2 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(1.1)
+                },
+                DesignWaterLevelCalculation3 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(2.2)
+                }
+            };
+
             return new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =

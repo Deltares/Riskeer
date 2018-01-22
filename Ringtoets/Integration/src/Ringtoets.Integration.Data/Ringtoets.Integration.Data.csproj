@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssessmentSection.cs" />
-    <Compile Include="AssessmentSectionExtensions.cs" />
     <Compile Include="RingtoetsProjectFactory.cs" />
     <Compile Include="RingtoetsProject.cs" />
     <Compile Include="StandAlone\MacrostabilityOutwardsFailureMechanism.cs" />

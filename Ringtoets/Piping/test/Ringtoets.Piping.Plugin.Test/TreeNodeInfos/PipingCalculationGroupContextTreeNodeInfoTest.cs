@@ -978,7 +978,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(invalidCalculation);
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  parentGroup,
@@ -1080,6 +1080,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
                 }
             }
+
             // Assert
         }
 
