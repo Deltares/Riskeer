@@ -129,6 +129,17 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     nameof(FailureMechanismSectionsProperties.Sections));
                 Assert.IsNotNull(properties.Sections);
                 Assert.AreEqual(sections.Count(), properties.Sections.Length);
+                for (var i = 0; i < sections.Count(); i++)
+                {
+                    FailureMechanismSection section = sections.ElementAt(i);
+                    FailureMechanismSectionProbabilityAssessmentProperties property = properties.Sections[i];
+
+                    Assert.AreSame(section, property.Data);
+                    Assert.AreEqual(1 + probabilityAssessmentInput.A * section.Length / probabilityAssessmentInput.B,
+                                    property.N,
+                                    property.N.GetAccuracy());
+                }
+
                 mocks.VerifyAll();
             }
         }
