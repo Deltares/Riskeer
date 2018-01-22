@@ -503,7 +503,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithData_ReturnExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetProperties_WithData_ReturnExpectedValues(bool useManualAssessmentLevelInput)
         {
             // Setup
             var mocks = new MockRepository();
@@ -534,11 +536,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
+                    UseAssessmentLevelManualInput = useManualAssessmentLevelInput,
                     HydraulicBoundaryLocation = testHydraulicBoundaryLocation,
                     SurfaceLine = surfaceLine,
                     StochasticSoilModel = stochasticSoilModel,
-                    StochasticSoilProfile = stochasticSoilProfile,
-                    UseAssessmentLevelManualInput = false
+                    StochasticSoilProfile = stochasticSoilProfile
                 }
             };
 
@@ -590,8 +592,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(saturatedVolumicWeightOfCoverageLayer.Shift,
                             properties.SaturatedVolumicWeightOfCoverageLayer.Shift);
 
-            Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevel);
-            Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(inputParameters, inputParameters.AssessmentLevel), properties.PiezometricHeadExit);
+            RoundedDouble expectedAssessmentLevel = useManualAssessmentLevelInput
+                                                        ? inputParameters.AssessmentLevel
+                                                        : GetCalculatedTestAssessmentLevel();
+
+            Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(inputParameters, expectedAssessmentLevel), properties.PiezometricHeadExit);
 
             Assert.AreEqual(DerivedPipingInput.GetSeepageLength(inputParameters).Mean, properties.SeepageLength.Mean);
             Assert.AreEqual(DerivedPipingInput.GetSeepageLength(inputParameters).CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
@@ -601,8 +606,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
             Assert.AreSame(stochasticSoilProfile, properties.StochasticSoilProfile);
             Assert.AreSame(stochasticSoilModel, properties.StochasticSoilModel);
-            Assert.AreSame(testHydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
 
+            Assert.AreSame(testHydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedAssessmentLevel, properties.AssessmentLevel);
             Assert.AreEqual(inputParameters.UseAssessmentLevelManualInput, properties.UseAssessmentLevelManualInput);
 
             mocks.VerifyAll();
@@ -716,13 +722,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             RoundedDouble newAssessmentLevel = new Random(21).NextRoundedDouble();
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    UseAssessmentLevelManualInput = true
-                }
-            };
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsForCalculation(properties => properties.AssessmentLevel = newAssessmentLevel, calculation);
@@ -773,7 +773,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void EntryPoinL_SetValidValue_SetsValueAndUpdatesObservers()
+        public void EntryPointL_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
             RoundedDouble newEntryPointL = new Random(21).NextRoundedDouble();
@@ -795,13 +795,24 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void UseCustomAssessmentLevel_SetValidValue_SetsValueAndUpdatesObservers()
+        public void UseAssessmentLevelManualInput_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsForCalculation(properties => properties.UseAssessmentLevelManualInput = true,
+                                                            calculation);
+        }
+
+        [Test]
+        public void SelectedHydraulicBoundaryLocation_SetValidValue_SetsValueAndUpdatesObservers()
+        {
+            // Setup
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+
+            // Call & Assert
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.SelectedHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), null),
                                                             calculation);
         }
 
@@ -1077,227 +1088,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 4,0]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
             mocks.VerifyAll(); // No observer notified
-        }
-
-        [Test]
-        public void HydraulicBoundaryLocation_DesignWaterLevelIsNaN_AssessmentLevelSetToNaN()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
-
-            var context = new PipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
-            {
-                observable
-            });
-
-            var properties = new PipingInputContextProperties(context, GetCalculatedTestAssessmentLevel, handler);
-
-            // Call
-            properties.SelectedHydraulicBoundaryLocation = selectableHydraulicBoundaryLocation;
-
-            // Assert
-            Assert.IsNaN(properties.AssessmentLevel.Value);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void HydraulicBoundaryLocation_DesignWaterLevelSet_SetsAssessmentLevelToDesignWaterLevelAndNotifiesOnce()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
-            var testLevel = (RoundedDouble) new Random(21).NextDouble();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(
-                testLevel);
-            var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
-
-            var context = new PipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
-            {
-                observable
-            });
-
-            var properties = new PipingInputContextProperties(context, GetCalculatedTestAssessmentLevel, handler);
-
-            // Call
-            properties.SelectedHydraulicBoundaryLocation = selectableHydraulicBoundaryLocation;
-
-            // Assert
-            Assert.AreEqual(testLevel, properties.AssessmentLevel, properties.AssessmentLevel.GetAccuracy());
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenHydraulicBoundaryLocationAndUseHydraulicBoundaryLocation_WhenUnuseLocationAndSetNewAssessmentLevel_UpdateAssessmentLevelAndRemovesLocation()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(50)
-                }
-            };
-            var failureMechanism = new PipingFailureMechanism();
-
-            var random = new Random(21);
-
-            var context = new PipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
-
-            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
-
-            var properties = new PipingInputContextProperties(context, GetCalculatedTestAssessmentLevel, handler)
-            {
-                UseAssessmentLevelManualInput = false
-            };
-
-            var testLevel = (RoundedDouble) random.NextDouble();
-
-            // When
-            properties.UseAssessmentLevelManualInput = true;
-            properties.AssessmentLevel = testLevel;
-
-            // Then
-            Assert.AreEqual(2, properties.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(testLevel, properties.AssessmentLevel, properties.AssessmentLevel.GetAccuracy());
-            Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NaN)]
-        [TestCase(1234)]
-        public void AssessmentLevel_SetNewValue_UpdateDataAndNotifyObservers(double testLevel)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    UseAssessmentLevelManualInput = true
-                }
-            };
-            var failureMechanism = new PipingFailureMechanism();
-
-            var context = new PipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
-            {
-                observable
-            });
-
-            var properties = new PipingInputContextProperties(context, GetCalculatedTestAssessmentLevel, handler);
-
-            // Call
-            properties.AssessmentLevel = (RoundedDouble) testLevel;
-
-            // Assert
-            Assert.AreEqual(2, properties.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(testLevel, properties.AssessmentLevel, properties.AssessmentLevel.GetAccuracy());
-            Assert.IsTrue(handler.Called);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenAssessmentLevelSetWithoutHydraulicBoundaryLocation_WhenUseAndSetNewLocation_UpdateAssessmentLevelWithLocationValues()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var random = new Random(21);
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    UseAssessmentLevelManualInput = true,
-                    AssessmentLevel = (RoundedDouble) random.NextDouble()
-                }
-            };
-            var failureMechanism = new PipingFailureMechanism();
-
-            var context = new PipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
-
-            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
-
-            var properties = new PipingInputContextProperties(context, GetCalculatedTestAssessmentLevel, handler);
-
-            var testLevel = (RoundedDouble) random.NextDouble();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(
-                testLevel);
-            var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(hydraulicBoundaryLocation, null);
-
-            // When
-            properties.UseAssessmentLevelManualInput = false;
-            properties.SelectedHydraulicBoundaryLocation = selectableHydraulicBoundaryLocation;
-
-            // Then
-            Assert.AreEqual(2, properties.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
-            Assert.AreEqual(testLevel, properties.AssessmentLevel, properties.AssessmentLevel.GetAccuracy());
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1881,7 +1671,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicReadOnlyValidationMethod_AssessmentLevel_DependsOnUseCustomAssessmentLevel(bool useCustomAssessmentLevel)
+        public void DynamicReadOnlyValidationMethod_AssessmentLevel_DependsOnUseAssessmentLevelManualInput(bool useAssessmentLevelManualInput)
         {
             // Setup
             var mocks = new MockRepository();
@@ -1895,7 +1685,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
-                    UseAssessmentLevelManualInput = useCustomAssessmentLevel
+                    UseAssessmentLevelManualInput = useAssessmentLevelManualInput
                 }
             };
 
@@ -1910,7 +1700,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             bool result = properties.DynamicReadOnlyValidationMethod("AssessmentLevel");
 
             // Assert
-            Assert.AreNotEqual(useCustomAssessmentLevel, result);
+            Assert.AreNotEqual(useAssessmentLevelManualInput, result);
         }
 
         [Test]
@@ -1944,7 +1734,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicVisibleValidationMethod_SelectedHydraulicBoundaryLocation_DependsOnUseCustomAssessmentLevel(bool useCustomAssessmentLevel)
+        public void DynamicVisibleValidationMethod_SelectedHydraulicBoundaryLocation_DependsOnUseAssessmentLevelManualInput(bool useAssessmentLevelManualInput)
         {
             // Setup
             var mocks = new MockRepository();
@@ -1958,7 +1748,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
-                    UseAssessmentLevelManualInput = useCustomAssessmentLevel
+                    UseAssessmentLevelManualInput = useAssessmentLevelManualInput
                 }
             };
 
@@ -1973,7 +1763,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             bool result = properties.DynamicVisibleValidationMethod("SelectedHydraulicBoundaryLocation");
 
             // Assert
-            Assert.AreNotEqual(useCustomAssessmentLevel, result);
+            Assert.AreNotEqual(useAssessmentLevelManualInput, result);
         }
 
         [Test]
