@@ -869,6 +869,9 @@ namespace Ringtoets.Integration.TestUtil
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
+            HydraulicBoundaryLocationOutput waveHeightCalculationOutput = hydraulicBoundaryLocation.WaveHeightCalculation1.Output;
+            HydraulicBoundaryLocationOutput designWaterLevelCalculationOutput = hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output;
+
             var internalHydroLocation = new HydraulicBoundaryLocation(hydraulicBoundaryLocation.Id,
                                                                       hydraulicBoundaryLocation.Name,
                                                                       hydraulicBoundaryLocation.Location.X,
@@ -877,14 +880,14 @@ namespace Ringtoets.Integration.TestUtil
                 WaveHeightCalculation1 =
                 {
                     Output = new HydraulicBoundaryLocationOutput(
-                        hydraulicBoundaryLocation.WaveHeight + 0.2, double.NaN, double.NaN, double.NaN, double.NaN,
-                        hydraulicBoundaryLocation.WaveHeightCalculation1.Output.CalculationConvergence, null)
+                        waveHeightCalculationOutput.Result + 0.2, double.NaN, double.NaN, double.NaN, double.NaN,
+                        waveHeightCalculationOutput.CalculationConvergence, null)
                 },
                 DesignWaterLevelCalculation1 =
                 {
                     Output = new HydraulicBoundaryLocationOutput(
-                        hydraulicBoundaryLocation.DesignWaterLevel + 0.3, double.NaN, double.NaN, double.NaN, double.NaN,
-                        hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output.CalculationConvergence, null)
+                        designWaterLevelCalculationOutput.Result + 0.3, double.NaN, double.NaN, double.NaN, double.NaN,
+                        designWaterLevelCalculationOutput.CalculationConvergence, null)
                 }
             };
             failureMechanism.HydraulicBoundaryLocations.Add(internalHydroLocation);
@@ -1036,8 +1039,8 @@ namespace Ringtoets.Integration.TestUtil
                 {
                     Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
                     {
-                        WaterLevel = hydraulicBoundaryLocation.DesignWaterLevel + 0.2,
-                        WaveHeight = hydraulicBoundaryLocation.WaveHeight + 0.3,
+                        WaterLevel = hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output.Result + 0.2,
+                        WaveHeight = hydraulicBoundaryLocation.WaveHeightCalculation1.Output.Result + 0.3,
                         WavePeriod = 10
                     })
                 }

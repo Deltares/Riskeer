@@ -107,8 +107,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(location.Id, locationProperties.Id);
             Assert.AreEqual(location.Location, locationProperties.Location);
 
-            RoundedDouble locationWaveHeight = location.WaveHeightCalculation1.Output.Result;
-            Assert.AreEqual(locationWaveHeight, locationProperties.WaveHeight, locationWaveHeight.GetAccuracy());
+            RoundedDouble waveHeight = location.WaveHeightCalculation1.Output.Result;
+            Assert.AreEqual(waveHeight, locationProperties.WaveHeight, waveHeight.GetAccuracy());
 
             Assert.AreEqual("Ja", locationProperties.Convergence);
         }

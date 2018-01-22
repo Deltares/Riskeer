@@ -245,6 +245,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
             Assert.AreEqual(5, rows.Count);
 
+            const double waveHeight = 1.1;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10, 10)
             {
                 WaveHeightCalculation1 =
@@ -253,7 +254,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     {
                         ShouldIllustrationPointsBeCalculated = true
                     },
-                    Output = new TestHydraulicBoundaryLocationOutput(10)
+                    Output = new TestHydraulicBoundaryLocationOutput(waveHeight)
                 }
             };
 
@@ -272,7 +273,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("10", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(10, 10).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual(hydraulicBoundaryLocation.WaveHeight, cells[locationWaveHeightColumnIndex].Value);
+            Assert.AreEqual(waveHeight, cells[locationWaveHeightColumnIndex].Value);
             Assert.AreNotSame(dataGridViewSource, locationsDataGridView.DataSource);
             Assert.IsFalse((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
         }

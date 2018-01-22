@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -91,7 +92,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(location.Name, waveHeightLocationProperties.Name);
             Assert.AreEqual(location.Id, waveHeightLocationProperties.Id);
             Assert.AreEqual(location.Location, waveHeightLocationProperties.Location);
-            Assert.AreEqual(location.WaveHeight, waveHeightLocationProperties.WaveHeight, location.WaveHeight.GetAccuracy());
+
+            RoundedDouble waveHeight = location.WaveHeightCalculation1.Output.Result;
+            Assert.AreEqual(waveHeight, waveHeightLocationProperties.WaveHeight, waveHeight.GetAccuracy());
         }
 
         [Test]

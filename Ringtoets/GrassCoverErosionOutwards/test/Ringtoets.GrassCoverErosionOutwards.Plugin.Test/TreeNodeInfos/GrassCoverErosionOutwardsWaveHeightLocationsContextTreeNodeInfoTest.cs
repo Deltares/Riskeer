@@ -407,7 +407,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
                         // Then
-                        Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
+                        Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculation1.Output);
                     }
                 }
             }
