@@ -195,7 +195,7 @@ namespace Demo.Ringtoets.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thematische Kaart.
+        ///   Looks up a localized string similar to Thematische kaart.
         /// </summary>
         public static string General_ThematicMap {
             get {
