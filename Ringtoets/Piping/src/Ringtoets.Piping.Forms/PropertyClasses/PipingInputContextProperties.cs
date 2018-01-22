@@ -69,18 +69,18 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         private const int diameter70PropertyIndex = 17;
         private const int saturatedVolumicWeightOfCoverageLayerPropertyIndex = 18;
 
-        private readonly Func<RoundedDouble> getCalculatedAssessmentLevelFunc;
+        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputContextProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties for.</param>
-        /// <param name="getCalculatedAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the calculated assessment level.</param>
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingInputContextProperties(PipingInputContext data,
-                                            Func<RoundedDouble> getCalculatedAssessmentLevelFunc,
+                                            Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                             IObservablePropertyChangeHandler propertyChangeHandler)
         {
             if (data == null)
@@ -88,9 +88,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(data));
             }
 
-            if (getCalculatedAssessmentLevelFunc == null)
+            if (getNormativeAssessmentLevelFunc == null)
             {
-                throw new ArgumentNullException(nameof(getCalculatedAssessmentLevelFunc));
+                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
             }
 
             if (propertyChangeHandler == null)
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
             Data = data;
 
-            this.getCalculatedAssessmentLevelFunc = getCalculatedAssessmentLevelFunc;
+            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
             this.propertyChangeHandler = propertyChangeHandler;
         }
 
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             return data.WrappedData.UseAssessmentLevelManualInput
                        ? data.WrappedData.AssessmentLevel
-                       : getCalculatedAssessmentLevelFunc();
+                       : getNormativeAssessmentLevelFunc();
         }
 
         #region Hydraulic data
