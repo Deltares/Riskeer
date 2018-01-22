@@ -82,7 +82,6 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var originalOutput = new TestPipingOutput();
-            var originalSemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
 
             PipingCalculationScenario invalidPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
             invalidPipingCalculation.Output = originalOutput;
