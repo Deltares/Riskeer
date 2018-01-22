@@ -13,6 +13,7 @@
   <ItemGroup>
     <Compile Include="DerivedMacroStabilityInwardsInput.cs" />
     <Compile Include="DerivedMacroStabilityInwardsOutput.cs" />
+    <Compile Include="DerivedMacroStabilityInwardsOutputFactory.cs" />
     <Compile Include="MacroStabilityInwardsGrid.cs" />
     <Compile Include="MacroStabilityInwardsGridDeterminationType.cs" />
     <Compile Include="MacroStabilityInwardsCalculation.cs" />
