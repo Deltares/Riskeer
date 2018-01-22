@@ -32,7 +32,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
@@ -96,31 +95,33 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
-            Assert.AreEqual(failureMechanism.GeneralInput.UpliftModelFactor, properties.UpliftModelFactor);
+            GeneralPipingInput generalInput = failureMechanism.GeneralInput;
+            Assert.AreEqual(generalInput.UpliftModelFactor, properties.UpliftModelFactor);
 
-            Assert.AreEqual(failureMechanism.GeneralInput.SellmeijerModelFactor, properties.SellmeijerModelFactor);
+            Assert.AreEqual(generalInput.SellmeijerModelFactor, properties.SellmeijerModelFactor);
 
-            Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
+            Assert.AreEqual(generalInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
 
-            Assert.AreEqual(failureMechanism.GeneralInput.CriticalHeaveGradient, properties.CriticalHeaveGradient);
+            Assert.AreEqual(generalInput.CriticalHeaveGradient, properties.CriticalHeaveGradient);
 
-            Assert.AreEqual(failureMechanism.GeneralInput.SandParticlesVolumicWeight, properties.SandParticlesVolumicWeight);
-            Assert.AreEqual(failureMechanism.GeneralInput.WhitesDragCoefficient, properties.WhitesDragCoefficient);
-            Assert.AreEqual(failureMechanism.GeneralInput.BeddingAngle, properties.BeddingAngle);
-            Assert.AreEqual(failureMechanism.GeneralInput.WaterKinematicViscosity, properties.WaterKinematicViscosity);
-            Assert.AreEqual(failureMechanism.GeneralInput.Gravity, properties.Gravity);
-            Assert.AreEqual(failureMechanism.GeneralInput.MeanDiameter70, properties.MeanDiameter70);
-            Assert.AreEqual(failureMechanism.GeneralInput.SellmeijerReductionFactor, properties.SellmeijerReductionFactor);
+            Assert.AreEqual(generalInput.SandParticlesVolumicWeight, properties.SandParticlesVolumicWeight);
+            Assert.AreEqual(generalInput.WhitesDragCoefficient, properties.WhitesDragCoefficient);
+            Assert.AreEqual(generalInput.BeddingAngle, properties.BeddingAngle);
+            Assert.AreEqual(generalInput.WaterKinematicViscosity, properties.WaterKinematicViscosity);
+            Assert.AreEqual(generalInput.Gravity, properties.Gravity);
+            Assert.AreEqual(generalInput.MeanDiameter70, properties.MeanDiameter70);
+            Assert.AreEqual(generalInput.SellmeijerReductionFactor, properties.SellmeijerReductionFactor);
 
-            Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, properties.A);
-            Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.B, properties.B);
+            PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
+            Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
+            Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.GetSectionSpecificN(
-                                failureMechanism.PipingProbabilityAssessmentInput.SectionLength),
+            Assert.AreEqual(probabilityAssessmentInput.GetSectionSpecificN(
+                                probabilityAssessmentInput.SectionLength),
                             properties.N,
                             properties.N.GetAccuracy());
             Assert.AreEqual(2, properties.SectionLength.NumberOfDecimalPlaces);
-            Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.SectionLength,
+            Assert.AreEqual(probabilityAssessmentInput.SectionLength,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
             mockRepository.VerifyAll();

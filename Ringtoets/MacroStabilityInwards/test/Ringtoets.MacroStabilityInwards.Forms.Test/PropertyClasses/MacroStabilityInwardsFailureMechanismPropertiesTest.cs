@@ -94,15 +94,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
-            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, properties.A);
-            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.B, properties.B);
+            MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
+            Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
+            Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetSectionSpecificN(
-                                failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
+            Assert.AreEqual(probabilityAssessmentInput.GetSectionSpecificN(
+                                probabilityAssessmentInput.SectionLength),
                             properties.N,
                             properties.N.GetAccuracy());
             Assert.AreEqual(2, properties.SectionLength.NumberOfDecimalPlaces);
-            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength,
+            Assert.AreEqual(probabilityAssessmentInput.SectionLength,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
 

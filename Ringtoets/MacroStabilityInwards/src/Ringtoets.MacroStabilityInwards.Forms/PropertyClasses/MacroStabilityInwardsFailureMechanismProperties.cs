@@ -196,9 +196,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                MacroStabilityInwardsProbabilityAssessmentInput wrappedDataMacroStabilityInwardsProbabilityAssessmentInput = data.MacroStabilityInwardsProbabilityAssessmentInput;
-                return new RoundedDouble(2, wrappedDataMacroStabilityInwardsProbabilityAssessmentInput.GetSectionSpecificN(
-                                             wrappedDataMacroStabilityInwardsProbabilityAssessmentInput.SectionLength));
+                MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = data.MacroStabilityInwardsProbabilityAssessmentInput;
+                return new RoundedDouble(2, probabilityAssessmentInput.GetSectionSpecificN(probabilityAssessmentInput.SectionLength));
             }
         }
 

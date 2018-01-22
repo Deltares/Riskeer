@@ -29,7 +29,6 @@ using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -243,8 +242,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, data.PipingProbabilityAssessmentInput.GetSectionSpecificN(
-                                             data.PipingProbabilityAssessmentInput.SectionLength));
+                PipingProbabilityAssessmentInput probabilityAssessmentInput = data.PipingProbabilityAssessmentInput;
+                return new RoundedDouble(2, probabilityAssessmentInput.GetSectionSpecificN(probabilityAssessmentInput.SectionLength));
             }
         }
 
