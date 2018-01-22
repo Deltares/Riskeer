@@ -71,6 +71,8 @@ namespace Ringtoets.Piping.Data.TestUtil
         public static PipingCalculationScenario GetPipingCalculationScenarioWithAssessmentLevel()
         {
             PipingCalculationScenario calculation = GetPipingCalculationScenario();
+
+            calculation.InputParameters.HydraulicBoundaryLocation = null;
             calculation.InputParameters.UseAssessmentLevelManualInput = true;
             calculation.InputParameters.AssessmentLevel = (RoundedDouble) 3.0;
 

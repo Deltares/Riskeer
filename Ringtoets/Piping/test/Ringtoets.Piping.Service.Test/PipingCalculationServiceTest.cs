@@ -50,6 +50,8 @@ namespace Ringtoets.Piping.Service.Test
         {
             testCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             testSurfaceLineTopLevel = testCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
+
+            testCalculation.InputParameters.AssessmentLevel = (RoundedDouble) 1.1;
         }
 
         [Test]
@@ -121,7 +123,7 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryLocationNotCalculated_LogsErrorAndReturnsFalse()
+        public void Validate_AssessmentLevelNotCalculated_LogsErrorAndReturnsFalse()
         {
             // Setup
             testCalculation.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -129,7 +131,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
+            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, RoundedDouble.NaN);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -934,22 +936,6 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void Validate_CompleteInput_InputSetOnSubCalculators()
-        {
-            // Setup
-            PipingInput input = testCalculation.InputParameters;
-
-            using (new PipingSubCalculatorFactoryConfig())
-            {
-                // Call
-                PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
-
-                // Assert
-                AssertSubCalculatorInputs(input);
-            }
-        }
-
-        [Test]
         public void Calculate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
@@ -1023,80 +1009,98 @@ namespace Ringtoets.Piping.Service.Test
             Assert.AreNotSame(output, testCalculation.Output);
         }
 
-        [Test]
-        public void Calculate_CompleteInput_InputSetOnSubCalculators()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Validate_CompleteInput_InputSetOnSubCalculators(bool useAssessmentLevelManualInput)
         {
             // Setup
+            RoundedDouble calculatedAssessmentLevel = GetCalculatedTestAssessmentLevel();
             PipingInput input = testCalculation.InputParameters;
+
+            input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
 
             using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
-                PipingCalculationService.Calculate(testCalculation, GetCalculatedTestAssessmentLevel());
+                PipingCalculationService.Validate(testCalculation, GetCalculatedTestAssessmentLevel());
 
                 // Assert
-                AssertSubCalculatorInputs(input);
+                RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
+                                                            ? input.AssessmentLevel
+                                                            : calculatedAssessmentLevel;
+                AssertSubCalculatorInputs(input, expectedAssessmentLevel);
             }
         }
 
-        private static void AssertSubCalculatorInputs(PipingInput input)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_CompleteInput_InputSetOnSubCalculators(bool useAssessmentLevelManualInput)
+        {
+            // Setup
+            RoundedDouble calculatedAssessmentLevel = GetCalculatedTestAssessmentLevel();
+            PipingInput input = testCalculation.InputParameters;
+
+            input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
+
+            using (new PipingSubCalculatorFactoryConfig())
+            {
+                // Call
+                PipingCalculationService.Calculate(testCalculation, calculatedAssessmentLevel);
+
+                // Assert
+                RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
+                                                            ? input.AssessmentLevel
+                                                            : calculatedAssessmentLevel;
+                AssertSubCalculatorInputs(input, expectedAssessmentLevel);
+            }
+        }
+
+        private static void AssertSubCalculatorInputs(PipingInput input, RoundedDouble expectedAssessmentLevel)
         {
             var testFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
             HeaveCalculatorStub heaveCalculator = testFactory.LastCreatedHeaveCalculator;
             UpliftCalculatorStub upliftCalculator = testFactory.LastCreatedUpliftCalculator;
             SellmeijerCalculatorStub sellmeijerCalculator = testFactory.LastCreatedSellmeijerCalculator;
 
-            Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetThicknessCoverageLayer(input).GetDesignValue(),
-                            heaveCalculator.DTotal,
-                            DerivedPipingInput.GetThicknessCoverageLayer(input).GetAccuracy());
-            Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
-                            heaveCalculator.HExit,
-                            input.PhreaticLevelExit.GetAccuracy());
-            Assert.AreEqual(input.CriticalHeaveGradient, heaveCalculator.Ich);
-            Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
-                            heaveCalculator.PhiPolder,
-                            input.PhreaticLevelExit.GetAccuracy());
-            Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(input, GetCalculatedTestAssessmentLevel()).Value, heaveCalculator.PhiExit);
-            Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
-                            heaveCalculator.RExit,
-                            input.DampingFactorExit.GetAccuracy());
+            RoundedDouble expectedThicknessCoverageLayerDesignValue = PipingSemiProbabilisticDesignVariableFactory.GetThicknessCoverageLayer(input).GetDesignValue();
+            double thicknessCoverageLayerAccuracy = DerivedPipingInput.GetThicknessCoverageLayer(input).GetAccuracy();
+            RoundedDouble expectedPhreaticLevelExitDesignValue = PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
+            double phreaticLevelExitDesignAccuracy = input.PhreaticLevelExit.GetAccuracy();
+            double expectedPiezometricHeadExit = DerivedPipingInput.GetPiezometricHeadExit(input, expectedAssessmentLevel).Value;
+            RoundedDouble expectedDampingFactorExitDesignValue = PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue();
+            double dampingFactorExitAccuracy = input.DampingFactorExit.GetAccuracy();
 
-            Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
-                            upliftCalculator.HExit,
-                            input.PhreaticLevelExit.GetAccuracy());
-            Assert.AreEqual(input.AssessmentLevel.Value, upliftCalculator.HRiver);
+            Assert.AreEqual(expectedThicknessCoverageLayerDesignValue, heaveCalculator.DTotal, thicknessCoverageLayerAccuracy);
+            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, heaveCalculator.HExit, phreaticLevelExitDesignAccuracy);
+            Assert.AreEqual(input.CriticalHeaveGradient, heaveCalculator.Ich);
+            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, heaveCalculator.PhiPolder, phreaticLevelExitDesignAccuracy);
+            Assert.AreEqual(expectedPiezometricHeadExit, heaveCalculator.PhiExit);
+            Assert.AreEqual(expectedDampingFactorExitDesignValue, heaveCalculator.RExit, dampingFactorExitAccuracy);
+            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, upliftCalculator.HExit, phreaticLevelExitDesignAccuracy);
+            Assert.AreEqual(expectedAssessmentLevel, upliftCalculator.HRiver);
             Assert.AreEqual(input.UpliftModelFactor, upliftCalculator.ModelFactorUplift);
-            Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(input, GetCalculatedTestAssessmentLevel()).Value, upliftCalculator.PhiExit);
-            Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
-                            upliftCalculator.PhiPolder,
-                            input.PhreaticLevelExit.GetAccuracy());
-            Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
-                            upliftCalculator.RExit,
-                            input.DampingFactorExit.GetAccuracy());
+            Assert.AreEqual(expectedPiezometricHeadExit, upliftCalculator.PhiExit);
+            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, upliftCalculator.PhiPolder, phreaticLevelExitDesignAccuracy);
+            Assert.AreEqual(expectedDampingFactorExitDesignValue, upliftCalculator.RExit, dampingFactorExitAccuracy);
             Assert.AreEqual(input.WaterVolumetricWeight, upliftCalculator.VolumetricWeightOfWater);
 
             RoundedDouble effectiveThickness = PipingSemiProbabilisticDesignVariableFactory.GetEffectiveThicknessCoverageLayer(input).GetDesignValue();
             RoundedDouble saturatedVolumicWeight = PipingSemiProbabilisticDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue();
-            RoundedDouble effectiveStress = effectiveThickness * (saturatedVolumicWeight - input.WaterVolumetricWeight);
-            Assert.AreEqual(effectiveStress, upliftCalculator.EffectiveStress,
-                            effectiveStress.GetAccuracy());
+            RoundedDouble expectedEffectiveStress = effectiveThickness * (saturatedVolumicWeight - input.WaterVolumetricWeight);
+            Assert.AreEqual(expectedEffectiveStress, upliftCalculator.EffectiveStress, expectedEffectiveStress.GetAccuracy());
 
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetSeepageLength(input).GetDesignValue(),
                             sellmeijerCalculator.SeepageLength,
                             DerivedPipingInput.GetSeepageLength(input).GetAccuracy());
-            Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
-                            sellmeijerCalculator.HExit,
-                            input.PhreaticLevelExit.GetAccuracy());
-            Assert.AreEqual(input.AssessmentLevel.Value, sellmeijerCalculator.HRiver);
+            Assert.AreEqual(expectedPhreaticLevelExitDesignValue, sellmeijerCalculator.HExit, phreaticLevelExitDesignAccuracy);
+            Assert.AreEqual(expectedAssessmentLevel, sellmeijerCalculator.HRiver);
             Assert.AreEqual(input.WaterKinematicViscosity, sellmeijerCalculator.KinematicViscosityWater);
             Assert.AreEqual(input.SellmeijerModelFactor, sellmeijerCalculator.ModelFactorPiping);
             Assert.AreEqual(input.SellmeijerReductionFactor, sellmeijerCalculator.Rc);
             Assert.AreEqual(input.WaterVolumetricWeight, sellmeijerCalculator.VolumetricWeightOfWater);
             Assert.AreEqual(input.WhitesDragCoefficient, sellmeijerCalculator.WhitesDragCoefficient);
             Assert.AreEqual(input.BeddingAngle, sellmeijerCalculator.BeddingAngle);
-            Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetThicknessCoverageLayer(input).GetDesignValue(),
-                            sellmeijerCalculator.DTotal,
-                            DerivedPipingInput.GetThicknessCoverageLayer(input).GetAccuracy());
+            Assert.AreEqual(expectedThicknessCoverageLayerDesignValue, sellmeijerCalculator.DTotal, thicknessCoverageLayerAccuracy);
             Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetDiameter70(input).GetDesignValue(),
                             sellmeijerCalculator.D70,
                             DerivedPipingInput.GetDiameterD70(input).GetAccuracy());

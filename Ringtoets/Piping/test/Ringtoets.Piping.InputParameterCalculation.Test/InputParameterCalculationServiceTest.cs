@@ -168,14 +168,11 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
         public static void CalculatePiezometricHeadAtExit_Always_ReturnsResult()
         {
             // Setup
-            var input = new PipingInput(new GeneralPipingInput())
-            {
-                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(0)
-            };
+            var input = new PipingInput(new GeneralPipingInput());
 
             // Call
             double result = InputParameterCalculationService.CalculatePiezometricHeadAtExit(
-                input.AssessmentLevel,
+                (RoundedDouble) 0.0,
                 PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
                 PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue());
 
@@ -225,11 +222,10 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
-                PipingInput input1 = validPipingCalculation.InputParameters;
                 InputParameterCalculationService.CalculatePiezometricHeadAtExit(
-                    input1.AssessmentLevel,
-                    PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input1).GetDesignValue(),
-                    PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input1).GetDesignValue());
+                    input.AssessmentLevel,
+                    PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
+                    PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue());
 
                 // Assert
                 var testFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;

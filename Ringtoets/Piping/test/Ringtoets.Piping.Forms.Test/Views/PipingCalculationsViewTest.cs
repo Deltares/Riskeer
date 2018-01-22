@@ -157,6 +157,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
                 Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
             }
+
             mocks.VerifyAll();
         }
 
@@ -183,6 +184,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
                 Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
             }
+
             mocks.VerifyAll();
         }
 
@@ -213,6 +215,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
                 Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
             }
+
             mocks.VerifyAll();
         }
 
@@ -279,6 +282,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
                 Assert.AreEqual("Model E", stochasticSoilModelsComboboxItems[2].ToString());
             }
+
             mocks.VerifyAll();
         }
 
@@ -306,6 +310,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("<geen>", soilProfilesComboboxItems[0].ToString());
                 Assert.AreEqual("Profile 5", soilProfilesComboboxItems[1].ToString());
             }
+
             mocks.VerifyAll();
         }
 
@@ -349,6 +354,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(7.78.ToString(CultureInfo.CurrentCulture), cells[entryPointLColumnIndex].FormattedValue);
                 Assert.AreEqual(8.89.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
             }
+
             mocks.VerifyAll();
         }
 
@@ -377,7 +383,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var control = TypeUtils.GetField<DataGridViewControl>(calculationsView, "dataGridViewControl");
                 WindowsFormsTestHelper.Show(control);
 
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
                 // Call                
@@ -386,6 +392,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(1, selectionChangedCount);
             }
+
             WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
         }
@@ -420,6 +427,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(2, selectionChangedCount);
             }
+
             mocks.VerifyAll();
         }
 
@@ -449,6 +457,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
             }
+
             mocks.VerifyAll();
         }
 
@@ -492,6 +501,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
             }
+
             mocks.VerifyAll();
         }
 
@@ -743,13 +753,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
         {
             // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            PipingFailureMechanism pipingFailureMechanism = ConfigureSimpleFailureMechanism();
+
+            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(assessmentSection,
+                                                                                                             pipingFailureMechanism,
+                                                                                                             pipingFailureMechanism.CalculationsGroup))
             {
-                PipingFailureMechanism pipingFailureMechanism = ConfigureSimpleFailureMechanism();
-
-                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
-                pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
-
                 // Precondition
                 var button = new ButtonTester("buttonGenerateScenarios", testForm);
 
@@ -974,6 +988,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreEqual("Het uittredepunt moet landwaarts van het intredepunt liggen.", dataGridView.Rows[0].ErrorText);
             }
+
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -1014,6 +1029,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).";
                 Assert.AreEqual(expectedMessage, dataGridView.Rows[0].ErrorText);
             }
+
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -1042,6 +1058,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataRow = (PipingCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
                 Assert.AreSame(dataRow.PipingCalculation, ((PipingInputContext) selection).PipingCalculation);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1082,6 +1099,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 pipingCalculation.Output = null;
             }
+
             mocks.VerifyAll();
         }
 
@@ -1154,6 +1172,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 pipingCalculation.Output = null;
             }
+
             mocks.VerifyAll();
         }
 
@@ -1193,6 +1212,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var cell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
                 Assert.AreEqual("50", cell.FormattedValue);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1249,6 +1269,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1278,6 +1299,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var currentCellUpdated = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
                 Assert.AreEqual(useAssessmentLevelManualInput, currentCellUpdated.ReadOnly);
             }
+
             mocks.VerifyAll();
         }
 
