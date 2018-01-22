@@ -33,7 +33,7 @@ using Ringtoets.Integration.Service.MessageProviders;
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
+    /// View for presenting and calculating design water level calculations.
     /// </summary>
     public partial class DesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
     {

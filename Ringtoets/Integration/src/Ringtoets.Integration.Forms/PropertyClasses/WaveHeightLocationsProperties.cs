@@ -32,8 +32,8 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/>  with 
-    /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> for properties panel.
+    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with
+    /// a wave height calculation result for properties panel.
     /// </summary>
     public class WaveHeightLocationsProperties : HydraulicBoundaryLocationsProperties
     {

@@ -36,8 +36,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {
     /// <summary>
-    /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.WaveHeight"/>
-    /// for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
+    /// View for presenting and calculating wave height calculations for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationsView : HydraulicBoundaryLocationsView
     {

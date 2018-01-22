@@ -29,7 +29,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocation"/> 
-    /// with <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
+    /// with a wave height calculation result.
     /// </summary>
     public class WaveHeightLocationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
     {
