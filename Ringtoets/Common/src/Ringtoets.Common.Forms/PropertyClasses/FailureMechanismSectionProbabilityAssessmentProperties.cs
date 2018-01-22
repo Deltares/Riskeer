@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// </summary>
     public class FailureMechanismSectionProbabilityAssessmentProperties : FailureMechanismSectionProperties
     {
-        private readonly IProbabilityAssessmentInput probabilityAssessmentInput;
+        private readonly ProbabilityAssessmentInput probabilityAssessmentInput;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionProbabilityAssessmentProperties"/>.
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// failure mechanism of the properties.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public FailureMechanismSectionProbabilityAssessmentProperties(FailureMechanismSection section,
-                                                                      IProbabilityAssessmentInput probabilityAssessmentInput) : base(section)
+                                                                      ProbabilityAssessmentInput probabilityAssessmentInput) : base(section)
         {
             if (probabilityAssessmentInput == null)
             {

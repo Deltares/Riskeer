@@ -19,56 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Globalization;
-using Core.Common.Base;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// This class holds parameters which influence the probability estimate for a piping assessment.
     /// </summary>
-    public class PipingProbabilityAssessmentInput : IProbabilityAssessmentInput
+    public class PipingProbabilityAssessmentInput : ProbabilityAssessmentInput
     {
-        private static readonly Range<double> validityRangeA = new Range<double>(0, 1);
-        private double a;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingProbabilityAssessmentInput"/>.
         /// </summary>
-        public PipingProbabilityAssessmentInput()
-        {
-            A = 0.4;
-            B = 300.0;
-            SectionLength = double.NaN;
-        }
-
-        /// <summary>
-        /// Gets or sets the length of the assessment section.
-        /// </summary>
-        public double SectionLength { get; set; }
-
-        public double A
-        {
-            get
-            {
-                return a;
-            }
-            set
-            {
-                if (!validityRangeA.InRange(value))
-                {
-                    throw new ArgumentException(string.Format(Resources.PipingProbabilityAssessmentInput_A_Value_must_be_in_Range_0_,
-                                                              validityRangeA.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
-                }
-
-                a = value;
-            }
-        }
-
-        public double B { get; }
+        public PipingProbabilityAssessmentInput() : base(0.4, 300.0) {}
     }
 }

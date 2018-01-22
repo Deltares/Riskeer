@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -198,15 +198,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         public static string MacroStabilityInwardsPreconsolidationStress_ZCoordinate_ParameterName {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_ZCoordinate_ParameterName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde moet in het bereik {0} liggen..
-        /// </summary>
-        public static string MacroStabilityInwardsProbabilityAssessmentInput_A_Value_must_be_in_Range_0_ {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsProbabilityAssessmentInput_A_Value_must_be_in_Range_0_", resourceCulture);
             }
         }
         

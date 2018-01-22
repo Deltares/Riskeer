@@ -22,17 +22,18 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.TestUtil.Probability;
 
 namespace Ringtoets.Common.Data.Test.Probability
 {
     [TestFixture]
-    public class IProbabilityAssessmentInputExtentionsTest
+    public class ProbabilityAssessmentInputExtensionsTest
     {
         [Test]
         public void GetSectionSpecificN_ProbabilityAssessmentInputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((IProbabilityAssessmentInput) null).GetSectionSpecificN(new Random(39).NextDouble());
+            TestDelegate call = () => ((ProbabilityAssessmentInput) null).GetSectionSpecificN(new Random(39).NextDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -41,30 +42,19 @@ namespace Ringtoets.Common.Data.Test.Probability
 
         [Test]
         [TestCase(0.2, 100, 100, 1.2)]
-        [TestCase(2.5, 750, 300, 2)]
-        [TestCase(-4, -200, 750, 16.0)]
+        [TestCase(0.5, 750, 300, 1.2)]
+        [TestCase(0.9, -200, 750, -2.375)]
+        [TestCase(0.8, 0, 100, double.PositiveInfinity)]
         public void GetSectionSpecificN_WithValues_ReturnsExpectedResult(double a, double b, double length, double expectedN)
         {
             // Setup
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(a, b);
-            
+            var input = new TestProbabilityAssessmentInput(a, b);
+
             // Call
-            double actualN = probabilityAssessmentInput.GetSectionSpecificN(length);
+            double actualN = input.GetSectionSpecificN(length);
 
             // Assert
             Assert.AreEqual(expectedN, actualN);
-        }
-
-        private class TestProbabilityAssessmentInput : IProbabilityAssessmentInput
-        {
-            public TestProbabilityAssessmentInput(double a, double b)
-            {
-                A = a;
-                B = b;
-            }
-
-            public double A { get; }
-            public double B { get; }
         }
     }
 }

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 
@@ -35,49 +34,10 @@ namespace Ringtoets.Piping.Data.Test
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
             // Assert
-            Assert.IsInstanceOf<IProbabilityAssessmentInput>(pipingProbabilityAssessmentInput);
+            Assert.IsInstanceOf<ProbabilityAssessmentInput>(pipingProbabilityAssessmentInput);
             Assert.AreEqual(0.4, pipingProbabilityAssessmentInput.A);
             Assert.AreEqual(300, pipingProbabilityAssessmentInput.B);
-
             Assert.IsNaN(pipingProbabilityAssessmentInput.SectionLength);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-1)]
-        [TestCase(-0.1)]
-        [TestCase(1.1)]
-        [TestCase(8)]
-        [TestCase(double.NaN)]
-        public void A_InvalidValue_ThrowsArgumentException(double value)
-        {
-            // Setup
-            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
-
-            // Call
-            TestDelegate call = () => pipingProbabilityAssessmentInput.A = value;
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("De waarde moet in het bereik [0,0, 1,0] liggen.", exception.Message);
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(0.1)]
-        [TestCase(1)]
-        [TestCase(0.0000001)]
-        [TestCase(0.9999999)]
-        public void A_ValidValue_SetsValue(double value)
-        {
-            // Setup
-            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
-
-            // Call
-            pipingProbabilityAssessmentInput.A = value;
-
-            // Assert
-            Assert.AreEqual(value, pipingProbabilityAssessmentInput.A);
         }
     }
 }

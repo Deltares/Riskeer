@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(section));
             }
 
-            Data = section;
+            data = section;
         }
 
         [PropertyOrder(1)]

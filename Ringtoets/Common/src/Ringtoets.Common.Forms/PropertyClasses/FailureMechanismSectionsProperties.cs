@@ -34,8 +34,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSection"/>
-    /// with a section specific N for the properties panel.
+    /// ViewModel of <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSection"/>.
     /// </summary>
     public class FailureMechanismSectionsProperties : ObjectProperties<IEnumerable<FailureMechanismSection>>, IDisposable
     {
@@ -64,7 +63,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 Observable = failureMechanism
             };
 
-            Data = sections;
+            data = sections;
         }
 
         [PropertyOrder(1)]

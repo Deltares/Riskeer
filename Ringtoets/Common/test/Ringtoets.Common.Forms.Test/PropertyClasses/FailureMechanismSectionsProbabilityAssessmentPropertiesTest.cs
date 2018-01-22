@@ -29,8 +29,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.Probability;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -65,8 +65,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var probabilityAssessmentInput = mocks.Stub<IProbabilityAssessmentInput>();
             mocks.ReplayAll();
+
+            var random = new Random(39);
+            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
 
             // Call
             TestDelegate call = () => new FailureMechanismSectionsProbabilityAssessmentProperties(null,
@@ -83,9 +85,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var probabilityAssessmentInput = mocks.Stub<IProbabilityAssessmentInput>();
-            mocks.ReplayAll();
+            var random = new Random(39);
+            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
@@ -96,7 +97,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -105,8 +105,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var probabilityAssessmentInput = mocks.Stub<IProbabilityAssessmentInput>();
             mocks.ReplayAll();
+
+            var random = new Random(39);
+            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
 
             IEnumerable<FailureMechanismSection> sections = new[]
             {
@@ -137,9 +139,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var probabilityAssessmentInput = mocks.Stub<IProbabilityAssessmentInput>();
             mocks.ReplayAll();
 
+            var random = new Random(39);
+            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
@@ -166,10 +169,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_RefreshRequiredEventRaised()
         {
             // Given
-            var mocks = new MockRepository();
-            var probabilityAssessmentInput = mocks.Stub<IProbabilityAssessmentInput>();
-            mocks.ReplayAll();
-
+            var random = new Random(39);
+            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
             var failureMechanism = new TestFailureMechanism();
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
@@ -185,7 +186,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
                 // Then
                 Assert.AreEqual(1, refreshRequiredRaised);
-                mocks.VerifyAll();
             }
         }
     }

@@ -19,56 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Globalization;
-using Core.Common.Base;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.MacroStabilityInwards.Data.Properties;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
     /// This class holds parameters which influence the probability estimate for a macro stability inwards assessment.
     /// </summary>
-    public class MacroStabilityInwardsProbabilityAssessmentInput : IProbabilityAssessmentInput
+    public class MacroStabilityInwardsProbabilityAssessmentInput : ProbabilityAssessmentInput
     {
-        private static readonly Range<double> validityRangeA = new Range<double>(0, 1);
-        private double a;
-
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsProbabilityAssessmentInput"/>.
         /// </summary>
-        public MacroStabilityInwardsProbabilityAssessmentInput()
-        {
-            A = 0.033;
-            B = 50.0;
-            SectionLength = double.NaN;
-        }
-
-        /// <summary>
-        /// Gets or sets the length of the assessment section.
-        /// </summary>
-        public double SectionLength { get; set; }
-
-        public double A
-        {
-            get
-            {
-                return a;
-            }
-            set
-            {
-                if (!validityRangeA.InRange(value))
-                {
-                    throw new ArgumentException(string.Format(Resources.MacroStabilityInwardsProbabilityAssessmentInput_A_Value_must_be_in_Range_0_,
-                                                              validityRangeA.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
-                }
-
-                a = value;
-            }
-        }
-
-        public double B { get; }
+        public MacroStabilityInwardsProbabilityAssessmentInput() : base(0.033, 50.0) {}
     }
 }

@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Data.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -123,15 +123,6 @@ namespace Ringtoets.Piping.Data.Properties {
         public static string PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_Range_0_ {
             get {
                 return ResourceManager.GetString("PipingInput_ValidatePointOnSurfaceLine_Length_must_be_in_Range_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde moet in het bereik {0} liggen..
-        /// </summary>
-        public static string PipingProbabilityAssessmentInput_A_Value_must_be_in_Range_0_ {
-            get {
-                return ResourceManager.GetString("PipingProbabilityAssessmentInput_A_Value_must_be_in_Range_0_", resourceCulture);
             }
         }
         

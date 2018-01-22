@@ -19,25 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Piping.Data;
+using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.Piping.Forms.PresentationObjects
+namespace Ringtoets.Common.Data.TestUtil.Probability
 {
     /// <summary>
-    /// This class is a presentation object for <see cref="PipingFailureMechanism.Sections"/>.
+    /// A <see cref="ProbabilityAssessmentInput"/> that can be used in tests.
     /// </summary>
-    public class PipingFailureMechanismSectionsContext : FailureMechanismSectionsContext
+    public class TestProbabilityAssessmentInput : ProbabilityAssessmentInput
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingFailureMechanismSectionsContext"/> class.
+        /// Creates a new instance of <see cref="TestProbabilityAssessmentInput"/>.
         /// </summary>
-        /// <param name="wrappedData">The piping failure mechanism to wrap.</param>
-        /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionsContext(PipingFailureMechanism wrappedData, IAssessmentSection assessmentSection)
-            : base(wrappedData, assessmentSection) {}
+        /// <param name="a">The value of <see cref="ProbabilityAssessmentInput.A"/>.</param>
+        /// <param name="b">The value of <see cref="ProbabilityAssessmentInput.B"/>.</param>
+        public TestProbabilityAssessmentInput(double a, double b) : base(a, b) {}
     }
 }

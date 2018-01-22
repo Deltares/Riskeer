@@ -24,21 +24,27 @@ using System;
 namespace Ringtoets.Common.Data.Probability
 {
     /// <summary>
-    /// Interface for an object that represents a probability assessment input.
+    /// Extension methods for <see cref="ProbabilityAssessmentInput"/> objects.
     /// </summary>
-    public interface IProbabilityAssessmentInput
+    public static class ProbabilityAssessmentInputExtensions
     {
         /// <summary>
-        /// Gets or sets 'a' parameter used to factor in the 'length effect' when determining the
-        /// maximum tolerated probability of failure.
+        /// Calculates the section specific N based on the general probability assessment input
+        /// and the length of the section.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when value is not in the range [0, 1].</exception>
-        double A { get; }
+        /// <param name="probabilityAssessmentInput">The probability assessment input parameters.</param>
+        /// <param name="length">The length of the section in meters.</param>
+        /// <returns>The section specific N.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="probabilityAssessmentInput"/>
+        /// is <c>null</c>.</exception>
+        public static double GetSectionSpecificN(this ProbabilityAssessmentInput probabilityAssessmentInput, double length)
+        {
+            if (probabilityAssessmentInput == null)
+            {
+                throw new ArgumentNullException(nameof(probabilityAssessmentInput));
+            }
 
-        /// <summary>
-        /// Gets 'b' parameter used to factor in the 'length effect' when determining the
-        /// maximum tolerated probability of failure.
-        /// </summary>
-        double B { get; }
+            return 1 + (probabilityAssessmentInput.A * length) / probabilityAssessmentInput.B;
+        }
     }
 }

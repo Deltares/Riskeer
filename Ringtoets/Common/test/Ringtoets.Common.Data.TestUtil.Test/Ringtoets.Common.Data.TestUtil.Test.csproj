@@ -34,6 +34,7 @@
     <Compile Include="IllustrationPoints\WindDirectionTestFactoryTest.cs" />
     <Compile Include="LimitedPrecisionHelperTest.cs" />
     <Compile Include="ObservableTestAssessmentSectionStubTest.cs" />
+    <Compile Include="Probability\TestProbabilityAssessmentInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBackgroundDataConfigurationTest.cs" />
     <Compile Include="TestCalculationTest.cs" />

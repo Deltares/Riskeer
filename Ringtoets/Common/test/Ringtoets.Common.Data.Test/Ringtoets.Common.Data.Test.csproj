@@ -83,7 +83,8 @@
     <Compile Include="Probabilistics\TruncatedNormalDistributionTest.cs" />
     <Compile Include="Probabilistics\VariationCoefficientLogNormalDistributionTest.cs" />
     <Compile Include="Probabilistics\VariationCoefficientNormalDistributionTest.cs" />
-    <Compile Include="Probability\IProbabilityAssessmentInputExtentionsTest.cs" />
+    <Compile Include="Probability\ProbabilityAssessmentInputTest.cs" />
+    <Compile Include="Probability\ProbabilityAssessmentInputExtensionsTest.cs" />
     <Compile Include="Probability\ProbabilityAssessmentOutputTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionItemTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionTest.cs" />

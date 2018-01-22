@@ -23,10 +23,9 @@ using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.Probability;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -52,12 +51,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var probabilityAssessmentInput = mocks.Stub<IProbabilityAssessmentInput>();
-            probabilityAssessmentInput.Stub(pai => pai.A).Return(0.5);
-            probabilityAssessmentInput.Stub(pai => pai.B).Return(100);
-            mocks.ReplayAll();
-
+            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(0.5, 100);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
@@ -70,17 +64,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, properties.N, properties.N.GetAccuracy());
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var probabilityAssessmentInput = mocks.Stub<IProbabilityAssessmentInput>();
-            mocks.ReplayAll();
-
+            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(0.5, 100);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
@@ -122,7 +112,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Vakspecifieke waarde voor het in rekening brengen van " +
                                                                             "het lengte-effect tijdens assemblage (afgerond).",
                                                                             true);
-            mocks.VerifyAll();
         }
     }
 }

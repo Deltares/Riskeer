@@ -87,8 +87,8 @@
     <Compile Include="Probabilistics\TruncatedNormalDistribution.cs" />
     <Compile Include="Probabilistics\VariationCoefficientLogNormalDistribution.cs" />
     <Compile Include="Probabilistics\VariationCoefficientNormalDistribution.cs" />
-    <Compile Include="Probability\IProbabilityAssessmentInputExtensions.cs" />
-    <Compile Include="Probability\IProbabilityAssessmentInput.cs" />
+    <Compile Include="Probability\ProbabilityAssessmentInputExtensions.cs" />
+    <Compile Include="Probability\ProbabilityAssessmentInput.cs" />
     <Compile Include="Probability\ProbabilityAssessmentOutput.cs" />
     <Compile Include="Calculation\ICalculationInput.cs" />
     <Compile Include="Calculation\CalculationGroup.cs" />

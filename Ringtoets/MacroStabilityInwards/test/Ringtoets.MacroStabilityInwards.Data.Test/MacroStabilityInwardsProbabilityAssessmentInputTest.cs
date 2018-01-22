@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 
@@ -35,49 +34,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput();
 
             // Assert
-            Assert.IsInstanceOf<IProbabilityAssessmentInput>(probabilityAssessmentInput);
+            Assert.IsInstanceOf<ProbabilityAssessmentInput>(probabilityAssessmentInput);
             Assert.AreEqual(0.033, probabilityAssessmentInput.A);
             Assert.AreEqual(50, probabilityAssessmentInput.B);
-
             Assert.IsNaN(probabilityAssessmentInput.SectionLength);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-1)]
-        [TestCase(-0.1)]
-        [TestCase(1.1)]
-        [TestCase(8)]
-        [TestCase(double.NaN)]
-        public void A_InvalidValue_ThrowsArgumentException(double value)
-        {
-            // Setup
-            var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput();
-
-            // Call
-            TestDelegate call = () => probabilityAssessmentInput.A = value;
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("De waarde moet in het bereik [0,0, 1,0] liggen.", exception.Message);
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(0.1)]
-        [TestCase(1)]
-        [TestCase(0.0000001)]
-        [TestCase(0.9999999)]
-        public void A_ValidValue_SetsValue(double value)
-        {
-            // Setup
-            var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput();
-
-            // Call
-            probabilityAssessmentInput.A = value;
-
-            // Assert
-            Assert.AreEqual(value, probabilityAssessmentInput.A);
         }
     }
 }

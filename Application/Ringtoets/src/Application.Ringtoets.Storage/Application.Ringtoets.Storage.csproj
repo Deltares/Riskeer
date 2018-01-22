@@ -478,7 +478,7 @@
     <Compile Include="DoubleConversionExtensions.cs" />
     <Compile Include="Exceptions\CannotDeleteBackupFileException.cs" />
     <Compile Include="FingerprintHelper.cs" />
-    <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
+    <Compile Include="Read\CalculationGroupEntityReadExtensions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\DikeProfileEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationEntityReadExtensions.cs" />

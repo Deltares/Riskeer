@@ -19,36 +19,32 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.TestUtil.Probability;
 
-namespace Ringtoets.Piping.Forms.Test.PresentationObjects
+namespace Ringtoets.Common.Data.TestUtil.Test.Probability
 {
     [TestFixture]
-    public class PipingFailureMechanismSectionsContextTest
+    public class TestProbabilityAssessmentInputTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
+            var random = new Random(39);
+            double a = random.NextDouble();
+            double b = random.NextDouble();
 
             // Call
-            var context = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
+            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(a, b);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionsContext>(context);
-            Assert.AreSame(failureMechanism, context.WrappedData);
-            Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
+            Assert.IsInstanceOf<ProbabilityAssessmentInput>(probabilityAssessmentInput);
+            Assert.AreEqual(a, probabilityAssessmentInput.A);
+            Assert.AreEqual(b, probabilityAssessmentInput.B);
+            Assert.IsNaN(probabilityAssessmentInput.SectionLength);
         }
     }
 }

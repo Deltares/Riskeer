@@ -35,12 +35,13 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSection"/> for properties panel.
+    /// ViewModel of <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSection"/>
+    /// with a section specific N for the properties panel.
     /// </summary>
     public class FailureMechanismSectionsProbabilityAssessmentProperties : ObjectProperties<IEnumerable<FailureMechanismSection>>, IDisposable
     {
         private readonly Observer failureMechanismObserver;
-        private readonly IProbabilityAssessmentInput probabilityAssessmentInput;
+        private readonly ProbabilityAssessmentInput probabilityAssessmentInput;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionsProbabilityAssessmentProperties"/>.
@@ -52,7 +53,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public FailureMechanismSectionsProbabilityAssessmentProperties(IEnumerable<FailureMechanismSection> sections,
                                                                        IFailureMechanism failureMechanism,
-                                                                       IProbabilityAssessmentInput probabilityAssessmentInput)
+                                                                       ProbabilityAssessmentInput probabilityAssessmentInput)
         {
             if (sections == null)
             {
@@ -74,7 +75,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 Observable = failureMechanism
             };
 
-            Data = sections;
+            data = sections;
             this.probabilityAssessmentInput = probabilityAssessmentInput;
         }
 

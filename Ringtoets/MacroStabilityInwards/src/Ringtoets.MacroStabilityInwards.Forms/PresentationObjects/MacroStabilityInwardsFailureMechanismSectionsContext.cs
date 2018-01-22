@@ -27,8 +27,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for <see cref="MacroStabilityInwardsFailureMechanism.Sections"/> specifically
-    /// for the macro stability inwards failure mechanism.
+    /// This class is a presentation object for <see cref="MacroStabilityInwardsFailureMechanism.Sections"/>.
     /// </summary>
     public class MacroStabilityInwardsFailureMechanismSectionsContext : FailureMechanismSectionsContext
     {
