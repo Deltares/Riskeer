@@ -124,20 +124,6 @@ namespace Demo.Ringtoets.Test.Commands
 
         #region General
 
-        private static void AssertDesignWaterLevel(double expectedValue, HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            RoundedDouble designWaterLevel = hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output.Result;
-
-            Assert.AreEqual((RoundedDouble) expectedValue, designWaterLevel, designWaterLevel.GetAccuracy());
-        }
-
-        private static void AssertWaveHeight(double expectedValue, HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            RoundedDouble waveHeight = hydraulicBoundaryLocation.WaveHeightCalculation1.Output.Result;
-
-            Assert.AreEqual((RoundedDouble) expectedValue, waveHeight, waveHeight.GetAccuracy());
-        }
-
         private static void AssertCalculationConvergence(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
             Assert.IsTrue(calculations.All(c => c.Output.CalculationConvergence == CalculationConvergence.CalculatedConverged));
@@ -189,46 +175,60 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertDesignWaterLevelsForGrassCoverErosionOutwards(ObservableList<HydraulicBoundaryLocation> locations)
         {
-            AssertDesignWaterLevel(7.19, locations[0]);
-            AssertDesignWaterLevel(7.19, locations[1]);
-            AssertDesignWaterLevel(7.18, locations[2]);
-            AssertDesignWaterLevel(7.18, locations[3]);
-            AssertDesignWaterLevel(7.18, locations[4]);
-            AssertDesignWaterLevel(7.39, locations[5]);
-            AssertDesignWaterLevel(7.39, locations[6]);
-            AssertDesignWaterLevel(7.39, locations[7]);
-            AssertDesignWaterLevel(7.40, locations[8]);
-            AssertDesignWaterLevel(7.40, locations[9]);
-            AssertDesignWaterLevel(7.40, locations[10]);
-            AssertDesignWaterLevel(7.40, locations[11]);
-            AssertDesignWaterLevel(7.40, locations[12]);
-            AssertDesignWaterLevel(7.41, locations[13]);
-            AssertDesignWaterLevel(7.41, locations[14]);
-            AssertDesignWaterLevel(6.91, locations[15]);
-            AssertDesignWaterLevel(7.53, locations[16]);
-            AssertDesignWaterLevel(7.80, locations[17]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.19, locations[0]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.19, locations[1]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.18, locations[2]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.18, locations[3]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.18, locations[4]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.39, locations[5]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.39, locations[6]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.39, locations[7]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.40, locations[8]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.40, locations[9]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.40, locations[10]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.40, locations[11]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.40, locations[12]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.41, locations[13]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.41, locations[14]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(6.91, locations[15]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.53, locations[16]);
+            AssertDesignWaterLevelForGrassCoverErosionOutwards(7.80, locations[17]);
+        }
+
+        private static void AssertDesignWaterLevelForGrassCoverErosionOutwards(double expectedValue, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            RoundedDouble designWaterLevel = hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output.Result;
+
+            Assert.AreEqual((RoundedDouble) expectedValue, designWaterLevel, designWaterLevel.GetAccuracy());
         }
 
         private static void AssertWaveHeightsForGrassCoverErosionOutwards(ObservableList<HydraulicBoundaryLocation> locations)
         {
-            AssertWaveHeight(4.99, locations[0]);
-            AssertWaveHeight(5.04, locations[1]);
-            AssertWaveHeight(4.87, locations[2]);
-            AssertWaveHeight(4.73, locations[3]);
-            AssertWaveHeight(4.59, locations[4]);
-            AssertWaveHeight(3.35, locations[5]);
-            AssertWaveHeight(3.83, locations[6]);
-            AssertWaveHeight(4.00, locations[7]);
-            AssertWaveHeight(4.20, locations[8]);
-            AssertWaveHeight(4.41, locations[9]);
-            AssertWaveHeight(4.50, locations[10]);
-            AssertWaveHeight(4.57, locations[11]);
-            AssertWaveHeight(4.63, locations[12]);
-            AssertWaveHeight(4.68, locations[13]);
-            AssertWaveHeight(4.17, locations[14]);
-            AssertWaveHeight(11.13, locations[15]);
-            AssertWaveHeight(9.24, locations[16]);
-            AssertWaveHeight(5.34, locations[17]);
+            AssertWaveHeightForGrassCoverErosionOutwards(4.99, locations[0]);
+            AssertWaveHeightForGrassCoverErosionOutwards(5.04, locations[1]);
+            AssertWaveHeightForGrassCoverErosionOutwards(4.87, locations[2]);
+            AssertWaveHeightForGrassCoverErosionOutwards(4.73, locations[3]);
+            AssertWaveHeightForGrassCoverErosionOutwards(4.59, locations[4]);
+            AssertWaveHeightForGrassCoverErosionOutwards(3.35, locations[5]);
+            AssertWaveHeightForGrassCoverErosionOutwards(3.83, locations[6]);
+            AssertWaveHeightForGrassCoverErosionOutwards(4.00, locations[7]);
+            AssertWaveHeightForGrassCoverErosionOutwards(4.20, locations[8]);
+            AssertWaveHeightForGrassCoverErosionOutwards(4.41, locations[9]);
+            AssertWaveHeightForGrassCoverErosionOutwards(4.50, locations[10]);
+            AssertWaveHeightForGrassCoverErosionOutwards(4.57, locations[11]);
+            AssertWaveHeightForGrassCoverErosionOutwards(4.63, locations[12]);
+            AssertWaveHeightForGrassCoverErosionOutwards(4.68, locations[13]);
+            AssertWaveHeightForGrassCoverErosionOutwards(4.17, locations[14]);
+            AssertWaveHeightForGrassCoverErosionOutwards(11.13, locations[15]);
+            AssertWaveHeightForGrassCoverErosionOutwards(9.24, locations[16]);
+            AssertWaveHeightForGrassCoverErosionOutwards(5.34, locations[17]);
+        }
+
+        private static void AssertWaveHeightForGrassCoverErosionOutwards(double expectedValue, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            RoundedDouble waveHeight = hydraulicBoundaryLocation.WaveHeightCalculation1.Output.Result;
+
+            Assert.AreEqual((RoundedDouble) expectedValue, waveHeight, waveHeight.GetAccuracy());
         }
 
         private static void AssertExpectedGrassCoverErosionOutwardsWaveConditionsInput(WaveConditionsInput inputParameters)
@@ -601,53 +601,67 @@ namespace Demo.Ringtoets.Test.Commands
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(18, hydraulicBoundaryLocations.Count);
             AssertDesignWaterLevelsForAssessmentSection(hydraulicBoundaryLocations);
-            AssertCalculationConvergence(hydraulicBoundaryLocations.Select(hbl => hbl.DesignWaterLevelCalculation1));
-            AssertWaveHeightValuesForAssessmentSection(hydraulicBoundaryLocations);
-            AssertCalculationConvergence(hydraulicBoundaryLocations.Select(hbl => hbl.WaveHeightCalculation1));
+            AssertCalculationConvergence(hydraulicBoundaryLocations.Select(hbl => hbl.DesignWaterLevelCalculation3));
+            AssertWaveHeightsForAssessmentSection(hydraulicBoundaryLocations);
+            AssertCalculationConvergence(hydraulicBoundaryLocations.Select(hbl => hbl.WaveHeightCalculation3));
         }
 
         private static void AssertDesignWaterLevelsForAssessmentSection(ObservableList<HydraulicBoundaryLocation> locations)
         {
-            AssertDesignWaterLevel(5.78, locations[0]);
-            AssertDesignWaterLevel(5.77, locations[1]);
-            AssertDesignWaterLevel(5.77, locations[2]);
-            AssertDesignWaterLevel(5.77, locations[3]);
-            AssertDesignWaterLevel(5.77, locations[4]);
-            AssertDesignWaterLevel(5.93, locations[5]);
-            AssertDesignWaterLevel(5.93, locations[6]);
-            AssertDesignWaterLevel(5.93, locations[7]);
-            AssertDesignWaterLevel(5.93, locations[8]);
-            AssertDesignWaterLevel(5.93, locations[9]);
-            AssertDesignWaterLevel(5.93, locations[10]);
-            AssertDesignWaterLevel(5.93, locations[11]);
-            AssertDesignWaterLevel(5.93, locations[12]);
-            AssertDesignWaterLevel(5.93, locations[13]);
-            AssertDesignWaterLevel(5.93, locations[14]);
-            AssertDesignWaterLevel(5.54, locations[15]);
-            AssertDesignWaterLevel(5.86, locations[16]);
-            AssertDesignWaterLevel(6.00, locations[17]);
+            AssertDesignWaterLevelForAssessmentSection(5.78, locations[0]);
+            AssertDesignWaterLevelForAssessmentSection(5.77, locations[1]);
+            AssertDesignWaterLevelForAssessmentSection(5.77, locations[2]);
+            AssertDesignWaterLevelForAssessmentSection(5.77, locations[3]);
+            AssertDesignWaterLevelForAssessmentSection(5.77, locations[4]);
+            AssertDesignWaterLevelForAssessmentSection(5.93, locations[5]);
+            AssertDesignWaterLevelForAssessmentSection(5.93, locations[6]);
+            AssertDesignWaterLevelForAssessmentSection(5.93, locations[7]);
+            AssertDesignWaterLevelForAssessmentSection(5.93, locations[8]);
+            AssertDesignWaterLevelForAssessmentSection(5.93, locations[9]);
+            AssertDesignWaterLevelForAssessmentSection(5.93, locations[10]);
+            AssertDesignWaterLevelForAssessmentSection(5.93, locations[11]);
+            AssertDesignWaterLevelForAssessmentSection(5.93, locations[12]);
+            AssertDesignWaterLevelForAssessmentSection(5.93, locations[13]);
+            AssertDesignWaterLevelForAssessmentSection(5.93, locations[14]);
+            AssertDesignWaterLevelForAssessmentSection(5.54, locations[15]);
+            AssertDesignWaterLevelForAssessmentSection(5.86, locations[16]);
+            AssertDesignWaterLevelForAssessmentSection(6.00, locations[17]);
         }
 
-        private static void AssertWaveHeightValuesForAssessmentSection(ObservableList<HydraulicBoundaryLocation> locations)
+        private static void AssertDesignWaterLevelForAssessmentSection(double expectedValue, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            AssertWaveHeight(4.13, locations[0]);
-            AssertWaveHeight(4.19, locations[1]);
-            AssertWaveHeight(4.02, locations[2]);
-            AssertWaveHeight(3.87, locations[3]);
-            AssertWaveHeight(3.73, locations[4]);
-            AssertWaveHeight(2.65, locations[5]);
-            AssertWaveHeight(3.04, locations[6]);
-            AssertWaveHeight(3.20, locations[7]);
-            AssertWaveHeight(3.35, locations[8]);
-            AssertWaveHeight(3.53, locations[9]);
-            AssertWaveHeight(3.62, locations[10]);
-            AssertWaveHeight(3.68, locations[11]);
-            AssertWaveHeight(3.73, locations[12]);
-            AssertWaveHeight(3.75, locations[13]);
-            AssertWaveHeight(3.30, locations[14]);
-            AssertWaveHeight(9.57, locations[15]);
-            AssertWaveHeight(8.02, locations[16]);
-            AssertWaveHeight(4.11, locations[17]);
+            RoundedDouble designWaterLevel = hydraulicBoundaryLocation.DesignWaterLevelCalculation3.Output.Result;
+
+            Assert.AreEqual((RoundedDouble) expectedValue, designWaterLevel, designWaterLevel.GetAccuracy());
+        }
+
+        private static void AssertWaveHeightsForAssessmentSection(ObservableList<HydraulicBoundaryLocation> locations)
+        {
+            AssertWaveHeightForAssessmentSection(4.13, locations[0]);
+            AssertWaveHeightForAssessmentSection(4.19, locations[1]);
+            AssertWaveHeightForAssessmentSection(4.02, locations[2]);
+            AssertWaveHeightForAssessmentSection(3.87, locations[3]);
+            AssertWaveHeightForAssessmentSection(3.73, locations[4]);
+            AssertWaveHeightForAssessmentSection(2.65, locations[5]);
+            AssertWaveHeightForAssessmentSection(3.04, locations[6]);
+            AssertWaveHeightForAssessmentSection(3.20, locations[7]);
+            AssertWaveHeightForAssessmentSection(3.35, locations[8]);
+            AssertWaveHeightForAssessmentSection(3.53, locations[9]);
+            AssertWaveHeightForAssessmentSection(3.62, locations[10]);
+            AssertWaveHeightForAssessmentSection(3.68, locations[11]);
+            AssertWaveHeightForAssessmentSection(3.73, locations[12]);
+            AssertWaveHeightForAssessmentSection(3.75, locations[13]);
+            AssertWaveHeightForAssessmentSection(3.30, locations[14]);
+            AssertWaveHeightForAssessmentSection(9.57, locations[15]);
+            AssertWaveHeightForAssessmentSection(8.02, locations[16]);
+            AssertWaveHeightForAssessmentSection(4.11, locations[17]);
+        }
+
+        private static void AssertWaveHeightForAssessmentSection(double expectedValue, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            RoundedDouble waveHeight = hydraulicBoundaryLocation.WaveHeightCalculation3.Output.Result;
+
+            Assert.AreEqual((RoundedDouble) expectedValue, waveHeight, waveHeight.GetAccuracy());
         }
 
         #endregion
