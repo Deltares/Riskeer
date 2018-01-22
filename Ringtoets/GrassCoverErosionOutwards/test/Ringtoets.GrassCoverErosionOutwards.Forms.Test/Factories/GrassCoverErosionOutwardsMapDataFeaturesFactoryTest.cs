@@ -27,6 +27,7 @@ using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Factories;
 
@@ -121,11 +122,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
             Assert.AreEqual(expectedHydraulicBoundaryLocationsCount, features.Count());
             for (var i = 0; i < expectedHydraulicBoundaryLocationsCount; i++)
             {
-                Assert.AreEqual(4, features.ElementAt(i).MetaData.Keys.Count);
-                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).Id, features.ElementAt(i).MetaData["ID"]);
-                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).Name, features.ElementAt(i).MetaData["Naam"]);
-                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).DesignWaterLevel, features.ElementAt(i).MetaData["Waterstand bij doorsnede-eis"]);
-                Assert.AreEqual(hydraulicBoundaryLocations.ElementAt(i).WaveHeight, features.ElementAt(i).MetaData["Golfhoogte bij doorsnede-eis"]);
+                MapFeature mapFeature = features.ElementAt(i);
+                HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocations.ElementAt(i);
+
+                Assert.AreEqual(4, mapFeature.MetaData.Keys.Count);
+                Assert.AreEqual(hydraulicBoundaryLocation.Id, mapFeature.MetaData["ID"]);
+                Assert.AreEqual(hydraulicBoundaryLocation.Name, mapFeature.MetaData["Naam"]);
+                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.DesignWaterLevelCalculation1,
+                                                                                    mapFeature,
+                                                                                    "Waterstand bij doorsnede-eis");
+                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.WaveHeightCalculation1,
+                                                                                    mapFeature,
+                                                                                    "Golfhoogte bij doorsnede-eis");
             }
 
             AssertEqualFeatureCollections(points, features);
