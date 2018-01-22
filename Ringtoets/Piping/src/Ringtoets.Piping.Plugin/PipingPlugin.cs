@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>
             {
                 CreateInstance = context => new PipingInputContextProperties(context,
-                                                                             () => GetCalculatedAssessmentLevel(context.PipingCalculation),
+                                                                             () => GetNormativeAssessmentLevel(context.PipingCalculation),
                                                                              new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<PipingOutputContext, PipingOutputProperties>
@@ -553,7 +553,7 @@ namespace Ringtoets.Piping.Plugin
         {
             foreach (PipingCalculation calculation in pipingCalculations)
             {
-                PipingCalculationService.Validate(calculation, GetCalculatedAssessmentLevel(calculation));
+                PipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(calculation));
             }
         }
 
@@ -566,7 +566,7 @@ namespace Ringtoets.Piping.Plugin
                 Gui.MainWindow,
                 calculations
                     .Select(pc => new PipingCalculationActivity(pc,
-                                                                GetCalculatedAssessmentLevel(pc),
+                                                                GetNormativeAssessmentLevel(pc),
                                                                 assessmentInput,
                                                                 norm,
                                                                 contribution))
@@ -617,7 +617,7 @@ namespace Ringtoets.Piping.Plugin
 
         #endregion
 
-        private static RoundedDouble GetCalculatedAssessmentLevel(PipingCalculation calculation)
+        private static RoundedDouble GetNormativeAssessmentLevel(PipingCalculation calculation)
         {
             return calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
         }
@@ -809,7 +809,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static void Validate(PipingCalculationScenarioContext context)
         {
-            PipingCalculationService.Validate(context.WrappedData, GetCalculatedAssessmentLevel(context.WrappedData));
+            PipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.WrappedData));
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationScenarioContext context)
@@ -821,7 +821,7 @@ namespace Ringtoets.Piping.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              new PipingCalculationActivity(calculation,
-                                                                           GetCalculatedAssessmentLevel(calculation),
+                                                                           GetNormativeAssessmentLevel(calculation),
                                                                            context.FailureMechanism.PipingProbabilityAssessmentInput,
                                                                            context.AssessmentSection.FailureMechanismContribution.Norm,
                                                                            context.FailureMechanism.Contribution));

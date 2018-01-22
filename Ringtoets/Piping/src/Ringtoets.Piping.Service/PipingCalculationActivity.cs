@@ -35,14 +35,14 @@ namespace Ringtoets.Piping.Service
         private readonly double norm;
         private readonly double contribution;
         private readonly PipingCalculation calculation;
-        private readonly RoundedDouble calculatedAssessmentLevel;
+        private readonly RoundedDouble normativeAssessmentLevel;
         private readonly PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationActivity"/> class.
         /// </summary>
         /// <param name="calculation">The piping data used for the calculation.</param>
-        /// <param name="calculatedAssessmentLevel">The calculated assessment level to use in case no manual assessment level is provided.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use in case no manual assessment level is provided.</param>
         /// <param name="pipingProbabilityAssessmentInput">General input that influences the probability estimate for a piping
         /// assessment.</param>
         /// <param name="norm">The norm to assess for.</param>
@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Service
         /// <exception cref="ArgumentNullException">Thrown when any <paramref name="calculation"/> 
         /// or <paramref name="pipingProbabilityAssessmentInput"/> is <c>null</c>.</exception>
         public PipingCalculationActivity(PipingCalculation calculation,
-                                         RoundedDouble calculatedAssessmentLevel,
+                                         RoundedDouble normativeAssessmentLevel,
                                          PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput,
                                          double norm,
                                          double contribution)
@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Service
             }
 
             this.calculation = calculation;
-            this.calculatedAssessmentLevel = calculatedAssessmentLevel;
+            this.normativeAssessmentLevel = normativeAssessmentLevel;
             this.pipingProbabilityAssessmentInput = pipingProbabilityAssessmentInput;
             this.norm = norm;
             this.contribution = contribution;
@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Service
 
         protected override void OnRun()
         {
-            if (!PipingCalculationService.Validate(calculation, calculatedAssessmentLevel))
+            if (!PipingCalculationService.Validate(calculation, normativeAssessmentLevel))
             {
                 State = ActivityState.Failed;
                 return;
@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.Service
 
             PipingDataSynchronizationService.ClearCalculationOutput(calculation);
 
-            PipingCalculationService.Calculate(calculation, calculatedAssessmentLevel);
+            PipingCalculationService.Calculate(calculation, normativeAssessmentLevel);
         }
 
         protected override void OnCancel()
