@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Piping.Data;
@@ -34,25 +35,46 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     internal class PipingScenarioRow
     {
+        private readonly DerivedPipingOutput derivedOutput;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationRow"/>.
         /// </summary>
-        /// <param name="pipingCalculation">The <see cref="PipingCalculationScenario"/> this row contains.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingCalculation"/> is <c>null</c>.</exception>
-        public PipingScenarioRow(PipingCalculationScenario pipingCalculation)
+        /// <param name="calculation">The <see cref="PipingCalculationScenario"/> this row contains.</param>
+        /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
+        /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public PipingScenarioRow(PipingCalculationScenario calculation, PipingFailureMechanism failureMechanism,
+                                 IAssessmentSection assessmentSection)
         {
-            if (pipingCalculation == null)
+            if (calculation == null)
             {
-                throw new ArgumentNullException(nameof(pipingCalculation));
+                throw new ArgumentNullException(nameof(calculation));
             }
 
-            PipingCalculation = pipingCalculation;
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            Calculation = calculation;
+
+            if (calculation.Output != null)
+            {
+                derivedOutput = DerivedPipingOutputFactory.Create(calculation.Output, failureMechanism.PipingProbabilityAssessmentInput,
+                                                                  assessmentSection.FailureMechanismContribution.Norm, failureMechanism.Contribution);
+            }
         }
 
         /// <summary>
         /// Gets the <see cref="PipingCalculationScenario"/> this row contains.
         /// </summary>
-        public PipingCalculationScenario PipingCalculation { get; }
+        public PipingCalculationScenario Calculation { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="PipingCalculationScenario"/> is relevant.
@@ -61,12 +83,12 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return PipingCalculation.IsRelevant;
+                return Calculation.IsRelevant;
             }
             set
             {
-                PipingCalculation.IsRelevant = value;
-                PipingCalculation.NotifyObservers();
+                Calculation.IsRelevant = value;
+                Calculation.NotifyObservers();
             }
         }
 
@@ -77,12 +99,12 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return new RoundedDouble(0, PipingCalculation.Contribution * 100);
+                return new RoundedDouble(0, Calculation.Contribution * 100);
             }
             set
             {
-                PipingCalculation.Contribution = (RoundedDouble) (value / 100);
-                PipingCalculation.NotifyObservers();
+                Calculation.Contribution = (RoundedDouble) (value / 100);
+                Calculation.NotifyObservers();
             }
         }
 
@@ -93,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return PipingCalculation.Name;
+                return Calculation.Name;
             }
         }
 
@@ -105,11 +127,9 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                if (PipingCalculation.SemiProbabilisticOutput == null)
-                {
-                    return RingtoetsCommonFormsResources.RoundedRouble_No_result_dash;
-                }
-                return ProbabilityFormattingHelper.Format(PipingCalculation.SemiProbabilisticOutput.PipingProbability);
+                return derivedOutput == null
+                           ? RingtoetsCommonFormsResources.RoundedRouble_No_result_dash
+                           : ProbabilityFormattingHelper.Format(derivedOutput.PipingProbability);
             }
         }
 
@@ -121,11 +141,9 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                if (PipingCalculation.SemiProbabilisticOutput == null)
-                {
-                    return RingtoetsCommonFormsResources.RoundedRouble_No_result_dash;
-                }
-                return ProbabilityFormattingHelper.Format(PipingCalculation.SemiProbabilisticOutput.UpliftProbability);
+                return derivedOutput == null
+                           ? RingtoetsCommonFormsResources.RoundedRouble_No_result_dash
+                           : ProbabilityFormattingHelper.Format(derivedOutput.UpliftProbability);
             }
         }
 
@@ -137,11 +155,9 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                if (PipingCalculation.SemiProbabilisticOutput == null)
-                {
-                    return RingtoetsCommonFormsResources.RoundedRouble_No_result_dash;
-                }
-                return ProbabilityFormattingHelper.Format(PipingCalculation.SemiProbabilisticOutput.HeaveProbability);
+                return derivedOutput == null
+                           ? RingtoetsCommonFormsResources.RoundedRouble_No_result_dash
+                           : ProbabilityFormattingHelper.Format(derivedOutput.HeaveProbability);
             }
         }
 
@@ -153,11 +169,9 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                if (PipingCalculation.SemiProbabilisticOutput == null)
-                {
-                    return RingtoetsCommonFormsResources.RoundedRouble_No_result_dash;
-                }
-                return ProbabilityFormattingHelper.Format(PipingCalculation.SemiProbabilisticOutput.SellmeijerProbability);
+                return derivedOutput == null
+                           ? RingtoetsCommonFormsResources.RoundedRouble_No_result_dash
+                           : ProbabilityFormattingHelper.Format(derivedOutput.SellmeijerProbability);
             }
         }
     }

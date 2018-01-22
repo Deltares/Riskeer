@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSection"/> for properties panel.
     /// </summary>
-    public class FailureMechanismSectionsProbabilityAssessmentProperties : ObjectProperties<IEnumerable<FailureMechanismSection>>
+    public class FailureMechanismSectionsProbabilityAssessmentProperties : ObjectProperties<IEnumerable<FailureMechanismSection>>, IDisposable
     {
         private readonly Observer failureMechanismObserver;
         private readonly IProbabilityAssessmentInput probabilityAssessmentInput;
@@ -91,11 +91,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        public override void Dispose()
+        public void Dispose()
         {
             failureMechanismObserver.Dispose();
-
-            base.Dispose();
         }
     }
 }

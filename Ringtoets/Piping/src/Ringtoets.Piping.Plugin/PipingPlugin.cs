@@ -69,9 +69,9 @@ namespace Ringtoets.Piping.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<PipingFailureMechanismContext, PipingFailureMechanismContextProperties>
+            yield return new PropertyInfo<PipingFailureMechanismContext, PipingFailureMechanismProperties>
             {
-                CreateInstance = context => new PipingFailureMechanismContextProperties(context, new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
+                CreateInstance = context => new PipingFailureMechanismProperties(context.WrappedData, new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
             };
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>
             {
@@ -79,7 +79,10 @@ namespace Ringtoets.Piping.Plugin
                                                                              () => GetCalculatedAssessmentLevel(context.PipingCalculation),
                                                                              new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
             };
-            yield return new PropertyInfo<PipingOutputContext, PipingOutputContextProperties>();
+            yield return new PropertyInfo<PipingOutputContext, PipingOutputProperties>
+            {
+                CreateInstance = context => new PipingOutputProperties(context.WrappedData, context.FailureMechanism, context.AssessmentSection)
+            };
             yield return new PropertyInfo<PipingSurfaceLinesContext, PipingSurfaceLineCollectionProperties>
             {
                 CreateInstance = context => new PipingSurfaceLineCollectionProperties(context.WrappedData)
@@ -205,7 +208,7 @@ namespace Ringtoets.Piping.Plugin
             };
 
             yield return new ViewInfo<
-                FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>,
+                PipingFailureMechanismSectionResultContext,
                 IEnumerable<PipingFailureMechanismSectionResult>,
                 PipingFailureMechanismResultView>
             {
@@ -213,7 +216,8 @@ namespace Ringtoets.Piping.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
+                CreateInstance = context => new PipingFailureMechanismResultView(context.AssessmentSection)
             };
 
             yield return new ViewInfo<PipingCalculationGroupContext, CalculationGroup, PipingCalculationsView>
@@ -243,9 +247,10 @@ namespace Ringtoets.Piping.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
                 Image = RingtoetsCommonFormsResources.ScenariosIcon,
-                AdditionalDataCheck = context => context.WrappedData == context.ParentFailureMechanism.CalculationsGroup,
+                AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
                 CloseForData = ClosePipingScenariosViewForData,
-                AfterCreate = (view, context) => { view.PipingFailureMechanism = context.ParentFailureMechanism; }
+                CreateInstance = context => new PipingScenariosView(context.AssessmentSection),
+                AfterCreate = (view, context) => { view.PipingFailureMechanism = context.FailureMechanism; }
             };
         }
 
@@ -267,7 +272,7 @@ namespace Ringtoets.Piping.Plugin
                 PipingCalculationGroupContextContextMenuStrip,
                 PipingCalculationGroupContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<PipingFailureMechanismSectionResultContext>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -680,14 +685,14 @@ namespace Ringtoets.Piping.Plugin
             return failureMechanism.Calculations.OfType<PipingCalculation>();
         }
 
-        private static object[] FailureMechanismEnabledChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(PipingFailureMechanismContext context)
         {
-            PipingFailureMechanism wrappedData = pipingFailureMechanismContext.WrappedData;
+            PipingFailureMechanism wrappedData = context.WrappedData;
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, pipingFailureMechanismContext.Parent), TreeFolderCategory.Input),
-                new PipingCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, pipingFailureMechanismContext.Parent),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, context.Parent), TreeFolderCategory.Input),
+                new PipingCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, context.Parent),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, context.Parent), TreeFolderCategory.Output)
             };
         }
 
@@ -710,13 +715,12 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(PipingFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
-                new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism),
+                new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
+                new PipingFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
         }
@@ -760,26 +764,27 @@ namespace Ringtoets.Piping.Plugin
                           .Build();
         }
 
-        private static object[] PipingCalculationContextChildNodeObjects(PipingCalculationScenarioContext pipingCalculationScenarioContext)
+        private static object[] PipingCalculationContextChildNodeObjects(PipingCalculationScenarioContext context)
         {
-            PipingCalculationScenario pipingCalculationScenario = pipingCalculationScenarioContext.WrappedData;
+            PipingCalculationScenario pipingCalculationScenario = context.WrappedData;
 
             var childNodes = new List<object>
             {
                 pipingCalculationScenario.Comments,
                 new PipingInputContext(pipingCalculationScenario.InputParameters,
                                        pipingCalculationScenario,
-                                       pipingCalculationScenarioContext.AvailablePipingSurfaceLines,
-                                       pipingCalculationScenarioContext.AvailableStochasticSoilModels,
-                                       pipingCalculationScenarioContext.FailureMechanism,
-                                       pipingCalculationScenarioContext.AssessmentSection)
+                                       context.AvailablePipingSurfaceLines,
+                                       context.AvailableStochasticSoilModels,
+                                       context.FailureMechanism,
+                                       context.AssessmentSection)
             };
 
             if (pipingCalculationScenario.HasOutput)
             {
                 childNodes.Add(new PipingOutputContext(
                                    pipingCalculationScenario.Output,
-                                   pipingCalculationScenario.SemiProbabilisticOutput));
+                                   context.FailureMechanism,
+                                   context.AssessmentSection));
             }
             else
             {

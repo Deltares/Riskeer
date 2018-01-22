@@ -270,44 +270,5 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(newOutput.SellmeijerCriticalFall, outputEntity.SellmeijerCriticalFall, newOutput.SellmeijerCriticalFall.GetAccuracy());
             Assert.AreEqual(newOutput.SellmeijerReducedFall, outputEntity.SellmeijerReducedFall, newOutput.SellmeijerReducedFall.GetAccuracy());
         }
-
-        [Test]
-        public void Create_HasPipingSemiProbabilisticOutput_EntityHasPipingSemiProbabilisticOutputEntity()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            var newOutput = new PipingSemiProbabilisticOutput(1, 2, 0.3,
-                                                              4, 5, 0.6,
-                                                              7, 8, 0.9,
-                                                              1.0, 11,
-                                                              0.2, 13, 14);
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                SemiProbabilisticOutput = newOutput
-            };
-
-            // Call
-            PipingCalculationEntity entity = calculation.Create(registry, 0);
-
-            // Assert
-            PipingSemiProbabilisticOutputEntity outputEntity = entity.PipingSemiProbabilisticOutputEntities.FirstOrDefault();
-
-            Assert.IsNotNull(outputEntity);
-            Assert.AreEqual(newOutput.UpliftFactorOfSafety, outputEntity.UpliftFactorOfSafety, newOutput.UpliftFactorOfSafety.GetAccuracy());
-            Assert.AreEqual(newOutput.UpliftReliability, outputEntity.UpliftReliability, newOutput.UpliftReliability.GetAccuracy());
-            Assert.AreEqual(newOutput.UpliftProbability, outputEntity.UpliftProbability);
-            Assert.AreEqual(newOutput.HeaveFactorOfSafety, outputEntity.HeaveFactorOfSafety, newOutput.HeaveFactorOfSafety.GetAccuracy());
-            Assert.AreEqual(newOutput.HeaveReliability, outputEntity.HeaveReliability, newOutput.HeaveReliability.GetAccuracy());
-            Assert.AreEqual(newOutput.HeaveProbability, outputEntity.HeaveProbability);
-            Assert.AreEqual(newOutput.SellmeijerFactorOfSafety, outputEntity.SellmeijerFactorOfSafety, newOutput.SellmeijerFactorOfSafety.GetAccuracy());
-            Assert.AreEqual(newOutput.SellmeijerReliability, outputEntity.SellmeijerReliability, newOutput.SellmeijerReliability.GetAccuracy());
-            Assert.AreEqual(newOutput.SellmeijerProbability, outputEntity.SellmeijerProbability);
-            Assert.AreEqual(newOutput.RequiredProbability, outputEntity.RequiredProbability);
-            Assert.AreEqual(newOutput.RequiredReliability, outputEntity.RequiredReliability, newOutput.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(newOutput.PipingProbability, outputEntity.PipingProbability);
-            Assert.AreEqual(newOutput.PipingReliability, outputEntity.PipingReliability, newOutput.PipingReliability.GetAccuracy());
-            Assert.AreEqual(newOutput.PipingFactorOfSafety, outputEntity.PipingFactorOfSafety, newOutput.PipingFactorOfSafety.GetAccuracy());
-        }
     }
 }

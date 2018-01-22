@@ -31,10 +31,12 @@ using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 
@@ -53,10 +55,26 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private Form testForm;
 
         [Test]
-        public void Constructor_DefaultValues()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var pipingScenarioView = new PipingScenariosView())
+            TestDelegate call = () => new PipingScenariosView(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            using (var pipingScenarioView = new PipingScenariosView(assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(pipingScenarioView);
@@ -64,6 +82,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsNull(pipingScenarioView.Data);
                 Assert.IsNull(pipingScenarioView.PipingFailureMechanism);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -192,6 +212,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void PipingScenarioView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
@@ -218,10 +239,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(1.5e-3), cells[failureProbabilityPipingColumnIndex].FormattedValue);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(double.NaN), cells[failureProbabilityUpliftColumnIndex].FormattedValue);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.0005), cells[failureProbabilityHeaveColumnIndex].FormattedValue);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(1.5e-3), cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
+            Assert.AreEqual("1/980.908.719.666.769.000.000", cells[failureProbabilityPipingColumnIndex].FormattedValue);
+            Assert.AreEqual("1/204.463.909.053", cells[failureProbabilityUpliftColumnIndex].FormattedValue);
+            Assert.AreEqual("1/31.469.301", cells[failureProbabilityHeaveColumnIndex].FormattedValue);
+            Assert.AreEqual("1/980.908.719.666.769.000.000", cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -382,21 +403,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                             EntryPointL = (RoundedDouble) 7.7777,
                             ExitPointL = (RoundedDouble) 8.8888
                         },
-                        SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(
-                            double.NaN,
-                            double.NaN,
-                            double.NaN,
-                            double.NaN,
-                            double.NaN,
-                            0.0005,
-                            double.NaN,
-                            double.NaN,
-                            1.5e-3,
-                            double.NaN,
-                            double.NaN,
-                            1.5e-3,
-                            double.NaN,
-                            double.NaN)
+                        Output = new TestPipingOutput()
                     }
                 }
             };
@@ -408,7 +415,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private PipingScenariosView ShowPipingScenarioView()
         {
-            var pipingScenarioView = new PipingScenariosView();
+            var pipingScenarioView = new PipingScenariosView(new ObservableTestAssessmentSectionStub());
 
             testForm.Controls.Add(pipingScenarioView);
             testForm.Show();

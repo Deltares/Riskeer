@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Reflection;
-using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 
@@ -35,140 +34,42 @@ namespace Core.Common.Gui.Test.PropertyBag
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            using (var properties = new ObjectProperties<string>())
-            {
-                // Assert
-                Assert.IsInstanceOf<IObjectProperties>(properties);
-                Assert.IsNull(properties.Data);
-            }
+            var properties = new ObjectProperties<string>();
+
+            // Assert
+            Assert.IsInstanceOf<IObjectProperties>(properties);
+            Assert.IsNull(properties.Data);
         }
 
         [Test]
         public void Data_SetValue_GetNewlySetValue()
         {
             // Setup
-            using (var properties = new ObjectProperties<string>())
-            {
-                const string text = "text";
+            var properties = new ObjectProperties<string>();
+            const string text = "text";
 
-                // Call
-                properties.Data = text;
+            // Call
+            properties.Data = text;
 
-                // Assert
-                Assert.AreEqual(text, properties.Data);
-            }
+            // Assert
+            Assert.AreEqual(text, properties.Data);
         }
 
         [Test]
         public void Data_IsNotBrowsable()
         {
             // Setup
-            using (var properties = new ObjectProperties<string>())
-            {
-                const string dataPropertyName = nameof(ObjectProperties<string>.Data);
-                PropertyInfo propertyInfo = properties.GetType().GetProperty(dataPropertyName);
+            var properties = new ObjectProperties<string>();
+            const string dataPropertyName = nameof(ObjectProperties<string>.Data);
+            PropertyInfo propertyInfo = properties.GetType().GetProperty(dataPropertyName);
 
-                // Call
-                var browsableAttribute = (BrowsableAttribute) Attribute.GetCustomAttribute(propertyInfo,
-                                                                                           typeof(BrowsableAttribute),
-                                                                                           true);
+            // Call
+            var browsableAttribute = (BrowsableAttribute) Attribute.GetCustomAttribute(propertyInfo,
+                                                                                       typeof(BrowsableAttribute),
+                                                                                       true);
 
-                // Assert
-                Assert.AreEqual(BrowsableAttribute.No, browsableAttribute);
-            }
+            // Assert
+            Assert.AreEqual(BrowsableAttribute.No, browsableAttribute);
         }
-
-        [Test]
-        public void GivenObjectPropertiesWithObservableDataSet_WhenNotifyingObserver_RefreshRequiredEventRaised()
-        {
-            // Given
-            var observable = new SimpleObservable();
-            using (var properties = new ObjectProperties<SimpleObservable>
-            {
-                Data = observable
-            })
-            {
-                var refreshRequiredRaised = 0;
-                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-                // When
-                observable.NotifyObservers();
-
-                // Then
-                Assert.AreEqual(1, refreshRequiredRaised);
-            }
-        }
-
-        [Test]
-        public void GivenObjectPropertiesWithNewObservableDataSet_WhenNotifyingPreviouslySetObserver_RefreshRequiredEventNotRaised()
-        {
-            // Given
-            var observable1 = new SimpleObservable();
-            var observable2 = new SimpleObservable();
-            using (var properties = new ObjectProperties<SimpleObservable>
-            {
-                Data = observable1
-            })
-            {
-                properties.Data = observable2;
-
-                var refreshRequiredRaised = 0;
-                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-                // When
-                observable1.NotifyObservers();
-
-                // Then
-                Assert.AreEqual(0, refreshRequiredRaised);
-            }
-        }
-
-        [Test]
-        public void GivenObjectPropertiesWithNewObservableDataSet_WhenNotifyingNewlySetObserver_RefreshRequiredEventRaised()
-        {
-            // Given
-            var observable1 = new SimpleObservable();
-            var observable2 = new SimpleObservable();
-            using (var properties = new ObjectProperties<SimpleObservable>
-            {
-                Data = observable1
-            })
-            {
-                properties.Data = observable2;
-
-                var refreshRequiredRaised = 0;
-                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-                // When
-                observable2.NotifyObservers();
-
-                // Then
-                Assert.AreEqual(1, refreshRequiredRaised);
-            }
-        }
-
-        [Test]
-        public void GivenDisposedObjectPropertiesWithObservableDataSet_WhenNotifyingObserver_RefreshRequiredEventNotRaised()
-        {
-            // Given
-            var observable = new SimpleObservable();
-            var properties = new ObjectProperties<SimpleObservable>
-            {
-                Data = observable
-            };
-
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-            properties.Dispose();
-
-            // When
-            observable.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(0, refreshRequiredRaised);
-        }
-
-        private class SimpleObservable : Observable {}
     }
 }

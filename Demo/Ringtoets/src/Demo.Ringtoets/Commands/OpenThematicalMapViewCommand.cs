@@ -41,6 +41,7 @@ namespace Demo.Ringtoets.Commands
     public class OpenThematicalMapViewCommand : ICommand
     {
         private readonly IViewCommands viewCommands;
+        private const string selectedMetaDataAttributeName = "Waarde";
 
         /// <summary>
         /// Creates a new instance of <see cref="OpenThematicalMapViewCommand"/>.
@@ -63,7 +64,8 @@ namespace Demo.Ringtoets.Commands
                 Style =
                 {
                     Size = 10
-                }
+                },
+                SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
             SetEqualCriteria(mapPointDataEqualCriteria);
             mapDataCollection.Add(mapPointDataEqualCriteria);
@@ -74,35 +76,40 @@ namespace Demo.Ringtoets.Commands
                 Style =
                 {
                     Size = 10
-                }
+                },
+                SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
             SetUnequalCriteria(mapPointDataUnequalCriteria);
             mapDataCollection.Add(mapPointDataUnequalCriteria);
 
             var mapLineDataEqualCriteria = new MapLineData(Resources.OpenThematicalMapViewCommand_Execute_MapLineData_with_EqualValueCriteria)
             {
-                Features = CreateMapLineFeaturesWithMetaData(40)
+                Features = CreateMapLineFeaturesWithMetaData(40),
+                SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
             SetEqualCriteria(mapLineDataEqualCriteria);
             mapDataCollection.Add(mapLineDataEqualCriteria);
 
             var mapLineDataUnequalCriteria = new MapLineData(Resources.OpenThematicalMapViewCommand_Execute_MapLineData_with_UnequalValueCriteria)
             {
-                Features = CreateMapLineFeaturesWithMetaData(10)
+                Features = CreateMapLineFeaturesWithMetaData(10),
+                SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
             SetUnequalCriteria(mapLineDataUnequalCriteria);
             mapDataCollection.Add(mapLineDataUnequalCriteria);
 
             var mapPolygonDataEqualCriteria = new MapPolygonData(Resources.OpenThematicalMapViewCommand_Execute_MapPolygonData_with_EqualValueCriteria)
             {
-                Features = CreatePolygonFeaturesWithMetaData(40)
+                Features = CreatePolygonFeaturesWithMetaData(40),
+                SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
             SetEqualCriteria(mapPolygonDataEqualCriteria);
             mapDataCollection.Add(mapPolygonDataEqualCriteria);
 
             var mapPolygonDataUnequalCriteria = new MapPolygonData(Resources.OpenThematicalMapViewCommand_Execute_MapPolygonData_with_UnequalValueCriteria)
             {
-                Features = CreatePolygonFeaturesWithMetaData(10)
+                Features = CreatePolygonFeaturesWithMetaData(10),
+                SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
             SetUnequalCriteria(mapPolygonDataUnequalCriteria);
             mapDataCollection.Add(mapPolygonDataUnequalCriteria);
@@ -150,7 +157,7 @@ namespace Demo.Ringtoets.Commands
                 {
                     new Point2D(xCoordinate, 0)
                 });
-                feature.MetaData["Waarde"] = i;
+                feature.MetaData[selectedMetaDataAttributeName] = i;
                 features[i] = feature;
 
                 xCoordinate += offset;
@@ -172,7 +179,7 @@ namespace Demo.Ringtoets.Commands
                     new Point2D(xCoordinate, 0),
                     new Point2D(xCoordinate++, 10)
                 });
-                feature.MetaData["Waarde"] = i;
+                feature.MetaData[selectedMetaDataAttributeName] = i;
                 features[i] = feature;
             }
 
@@ -197,7 +204,7 @@ namespace Demo.Ringtoets.Commands
                     new Point2D(rightCoordinate, 0),
                     new Point2D(leftCoordinate, 0)
                 });
-                feature.MetaData["Waarde"] = i;
+                feature.MetaData[selectedMetaDataAttributeName] = i;
                 features[i] = feature;
 
                 leftCoordinate += offset;

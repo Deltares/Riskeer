@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
 
 namespace Core.Common.Gui.PropertyBag
 {
@@ -31,22 +30,12 @@ namespace Core.Common.Gui.PropertyBag
     /// <typeparam name="T">Type of <see cref="Data"/>.</typeparam>
     public class ObjectProperties<T> : IObjectProperties
     {
-        private readonly Observer refreshRequiredObserver;
-
         protected T data;
 
         public event EventHandler<EventArgs> RefreshRequired;
 
-        /// <summary>
-        /// Creates a new instance of <see cref="ObjectProperties{T}"/>.
-        /// </summary>
-        public ObjectProperties()
-        {
-            refreshRequiredObserver = new Observer(OnRefreshRequired);
-        }
-
         [Browsable(false)]
-        public virtual object Data
+        public object Data
         {
             get
             {
@@ -55,14 +44,7 @@ namespace Core.Common.Gui.PropertyBag
             set
             {
                 data = (T) value;
-
-                refreshRequiredObserver.Observable = value as IObservable;
             }
-        }
-
-        public virtual void Dispose()
-        {
-            refreshRequiredObserver?.Dispose();
         }
 
         /// <summary>

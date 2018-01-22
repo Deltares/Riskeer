@@ -27,6 +27,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Piping.Data;
@@ -81,49 +82,60 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnScenarios()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var group = new CalculationGroup();
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingScenariosContext(group, failureMechanism);
+            var context = new PipingScenariosContext(group, failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(context);
 
             // Assert
             Assert.AreEqual("Scenario's", text);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnExpectedImage()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var group = new CalculationGroup();
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingScenariosContext(group, failureMechanism);
+            var context = new PipingScenariosContext(group, failureMechanism, assessmentSection);
 
             // Call
             Image image = info.Image(context);
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.ScenariosIcon, image);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
+            var group = new CalculationGroup();
+            var failureMechanism = new PipingFailureMechanism();
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.Build()).Return(null);
+            var gui = mocks.Stub<IGui>();
+
+            var context = new PipingScenariosContext(group, failureMechanism, assessmentSection);
+
             using (var treeViewControl = new TreeViewControl())
             {
-                var group = new CalculationGroup();
-                var failureMechanism = new PipingFailureMechanism();
-                var context = new PipingScenariosContext(group, failureMechanism);
-
-                var mocks = new MockRepository();
-
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-
-                var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 

@@ -466,15 +466,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                                                                                         assessmentSection);
 
             var pipingOutput = new TestPipingOutput();
-            var pipingSemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First()
                 },
-                Output = pipingOutput,
-                SemiProbabilisticOutput = pipingSemiProbabilisticOutput
+                Output = pipingOutput
             };
 
             assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculation);
@@ -526,7 +524,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     CollectionAssert.AreEqual(currentLocations, assessmentSection.HydraulicBoundaryDatabase.Locations);
                     Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations.First(), pipingCalculation.InputParameters.HydraulicBoundaryLocation);
                     Assert.AreSame(pipingOutput, pipingCalculation.Output);
-                    Assert.AreSame(pipingSemiProbabilisticOutput, pipingCalculation.SemiProbabilisticOutput);
                     Assert.AreSame(currentFirstGrassCoverErosionOutwardsLocation, assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.First());
                 }
             }

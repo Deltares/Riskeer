@@ -91,11 +91,38 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Piping.
+        /// </summary>
+        public static string Categories_Piping {
+            get {
+                return ResourceManager.GetString("Categories_Piping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Terugschrijdende erosie (Sellmeijer).
         /// </summary>
         public static string Categories_Sellmeijer {
             get {
                 return ResourceManager.GetString("Categories_Sellmeijer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semi-probabilistische parameters.
+        /// </summary>
+        public static string Categories_SemiProbabilisticParameters {
+            get {
+                return ResourceManager.GetString("Categories_SemiProbabilisticParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opbarsten.
+        /// </summary>
+        public static string Categories_Uplift {
+            get {
+                return ResourceManager.GetString("Categories_Uplift", resourceCulture);
             }
         }
         
@@ -644,362 +671,344 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Piping.
-        /// </summary>
-        public static string PipingOutputContext_Categories_Piping {
-            get {
-                return ResourceManager.GetString("PipingOutputContext_Categories_Piping", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opbarsten.
-        /// </summary>
-        public static string PipingOutputContext_Categories_Uplift {
-            get {
-                return ResourceManager.GetString("PipingOutputContext_Categories_Uplift", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De veiligheidsfactor voor het submechanisme heave voor deze berekening..
         /// </summary>
-        public static string PipingOutputContext_HeaveFactorOfSafety_Description {
+        public static string PipingOutput_HeaveFactorOfSafety_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_HeaveFactorOfSafety_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_HeaveFactorOfSafety_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Veiligheidsfactor [-].
         /// </summary>
-        public static string PipingOutputContext_HeaveFactorOfSafety_DisplayName {
+        public static string PipingOutput_HeaveFactorOfSafety_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_HeaveFactorOfSafety_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_HeaveFactorOfSafety_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De optredende verticale gradiënt in het opbarstkanaal..
         /// </summary>
-        public static string PipingOutputContext_HeaveGradient_Description {
+        public static string PipingOutput_HeaveGradient_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_HeaveGradient_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_HeaveGradient_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Heave gradiënt [-].
         /// </summary>
-        public static string PipingOutputContext_HeaveGradient_DisplayName {
+        public static string PipingOutput_HeaveGradient_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_HeaveGradient_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_HeaveGradient_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De kans dat het submechanisme heave optreedt voor deze berekening..
         /// </summary>
-        public static string PipingOutputContext_HeaveProbability_Description {
+        public static string PipingOutput_HeaveProbability_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_HeaveProbability_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_HeaveProbability_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kans van voorkomen [1/jaar].
         /// </summary>
-        public static string PipingOutputContext_HeaveProbability_DisplayName {
+        public static string PipingOutput_HeaveProbability_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_HeaveProbability_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_HeaveProbability_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De betrouwbaarheidsindex voor het submechanisme heave voor deze berekening..
         /// </summary>
-        public static string PipingOutputContext_HeaveReliability_Description {
+        public static string PipingOutput_HeaveReliability_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_HeaveReliability_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_HeaveReliability_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Betrouwbaarheidsindex [-].
         /// </summary>
-        public static string PipingOutputContext_HeaveReliability_DisplayName {
+        public static string PipingOutput_HeaveReliability_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_HeaveReliability_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_HeaveReliability_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De veiligheidsfactor voor deze berekening..
         /// </summary>
-        public static string PipingOutputContext_PipingFactorOfSafety_Description {
+        public static string PipingOutput_PipingFactorOfSafety_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_PipingFactorOfSafety_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_PipingFactorOfSafety_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Veiligheidsfactor [-].
         /// </summary>
-        public static string PipingOutputContext_PipingFactorOfSafety_DisplayName {
+        public static string PipingOutput_PipingFactorOfSafety_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_PipingFactorOfSafety_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_PipingFactorOfSafety_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De benaderde kans dat het toetsspoor piping optreedt voor deze berekening..
         /// </summary>
-        public static string PipingOutputContext_PipingProbability_Description {
+        public static string PipingOutput_PipingProbability_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_PipingProbability_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_PipingProbability_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Benaderde faalkans [1/jaar].
         /// </summary>
-        public static string PipingOutputContext_PipingProbability_DisplayName {
+        public static string PipingOutput_PipingProbability_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_PipingProbability_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_PipingProbability_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkans voor deze berekening..
         /// </summary>
-        public static string PipingOutputContext_PipingReliability_Description {
+        public static string PipingOutput_PipingReliability_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_PipingReliability_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_PipingReliability_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Betrouwbaarheidsindex faalkans [-].
         /// </summary>
-        public static string PipingOutputContext_PipingReliability_DisplayName {
+        public static string PipingOutput_PipingReliability_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_PipingReliability_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_PipingReliability_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De maximaal toegestane kans dat het toetsspoor piping optreedt..
         /// </summary>
-        public static string PipingOutputContext_RequiredProbability_Description {
+        public static string PipingOutput_RequiredProbability_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_RequiredProbability_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_RequiredProbability_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Faalkanseis [1/jaar].
         /// </summary>
-        public static string PipingOutputContext_RequiredProbability_DisplayName {
+        public static string PipingOutput_RequiredProbability_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_RequiredProbability_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_RequiredProbability_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor piping..
         /// </summary>
-        public static string PipingOutputContext_RequiredReliability_Description {
+        public static string PipingOutput_RequiredReliability_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_RequiredReliability_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_RequiredReliability_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Betrouwbaarheidsindex faalkanseis [-].
         /// </summary>
-        public static string PipingOutputContext_RequiredReliability_DisplayName {
+        public static string PipingOutput_RequiredReliability_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_RequiredReliability_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_RequiredReliability_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De verhouding tussen de kwelweglengte en het berekende kritieke verval op basis van de regel van Sellmeijer (analoog aan de vuistregel van Bligh)..
         /// </summary>
-        public static string PipingOutputContext_SellmeijerCreepCoefficient_Description {
+        public static string PipingOutput_SellmeijerCreepCoefficient_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_SellmeijerCreepCoefficient_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerCreepCoefficient_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Creep coëfficiënt [-].
         /// </summary>
-        public static string PipingOutputContext_SellmeijerCreepCoefficient_DisplayName {
+        public static string PipingOutput_SellmeijerCreepCoefficient_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_SellmeijerCreepCoefficient_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerCreepCoefficient_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het kritieke verval over de waterkering..
         /// </summary>
-        public static string PipingOutputContext_SellmeijerCriticalFall_Description {
+        public static string PipingOutput_SellmeijerCriticalFall_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_SellmeijerCriticalFall_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerCriticalFall_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kritiek verval [m].
         /// </summary>
-        public static string PipingOutputContext_SellmeijerCriticalFall_DisplayName {
+        public static string PipingOutput_SellmeijerCriticalFall_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_SellmeijerCriticalFall_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerCriticalFall_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De veiligheidsfactor voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening..
         /// </summary>
-        public static string PipingOutputContext_SellmeijerFactorOfSafety_Description {
+        public static string PipingOutput_SellmeijerFactorOfSafety_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_SellmeijerFactorOfSafety_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerFactorOfSafety_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Veiligheidsfactor [-].
         /// </summary>
-        public static string PipingOutputContext_SellmeijerFactorOfSafety_DisplayName {
+        public static string PipingOutput_SellmeijerFactorOfSafety_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_SellmeijerFactorOfSafety_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerFactorOfSafety_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De kans dat het submechanisme terugschrijdende erosie (Sellmeijer) optreedt voor deze berekening..
         /// </summary>
-        public static string PipingOutputContext_SellmeijerProbability_Description {
+        public static string PipingOutput_SellmeijerProbability_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_SellmeijerProbability_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerProbability_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kans van voorkomen [1/jaar].
         /// </summary>
-        public static string PipingOutputContext_SellmeijerProbability_DisplayName {
+        public static string PipingOutput_SellmeijerProbability_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_SellmeijerProbability_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerProbability_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het verschil tussen de buitenwaterstand en de binnenwaterstand, gecorrigeerd voor de drukval in het opbarstkanaal..
         /// </summary>
-        public static string PipingOutputContext_SellmeijerReducedFall_Description {
+        public static string PipingOutput_SellmeijerReducedFall_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_SellmeijerReducedFall_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerReducedFall_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Gereduceerd verval [m].
         /// </summary>
-        public static string PipingOutputContext_SellmeijerReducedFall_DisplayName {
+        public static string PipingOutput_SellmeijerReducedFall_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_SellmeijerReducedFall_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerReducedFall_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De betrouwbaarheidsindex voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening..
         /// </summary>
-        public static string PipingOutputContext_SellmeijerReliability_Description {
+        public static string PipingOutput_SellmeijerReliability_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_SellmeijerReliability_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerReliability_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Betrouwbaarheidsindex [-].
         /// </summary>
-        public static string PipingOutputContext_SellmeijerReliability_DisplayName {
+        public static string PipingOutput_SellmeijerReliability_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_SellmeijerReliability_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerReliability_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het effectieve gewicht van de deklaag..
         /// </summary>
-        public static string PipingOutputContext_UpliftEffectiveStress_Description {
+        public static string PipingOutput_UpliftEffectiveStress_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_UpliftEffectiveStress_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_UpliftEffectiveStress_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Gewicht van de deklaag [kN/m²].
         /// </summary>
-        public static string PipingOutputContext_UpliftEffectiveStress_DisplayName {
+        public static string PipingOutput_UpliftEffectiveStress_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_UpliftEffectiveStress_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_UpliftEffectiveStress_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De veiligheidsfactor voor het submechanisme opbarsten voor deze berekening..
         /// </summary>
-        public static string PipingOutputContext_UpliftFactorOfSafety_Description {
+        public static string PipingOutput_UpliftFactorOfSafety_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_UpliftFactorOfSafety_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_UpliftFactorOfSafety_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Veiligheidsfactor [-].
         /// </summary>
-        public static string PipingOutputContext_UpliftFactorOfSafety_DisplayName {
+        public static string PipingOutput_UpliftFactorOfSafety_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_UpliftFactorOfSafety_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_UpliftFactorOfSafety_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De kans dat het submechanisme opbarsten optreedt voor deze berekening..
         /// </summary>
-        public static string PipingOutputContext_UpliftProbability_Description {
+        public static string PipingOutput_UpliftProbability_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_UpliftProbability_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_UpliftProbability_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kans van voorkomen [1/jaar].
         /// </summary>
-        public static string PipingOutputContext_UpliftProbability_DisplayName {
+        public static string PipingOutput_UpliftProbability_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_UpliftProbability_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_UpliftProbability_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De betrouwbaarheidsindex voor het submechanisme opbarsten voor deze berekening..
         /// </summary>
-        public static string PipingOutputContext_UpliftReliability_Description {
+        public static string PipingOutput_UpliftReliability_Description {
             get {
-                return ResourceManager.GetString("PipingOutputContext_UpliftReliability_Description", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_UpliftReliability_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Betrouwbaarheidsindex [-].
         /// </summary>
-        public static string PipingOutputContext_UpliftReliability_DisplayName {
+        public static string PipingOutput_UpliftReliability_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputContext_UpliftReliability_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_UpliftReliability_DisplayName", resourceCulture);
             }
         }
         

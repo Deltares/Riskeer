@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> for properties panel.
     /// </summary>
-    public abstract class HydraulicBoundaryLocationsProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
+    public abstract class HydraulicBoundaryLocationsProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>, IDisposable
     {
         private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
 
@@ -45,30 +45,17 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
 
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(OnRefreshRequired, list => list);
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(OnRefreshRequired, list => list)
+            {
+                Observable = hydraulicBoundaryLocations
+            };
 
             Data = hydraulicBoundaryLocations;
         }
 
-        public override object Data
-        {
-            get
-            {
-                return base.Data;
-            }
-            set
-            {
-                base.Data = value;
-
-                hydraulicBoundaryLocationObserver.Observable = value as ObservableList<HydraulicBoundaryLocation>;
-            }
-        }
-
-        public override void Dispose()
+        public void Dispose()
         {
             hydraulicBoundaryLocationObserver.Dispose();
-
-            base.Dispose();
         }
     }
 }

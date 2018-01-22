@@ -60,7 +60,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments.Body);
             Assert.IsNull(calculation.Output);
-            Assert.IsNull(calculation.SemiProbabilisticOutput);
         }
 
         [Test]
@@ -166,13 +165,12 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ClearOutput_Always_SetsOutputAndSemiProbabilisticOutputToNull()
+        public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
 
             // Call
@@ -180,17 +178,15 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
-            Assert.IsNull(calculation.SemiProbabilisticOutput);
         }
 
         [Test]
-        public void HasOutput_OutputAndSemiProbabilisticOutputNull_ReturnsFalse()
+        public void HasOutput_OutputNull_ReturnsFalse()
         {
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = null,
-                SemiProbabilisticOutput = null
+                Output = null
             };
 
             // Call
@@ -217,29 +213,12 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void HasOutput_SemiProbabilisticOutputSet_ReturnsTrue()
-        {
-            // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput())
-            {
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
-            };
-
-            // Call
-            bool calculationHasOutput = calculation.HasOutput;
-
-            // Assert
-            Assert.IsTrue(calculationHasOutput);
-        }
-
-        [Test]
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
             PipingCalculation original = CreateRandomCalculationWithoutOutput();
 
             original.Output = PipingTestDataGenerator.GetRandomPipingOutput();
-            original.SemiProbabilisticOutput = PipingTestDataGenerator.GetRandomPipingSemiProbabilisticOutput();
 
             // Call
             object clone = original.Clone();

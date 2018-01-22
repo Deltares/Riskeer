@@ -22,6 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -34,6 +36,11 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
@@ -43,7 +50,8 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
-            Assert.IsNaN(sectionResult.GetAssessmentLayerTwoA(new PipingCalculationScenario[0]));
+            Assert.IsNaN(sectionResult.GetAssessmentLayerTwoA(new PipingCalculationScenario[0], failureMechanism, assessmentSection));
+            mocks.VerifyAll();
         }
 
         [Test]

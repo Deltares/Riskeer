@@ -23,6 +23,7 @@
     </Compile>
     <Compile Include="PresentationObjects\EmptyPipingOutput.cs" />
     <Compile Include="PresentationObjects\PipingFailureMechanismSectionsContext.cs" />
+    <Compile Include="PresentationObjects\PipingFailureMechanismSectionResultContext.cs" />
     <Compile Include="PresentationObjects\PipingOutputContext.cs" />
     <Compile Include="PresentationObjects\PipingScenariosContext.cs" />
     <Compile Include="PresentationObjects\PipingCalculationScenarioContext.cs" />
@@ -41,9 +42,9 @@
     <Compile Include="PropertyClasses\PipingSoilLayerProperties.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionDesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\NormalDistributionDesignVariableProperties.cs" />
-    <Compile Include="PropertyClasses\PipingFailureMechanismContextProperties.cs" />
+    <Compile Include="PropertyClasses\PipingFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\PipingInputContextProperties.cs" />
-    <Compile Include="PropertyClasses\PipingOutputContextProperties.cs" />
+    <Compile Include="PropertyClasses\PipingOutputProperties.cs" />
     <Compile Include="PropertyClasses\PipingSurfaceLineCollectionProperties.cs" />
     <Compile Include="PropertyClasses\ShiftedLogNormalDistributionDesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\PipingStochasticSoilModelCollectionProperties.cs" />

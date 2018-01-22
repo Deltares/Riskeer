@@ -24,6 +24,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -35,63 +37,101 @@ namespace Ringtoets.Piping.Forms.Test.Views
     public class PipingScenarioRowTest
     {
         [Test]
-        public void Constructor_WithoutPipingCalculation_ThrowsArgumentNullException()
+        public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new PipingScenarioRow(null);
+            TestDelegate test = () => new PipingScenarioRow(null, new PipingFailureMechanism(), assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("pipingCalculation", paramName);
+            Assert.AreEqual("calculation", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithPipingCalculationWithSemiProbabilisticOutput_PropertiesFromPipingCalculation()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = new Random(21);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            calculation.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble());
 
             // Call
-            var row = new PipingScenarioRow(calculation);
+            TestDelegate test = () => new PipingScenarioRow(calculation, null, assessmentSection);
 
             // Assert
-            Assert.AreSame(calculation, row.PipingCalculation);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructore_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+
+            // Call
+            TestDelegate call = () => new PipingScenarioRow(calculation, new PipingFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_CalculationWithOutput_ExpectedValues()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
+            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            calculation.Output = new TestPipingOutput();
+
+            // Call
+            var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Assert
+            DerivedPipingOutput expectedDerivedOutput = DerivedPipingOutputFactory.Create(
+                calculation.Output, failureMechanism.PipingProbabilityAssessmentInput,
+                assessmentSection.FailureMechanismContribution.Norm, failureMechanism.Contribution);
+
+            Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(calculation.Name, row.Name);
             Assert.AreEqual(calculation.IsRelevant, row.IsRelevant);
             Assert.AreEqual(calculation.Contribution * 100, row.Contribution);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(calculation.SemiProbabilisticOutput.PipingProbability), row.FailureProbabilityPiping);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(calculation.SemiProbabilisticOutput.UpliftProbability), row.FailureProbabilityUplift);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(calculation.SemiProbabilisticOutput.HeaveProbability), row.FailureProbabilityHeave);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(calculation.SemiProbabilisticOutput.SellmeijerProbability), row.FailureProbabilitySellmeijer);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.PipingProbability), row.FailureProbabilityPiping);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.UpliftProbability), row.FailureProbabilityUplift);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.HeaveProbability), row.FailureProbabilityHeave);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.SellmeijerProbability), row.FailureProbabilitySellmeijer);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithPipingCalculationWithoutSemiProbabilisticOutput_PropertiesFromPipingCalculation()
+        public void Constructor_CalculationWithoutOutput_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
-            var row = new PipingScenarioRow(calculation);
+            var row = new PipingScenarioRow(calculation, new PipingFailureMechanism(), assessmentSection);
 
             // Assert
-            Assert.AreSame(calculation, row.PipingCalculation);
+            Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(calculation.Name, row.Name);
             Assert.AreEqual(calculation.IsRelevant, row.IsRelevant);
             Assert.AreEqual(calculation.Contribution * 100, row.Contribution);
@@ -99,6 +139,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("-", row.FailureProbabilityUplift);
             Assert.AreEqual("-", row.FailureProbabilityHeave);
             Assert.AreEqual("-", row.FailureProbabilitySellmeijer);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -108,6 +149,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -115,14 +157,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.Attach(observer);
 
-            var row = new PipingScenarioRow(calculation);
+            var row = new PipingScenarioRow(calculation, new PipingFailureMechanism(), assessmentSection);
 
             // Call
             row.IsRelevant = newValue;
 
             // Assert
             Assert.AreEqual(newValue, calculation.IsRelevant);
-
             mocks.VerifyAll();
         }
 
@@ -130,24 +171,25 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Contribution_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             int newValue = new Random().Next(0, 100);
 
             PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            var row = new PipingScenarioRow(calculation);
+            calculation.Attach(observer);
 
-            var counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = calculation
-            })
-            {
-                // Call
-                row.Contribution = (RoundedDouble) newValue;
+            var row = new PipingScenarioRow(calculation, new PipingFailureMechanism(), assessmentSection);
 
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(new RoundedDouble(2, newValue), calculation.Contribution * 100);
-            }
+            // Call
+            row.Contribution = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.AreEqual(new RoundedDouble(2, newValue), calculation.Contribution * 100);
+            mocks.VerifyAll();
         }
     }
 }

@@ -22,6 +22,8 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -32,41 +34,70 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
     public class PipingOutputContextTest
     {
         [Test]
-        public void Constructor_WithoutOutput_ThrowsArgumentNullException()
+        public void Constructor_OutputNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new PipingOutputContext(null, new TestPipingSemiProbabilisticOutput());
+            TestDelegate test = () => new PipingOutputContext(null, new PipingFailureMechanism(), assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("wrappedData", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithoutSemiProbabilisticOutput_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new PipingOutputContext(new TestPipingOutput(), null);
+            TestDelegate test = () => new PipingOutputContext(new TestPipingOutput(), null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("semiProbabilisticOutput", paramName);
+            Assert.AreEqual("failureMechanism", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithOutputParameters_PropertiesSet()
+        public void Constructore_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new PipingOutputContext(new TestPipingOutput(), new PipingFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            var pipingOutput = new TestPipingOutput();
-            var semiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var output = new TestPipingOutput();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var context = new PipingOutputContext(pipingOutput, semiProbabilisticOutput);
+            var context = new PipingOutputContext(output, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<PipingOutput>>(context);
-            Assert.AreSame(pipingOutput, context.WrappedData);
-            Assert.AreSame(semiProbabilisticOutput, context.SemiProbabilisticOutput);
+            Assert.AreSame(output, context.WrappedData);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
+            mocks.VerifyAll();
         }
     }
 }

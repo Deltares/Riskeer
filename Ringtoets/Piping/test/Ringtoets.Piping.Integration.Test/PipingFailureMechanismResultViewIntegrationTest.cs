@@ -42,12 +42,15 @@ namespace Ringtoets.Piping.Integration.Test
         private const int assessmentLayerTwoAIndex = 2;
 
         [Test]
+        [SetCulture("nl-NL")]
         public void FailureMechanismResultView_DataImportedOrChanged_ChangesCorrectlyObservedAndSynced()
         {
             using (var form = new Form())
             {
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
                 // Show the view
-                var failureMechanismResultView = new PipingFailureMechanismResultView();
+                var failureMechanismResultView = new PipingFailureMechanismResultView(assessmentSection);
                 form.Controls.Add(failureMechanismResultView);
                 form.Show();
 
@@ -55,7 +58,6 @@ namespace Ringtoets.Piping.Integration.Test
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Set all necessary data to the view
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 failureMechanismResultView.Data = assessmentSection.Piping.SectionResults;
                 failureMechanismResultView.FailureMechanism = assessmentSection.Piping;
 
@@ -119,11 +121,9 @@ namespace Ringtoets.Piping.Integration.Test
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Execute the first calculation and ensure the data grid view is updated
-                const double probability = 1.0 / 31846382.0;
                 pipingCalculation1.Output = new TestPipingOutput();
-                pipingCalculation1.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput(probability);
                 pipingCalculation1.NotifyObservers();
-                Assert.AreEqual($"1/{1.0 / pipingCalculation1.Probability:N0}",
+                Assert.AreEqual("1/980.908.719.666.769.000.000",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.Integration.Test
                 var pipingCalculation3 = new PipingCalculationScenario(new GeneralPipingInput());
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
-                Assert.AreEqual($"1/{1.0 / pipingCalculation1.Probability:N0}",
+                Assert.AreEqual("1/980.908.719.666.769.000.000",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.Integration.Test
                 // Set contribution again so we have a probability.
                 pipingCalculation1.Contribution = (RoundedDouble) 1.0;
                 pipingCalculation1.NotifyObservers();
-                Assert.AreEqual($"1/{1.0 / pipingCalculation1.Probability:N0}",
+                Assert.AreEqual("1/980.908.719.666.769.000.000",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 

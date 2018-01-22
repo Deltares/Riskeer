@@ -67,9 +67,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<MacroStabilityInwardsFailureMechanismContext, MacroStabilityInwardsFailureMechanismContextProperties>
+            yield return new PropertyInfo<MacroStabilityInwardsFailureMechanismContext, MacroStabilityInwardsFailureMechanismProperties>
             {
-                CreateInstance = context => new MacroStabilityInwardsFailureMechanismContextProperties(context, new FailureMechanismPropertyChangeHandler<MacroStabilityInwardsFailureMechanism>())
+                CreateInstance = context => new MacroStabilityInwardsFailureMechanismProperties(context.WrappedData,
+                                                                                                new FailureMechanismPropertyChangeHandler<MacroStabilityInwardsFailureMechanism>())
             };
             yield return new PropertyInfo<MacroStabilityInwardsInputContext, MacroStabilityInwardsInputContextProperties>
             {

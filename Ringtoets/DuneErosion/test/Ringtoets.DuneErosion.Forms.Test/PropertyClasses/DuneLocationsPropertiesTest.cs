@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
+using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.DuneErosion.Data;
@@ -59,7 +60,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithData_ReturnExpectedValues()
+        public void Constructor_WithData_ReturnExpectedValues()
         {
             // Setup
             var location = new TestDuneLocation();
@@ -69,11 +70,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation());
+            using (var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation()))
+            {
+                // Assert
+                Assert.IsInstanceOf<ObjectProperties<ObservableList<DuneLocation>>>(properties);
+                Assert.IsInstanceOf<IDisposable>(properties);
 
-            // Assert
-            Assert.AreEqual(1, properties.Locations.Length);
-            Assert.AreSame(location, properties.Locations[0].Data);
+                Assert.AreEqual(1, properties.Locations.Length);
+                Assert.AreSame(location, properties.Locations[0].Data);
+            }
         }
 
         [Test]
@@ -87,24 +92,25 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation());
+            using (var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation()))
+            {
+                // Assert
+                TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+                Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
 
-            // Assert
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
+                Assert.AreSame(locations, properties.Data);
 
-            Assert.AreSame(locations, properties.Data);
+                PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+                Assert.AreEqual(1, dynamicProperties.Count);
 
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(1, dynamicProperties.Count);
-
-            PropertyDescriptor locationsProperty = dynamicProperties[requiredLocationsPropertyIndex];
-            Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
-                                                                            "Algemeen",
-                                                                            "Locaties",
-                                                                            "Locaties uit de hydraulische randvoorwaardendatabase.",
-                                                                            true);
+                PropertyDescriptor locationsProperty = dynamicProperties[requiredLocationsPropertyIndex];
+                Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
+                                                                                "Algemeen",
+                                                                                "Locaties",
+                                                                                "Locaties uit de hydraulische randvoorwaardendatabase.",
+                                                                                true);
+            }
         }
 
         [Test]
@@ -117,16 +123,18 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 location
             };
 
-            var properties = new DuneLocationsProperties(duneLocations, l => new DuneLocationCalculation());
+            using (var properties = new DuneLocationsProperties(duneLocations, l => new DuneLocationCalculation()))
+            {
 
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+                var refreshRequiredRaised = 0;
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
-            // When
-            location.NotifyObservers();
+                // When
+                location.NotifyObservers();
 
-            // Then
-            Assert.AreEqual(1, refreshRequiredRaised);
+                // Then
+                Assert.AreEqual(1, refreshRequiredRaised);
+            }
         }
 
         [Test]
@@ -139,78 +147,20 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 location
             };
 
-            var properties = new DuneLocationsProperties(duneLocations, l => new DuneLocationCalculation());
-
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-            properties.Dispose();
-
-            // When
-            location.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(0, refreshRequiredRaised);
-        }
-
-        [Test]
-        public void GivenPropertyControlWithNewData_WhenSingleLocationUpdatedInPreviouslySetData_RefreshRequiredEventNotRaised()
-        {
-            // Given
-            DuneLocation location1 = new TestDuneLocation();
-            DuneLocation location2 = new TestDuneLocation();
-            var duneLocations1 = new ObservableList<DuneLocation>
+            using (var properties = new DuneLocationsProperties(duneLocations, l => new DuneLocationCalculation()))
             {
-                location1
-            };
-            var duneLocations2 = new ObservableList<DuneLocation>
-            {
-                location2
-            };
 
-            var properties = new DuneLocationsProperties(duneLocations1, l => new DuneLocationCalculation())
-            {
-                Data = duneLocations2
-            };
+                var refreshRequiredRaised = 0;
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+                properties.Dispose();
 
-            // When
-            location1.NotifyObservers();
+                // When
+                location.NotifyObservers();
 
-            // Then
-            Assert.AreEqual(0, refreshRequiredRaised);
-        }
-
-        [Test]
-        public void GivenPropertyControlWithNewData_WhenSingleLocationUpdatedInNewlySetData_RefreshRequiredEventRaised()
-        {
-            // Given
-            DuneLocation location1 = new TestDuneLocation();
-            DuneLocation location2 = new TestDuneLocation();
-            var duneLocations1 = new ObservableList<DuneLocation>
-            {
-                location1
-            };
-            var duneLocations2 = new ObservableList<DuneLocation>
-            {
-                location2
-            };
-
-            var properties = new DuneLocationsProperties(duneLocations1, l => new DuneLocationCalculation())
-            {
-                Data = duneLocations2
-            };
-
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-            // When
-            location2.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(1, refreshRequiredRaised);
+                // Then
+                Assert.AreEqual(0, refreshRequiredRaised);
+            }
         }
     }
 }

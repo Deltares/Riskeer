@@ -62,32 +62,6 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(PipingSemiProbabilisticOutput original, PipingSemiProbabilisticOutput clone)
-        {
-            Assert.AreEqual(original.UpliftProbability, clone.UpliftProbability);
-            Assert.AreEqual(original.UpliftReliability, clone.UpliftReliability);
-            Assert.AreEqual(original.UpliftFactorOfSafety, clone.UpliftFactorOfSafety);
-            Assert.AreEqual(original.HeaveProbability, clone.HeaveProbability);
-            Assert.AreEqual(original.HeaveReliability, clone.HeaveReliability);
-            Assert.AreEqual(original.HeaveFactorOfSafety, clone.HeaveFactorOfSafety);
-            Assert.AreEqual(original.SellmeijerFactorOfSafety, clone.SellmeijerFactorOfSafety);
-            Assert.AreEqual(original.SellmeijerProbability, clone.SellmeijerProbability);
-            Assert.AreEqual(original.SellmeijerReliability, clone.SellmeijerReliability);
-            Assert.AreEqual(original.RequiredProbability, clone.RequiredProbability);
-            Assert.AreEqual(original.RequiredReliability, clone.RequiredReliability);
-            Assert.AreEqual(original.PipingProbability, clone.PipingProbability);
-            Assert.AreEqual(original.PipingReliability, clone.PipingReliability);
-            Assert.AreEqual(original.PipingFactorOfSafety, clone.PipingFactorOfSafety);
-        }
-
-        /// <summary>
-        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
-        /// are clones.
-        /// </summary>
-        /// <param name="original">The original object.</param>
-        /// <param name="clone">The cloned object.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
-        /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(PipingInput original, PipingInput clone)
         {
             Assert.AreSame(TypeUtils.GetField<GeneralPipingInput>(original, "generalInputParameters"), TypeUtils.GetField<GeneralPipingInput>(clone, "generalInputParameters"));
@@ -117,7 +91,6 @@ namespace Ringtoets.Piping.Data.TestUtil
             CoreCloneAssert.AreObjectClones(original.Comments, clone.Comments, CommonCloneAssert.AreClones);
             CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
             CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
-            CoreCloneAssert.AreObjectClones(original.SemiProbabilisticOutput, clone.SemiProbabilisticOutput, AreClones);
         }
 
         /// <summary>

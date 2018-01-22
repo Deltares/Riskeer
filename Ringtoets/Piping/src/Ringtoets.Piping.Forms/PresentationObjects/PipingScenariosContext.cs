@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 
@@ -35,18 +36,35 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// Creates a new instance of <see cref="PipingScenariosContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="CalculationGroup"/>.</param>
-        /// <param name="failureMechanism">A <see cref="PipingFailureMechanism"/> forming the context.</param>
+        /// <param name="failureMechanism">The failure mechanism that the group belongs to.</param>
+        /// <param name="assessmentSection">The assessment section that the group belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingScenariosContext(CalculationGroup wrappedData, PipingFailureMechanism failureMechanism)
+        public PipingScenariosContext(CalculationGroup wrappedData, PipingFailureMechanism failureMechanism,
+                                      IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
-            ParentFailureMechanism = failureMechanism;
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
         }
 
-        public PipingFailureMechanism ParentFailureMechanism { get; }
+        /// <summary>
+        /// Gets the failure mechanism that the group belongs to.
+        /// </summary>
+        public PipingFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the assessment section that the group belongs to.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
     }
 }

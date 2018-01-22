@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -29,7 +30,10 @@ using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
@@ -58,16 +62,34 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var view = new PipingFailureMechanismResultView())
+            TestDelegate call = () => new PipingFailureMechanismResultView(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            using (var view = new PipingFailureMechanismResultView(assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -299,7 +321,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
                 PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
-                    1.0 / 1000.0,
                     pipingFailureMechanism.Sections.First());
                 calculationScenario.Contribution = (RoundedDouble) 0.3;
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
@@ -322,6 +343,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
         [TestCase(AssessmentLayerOneState.NoVerdict)]
         public void FailureMechanismResultView_AssessmentLayerTwoAHasValue_DoesNotShowsErrorTooltip(
@@ -334,7 +356,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
                 PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
-                    (RoundedDouble) 1e-3,
                     pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
                 view.Data = pipingFailureMechanism.SectionResults;
@@ -350,7 +371,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
-                Assert.AreEqual($"1/{1 / calculationScenario.Probability:N0}",
+                Assert.AreEqual("1/980.908.719.666.769.000.000",
                                 formattedValue);
             }
         }
@@ -397,8 +418,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(
                     pipingFailureMechanism.Sections.First());
+                calculationScenario.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
                 view.Data = pipingFailureMechanism.SectionResults;
 
@@ -485,8 +507,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(
                     pipingFailureMechanism.Sections.First());
+                calculationScenario.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
                 var gridTester = new ControlTester("dataGridView");
@@ -527,7 +550,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private PipingFailureMechanismResultView ShowFailureMechanismResultsView()
         {
-            var failureMechanismResultView = new PipingFailureMechanismResultView();
+            var failureMechanismResultView = new PipingFailureMechanismResultView(new ObservableTestAssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

@@ -21,12 +21,13 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {
     /// <summary>
-    /// A presentation layer object which wraps a <see cref="PipingOutput"/> and a <see cref="PipingSemiProbabilisticOutput"/>.
+    /// A presentation layer object which wraps a <see cref="PipingOutput"/>.
     /// </summary>
     public class PipingOutputContext : WrappedObjectContextBase<PipingOutput>
     {
@@ -34,21 +35,28 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// Creates a new instance of <see cref="PipingOutputContext"/>.
         /// </summary>
         /// <param name="pipingOutput">The <see cref="PipingOutput"/> object to wrap.</param>
-        /// <param name="semiProbabilisticOutput">The <see cref="PipingSemiProbabilisticOutput"/>
-        /// created from <paramref name="pipingOutput"/>.</param>
-        public PipingOutputContext(PipingOutput pipingOutput, PipingSemiProbabilisticOutput semiProbabilisticOutput)
+        /// <param name="failureMechanism">The failure mechanism that the output belongs to.</param>
+        /// <param name="assessmentSection">The assessment section that the output belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public PipingOutputContext(PipingOutput pipingOutput, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(pipingOutput)
         {
-            if (semiProbabilisticOutput == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(semiProbabilisticOutput));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
-            SemiProbabilisticOutput = semiProbabilisticOutput;
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
         }
 
-        /// <summary>
-        /// Gets the semi-probabilistic output created from the piping output.
-        /// </summary>
-        public PipingSemiProbabilisticOutput SemiProbabilisticOutput { get; }
+        public PipingFailureMechanism FailureMechanism { get; }
+
+        public IAssessmentSection AssessmentSection { get; }
     }
 }

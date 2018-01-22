@@ -218,7 +218,7 @@
     <value>..\Resources\chart_organisation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="General_ThematicMap" xml:space="preserve">
-    <value>Thematische Kaart</value>
+    <value>Thematische kaart</value>
   </data>
   <data name="OpenThematicalMapViewCommand_Execute_Demo_map_with_theming" xml:space="preserve">
     <value>Demo kaart categorial theming</value>

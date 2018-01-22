@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -68,27 +69,34 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedCalculationGroup()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var pipingFailureMechanism = new PipingFailureMechanism();
             var pipingCalculationsGroup = new CalculationGroup();
-            var pipingScenariosContext = new PipingScenariosContext(pipingCalculationsGroup, pipingFailureMechanism);
+            var pipingScenariosContext = new PipingScenariosContext(pipingCalculationsGroup, pipingFailureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(pipingScenariosContext);
 
             // Assert
             Assert.AreSame(pipingCalculationsGroup, viewData);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GetViewName_Always_ReturnsScenarios()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var pipingCalculationsGroup = new CalculationGroup
             {
                 Name = "Test"
             };
 
-            using (var view = new PipingScenariosView())
+            using (var view = new PipingScenariosView(assessmentSection))
             {
                 // Call
                 string viewName = info.GetViewName(view, pipingCalculationsGroup);
@@ -96,35 +104,45 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.AreEqual("Scenario's", viewName);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void AdditionalDataCheck_PipingScenariosContextWithPipingFailureMechanismParent_ReturnsTrue()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingScenariosContext = new PipingScenariosContext(pipingFailureMechanism.CalculationsGroup, pipingFailureMechanism);
+            var pipingScenariosContext = new PipingScenariosContext(pipingFailureMechanism.CalculationsGroup, pipingFailureMechanism, assessmentSection);
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(pipingScenariosContext);
 
             // Assert
             Assert.IsTrue(additionalDataCheck);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void AdditionalDataCheck_PipingScenariosContextWithoutPipingFailureMechanismParent_ReturnsFalse()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var pipingFailureMechanism = new PipingFailureMechanism();
             var pipingCalculationsGroup = new CalculationGroup();
-            var pipingScenariosContext = new PipingScenariosContext(pipingCalculationsGroup, pipingFailureMechanism);
+            var pipingScenariosContext = new PipingScenariosContext(pipingCalculationsGroup, pipingFailureMechanism, assessmentSection);
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(pipingScenariosContext);
 
             // Assert
             Assert.IsFalse(additionalDataCheck);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -138,7 +156,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new PipingScenariosView
+            using (var view = new PipingScenariosView(assessmentSection)
             {
                 Data = pipingCalculationsGroup
             })
@@ -149,6 +167,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -167,7 +186,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new PipingScenariosView
+            using (var view = new PipingScenariosView(assessmentSection)
             {
                 Data = pipingCalculationsGroup
             })
@@ -178,6 +197,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -195,7 +215,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new PipingScenariosView
+            using (var view = new PipingScenariosView(assessmentSection)
             {
                 Data = pipingFailureMechanism.CalculationsGroup
             })
@@ -206,6 +226,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -213,7 +234,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            using (var view = new PipingScenariosView
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new PipingScenariosView(assessmentSection)
             {
                 Data = new CalculationGroup()
             })
@@ -226,15 +250,20 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingScenariosView
+            using (var view = new PipingScenariosView(assessmentSection)
             {
                 Data = failureMechanism.CalculationsGroup
             })
@@ -245,6 +274,8 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -257,7 +288,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
-            using (var view = new PipingScenariosView
+            using (var view = new PipingScenariosView(assessmentSection)
             {
                 Data = failureMechanism.CalculationsGroup
             })
@@ -268,6 +299,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -281,7 +313,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new PipingScenariosView
+            using (var view = new PipingScenariosView(assessmentSection)
             {
                 Data = failureMechanism.CalculationsGroup
             })
@@ -292,6 +324,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -299,11 +332,14 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var pipingFailureMechanism = new PipingFailureMechanism();
             var pipingCalculationsGroup = new CalculationGroup();
-            var pipingScenariosContext = new PipingScenariosContext(pipingCalculationsGroup, pipingFailureMechanism);
+            var pipingScenariosContext = new PipingScenariosContext(pipingCalculationsGroup, pipingFailureMechanism, assessmentSection);
 
-            using (var view = new PipingScenariosView())
+            using (var view = new PipingScenariosView(assessmentSection))
             {
                 // Call
                 info.AfterCreate(view, pipingScenariosContext);
@@ -311,6 +347,27 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.AreSame(pipingFailureMechanism, view.PipingFailureMechanism);
             }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_Always_ReturnsView()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var calculationsGroup = new CalculationGroup();
+            var context = new PipingScenariosContext(calculationsGroup, failureMechanism, assessmentSection);
+
+            // Call
+            IView view = info.CreateInstance(context);
+            
+            // Assert
+            Assert.IsInstanceOf<PipingScenariosView>(view);
+            mocks.VerifyAll();
         }
     }
 }

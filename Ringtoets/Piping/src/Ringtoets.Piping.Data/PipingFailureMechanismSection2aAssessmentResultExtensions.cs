@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data
@@ -39,17 +40,34 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="pipingFailureMechanismSectionResult">The result to get the result for.</param>
         /// <param name="calculations">All calculations in the failure mechanism.</param>
+        /// <param name="failurMechanism">The failure mechanism the calculations belong to.</param>
+        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
         public static double GetAssessmentLayerTwoA(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
-                                                    IEnumerable<PipingCalculationScenario> calculations)
+                                                    IEnumerable<PipingCalculationScenario> calculations,
+                                                    PipingFailureMechanism failurMechanism,
+                                                    IAssessmentSection assessmentSection)
         {
             List<PipingCalculationScenario> calculationScenarios = pipingFailureMechanismSectionResult
                 .GetCalculationScenarios(calculations)
                 .Where(cs => cs.Status == CalculationScenarioStatus.Done)
                 .ToList();
 
-            return calculationScenarios.Any()
-                       ? calculationScenarios.Sum(scenario => scenario.Probability * scenario.Contribution.Value)
-                       : double.NaN;
+            if (calculationScenarios.Any())
+            {
+                double totalAssessmentLayerTwoA = 0;
+                foreach (PipingCalculationScenario scenario in calculationScenarios)
+                {
+                    DerivedPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(scenario.Output,
+                                                                                          failurMechanism.PipingProbabilityAssessmentInput,
+                                                                                          assessmentSection.FailureMechanismContribution.Norm,
+                                                                                          failurMechanism.Contribution);
+
+                    totalAssessmentLayerTwoA += derivedOutput.PipingProbability * (double) scenario.Contribution;
+                }
+                return totalAssessmentLayerTwoA;
+            }
+
+            return double.NaN;
         }
 
         /// <summary>

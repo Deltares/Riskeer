@@ -1139,47 +1139,11 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;a&apos; die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans..
-        /// </summary>
-        public static string FailureMechanism_A_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanism_A_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to a [-].
-        /// </summary>
-        public static string FailureMechanism_A_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_A_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Resultaat.
         /// </summary>
         public static string FailureMechanism_AssessmentResult_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_AssessmentResult_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;b&apos; die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans..
-        /// </summary>
-        public static string FailureMechanism_B_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanism_B_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to b [m].
-        /// </summary>
-        public static string FailureMechanism_B_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_B_DisplayName", resourceCulture);
             }
         }
         
@@ -1274,24 +1238,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond)..
-        /// </summary>
-        public static string FailureMechanism_N_Rounded_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanism_N_Rounded_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to N* [-].
-        /// </summary>
-        public static string FailureMechanism_N_Rounded_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_N_Rounded_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De naam van het toetsspoor..
         /// </summary>
         public static string FailureMechanism_Name_Description {
@@ -1315,6 +1261,60 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanism_Outputs_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_Outputs_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;a&apos; die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans..
+        /// </summary>
+        public static string FailureMechanism_ProbabilityAssessmentInput_A_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_ProbabilityAssessmentInput_A_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to a [-].
+        /// </summary>
+        public static string FailureMechanism_ProbabilityAssessmentInput_A_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_ProbabilityAssessmentInput_A_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;b&apos; die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans..
+        /// </summary>
+        public static string FailureMechanism_ProbabilityAssessmentInput_B_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_ProbabilityAssessmentInput_B_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to b [m].
+        /// </summary>
+        public static string FailureMechanism_ProbabilityAssessmentInput_B_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_ProbabilityAssessmentInput_B_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond)..
+        /// </summary>
+        public static string FailureMechanism_ProbabilityAssessmentInput_N_Rounded_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_ProbabilityAssessmentInput_N_Rounded_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N* [-].
+        /// </summary>
+        public static string FailureMechanism_ProbabilityAssessmentInput_N_Rounded_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_ProbabilityAssessmentInput_N_Rounded_DisplayName", resourceCulture);
             }
         }
         

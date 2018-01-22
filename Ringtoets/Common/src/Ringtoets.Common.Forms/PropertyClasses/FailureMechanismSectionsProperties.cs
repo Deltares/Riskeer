@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// ViewModel of <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSection"/>
     /// with a section specific N for the properties panel.
     /// </summary>
-    public class FailureMechanismSectionsProperties : ObjectProperties<IEnumerable<FailureMechanismSection>>
+    public class FailureMechanismSectionsProperties : ObjectProperties<IEnumerable<FailureMechanismSection>>, IDisposable
     {
         private readonly Observer failureMechanismObserver;
 
@@ -80,11 +80,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        public override void Dispose()
+        public void Dispose()
         {
             failureMechanismObserver.Dispose();
-
-            base.Dispose();
         }
     }
 }

@@ -302,8 +302,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                     SurfaceLine = surfaceLine1,
                     StochasticSoilModel = stochasticSoilModel1
                 },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
             var calculationWithSurfaceLineAndSoilModel = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -323,8 +322,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                     SurfaceLine = surfaceLine2,
                     StochasticSoilModel = stochasticSoilModel2
                 },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
             var calculationWithHydraulicBoundaryLocation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -353,8 +351,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel2,
                     StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles.First()
                 },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -365,8 +362,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel1,
                     StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles.First()
                 },
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
+                Output = new TestPipingOutput()
             };
             var subCalculationWithHydraulicBoundaryLocation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -462,31 +458,6 @@ namespace Ringtoets.Piping.Data.TestUtil
                 SellmeijerCriticalFall = random.NextDouble(),
                 SellmeijerReducedFall = random.NextDouble()
             });
-        }
-
-        /// <summary>
-        /// Creates a random instance of <see cref="PipingSemiProbabilisticOutput"/>.
-        /// </summary>
-        /// <returns>A random instance of <see cref="PipingSemiProbabilisticOutput"/>.</returns>
-        public static PipingSemiProbabilisticOutput GetRandomPipingSemiProbabilisticOutput()
-        {
-            var random = new Random(21);
-
-            return new PipingSemiProbabilisticOutput(
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble());
         }
     }
 }

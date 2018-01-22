@@ -21,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DerivedPipingInputTest.cs" />
+    <Compile Include="DerivedPipingOutputFactoryTest.cs" />
     <Compile Include="GeneralPipingInputTest.cs" />
     <Compile Include="PipingCalculationScenarioExtensionsTest.cs" />
     <Compile Include="PipingCalculationScenarioTest.cs" />
@@ -31,7 +32,7 @@
     <Compile Include="PipingInputTest.cs" />
     <Compile Include="PipingOutputTest.cs" />
     <Compile Include="PipingSemiProbabilisticDesignVariableFactoryTest.cs" />
-    <Compile Include="PipingSemiProbabilisticOutputTest.cs" />
+    <Compile Include="DerivedPipingOutputTest.cs" />
     <Compile Include="PipingSoilProfileExtensionsTest.cs" />
     <Compile Include="PipingSurfaceLineCollectionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

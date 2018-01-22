@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -43,6 +44,22 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void Constructor_ValidData_ExpectedValues()
+        {
+            // Setup
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
+
+            // Call
+            using (var properties = new TestHydraulicBoundaryLocationsProperties(locations))
+            {
+                // Assert
+                Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocation>>>(properties);
+                Assert.IsInstanceOf<IDisposable>(properties);
+                Assert.AreSame(locations, properties.Data);
+            }
+        }
+
+        [Test]
         public void GivenPropertyControlWithData_WhenSingleLocationUpdated_RefreshRequiredEventRaised()
         {
             // Given
@@ -52,16 +69,17 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 location
             };
 
-            var properties = new TestHydraulicBoundaryLocationsProperties(hydraulicBoundaryLocations);
+            using(var properties = new TestHydraulicBoundaryLocationsProperties(hydraulicBoundaryLocations))
+            {
+                var refreshRequiredRaised = 0;
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+                // When
+                location.NotifyObservers();
 
-            // When
-            location.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(1, refreshRequiredRaised);
+                // Then
+                Assert.AreEqual(1, refreshRequiredRaised);
+            }
         }
 
         [Test]
@@ -74,78 +92,20 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 location
             };
 
-            var properties = new TestHydraulicBoundaryLocationsProperties(hydraulicBoundaryLocations);
-
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-            properties.Dispose();
-
-            // When
-            location.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(0, refreshRequiredRaised);
-        }
-
-        [Test]
-        public void GivenPropertyControlWithNewData_WhenSingleLocationUpdatedInPreviouslySetData_RefreshRequiredEventNotRaised()
-        {
-            // Given
-            HydraulicBoundaryLocation location1 = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.5);
-            HydraulicBoundaryLocation location2 = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.5);
-            var hydraulicBoundaryLocations1 = new ObservableList<HydraulicBoundaryLocation>
+            using (var properties = new TestHydraulicBoundaryLocationsProperties(hydraulicBoundaryLocations))
             {
-                location1
-            };
-            var hydraulicBoundaryLocations2 = new ObservableList<HydraulicBoundaryLocation>
-            {
-                location2
-            };
 
-            var properties = new TestHydraulicBoundaryLocationsProperties(hydraulicBoundaryLocations1)
-            {
-                Data = hydraulicBoundaryLocations2
-            };
+                var refreshRequiredRaised = 0;
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+                properties.Dispose();
 
-            // When
-            location1.NotifyObservers();
+                // When
+                location.NotifyObservers();
 
-            // Then
-            Assert.AreEqual(0, refreshRequiredRaised);
-        }
-
-        [Test]
-        public void GivenPropertyControlWithNewData_WhenSingleLocationUpdatedInNewlySetData_RefreshRequiredEventRaised()
-        {
-            // Given
-            HydraulicBoundaryLocation location1 = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.5);
-            HydraulicBoundaryLocation location2 = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.5);
-            var hydraulicBoundaryLocations1 = new ObservableList<HydraulicBoundaryLocation>
-            {
-                location1
-            };
-            var hydraulicBoundaryLocations2 = new ObservableList<HydraulicBoundaryLocation>
-            {
-                location2
-            };
-
-            var properties = new TestHydraulicBoundaryLocationsProperties(hydraulicBoundaryLocations1)
-            {
-                Data = hydraulicBoundaryLocations2
-            };
-
-            var refreshRequiredRaised = 0;
-            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
-
-            // When
-            location2.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(1, refreshRequiredRaised);
+                // Then
+                Assert.AreEqual(0, refreshRequiredRaised);
+            }
         }
 
         private class TestHydraulicBoundaryLocationsProperties : HydraulicBoundaryLocationsProperties

@@ -82,41 +82,6 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Probability_PipingOutputSet_ReturnsPipingOutputProbability()
-        {
-            // Setup
-            const double expectedProbability = 1.0 / 49862180;
-
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput(expectedProbability)
-            };
-
-            // Call
-            double probability = scenario.Probability;
-
-            // Assert
-            Assert.AreEqual(expectedProbability, probability);
-        }
-
-        [Test]
-        public void Probability_ScenarioStatusNotDone_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput());
-
-            // Call
-            TestDelegate call = () =>
-            {
-                double probability = scenario.Probability;
-            };
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(call);
-        }
-
-        [Test]
         public void CalculationScenarioStatus_OutputNull_ReturnsStatusNotCalculated()
         {
             // Setup
@@ -130,49 +95,12 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void CalculationScenarioStatus_SemiProbabilisticOutputNull_ReturnsStatusFailed()
-        {
-            // Setup
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = null
-            };
-
-            // Call
-            CalculationScenarioStatus status = scenario.Status;
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.Failed, status);
-        }
-
-        [Test]
-        public void CalculationScenarioStatus_ScenarioInvalid_ReturnsStatusFailed()
-        {
-            // Setup
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput(double.NaN)
-            };
-
-            // Call
-            CalculationScenarioStatus status = scenario.Status;
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.Failed, status);
-        }
-
-        [Test]
         public void CalculationScenarioStatus_PipingOutputSet_ReturnsStatusDone()
         {
             // Setup
-            const double expectedProbability = 1.0 / 49862180;
-
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput(),
-                SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput(expectedProbability)
+                Output = new TestPipingOutput()
             };
 
             // Call
@@ -189,7 +117,6 @@ namespace Ringtoets.Piping.Data.Test
             PipingCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
 
             original.Output = PipingTestDataGenerator.GetRandomPipingOutput();
-            original.SemiProbabilisticOutput = PipingTestDataGenerator.GetRandomPipingSemiProbabilisticOutput();
 
             // Call
             object clone = original.Clone();

@@ -26,7 +26,7 @@ namespace Core.Common.Gui.PropertyBag
     /// <summary>
     /// Interface for object properties.
     /// </summary>
-    public interface IObjectProperties : IDisposable
+    public interface IObjectProperties
     {
         /// <summary>
         /// Gets or sets the data of the object properties.

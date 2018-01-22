@@ -95,11 +95,9 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var originalOutput = new TestPipingOutput();
-            var originalSemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
 
             PipingCalculationScenario invalidPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
             invalidPipingCalculation.Output = originalOutput;
-            invalidPipingCalculation.SemiProbabilisticOutput = originalSemiProbabilisticOutput;
 
             var activity = new PipingCalculationActivity(invalidPipingCalculation,
                                                          GetCalculatedTestAssessmentLevel(),
@@ -128,7 +126,6 @@ namespace Ringtoets.Piping.Service.Test
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
             Assert.AreSame(originalOutput, invalidPipingCalculation.Output);
-            Assert.AreSame(originalSemiProbabilisticOutput, invalidPipingCalculation.SemiProbabilisticOutput);
         }
 
         [Test]
@@ -137,7 +134,6 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             validPipingCalculation.Output = null;
-            validPipingCalculation.SemiProbabilisticOutput = null;
 
             double norm = new Random(21).NextDouble();
             var activity = new PipingCalculationActivity(validPipingCalculation,
@@ -163,7 +159,6 @@ namespace Ringtoets.Piping.Service.Test
             });
             Assert.AreEqual(ActivityState.Executed, activity.State);
             Assert.IsNotNull(validPipingCalculation.Output);
-            Assert.IsNotNull(validPipingCalculation.SemiProbabilisticOutput);
         }
 
         [Test]
@@ -177,7 +172,6 @@ namespace Ringtoets.Piping.Service.Test
 
             PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             validPipingCalculation.Output = null;
-            validPipingCalculation.SemiProbabilisticOutput = null;
             validPipingCalculation.Attach(observer);
 
             var activity = new PipingCalculationActivity(validPipingCalculation,
