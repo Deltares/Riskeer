@@ -68,9 +68,9 @@ namespace Ringtoets.Piping.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<PipingFailureMechanismContext, PipingFailureMechanismContextProperties>
+            yield return new PropertyInfo<PipingFailureMechanismContext, PipingFailureMechanismProperties>
             {
-                CreateInstance = context => new PipingFailureMechanismContextProperties(context, new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
+                CreateInstance = context => new PipingFailureMechanismProperties(context.WrappedData, new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
             };
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>
             {

@@ -51,7 +51,7 @@
     <Compile Include="PropertyInfos\PipingSurfaceLineCollectionContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\PipingStochasticSoilModelCollectionContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\PipingInputContextPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\PipingFailureMechanismContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\PipingFailureMechanismPropertyInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingCalculationGroupContextTreeNodeInfoTest.cs" />
