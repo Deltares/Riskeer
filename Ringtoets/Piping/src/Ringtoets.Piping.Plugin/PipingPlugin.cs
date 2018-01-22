@@ -533,42 +533,40 @@ namespace Ringtoets.Piping.Plugin
         {
             IEnumerable<PipingCalculation> calculations = GetAllPipingCalculations(failureMechanismContext.WrappedData);
             PipingProbabilityAssessmentInput assessmentInput = failureMechanismContext.WrappedData.PipingProbabilityAssessmentInput;
-            double norm = failureMechanismContext.Parent.FailureMechanismContribution.Norm;
             double contribution = failureMechanismContext.WrappedData.Contribution;
 
-            CalculateAll(calculations, assessmentInput, norm, contribution);
+            CalculateAll(calculations, assessmentInput, contribution, failureMechanismContext.Parent);
         }
 
         private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
         {
             PipingCalculation[] calculations = group.GetCalculations().OfType<PipingCalculation>().ToArray();
             PipingProbabilityAssessmentInput assessmentInput = context.FailureMechanism.PipingProbabilityAssessmentInput;
-            double norm = context.AssessmentSection.FailureMechanismContribution.Norm;
             double contribution = context.FailureMechanism.Contribution;
 
-            CalculateAll(calculations, assessmentInput, norm, contribution);
+            CalculateAll(calculations, assessmentInput, contribution, context.AssessmentSection);
         }
 
-        private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations)
+        private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations, IAssessmentSection assessmentSection)
         {
             foreach (PipingCalculation calculation in pipingCalculations)
             {
-                PipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(calculation));
+                PipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
             }
         }
 
         private void CalculateAll(IEnumerable<PipingCalculation> calculations,
                                   PipingProbabilityAssessmentInput assessmentInput,
-                                  double norm,
-                                  double contribution)
+                                  double contribution,
+                                  IAssessmentSection assessmentSection)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
                 calculations
                     .Select(pc => new PipingCalculationActivity(pc,
-                                                                GetNormativeAssessmentLevel(pc),
+                                                                GetNormativeAssessmentLevel(assessmentSection, pc),
                                                                 assessmentInput,
-                                                                norm,
+                                                                assessmentSection.FailureMechanismContribution.Norm,
                                                                 contribution))
                     .ToList());
         }
@@ -659,7 +657,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static void ValidateAll(PipingFailureMechanismContext context)
         {
-            ValidateAll(context.WrappedData.Calculations.OfType<PipingCalculation>());
+            ValidateAll(context.WrappedData.Calculations.OfType<PipingCalculation>(), context.Parent);
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext,
@@ -999,7 +997,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static void ValidateAll(PipingCalculationGroupContext context)
         {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<PipingCalculation>());
+            ValidateAll(context.WrappedData.GetCalculations().OfType<PipingCalculation>(), context.AssessmentSection);
         }
 
         private static void AddCalculationScenario(PipingCalculationGroupContext nodeData)
