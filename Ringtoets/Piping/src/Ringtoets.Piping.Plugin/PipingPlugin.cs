@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>
             {
                 CreateInstance = context => new PipingInputContextProperties(context,
-                                                                             () => GetNormativeAssessmentLevel(context.PipingCalculation),
+                                                                             () => GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
                                                                              new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<PipingOutputContext, PipingOutputProperties>
@@ -617,9 +617,9 @@ namespace Ringtoets.Piping.Plugin
 
         #endregion
 
-        private static RoundedDouble GetNormativeAssessmentLevel(PipingCalculation calculation)
+        private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, PipingCalculation calculation)
         {
-            return calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
+            return assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
         #region PipingFailureMechanismContext TreeNodeInfo
@@ -809,7 +809,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static void Validate(PipingCalculationScenarioContext context)
         {
-            PipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.WrappedData));
+            PipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationScenarioContext context)
@@ -821,7 +821,7 @@ namespace Ringtoets.Piping.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              new PipingCalculationActivity(calculation,
-                                                                           GetNormativeAssessmentLevel(calculation),
+                                                                           GetNormativeAssessmentLevel(context.AssessmentSection, calculation),
                                                                            context.FailureMechanism.PipingProbabilityAssessmentInput,
                                                                            context.AssessmentSection.FailureMechanismContribution.Norm,
                                                                            context.FailureMechanism.Contribution));
