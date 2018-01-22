@@ -765,9 +765,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             var hydraulicLocationsMapData = (MapPointData) mapData;
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocationsArray = hydraulicBoundaryLocations.ToArray();
-            CollectionAssert.AreEqual(hydraulicBoundaryLocationsArray.Select(hbl => hbl.DesignWaterLevel),
+            CollectionAssert.AreEqual(hydraulicBoundaryLocationsArray.Select(hbl => hbl.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN),
                                       hydraulicLocationsMapData.Features.Select(ft => (RoundedDouble) ft.MetaData["Waterstand bij doorsnede-eis"]));
-            CollectionAssert.AreEqual(hydraulicBoundaryLocationsArray.Select(hbl => hbl.WaveHeight),
+            CollectionAssert.AreEqual(hydraulicBoundaryLocationsArray.Select(hbl => hbl.WaveHeightCalculation1.Output?.Result ?? RoundedDouble.NaN),
                                       hydraulicLocationsMapData.Features.Select(ft => (RoundedDouble) ft.MetaData["Golfhoogte bij doorsnede-eis"]));
         }
 
