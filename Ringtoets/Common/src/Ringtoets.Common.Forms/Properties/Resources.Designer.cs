@@ -1238,24 +1238,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond)..
-        /// </summary>
-        public static string FailureMechanism_N_Rounded_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanism_N_Rounded_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to N* [-].
-        /// </summary>
-        public static string FailureMechanism_N_Rounded_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_N_Rounded_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De naam van het toetsspoor..
         /// </summary>
         public static string FailureMechanism_Name_Description {
@@ -1315,6 +1297,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanism_ProbabilityAssessmentInput_B_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_ProbabilityAssessmentInput_B_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond)..
+        /// </summary>
+        public static string FailureMechanism_ProbabilityAssessmentInput_N_Rounded_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_ProbabilityAssessmentInput_N_Rounded_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N* [-].
+        /// </summary>
+        public static string FailureMechanism_ProbabilityAssessmentInput_N_Rounded_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_ProbabilityAssessmentInput_N_Rounded_DisplayName", resourceCulture);
             }
         }
         
