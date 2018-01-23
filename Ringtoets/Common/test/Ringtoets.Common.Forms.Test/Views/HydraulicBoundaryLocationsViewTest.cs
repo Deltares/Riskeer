@@ -147,7 +147,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
             DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(4, rows.Count);
+            Assert.AreEqual(3, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(5, cells.Count);
@@ -168,18 +168,10 @@ namespace Ringtoets.Common.Forms.Test.Views
             cells = rows[2].Cells;
             Assert.AreEqual(5, cells.Count);
             Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
-            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(3, 3).ToString(), cells[locationColumnIndex].FormattedValue);
-
-            cells = rows[3].Cells;
-            Assert.AreEqual(5, cells.Count);
-            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
-            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
-            Assert.AreEqual("4", cells[locationNameColumnIndex].FormattedValue);
-            Assert.AreEqual("4", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(4, 4).ToString(), cells[locationColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -285,37 +277,32 @@ namespace Ringtoets.Common.Forms.Test.Views
         private TestHydraulicBoundaryLocationsView ShowFullyConfiguredTestHydraulicBoundaryLocationsView()
         {
             var locations = new ObservableList<HydraulicBoundaryLocation>();
+
             locations.AddRange(new[]
             {
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
-                new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
-                {
-                    DesignWaterLevelCalculation1 =
-                    {
-                        Output = new TestHydraulicBoundaryLocationOutput(1.23)
-                    }
-                },
+                new HydraulicBoundaryLocation(2, "2", 2.0, 2.0),
                 new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
-                {
-                    WaveHeightCalculation1 =
-                    {
-                        Output = new TestHydraulicBoundaryLocationOutput(2.45)
-                    }
-                },
-                new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
-                {
-                    WaveHeightCalculation1 =
-                    {
-                        InputParameters =
-                        {
-                            ShouldIllustrationPointsBeCalculated = true
-                        }
-                    }
-                }
             });
 
+            var calculations = new[]
+            {
+                new HydraulicBoundaryLocationCalculation(),
+                new HydraulicBoundaryLocationCalculation
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(1.23)
+                },
+                new HydraulicBoundaryLocationCalculation
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    }
+                }
+            };
+
             return ShowTestHydraulicBoundaryLocationsView(locations,
-                                                          hbl => hbl.WaveHeightCalculation1);
+                                                          hbl => calculations[locations.IndexOf(hbl)]);
         }
 
         private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView
