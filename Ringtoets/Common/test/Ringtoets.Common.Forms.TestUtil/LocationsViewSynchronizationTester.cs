@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -90,6 +91,14 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <returns>An <see cref="ObservableList{T}"/> of locations.</returns>
         protected abstract ObservableList<HydraulicBoundaryLocation> GetLocationsInView(LocationsView<T> view);
 
+        /// <summary>
+        /// Method for getting the <see cref="HydraulicBoundaryLocationCalculation"/> corresponding to
+        /// the provided <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to get the calculation for.</param>
+        /// <returns>The calculation at stake.</returns>
+        protected abstract HydraulicBoundaryLocationCalculation GetCalculationForLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation);
+
         private void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<T> view)
         {
             ObservableList<HydraulicBoundaryLocation> locations = GetLocationsInView(view);
@@ -105,8 +114,7 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             locations.ForEach(loc =>
             {
-                loc.DesignWaterLevelCalculation1.Output = null;
-                loc.WaveHeightCalculation1.Output = null;
+                GetCalculationForLocation(loc).Output = null;
                 loc.NotifyObservers();
             });
         }
@@ -116,8 +124,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             ObservableList<HydraulicBoundaryLocation> locations = GetLocationsInView(view);
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = locations.First();
-            hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
-            hydraulicBoundaryLocation.WaveHeightCalculation1.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
+            GetCalculationForLocation(hydraulicBoundaryLocation).Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
             hydraulicBoundaryLocation.NotifyObservers();
         }
 
