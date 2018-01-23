@@ -703,13 +703,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 },
                 new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    DesignWaterLevelCalculation1 =
-                    {
-                        Output = new TestHydraulicBoundaryLocationOutput(2.45)
-                    }
-                },
-                new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
-                {
                     WaveHeightCalculation1 =
                     {
                         InputParameters =
@@ -718,7 +711,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                         }
                     }
                 },
-                new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
+                new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
                 {
                     WaveHeightCalculation1 =
                     {
@@ -758,6 +751,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             protected override ObservableList<HydraulicBoundaryLocation> GetLocationsInView(LocationsView<HydraulicBoundaryLocation> view)
             {
                 return ((GrassCoverErosionOutwardsWaveHeightLocationsView) view).FailureMechanism.HydraulicBoundaryLocations;
+            }
+
+            protected override HydraulicBoundaryLocationCalculation GetCalculationForLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            {
+                return hydraulicBoundaryLocation.WaveHeightCalculation1;
             }
         }
     }

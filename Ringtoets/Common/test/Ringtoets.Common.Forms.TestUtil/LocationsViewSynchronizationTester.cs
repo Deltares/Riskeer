@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -75,10 +74,9 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// The view should contain the following location row data:
         /// <list type="bullet">
         /// <item>Row 1: location without output</item>
-        /// <item>Row 2: location with design water level output (but without general result)</item>
-        /// <item>Row 3: location with wave height output (but without general result)</item>
-        /// <item>Row 4: location with flag for parsing the general result set to true</item>
-        /// <item>Row 5: location with output containing a general result with two top level illustration points</item>
+        /// <item>Row 2: location with output not containing a general result</item>
+        /// <item>Row 3: location with the flag for parsing the general result set to true</item>
+        /// <item>Row 4: location with output containing a general result with two top level illustration points</item>
         /// </list>
         /// </remarks>
         /// <returns>The fully configured locations view.</returns>

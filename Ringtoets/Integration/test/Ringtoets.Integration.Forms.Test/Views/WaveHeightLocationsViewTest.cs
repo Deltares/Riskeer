@@ -626,13 +626,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 });
                 Locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    DesignWaterLevelCalculation1 =
-                    {
-                        Output = new TestHydraulicBoundaryLocationOutput(2.45)
-                    }
-                });
-                Locations.Add(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
-                {
                     WaveHeightCalculation1 =
                     {
                         InputParameters =
@@ -655,7 +648,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
                 var output = new TestHydraulicBoundaryLocationOutput(1.01, generalResult);
 
-                Locations.Add(new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
+                Locations.Add(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
                 {
                     WaveHeightCalculation1 =
                     {
@@ -703,6 +696,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             protected override ObservableList<HydraulicBoundaryLocation> GetLocationsInView(LocationsView<HydraulicBoundaryLocation> view)
             {
                 return locations;
+            }
+
+            protected override HydraulicBoundaryLocationCalculation GetCalculationForLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            {
+                return hydraulicBoundaryLocation.WaveHeightCalculation1;
             }
         }
     }
