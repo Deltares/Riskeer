@@ -32,11 +32,47 @@ namespace Application.Ringtoets.Storage.Create
     internal static class HydraulicBoundaryLocationOutputCreateExtensions
     {
         /// <summary>
+        /// Creates a <see cref="HydraulicLocationOutputEntity"/> based on the information of the <see cref="HydraulicBoundaryLocationOutput"/>.
+        /// </summary>
+        /// <param name="output">The output to create a database entity for.</param>
+        /// <returns>A new <see cref="HydraulicLocationOutputEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
+        internal static HydraulicLocationOutputEntity CreateHydraulicLocationOutputEntity(this HydraulicBoundaryLocationOutput output)
+        {
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
+            }
+
+            return new HydraulicLocationOutputEntity
+            {
+                Result = double.IsNaN(output.Result)
+                             ? (double?)null
+                             : output.Result,
+                TargetProbability = double.IsNaN(output.TargetProbability)
+                                        ? (double?)null
+                                        : output.TargetProbability,
+                TargetReliability = double.IsNaN(output.TargetReliability)
+                                        ? (double?)null
+                                        : output.TargetReliability,
+                CalculatedProbability = double.IsNaN(output.CalculatedProbability)
+                                            ? (double?)null
+                                            : output.CalculatedProbability,
+                CalculatedReliability = double.IsNaN(output.CalculatedReliability)
+                                            ? (double?)null
+                                            : output.CalculatedReliability,
+                CalculationConvergence = (byte)output.CalculationConvergence,
+                GeneralResultSubMechanismIllustrationPointEntity = output.GeneralResult?.CreateGeneralResultSubMechanismIllustrationPointEntity()
+            };
+        }
+
+        /// <summary>
         /// Creates a <see cref="GrassCoverErosionOutwardsHydraulicLocationOutputEntity"/> based on the information of the <see cref="HydraulicBoundaryLocationOutput"/>.
         /// </summary>
         /// <param name="output">The output to create a database entity for.</param>
         /// <param name="outputType">The calculation output type.</param>
         /// <returns>A new <see cref="GrassCoverErosionOutwardsHydraulicLocationOutputEntity"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
         internal static GrassCoverErosionOutwardsHydraulicLocationOutputEntity CreateGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputEntity(this HydraulicBoundaryLocationOutput output,
                                                                                                                                                     HydraulicLocationOutputType outputType)
 
