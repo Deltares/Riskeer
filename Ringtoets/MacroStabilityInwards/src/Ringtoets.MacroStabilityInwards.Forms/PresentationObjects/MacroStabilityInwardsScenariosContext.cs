@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.MacroStabilityInwards.Data;
 
@@ -35,21 +36,35 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// Creates a new instance of <see cref="MacroStabilityInwardsScenariosContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="CalculationGroup"/>.</param>
-        /// <param name="failureMechanism">A <see cref="MacroStabilityInwardsFailureMechanism"/> forming the context.</param>
+        /// <param name="failureMechanism">The failure mechanism that the calculation group belongs to.</param>
+        /// <param name="assessmentSection">The assessment section that the calculation group belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsScenariosContext(CalculationGroup wrappedData, MacroStabilityInwardsFailureMechanism failureMechanism)
+        public MacroStabilityInwardsScenariosContext(CalculationGroup wrappedData, MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                     IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
-            ParentFailureMechanism = failureMechanism;
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
         /// Gets the parent failure mechanism of the calculation group.
         /// </summary>
-        public MacroStabilityInwardsFailureMechanism ParentFailureMechanism { get; }
+        public MacroStabilityInwardsFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
     }
 }

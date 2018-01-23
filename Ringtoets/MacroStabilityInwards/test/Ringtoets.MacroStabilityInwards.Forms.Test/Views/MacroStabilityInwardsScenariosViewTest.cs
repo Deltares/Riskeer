@@ -31,10 +31,13 @@ using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -50,10 +53,26 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private Form testForm;
 
         [Test]
-        public void Constructor_DefaultValues()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var scenarioView = new MacroStabilityInwardsScenariosView())
+            TestDelegate call = () => new MacroStabilityInwardsScenariosView(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            using (var scenarioView = new MacroStabilityInwardsScenariosView(assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(scenarioView);
@@ -61,6 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.IsNull(scenarioView.Data);
                 Assert.IsNull(scenarioView.MacroStabilityInwardsFailureMechanism);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -212,7 +232,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(1.5e-3), cells[failureProbabilityColumnIndex].FormattedValue);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(7.14e-2), cells[failureProbabilityColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -353,13 +373,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                         {
                             SurfaceLine = surfaceLine2
                         },
-                        SemiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(
-                            double.NaN,
-                            double.NaN,
-                            double.NaN,
-                            1.5e-3,
-                            double.NaN,
-                            double.NaN)
+                        Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput()
                     }
                 }
             };
@@ -371,7 +385,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
         private MacroStabilityInwardsScenariosView ShowMacroStabilityInwardsScenarioView()
         {
-            var scenarioView = new MacroStabilityInwardsScenariosView();
+            var scenarioView = new MacroStabilityInwardsScenariosView(new ObservableTestAssessmentSectionStub());
 
             testForm.Controls.Add(scenarioView);
             testForm.Show();

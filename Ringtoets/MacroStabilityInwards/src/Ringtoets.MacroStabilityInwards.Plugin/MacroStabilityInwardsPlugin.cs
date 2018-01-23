@@ -249,9 +249,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
                 Image = RingtoetsCommonFormsResources.ScenariosIcon,
-                AdditionalDataCheck = context => context.WrappedData == context.ParentFailureMechanism.CalculationsGroup,
+                AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
                 CloseForData = CloseScenariosViewForData,
-                AfterCreate = (view, context) => { view.MacroStabilityInwardsFailureMechanism = context.ParentFailureMechanism; }
+                AfterCreate = (view, context) => { view.MacroStabilityInwardsFailureMechanism = context.FailureMechanism; },
+                CreateInstance = context => new MacroStabilityInwardsScenariosView(context.AssessmentSection)
             };
 
             yield return new ViewInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsOutputView>
@@ -686,7 +687,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, macroStabilityInwardsFailureMechanismContext.Parent), TreeFolderCategory.Input),
                 new MacroStabilityInwardsCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, macroStabilityInwardsFailureMechanismContext.Parent),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, macroStabilityInwardsFailureMechanismContext.Parent), TreeFolderCategory.Output)
             };
         }
 
@@ -709,11 +710,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(MacroStabilityInwardsFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
-                new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
+                new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
                 new FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
                 failureMechanism.OutputComments
