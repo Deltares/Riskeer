@@ -139,37 +139,37 @@
   <data name="MacroStabilityInwardsInput_HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
     <value>Locatie met hydraulische randvoorwaarden</value>
   </data>
-  <data name="MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsFactorOfSafety_Description" xml:space="preserve">
+  <data name="MacroStabilityInwardsOutput_MacroStabilityInwardsFactorOfSafety_Description" xml:space="preserve">
     <value>De veiligheidsfactor voor deze berekening.</value>
   </data>
-  <data name="MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsFactorOfSafety_DisplayName" xml:space="preserve">
+  <data name="MacroStabilityInwardsOutput_MacroStabilityInwardsFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor [-]</value>
   </data>
-  <data name="MacroStabilityInwardsSemiProbabilisticOutput_Categories_MacroStabilityInwards" xml:space="preserve">
+  <data name="Categories_MacroStabilityInwards" xml:space="preserve">
     <value>Macrostabiliteit binnenwaarts</value>
   </data>
-  <data name="MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsProbability_Description" xml:space="preserve">
+  <data name="MacroStabilityInwardsOutput_MacroStabilityInwardsProbability_Description" xml:space="preserve">
     <value>De benaderde kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt voor deze berekening.</value>
   </data>
-  <data name="MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsProbability_DisplayName" xml:space="preserve">
+  <data name="MacroStabilityInwardsOutput_MacroStabilityInwardsProbability_DisplayName" xml:space="preserve">
     <value>Benaderde faalkans [1/jaar]</value>
   </data>
-  <data name="MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsReliability_Description" xml:space="preserve">
+  <data name="MacroStabilityInwardsOutput_MacroStabilityInwardsReliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex van de faalkans voor deze berekening.</value>
   </data>
-  <data name="MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsReliability_DisplayName" xml:space="preserve">
+  <data name="MacroStabilityInwardsOutput_MacroStabilityInwardsReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex faalkans [-]</value>
   </data>
-  <data name="MacroStabilityInwardsSemiProbabilisticOutput_RequiredProbability_Description" xml:space="preserve">
+  <data name="MacroStabilityInwardsOutput_RequiredProbability_Description" xml:space="preserve">
     <value>De maximaal toegestane kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt.</value>
   </data>
-  <data name="MacroStabilityInwardsSemiProbabilisticOutput_RequiredProbability_DisplayName" xml:space="preserve">
+  <data name="MacroStabilityInwardsOutput_RequiredProbability_DisplayName" xml:space="preserve">
     <value>Faalkanseis [1/jaar]</value>
   </data>
-  <data name="MacroStabilityInwardsSemiProbabilisticOutput_RequiredReliability_Description" xml:space="preserve">
+  <data name="MacroStabilityInwardsOutput_RequiredReliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor macrostabiliteit binnenwaarts.</value>
   </data>
-  <data name="MacroStabilityInwardsSemiProbabilisticOutput_RequiredReliability_DisplayName" xml:space="preserve">
+  <data name="MacroStabilityInwardsOutput_RequiredReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex faalkanseis [-]</value>
   </data>
   <data name="StochasticSoilModelIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -565,10 +565,10 @@
   <data name="PreconsolidationStresses_DisplayName" xml:space="preserve">
     <value>Grensspanningen</value>
   </data>
-  <data name="MacroStabilityInwardsSemiProbabilisticOutput_FactorOfStability_Description" xml:space="preserve">
+  <data name="MacroStabilityInwardsOutput_FactorOfStability_Description" xml:space="preserve">
     <value>Het quotiënt van de weerstandbiedende- en aandrijvende krachten langs een glijvlak.</value>
   </data>
-  <data name="MacroStabilityInwardsSemiProbabilisticOutput_FactorOfStability_DisplayName" xml:space="preserve">
+  <data name="MacroStabilityInwardsOutput_FactorOfStability_DisplayName" xml:space="preserve">
     <value>Stabiliteitsfactor [-]</value>
   </data>
   <data name="Daily_DisplayName" xml:space="preserve">

@@ -118,6 +118,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Macrostabiliteit binnenwaarts.
+        /// </summary>
+        public static string Categories_MacroStabilityInwards {
+            get {
+                return ResourceManager.GetString("Categories_MacroStabilityInwards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Instellingen.
         /// </summary>
         public static string Categories_Settings {
@@ -536,6 +545,114 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het quotiënt van de weerstandbiedende- en aandrijvende krachten langs een glijvlak..
+        /// </summary>
+        public static string MacroStabilityInwardsOutput_FactorOfStability_Description {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsOutput_FactorOfStability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stabiliteitsfactor [-].
+        /// </summary>
+        public static string MacroStabilityInwardsOutput_FactorOfStability_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsOutput_FactorOfStability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De veiligheidsfactor voor deze berekening..
+        /// </summary>
+        public static string MacroStabilityInwardsOutput_MacroStabilityInwardsFactorOfSafety_Description {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsOutput_MacroStabilityInwardsFactorOfSafety_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veiligheidsfactor [-].
+        /// </summary>
+        public static string MacroStabilityInwardsOutput_MacroStabilityInwardsFactorOfSafety_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsOutput_MacroStabilityInwardsFactorOfSafety_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De benaderde kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt voor deze berekening..
+        /// </summary>
+        public static string MacroStabilityInwardsOutput_MacroStabilityInwardsProbability_Description {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsOutput_MacroStabilityInwardsProbability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Benaderde faalkans [1/jaar].
+        /// </summary>
+        public static string MacroStabilityInwardsOutput_MacroStabilityInwardsProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsOutput_MacroStabilityInwardsProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkans voor deze berekening..
+        /// </summary>
+        public static string MacroStabilityInwardsOutput_MacroStabilityInwardsReliability_Description {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsOutput_MacroStabilityInwardsReliability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex faalkans [-].
+        /// </summary>
+        public static string MacroStabilityInwardsOutput_MacroStabilityInwardsReliability_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsOutput_MacroStabilityInwardsReliability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De maximaal toegestane kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt..
+        /// </summary>
+        public static string MacroStabilityInwardsOutput_RequiredProbability_Description {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsOutput_RequiredProbability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkanseis [1/jaar].
+        /// </summary>
+        public static string MacroStabilityInwardsOutput_RequiredProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsOutput_RequiredProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor macrostabiliteit binnenwaarts..
+        /// </summary>
+        public static string MacroStabilityInwardsOutput_RequiredReliability_Description {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsOutput_RequiredReliability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex faalkanseis [-].
+        /// </summary>
+        public static string MacroStabilityInwardsOutput_RequiredReliability_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsOutput_RequiredReliability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grensspanning op de aangegeven locatie..
         /// </summary>
         public static string MacroStabilityInwardsPreconsolidationStress_PreconsolidationStress_Description {
@@ -596,129 +713,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsScenarioView_MacroStabilityInwardsScenarioRow_MacroStability" +
                         "InwardsProbability", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Macrostabiliteit binnenwaarts.
-        /// </summary>
-        public static string MacroStabilityInwardsSemiProbabilisticOutput_Categories_MacroStabilityInwards {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSemiProbabilisticOutput_Categories_MacroStabilityInwards", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het quotiënt van de weerstandbiedende- en aandrijvende krachten langs een glijvlak..
-        /// </summary>
-        public static string MacroStabilityInwardsSemiProbabilisticOutput_FactorOfStability_Description {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSemiProbabilisticOutput_FactorOfStability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Stabiliteitsfactor [-].
-        /// </summary>
-        public static string MacroStabilityInwardsSemiProbabilisticOutput_FactorOfStability_DisplayName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSemiProbabilisticOutput_FactorOfStability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De veiligheidsfactor voor deze berekening..
-        /// </summary>
-        public static string MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsFactorOfSafety_Description {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsFactorOfSafety_" +
-                        "Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Veiligheidsfactor [-].
-        /// </summary>
-        public static string MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsFactorOfSafety_DisplayName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsFactorOfSafety_" +
-                        "DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De benaderde kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt voor deze berekening..
-        /// </summary>
-        public static string MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsProbability_Description {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsProbability_Des" +
-                        "cription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Benaderde faalkans [1/jaar].
-        /// </summary>
-        public static string MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsProbability_Dis" +
-                        "playName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkans voor deze berekening..
-        /// </summary>
-        public static string MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsReliability_Description {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsReliability_Des" +
-                        "cription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Betrouwbaarheidsindex faalkans [-].
-        /// </summary>
-        public static string MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsReliability_DisplayName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsReliability_Dis" +
-                        "playName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De maximaal toegestane kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt..
-        /// </summary>
-        public static string MacroStabilityInwardsSemiProbabilisticOutput_RequiredProbability_Description {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSemiProbabilisticOutput_RequiredProbability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faalkanseis [1/jaar].
-        /// </summary>
-        public static string MacroStabilityInwardsSemiProbabilisticOutput_RequiredProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSemiProbabilisticOutput_RequiredProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor macrostabiliteit binnenwaarts..
-        /// </summary>
-        public static string MacroStabilityInwardsSemiProbabilisticOutput_RequiredReliability_Description {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSemiProbabilisticOutput_RequiredReliability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Betrouwbaarheidsindex faalkanseis [-].
-        /// </summary>
-        public static string MacroStabilityInwardsSemiProbabilisticOutput_RequiredReliability_DisplayName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSemiProbabilisticOutput_RequiredReliability_DisplayName", resourceCulture);
             }
         }
         
