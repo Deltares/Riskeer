@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Checkout\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Dev\Git\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -635,18 +635,31 @@
           <Property Name="UsePreprocessor" Type="tinyint" Nullable="false" />
           <Property Name="PreprocessorDirectory" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
+        <EntityType Name="HydraulicLocationCalculationEntity">
+          <Key>
+            <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+          </Key>
+          <Property Name="HydraulicLocationCalculationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShouldIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
+        </EntityType>
         <EntityType Name="HydraulicLocationEntity">
           <Key>
             <PropertyRef Name="HydraulicLocationEntityId" />
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationOneId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationTwoId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationThreeId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationFourId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationOneId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationTwoId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationThreeId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationFourId" Type="integer" Nullable="false" />
           <Property Name="LocationId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="LocationX" Type="real" />
           <Property Name="LocationY" Type="real" />
-          <Property Name="ShouldWaveHeightIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
-          <Property Name="ShouldDesignWaterLevelIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="HydraulicLocationOutputEntity">
@@ -654,9 +667,8 @@
             <PropertyRef Name="HydraulicLocationEntityOutputId" />
           </Key>
           <Property Name="HydraulicLocationEntityOutputId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="HydraulicLocationEntityId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntityId" Type="integer" />
           <Property Name="GeneralResultSubMechanismIllustrationPointEntityId" Type="integer" />
-          <Property Name="HydraulicLocationOutputType" Type="tinyint" Nullable="false" />
           <Property Name="Result" Type="real" />
           <Property Name="TargetProbability" Type="real" />
           <Property Name="TargetReliability" Type="real" />
@@ -2286,6 +2298,102 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HydraulicLocationEntity_0_0">
+          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationTwoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_1_0">
+          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationThreeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_2_0">
+          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationOneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_3_0">
+          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationFourId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_4_0">
+          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationTwoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_5_0">
+          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationThreeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_6_0">
+          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationOneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_7_0">
+          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationFourId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_8_0">
           <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
           <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2298,14 +2406,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HydraulicLocationOutputEntity_0_0">
-          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="0..1" />
           <End Role="HydraulicLocationOutputEntity" Type="Self.HydraulicLocationOutputEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationEntityId" />
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationOutputEntity">
-              <PropertyRef Name="HydraulicLocationEntityId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3146,6 +3254,7 @@
           <EntitySet Name="HeightStructuresOutputEntity" EntityType="Self.HeightStructuresOutputEntity" store:Type="Tables" />
           <EntitySet Name="HeightStructuresSectionResultEntity" EntityType="Self.HeightStructuresSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="HydraRingPreprocessorEntity" EntityType="Self.HydraRingPreprocessorEntity" store:Type="Tables" />
+          <EntitySet Name="HydraulicLocationCalculationEntity" EntityType="Self.HydraulicLocationCalculationEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationOutputEntity" EntityType="Self.HydraulicLocationOutputEntity" store:Type="Tables" />
           <EntitySet Name="IllustrationPointResultEntity" EntityType="Self.IllustrationPointResultEntity" store:Type="Tables" />
@@ -3464,11 +3573,43 @@
             <End Role="HydraRingPreprocessorEntity" EntitySet="HydraRingPreprocessorEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="Self.FK_HydraulicLocationEntity_0_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_1_0" Association="Self.FK_HydraulicLocationEntity_1_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_2_0" Association="Self.FK_HydraulicLocationEntity_2_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_3_0" Association="Self.FK_HydraulicLocationEntity_3_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_4_0" Association="Self.FK_HydraulicLocationEntity_4_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_5_0" Association="Self.FK_HydraulicLocationEntity_5_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_6_0" Association="Self.FK_HydraulicLocationEntity_6_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_7_0" Association="Self.FK_HydraulicLocationEntity_7_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_8_0" Association="Self.FK_HydraulicLocationEntity_8_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationOutputEntity_0_0" Association="Self.FK_HydraulicLocationOutputEntity_0_0">
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
             <End Role="HydraulicLocationOutputEntity" EntitySet="HydraulicLocationOutputEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationOutputEntity_1_0" Association="Self.FK_HydraulicLocationOutputEntity_1_0">
@@ -3781,6 +3922,7 @@
           <EntitySet Name="HeightStructuresOutputEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresOutputEntity" />
           <EntitySet Name="HeightStructuresSectionResultEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity" />
           <EntitySet Name="HydraRingPreprocessorEntities" EntityType="RingtoetsEntitiesModel.HydraRingPreprocessorEntity" />
+          <EntitySet Name="HydraulicLocationCalculationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" />
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="HydraulicLocationOutputEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" />
           <EntitySet Name="IllustrationPointResultEntities" EntityType="RingtoetsEntitiesModel.IllustrationPointResultEntity" />
@@ -3849,7 +3991,7 @@
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="HydraRingPreprocessorEntity" EntitySet="HydraRingPreprocessorEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0">
+          <AssociationSet Name="FK_HydraulicLocationEntity_8_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_8_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
           </AssociationSet>
@@ -4197,8 +4339,40 @@
             <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntities" />
             <End Role="HeightStructuresSectionResultEntity" EntitySet="HeightStructuresSectionResultEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0">
+          <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_1_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_1_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_2_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_2_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_3_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_3_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_4_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_4_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_5_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_5_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_6_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_6_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_7_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_7_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
             <End Role="HydraulicLocationOutputEntity" EntitySet="HydraulicLocationOutputEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_MacroStabilityInwardsCalculationEntity_2_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_2_0">
@@ -4371,7 +4545,7 @@
           <NavigationProperty Name="BackgroundDataEntities" Relationship="RingtoetsEntitiesModel.FK_BackgroundDataEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="BackgroundDataEntity" />
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="AssessmentSectionEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="HydraRingPreprocessorEntities" Relationship="RingtoetsEntitiesModel.FK_HydraRingPreprocessorEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraRingPreprocessorEntity" />
-          <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_8_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
         </EntityType>
         <EntityType Name="BackgroundDataEntity">
           <Key>
@@ -5097,24 +5271,53 @@
           <Property Name="PreprocessorDirectory" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraRingPreprocessorEntity_0_0" FromRole="HydraRingPreprocessorEntity" ToRole="AssessmentSectionEntity" />
         </EntityType>
+        <EntityType Name="HydraulicLocationCalculationEntity">
+          <Key>
+            <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+          </Key>
+          <Property Name="HydraulicLocationCalculationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShouldIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="HydraulicLocationEntities1" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_1_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="HydraulicLocationEntities2" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_2_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="HydraulicLocationEntities3" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_3_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="HydraulicLocationEntities4" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_4_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="HydraulicLocationEntities5" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_5_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="HydraulicLocationEntities6" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_6_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="HydraulicLocationEntities7" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_7_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="HydraulicLocationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationOutputEntity" />
+        </EntityType>
         <EntityType Name="HydraulicLocationEntity">
           <Key>
             <PropertyRef Name="HydraulicLocationEntityId" />
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationOneId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationTwoId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationThreeId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationFourId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationOneId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationTwoId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationThreeId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationFourId" Type="Int64" Nullable="false" />
           <Property Name="LocationId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="LocationX" Type="Double" />
           <Property Name="LocationY" Type="Double" />
-          <Property Name="ShouldWaveHeightIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
-          <Property Name="ShouldDesignWaterLevelIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_8_0" FromRole="HydraulicLocationEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="ClosingStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="ClosingStructuresCalculationEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
           <NavigationProperty Name="HeightStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="HeightStructuresCalculationEntity" />
-          <NavigationProperty Name="HydraulicLocationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationOutputEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationEntity1" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_1_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationEntity2" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_2_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationEntity3" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_3_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationEntity4" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_4_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationEntity5" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_5_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationEntity6" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_6_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationEntity7" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_7_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
           <NavigationProperty Name="MacroStabilityInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_2_0" FromRole="HydraulicLocationEntity" ToRole="MacroStabilityInwardsCalculationEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0" FromRole="HydraulicLocationEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="StabilityPointStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_1_0" FromRole="HydraulicLocationEntity" ToRole="StabilityPointStructuresCalculationEntity" />
@@ -5126,9 +5329,8 @@
             <PropertyRef Name="HydraulicLocationEntityOutputId" />
           </Key>
           <Property Name="HydraulicLocationEntityOutputId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntityId" Type="Int64" />
           <Property Name="GeneralResultSubMechanismIllustrationPointEntityId" Type="Int64" />
-          <Property Name="HydraulicLocationOutputType" Type="Byte" Nullable="false" />
           <Property Name="Result" Type="Double" />
           <Property Name="TargetProbability" Type="Double" />
           <Property Name="TargetReliability" Type="Double" />
@@ -5136,7 +5338,7 @@
           <Property Name="CalculatedReliability" Type="Double" />
           <Property Name="CalculationConvergence" Type="Byte" Nullable="false" />
           <NavigationProperty Name="GeneralResultSubMechanismIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_1_0" FromRole="HydraulicLocationOutputEntity" ToRole="GeneralResultSubMechanismIllustrationPointEntity" />
-          <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0" FromRole="HydraulicLocationOutputEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0" FromRole="HydraulicLocationOutputEntity" ToRole="HydraulicLocationCalculationEntity" />
         </EntityType>
         <EntityType Name="IllustrationPointResultEntity">
           <Key>
@@ -6104,7 +6306,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HydraulicLocationEntity_0_0">
+        <Association Name="FK_HydraulicLocationEntity_8_0">
           <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -7148,15 +7350,111 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HydraulicLocationEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationTwoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationThreeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_2_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationOneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_3_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationFourId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_4_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationTwoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_5_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationThreeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_6_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationOneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationEntity_7_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationFourId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HydraulicLocationOutputEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="0..1" />
           <End Type="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" Role="HydraulicLocationOutputEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationEntityId" />
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationOutputEntity">
-              <PropertyRef Name="HydraulicLocationEntityId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8208,16 +8506,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="HydraulicLocationCalculationEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity">
+              <MappingFragment StoreEntitySet="HydraulicLocationCalculationEntity">
+                <ScalarProperty Name="ShouldIllustrationPointsBeCalculated" ColumnName="ShouldIllustrationPointsBeCalculated" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntityId" ColumnName="HydraulicLocationCalculationEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="HydraulicLocationEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationEntity">
               <MappingFragment StoreEntitySet="HydraulicLocationEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="ShouldDesignWaterLevelIllustrationPointsBeCalculated" ColumnName="ShouldDesignWaterLevelIllustrationPointsBeCalculated" />
-                <ScalarProperty Name="ShouldWaveHeightIllustrationPointsBeCalculated" ColumnName="ShouldWaveHeightIllustrationPointsBeCalculated" />
                 <ScalarProperty Name="LocationY" ColumnName="LocationY" />
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity_WaveHeightCalculationFourId" ColumnName="HydraulicLocationCalculationEntity_WaveHeightCalculationFourId" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity_WaveHeightCalculationThreeId" ColumnName="HydraulicLocationCalculationEntity_WaveHeightCalculationThreeId" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity_WaveHeightCalculationTwoId" ColumnName="HydraulicLocationCalculationEntity_WaveHeightCalculationTwoId" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity_WaveHeightCalculationOneId" ColumnName="HydraulicLocationCalculationEntity_WaveHeightCalculationOneId" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationFourId" ColumnName="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationFourId" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationThreeId" ColumnName="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationThreeId" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationTwoId" ColumnName="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationTwoId" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationOneId" ColumnName="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationOneId" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
                 <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
               </MappingFragment>
@@ -8232,9 +8544,8 @@
                 <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
                 <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
                 <ScalarProperty Name="Result" ColumnName="Result" />
-                <ScalarProperty Name="HydraulicLocationOutputType" ColumnName="HydraulicLocationOutputType" />
                 <ScalarProperty Name="GeneralResultSubMechanismIllustrationPointEntityId" ColumnName="GeneralResultSubMechanismIllustrationPointEntityId" />
-                <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntityId" ColumnName="HydraulicLocationCalculationEntityId" />
                 <ScalarProperty Name="HydraulicLocationEntityOutputId" ColumnName="HydraulicLocationEntityOutputId" />
               </MappingFragment>
             </EntityTypeMapping>
