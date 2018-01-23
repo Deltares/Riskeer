@@ -137,53 +137,6 @@ namespace Ringtoets.Common.Forms.Factories
         }
 
         /// <summary>
-        /// Create hydraulic boundary location features based on the provided <paramref name="hydraulicBoundaryLocations"/>.
-        /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The locations to create the features for.</param>
-        /// <param name="designWaterLevelAttributeName">The name of the design water level attribute.</param>
-        /// <param name="waveHeightAttributeName">The name of the wave height attribute.</param>
-        /// <returns>A collection of features or an empty collection when <paramref name="hydraulicBoundaryLocations"/> 
-        /// is empty.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationFeatures(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                                      string designWaterLevelAttributeName,
-                                                                                      string waveHeightAttributeName)
-        {
-            if (hydraulicBoundaryLocations == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
-            }
-
-            if (designWaterLevelAttributeName == null)
-            {
-                throw new ArgumentNullException(nameof(designWaterLevelAttributeName));
-            }
-
-            if (waveHeightAttributeName == null)
-            {
-                throw new ArgumentNullException(nameof(waveHeightAttributeName));
-            }
-
-            int hydraulicBoundaryLocationsCount = hydraulicBoundaryLocations.Count();
-            var features = new MapFeature[hydraulicBoundaryLocationsCount];
-
-            for (var i = 0; i < hydraulicBoundaryLocationsCount; i++)
-            {
-                HydraulicBoundaryLocation location = hydraulicBoundaryLocations.ElementAt(i);
-
-                MapFeature feature = CreateSinglePointMapFeature(location.Location);
-                feature.MetaData[Resources.MetaData_ID] = location.Id;
-                feature.MetaData[Resources.MetaData_Name] = location.Name;
-                feature.MetaData[designWaterLevelAttributeName] = location.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
-                feature.MetaData[waveHeightAttributeName] = location.WaveHeightCalculation1.Output?.Result ?? RoundedDouble.NaN;
-
-                features[i] = feature;
-            }
-
-            return features;
-        }
-
-        /// <summary>
         /// Create section features based on the provided <paramref name="sections"/>.
         /// </summary>
         /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create 
