@@ -83,7 +83,10 @@ namespace Ringtoets.DuneErosion.Data.Test
             Assert.AreEqual(offset, duneLocation.Offset.Value);
             Assert.AreEqual(orientation, duneLocation.Orientation.Value);
             Assert.AreEqual(d50, duneLocation.D50.Value);
-            Assert.IsNotNull(duneLocation.Calculation);
+            AssertDuneLocationCalculation(duneLocation.Calculation);
+            AssertDuneLocationCalculation(duneLocation.Calculation2);
+            AssertDuneLocationCalculation(duneLocation.Calculation3);
+            AssertDuneLocationCalculation(duneLocation.Calculation4);
         }
 
         [Test]
@@ -129,6 +132,12 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Assert
             Assert.AreEqual(6, duneLocation.D50.NumberOfDecimalPlaces);
             Assert.AreEqual(0.123457, duneLocation.D50, duneLocation.D50.GetAccuracy());
+        }
+
+        private static void AssertDuneLocationCalculation(DuneLocationCalculation duneLocationCalculation)
+        {
+            Assert.IsNotNull(duneLocationCalculation);
+            Assert.IsNull(duneLocationCalculation.Output);
         }
     }
 }

@@ -62,6 +62,9 @@ namespace Ringtoets.DuneErosion.Data
             D50 = new RoundedDouble(6, properties.D50);
 
             Calculation = new DuneLocationCalculation();
+            Calculation2 = new DuneLocationCalculation();
+            Calculation3 = new DuneLocationCalculation();
+            Calculation4 = new DuneLocationCalculation();
         }
 
         /// <summary>
@@ -100,9 +103,24 @@ namespace Ringtoets.DuneErosion.Data
         public RoundedDouble D50 { get; }
 
         /// <summary>
-        /// Gets the dune erosion calculation.
+        /// Gets the first dune erosion calculation.
         /// </summary>
         public DuneLocationCalculation Calculation { get; }
+
+        /// <summary>
+        /// Gets the second dune erosion calculation.
+        /// </summary>
+        public DuneLocationCalculation Calculation2 { get; }
+
+        /// <summary>
+        /// Gets the third dune erosion calculation.
+        /// </summary>
+        public DuneLocationCalculation Calculation3 { get; }
+
+        /// <summary>
+        /// Gets the fourth dune erosion calculation.
+        /// </summary>
+        public DuneLocationCalculation Calculation4 { get; }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="DuneLocation"/>.
