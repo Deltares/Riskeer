@@ -44,6 +44,7 @@
     <Compile Include="Create\GrassCoverErosionInwards\OvertoppingRateOutputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensions.cs" />
+    <Compile Include="Create\HydraulicBoundaryLocationCalculationCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationOutputCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointNodeCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\GeneralResultCreateExtensions.cs" />
@@ -260,7 +261,6 @@
     <Compile Include="DbContext\PartialGrassCoverErosionOutwardsHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresOutputEntity.cs" />
-    <Compile Include="DbContext\PartialHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\PartialStabilityPointStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialStabilityPointStructuresOutputEntity.cs" />
     <Compile Include="DbContext\PipingCalculationEntity.cs">
