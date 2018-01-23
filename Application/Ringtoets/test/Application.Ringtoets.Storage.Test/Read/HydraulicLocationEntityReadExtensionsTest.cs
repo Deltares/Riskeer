@@ -195,7 +195,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 CalculationConvergence = (byte) CalculationConvergence.NotCalculated,
                 GeneralResultSubMechanismIllustrationPointEntity = designWaterLevelIllustrationPointEntity
             };
-            var waveheightOutputEntity = new HydraulicLocationOutputEntity
+            var waveHeightOutputEntity = new HydraulicLocationOutputEntity
             {
                 HydraulicLocationOutputType = (byte) HydraulicLocationOutputType.WaveHeight,
                 Result = waveHeight,
@@ -217,7 +217,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 HydraulicLocationOutputEntities =
                 {
                     designWaterLevelOutputEntity,
-                    waveheightOutputEntity
+                    waveHeightOutputEntity
                 }
             };
 
@@ -235,7 +235,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation1;
             Assert.AreEqual(shouldWaveHeightIllustrationPointsBeCalculated, waveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, waveHeightCalculation.Output);
+            AssertHydraulicBoundaryLocationOutput(waveHeightOutputEntity, waveHeightCalculation.Output);
         }
 
         [Test]
