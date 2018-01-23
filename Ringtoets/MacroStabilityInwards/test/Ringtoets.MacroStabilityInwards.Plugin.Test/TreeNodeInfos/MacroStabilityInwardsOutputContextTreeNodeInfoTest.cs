@@ -27,6 +27,8 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
@@ -124,6 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
+
             // Assert
             // Assert expectancies are called in TearDown()
         }
@@ -132,26 +135,35 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasOutputTrue_ReturnControlText()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
+            var scenario = new MacroStabilityInwardsCalculationScenario
             {
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
+            var context = new MacroStabilityInwardsOutputContext(scenario, failureMechanism, assessmentSection);
 
             // Call
-            Color color = info.ForeColor(new MacroStabilityInwardsOutputContext(calculation));
+            Color color = info.ForeColor(context);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_HasOutputFalse_ReturnGrayText()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
+            var scenario = new MacroStabilityInwardsCalculationScenario();
+            var context = new MacroStabilityInwardsOutputContext(scenario, failureMechanism, assessmentSection);
 
             // Call
-            Color color = info.ForeColor(new MacroStabilityInwardsOutputContext(calculation));
+            Color color = info.ForeColor(context);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);

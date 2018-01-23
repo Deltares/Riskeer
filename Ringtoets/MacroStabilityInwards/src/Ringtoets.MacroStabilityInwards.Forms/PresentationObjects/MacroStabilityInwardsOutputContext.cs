@@ -21,12 +21,13 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// A presentation layer object which wraps a <see cref="MacroStabilityInwardsOutput"/> and a <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>.
+    /// A presentation layer object which wraps a <see cref="MacroStabilityInwardsOutput"/>.
     /// </summary>
     public class MacroStabilityInwardsOutputContext : ObservableWrappedObjectContextBase<MacroStabilityInwardsCalculationScenario>
     {
@@ -34,7 +35,36 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsOutputContext(MacroStabilityInwardsCalculationScenario wrappedData) : base(wrappedData) {}
+        /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
+        /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MacroStabilityInwardsOutputContext(MacroStabilityInwardsCalculationScenario wrappedData,
+                                                  MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                  IAssessmentSection assessmentSection)
+            : base(wrappedData)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        public MacroStabilityInwardsFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
     }
 }

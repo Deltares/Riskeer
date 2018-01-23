@@ -76,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(MacroStabilityInwardsOutputContext),
-                    typeof(MacroStabilityInwardsSemiProbabilisticOutputProperties));
+                    typeof(MacroStabilityInwardsOutputProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

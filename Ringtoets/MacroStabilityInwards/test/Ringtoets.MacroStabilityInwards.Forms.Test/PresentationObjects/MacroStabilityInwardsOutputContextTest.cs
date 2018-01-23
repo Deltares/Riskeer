@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 
@@ -30,17 +33,59 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
     public class MacroStabilityInwardsOutputContextTest
     {
         [Test]
-        public void Constructor_WithCalculationScenario_PropertiesSet()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
-            var context = new MacroStabilityInwardsOutputContext(calculation);
+            TestDelegate call = () => new MacroStabilityInwardsOutputContext(calculation, null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsOutputContext(calculation, failureMechanism, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            // Call
+            var context = new MacroStabilityInwardsOutputContext(calculation, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<MacroStabilityInwardsCalculationScenario>>(context);
             Assert.AreSame(calculation, context.WrappedData);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
+            mocks.VerifyAll();
         }
     }
 }

@@ -41,7 +41,7 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputDailyPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputExtremePropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputOffsetPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\MacroStabilityInwardsSemiProbabilisticOutputPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsOutputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DBasePropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsWaternetPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsWaterStressLinesPropertiesTest.cs" />

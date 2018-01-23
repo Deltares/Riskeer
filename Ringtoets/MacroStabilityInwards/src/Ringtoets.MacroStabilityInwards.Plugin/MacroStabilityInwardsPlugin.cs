@@ -76,9 +76,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 CreateInstance = context => new MacroStabilityInwardsInputContextProperties(context, new ObservablePropertyChangeHandler(context.MacroStabilityInwardsCalculation, context.WrappedData))
             };
-            yield return new PropertyInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsSemiProbabilisticOutputProperties>
+            yield return new PropertyInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsOutputProperties>
             {
-                CreateInstance = context => new MacroStabilityInwardsSemiProbabilisticOutputProperties(context.WrappedData.SemiProbabilisticOutput)
+                CreateInstance = context => new MacroStabilityInwardsOutputProperties(context.WrappedData.Output, context.FailureMechanism, context.AssessmentSection)
             };
             yield return new PropertyInfo<MacroStabilityInwardsSurfaceLinesContext, MacroStabilityInwardsSurfaceLineCollectionProperties>
             {
@@ -756,20 +756,22 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                           .Build();
         }
 
-        private static object[] CalculationContextChildNodeObjects(MacroStabilityInwardsCalculationScenarioContext macroStabilityInwardsCalculationScenarioContext)
+        private static object[] CalculationContextChildNodeObjects(MacroStabilityInwardsCalculationScenarioContext context)
         {
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = macroStabilityInwardsCalculationScenarioContext.WrappedData;
+            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = context.WrappedData;
 
             return new object[]
             {
                 macroStabilityInwardsCalculationScenario.Comments,
                 new MacroStabilityInwardsInputContext(macroStabilityInwardsCalculationScenario.InputParameters,
                                                       macroStabilityInwardsCalculationScenario,
-                                                      macroStabilityInwardsCalculationScenarioContext.AvailableMacroStabilityInwardsSurfaceLines,
-                                                      macroStabilityInwardsCalculationScenarioContext.AvailableStochasticSoilModels,
-                                                      macroStabilityInwardsCalculationScenarioContext.FailureMechanism,
-                                                      macroStabilityInwardsCalculationScenarioContext.AssessmentSection),
-                new MacroStabilityInwardsOutputContext(macroStabilityInwardsCalculationScenario)
+                                                      context.AvailableMacroStabilityInwardsSurfaceLines,
+                                                      context.AvailableStochasticSoilModels,
+                                                      context.FailureMechanism,
+                                                      context.AssessmentSection),
+                new MacroStabilityInwardsOutputContext(macroStabilityInwardsCalculationScenario,
+                                                       context.FailureMechanism,
+                                                       context.AssessmentSection)
             };
         }
 

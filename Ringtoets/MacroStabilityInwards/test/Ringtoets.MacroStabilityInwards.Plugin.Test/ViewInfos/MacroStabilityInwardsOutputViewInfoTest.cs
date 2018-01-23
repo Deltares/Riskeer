@@ -25,6 +25,7 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -89,14 +90,17 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedCalculation()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-            var context = new MacroStabilityInwardsOutputContext(calculation);
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
+            var scenario = new MacroStabilityInwardsCalculationScenario();
+            var context = new MacroStabilityInwardsOutputContext(scenario, failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(calculation, viewData);
+            Assert.AreSame(scenario, viewData);
             mocks.VerifyAll();
         }
 
