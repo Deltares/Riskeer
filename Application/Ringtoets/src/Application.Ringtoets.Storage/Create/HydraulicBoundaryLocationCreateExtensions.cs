@@ -78,7 +78,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (output != null)
             {
-                var hydraulicLocationOutputEntity = output.Create<HydraulicLocationOutputEntity>(outputType);
+                var hydraulicLocationOutputEntity = HydraulicBoundaryLocationOutputCreateExtensions.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputEntity<HydraulicLocationOutputEntity>(outputType);
                 entity.HydraulicLocationOutputEntities.Add(hydraulicLocationOutputEntity);
             }
         }
@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.Create
             if (output != null)
             {
                 var grassCoverErosionOutwardsHydraulicLocationOutputEntity =
-                    output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>(outputType);
+                    output.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputEntity(outputType);
 
                 entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Add(grassCoverErosionOutwardsHydraulicLocationOutputEntity);
             }
