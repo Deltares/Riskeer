@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
-        /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
+        /// the design water level for.</param>
         /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
         /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
-        /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
+        /// the wave height for.</param>
         /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
         /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
