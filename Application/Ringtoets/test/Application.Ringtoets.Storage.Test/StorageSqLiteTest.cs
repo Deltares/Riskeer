@@ -142,7 +142,7 @@ namespace Application.Ringtoets.Storage.Test
                             exception.InnerException.Message);
 
             Assert.IsInstanceOf<SQLiteException>(exception.InnerException.InnerException);
-            Assert.AreEqual($"SQL logic error or missing database{Environment.NewLine}"
+            Assert.AreEqual($"SQL logic error{Environment.NewLine}"
                             + "no such table: AssessmentSectionEntity", exception.InnerException.InnerException.Message);
         }
 
