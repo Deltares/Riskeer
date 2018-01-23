@@ -1530,8 +1530,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             AssertMacroStabilityInwardsOutput(expectedMacroStabilityInwardsCalculation.Output,
                                               actualMacroStabilityInwardsCalculation.Output);
-            AssertMacroStabilityInwardsSemiProbabilisticOutput(expectedMacroStabilityInwardsCalculation.SemiProbabilisticOutput,
-                                                               actualMacroStabilityInwardsCalculation.SemiProbabilisticOutput);
         }
 
         private static void AssertMacroStabilityInwardsInput(MacroStabilityInwardsInput expectedInput, MacroStabilityInwardsInput actualInput)
@@ -1706,24 +1704,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedSlice.TotalPorePressure, actualSlice.TotalPorePressure);
             Assert.AreEqual(expectedSlice.TotalStress, actualSlice.TotalStress);
             Assert.AreEqual(expectedSlice.Weight, actualSlice.Weight);
-        }
-
-        private static void AssertMacroStabilityInwardsSemiProbabilisticOutput(MacroStabilityInwardsSemiProbabilisticOutput expectedOutput,
-                                                                               MacroStabilityInwardsSemiProbabilisticOutput actualOutput)
-        {
-            if (expectedOutput == null)
-            {
-                Assert.IsNull(actualOutput);
-            }
-            else
-            {
-                Assert.AreEqual(expectedOutput.FactorOfStability, actualOutput.FactorOfStability);
-                Assert.AreEqual(expectedOutput.MacroStabilityInwardsProbability, actualOutput.MacroStabilityInwardsProbability);
-                Assert.AreEqual(expectedOutput.MacroStabilityInwardsReliability, actualOutput.MacroStabilityInwardsReliability);
-                Assert.AreEqual(expectedOutput.RequiredProbability, actualOutput.RequiredProbability);
-                Assert.AreEqual(expectedOutput.RequiredReliability, actualOutput.RequiredReliability);
-                Assert.AreEqual(expectedOutput.MacroStabilityInwardsFactorOfSafety, actualOutput.MacroStabilityInwardsFactorOfSafety);
-            }
         }
 
         #endregion

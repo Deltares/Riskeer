@@ -416,33 +416,5 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.IsNotNull(outputEntity);
             MacroStabilityInwardsCalculationOutputEntityTestHelper.AssertOutputPropertyValues(scenario.Output, outputEntity);
         }
-
-        [Test]
-        public void Create_HasMacroStabilityInwardsSemiProbabilisticOutput_ReturnsEntityWithSemiProbabilisticOutputEntity()
-        {
-            // Setup
-            var scenario = new MacroStabilityInwardsCalculationScenario
-            {
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
-            };
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            MacroStabilityInwardsCalculationEntity entity = scenario.Create(registry, 0);
-
-            // Assert
-            Assert.IsNotNull(entity);
-            MacroStabilityInwardsSemiProbabilisticOutputEntity outputEntity = entity.MacroStabilityInwardsSemiProbabilisticOutputEntities.FirstOrDefault();
-            Assert.IsNotNull(outputEntity);
-
-            MacroStabilityInwardsSemiProbabilisticOutput expectedOutput = scenario.SemiProbabilisticOutput;
-            Assert.AreEqual(expectedOutput.FactorOfStability, outputEntity.FactorOfStability, expectedOutput.FactorOfStability.GetAccuracy());
-            Assert.AreEqual(expectedOutput.MacroStabilityInwardsProbability, outputEntity.MacroStabilityInwardsProbability);
-            Assert.AreEqual(expectedOutput.MacroStabilityInwardsReliability, outputEntity.MacroStabilityInwardsReliability, expectedOutput.MacroStabilityInwardsReliability.GetAccuracy());
-            Assert.AreEqual(expectedOutput.RequiredProbability, outputEntity.RequiredProbability);
-            Assert.AreEqual(expectedOutput.RequiredReliability, outputEntity.RequiredReliability, expectedOutput.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(expectedOutput.MacroStabilityInwardsFactorOfSafety, outputEntity.MacroStabilityInwardsFactorOfSafety, expectedOutput.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
-        }
     }
 }

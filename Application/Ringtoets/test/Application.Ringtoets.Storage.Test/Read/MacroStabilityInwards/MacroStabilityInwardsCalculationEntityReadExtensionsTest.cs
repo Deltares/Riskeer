@@ -127,7 +127,6 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             MacroStabilityInwardsCalculationScenario calculation = entity.Read(collector);
 
             // Assert
-            Assert.IsNull(calculation.SemiProbabilisticOutput);
             Assert.IsNull(calculation.Output);
             Assert.AreEqual(entity.Name, calculation.Name);
             Assert.AreEqual(entity.Comment, calculation.Comments.Body);
@@ -151,7 +150,6 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             MacroStabilityInwardsCalculationScenario calculation = entity.Read(collector);
 
             // Assert
-            Assert.IsNull(calculation.SemiProbabilisticOutput);
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.Comments.Body);
 
@@ -236,7 +234,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         }
 
         [Test]
-        public void Read_EntityWithSemiProbabilisticOutput_ReturnsCalculationScenarioWithSemiProbabilisticOutput()
+        public void Read_EntityWithOutput_ReturnsCalculationScenarioWithOutput()
         {
             // Setup
             var random = new Random(31);
@@ -265,30 +263,6 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             MacroStabilityInwardsOutput output = calculation.Output;
             Assert.IsNotNull(output);
             MacroStabilityInwardsCalculationOutputEntityTestHelper.AssertOutputPropertyValues(output, calculationOutputEntity);
-        }
-
-        [Test]
-        public void Read_EntityWithOutput_ReturnsCalculationScenarioWithOutput()
-        {
-            // Setup
-            MacroStabilityInwardsCalculationEntity entity = CreateValidCalculationEntity();
-            entity.MacroStabilityInwardsSemiProbabilisticOutputEntities.Add(new MacroStabilityInwardsSemiProbabilisticOutputEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            MacroStabilityInwardsCalculationScenario calculation = entity.Read(collector);
-
-            // Assert
-            MacroStabilityInwardsSemiProbabilisticOutput output = calculation.SemiProbabilisticOutput;
-            Assert.IsNotNull(output);
-
-            Assert.IsNaN(output.FactorOfStability);
-            Assert.IsNaN(output.RequiredProbability);
-            Assert.IsNaN(output.RequiredReliability);
-            Assert.IsNaN(output.MacroStabilityInwardsFactorOfSafety);
-            Assert.IsNaN(output.MacroStabilityInwardsProbability);
-            Assert.IsNaN(output.MacroStabilityInwardsReliability);
         }
 
         private static MacroStabilityInwardsCalculationEntity CreateValidCalculationEntity()

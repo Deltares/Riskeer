@@ -70,13 +70,6 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
         private static void SetCalculationOutputsToScenario(MacroStabilityInwardsCalculationScenario calculationScenario,
                                                             MacroStabilityInwardsCalculationEntity entity)
         {
-            MacroStabilityInwardsSemiProbabilisticOutputEntity semiProbabilisticOutputEntity =
-                entity.MacroStabilityInwardsSemiProbabilisticOutputEntities.FirstOrDefault();
-            if (semiProbabilisticOutputEntity != null)
-            {
-                calculationScenario.SemiProbabilisticOutput = semiProbabilisticOutputEntity.Read();
-            }
-
             MacroStabilityInwardsCalculationOutputEntity outputEntity = entity.MacroStabilityInwardsCalculationOutputEntities.FirstOrDefault();
             if (outputEntity != null)
             {
