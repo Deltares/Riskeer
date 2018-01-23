@@ -301,5 +301,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 }
             };
         }
+        
+        /// <summary>
+        /// Creates a scenario with valid input and output.
+        /// </summary>
+        /// <returns>A new <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
+        public static MacroStabilityInwardsCalculationScenario CreateCalculatedMacroStabilityInwardsCalculationScenario()
+        {
+            MacroStabilityInwardsCalculationScenario calculation = CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            return calculation;
+        }
     }
 }

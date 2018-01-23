@@ -218,7 +218,30 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
 
             // Assert
-            MacroStabilityInwardsInput inputParameters = scenario.InputParameters;
+            AssertInput(scenario.InputParameters);
+        }
+
+        [Test]
+        public void CreateCalculatedMacroStabilityInwardsCalculationScenario_ReturnMacroStabilityInwardsCalculationScenario()
+        {
+            // Call
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioFactory.CreateCalculatedMacroStabilityInwardsCalculationScenario();
+
+            // Assert
+            AssertInput(scenario.InputParameters);
+
+            MacroStabilityInwardsOutput output = scenario.Output;
+            Assert.IsNotNull(output);
+            Assert.AreEqual(0.69717486793975103, output.FactorOfStability);
+            Assert.AreEqual(0.040462733730889267, output.ZValue);
+            Assert.AreEqual(0.97911632898222489, output.ForbiddenZonesXEntryMax);
+            Assert.AreEqual(0.44677048942389452, output.ForbiddenZonesXEntryMin);
+            Assert.IsNotNull(output.SlidingCurve);
+            Assert.IsNotNull(output.SlipPlane);
+        }
+
+        private static void AssertInput(MacroStabilityInwardsInput inputParameters)
+        {
             Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
                             inputParameters.DikeSoilScenario);
             Assert.AreEqual(1, inputParameters.PiezometricHeadPhreaticLine2Outwards,

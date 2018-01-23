@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             Calculation = calculation;
 
-            if (calculation.Output != null)
+            if (calculation.HasOutput)
             {
                 derivedOutput = DerivedPipingOutputFactory.Create(calculation.Output, failureMechanism.PipingProbabilityAssessmentInput,
                                                                   assessmentSection.FailureMechanismContribution.Norm, failureMechanism.Contribution);

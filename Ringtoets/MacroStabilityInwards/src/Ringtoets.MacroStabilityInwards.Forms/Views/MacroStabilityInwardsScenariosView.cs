@@ -166,7 +166,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 .OfType<MacroStabilityInwardsCalculationScenario>()
                 .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
-            List<MacroStabilityInwardsScenarioRow> dataSource = calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc)).ToList();
+            List<MacroStabilityInwardsScenarioRow> dataSource = calculations.Select(pc => new MacroStabilityInwardsScenarioRow(
+                                                                                        pc,
+                                                                                        MacroStabilityInwardsFailureMechanism,
+                                                                                        null)).ToList();
             dataGridViewControl.SetDataSource(dataSource);
         }
 
