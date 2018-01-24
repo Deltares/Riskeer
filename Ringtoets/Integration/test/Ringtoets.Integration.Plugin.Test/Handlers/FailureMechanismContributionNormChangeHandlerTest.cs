@@ -158,16 +158,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
                                      "There should be no calculations with output.");
 
-            foreach (HydraulicBoundaryLocation location in assessmentSection.HydraulicBoundaryDatabase.Locations
-                                                                            .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
-            {
-                Assert.IsFalse(location.DesignWaterLevelCalculation1.HasOutput);
-                Assert.IsFalse(location.WaveHeightCalculation1.HasOutput);
-            }
+            AssertHydraulicBoundaryLocationOutput(assessmentSection, false);
+
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
             {
                 Assert.IsNull(duneLocation.Calculation.Output);
             }
+
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
 
@@ -203,16 +200,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.", 1);
 
-            foreach (HydraulicBoundaryLocation location in assessmentSection.HydraulicBoundaryDatabase.Locations
-                                                                            .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
-            {
-                Assert.IsFalse(location.DesignWaterLevelCalculation1.HasOutput);
-                Assert.IsFalse(location.WaveHeightCalculation1.HasOutput);
-            }
+            AssertHydraulicBoundaryLocationOutput(assessmentSection, false);
+
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
             {
                 Assert.IsNull(duneLocation.Calculation.Output);
             }
+
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
 
@@ -297,12 +291,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.AreEqual(0, propertySet);
-            foreach (HydraulicBoundaryLocation location in assessmentSection.HydraulicBoundaryDatabase.Locations
-                                                                            .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
-            {
-                Assert.IsTrue(location.DesignWaterLevelCalculation1.HasOutput);
-                Assert.IsTrue(location.WaveHeightCalculation1.HasOutput);
-            }
+
+            AssertHydraulicBoundaryLocationOutput(assessmentSection, true);
+
             Assert.IsNotNull(assessmentSection.DuneErosion.DuneLocations[1].Calculation.Output);
             CollectionAssert.IsEmpty(affectedObjects);
         }
@@ -327,6 +318,27 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Assert
             var exception = Assert.Throws<Exception>(test);
             Assert.AreSame(expectedException, exception);
+        }
+
+        private static void AssertHydraulicBoundaryLocationOutput(AssessmentSection assessmentSection, bool hasOutput)
+        {
+            foreach (HydraulicBoundaryLocation location in assessmentSection.HydraulicBoundaryDatabase.Locations)
+            {
+                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation1.HasOutput);
+                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation2.HasOutput);
+                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation3.HasOutput);
+                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation4.HasOutput);
+                Assert.AreEqual(hasOutput, location.WaveHeightCalculation1.HasOutput);
+                Assert.AreEqual(hasOutput, location.WaveHeightCalculation2.HasOutput);
+                Assert.AreEqual(hasOutput, location.WaveHeightCalculation3.HasOutput);
+                Assert.AreEqual(hasOutput, location.WaveHeightCalculation4.HasOutput);
+            }
+
+            foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
+            {
+                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation1.HasOutput);
+                Assert.AreEqual(hasOutput, location.WaveHeightCalculation1.HasOutput);
+            }
         }
     }
 }
