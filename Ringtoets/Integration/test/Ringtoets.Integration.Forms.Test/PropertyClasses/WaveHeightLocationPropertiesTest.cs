@@ -111,7 +111,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 NoValueRoundedDoubleConverter>(
                 nameof(WaveHeightLocationProperties.CalculatedReliability));
             Assert.IsEmpty(properties.Convergence);
-            Assert.AreEqual(hydraulicBoundaryLocation.WaveHeightCalculation1.InputParameters.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
+            Assert.AreEqual(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
         }
 
         [Test]
