@@ -24,26 +24,26 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Piping.Data;
+using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Ringtoets.Piping.Forms.PresentationObjects
+namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for a collection of <see cref="FailureMechanismSectionResult"/>
-    /// for piping.
+    /// for macro stability inwards.
     /// </summary>
-    public class PipingFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>
+    public class MacroStabilityInwardsFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultContext"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismSectionResultContext"/>.
         /// </summary>
-        /// <param name="wrappedSectionResults">The <see cref="IEnumerable{T}"/> of <see cref="PipingFailureMechanismSectionResult"/> to wrap.</param>
+        /// <param name="wrappedSectionResults">The <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> to wrap.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionResultContext(IEnumerable<PipingFailureMechanismSectionResult> wrappedSectionResults,
-                                                          IFailureMechanism failureMechanism,
-                                                          IAssessmentSection assessmentSection)
+        public MacroStabilityInwardsFailureMechanismSectionResultContext(IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> wrappedSectionResults,
+                                                                         IFailureMechanism failureMechanism,
+                                                                         IAssessmentSection assessmentSection)
             : base(wrappedSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
