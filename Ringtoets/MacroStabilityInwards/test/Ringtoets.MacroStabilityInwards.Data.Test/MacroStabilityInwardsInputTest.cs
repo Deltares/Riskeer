@@ -29,7 +29,6 @@ using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -69,9 +68,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsNull(inputParameters.HydraulicBoundaryLocation);
             Assert.IsNull(inputParameters.SoilProfileUnderSurfaceLine);
 
-            Assert.IsInstanceOf<RoundedDouble>(inputParameters.AssessmentLevel);
             Assert.IsNaN(inputParameters.AssessmentLevel);
-
+            Assert.AreEqual(2, inputParameters.AssessmentLevel.NumberOfDecimalPlaces);
             Assert.IsFalse(inputParameters.UseAssessmentLevelManualInput);
 
             Assert.AreEqual(0, inputParameters.SlipPlaneMinimumDepth, inputParameters.SlipPlaneMinimumDepth.GetAccuracy());
@@ -223,6 +221,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var random = new Random(21);
+            double assessmentLevel = random.NextDouble();
             double slipPlaneMinimumDepth = random.NextDouble();
             double slipPlaneMinimumLength = random.NextDouble();
             double maximumSliceWidth = random.NextDouble();
@@ -246,6 +245,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Call
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
+                AssessmentLevel = (RoundedDouble) assessmentLevel,
                 SlipPlaneMinimumDepth = (RoundedDouble) slipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = (RoundedDouble) slipPlaneMinimumLength,
                 MaximumSliceWidth = (RoundedDouble) maximumSliceWidth,
@@ -268,6 +268,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Assert
+            Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(assessmentLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
+
             Assert.AreEqual(2, input.SlipPlaneMinimumDepth.NumberOfDecimalPlaces);
             Assert.AreEqual(slipPlaneMinimumDepth, input.SlipPlaneMinimumDepth, input.SlipPlaneMinimumDepth.GetAccuracy());
 
@@ -317,134 +320,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             Assert.AreEqual(2, input.ZoneBoundaryRight.NumberOfDecimalPlaces);
             Assert.AreEqual(zoneBoundaryRight, input.ZoneBoundaryRight, input.ZoneBoundaryRight.GetAccuracy());
-        }
-
-        [Test]
-        public void AssessmentLevel_UseAssessmentLevelManualInputIsFalse_ReturnsNaN()
-        {
-            // Setup
-            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
-            {
-                UseAssessmentLevelManualInput = false,
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-            };
-
-            // Call
-            RoundedDouble calculatedAssessmentLevel = input.AssessmentLevel;
-
-            // Assert
-            Assert.IsNaN(calculatedAssessmentLevel);
-        }
-
-        [Test]
-        public void AssessmentLevel_UseAssessmentLevelManualInputIsFalseWithHydraulicLocationSetAndDesignWaterLevelOutputSet_ReturnCalculatedAssessmentLevel()
-        {
-            // Setup
-            double calculatedAssessmentLevel = new Random(21).NextDouble();
-            HydraulicBoundaryLocation testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
-            {
-                DesignWaterLevelCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(calculatedAssessmentLevel)
-                }
-            };
-
-            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
-            {
-                HydraulicBoundaryLocation = testHydraulicBoundaryLocation
-            };
-
-            // Call
-            RoundedDouble newAssessmentLevel = input.AssessmentLevel;
-
-            // Assert
-            Assert.AreEqual(calculatedAssessmentLevel, newAssessmentLevel, input.AssessmentLevel.GetAccuracy());
-        }
-
-        [Test]
-        public void AssessmentLevel_UseAssessmentLevelManualInputFalseAndSettingValue_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
-            {
-                UseAssessmentLevelManualInput = false
-            };
-
-            var testLevel = (RoundedDouble) new Random(21).NextDouble();
-
-            // Call 
-            TestDelegate call = () => input.AssessmentLevel = testLevel;
-
-            // Assert
-            string message = Assert.Throws<InvalidOperationException>(call).Message;
-            Assert.AreEqual("UseAssessmentLevelManualInput is false", message);
-        }
-
-        [Test]
-        public void AssessmentLevel_UseAssessmentLevelManualInputTrueAndSettingValue_ReturnSetValue()
-        {
-            // Setup
-            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
-            {
-                UseAssessmentLevelManualInput = true
-            };
-
-            var testLevel = (RoundedDouble) new Random(21).NextDouble();
-
-            // Call
-            input.AssessmentLevel = testLevel;
-
-            // Assert
-            Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(testLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
-        }
-
-        [Test]
-        public void GivenAssessmentLevelSetByHydraulicBoundaryLocation_WhenManualAssessmentLevelTrueAndNewLevelSet_ThenLevelUpdatedAndLocationRemoved()
-        {
-            // Given
-            var random = new Random(21);
-            var testLevel = (RoundedDouble) random.NextDouble();
-            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
-            {
-                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(testLevel)
-            };
-
-            var newLevel = (RoundedDouble) random.NextDouble();
-
-            // When
-            input.UseAssessmentLevelManualInput = true;
-            input.AssessmentLevel = newLevel;
-
-            // Then
-            Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(newLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
-            Assert.IsNull(input.HydraulicBoundaryLocation);
-        }
-
-        [Test]
-        public void GivenAssessmentLevelSetByManualInput_WhenManualAssessmentLevelFalseAndHydraulicBoundaryLocationSet_ThenAssessmentLevelUpdatedAndLocationSet()
-        {
-            // Given
-            var random = new Random(21);
-            var testLevel = (RoundedDouble) random.NextDouble();
-            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
-            {
-                UseAssessmentLevelManualInput = true,
-                AssessmentLevel = testLevel
-            };
-
-            var newLevel = (RoundedDouble) random.NextDouble();
-            TestHydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(newLevel);
-
-            // When
-            input.UseAssessmentLevelManualInput = false;
-            input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-
-            // Then
-            Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreSame(hydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
-            Assert.AreEqual(newLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
         }
 
         [Test]

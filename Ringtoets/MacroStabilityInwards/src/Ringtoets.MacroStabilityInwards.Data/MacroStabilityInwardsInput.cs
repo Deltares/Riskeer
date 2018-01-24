@@ -259,6 +259,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets the outside high water level.
         /// [m+NAP]
         /// </summary>
+        /// <remarks>This property is only used for calculations when <see cref="UseAssessmentLevelManualInput"/> is <c>true</c>.</remarks>
         public RoundedDouble AssessmentLevel
         {
             get
