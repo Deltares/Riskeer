@@ -38,19 +38,42 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
         /// </summary>
-        /// <param name="pipingFailureMechanismSectionResult">The result to get the result for.</param>
+        /// <param name="sectionResult">The section result to get the assessment layer 2A for.</param>
         /// <param name="calculations">All calculations in the failure mechanism.</param>
-        /// <param name="failurMechanism">The failure mechanism the calculations belong to.</param>
+        /// <param name="failureMechanism">The failure mechanism the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
-        public static double GetAssessmentLayerTwoA(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
+        /// <returns>The calculated assessment layer 2A; or <see cref="double.NaN"/> when there are no
+        /// performed calculations.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static double GetAssessmentLayerTwoA(this PipingFailureMechanismSectionResult sectionResult,
                                                     IEnumerable<PipingCalculationScenario> calculations,
-                                                    PipingFailureMechanism failurMechanism,
+                                                    PipingFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection)
         {
-            List<PipingCalculationScenario> calculationScenarios = pipingFailureMechanismSectionResult
-                .GetCalculationScenarios(calculations)
-                .Where(cs => cs.Status == CalculationScenarioStatus.Done)
-                .ToList();
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            List<PipingCalculationScenario> calculationScenarios = sectionResult
+                                                                   .GetCalculationScenarios(calculations)
+                                                                   .Where(cs => cs.Status == CalculationScenarioStatus.Done)
+                                                                   .ToList();
 
             if (calculationScenarios.Any())
             {
@@ -58,12 +81,13 @@ namespace Ringtoets.Piping.Data
                 foreach (PipingCalculationScenario scenario in calculationScenarios)
                 {
                     DerivedPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(scenario.Output,
-                                                                                          failurMechanism.PipingProbabilityAssessmentInput,
+                                                                                          failureMechanism.PipingProbabilityAssessmentInput,
                                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                                          failurMechanism.Contribution);
+                                                                                          failureMechanism.Contribution);
 
                     totalAssessmentLayerTwoA += derivedOutput.PipingProbability * (double) scenario.Contribution;
                 }
+
                 return totalAssessmentLayerTwoA;
             }
 
@@ -79,8 +103,8 @@ namespace Ringtoets.Piping.Data
                                                          IEnumerable<PipingCalculationScenario> calculations)
         {
             return (RoundedDouble) pipingFailureMechanismSectionResult
-                .GetCalculationScenarios(calculations)
-                .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
+                                   .GetCalculationScenarios(calculations)
+                                   .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }
 
         /// <summary>
@@ -116,7 +140,7 @@ namespace Ringtoets.Piping.Data
                 if (!Enum.IsDefined(typeof(CalculationScenarioStatus), calculationScenarioStatus))
                 {
                     throw new InvalidEnumArgumentException(nameof(pipingFailureMechanismSectionResult),
-                                                           (int)calculationScenarioStatus,
+                                                           (int) calculationScenarioStatus,
                                                            typeof(CalculationScenarioStatus));
                 }
 
@@ -131,7 +155,7 @@ namespace Ringtoets.Piping.Data
                     case CalculationScenarioStatus.Done:
                         continue;
                     default:
-                       throw new NotSupportedException($"The enum value {nameof(CalculationScenarioStatus)}.{calculationScenarioStatus} is not supported.");
+                        throw new NotSupportedException($"The enum value {nameof(CalculationScenarioStatus)}.{calculationScenarioStatus} is not supported.");
                 }
             }
 
