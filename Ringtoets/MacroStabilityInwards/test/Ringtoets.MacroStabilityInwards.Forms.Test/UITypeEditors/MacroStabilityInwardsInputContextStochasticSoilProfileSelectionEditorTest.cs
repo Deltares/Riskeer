@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms.Design;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -72,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
                                                                      failureMechanism,
                                                                      assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(inputContext, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(inputContext, GetCalculatedTestAssessmentLevel, handler);
 
             var editor = new MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditor();
             var someValue = new object();
@@ -141,7 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
                                                                                failureMechanism,
                                                                                assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(inputParametersContext, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(inputParametersContext, GetCalculatedTestAssessmentLevel, handler);
 
             var editor = new MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditor();
             var someValue = new object();
@@ -160,6 +161,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             Assert.AreSame(stochasticSoilProfile, result);
 
             mockRepository.VerifyAll();
+        }
+
+        private static RoundedDouble GetCalculatedTestAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
     }
 }
