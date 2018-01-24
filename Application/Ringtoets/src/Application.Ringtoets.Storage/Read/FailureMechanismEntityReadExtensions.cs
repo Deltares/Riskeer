@@ -121,10 +121,12 @@ namespace Application.Ringtoets.Storage.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
@@ -513,10 +515,12 @@ namespace Application.Ringtoets.Storage.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
@@ -925,6 +929,7 @@ namespace Application.Ringtoets.Storage.Read
             ReadStabilityStoneCoverWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity,
                                                                       failureMechanism.WaveConditionsCalculationGroup,
                                                                       collector);
+            entity.ReadGeneralInput(failureMechanism.GeneralInput);
         }
 
         private static void ReadStabilityStoneCoverMechanismSectionResults(this FailureMechanismEntity entity,
@@ -949,6 +954,12 @@ namespace Application.Ringtoets.Storage.Read
             {
                 targetRootCalculationGroup.Children.Add(calculationBase);
             }
+        }
+
+        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralStabilityStoneCoverWaveConditionsInput generalInput)
+        {
+            GeneralStabilityStoneCoverWaveConditionsInput generalStabilityPointStructuresInput = entity.StabilityStoneCoverFailureMechanismMetaEntities.First().Read();
+            generalInput.N = generalStabilityPointStructuresInput.N;
         }
 
         #endregion

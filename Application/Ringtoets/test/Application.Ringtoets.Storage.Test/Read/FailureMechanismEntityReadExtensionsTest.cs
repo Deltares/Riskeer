@@ -1376,7 +1376,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
-                    new StabilityStoneCoverFailureMechanismMetaEntity()
+                    new StabilityStoneCoverFailureMechanismMetaEntity
+                    {
+                        N = 12.34
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -1422,7 +1425,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
-                    new StabilityStoneCoverFailureMechanismMetaEntity()
+                    new StabilityStoneCoverFailureMechanismMetaEntity
+                    {
+                        N = 4.2
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -1454,7 +1460,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StabilityStoneCoverFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation
+                        ForeshoreProfileCollectionSourcePath = fileLocation,
+                        N = 1.2
                     }
                 }
             };
@@ -1497,7 +1504,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StabilityStoneCoverFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation
+                        ForeshoreProfileCollectionSourcePath = fileLocation,
+                        N = 8.123
                     }
                 }
             };

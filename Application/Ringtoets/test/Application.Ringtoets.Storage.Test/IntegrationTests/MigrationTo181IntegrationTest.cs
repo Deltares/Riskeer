@@ -61,8 +61,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertDatabase(reader);
 
                     AssertPipingSoilLayers(reader);
-
                     AssertHydraRingPreprocessor(reader);
+                    AssertStabilityStoneCoverFailureMechanism(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -151,7 +151,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "StabilityPointStructuresFailureMechanismMetaEntity",
                 "StabilityPointStructuresOutputEntity",
                 "StabilityPointStructuresSectionResultEntity",
-                "StabilityStoneCoverFailureMechanismMetaEntity",
                 "StabilityStoneCoverSectionResultEntity",
                 "StabilityStoneCoverWaveConditionsCalculationEntity",
                 "StabilityStoneCoverWaveConditionsOutputEntity",
@@ -271,6 +270,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "WHERE [PermeabilityMean] <= 0 " +
                 "OR [PermeabilityCoefficientOfVariation] < 0;";
             reader.AssertReturnedDataIsValid(validatePermeability);
+        }
+
+        private static void AssertStabilityStoneCoverFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validatePreprocessorSettings =
+                "SELECT COUNT() = 0 " +
+                "FROM [StabilityStoneCoverFailureMechanismMetaEntity]" +
+                "WHERE [N] IS NOT 4;";
+            reader.AssertReturnedDataIsValid(validatePreprocessorSettings);
         }
     }
 }

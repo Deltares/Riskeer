@@ -404,6 +404,7 @@
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileOneDEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileEntityReadExtensions.cs" />
     <Compile Include="Read\ProbabilityAssessmentOutputEntityReadExtensions.cs" />
+    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\StructureCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructureEntityReadExtensions.cs" />

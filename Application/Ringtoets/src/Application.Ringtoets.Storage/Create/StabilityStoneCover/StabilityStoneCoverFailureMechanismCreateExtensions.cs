@@ -69,7 +69,8 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
         {
             var metaEntity = new StabilityStoneCoverFailureMechanismMetaEntity
             {
-                ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone()
+                ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone(),
+                N = failureMechanism.GeneralInput.N
             };
 
             entity.StabilityStoneCoverFailureMechanismMetaEntities.Add(metaEntity);

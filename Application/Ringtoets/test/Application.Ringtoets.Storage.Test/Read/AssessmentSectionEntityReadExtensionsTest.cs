@@ -982,7 +982,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 NotRelevantComments = notRelevantComments,
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
-                    new StabilityStoneCoverFailureMechanismMetaEntity()
+                    new StabilityStoneCoverFailureMechanismMetaEntity
+                    {
+                        N = 3.9
+                    }
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -1025,7 +1028,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
-                    new StabilityStoneCoverFailureMechanismMetaEntity()
+                    new StabilityStoneCoverFailureMechanismMetaEntity
+                    {
+                        N = 3.9
+                    }
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -1076,7 +1082,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StabilityStoneCoverFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation
+                        ForeshoreProfileCollectionSourcePath = fileLocation,
+                        N = 3.9
                     }
                 },
                 IsRelevant = Convert.ToByte(isRelevant)

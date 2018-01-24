@@ -150,7 +150,16 @@ INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJE
 INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity;
 INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
 INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
-INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverFailureMechanismMetaEntity;
+INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity (
+	[StabilityStoneCoverFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[ForeshoreProfileCollectionSourcePath],
+	[N])
+SELECT [StabilityStoneCoverFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[ForeshoreProfileCollectionSourcePath],
+	"4"
+FROM [SOURCEPROJECT].StabilityStoneCoverFailureMechanismMetaEntity;
 INSERT INTO StabilityStoneCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;

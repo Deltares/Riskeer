@@ -1886,6 +1886,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism expectedFailureMechanism,
                                                                       StabilityStoneCoverFailureMechanism actualFailureMechanism)
         {
+            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
+
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
             AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
