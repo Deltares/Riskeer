@@ -205,7 +205,6 @@
     <Compile Include="DbContext\HydraulicLocationOutputType.cs" />
     <Compile Include="DbContext\IGeneralResultEntity.cs" />
     <Compile Include="DbContext\IHasGeneralResultFaultTreeIllustrationPointEntity.cs" />
-    <Compile Include="DbContext\IHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\IllustrationPointResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -258,7 +257,6 @@
     <Compile Include="DbContext\PartialClosingStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialGeneralResultFaultTreeIllustrationPointEntity.cs" />
     <Compile Include="DbContext\PartialGeneralResultSubMechanismIllustrationPointEntity.cs" />
-    <Compile Include="DbContext\PartialGrassCoverErosionOutwardsHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresOutputEntity.cs" />
     <Compile Include="DbContext\PartialStabilityPointStructuresCalculationEntity.cs" />

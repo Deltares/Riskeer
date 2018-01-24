@@ -247,7 +247,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             Assert.AreSame(location1, location2);
         }
 
-        private static void AssertHydraulicBoundaryLocationOutput(IHydraulicLocationOutputEntity expected,
+        private static void AssertHydraulicBoundaryLocationOutput(GrassCoverErosionOutwardsHydraulicLocationOutputEntity expected,
                                                                   HydraulicBoundaryLocationOutput actual)
         {
             if (expected == null)
