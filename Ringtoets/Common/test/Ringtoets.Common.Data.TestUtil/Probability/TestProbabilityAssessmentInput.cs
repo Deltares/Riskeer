@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.Common.Data.TestUtil.Probability
@@ -31,8 +32,11 @@ namespace Ringtoets.Common.Data.TestUtil.Probability
         /// <summary>
         /// Creates a new instance of <see cref="TestProbabilityAssessmentInput"/>.
         /// </summary>
-        /// <param name="a">The value of <see cref="ProbabilityAssessmentInput.A"/>.</param>
-        /// <param name="b">The value of <see cref="ProbabilityAssessmentInput.B"/>.</param>
+        /// <param name="a">The default value for the parameter 'a' to be used to factor in the 'length effect'
+        /// when determining the maximum tolerated probability of failure.</param>
+        /// <param name="b">The default value for the parameter 'b' to be used to factor in the 'length effect'
+        /// when determining the maximum tolerated probability of failure.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="a"/> is not in the range [0, 1].</exception>"/>
         public TestProbabilityAssessmentInput(double a, double b) : base(a, b) {}
     }
 }
