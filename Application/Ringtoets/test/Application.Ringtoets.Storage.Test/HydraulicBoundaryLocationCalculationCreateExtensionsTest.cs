@@ -26,7 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Test
 {
@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void Create_CalculationWithOutput_ReturnsHydraulicLocationCalculationEntityWithOutput()
+        public void Create_CalculationWithOutputAndWithoutGeneralResult_ReturnsHydraulicLocationCalculationEntityWithOutput()
         {
             // Setup
             var random = new Random(33);
@@ -80,7 +80,39 @@ namespace Application.Ringtoets.Storage.Test
                 {
                     ShouldIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
                 },
-                Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+                Output = new HydraulicBoundaryLocationOutput(
+                    random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                    random.NextDouble(), random.NextEnumValue<CalculationConvergence>(),
+                    null)
+            };
+
+            // Call
+            HydraulicLocationCalculationEntity entity = calculation.Create();
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(Convert.ToByte(shouldIllustrationPointsBeCalculated), entity.ShouldIllustrationPointsBeCalculated);
+
+            HydraulicLocationOutputEntity outputEntity = entity.HydraulicLocationOutputEntities.Single();
+            AssertHydraulicLocationOutput(calculation.Output, outputEntity);
+        }
+
+        [Test]
+        public void Create_CalculationWithOutputAndGeneralResult_ReturnsHydraulicLocationCalculationEntityWithOutput()
+        {
+            // Setup
+            var random = new Random(33);
+            bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
+            var calculation = new HydraulicBoundaryLocationCalculation
+            {
+                InputParameters =
+                {
+                    ShouldIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
+                },
+                Output = new HydraulicBoundaryLocationOutput(
+                    random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                    random.NextDouble(), random.NextEnumValue<CalculationConvergence>(),
+                    new TestGeneralResultSubMechanismIllustrationPoint())
             };
 
             // Call

@@ -45,6 +45,7 @@ namespace Application.Ringtoets.Storage.Create
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             if (registry.Contains(location))
             {
                 return registry.Get<HydraulicLocationEntity>(location);
@@ -56,13 +57,16 @@ namespace Application.Ringtoets.Storage.Create
                 Name = location.Name.DeepClone(),
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
-                ShouldDesignWaterLevelIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.DesignWaterLevelCalculation1),
-                ShouldWaveHeightIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.WaveHeightCalculation1),
+                HydraulicLocationCalculationEntity = location.DesignWaterLevelCalculation1.Create(),
+                HydraulicLocationCalculationEntity1 = location.DesignWaterLevelCalculation2.Create(),
+                HydraulicLocationCalculationEntity2 = location.DesignWaterLevelCalculation3.Create(),
+                HydraulicLocationCalculationEntity3 = location.DesignWaterLevelCalculation4.Create(),
+                HydraulicLocationCalculationEntity4 = location.WaveHeightCalculation1.Create(),
+                HydraulicLocationCalculationEntity5 = location.WaveHeightCalculation2.Create(),
+                HydraulicLocationCalculationEntity6 = location.WaveHeightCalculation3.Create(),
+                HydraulicLocationCalculationEntity7 = location.WaveHeightCalculation4.Create(),
                 Order = order
             };
-
-            CreateHydraulicLocationOutput(entity, location.DesignWaterLevelCalculation1.Output, HydraulicLocationOutputType.DesignWaterLevel);
-            CreateHydraulicLocationOutput(entity, location.WaveHeightCalculation1.Output, HydraulicLocationOutputType.WaveHeight);
 
             registry.Register(entity, location);
             return entity;
@@ -71,16 +75,6 @@ namespace Application.Ringtoets.Storage.Create
         private static byte GetShouldIllustrationPointsBeCalculated(HydraulicBoundaryLocationCalculation calculation)
         {
             return Convert.ToByte(calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-        }
-
-        private static void CreateHydraulicLocationOutput(HydraulicLocationEntity entity, HydraulicBoundaryLocationOutput output,
-                                                          HydraulicLocationOutputType outputType)
-        {
-            if (output != null)
-            {
-                var hydraulicLocationOutputEntity = HydraulicBoundaryLocationOutputCreateExtensions.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputEntity<HydraulicLocationOutputEntity>(outputType);
-                entity.HydraulicLocationOutputEntities.Add(hydraulicLocationOutputEntity);
-            }
         }
 
         #region Grass CoverErosion Outwards HydraulicLocation
@@ -100,6 +94,7 @@ namespace Application.Ringtoets.Storage.Create
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             if (registry.Contains(location))
             {
                 return registry.Get<GrassCoverErosionOutwardsHydraulicLocationEntity>(location);
@@ -131,7 +126,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (output != null)
             {
-                var grassCoverErosionOutwardsHydraulicLocationOutputEntity =
+                GrassCoverErosionOutwardsHydraulicLocationOutputEntity grassCoverErosionOutwardsHydraulicLocationOutputEntity =
                     output.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputEntity(outputType);
 
                 entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Add(grassCoverErosionOutwardsHydraulicLocationOutputEntity);
