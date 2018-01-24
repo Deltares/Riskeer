@@ -26,17 +26,17 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// Extension methods for <see cref="IHydraulicLocationOutputEntity"/> related to creating 
+    /// Extension methods for <see cref="HydraulicLocationOutputEntity"/> related to creating 
     /// a <see cref="HydraulicBoundaryLocationOutput"/>.
     /// </summary>
     internal static class HydraulicLocationOutputEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="IHydraulicLocationOutputEntity"/> and use the information to construct a <see cref="HydraulicBoundaryLocationOutput"/>.
+        /// Read the <see cref="HydraulicLocationOutputEntity"/> and use the information to construct a <see cref="HydraulicBoundaryLocationOutput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="IHydraulicLocationOutputEntity"/> to create <see cref="HydraulicBoundaryLocationOutput"/> for.</param>
+        /// <param name="entity">The <see cref="HydraulicLocationOutputEntity"/> to create <see cref="HydraulicBoundaryLocationOutput"/> for.</param>
         /// <returns>A new <see cref="HydraulicBoundaryLocationOutput"/>.</returns>
-        internal static HydraulicBoundaryLocationOutput Read(this IHydraulicLocationOutputEntity entity)
+        internal static HydraulicBoundaryLocationOutput Read(this HydraulicLocationOutputEntity entity)
         {
             return new HydraulicBoundaryLocationOutput(entity.Result.ToNullAsNaN(),
                                                        entity.TargetProbability.ToNullAsNaN(),
