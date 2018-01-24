@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 DataGridViewColumn nameColumn = table.GetColumnFromIndex(nameColumnIndex);
                 Assert.AreEqual("Vaknaam", nameColumn.HeaderText);
                 DataGridViewColumn lengthColumn = table.GetColumnFromIndex(lengthColumnIndex);
-                Assert.AreEqual("Lengte [m]", lengthColumn.HeaderText);
+                Assert.AreEqual("Lengte* [m]", lengthColumn.HeaderText);
 
                 Assert.Throws<ArgumentOutOfRangeException>(() => table.GetColumnFromIndex(lengthColumnIndex + 1));
 

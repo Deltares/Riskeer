@@ -1109,6 +1109,8 @@ namespace Ringtoets.Integration.Plugin
                       .AddOpenItem()
                       .AddSeparator()
                       .AddImportItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
                       .Build();
         }
 

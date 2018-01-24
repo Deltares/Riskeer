@@ -1490,7 +1490,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De totale lengte van het vak in meters..
+        ///   Looks up a localized string similar to De totale lengte van het vak in meters (afgerond)..
         /// </summary>
         public static string FailureMechanismSection_Length_Description {
             get {
@@ -1499,7 +1499,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengte [m].
+        ///   Looks up a localized string similar to Lengte* [m].
         /// </summary>
         public static string FailureMechanismSection_Length_DisplayName {
             get {

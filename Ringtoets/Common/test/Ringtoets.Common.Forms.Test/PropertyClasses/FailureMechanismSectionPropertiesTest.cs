@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -59,7 +60,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<FailureMechanismSectionProperties, ExpandableObjectConverter>();
 
             Assert.AreEqual(section.Name, properties.Name);
-            Assert.AreEqual(section.Length, properties.Length);
+            Assert.AreEqual(2, properties.Length.NumberOfDecimalPlaces);
+            Assert.AreEqual(section.Length, properties.Length, properties.Length.GetAccuracy());            
             Assert.AreEqual(section.StartPoint, properties.StartPoint);
             Assert.AreEqual(section.EndPoint, properties.EndPoint);
         }
@@ -86,8 +88,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor lengthProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthProperty,
                                                                             "Algemeen",
-                                                                            "Lengte [m]",
-                                                                            "De totale lengte van het vak in meters.",
+                                                                            "Lengte* [m]",
+                                                                            "De totale lengte van het vak in meters (afgerond).",
                                                                             true);
             PropertyDescriptor startPointProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(startPointProperty,

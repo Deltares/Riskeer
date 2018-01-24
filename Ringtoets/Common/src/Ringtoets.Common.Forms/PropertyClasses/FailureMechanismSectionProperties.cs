@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -68,11 +69,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSection_Length_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSection_Length_Description))]
-        public double Length
+        public RoundedDouble Length
         {
             get
             {
-                return data.Length;
+                return new RoundedDouble(2, data.Length);
             }
         }
 
