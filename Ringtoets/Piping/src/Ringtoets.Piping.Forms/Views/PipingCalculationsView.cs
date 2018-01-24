@@ -293,6 +293,7 @@ namespace Ringtoets.Piping.Forms.Views
                     pipingFailureMechanism,
                     assessmentSection);
             }
+
             return selection;
         }
 
@@ -326,9 +327,9 @@ namespace Ringtoets.Piping.Forms.Views
 
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSection.Points);
             IEnumerable<PipingCalculationScenario> pipingCalculations = calculationGroup
-                .GetCalculations()
-                .OfType<PipingCalculationScenario>()
-                .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
+                                                                        .GetCalculations()
+                                                                        .OfType<PipingCalculationScenario>()
+                                                                        .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
             PrefillComboBoxListItemsAtColumnLevel();
 
@@ -444,6 +445,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 return Enumerable.Empty<PipingStochasticSoilModel>();
             }
+
             return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
                 pipingCalculation.InputParameters.SurfaceLine,
                 pipingFailureMechanism.StochasticSoilModels);
@@ -481,6 +483,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 return Enumerable.Empty<PipingStochasticSoilProfile>();
             }
+
             return pipingCalculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles;
         }
 
@@ -504,11 +507,13 @@ namespace Ringtoets.Piping.Forms.Views
                 PipingStochasticSoilModelCollection stochasticSoilModels = pipingFailureMechanism.StochasticSoilModels;
                 SetItemsOnObjectCollection(stochasticSoilModelColumn.Items, GetStochasticSoilModelsDataSource(stochasticSoilModels).ToArray());
             }
+
             using (new SuspendDataGridViewColumnResizes(stochasticSoilProfileColumn))
             {
                 PipingStochasticSoilProfile[] pipingSoilProfiles = GetPipingStochasticSoilProfilesFromStochasticSoilModels();
                 SetItemsOnObjectCollection(stochasticSoilProfileColumn.Items, GetSoilProfilesDataSource(pipingSoilProfiles).ToArray());
             }
+
             using (new SuspendDataGridViewColumnResizes(selectableHydraulicBoundaryLocationColumn))
             {
                 SetItemsOnObjectCollection(selectableHydraulicBoundaryLocationColumn.Items,
@@ -535,6 +540,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, surfaceLine));
             }
+
             return selectableHydraulicBoundaryLocations;
         }
 
@@ -566,6 +572,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 return;
             }
+
             var dialog = new PipingSurfaceLineSelectionDialog(Parent, pipingFailureMechanism.SurfaceLines);
             dialog.ShowDialog();
             IEnumerable<ICalculationBase> calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
