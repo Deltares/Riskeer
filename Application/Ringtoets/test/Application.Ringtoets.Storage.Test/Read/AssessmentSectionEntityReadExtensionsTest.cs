@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
+using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -200,17 +201,16 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string testVersion = "testVersion";
             entity.HydraulicDatabaseLocation = testLocation;
             entity.HydraulicDatabaseVersion = testVersion;
-            entity.HydraulicLocationEntities.Add(new HydraulicLocationEntity
-            {
-                Name = "A",
-                Order = 1
-            });
-            entity.HydraulicLocationEntities.Add(new HydraulicLocationEntity
-            {
-                Name = "B",
-                Order = 0
-            });
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
+
+            HydraulicLocationEntity hydraulicLocationEntityOne = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
+            hydraulicLocationEntityOne.Name = "A";
+            hydraulicLocationEntityOne.Order = 1;
+            entity.HydraulicLocationEntities.Add(hydraulicLocationEntityOne);
+            HydraulicLocationEntity hydraulicLocationEntityTwo = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
+            hydraulicLocationEntityOne.Name = "B";
+            hydraulicLocationEntityOne.Order = 0;
+            entity.HydraulicLocationEntities.Add(hydraulicLocationEntityTwo);
 
             var collector = new ReadConversionCollector();
 
@@ -243,22 +243,21 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string preprocessorDirectory = "preprocessorLocation";
             entity.HydraulicDatabaseLocation = testLocation;
             entity.HydraulicDatabaseVersion = testVersion;
-            entity.HydraulicLocationEntities.Add(new HydraulicLocationEntity
-            {
-                Name = "A",
-                Order = 1
-            });
-            entity.HydraulicLocationEntities.Add(new HydraulicLocationEntity
-            {
-                Name = "B",
-                Order = 0
-            });
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
             entity.HydraRingPreprocessorEntities.Add(new HydraRingPreprocessorEntity
             {
                 UsePreprocessor = usePreprocessor,
                 PreprocessorDirectory = preprocessorDirectory
             });
+
+            HydraulicLocationEntity hydraulicLocationEntityOne = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
+            hydraulicLocationEntityOne.Name = "A";
+            hydraulicLocationEntityOne.Order = 1;
+            entity.HydraulicLocationEntities.Add(hydraulicLocationEntityOne);
+            HydraulicLocationEntity hydraulicLocationEntityTwo = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
+            hydraulicLocationEntityOne.Name = "B";
+            hydraulicLocationEntityOne.Order = 0;
+            entity.HydraulicLocationEntities.Add(hydraulicLocationEntityTwo);
 
             var collector = new ReadConversionCollector();
 

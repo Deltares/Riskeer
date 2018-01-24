@@ -24,6 +24,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Serializers;
+using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -238,10 +239,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         public void Read_ValidEntityWithUnreadHydraulicLocationEntity_ReturnCalculationWithNewHydraulicBoundaryLocation()
         {
             // Setup
-            var hydroLocationEntity = new HydraulicLocationEntity
-            {
-                Name = "A"
-            };
+            HydraulicLocationEntity hydroLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 HydraulicLocationEntity = hydroLocationEntity

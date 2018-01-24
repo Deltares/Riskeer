@@ -24,6 +24,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hydraulics\HydraulicLocationEntityTestFactoryTest.cs" />
     <Compile Include="IllustrationPoints\GeneralResultEntityTestHelperTest.cs" />
     <Compile Include="MacroStabilityInwards\MacroStabilityInwardsSoilLayerTwoDEntityTestFactoryTest.cs" />
     <Compile Include="MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileEntityTestFactoryTest.cs" />
