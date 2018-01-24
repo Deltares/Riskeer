@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var location = new TestHydraulicBoundaryLocation();
             var calculation = new HydraulicBoundaryLocationCalculation
             {
-                Output = new TestHydraulicBoundaryLocationOutput(1.5)
+                Output = new TestHydraulicBoundaryLocationOutput(1.5, CalculationConvergence.CalculatedConverged)
             };
             var hydraulicBoundaryDatabase = new ObservableList<HydraulicBoundaryLocation>
             {
@@ -111,9 +111,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(location.Id, locationProperties.Id);
             Assert.AreEqual(location.Location, locationProperties.Location);
 
-            RoundedDouble designWaterLevel = location.DesignWaterLevelCalculation1.Output.Result;
+            RoundedDouble designWaterLevel = calculation.Output.Result;
             Assert.AreEqual(designWaterLevel, locationProperties.DesignWaterLevel, designWaterLevel.GetAccuracy());
-
             Assert.AreEqual("Ja", locationProperties.Convergence);
         }
     }
