@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  assessmentSection);
 
             // Call
-            TestDelegate test = () => new PipingInputContextProperties(context, () => (RoundedDouble) 1.1, null);
+            TestDelegate test = () => new PipingInputContextProperties(context, GetCalculatedTestAssessmentLevel, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -657,7 +657,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 });
 
             // When
-            properties.UseAssessmentLevelManualInput = true;
             properties.AssessmentLevel = (RoundedDouble) assessmentLevel;
             properties.SurfaceLine = surfaceLine;
             properties.EntryPointL = (RoundedDouble) entryPointL;
