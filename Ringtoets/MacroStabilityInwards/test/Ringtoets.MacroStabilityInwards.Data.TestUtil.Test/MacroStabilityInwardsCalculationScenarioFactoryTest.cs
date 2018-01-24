@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Service;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 {
@@ -146,66 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
 
             // Assert
-            MacroStabilityInwardsInput inputParameters = scenario.InputParameters;
-            Assert.IsNull(inputParameters.SurfaceLine);
-            Assert.IsNull(inputParameters.StochasticSoilModel);
-            Assert.IsNull(inputParameters.StochasticSoilProfile);
-            Assert.IsNull(inputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(inputParameters.SoilProfileUnderSurfaceLine);
-
-            Assert.IsInstanceOf<RoundedDouble>(inputParameters.AssessmentLevel);
-            Assert.IsNaN(inputParameters.AssessmentLevel);
-
-            Assert.IsFalse(inputParameters.UseAssessmentLevelManualInput);
-
-            Assert.AreEqual(0, inputParameters.SlipPlaneMinimumDepth, inputParameters.SlipPlaneMinimumDepth.GetAccuracy());
-            Assert.AreEqual(0, inputParameters.SlipPlaneMinimumLength, inputParameters.SlipPlaneMinimumLength.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.MaximumSliceWidth, inputParameters.MaximumSliceWidth.GetAccuracy());
-
-            Assert.IsTrue(inputParameters.MoveGrid);
-            Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, inputParameters.DikeSoilScenario);
-
-            Assert.IsNaN(inputParameters.WaterLevelRiverAverage);
-
-            Assert.IsFalse(inputParameters.DrainageConstructionPresent);
-
-            Assert.IsNaN(inputParameters.XCoordinateDrainageConstruction);
-            Assert.IsNaN(inputParameters.ZCoordinateDrainageConstruction);
-            Assert.IsNaN(inputParameters.MinimumLevelPhreaticLineAtDikeTopRiver);
-            Assert.IsNaN(inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder);
-
-            Assert.IsNaN(inputParameters.LocationInputExtreme.WaterLevelPolder);
-            Assert.IsTrue(inputParameters.LocationInputExtreme.UseDefaultOffsets);
-            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver);
-            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder);
-            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside);
-            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder);
-            Assert.IsNaN(inputParameters.LocationInputExtreme.PenetrationLength);
-
-            Assert.IsNaN(inputParameters.LocationInputDaily.WaterLevelPolder);
-            Assert.IsTrue(inputParameters.LocationInputDaily.UseDefaultOffsets);
-            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver);
-            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder);
-            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside);
-            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder);
-            Assert.AreEqual(0, inputParameters.LocationInputDaily.PenetrationLength, inputParameters.LocationInputDaily.PenetrationLength.GetAccuracy());
-
-            Assert.IsTrue(inputParameters.AdjustPhreaticLine3And4ForUplift);
-            Assert.IsNaN(inputParameters.LeakageLengthOutwardsPhreaticLine3);
-            Assert.IsNaN(inputParameters.LeakageLengthInwardsPhreaticLine3);
-            Assert.IsNaN(inputParameters.LeakageLengthOutwardsPhreaticLine4);
-            Assert.IsNaN(inputParameters.LeakageLengthInwardsPhreaticLine4);
-            Assert.IsNaN(inputParameters.PiezometricHeadPhreaticLine2Outwards);
-            Assert.IsNaN(inputParameters.PiezometricHeadPhreaticLine2Inwards);
-            Assert.AreEqual(MacroStabilityInwardsGridDeterminationType.Automatic, inputParameters.GridDeterminationType);
-            Assert.AreEqual(MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated, inputParameters.TangentLineDeterminationType);
-            Assert.IsNaN(inputParameters.TangentLineZTop);
-            Assert.IsNaN(inputParameters.TangentLineZBottom);
-            Assert.AreEqual(1, inputParameters.TangentLineNumber);
-            Assert.IsNotNull(inputParameters.LeftGrid);
-            Assert.IsNotNull(inputParameters.RightGrid);
-            Assert.IsTrue(inputParameters.CreateZones);
-            Assert.AreEqual(MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, inputParameters.ZoningBoundariesDeterminationType);
+            Assert.IsFalse(MacroStabilityInwardsCalculationService.Validate(scenario, (RoundedDouble) 1.1));
         }
 
         [Test]
@@ -215,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
 
             // Assert
-            AssertInput(scenario.InputParameters);
+            Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(scenario, (RoundedDouble) 1.1));
         }
 
         [Test]
