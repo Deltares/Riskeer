@@ -68,10 +68,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 throw new ArgumentNullException(nameof(availableHydraulicBoundaryLocations));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             this.availableHydraulicBoundaryLocations = availableHydraulicBoundaryLocations;
             this.failureMechanism = failureMechanism;
         }
@@ -107,6 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 SetMacroStabilityInwardsLocationInputExtreme(calculationConfiguration.LocationInputExtreme, calculation.InputParameters.LocationInputExtreme);
                 return calculation;
             }
+
             return null;
         }
 
@@ -132,14 +135,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 return false;
             }
 
-            if (location != null)
-            {
-                macroStabilityInwardsCalculation.InputParameters.HydraulicBoundaryLocation = location;
-            }
-            else if (calculationConfiguration.AssessmentLevel.HasValue)
+            if (calculationConfiguration.AssessmentLevel.HasValue)
             {
                 macroStabilityInwardsCalculation.InputParameters.UseAssessmentLevelManualInput = true;
                 macroStabilityInwardsCalculation.InputParameters.AssessmentLevel = (RoundedDouble) calculationConfiguration.AssessmentLevel.Value;
+            }
+            else if (location != null)
+            {
+                macroStabilityInwardsCalculation.InputParameters.HydraulicBoundaryLocation = location;
             }
 
             return true;
@@ -574,10 +577,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 input.DrainageConstructionPresent = calculationConfiguration.DrainageConstructionPresent.Value;
             }
+
             if (calculationConfiguration.XCoordinateDrainageConstruction.HasValue)
             {
                 input.XCoordinateDrainageConstruction = (RoundedDouble) calculationConfiguration.XCoordinateDrainageConstruction.Value;
             }
+
             if (calculationConfiguration.ZCoordinateDrainageConstruction.HasValue)
             {
                 input.ZCoordinateDrainageConstruction = (RoundedDouble) calculationConfiguration.ZCoordinateDrainageConstruction.Value;
@@ -587,6 +592,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 input.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) calculationConfiguration.MinimumLevelPhreaticLineAtDikeTopRiver.Value;
             }
+
             if (calculationConfiguration.MinimumLevelPhreaticLineAtDikeTopPolder.HasValue)
             {
                 input.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) calculationConfiguration.MinimumLevelPhreaticLineAtDikeTopPolder.Value;
@@ -601,6 +607,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 input.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) calculationConfiguration.PiezometricHeadPhreaticLine2Outwards.Value;
             }
+
             if (calculationConfiguration.PiezometricHeadPhreaticLine2Inwards.HasValue)
             {
                 input.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) calculationConfiguration.PiezometricHeadPhreaticLine2Inwards.Value;
@@ -610,6 +617,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 input.LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) calculationConfiguration.LeakageLengthOutwardsPhreaticLine3.Value;
             }
+
             if (calculationConfiguration.LeakageLengthInwardsPhreaticLine3.HasValue)
             {
                 input.LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) calculationConfiguration.LeakageLengthInwardsPhreaticLine3.Value;
@@ -619,6 +627,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 input.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) calculationConfiguration.LeakageLengthOutwardsPhreaticLine4.Value;
             }
+
             if (calculationConfiguration.LeakageLengthInwardsPhreaticLine4.HasValue)
             {
                 input.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) calculationConfiguration.LeakageLengthInwardsPhreaticLine4.Value;
@@ -628,10 +637,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 input.SlipPlaneMinimumDepth = (RoundedDouble) calculationConfiguration.SlipPlaneMinimumDepth.Value;
             }
+
             if (calculationConfiguration.SlipPlaneMinimumLength.HasValue)
             {
                 input.SlipPlaneMinimumLength = (RoundedDouble) calculationConfiguration.SlipPlaneMinimumLength.Value;
             }
+
             if (calculationConfiguration.MaximumSliceWidth.HasValue)
             {
                 input.MaximumSliceWidth = (RoundedDouble) calculationConfiguration.MaximumSliceWidth.Value;
@@ -651,6 +662,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 input.ZoneBoundaryLeft = (RoundedDouble) calculationConfiguration.ZoneBoundaryLeft.Value;
             }
+
             if (calculationConfiguration.ZoneBoundaryRight.HasValue)
             {
                 input.ZoneBoundaryRight = (RoundedDouble) calculationConfiguration.ZoneBoundaryRight.Value;
@@ -744,22 +756,27 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 locationInput.WaterLevelPolder = (RoundedDouble) configurationLocationInput.WaterLevelPolder.Value;
             }
+
             if (configurationLocationInput.UseDefaultOffsets.HasValue)
             {
                 locationInput.UseDefaultOffsets = configurationLocationInput.UseDefaultOffsets.Value;
             }
+
             if (configurationLocationInput.PhreaticLineOffsetBelowDikeTopAtRiver.HasValue)
             {
                 locationInput.PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) configurationLocationInput.PhreaticLineOffsetBelowDikeTopAtRiver.Value;
             }
+
             if (configurationLocationInput.PhreaticLineOffsetBelowDikeTopAtPolder.HasValue)
             {
                 locationInput.PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) configurationLocationInput.PhreaticLineOffsetBelowDikeTopAtPolder.Value;
             }
+
             if (configurationLocationInput.PhreaticLineOffsetBelowShoulderBaseInside.HasValue)
             {
                 locationInput.PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) configurationLocationInput.PhreaticLineOffsetBelowShoulderBaseInside.Value;
             }
+
             if (configurationLocationInput.PhreaticLineOffsetBelowDikeToeAtPolder.HasValue)
             {
                 locationInput.PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) configurationLocationInput.PhreaticLineOffsetBelowDikeToeAtPolder.Value;
