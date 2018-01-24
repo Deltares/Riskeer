@@ -65,7 +65,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             Assert.IsNull(calculation.Output);
-            Assert.IsNull(calculation.SemiProbabilisticOutput);
 
             CollectionAssert.AreEqual(new[]
             {

@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         {
             get
             {
-                return Output != null || SemiProbabilisticOutput != null;
+                return Output != null;
             }
         }
 
@@ -71,7 +71,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public void ClearOutput()
         {
             Output = null;
-            SemiProbabilisticOutput = null;
         }
 
         public override object Clone()
@@ -83,11 +82,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             if (Output != null)
             {
                 clone.Output = (MacroStabilityInwardsOutput) Output.Clone();
-            }
-
-            if (SemiProbabilisticOutput != null)
-            {
-                clone.SemiProbabilisticOutput = (MacroStabilityInwardsSemiProbabilisticOutput) SemiProbabilisticOutput.Clone();
             }
 
             return clone;
