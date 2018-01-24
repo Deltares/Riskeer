@@ -31,38 +31,21 @@ namespace Ringtoets.MacroStabilityInwards.Service
     /// </summary>
     public class MacroStabilityInwardsCalculationActivity : Activity
     {
-        private readonly double norm;
-        private readonly double contribution;
         private readonly MacroStabilityInwardsCalculation calculation;
-        private readonly MacroStabilityInwardsProbabilityAssessmentInput macroStabilityInwardsProbabilityAssessmentInput;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsCalculationActivity"/> class.
         /// </summary>
         /// <param name="calculation">The macro stability inwards data used for the calculation.</param>
-        /// <param name="macroStabilityInwardsProbabilityAssessmentInput">General input that influences the probability estimate for a
-        /// macro stability inwards assessment.</param>
-        /// <param name="norm">The norm to assess for.</param>
-        /// <param name="contribution">The contribution of macro stability inwards as a percentage (0-100) to the total of the failure probability
-        /// of the assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="calculation"/> 
-        /// or <paramref name="macroStabilityInwardsProbabilityAssessmentInput"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsCalculationActivity(MacroStabilityInwardsCalculation calculation, MacroStabilityInwardsProbabilityAssessmentInput macroStabilityInwardsProbabilityAssessmentInput,
-                                                        double norm, double contribution)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        public MacroStabilityInwardsCalculationActivity(MacroStabilityInwardsCalculation calculation)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
-            if (macroStabilityInwardsProbabilityAssessmentInput == null)
-            {
-                throw new ArgumentNullException(nameof(macroStabilityInwardsProbabilityAssessmentInput));
-            }
 
             this.calculation = calculation;
-            this.macroStabilityInwardsProbabilityAssessmentInput = macroStabilityInwardsProbabilityAssessmentInput;
-            this.norm = norm;
-            this.contribution = contribution;
 
             Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
         }
@@ -78,7 +61,6 @@ namespace Ringtoets.MacroStabilityInwards.Service
             MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
 
             MacroStabilityInwardsCalculationService.Calculate(calculation);
-            MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(calculation, macroStabilityInwardsProbabilityAssessmentInput, norm, contribution);
         }
 
         protected override void OnCancel()

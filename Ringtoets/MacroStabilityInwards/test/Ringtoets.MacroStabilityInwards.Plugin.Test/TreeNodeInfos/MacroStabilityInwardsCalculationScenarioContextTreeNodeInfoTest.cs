@@ -188,8 +188,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new MacroStabilityInwardsCalculationScenario
                 {
-                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                    SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
                 };
                 var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -521,7 +520,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is mislukt.", msgs[6]);
                     });
                     Assert.IsNull(calculation.Output);
-                    Assert.IsNull(calculation.SemiProbabilisticOutput);
                 }
             }
         }
@@ -636,7 +634,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                         }
                     });
                     Assert.IsNotNull(calculation.Output);
-                    Assert.IsNotNull(calculation.SemiProbabilisticOutput);
                 }
             }
         }
@@ -674,7 +671,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
-                calculation.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
                 calculation.Attach(observer);
 
                 string messageBoxText = null, messageBoxTitle = null;

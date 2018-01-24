@@ -26,7 +26,6 @@
     <Compile Include="MacroStabilityInwardsLocationInputExtreme.cs" />
     <Compile Include="MacroStabilityInwardsLocationInputDaily.cs" />
     <Compile Include="MacroStabilityInwardsOutput.cs" />
-    <Compile Include="MacroStabilityInwardsSemiProbabilisticOutput.cs" />
     <Compile Include="MacroStabilityInwardsSlice.cs" />
     <Compile Include="MacroStabilityInwardsSlidingCircle.cs" />
     <Compile Include="MacroStabilityInwardsSlidingCurve.cs" />

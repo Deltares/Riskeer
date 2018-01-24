@@ -54,8 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             var calculation = new MacroStabilityInwardsCalculation
             {
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
             // Call
@@ -76,11 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation
-            {
-                Output = null,
-                SemiProbabilisticOutput = null
-            };
+            var calculation = new MacroStabilityInwardsCalculation();
 
             // Call
             IEnumerable<IObservable> changedObjects = MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(calculation);

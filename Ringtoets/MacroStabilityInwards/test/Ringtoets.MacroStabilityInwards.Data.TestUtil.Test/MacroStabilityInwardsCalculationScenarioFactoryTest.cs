@@ -136,7 +136,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNull(scenario.Output);
-            Assert.IsNull(scenario.SemiProbabilisticOutput);
             Assert.IsTrue(scenario.IsRelevant);
         }
 

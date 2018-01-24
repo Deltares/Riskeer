@@ -51,11 +51,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         public MacroStabilityInwardsOutput Output { get; set; }
 
-        /// <summary>
-        /// Gets or sets the semi-probabilistic calculation result.
-        /// </summary>
-        public MacroStabilityInwardsSemiProbabilisticOutput SemiProbabilisticOutput { get; set; }
-
         public string Name { get; set; }
 
         public bool HasOutput

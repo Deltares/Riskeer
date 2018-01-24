@@ -42,7 +42,6 @@
     <Compile Include="MacroStabilityInwardsFailureMechanismTest.cs" />
     <Compile Include="MacroStabilityInwardsInputTest.cs" />
     <Compile Include="MacroStabilityInwardsOutputTest.cs" />
-    <Compile Include="MacroStabilityInwardsSemiProbabilisticOutputTest.cs" />
     <Compile Include="MacroStabilityInwardsSurfaceLineCollectionTest.cs" />
     <Compile Include="MacroStabilityInwardsZoningBoundariesDeterminationTypeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

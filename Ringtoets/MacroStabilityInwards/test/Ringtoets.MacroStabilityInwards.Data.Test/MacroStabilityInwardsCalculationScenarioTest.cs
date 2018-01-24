@@ -94,12 +94,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void CalculationScenarioStatus_OutputSet_ReturnsStatusDone()
         {
             // Setup
-            const double expectedProbability = 1.0 / 49862180;
-
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput(expectedProbability)
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
             // Call
@@ -128,7 +125,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             MacroStabilityInwardsCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
             original.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
-            original.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateRandomOutput();
 
             // Call
             object clone = original.Clone();

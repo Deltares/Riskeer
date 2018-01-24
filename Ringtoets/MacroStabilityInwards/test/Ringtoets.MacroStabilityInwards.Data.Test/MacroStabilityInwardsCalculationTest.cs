@@ -47,7 +47,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments.Body);
             Assert.IsNull(calculation.Output);
-            Assert.IsNull(calculation.SemiProbabilisticOutput);
         }
 
         [Test]
@@ -116,7 +115,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             MacroStabilityInwardsCalculation original = CreateRandomCalculationWithoutOutput();
-            original.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateRandomOutput();
             original.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
             // Call
