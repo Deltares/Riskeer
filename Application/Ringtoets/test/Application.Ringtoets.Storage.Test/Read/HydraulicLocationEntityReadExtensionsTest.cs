@@ -213,9 +213,18 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_SameHydraulicLocationEntityTwice_ReturnSameHydraulicBoundaryLocation()
         {
             // Setup
+            var random = new Random(21);
             var entity = new HydraulicLocationEntity
             {
-                Name = "A"
+                Name = "A",
+                HydraulicLocationCalculationEntity = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity1 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity2 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity3 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity4 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity5 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity6 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity7 = CreateCalculationEntity(random.Next())
             };
 
             var collector = new ReadConversionCollector();
