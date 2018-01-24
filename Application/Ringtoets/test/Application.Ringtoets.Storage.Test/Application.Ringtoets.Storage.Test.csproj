@@ -83,7 +83,7 @@
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputCreateExtensionsTest.cs" />
     <Compile Include="DbContext\RingtoetsEntitiesTest.cs" />
     <Compile Include="Exceptions\CannotDetermineFingerprintExceptionTest.cs" />
-    <Compile Include="HydraulicBoundaryLocationCalculationCreateExtensionsTest.cs" />
+    <Compile Include="Create\HydraulicBoundaryLocationCalculationCreateExtensionsTest.cs" />
     <Compile Include="IntegrationTests\MigrationIntegrationTest.cs" />
     <Compile Include="IntegrationTests\MigrationTo181IntegrationTest.cs" />
     <Compile Include="IntegrationTests\MigrationTo173IntegrationTest.cs" />
