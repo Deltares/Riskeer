@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Service;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.Converters;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -46,9 +47,10 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculation"/> for which to validate the values.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use in case no manual assessment level is provided.</param>
         /// <returns><c>false</c> if <paramref name="calculation"/> contains validation errors; <c>true</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public static bool Validate(MacroStabilityInwardsCalculation calculation)
+        public static bool Validate(MacroStabilityInwardsCalculation calculation, RoundedDouble normativeAssessmentLevel)
         {
             if (calculation == null)
             {
@@ -57,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             CalculationServiceHelper.LogValidationBegin();
 
-            string[] inputValidationResults = MacroStabilityInwardsInputValidator.Validate(calculation.InputParameters).ToArray();
+            string[] inputValidationResults = MacroStabilityInwardsInputValidator.Validate(calculation.InputParameters, normativeAssessmentLevel).ToArray();
 
             if (inputValidationResults.Length > 0)
             {
@@ -66,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 return false;
             }
 
-            UpliftVanCalculatorInput upliftVanCalculatorInput = CreateInputFromData(calculation.InputParameters);
+            UpliftVanCalculatorInput upliftVanCalculatorInput = CreateInputFromData(calculation.InputParameters, normativeAssessmentLevel);
             IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(upliftVanCalculatorInput, MacroStabilityInwardsKernelWrapperFactory.Instance);
 
             UpliftVanKernelMessage[] kernelMessages;
@@ -96,10 +98,11 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculation"/> to base the input for the calculation upon.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use in case no manual assessment level is provided.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
         /// <exception cref="UpliftVanCalculatorException">Thrown when an error occurred during the calculation.</exception>
-        public static void Calculate(MacroStabilityInwardsCalculation calculation)
+        public static void Calculate(MacroStabilityInwardsCalculation calculation, RoundedDouble normativeAssessmentLevel)
         {
             if (calculation == null)
             {
@@ -111,7 +114,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             try
             {
                 IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(
-                    CreateInputFromData(calculation.InputParameters),
+                    CreateInputFromData(calculation.InputParameters, normativeAssessmentLevel),
                     MacroStabilityInwardsKernelWrapperFactory.Instance);
                 UpliftVanCalculatorResult macroStabilityInwardsResult = calculator.Calculate();
 
@@ -157,14 +160,18 @@ namespace Ringtoets.MacroStabilityInwards.Service
             }
         }
 
-        private static UpliftVanCalculatorInput CreateInputFromData(MacroStabilityInwardsInput inputParameters)
+        private static UpliftVanCalculatorInput CreateInputFromData(MacroStabilityInwardsInput inputParameters, RoundedDouble normativeAssessmentLevel)
         {
+            RoundedDouble effectiveAssessmentLevel = inputParameters.UseAssessmentLevelManualInput
+                                                         ? inputParameters.AssessmentLevel
+                                                         : normativeAssessmentLevel;
+
             return new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
                     WaternetCreationMode = WaternetCreationMode.CreateWaternet,
                     PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
-                    AssessmentLevel = inputParameters.AssessmentLevel,
+                    AssessmentLevel = effectiveAssessmentLevel,
                     LandwardDirection = LandwardDirection.PositiveX,
                     SurfaceLine = inputParameters.SurfaceLine,
                     SoilProfile = SoilProfileConverter.Convert(inputParameters.SoilProfileUnderSurfaceLine),

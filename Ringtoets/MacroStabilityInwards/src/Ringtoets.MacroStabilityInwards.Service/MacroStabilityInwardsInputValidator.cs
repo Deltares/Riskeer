@@ -45,8 +45,9 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// </summary>
         /// <param name="inputParameters">The <see cref="MacroStabilityInwardsInput"/> for which to validate the values.</param>
         /// <returns>Validation errors, if any.</returns>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use in case no manual assessment level is provided.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="inputParameters"/> is <c>null</c>.</exception>
-        public static IEnumerable<string> Validate(MacroStabilityInwardsInput inputParameters)
+        public static IEnumerable<string> Validate(MacroStabilityInwardsInput inputParameters, RoundedDouble normativeAssessmentLevel)
         {
             if (inputParameters == null)
             {
@@ -55,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             var validationResults = new List<string>();
 
-            validationResults.AddRange(ValidateHydraulics(inputParameters));
+            validationResults.AddRange(ValidateHydraulics(inputParameters, normativeAssessmentLevel));
 
             IEnumerable<string> coreValidationError = ValidateCoreSurfaceLineAndSoilProfileProperties(inputParameters).ToArray();
             validationResults.AddRange(coreValidationError);
@@ -79,6 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 {
                     yield return Resources.MacroStabilityInwardsCalculationService_ValidateInput_SoilLayerTop_must_be_larger_than_SurfaceLineTop;
                 }
+
                 yield break;
             }
 
@@ -153,6 +155,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -191,10 +194,11 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     return true;
                 }
             }
+
             return false;
         }
 
-        private static IEnumerable<string> ValidateHydraulics(MacroStabilityInwardsInput inputParameters)
+        private static IEnumerable<string> ValidateHydraulics(MacroStabilityInwardsInput inputParameters, RoundedDouble normativeAssessmentLevel)
         {
             var validationResults = new List<string>();
             if (!inputParameters.UseAssessmentLevelManualInput && inputParameters.HydraulicBoundaryLocation == null)
@@ -203,13 +207,13 @@ namespace Ringtoets.MacroStabilityInwards.Service
             }
             else
             {
-                validationResults.AddRange(ValidateAssessmentLevel(inputParameters));
+                validationResults.AddRange(ValidateAssessmentLevel(inputParameters, normativeAssessmentLevel));
             }
 
             return validationResults;
         }
 
-        private static IEnumerable<string> ValidateAssessmentLevel(MacroStabilityInwardsInput inputParameters)
+        private static IEnumerable<string> ValidateAssessmentLevel(MacroStabilityInwardsInput inputParameters, RoundedDouble normativeAssessmentLevel)
         {
             var validationResult = new List<string>();
 
@@ -219,7 +223,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             }
             else
             {
-                if (double.IsNaN(inputParameters.AssessmentLevel))
+                if (double.IsNaN(normativeAssessmentLevel))
                 {
                     validationResult.Add(Resources.MacroStabilityInwardsCalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
                 }
@@ -235,10 +239,12 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 validationResults.Add(Resources.MacroStabilityInwardsCalculationService_ValidateInput_No_SurfaceLine_selected);
             }
+
             if (inputParameters.StochasticSoilProfile == null)
             {
                 validationResults.Add(Resources.MacroStabilityInwardsCalculationService_ValidateInput_No_StochasticSoilProfile_selected);
             }
+
             return validationResults;
         }
     }
