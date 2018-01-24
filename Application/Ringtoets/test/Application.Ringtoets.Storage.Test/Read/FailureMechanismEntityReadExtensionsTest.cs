@@ -945,6 +945,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithCollector_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithPropertiesSet(bool isRelevant)
         {
             // Setup
+            int n = new Random(21).Next(1, 20);
             var entity = new FailureMechanismEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
@@ -955,7 +956,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
                     {
-                        N = 3
+                        N = n
                     }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
@@ -974,7 +975,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
-            Assert.AreEqual(3, failureMechanism.GeneralInput.N);
+            Assert.AreEqual(n, (int) failureMechanism.GeneralInput.N);
             Assert.IsNull(failureMechanism.DikeProfiles.SourcePath);
         }
 
@@ -1116,6 +1117,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithCollector_ReturnsNewGrassCoverErosionOutwardsFailureMechanismWithPropertiesSet(bool isRelevant)
         {
             // Setup
+            int n = new Random(21).Next(1, 20);
             var entity = new FailureMechanismEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
@@ -1126,7 +1128,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
                     {
-                        N = 3
+                        N = n
                     }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
@@ -1145,7 +1147,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
-            Assert.AreEqual(3, failureMechanism.GeneralInput.N);
+            Assert.AreEqual(n, (int) failureMechanism.GeneralInput.N);
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }
 
@@ -1813,7 +1815,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             ForeshoreProfile child2 = foreshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Id);
 
-            Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N);
+            Assert.AreEqual(generalInputN, (int) failureMechanism.GeneralInput.N);
         }
 
         [Test]

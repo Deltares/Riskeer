@@ -227,10 +227,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(0, TestName = "LenghtEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(0)")]
-        [TestCase(-1, TestName = "LenghtEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(-1)")]
-        [TestCase(-20, TestName = "LenghtEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(-20)")]
-        public void LengthEffect_SetInvalidValue_ThrowsThrowsArgumentOutOfRangeExceptionNoNotifications(double newLengthEffect)
+        [TestCase(0.0)]
+        [TestCase(-1.0)]
+        [TestCase(-20.0)]
+        public void LengthEffect_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newLengthEffect)
         {
             // Setup
             var mockRepository = new MockRepository();

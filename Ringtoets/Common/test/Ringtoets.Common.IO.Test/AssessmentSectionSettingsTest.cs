@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.IO.Test
 {
@@ -31,14 +32,15 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             const string id = "test";
-            const int n = 1;
+            const double n = 1.0;
 
             // Call
             AssessmentSectionSettings result = AssessmentSectionSettings.CreateDikeAssessmentSectionSettings(id, n);
 
             // Assert
             Assert.AreEqual(id, result.AssessmentSectionId);
-            Assert.AreEqual(n, result.N);
+            Assert.AreEqual(2, result.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(n, result.N, result.N.GetAccuracy());
             Assert.IsFalse(result.IsDune);
         }
 
@@ -53,7 +55,8 @@ namespace Ringtoets.Common.IO.Test
 
             // Assert
             Assert.AreEqual(id, result.AssessmentSectionId);
-            Assert.AreEqual(3, result.N);
+            Assert.AreEqual(2, result.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(3.0, result.N, result.N.GetAccuracy());
             Assert.IsTrue(result.IsDune);
         }
     }

@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         {
             var metaEntity = new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
-                N = mechanism.GeneralInput.N,
+                N = (int) mechanism.GeneralInput.N,
                 DikeProfileCollectionSourcePath = mechanism.DikeProfiles.SourcePath
             };
             entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(metaEntity);

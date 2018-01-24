@@ -22,10 +22,12 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -102,6 +104,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 IsRelevant = isRelevant
             };
+
+            // Call
             var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(
                 new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection),
                 handler);
@@ -110,7 +114,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Dijken en dammen - Grasbekleding erosie kruin en binnentalud", properties.Name);
             Assert.AreEqual("GEKB", properties.Code);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
-            Assert.AreEqual(2, properties.LengthEffect);
+            Assert.AreEqual(2.0, properties.LengthEffect, properties.LengthEffect.GetAccuracy());
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
 
             Assert.AreEqual(generalInput.FbFactor.Mean, properties.FbFactor.Mean);
@@ -264,10 +268,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(0, TestName = "LenghtEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(0)")]
-        [TestCase(-1, TestName = "LenghtEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(-1)")]
-        [TestCase(-20, TestName = "LenghtEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(-20)")]
-        public void LengthEffect_SetInvalidValue_ThrowsThrowsArgumentOutOfRangeExceptionNoNotifications(int newLengthEffect)
+        [TestCase(0.0)]
+        [TestCase(-1.0)]
+        [TestCase(-20.0)]
+        public void LengthEffect_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newLengthEffect)
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -288,7 +292,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 changeHandler);
 
             // Call
-            TestDelegate test = () => properties.LengthEffect = newLengthEffect;
+            TestDelegate test = () => properties.LengthEffect = (RoundedDouble) newLengthEffect;
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);
@@ -297,10 +301,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(1)]
-        [TestCase(10)]
-        [TestCase(20)]
-        public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(int newLengthEffect)
+        [TestCase(1.0)]
+        [TestCase(10.0)]
+        [TestCase(20.0)]
+        public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(double newLengthEffect)
         {
             // Setup
             var observable = mockRepository.StrictMock<IObservable>();
@@ -324,7 +328,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 changeHandler);
 
             // Call
-            properties.LengthEffect = newLengthEffect;
+            properties.LengthEffect = (RoundedDouble) newLengthEffect;
 
             // Assert
             Assert.AreEqual(newLengthEffect, failureMechanism.GeneralInput.N);

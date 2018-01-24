@@ -30,7 +30,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
     public class HeightStructuresFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void Read_Always_ReturnHeightStructuresGeneralInput()
+        public void Read_Always_ReturnGeneralHeightStructuresInput()
         {
             // Setup
             var entity = new HeightStructuresFailureMechanismMetaEntity
@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             GeneralHeightStructuresInput generalInput = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.N, generalInput.N);
+            Assert.AreEqual(entity.N, (int) generalInput.N);
         }
     }
 }

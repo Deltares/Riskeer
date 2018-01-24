@@ -739,7 +739,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(originalInput, section.GrassCoverErosionInwards.InputComments.Body);
             Assert.AreEqual(originalOutput, section.GrassCoverErosionInwards.OutputComments.Body);
             Assert.AreEqual(originalNotRelevantText, section.GrassCoverErosionInwards.NotRelevantComments.Body);
-            Assert.AreEqual(n, section.GrassCoverErosionInwards.GeneralInput.N);
+            Assert.AreEqual(n, (int) section.GrassCoverErosionInwards.GeneralInput.N);
         }
 
         [Test]
@@ -859,7 +859,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.GrassCoverErosionOutwards.InputComments.Body);
             Assert.AreEqual(outputComments, section.GrassCoverErosionOutwards.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.GrassCoverErosionOutwards.NotRelevantComments.Body);
-            Assert.AreEqual(n, section.GrassCoverErosionOutwards.GeneralInput.N);
+            Assert.AreEqual(n, (int) section.GrassCoverErosionOutwards.GeneralInput.N);
         }
 
         [Test]

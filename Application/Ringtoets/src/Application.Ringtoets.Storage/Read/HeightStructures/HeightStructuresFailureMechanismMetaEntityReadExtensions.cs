@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Data;
 using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Read.HeightStructures
@@ -41,7 +42,7 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
         {
             return new GeneralHeightStructuresInput
             {
-                N = entity.N
+                N = (RoundedDouble) entity.N
             };
         }
     }

@@ -28,14 +28,13 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsRevetmentFormsResources = Ringtoets.Revetment.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="GrassCoverErosionOutwardsFailureMechanismContext"/> for properties panel.
+    /// ViewModel of <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for properties panel.
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismProperties : ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>
     {
@@ -55,10 +54,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (handler == null)
             {
                 throw new ArgumentNullException(nameof(handler));
             }
+
             Data = failureMechanism;
             propertyChangeHandler = handler;
         }
@@ -70,7 +71,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
-        public int LengthEffect
+        public RoundedDouble LengthEffect
         {
             get
             {
@@ -96,6 +97,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             {
                 return false;
             }
+
             return true;
         }
 

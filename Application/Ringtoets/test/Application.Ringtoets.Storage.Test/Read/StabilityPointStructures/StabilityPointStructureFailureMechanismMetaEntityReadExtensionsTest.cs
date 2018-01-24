@@ -30,7 +30,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
     public class StabilityPointStructureFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void Read_Always_ReturnStabilityPointStructuresGeneralInput()
+        public void Read_Always_ReturnGeneralStabilityPointStructuresInput()
         {
             // Setup
             var entity = new StabilityPointStructuresFailureMechanismMetaEntity

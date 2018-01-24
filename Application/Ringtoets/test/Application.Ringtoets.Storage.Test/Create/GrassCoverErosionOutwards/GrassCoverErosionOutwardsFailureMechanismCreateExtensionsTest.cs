@@ -25,6 +25,8 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
@@ -198,7 +200,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         public void Create_WithUpdatedN_FailureMechanismMetaUpdated()
         {
             // Setup
-            int n = new Random(21).Next(1, 20);
+            RoundedDouble n = new Random(21).NextRoundedDouble(1, 20);
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 GeneralInput =
@@ -211,7 +213,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.AreEqual(n, entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single().N);
+            Assert.AreEqual((int) n, entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single().N);
         }
 
         [Test]

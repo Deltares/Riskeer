@@ -31,15 +31,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     /// </summary>
     public class GeneralGrassCoverErosionOutwardsInput
     {
-        private static readonly Range<int> validityRangeN = new Range<int>(1, 20);
-        private int n;
+        private static readonly Range<double> validityRangeN = new Range<double>(1, 20);
+        private RoundedDouble n;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralGrassCoverErosionOutwardsInput"/> class.
         /// </summary>
         public GeneralGrassCoverErosionOutwardsInput()
         {
-            n = 2;
+            n = new RoundedDouble(2, 2.0);
             GeneralWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 0.67, 0.0);
         }
 
@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is not in
         /// the interval [1, 20].</exception>
-        public int N
+        public RoundedDouble N
         {
             get
             {
@@ -68,7 +68,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                     throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.N_Value_should_be_in_Range_0_,
                                                                                        validityRangeN));
                 }
-                n = value;
+
+                n = value.ToPrecision(n.NumberOfDecimalPlaces);
             }
         }
 

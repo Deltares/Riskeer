@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
         {
             entity.HeightStructuresFailureMechanismMetaEntities.Add(new HeightStructuresFailureMechanismMetaEntity
             {
-                N = mechanism.GeneralInput.N,
+                N = (int) mechanism.GeneralInput.N,
                 HeightStructureCollectionSourcePath = mechanism.HeightStructures.SourcePath.DeepClone(),
                 ForeshoreProfileCollectionSourcePath = mechanism.ForeshoreProfiles.SourcePath.DeepClone()
             });

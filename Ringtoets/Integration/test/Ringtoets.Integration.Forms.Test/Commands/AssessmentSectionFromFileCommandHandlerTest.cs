@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.Controls.DataGrid;
@@ -530,9 +531,9 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                     NormativeNorm = useSignalingValue ? NormType.Signaling : NormType.LowerLimit
                 }
             };
-            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = 2;
-            assessmentSection.GrassCoverErosionOutwards.GeneralInput.N = 2;
-            assessmentSection.HeightStructures.GeneralInput.N = 2;
+            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = (RoundedDouble) 2.0;
+            assessmentSection.GrassCoverErosionOutwards.GeneralInput.N = (RoundedDouble) 2.0;
+            assessmentSection.HeightStructures.GeneralInput.N = (RoundedDouble) 2.0;
             assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
@@ -567,21 +568,21 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 {
                     GeneralInput =
                     {
-                        N = 3
+                        N = (RoundedDouble) 3.0
                     }
                 },
                 GrassCoverErosionOutwards =
                 {
                     GeneralInput =
                     {
-                        N = 3
+                        N = (RoundedDouble) 3.0
                     }
                 },
                 HeightStructures =
                 {
                     GeneralInput =
                     {
-                        N = 3
+                        N = (RoundedDouble) 3.0
                     }
                 }
             };
@@ -639,6 +640,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 Assert.IsNull(actual);
                 return;
             }
+
             Assert.IsNotNull(actual);
             Point2D[] expectedPoints = expected.Points.ToArray();
             Point2D[] actualPoints = actual.Points.ToArray();

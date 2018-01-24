@@ -776,7 +776,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureHeightStructuresFailureMechanism(HeightStructuresFailureMechanism failureMechanism,
                                                                       IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N = 5;
+            failureMechanism.GeneralInput.N = (RoundedDouble) 5.0;
 
             List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
 
@@ -1599,7 +1599,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                               IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N = 15;
+            failureMechanism.GeneralInput.N = (RoundedDouble) 15;
             var dikeProfile1 = new DikeProfile(new Point2D(1, 2),
                                                new[]
                                                {
@@ -1754,7 +1754,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void ConfigureGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            failureMechanism.GeneralInput.N = 15;
+            failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
 
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = failureMechanism.HydraulicBoundaryLocations;
             hydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(0, "HL 1", 100, 200));

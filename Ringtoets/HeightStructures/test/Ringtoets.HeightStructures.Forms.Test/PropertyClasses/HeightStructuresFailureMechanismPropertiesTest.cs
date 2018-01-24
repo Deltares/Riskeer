@@ -22,10 +22,12 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.HeightStructures.Data;
@@ -236,10 +238,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(0)]
-        [TestCase(-1)]
-        [TestCase(-20)]
-        public void LengthEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(int value)
+        [TestCase(0.0)]
+        [TestCase(-1.0)]
+        [TestCase(-20.0)]
+        public void LengthEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -259,7 +261,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Call
-            TestDelegate test = () => properties.LengthEffect = value;
+            TestDelegate test = () => properties.LengthEffect = (RoundedDouble) value;
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);
@@ -268,10 +270,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(1)]
-        [TestCase(10)]
-        [TestCase(20)]
-        public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(int value)
+        [TestCase(1.0)]
+        [TestCase(10.0)]
+        [TestCase(20.0)]
+        public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(double value)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -292,10 +294,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Call
-            properties.LengthEffect = value;
+            properties.LengthEffect = (RoundedDouble) value;
 
             // Assert
-            Assert.AreEqual(value, failureMechanism.GeneralInput.N);
+            Assert.AreEqual(value, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }

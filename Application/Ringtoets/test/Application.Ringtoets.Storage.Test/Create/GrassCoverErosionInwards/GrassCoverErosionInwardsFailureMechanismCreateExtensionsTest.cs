@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
@@ -72,7 +73,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                 },
                 GeneralInput =
                 {
-                    N = 12
+                    N = (RoundedDouble) 12.0
                 }
             };
             var registry = new PersistenceRegistry();
@@ -90,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             Assert.AreEqual(1, entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Count);
             GrassCoverErosionInwardsFailureMechanismMetaEntity generalInputEntity = entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.First();
-            Assert.AreEqual(failureMechanism.GeneralInput.N, generalInputEntity.N);
+            Assert.AreEqual((int) failureMechanism.GeneralInput.N, generalInputEntity.N);
             Assert.IsNull(generalInputEntity.DikeProfileCollectionSourcePath);
         }
 

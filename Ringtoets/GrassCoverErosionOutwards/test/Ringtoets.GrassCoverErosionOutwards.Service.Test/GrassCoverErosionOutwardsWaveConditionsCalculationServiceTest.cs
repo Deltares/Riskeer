@@ -102,6 +102,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -134,6 +135,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -166,6 +168,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -198,6 +201,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -230,6 +234,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -262,6 +267,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -297,6 +303,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -335,6 +342,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -453,6 +461,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[7]);
                 });
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -520,6 +529,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[7]);
                 });
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -583,6 +593,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -616,6 +627,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Assert
                 Assert.IsFalse(calculation.HasOutput);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -652,6 +664,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(waveConditionsCosineCalculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -684,6 +697,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Assert.IsNotNull(calculation.Output);
                 Assert.AreEqual(3, calculation.Output.Items.Count());
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -774,6 +788,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Assert.AreEqual("Berekening is mislukt voor alle waterstanden.", exception.Message);
                 Assert.IsNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -862,6 +877,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                                   targetNorm,
                                                                   waveConditionsOutputs[0]);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -969,7 +985,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             mockRepository.VerifyAll();
         }
 
-        private static double CalculateTargetNorm(double norm, double contribution, int N)
+        private static double CalculateTargetNorm(double norm, double contribution, RoundedDouble N)
         {
             return norm * (contribution / 100) / N;
         }
