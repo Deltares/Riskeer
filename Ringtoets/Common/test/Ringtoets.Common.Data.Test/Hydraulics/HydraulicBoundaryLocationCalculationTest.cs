@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.Test.Hydraulics
 {
@@ -61,11 +62,11 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
         [Test]
         [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculations))]
-        public void IsCalculated_NotFullyCalculated_ReturnIsCalculated(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                                                       bool expectedIsCalculated)
+        public void IsCalculated_Always_ReturnIsCalculated(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+                                                           bool expectedIsCalculated)
         {
             // Call
-            bool isCalculated = hydraulicBoundaryLocationCalculation.IsCalculated();
+            bool isCalculated = hydraulicBoundaryLocationCalculation.IsCalculated;
 
             // Assert
             Assert.AreEqual(expectedIsCalculated, isCalculated);
@@ -88,6 +89,20 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             {
                 Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
             }, true);
+
+            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
+            {
+                InputParameters =
+                {
+                    ShouldIllustrationPointsBeCalculated = true
+                },
+                Output = new TestHydraulicBoundaryLocationOutput(1.0, new TestGeneralResultSubMechanismIllustrationPoint())
+            }, true);
+
+            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
+            {
+                Output = new TestHydraulicBoundaryLocationOutput(1.0, new TestGeneralResultSubMechanismIllustrationPoint())
+            }, false);
         }
     }
 }
