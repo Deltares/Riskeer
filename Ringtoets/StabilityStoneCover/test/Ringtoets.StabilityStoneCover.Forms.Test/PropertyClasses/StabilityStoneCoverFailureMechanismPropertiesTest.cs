@@ -19,10 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 
@@ -32,56 +35,85 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
     public class StabilityStoneCoverFailureMechanismPropertiesTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
             // Call
-            var properties = new StabilityStoneCoverFailureMechanismProperties();
+            TestDelegate test = () => new StabilityStoneCoverFailureMechanismProperties(null);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StabilityStoneCoverFailureMechanism>>(properties);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("data", paramName);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Data_SetNewStabilityStoneCoverFailureMechanismContext_ReturnCorrectPropertyValues(bool isRelevant)
+        public void Constructor_WithData_ExpectedValues()
         {
             // Setup
+            var random = new Random(39);
+            bool isRelevant = random.NextBoolean();
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
-                IsRelevant = isRelevant
+                IsRelevant = isRelevant,
+                GeneralInput =
+                {
+                    N = random.NextRoundedDouble(1.0, 20.0)
+                }
             };
-            var properties = new StabilityStoneCoverFailureMechanismProperties();
 
             // Call
-            properties.Data = failureMechanism;
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
 
             // Assert
+            Assert.IsInstanceOf<ObjectProperties<StabilityStoneCoverFailureMechanism>>(properties);
+            TestHelper.AssertTypeConverter<StabilityStoneCoverFailureMechanismProperties, ExpandableObjectConverter>(
+                nameof(StabilityStoneCoverFailureMechanismProperties.Columns));
+            TestHelper.AssertTypeConverter<StabilityStoneCoverFailureMechanismProperties, ExpandableObjectConverter>(
+                nameof(StabilityStoneCoverFailureMechanismProperties.Blocks));
+
+            Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
             Assert.AreSame(failureMechanism.GeneralInput.GeneralBlocksWaveConditionsInput, properties.Blocks.Data);
             Assert.AreSame(failureMechanism.GeneralInput.GeneralColumnsWaveConditionsInput, properties.Columns.Data);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, properties.N);
+        }
+
+        [Test]
+        public void N_NewValue_GeneralInputUpdated()
+        {
+            // Setup
+            var random = new Random(39);
+            RoundedDouble newN = random.NextRoundedDouble(1.0, 20.0);
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
+
+            // Call
+            properties.N = newN;
+
+            // Assert
+            Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 
         [Test]
         public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
-            // Call
-            var properties = new StabilityStoneCoverFailureMechanismProperties
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
-                Data = new StabilityStoneCoverFailureMechanism
-                {
-                    IsRelevant = true
-                }
+                IsRelevant = true
             };
+
+            // Call
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string modelSettingsCateogry = "Modelinstellingen";
+            const string lengthEffectCategory = "Lengte-effect parameters";
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -110,7 +142,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                                                                             "Blokken",
                                                                             "De modelinstellingen voor het berekenen van golfcondities voor blokken.",
                                                                             true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(blocksProperty.Converter);
 
             PropertyDescriptor columnsProperty = dynamicProperties[4];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(columnsProperty,
@@ -118,20 +149,25 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                                                                             "Zuilen",
                                                                             "De modelinstellingen voor het berekenen van golfcondities voor zuilen.",
                                                                             true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(columnsProperty.Converter);
+
+            PropertyDescriptor NProperty = dynamicProperties[5];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(NProperty,
+                                                                            lengthEffectCategory,
+                                                                            "N [-]",
+                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
         }
 
         [Test]
-        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_FailureMechanismIsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
-            // Call
-            var properties = new StabilityStoneCoverFailureMechanismProperties
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
-                Data = new StabilityStoneCoverFailureMechanism
-                {
-                    IsRelevant = false
-                }
+                IsRelevant = false
             };
+
+            // Call
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -167,13 +203,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
-            var properties = new StabilityStoneCoverFailureMechanismProperties
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
-                Data = new StabilityStoneCoverFailureMechanism
-                {
-                    IsRelevant = isRelevant
-                }
+                IsRelevant = isRelevant
             };
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
@@ -182,6 +216,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Blocks)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Columns)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }

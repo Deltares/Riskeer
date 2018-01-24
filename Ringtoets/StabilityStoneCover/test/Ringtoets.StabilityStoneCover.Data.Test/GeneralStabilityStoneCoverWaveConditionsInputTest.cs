@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -34,19 +37,59 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             var generalInput = new GeneralStabilityStoneCoverWaveConditionsInput();
 
             // Assert
-            const double aBlocks = 1.0;
-            const double bBlocks = 1.0;
-            const double cBlocks = 1.0;
+            Assert.AreEqual(2, generalInput.GeneralBlocksWaveConditionsInput.A.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, generalInput.GeneralBlocksWaveConditionsInput.A, generalInput.GeneralBlocksWaveConditionsInput.A.GetAccuracy());
 
-            const double aColumns = 1.0;
-            const double bColumns = 0.4;
-            const double cColumns = 0.8;
-            Assert.AreEqual(aBlocks, generalInput.GeneralBlocksWaveConditionsInput.A, generalInput.GeneralBlocksWaveConditionsInput.A.GetAccuracy());
-            Assert.AreEqual(bBlocks, generalInput.GeneralBlocksWaveConditionsInput.B, generalInput.GeneralBlocksWaveConditionsInput.B.GetAccuracy());
-            Assert.AreEqual(cBlocks, generalInput.GeneralBlocksWaveConditionsInput.C, generalInput.GeneralBlocksWaveConditionsInput.C.GetAccuracy());
-            Assert.AreEqual(aColumns, generalInput.GeneralColumnsWaveConditionsInput.A, generalInput.GeneralColumnsWaveConditionsInput.A.GetAccuracy());
-            Assert.AreEqual(bColumns, generalInput.GeneralColumnsWaveConditionsInput.B, generalInput.GeneralColumnsWaveConditionsInput.B.GetAccuracy());
-            Assert.AreEqual(cColumns, generalInput.GeneralColumnsWaveConditionsInput.C, generalInput.GeneralColumnsWaveConditionsInput.C.GetAccuracy());
+            Assert.AreEqual(2, generalInput.GeneralBlocksWaveConditionsInput.B.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, generalInput.GeneralBlocksWaveConditionsInput.B, generalInput.GeneralBlocksWaveConditionsInput.B.GetAccuracy());
+
+            Assert.AreEqual(2, generalInput.GeneralBlocksWaveConditionsInput.C.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, generalInput.GeneralBlocksWaveConditionsInput.C, generalInput.GeneralBlocksWaveConditionsInput.C.GetAccuracy());
+
+            Assert.AreEqual(2, generalInput.GeneralColumnsWaveConditionsInput.A.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, generalInput.GeneralColumnsWaveConditionsInput.A, generalInput.GeneralColumnsWaveConditionsInput.A.GetAccuracy());
+
+            Assert.AreEqual(2, generalInput.GeneralColumnsWaveConditionsInput.B.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.4, generalInput.GeneralColumnsWaveConditionsInput.B, generalInput.GeneralColumnsWaveConditionsInput.B.GetAccuracy());
+
+            Assert.AreEqual(2, generalInput.GeneralColumnsWaveConditionsInput.C.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.8, generalInput.GeneralColumnsWaveConditionsInput.C, generalInput.GeneralColumnsWaveConditionsInput.C.GetAccuracy());
+
+            Assert.AreEqual(2, generalInput.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(4.0, generalInput.N, generalInput.N.GetAccuracy());
+        }
+
+        [Test]
+        [TestCase(1.0)]
+        [TestCase(3.1415)]
+        [TestCase(20.0)]
+        public void N_ValidValue_SetsNewValue(double n)
+        {
+            // Setup
+            var generalInput = new GeneralStabilityStoneCoverWaveConditionsInput();
+
+            // Call
+            generalInput.N = (RoundedDouble) n;
+
+            // Assert
+            Assert.AreEqual(2, generalInput.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(n, generalInput.N, generalInput.N.GetAccuracy());
+        }
+
+        [Test]
+        [TestCase(0.9)]
+        [TestCase(20.1)]
+        public void N_ValueOutOfRange_ThrowsArgumentException(double n)
+        {
+            // Setup
+            var generalInput = new GeneralStabilityStoneCoverWaveConditionsInput();
+
+            // Call
+            TestDelegate call = () => generalInput.N = (RoundedDouble) n;
+
+            // Assert
+            var expectedMessage = "De waarde voor 'N' moet in het bereik [1, 20] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
     }
 }

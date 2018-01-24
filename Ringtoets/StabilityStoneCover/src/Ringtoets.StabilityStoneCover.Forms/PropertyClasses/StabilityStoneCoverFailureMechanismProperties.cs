@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
@@ -35,6 +37,42 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
     /// </summary>
     public class StabilityStoneCoverFailureMechanismProperties : ObjectProperties<StabilityStoneCoverFailureMechanism>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismProperties"/>.
+        /// </summary>
+        /// <param name="data">The instance to show the properties of.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public StabilityStoneCoverFailureMechanismProperties(StabilityStoneCoverFailureMechanism data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            Data = data;
+        }
+
+        #region Length effect parameters
+
+        [DynamicVisible]
+        [PropertyOrder(6)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                return data.GeneralInput.N;
+            }
+            set
+            {
+                data.GeneralInput.N = value;
+            }
+        }
+
+        #endregion
+
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
@@ -42,13 +80,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
             {
                 return false;
             }
+
             return true;
         }
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
             return nameof(Blocks).Equals(propertyName)
-                   || nameof(Columns).Equals(propertyName);
+                   || nameof(Columns).Equals(propertyName)
+                   || nameof(N).Equals(propertyName);
         }
 
         #region General

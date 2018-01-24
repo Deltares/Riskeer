@@ -62,10 +62,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             yield return new PropertyInfo<StabilityStoneCoverFailureMechanismContext, StabilityStoneCoverFailureMechanismProperties>
             {
-                CreateInstance = context => new StabilityStoneCoverFailureMechanismProperties
-                {
-                    Data = context.WrappedData
-                }
+                CreateInstance = context => new StabilityStoneCoverFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<StabilityStoneCoverWaveConditionsOutput, StabilityStoneCoverWaveConditionsOutputProperties>();
             yield return new PropertyInfo<StabilityStoneCoverWaveConditionsInputContext, StabilityStoneCoverWaveConditionsInputContextProperties>
@@ -223,14 +220,16 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             if (assessmentSection != null)
             {
                 return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<StabilityStoneCoverFailureMechanism>()
-                    .Any(fm => ReferenceEquals(viewData, fm.SectionResults));
+                       .GetFailureMechanisms()
+                       .OfType<StabilityStoneCoverFailureMechanism>()
+                       .Any(fm => ReferenceEquals(viewData, fm.SectionResults));
             }
+
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
+
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
@@ -362,9 +361,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             bool isNestedGroup = parentData is StabilityStoneCoverWaveConditionsCalculationGroupContext;
 
             StabilityStoneCoverWaveConditionsCalculation[] calculations = group
-                .GetCalculations()
-                .OfType<StabilityStoneCoverWaveConditionsCalculation>()
-                .ToArray();
+                                                                          .GetCalculations()
+                                                                          .OfType<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                          .ToArray();
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -571,28 +570,28 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
             StabilityStoneCoverWaveConditionsCalculation calculation = nodeData.WrappedData;
             return builder
-                .AddExportItem()
-                .AddSeparator()
-                .AddDuplicateCalculationItem(calculation, nodeData)
-                .AddSeparator()
-                .AddRenameItem()
-                .AddUpdateForeshoreProfileOfCalculationItem(calculation,
-                                                            inquiryHelper,
-                                                            SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
-                .AddSeparator()
-                .AddValidateCalculationItem(nodeData,
-                                            Validate,
-                                            ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                .AddSeparator()
-                .AddClearCalculationOutputItem(calculation)
-                .AddDeleteItem()
-                .AddSeparator()
-                .AddCollapseAllItem()
-                .AddExpandAllItem()
-                .AddSeparator()
-                .AddPropertiesItem()
-                .Build();
+                   .AddExportItem()
+                   .AddSeparator()
+                   .AddDuplicateCalculationItem(calculation, nodeData)
+                   .AddSeparator()
+                   .AddRenameItem()
+                   .AddUpdateForeshoreProfileOfCalculationItem(calculation,
+                                                               inquiryHelper,
+                                                               SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
+                   .AddSeparator()
+                   .AddValidateCalculationItem(nodeData,
+                                               Validate,
+                                               ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                   .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                   .AddSeparator()
+                   .AddClearCalculationOutputItem(calculation)
+                   .AddDeleteItem()
+                   .AddSeparator()
+                   .AddCollapseAllItem()
+                   .AddExpandAllItem()
+                   .AddSeparator()
+                   .AddPropertiesItem()
+                   .Build();
         }
 
         private static void Validate(StabilityStoneCoverWaveConditionsCalculationContext context)
