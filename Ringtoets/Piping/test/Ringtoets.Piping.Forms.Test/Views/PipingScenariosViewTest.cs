@@ -279,20 +279,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
         }
 
-        public override void Setup()
-        {
-            base.Setup();
-
-            testForm = new Form();
-        }
-
-        public override void TearDown()
-        {
-            base.TearDown();
-
-            testForm.Dispose();
-        }
-
+        [Test]
         [TestCase(isRelevantColumnIndex, true)]
         [TestCase(contributionColumnIndex, 30.0)]
         public void PipingScenarioView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue)
@@ -320,6 +307,47 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenFPipingScenarioView_WhenFailureMechanismNotifiesObserver_ThenViewUpdated()
+        {
+            // Given
+            using (PipingScenariosView view = ShowFullyConfiguredPipingScenarioView())
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                PipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                                         .Select(r => r.DataBoundItem)
+                                                                                         .Cast<PipingScenarioRow>()
+                                                                                         .ToArray();
+
+                // When
+                view.PipingFailureMechanism.PipingProbabilityAssessmentInput.A = 0.01;
+                view.PipingFailureMechanism.NotifyObservers();
+
+                // Then
+                PipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                                   .Select(r => r.DataBoundItem)
+                                                                                   .Cast<PipingScenarioRow>()
+                                                                                   .ToArray();
+
+                CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+            }
+        }
+
+        public override void Setup()
+        {
+            base.Setup();
+
+            testForm = new Form();
+        }
+
+        public override void TearDown()
+        {
+            base.TearDown();
+
+            testForm.Dispose();
         }
 
         private PipingScenariosView ShowFullyConfiguredPipingScenarioView()

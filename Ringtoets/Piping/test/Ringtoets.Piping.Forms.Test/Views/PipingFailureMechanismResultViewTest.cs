@@ -527,6 +527,52 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
+        [Test]
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObserver_ThenViewUpdated(AssessmentLayerOneState assessmentLayerOneState)
+        {
+            // Given
+            const int rowIndex = 0;
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
+            {
+                PipingCalculationScenario calculationScenario1 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
+                    pipingFailureMechanism.Sections.First());
+                calculationScenario1.Contribution = (RoundedDouble) 0.6;
+                PipingCalculationScenario calculationScenario2 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
+                    pipingFailureMechanism.Sections.First());
+                calculationScenario2.Contribution = (RoundedDouble) 0.4;
+                pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario1);
+                pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario2);
+
+                view.Data = pipingFailureMechanism.SectionResults;
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
+
+                PipingFailureMechanismSectionResultRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                                         .Select(r => r.DataBoundItem)
+                                                                                         .Cast<PipingFailureMechanismSectionResultRow>()
+                                                                                         .ToArray();
+
+                // When
+                pipingFailureMechanism.PipingProbabilityAssessmentInput.A = 0.01;
+                pipingFailureMechanism.NotifyObservers();
+
+                // Then
+                PipingFailureMechanismSectionResultRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                                   .Select(r => r.DataBoundItem)
+                                                                                   .Cast<PipingFailureMechanismSectionResultRow>()
+                                                                                   .ToArray();
+
+                CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+            }
+        }
+
         private PipingFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView(PipingFailureMechanism failureMechanism)
         {
             failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
