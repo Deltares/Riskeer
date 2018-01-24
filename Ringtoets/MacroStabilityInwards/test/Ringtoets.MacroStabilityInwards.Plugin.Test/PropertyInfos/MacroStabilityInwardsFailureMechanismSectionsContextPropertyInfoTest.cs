@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithSectionsAsData()
+        public void CreateInstance_WithValidArguments_NewPropertiesWithSectionsAsData()
         {
             // Setup
             var mocks = new MockRepository();

@@ -107,7 +107,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<DesignWaterLevelLocationProperties, NoValueRoundedDoubleConverter>(
                 nameof(DesignWaterLevelLocationProperties.CalculatedReliability));
             Assert.IsEmpty(properties.Convergence);
-            Assert.AreEqual(hydraulicBoundaryLocation.DesignWaterLevelCalculation1.InputParameters.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
+            Assert.AreEqual(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
         }
 
         [Test]

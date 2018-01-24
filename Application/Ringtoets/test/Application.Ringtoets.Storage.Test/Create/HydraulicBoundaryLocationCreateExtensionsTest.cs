@@ -152,10 +152,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, designWaterLevelOutputEntity);
             Assert.IsNull(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
 
-            IHydraulicLocationOutputEntity waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.WaveHeight);
-            Assert.IsNotNull(waveheightOutputEntity);
-            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationWaveHeightOutput, waveheightOutputEntity);
-            Assert.IsNull(waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+            IHydraulicLocationOutputEntity waveHeightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.WaveHeight);
+            Assert.IsNotNull(waveHeightOutputEntity);
+            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationWaveHeightOutput, waveHeightOutputEntity);
+            Assert.IsNull(waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -208,12 +208,12 @@ namespace Application.Ringtoets.Storage.Test.Create
             AssertGeneralResult(hydraulicBoundaryLocationDesignWaterLevelOutput.GeneralResult,
                                 designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
 
-            IHydraulicLocationOutputEntity waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
-            Assert.IsNotNull(waveheightOutputEntity);
-            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveheightOutputEntity);
-            Assert.IsNotNull(waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+            IHydraulicLocationOutputEntity waveHeightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            Assert.IsNotNull(waveHeightOutputEntity);
+            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveHeightOutputEntity);
+            Assert.IsNotNull(waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
             AssertGeneralResult(hydraulicBoundaryLocationWaveHeightOutput.GeneralResult,
-                                waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+                                waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -349,10 +349,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, designWaterLevelOutputEntity);
             Assert.IsNull(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
 
-            IHydraulicLocationOutputEntity waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.WaveHeight);
-            Assert.IsNotNull(waveheightOutputEntity);
-            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationWaveHeightOutput, waveheightOutputEntity);
-            Assert.IsNull(waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+            IHydraulicLocationOutputEntity waveHeightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.WaveHeight);
+            Assert.IsNotNull(waveHeightOutputEntity);
+            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationWaveHeightOutput, waveHeightOutputEntity);
+            Assert.IsNull(waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -405,12 +405,12 @@ namespace Application.Ringtoets.Storage.Test.Create
             AssertGeneralResult(hydraulicBoundaryLocationWaveHeightOutput.GeneralResult,
                                 designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
 
-            IHydraulicLocationOutputEntity waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
-            Assert.IsNotNull(waveheightOutputEntity);
-            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveheightOutputEntity);
-            Assert.IsNotNull(waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+            IHydraulicLocationOutputEntity waveHeightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            Assert.IsNotNull(waveHeightOutputEntity);
+            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveHeightOutputEntity);
+            Assert.IsNotNull(waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
             AssertGeneralResult(hydraulicBoundaryLocationWaveHeightOutput.GeneralResult,
-                                waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+                                waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]

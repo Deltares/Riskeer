@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
                 CalculatedReliability = random.NextDouble(),
                 CalculationConvergence = (byte) CalculationConvergence.NotCalculated
             };
-            var waveheightOutputEntity = new GrassCoverErosionOutwardsHydraulicLocationOutputEntity
+            var waveHeightOutputEntity = new GrassCoverErosionOutwardsHydraulicLocationOutputEntity
             {
                 HydraulicLocationOutputType = (byte) HydraulicLocationOutputType.WaveHeight,
                 Result = waveHeight,
@@ -138,7 +138,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
                 GrassCoverErosionOutwardsHydraulicLocationOutputEntities =
                 {
                     designWaterLevelOutputEntity,
-                    waveheightOutputEntity
+                    waveHeightOutputEntity
                 }
             };
 
@@ -150,7 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             // Assert
             Assert.IsNotNull(location);
             AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, location.DesignWaterLevelCalculation1.Output);
-            AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, location.WaveHeightCalculation1.Output);
+            AssertHydraulicBoundaryLocationOutput(waveHeightOutputEntity, location.WaveHeightCalculation1.Output);
         }
 
         [Test]
@@ -185,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
                 CalculationConvergence = (byte) CalculationConvergence.NotCalculated,
                 GeneralResultSubMechanismIllustrationPointEntity = designWaterLevelIllustrationPointEntity
             };
-            var waveheightOutputEntity = new GrassCoverErosionOutwardsHydraulicLocationOutputEntity
+            var waveHeightOutputEntity = new GrassCoverErosionOutwardsHydraulicLocationOutputEntity
             {
                 HydraulicLocationOutputType = (byte) HydraulicLocationOutputType.WaveHeight,
                 Result = waveHeight,
@@ -207,7 +207,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
                 GrassCoverErosionOutwardsHydraulicLocationOutputEntities =
                 {
                     designWaterLevelOutputEntity,
-                    waveheightOutputEntity
+                    waveHeightOutputEntity
                 }
             };
 
@@ -225,7 +225,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation1;
             Assert.AreEqual(shouldWaveHeightIllustrationPointsBeCalculated, waveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, waveHeightCalculation.Output);
+            AssertHydraulicBoundaryLocationOutput(waveHeightOutputEntity, waveHeightCalculation.Output);
         }
 
         [Test]

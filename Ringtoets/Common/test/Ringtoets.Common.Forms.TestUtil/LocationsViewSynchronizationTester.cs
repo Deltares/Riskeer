@@ -74,10 +74,9 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// The view should contain the following location row data:
         /// <list type="bullet">
         /// <item>Row 1: location without output</item>
-        /// <item>Row 2: location with design water level output (but without general result)</item>
-        /// <item>Row 3: location with wave height output (but without general result)</item>
-        /// <item>Row 4: location with flag for parsing the general result set to true</item>
-        /// <item>Row 5: location with output containing a general result with two top level illustration points</item>
+        /// <item>Row 2: location with output not containing a general result</item>
+        /// <item>Row 3: location with the flag for parsing the general result set to true</item>
+        /// <item>Row 4: location with output containing a general result with two top level illustration points</item>
         /// </list>
         /// </remarks>
         /// <returns>The fully configured locations view.</returns>
@@ -89,6 +88,14 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="view">The view to get the locations from.</param>
         /// <returns>An <see cref="ObservableList{T}"/> of locations.</returns>
         protected abstract ObservableList<HydraulicBoundaryLocation> GetLocationsInView(LocationsView<T> view);
+
+        /// <summary>
+        /// Method for getting the <see cref="HydraulicBoundaryLocationCalculation"/> corresponding to
+        /// the provided <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to get the calculation for.</param>
+        /// <returns>The calculation at stake.</returns>
+        protected abstract HydraulicBoundaryLocationCalculation GetCalculationForLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation);
 
         private void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<T> view)
         {
@@ -105,8 +112,7 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             locations.ForEach(loc =>
             {
-                loc.DesignWaterLevelCalculation1.Output = null;
-                loc.WaveHeightCalculation1.Output = null;
+                GetCalculationForLocation(loc).Output = null;
                 loc.NotifyObservers();
             });
         }
@@ -116,8 +122,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             ObservableList<HydraulicBoundaryLocation> locations = GetLocationsInView(view);
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = locations.First();
-            hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
-            hydraulicBoundaryLocation.WaveHeightCalculation1.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
+            GetCalculationForLocation(hydraulicBoundaryLocation).Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
             hydraulicBoundaryLocation.NotifyObservers();
         }
 
@@ -185,7 +190,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
 
             // When
-            locationsDataGridViewControl.SetCurrentCell(locationsDataGridViewControl.GetCell(4, 0));
+            locationsDataGridViewControl.SetCurrentCell(locationsDataGridViewControl.GetCell(3, 0));
 
             // Then
             Assert.AreEqual(2, illustrationPointsControl.Data.Count());
@@ -199,15 +204,14 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection locationsDataGridViewRows = locationsDataGridView.Rows;
-            locationsDataGridView.CurrentCell = locationsDataGridViewRows[4].Cells[0];
+            locationsDataGridView.CurrentCell = locationsDataGridViewRows[3].Cells[0];
 
             // Precondition
-            Assert.AreEqual(5, locationsDataGridViewRows.Count);
+            Assert.AreEqual(4, locationsDataGridViewRows.Count);
             Assert.AreEqual("-", locationsDataGridViewRows[0].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreNotEqual("-", locationsDataGridViewRows[1].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreEqual("-", locationsDataGridViewRows[2].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreEqual("-", locationsDataGridViewRows[3].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreNotEqual("-", locationsDataGridViewRows[4].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreNotEqual("-", locationsDataGridViewRows[3].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreEqual(2, GetIllustrationPointsControl().Data.Count());
 
             var refreshed = false;
@@ -218,12 +222,11 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             // Then
             Assert.IsTrue(refreshed);
-            Assert.AreEqual(5, locationsDataGridViewRows.Count);
+            Assert.AreEqual(4, locationsDataGridViewRows.Count);
             Assert.AreEqual("-", locationsDataGridViewRows[0].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreEqual("-", locationsDataGridViewRows[1].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreEqual("-", locationsDataGridViewRows[2].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreEqual("-", locationsDataGridViewRows[3].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreEqual("-", locationsDataGridViewRows[4].Cells[OutputColumnIndex].FormattedValue);
             CollectionAssert.IsEmpty(GetIllustrationPointsControl().Data);
         }
 
@@ -240,11 +243,11 @@ namespace Ringtoets.Common.Forms.TestUtil
             DataGridView locationsDataGridView = GetLocationsDataGridView();
 
             // When
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
 
             // Then
             DataGridViewRow currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
-            Assert.AreEqual(4, currentLocationRow.Index);
+            Assert.AreEqual(3, currentLocationRow.Index);
             Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
         }
 
@@ -255,11 +258,11 @@ namespace Ringtoets.Common.Forms.TestUtil
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
 
             // Precondition
             DataGridViewRow currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
-            Assert.AreEqual(4, currentLocationRow.Index);
+            Assert.AreEqual(3, currentLocationRow.Index);
             Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
 
             // When
@@ -278,11 +281,11 @@ namespace Ringtoets.Common.Forms.TestUtil
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
 
             // Precondition
             DataGridViewRow currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
-            Assert.AreEqual(4, currentLocationRow.Index);
+            Assert.AreEqual(3, currentLocationRow.Index);
             Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
 
             // When
@@ -290,7 +293,7 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             // Then
             currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
-            Assert.AreEqual(4, currentLocationRow.Index);
+            Assert.AreEqual(3, currentLocationRow.Index);
             Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
         }
 
@@ -301,11 +304,11 @@ namespace Ringtoets.Common.Forms.TestUtil
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
 
             // Precondition
             DataGridViewRow currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
-            Assert.AreEqual(4, currentLocationRow.Index);
+            Assert.AreEqual(3, currentLocationRow.Index);
             Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
 
             // When
@@ -313,7 +316,7 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             // Then
             currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
-            Assert.AreEqual(4, currentLocationRow.Index);
+            Assert.AreEqual(3, currentLocationRow.Index);
             Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
         }
 
@@ -324,7 +327,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
             DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
 
             // When
@@ -341,12 +344,12 @@ namespace Ringtoets.Common.Forms.TestUtil
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
             DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
             illustrationPointsDataGridView.CurrentCell = illustrationPointsDataGridView.Rows[1].Cells[0];
 
             // Precondition
-            Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(3, locationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
             AssertIllustrationPointControlSelection(view.Selection);
 
@@ -365,12 +368,12 @@ namespace Ringtoets.Common.Forms.TestUtil
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
             DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
             illustrationPointsDataGridView.CurrentCell = illustrationPointsDataGridView.Rows[1].Cells[0];
 
             // Precondition
-            Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(3, locationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
             AssertIllustrationPointControlSelection(view.Selection);
 
@@ -378,7 +381,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             ClearLocationOutputAndNotifyObservers(view);
 
             // Then
-            Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(3, locationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(GetLocationSelection(view, locationsDataGridView.CurrentRow?.DataBoundItem), view.Selection);
         }
 
@@ -389,12 +392,12 @@ namespace Ringtoets.Common.Forms.TestUtil
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
             DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
             illustrationPointsDataGridView.CurrentCell = illustrationPointsDataGridView.Rows[1].Cells[0];
 
             // Precondition
-            Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(3, locationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
             AssertIllustrationPointControlSelection(view.Selection);
 
@@ -402,7 +405,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             AddLocationOutputAndNotifyObservers(view);
 
             // Then
-            Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(3, locationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
             AssertIllustrationPointControlSelection(view.Selection);
         }

@@ -27,6 +27,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -55,8 +56,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             // Assert
             Assert.AreEqual(AssessmentSectionComposition.Dike, assessmentSection.Composition);
             AssertFailureMechanismsHaveAllPossibleCalculationConfigurations(assessmentSection);
-            Assert.True(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.All(loc => loc.DesignWaterLevelCalculation1.HasOutput
-                                                                                                          && loc.WaveHeightCalculation1.HasOutput));
+            AssertHydraulicBoundaryLocationOutput(assessmentSection, true);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
@@ -78,8 +78,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             // Assert
             Assert.AreEqual(composition, assessmentSection.Composition);
             AssertFailureMechanismsHaveAllPossibleCalculationConfigurations(assessmentSection);
-            Assert.True(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.All(loc => loc.DesignWaterLevelCalculation1.HasOutput
-                                                                                                          && loc.WaveHeightCalculation1.HasOutput));
+            AssertHydraulicBoundaryLocationOutput(assessmentSection, true);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
@@ -97,8 +96,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             // Assert
             Assert.AreEqual(AssessmentSectionComposition.Dike, assessmentSection.Composition);
             AssertFailureMechanismsHaveAllPossibleCalculationConfigurations(assessmentSection);
-            Assert.True(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.All(loc => !(loc.DesignWaterLevelCalculation1.HasOutput
-                                                                                                            && loc.WaveHeightCalculation1.HasOutput)));
+            AssertHydraulicBoundaryLocationOutput(assessmentSection, false);
             Assert.True(assessmentSection.DuneErosion.DuneLocations.All(dl => dl.Calculation.Output == null));
         }
 
@@ -115,8 +113,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             // Assert
             Assert.AreEqual(composition, assessmentSection.Composition);
             AssertFailureMechanismsHaveAllPossibleCalculationConfigurations(assessmentSection);
-            Assert.True(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.All(loc => !(loc.DesignWaterLevelCalculation1.HasOutput
-                                                                                                            && loc.WaveHeightCalculation1.HasOutput)));
+            AssertHydraulicBoundaryLocationOutput(assessmentSection, false);
             Assert.True(assessmentSection.DuneErosion.DuneLocations.All(dl => dl.Calculation.Output == null));
         }
 
@@ -130,8 +127,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             Assert.AreEqual(AssessmentSectionComposition.Dike, assessmentSection.Composition);
             AssertFailureMechanismsHaveAllCalculationConfigurationsWithoutCalculationOutputs(assessmentSection);
             Assert.False(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(calc => calc.HasOutput));
-            Assert.True(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.All(loc => loc.DesignWaterLevelCalculation1.HasOutput
-                                                                                                          && loc.WaveHeightCalculation1.HasOutput));
+            AssertHydraulicBoundaryLocationOutput(assessmentSection, true);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
@@ -154,8 +150,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             Assert.AreEqual(composition, assessmentSection.Composition);
             AssertFailureMechanismsHaveAllCalculationConfigurationsWithoutCalculationOutputs(assessmentSection);
             Assert.False(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(calc => calc.HasOutput));
-            Assert.True(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.All(loc => loc.DesignWaterLevelCalculation1.HasOutput
-                                                                                                          && loc.WaveHeightCalculation1.HasOutput));
+            AssertHydraulicBoundaryLocationOutput(assessmentSection, true);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
                                                                                        .OfType<DuneErosionFailureMechanism>()
@@ -164,6 +159,26 @@ namespace Ringtoets.Integration.TestUtil.Test
             AssertDuneErosionFailureMechanismCalculationConfigurationsWithOutputs(duneErosionFailureMechanism);
         }
 
+        private static void AssertHydraulicBoundaryLocationOutput(AssessmentSection assessmentSection, bool hasOutput)
+        {
+            foreach (HydraulicBoundaryLocation location in assessmentSection.HydraulicBoundaryDatabase.Locations)
+            {
+                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation1.HasOutput);
+                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation2.HasOutput);
+                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation3.HasOutput);
+                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation4.HasOutput);
+                Assert.AreEqual(hasOutput, location.WaveHeightCalculation1.HasOutput);
+                Assert.AreEqual(hasOutput, location.WaveHeightCalculation2.HasOutput);
+                Assert.AreEqual(hasOutput, location.WaveHeightCalculation3.HasOutput);
+                Assert.AreEqual(hasOutput, location.WaveHeightCalculation4.HasOutput);
+            }
+
+            foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
+            {
+                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation1.HasOutput);
+                Assert.AreEqual(hasOutput, location.WaveHeightCalculation1.HasOutput);
+            }
+        }
         private static void AssertFailureMechanismsHaveAllPossibleCalculationConfigurations(IAssessmentSection assessmentSection)
         {
             var containsClosingStructuresFailureMechanism = false;

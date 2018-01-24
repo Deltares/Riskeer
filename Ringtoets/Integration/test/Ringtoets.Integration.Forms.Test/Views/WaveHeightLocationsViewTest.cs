@@ -157,7 +157,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
             DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
-            Assert.AreEqual(5, rows.Count);
+            Assert.AreEqual(4, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(6, cells.Count);
@@ -180,7 +180,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             cells = rows[2].Cells;
             Assert.AreEqual(6, cells.Count);
             Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
-            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(3, 3).ToString(), cells[locationColumnIndex].FormattedValue);
@@ -193,15 +193,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("4", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("4", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(4, 4).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual("-", cells[locationWaveHeightColumnIndex].FormattedValue);
-
-            cells = rows[4].Cells;
-            Assert.AreEqual(6, cells.Count);
-            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
-            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
-            Assert.AreEqual("5", cells[locationNameColumnIndex].FormattedValue);
-            Assert.AreEqual("5", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(5, 5).ToString(), cells[locationColumnIndex].FormattedValue);
             Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), cells[locationWaveHeightColumnIndex].FormattedValue);
         }
 
@@ -229,7 +220,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Precondition
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
             DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
-            Assert.AreEqual(5, rows.Count);
+            Assert.AreEqual(4, rows.Count);
 
             locations.Clear();
             locations.Add(hydraulicBoundaryLocation);
@@ -285,7 +276,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
 
-            locationsDataGridViewControl.SetCurrentCell(locationsDataGridViewControl.GetCell(3, 0));
+            locationsDataGridViewControl.SetCurrentCell(locationsDataGridViewControl.GetCell(2, 0));
 
             // Precondition
             CollectionAssert.IsEmpty(illustrationPointsControl.Data);
@@ -300,7 +291,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var output = new TestHydraulicBoundaryLocationOutput(generalResult);
 
             // Call
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = locations[3];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = locations[2];
             hydraulicBoundaryLocation.WaveHeightCalculation1.Output = output;
             hydraulicBoundaryLocation.NotifyObservers();
 
@@ -626,13 +617,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 });
                 Locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    DesignWaterLevelCalculation1 =
-                    {
-                        Output = new TestHydraulicBoundaryLocationOutput(2.45)
-                    }
-                });
-                Locations.Add(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
-                {
                     WaveHeightCalculation1 =
                     {
                         InputParameters =
@@ -655,7 +639,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
                 var output = new TestHydraulicBoundaryLocationOutput(1.01, generalResult);
 
-                Locations.Add(new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
+                Locations.Add(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
                 {
                     WaveHeightCalculation1 =
                     {
@@ -703,6 +687,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             protected override ObservableList<HydraulicBoundaryLocation> GetLocationsInView(LocationsView<HydraulicBoundaryLocation> view)
             {
                 return locations;
+            }
+
+            protected override HydraulicBoundaryLocationCalculation GetCalculationForLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            {
+                return hydraulicBoundaryLocation.WaveHeightCalculation1;
             }
         }
     }

@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.Common.Data.AssessmentSection
 {
     /// <summary>
-    /// Extension methods for <see cref="AssessmentSection"/>.
+    /// Extension methods for <see cref="IAssessmentSection"/>.
     /// </summary>
     public static class AssessmentSectionExtensions
     {

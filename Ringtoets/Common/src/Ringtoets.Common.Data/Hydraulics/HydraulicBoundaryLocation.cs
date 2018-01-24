@@ -34,10 +34,10 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        /// <param name="id">Id of the <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <param name="name">Name of the <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <param name="coordinateX">X-coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <param name="coordinateY">Y-coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <param name="id">The id of the hydraulic boundary location.</param>
+        /// <param name="name">The name of the hydraulic boundary location.</param>
+        /// <param name="coordinateX">The x-coordinate of the hydraulic boundary location.</param>
+        /// <param name="coordinateY">The y-coordinate of the hydraulic boundary location.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public HydraulicBoundaryLocation(long id, string name, double coordinateX, double coordinateY)
         {
@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         }
 
         /// <summary>
-        /// Gets the database id of the hydraulic boundary location.
+        /// Gets the id of the hydraulic boundary location.
         /// </summary>
         public long Id { get; }
 
@@ -71,16 +71,9 @@ namespace Ringtoets.Common.Data.Hydraulics
         public string Name { get; }
 
         /// <summary>
-        /// Gets the coordinates of the hydraulic boundary location.
+        /// Gets the location of the hydraulic boundary.
         /// </summary>
         public Point2D Location { get; }
-
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        #region Design water level
 
         /// <summary>
         /// Gets the first design water level calculation.
@@ -103,21 +96,6 @@ namespace Ringtoets.Common.Data.Hydraulics
         public HydraulicBoundaryLocationCalculation DesignWaterLevelCalculation4 { get; }
 
         /// <summary>
-        /// Gets the design water level of the hydraulic boundary location.
-        /// </summary>
-        public RoundedDouble DesignWaterLevel
-        {
-            get
-            {
-                return DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
-            }
-        }
-
-        #endregion
-
-        #region Wave height
-
-        /// <summary>
         /// Gets the first wave height calculation.
         /// </summary>
         public HydraulicBoundaryLocationCalculation WaveHeightCalculation1 { get; }
@@ -137,6 +115,20 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// </summary>
         public HydraulicBoundaryLocationCalculation WaveHeightCalculation4 { get; }
 
-        #endregion
+        /// <summary>
+        /// Gets the design water level of the hydraulic boundary location.
+        /// </summary>
+        public RoundedDouble DesignWaterLevel
+        {
+            get
+            {
+                return DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
+            }
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -51,38 +51,87 @@ namespace Ringtoets.Common.Service.Test
 
         [Test]
         [Combinatorial]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithData_ClearsDataAndReturnsAffectedObjects(
-            [Values(3.4, double.NaN)] double designWaterLevel,
-            [Values(5.3, double.NaN)] double waveHeight)
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithOrWithoutOutput_ClearsAnyOutputAndReturnsExpectedAffectedObjects(
+            [Values(true, false)] bool setOutputForDesignWaterLevelCalculation1,
+            [Values(true, false)] bool setOutputForDesignWaterLevelCalculation2,
+            [Values(true, false)] bool setOutputForDesignWaterLevelCalculation3,
+            [Values(true, false)] bool setOutputForDesignWaterLevelCalculation4,
+            [Values(true, false)] bool setOutputForWaveHeightCalculation1,
+            [Values(true, false)] bool setOutputForWaveHeightCalculation2,
+            [Values(true, false)] bool setOutputForWaveHeightCalculation3,
+            [Values(true, false)] bool setOutputForWaveHeightCalculation4)
         {
             // Setup
+            var random = new Random(32);
+
             HydraulicBoundaryLocation location = new TestHydraulicBoundaryLocation
             {
                 DesignWaterLevelCalculation1 =
                 {
-                    Output = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
+                    Output = setOutputForDesignWaterLevelCalculation1 ? new TestHydraulicBoundaryLocationOutput(random.NextDouble()) : null
+                },
+                DesignWaterLevelCalculation2 =
+                {
+                    Output = setOutputForDesignWaterLevelCalculation2 ? new TestHydraulicBoundaryLocationOutput(random.NextDouble()) : null
+                },
+                DesignWaterLevelCalculation3 =
+                {
+                    Output = setOutputForDesignWaterLevelCalculation3 ? new TestHydraulicBoundaryLocationOutput(random.NextDouble()) : null
+                },
+                DesignWaterLevelCalculation4 =
+                {
+                    Output = setOutputForDesignWaterLevelCalculation4 ? new TestHydraulicBoundaryLocationOutput(random.NextDouble()) : null
                 },
                 WaveHeightCalculation1 =
                 {
-                    Output = new TestHydraulicBoundaryLocationOutput(waveHeight)
+                    Output = setOutputForWaveHeightCalculation1 ? new TestHydraulicBoundaryLocationOutput(random.NextDouble()) : null
+                },
+                WaveHeightCalculation2 =
+                {
+                    Output = setOutputForWaveHeightCalculation2 ? new TestHydraulicBoundaryLocationOutput(random.NextDouble()) : null
+                },
+                WaveHeightCalculation3 =
+                {
+                    Output = setOutputForWaveHeightCalculation3 ? new TestHydraulicBoundaryLocationOutput(random.NextDouble()) : null
+                },
+                WaveHeightCalculation4 =
+                {
+                    Output = setOutputForWaveHeightCalculation4 ? new TestHydraulicBoundaryLocationOutput(random.NextDouble()) : null
                 }
             };
             var locations = new ObservableList<HydraulicBoundaryLocation>
             {
                 location
             };
+            bool hasOutput = setOutputForDesignWaterLevelCalculation1
+                             || setOutputForDesignWaterLevelCalculation2
+                             || setOutputForDesignWaterLevelCalculation3
+                             || setOutputForDesignWaterLevelCalculation4
+                             || setOutputForWaveHeightCalculation1
+                             || setOutputForWaveHeightCalculation2
+                             || setOutputForWaveHeightCalculation3
+                             || setOutputForWaveHeightCalculation4;
 
             // Call
             IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
 
             // Assert
             Assert.IsFalse(location.DesignWaterLevelCalculation1.HasOutput);
+            Assert.IsFalse(location.DesignWaterLevelCalculation2.HasOutput);
+            Assert.IsFalse(location.DesignWaterLevelCalculation3.HasOutput);
+            Assert.IsFalse(location.DesignWaterLevelCalculation4.HasOutput);
             Assert.IsFalse(location.WaveHeightCalculation1.HasOutput);
+            Assert.IsFalse(location.WaveHeightCalculation2.HasOutput);
+            Assert.IsFalse(location.WaveHeightCalculation3.HasOutput);
+            Assert.IsFalse(location.WaveHeightCalculation4.HasOutput);
 
-            CollectionAssert.AreEqual(new[]
-            {
-                location
-            }, affectedObjects);
+            HydraulicBoundaryLocation[] expectedAffectedObjects = hasOutput
+                                                                      ? new[]
+                                                                      {
+                                                                          location
+                                                                      }
+                                                                      : new HydraulicBoundaryLocation[0];
+            CollectionAssert.AreEqual(expectedAffectedObjects, affectedObjects);
         }
 
         [Test]
@@ -90,22 +139,6 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             IEnumerable<HydraulicBoundaryLocation> locations = new ObservableList<HydraulicBoundaryLocation>();
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
-
-            // Assert
-            CollectionAssert.IsEmpty(affectedObjects);
-        }
-
-        [Test]
-        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutWaveHeightAndDesignWaterLevel_ReturnsNoAffectedObjects()
-        {
-            // Setup
-            var locations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                new TestHydraulicBoundaryLocation()
-            };
 
             // Call
             IEnumerable<IObservable> affectedObjects = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);

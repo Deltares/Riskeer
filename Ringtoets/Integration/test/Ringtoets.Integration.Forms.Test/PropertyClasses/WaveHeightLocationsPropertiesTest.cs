@@ -72,7 +72,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateWaveHeightCalculated(1.5);
+            var location = new TestHydraulicBoundaryLocation();
+            var calculation = new HydraulicBoundaryLocationCalculation
+            {
+                Output = new TestHydraulicBoundaryLocationOutput(1.5)
+            };
             var hydraulicBoundaryDatabase = new ObservableList<HydraulicBoundaryLocation>
             {
                 location
@@ -80,7 +84,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Call
             var properties = new WaveHeightLocationsProperties(hydraulicBoundaryDatabase,
-                                                               hbl => hbl.WaveHeightCalculation1);
+                                                               hbl => calculation);
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(WaveHeightLocationProperties));
@@ -93,7 +97,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(location.Id, waveHeightLocationProperties.Id);
             Assert.AreEqual(location.Location, waveHeightLocationProperties.Location);
 
-            RoundedDouble waveHeight = location.WaveHeightCalculation1.Output.Result;
+            RoundedDouble waveHeight = calculation.Output.Result;
             Assert.AreEqual(waveHeight, waveHeightLocationProperties.WaveHeight, waveHeight.GetAccuracy());
         }
 

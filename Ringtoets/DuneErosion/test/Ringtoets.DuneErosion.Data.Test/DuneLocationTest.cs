@@ -84,6 +84,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             Assert.AreEqual(orientation, duneLocation.Orientation.Value);
             Assert.AreEqual(d50, duneLocation.D50.Value);
             Assert.IsNotNull(duneLocation.Calculation);
+            Assert.IsNull(duneLocation.Calculation.Output);
         }
 
         [Test]

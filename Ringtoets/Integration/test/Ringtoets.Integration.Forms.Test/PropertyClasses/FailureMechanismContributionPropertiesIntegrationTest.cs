@@ -173,7 +173,41 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private void ChangeValueNoPermissionGivenAndVerifyNoNotificationsAndOutputForAllDataSet(Action<FailureMechanismContributionProperties> setPropertyAction)
         {
             // Setup
-            TestHydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelCalculation1 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(1.1)
+                },
+                DesignWaterLevelCalculation2 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(2.2)
+                },
+                DesignWaterLevelCalculation3 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(3.3)
+                },
+                DesignWaterLevelCalculation4 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(4.4)
+                },
+                WaveHeightCalculation1 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(5.5)
+                },
+                WaveHeightCalculation2 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(6.6)
+                },
+                WaveHeightCalculation3 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(7.7)
+                },
+                WaveHeightCalculation4 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(8.8)
+                }
+            };
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
@@ -270,7 +304,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(originalNorm, failureMechanismContribution.Norm);
 
             Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput);
+            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculation2.HasOutput);
+            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculation3.HasOutput);
+            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculation4.HasOutput);
             Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput);
+            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculation2.HasOutput);
+            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculation3.HasOutput);
+            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculation4.HasOutput);
             Assert.IsTrue(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput);
             Assert.IsTrue(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput);
             Assert.IsNotNull(pipingCalculation.Output);
@@ -800,7 +840,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private static void AssertHydraulicBoundaryLocationOutputClear(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation2.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation3.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation4.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation2.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation3.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation4.HasOutput);
         }
 
         private static void AssertNormValues(FailureMechanismContributionProperties properties, FailureMechanismContribution failureMechanismContribution)

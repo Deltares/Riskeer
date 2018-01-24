@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -94,17 +95,28 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationsFeatures_HydraulicBoundaryLocationsNull_ReturnsEmptyFeaturesCollection()
+        public void CreateHydraulicBoundaryLocationsFeatures_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(null);
+            TestDelegate test = () => GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryLocationsFeatures_HydraulicBoundaryLocationsArrayEmpty_ReturnsEmptyFeaturesCollection()
+        {
+            // Call
+            IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(new HydraulicBoundaryLocation[0]);
 
             // Assert
             CollectionAssert.IsEmpty(features);
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationFeatures_GivenHydraulicBoundaryLocations_ReturnsLocationFeaturesCollection()
+        public void CreateHydraulicBoundaryLocationsFeatures_GivenHydraulicBoundaryLocations_ReturnsLocationFeaturesCollection()
         {
             // Setup
             var points = new[]
@@ -115,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)).ToArray();
 
             // Call
-            IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(hydraulicBoundaryLocations);
+            IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(hydraulicBoundaryLocations);
 
             // Assert
             int expectedHydraulicBoundaryLocationsCount = hydraulicBoundaryLocations.Count();

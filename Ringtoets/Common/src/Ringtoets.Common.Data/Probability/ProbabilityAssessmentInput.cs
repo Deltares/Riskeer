@@ -38,6 +38,11 @@ namespace Ringtoets.Common.Data.Probability
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilityAssessmentInput"/>.
         /// </summary>
+        /// <param name="a">The default value for the parameter 'a' to be used to factor in the 'length effect'
+        /// when determining the maximum tolerated probability of failure.</param>
+        /// <param name="b">The default value for the parameter 'b' to be used to factor in the 'length effect'
+        /// when determining the maximum tolerated probability of failure.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="a"/> is not in the range [0, 1].</exception>
         protected ProbabilityAssessmentInput(double a, double b)
         {
             A = a;
@@ -74,7 +79,7 @@ namespace Ringtoets.Common.Data.Probability
         }
 
         /// <summary>
-        /// Gets the 'b' parameter used t ofactor in the 'length effect' when determining
+        /// Gets the 'b' parameter used to factor in the 'length effect' when determining
         /// the maximum tolerated probability of failure.
         /// </summary>
         public double B { get; }
