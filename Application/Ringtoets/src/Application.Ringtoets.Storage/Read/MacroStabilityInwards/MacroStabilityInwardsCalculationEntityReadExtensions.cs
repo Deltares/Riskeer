@@ -142,16 +142,11 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
                                                                           ReadConversionCollector collector)
         {
             inputParameters.UseAssessmentLevelManualInput = Convert.ToBoolean(entity.UseAssessmentLevelManualInput);
-            if (inputParameters.UseAssessmentLevelManualInput)
+            inputParameters.AssessmentLevel = (RoundedDouble) entity.AssessmentLevel.ToNullAsNaN();
+
+            if (entity.HydraulicLocationEntity != null)
             {
-                inputParameters.AssessmentLevel = (RoundedDouble) entity.AssessmentLevel.ToNullAsNaN();
-            }
-            else
-            {
-                if (entity.HydraulicLocationEntity != null)
-                {
-                    inputParameters.HydraulicBoundaryLocation = entity.HydraulicLocationEntity.Read(collector);
-                }
+                inputParameters.HydraulicBoundaryLocation = entity.HydraulicLocationEntity.Read(collector);
             }
         }
 
