@@ -564,10 +564,7 @@ namespace Ringtoets.Piping.Plugin
                 Gui.MainWindow,
                 calculations
                     .Select(pc => new PipingCalculationActivity(pc,
-                                                                GetNormativeAssessmentLevel(assessmentSection, pc),
-                                                                assessmentInput,
-                                                                assessmentSection.FailureMechanismContribution.Norm,
-                                                                contribution))
+                                                                GetNormativeAssessmentLevel(assessmentSection, pc)))
                     .ToList());
         }
 
@@ -819,10 +816,7 @@ namespace Ringtoets.Piping.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              new PipingCalculationActivity(calculation,
-                                                                           GetNormativeAssessmentLevel(context.AssessmentSection, calculation),
-                                                                           context.FailureMechanism.PipingProbabilityAssessmentInput,
-                                                                           context.AssessmentSection.FailureMechanismContribution.Norm,
-                                                                           context.FailureMechanism.Contribution));
+                                                                           GetNormativeAssessmentLevel(context.AssessmentSection, calculation)));
         }
 
         private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationScenarioContext context)

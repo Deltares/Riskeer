@@ -32,45 +32,25 @@ namespace Ringtoets.Piping.Service
     /// </summary>
     public class PipingCalculationActivity : Activity
     {
-        private readonly double norm;
-        private readonly double contribution;
         private readonly PipingCalculation calculation;
         private readonly RoundedDouble normativeAssessmentLevel;
-        private readonly PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationActivity"/> class.
         /// </summary>
         /// <param name="calculation">The piping data used for the calculation.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case no manual assessment level is provided.</param>
-        /// <param name="pipingProbabilityAssessmentInput">General input that influences the probability estimate for a piping
-        /// assessment.</param>
-        /// <param name="norm">The norm to assess for.</param>
-        /// <param name="contribution">The contribution of piping as a percentage (0-100) to the total of the failure probability
-        /// of the assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="calculation"/> 
-        /// or <paramref name="pipingProbabilityAssessmentInput"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public PipingCalculationActivity(PipingCalculation calculation,
-                                         RoundedDouble normativeAssessmentLevel,
-                                         PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput,
-                                         double norm,
-                                         double contribution)
+                                         RoundedDouble normativeAssessmentLevel)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            if (pipingProbabilityAssessmentInput == null)
-            {
-                throw new ArgumentNullException(nameof(pipingProbabilityAssessmentInput));
-            }
-
             this.calculation = calculation;
             this.normativeAssessmentLevel = normativeAssessmentLevel;
-            this.pipingProbabilityAssessmentInput = pipingProbabilityAssessmentInput;
-            this.norm = norm;
-            this.contribution = contribution;
 
             Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
         }
