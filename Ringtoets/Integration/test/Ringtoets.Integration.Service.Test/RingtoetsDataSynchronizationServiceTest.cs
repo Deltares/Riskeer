@@ -1605,7 +1605,14 @@ namespace Ringtoets.Integration.Service.Test
 
         private static bool HasHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            return hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput || hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput;
+            return hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput
+                   || hydraulicBoundaryLocation.DesignWaterLevelCalculation2.HasOutput
+                   || hydraulicBoundaryLocation.DesignWaterLevelCalculation3.HasOutput
+                   || hydraulicBoundaryLocation.DesignWaterLevelCalculation4.HasOutput
+                   || hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput
+                   || hydraulicBoundaryLocation.WaveHeightCalculation2.HasOutput
+                   || hydraulicBoundaryLocation.WaveHeightCalculation3.HasOutput
+                   || hydraulicBoundaryLocation.WaveHeightCalculation4.HasOutput;
         }
 
         #region TestData
@@ -1647,7 +1654,7 @@ namespace Ringtoets.Integration.Service.Test
             get
             {
                 yield return new TestCaseData(
-                    TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    CreateFullyCalculatedHydraulicBoundaryLocation(),
                     new TestHydraulicBoundaryLocation(),
                     new TestDuneLocation
                     {
@@ -1658,12 +1665,12 @@ namespace Ringtoets.Integration.Service.Test
                     }
                 ).SetName("HydraulicBoundaryAndDuneLocationWithOutput");
                 yield return new TestCaseData(
-                    TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    CreateFullyCalculatedHydraulicBoundaryLocation(),
                     new TestHydraulicBoundaryLocation(),
                     new TestDuneLocation()
                 ).SetName("HydraulicBoundaryLocationWithOutput");
                 yield return new TestCaseData(
-                    TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    CreateFullyCalculatedHydraulicBoundaryLocation(),
                     TestHydraulicBoundaryLocation.CreateFullyCalculated(),
                     new TestDuneLocation
                     {
@@ -1674,7 +1681,7 @@ namespace Ringtoets.Integration.Service.Test
                     }
                 ).SetName("AllTypesWithOutput");
                 yield return new TestCaseData(
-                    TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                    CreateFullyCalculatedHydraulicBoundaryLocation(),
                     TestHydraulicBoundaryLocation.CreateFullyCalculated(),
                     new TestDuneLocation()
                 ).SetName("HydraulicBoundaryAndGrassLocationWithOutput");
@@ -1711,6 +1718,45 @@ namespace Ringtoets.Integration.Service.Test
                     new TestDuneLocation()
                 ).SetName("GrassLocationWithOutput");
             }
+        }
+
+        private static HydraulicBoundaryLocation CreateFullyCalculatedHydraulicBoundaryLocation()
+        {
+            return new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelCalculation1 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(1.1)
+                },
+                DesignWaterLevelCalculation2 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(2.2)
+                },
+                DesignWaterLevelCalculation3 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(3.3)
+                },
+                DesignWaterLevelCalculation4 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(4.4)
+                },
+                WaveHeightCalculation1 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(5.5)
+                },
+                WaveHeightCalculation2 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(6.6)
+                },
+                WaveHeightCalculation3 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(7.7)
+                },
+                WaveHeightCalculation4 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(8.8)
+                }
+            };
         }
 
         #endregion
