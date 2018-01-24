@@ -72,7 +72,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            HydraulicBoundaryLocation location = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.5);
+            var location = new TestHydraulicBoundaryLocation();
+            var calculation = new HydraulicBoundaryLocationCalculation
+            {
+                Output = new TestHydraulicBoundaryLocationOutput(1.5)
+            };
             var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
             {
                 location
@@ -80,7 +84,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Call
             var properties = new DesignWaterLevelLocationsProperties(hydraulicBoundaryLocations,
-                                                                     hbl => hbl.DesignWaterLevelCalculation1);
+                                                                     hbl => calculation);
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DesignWaterLevelLocationProperties));
@@ -93,7 +97,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(location.Id, designWaterLevelLocationProperties.Id);
             Assert.AreEqual(location.Location, designWaterLevelLocationProperties.Location);
 
-            RoundedDouble designWaterLevel = location.DesignWaterLevelCalculation1.Output.Result;
+            RoundedDouble designWaterLevel = calculation.Output.Result;
             Assert.AreEqual(designWaterLevel, designWaterLevelLocationProperties.DesignWaterLevel, designWaterLevel.GetAccuracy());
         }
 
