@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="output">The output to create a database entity for.</param>
         /// <param name="outputType">The calculation output type.</param>
         /// <returns>A new <see cref="GrassCoverErosionOutwardsHydraulicLocationOutputEntity"/>.</returns>
-        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
         internal static GrassCoverErosionOutwardsHydraulicLocationOutputEntity CreateGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputEntity(this HydraulicBoundaryLocationOutput output,
                                                                                                                                                     HydraulicLocationOutputType outputType)
 
