@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -56,7 +57,8 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(section.Name, sectionRow.Name);
-            Assert.AreEqual(section.Length, sectionRow.Length);
+            Assert.AreEqual(2, sectionRow.Length.NumberOfDecimalPlaces);
+            Assert.AreEqual(section.Length, sectionRow.Length, sectionRow.Length.GetAccuracy());
         }
     }
 }

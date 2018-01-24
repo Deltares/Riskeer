@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.Views
@@ -43,7 +44,7 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             Name = section.Name;
-            Length = section.Length;
+            Length = new RoundedDouble(2, section.Length);
         }
 
         /// <summary>
@@ -55,6 +56,6 @@ namespace Ringtoets.Common.Forms.Views
         /// Gets the length of the section.
         /// [m]
         /// </summary>
-        public double Length { get; }
+        public RoundedDouble Length { get; }
     }
 }
