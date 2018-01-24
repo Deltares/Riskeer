@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Ringtoets.MacroStabilityInwards.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
@@ -31,14 +32,17 @@ namespace Ringtoets.MacroStabilityInwards.Service
     /// </summary>
     public class MacroStabilityInwardsCalculationActivity : Activity
     {
+        private readonly RoundedDouble normativeAssessmentLevel;
         private readonly MacroStabilityInwardsCalculation calculation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsCalculationActivity"/> class.
         /// </summary>
         /// <param name="calculation">The macro stability inwards data used for the calculation.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use in case no manual assessment level is provided.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsCalculationActivity(MacroStabilityInwardsCalculation calculation)
+        public MacroStabilityInwardsCalculationActivity(MacroStabilityInwardsCalculation calculation,
+                                                        RoundedDouble normativeAssessmentLevel)
         {
             if (calculation == null)
             {
@@ -46,13 +50,14 @@ namespace Ringtoets.MacroStabilityInwards.Service
             }
 
             this.calculation = calculation;
+            this.normativeAssessmentLevel = normativeAssessmentLevel;
 
             Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
         }
 
         protected override void OnRun()
         {
-            if (!MacroStabilityInwardsCalculationService.Validate(calculation))
+            if (!MacroStabilityInwardsCalculationService.Validate(calculation, normativeAssessmentLevel))
             {
                 State = ActivityState.Failed;
                 return;
@@ -60,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
 
-            MacroStabilityInwardsCalculationService.Calculate(calculation);
+            MacroStabilityInwardsCalculationService.Calculate(calculation, normativeAssessmentLevel);
         }
 
         protected override void OnCancel()
