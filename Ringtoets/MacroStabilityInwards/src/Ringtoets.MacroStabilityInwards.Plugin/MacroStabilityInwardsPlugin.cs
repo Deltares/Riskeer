@@ -211,7 +211,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             };
 
             yield return new ViewInfo<
-                FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>,
+                MacroStabilityInwardsFailureMechanismSectionResultContext,
                 IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>,
                 MacroStabilityInwardsFailureMechanismResultView>
             {
@@ -219,7 +219,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
+                CreateInstance = context => new MacroStabilityInwardsFailureMechanismResultView(context.AssessmentSection)
             };
 
             yield return new ViewInfo<MacroStabilityInwardsCalculationGroupContext, CalculationGroup, MacroStabilityInwardsCalculationsView>
@@ -282,7 +283,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<MacroStabilityInwardsFailureMechanismSectionResultContext>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -715,8 +716,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             return new object[]
             {
                 new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism),
+                new MacroStabilityInwardsFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
         }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -29,7 +30,10 @@ using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
@@ -60,14 +64,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView())
+            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -349,7 +359,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
-                Assert.AreEqual($"1/{1 / calculationScenario.Probability:N0}",
+                Assert.AreEqual($"1/{1 / 1}",
                                 formattedValue);
             }
         }
@@ -396,7 +406,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             using (MacroStabilityInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(failureMechanism))
             {
-                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateFailedMacroStabilityInwardsCalculationScenario(
+                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(
                     failureMechanism.Sections.First());
                 failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
                 view.Data = failureMechanism.SectionResults;
@@ -484,7 +494,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(failureMechanism))
             {
-                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateFailedMacroStabilityInwardsCalculationScenario(
+                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(
                     failureMechanism.Sections.First());
                 failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
@@ -526,7 +536,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
         private MacroStabilityInwardsFailureMechanismResultView ShowFailureMechanismResultsView()
         {
-            var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView();
+            var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView(new ObservableTestAssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

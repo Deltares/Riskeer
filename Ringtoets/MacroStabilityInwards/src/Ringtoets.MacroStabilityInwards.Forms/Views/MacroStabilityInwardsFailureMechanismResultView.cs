@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
@@ -41,12 +42,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismResultView"/>.
         /// </summary>
-        public MacroStabilityInwardsFailureMechanismResultView()
+        /// <param name="assessmentSection">The assessment section that the failure mechanism belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public MacroStabilityInwardsFailureMechanismResultView(IAssessmentSection assessmentSection)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.assessmentSection = assessmentSection;
+
             DataGridViewControl.CellFormatting += ShowAssessmentLayerTwoAErrors;
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
 
@@ -99,7 +111,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 return null;
             }
-            return new MacroStabilityInwardsFailureMechanismSectionResultRow(sectionResult, FailureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>());
+
+            return new MacroStabilityInwardsFailureMechanismSectionResultRow(sectionResult,
+                                                                             FailureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>(),
+                                                                             (MacroStabilityInwardsFailureMechanism) FailureMechanism, assessmentSection);
         }
 
         protected override void AddDataGridColumns()
@@ -170,7 +185,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed;
                 return;
             }
-            if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
+            if (double.IsNaN(resultRow.AssessmentLayerTwoA))
             {
                 currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output;
                 return;

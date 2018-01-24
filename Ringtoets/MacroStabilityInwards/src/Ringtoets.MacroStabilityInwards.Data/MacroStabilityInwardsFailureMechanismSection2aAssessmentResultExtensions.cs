@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.MacroStabilityInwards.Data
@@ -37,19 +38,59 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
         /// </summary>
-        /// <param name="macroStabilityInwardsFailureMechanismSectionResult">The result to get the result for.</param>
+        /// <param name="sectionResult">The section result to get the assessment layer 2A for.</param>
         /// <param name="calculations">All calculations in the failure mechanism.</param>
-        public static double GetAssessmentLayerTwoA(this MacroStabilityInwardsFailureMechanismSectionResult macroStabilityInwardsFailureMechanismSectionResult,
-                                                    IEnumerable<MacroStabilityInwardsCalculationScenario> calculations)
+        /// <param name="failureMechanism">The failure mechanism the calculations belong to.</param>
+        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
+        /// <returns>The calculated assessment layer 2A; or <see cref="double.NaN"/> when there are no
+        /// performed calculations.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static double GetAssessmentLayerTwoA(this MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
+                                                    IEnumerable<MacroStabilityInwardsCalculationScenario> calculations,
+                                                    MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                    IAssessmentSection assessmentSection)
         {
-            List<MacroStabilityInwardsCalculationScenario> calculationScenarios = macroStabilityInwardsFailureMechanismSectionResult
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            List<MacroStabilityInwardsCalculationScenario> calculationScenarios = sectionResult
                 .GetCalculationScenarios(calculations)
                 .Where(cs => cs.Status == CalculationScenarioStatus.Done)
                 .ToList();
 
-            return calculationScenarios.Any()
-                       ? calculationScenarios.Sum(scenario => scenario.Probability * scenario.Contribution.Value)
-                       : double.NaN;
+            if (calculationScenarios.Any())
+            {
+                double totalAssessmentLayerTwoA = 0;
+                foreach (MacroStabilityInwardsCalculationScenario scenario in calculationScenarios)
+                {
+                    var derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(scenario.Output,
+                                                                                         failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
+                                                                                         assessmentSection.FailureMechanismContribution.Norm,
+                                                                                         failureMechanism.Contribution);
+
+                    totalAssessmentLayerTwoA += derivedOutput.MacroStabilityInwardsProbability * (double) scenario.Contribution;
+                }
+                return totalAssessmentLayerTwoA;
+            }
+
+            return double.NaN;
         }
 
         /// <summary>

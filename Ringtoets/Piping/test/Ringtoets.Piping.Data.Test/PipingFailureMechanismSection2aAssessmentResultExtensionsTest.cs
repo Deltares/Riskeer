@@ -187,7 +187,6 @@ namespace Ringtoets.Piping.Data.Test
 
             var failureMechanism = new PipingFailureMechanism();
 
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 

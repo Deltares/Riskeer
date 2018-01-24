@@ -50,26 +50,25 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         [TestCase(0.0, TestName = "CreateCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(0.0)")]
         [TestCase(0.8, TestName = "CreateCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(0.8)")]
         [TestCase(1.0, TestName = "CreateCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(1.0)")]
-        public void CreateMacroStabilityInwardsCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(double probability)
+        public void CreateMacroStabilityInwardsCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(double factoryOfStability)
         {
             // Setup
             FailureMechanismSection section = CreateSection();
 
             // Call
-            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenario(probability, section);
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenario(factoryOfStability, section);
 
             // Assert
             Assert.NotNull(scenario.Output);
-            Assert.NotNull(scenario.SemiProbabilisticOutput);
-            Assert.AreEqual(probability, scenario.SemiProbabilisticOutput.MacroStabilityInwardsProbability, 1e-6);
+            Assert.AreEqual(factoryOfStability, scenario.Output.FactorOfStability, 1e-6);
             Assert.IsTrue(scenario.IsRelevant);
         }
 
         [Test]
-        public void CreateFailedMacroStabilityInwardsCalculationScenario_WithNoSection_ThrowsArgumentNullException()
+        public void CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput_WithNoSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioFactory.CreateFailedMacroStabilityInwardsCalculationScenario(null);
+            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -77,18 +76,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateFailedMacroStabilityInwardsCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSetToNaN()
+        public void CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput_WithSection_CreatesRelevantCalculationWithOutputSetToNaN()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
 
             // Call
-            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioFactory.CreateFailedMacroStabilityInwardsCalculationScenario(section);
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(section);
 
             // Assert
             Assert.NotNull(scenario.Output);
-            Assert.NotNull(scenario.SemiProbabilisticOutput);
-            Assert.IsNaN(scenario.SemiProbabilisticOutput.MacroStabilityInwardsProbability);
+            Assert.IsNaN(scenario.Output.FactorOfStability);
             Assert.IsTrue(scenario.IsRelevant);
         }
 
