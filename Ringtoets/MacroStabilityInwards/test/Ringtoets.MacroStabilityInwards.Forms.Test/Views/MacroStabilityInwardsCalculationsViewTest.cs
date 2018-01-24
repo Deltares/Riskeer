@@ -378,6 +378,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(1, selectionChangedCount);
             }
+
             WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
         }
@@ -664,13 +665,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenMacroStabilityInwardsCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
         {
             // Given
-            using (MacroStabilityInwardsCalculationsView macroStabilityInwardsCalculationsView = ShowMacroStabilityInwardsCalculationsView())
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = ConfigureSimpleFailureMechanism();
+
+            using (MacroStabilityInwardsCalculationsView macroStabilityInwardsCalculationsView = ShowFullyConfiguredMacroStabilityInwardsCalculationsView(assessmentSection,
+                                                                                                                                                          macroStabilityInwardsFailureMechanism,
+                                                                                                                                                          macroStabilityInwardsFailureMechanism.CalculationsGroup))
             {
-                MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = ConfigureSimpleFailureMechanism();
-
-                macroStabilityInwardsCalculationsView.MacroStabilityInwardsFailureMechanism = macroStabilityInwardsFailureMechanism;
-                macroStabilityInwardsCalculationsView.Data = macroStabilityInwardsFailureMechanism.CalculationsGroup;
-
                 // Precondition
                 var button = new ButtonTester("buttonGenerateScenarios", testForm);
 
