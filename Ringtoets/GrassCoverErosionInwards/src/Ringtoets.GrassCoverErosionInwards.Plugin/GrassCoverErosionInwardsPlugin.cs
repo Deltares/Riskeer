@@ -87,7 +87,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
             yield return new PropertyInfo<GrassCoverErosionInwardsOutputContext, GrassCoverErosionInwardsOutputProperties>
             {
-                CreateInstance = context => new GrassCoverErosionInwardsOutputProperties(context.WrappedData.Output)
+                CreateInstance = context => new GrassCoverErosionInwardsOutputProperties(context.WrappedData.Output,
+                                                                                         context.FailureMechanism,
+                                                                                         context.AssessmentSection)
             };
             yield return new PropertyInfo<OvertoppingOutputContext, OvertoppingOutputProperties>
             {
@@ -865,7 +867,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                          calculation,
                                                          context.FailureMechanism,
                                                          context.AssessmentSection),
-                new GrassCoverErosionInwardsOutputContext(calculation)
+                new GrassCoverErosionInwardsOutputContext(calculation,
+                                                          context.FailureMechanism,
+                                                          context.AssessmentSection)
             };
         }
 
