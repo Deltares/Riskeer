@@ -92,6 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             {
                 throw new ArgumentNullException(nameof(section));
             }
+
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             Point2D p = section.Points.First();
             surfaceLine.SetGeometry(new[]
@@ -222,7 +223,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             surfaceLine.SetDikeToeAtPolderAt(fifthCharacteristicPointLocation);
             surfaceLine.SetSurfaceLevelInsideAt(sixthCharacteristicPointLocation);
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.0);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelCalculation2 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(1.1)
+                },
+                DesignWaterLevelCalculation3 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(2.2)
+                }
+            };
+
             return new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
@@ -295,7 +307,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 }
             };
         }
-        
+
         /// <summary>
         /// Creates a scenario with valid input and output.
         /// </summary>

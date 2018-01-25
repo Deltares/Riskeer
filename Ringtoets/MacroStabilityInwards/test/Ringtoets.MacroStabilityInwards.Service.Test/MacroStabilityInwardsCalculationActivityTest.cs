@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using log4net.Core;
@@ -44,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             var calculation = new MacroStabilityInwardsCalculation();
 
             // Call
-            var activity = new MacroStabilityInwardsCalculationActivity(calculation);
+            var activity = new MacroStabilityInwardsCalculationActivity(calculation, RoundedDouble.NaN);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -57,14 +58,14 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsCalculationActivity(null);
+            TestDelegate call = () => new MacroStabilityInwardsCalculationActivity(null, RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("calculation", exception.ParamName);
         }
 
-       [Test]
+        [Test]
         public void Run_InvalidMacroStabilityInwardsCalculationWithOutput_LogValidationStartAndEndWithErrors()
         {
             // Setup
@@ -73,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             MacroStabilityInwardsCalculationScenario invalidMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
             invalidMacroStabilityInwardsCalculation.Output = originalOutput;
 
-            var activity = new MacroStabilityInwardsCalculationActivity(invalidMacroStabilityInwardsCalculation);
+            var activity = new MacroStabilityInwardsCalculationActivity(invalidMacroStabilityInwardsCalculation, GetCalculatedTestAssessmentLevel());
 
             // Call
             Action call = () => activity.Run();
@@ -105,7 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation);
+                var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, GetCalculatedTestAssessmentLevel());
                 activity.Run();
 
                 // Call
@@ -140,7 +141,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             validMacroStabilityInwardsCalculation.Output = null;
             validMacroStabilityInwardsCalculation.Attach(observer);
 
-            var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation);
+            var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, GetCalculatedTestAssessmentLevel());
 
             activity.Run();
 
@@ -149,6 +150,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        private static RoundedDouble GetCalculatedTestAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
     }
 }
