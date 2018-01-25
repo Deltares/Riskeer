@@ -39,7 +39,6 @@ namespace Ringtoets.Piping.Forms.Views
     {
         private const int assessmentLayerTwoAIndex = 2;
         private const double tolerance = 1e-6;
-        private readonly Observer failureMechanismObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
@@ -77,8 +76,6 @@ namespace Ringtoets.Piping.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
                 c => c.Children);
-
-            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
         }
 
         public override IFailureMechanism FailureMechanism
@@ -90,7 +87,6 @@ namespace Ringtoets.Piping.Forms.Views
                 var calculatableFailureMechanism = value as ICalculatableFailureMechanism;
                 CalculationGroup observableGroup = calculatableFailureMechanism?.CalculationsGroup;
 
-                failureMechanismObserver.Observable = base.FailureMechanism;
                 calculationInputObserver.Observable = observableGroup;
                 calculationOutputObserver.Observable = observableGroup;
                 calculationGroupObserver.Observable = observableGroup;
@@ -102,7 +98,6 @@ namespace Ringtoets.Piping.Forms.Views
             DataGridViewControl.CellFormatting -= ShowAssessmentLayerTwoAErrors;
             DataGridViewControl.CellFormatting -= DisableIrrelevantFieldsFormatting;
 
-            failureMechanismObserver.Dispose();
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
