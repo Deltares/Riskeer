@@ -92,6 +92,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                     throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.N_Value_should_be_in_Range_0_,
                                                                                        validityRangeN));
                 }
+
                 n = value.ToPrecision(n.NumberOfDecimalPlaces);
             }
         }

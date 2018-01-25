@@ -33,11 +33,31 @@ INSERT INTO GeneralResultSubMechanismIllustrationPointEntity SELECT * FROM [SOUR
 INSERT INTO GeneralResultSubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointStochastEntity;
 INSERT INTO GrassCoverErosionInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
 INSERT INTO GrassCoverErosionInwardsDikeHeightOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
-INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
+INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity(
+	[GrassCoverErosionInwardsFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N],
+	[DikeProfileCollectionSourcePath])
+SELECT
+	[GrassCoverErosionInwardsFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N] AS REAL,
+	[DikeProfileCollectionSourcePath]
+FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionInwardsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
 INSERT INTO GrassCoverErosionInwardsOvertoppingRateOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOvertoppingRateOutputEntity;
 INSERT INTO GrassCoverErosionInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
-INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
+INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity(
+	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N],
+	[ForeshoreProfileCollectionSourcePath])
+SELECT
+	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N] AS REAL,
+	[ForeshoreProfileCollectionSourcePath]
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionOutwardsHydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity;
 INSERT INTO GrassCoverErosionOutwardsHydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity;
 INSERT INTO GrassCoverErosionOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
@@ -47,7 +67,19 @@ INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity SELECT * FROM [SOURCEPRO
 INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
 INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureEntity;
 INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
-INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
+INSERT INTO HeightStructuresFailureMechanismMetaEntity(
+	[HeightStructuresFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N],
+	[HeightStructureCollectionSourcePath],
+	[ForeshoreProfileCollectionSourcePath])
+SELECT
+	[HeightStructuresFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[N] AS REAL,
+	[HeightStructureCollectionSourcePath],
+	[ForeshoreProfileCollectionSourcePath]
+FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
 INSERT INTO HydraRingPreprocessorEntity SELECT * FROM [SOURCEPROJECT].HydraRingPreprocessorEntity;

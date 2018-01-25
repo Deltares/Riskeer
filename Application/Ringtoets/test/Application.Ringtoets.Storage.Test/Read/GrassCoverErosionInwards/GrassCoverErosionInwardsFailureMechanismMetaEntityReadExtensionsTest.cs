@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
@@ -55,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             var entity = new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
-                N = (int) n
+                N = n
             };
             var inputToUpdate = new GeneralGrassCoverErosionInwardsInput();
 
@@ -63,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             entity.Read(inputToUpdate);
 
             // Assert
-            Assert.AreEqual((int) n, (int) inputToUpdate.N);
+            Assert.AreEqual(entity.N, inputToUpdate.N, inputToUpdate.N.GetAccuracy());
         }
     }
 }

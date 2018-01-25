@@ -1377,7 +1377,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             ZoneBoundaryLeft = (RoundedDouble) 10,
                             ZoneBoundaryRight = (RoundedDouble) 12
                         },
-                        Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
+                        Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
                     },
                     new MacroStabilityInwardsCalculationScenario
                     {
@@ -1459,7 +1459,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             ZoneBoundaryLeft = (RoundedDouble) 5.4,
                             ZoneBoundaryRight = (RoundedDouble) 6.5
                         },
-                        Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
+                        Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
                     }
                 }
             });

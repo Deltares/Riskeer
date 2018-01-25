@@ -213,7 +213,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.AreEqual((int) n, entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single().N);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single().N);
         }
 
         [Test]

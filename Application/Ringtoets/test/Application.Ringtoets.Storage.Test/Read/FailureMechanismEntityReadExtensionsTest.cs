@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -975,7 +976,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
-            Assert.AreEqual(n, (int) failureMechanism.GeneralInput.N);
+            RoundedDouble actualN = failureMechanism.GeneralInput.N;
+            Assert.AreEqual(entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Single().N, actualN, actualN.GetAccuracy());
             Assert.IsNull(failureMechanism.DikeProfiles.SourcePath);
         }
 
@@ -1147,7 +1149,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
-            Assert.AreEqual(n, (int) failureMechanism.GeneralInput.N);
+            RoundedDouble actualN = failureMechanism.GeneralInput.N;
+            Assert.AreEqual(entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single().N, actualN, actualN.GetAccuracy());
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }
 
@@ -1815,7 +1818,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             ForeshoreProfile child2 = foreshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Id);
 
-            Assert.AreEqual(generalInputN, (int) failureMechanism.GeneralInput.N);
+            RoundedDouble actualN = failureMechanism.GeneralInput.N;
+            Assert.AreEqual(entity.HeightStructuresFailureMechanismMetaEntities.Single().N, actualN, actualN.GetAccuracy());
         }
 
         [Test]

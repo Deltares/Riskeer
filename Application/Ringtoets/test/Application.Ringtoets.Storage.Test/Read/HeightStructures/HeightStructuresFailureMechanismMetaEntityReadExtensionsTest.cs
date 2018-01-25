@@ -22,6 +22,7 @@
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.HeightStructures;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
@@ -42,7 +43,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             GeneralHeightStructuresInput generalInput = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.N, (int) generalInput.N);
+            Assert.AreEqual(entity.N, generalInput.N, generalInput.N.GetAccuracy());
         }
     }
 }

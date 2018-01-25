@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             var metaEntity = new GrassCoverErosionOutwardsFailureMechanismMetaEntity
             {
                 ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone(),
-                N = (int) Math.Round(failureMechanism.GeneralInput.N)
+                N = failureMechanism.GeneralInput.N
             };
 
             entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Add(metaEntity);

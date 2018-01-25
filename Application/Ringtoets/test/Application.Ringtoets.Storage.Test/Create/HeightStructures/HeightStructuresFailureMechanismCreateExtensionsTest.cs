@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
 
             HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.First();
-            Assert.AreEqual((int) failureMechanism.GeneralInput.N, metaEntity.N);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
             Assert.IsNull(metaEntity.HeightStructureCollectionSourcePath);
         }
 

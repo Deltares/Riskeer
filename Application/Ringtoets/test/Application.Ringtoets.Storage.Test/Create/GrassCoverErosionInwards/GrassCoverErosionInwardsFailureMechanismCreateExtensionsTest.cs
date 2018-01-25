@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             Assert.AreEqual(1, entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Count);
             GrassCoverErosionInwardsFailureMechanismMetaEntity generalInputEntity = entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.First();
-            Assert.AreEqual((int) failureMechanism.GeneralInput.N, generalInputEntity.N);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, generalInputEntity.N);
             Assert.IsNull(generalInputEntity.DikeProfileCollectionSourcePath);
         }
 
