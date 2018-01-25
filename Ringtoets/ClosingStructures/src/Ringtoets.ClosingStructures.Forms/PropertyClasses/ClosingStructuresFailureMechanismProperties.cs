@@ -69,10 +69,12 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (handler == null)
             {
                 throw new ArgumentNullException(nameof(handler));
             }
+
             Data = data;
             propertyChangeHandler = handler;
         }
@@ -84,6 +86,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             {
                 return false;
             }
+
             return true;
         }
 
@@ -147,13 +150,13 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(lengthEffectPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_Description))]
         public RoundedDouble LengthEffect
         {
             get
             {
-                return data.GeneralInput.N;
+                return new RoundedDouble(2, data.GeneralInput.N);
             }
         }
 
