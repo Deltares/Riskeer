@@ -59,11 +59,14 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// Gets a value indicating whether the calculation has already been calculated.
         /// </summary>
         /// <returns><c>true</c> if the calculation is fully calculated, <c>false</c> otherwise.</returns>
-        /// <remarks>A calculation is fully calculated, depending on if the illustration points 
+        /// <remarks>A calculation is fully calculated, depending on whether the illustration points 
         /// are set to be calculated.</remarks>
-        public bool IsCalculated()
+        public bool IsCalculated
         {
-            return HasOutput && InputParameters.ShouldIllustrationPointsBeCalculated == Output.HasGeneralResult;
+            get
+            {
+                return HasOutput && InputParameters.ShouldIllustrationPointsBeCalculated == Output.HasGeneralResult;
+            }
         }
     }
 }

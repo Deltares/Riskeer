@@ -38,17 +38,14 @@ namespace Ringtoets.Piping.Service.Test
     public class PipingCalculationActivityTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput());
 
             // Call
             var activity = new PipingCalculationActivity(calculation,
-                                                         RoundedDouble.NaN,
-                                                         new PipingProbabilityAssessmentInput(),
-                                                         int.MinValue,
-                                                         double.NaN);
+                                                         RoundedDouble.NaN);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -58,36 +55,15 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void ParameteredConstructor_CalculationNull_ThrowsArgumentNullException()
+        public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new PipingCalculationActivity(null,
-                                                                    RoundedDouble.NaN,
-                                                                    new PipingProbabilityAssessmentInput(),
-                                                                    int.MinValue,
-                                                                    double.NaN);
+                                                                    RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("calculation", exception.ParamName);
-        }
-
-        [Test]
-        public void ParameteredConstructor_PipingProbabilityAssessmentInputNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput());
-
-            // Call
-            TestDelegate call = () => new PipingCalculationActivity(calculation,
-                                                                    RoundedDouble.NaN,
-                                                                    null,
-                                                                    int.MinValue,
-                                                                    double.NaN);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("pipingProbabilityAssessmentInput", exception.ParamName);
         }
 
         [Test]
@@ -100,10 +76,7 @@ namespace Ringtoets.Piping.Service.Test
             invalidPipingCalculation.Output = originalOutput;
 
             var activity = new PipingCalculationActivity(invalidPipingCalculation,
-                                                         GetCalculatedTestAssessmentLevel(),
-                                                         new PipingProbabilityAssessmentInput(),
-                                                         int.MinValue,
-                                                         double.NaN);
+                                                         GetCalculatedTestAssessmentLevel());
 
             // Call
             Action call = () => activity.Run();
@@ -135,12 +108,8 @@ namespace Ringtoets.Piping.Service.Test
             PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             validPipingCalculation.Output = null;
 
-            double norm = new Random(21).NextDouble();
             var activity = new PipingCalculationActivity(validPipingCalculation,
-                                                         GetCalculatedTestAssessmentLevel(),
-                                                         new PipingProbabilityAssessmentInput(),
-                                                         norm,
-                                                         double.NaN);
+                                                         GetCalculatedTestAssessmentLevel());
             activity.Run();
 
             // Call
@@ -175,10 +144,7 @@ namespace Ringtoets.Piping.Service.Test
             validPipingCalculation.Attach(observer);
 
             var activity = new PipingCalculationActivity(validPipingCalculation,
-                                                         GetCalculatedTestAssessmentLevel(),
-                                                         new PipingProbabilityAssessmentInput(),
-                                                         int.MinValue,
-                                                         double.NaN);
+                                                         GetCalculatedTestAssessmentLevel());
 
             activity.Run();
 

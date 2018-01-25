@@ -55,30 +55,12 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
         }
 
-        public double Probability
-        {
-            get
-            {
-                if (Status != CalculationScenarioStatus.Done)
-                {
-                    throw new InvalidOperationException("The probability can only be accessed when the status is done.");
-                }
-
-                return SemiProbabilisticOutput.MacroStabilityInwardsProbability;
-            }
-        }
-
         public CalculationScenarioStatus Status
         {
             get
             {
-                if (Output == null)
-                {
-                    return CalculationScenarioStatus.NotCalculated;
-                }
-
-                return SemiProbabilisticOutput == null || double.IsNaN(SemiProbabilisticOutput.MacroStabilityInwardsProbability)
-                           ? CalculationScenarioStatus.Failed
+                return Output == null
+                           ? CalculationScenarioStatus.NotCalculated
                            : CalculationScenarioStatus.Done;
             }
         }

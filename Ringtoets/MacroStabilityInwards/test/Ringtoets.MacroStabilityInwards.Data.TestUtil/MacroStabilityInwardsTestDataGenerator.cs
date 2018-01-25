@@ -415,8 +415,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     SurfaceLine = surfaceLine1,
                     StochasticSoilModel = stochasticSoilModel1
                 },
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
             var calculationWithSurfaceLineAndSoilModel = new MacroStabilityInwardsCalculationScenario
             {
@@ -436,8 +435,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     SurfaceLine = surfaceLine2,
                     StochasticSoilModel = stochasticSoilModel2
                 },
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
             var calculationWithHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario
             {
@@ -466,8 +464,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel2,
                     StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles.ElementAt(0)
                 },
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario
             {
@@ -478,8 +475,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel1,
                     StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles.ElementAt(0)
                 },
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
             var subCalculationWithHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario
             {

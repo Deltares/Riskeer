@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -36,39 +37,81 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
     public class MacroStabilityInwardsScenarioRowTest
     {
         [Test]
-        public void Constructor_WithoutCalculation_ThrowsArgumentNullException()
+        public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsScenarioRow(null);
+            TestDelegate test = () => new MacroStabilityInwardsScenarioRow(null, failureMechanism, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("macroStabilityInwardsCalculation", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithCalculationWithSemiProbabilisticOutput_PropertiesFromCalculation()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = new Random(21);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-            calculation.SemiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble());
 
             // Call
-            var row = new MacroStabilityInwardsScenarioRow(calculation);
+            TestDelegate test = () => new MacroStabilityInwardsScenarioRow(calculation, null, assessmentSection);
 
             // Assert
-            Assert.AreSame(calculation, row.MacroStabilityInwardsCalculation);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithCalculationWithOutput_PropertiesFromCalculation()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateCalculatedMacroStabilityInwardsCalculationScenario();
+            var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
+            // Call
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(calculation.Name, row.Name);
             Assert.AreEqual(calculation.IsRelevant, row.IsRelevant);
             Assert.AreEqual(calculation.Contribution * 100, row.Contribution);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(calculation.SemiProbabilisticOutput.MacroStabilityInwardsProbability), row.FailureProbabilityMacroStabilityInwards);
+
+            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
+                calculation.Output, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
+                assessmentSection.FailureMechanismContribution.Norm, failureMechanism.Contribution);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.MacroStabilityInwardsProbability), row.FailureProbabilityMacroStabilityInwards);
         }
 
         [Test]
@@ -76,12 +119,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             // Call
-            var row = new MacroStabilityInwardsScenarioRow(calculation);
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreSame(calculation, row.MacroStabilityInwardsCalculation);
+            Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(calculation.Name, row.Name);
             Assert.AreEqual(calculation.IsRelevant, row.IsRelevant);
             Assert.AreEqual(calculation.Contribution * 100, row.Contribution);
@@ -94,22 +141,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void IsRelevant_AlwaysOnChange_NotifyObserversAndCalculationPropertyChanged(bool newValue)
         {
             // Setup
+            var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+
             var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
             calculation.Attach(observer);
 
-            var row = new MacroStabilityInwardsScenarioRow(calculation);
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
 
             // Call
             row.IsRelevant = newValue;
 
             // Assert
             Assert.AreEqual(newValue, calculation.IsRelevant);
-
             mocks.VerifyAll();
         }
 
@@ -117,26 +166,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Contribution_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
+            var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            calculation.Attach(observer);
+
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+
             int newValue = new Random(21).Next(0, 100);
 
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-            var row = new MacroStabilityInwardsScenarioRow(calculation);
+            // Call
+            row.Contribution = (RoundedDouble) newValue;
 
-            var counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = calculation
-            })
-            {
-                // Call
-                row.Contribution = (RoundedDouble) newValue;
-
-                // Assert
-                Assert.AreEqual(1, counter);
-
-                Assert.AreEqual(2, calculation.Contribution.NumberOfDecimalPlaces);
-                Assert.AreEqual(newValue, calculation.Contribution * 100, calculation.Contribution.GetAccuracy());
-            }
+            // Assert
+            Assert.AreEqual(2, calculation.Contribution.NumberOfDecimalPlaces);
+            Assert.AreEqual(newValue, calculation.Contribution * 100, calculation.Contribution.GetAccuracy());
+            mocks.VerifyAll();
         }
     }
 }

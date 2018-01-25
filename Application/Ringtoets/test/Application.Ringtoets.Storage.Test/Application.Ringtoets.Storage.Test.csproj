@@ -67,7 +67,6 @@
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsCalculationScenarioCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsPreconsolidationStressCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSemiProbabilisticOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer2DCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer1DCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilProfile1DCreateExtensionsTest.cs" />
@@ -122,7 +121,6 @@
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsCalculationOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsPreconsolidationStressEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSemiProbabilisticOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayerTwoDEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayerOneDEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileTwoDEntityReadExtensionsTest.cs" />
@@ -130,6 +128,7 @@
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ProbabilityAssessmentOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StructureCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructureEntityReadExtensionsTest.cs" />

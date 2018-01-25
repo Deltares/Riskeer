@@ -157,7 +157,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((f, v) => f.MacroStabilityInwardsProbabilityAssessmentInput.A = v, value);
+                data.MacroStabilityInwardsProbabilityAssessmentInput.A = value;
+                data.NotifyObservers();
             }
         }
 

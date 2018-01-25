@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -34,25 +35,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     /// </summary>
     internal class MacroStabilityInwardsScenarioRow
     {
+        private readonly DerivedMacroStabilityInwardsOutput derivedOutput;
+
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationRow"/>.
         /// </summary>
-        /// <param name="macroStabilityInwardsCalculation">The <see cref="MacroStabilityInwardsCalculationScenario"/> this row contains.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="macroStabilityInwardsCalculation"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsScenarioRow(MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
+        /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculationScenario"/> this row contains.</param>
+        /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
+        /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MacroStabilityInwardsScenarioRow(MacroStabilityInwardsCalculationScenario calculation,
+                                                MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                IAssessmentSection assessmentSection)
         {
-            if (macroStabilityInwardsCalculation == null)
+            if (calculation == null)
             {
-                throw new ArgumentNullException(nameof(macroStabilityInwardsCalculation));
+                throw new ArgumentNullException(nameof(calculation));
             }
 
-            MacroStabilityInwardsCalculation = macroStabilityInwardsCalculation;
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            Calculation = calculation;
+
+            if (Calculation.HasOutput)
+            {
+                derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
+                                                                                 assessmentSection.FailureMechanismContribution.Norm, failureMechanism.Contribution);
+            }
         }
 
         /// <summary>
         /// Gets the <see cref="MacroStabilityInwardsCalculationScenario"/> this row contains.
         /// </summary>
-        public MacroStabilityInwardsCalculationScenario MacroStabilityInwardsCalculation { get; }
+        public MacroStabilityInwardsCalculationScenario Calculation { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="MacroStabilityInwardsCalculationScenario"/> is relevant.
@@ -61,12 +84,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             get
             {
-                return MacroStabilityInwardsCalculation.IsRelevant;
+                return Calculation.IsRelevant;
             }
             set
             {
-                MacroStabilityInwardsCalculation.IsRelevant = value;
-                MacroStabilityInwardsCalculation.NotifyObservers();
+                Calculation.IsRelevant = value;
+                Calculation.NotifyObservers();
             }
         }
 
@@ -77,12 +100,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             get
             {
-                return new RoundedDouble(0, MacroStabilityInwardsCalculation.Contribution * 100);
+                return new RoundedDouble(0, Calculation.Contribution * 100);
             }
             set
             {
-                MacroStabilityInwardsCalculation.Contribution = (RoundedDouble) (value / 100);
-                MacroStabilityInwardsCalculation.NotifyObservers();
+                Calculation.Contribution = (RoundedDouble) (value / 100);
+                Calculation.NotifyObservers();
             }
         }
 
@@ -93,7 +116,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             get
             {
-                return MacroStabilityInwardsCalculation.Name;
+                return Calculation.Name;
             }
         }
 
@@ -105,11 +128,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             get
             {
-                if (MacroStabilityInwardsCalculation.SemiProbabilisticOutput == null)
-                {
-                    return RingtoetsCommonFormsResources.RoundedRouble_No_result_dash;
-                }
-                return ProbabilityFormattingHelper.Format(MacroStabilityInwardsCalculation.SemiProbabilisticOutput.MacroStabilityInwardsProbability);
+                return derivedOutput == null
+                           ? RingtoetsCommonFormsResources.RoundedRouble_No_result_dash
+                           : ProbabilityFormattingHelper.Format(derivedOutput.MacroStabilityInwardsProbability);
             }
         }
     }

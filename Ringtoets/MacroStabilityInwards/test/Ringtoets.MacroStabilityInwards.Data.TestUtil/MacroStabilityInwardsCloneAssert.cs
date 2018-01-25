@@ -62,7 +62,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             CoreCloneAssert.AreObjectClones(original.Comments, clone.Comments, CommonCloneAssert.AreClones);
             CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
             CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
-            CoreCloneAssert.AreObjectClones(original.SemiProbabilisticOutput, clone.SemiProbabilisticOutput, AreClones);
         }
 
         /// <summary>
@@ -328,25 +327,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             Assert.AreEqual(original.IteratedForce, clone.IteratedForce);
             Assert.AreEqual(original.DrivingMoment, clone.DrivingMoment);
             Assert.AreEqual(original.ResistingMoment, clone.ResistingMoment);
-        }
-
-        /// <summary>
-        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
-        /// are clones.
-        /// </summary>
-        /// <param name="original">The original object.</param>
-        /// <param name="clone">The cloned object.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
-        /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(MacroStabilityInwardsSemiProbabilisticOutput original,
-                                     MacroStabilityInwardsSemiProbabilisticOutput clone)
-        {
-            Assert.AreEqual(original.FactorOfStability, clone.FactorOfStability);
-            Assert.AreEqual(original.RequiredProbability, clone.RequiredProbability);
-            Assert.AreEqual(original.RequiredReliability, clone.RequiredReliability);
-            Assert.AreEqual(original.MacroStabilityInwardsProbability, clone.MacroStabilityInwardsProbability);
-            Assert.AreEqual(original.MacroStabilityInwardsReliability, clone.MacroStabilityInwardsReliability);
-            Assert.AreEqual(original.MacroStabilityInwardsFactorOfSafety, clone.MacroStabilityInwardsFactorOfSafety);
         }
     }
 }

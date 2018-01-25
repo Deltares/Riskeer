@@ -60,7 +60,6 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             };
             SetInputParametersToEntity(entity, calculation.InputParameters, registry);
             AddEntityForMacroStabilityInwardsOutput(entity, calculation.Output);
-            AddEntityForMacroStabilityInwardsSemiProbabiliticOutput(entity, calculation.SemiProbabilisticOutput);
 
             return entity;
         }
@@ -193,15 +192,6 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             if (output != null)
             {
                 entity.MacroStabilityInwardsCalculationOutputEntities.Add(output.Create());
-            }
-        }
-
-        private static void AddEntityForMacroStabilityInwardsSemiProbabiliticOutput(MacroStabilityInwardsCalculationEntity entity,
-                                                                                    MacroStabilityInwardsSemiProbabilisticOutput output)
-        {
-            if (output != null)
-            {
-                entity.MacroStabilityInwardsSemiProbabilisticOutputEntities.Add(output.Create());
             }
         }
     }

@@ -35,9 +35,9 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     public class PipingFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionResultContext{T}"/>.
+        /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultContext"/>.
         /// </summary>
-        /// <param name="wrappedSectionResults">The <see cref="IEnumerable{T}"/> of <typeparamref name="T"/> to wrap.</param>
+        /// <param name="wrappedSectionResults">The <see cref="IEnumerable{T}"/> of <see cref="PipingFailureMechanismSectionResult"/> to wrap.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>

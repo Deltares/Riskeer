@@ -89,8 +89,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor lengthProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthProperty,
                                                                             "Algemeen",
-                                                                            "Lengte [m]",
-                                                                            "De totale lengte van het vak in meters.",
+                                                                            "Lengte* [m]",
+                                                                            "De totale lengte van het vak in meters (afgerond).",
                                                                             true);
             PropertyDescriptor startPointProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(startPointProperty,

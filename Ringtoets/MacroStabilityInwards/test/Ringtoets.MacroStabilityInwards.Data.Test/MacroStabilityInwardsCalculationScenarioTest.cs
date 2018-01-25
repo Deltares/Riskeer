@@ -78,41 +78,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void Probability_OutputSet_ReturnsOutputProbability()
-        {
-            // Setup
-            const double expectedProbability = 1.0 / 49862180;
-
-            var scenario = new MacroStabilityInwardsCalculationScenario
-            {
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput(expectedProbability)
-            };
-
-            // Call
-            double probability = scenario.Probability;
-
-            // Assert
-            Assert.AreEqual(expectedProbability, probability);
-        }
-
-        [Test]
-        public void Probability_ScenarioStatusNotDone_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var scenario = new MacroStabilityInwardsCalculationScenario();
-
-            // Call
-            TestDelegate call = () =>
-            {
-                double probability = scenario.Probability;
-            };
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(call);
-        }
-
-        [Test]
         public void CalculationScenarioStatus_OutputNull_ReturnsStatusNotCalculated()
         {
             // Setup
@@ -126,49 +91,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void CalculationScenarioStatus_SemiProbabilisticOutputNull_ReturnsStatusFailed()
-        {
-            // Setup
-            var scenario = new MacroStabilityInwardsCalculationScenario
-            {
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = null
-            };
-
-            // Call
-            CalculationScenarioStatus status = scenario.Status;
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.Failed, status);
-        }
-
-        [Test]
-        public void CalculationScenarioStatus_ScenarioInvalid_ReturnsStatusFailed()
-        {
-            // Setup
-            var scenario = new MacroStabilityInwardsCalculationScenario
-            {
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput(double.NaN)
-            };
-
-            // Call
-            CalculationScenarioStatus status = scenario.Status;
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.Failed, status);
-        }
-
-        [Test]
         public void CalculationScenarioStatus_OutputSet_ReturnsStatusDone()
         {
             // Setup
-            const double expectedProbability = 1.0 / 49862180;
-
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput(expectedProbability)
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
             // Call
@@ -197,7 +125,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             MacroStabilityInwardsCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
             original.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
-            original.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateRandomOutput();
 
             // Call
             object clone = original.Clone();

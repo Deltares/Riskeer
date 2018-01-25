@@ -1257,10 +1257,10 @@ Pf = {1}</value>
     <value>Eindpunt</value>
   </data>
   <data name="FailureMechanismSection_Length_Description" xml:space="preserve">
-    <value>De totale lengte van het vak in meters.</value>
+    <value>De totale lengte van het vak in meters (afgerond).</value>
   </data>
   <data name="FailureMechanismSection_Length_DisplayName" xml:space="preserve">
-    <value>Lengte [m]</value>
+    <value>Lengte* [m]</value>
   </data>
   <data name="FailureMechanismSection_Name_Description" xml:space="preserve">
     <value>De naam van het vak.</value>

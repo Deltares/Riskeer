@@ -211,7 +211,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             };
 
             yield return new ViewInfo<
-                FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>,
+                MacroStabilityInwardsFailureMechanismSectionResultContext,
                 IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>,
                 MacroStabilityInwardsFailureMechanismResultView>
             {
@@ -219,7 +219,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
+                CreateInstance = context => new MacroStabilityInwardsFailureMechanismResultView(context.AssessmentSection)
             };
 
             yield return new ViewInfo<MacroStabilityInwardsCalculationGroupContext, CalculationGroup, MacroStabilityInwardsCalculationsView>
@@ -249,9 +250,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
                 Image = RingtoetsCommonFormsResources.ScenariosIcon,
-                AdditionalDataCheck = context => context.WrappedData == context.ParentFailureMechanism.CalculationsGroup,
+                AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
                 CloseForData = CloseScenariosViewForData,
-                AfterCreate = (view, context) => { view.MacroStabilityInwardsFailureMechanism = context.ParentFailureMechanism; }
+                AfterCreate = (view, context) => { view.MacroStabilityInwardsFailureMechanism = context.FailureMechanism; },
+                CreateInstance = context => new MacroStabilityInwardsScenariosView(context.AssessmentSection)
             };
 
             yield return new ViewInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsOutputView>
@@ -281,7 +283,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<MacroStabilityInwardsFailureMechanismSectionResultContext>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -534,21 +536,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         private void CalculateAll(MacroStabilityInwardsFailureMechanismContext failureMechanismContext)
         {
             IEnumerable<MacroStabilityInwardsCalculation> calculations = GetAllMacroStabilityInwardsCalculations(failureMechanismContext.WrappedData);
-            MacroStabilityInwardsProbabilityAssessmentInput assessmentInput = failureMechanismContext.WrappedData.MacroStabilityInwardsProbabilityAssessmentInput;
-            double norm = failureMechanismContext.Parent.FailureMechanismContribution.Norm;
-            double contribution = failureMechanismContext.WrappedData.Contribution;
 
-            CalculateAll(calculations, assessmentInput, norm, contribution);
+            CalculateAll(calculations);
         }
 
         private void CalculateAll(CalculationGroup group, MacroStabilityInwardsCalculationGroupContext context)
         {
             MacroStabilityInwardsCalculation[] calculations = group.GetCalculations().OfType<MacroStabilityInwardsCalculation>().ToArray();
-            MacroStabilityInwardsProbabilityAssessmentInput assessmentInput = context.FailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
-            double norm = context.AssessmentSection.FailureMechanismContribution.Norm;
-            double contribution = context.FailureMechanism.Contribution;
-
-            CalculateAll(calculations, assessmentInput, norm, contribution);
+            CalculateAll(calculations);
         }
 
         private static void ValidateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations)
@@ -559,16 +554,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             }
         }
 
-        private void CalculateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations, MacroStabilityInwardsProbabilityAssessmentInput assessmentInput,
-                                  double norm, double contribution)
+        private void CalculateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
                 calculations
-                    .Select(pc => new MacroStabilityInwardsCalculationActivity(pc,
-                                                                               assessmentInput,
-                                                                               norm,
-                                                                               contribution))
+                    .Select(pc => new MacroStabilityInwardsCalculationActivity(pc))
                     .ToList());
         }
 
@@ -686,7 +677,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, macroStabilityInwardsFailureMechanismContext.Parent), TreeFolderCategory.Input),
                 new MacroStabilityInwardsCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, macroStabilityInwardsFailureMechanismContext.Parent),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, macroStabilityInwardsFailureMechanismContext.Parent), TreeFolderCategory.Output)
             };
         }
 
@@ -709,13 +700,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(MacroStabilityInwardsFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
-                new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism),
+                new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
+                new MacroStabilityInwardsFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
         }
@@ -801,10 +791,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         private void PerformCalculation(MacroStabilityInwardsCalculation calculation, MacroStabilityInwardsCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             new MacroStabilityInwardsCalculationActivity(calculation,
-                                                                                          context.FailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
-                                                                                          context.AssessmentSection.FailureMechanismContribution.Norm,
-                                                                                          context.FailureMechanism.Contribution));
+                                             new MacroStabilityInwardsCalculationActivity(calculation));
         }
 
         #endregion

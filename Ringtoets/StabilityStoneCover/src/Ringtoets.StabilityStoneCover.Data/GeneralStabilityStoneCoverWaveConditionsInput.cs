@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Properties;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.StabilityStoneCover.Data
@@ -28,6 +31,9 @@ namespace Ringtoets.StabilityStoneCover.Data
     /// </summary>
     public class GeneralStabilityStoneCoverWaveConditionsInput
     {
+        private static readonly Range<double> validityRangeN = new Range<double>(1.0, 20.0);
+        private RoundedDouble n;
+
         /// <summary>
         /// Creates a new instance of <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/>.
         /// </summary>
@@ -35,6 +41,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         {
             GeneralBlocksWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 1.0, 1.0);
             GeneralColumnsWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 0.4, 0.8);
+            n = new RoundedDouble(2, 4.0);
         }
 
         /// <summary>
@@ -46,5 +53,28 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// Gets the general input parameter used in wave conditions calculations for columns.
         /// </summary>
         public GeneralWaveConditionsInput GeneralColumnsWaveConditionsInput { get; }
+
+        /// <summary>
+        /// Gets or sets the general input parameter N used in wave conditions calculations.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of <see cref="N"/>
+        /// is not in the range [1, 20].</exception>
+        public RoundedDouble N
+        {
+            get
+            {
+                return n;
+            }
+            set
+            {
+                if (!validityRangeN.InRange(value))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.N_Value_should_be_in_Range_0_,
+                                                                                       validityRangeN));
+                }
+
+                n = value.ToPrecision(n.NumberOfDecimalPlaces);
+            }
+        }
     }
 }

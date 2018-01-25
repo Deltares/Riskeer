@@ -21,9 +21,11 @@
 
 using System;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -44,7 +46,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 DataGridViewColumn nameColumn = table.GetColumnFromIndex(nameColumnIndex);
                 Assert.AreEqual("Vaknaam", nameColumn.HeaderText);
                 DataGridViewColumn lengthColumn = table.GetColumnFromIndex(lengthColumnIndex);
-                Assert.AreEqual("Lengte [m]", lengthColumn.HeaderText);
+                Assert.AreEqual("Lengte* [m]", lengthColumn.HeaderText);
 
                 Assert.Throws<ArgumentOutOfRangeException>(() => table.GetColumnFromIndex(lengthColumnIndex + 1));
 
@@ -145,8 +147,11 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                     Assert.AreEqual(section.Name,
                                     rowCells[nameColumnIndex].Value);
+
+                    var sectionLength = (RoundedDouble) rowCells[lengthColumnIndex].Value;
                     Assert.AreEqual(section.Length,
-                                    rowCells[lengthColumnIndex].Value);
+                                    sectionLength,
+                                    sectionLength.GetAccuracy());
                 }
             }
         }

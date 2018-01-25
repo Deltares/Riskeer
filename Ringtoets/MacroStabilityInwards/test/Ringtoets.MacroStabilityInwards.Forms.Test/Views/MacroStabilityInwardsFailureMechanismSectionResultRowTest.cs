@@ -24,7 +24,8 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -42,15 +43,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
+            var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityInwardsFailureMechanismSectionResult>>(row);
-            Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>()), row.AssessmentLayerTwoA);
+            Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                          failureMechanism, assessmentSection),
+                            row.AssessmentLayerTwoA);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<MacroStabilityInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
@@ -63,29 +73,82 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, null);
+            TestDelegate test = () => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, null,
+                                                                                                failureMechanism, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("calculations", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void AssessmentLayerTwoA_NoScenarios_ReturnNaN()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                                null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
+            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                                new MacroStabilityInwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_NoScenarios_ReturnNaN()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsNaN(row.AssessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -97,6 +160,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void AssessmentLayerTwoA_RelevantScenarioContributionDontAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             MacroStabilityInwardsCalculationScenario scenarioA =
@@ -111,45 +180,53 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 scenarioA,
                 scenarioB
-            });
+            }, failureMechanism, assessmentSection);
 
             // Call
             double assessmentLayerTwoA = row.AssessmentLayerTwoA;
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
-        [TestCase(CalculationScenarioStatus.NotCalculated)]
-        [TestCase(CalculationScenarioStatus.Failed)]
-        public void AssessmentLayerTwoA_NoRelevantScenariosDone_ReturnNaN(CalculationScenarioStatus status)
+        public void AssessmentLayerTwoA_NoRelevantScenariosDone_ReturnNaN()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
-            MacroStabilityInwardsCalculationScenario scenario =
-                status.Equals(CalculationScenarioStatus.NotCalculated)
-                    ? MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section)
-                    : MacroStabilityInwardsCalculationScenarioFactory.CreateFailedMacroStabilityInwardsCalculationScenario(section);
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
 
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
             var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, new[]
             {
                 scenario
-            });
+            }, failureMechanism, assessmentSection);
 
             // Call
             double assessmentLayerTwoA = row.AssessmentLayerTwoA;
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void AssessmentLayerTwoA_RelevantScenariosDone_ResultOfSection()
         {
             // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             MacroStabilityInwardsCalculationScenario scenario =
                 MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenario(0.2, section);
@@ -159,7 +236,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, new[]
             {
                 scenario
-            });
+            }, failureMechanism, assessmentSection);
 
             // Call
             double assessmentLayerTwoA = row.AssessmentLayerTwoA;
@@ -168,21 +245,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             double expected = result.GetAssessmentLayerTwoA(new[]
             {
                 scenario
-            });
+            }, failureMechanism, assessmentSection);
             Assert.AreEqual(expected, assessmentLayerTwoA, 1e-6);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void AssessmentLayerThree_ValueSet_ReturnExpectedValue()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
             var random = new Random(21);
             double assessmentLayerThree = random.NextDouble();
 
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(sectionResult,
-                                                                                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
+                                                                                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                failureMechanism, assessmentSection);
 
             // Call
             row.AssessmentLayerThree = assessmentLayerThree;

@@ -29,7 +29,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 
@@ -244,19 +243,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
             var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<MacroStabilityInwardsFailureMechanism, double>(
-                failureMechanism,
-                value,
-                new[]
-                {
-                    observable
-                });
+            var observer = mocks.StrictMock<IObserver>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<MacroStabilityInwardsFailureMechanism>>();
             mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.Attach(observer);
 
             var properties = new MacroStabilityInwardsFailureMechanismProperties(
                 failureMechanism,
@@ -268,7 +261,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
             Assert.AreEqual("De waarde moet in het bereik [0,0, 1,0] liggen.", exception.Message);
-            Assert.IsTrue(changeHandler.Called);
             mocks.VerifyAll();
         }
 
@@ -281,20 +273,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void A_SetValidValue_SetsValueAndUpdatesObservers(double value)
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
             var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<MacroStabilityInwardsFailureMechanism, double>(
-                failureMechanism,
-                value,
-                new[]
-                {
-                    observable
-                });
+            var observer = mocks.StrictMock<IObserver>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<MacroStabilityInwardsFailureMechanism>>();
+            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.Attach(observer);
 
             var properties = new MacroStabilityInwardsFailureMechanismProperties(
                 failureMechanism,
@@ -305,7 +291,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
-            Assert.IsTrue(changeHandler.Called);
             mocks.VerifyAll();
         }
 

@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -38,6 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     /// </summary>
     public partial class MacroStabilityInwardsScenariosView : UserControl, IView
     {
+        private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput> inputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario> calculationObserver;
@@ -48,11 +50,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of the <see cref="MacroStabilityInwardsScenariosView"/> class.
         /// </summary>
-        public MacroStabilityInwardsScenariosView()
+        /// <param name="assessmentSection">The assessment section the scenarios belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public MacroStabilityInwardsScenariosView(IAssessmentSection assessmentSection)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+            
             InitializeComponent();
             InitializeDataGridView();
             InitializeListBox();
+
+            this.assessmentSection = assessmentSection;
 
             failureMechanismObserver = new Observer(OnFailureMechanismUpdate);
 
@@ -166,7 +178,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 .OfType<MacroStabilityInwardsCalculationScenario>()
                 .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
-            List<MacroStabilityInwardsScenarioRow> dataSource = calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc)).ToList();
+            List<MacroStabilityInwardsScenarioRow> dataSource = calculations.Select(pc => new MacroStabilityInwardsScenarioRow(
+                                                                                        pc,
+                                                                                        MacroStabilityInwardsFailureMechanism,
+                                                                                        assessmentSection)).ToList();
             dataGridViewControl.SetDataSource(dataSource);
         }
 

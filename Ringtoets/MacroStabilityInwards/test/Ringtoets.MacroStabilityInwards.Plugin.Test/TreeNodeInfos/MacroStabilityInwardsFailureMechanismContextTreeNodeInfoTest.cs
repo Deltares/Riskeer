@@ -173,7 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             Assert.AreEqual(3, outputsFolder.Contents.Count());
             var failureMechanismScenariosContext = (MacroStabilityInwardsScenariosContext) outputsFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismScenariosContext.ParentFailureMechanism);
+            Assert.AreSame(failureMechanism, failureMechanismScenariosContext.FailureMechanism);
             Assert.AreSame(failureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
 
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
@@ -219,13 +219,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 var calculation1 = new MacroStabilityInwardsCalculationScenario
                 {
-                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                    SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
                 };
                 var calculation2 = new MacroStabilityInwardsCalculationScenario
                 {
-                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                    SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
                 };
 
                 var observer = mocks.StrictMock<IObserver>();
@@ -296,8 +294,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
@@ -431,8 +428,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new MacroStabilityInwardsCalculationScenario
                 {
-                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                    SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
                 };
 
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();

@@ -22,7 +22,6 @@
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
@@ -31,16 +30,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
     [TestFixture]
     public class MacroStabilityInwardsCalculationTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
-        public void Constructor_DefaultPropertyValuesAreSet()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var calculation = new MacroStabilityInwardsCalculation();
@@ -56,109 +47,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments.Body);
             Assert.IsNull(calculation.Output);
-            Assert.IsNull(calculation.SemiProbabilisticOutput);
         }
 
         [Test]
-        public void Notify_SingleListenerAttached_ListenerIsNotified()
-        {
-            // Setup
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            mockRepository.ReplayAll();
-
-            var calculation = new MacroStabilityInwardsCalculation();
-
-            calculation.Attach(observer);
-
-            // Call & Assert
-            calculation.NotifyObservers();
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Notify_SingleListenerAttachedAndDeattached_ListenerIsNotNotified()
-        {
-            // Setup
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Never();
-            mockRepository.ReplayAll();
-
-            var calculation = new MacroStabilityInwardsCalculation();
-
-            calculation.Attach(observer);
-            calculation.Detach(observer);
-
-            // Call & Assert
-            calculation.NotifyObservers();
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Notify_TwoListenersAttached_BothAreNotified()
-        {
-            // Setup
-            var observerA = mockRepository.StrictMock<IObserver>();
-            observerA.Expect(o => o.UpdateObserver());
-
-            var observerB = mockRepository.StrictMock<IObserver>();
-            observerB.Expect(o => o.UpdateObserver());
-
-            mockRepository.ReplayAll();
-
-            var calculation = new MacroStabilityInwardsCalculation();
-
-            calculation.Attach(observerA);
-            calculation.Attach(observerB);
-
-            // Call & Assert
-            calculation.NotifyObservers();
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Notify_TwoListenersAttachedOneDetached_InvokedOnce()
-        {
-            // Setup
-            var observerA = mockRepository.StrictMock<IObserver>();
-            observerA.Expect(o => o.UpdateObserver()).Repeat.Never();
-
-            var observerB = mockRepository.StrictMock<IObserver>();
-            observerB.Expect(o => o.UpdateObserver());
-
-            mockRepository.ReplayAll();
-
-            var calculation = new MacroStabilityInwardsCalculation();
-
-            calculation.Attach(observerA);
-            calculation.Attach(observerB);
-            calculation.Detach(observerA);
-
-            // Call & Assert
-            calculation.NotifyObservers();
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Detach_DetachNonAttachedObserver_ThrowsNoException()
-        {
-            // Setup
-            var observer = mockRepository.StrictMock<IObserver>();
-            var calculation = new MacroStabilityInwardsCalculation();
-
-            // Call & Assert
-            calculation.Detach(observer);
-        }
-
-        [Test]
-        public void ClearOutput_Always_SetsOutputAndSemiProbabilisticOutputToNull()
+        public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculation
             {
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
             // Call
@@ -166,17 +63,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
-            Assert.IsNull(calculation.SemiProbabilisticOutput);
         }
 
         [Test]
-        public void HasOutput_OutputAndSemiProbabilisticOutputNull_ReturnsFalse()
+        public void HasOutput_OutputNull_ReturnsFalse()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculation
             {
-                Output = null,
-                SemiProbabilisticOutput = null
+                Output = null
             };
 
             // Call
@@ -193,22 +88,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var calculation = new MacroStabilityInwardsCalculation
             {
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
-            };
-
-            // Call
-            bool calculationHasOutput = calculation.HasOutput;
-
-            // Assert
-            Assert.IsTrue(calculationHasOutput);
-        }
-
-        [Test]
-        public void HasOutput_SemiProbabilisticOutputSet_ReturnsTrue()
-        {
-            // Setup
-            var calculation = new MacroStabilityInwardsCalculation
-            {
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
 
             // Call
@@ -236,7 +115,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             MacroStabilityInwardsCalculation original = CreateRandomCalculationWithoutOutput();
-            original.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateRandomOutput();
             original.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
             // Call

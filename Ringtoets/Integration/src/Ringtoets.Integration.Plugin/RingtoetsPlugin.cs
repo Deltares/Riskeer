@@ -638,11 +638,7 @@ namespace Ringtoets.Integration.Plugin
                 ForeColor = context => context.WrappedData.ReferenceLine == null
                                            ? Color.FromKnownColor(KnownColor.GrayText)
                                            : Color.FromKnownColor(KnownColor.ControlText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) =>
-                    Gui.Get(nodeData, treeViewControl)
-                       .AddImportItem()
-                       .AddExportItem()
-                       .Build()
+                ContextMenuStrip = ReferenceLineContextMenuStrip
             };
 
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(
@@ -1113,6 +1109,22 @@ namespace Ringtoets.Integration.Plugin
                       .AddOpenItem()
                       .AddSeparator()
                       .AddImportItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        #endregion
+
+        #region ReferenceLineContext TreeNodeInfo
+
+        private ContextMenuStrip ReferenceLineContextMenuStrip(ReferenceLineContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddImportItem()
+                      .AddExportItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
                       .Build();
         }
 

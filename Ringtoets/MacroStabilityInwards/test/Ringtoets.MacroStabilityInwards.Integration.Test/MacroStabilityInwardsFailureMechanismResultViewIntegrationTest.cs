@@ -47,7 +47,9 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
             using (var form = new Form())
             {
                 // Show the view
-                var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView();
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+                var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection);
                 form.Controls.Add(failureMechanismResultView);
                 form.Show();
 
@@ -55,7 +57,6 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Set all necessary data to the view
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 failureMechanismResultView.Data = assessmentSection.MacroStabilityInwards.SectionResults;
                 failureMechanismResultView.FailureMechanism = assessmentSection.MacroStabilityInwards;
 
@@ -119,11 +120,9 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Execute the first calculation and ensure the data grid view is updated
-                const double probability = 1.0 / 31846382.0;
-                calculation1.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
-                calculation1.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput(probability);
+                calculation1.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
                 calculation1.NotifyObservers();
-                Assert.AreEqual($"1/{1.0 / calculation1.Probability:N0}",
+                Assert.AreEqual("1/14",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -131,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 var calculation3 = new MacroStabilityInwardsCalculationScenario();
                 nestedCalculationGroup.Children.Add(calculation3);
                 nestedCalculationGroup.NotifyObservers();
-                Assert.AreEqual($"1/{1.0 / calculation1.Probability:N0}",
+                Assert.AreEqual("1/14",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -165,7 +164,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 // Set contribution again so we have a probability.
                 calculation1.Contribution = (RoundedDouble) 1.0;
                 calculation1.NotifyObservers();
-                Assert.AreEqual($"1/{1.0 / calculation1.Probability:N0}",
+                Assert.AreEqual("1/14",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 

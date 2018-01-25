@@ -341,19 +341,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
             var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, double>(
-                failureMechanism,
-                value,
-                new[]
-                {
-                    observable
-                });
+            var observer = mocks.StrictMock<IObserver>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.Attach(observer);
 
             var properties = new PipingFailureMechanismProperties(
                 failureMechanism,
@@ -365,7 +359,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
             Assert.AreEqual("De waarde moet in het bereik [0,0, 1,0] liggen.", exception.Message);
-            Assert.IsTrue(changeHandler.Called);
             mocks.VerifyAll();
         }
 
@@ -378,20 +371,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void A_SetValidValue_SetsValueAndUpdatesObservers(double value)
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
             var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, double>(
-                failureMechanism,
-                value,
-                new[]
-                {
-                    observable
-                });
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.Attach(observer);
 
             var properties = new PipingFailureMechanismProperties(
                 failureMechanism,
@@ -402,7 +389,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
-            Assert.IsTrue(changeHandler.Called);
             mocks.VerifyAll();
         }
 

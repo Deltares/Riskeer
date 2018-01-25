@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.PropertyBag;
@@ -156,15 +157,15 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         }
 
         [Test]
-        public void Data_SetNewDataObject_PreviousDataDisposed()
+        public void GivenPropertyGridViewWithDisposableDataSet_WhenNewDataObjectSet_ThenPreviousDataDisposed()
         {
-            // Setup
+            // Given
             var mockRepository = new MockRepository();
             var dataObject = new object();
             object dataObjectProperties = mockRepository.StrictMultiMock(typeof(IDisposable), typeof(IObjectProperties));
             dataObjectProperties.Expect(d => ((IDisposable) d).Dispose());
-            dataObjectProperties.Stub(d => ((IObjectProperties) d).RefreshRequired += null).IgnoreArguments();
-            dataObjectProperties.Stub(d => ((IObjectProperties) d).RefreshRequired -= null).IgnoreArguments();
+            dataObjectProperties.Expect(d => ((IObjectProperties) d).RefreshRequired += null).IgnoreArguments();
+            dataObjectProperties.Expect(d => ((IObjectProperties) d).RefreshRequired -= null).IgnoreArguments();
             dataObjectProperties.Stub(d => ((IObjectProperties) d).Data).Return(dataObject);
 
             var newDataObject = new object();
@@ -177,11 +178,40 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             {
                 propertyGridView.Data = dataObject;
 
-                // Call
+                // When
                 propertyGridView.Data = newDataObject;
             }
 
-            // Assert
+            // Then
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenPropertyGridViewWithObservableDataSet_WhenNewDataObjectSet_ThenPreviousDataObserverDetached()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var observableDataObject = mockRepository.StrictMock<IObservable>();
+            observableDataObject.Expect(d => d.Attach(null)).IgnoreArguments();
+            observableDataObject.Expect(d => d.Detach(null)).IgnoreArguments();
+            var dataObjectProperties = mockRepository.Stub<IObjectProperties>();
+            dataObjectProperties.Data = observableDataObject;
+
+            var newDataObject = new object();
+            var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();
+            propertyResolver.Expect(prs => prs.GetObjectProperties(observableDataObject)).Return(new DynamicPropertyBag(dataObjectProperties));
+            propertyResolver.Expect(prs => prs.GetObjectProperties(newDataObject)).Return(null);
+            mockRepository.ReplayAll();
+
+            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
+            {
+                propertyGridView.Data = observableDataObject;
+
+                // When
+                propertyGridView.Data = newDataObject;
+            }
+
+            // Then
             mockRepository.VerifyAll();
         }
 
@@ -193,8 +223,8 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var dataObject = new object();
             object dataObjectProperties = mockRepository.StrictMultiMock(typeof(IDisposable), typeof(IObjectProperties));
             dataObjectProperties.Expect(d => ((IDisposable) d).Dispose());
-            dataObjectProperties.Stub(d => ((IObjectProperties) d).RefreshRequired += null).IgnoreArguments();
-            dataObjectProperties.Stub(d => ((IObjectProperties) d).RefreshRequired -= null).IgnoreArguments();
+            dataObjectProperties.Expect(d => ((IObjectProperties) d).RefreshRequired += null).IgnoreArguments();
+            dataObjectProperties.Expect(d => ((IObjectProperties) d).RefreshRequired -= null).IgnoreArguments();
             dataObjectProperties.Stub(d => ((IObjectProperties) d).Data).Return(dataObject);
 
             var propertyResolver = mockRepository.StrictMock<IPropertyResolver>();

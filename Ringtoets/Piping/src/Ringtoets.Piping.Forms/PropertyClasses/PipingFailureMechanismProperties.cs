@@ -203,7 +203,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((f, v) => f.PipingProbabilityAssessmentInput.A = v, value);
+                data.PipingProbabilityAssessmentInput.A = value;
+                data.NotifyObservers();
             }
         }
 

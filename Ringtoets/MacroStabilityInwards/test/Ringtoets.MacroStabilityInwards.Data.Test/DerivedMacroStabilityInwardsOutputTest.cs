@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double macroStabilityInwardsFactorOfSafety = random.NextDouble();
 
             // Call
-            var output = new MacroStabilityInwardsSemiProbabilisticOutput(
+            var output = new DerivedMacroStabilityInwardsOutput(
                 factorOfStability,
                 requiredProbability,
                 requiredReliability,
@@ -79,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double macroStabilityInwardsFactorOfSafety = random.NextDouble();
 
             // Call
-            var output = new MacroStabilityInwardsSemiProbabilisticOutput(
+            var output = new DerivedMacroStabilityInwardsOutput(
                 factorOfStability,
                 requiredProbability,
                 requiredReliability,
@@ -110,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double macroStabilityInwardsFactorOfSafety = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSemiProbabilisticOutput(
+            TestDelegate call = () => new DerivedMacroStabilityInwardsOutput(
                 factorOfStability,
                 requiredProbability,
                 requiredReliability,
@@ -139,7 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double macroStabilityInwardsFactorOfSafety = random.NextDouble();
 
             // Call
-            var output = new MacroStabilityInwardsSemiProbabilisticOutput(
+            var output = new DerivedMacroStabilityInwardsOutput(
                 factorOfStability,
                 requiredProbability,
                 requiredReliability,
@@ -170,7 +170,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double macroStabilityInwardsFactorOfSafety = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSemiProbabilisticOutput(
+            TestDelegate call = () => new DerivedMacroStabilityInwardsOutput(
                 factorOfStability,
                 requiredProbability,
                 requiredReliability,

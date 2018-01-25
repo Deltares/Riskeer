@@ -128,6 +128,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
 
             using (var treeViewControl = new TreeViewControl())

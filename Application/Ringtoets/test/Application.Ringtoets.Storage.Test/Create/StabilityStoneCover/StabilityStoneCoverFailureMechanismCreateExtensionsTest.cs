@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.StabilityStoneCover;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
@@ -69,6 +70,10 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
                 NotRelevantComments =
                 {
                     Body = "Really not relevant"
+                },
+                GeneralInput =
+                {
+                    N = (RoundedDouble) 12.345
                 }
             };
             var registry = new PersistenceRegistry();
@@ -83,6 +88,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, entity.StabilityStoneCoverFailureMechanismMetaEntities.Single().N);
         }
 
         [Test]

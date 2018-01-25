@@ -54,8 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             var calculation = new MacroStabilityInwardsCalculation
             {
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
             // Call
@@ -65,7 +64,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             Assert.IsNull(calculation.Output);
-            Assert.IsNull(calculation.SemiProbabilisticOutput);
 
             CollectionAssert.AreEqual(new[]
             {
@@ -77,11 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation
-            {
-                Output = null,
-                SemiProbabilisticOutput = null
-            };
+            var calculation = new MacroStabilityInwardsCalculation();
 
             // Call
             IEnumerable<IObservable> changedObjects = MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(calculation);

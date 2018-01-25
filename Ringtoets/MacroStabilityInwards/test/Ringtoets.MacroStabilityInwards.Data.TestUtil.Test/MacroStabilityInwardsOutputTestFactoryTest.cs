@@ -101,18 +101,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(output);
-            AssertIsConcreteValue(output.FactorOfStability);
-            AssertIsConcreteValue(output.ZValue);
-            AssertIsConcreteValue(output.ForbiddenZonesXEntryMax);
-            AssertIsConcreteValue(output.ForbiddenZonesXEntryMin);
+            Assert.AreEqual(0.69717486793975103, output.FactorOfStability);
+            Assert.AreEqual(0.040462733730889267, output.ZValue);
+            Assert.AreEqual(0.97911632898222489, output.ForbiddenZonesXEntryMax);
+            Assert.AreEqual(0.44677048942389452, output.ForbiddenZonesXEntryMin);
             Assert.IsNotNull(output.SlidingCurve);
             Assert.IsNotNull(output.SlipPlane);
-        }
-
-        private static void AssertIsConcreteValue(double actualValue)
-        {
-            Assert.IsFalse(double.IsNaN(actualValue));
-            Assert.IsFalse(double.IsInfinity(actualValue));
         }
     }
 }

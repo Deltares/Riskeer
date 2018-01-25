@@ -56,7 +56,6 @@
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsCalculationScenarioCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsOutputCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsPreconsolidationStressCreateExtensions.cs" />
-    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSemiProbabilisticOutputCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer1DCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer2DCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilProfile2DCreateExtensions.cs" />
@@ -401,13 +400,13 @@
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsCalculationOutputEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsPreconsolidationStressEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSemiProbabilisticOutputEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayerTwoDEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayerOneDEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileTwoDEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileOneDEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileEntityReadExtensions.cs" />
     <Compile Include="Read\ProbabilityAssessmentOutputEntityReadExtensions.cs" />
+    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\StructureCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructureEntityReadExtensions.cs" />

@@ -41,34 +41,28 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <summary>
         /// Creates a calculated scenario for which the surface line on the input intersects with <paramref name="section"/>.
         /// </summary>
-        /// <param name="probability">The value for <see cref="MacroStabilityInwardsSemiProbabilisticOutput.MacroStabilityInwardsProbability"/>.</param>
+        /// <param name="factorOfStability">The value for <see cref="MacroStabilityInwardsSemiProbabilisticOutput.MacroStabilityInwardsProbability"/>.</param>
         /// <param name="section">The section for which an intersection will be created.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
-        public static MacroStabilityInwardsCalculationScenario CreateMacroStabilityInwardsCalculationScenario(double probability,
+        public static MacroStabilityInwardsCalculationScenario CreateMacroStabilityInwardsCalculationScenario(double factorOfStability,
                                                                                                               FailureMechanismSection section)
         {
             MacroStabilityInwardsCalculationScenario scenario = CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
-            var random = new Random(21);
-            scenario.SemiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                probability,
-                random.NextDouble(),
-                random.NextDouble());
-
-            scenario.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
+            scenario.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(new MacroStabilityInwardsOutput.ConstructionProperties
+            {
+                FactorOfStability = factorOfStability
+            });
 
             return scenario;
         }
 
         /// <summary>
         /// Creates a scenario for which the surface line on the input intersects with <paramref name="section"/> and
-        /// the calculation has failed.
+        /// the calculation has <see cref="double.NaN"/> as factor of stability.
         /// </summary>
         /// <param name="section">The section for which an intersection will be created.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
-        public static MacroStabilityInwardsCalculationScenario CreateFailedMacroStabilityInwardsCalculationScenario(FailureMechanismSection section)
+        public static MacroStabilityInwardsCalculationScenario CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(FailureMechanismSection section)
         {
             return CreateMacroStabilityInwardsCalculationScenario(double.NaN, section);
         }
@@ -300,6 +294,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     ZoneBoundaryRight = (RoundedDouble) 0.2
                 }
             };
+        }
+        
+        /// <summary>
+        /// Creates a scenario with valid input and output.
+        /// </summary>
+        /// <returns>A new <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
+        public static MacroStabilityInwardsCalculationScenario CreateCalculatedMacroStabilityInwardsCalculationScenario()
+        {
+            MacroStabilityInwardsCalculationScenario calculation = CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            return calculation;
         }
     }
 }
