@@ -35,7 +35,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public long HydraulicLocationEntityOutputId { get; set; }
         public long? HydraulicLocationCalculationEntityId { get; set; }
         public long? GeneralResultSubMechanismIllustrationPointEntityId { get; set; }
-        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity { get; set; }
         public double? Result { get; set; }
         public double? TargetProbability { get; set; }
         public double? TargetReliability { get; set; }
@@ -44,5 +43,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte CalculationConvergence { get; set; }
 
         public virtual GeneralResultSubMechanismIllustrationPointEntity GeneralResultSubMechanismIllustrationPointEntity { get; set; }
+        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity { get; set; }
     }
 }

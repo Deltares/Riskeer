@@ -1282,6 +1282,7 @@
           <Property Name="StabilityStoneCoverFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="ForeshoreProfileCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="N" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="StabilityStoneCoverSectionResultEntity">
           <Key>
@@ -5998,6 +5999,7 @@
           <Property Name="StabilityStoneCoverFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="ForeshoreProfileCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="N" Type="Double" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverFailureMechanismMetaEntity_0_0" FromRole="StabilityStoneCoverFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="StabilityStoneCoverSectionResultEntity">
@@ -9175,6 +9177,7 @@
           <EntitySetMapping Name="StabilityStoneCoverFailureMechanismMetaEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StabilityStoneCoverFailureMechanismMetaEntity">
               <MappingFragment StoreEntitySet="StabilityStoneCoverFailureMechanismMetaEntity">
+                <ScalarProperty Name="N" ColumnName="N" />
                 <ScalarProperty Name="ForeshoreProfileCollectionSourcePath" ColumnName="ForeshoreProfileCollectionSourcePath" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="StabilityStoneCoverFailureMechanismMetaEntityId" ColumnName="StabilityStoneCoverFailureMechanismMetaEntityId" />
