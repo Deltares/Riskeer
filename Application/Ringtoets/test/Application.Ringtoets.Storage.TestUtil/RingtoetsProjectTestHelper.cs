@@ -466,7 +466,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism,
                                                                               IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N = 8;
+            failureMechanism.GeneralInput.N = (RoundedDouble) 8;
 
             StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure("id structure1");
             failureMechanism.StabilityPointStructures.AddRange(new[]

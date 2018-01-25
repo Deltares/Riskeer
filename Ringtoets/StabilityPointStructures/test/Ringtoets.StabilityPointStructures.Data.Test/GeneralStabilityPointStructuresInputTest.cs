@@ -63,7 +63,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var inputParameters = new GeneralStabilityPointStructuresInput();
 
             // Assert
-            Assert.AreEqual(3, inputParameters.N);
+            Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(3.0, inputParameters.N, inputParameters.N.GetAccuracy());
 
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
             Assert.AreEqual(9.81, inputParameters.GravitationalAcceleration, inputParameters.GravitationalAcceleration.GetAccuracy());
@@ -90,33 +91,33 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        [TestCase(1)]
-        [TestCase(10)]
-        [TestCase(20)]
-        public void N_ValueInsideValidRegion_DoesNotThrow(int value)
+        [TestCase(1.0)]
+        [TestCase(10.0)]
+        [TestCase(20.0)]
+        public void N_ValueInsideValidRegion_DoesNotThrow(double value)
         {
             // Setup
             var generalStabilityPointStructuresInput = new GeneralStabilityPointStructuresInput();
 
             // Call
-            generalStabilityPointStructuresInput.N = value;
+            generalStabilityPointStructuresInput.N = (RoundedDouble) value;
 
             // Assert
-            Assert.AreEqual(value, generalStabilityPointStructuresInput.N);
+            Assert.AreEqual(value, generalStabilityPointStructuresInput.N, generalStabilityPointStructuresInput.N.GetAccuracy());
         }
 
         [Test]
-        [TestCase(-10)]
-        [TestCase(0)]
-        [TestCase(21)]
-        [TestCase(50)]
-        public void N_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(int value)
+        [TestCase(-10.0)]
+        [TestCase(0.0)]
+        [TestCase(21.0)]
+        [TestCase(50.0)]
+        public void N_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
             var generalStabilityPointStructuresInput = new GeneralStabilityPointStructuresInput();
 
             // Call
-            TestDelegate test = () => generalStabilityPointStructuresInput.N = value;
+            TestDelegate test = () => generalStabilityPointStructuresInput.N = (RoundedDouble) value;
 
             // Assert
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1, 20] liggen.";

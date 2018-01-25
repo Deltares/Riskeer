@@ -2255,7 +2255,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsStabilityPointStructuresFailureMechanism_WithForeshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
-            const int generalInputN = 5;
+            const double generalInputN = 5.0;
             const string fileLocation = "some/location/to/foreshoreprofiles";
 
             var entity = new FailureMechanismEntity
@@ -2302,7 +2302,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             ForeshoreProfile child2 = foreshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Id);
 
-            Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N);
+            Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N);
         }
 
         [Test]

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Data;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
@@ -41,7 +42,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
         {
             return new GeneralStabilityPointStructuresInput
             {
-                N = entity.N
+                N = (RoundedDouble) entity.N
             };
         }
     }

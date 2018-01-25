@@ -63,9 +63,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertPipingSoilLayers(reader);
                     AssertHydraRingPreprocessor(reader);
                     AssertStabilityStoneCoverFailureMechanism(reader);
-                    AssertHeightStructuresFailureMechanism(reader, sourceFilePath);
-                    AssertGrassCoverErosionInwardsFailureMechanism(reader, sourceFilePath);
-                    AssertGrassCoverErosionOutwardsFailureMechanism(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -282,45 +279,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM [StabilityStoneCoverFailureMechanismMetaEntity] " +
                 "WHERE [N] IS NOT 4;";
             reader.AssertReturnedDataIsValid(validateStabilityStoneCoverFailureMechanism);
-        }
-
-        private static void AssertHeightStructuresFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateHeightStructuresFailureMechanism =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = 0 " +
-                "FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity AS sourceMetaEntity " +
-                "INNER JOIN [HeightStructuresFailureMechanismMetaEntity] AS newMetaEntity " +
-                "ON sourceMetaEntity.HeightStructuresFailureMechanismMetaEntityId = newMetaEntity.HeightStructuresFailureMechanismMetaEntityId " +
-                "AND sourceMetaEntity.N IS NOT newMetaEntity.N;" +
-                "DETACH DATABASE SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateHeightStructuresFailureMechanism);
-        }
-
-        private static void AssertGrassCoverErosionInwardsFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateGrassCoverErosionInwardsFailureMechanism =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = 0 " +
-                "FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity AS sourceMetaEntity " +
-                "INNER JOIN [GrassCoverErosionInwardsFailureMechanismMetaEntity] AS newMetaEntity " +
-                "ON sourceMetaEntity.GrassCoverErosionInwardsFailureMechanismMetaEntityId = newMetaEntity.GrassCoverErosionInwardsFailureMechanismMetaEntityId " +
-                "AND sourceMetaEntity.N IS NOT newMetaEntity.N;" +
-                "DETACH DATABASE SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateGrassCoverErosionInwardsFailureMechanism);
-        }
-
-        private static void AssertGrassCoverErosionOutwardsFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateGrassCoverErosionOutwardsFailureMechanism =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = 0 " +
-                "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity AS sourceMetaEntity " +
-                "INNER JOIN [GrassCoverErosionOutwardsFailureMechanismMetaEntity] AS newMetaEntity " +
-                "ON sourceMetaEntity.GrassCoverErosionOutwardsFailureMechanismMetaEntityId = newMetaEntity.GrassCoverErosionOutwardsFailureMechanismMetaEntityId " +
-                "AND sourceMetaEntity.N IS NOT newMetaEntity.N;" +
-                "DETACH DATABASE SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateGrassCoverErosionOutwardsFailureMechanism);
         }
     }
 }
