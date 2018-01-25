@@ -80,6 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.IsNull(scenarioView.Data);
                 Assert.IsNull(scenarioView.MacroStabilityInwardsFailureMechanism);
             }
+
             mocks.VerifyAll();
         }
 
@@ -269,20 +270,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
         }
 
-        public override void Setup()
-        {
-            base.Setup();
-
-            testForm = new Form();
-        }
-
-        public override void TearDown()
-        {
-            base.TearDown();
-
-            testForm.Dispose();
-        }
-
+        [Test]
         [TestCase(isRelevantColumnIndex, true)]
         [TestCase(contributionColumnIndex, 30.0)]
         public void MacroStabilityInwardsScenarioView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue)
@@ -310,6 +298,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMacroStabilityInwardsScenarioView_WhenFailureMechanismNotifiesObserver_ThenViewUpdated()
+        {
+            // Given
+            using (MacroStabilityInwardsScenariosView view = ShowFullyConfiguredMacroStabilityInwardsScenarioView())
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                MacroStabilityInwardsScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                                   .Select(r => r.DataBoundItem)
+                                                                                   .Cast<MacroStabilityInwardsScenarioRow>()
+                                                                                   .ToArray();
+
+                // When
+                view.MacroStabilityInwardsFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A = 0.01;
+                view.MacroStabilityInwardsFailureMechanism.NotifyObservers();
+
+                // Then
+                MacroStabilityInwardsScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                             .Select(r => r.DataBoundItem)
+                                                                             .Cast<MacroStabilityInwardsScenarioRow>()
+                                                                             .ToArray();
+
+                CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+            }
+        }
+
+        public override void Setup()
+        {
+            base.Setup();
+
+            testForm = new Form();
+        }
+
+        public override void TearDown()
+        {
+            base.TearDown();
+
+            testForm.Dispose();
         }
 
         private MacroStabilityInwardsScenariosView ShowFullyConfiguredMacroStabilityInwardsScenarioView()

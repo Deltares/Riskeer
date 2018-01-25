@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -77,6 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
             }
+
             mocks.VerifyAll();
         }
 
@@ -510,6 +510,54 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
                 Assert.AreEqual("-", formattedValue);
+            }
+        }
+
+        [Test]
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObserver_ThenViewUpdated(AssessmentLayerOneState assessmentLayerOneState)
+        {
+            // Given
+            const int rowIndex = 0;
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            using (MacroStabilityInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(failureMechanism))
+            {
+                MacroStabilityInwardsCalculationScenario calculationScenario1 = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenario(
+                    0.1,
+                    failureMechanism.Sections.First());
+                calculationScenario1.Contribution = (RoundedDouble) 0.6;
+                MacroStabilityInwardsCalculationScenario calculationScenario2 = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenario(
+                    0.2,
+                    failureMechanism.Sections.First());
+                calculationScenario2.Contribution = (RoundedDouble) 0.4;
+                failureMechanism.CalculationsGroup.Children.Add(calculationScenario1);
+                failureMechanism.CalculationsGroup.Children.Add(calculationScenario2);
+
+                view.Data = failureMechanism.SectionResults;
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
+
+                MacroStabilityInwardsFailureMechanismSectionResultRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                                                        .Select(r => r.DataBoundItem)
+                                                                                                        .Cast<MacroStabilityInwardsFailureMechanismSectionResultRow>()
+                                                                                                        .ToArray();
+
+                // When
+                failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A = 0.01;
+                failureMechanism.NotifyObservers();
+
+                // Then
+                MacroStabilityInwardsFailureMechanismSectionResultRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                                                  .Select(r => r.DataBoundItem)
+                                                                                                  .Cast<MacroStabilityInwardsFailureMechanismSectionResultRow>()
+                                                                                                  .ToArray();
+
+                CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
             }
         }
 

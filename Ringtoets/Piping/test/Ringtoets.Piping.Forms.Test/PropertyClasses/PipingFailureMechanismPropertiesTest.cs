@@ -368,7 +368,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         [TestCase(1)]
         [TestCase(0.0000001)]
         [TestCase(0.9999999)]
-        public void A_SetValidValue_SetsValueAndNotifiesObservers(double value)
+        public void A_SetValidValue_SetsValueAndUpdatesObservers(double value)
         {
             // Setup
             var mocks = new MockRepository();

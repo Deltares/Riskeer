@@ -310,7 +310,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFPipingScenarioView_WhenFailureMechanismNotifiesObserver_ThenViewUpdated()
+        public void GivenPipingScenarioView_WhenFailureMechanismNotifiesObserver_ThenViewUpdated()
         {
             // Given
             using (PipingScenariosView view = ShowFullyConfiguredPipingScenarioView())
