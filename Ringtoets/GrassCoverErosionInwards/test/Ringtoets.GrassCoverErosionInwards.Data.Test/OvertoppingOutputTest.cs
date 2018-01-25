@@ -36,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_ValidInput_ReturnsExpectedProperties(bool withIllustrationPoints)
+        public void Constructor_ExpectedValues(bool withIllustrationPoints)
         {
             // Setup
             const double waveHeight = 3.2934;
@@ -57,13 +57,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                                                                   : null;
 
             // Call
-            var output = new OvertoppingOutput(waveHeight, true, probabilityAssessmentOutput, generalResult);
+            var output = new OvertoppingOutput(waveHeight, true, reliability, probabilityAssessmentOutput, generalResult);
 
             // Assert
             Assert.IsInstanceOf<ICloneable>(output);
             Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.IsTrue(output.IsOvertoppingDominant);
+            Assert.AreEqual(reliability, output.Reliability, 1e-6);
 
             Assert.AreSame(probabilityAssessmentOutput, output.ProbabilityAssessmentOutput);
             Assert.IsTrue(output.HasWaveHeight);
@@ -73,13 +74,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void ParameteredConstructor_ProbabilityAssessmentNull()
+        public void Constructor_ProbabilityAssessmentNull_ThrowsArgumentNullException()
         {
-            // Setup
-            const double waveHeight = 3.2934;
-
             // Call
-            TestDelegate call = () => new OvertoppingOutput(waveHeight, true, null, null);
+            TestDelegate call = () => new OvertoppingOutput(double.NaN, true, double.NaN, null, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -90,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void HasWaveHeight_WaveHeightNaN_ReturnFalse()
         {
             // Setup
-            var output = new OvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput(), null);
+            var output = new OvertoppingOutput(double.NaN, false, double.NaN, new TestProbabilityAssessmentOutput(), null);
 
             // Call
             bool hasWaveHeight = output.HasWaveHeight;

@@ -103,6 +103,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
             var random = new Random(21);
             return new OvertoppingOutput(random.NextDouble(),
                                          random.NextBoolean(),
+                                         random.NextDouble(),
                                          new ProbabilityAssessmentOutput(random.NextDouble(),
                                                                          random.NextDouble(),
                                                                          random.NextDouble(),

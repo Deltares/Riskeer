@@ -250,7 +250,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
                                                                               random.NextDouble(), random.NextDouble(),
                                                                               random.NextDouble());
-            var overtoppingOutput = new OvertoppingOutput(random.NextDouble(), false, probabilityAssessmentOutput, null);
+            var overtoppingOutput = new OvertoppingOutput(random.NextDouble(), false, random.NextDouble(), probabilityAssessmentOutput, null);
             var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, null, null);
 
             var calculation = new GrassCoverErosionInwardsCalculation

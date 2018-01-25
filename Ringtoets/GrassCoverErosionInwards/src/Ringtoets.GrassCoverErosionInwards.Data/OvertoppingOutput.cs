@@ -36,17 +36,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         /// <param name="waveHeight">The calculated wave height.</param>
         /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
+        /// <param name="reliability">The reliability of the calculation.</param>
         /// <param name="probabilityAssessmentOutput">The probabilistic assessment output.</param>
         /// <param name="generalResult">The general result of this output with the fault tree 
         /// illustration points.</param>
-        public OvertoppingOutput(double waveHeight, bool isOvertoppingDominant, ProbabilityAssessmentOutput probabilityAssessmentOutput,
+        public OvertoppingOutput(double waveHeight, bool isOvertoppingDominant, double reliability,
+                                 ProbabilityAssessmentOutput probabilityAssessmentOutput,
                                  GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
             if (probabilityAssessmentOutput == null)
             {
                 throw new ArgumentNullException(nameof(probabilityAssessmentOutput));
             }
+
             IsOvertoppingDominant = isOvertoppingDominant;
+            Reliability = reliability;
             WaveHeight = new RoundedDouble(2, waveHeight);
             ProbabilityAssessmentOutput = probabilityAssessmentOutput;
             GeneralResult = generalResult;
@@ -62,6 +66,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// sub failure mechanism.
         /// </summary>
         public bool IsOvertoppingDominant { get; }
+
+        /// <summary>
+        /// Gets the reliability of the calculation.
+        /// </summary>
+        public double Reliability { get; }
 
         /// <summary>
         /// Gets the probabilistic assessment output.

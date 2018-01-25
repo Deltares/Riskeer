@@ -297,6 +297,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             var overtoppingOutput = new OvertoppingOutput(overtoppingCalculator.WaveHeight,
                                                           overtoppingCalculator.IsOvertoppingDominant,
+                                                          overtoppingCalculator.ExceedanceProbabilityBeta,
                                                           ProbabilityAssessmentService.Calculate(
                                                               norm,
                                                               failureMechanismContribution,
