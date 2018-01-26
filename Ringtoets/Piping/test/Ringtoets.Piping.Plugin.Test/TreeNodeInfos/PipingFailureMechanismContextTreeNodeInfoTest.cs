@@ -192,7 +192,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             Assert.AreSame(pipingFailureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismScenariosContext.AssessmentSection);
 
-            var failureMechanismResultsContext = (PipingFailureMechanismSectionResultContext) outputsFolder.Contents.ElementAt(1);
+            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(pipingFailureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);

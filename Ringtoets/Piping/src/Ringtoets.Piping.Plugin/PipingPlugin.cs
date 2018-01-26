@@ -208,7 +208,7 @@ namespace Ringtoets.Piping.Plugin
             };
 
             yield return new ViewInfo<
-                PipingFailureMechanismSectionResultContext,
+                ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>,
                 IEnumerable<PipingFailureMechanismSectionResult>,
                 PipingFailureMechanismResultView>
             {
@@ -272,7 +272,7 @@ namespace Ringtoets.Piping.Plugin
                 PipingCalculationGroupContextContextMenuStrip,
                 PipingCalculationGroupContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<PipingFailureMechanismSectionResultContext>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -532,19 +532,15 @@ namespace Ringtoets.Piping.Plugin
         private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
         {
             IEnumerable<PipingCalculation> calculations = GetAllPipingCalculations(failureMechanismContext.WrappedData);
-            PipingProbabilityAssessmentInput assessmentInput = failureMechanismContext.WrappedData.PipingProbabilityAssessmentInput;
-            double contribution = failureMechanismContext.WrappedData.Contribution;
 
-            CalculateAll(calculations, assessmentInput, contribution, failureMechanismContext.Parent);
+            CalculateAll(calculations, failureMechanismContext.Parent);
         }
 
         private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
         {
             PipingCalculation[] calculations = group.GetCalculations().OfType<PipingCalculation>().ToArray();
-            PipingProbabilityAssessmentInput assessmentInput = context.FailureMechanism.PipingProbabilityAssessmentInput;
-            double contribution = context.FailureMechanism.Contribution;
 
-            CalculateAll(calculations, assessmentInput, contribution, context.AssessmentSection);
+            CalculateAll(calculations, context.AssessmentSection);
         }
 
         private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations, IAssessmentSection assessmentSection)
@@ -556,8 +552,6 @@ namespace Ringtoets.Piping.Plugin
         }
 
         private void CalculateAll(IEnumerable<PipingCalculation> calculations,
-                                  PipingProbabilityAssessmentInput assessmentInput,
-                                  double contribution,
                                   IAssessmentSection assessmentSection)
         {
             ActivityProgressDialogRunner.Run(
@@ -715,7 +709,7 @@ namespace Ringtoets.Piping.Plugin
             return new object[]
             {
                 new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new PipingFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
         }

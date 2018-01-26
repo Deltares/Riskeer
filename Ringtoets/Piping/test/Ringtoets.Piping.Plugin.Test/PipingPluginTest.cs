@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingInputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailureMechanismContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailureMechanismSectionResultContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingOutputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingScenariosContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyPipingOutput)));
@@ -158,7 +158,7 @@ namespace Ringtoets.Piping.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(PipingFailureMechanismSectionResultContext),
+                    typeof(ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>),
                     typeof(IEnumerable<PipingFailureMechanismSectionResult>),
                     typeof(PipingFailureMechanismResultView));
 

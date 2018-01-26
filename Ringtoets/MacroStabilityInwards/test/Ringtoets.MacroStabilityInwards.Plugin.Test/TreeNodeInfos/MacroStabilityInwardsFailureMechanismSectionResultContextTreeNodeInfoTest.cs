@@ -28,8 +28,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsFailureMechanismSectionResultContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>));
         }
 
         [TearDown]
@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsFailureMechanismSectionResultContext(mechanism.SectionResults, mechanism, assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(mechanism.SectionResults, mechanism, assessmentSection);
 
             // Call
             string text = info.Text(context);

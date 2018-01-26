@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -64,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>), info.DataType);
             Assert.AreEqual(typeof(IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -76,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
@@ -308,7 +307,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults,
+                                                                                                                                  failureMechanism,
+                                                                                                                                  assessmentSection);
             var view = mocks.StrictMock<MacroStabilityInwardsFailureMechanismResultView>();
             view.Expect(v => v.FailureMechanism = failureMechanism);
 
@@ -330,9 +331,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new MacroStabilityInwardsFailureMechanismSectionResultContext(failureMechanism.SectionResults,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults,
+                                                                                                                                  failureMechanism,
+                                                                                                                                  assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

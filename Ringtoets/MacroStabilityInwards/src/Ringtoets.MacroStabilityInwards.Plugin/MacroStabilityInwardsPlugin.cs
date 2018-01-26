@@ -211,7 +211,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             };
 
             yield return new ViewInfo<
-                MacroStabilityInwardsFailureMechanismSectionResultContext,
+                ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>,
                 IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>,
                 MacroStabilityInwardsFailureMechanismResultView>
             {
@@ -283,7 +283,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<MacroStabilityInwardsFailureMechanismSectionResultContext>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -705,7 +705,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             return new object[]
             {
                 new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new MacroStabilityInwardsFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
         }
