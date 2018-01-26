@@ -93,7 +93,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
             yield return new PropertyInfo<OvertoppingOutputContext, OvertoppingOutputProperties>
             {
-                CreateInstance = context => new OvertoppingOutputProperties(context.WrappedData.Output.OvertoppingOutput)
+                CreateInstance = context => new OvertoppingOutputProperties(context.WrappedData.Output.OvertoppingOutput,
+                                                                            context.FailureMechanism,
+                                                                            context.AssessmentSection)
             };
             yield return new PropertyInfo<DikeHeightOutputContext, DikeHeightOutputProperties>
             {
