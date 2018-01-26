@@ -93,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
             }
 
-            if (this.propertyChangeHandler == null)
+            if (propertyChangeHandler == null)
             {
                 throw new ArgumentNullException(nameof(this.propertyChangeHandler));
             }

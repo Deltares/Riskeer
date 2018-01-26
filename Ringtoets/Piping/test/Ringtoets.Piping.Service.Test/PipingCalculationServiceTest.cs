@@ -1022,6 +1022,8 @@ namespace Ringtoets.Piping.Service.Test
             RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
             PipingInput input = testCalculation.InputParameters;
 
+            input.AssessmentLevel = (RoundedDouble) 2.2;
+
             input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
 
             using (new PipingSubCalculatorFactoryConfig())

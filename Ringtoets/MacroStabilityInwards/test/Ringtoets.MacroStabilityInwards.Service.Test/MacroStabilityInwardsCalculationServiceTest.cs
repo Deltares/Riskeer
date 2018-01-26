@@ -285,17 +285,28 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             }
         }
 
-        [Test]
-        public void Calculate_CompleteInput_SetsInputOnCalculator()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_CompleteInput_SetsInputOnCalculator(bool useAssessmentLevelManualInput)
         {
             // Setup
+            RoundedDouble normativeAssessmentLevel = GetCalculatedTestAssessmentLevel();
+            MacroStabilityInwardsInput input = testCalculation.InputParameters;
+
+            input.AssessmentLevel = (RoundedDouble) 2.2;
+
+            input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation, GetCalculatedTestAssessmentLevel());
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
 
                 // Assert
-                AssertInput(testCalculation.InputParameters, (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance);
+                RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
+                                                            ? testCalculation.InputParameters.AssessmentLevel
+                                                            : normativeAssessmentLevel;
+
+                AssertInput(testCalculation.InputParameters, (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance, expectedAssessmentLevel);
             }
         }
 
@@ -591,7 +602,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             }
         }
 
-        private static void AssertInput(MacroStabilityInwardsInput originalInput, TestMacroStabilityInwardsCalculatorFactory factory)
+        private static void AssertInput(MacroStabilityInwardsInput originalInput, TestMacroStabilityInwardsCalculatorFactory factory, RoundedDouble expectedAssessmentLevel)
         {
             UpliftVanCalculatorInput actualInput = factory.LastCreatedUpliftVanCalculator.Input;
             CalculatorInputAssert.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
@@ -604,7 +615,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, actualInput.PlLineCreationMethod);
             Assert.AreEqual(LandwardDirection.PositiveX, actualInput.LandwardDirection);
             Assert.AreSame(originalInput.SurfaceLine, actualInput.SurfaceLine);
-            Assert.AreEqual(originalInput.AssessmentLevel, actualInput.AssessmentLevel);
+            Assert.AreEqual(expectedAssessmentLevel, actualInput.AssessmentLevel);
             Assert.AreEqual(originalInput.DikeSoilScenario, actualInput.DikeSoilScenario);
             Assert.AreEqual(originalInput.WaterLevelRiverAverage, actualInput.WaterLevelRiverAverage);
             Assert.AreEqual(originalInput.LocationInputExtreme.WaterLevelPolder, actualInput.WaterLevelPolderExtreme);

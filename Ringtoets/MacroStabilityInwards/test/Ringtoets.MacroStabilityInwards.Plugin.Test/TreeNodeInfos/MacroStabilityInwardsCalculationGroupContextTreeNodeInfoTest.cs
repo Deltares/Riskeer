@@ -796,7 +796,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 group.Children.Add(invalidCalculation);
 
                 var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 parentGroup,
