@@ -21,9 +21,11 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data.StandAlone;
@@ -193,10 +195,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [TestCase(-0.1)]
         [TestCase(1.1)]
         [TestCase(8)]
-        public void A_SetInvalidValue_ThrowsArgumentOutOfRangeException(double value)
+        public void A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            failureMechanism.Attach(observer);
             var properties = new MacroStabilityOutwardsFailureMechanismProperties(failureMechanism);
 
             // Call
@@ -205,6 +212,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
             Assert.AreEqual("De waarde moet in het bereik [0,0, 1,0] liggen.", exception.Message);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -213,10 +221,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [TestCase(1)]
         [TestCase(0.0000001)]
         [TestCase(0.9999999)]
-        public void A_SetValidValue_SetsValue(double value)
+        public void A_SetValidValue_SetsValueAndUpdatesObserver(double value)
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            failureMechanism.Attach(observer);
             var properties = new MacroStabilityOutwardsFailureMechanismProperties(failureMechanism);
 
             // Call
@@ -224,6 +238,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A);
+            mocks.VerifyAll();
         }
 
         [Test]

@@ -79,6 +79,7 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
@@ -223,8 +224,8 @@ namespace Ringtoets.Integration.Plugin
             ),
             new FailureMechanismContextAssociation(
                 typeof(MacroStabilityOutwardsFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                    mechanism,
+                (mechanism, assessmentSection) => new MacroStabilityOutwardsFailureMechanismContext(
+                    (MacroStabilityOutwardsFailureMechanism) mechanism,
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
@@ -308,6 +309,10 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismProperties>
             {
                 CreateInstance = context => new StandAloneFailureMechanismProperties(context.WrappedData)
+            };
+            yield return new PropertyInfo<MacroStabilityOutwardsFailureMechanismContext, MacroStabilityOutwardsFailureMechanismProperties>
+            {
+                CreateInstance = context => new MacroStabilityOutwardsFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>
             {
@@ -649,6 +654,12 @@ namespace Ringtoets.Integration.Plugin
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
                 StandAloneFailureMechanismDisabledContextMenuStrip);
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<MacroStabilityOutwardsFailureMechanismContext>(
+                MacroStabilityOutwardsFailureMechanismEnabledChildNodeObjects,
+                MacroStabilityOutwardsFailureMechanismDisabledChildNodeObjects,
+                MacroStabilityOutwardsFailureMechanismEnabledContextMenuStrip,
+                MacroStabilityOutwardsFailureMechanismDisabledContextMenuStrip);
 
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
             {
@@ -1415,6 +1426,88 @@ namespace Ringtoets.Integration.Plugin
         }
 
         #endregion
+
+        #region MacroStabilityOutwardsFailureMechanismContext TreeNodeInfo
+
+        private static object[] MacroStabilityOutwardsFailureMechanismEnabledChildNodeObjects(MacroStabilityOutwardsFailureMechanismContext nodeData)
+        {
+            return new object[]
+            {
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       TreeFolderCategory.Input),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetOutputs(nodeData.WrappedData),
+                                       TreeFolderCategory.Output)
+            };
+        }
+
+        private static object[] MacroStabilityOutwardsFailureMechanismDisabledChildNodeObjects(MacroStabilityOutwardsFailureMechanismContext nodeData)
+        {
+            return new object[]
+            {
+                nodeData.WrappedData.NotRelevantComments
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(MacroStabilityOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(MacroStabilityOutwardsFailureMechanism nodeData)
+        {
+            var macrostabilityOutwards = nodeData as IHasSectionResults<MacroStabilityOutwardsFailureMechanismSectionResult>;
+            var failureMechanismSectionResultContexts = new object[2];
+            
+            if (macrostabilityOutwards != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(macrostabilityOutwards.SectionResults, nodeData);
+            }
+            failureMechanismSectionResultContexts[1] = nodeData.OutputComments;
+            return failureMechanismSectionResultContexts;
+        }
+
+        private ContextMenuStrip MacroStabilityOutwardsFailureMechanismEnabledContextMenuStrip(MacroStabilityOutwardsFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private void RemoveAllViewsForItem(MacroStabilityOutwardsFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+        }
+
+        private ContextMenuStrip MacroStabilityOutwardsFailureMechanismDisabledContextMenuStrip(MacroStabilityOutwardsFailureMechanismContext nodeData,
+                                                                                    object parentData,
+                                                                                    TreeViewControl treeViewControl)
+        {
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+
+            return builder.AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .Build();
+        }
+
+        #endregion
+
 
         #region CategoryTreeFolder TreeNodeInfo
 

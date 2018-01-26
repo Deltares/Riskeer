@@ -31,6 +31,7 @@
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryLocationContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightLocationContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightLocationsContext.cs" />
     <Compile Include="PropertyClasses\BackgroundDataProperties.cs" />

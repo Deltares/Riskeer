@@ -126,6 +126,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             set
             {
                 data.MacroStabilityOutwardsProbabilityAssessmentInput.A = value;
+                data.NotifyObservers();
             }
         }
 
