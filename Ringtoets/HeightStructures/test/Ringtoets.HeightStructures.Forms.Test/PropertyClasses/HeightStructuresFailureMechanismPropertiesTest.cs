@@ -42,7 +42,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private const int codePropertyIndex = 1;
         private const int isRelevantPropertyIndex = 2;
         private const int gravitationalAccelerationPropertyIndex = 3;
-        private const int lengthEffectPropertyIndex = 4;
+        private const int nPropertyIndex = 4;
         private const int modelFactorOvertoppingFlowPropertyIndex = 5;
         private const int modelFactorStorageVolumePropertyIndex = 6;
 
@@ -101,7 +101,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", properties.Name);
             Assert.AreEqual("HTKW", properties.Code);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
-            Assert.AreEqual(failureMechanism.GeneralInput.N, properties.LengthEffect);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, properties.N);
 
             GeneralHeightStructuresInput generalInput = failureMechanism.GeneralInput;
             Assert.AreEqual(generalInput.GravitationalAcceleration, properties.GravitationalAcceleration);
@@ -166,8 +166,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                             "Valversnelling.",
                                                                             true);
 
-            PropertyDescriptor lengthEffectProperty = dynamicProperties[lengthEffectPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthEffectProperty,
+            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
@@ -241,7 +241,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         [TestCase(0.0)]
         [TestCase(-1.0)]
         [TestCase(-20.0)]
-        public void LengthEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
+        public void N_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -261,7 +261,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Call
-            TestDelegate test = () => properties.LengthEffect = (RoundedDouble) value;
+            TestDelegate test = () => properties.N = (RoundedDouble) value;
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);
@@ -273,7 +273,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         [TestCase(1.0)]
         [TestCase(10.0)]
         [TestCase(20.0)]
-        public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(double value)
+        public void N_SetValidValue_UpdateDataAndNotifyObservers(double value)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -294,7 +294,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Call
-            properties.LengthEffect = (RoundedDouble) value;
+            properties.N = (RoundedDouble) value;
 
             // Assert
             Assert.AreEqual(value, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
@@ -324,7 +324,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorOvertoppingFlow)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));

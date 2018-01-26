@@ -40,7 +40,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int isRelevantPropertyIndex = 2;
-        private const int lengthEffectPropertyIndex = 3;
+        private const int nPropertyIndex = 3;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -113,7 +113,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(4, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
-            const string lengthEffectParameterCategory = "Lengte-effect parameters";
+            const string nParameterCategory = "Lengte-effect parameters";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -136,9 +136,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
-            PropertyDescriptor lengthEffectProperty = dynamicProperties[lengthEffectPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthEffectProperty,
-                                                                            lengthEffectParameterCategory,
+            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
+                                                                            nParameterCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
             mocks.VerifyAll();
@@ -222,7 +222,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual("Duinwaterkering - Duinafslag", properties.Name);
             Assert.AreEqual("DA", properties.Code);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
-            Assert.AreEqual(failureMechanism.GeneralInput.N, properties.LengthEffect);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, properties.N);
             mocks.VerifyAll();
         }
 
@@ -230,7 +230,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         [TestCase(0.0)]
         [TestCase(-1.0)]
         [TestCase(-20.0)]
-        public void LengthEffect_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newLengthEffect)
+        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -240,7 +240,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var failureMechanism = new DuneErosionFailureMechanism();
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<DuneErosionFailureMechanism, RoundedDouble>(
                 failureMechanism,
-                (RoundedDouble) newLengthEffect,
+                (RoundedDouble) newN,
                 new[]
                 {
                     observable
@@ -249,7 +249,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var properties = new DuneErosionFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Call
-            TestDelegate test = () => properties.LengthEffect = (RoundedDouble) newLengthEffect;
+            TestDelegate test = () => properties.N = (RoundedDouble) newN;
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);
@@ -261,7 +261,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         [TestCase(1)]
         [TestCase(10)]
         [TestCase(20)]
-        public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(double newLengthEffect)
+        public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -272,7 +272,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var failureMechanism = new DuneErosionFailureMechanism();
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<DuneErosionFailureMechanism, RoundedDouble>(
                 failureMechanism,
-                (RoundedDouble) newLengthEffect,
+                (RoundedDouble) newN,
                 new[]
                 {
                     observable
@@ -281,10 +281,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             var properties = new DuneErosionFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Call
-            properties.LengthEffect = (RoundedDouble) newLengthEffect;
+            properties.N = (RoundedDouble) newN;
 
             // Assert
-            Assert.AreEqual(newLengthEffect, failureMechanism.GeneralInput.N.Value);
+            Assert.AreEqual(newN, failureMechanism.GeneralInput.N.Value);
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
@@ -311,7 +311,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
 

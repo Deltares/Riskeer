@@ -153,7 +153,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             const string generalCategory = "Algemeen";
             const string heaveCategory = "Heave";
             const string modelFactorCategory = "Modelinstellingen";
-            const string semiProbabilisticCategory = "Lengte-effect parameters";
+            const string lengthEffectCategory = "Lengte-effect parameters";
             const string sellmeijerCategory = "Terugschrijdende erosie (Sellmeijer)";
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
@@ -199,27 +199,27 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PropertyDescriptor aProperty = dynamicProperties[6];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
-                                                                            semiProbabilisticCategory,
+                                                                            lengthEffectCategory,
                                                                             "a [-]",
                                                                             "De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.");
 
             PropertyDescriptor bProperty = dynamicProperties[7];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
-                                                                            semiProbabilisticCategory,
+                                                                            lengthEffectCategory,
                                                                             "b [m]",
                                                                             "De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.",
                                                                             true);
 
             PropertyDescriptor sectionLengthProperty = dynamicProperties[8];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionLengthProperty,
-                                                                            semiProbabilisticCategory,
+                                                                            lengthEffectCategory,
                                                                             "Lengte* [m]",
                                                                             "Totale lengte van het traject in meters (afgerond).",
                                                                             true);
 
-            PropertyDescriptor NProperty = dynamicProperties[9];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(NProperty,
-                                                                            semiProbabilisticCategory,
+            PropertyDescriptor nProperty = dynamicProperties[9];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
+                                                                            lengthEffectCategory,
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);

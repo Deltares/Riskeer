@@ -71,7 +71,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
-        public RoundedDouble LengthEffect
+        public RoundedDouble N
         {
             get
             {
@@ -114,7 +114,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             return nameof(A).Equals(propertyName)
                    || nameof(B).Equals(propertyName)
                    || nameof(C).Equals(propertyName)
-                   || nameof(LengthEffect).Equals(propertyName);
+                   || nameof(N).Equals(propertyName);
         }
 
         #region General

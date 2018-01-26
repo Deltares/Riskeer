@@ -41,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int isRelevantPropertyIndex = 2;
-        private const int lengthEffectPropertyIndex = 3;
+        private const int nPropertyIndex = 3;
         private const int aPropertyIndex = 4;
         private const int bPropertyIndex = 5;
         private const int cPropertyIndex = 6;
@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.A, properties.A);
             Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.B, properties.B);
             Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.C, properties.C);
-            Assert.AreEqual(2.0, properties.LengthEffect, properties.LengthEffect.GetAccuracy());
+            Assert.AreEqual(2.0, properties.N, properties.N.GetAccuracy());
         }
 
         [Test]
@@ -147,8 +147,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
-            PropertyDescriptor lengthEffectProperty = dynamicProperties[lengthEffectPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthEffectProperty,
+            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             "Lengte-effect parameters",
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
@@ -227,7 +227,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [TestCase(0.0)]
         [TestCase(-1.0)]
         [TestCase(-20.0)]
-        public void LengthEffect_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newLengthEffect)
+        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -237,7 +237,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
                 failureMechanism,
-                newLengthEffect,
+                newN,
                 new[]
                 {
                     observable
@@ -246,7 +246,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Call
-            TestDelegate test = () => properties.LengthEffect = (RoundedDouble) newLengthEffect;
+            TestDelegate test = () => properties.N = (RoundedDouble) newN;
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);
@@ -258,7 +258,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [TestCase(1)]
         [TestCase(10)]
         [TestCase(20)]
-        public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(double newLengthEffect)
+        public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -269,7 +269,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
                 failureMechanism,
-                newLengthEffect,
+                newN,
                 new[]
                 {
                     observable
@@ -278,10 +278,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
 
             // Call
-            properties.LengthEffect = (RoundedDouble) newLengthEffect;
+            properties.N = (RoundedDouble) newN;
 
             // Assert
-            Assert.AreEqual(newLengthEffect, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+            Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
@@ -311,7 +311,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.C)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
 

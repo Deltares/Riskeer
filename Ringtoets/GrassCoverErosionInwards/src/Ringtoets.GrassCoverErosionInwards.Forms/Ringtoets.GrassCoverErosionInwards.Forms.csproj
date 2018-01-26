@@ -41,7 +41,7 @@
     <Compile Include="PropertyClasses\DikeProfileDikeGeometryProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsOutputProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextDikeGeometryProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextProperties.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextProperties.cs" />
     <Compile Include="PropertyClasses\OvertoppingOutputProperties.cs" />
     <Compile Include="PropertyClasses\OvertoppingRateOutputProperties.cs" />
