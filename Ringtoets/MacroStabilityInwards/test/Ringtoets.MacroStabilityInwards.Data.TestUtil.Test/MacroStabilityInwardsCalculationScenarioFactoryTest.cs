@@ -233,7 +233,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                             inputParameters.LocationInputDaily.PenetrationLength.GetAccuracy());
 
             Assert.IsTrue(inputParameters.DrainageConstructionPresent);
-            Assert.AreEqual(1, inputParameters.XCoordinateDrainageConstruction,
+            Assert.AreEqual(0.35, inputParameters.XCoordinateDrainageConstruction,
                             inputParameters.XCoordinateDrainageConstruction.GetAccuracy());
             Assert.AreEqual(1, inputParameters.ZCoordinateDrainageConstruction,
                             inputParameters.ZCoordinateDrainageConstruction.GetAccuracy());
@@ -244,9 +244,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(1, inputParameters.TangentLineZBottom,
                             inputParameters.TangentLineZBottom.GetAccuracy());
             Assert.AreEqual(10, inputParameters.TangentLineNumber);
-            Assert.AreEqual(1, inputParameters.LeftGrid.XLeft,
+            Assert.AreEqual(0.3, inputParameters.LeftGrid.XLeft,
                             inputParameters.LeftGrid.XLeft.GetAccuracy());
-            Assert.AreEqual(2, inputParameters.LeftGrid.XRight,
+            Assert.AreEqual(0.4, inputParameters.LeftGrid.XRight,
                             inputParameters.LeftGrid.XRight.GetAccuracy());
             Assert.AreEqual(2, inputParameters.LeftGrid.ZTop,
                             inputParameters.LeftGrid.ZTop.GetAccuracy());
@@ -255,9 +255,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(1, inputParameters.LeftGrid.NumberOfVerticalPoints);
             Assert.AreEqual(1, inputParameters.LeftGrid.NumberOfHorizontalPoints);
 
-            Assert.AreEqual(1, inputParameters.RightGrid.XLeft,
+            Assert.AreEqual(0.4, inputParameters.RightGrid.XLeft,
                             inputParameters.RightGrid.XLeft.GetAccuracy());
-            Assert.AreEqual(2, inputParameters.RightGrid.XRight,
+            Assert.AreEqual(0.5, inputParameters.RightGrid.XRight,
                             inputParameters.RightGrid.XRight.GetAccuracy());
             Assert.AreEqual(2, inputParameters.RightGrid.ZTop,
                             inputParameters.RightGrid.ZTop.GetAccuracy());
