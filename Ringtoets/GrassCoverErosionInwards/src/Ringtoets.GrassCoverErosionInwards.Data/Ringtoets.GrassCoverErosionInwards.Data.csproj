@@ -11,6 +11,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.cs" />
     <Compile Include="OvertoppingOutput.cs" />
     <Compile Include="OvertoppingRateOutput.cs" />
     <Compile Include="DikeHeightOutput.cs" />
