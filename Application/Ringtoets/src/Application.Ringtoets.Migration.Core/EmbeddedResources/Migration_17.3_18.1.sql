@@ -51,8 +51,6 @@ INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJ
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
 INSERT INTO HydraRingPreprocessorEntity SELECT * FROM [SOURCEPROJECT].HydraRingPreprocessorEntity;
-INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationEntity;
-INSERT INTO HydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
 INSERT INTO IllustrationPointResultEntity SELECT * FROM [SOURCEPROJECT].IllustrationPointResultEntity;
 INSERT INTO MacroStabilityInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity;
 INSERT INTO MacroStabilityInwardsCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity;
@@ -187,6 +185,147 @@ INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity SELECT * FROM [SOUR
 INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
+
+/*
+Insert new data
+*/
+
+-- Insert new Hydraulic Location Calculations
+-- Note: Union has been used to repeat the operation 8 times for the calculations
+INSERT INTO HydraulicLocationCalculationEntity (
+    [ShouldIllustrationPointsBeCalculated]
+)
+SELECT
+    0
+    FROM [SOURCEPROJECT].HydraulicLocationEntity
+UNION ALL
+SELECT
+    0
+    FROM [SOURCEPROJECT].HydraulicLocationEntity
+UNION ALL
+SELECT
+    0
+    FROM [SOURCEPROJECT].HydraulicLocationEntity
+UNION ALL
+SELECT
+    0
+    FROM [SOURCEPROJECT].HydraulicLocationEntity
+UNION ALL
+SELECT
+    0
+    FROM [SOURCEPROJECT].HydraulicLocationEntity
+UNION ALL
+SELECT
+    0
+    FROM [SOURCEPROJECT].HydraulicLocationEntity
+UNION ALL
+SELECT
+    0
+    FROM [SOURCEPROJECT].HydraulicLocationEntity
+UNION ALL
+SELECT
+    0
+    FROM [SOURCEPROJECT].HydraulicLocationEntity;
+
+-- Create temp table to store the new calculation ids
+CREATE TEMP TABLE TempHydraulicLocationCalculationEntity
+(
+    'Calculation1Id' INTEGER NOT NULL,
+    'Calculation2Id' INTEGER NOT NULL,
+    'Calculation3Id' INTEGER NOT NULL,
+    'Calculation4Id' INTEGER NOT NULL,
+    'Calculation5Id' INTEGER NOT NULL,
+    'Calculation6Id' INTEGER NOT NULL,
+    'Calculation7Id' INTEGER NOT NULL,
+    'Calculation8Id' INTEGER NOT NULL,
+    'HydraulicLocationEntityId' INTEGER NOT NULL,
+    PRIMARY KEY 
+    (   
+        'Calculation1Id', 
+        'Calculation2Id', 
+        'Calculation3Id', 
+        'Calculation4Id', 
+        'Calculation5Id', 
+        'Calculation6Id', 
+        'Calculation7Id', 
+        'Calculation8Id', 
+        'HydraulicLocationEntityId'
+    )
+) WITHOUT ROWID;
+
+-- Store the mapping between the calculations and the hydraulic boundary location
+INSERT INTO TempHydraulicLocationCalculationEntity (
+    [Calculation1Id],
+    [Calculation2Id],
+    [Calculation3Id],
+    [Calculation4Id],
+    [Calculation5Id],
+    [Calculation6Id],
+    [Calculation7Id],
+    [Calculation8Id],
+    [HydraulicLocationEntityId])
+SELECT
+    last_insert_rowid() - IndexOffSet,
+    last_insert_rowid() - IndexOffset - 1,
+    last_insert_rowid() - IndexOffset - 2,
+    last_insert_rowid() - IndexOffset - 3,
+    last_insert_rowid() - IndexOffset - 4,
+    last_insert_rowid() - IndexOffset - 5,
+    last_insert_rowid() - IndexOffset - 6,
+    last_insert_rowid() - IndexOffset - 7,
+    HydraulicLocationEntityId
+FROM (
+    SELECT
+        hleB.HydraulicLocationEntityId AS HydraulicLocationEntityId,
+        (
+            SELECT 
+                (COUNT() - 1) * 8
+            FROM [SOURCEPROJECT].HydraulicLocationEntity hleA
+            WHERE hleA.HydraulicLocationEntityId >= hleB.HydraulicLocationEntityId
+        ) AS IndexOffSet
+    FROM [SOURCEPROJECT].HydraulicLocationEntity hleB
+    ORDER BY hleB.HydraulicLocationEntityId
+);
+
+-- Perform the insertion
+INSERT INTO HydraulicLocationEntity (
+    [HydraulicLocationEntityId],
+    [AssessmentSectionEntityId],
+    [HydraulicLocationCalculationEntity1Id],
+    [HydraulicLocationCalculationEntity2Id],
+    [HydraulicLocationCalculationEntity3Id],
+    [HydraulicLocationCalculationEntity4Id],
+    [HydraulicLocationCalculationEntity5Id],
+    [HydraulicLocationCalculationEntity6Id],
+    [HydraulicLocationCalculationEntity7Id],
+    [HydraulicLocationCalculationEntity8Id],
+    [LocationId],
+    [Name],
+    [LocationX],
+    [LocationY],
+    [Order]
+)
+SELECT 
+    [HydraulicLocationEntityId],
+    [AssessmentSectionEntityId],
+    [Calculation1Id],
+    [Calculation2Id],
+    [Calculation3Id],
+    [Calculation4Id],
+    [Calculation5Id],
+    [Calculation6Id],
+    [Calculation7Id],
+    [Calculation8Id],
+    [LocationId],
+    [Name],
+    [LocationX],
+    [LocationY],
+    [Order]
+    FROM [SOURCEPROJECT].HydraulicLocationEntity AS sp
+    JOIN TempHydraulicLocationCalculationEntity USING (HydraulicLocationEntityId);
+
+-- Cleanup
+DROP TABLE TempHydraulicLocationCalculationEntity;
 
 /* 
 Write migration logging

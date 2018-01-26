@@ -60,6 +60,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertVersions(reader);
                     AssertDatabase(reader);
 
+                    AssertHydraulicBoundaryLocations(reader, sourceFilePath);
+
                     AssertPipingSoilLayers(reader);
                     AssertHydraRingPreprocessor(reader);
                     AssertStabilityStoneCoverFailureMechanism(reader);
@@ -245,6 +247,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT COUNT() = 0 " +
                 "FROM [HydraRingPreprocessorEntity];";
             reader.AssertReturnedDataIsValid(validatePreprocessorSettings);
+        }
+
+        private static void AssertHydraulicBoundaryLocations(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateNrOfHydraulicBoundaryCalculationEntities =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() * 8 FROM [SOURCEPROJECT].HydraulicLocationEntity) " +
+                "FROM HydraulicLocationCalculationEntity; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateNrOfHydraulicBoundaryCalculationEntities);
         }
 
         private static void AssertPipingSoilLayers(MigratedDatabaseReader reader)
