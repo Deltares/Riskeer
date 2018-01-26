@@ -80,10 +80,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 double totalAssessmentLayerTwoA = 0;
                 foreach (MacroStabilityInwardsCalculationScenario scenario in calculationScenarios)
                 {
-                    var derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(scenario.Output,
-                                                                                         failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
-                                                                                         assessmentSection.FailureMechanismContribution.Norm,
-                                                                                         failureMechanism.Contribution);
+                    DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(scenario.Output,
+                                                                                                                        failureMechanism,
+                                                                                                                        assessmentSection);
 
                     totalAssessmentLayerTwoA += derivedOutput.MacroStabilityInwardsProbability * (double) scenario.Contribution;
                 }

@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Data
             }
 
             double norm = assessmentSection.FailureMechanismContribution.Norm;
-            double contribution = failureMechanism.Contribution;
+            double contribution = failureMechanism.Contribution / 100;
             PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
 
             double upliftFactorOfSafety = output.UpliftFactorOfSafety;
@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Data
                                                              probabilityAssessmentInput.B,
                                                              probabilityAssessmentInput.SectionLength,
                                                              norm,
-                                                             contribution / 100);
+                                                             contribution);
             double requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
 
             return new DerivedPipingOutput(upliftFactorOfSafety, upliftReliability,

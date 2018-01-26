@@ -21,6 +21,8 @@
 
 using System;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
@@ -32,53 +34,83 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         [Test]
         public void Create_OutputNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             TestDelegate call = () => DerivedMacroStabilityInwardsOutputFactory.Create(null,
-                                                                                       new MacroStabilityInwardsProbabilityAssessmentInput(),
-                                                                                       double.NaN,
-                                                                                       double.NaN);
+                                                                                       new MacroStabilityInwardsFailureMechanism(), 
+                                                                                       assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("output", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Create_ProbabilityAssessmentInputNull_ThrowsArgumentNullException()
+        public void Create_FailureMechanismNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             TestDelegate call = () => DerivedMacroStabilityInwardsOutputFactory.Create(MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                                                                                       null,
-                                                                                       double.NaN,
-                                                                                       double.NaN);
+                                                                        null,
+                                                                        assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DerivedMacroStabilityInwardsOutputFactory.Create(MacroStabilityInwardsOutputTestFactory.CreateOutput(),
+                                                                        new MacroStabilityInwardsFailureMechanism(),
+                                                                        null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void Create_ValidData_ReturnsExpectedValue()
         {
             // Setup
-            var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
-                SectionLength = 6000
+                MacroStabilityInwardsProbabilityAssessmentInput =
+                {
+                    SectionLength = 6000
+                },
+                Contribution = 100
             };
 
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
-            const double norm = 1.0 / 30000;
 
             // Call
-            DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, probabilityAssessmentInput, norm, 1000);
+            DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(0.697, derivedOutput.FactorOfStability, derivedOutput.FactorOfStability.GetAccuracy());
-            Assert.AreEqual(0.38, derivedOutput.MacroStabilityInwardsFactorOfSafety, derivedOutput.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(0.707, derivedOutput.MacroStabilityInwardsFactorOfSafety, derivedOutput.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
             Assert.AreEqual(0.073605149538226278, derivedOutput.MacroStabilityInwardsProbability, 1e-6);
             Assert.AreEqual(1.44946, derivedOutput.MacroStabilityInwardsReliability, derivedOutput.MacroStabilityInwardsReliability.GetAccuracy());
-            Assert.AreEqual(6.7204301075268831E-05, derivedOutput.RequiredProbability, 1e-6);
-            Assert.AreEqual(3.81824, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
+            Assert.AreEqual(0.020161290322580648d, derivedOutput.RequiredProbability, 1e-6);
+            Assert.AreEqual(2.05043, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
+            mocks.VerifyAll();
         }
     }
 }

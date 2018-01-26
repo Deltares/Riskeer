@@ -151,8 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
                                          MacroStabilityInwardsFailureMechanism failureMechanism,
                                          IAssessmentSection assessmentSection)
         {
-            derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
-                                                                             assessmentSection.FailureMechanismContribution.Norm, failureMechanism.Contribution);
+            derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, failureMechanism, assessmentSection);
         }
     }
 }
