@@ -267,7 +267,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutputEntity outputEntity = entity.GrassCoverErosionInwardsOutputEntities.Single();
             Assert.AreEqual(probabilityAssessmentOutput.FactorOfSafety, outputEntity.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
             Assert.AreEqual(probabilityAssessmentOutput.Probability, outputEntity.Probability);
-            Assert.AreEqual(probabilityAssessmentOutput.Reliability, outputEntity.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
+            Assert.AreEqual(overtoppingOutput.Reliability, outputEntity.Reliability);
             Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, outputEntity.RequiredProbability);
             Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability.Value, outputEntity.RequiredReliability);
             Assert.IsNull(outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
