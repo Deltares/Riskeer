@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
@@ -46,7 +47,8 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
             {
                 throw new ArgumentNullException(nameof(input));
             }
-            input.N = entity.N;
+
+            input.N = (RoundedDouble) entity.N;
         }
     }
 }

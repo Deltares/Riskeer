@@ -136,8 +136,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new PipingOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
-            var expectedDerivedOutput = DerivedPipingOutputFactory.Create(output, failureMechanism.PipingProbabilityAssessmentInput,
-                                                                          assessmentSection.FailureMechanismContribution.Norm, failureMechanism.Contribution);
+            var expectedDerivedOutput = DerivedPipingOutputFactory.Create(output, failureMechanism, assessmentSection);
             const string probabilityFormat = "1/{0:n0}";
             Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, properties.UpliftFactorOfSafety.GetAccuracy());
             Assert.AreEqual(expectedDerivedOutput.UpliftReliability, properties.UpliftReliability, properties.UpliftReliability.GetAccuracy());

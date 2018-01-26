@@ -36,7 +36,7 @@
     <Compile Include="PropertyInfos\DikeHeightOutputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\DikeProfileCollectionPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionInwardsInputContextPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\GrassCoverErosionInwardsFailureMechanismContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\GrassCoverErosionInwardsFailureMechanismPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionInwardsOutputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\OvertoppingOutputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\OvertoppingRateOutputContextPropertyInfoTest.cs" />

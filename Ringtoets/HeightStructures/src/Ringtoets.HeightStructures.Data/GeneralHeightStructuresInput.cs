@@ -31,15 +31,15 @@ namespace Ringtoets.HeightStructures.Data
     /// </summary>
     public class GeneralHeightStructuresInput
     {
-        private static readonly Range<int> validityRangeN = new Range<int>(1, 20);
-        private int n;
+        private static readonly Range<double> validityRangeN = new Range<double>(1, 20);
+        private RoundedDouble n;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralHeightStructuresInput"/> class.
         /// </summary>
         public GeneralHeightStructuresInput()
         {
-            n = 2;
+            n = new RoundedDouble(2, 2.0);
 
             GravitationalAcceleration = new RoundedDouble(2, 9.81);
 
@@ -63,7 +63,7 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is not in
         /// the interval [1, 20].</exception>
-        public int N
+        public RoundedDouble N
         {
             get
             {
@@ -76,7 +76,8 @@ namespace Ringtoets.HeightStructures.Data
                     throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.N_Value_should_be_in_Range_0_,
                                                                                        validityRangeN));
                 }
-                n = value;
+
+                n = value.ToPrecision(n.NumberOfDecimalPlaces);
             }
         }
 

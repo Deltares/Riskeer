@@ -150,8 +150,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                                                                             "De modelinstellingen voor het berekenen van golfcondities voor zuilen.",
                                                                             true);
 
-            PropertyDescriptor NProperty = dynamicProperties[5];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(NProperty,
+            PropertyDescriptor nProperty = dynamicProperties[5];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");

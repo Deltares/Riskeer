@@ -59,11 +59,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Assert
             Assert.AreEqual(2, inputParameters.C.NumberOfDecimalPlaces);
             AssertAreEqual(0.5, inputParameters.C);
-
             Assert.AreEqual(1, inputParameters.N2A);
-
-            Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
-            AssertAreEqual(1, inputParameters.N);
+            Assert.AreEqual(1.0, inputParameters.N);
 
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
             AssertAreEqual(9.81, inputParameters.GravitationalAcceleration);
@@ -77,10 +74,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        [TestCase(0, 1)]
-        [TestCase(8, 4)]
-        [TestCase(40, 20)]
-        public void N_VariousValues_ReturnsExpectedValue(int n2A, double expected)
+        [TestCase(0, 1.0)]
+        [TestCase(8, 4.0)]
+        [TestCase(40, 20.0)]
+        public void N_SetValidValues_ReturnsExpectedValue(int n2A, double expected)
         {
             // Setup
             var inputParameters = new GeneralClosingStructuresInput
@@ -89,10 +86,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
             };
 
             // Call
-            RoundedDouble n = inputParameters.N;
+            double n = inputParameters.N;
 
             // Assert
-            Assert.AreEqual(expected, n, n.GetAccuracy());
+            Assert.AreEqual(expected, n);
         }
 
         [Test]

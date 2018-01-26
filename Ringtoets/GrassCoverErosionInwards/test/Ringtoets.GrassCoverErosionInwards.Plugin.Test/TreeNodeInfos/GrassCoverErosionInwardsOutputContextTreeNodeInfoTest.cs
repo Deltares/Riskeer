@@ -27,6 +27,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -90,24 +91,42 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void ForeColor_HasNoOutput_ReturnGrayText()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             // Call
-            Color color = info.ForeColor(new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation()));
+            Color color = info.ForeColor(new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation(),
+                                                                                   failureMechanism,
+                                                                                   assessmentSection));
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_HasOutput_ReturnControlText()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             // Call
             Color color = info.ForeColor(new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
-            }));
+            }, failureMechanism, assessmentSection));
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -126,11 +145,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsCollectionWithOutputObjects(bool hasOutput)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = hasOutput ? new TestGrassCoverErosionInwardsOutput() : null
             };
-            var grassCoverErosionInwardsOutputContext = new GrassCoverErosionInwardsOutputContext(grassCoverErosionInwardsCalculation);
+            var grassCoverErosionInwardsOutputContext = new GrassCoverErosionInwardsOutputContext(grassCoverErosionInwardsCalculation,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(grassCoverErosionInwardsOutputContext).ToArray();
@@ -141,6 +168,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var overtoppingOutputContext = children[0] as OvertoppingOutputContext;
             Assert.IsNotNull(overtoppingOutputContext);
             Assert.AreSame(grassCoverErosionInwardsCalculation, overtoppingOutputContext.WrappedData);
+            Assert.AreSame(failureMechanism, overtoppingOutputContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, overtoppingOutputContext.AssessmentSection);
 
             var dikeHeightOutputContext = children[1] as DikeHeightOutputContext;
             Assert.IsNotNull(dikeHeightOutputContext);
@@ -149,6 +178,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var overtoppingRateOutputContext = children[2] as OvertoppingRateOutputContext;
             Assert.IsNotNull(overtoppingRateOutputContext);
             Assert.AreSame(grassCoverErosionInwardsCalculation, overtoppingRateOutputContext.WrappedData);
+            mocks.VerifyAll();
         }
 
         [Test]

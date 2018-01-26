@@ -40,7 +40,7 @@ namespace Ringtoets.ClosingStructures.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -84,36 +84,36 @@ namespace Ringtoets.ClosingStructures.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De parameter &apos;C&apos; die gebruikt wordt om het lengte-effect te berekenen..
         /// </summary>
-        public static string ClosingStructuresFailureMechanismContextProperties_C_Description {
+        public static string ClosingStructuresFailureMechanismProperties_C_Description {
             get {
-                return ResourceManager.GetString("ClosingStructuresFailureMechanismContextProperties_C_Description", resourceCulture);
+                return ResourceManager.GetString("ClosingStructuresFailureMechanismProperties_C_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to C [-].
         /// </summary>
-        public static string ClosingStructuresFailureMechanismContextProperties_C_DisplayName {
+        public static string ClosingStructuresFailureMechanismProperties_C_DisplayName {
             get {
-                return ResourceManager.GetString("ClosingStructuresFailureMechanismContextProperties_C_DisplayName", resourceCulture);
+                return ResourceManager.GetString("ClosingStructuresFailureMechanismProperties_C_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De parameter &apos;2NA&apos; die gebruikt wordt om het lengte-effect te berekenen..
         /// </summary>
-        public static string ClosingStructuresFailureMechanismContextProperties_N2A_Description {
+        public static string ClosingStructuresFailureMechanismProperties_N2A_Description {
             get {
-                return ResourceManager.GetString("ClosingStructuresFailureMechanismContextProperties_N2A_Description", resourceCulture);
+                return ResourceManager.GetString("ClosingStructuresFailureMechanismProperties_N2A_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 2NA [-].
         /// </summary>
-        public static string ClosingStructuresFailureMechanismContextProperties_N2A_DisplayName {
+        public static string ClosingStructuresFailureMechanismProperties_N2A_DisplayName {
             get {
-                return ResourceManager.GetString("ClosingStructuresFailureMechanismContextProperties_N2A_DisplayName", resourceCulture);
+                return ResourceManager.GetString("ClosingStructuresFailureMechanismProperties_N2A_DisplayName", resourceCulture);
             }
         }
         

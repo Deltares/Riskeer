@@ -250,7 +250,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
                                                                               random.NextDouble(), random.NextDouble(),
                                                                               random.NextDouble());
-            var overtoppingOutput = new OvertoppingOutput(random.NextDouble(), false, probabilityAssessmentOutput, null);
+            var overtoppingOutput = new OvertoppingOutput(random.NextDouble(), false, random.NextDouble(), probabilityAssessmentOutput, null);
             var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, null, null);
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -267,7 +267,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutputEntity outputEntity = entity.GrassCoverErosionInwardsOutputEntities.Single();
             Assert.AreEqual(probabilityAssessmentOutput.FactorOfSafety, outputEntity.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
             Assert.AreEqual(probabilityAssessmentOutput.Probability, outputEntity.Probability);
-            Assert.AreEqual(probabilityAssessmentOutput.Reliability, outputEntity.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
+            Assert.AreEqual(overtoppingOutput.Reliability, outputEntity.Reliability);
             Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, outputEntity.RequiredProbability);
             Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability.Value, outputEntity.RequiredReliability);
             Assert.IsNull(outputEntity.GeneralResultFaultTreeIllustrationPointEntity);

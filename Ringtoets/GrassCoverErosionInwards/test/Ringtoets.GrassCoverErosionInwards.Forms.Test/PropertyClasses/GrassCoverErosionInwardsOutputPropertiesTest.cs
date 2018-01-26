@@ -25,6 +25,8 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
@@ -51,35 +53,82 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int secondHydraulicLoadsOutputIndex = 13;
 
         [Test]
-        public void Constructor_GrassCoverErosionInwardsOutput_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
             var grassCoverErosionInwardsOutput = new TestGrassCoverErosionInwardsOutput();
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties(grassCoverErosionInwardsOutput);
+            var properties = new GrassCoverErosionInwardsOutputProperties(grassCoverErosionInwardsOutput, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsOutput>>(properties);
             Assert.AreSame(grassCoverErosionInwardsOutput, properties.Data);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_GrassCoverErosionInwardsOutputNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsOutputProperties(null);
+            TestDelegate test = () => new GrassCoverErosionInwardsOutputProperties(null, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("grassCoverErosionInwardsOutput", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = new Random();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsOutputProperties(new TestGrassCoverErosionInwardsOutput(), null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsOutputProperties(new TestGrassCoverErosionInwardsOutput(),
+                                                                                   new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                   null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void GetProperties_WithData_ReturnExpectedValues()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
+            var random = new Random(39);
             double waveHeight = random.NextDouble();
             bool isOvertoppingDominant = Convert.ToBoolean(random.Next(0, 2));
             double requiredProbability = random.NextDouble();
@@ -106,6 +155,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                               factorOfSafety);
             var resultOutput = new OvertoppingOutput(waveHeight,
                                                      isOvertoppingDominant,
+                                                     reliability,
                                                      probabilityAssessmentOutput,
                                                      null);
 
@@ -126,18 +176,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var output = new GrassCoverErosionInwardsOutput(resultOutput, dikeHeightOutput, overtoppingRateOutput);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties(output);
+            var properties = new GrassCoverErosionInwardsOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(2, properties.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(waveHeight, properties.WaveHeight, properties.WaveHeight.GetAccuracy());
             Assert.AreEqual(reliability, properties.Reliability, properties.Reliability.GetAccuracy());
-            Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
+            Assert.AreEqual(double.PositiveInfinity, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
             Assert.AreEqual(3, properties.FactorOfSafety.NumberOfDecimalPlaces);
-            Assert.AreEqual(factorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
+            Assert.AreEqual(0, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
 
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(requiredProbability), properties.RequiredProbability);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), properties.Probability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(0), properties.RequiredProbability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), properties.Probability);
 
             Assert.AreEqual(isOvertoppingDominant, properties.IsOvertoppingDominant);
 
@@ -176,15 +226,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             string overtoppingRateConvergenceValue = new EnumDisplayWrapper<CalculationConvergence>(overtoppingRateConvergence).DisplayName;
             Assert.AreEqual(overtoppingRateConvergenceValue, properties.OvertoppingRateConvergence);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void PropertyAttributes_WithDikeHeightAndOvertoppingRateCalculated_ReturnExpectedValues()
         {
             // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
             var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var resultOutput = new OvertoppingOutput(10,
                                                      true,
+                                                     0,
                                                      probabilityAssessmentOutput,
                                                      null);
             var dikeHeightOutput = new TestDikeHeightOutput(double.NaN);
@@ -195,7 +253,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                             overtoppingRateOutput);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties(output);
+            var properties = new GrassCoverErosionInwardsOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -204,6 +262,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             AssertResultOutputProperties(dynamicProperties);
             AssertDikeHeightOutputProperties(dynamicProperties, firstHydraulicLoadsOutputIndex);
             AssertOvertoppingRateOutputProperties(dynamicProperties, secondHydraulicLoadsOutputIndex);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -213,12 +272,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                                                       bool overtoppingRateCalculated)
         {
             // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
             var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             DikeHeightOutput dikeHeightOutput = null;
             OvertoppingRateOutput overtoppingRateOutput = null;
 
             var resultOutput = new OvertoppingOutput(2,
                                                      true,
+                                                     0,
                                                      probabilityAssessmentOutput,
                                                      null);
 
@@ -237,7 +303,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                             overtoppingRateOutput);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties(output);
+            var properties = new GrassCoverErosionInwardsOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -254,6 +320,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 AssertOvertoppingRateOutputProperties(dynamicProperties, firstHydraulicLoadsOutputIndex);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -262,16 +329,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_WithoutDikeHeightAndOvertoppingRateCalculated_ReturnExpectedValues(double waveHeight)
         {
             // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
             var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var resultOutput = new OvertoppingOutput(waveHeight,
                                                      true,
+                                                     0,
                                                      probabilityAssessmentOutput,
                                                      null);
 
             var output = new GrassCoverErosionInwardsOutput(resultOutput, null, null);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties(output);
+            var properties = new GrassCoverErosionInwardsOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
             int propertiesCount = double.IsNaN(waveHeight) ? 6 : 7;
@@ -280,6 +354,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(propertiesCount, dynamicProperties.Count);
 
             AssertResultOutputProperties(dynamicProperties, !double.IsNaN(waveHeight));
+            mocks.VerifyAll();
         }
 
         private static void AssertResultOutputProperties(PropertyDescriptorCollection dynamicProperties, bool waveHeightCalculated = true)

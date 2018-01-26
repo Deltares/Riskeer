@@ -511,7 +511,7 @@ CREATE TABLE 'StabilityPointStructuresFailureMechanismMetaEntity'
 (
 	'StabilityPointStructuresFailureMechanismMetaEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	'FailureMechanismEntityId' INTEGER NOT NULL,
-	'N' INT (4) NOT NULL,
+	'N' REAL NOT NULL,
 	'ForeshoreProfileCollectionSourcePath' TEXT,
 	'StabilityPointStructureCollectionSourcePath' TEXT,
 	CONSTRAINT 'FK_StrengthStabilityPointConstructionFailureMechanismMetaEntity_FailureMechanismEntity' FOREIGN KEY ('FailureMechanismEntityId') REFERENCES 'FailureMechanismEntity' ('FailureMechanismEntityId') ON DELETE Cascade ON UPDATE Cascade
@@ -586,7 +586,7 @@ CREATE TABLE 'GrassCoverErosionInwardsFailureMechanismMetaEntity'
 (
 	'GrassCoverErosionInwardsFailureMechanismMetaEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	'FailureMechanismEntityId' INTEGER NOT NULL,
-	'N' INT (4) NOT NULL,
+	'N' REAL NOT NULL,
 	'DikeProfileCollectionSourcePath' TEXT,
 	CONSTRAINT 'FK_GrassCoverErosionInwardsFailureMechanismMetaEntity_FailureMechanismEntity' FOREIGN KEY ('FailureMechanismEntityId') REFERENCES 'FailureMechanismEntity' ('FailureMechanismEntityId') ON DELETE Cascade ON UPDATE Cascade
 )
@@ -633,7 +633,7 @@ CREATE TABLE 'HeightStructuresFailureMechanismMetaEntity'
 (
 	'HeightStructuresFailureMechanismMetaEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	'FailureMechanismEntityId' INTEGER NOT NULL,
-	'N' INT (4) NOT NULL,
+	'N' REAL NOT NULL,
 	'HeightStructureCollectionSourcePath' TEXT,
 	'ForeshoreProfileCollectionSourcePath' TEXT,
 	CONSTRAINT 'FK_HeightStructuresFailureMechanismMetaEntity_FailureMechanismEntity' FOREIGN KEY ('FailureMechanismEntityId') REFERENCES 'FailureMechanismEntity' ('FailureMechanismEntityId') ON DELETE Cascade ON UPDATE Cascade
@@ -644,7 +644,7 @@ CREATE TABLE 'GrassCoverErosionOutwardsFailureMechanismMetaEntity'
 (
 	'GrassCoverErosionOutwardsFailureMechanismMetaEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	'FailureMechanismEntityId' INTEGER NOT NULL,
-	'N' INT (4) NOT NULL,
+	'N' REAL NOT NULL,
 	'ForeshoreProfileCollectionSourcePath' TEXT,
 	CONSTRAINT 'FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_FailureMechanismEntity' FOREIGN KEY ('FailureMechanismEntityId') REFERENCES 'FailureMechanismEntity' ('FailureMechanismEntityId') ON DELETE Cascade ON UPDATE Cascade
 )

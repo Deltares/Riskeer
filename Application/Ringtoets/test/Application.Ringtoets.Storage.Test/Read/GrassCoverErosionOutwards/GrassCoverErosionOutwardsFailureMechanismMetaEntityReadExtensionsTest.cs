@@ -22,7 +22,10 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
@@ -49,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
         {
             // Setup
             var random = new Random(21);
-            int n = random.Next(1, 20);
+            RoundedDouble n = random.NextRoundedDouble(1.0, 20.0);
 
             var entity = new GrassCoverErosionOutwardsFailureMechanismMetaEntity
             {
@@ -61,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             entity.Read(inputToUpdate);
 
             // Assert
-            Assert.AreEqual(n, inputToUpdate.N);
+            Assert.AreEqual(entity.N, inputToUpdate.N, inputToUpdate.N.GetAccuracy());
         }
     }
 }

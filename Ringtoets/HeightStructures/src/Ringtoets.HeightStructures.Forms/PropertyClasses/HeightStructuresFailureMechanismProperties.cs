@@ -42,7 +42,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int codePropertyIndex = 2;
         private const int isRelevantPropertyIndex = 3;
         private const int gravitationalAccelerationPropertyIndex = 4;
-        private const int lengthEffectPropertyIndex = 5;
+        private const int nPropertyIndex = 5;
         private const int modelFactorOvertoppingFlowPropertyIndex = 6;
         private const int modelFactorStorageVolumePropertyIndex = 7;
 
@@ -62,10 +62,12 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (handler == null)
             {
                 throw new ArgumentNullException(nameof(handler));
             }
+
             Data = data;
             propertyChangeHandler = handler;
         }
@@ -73,11 +75,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         #region Length effect parameters
 
         [DynamicVisible]
-        [PropertyOrder(lengthEffectPropertyIndex)]
+        [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
-        public int LengthEffect
+        public RoundedDouble N
         {
             get
             {
@@ -103,6 +105,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             {
                 return false;
             }
+
             return true;
         }
 
@@ -116,7 +119,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
-            return nameof(LengthEffect).Equals(propertyName)
+            return nameof(N).Equals(propertyName)
                    || nameof(GravitationalAcceleration).Equals(propertyName)
                    || nameof(ModelFactorOvertoppingFlow).Equals(propertyName)
                    || nameof(ModelFactorStorageVolume).Equals(propertyName);

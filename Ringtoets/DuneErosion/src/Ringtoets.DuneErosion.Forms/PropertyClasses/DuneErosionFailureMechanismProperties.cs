@@ -40,7 +40,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int isRelevantPropertyIndex = 3;
-        private const int lengthEffectPropertyIndex = 4;
+        private const int nPropertyIndex = 4;
         private readonly IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> propertyChangeHandler;
 
         /// <summary>
@@ -68,11 +68,11 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         #region Length effect parameters
 
         [DynamicVisible]
-        [PropertyOrder(lengthEffectPropertyIndex)]
+        [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
-        public RoundedDouble LengthEffect
+        public RoundedDouble N
         {
             get
             {
@@ -111,7 +111,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
-            return nameof(LengthEffect).Equals(propertyName);
+            return nameof(N).Equals(propertyName);
         }
 
         #region General

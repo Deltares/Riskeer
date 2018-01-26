@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 
@@ -95,12 +96,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
-            Assert.AreEqual(generalInput.GravitationalAcceleration.Value,
-                            properties.GravitationalAcceleration.Value);
+            Assert.AreEqual(generalInput.GravitationalAcceleration,
+                            properties.GravitationalAcceleration);
 
-            Assert.AreEqual(generalInput.C.Value, properties.C.Value);
+            Assert.AreEqual(generalInput.C, properties.C);
             Assert.AreEqual(generalInput.N2A, properties.N2A);
-            Assert.AreEqual(generalInput.N.Value, properties.LengthEffect.Value);
+            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(generalInput.N, properties.N, properties.N.GetAccuracy());
 
             Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.Mean, properties.ModelFactorOvertoppingFlow.Mean);
             Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.StandardDeviation, properties.ModelFactorOvertoppingFlow.StandardDeviation);
@@ -108,7 +110,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.ModelFactorStorageVolume.StandardDeviation, properties.ModelFactorStorageVolume.StandardDeviation);
             Assert.AreEqual(generalInput.ModelFactorSubCriticalFlow.Mean, properties.ModelFactorSubCriticalFlow.Mean);
             Assert.AreEqual(generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation, properties.ModelFactorSubCriticalFlow.CoefficientOfVariation);
-            Assert.AreEqual(generalInput.ModelFactorInflowVolume.Value, properties.ModelFactorInflowVolume.Value);
+            Assert.AreEqual(generalInput.ModelFactorInflowVolume, properties.ModelFactorInflowVolume);
 
             mocks.VerifyAll();
         }
@@ -178,11 +180,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "2NA [-]",
                                                                             "De parameter '2NA' die gebruikt wordt om het lengte-effect te berekenen.");
 
-            PropertyDescriptor lengthEffectProperty = dynamicProperties[6];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthEffectProperty,
+            PropertyDescriptor nProperty = dynamicProperties[6];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectCategory,
-                                                                            "N [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.",
+                                                                            "N* [-]",
+                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
 
             PropertyDescriptor modelFactorOvertoppingFlowProperty = dynamicProperties[7];
@@ -354,7 +356,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.C)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N2A)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.LengthEffect)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorOvertoppingFlow)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));

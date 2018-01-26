@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -37,6 +38,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.MacroStabilityInwards.Data;
 
@@ -738,7 +740,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(originalInput, section.GrassCoverErosionInwards.InputComments.Body);
             Assert.AreEqual(originalOutput, section.GrassCoverErosionInwards.OutputComments.Body);
             Assert.AreEqual(originalNotRelevantText, section.GrassCoverErosionInwards.NotRelevantComments.Body);
-            Assert.AreEqual(n, section.GrassCoverErosionInwards.GeneralInput.N);
+            RoundedDouble actualN = section.GrassCoverErosionInwards.GeneralInput.N;
+            Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]
@@ -858,7 +861,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.GrassCoverErosionOutwards.InputComments.Body);
             Assert.AreEqual(outputComments, section.GrassCoverErosionOutwards.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.GrassCoverErosionOutwards.NotRelevantComments.Body);
-            Assert.AreEqual(n, section.GrassCoverErosionOutwards.GeneralInput.N);
+            RoundedDouble actualN = section.GrassCoverErosionOutwards.GeneralInput.N;
+            Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]

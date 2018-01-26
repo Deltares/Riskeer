@@ -492,7 +492,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism,
                                                                               IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N = 8;
+            failureMechanism.GeneralInput.N = (RoundedDouble) 8;
 
             StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure("id structure1");
             failureMechanism.StabilityPointStructures.AddRange(new[]
@@ -802,7 +802,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureHeightStructuresFailureMechanism(HeightStructuresFailureMechanism failureMechanism,
                                                                       IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N = 5;
+            failureMechanism.GeneralInput.N = (RoundedDouble) 5.0;
 
             List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
 
@@ -1403,7 +1403,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             ZoneBoundaryLeft = (RoundedDouble) 10,
                             ZoneBoundaryRight = (RoundedDouble) 12
                         },
-                        Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
+                        Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
                     },
                     new MacroStabilityInwardsCalculationScenario
                     {
@@ -1485,7 +1485,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             ZoneBoundaryLeft = (RoundedDouble) 5.4,
                             ZoneBoundaryRight = (RoundedDouble) 6.5
                         },
-                        Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
+                        Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
                     }
                 }
             });
@@ -1625,7 +1625,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                               IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N = 15;
+            failureMechanism.GeneralInput.N = (RoundedDouble) 15;
             var dikeProfile1 = new DikeProfile(new Point2D(1, 2),
                                                new[]
                                                {
@@ -1701,7 +1701,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             UseForeshore = true,
                             UseBreakWater = true
                         },
-                        Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, new ProbabilityAssessmentOutput(0.004, 0.95, 0.00003, 1.1, 4.5), null),
+                        Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, new ProbabilityAssessmentOutput(0.004, 0.95, 0.00003, 1.1, 4.5), null),
                                                                     new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, null),
                                                                     new OvertoppingRateOutput(0.57, 0.07, 4, 0.08, 5, CalculationConvergence.CalculatedConverged, null))
                     },
@@ -1736,7 +1736,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             ShouldDikeHeightIllustrationPointsBeCalculated = true,
                             ShouldOvertoppingRateIllustrationPointsBeCalculated = true
                         },
-                        Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, new ProbabilityAssessmentOutput(0.004, 0.95, 0.00003, 1.1, 4.5), GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
+                        Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, new ProbabilityAssessmentOutput(0.004, 0.95, 0.00003, 1.1, 4.5), GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
                                                                     new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
                                                                     new OvertoppingRateOutput(0.57, 0.07, 4, 0.08, 5, CalculationConvergence.CalculatedConverged, GetConfiguredGeneralResultFaultTreeIllustrationPoint()))
                     }
@@ -1780,7 +1780,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void ConfigureGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            failureMechanism.GeneralInput.N = 15;
+            failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
 
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = failureMechanism.HydraulicBoundaryLocations;
             hydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(0, "HL 1", 100, 200));

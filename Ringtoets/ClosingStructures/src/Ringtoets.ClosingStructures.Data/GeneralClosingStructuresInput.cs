@@ -100,6 +100,7 @@ namespace Ringtoets.ClosingStructures.Data
                                                    validityRangeN2A);
                     throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
+
                 n2A = value;
             }
         }
@@ -107,11 +108,11 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
-        public RoundedDouble N
+        public double N
         {
             get
             {
-                return new RoundedDouble(2, Math.Max(1, C * N2A));
+                return Math.Max(1, C * N2A);
             }
         }
 

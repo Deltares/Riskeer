@@ -31,15 +31,15 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// </summary>
     public class GeneralStabilityPointStructuresInput
     {
-        private static readonly Range<int> validityRangeN = new Range<int>(1, 20);
-        private int n;
+        private static readonly Range<double> validityRangeN = new Range<double>(1.0, 20.0);
+        private RoundedDouble n;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralStabilityPointStructuresInput"/> class.
         /// </summary>
         public GeneralStabilityPointStructuresInput()
         {
-            n = 3;
+            n = new RoundedDouble(2, 3.0);
 
             GravitationalAcceleration = new RoundedDouble(2, 9.81);
 
@@ -88,7 +88,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is not in
         /// the interval [1, 20].</exception>
-        public int N
+        public RoundedDouble N
         {
             get
             {
@@ -101,7 +101,8 @@ namespace Ringtoets.StabilityPointStructures.Data
                     throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.N_Value_should_be_in_Range_0_,
                                                                                        validityRangeN));
                 }
-                n = value;
+
+                n = value.ToPrecision(n.NumberOfDecimalPlaces);
             }
         }
 

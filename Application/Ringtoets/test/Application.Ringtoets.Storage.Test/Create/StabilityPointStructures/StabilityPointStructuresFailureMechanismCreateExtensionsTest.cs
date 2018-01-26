@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.StabilityPointStructures;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -75,7 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
                 },
                 GeneralInput =
                 {
-                    N = 4
+                    N = (RoundedDouble) 4
                 }
             };
             var registry = new PersistenceRegistry();

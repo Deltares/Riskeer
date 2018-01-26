@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Util;
+using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
@@ -33,33 +34,38 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Calculates the semi-probabilistic results given a <see cref="MacroStabilityInwardsCalculation"/> with <see cref="MacroStabilityInwardsOutput"/>.
         /// </summary>
         /// <param name="output">The output of a calculation.</param>
-        /// <param name="probabilityAssessmentInput">General input that influences the probability estimate for a
-        /// macro stability inwards assessment.</param>
-        /// <param name="norm">The norm to assess for.</param>
-        /// <param name="contribution">The contribution of macro stability inwards as a percentage (0-100) to the total of the failure probability
-        /// of the assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> or <paramref name="probabilityAssessmentInput"/>
-        /// is <c>null</c>.</exception>
+        /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the output belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static DerivedMacroStabilityInwardsOutput Create(MacroStabilityInwardsOutput output,
-                                                                MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput,
-                                                                double norm, double contribution)
+                                                                MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                                IAssessmentSection assessmentSection)
         {
             if (output == null)
             {
                 throw new ArgumentNullException(nameof(output));
             }
 
-            if (probabilityAssessmentInput == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(probabilityAssessmentInput));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
+            double contribution = failureMechanism.Contribution / 100;
+            double norm = assessmentSection.FailureMechanismContribution.Norm;
 
             double factorOfStability = output.FactorOfStability;
             double requiredProbability = CalculateRequiredProbability(probabilityAssessmentInput.A,
                                                                       probabilityAssessmentInput.B,
                                                                       probabilityAssessmentInput.SectionLength,
                                                                       norm,
-                                                                      contribution / 100);
+                                                                      contribution);
             double requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
 
             double macroStabilityInwardsReliability = CalculateEstimatedReliability(factorOfStability);

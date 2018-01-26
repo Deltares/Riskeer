@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Service
         /// <item><paramref name="n"/> is not larger than 0.</item>
         /// </list>
         /// </exception>
-        public static double ProfileSpecificRequiredProbability(double norm, double failureMechanismContribution, int n)
+        public static double ProfileSpecificRequiredProbability(double norm, double failureMechanismContribution, RoundedDouble n)
         {
             if (!normValidityRange.InRange(norm))
             {

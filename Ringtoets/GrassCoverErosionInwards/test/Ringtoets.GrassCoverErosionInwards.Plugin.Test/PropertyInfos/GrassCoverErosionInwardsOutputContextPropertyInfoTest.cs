@@ -23,6 +23,9 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -61,6 +64,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         public void CreateInstance_Always_NewPropertiesWithData()
         {
             // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
             var output = new TestGrassCoverErosionInwardsOutput();
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -68,11 +76,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
             };
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(new GrassCoverErosionInwardsOutputContext(calculation));
+            IObjectProperties objectProperties = info.CreateInstance(new GrassCoverErosionInwardsOutputContext(calculation, failureMechanism, assessmentSection));
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsOutputProperties>(objectProperties);
             Assert.AreSame(output, objectProperties.Data);
+            mocks.VerifyAll();
         }
     }
 }

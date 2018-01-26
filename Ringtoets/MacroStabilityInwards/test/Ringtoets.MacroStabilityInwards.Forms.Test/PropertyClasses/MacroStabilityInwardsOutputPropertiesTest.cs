@@ -129,10 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
-                output,
-                failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
-                assessmentSection.FailureMechanismContribution.Norm,
-                failureMechanism.Contribution);
+                output, failureMechanism, assessmentSection);
 
             Assert.AreEqual(expectedDerivedOutput.FactorOfStability, properties.MacroStabilityInwardsFactorOfStability,
                             properties.MacroStabilityInwardsFactorOfStability.GetAccuracy());

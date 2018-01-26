@@ -46,7 +46,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         private const int cPropertyIndex = 5;
         private const int n2APropertyIndex = 6;
-        private const int lengthEffectPropertyIndex = 7;
+        private const int nPropertyIndex = 7;
 
         private const int modelFactorOvertoppingFlowPropertyIndex = 8;
         private const int modelFactorStorageVolumePropertyIndex = 9;
@@ -69,10 +69,12 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (handler == null)
             {
                 throw new ArgumentNullException(nameof(handler));
             }
+
             Data = data;
             propertyChangeHandler = handler;
         }
@@ -84,6 +86,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             {
                 return false;
             }
+
             return true;
         }
 
@@ -104,7 +107,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                    || nameof(ModelFactorInflowVolume).Equals(propertyName)
                    || nameof(C).Equals(propertyName)
                    || nameof(N2A).Equals(propertyName)
-                   || nameof(LengthEffect).Equals(propertyName);
+                   || nameof(N).Equals(propertyName);
         }
 
         #region Length effect parameters
@@ -112,8 +115,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(cPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismContextProperties_C_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismContextProperties_C_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_C_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_C_Description))]
         public RoundedDouble C
         {
             get
@@ -125,8 +128,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(n2APropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismContextProperties_N2A_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismContextProperties_N2A_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_N2A_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_N2A_Description))]
         public int N2A
         {
             get
@@ -145,15 +148,15 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(lengthEffectPropertyIndex)]
+        [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
-        public RoundedDouble LengthEffect
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_Description))]
+        public RoundedDouble N
         {
             get
             {
-                return data.GeneralInput.N;
+                return new RoundedDouble(2, data.GeneralInput.N);
             }
         }
 

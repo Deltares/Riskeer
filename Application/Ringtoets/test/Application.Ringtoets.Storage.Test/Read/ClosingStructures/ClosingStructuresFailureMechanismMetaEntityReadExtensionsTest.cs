@@ -30,7 +30,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
     public class ClosingStructuresFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void Read_Always_ReturnClosingStructuresGeneralInput()
+        public void Read_Always_ReturnGeneralClosingStructuresInput()
         {
             // Setup
             var entity = new ClosingStructuresFailureMechanismMetaEntity

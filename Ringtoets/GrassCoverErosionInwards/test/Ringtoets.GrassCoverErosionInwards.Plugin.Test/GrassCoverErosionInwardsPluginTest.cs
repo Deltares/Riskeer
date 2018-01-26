@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionInwardsFailureMechanismContext),
-                    typeof(GrassCoverErosionInwardsFailureMechanismContextProperties));
+                    typeof(GrassCoverErosionInwardsFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

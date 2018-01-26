@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.HeightStructures;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
@@ -73,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
                 },
                 GeneralInput =
                 {
-                    N = 7
+                    N = (RoundedDouble) 7.0
                 }
             };
             var registry = new PersistenceRegistry();

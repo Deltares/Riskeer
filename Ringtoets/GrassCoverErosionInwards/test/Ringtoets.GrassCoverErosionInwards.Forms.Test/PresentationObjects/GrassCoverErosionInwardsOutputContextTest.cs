@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 
@@ -30,17 +33,55 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
     public class GrassCoverErosionInwardsOutputContextTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
-            var grassCoverErosionInwardsOutputContext = new GrassCoverErosionInwardsOutputContext(calculation);
+            var grassCoverErosionInwardsOutputContext = new GrassCoverErosionInwardsOutputContext(calculation, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<GrassCoverErosionInwardsCalculation>>(grassCoverErosionInwardsOutputContext);
             Assert.AreSame(calculation, grassCoverErosionInwardsOutputContext.WrappedData);
+            Assert.AreSame(failureMechanism, grassCoverErosionInwardsOutputContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, grassCoverErosionInwardsOutputContext.AssessmentSection);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructror_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation(), null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation(),
+                                                                                new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }

@@ -109,8 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(calculation.Contribution * 100, row.Contribution);
 
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
-                calculation.Output, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
-                assessmentSection.FailureMechanismContribution.Norm, failureMechanism.Contribution);
+                calculation.Output, failureMechanism, assessmentSection);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.MacroStabilityInwardsProbability), row.FailureProbabilityMacroStabilityInwards);
         }
 

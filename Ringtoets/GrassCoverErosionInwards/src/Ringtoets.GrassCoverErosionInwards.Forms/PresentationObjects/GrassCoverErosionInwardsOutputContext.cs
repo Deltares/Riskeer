@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
@@ -33,6 +35,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The grass cover erosion inwards calculation wrapped by the context object.</param>
-        public GrassCoverErosionInwardsOutputContext(GrassCoverErosionInwardsCalculation wrappedData) : base(wrappedData) {}
+        /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsOutputContext(GrassCoverErosionInwardsCalculation wrappedData,
+                                                     GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                     IAssessmentSection assessmentSection)
+            : base(wrappedData)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        public GrassCoverErosionInwardsFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
     }
 }

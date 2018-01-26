@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 
@@ -46,10 +47,10 @@ namespace Ringtoets.Common.Service.Test
         public void ProfileSpecificRequiredProbability_WithValidParameters_ReturnSpecificProbability(
             [Values(1, 0.5, 0)] double norm,
             [Values(100, 50, 0)] double failureMechanismContribution,
-            [Values(10, 1)] int n)
+            [Values(10, 1)] double n)
         {
             // Call
-            double probability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
+            double probability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, (RoundedDouble) n);
 
             // Assert
             double expectedProfileSpecificRequiredProbability = norm * (failureMechanismContribution / 100) / n;
@@ -59,11 +60,12 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         [SetCulture("nl-NL")]
         public void ProfileSpecificRequiredProbability_WithInvalidNorm_ThrowsArgumentException(
-            [Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)] double norm)
+            [Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)]
+            double norm)
         {
             // Setup
             const double failureMechanismContribution = 50;
-            const int n = 10;
+            var n = (RoundedDouble) 10;
 
             // Call
             TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
@@ -79,11 +81,12 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         [SetCulture("nl-NL")]
         public void ProfileSpecificRequiredProbability_WithInvalidFailureMechanismContribution_ThrowsArgumentException(
-            [Values(150, 100 + 1e-6, -1e-6, -150, double.NaN)] double failureMechanismContribution)
+            [Values(150, 100 + 1e-6, -1e-6, -150, double.NaN)]
+            double failureMechanismContribution)
         {
             // Setup
             const double norm = 0.5;
-            const int n = 10;
+            var n = (RoundedDouble) 10;
 
             // Call
             TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
@@ -97,14 +100,14 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ProfileSpecificRequiredProbability_WithInvalidN_ThrowsArgumentException([Values(0, -1)] int n)
+        public void ProfileSpecificRequiredProbability_WithInvalidN_ThrowsArgumentException([Values(0, -1)] double n)
         {
             // Setup
             const double norm = 0.5;
             const double failureMechanismContribution = 50;
 
             // Call
-            TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
+            TestDelegate action = () => RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, (RoundedDouble) n);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(action);

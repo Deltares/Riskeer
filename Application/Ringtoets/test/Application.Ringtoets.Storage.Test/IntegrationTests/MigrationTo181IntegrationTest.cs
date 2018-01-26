@@ -286,11 +286,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertStabilityStoneCoverFailureMechanism(MigratedDatabaseReader reader)
         {
-            const string validatePreprocessorSettings =
+            const string validateStabilityStoneCoverFailureMechanism =
                 "SELECT COUNT() = 0 " +
-                "FROM [StabilityStoneCoverFailureMechanismMetaEntity]" +
+                "FROM [StabilityStoneCoverFailureMechanismMetaEntity] " +
                 "WHERE [N] IS NOT 4;";
-            reader.AssertReturnedDataIsValid(validatePreprocessorSettings);
+            reader.AssertReturnedDataIsValid(validateStabilityStoneCoverFailureMechanism);
         }
     }
 }

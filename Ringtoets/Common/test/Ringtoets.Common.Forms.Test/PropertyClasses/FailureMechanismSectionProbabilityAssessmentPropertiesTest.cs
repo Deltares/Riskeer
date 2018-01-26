@@ -105,8 +105,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Eindpunt van het vak (X-coördinaat, Y-coördinaat).",
                                                                             true);
 
-            PropertyDescriptor NProperty = dynamicProperties[4];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(NProperty,
+            PropertyDescriptor nProperty = dynamicProperties[4];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             "Algemeen",
                                                                             "N* [-]",
                                                                             "Vakspecifieke waarde voor het in rekening brengen van " +

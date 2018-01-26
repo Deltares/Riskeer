@@ -26,9 +26,12 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -40,19 +43,40 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsOutputProperties : ObjectProperties<GrassCoverErosionInwardsOutput>
     {
+        private readonly ProbabilityAssessmentOutput derivedOvertoppingOutput;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutputProperties"/>.
         /// </summary>
         /// <param name="grassCoverErosionInwardsOutput">The grass cover erosion inwards output to create the object properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="grassCoverErosionInwardsOutput"/> is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsOutputProperties(GrassCoverErosionInwardsOutput grassCoverErosionInwardsOutput)
+        /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the output belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsOutputProperties(GrassCoverErosionInwardsOutput grassCoverErosionInwardsOutput,
+                                                        GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                        IAssessmentSection assessmentSection)
         {
             if (grassCoverErosionInwardsOutput == null)
             {
                 throw new ArgumentNullException(nameof(grassCoverErosionInwardsOutput));
             }
 
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             Data = grassCoverErosionInwardsOutput;
+
+            derivedOvertoppingOutput = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
+                                                                              failureMechanism.Contribution,
+                                                                              failureMechanism.GeneralInput.N,
+                                                                              grassCoverErosionInwardsOutput.OvertoppingOutput.Reliability);
         }
 
         [DynamicVisibleValidationMethod]
@@ -73,7 +97,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredProbability);
+                return ProbabilityFormattingHelper.Format(derivedOvertoppingOutput.RequiredProbability);
             }
         }
 
@@ -85,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredReliability;
+                return derivedOvertoppingOutput.RequiredReliability;
             }
         }
 
@@ -97,7 +121,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.OvertoppingOutput.ProbabilityAssessmentOutput.Probability);
+                return ProbabilityFormattingHelper.Format(derivedOvertoppingOutput.Probability);
             }
         }
 
@@ -109,7 +133,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.OvertoppingOutput.ProbabilityAssessmentOutput.Reliability;
+                return derivedOvertoppingOutput.Reliability;
             }
         }
 
@@ -121,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.OvertoppingOutput.ProbabilityAssessmentOutput.FactorOfSafety;
+                return derivedOvertoppingOutput.FactorOfSafety;
             }
         }
 

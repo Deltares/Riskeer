@@ -51,7 +51,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             var generalHeightStructuresInput = new GeneralHeightStructuresInput();
 
             // Assert
-            Assert.AreEqual(2, generalHeightStructuresInput.N);
+            Assert.AreEqual(2, generalHeightStructuresInput.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(2.0, generalHeightStructuresInput.N, generalHeightStructuresInput.N.GetAccuracy());
 
             Assert.AreEqual(2, generalHeightStructuresInput.GravitationalAcceleration.NumberOfDecimalPlaces);
             Assert.AreEqual(9.81, generalHeightStructuresInput.GravitationalAcceleration, generalHeightStructuresInput.GravitationalAcceleration.GetAccuracy());
@@ -64,34 +65,34 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        [TestCase(1)]
-        [TestCase(10)]
-        [TestCase(20)]
-        public void N_ValueInsideValidRegion_DoesNotThrow(int value)
+        [TestCase(1.0)]
+        [TestCase(10.0)]
+        [TestCase(20.0)]
+        public void N_ValueInsideValidRegion_DoesNotThrow(double value)
         {
             // Setup
             var generalHeightStructuresInput = new GeneralHeightStructuresInput();
 
             // Call
-            TestDelegate test = () => generalHeightStructuresInput.N = value;
+            TestDelegate test = () => generalHeightStructuresInput.N = (RoundedDouble) value;
 
             // Assert
             Assert.DoesNotThrow(test);
-            Assert.AreEqual(value, generalHeightStructuresInput.N);
+            Assert.AreEqual(value, generalHeightStructuresInput.N, generalHeightStructuresInput.N.GetAccuracy());
         }
 
         [Test]
-        [TestCase(-10)]
-        [TestCase(0)]
-        [TestCase(21)]
-        [TestCase(50)]
-        public void N_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(int value)
+        [TestCase(-10.0)]
+        [TestCase(0.0)]
+        [TestCase(21.0)]
+        [TestCase(50.0)]
+        public void N_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
             var generalHeightStructuresInput = new GeneralHeightStructuresInput();
 
             // Call
-            TestDelegate test = () => generalHeightStructuresInput.N = value;
+            TestDelegate test = () => generalHeightStructuresInput.N = (RoundedDouble) value;
 
             // Assert
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1, 20] liggen.";

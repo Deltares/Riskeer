@@ -67,8 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             if (Calculation.HasOutput)
             {
-                derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
-                                                                                 assessmentSection.FailureMechanismContribution.Norm, failureMechanism.Contribution);
+                derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism, assessmentSection);
             }
         }
 
