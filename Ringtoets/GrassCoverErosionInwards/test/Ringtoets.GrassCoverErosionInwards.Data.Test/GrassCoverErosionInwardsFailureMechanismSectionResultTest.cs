@@ -44,7 +44,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
             Assert.IsNaN(result.AssessmentLayerThree);
-            Assert.IsNaN(result.AssessmentLayerTwoA);
         }
 
         [Test]
@@ -60,71 +59,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.AreSame(calculation, result.Calculation);
-        }
-
-        [Test]
-        public void AssessmentLayerTwoA_CalculationNull_ReturnNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                Calculation = null
-            };
-
-            // Call
-            double twoAValue = result.AssessmentLayerTwoA;
-
-            // Assert
-            Assert.IsNaN(twoAValue);
-        }
-
-        [Test]
-        public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                Calculation = new GrassCoverErosionInwardsCalculation
-                {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
-                                                                new TestDikeHeightOutput(double.NaN),
-                                                                new TestOvertoppingRateOutput(double.NaN))
-                }
-            };
-
-            // Call
-            double twoAValue = result.AssessmentLayerTwoA;
-
-            // Assert
-            Assert.IsNaN(twoAValue);
-        }
-
-        [Test]
-        public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            const double probability = 0.65;
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                Calculation = new GrassCoverErosionInwardsCalculation
-                {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(probability),
-                                                                new TestDikeHeightOutput(double.NaN),
-                                                                new TestOvertoppingRateOutput(double.NaN))
-                }
-            };
-
-            // Call
-            double twoAValue = result.AssessmentLayerTwoA;
-
-            // Assert
-            Assert.AreEqual(probability, twoAValue);
         }
 
         [Test]

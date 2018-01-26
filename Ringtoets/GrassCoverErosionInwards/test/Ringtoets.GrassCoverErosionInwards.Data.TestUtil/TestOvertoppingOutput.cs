@@ -32,8 +32,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestOvertoppingOutput"/>.
         /// </summary>
-        /// <param name="probability">The probability to set to the output.</param>
-        public TestOvertoppingOutput(double probability)
-            : base(1, true, 0, new ProbabilityAssessmentOutput(0, 0, probability, 0, 0), null) {}
+        /// <param name="reliability">The reliability to set to the output.</param>
+        public TestOvertoppingOutput(double reliability)
+            : base(1, true, reliability, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), null) {}
     }
 }

@@ -422,10 +422,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Given
             using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                const double probability = 0.56789;
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(probability),
+                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.56789),
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 };
@@ -449,7 +448,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), formattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
             }
         }
@@ -489,10 +488,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Given
             using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                const double probability = 0.56789;
                 var successfulCalculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(probability),
+                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.56789),
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 };
@@ -522,7 +520,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Precondition
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), formattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
                 // When
@@ -538,7 +536,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         private static IEnumerable AssessmentLayerOneStateIsSufficientVariousSectionResults()
         {
             FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-            const double probability = 0.56789;
+            const double reliability = 0.56789;
 
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
@@ -564,11 +562,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(probability),
+                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(reliability),
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 }
-            }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutput");
+            }, ProbabilityFormattingHelper.Format(0.25)).SetName("SectionWithValidCalculationOutput");
         }
 
         private static FailureMechanismSection CreateSimpleFailureMechanismSection()

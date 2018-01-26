@@ -90,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerTwoA;
+                return SectionResult.GetAssessmentLayerTwoA(failureMechanism, assessmentSection);
             }
         }
 

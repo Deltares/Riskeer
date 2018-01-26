@@ -42,11 +42,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
@@ -56,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverErosionInwardsFailureMechanismSectionResult>>(row);
-            Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
+            Assert.AreEqual(result.GetAssessmentLayerTwoA(failureMechanism, assessmentSection), row.AssessmentLayerTwoA);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
@@ -132,11 +131,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             var calculation = new GrassCoverErosionInwardsCalculation();
             if (status == CalculationScenarioStatus.Failed)
@@ -166,16 +164,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
         {
             // Setup
-            const double probability = 0.95;
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(probability),
+                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.95),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };
@@ -192,7 +188,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(probability, assessmentLayerTwoA);
+            Assert.AreEqual(0.17105612630848185, assessmentLayerTwoA);
             mocks.VerifyAll();
         }
 
