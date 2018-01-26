@@ -19,6 +19,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="WaveConditionsInput.cs" />
+    <Compile Include="WaveConditionsInputExtensions.cs" />
     <Compile Include="WaveConditionsInputStepSize.cs" />
     <Compile Include="WaveConditionsInputStepSizeExtensions.cs" />
     <Compile Include="WaveConditionsOutput.cs" />
