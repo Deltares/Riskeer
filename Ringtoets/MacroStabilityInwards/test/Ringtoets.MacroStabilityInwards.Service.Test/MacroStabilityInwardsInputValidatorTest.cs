@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_InputNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsInputValidator.Validate(null);
+            TestDelegate test = () => MacroStabilityInwardsInputValidator.Validate(null, RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_ValidInput_ReturnsEmpty()
         {
             // Call
-            string[] messages = MacroStabilityInwardsInputValidator.Validate(input).ToArray();
+            string[] messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -84,7 +84,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryLocationNotCalculated_ReturnsError()
+        public void Validate_AssessmentLevelNotCalculated_ReturnsError()
         {
             // Setup
             input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -602,6 +602,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                             }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("X further than x of surfaceLine");
+        }
+
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
     }
 }
