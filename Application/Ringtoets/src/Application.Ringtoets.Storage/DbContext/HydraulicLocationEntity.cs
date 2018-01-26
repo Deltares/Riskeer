@@ -50,14 +50,14 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long HydraulicLocationEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
-        public long HydraulicLocationCalculationEntity_DesignWaterLevelCalculationOneId { get; set; }
-        public long HydraulicLocationCalculationEntity_DesignWaterLevelCalculationTwoId { get; set; }
-        public long HydraulicLocationCalculationEntity_DesignWaterLevelCalculationThreeId { get; set; }
-        public long HydraulicLocationCalculationEntity_DesignWaterLevelCalculationFourId { get; set; }
-        public long HydraulicLocationCalculationEntity_WaveHeightCalculationOneId { get; set; }
-        public long HydraulicLocationCalculationEntity_WaveHeightCalculationTwoId { get; set; }
-        public long HydraulicLocationCalculationEntity_WaveHeightCalculationThreeId { get; set; }
-        public long HydraulicLocationCalculationEntity_WaveHeightCalculationFourId { get; set; }
+        public long HydraulicLocationCalculationEntity1Id { get; set; }
+        public long HydraulicLocationCalculationEntity2Id { get; set; }
+        public long HydraulicLocationCalculationEntity3Id { get; set; }
+        public long HydraulicLocationCalculationEntity4Id { get; set; }
+        public long HydraulicLocationCalculationEntity5Id { get; set; }
+        public long HydraulicLocationCalculationEntity6Id { get; set; }
+        public long HydraulicLocationCalculationEntity7Id { get; set; }
+        public long HydraulicLocationCalculationEntity8Id { get; set; }
         public long LocationId { get; set; }
         public string Name { get; set; }
         public double? LocationX { get; set; }

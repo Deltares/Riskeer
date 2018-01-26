@@ -648,14 +648,14 @@
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationOneId" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationTwoId" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationThreeId" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationFourId" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationOneId" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationTwoId" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationThreeId" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationFourId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity1Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity2Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity3Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity4Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity5Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity6Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity7Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity8Id" Type="integer" Nullable="false" />
           <Property Name="LocationId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="LocationX" Type="real" />
@@ -2306,7 +2306,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationTwoId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity8Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2318,7 +2318,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationThreeId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity7Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2330,7 +2330,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationOneId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity6Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2342,7 +2342,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationFourId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity5Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2354,7 +2354,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationTwoId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity4Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2366,7 +2366,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationThreeId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity3Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2378,7 +2378,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationOneId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity2Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2390,7 +2390,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationFourId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity1Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5294,14 +5294,14 @@
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationOneId" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationTwoId" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationThreeId" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationFourId" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationOneId" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationTwoId" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationThreeId" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity_WaveHeightCalculationFourId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity1Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity2Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity3Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity4Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity5Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity6Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity7Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntity8Id" Type="Int64" Nullable="false" />
           <Property Name="LocationId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="LocationX" Type="Double" />
@@ -7360,7 +7360,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationTwoId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity8Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7372,7 +7372,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationThreeId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity7Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7384,7 +7384,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationOneId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity6Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7396,7 +7396,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_WaveHeightCalculationFourId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity5Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7408,7 +7408,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationTwoId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity4Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7420,7 +7420,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationThreeId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity3Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7432,7 +7432,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationOneId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity2Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7444,7 +7444,7 @@
               <PropertyRef Name="HydraulicLocationCalculationEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationFourId" />
+              <PropertyRef Name="HydraulicLocationCalculationEntity1Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8524,14 +8524,14 @@
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity_WaveHeightCalculationFourId" ColumnName="HydraulicLocationCalculationEntity_WaveHeightCalculationFourId" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity_WaveHeightCalculationThreeId" ColumnName="HydraulicLocationCalculationEntity_WaveHeightCalculationThreeId" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity_WaveHeightCalculationTwoId" ColumnName="HydraulicLocationCalculationEntity_WaveHeightCalculationTwoId" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity_WaveHeightCalculationOneId" ColumnName="HydraulicLocationCalculationEntity_WaveHeightCalculationOneId" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationFourId" ColumnName="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationFourId" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationThreeId" ColumnName="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationThreeId" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationTwoId" ColumnName="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationTwoId" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationOneId" ColumnName="HydraulicLocationCalculationEntity_DesignWaterLevelCalculationOneId" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity8Id" ColumnName="HydraulicLocationCalculationEntity8Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity7Id" ColumnName="HydraulicLocationCalculationEntity7Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity6Id" ColumnName="HydraulicLocationCalculationEntity6Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity5Id" ColumnName="HydraulicLocationCalculationEntity5Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity4Id" ColumnName="HydraulicLocationCalculationEntity4Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity3Id" ColumnName="HydraulicLocationCalculationEntity3Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity2Id" ColumnName="HydraulicLocationCalculationEntity2Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntity1Id" ColumnName="HydraulicLocationCalculationEntity1Id" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
                 <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
               </MappingFragment>
