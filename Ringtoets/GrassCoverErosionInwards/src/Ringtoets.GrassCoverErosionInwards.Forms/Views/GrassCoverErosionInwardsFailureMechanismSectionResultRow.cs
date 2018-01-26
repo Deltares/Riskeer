@@ -40,7 +40,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// the source of this row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is
         /// <c>null</c>.</exception>
-        public GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+        public GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult) 
+            : base(sectionResult) {}
 
         /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.

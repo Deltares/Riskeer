@@ -19,6 +19,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GrassCoverErosionInwardsFailureMechanismSection2aAssessmentResultExtensionsTest.cs" />
     <Compile Include="GrassCoverErosionInwardsProbabilityAssessmentOutputFactoryTest.cs" />
     <Compile Include="OvertoppingOutputTest.cs" />
     <Compile Include="OvertoppingRateOutputTest.cs" />
