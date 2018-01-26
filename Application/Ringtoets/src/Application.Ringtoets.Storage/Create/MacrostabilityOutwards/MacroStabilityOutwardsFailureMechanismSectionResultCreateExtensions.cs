@@ -23,22 +23,22 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Application.Ringtoets.Storage.Create.MacrostabilityOutwards
+namespace Application.Ringtoets.Storage.Create.MacroStabilityOutwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/> related to creating a 
-    /// <see cref="MacrostabilityOutwardsSectionResultEntity"/>.
+    /// <see cref="MacroStabilityOutwardsSectionResultEntity"/>.
     /// </summary>
     internal static class MacroStabilityOutwardsFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="MacrostabilityOutwardsSectionResultEntity"/> based on the information of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="MacroStabilityOutwardsSectionResultEntity"/> based on the information of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <returns>A new <see cref="MacrostabilityOutwardsSectionResultEntity"/>.</returns>
-        internal static MacrostabilityOutwardsSectionResultEntity Create(this MacroStabilityOutwardsFailureMechanismSectionResult result)
+        /// <returns>A new <see cref="MacroStabilityOutwardsSectionResultEntity"/>.</returns>
+        internal static MacroStabilityOutwardsSectionResultEntity Create(this MacroStabilityOutwardsFailureMechanismSectionResult result)
         {
-            var sectionResultEntity = new MacrostabilityOutwardsSectionResultEntity
+            var sectionResultEntity = new MacroStabilityOutwardsSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
                 LayerTwoA = result.AssessmentLayerTwoA.ToNaNAsNull(),

@@ -35,6 +35,7 @@ namespace Application.Ringtoets.Storage.DbContext
 {
     public partial class RingtoetsEntities : System.Data.Entity.DbContext
     {
+        public virtual DbSet<MacroStabilityOutwardsSectionResultEntity> MacroStabilityOutwardsSectionResultEntities { get; set; }
         public virtual DbSet<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
         public virtual DbSet<BackgroundDataEntity> BackgroundDataEntities { get; set; }
         public virtual DbSet<BackgroundDataMetaEntity> BackgroundDataMetaEntities { get; set; }
@@ -90,7 +91,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<MacroStabilityInwardsSoilProfileOneDEntity> MacroStabilityInwardsSoilProfileOneDEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsSoilProfileTwoDEntity> MacroStabilityInwardsSoilProfileTwoDEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsStochasticSoilProfileEntity> MacroStabilityInwardsStochasticSoilProfileEntities { get; set; }
-        public virtual DbSet<MacrostabilityOutwardsSectionResultEntity> MacrostabilityOutwardsSectionResultEntities { get; set; }
+        public virtual DbSet<MacroStabilityOutwardsFailureMechanismMetaEntity> MacroStabilityOutwardsFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<MicrostabilitySectionResultEntity> MicrostabilitySectionResultEntities { get; set; }
         public virtual DbSet<PipingCalculationEntity> PipingCalculationEntities { get; set; }
         public virtual DbSet<PipingCalculationOutputEntity> PipingCalculationOutputEntities { get; set; }

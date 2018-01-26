@@ -241,7 +241,10 @@
     <Compile Include="DbContext\MacroStabilityInwardsStochasticSoilProfileEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\MacrostabilityOutwardsSectionResultEntity.cs">
+    <Compile Include="DbContext\MacroStabilityOutwardsFailureMechanismMetaEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\MacroStabilityOutwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MicrostabilitySectionResultEntity.cs">
@@ -396,6 +399,7 @@
     <Compile Include="Read\IllustrationPoints\TopLevelSubMechanismIllustrationPointReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsCalculationOutputEntityReadExtensions.cs" />
+    <Compile Include="Read\MacroStabilityOutwards\MacroStabilityOutwardsFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsPreconsolidationStressEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayerTwoDEntityReadExtensions.cs" />
@@ -502,7 +506,7 @@
     <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityOutwardsSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\MacroStabilityOutwards\MacroStabilityOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensions.cs" />

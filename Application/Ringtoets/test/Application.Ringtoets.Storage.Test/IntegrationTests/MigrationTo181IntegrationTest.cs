@@ -63,6 +63,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertPipingSoilLayers(reader);
                     AssertHydraRingPreprocessor(reader);
                     AssertStabilityStoneCoverFailureMechanism(reader);
+                    AssertMacroStabilityOutwardsFailureMechanism(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -133,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "MacroStabilityInwardsSoilProfileTwoDEntity",
                 "MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity",
                 "MacroStabilityInwardsStochasticSoilProfileEntity",
-                "MacrostabilityOutwardsSectionResultEntity",
+                "MacroStabilityOutwardsSectionResultEntity",
                 "MicrostabilitySectionResultEntity",
                 "PipingCalculationEntity",
                 "PipingCalculationOutputEntity",
@@ -279,6 +280,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM [StabilityStoneCoverFailureMechanismMetaEntity] " +
                 "WHERE [N] IS NOT 4;";
             reader.AssertReturnedDataIsValid(validateStabilityStoneCoverFailureMechanism);
+        }
+
+        private static void AssertMacroStabilityOutwardsFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateFailureMechanisms =
+                "SELECT COUNT() = (SELECT COUNT() FROM FailureMechanismEntity WHERE FailureMechanismType = 13) " +
+                "FROM [MacroStabilityOutwardsFailureMechanismMetaEntity] " +
+                "WHERE [A] = 0.033 " +
+                "AND [FailureMechanismEntityId] IN " +
+                "(SELECT [FailureMechanismEntityId] FROM [FailureMechanismEntity] WHERE [FailureMechanismType] = 13);";
+            reader.AssertReturnedDataIsValid(validateFailureMechanisms);
         }
     }
 }

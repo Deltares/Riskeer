@@ -935,11 +935,19 @@
           <Property Name="Probability" Type="real" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="MacrostabilityOutwardsSectionResultEntity">
+        <EntityType Name="MacroStabilityOutwardsFailureMechanismMetaEntity">
           <Key>
-            <PropertyRef Name="MacrostabilityOutwardsSectionResultEntityId" />
+            <PropertyRef Name="MacroStabilityOutwardsFailureMechanismMetaEntityId" />
           </Key>
-          <Property Name="MacrostabilityOutwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MacroStabilityOutwardsFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="A" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MacroStabilityOutwardsSectionResultEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityOutwardsSectionResultEntityId" />
+          </Key>
+          <Property Name="MacroStabilityOutwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerTwoA" Type="real" />
@@ -2538,14 +2546,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MacrostabilityOutwardsSectionResultEntity_0_0">
+        <Association Name="FK_MacroStabilityOutwardsFailureMechanismMetaEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
+          <End Role="MacroStabilityOutwardsFailureMechanismMetaEntity" Type="Self.MacroStabilityOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityOutwardsSectionResultEntity_0_0">
           <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
-          <End Role="MacrostabilityOutwardsSectionResultEntity" Type="Self.MacrostabilityOutwardsSectionResultEntity" Multiplicity="*" />
+          <End Role="MacroStabilityOutwardsSectionResultEntity" Type="Self.MacroStabilityOutwardsSectionResultEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FailureMechanismSectionEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
             </Principal>
-            <Dependent Role="MacrostabilityOutwardsSectionResultEntity">
+            <Dependent Role="MacroStabilityOutwardsSectionResultEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3163,7 +3183,8 @@
           <EntitySet Name="MacroStabilityInwardsSoilProfileTwoDEntity" EntityType="Self.MacroStabilityInwardsSoilProfileTwoDEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity" EntityType="Self.MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsStochasticSoilProfileEntity" EntityType="Self.MacroStabilityInwardsStochasticSoilProfileEntity" store:Type="Tables" />
-          <EntitySet Name="MacrostabilityOutwardsSectionResultEntity" EntityType="Self.MacrostabilityOutwardsSectionResultEntity" store:Type="Tables" />
+          <EntitySet Name="MacroStabilityOutwardsFailureMechanismMetaEntity" EntityType="Self.MacroStabilityOutwardsFailureMechanismMetaEntity" store:Type="Tables" />
+          <EntitySet Name="MacroStabilityOutwardsSectionResultEntity" EntityType="Self.MacroStabilityOutwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="MicrostabilitySectionResultEntity" EntityType="Self.MicrostabilitySectionResultEntity" store:Type="Tables" />
           <EntitySet Name="PipingCalculationEntity" EntityType="Self.PipingCalculationEntity" store:Type="Tables" />
           <EntitySet Name="PipingCalculationOutputEntity" EntityType="Self.PipingCalculationOutputEntity" store:Type="Tables" />
@@ -3548,9 +3569,13 @@
             <End Role="MacroStabilityInwardsSoilProfileOneDEntity" EntitySet="MacroStabilityInwardsSoilProfileOneDEntity" />
             <End Role="MacroStabilityInwardsStochasticSoilProfileEntity" EntitySet="MacroStabilityInwardsStochasticSoilProfileEntity" />
           </AssociationSet>
-          <AssociationSet Name="FK_MacrostabilityOutwardsSectionResultEntity_0_0" Association="Self.FK_MacrostabilityOutwardsSectionResultEntity_0_0">
+          <AssociationSet Name="FK_MacroStabilityOutwardsFailureMechanismMetaEntity_0_0" Association="Self.FK_MacroStabilityOutwardsFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="MacroStabilityOutwardsFailureMechanismMetaEntity" EntitySet="MacroStabilityOutwardsFailureMechanismMetaEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityOutwardsSectionResultEntity_0_0" Association="Self.FK_MacroStabilityOutwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
-            <End Role="MacrostabilityOutwardsSectionResultEntity" EntitySet="MacrostabilityOutwardsSectionResultEntity" />
+            <End Role="MacroStabilityOutwardsSectionResultEntity" EntitySet="MacroStabilityOutwardsSectionResultEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_MicrostabilitySectionResultEntity_0_0" Association="Self.FK_MicrostabilitySectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
@@ -3742,6 +3767,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="RingtoetsEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RingtoetsEntities">
+          <EntitySet Name="MacroStabilityOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityOutwardsSectionResultEntity" />
           <EntitySet Name="AssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" />
           <EntitySet Name="BackgroundDataEntities" EntityType="RingtoetsEntitiesModel.BackgroundDataEntity" />
           <EntitySet Name="BackgroundDataMetaEntities" EntityType="RingtoetsEntitiesModel.BackgroundDataMetaEntity" />
@@ -3797,7 +3823,7 @@
           <EntitySet Name="MacroStabilityInwardsSoilProfileOneDEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileOneDEntity" />
           <EntitySet Name="MacroStabilityInwardsSoilProfileTwoDEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileTwoDEntity" />
           <EntitySet Name="MacroStabilityInwardsStochasticSoilProfileEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" />
-          <EntitySet Name="MacrostabilityOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacrostabilityOutwardsSectionResultEntity" />
+          <EntitySet Name="MacroStabilityOutwardsFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityOutwardsFailureMechanismMetaEntity" />
           <EntitySet Name="MicrostabilitySectionResultEntities" EntityType="RingtoetsEntitiesModel.MicrostabilitySectionResultEntity" />
           <EntitySet Name="PipingCalculationEntities" EntityType="RingtoetsEntitiesModel.PipingCalculationEntity" />
           <EntitySet Name="PipingCalculationOutputEntities" EntityType="RingtoetsEntitiesModel.PipingCalculationOutputEntity" />
@@ -3994,6 +4020,10 @@
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="MacroStabilityInwardsFailureMechanismMetaEntity" EntitySet="MacroStabilityInwardsFailureMechanismMetaEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityOutwardsFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="MacroStabilityOutwardsFailureMechanismMetaEntity" EntitySet="MacroStabilityOutwardsFailureMechanismMetaEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_PipingFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="PipingFailureMechanismMetaEntity" EntitySet="PipingFailureMechanismMetaEntities" />
@@ -4046,9 +4076,9 @@
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="MacroStabilityInwardsSectionResultEntity" EntitySet="MacroStabilityInwardsSectionResultEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_MacrostabilityOutwardsSectionResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacrostabilityOutwardsSectionResultEntity_0_0">
+          <AssociationSet Name="FK_MacroStabilityOutwardsSectionResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
-            <End Role="MacrostabilityOutwardsSectionResultEntity" EntitySet="MacrostabilityOutwardsSectionResultEntities" />
+            <End Role="MacroStabilityOutwardsSectionResultEntity" EntitySet="MacroStabilityOutwardsSectionResultEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_MicrostabilitySectionResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_MicrostabilitySectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
@@ -4350,7 +4380,18 @@
             <End Role="MacroStabilityInwardsSoilProfileTwoDEntity" EntitySet="MacroStabilityInwardsSoilProfileTwoDEntities" />
             <End Role="MacroStabilityInwardsSoilLayerTwoDEntity" EntitySet="MacroStabilityInwardsSoilLayerTwoDEntities" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
+        <EntityType Name="MacroStabilityOutwardsSectionResultEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityOutwardsSectionResultEntityId" />
+          </Key>
+          <Property Name="MacroStabilityOutwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="LayerOne" Type="Byte" Nullable="false" />
+          <Property Name="LayerTwoA" Type="Double" />
+          <Property Name="LayerThree" Type="Double" />
+          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsSectionResultEntity_0_0" FromRole="MacroStabilityOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
+        </EntityType>
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -4651,6 +4692,7 @@
           <NavigationProperty Name="HeightStructureEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructureEntity_0_0" FromRole="FailureMechanismEntity" ToRole="HeightStructureEntity" />
           <NavigationProperty Name="HeightStructuresFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="HeightStructuresFailureMechanismMetaEntity" />
           <NavigationProperty Name="MacroStabilityInwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="MacroStabilityInwardsFailureMechanismMetaEntity" />
+          <NavigationProperty Name="MacroStabilityOutwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="MacroStabilityOutwardsFailureMechanismMetaEntity" />
           <NavigationProperty Name="PipingFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="PipingFailureMechanismMetaEntity" />
           <NavigationProperty Name="StabilityPointStructureEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructureEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StabilityPointStructureEntity" />
           <NavigationProperty Name="StabilityPointStructuresFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StabilityPointStructuresFailureMechanismMetaEntity" />
@@ -4676,7 +4718,7 @@
           <NavigationProperty Name="GrassCoverSlipOffOutwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverSlipOffOutwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="GrassCoverSlipOffOutwardsSectionResultEntity" />
           <NavigationProperty Name="HeightStructuresSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresSectionResultEntity_1_0" FromRole="FailureMechanismSectionEntity" ToRole="HeightStructuresSectionResultEntity" />
           <NavigationProperty Name="MacroStabilityInwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="MacroStabilityInwardsSectionResultEntity" />
-          <NavigationProperty Name="MacrostabilityOutwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_MacrostabilityOutwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="MacrostabilityOutwardsSectionResultEntity" />
+          <NavigationProperty Name="MacroStabilityOutwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="MacroStabilityOutwardsSectionResultEntity" />
           <NavigationProperty Name="MicrostabilitySectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_MicrostabilitySectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="MicrostabilitySectionResultEntity" />
           <NavigationProperty Name="PipingSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_PipingSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="PipingSectionResultEntity" />
           <NavigationProperty Name="PipingStructureSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_PipingStructureSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="PipingStructureSectionResultEntity" />
@@ -5428,16 +5470,14 @@
           <NavigationProperty Name="MacroStabilityInwardsSoilProfileTwoDEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_1_0" FromRole="MacroStabilityInwardsStochasticSoilProfileEntity" ToRole="MacroStabilityInwardsSoilProfileTwoDEntity" />
           <NavigationProperty Name="StochasticSoilModelEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_0_0" FromRole="MacroStabilityInwardsStochasticSoilProfileEntity" ToRole="StochasticSoilModelEntity" />
         </EntityType>
-        <EntityType Name="MacrostabilityOutwardsSectionResultEntity">
+        <EntityType Name="MacroStabilityOutwardsFailureMechanismMetaEntity">
           <Key>
-            <PropertyRef Name="MacrostabilityOutwardsSectionResultEntityId" />
+            <PropertyRef Name="MacroStabilityOutwardsFailureMechanismMetaEntityId" />
           </Key>
-          <Property Name="MacrostabilityOutwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Double" />
-          <Property Name="LayerThree" Type="Double" />
-          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacrostabilityOutwardsSectionResultEntity_0_0" FromRole="MacrostabilityOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
+          <Property Name="MacroStabilityOutwardsFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="A" Type="Double" Nullable="false" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsFailureMechanismMetaEntity_0_0" FromRole="MacroStabilityOutwardsFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="MicrostabilitySectionResultEntity">
           <Key>
@@ -6538,6 +6578,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MacroStabilityOutwardsFailureMechanismMetaEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityOutwardsFailureMechanismMetaEntity" Role="MacroStabilityOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PipingFailureMechanismMetaEntity_0_0">
           <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.PipingFailureMechanismMetaEntity" Role="PipingFailureMechanismMetaEntity" Multiplicity="*" />
@@ -6694,14 +6746,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MacrostabilityOutwardsSectionResultEntity_0_0">
+        <Association Name="FK_MacroStabilityOutwardsSectionResultEntity_0_0">
           <End Type="RingtoetsEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.MacrostabilityOutwardsSectionResultEntity" Role="MacrostabilityOutwardsSectionResultEntity" Multiplicity="*" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityOutwardsSectionResultEntity" Role="MacroStabilityOutwardsSectionResultEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FailureMechanismSectionEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
             </Principal>
-            <Dependent Role="MacrostabilityOutwardsSectionResultEntity">
+            <Dependent Role="MacroStabilityOutwardsSectionResultEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -7572,6 +7624,17 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RingtoetsEntitiesModelStoreContainer" CdmEntityContainer="RingtoetsEntities">
+          <EntitySetMapping Name="MacroStabilityOutwardsSectionResultEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityOutwardsSectionResultEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityOutwardsSectionResultEntity">
+                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
+                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
+                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
+                <ScalarProperty Name="MacroStabilityOutwardsSectionResultEntityId" ColumnName="MacroStabilityOutwardsSectionResultEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AssessmentSectionEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.AssessmentSectionEntity">
               <MappingFragment StoreEntitySet="AssessmentSectionEntity">
@@ -8517,14 +8580,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MacrostabilityOutwardsSectionResultEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacrostabilityOutwardsSectionResultEntity">
-              <MappingFragment StoreEntitySet="MacrostabilityOutwardsSectionResultEntity">
-                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
-                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
-                <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
-                <ScalarProperty Name="MacrostabilityOutwardsSectionResultEntityId" ColumnName="MacrostabilityOutwardsSectionResultEntityId" />
+          <EntitySetMapping Name="MacroStabilityOutwardsFailureMechanismMetaEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityOutwardsFailureMechanismMetaEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityOutwardsFailureMechanismMetaEntity">
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="MacroStabilityOutwardsFailureMechanismMetaEntityId" ColumnName="MacroStabilityOutwardsFailureMechanismMetaEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -9153,7 +9214,7 @@
               <ScalarProperty Name="MacroStabilityInwardsSoilProfileTwoDEntityId" ColumnName="MacroStabilityInwardsSoilProfileTwoDEntityId" />
             </EndProperty>
           </AssociationSetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

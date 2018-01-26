@@ -115,6 +115,7 @@
     <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\TopLevelFaultTreeIllustrationPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\TopLevelSubMechanismIllustrationPointReadExtensionsTest.cs" />
+    <Compile Include="Read\MacroStabilityOutwards\MacroStabilityOutwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsCalculationOutputEntityReadExtensionsTest.cs" />
@@ -162,8 +163,8 @@
     <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacrostabilityOutwards\MacroStabilityOutwardsFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacrostabilityOutwards\MacroStabilityOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacroStabilityOutwards\MacroStabilityOutwardsFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacroStabilityOutwards\MacroStabilityOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\Microstability\MicrostabilityFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\Microstability\MicrostabilityFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\PipingStructure\PipingStructureFailureMechanismCreateExtensionsTest.cs" />
@@ -227,7 +228,7 @@
     <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityOutwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\MacroStabilityOutwards\MacroStabilityOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensionsTest.cs" />

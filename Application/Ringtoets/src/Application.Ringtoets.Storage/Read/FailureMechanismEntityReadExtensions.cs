@@ -29,6 +29,7 @@ using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Read.HeightStructures;
 using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
+using Application.Ringtoets.Storage.Read.MacroStabilityOutwards;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Read.PipingStructures;
 using Application.Ringtoets.Storage.Read.StabilityPointStructures;
@@ -594,14 +595,16 @@ namespace Application.Ringtoets.Storage.Read
                                                                           ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadMacrostabilityOutwardsMechanismSectionResults(failureMechanism, collector);
+            entity.ReadMacroStabilityOutwardsMechanismSectionResults(failureMechanism, collector);
+            MacroStabilityOutwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityOutwardsFailureMechanismMetaEntities.Single();
+            metaEntity.ReadProbabilityAssessmentInput(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput);
         }
 
-        private static void ReadMacrostabilityOutwardsMechanismSectionResults(this FailureMechanismEntity entity,
+        private static void ReadMacroStabilityOutwardsMechanismSectionResults(this FailureMechanismEntity entity,
                                                                               MacroStabilityOutwardsFailureMechanism failureMechanism,
                                                                               ReadConversionCollector collector)
         {
-            foreach (MacrostabilityOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacrostabilityOutwardsSectionResultEntities))
+            foreach (MacroStabilityOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityOutwardsSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 MacroStabilityOutwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));

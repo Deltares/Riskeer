@@ -22,13 +22,13 @@
 using System;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.MacrostabilityOutwards;
+using Application.Ringtoets.Storage.Create.MacroStabilityOutwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Data.StandAlone;
 
-namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
+namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityOutwards
 {
     [TestFixture]
     public class MacroStabilityOutwardsFailureMechanismCreateExtensionsTest
@@ -48,11 +48,35 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
         }
 
         [Test]
+        public void Create_WithoutAllPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual((short) FailureMechanismType.MacroStabilityOutwards, entity.FailureMechanismType);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.IsRelevant), entity.IsRelevant);
+            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
+            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+
+            CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
+            MacroStabilityOutwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityOutwardsFailureMechanismMetaEntities.First();
+            Assert.AreEqual(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
         {
             // Setup
+            var random = new Random(31);
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism
             {
                 IsRelevant = isRelevant,
@@ -67,6 +91,10 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
                 NotRelevantComments =
                 {
                     Body = "Really not relevant"
+                },
+                MacroStabilityOutwardsProbabilityAssessmentInput =
+                {
+                    A = random.NextDouble()
                 }
             };
             var registry = new PersistenceRegistry();
@@ -81,6 +109,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            MacroStabilityOutwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityOutwardsFailureMechanismMetaEntities.First();
+            Assert.AreEqual(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
         }
 
         [Test]
@@ -147,7 +177,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacrostabilityOutwardsSectionResultEntities).Count());
+            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityOutwardsSectionResultEntities).Count());
         }
     }
 }

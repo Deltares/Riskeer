@@ -96,7 +96,8 @@ namespace Application.Ringtoets.Storage.DbContext
             MacroStabilityInwardsCalculationEntities.Load();
             MacroStabilityInwardsCalculationOutputEntities.Load();
             MacroStabilityInwardsSemiProbabilisticOutputEntities.Load();
-            MacrostabilityOutwardsSectionResultEntities.Load();
+            MacroStabilityOutwardsSectionResultEntities.Load();
+            MacroStabilityOutwardsFailureMechanismMetaEntities.Load();
             MicrostabilitySectionResultEntities.Load();
             ProjectEntities.Load();
             PipingCalculationEntities.Load();

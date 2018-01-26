@@ -39,6 +39,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -698,6 +699,53 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, section.MacroStabilityInwards.Sections.Count());
+        }
+
+        [Test]
+        public void Read_WithMacroStabilityOutwardsFailureMechanismProperties_ReturnsNewAssessmentSectionWithPropertiesInMacroStabilityInwardsFailureMechanism()
+        {
+            // Setup
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            var random = new Random(21);
+            bool isRelevant = random.NextBoolean();
+            double parameterA = random.NextDouble();
+            const string inputComments = "Some input text";
+            const string outputComments = "Some output text";
+            const string notRelevantComments = "Really not relevant";
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int) FailureMechanismType.MacroStabilityOutwards,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                IsRelevant = Convert.ToByte(isRelevant),
+                InputComments = inputComments,
+                OutputComments = outputComments,
+                NotRelevantComments = notRelevantComments,
+                MacroStabilityOutwardsFailureMechanismMetaEntities =
+                {
+                    new MacroStabilityOutwardsFailureMechanismMetaEntity
+                    {
+                        A = parameterA
+                    }
+                }
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            AssessmentSection section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(isRelevant, section.MacroStabilityOutwards.IsRelevant);
+            Assert.AreEqual(inputComments, section.MacroStabilityOutwards.InputComments.Body);
+            Assert.AreEqual(outputComments, section.MacroStabilityOutwards.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, section.MacroStabilityOutwards.NotRelevantComments.Body);
+
+            MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = section.MacroStabilityOutwards
+                                                                                                .MacroStabilityOutwardsProbabilityAssessmentInput;
+            Assert.AreEqual(parameterA, probabilityAssessmentInput.A);
         }
 
         [Test]
@@ -1449,7 +1497,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             var random = new Random(31);
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
-            bool macrostabilityOutwardsIsRelevant = random.NextBoolean();
             bool microstabilityIsRelevant = random.NextBoolean();
             bool strengthAndStabilityParallelConstructionIsRelevant = random.NextBoolean();
             bool waterOverpressureAsphaltRevetmentIsRelevant = random.NextBoolean();
@@ -1457,9 +1504,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             bool grassRevetmentSlidingInwardsIsRelevant = random.NextBoolean();
             bool technicalInnovationsIsRelevant = random.NextBoolean();
 
-            FailureMechanismEntity macrostabilityOutwards = CreateFailureMechanismEntity(
-                macrostabilityOutwardsIsRelevant,
-                FailureMechanismType.MacroStabilityOutwards);
             FailureMechanismEntity microstability = CreateFailureMechanismEntity(
                 microstabilityIsRelevant,
                 FailureMechanismType.Microstability);
@@ -1479,7 +1523,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 technicalInnovationsIsRelevant,
                 FailureMechanismType.TechnicalInnovations);
 
-            entity.FailureMechanismEntities.Add(macrostabilityOutwards);
             entity.FailureMechanismEntities.Add(microstability);
             entity.FailureMechanismEntities.Add(strengthAndStabilityParallelConstruction);
             entity.FailureMechanismEntities.Add(waterOverpressureAsphaltRevetment);
@@ -1494,12 +1537,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            AssertFailureMechanismEqual(macrostabilityOutwardsIsRelevant,
-                                        2,
-                                        macrostabilityOutwards.InputComments,
-                                        macrostabilityOutwards.OutputComments,
-                                        macrostabilityOutwards.NotRelevantComments,
-                                        section.MacroStabilityOutwards);
             AssertFailureMechanismEqual(microstabilityIsRelevant,
                                         2,
                                         microstability.InputComments,

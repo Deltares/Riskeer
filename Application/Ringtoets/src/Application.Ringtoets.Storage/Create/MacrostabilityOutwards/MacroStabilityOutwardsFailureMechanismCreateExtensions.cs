@@ -25,7 +25,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Application.Ringtoets.Storage.Create.MacrostabilityOutwards
+namespace Application.Ringtoets.Storage.Create.MacroStabilityOutwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityOutwardsFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
@@ -43,6 +43,7 @@ namespace Application.Ringtoets.Storage.Create.MacrostabilityOutwards
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.MacroStabilityOutwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForFailureMechanismMeta(mechanism, entity);
 
             return entity;
         }
@@ -53,10 +54,21 @@ namespace Application.Ringtoets.Storage.Create.MacrostabilityOutwards
         {
             foreach (MacroStabilityOutwardsFailureMechanismSectionResult macroStabilityOutwardsFailureMechanismSectionResult in sectionResults)
             {
-                MacrostabilityOutwardsSectionResultEntity sectionResultEntity = macroStabilityOutwardsFailureMechanismSectionResult.Create();
+                MacroStabilityOutwardsSectionResultEntity sectionResultEntity = macroStabilityOutwardsFailureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(macroStabilityOutwardsFailureMechanismSectionResult.Section);
-                section.MacrostabilityOutwardsSectionResultEntities.Add(sectionResultEntity);
+                section.MacroStabilityOutwardsSectionResultEntities.Add(sectionResultEntity);
             }
+        }
+
+        private static void AddEntitiesForFailureMechanismMeta(MacroStabilityOutwardsFailureMechanism mechanism,
+                                                               FailureMechanismEntity entity)
+        {
+            var metaEntity = new MacroStabilityOutwardsFailureMechanismMetaEntity
+            {
+                A = mechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A
+            };
+
+            entity.MacroStabilityOutwardsFailureMechanismMetaEntities.Add(metaEntity);
         }
     }
 }

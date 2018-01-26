@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create.MacrostabilityOutwards;
+using Application.Ringtoets.Storage.Create.MacroStabilityOutwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
@@ -29,7 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
+namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityOutwards
 {
     [TestFixture]
     public class MacroStabilityOutwardsFailureMechanismSectionResultCreateExtensionsTest
@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
             };
 
             // Call
-            MacrostabilityOutwardsSectionResultEntity result = sectionResult.Create();
+            MacroStabilityOutwardsSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
             };
 
             // Call
-            MacrostabilityOutwardsSectionResultEntity result = sectionResult.Create();
+            MacroStabilityOutwardsSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.IsNull(result.LayerTwoA);
@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityOutwards
             };
 
             // Call
-            MacrostabilityOutwardsSectionResultEntity result = sectionResult.Create();
+            MacroStabilityOutwardsSectionResultEntity result = sectionResult.Create();
 
             // Assert
             Assert.IsNull(result.LayerThree);

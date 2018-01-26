@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Data.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -147,18 +147,18 @@ namespace Ringtoets.Integration.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to STBU.
         /// </summary>
-        public static string MacrostabilityOutwardFailureMechanism_Code {
+        public static string MacroStabilityOutwardsFailureMechanism_Code {
             get {
-                return ResourceManager.GetString("MacrostabilityOutwardFailureMechanism_Code", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityOutwardsFailureMechanism_Code", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dijken en dammen - Macrostabiliteit buitenwaarts.
         /// </summary>
-        public static string MacrostabilityOutwardFailureMechanism_DisplayName {
+        public static string MacroStabilityOutwardsFailureMechanism_DisplayName {
             get {
-                return ResourceManager.GetString("MacrostabilityOutwardFailureMechanism_DisplayName", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityOutwardsFailureMechanism_DisplayName", resourceCulture);
             }
         }
         
