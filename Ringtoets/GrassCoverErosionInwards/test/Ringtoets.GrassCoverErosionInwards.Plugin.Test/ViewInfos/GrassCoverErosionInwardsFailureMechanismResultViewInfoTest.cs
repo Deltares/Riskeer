@@ -60,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>), info.DataType);
             Assert.AreEqual(typeof(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -78,19 +78,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsSectionResults()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var sectionResults = new[]
             {
                 new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             };
 
-            var context = new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
-                sectionResults, new GrassCoverErosionInwardsFailureMechanism());
+            var context = new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
+                sectionResults, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(sectionResults, viewData);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -273,13 +278,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults,
-                                                                                                                          failureMechanism);
 
             var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             var view = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanismResultView>();
             view.Expect(v => v.FailureMechanism = failureMechanism);
             mocks.ReplayAll();
+
+            mocks.ReplayAll();
+
+            var context = new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
+                failureMechanism.SectionResults,
+                failureMechanism,
+                assessmentSection);
 
             // Call
             info.AfterCreate(view, context);
