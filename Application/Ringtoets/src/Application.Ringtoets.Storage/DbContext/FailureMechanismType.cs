@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <summary>
         /// Macrostabiliteit buitenwaarts - STBU
         /// </summary>
-        MacrostabilityOutwards = 13,
+        MacroStabilityOutwards = 13,
 
         /// <summary>
         /// Microstabiliteit - STMI

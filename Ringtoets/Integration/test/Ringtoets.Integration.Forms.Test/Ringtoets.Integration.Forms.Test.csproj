@@ -37,6 +37,7 @@
     <Compile Include="BackgroundMapDataSelectionDialogTest.cs" />
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityOutwardsFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ReferenceLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\BackgroundDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesIntegrationTest.cs" />
@@ -53,7 +54,7 @@
     <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveHeightLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\StandAloneFailureMechanismContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\StandAloneFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveHeightLocationsPropertiesTest.cs" />
@@ -66,7 +67,7 @@
     <Compile Include="FailureMechanismContributionViewIntegrationTest.cs" />
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffInwardsResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffOutwardsResultViewTest.cs" />
-    <Compile Include="Views\SectionResultViews\MacrostabilityOutwardsResultViewTest.cs" />
+    <Compile Include="Views\SectionResultViews\MacroStabilityOutwardsResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\MicrostabilityResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\PipingStructureResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\StrengthStabilityLengthwiseConstructionResultViewTest.cs" />
@@ -79,7 +80,7 @@
     <Compile Include="Views\SectionResultRows\WaterPressureAsphaltCoverSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultViews\WaterPressureAsphaltCoverResultViewTest.cs" />
     <Compile Include="Views\AssessmentSectionViewTest.cs" />
-    <Compile Include="Views\SectionResultRows\MacrostabilityOutwardsSectionResultRowTest.cs" />
+    <Compile Include="Views\SectionResultRows\MacroStabilityOutwardsSectionResultRowTest.cs" />
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
     <Compile Include="Views\SectionResultRows\StrengthStabilityLengthwiseConstructionSectionResultRowTest.cs" />
     <Compile Include="Views\WaveHeightLocationsViewTest.cs" />

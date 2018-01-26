@@ -559,9 +559,9 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SurfaceLines);
 
-            MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
-            CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.SectionResults);
+            MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
+            CollectionAssert.IsEmpty(macroStabilityOutwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(macroStabilityOutwardsFailureMechanism.SectionResults);
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             CollectionAssert.IsEmpty(microstabilityFailureMechanism.Sections);
@@ -662,8 +662,8 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.StochasticSoilModels);
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.SurfaceLines);
 
-            MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
-            CollectionAssert.Contains(changedObjects, macrostabilityOutwardsFailureMechanism);
+            MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
+            CollectionAssert.Contains(changedObjects, macroStabilityOutwardsFailureMechanism);
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             CollectionAssert.Contains(changedObjects, microstabilityFailureMechanism);
@@ -762,8 +762,8 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.StochasticSoilModels);
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.SurfaceLines);
 
-            MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
-            CollectionAssert.Contains(changedObjects, macrostabilityOutwardsFailureMechanism);
+            MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
+            CollectionAssert.Contains(changedObjects, macroStabilityOutwardsFailureMechanism);
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             CollectionAssert.Contains(changedObjects, microstabilityFailureMechanism);
@@ -1404,7 +1404,7 @@ namespace Ringtoets.Integration.Service.Test
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.Piping));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.GrassCoverErosionInwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.MacroStabilityInwards));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.MacrostabilityOutwards));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.MacroStabilityOutwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.Microstability));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StabilityStoneCover));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.WaveImpactAsphaltCover));

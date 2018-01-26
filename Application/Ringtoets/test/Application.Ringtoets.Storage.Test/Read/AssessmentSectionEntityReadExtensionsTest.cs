@@ -1459,7 +1459,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             FailureMechanismEntity macrostabilityOutwards = CreateFailureMechanismEntity(
                 macrostabilityOutwardsIsRelevant,
-                FailureMechanismType.MacrostabilityOutwards);
+                FailureMechanismType.MacroStabilityOutwards);
             FailureMechanismEntity microstability = CreateFailureMechanismEntity(
                 microstabilityIsRelevant,
                 FailureMechanismType.Microstability);
@@ -1499,7 +1499,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                                         macrostabilityOutwards.InputComments,
                                         macrostabilityOutwards.OutputComments,
                                         macrostabilityOutwards.NotRelevantComments,
-                                        section.MacrostabilityOutwards);
+                                        section.MacroStabilityOutwards);
             AssertFailureMechanismEqual(microstabilityIsRelevant,
                                         2,
                                         microstability.InputComments,

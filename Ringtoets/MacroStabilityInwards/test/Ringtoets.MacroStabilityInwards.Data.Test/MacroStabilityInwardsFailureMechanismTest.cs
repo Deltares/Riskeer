@@ -46,6 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+            Assert.IsNotNull(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput);
         }
 
         [Test]

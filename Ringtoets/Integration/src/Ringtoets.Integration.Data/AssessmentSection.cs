@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.Data
             Piping = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
             MacroStabilityInwards = new MacroStabilityInwardsFailureMechanism();
-            MacrostabilityOutwards = new MacrostabilityOutwardsFailureMechanism();
+            MacroStabilityOutwards = new MacroStabilityOutwardsFailureMechanism();
             Microstability = new MicrostabilityFailureMechanism();
             StabilityStoneCover = new StabilityStoneCoverFailureMechanism();
             WaveImpactAsphaltCover = new WaveImpactAsphaltCoverFailureMechanism();
@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets the "Dijken en dammen - Macrostabiliteit buitenwaarts" failure mechanism.
         /// </summary>
-        public MacrostabilityOutwardsFailureMechanism MacrostabilityOutwards { get; }
+        public MacroStabilityOutwardsFailureMechanism MacroStabilityOutwards { get; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Microstabiliteit" failure mechanism.
@@ -234,7 +234,7 @@ namespace Ringtoets.Integration.Data
             yield return Piping;
             yield return GrassCoverErosionInwards;
             yield return MacroStabilityInwards;
-            yield return MacrostabilityOutwards;
+            yield return MacroStabilityOutwards;
             yield return Microstability;
             yield return StabilityStoneCover;
             yield return WaveImpactAsphaltCover;

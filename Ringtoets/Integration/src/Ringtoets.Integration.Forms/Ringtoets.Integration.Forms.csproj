@@ -39,10 +39,11 @@
     <Compile Include="PropertyClasses\DesignWaterLevelLocationsProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelLocationProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityOutwardsFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\ReferenceLineProperties.cs" />
     <Compile Include="PropertyClasses\WaveHeightLocationProperties.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectProperties.cs" />
-    <Compile Include="PropertyClasses\StandAloneFailureMechanismContextProperties.cs" />
+    <Compile Include="PropertyClasses\StandAloneFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -82,7 +83,7 @@
     <Compile Include="PropertyClasses\IAssessmentSectionCompositionChangeHandler.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffInwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffOutwardsSectionResultRow.cs" />
-    <Compile Include="Views\SectionResultRows\MacrostabilityOutwardsSectionResultRow.cs" />
+    <Compile Include="Views\SectionResultRows\MacroStabilityOutwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\MicrostabilitySectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\PipingStructureSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\StrengthStabilityLengthwiseConstructionSectionResultRow.cs" />
@@ -94,7 +95,7 @@
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffOutwardsResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\SectionResultViews\MacrostabilityOutwardsResultView.cs">
+    <Compile Include="Views\SectionResultViews\MacroStabilityOutwardsResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\SectionResultViews\MicrostabilityResultView.cs">

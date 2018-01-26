@@ -222,7 +222,7 @@ namespace Ringtoets.Integration.Plugin
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
-                typeof(MacrostabilityOutwardsFailureMechanism),
+                typeof(MacroStabilityOutwardsFailureMechanism),
                 (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
                     mechanism,
                     assessmentSection)
@@ -305,7 +305,10 @@ namespace Ringtoets.Integration.Plugin
                     new FailureMechanismContributionNormChangeHandler(context.Parent),
                     new AssessmentSectionCompositionChangeHandler(Gui.ViewCommands))
             };
-            yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>();
+            yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismProperties>
+            {
+                CreateInstance = context => new StandAloneFailureMechanismProperties(context.WrappedData)
+            };
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>
             {
                 CreateInstance = context => new CalculationGroupContextProperties(context)
@@ -447,8 +450,8 @@ namespace Ringtoets.Integration.Plugin
                 WaterPressureAsphaltCoverFailureMechanismSectionResult,
                 WaterPressureAsphaltCoverResultView>();
             yield return CreateFailureMechanismResultViewInfo<
-                MacrostabilityOutwardsFailureMechanismSectionResult,
-                MacrostabilityOutwardsResultView>();
+                MacroStabilityOutwardsFailureMechanismSectionResult,
+                MacroStabilityOutwardsResultView>();
 
             yield return new ViewInfo<Comment, CommentView>
             {
@@ -747,7 +750,7 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityOutwardsFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacroStabilityOutwardsFailureMechanismSectionResult>();
 
             yield return new TreeNodeInfo<Comment>
             {
@@ -1286,7 +1289,7 @@ namespace Ringtoets.Integration.Plugin
             var waveImpactAsphaltCover = nodeData as IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>;
             var closingStructures = nodeData as IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>;
             var macroStabilityInwards = nodeData as IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResult>;
-            var macrostabilityOutwards = nodeData as IHasSectionResults<MacrostabilityOutwardsFailureMechanismSectionResult>;
+            var macrostabilityOutwards = nodeData as IHasSectionResults<MacroStabilityOutwardsFailureMechanismSectionResult>;
             var stabilityPointConstruction = nodeData as IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>;
 
             var failureMechanismSectionResultContexts = new object[2];
@@ -1365,7 +1368,7 @@ namespace Ringtoets.Integration.Plugin
             if (macrostabilityOutwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<MacrostabilityOutwardsFailureMechanismSectionResult>(macrostabilityOutwards.SectionResults, nodeData);
+                    new FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(macrostabilityOutwards.SectionResults, nodeData);
             }
 
             if (stabilityPointConstruction != null)

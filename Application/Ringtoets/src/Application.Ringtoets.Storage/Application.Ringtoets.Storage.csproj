@@ -441,8 +441,8 @@
     <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\MacroStabilityOutwards\MacroStabilityOutwardsFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\MacroStabilityOutwards\MacroStabilityOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\Microstability\MicrostabilityFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\Microstability\MicrostabilityFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\PipingStructure\PipingStructureFailureMechanismCreateExtensions.cs" />
@@ -502,7 +502,7 @@
     <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\MacroStabilityOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensions.cs" />

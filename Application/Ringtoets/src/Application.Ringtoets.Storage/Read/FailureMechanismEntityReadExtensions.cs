@@ -581,16 +581,16 @@ namespace Application.Ringtoets.Storage.Read
 
         #endregion
 
-        #region Macrostability Outwards
+        #region MacroStability Outwards
 
         /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="MacrostabilityOutwardsFailureMechanism"/>.
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="MacroStabilityOutwardsFailureMechanism"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="MacrostabilityOutwardsFailureMechanism"/> for.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="MacroStabilityOutwardsFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadAsMacrostabilityOutwardsFailureMechanism(this FailureMechanismEntity entity,
-                                                                          MacrostabilityOutwardsFailureMechanism failureMechanism,
+        internal static void ReadAsMacroStabilityOutwardsFailureMechanism(this FailureMechanismEntity entity,
+                                                                          MacroStabilityOutwardsFailureMechanism failureMechanism,
                                                                           ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
@@ -598,13 +598,13 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         private static void ReadMacrostabilityOutwardsMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                              MacrostabilityOutwardsFailureMechanism failureMechanism,
+                                                                              MacroStabilityOutwardsFailureMechanism failureMechanism,
                                                                               ReadConversionCollector collector)
         {
             foreach (MacrostabilityOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacrostabilityOutwardsSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                MacrostabilityOutwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                MacroStabilityOutwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }

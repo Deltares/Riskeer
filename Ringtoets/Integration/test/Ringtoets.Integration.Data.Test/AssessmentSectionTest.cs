@@ -127,7 +127,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.NotNull(section.Piping);
             Assert.NotNull(section.GrassCoverErosionInwards);
             Assert.NotNull(section.MacroStabilityInwards);
-            Assert.NotNull(section.MacrostabilityOutwards);
+            Assert.NotNull(section.MacroStabilityOutwards);
             Assert.NotNull(section.Microstability);
             Assert.NotNull(section.StabilityStoneCover);
             Assert.NotNull(section.WaveImpactAsphaltCover);
@@ -288,7 +288,7 @@ namespace Ringtoets.Integration.Data.Test
                 assessmentSection.Piping,
                 assessmentSection.GrassCoverErosionInwards,
                 assessmentSection.MacroStabilityInwards,
-                assessmentSection.MacrostabilityOutwards,
+                assessmentSection.MacroStabilityOutwards,
                 assessmentSection.Microstability,
                 assessmentSection.StabilityStoneCover,
                 assessmentSection.WaveImpactAsphaltCover,

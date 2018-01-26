@@ -55,6 +55,7 @@
     <Compile Include="PropertyInfos\FaultTreeIllustrationPointContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\ReferenceLinePropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\HydraulicBoundaryDatabasePropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\StandAloneFailureMechanismPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\SubMechanismIllustrationPointContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\SelectedTopLevelSubMechanismIllustrationPointPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\StructuresOutputContextPropertyInfoTest.cs" />
@@ -76,7 +77,7 @@
     <Compile Include="TreeNodeInfos\GrassCoverSlipOffInwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverSlipOffOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HydraulicBoundaryDatabaseContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\MacrostabilityOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\MicrostabilityFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingStructureFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
@@ -102,7 +103,7 @@
     <Compile Include="ViewInfos\WaterPressureAsphaltCoverResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\WaveConditionsInputViewInfoTest.cs" />
     <Compile Include="ViewInfos\WaveHeightLocationsViewInfoTest.cs" />
-    <Compile Include="ViewInfos\MacrostabilityOutwardsResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\MacroStabilityOutwardsResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\StrengthStabilityLengthwiseConstructionResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismContributionViewInfoTest.cs" />
   </ItemGroup>

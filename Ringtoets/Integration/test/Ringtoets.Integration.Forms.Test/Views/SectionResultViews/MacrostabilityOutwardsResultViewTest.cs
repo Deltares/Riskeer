@@ -35,7 +35,7 @@ using Ringtoets.Integration.Forms.Views.SectionResultViews;
 namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 {
     [TestFixture]
-    public class MacrostabilityOutwardsResultViewTest
+    public class MacroStabilityOutwardsResultViewTest
     {
         private const int nameColumnIndex = 0;
         private const int assessmentLayerOneIndex = 1;
@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Given
             using (var form = new Form())
-            using (var view = new MacrostabilityOutwardsResultView())
+            using (var view = new MacroStabilityOutwardsResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -88,19 +88,19 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             });
 
             var random = new Random(21);
-            var result1 = new MacrostabilityOutwardsFailureMechanismSectionResult(section1)
+            var result1 = new MacroStabilityOutwardsFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            var result2 = new MacrostabilityOutwardsFailureMechanismSectionResult(section2)
+            var result2 = new MacroStabilityOutwardsFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            var result3 = new MacrostabilityOutwardsFailureMechanismSectionResult(section3)
+            var result3 = new MacroStabilityOutwardsFailureMechanismSectionResult(section3)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
@@ -108,7 +108,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new MacrostabilityOutwardsResultView())
+            using (var view = new MacroStabilityOutwardsResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -173,14 +173,14 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 new Point2D(0, 0)
             });
             var random = new Random(21);
-            var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section)
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = assessmentLayerOneState,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             using (var form = new Form())
-            using (var view = new MacrostabilityOutwardsResultView())
+            using (var view = new MacroStabilityOutwardsResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -223,7 +223,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result2 = new TestFailureMechanismSectionResult(section2);
 
             using (var form = new Form())
-            using (var view = new MacrostabilityOutwardsResultView())
+            using (var view = new MacroStabilityOutwardsResultView())
             {
                 form.Controls.Add(view);
                 form.Show();

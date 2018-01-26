@@ -162,8 +162,8 @@
     <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacrostabilityOutwards\MacroStabilityOutwardsFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacrostabilityOutwards\MacroStabilityOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\Microstability\MicrostabilityFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\Microstability\MicrostabilityFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\PipingStructure\PipingStructureFailureMechanismCreateExtensionsTest.cs" />
@@ -227,7 +227,7 @@
     <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\MacroStabilityOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensionsTest.cs" />

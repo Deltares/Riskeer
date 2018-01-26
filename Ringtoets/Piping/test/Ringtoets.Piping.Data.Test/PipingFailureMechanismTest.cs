@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -30,14 +28,6 @@ namespace Ringtoets.Piping.Data.Test
     [TestFixture]
     public class PipingFailureMechanismTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -51,7 +41,8 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual("Dijken en dammen - Piping", failureMechanism.Name);
             Assert.AreEqual("STPH", failureMechanism.Code);
 
-            Assert.IsInstanceOf<GeneralPipingInput>(failureMechanism.GeneralInput);
+            Assert.IsNotNull(failureMechanism.GeneralInput);
+            Assert.IsNotNull(failureMechanism.PipingProbabilityAssessmentInput);
 
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);

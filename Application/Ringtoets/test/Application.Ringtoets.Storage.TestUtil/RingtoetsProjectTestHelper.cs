@@ -158,8 +158,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults,
                               (StructuresCalculation<StabilityPointStructuresInput>) stabilityPointStructuresFailureMechanism.Calculations.First());
 
-            AddSections(assessmentSection.MacrostabilityOutwards);
-            SetSectionResults(assessmentSection.MacrostabilityOutwards.SectionResults);
+            AddSections(assessmentSection.MacroStabilityOutwards);
+            SetSectionResults(assessmentSection.MacroStabilityOutwards.SectionResults);
             AddSections(assessmentSection.Microstability);
             SetSectionResults(assessmentSection.Microstability.SectionResults);
             AddSections(assessmentSection.WaterPressureAsphaltCover);
@@ -218,10 +218,10 @@ namespace Application.Ringtoets.Storage.TestUtil
             }
         }
 
-        private static void SetSectionResults(IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> sectionResults)
+        private static void SetSectionResults(IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (MacrostabilityOutwardsFailureMechanismSectionResult sectionResult in sectionResults)
+            foreach (MacroStabilityOutwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();

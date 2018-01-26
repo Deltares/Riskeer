@@ -21,7 +21,8 @@
     <Compile Include="AssessmentSectionTest.cs" />
     <Compile Include="RingtoetsProjectFactoryTest.cs" />
     <Compile Include="RingtoetsProjectTest.cs" />
-    <Compile Include="StandAlone\MacrostabilityOutwardsFailureMechanismTest.cs" />
+    <Compile Include="StandAlone\Input\MacroStabilityOutwardsProbabilityAssessmentInputTest.cs" />
+    <Compile Include="StandAlone\MacroStabilityOutwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\GrassCoverSlipOffInwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\SectionResults\TechnicalInnovationFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\PipingStructureFailureMechanismSectionResultTest.cs" />
@@ -29,7 +30,7 @@
     <Compile Include="StandAlone\SectionResults\GrassCoverSlipOffInwardsFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\GrassCoverSlipOffOutwardsFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\WaterPressureAsphaltCoverFailureMechanismSectionResultTest.cs" />
-    <Compile Include="StandAlone\SectionResults\MacrostabilityOutwardsFailureMechanismSectionResultTest.cs" />
+    <Compile Include="StandAlone\SectionResults\MacroStabilityOutwardsFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanismTest.cs" />
     <Compile Include="StandAlone\WaterPressureAsphaltCoverFailureMechanismTest.cs" />

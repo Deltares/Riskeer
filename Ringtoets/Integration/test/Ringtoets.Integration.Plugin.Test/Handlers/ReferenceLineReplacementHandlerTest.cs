@@ -252,10 +252,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SurfaceLines);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.SurfaceLines);
 
-            MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
-            CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.SectionResults);
-            CollectionAssert.Contains(observables, macrostabilityOutwardsFailureMechanism);
+            MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
+            CollectionAssert.IsEmpty(macroStabilityOutwardsFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(macroStabilityOutwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, macroStabilityOutwardsFailureMechanism);
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             CollectionAssert.IsEmpty(microstabilityFailureMechanism.Sections);
