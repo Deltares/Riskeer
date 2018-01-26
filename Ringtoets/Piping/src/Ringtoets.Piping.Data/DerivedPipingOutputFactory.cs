@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Util;
+using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Piping.Data
 {
@@ -33,26 +34,32 @@ namespace Ringtoets.Piping.Data
         /// Creates a new <see cref="DerivedPipingOutput"/> based on the given parameters.
         /// </summary>
         /// <param name="output">The output of a calculation.</param>
-        /// <param name="probabilityAssessmentInput">General input that influences the 
-        /// probability estimate for a piping assessment.</param>
-        /// <param name="norm">The norm to assess for.</param>
-        /// <param name="contribution">The contribution of piping as a percentage (0-100)
-        /// to the total of the failure probability of the assessment section.</param>
+        /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <returns>The created <see cref="DerivedPipingOutput"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
-        /// or <paramref name="probabilityAssessmentInput"/> is <c>null</c>.</exception>
-        public static DerivedPipingOutput Create(PipingOutput output, PipingProbabilityAssessmentInput probabilityAssessmentInput,
-                                                 double norm, double contribution)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static DerivedPipingOutput Create(PipingOutput output,
+                                                 PipingFailureMechanism failureMechanism,
+                                                 IAssessmentSection assessmentSection)
         {
             if (output == null)
             {
                 throw new ArgumentNullException(nameof(output));
             }
 
-            if (probabilityAssessmentInput == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(probabilityAssessmentInput));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            double norm = assessmentSection.FailureMechanismContribution.Norm;
+            double contribution = failureMechanism.Contribution;
+            PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
 
             double upliftFactorOfSafety = output.UpliftFactorOfSafety;
             double heaveFactorOfSafety = output.HeaveFactorOfSafety;

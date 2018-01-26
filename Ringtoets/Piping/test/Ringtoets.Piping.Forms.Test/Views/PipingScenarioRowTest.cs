@@ -103,8 +103,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             DerivedPipingOutput expectedDerivedOutput = DerivedPipingOutputFactory.Create(
-                calculation.Output, failureMechanism.PipingProbabilityAssessmentInput,
-                assessmentSection.FailureMechanismContribution.Norm, failureMechanism.Contribution);
+                calculation.Output, failureMechanism, assessmentSection);
 
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(calculation.Name, row.Name);

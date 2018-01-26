@@ -21,6 +21,8 @@
 
 using System;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
@@ -31,39 +33,69 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         public void Create_OutputNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             TestDelegate call = () => DerivedPipingOutputFactory.Create(null,
-                                                                        new PipingProbabilityAssessmentInput(),
-                                                                        double.NaN,
-                                                                        double.NaN);
+                                                                        new PipingFailureMechanism(),
+                                                                        assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("output", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Create_ProbabilityAssessmentInputNull_ThrowsArgumentNullException()
+        public void Create_FailureMechanismNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             TestDelegate call = () => DerivedPipingOutputFactory.Create(new PipingOutput(new PipingOutput.ConstructionProperties()),
                                                                         null,
-                                                                        double.NaN,
-                                                                        double.NaN);
+                                                                        assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DerivedPipingOutputFactory.Create(new PipingOutput(new PipingOutput.ConstructionProperties()),
+                                                                        new PipingFailureMechanism(),
+                                                                        null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void Create_ValidData_ReturnsExpectedValue()
         {
             // Setup
-            var probabilityAssessmentInput = new PipingProbabilityAssessmentInput
+            var failureMechanism = new PipingFailureMechanism
             {
-                SectionLength = 6000
+                PipingProbabilityAssessmentInput =
+                {
+                    SectionLength = 6000
+                },
+                Contribution = 100
             };
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             var calculatorResult = new PipingOutput(new PipingOutput.ConstructionProperties
             {
@@ -71,18 +103,18 @@ namespace Ringtoets.Piping.Data.Test
                 HeaveFactorOfSafety = 1.4,
                 SellmeijerFactorOfSafety = 0.9
             });
-            const double norm = 1.0 / 30000;
 
             // Call
-            DerivedPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(calculatorResult, probabilityAssessmentInput, norm, 1000);
+            DerivedPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(calculatorResult, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(7.3663305570026214e-06, derivedOutput.UpliftProbability, 1e-6);
-            Assert.AreEqual(7.0183607399734309e-08, derivedOutput.HeaveProbability, 1e-6);
-            Assert.AreEqual(1.0988e-5, derivedOutput.SellmeijerProbability, 1e-6);
-            Assert.AreEqual(5.26477, derivedOutput.PipingReliability, derivedOutput.PipingReliability.GetAccuracy());
-            Assert.AreEqual(3.96281, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(1.329, derivedOutput.PipingFactorOfSafety, derivedOutput.PipingFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(0.0030333773290253025, derivedOutput.UpliftProbability, 1e-6);
+            Assert.AreEqual(0.00017624686431291146, derivedOutput.HeaveProbability, 1e-6);
+            Assert.AreEqual(0.13596896289025881, derivedOutput.SellmeijerProbability, 1e-6);
+            Assert.AreEqual(3.57331, derivedOutput.PipingReliability, derivedOutput.PipingReliability.GetAccuracy());
+            Assert.AreEqual(2.28655, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
+            Assert.AreEqual(1.563, derivedOutput.PipingFactorOfSafety, derivedOutput.PipingFactorOfSafety.GetAccuracy());
+            mocks.VerifyAll();
         }
     }
 }

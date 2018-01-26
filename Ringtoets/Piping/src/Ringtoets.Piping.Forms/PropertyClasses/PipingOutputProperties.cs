@@ -299,10 +299,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         private void CreateDerivedOutput(PipingOutput output, PipingFailureMechanism failureMechanism,
                                          IAssessmentSection assessmentSection)
         {
-            derivedOutput = DerivedPipingOutputFactory.Create(output,
-                                                              failureMechanism.PipingProbabilityAssessmentInput,
-                                                              assessmentSection.FailureMechanismContribution.Norm,
-                                                              failureMechanism.Contribution);
+            derivedOutput = DerivedPipingOutputFactory.Create(output, failureMechanism, assessmentSection);
         }
     }
 }
