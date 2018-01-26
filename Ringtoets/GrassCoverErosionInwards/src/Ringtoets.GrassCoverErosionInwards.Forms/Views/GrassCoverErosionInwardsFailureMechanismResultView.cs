@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
@@ -36,6 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismResultView : FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult>
     {
+        private readonly IAssessmentSection assessmentSection;
         private const int assessmentLayerTwoAIndex = 2;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
@@ -44,8 +47,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
         /// </summary>
-        public GrassCoverErosionInwardsFailureMechanismResultView()
+        /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsFailureMechanismResultView(IAssessmentSection assessmentSection)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.assessmentSection = assessmentSection;
+
             DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
 
