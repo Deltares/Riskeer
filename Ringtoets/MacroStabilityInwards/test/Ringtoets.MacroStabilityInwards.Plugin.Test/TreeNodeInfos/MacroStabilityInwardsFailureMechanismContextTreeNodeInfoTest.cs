@@ -175,10 +175,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var failureMechanismScenariosContext = (MacroStabilityInwardsScenariosContext) outputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismScenariosContext.FailureMechanism);
             Assert.AreSame(failureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
+            Assert.AreSame(assessmentSection, failureMechanismScenariosContext.AssessmentSection);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
+            var failureMechanismResultsContext = (MacroStabilityInwardsFailureMechanismSectionResultContext) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+            Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
 
             var commentContext = (Comment) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.OutputComments, commentContext);
