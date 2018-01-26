@@ -66,6 +66,7 @@
     <Compile Include="PresentationObjects\FailureMechanismSectionsContextTest.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContextTest.cs" />
     <Compile Include="PresentationObjects\MapCalculationDataTest.cs" />
+    <Compile Include="PresentationObjects\ProbabilityFailureMechanismSectionResultContextTest.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismItemContextBaseTest.cs" />
     <Compile Include="PresentationObjects\SelectedTopLevelFaultTreeIllustrationPointTest.cs" />

@@ -46,6 +46,7 @@
     <Compile Include="PresentationObjects\IllustrationPointContext.cs" />
     <Compile Include="PresentationObjects\InputContextBase.cs" />
     <Compile Include="PresentationObjects\MapCalculationData.cs" />
+    <Compile Include="PresentationObjects\ProbabilityFailureMechanismSectionResultContext.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContext.cs" />
     <Compile Include="PresentationObjects\FailureMechanismItemContextBase.cs" />
     <Compile Include="PresentationObjects\SelectedTopLevelFaultTreeIllustrationPoint.cs" />
