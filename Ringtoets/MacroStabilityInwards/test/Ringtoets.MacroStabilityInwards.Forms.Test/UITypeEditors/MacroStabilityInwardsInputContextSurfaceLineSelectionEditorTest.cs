@@ -70,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
                                                                                failureMechanism,
                                                                                assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(inputParametersContext, GetCalculatedTestAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(inputParametersContext, GetTestNormativeAssessmentLevel, handler);
 
             var editor = new MacroStabilityInwardsInputContextSurfaceLineSelectionEditor();
             var someValue = new object();
@@ -125,7 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
                                                                                failureMechanism,
                                                                                assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(inputParametersContext, GetCalculatedTestAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(inputParametersContext, GetTestNormativeAssessmentLevel, handler);
 
             var editor = new MacroStabilityInwardsInputContextSurfaceLineSelectionEditor();
             var someValue = new object();
@@ -146,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             mockRepository.VerifyAll();
         }
 
-        private static RoundedDouble GetCalculatedTestAssessmentLevel()
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
         {
             return (RoundedDouble) 1.1;
         }

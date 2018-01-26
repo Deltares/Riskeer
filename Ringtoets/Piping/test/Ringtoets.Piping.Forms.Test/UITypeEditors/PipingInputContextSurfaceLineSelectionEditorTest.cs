@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var properties = new PipingInputContextProperties(inputParametersContext, GetCalculatedTestAssessmentLevel, handler);
+            var properties = new PipingInputContextProperties(inputParametersContext, GetTestNormativeAssessmentLevel, handler);
 
             var editor = new PipingInputContextSurfaceLineSelectionEditor();
             var someValue = new object();
@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var properties = new PipingInputContextProperties(inputParametersContext, GetCalculatedTestAssessmentLevel, handler);
+            var properties = new PipingInputContextProperties(inputParametersContext, GetTestNormativeAssessmentLevel, handler);
 
             var editor = new PipingInputContextSurfaceLineSelectionEditor();
             var someValue = new object();
@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             mockRepository.VerifyAll();
         }
 
-        private static RoundedDouble GetCalculatedTestAssessmentLevel()
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
         {
             return (RoundedDouble) 1.1;
         }

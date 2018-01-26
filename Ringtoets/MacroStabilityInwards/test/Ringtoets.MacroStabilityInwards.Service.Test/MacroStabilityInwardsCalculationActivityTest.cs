@@ -74,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             MacroStabilityInwardsCalculationScenario invalidMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
             invalidMacroStabilityInwardsCalculation.Output = originalOutput;
 
-            var activity = new MacroStabilityInwardsCalculationActivity(invalidMacroStabilityInwardsCalculation, GetCalculatedTestAssessmentLevel());
+            var activity = new MacroStabilityInwardsCalculationActivity(invalidMacroStabilityInwardsCalculation, GetTestNormativeAssessmentLevel());
 
             // Call
             Action call = () => activity.Run();
@@ -106,7 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, GetCalculatedTestAssessmentLevel());
+                var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, GetTestNormativeAssessmentLevel());
                 activity.Run();
 
                 // Call
@@ -141,7 +141,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             validMacroStabilityInwardsCalculation.Output = null;
             validMacroStabilityInwardsCalculation.Attach(observer);
 
-            var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, GetCalculatedTestAssessmentLevel());
+            var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, GetTestNormativeAssessmentLevel());
 
             activity.Run();
 
@@ -152,7 +152,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             mocks.VerifyAll();
         }
 
-        private static RoundedDouble GetCalculatedTestAssessmentLevel()
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
         {
             return (RoundedDouble) 1.1;
         }
