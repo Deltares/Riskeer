@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -33,15 +34,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     internal class GrassCoverErosionInwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<GrassCoverErosionInwardsFailureMechanismSectionResult>
     {
+        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is
-        /// <c>null</c>.</exception>
-        public GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult) 
-            : base(sectionResult) {}
+        /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the result belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult,
+                                                                        GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                        IAssessmentSection assessmentSection) 
+            : base(sectionResult)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
+        }
 
         /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.

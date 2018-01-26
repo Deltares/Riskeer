@@ -22,6 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -40,11 +42,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             // Call
-            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result);
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverErosionInwardsFailureMechanismSectionResult>>(row);
@@ -58,22 +66,64 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, new GrassCoverErosionInwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
         public void AssessmentLayerTwoA_NoCalculationSet_ReturnNaN()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             // Precondition
             Assert.IsNull(sectionResult.Calculation);
 
-            var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
+            var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -82,6 +132,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             var calculation = new GrassCoverErosionInwardsCalculation();
             if (status == CalculationScenarioStatus.Failed)
             {
@@ -96,13 +152,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Calculation = calculation
             };
 
-            var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
+            var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -110,6 +167,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Setup
             const double probability = 0.95;
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(probability),
@@ -123,38 +186,52 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Calculation = calculation
             };
 
-            var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
+            var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
             Assert.AreEqual(probability, assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             // Precondition
             Assert.IsNull(result.Calculation);
 
-            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result);
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
 
             // Call
             GrassCoverErosionInwardsCalculation calculation = row.GetSectionResultCalculation();
 
             // Assert
             Assert.IsNull(calculation);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GetSectionResultCalculation_WithCalculationSetOnSectionResult_ReturnCalculation()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -163,31 +240,39 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Calculation = grassCoverErosionInwardsCalculation
             };
 
-            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result);
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
 
             // Call
             GrassCoverErosionInwardsCalculation calculation = row.GetSectionResultCalculation();
 
             // Assert
             Assert.AreSame(grassCoverErosionInwardsCalculation, calculation);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void AssessmentLayerThree_ValueSet_ReturnExpectedValue()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             var random = new Random(21);
             double assessmentLayerThree = random.NextDouble();
 
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
             row.AssessmentLayerThree = assessmentLayerThree;
 
             // Assert
             Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
+            mocks.VerifyAll();
         }
     }
 }

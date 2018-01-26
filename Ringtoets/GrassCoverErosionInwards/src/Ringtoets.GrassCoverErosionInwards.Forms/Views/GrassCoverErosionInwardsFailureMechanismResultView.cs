@@ -38,8 +38,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismResultView : FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult>
     {
-        private readonly IAssessmentSection assessmentSection;
         private const int assessmentLayerTwoAIndex = 2;
+        private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
@@ -107,7 +107,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {
-            return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
+            if (FailureMechanism == null)
+            {
+                return null;
+            }
+
+            return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult, (GrassCoverErosionInwardsFailureMechanism) FailureMechanism,
+                                                                                assessmentSection);
         }
 
         protected override void AddDataGridColumns()

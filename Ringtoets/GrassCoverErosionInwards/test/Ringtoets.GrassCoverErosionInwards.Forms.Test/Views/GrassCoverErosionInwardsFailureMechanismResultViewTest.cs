@@ -312,7 +312,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -345,7 +345,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var calculation = new GrassCoverErosionInwardsCalculation();
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
@@ -380,7 +380,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
@@ -459,7 +459,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult, string expectedValue)
         {
-            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 view.Data = new[]
                 {
@@ -487,7 +487,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
                 var successfulCalculation = new GrassCoverErosionInwardsCalculation
