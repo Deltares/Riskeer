@@ -511,7 +511,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             return new object[]
             {
-                new OvertoppingOutputContext(calculation),
+                new OvertoppingOutputContext(calculation, context.FailureMechanism, context.AssessmentSection),
                 new DikeHeightOutputContext(calculation),
                 new OvertoppingRateOutputContext(calculation)
             };

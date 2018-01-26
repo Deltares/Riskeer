@@ -22,6 +22,7 @@
 using System.Threading;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -49,7 +50,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
         protected override OvertoppingOutputContext GetContext(GrassCoverErosionInwardsCalculation calculation)
         {
-            return new OvertoppingOutputContext(calculation);
+            return new OvertoppingOutputContext(calculation, new GrassCoverErosionInwardsFailureMechanism(),
+                                                new ObservableTestAssessmentSectionStub());
         }
     }
 }

@@ -168,6 +168,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var overtoppingOutputContext = children[0] as OvertoppingOutputContext;
             Assert.IsNotNull(overtoppingOutputContext);
             Assert.AreSame(grassCoverErosionInwardsCalculation, overtoppingOutputContext.WrappedData);
+            Assert.AreSame(failureMechanism, overtoppingOutputContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, overtoppingOutputContext.AssessmentSection);
 
             var dikeHeightOutputContext = children[1] as DikeHeightOutputContext;
             Assert.IsNotNull(dikeHeightOutputContext);

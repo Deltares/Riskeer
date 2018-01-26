@@ -155,6 +155,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var grassCoverErosionInwardsOutputContext = children[2] as GrassCoverErosionInwardsOutputContext;
             Assert.IsNotNull(grassCoverErosionInwardsOutputContext);
             Assert.AreSame(calculationContext.WrappedData, grassCoverErosionInwardsOutputContext.WrappedData);
+            Assert.AreSame(calculationContext.FailureMechanism, grassCoverErosionInwardsOutputContext.FailureMechanism);
+            Assert.AreSame(calculationContext.AssessmentSection, grassCoverErosionInwardsOutputContext.AssessmentSection);
         }
 
         [Test]
