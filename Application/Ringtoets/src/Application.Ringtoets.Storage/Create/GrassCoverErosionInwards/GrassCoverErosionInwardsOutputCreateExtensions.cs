@@ -46,10 +46,10 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             {
                 IsOvertoppingDominant = Convert.ToByte(overtoppingOutput.IsOvertoppingDominant),
                 WaveHeight = overtoppingOutput.WaveHeight.ToNaNAsNull(),
+                Reliability = overtoppingOutput.Reliability.ToNaNAsNull(),
                 RequiredProbability = overtoppingOutput.ProbabilityAssessmentOutput.RequiredProbability.ToNaNAsNull(),
                 RequiredReliability = overtoppingOutput.ProbabilityAssessmentOutput.RequiredReliability.ToNaNAsNull(),
                 Probability = overtoppingOutput.ProbabilityAssessmentOutput.Probability.ToNaNAsNull(),
-                Reliability = overtoppingOutput.ProbabilityAssessmentOutput.Reliability.ToNaNAsNull(),
                 FactorOfSafety = overtoppingOutput.ProbabilityAssessmentOutput.FactorOfSafety.ToNaNAsNull(),
                 GeneralResultFaultTreeIllustrationPointEntity = overtoppingOutput.GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity()
             };
