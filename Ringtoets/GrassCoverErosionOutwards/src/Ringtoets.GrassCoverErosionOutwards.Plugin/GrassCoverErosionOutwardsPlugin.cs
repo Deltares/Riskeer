@@ -773,18 +773,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             nodeData.WrappedData.NotifyObservers();
         }
 
-        private static void ValidateAll(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations, HydraulicBoundaryDatabase database)
+        private static void ValidateAll(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations, IAssessmentSection assessmentSection)
         {
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
             {
-                GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, database.FilePath, database.EffectivePreprocessorDirectory());
+                GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
+                                                                                   assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation),
+                                                                                   assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                   assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
             }
         }
 
         private static void ValidateAll(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
         {
             ValidateAll(context.WrappedData.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>(),
-                        context.AssessmentSection.HydraulicBoundaryDatabase);
+                        context.AssessmentSection);
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
@@ -914,6 +917,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         private static void Validate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
             GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(context.WrappedData,
+                                                                               context.AssessmentSection.GetNormativeAssessmentLevel(context.WrappedData.InputParameters.HydraulicBoundaryLocation),
                                                                                context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }

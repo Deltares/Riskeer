@@ -226,14 +226,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             if (assessmentSection != null)
             {
                 return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<WaveImpactAsphaltCoverFailureMechanism>()
-                    .Any(fm => ReferenceEquals(viewData, fm.SectionResults));
+                       .GetFailureMechanisms()
+                       .OfType<WaveImpactAsphaltCoverFailureMechanism>()
+                       .Any(fm => ReferenceEquals(viewData, fm.SectionResults));
             }
+
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
+
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
@@ -366,8 +368,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             bool isNestedGroup = parentData is WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext;
 
             WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = group
-                .GetCalculations()
-                .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>().ToArray();
+                                                                             .GetCalculations()
+                                                                             .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>().ToArray();
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
 
@@ -426,7 +428,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         private static void ValidateAll(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
         {
             ValidateAll(context.WrappedData.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>(),
-                        context.AssessmentSection.HydraulicBoundaryDatabase);
+                        context.AssessmentSection);
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
@@ -495,11 +497,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             nodeData.WrappedData.NotifyObservers();
         }
 
-        private static void ValidateAll(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, HydraulicBoundaryDatabase database)
+        private static void ValidateAll(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, IAssessmentSection assessmentSection)
         {
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
             {
-                WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, database.FilePath, database.EffectivePreprocessorDirectory());
+                WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                                assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation),
+                                                                                assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
             }
         }
 
@@ -602,6 +607,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         private static void Validate(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {
             WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(context.WrappedData,
+                                                                            context.AssessmentSection.GetNormativeAssessmentLevel(context.WrappedData.InputParameters.HydraulicBoundaryLocation),
                                                                             context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                             context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }

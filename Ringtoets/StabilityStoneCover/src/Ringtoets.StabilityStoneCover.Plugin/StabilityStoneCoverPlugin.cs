@@ -421,7 +421,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         private static void ValidateAll(StabilityStoneCoverWaveConditionsCalculationGroupContext context)
         {
             ValidateAll(context.WrappedData.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>(),
-                        context.AssessmentSection.HydraulicBoundaryDatabase);
+                        context.AssessmentSection);
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(StabilityStoneCoverWaveConditionsCalculationGroupContext context)
@@ -490,11 +490,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             nodeData.WrappedData.NotifyObservers();
         }
 
-        private static void ValidateAll(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, HydraulicBoundaryDatabase database)
+        private static void ValidateAll(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, IAssessmentSection assessmentSection)
         {
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
             {
-                StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation, database.FilePath, database.EffectivePreprocessorDirectory());
+                StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                             assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation),
+                                                                             assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                             assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
             }
         }
 
@@ -598,6 +601,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         private static void Validate(StabilityStoneCoverWaveConditionsCalculationContext context)
         {
             StabilityStoneCoverWaveConditionsCalculationService.Validate(context.WrappedData,
+                                                                         context.AssessmentSection.GetNormativeAssessmentLevel(context.WrappedData.InputParameters.HydraulicBoundaryLocation),
                                                                          context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                          context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
