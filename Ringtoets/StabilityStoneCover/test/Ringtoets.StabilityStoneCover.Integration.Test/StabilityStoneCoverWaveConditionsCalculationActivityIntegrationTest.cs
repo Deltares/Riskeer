@@ -190,7 +190,6 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 activity.Run();
 
                 // Assert
-                RoundedDouble[] waterLevels = waterLevels.ToArray();
                 int totalSteps = waterLevels.Length * 2;
                 for (var i = 0; i < totalSteps; i++)
                 {
