@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
@@ -44,17 +45,26 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <param name="calculation">The calculation having <paramref name="wrappedData"/> as input.</param>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/>
         /// the context belongs to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                                                    ICalculation<WaveConditionsInput> calculation,
-                                                                   GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+                                                                   GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                   IAssessmentSection assessmentSection)
             : base(wrappedData, calculation)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             this.failureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
         }
 
         public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
@@ -72,5 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
                 return failureMechanism.ForeshoreProfiles;
             }
         }
+
+        public IAssessmentSection AssessmentSection { get; }
     }
 }
