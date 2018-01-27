@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 
@@ -37,6 +38,156 @@ namespace Ringtoets.Revetment.Data.Test
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("waveConditionsInput", paramName);
+        }
+
+        [Test]
+        [TestCase(double.NaN, 10.0, 12.0)]
+        [TestCase(1.0, double.NaN, 12.0)]
+        [TestCase(1.0, 10.0, double.NaN)]
+        public void GetWaterLevels_InvalidWaveConditionsInput_ReturnsEmptyEnumerable(double lowerBoundaryRevetments,
+                                                                                     double upperBoundaryRevetments,
+                                                                                     double designWaterLevel)
+        {
+            // Setup
+            var waveConditionsInput = new WaveConditionsInput
+            {
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetments,
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetments,
+                StepSize = WaveConditionsInputStepSize.One,
+                LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                UpperBoundaryWaterLevels = (RoundedDouble) 10.0
+            };
+
+            // Call
+            IEnumerable<RoundedDouble> waterLevels = waveConditionsInput.GetWaterLevels((RoundedDouble) designWaterLevel);
+
+            // Assert
+            CollectionAssert.IsEmpty(waterLevels);
+        }
+
+        [Test]
+        public void GetWaterLevels_WaveConditionsInputWithWithAllBoundariesAboveUpperBoundaryDesignWaterLevel_ReturnsEmptyEnumerable()
+        {
+            // Setup
+            var waveConditionsInput = new WaveConditionsInput
+            {
+                LowerBoundaryRevetment = (RoundedDouble) 6,
+                UpperBoundaryRevetment = (RoundedDouble) 6.10,
+                LowerBoundaryWaterLevels = (RoundedDouble) 6.20,
+                UpperBoundaryWaterLevels = (RoundedDouble) 10,
+                StepSize = WaveConditionsInputStepSize.Half
+            };
+
+            // Call
+            IEnumerable<RoundedDouble> waterLevels = waveConditionsInput.GetWaterLevels((RoundedDouble) 5.78);
+
+            // Assert
+            CollectionAssert.IsEmpty(waterLevels);
+        }
+
+        [Test]
+        public void GetWaterLevels_AssessmentLevelNaN_ReturnsEmptyEnumerable()
+        {
+            // Setup
+            var waveConditionsInput = new WaveConditionsInput
+            {
+                LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                StepSize = WaveConditionsInputStepSize.One,
+                LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                UpperBoundaryWaterLevels = (RoundedDouble) 10.0
+            };
+
+            // Call
+            IEnumerable<RoundedDouble> waterLevels = waveConditionsInput.GetWaterLevels(RoundedDouble.NaN);
+
+            // Assert
+            CollectionAssert.IsEmpty(waterLevels);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(WaterLevels))]
+        public void GetWaterLevels_ValidInput_ReturnsExpectedWaterLevels(WaveConditionsInputStepSize stepSize,
+                                                                         double lowerBoundaryRevetment,
+                                                                         double upperBoundaryRevetment,
+                                                                         double lowerBoundaryWaterLevels,
+                                                                         double upperBoundaryWaterLevels,
+                                                                         double designWaterLevel,
+                                                                         IEnumerable<RoundedDouble> expectedWaterLevels)
+        {
+            // Setup
+            var waveConditionsInput = new WaveConditionsInput
+            {
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
+                StepSize = stepSize,
+                LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels,
+                UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
+            };
+
+            // Call
+            IEnumerable<RoundedDouble> waterLevels = waveConditionsInput.GetWaterLevels((RoundedDouble) designWaterLevel);
+
+            // Assert
+            CollectionAssert.AreEqual(expectedWaterLevels, waterLevels);
+        }
+
+        private static IEnumerable<TestCaseData> WaterLevels()
+        {
+            yield return new TestCaseData(WaveConditionsInputStepSize.Two, 2.58, 6.10, 2.40, 3.89, 5.99, new[]
+            {
+                new RoundedDouble(2, 3.89),
+                new RoundedDouble(2, 2.58)
+            });
+
+            yield return new TestCaseData(WaveConditionsInputStepSize.Half, 3.58, 6.10, 3.40, 5.88, 5.99, new[]
+            {
+                new RoundedDouble(2, 5.88),
+                new RoundedDouble(2, 5.5),
+                new RoundedDouble(2, 5),
+                new RoundedDouble(2, 4.5),
+                new RoundedDouble(2, 4),
+                new RoundedDouble(2, 3.58)
+            });
+
+            yield return new TestCaseData(WaveConditionsInputStepSize.One, -1.30, 5.80, -1.20, 6.01, 6.10, new[]
+            {
+                new RoundedDouble(2, 5.80),
+                new RoundedDouble(2, 5),
+                new RoundedDouble(2, 4),
+                new RoundedDouble(2, 3),
+                new RoundedDouble(2, 2),
+                new RoundedDouble(2, 1),
+                new RoundedDouble(2),
+                new RoundedDouble(2, -1),
+                new RoundedDouble(2, -1.20)
+            });
+
+            yield return new TestCaseData(WaveConditionsInputStepSize.Two, -4.29, 8.67, -4.29, 8.58, 8.58, new[]
+            {
+                new RoundedDouble(2, 8.57),
+                new RoundedDouble(2, 8),
+                new RoundedDouble(2, 6),
+                new RoundedDouble(2, 4),
+                new RoundedDouble(2, 2),
+                new RoundedDouble(2),
+                new RoundedDouble(2, -2),
+                new RoundedDouble(2, -4),
+                new RoundedDouble(2, -4.29)
+            });
+
+            yield return new TestCaseData(WaveConditionsInputStepSize.Two, -4.29, 8.67, double.NaN, double.NaN, 8.58, new[]
+            {
+                new RoundedDouble(2, 8.57),
+                new RoundedDouble(2, 8),
+                new RoundedDouble(2, 6),
+                new RoundedDouble(2, 4),
+                new RoundedDouble(2, 2),
+                new RoundedDouble(2),
+                new RoundedDouble(2, -2),
+                new RoundedDouble(2, -4),
+                new RoundedDouble(2, -4.29)
+            });
         }
     }
 }
