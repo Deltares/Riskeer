@@ -219,17 +219,6 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets the water levels to perform a wave conditions calculation for.
-        /// </summary>
-        public IEnumerable<RoundedDouble> WaterLevels
-        {
-            get
-            {
-                return this.GetWaterLevels(AssessmentLevel);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the foreshore profile.
         /// </summary>
         public ForeshoreProfile ForeshoreProfile
