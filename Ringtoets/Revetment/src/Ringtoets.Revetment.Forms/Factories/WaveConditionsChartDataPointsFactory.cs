@@ -217,7 +217,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreateWaterLevelsGeometryPoints(WaveConditionsInput input)
         {
-            return input?.WaterLevels
+            return input?.GetWaterLevels(input.AssessmentLevel)
                         .Select(waterLevel => CreateGeometryPoints(input, () => waterLevel))
                         .ToArray() ?? new IEnumerable<Point2D>[0];
         }

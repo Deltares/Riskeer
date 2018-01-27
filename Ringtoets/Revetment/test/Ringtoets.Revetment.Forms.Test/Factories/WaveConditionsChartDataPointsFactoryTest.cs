@@ -954,17 +954,19 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
 
+            IEnumerable<RoundedDouble> waterLevels = input.GetWaterLevels(input.AssessmentLevel);
+
             var expectedLines = new[]
             {
                 new[]
                 {
                     new Point2D(foreshoreProfileGeometry.First().X, 6),
-                    new Point2D(((input.WaterLevels.ElementAt(0) - lastGeometryPoint.Y) / 3) + lastGeometryPoint.X, 6)
+                    new Point2D(((waterLevels.ElementAt(0) - lastGeometryPoint.Y) / 3) + lastGeometryPoint.X, 6)
                 },
                 new[]
                 {
                     new Point2D(foreshoreProfileGeometry.First().X, 5),
-                    new Point2D(((input.WaterLevels.ElementAt(1) - lastGeometryPoint.Y) / 3) + lastGeometryPoint.X, 5)
+                    new Point2D(((waterLevels.ElementAt(1) - lastGeometryPoint.Y) / 3) + lastGeometryPoint.X, 5)
                 }
             };
 
