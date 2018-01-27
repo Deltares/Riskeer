@@ -34,11 +34,11 @@ namespace Ringtoets.Revetment.Data
         /// Gets the water levels to perform a wave conditions calculation for.
         /// </summary>
         /// <param name="waveConditionsInput">The wave conditions input.</param>
-        /// <param name="upperBoundaryDesignWaterLevel">The upper boundary design water level to use.</param>
+        /// <param name="assessmentLevel">The assessment level to use.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> containing water levels.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
         public static IEnumerable<RoundedDouble> GetWaterLevels(this WaveConditionsInput waveConditionsInput,
-                                                                RoundedDouble upperBoundaryDesignWaterLevel)
+                                                                RoundedDouble assessmentLevel)
         {
             if (waveConditionsInput == null)
             {
@@ -47,7 +47,7 @@ namespace Ringtoets.Revetment.Data
 
             var waterLevels = new List<RoundedDouble>();
 
-            var upperBoundary = new RoundedDouble(2, Math.Min(upperBoundaryDesignWaterLevel,
+            var upperBoundary = new RoundedDouble(2, Math.Min(WaveConditionsInputHelper.GetUpperBoundaryDesignWaterLevel(assessmentLevel),
                                                               Math.Min(waveConditionsInput.UpperBoundaryRevetment,
                                                                        !double.IsNaN(waveConditionsInput.UpperBoundaryWaterLevels)
                                                                            ? waveConditionsInput.UpperBoundaryWaterLevels

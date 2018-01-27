@@ -225,7 +225,7 @@ namespace Ringtoets.Revetment.Data
         {
             get
             {
-                return this.GetWaterLevels(WaveConditionsInputHelper.GetUpperBoundaryDesignWaterLevel(AssessmentLevel));
+                return this.GetWaterLevels(AssessmentLevel);
             }
         }
 
