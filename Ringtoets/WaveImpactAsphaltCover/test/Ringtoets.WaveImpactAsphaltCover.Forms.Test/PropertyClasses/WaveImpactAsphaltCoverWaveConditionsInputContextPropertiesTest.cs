@@ -65,8 +65,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
                 new WaveConditionsInput(),
                 new TestWaveConditionsCalculation(),
-                Enumerable.Empty<ForeshoreProfile>(),
-                assessmentSection);
+                assessmentSection,
+                Enumerable.Empty<ForeshoreProfile>());
 
             // Call
             var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context, handler);

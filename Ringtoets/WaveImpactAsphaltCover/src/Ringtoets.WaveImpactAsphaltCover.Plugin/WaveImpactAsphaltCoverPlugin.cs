@@ -550,8 +550,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 calculation.Comments,
                 new WaveImpactAsphaltCoverWaveConditionsInputContext(calculation.InputParameters,
                                                                      calculation,
-                                                                     context.FailureMechanism.ForeshoreProfiles,
-                                                                     context.AssessmentSection)
+                                                                     context.AssessmentSection,
+                                                                     context.FailureMechanism.ForeshoreProfiles)
             };
 
             if (calculation.HasOutput)
