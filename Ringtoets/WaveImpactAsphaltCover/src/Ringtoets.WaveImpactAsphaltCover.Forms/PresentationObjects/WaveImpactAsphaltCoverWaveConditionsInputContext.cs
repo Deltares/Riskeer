@@ -35,8 +35,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
     /// </summary>
     public class WaveImpactAsphaltCoverWaveConditionsInputContext : WaveConditionsInputContext
     {
-        private readonly IAssessmentSection assessmentSection;
-
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/>.
         /// </summary>
@@ -49,25 +47,21 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
                                                                 ICalculation<WaveConditionsInput> calculation,
                                                                 IEnumerable<ForeshoreProfile> foreshoreProfiles,
                                                                 IAssessmentSection assessmentSection)
-            : base(wrappedData, calculation)
+            : base(wrappedData, calculation, assessmentSection)
         {
             if (foreshoreProfiles == null)
             {
                 throw new ArgumentNullException(nameof(foreshoreProfiles));
             }
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
+
             ForeshoreProfiles = foreshoreProfiles;
-            this.assessmentSection = assessmentSection;
         }
 
         public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
         {
             get
             {
-                return assessmentSection.HydraulicBoundaryDatabase.Locations;
+                return AssessmentSection.HydraulicBoundaryDatabase.Locations;
             }
         }
 
