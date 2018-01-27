@@ -71,6 +71,7 @@ namespace Ringtoets.Revetment.Service
         /// during the execution of the operation.
         /// </summary>
         /// <param name="waveConditionsInput">The input of the calculation.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary
         /// database file which to validate.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
@@ -79,6 +80,7 @@ namespace Ringtoets.Revetment.Service
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/>
         /// or <paramref name="designWaterLevelName"/> is <c>null</c>.</exception>
         protected static bool ValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput,
+                                                          RoundedDouble normativeAssessmentLevel,
                                                           string hydraulicBoundaryDatabaseFilePath,
                                                           string preprocessorDirectory,
                                                           string designWaterLevelName)
@@ -87,6 +89,7 @@ namespace Ringtoets.Revetment.Service
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
+
             if (designWaterLevelName == null)
             {
                 throw new ArgumentNullException(nameof(designWaterLevelName));
@@ -94,7 +97,11 @@ namespace Ringtoets.Revetment.Service
 
             CalculationServiceHelper.LogValidationBegin();
 
-            string[] messages = ValidateInput(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory, waveConditionsInput, designWaterLevelName);
+            string[] messages = ValidateInput(hydraulicBoundaryDatabaseFilePath,
+                                              preprocessorDirectory,
+                                              waveConditionsInput,
+                                              normativeAssessmentLevel,
+                                              designWaterLevelName);
 
             CalculationServiceHelper.LogMessagesAsError(messages);
 
@@ -201,12 +208,13 @@ namespace Ringtoets.Revetment.Service
         private static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath,
                                               string preprocessorDirectory,
                                               WaveConditionsInput input,
+                                              RoundedDouble normativeAssessmentLevel,
                                               string designWaterLevelName)
         {
             var validationResults = new List<string>();
 
             string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
-                                                                                                                  preprocessorDirectory);
+                                                                                                                   preprocessorDirectory);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
                 validationResults.Add(databaseFilePathValidationProblem);
@@ -223,7 +231,7 @@ namespace Ringtoets.Revetment.Service
                 return validationResults.ToArray();
             }
 
-            validationResults.AddRange(ValidateWaveConditionsInput(input, designWaterLevelName));
+            validationResults.AddRange(ValidateWaveConditionsInput(input, normativeAssessmentLevel, designWaterLevelName));
 
             return validationResults.ToArray();
         }
@@ -309,6 +317,7 @@ namespace Ringtoets.Revetment.Service
 
                     exceptionThrown = true;
                 }
+
                 output = null;
             }
             finally
@@ -332,6 +341,7 @@ namespace Ringtoets.Revetment.Service
                     output = null;
                 }
             }
+
             return output;
         }
 
@@ -383,7 +393,9 @@ namespace Ringtoets.Revetment.Service
             return waveConditionsCosineCalculationInput;
         }
 
-        private static IEnumerable<string> ValidateWaveConditionsInput(WaveConditionsInput input, string designWaterLevelName)
+        private static IEnumerable<string> ValidateWaveConditionsInput(WaveConditionsInput input,
+                                                                       RoundedDouble normativeAssessmentLevel,
+                                                                       string designWaterLevelName)
         {
             var messages = new List<string>();
 
@@ -399,7 +411,7 @@ namespace Ringtoets.Revetment.Service
             }
             else
             {
-                if (!input.GetWaterLevels(input.AssessmentLevel).Any())
+                if (!input.GetWaterLevels(normativeAssessmentLevel).Any())
                 {
                     messages.Add(Resources.WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels);
                 }
