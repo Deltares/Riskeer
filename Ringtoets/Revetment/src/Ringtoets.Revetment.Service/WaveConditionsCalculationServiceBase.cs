@@ -71,7 +71,7 @@ namespace Ringtoets.Revetment.Service
         /// during the execution of the operation.
         /// </summary>
         /// <param name="waveConditionsInput">The input of the calculation.</param>
-        /// <param name="normativeAssessmentLevel">The normative assessment level to use.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use for determining water levels.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary
         /// database file which to validate.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>

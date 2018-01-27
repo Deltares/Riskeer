@@ -44,22 +44,26 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         /// Performs validation over the input parameters. Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> for which to validate the values.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use for determining water levels.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public static bool Validate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, string hydraulicBoundaryDatabaseFilePath, string preprocessorDirectory)
+        public static bool Validate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
+                                    RoundedDouble normativeAssessmentLevel,
+                                    string hydraulicBoundaryDatabaseFilePath,
+                                    string preprocessorDirectory)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            return ValidateWaveConditionsInput(
-                calculation.InputParameters,
-                hydraulicBoundaryDatabaseFilePath,
-                preprocessorDirectory,
-                Resources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
+            return ValidateWaveConditionsInput(calculation.InputParameters,
+                                               normativeAssessmentLevel,
+                                               hydraulicBoundaryDatabaseFilePath,
+                                               preprocessorDirectory,
+                                               Resources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
         }
 
         /// <summary>
@@ -96,10 +100,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
             if (generalWaveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(generalWaveConditionsInput));
