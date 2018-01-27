@@ -189,7 +189,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(lowerBoundaryWaterLevels, properties.LowerBoundaryWaterLevels.Value, properties.LowerBoundaryWaterLevels.GetAccuracy());
             Assert.AreEqual(2, properties.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
             Assert.AreEqual(0.5, properties.StepSize.AsValue());
-            CollectionAssert.AreEqual(input.WaterLevels, properties.WaterLevels);
             Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
             Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
             Assert.AreEqual("Test", properties.RevetmentType);
@@ -342,6 +341,35 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(schematizationCategory, revetmentTypeProperty.Category);
             Assert.AreEqual("Type bekleding", revetmentTypeProperty.DisplayName);
             Assert.AreEqual("Het type van de bekleding waarvoor berekend wordt.", revetmentTypeProperty.Description);
+        }
+
+        [Test]
+        public void WaterLevels_WithValidData_ExpectedValues()
+        {
+            // Setup
+            var assessmentLevel = (RoundedDouble) 5.99;
+            var lowerBoundaryRevetment = (RoundedDouble) 3.58;
+            var lowerBoundaryWaterLevels = (RoundedDouble) 3.40;
+            var upperBoundaryRevetment = (RoundedDouble) 6.10;
+            var upperBoundaryWaterLevels = (RoundedDouble) 5.88;
+            const WaveConditionsInputStepSize stepSize = WaveConditionsInputStepSize.Half;
+
+            var input = new WaveConditionsInput
+            {
+                UpperBoundaryRevetment = upperBoundaryRevetment,
+                LowerBoundaryRevetment = lowerBoundaryRevetment,
+                UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
+                LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
+                StepSize = stepSize
+            };
+            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
+
+            // Call
+            var properties = new TestWaveConditionsInputContextProperties(inputContext, () => assessmentLevel, handler);
+
+            // Assert
+            Assert.IsNotEmpty(properties.WaterLevels);
+            CollectionAssert.AreEqual(input.GetWaterLevels(assessmentLevel), properties.WaterLevels);
         }
 
         [Test]

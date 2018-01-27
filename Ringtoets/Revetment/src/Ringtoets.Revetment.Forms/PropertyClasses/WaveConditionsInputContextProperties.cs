@@ -218,7 +218,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.WaterLevels.ToArray();
+                return data.WrappedData.GetWaterLevels(getNormativeAssessmentLevelFunc()).ToArray();
             }
         }
 
