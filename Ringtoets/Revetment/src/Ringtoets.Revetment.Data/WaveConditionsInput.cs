@@ -38,7 +38,6 @@ namespace Ringtoets.Revetment.Data
     /// </summary>
     public class WaveConditionsInput : CloneableObservable, ICalculationInput, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
     {
-        private const double designWaterLevelSubstraction = 0.01;
         private const int orientationNumberOfDecimals = 2;
 
         private static readonly Range<RoundedDouble> orientationValidityRange = new Range<RoundedDouble>(new RoundedDouble(orientationNumberOfDecimals),
@@ -105,17 +104,6 @@ namespace Ringtoets.Revetment.Data
                                                                               orientationValidityRange));
                 }
                 orientation = newOrientation;
-            }
-        }
-
-        /// <summary>
-        /// Gets the upper boundary based on <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation.DesignWaterLevel"/>.
-        /// </summary>
-        public RoundedDouble UpperBoundaryDesignWaterLevel
-        {
-            get
-            {
-                return new RoundedDouble(2, AssessmentLevel - designWaterLevelSubstraction);
             }
         }
 
