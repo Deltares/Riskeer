@@ -121,7 +121,7 @@ namespace Ringtoets.StabilityStoneCover.Service
 
             double norm = assessmentSection.FailureMechanismContribution.Norm;
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count() * 2;
+            TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).Count() * 2;
 
             try
             {
