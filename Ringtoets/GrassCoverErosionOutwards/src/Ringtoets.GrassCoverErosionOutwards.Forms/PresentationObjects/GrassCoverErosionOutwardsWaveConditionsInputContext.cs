@@ -51,20 +51,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
                                                                    ICalculation<WaveConditionsInput> calculation,
                                                                    GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                    IAssessmentSection assessmentSection)
-            : base(wrappedData, calculation)
+            : base(wrappedData, calculation, assessmentSection)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             this.failureMechanism = failureMechanism;
-            AssessmentSection = assessmentSection;
         }
 
         public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
@@ -82,7 +76,5 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
                 return failureMechanism.ForeshoreProfiles;
             }
         }
-
-        public IAssessmentSection AssessmentSection { get; }
     }
 }
