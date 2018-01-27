@@ -78,7 +78,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithoutContext_ThrowsArgumentNullException()
+        public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new TestWaveConditionsInputContextProperties(null, handler);
@@ -89,7 +89,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithoutHandler_ThrowsArgumentNullException()
+        public void Constructor_PropertyChangeHandlerNull_ThrowsArgumentNullException()
         {
             // Setup
             mockRepository.ReplayAll();
@@ -104,7 +104,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("handler", exception.ParamName);
+            Assert.AreEqual("propertyChangeHandler", exception.ParamName);
             mockRepository.VerifyAll();
         }
 

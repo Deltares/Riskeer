@@ -103,6 +103,7 @@ namespace Ringtoets.Revetment.Data
                     throw new ArgumentOutOfRangeException(null, string.Format(RingtoetsCommonDataResources.Orientation_Value_needs_to_be_in_Range_0_,
                                                                               orientationValidityRange));
                 }
+
                 orientation = newOrientation;
             }
         }
@@ -308,6 +309,7 @@ namespace Ringtoets.Revetment.Data
             {
                 boundary = new RoundedDouble(boundary.NumberOfDecimalPlaces, 1000);
             }
+
             return boundary;
         }
 
@@ -317,6 +319,7 @@ namespace Ringtoets.Revetment.Data
             {
                 boundary = new RoundedDouble(boundary.NumberOfDecimalPlaces, -50);
             }
+
             return boundary;
         }
 
