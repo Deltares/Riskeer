@@ -468,7 +468,8 @@ namespace Ringtoets.Revetment.Service.Test
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var calculator = new TestWaveConditionsCosineCalculator();
-            int nrOfCalculators = input.WaterLevels.Count();
+            RoundedDouble[] waterLevels = input.GetWaterLevels(input.AssessmentLevel).ToArray();
+            int nrOfCalculators = waterLevels.Length;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -486,7 +487,7 @@ namespace Ringtoets.Revetment.Service.Test
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
                 {
-                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(input.WaterLevels.ElementAt(i), a, b, c, norm, input, useForeshore, false);
+                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(waterLevels[i], a, b, c, norm, input, useForeshore, false);
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, calculator.ReceivedInputs[i]);
                 }
             }
@@ -524,7 +525,9 @@ namespace Ringtoets.Revetment.Service.Test
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var calculator = new TestWaveConditionsCosineCalculator();
-            int nrOfCalculators = input.WaterLevels.Count();
+            RoundedDouble[] waterLevels = input.GetWaterLevels(input.AssessmentLevel).ToArray();
+
+            int nrOfCalculators = waterLevels.Length;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -542,7 +545,7 @@ namespace Ringtoets.Revetment.Service.Test
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
                 {
-                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(input.WaterLevels.ElementAt(i), a, b, c, norm, input, true, true);
+                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(waterLevels[i], a, b, c, norm, input, true, true);
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, calculator.ReceivedInputs[i]);
                 }
             }
@@ -577,7 +580,7 @@ namespace Ringtoets.Revetment.Service.Test
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var calculator = new TestWaveConditionsCosineCalculator();
-            int nrOfCalculators = input.WaterLevels.Count();
+            int nrOfCalculators = input.GetWaterLevels(input.AssessmentLevel).Count();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -622,7 +625,7 @@ namespace Ringtoets.Revetment.Service.Test
                 LowerBoundaryRevetment = waterLevelLowerBoundaryRevetment
             };
 
-            int nrOfCalculators = input.WaterLevels.Count();
+            int nrOfCalculators = input.GetWaterLevels(input.AssessmentLevel).Count();
 
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
