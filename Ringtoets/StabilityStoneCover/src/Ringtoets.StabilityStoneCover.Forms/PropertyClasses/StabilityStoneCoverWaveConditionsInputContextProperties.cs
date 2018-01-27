@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
@@ -38,10 +39,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         /// </summary>
         /// <param name="context">The <see cref="StabilityStoneCoverWaveConditionsInputContext"/> for which 
         /// the properties are shown.</param>
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityStoneCoverWaveConditionsInputContextProperties(StabilityStoneCoverWaveConditionsInputContext context, IObservablePropertyChangeHandler handler)
-            : base(context, handler) {}
+        public StabilityStoneCoverWaveConditionsInputContextProperties(StabilityStoneCoverWaveConditionsInputContext context,
+                                                                       Func<RoundedDouble> getNormativeAssessmentLevelFunc,
+                                                                       IObservablePropertyChangeHandler handler)
+            : base(context, getNormativeAssessmentLevelFunc, handler) {}
 
         public override string RevetmentType
         {
