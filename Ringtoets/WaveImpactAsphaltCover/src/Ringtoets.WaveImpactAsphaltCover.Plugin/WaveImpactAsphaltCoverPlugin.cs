@@ -72,6 +72,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             {
                 CreateInstance = context => new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(
                     context,
+                    () => context.AssessmentSection.GetNormativeAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation),
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
         }
