@@ -850,6 +850,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 calculation.Comments,
                 new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
                                                                         calculation,
+                                                                        context.AssessmentSection,
                                                                         context.FailureMechanism)
             };
 

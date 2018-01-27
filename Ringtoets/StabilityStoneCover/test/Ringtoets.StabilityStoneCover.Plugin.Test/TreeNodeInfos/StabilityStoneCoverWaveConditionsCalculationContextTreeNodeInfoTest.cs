@@ -191,6 +191,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var inputContext = (StabilityStoneCoverWaveConditionsInputContext) children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
+            Assert.AreSame(calculation, inputContext.Calculation);
+            Assert.AreSame(assessmentSection, inputContext.AssessmentSection);
             CollectionAssert.AreEqual(new[]
             {
                 foreshoreProfile
@@ -250,6 +252,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var inputContext = (StabilityStoneCoverWaveConditionsInputContext) children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
+            Assert.AreSame(calculation, inputContext.Calculation);
+            Assert.AreSame(assessmentSection, inputContext.AssessmentSection);
             CollectionAssert.AreEqual(new[]
             {
                 foreshoreProfile

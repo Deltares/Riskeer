@@ -192,6 +192,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var inputContext = (WaveImpactAsphaltCoverWaveConditionsInputContext) children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
+            Assert.AreSame(calculation, inputContext.Calculation);
+            Assert.AreSame(assessmentSection, inputContext.AssessmentSection);
             CollectionAssert.AreEqual(new[]
             {
                 foreshoreProfile
@@ -248,6 +250,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var inputContext = (WaveImpactAsphaltCoverWaveConditionsInputContext) children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
+            Assert.AreSame(calculation, inputContext.Calculation);
+            Assert.AreSame(assessmentSection, inputContext.AssessmentSection);
             CollectionAssert.AreEqual(new[]
             {
                 foreshoreProfile
