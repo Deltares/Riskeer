@@ -224,7 +224,7 @@ namespace Ringtoets.Revetment.Data
         {
             get
             {
-                return DetermineWaterLevels();
+                return this.GetWaterLevels(WaveConditionsInputHelper.GetUpperBoundaryDesignWaterLevel(AssessmentLevel));
             }
         }
 
@@ -338,44 +338,6 @@ namespace Ringtoets.Revetment.Data
             {
                 throw new ArgumentOutOfRangeException(null, exceptionMessage);
             }
-        }
-
-        private IEnumerable<RoundedDouble> DetermineWaterLevels()
-        {
-            var waterLevels = new List<RoundedDouble>();
-
-            var upperBoundary = new RoundedDouble(2, Math.Min(UpperBoundaryDesignWaterLevel,
-                                                              Math.Min(UpperBoundaryRevetment,
-                                                                       !double.IsNaN(UpperBoundaryWaterLevels)
-                                                                           ? UpperBoundaryWaterLevels
-                                                                           : double.MaxValue)));
-
-            var lowerBoundary = new RoundedDouble(2, Math.Max(LowerBoundaryRevetment,
-                                                              !double.IsNaN(LowerBoundaryWaterLevels)
-                                                                  ? LowerBoundaryWaterLevels
-                                                                  : double.MinValue));
-
-            if (double.IsNaN(upperBoundary) ||
-                double.IsNaN(lowerBoundary) ||
-                lowerBoundary >= upperBoundary)
-            {
-                return waterLevels;
-            }
-
-            waterLevels.Add(upperBoundary);
-
-            double stepSizeValue = StepSize.AsValue();
-            var currentWaterLevel = new RoundedDouble(2, Math.Ceiling(upperBoundary / stepSizeValue) * stepSizeValue - stepSizeValue);
-
-            while (currentWaterLevel > lowerBoundary)
-            {
-                waterLevels.Add(currentWaterLevel);
-                currentWaterLevel = new RoundedDouble(currentWaterLevel.NumberOfDecimalPlaces, currentWaterLevel - stepSizeValue);
-            }
-
-            waterLevels.Add(lowerBoundary);
-
-            return waterLevels;
         }
 
         private static BreakWater GetDefaultBreakWater()
