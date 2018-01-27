@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
@@ -53,16 +55,8 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
         {
             // Setup
             var waveConditionsInput = new WaveConditionsInput();
-            var profiles = new[]
-            {
-                new TestForeshoreProfile("test1"),
-                new TestForeshoreProfile("test2")
-            };
-            var locations = new[]
-            {
-                new TestHydraulicBoundaryLocation(),
-                new TestHydraulicBoundaryLocation()
-            };
+            var profiles = new ForeshoreProfile[0];
+            var locations = new HydraulicBoundaryLocation[0];
 
             // Call
             var context = new TestWaveConditionsInputContext(waveConditionsInput, profiles, locations);
@@ -83,16 +77,8 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             var waveConditionsInput = new WaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var profiles = new[]
-            {
-                new TestForeshoreProfile("test1"),
-                new TestForeshoreProfile("test2")
-            };
-            var locations = new[]
-            {
-                new TestHydraulicBoundaryLocation(),
-                new TestHydraulicBoundaryLocation()
-            };
+            var profiles = new ForeshoreProfile[0];
+            var locations = new HydraulicBoundaryLocation[0];
 
             // Call
             var context = new TestWaveConditionsInputContext(waveConditionsInput,

@@ -20,11 +20,17 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PresentationObjects;
-using Ringtoets.Revetment.Forms.TestUtil;
 
 namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
 {
@@ -32,29 +38,69 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
     public class WaveConditionsInputContextTest
     {
         [Test]
-        public void Constructor_WaveConditionsInputNull_ThrowArgumentNullException()
+        public void Constructor_CalculationNull_ThrowArgumentNullException()
         {
+            // Setup
+            var waveConditionsInput = new WaveConditionsInput();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
             // Call
-            TestDelegate call = () => new TestWaveConditionsInputContext(null);
+            TestDelegate call = () => new TestWaveConditionsInputContext(waveConditionsInput,
+                                                                         null,
+                                                                         assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
+            Assert.AreEqual("calculation", paramName);
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var waveConditionsInput = new WaveConditionsInput();
+            var calculation = new TestWaveConditionsCalculation();
 
             // Call
-            var context = new TestWaveConditionsInputContext(input);
+            TestDelegate call = () => new TestWaveConditionsInputContext(waveConditionsInput,
+                                                                         calculation,
+                                                                         null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("assessmentSection", paramName);
+        }
+
+        [Test]
+        public void Constructor_ValidInput_ExpectedValues()
+        {
+            // Setup
+            var waveConditionsInput = new WaveConditionsInput();
+            var calculation = new TestWaveConditionsCalculation();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            // Call
+            var context = new TestWaveConditionsInputContext(waveConditionsInput,
+                                                             calculation,
+                                                             assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<WaveConditionsInput>>(context);
-            Assert.IsInstanceOf<WaveConditionsInputContext>(context);
-            Assert.AreSame(input, context.WrappedData);
+            Assert.AreSame(waveConditionsInput, context.WrappedData);
+            Assert.AreSame(calculation, context.Calculation);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
+        }
+
+        private class TestWaveConditionsInputContext : WaveConditionsInputContext
+        {
+            public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
+                                                  ICalculation<WaveConditionsInput> calculation,
+                                                  IAssessmentSection assessmentSection)
+                : base(wrappedData, calculation, assessmentSection) {}
+
+            public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; }
+
+            public override IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; }
         }
     }
 }
