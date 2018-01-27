@@ -99,7 +99,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var input = new WaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
-            var context = new TestWaveConditionsInputContext(input, calculation,
+            var context = new TestWaveConditionsInputContext(input,
+                                                             calculation,
+                                                             new AssessmentSection(AssessmentSectionComposition.Dike),
                                                              new ForeshoreProfile[0],
                                                              new HydraulicBoundaryLocation[0]);
 
@@ -467,6 +469,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                     new GrassCoverErosionOutwardsWaveConditionsInputContext(
                         new WaveConditionsInput(),
                         new GrassCoverErosionOutwardsWaveConditionsCalculation(),
+                        new AssessmentSection(AssessmentSectionComposition.Dike),
                         new GrassCoverErosionOutwardsFailureMechanism()),
                     Color.Green,
                     "Waterstand bij doorsnede-eis")
@@ -476,8 +479,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                     new StabilityStoneCoverWaveConditionsInputContext(
                         new WaveConditionsInput(),
                         new StabilityStoneCoverWaveConditionsCalculation(),
-                        new ForeshoreProfile[0],
-                        new AssessmentSection(AssessmentSectionComposition.Dike)),
+                        new AssessmentSection(AssessmentSectionComposition.Dike),
+                        new ForeshoreProfile[0]),
                     Color.Gray,
                     "Toetspeil")
                 .SetName("Stability stone cover input context");
@@ -486,8 +489,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                     new WaveImpactAsphaltCoverWaveConditionsInputContext(
                         new WaveConditionsInput(),
                         new WaveImpactAsphaltCoverWaveConditionsCalculation(),
-                        new ForeshoreProfile[0],
-                        new AssessmentSection(AssessmentSectionComposition.Dike)),
+                        new AssessmentSection(AssessmentSectionComposition.Dike),
+                        new ForeshoreProfile[0]),
                     Color.Gray,
                     "Toetspeil")
                 .SetName("Wave impact asphalt cover input context");

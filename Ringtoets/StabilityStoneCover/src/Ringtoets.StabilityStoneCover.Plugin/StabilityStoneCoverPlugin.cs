@@ -545,8 +545,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 calculation.Comments,
                 new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
                                                                   calculation,
-                                                                  context.FailureMechanism.ForeshoreProfiles,
-                                                                  context.AssessmentSection)
+                                                                  context.AssessmentSection,
+                                                                  context.FailureMechanism.ForeshoreProfiles)
             };
 
             if (calculation.HasOutput)

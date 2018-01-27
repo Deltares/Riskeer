@@ -65,8 +65,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             var context = new StabilityStoneCoverWaveConditionsInputContext(
                 new WaveConditionsInput(),
                 new TestWaveConditionsCalculation(),
-                Enumerable.Empty<ForeshoreProfile>(),
-                assessmentSection);
+                assessmentSection,
+                Enumerable.Empty<ForeshoreProfile>());
 
             // Call
             var properties = new StabilityStoneCoverWaveConditionsInputContextProperties(context, handler);
