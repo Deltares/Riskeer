@@ -103,6 +103,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -161,6 +162,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -217,6 +219,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -260,6 +263,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                     Assert.AreEqual(text, progessTexts[i]);
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -282,6 +286,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                           assessmentSection);
 
             var waveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
+
             RoundedDouble[] waterLevels = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).ToArray();
             int nrOfCalculators = waterLevels.Length;
 
@@ -466,6 +471,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 // Assert
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -511,6 +517,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 // Assert
                 Assert.IsNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
