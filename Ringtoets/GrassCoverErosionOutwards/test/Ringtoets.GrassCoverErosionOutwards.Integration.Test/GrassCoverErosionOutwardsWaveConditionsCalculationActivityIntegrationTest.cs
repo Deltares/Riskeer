@@ -178,7 +178,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                           assessmentSection.GrassCoverErosionOutwards,
                                                                                           assessmentSection);
 
-            int nrOfCalculators = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).Count();
+            RoundedDouble[] waterLevels = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).ToArray();
+            int nrOfCalculators = waterLevels.Length;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -204,7 +205,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
 
                     var i = 3;
-                    foreach (RoundedDouble waterLevel in calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel))
+                    foreach (RoundedDouble waterLevel in waterLevels)
                     {
                         Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", msgs[i + 1]);
                         StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i + 2]);
@@ -233,7 +234,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                           assessmentSection.GrassCoverErosionOutwards,
                                                                                           assessmentSection);
 
-            int nrOfCalculators = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).Count();
+            RoundedDouble[] waterLevels = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).ToArray();
+            int nrOfCalculators = waterLevels.Length;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -252,7 +254,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 activity.Run();
 
                 // Assert
-                RoundedDouble[] waterLevels = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).ToArray();
                 for (var i = 0; i < waterLevels.Length; i++)
                 {
                     string text = $"Stap {i + 1} van {waterLevels.Length} | Waterstand '{waterLevels[i]}' berekenen.";
@@ -281,7 +282,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                           assessmentSection);
 
             var waveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
-            int nrOfCalculators = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).Count();
+            RoundedDouble[] waterLevels = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).ToArray();
+            int nrOfCalculators = waterLevels.Length;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -317,7 +319,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                  mechanismSpecificNorm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
-                                                                                 calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).ElementAt(waterLevelIndex++),
+                                                                                 waterLevels.ElementAt(waterLevelIndex++),
                                                                                  generalInput.GeneralWaveConditionsInput.A,
                                                                                  generalInput.GeneralWaveConditionsInput.B,
                                                                                  generalInput.GeneralWaveConditionsInput.C);
