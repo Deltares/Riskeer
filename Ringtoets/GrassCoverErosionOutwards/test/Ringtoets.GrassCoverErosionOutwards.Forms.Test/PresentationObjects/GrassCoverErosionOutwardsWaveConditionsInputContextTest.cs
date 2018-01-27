@@ -50,8 +50,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Call
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(input,
                                                                                   calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                  assessmentSection,
+                                                                                  failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
@@ -77,8 +77,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Call
             TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(input,
                                                                                               calculation,
-                                                                                              null,
-                                                                                              assessmentSection);
+                                                                                              assessmentSection,
+                                                                                              null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

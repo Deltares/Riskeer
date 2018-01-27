@@ -50,8 +50,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             // Call
             var context = new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
                                                                             calculation,
-                                                                            foreshoreProfiles,
-                                                                            assessmentSection);
+                                                                            assessmentSection,
+                                                                            foreshoreProfiles);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
@@ -76,8 +76,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             // Call
             TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
                                                                                         calculation,
-                                                                                        null,
-                                                                                        assessmentSection);
+                                                                                        assessmentSection,
+                                                                                        null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

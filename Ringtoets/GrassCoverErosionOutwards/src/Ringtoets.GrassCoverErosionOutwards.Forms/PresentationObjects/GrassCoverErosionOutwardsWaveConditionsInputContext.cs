@@ -43,14 +43,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
         /// <param name="calculation">The calculation having <paramref name="wrappedData"/> as input.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the context belongs to.</param>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/>
         /// the context belongs to.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                                                    ICalculation<WaveConditionsInput> calculation,
-                                                                   GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                   IAssessmentSection assessmentSection)
+                                                                   IAssessmentSection assessmentSection,
+                                                                   GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             : base(wrappedData, calculation, assessmentSection)
         {
             if (failureMechanism == null)

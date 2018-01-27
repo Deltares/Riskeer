@@ -40,13 +40,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
         /// <param name="calculation">The calculation having <paramref name="wrappedData"/> as input.</param>
-        /// <param name="foreshoreProfiles">The foreshore profiles of the <see cref="WaveImpactAsphaltCoverFailureMechanismContext"/>.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
+        /// <param name="foreshoreProfiles">The foreshore profiles of the <see cref="WaveImpactAsphaltCoverFailureMechanismContext"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                                                 ICalculation<WaveConditionsInput> calculation,
-                                                                IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                                                IAssessmentSection assessmentSection)
+                                                                IAssessmentSection assessmentSection,
+                                                                IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(wrappedData, calculation, assessmentSection)
         {
             if (foreshoreProfiles == null)
