@@ -155,17 +155,17 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or sets the step size used for determining <see cref="WaterLevels"/>.
+        /// Gets or sets the step size used for determining water levels.
         /// </summary>
         public WaveConditionsInputStepSize StepSize { get; set; }
 
         /// <summary>
-        /// Gets or sets the lower boundary of the <see cref="WaterLevels"/> range.
+        /// Gets or sets the lower boundary of the water levels range.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is larger than or equal to <see cref="UpperBoundaryWaterLevels"/>.</exception>
         /// <remarks>
         /// <list type="bullet">
-        /// <item>Setting this property is optional when it comes to determining <see cref="WaterLevels"/>; if the value
+        /// <item>Setting this property is optional when it comes to determining water levels; if the value
         /// equals <see cref="double.NaN"/>, only <see cref="LowerBoundaryRevetment"/> will be taken into account.</item>
         /// <item>When the value is smaller than -50, it will be set to -50.</item>
         /// </list>
@@ -189,13 +189,13 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or sets the upper boundary of the <see cref="WaterLevels"/> range.
+        /// Gets or sets the upper boundary of the water levels range.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <see cref="LowerBoundaryWaterLevels"/>.</exception>
         /// <remarks>
         /// <list type="bullet">
-        /// <item>Setting this property is optional when it comes to determining <see cref="WaterLevels"/>; if the value
-        /// equals <see cref="double.NaN"/>, only <see cref="UpperBoundaryDesignWaterLevel"/> and <see cref="UpperBoundaryRevetment"/>
+        /// <item>Setting this property is optional when it comes to determining water levels; if the value
+        /// equals <see cref="double.NaN"/>, only the upper boundary design water level and <see cref="UpperBoundaryRevetment"/>
         /// will be taken into account.</item>
         /// <item>When the value is larger than 1000, it will be set to 1000.</item>
         /// </list>
