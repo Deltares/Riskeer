@@ -43,6 +43,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.IsInstanceOf<TestWaveConditionsCalculation>(context.Calculation);
+            Assert.IsInstanceOf<ObservableTestAssessmentSectionStub>(context.AssessmentSection);
             CollectionAssert.IsEmpty(context.ForeshoreProfiles);
             CollectionAssert.IsEmpty(context.HydraulicBoundaryLocations);
         }
@@ -70,6 +71,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.IsInstanceOf<TestWaveConditionsCalculation>(context.Calculation);
+            Assert.IsInstanceOf<ObservableTestAssessmentSectionStub>(context.AssessmentSection);
             Assert.AreSame(profiles, context.ForeshoreProfiles);
             Assert.AreSame(locations, context.HydraulicBoundaryLocations);
         }
@@ -80,6 +82,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             // Setup
             var waveConditionsInput = new WaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var profiles = new[]
             {
                 new TestForeshoreProfile("test1"),
@@ -92,12 +95,17 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             };
 
             // Call
-            var context = new TestWaveConditionsInputContext(waveConditionsInput, calculation, profiles, locations);
+            var context = new TestWaveConditionsInputContext(waveConditionsInput,
+                                                             calculation,
+                                                             assessmentSection,
+                                                             profiles,
+                                                             locations);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(profiles, context.ForeshoreProfiles);
             Assert.AreSame(locations, context.HydraulicBoundaryLocations);
         }
