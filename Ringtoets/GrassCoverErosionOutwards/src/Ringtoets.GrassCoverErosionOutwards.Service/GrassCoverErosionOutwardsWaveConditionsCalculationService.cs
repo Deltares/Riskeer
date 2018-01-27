@@ -123,7 +123,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                 failureMechanism.GeneralInput.N);
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
 
-            TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count();
+            TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).Count();
 
             try
             {

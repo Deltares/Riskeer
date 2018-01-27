@@ -149,7 +149,7 @@ namespace Ringtoets.Revetment.Service
             var calculationsFailed = 0;
             var outputs = new List<WaveConditionsOutput>();
 
-            RoundedDouble[] waterLevels = waveConditionsInput.WaterLevels.ToArray();
+            RoundedDouble[] waterLevels = waveConditionsInput.GetWaterLevels(waveConditionsInput.AssessmentLevel).ToArray();
             foreach (RoundedDouble waterLevel in waterLevels.TakeWhile(waterLevel => !Canceled))
             {
                 try
@@ -399,7 +399,7 @@ namespace Ringtoets.Revetment.Service
             }
             else
             {
-                if (!input.WaterLevels.Any())
+                if (!input.GetWaterLevels(input.AssessmentLevel).Any())
                 {
                     messages.Add(Resources.WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels);
                 }
