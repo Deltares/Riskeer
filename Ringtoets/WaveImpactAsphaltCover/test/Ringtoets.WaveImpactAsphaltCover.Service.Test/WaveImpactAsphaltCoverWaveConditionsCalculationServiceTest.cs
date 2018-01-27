@@ -28,7 +28,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -101,6 +100,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -133,6 +133,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -165,6 +166,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -197,6 +199,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -229,6 +232,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -261,6 +265,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -296,6 +301,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -334,6 +340,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 });
                 Assert.IsFalse(isValid);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -451,6 +458,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[7]);
                 });
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -515,6 +523,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[7]);
                 });
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -571,6 +580,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -601,6 +611,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 // Assert
                 Assert.IsFalse(calculation.HasOutput);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -635,6 +646,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -664,6 +676,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 Assert.IsNotNull(calculation.Output);
                 Assert.AreEqual(3, calculation.Output.Items.Count());
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -754,6 +767,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 Assert.AreEqual("Berekening is mislukt voor alle waterstanden.", exception.Message);
                 Assert.IsNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -838,6 +852,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                                                                   targetNorm,
                                                                   waveConditionsOutputs[0]);
             }
+
             mockRepository.VerifyAll();
         }
 
