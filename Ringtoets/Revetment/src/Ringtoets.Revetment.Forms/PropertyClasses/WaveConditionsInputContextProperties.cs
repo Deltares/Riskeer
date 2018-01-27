@@ -124,7 +124,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return WaveConditionsInputHelper.GetUpperBoundaryDesignWaterLevel(getNormativeAssessmentLevelFunc());
+                return WaveConditionsInputHelper.GetUpperBoundaryDesignWaterLevel(AssessmentLevel);
             }
         }
 
@@ -233,7 +233,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
                 return data.WrappedData.ForeshoreProfile == null
                            ? null
                            : new Point2D(new RoundedDouble(0, data.WrappedData.ForeshoreProfile.WorldReferencePoint.X),
-                               new RoundedDouble(0, data.WrappedData.ForeshoreProfile.WorldReferencePoint.Y));
+                                         new RoundedDouble(0, data.WrappedData.ForeshoreProfile.WorldReferencePoint.Y));
             }
         }
 
@@ -263,7 +263,8 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             get
             {
                 return data.WrappedData.ForeshoreProfile == null
-? new UseBreakWaterProperties() : new UseBreakWaterProperties(data.WrappedData, propertyChangeHandler);
+                           ? new UseBreakWaterProperties()
+                           : new UseBreakWaterProperties(data.WrappedData, propertyChangeHandler);
             }
         }
 

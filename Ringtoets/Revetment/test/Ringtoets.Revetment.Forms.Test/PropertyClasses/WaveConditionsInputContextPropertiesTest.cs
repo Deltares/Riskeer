@@ -75,13 +75,20 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         {
             mockRepository = new MockRepository();
             handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestWaveConditionsInputContextProperties(null, handler);
+            TestDelegate test = () => new TestWaveConditionsInputContextProperties(null, GetTestNormativeAssessmentLevel, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -89,27 +96,41 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_PropertyChangeHandlerNull_ThrowsArgumentNullException()
+        public void Constructor_GetNormativeAssessmentLevelFuncNull_ThrowsArgumentNullException()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var context = new TestWaveConditionsInputContext(
                 new WaveConditionsInput(),
                 Enumerable.Empty<ForeshoreProfile>(),
                 Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Call
-            TestDelegate test = () => new TestWaveConditionsInputContextProperties(context, null);
+            TestDelegate test = () => new TestWaveConditionsInputContextProperties(context, null, handler);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("getNormativeAssessmentLevelFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_PropertyChangeHandlerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var context = new TestWaveConditionsInputContext(
+                new WaveConditionsInput(),
+                Enumerable.Empty<ForeshoreProfile>(),
+                Enumerable.Empty<HydraulicBoundaryLocation>());
+
+            // Call
+            TestDelegate test = () => new TestWaveConditionsInputContextProperties(context, GetTestNormativeAssessmentLevel, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("propertyChangeHandler", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithContext_ExpectedValues()
+        public void Constructor_WithValidData_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
@@ -136,7 +157,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                     Orientation = foreshoreProfileOrientation,
                     X0 = -3
                 });
-            TestHydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(assessmentLevel);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var input = new WaveConditionsInput
             {
                 ForeshoreProfile = foreshoreProfile,
@@ -150,7 +171,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
 
             // Call
-            var properties = new TestWaveConditionsInputContextProperties(inputContext, handler);
+            var properties = new TestWaveConditionsInputContextProperties(inputContext, () => assessmentLevel, handler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<WaveConditionsInputContext>>(properties);
@@ -197,13 +218,14 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             {
                 input.ForeshoreProfile = foreshoreProfile;
             }
+
             var inputContext = new TestWaveConditionsInputContext(input, new[]
             {
                 foreshoreProfile
             }, new HydraulicBoundaryLocation[0]);
 
             // Call
-            var properties = new TestWaveConditionsInputContextProperties(inputContext, handler);
+            var properties = new TestWaveConditionsInputContextProperties(inputContext, GetTestNormativeAssessmentLevel, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -409,7 +431,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var input = new WaveConditionsInput();
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
 
-            var properties = new TestWaveConditionsInputContextProperties(inputContext, handler);
+            var properties = new TestWaveConditionsInputContextProperties(inputContext, GetTestNormativeAssessmentLevel, handler);
 
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
 
@@ -437,7 +459,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             };
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], locations);
 
-            var properties = new TestWaveConditionsInputContextProperties(inputContext, handler);
+            var properties = new TestWaveConditionsInputContextProperties(inputContext, GetTestNormativeAssessmentLevel, handler);
 
             // Call 
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
@@ -467,7 +489,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 ForeshoreProfile = new TestForeshoreProfile(new Point2D(200620.173572981, 503401.652985217))
             };
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
-            var properties = new TestWaveConditionsInputContextProperties(inputContext, handler);
+            var properties = new TestWaveConditionsInputContextProperties(inputContext, GetTestNormativeAssessmentLevel, handler);
 
             // Call 
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
@@ -501,7 +523,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             };
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], locations);
 
-            var properties = new TestWaveConditionsInputContextProperties(inputContext, handler);
+            var properties = new TestWaveConditionsInputContextProperties(inputContext, GetTestNormativeAssessmentLevel, handler);
 
             // When
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
@@ -529,7 +551,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var input = new WaveConditionsInput();
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], locations);
 
-            var properties = new TestWaveConditionsInputContextProperties(inputContext, handler);
+            var properties = new TestWaveConditionsInputContextProperties(inputContext, GetTestNormativeAssessmentLevel, handler);
 
             // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations = properties.GetSelectableHydraulicBoundaryLocations();
@@ -561,7 +583,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             };
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], locations);
 
-            var properties = new TestWaveConditionsInputContextProperties(inputContext, handler);
+            var properties = new TestWaveConditionsInputContextProperties(inputContext, GetTestNormativeAssessmentLevel, handler);
 
             // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations = properties.GetSelectableHydraulicBoundaryLocations();
@@ -598,7 +620,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             var otherProfile = new TestForeshoreProfile(new Point2D(0, 190));
             var customHandler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new TestWaveConditionsInputContextProperties(inputContext, customHandler);
+            var properties = new TestWaveConditionsInputContextProperties(inputContext, GetTestNormativeAssessmentLevel, customHandler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
                                                                                       .ToList();
@@ -632,7 +654,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var input = new WaveConditionsInput();
             var inputContext = new TestWaveConditionsInputContext(input, locations, new HydraulicBoundaryLocation[0]);
 
-            var properties = new TestWaveConditionsInputContextProperties(inputContext, handler);
+            var properties = new TestWaveConditionsInputContextProperties(inputContext, GetTestNormativeAssessmentLevel, handler);
 
             // Call
             IEnumerable<ForeshoreProfile> availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
@@ -641,7 +663,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreSame(locations, availableForeshoreProfiles);
         }
 
-        private void SetPropertyAndVerifyNotificationsAndOutputForCalculation(Action<TestWaveConditionsInputContextProperties> setProperty)
+        private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(Action<TestWaveConditionsInputContextProperties> setProperty)
         {
             // Setup
             var mocks = new MockRepository();
@@ -663,7 +685,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 observable
             });
 
-            var properties = new TestWaveConditionsInputContextProperties(context, customHandler);
+            var properties = new TestWaveConditionsInputContextProperties(context, GetTestNormativeAssessmentLevel, customHandler);
 
             // Call
             setProperty(properties);
@@ -673,9 +695,17 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
+        }
+
         private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<WaveConditionsInputContext>
         {
-            public TestWaveConditionsInputContextProperties(WaveConditionsInputContext context, IObservablePropertyChangeHandler handler) : base(context, handler) {}
+            public TestWaveConditionsInputContextProperties(WaveConditionsInputContext context,
+                                                            Func<RoundedDouble> getNormativeAssessmentLevelFunc,
+                                                            IObservablePropertyChangeHandler handler)
+                : base(context, getNormativeAssessmentLevelFunc, handler) {}
 
             public override string RevetmentType
             {
