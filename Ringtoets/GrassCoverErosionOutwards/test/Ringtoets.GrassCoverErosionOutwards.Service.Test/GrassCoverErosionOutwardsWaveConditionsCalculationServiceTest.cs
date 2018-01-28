@@ -1048,7 +1048,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
         private static RoundedDouble GetTestNormativeAssessmentLevel()
         {
-            return (RoundedDouble) 12;
+            return (RoundedDouble) 9.3;
         }
     }
 }

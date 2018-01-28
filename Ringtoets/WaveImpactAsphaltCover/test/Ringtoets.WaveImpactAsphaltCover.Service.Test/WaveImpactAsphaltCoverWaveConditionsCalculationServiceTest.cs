@@ -64,7 +64,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         public void Validate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(null, validFilePath, validPreprocessorDirectory);
+            TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(null,
+                                                                                                      GetTestNormativeAssessmentLevel(),
+                                                                                                      validFilePath,
+                                                                                                      validPreprocessorDirectory);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -87,7 +90,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, testFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              testFilePath,
+                                                                                                              validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -120,7 +126,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, invalidFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              invalidFilePath,
+                                                                                                              validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -153,7 +162,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, validFilePath, invalidPreprocessorDirectory);
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              validFilePath,
+                                                                                                              invalidPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -186,7 +198,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, testFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              testFilePath,
+                                                                                                              validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -219,7 +234,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, validFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              validFilePath,
+                                                                                                              validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -237,7 +255,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
-        public void Validate_NoDesignWaterLevel_LogsValidationMessageAndReturnFalse()
+        public void Validate_NormativeAssessmentLevelNaN_LogsValidationMessageAndReturnFalse()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -252,7 +270,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, validFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              validFilePath,
+                                                                                                              validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -288,7 +309,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, validFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              validFilePath,
+                                                                                                              validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -326,7 +350,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, validFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              validFilePath,
+                                                                                                              validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -959,7 +986,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(9.3),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -980,6 +1007,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble) 5.4;
 
             return calculation;
+        }
+
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 9.3;
         }
     }
 }
