@@ -59,11 +59,11 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
             AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
-            string testFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
+            string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    testFilePath,
+                                                                                    invalidFilePath,
                                                                                     stabilityStoneCoverFailureMechanism,
                                                                                     assessmentSection);
 
@@ -83,7 +83,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     Assert.AreEqual(4, msgs.Length);
                     Assert.AreEqual($"Golfcondities voor blokken en zuilen berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                    Assert.AreEqual($"Fout bij het lezen van bestand '{testFilePath}': het bestand bestaat niet.", msgs[2]);
+                    Assert.AreEqual($"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.", msgs[2]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
