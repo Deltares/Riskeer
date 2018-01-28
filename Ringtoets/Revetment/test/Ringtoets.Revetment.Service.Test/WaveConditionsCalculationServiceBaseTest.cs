@@ -488,7 +488,7 @@ namespace Ringtoets.Revetment.Service.Test
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var calculator = new TestWaveConditionsCosineCalculator();
-            RoundedDouble[] waterLevels = input.GetWaterLevels(input.AssessmentLevel).ToArray();
+            RoundedDouble[] waterLevels = input.GetWaterLevels(waterLevel).ToArray();
             int nrOfCalculators = waterLevels.Length;
 
             var mockRepository = new MockRepository();
@@ -553,7 +553,7 @@ namespace Ringtoets.Revetment.Service.Test
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var calculator = new TestWaveConditionsCosineCalculator();
-            RoundedDouble[] waterLevels = input.GetWaterLevels(input.AssessmentLevel).ToArray();
+            RoundedDouble[] waterLevels = input.GetWaterLevels(waterLevel).ToArray();
 
             int nrOfCalculators = waterLevels.Length;
 
@@ -616,7 +616,7 @@ namespace Ringtoets.Revetment.Service.Test
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var calculator = new TestWaveConditionsCosineCalculator();
-            int nrOfCalculators = input.GetWaterLevels(input.AssessmentLevel).Count();
+            int nrOfCalculators = input.GetWaterLevels(waterLevel).Count();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -658,6 +658,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                    string detailedReport)
         {
             // Setup
+            var waterLevel = (RoundedDouble) 4.20;
             var waterLevelUpperBoundaryRevetment = new RoundedDouble(2, 4.00);
             var waterLevelLowerBoundaryRevetment = new RoundedDouble(2, 3.00);
 
@@ -669,7 +670,7 @@ namespace Ringtoets.Revetment.Service.Test
                 LowerBoundaryRevetment = waterLevelLowerBoundaryRevetment
             };
 
-            int nrOfCalculators = input.GetWaterLevels(input.AssessmentLevel).Count();
+            int nrOfCalculators = input.GetWaterLevels(waterLevel).Count();
 
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
@@ -685,7 +686,6 @@ namespace Ringtoets.Revetment.Service.Test
                              .Times(nrOfCalculators);
             mockRepository.ReplayAll();
 
-            var waterLevel = (RoundedDouble) 4.20;
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
