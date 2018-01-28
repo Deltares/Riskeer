@@ -448,7 +448,14 @@ namespace Ringtoets.Revetment.Service.Test
             string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             // Call
-            TestDelegate test = () => new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, null, hcldFilePath, string.Empty);
+            TestDelegate test = () => new WaveConditionsCalculationService().PublicCalculate(a,
+                                                                                             b,
+                                                                                             c,
+                                                                                             norm,
+                                                                                             null,
+                                                                                             GetTestNormativeAssessmentLevel(),
+                                                                                             hcldFilePath,
+                                                                                             string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -468,7 +475,7 @@ namespace Ringtoets.Revetment.Service.Test
             const double norm = 0.2;
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(waterLevel),
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
@@ -495,7 +502,14 @@ namespace Ringtoets.Revetment.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, string.Empty);
+                new WaveConditionsCalculationService().PublicCalculate(a,
+                                                                       b,
+                                                                       c,
+                                                                       norm,
+                                                                       input,
+                                                                       waterLevel,
+                                                                       hcldFilePath,
+                                                                       string.Empty);
 
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
@@ -522,7 +536,7 @@ namespace Ringtoets.Revetment.Service.Test
             const double norm = 0.2;
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(waterLevel),
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
@@ -554,7 +568,14 @@ namespace Ringtoets.Revetment.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, validPreprocessorDirectory);
+                new WaveConditionsCalculationService().PublicCalculate(a,
+                                                                       b,
+                                                                       c,
+                                                                       norm,
+                                                                       input,
+                                                                       waterLevel,
+                                                                       hcldFilePath,
+                                                                       validPreprocessorDirectory);
 
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
@@ -584,7 +605,7 @@ namespace Ringtoets.Revetment.Service.Test
             const double norm = 0.2;
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(waterLevel),
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
@@ -608,7 +629,14 @@ namespace Ringtoets.Revetment.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, preprocessorDirectory);
+                new WaveConditionsCalculationService().PublicCalculate(a,
+                                                                       b,
+                                                                       c,
+                                                                       norm,
+                                                                       input,
+                                                                       waterLevel,
+                                                                       hcldFilePath,
+                                                                       preprocessorDirectory);
 
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
@@ -635,7 +663,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(4.2),
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevelUpperBoundaryRevetment,
                 LowerBoundaryRevetment = waterLevelLowerBoundaryRevetment
@@ -657,6 +685,7 @@ namespace Ringtoets.Revetment.Service.Test
                              .Times(nrOfCalculators);
             mockRepository.ReplayAll();
 
+            var waterLevel = (RoundedDouble) 4.20;
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
@@ -672,7 +701,14 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     try
                     {
-                        new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, string.Empty);
+                        new WaveConditionsCalculationService().PublicCalculate(a,
+                                                                               b,
+                                                                               c,
+                                                                               norm,
+                                                                               input,
+                                                                               waterLevel,
+                                                                               hcldFilePath,
+                                                                               string.Empty);
                     }
                     catch (HydraRingCalculationException e)
                     {
@@ -736,13 +772,14 @@ namespace Ringtoets.Revetment.Service.Test
 
             var waterLevelUpperBoundary = new RoundedDouble(2, 4.00);
             var waterLevelLowerBoundary = new RoundedDouble(2, 3.00);
+            var waterLevel = (RoundedDouble) 4.2;
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double norm = 0.2;
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(4.2),
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevelUpperBoundary,
                 LowerBoundaryRevetment = waterLevelLowerBoundary
@@ -755,7 +792,14 @@ namespace Ringtoets.Revetment.Service.Test
                 var service = new WaveConditionsCalculationService();
 
                 // Call
-                Action call = () => service.PublicCalculate(a, b, c, norm, input, hcldFilePath, string.Empty);
+                Action call = () => service.PublicCalculate(a,
+                                                            b,
+                                                            c,
+                                                            norm,
+                                                            input,
+                                                            waterLevel,
+                                                            hcldFilePath,
+                                                            string.Empty);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -794,14 +838,14 @@ namespace Ringtoets.Revetment.Service.Test
         public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
         {
             // Setup
-            var waterLevel = new RoundedDouble(2, 4.00);
+            var waterLevel = (RoundedDouble) 4.2;
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double norm = 0.2;
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(4.2),
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevel,
                 LowerBoundaryRevetment = (RoundedDouble) 3
@@ -818,7 +862,14 @@ namespace Ringtoets.Revetment.Service.Test
                 calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
-                service.PublicCalculate(a, b, c, norm, input, validFilePath, validPreprocessorDirectory);
+                service.PublicCalculate(a,
+                                        b,
+                                        c,
+                                        norm,
+                                        input,
+                                        waterLevel,
+                                        validFilePath,
+                                        validPreprocessorDirectory);
 
                 // Assert
                 Assert.IsTrue(calculator.IsCanceled);
@@ -891,10 +942,18 @@ namespace Ringtoets.Revetment.Service.Test
                                     RoundedDouble c,
                                     double norm,
                                     WaveConditionsInput input,
+                                    RoundedDouble normativeAssessmentLevel,
                                     string dbFilePath,
                                     string preprocessorDirectory)
         {
-            Outputs = CalculateWaveConditions(input, a, b, c, norm, dbFilePath, preprocessorDirectory);
+            Outputs = CalculateWaveConditions(input,
+                                              normativeAssessmentLevel,
+                                              a,
+                                              b,
+                                              c,
+                                              norm,
+                                              dbFilePath,
+                                              preprocessorDirectory);
         }
     }
 }
