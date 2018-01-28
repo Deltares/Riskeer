@@ -96,11 +96,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
-        public void Calculate(
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection,
-            string hlcdFilePath)
+        public void Calculate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                              GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                              IAssessmentSection assessmentSection,
+                              string hlcdFilePath)
         {
             if (calculation == null)
             {
@@ -128,12 +127,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
+            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
 
-            TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).Count();
+            TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(normativeAssessmentLevel).Count();
 
             try
             {
-                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters, a, b, c, mechanismSpecificNorm, hlcdFilePath, preprocessorDirectory);
+                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
+                                                                                    normativeAssessmentLevel,
+                                                                                    a,
+                                                                                    b,
+                                                                                    c,
+                                                                                    mechanismSpecificNorm,
+                                                                                    hlcdFilePath,
+                                                                                    preprocessorDirectory);
 
                 if (!Canceled)
                 {

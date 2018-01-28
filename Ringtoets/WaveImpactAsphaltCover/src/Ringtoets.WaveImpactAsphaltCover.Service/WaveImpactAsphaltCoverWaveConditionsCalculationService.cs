@@ -119,11 +119,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
 
             double norm = assessmentSection.FailureMechanismContribution.Norm;
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).Count();
+            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
+
+            TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(normativeAssessmentLevel).Count();
 
             try
             {
-                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters, a, b, c, norm, hlcdFilePath, preprocessorDirectory);
+                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
+                                                                                    normativeAssessmentLevel,
+                                                                                    a,
+                                                                                    b,
+                                                                                    c,
+                                                                                    norm,
+                                                                                    hlcdFilePath,
+                                                                                    preprocessorDirectory);
 
                 if (!Canceled)
                 {

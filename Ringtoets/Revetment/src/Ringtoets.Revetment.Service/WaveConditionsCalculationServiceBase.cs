@@ -115,8 +115,9 @@ namespace Ringtoets.Revetment.Service
         /// and returns the output. Error and status information is logged during the execution
         /// of the operation.
         /// </summary>
-        /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> that
-        /// holds all the information required to perform the calculation.</param>
+        /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> that holds all the information
+        /// required to perform the calculation.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use for determining water levels.</param>
         /// <param name="a">The 'a' factor decided on failure mechanism level.</param>
         /// <param name="b">The 'b' factor decided on failure mechanism level.</param>
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
@@ -141,6 +142,7 @@ namespace Ringtoets.Revetment.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during
         /// the calculations.</exception>
         protected IEnumerable<WaveConditionsOutput> CalculateWaveConditions(WaveConditionsInput waveConditionsInput,
+                                                                            RoundedDouble normativeAssessmentLevel,
                                                                             RoundedDouble a,
                                                                             RoundedDouble b,
                                                                             RoundedDouble c,
@@ -156,7 +158,7 @@ namespace Ringtoets.Revetment.Service
             var calculationsFailed = 0;
             var outputs = new List<WaveConditionsOutput>();
 
-            RoundedDouble[] waterLevels = waveConditionsInput.GetWaterLevels(waveConditionsInput.AssessmentLevel).ToArray();
+            RoundedDouble[] waterLevels = waveConditionsInput.GetWaterLevels(normativeAssessmentLevel).ToArray();
             foreach (RoundedDouble waterLevel in waterLevels.TakeWhile(waterLevel => !Canceled))
             {
                 try
