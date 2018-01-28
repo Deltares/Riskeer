@@ -264,7 +264,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             mockRepository.ReplayAll();
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = null;
 
             var isValid = true;
 
@@ -272,7 +271,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              RoundedDouble.NaN,
                                                                                                               validFilePath,
                                                                                                               validPreprocessorDirectory);
 
