@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -473,7 +474,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
                     var i = 0;
-                    foreach (RoundedDouble waterLevel in calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel))
+                    foreach (RoundedDouble waterLevel in GetWaterLevels(calculation, assessmentSection))
                     {
                         Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", msgs[i + 1]);
                         StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i + 2]);
@@ -599,7 +600,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                                                                                  assessmentSection.FailureMechanismContribution.Norm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
-                                                                                 calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).ElementAt(waterLevelIndex++),
+                                                                                 GetWaterLevels(calculation, assessmentSection).ElementAt(waterLevelIndex++),
                                                                                  generalInput.A,
                                                                                  generalInput.B,
                                                                                  generalInput.C);
@@ -767,7 +768,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
-                    RoundedDouble[] waterLevels = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).ToArray();
+                    RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
                     RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
                     RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
                     RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
@@ -843,7 +844,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                                                       validFilePath);
 
                 // Assert
-                RoundedDouble[] waterLevels = calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel).ToArray();
+                RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
                 RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
                 RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
                 RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
@@ -982,11 +983,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
         private static WaveImpactAsphaltCoverWaveConditionsCalculation GetValidCalculation()
         {
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            return new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+                    {
+                        DesignWaterLevelCalculation3 =
+                        {
+                            Output = new TestHydraulicBoundaryLocationOutput(12)
+                        }
+                    },
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -997,7 +1004,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            return calculation;
         }
 
         private static WaveImpactAsphaltCoverWaveConditionsCalculation GetDefaultCalculation()
@@ -1012,6 +1018,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         private static RoundedDouble GetTestNormativeAssessmentLevel()
         {
             return (RoundedDouble) 9.3;
+        }
+
+        private static IEnumerable<RoundedDouble> GetWaterLevels(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, IAssessmentSection assessmentSection)
+        {
+            return calculation.InputParameters.GetWaterLevels(assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation));
         }
     }
 }

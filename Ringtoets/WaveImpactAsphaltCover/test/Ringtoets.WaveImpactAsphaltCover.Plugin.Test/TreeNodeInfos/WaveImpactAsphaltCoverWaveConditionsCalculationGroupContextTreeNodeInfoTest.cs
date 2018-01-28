@@ -84,25 +84,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         private WaveImpactAsphaltCoverPlugin plugin;
         private TreeNodeInfo info;
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            gui = mocks.Stub<IGui>();
-            plugin = new WaveImpactAsphaltCoverPlugin
-            {
-                Gui = gui
-            };
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -277,6 +258,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(groupContext, null, treeViewControl);
             }
+
             // Assert
             // Assert expectancies called in TearDown()
         }
@@ -398,6 +380,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl);
             }
+
             // Assert
             // Assert expectancies called in TearDown()
         }
@@ -1880,6 +1863,25 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(calculation.InputParameters.IsForeshoreProfileInputSynchronized);
                 }
             }
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            gui = mocks.Stub<IGui>();
+            plugin = new WaveImpactAsphaltCoverPlugin
+            {
+                Gui = gui
+            };
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
 
         private static TestHydraulicBoundaryLocation CreateHydraulicBoundaryLocationWithNormativeOutput()
