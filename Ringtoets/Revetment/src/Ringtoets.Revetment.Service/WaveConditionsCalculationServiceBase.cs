@@ -405,7 +405,7 @@ namespace Ringtoets.Revetment.Service
             {
                 messages.Add(Resources.WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected);
             }
-            else if (double.IsNaN(input.HydraulicBoundaryLocation.DesignWaterLevel))
+            else if (double.IsNaN(normativeAssessmentLevel))
             {
                 messages.Add(string.Format(CultureInfo.CurrentCulture,
                                            Resources.WaveConditionsCalculationService_ValidateInput_No_0_DesignWaterLevel_calculated,
