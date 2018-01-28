@@ -22,6 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
@@ -38,6 +39,8 @@ namespace Ringtoets.Revetment.Forms.Views
     /// </summary>
     public partial class WaveConditionsInputView : UserControl, IChartView
     {
+        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
+
         private readonly Observer calculationObserver;
         private readonly Observer calculationInputObserver;
         private readonly Observer hydraulicBoundaryLocationObserver;
@@ -59,16 +62,24 @@ namespace Ringtoets.Revetment.Forms.Views
         /// Creates a new instance of <see cref="WaveConditionsInputView"/>.
         /// </summary>
         /// <param name="inputViewStyle">The style which should be applied to the <see cref="ChartLineData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="inputViewStyle"/>
-        /// is <c>null</c>.</exception>
-        public WaveConditionsInputView(IWaveConditionsInputViewStyle inputViewStyle)
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public WaveConditionsInputView(IWaveConditionsInputViewStyle inputViewStyle,
+                                       Func<RoundedDouble> getNormativeAssessmentLevelFunc)
         {
             if (inputViewStyle == null)
             {
                 throw new ArgumentNullException(nameof(inputViewStyle));
             }
 
+            if (getNormativeAssessmentLevelFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
+            }
+
             InitializeComponent();
+
+            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
 
             calculationObserver = new Observer(UpdateChartTitle);
             calculationInputObserver = new Observer(UpdateCalculationInput);
@@ -143,6 +154,7 @@ namespace Ringtoets.Revetment.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -176,7 +188,7 @@ namespace Ringtoets.Revetment.Forms.Views
             lowerBoundaryWaterLevelsChartData.Points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(input);
             upperBoundaryWaterLevelsChartData.Points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(input);
             designWaterLevelChartData.Points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
-            waterLevelsChartData.Lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input, input.AssessmentLevel);
+            waterLevelsChartData.Lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input, getNormativeAssessmentLevelFunc());
             revetmentBaseChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
             revetmentChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
         }

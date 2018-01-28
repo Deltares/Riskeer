@@ -101,10 +101,10 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WaveConditionsInputViewStyleNull_ThrowArgumentNullException()
+        public void Constructor_InputViewStyleNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveConditionsInputView(null);
+            TestDelegate test = () => new WaveConditionsInputView(null, GetTestNormativeAssessmentLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -112,10 +112,21 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_GetNormativeAssessmentLevelFuncNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("getNormativeAssessmentLevelFunc", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -130,7 +141,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Constructor_Always_AddEmptyChartControl()
         {
             // Call
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
             {
                 // Assert
                 var chartControl = (IChartControl) view.Controls.Find("chartControl", true).First();
@@ -147,7 +158,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Data_IWaveConditionsCalculation_DataSet()
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
             {
                 var calculation = new TestWaveConditionsCalculation();
 
@@ -163,7 +174,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Data_OtherThanWaveConditionsCalculation_DataNull()
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
             {
                 var calculation = new object();
 
@@ -179,7 +190,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Data_SetToNull_ChartDataCleared()
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = new TestWaveConditionsCalculation()
             })
@@ -202,7 +213,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Data_EmptyCalculation_NoChartDataSet()
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
             {
                 var calculation = new TestWaveConditionsCalculation();
 
@@ -220,7 +231,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             // Setup
             const string calculationName = "Calculation name";
 
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), () => (RoundedDouble) 6))
             {
                 var calculation = new TestWaveConditionsCalculation
                 {
@@ -236,8 +247,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                         LowerBoundaryRevetment = (RoundedDouble) 5,
                         UpperBoundaryRevetment = (RoundedDouble) 8,
                         LowerBoundaryWaterLevels = (RoundedDouble) 3,
-                        UpperBoundaryWaterLevels = (RoundedDouble) 9,
-                        HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(6)
+                        UpperBoundaryWaterLevels = (RoundedDouble) 9
                     }
                 };
 
@@ -286,7 +296,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void UpdateObserver_CalculationNameUpdated_ChartTitleUpdated()
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
             {
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
@@ -315,7 +325,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void UpdateObserver_OtherCalculationNameUpdated_ChartTitleNotUpdated()
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
             {
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
@@ -366,12 +376,11 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                     LowerBoundaryRevetment = (RoundedDouble) 5,
                     UpperBoundaryRevetment = (RoundedDouble) 8,
                     LowerBoundaryWaterLevels = (RoundedDouble) 3,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 7,
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(6)
+                    UpperBoundaryWaterLevels = (RoundedDouble) 7
                 }
             };
 
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), () => (RoundedDouble) 6)
             {
                 Data = calculation
             })
@@ -458,7 +467,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             mocks.ReplayAll();
 
             var calculation1 = new TestWaveConditionsCalculation();
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = calculation1
             })
@@ -490,7 +499,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void GivenViewWithInputData_WhenWaterLevelForCalculationUpdated_ThenUpdatedDataIsShownInChart(Func<WaveConditionsInput, double> updateWaterLevelOnInput)
         {
             // Given
-            HydraulicBoundaryLocation testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var profile = new TestForeshoreProfile(new[]
             {
                 new Point2D(0.0, 0.0),
@@ -505,12 +513,11 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                     LowerBoundaryRevetment = (RoundedDouble) 5,
                     UpperBoundaryRevetment = (RoundedDouble) 8,
                     LowerBoundaryWaterLevels = (RoundedDouble) 3,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 7,
-                    HydraulicBoundaryLocation = testHydraulicBoundaryLocation
+                    UpperBoundaryWaterLevels = (RoundedDouble) 7
                 }
             };
 
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -702,6 +709,11 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         private static double GetPointX(double pointY, Point2D lastForeshorePoint)
         {
             return ((pointY - lastForeshorePoint.Y) / 3) + lastForeshorePoint.X;
+        }
+
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
     }
 }
