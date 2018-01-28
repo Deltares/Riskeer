@@ -916,7 +916,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -930,7 +930,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1000,7 +1000,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1067,7 +1067,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1138,7 +1138,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1209,7 +1209,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1976,13 +1976,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             }
         }
 
+        private static TestHydraulicBoundaryLocation CreateHydraulicBoundaryLocationWithNormativeOutput()
+        {
+            return new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelCalculation3 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(12)
+                }
+            };
+        }
+
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation()
         {
             return new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(9.3),
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
