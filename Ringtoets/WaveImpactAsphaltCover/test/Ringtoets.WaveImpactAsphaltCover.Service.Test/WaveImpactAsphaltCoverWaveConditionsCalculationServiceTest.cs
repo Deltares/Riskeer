@@ -538,7 +538,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
                     var i = 0;
-                    foreach (RoundedDouble waterLevel in calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel))
+                    foreach (RoundedDouble waterLevel in GetWaterLevels(calculation, assessmentSection))
                     {
                         Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", msgs[i + 1]);
                         StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i + 2]);

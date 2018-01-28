@@ -60,8 +60,6 @@ namespace Ringtoets.Revetment.Data.Test
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
             Assert.IsNaN(input.Orientation);
             Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
-            Assert.IsNaN(input.AssessmentLevel.Value);
-            Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
             Assert.IsNaN(input.LowerBoundaryRevetment.Value);
             Assert.AreEqual(2, input.LowerBoundaryRevetment.NumberOfDecimalPlaces);
             Assert.IsNaN(input.UpperBoundaryRevetment.Value);
