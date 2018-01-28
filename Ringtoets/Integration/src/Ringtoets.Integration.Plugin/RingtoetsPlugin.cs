@@ -486,7 +486,8 @@ namespace Ringtoets.Integration.Plugin
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 GetViewData = context => context.Calculation,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
-                CreateInstance = context => new WaveConditionsInputView(GetWaveConditionsInputViewStyle(context))
+                CreateInstance = context => new WaveConditionsInputView(GetWaveConditionsInputViewStyle(context),
+                                                                        () => context.AssessmentSection.GetNormativeAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation))
             };
 
             yield return new ViewInfo<StructuresOutputContext, IStructuresCalculation, GeneralResultFaultTreeIllustrationPointView>

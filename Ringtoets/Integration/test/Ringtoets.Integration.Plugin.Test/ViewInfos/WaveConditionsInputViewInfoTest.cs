@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
@@ -81,7 +82,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsInputResourceName()
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle()))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
             {
                 var calculation = new TestWaveConditionsCalculation();
 
@@ -123,7 +124,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -149,7 +150,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var calculationToRemove = new TestWaveConditionsCalculation();
 
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = calculationToRemove
             })
@@ -173,7 +174,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -201,7 +202,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                                                                      null,
                                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                                      new AssessmentSection(AssessmentSectionComposition.Dike));
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -225,7 +226,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -249,7 +250,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -276,7 +277,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -300,7 +301,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -323,7 +324,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                                                          ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -346,7 +347,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                                                              ICalculation<WaveConditionsInput> calculation)
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = new TestWaveConditionsCalculation()
             })
@@ -379,7 +380,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 }
             });
 
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -416,7 +417,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                                                                      null,
                                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                                      new AssessmentSection(AssessmentSectionComposition.Dike));
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -453,6 +454,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Assert.AreEqual(designWaterLevelName, designWaterLevelChartData.Name);
             Assert.AreEqual(Color.FromArgb(120, revetmentLineColor), revetmentBaseChartData.Style.Color);
             Assert.AreEqual(revetmentLineColor, revetmentChartData.Style.Color);
+        }
+
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
 
         #region TestCaseData
