@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -209,15 +210,16 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create water levels geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> to create the water levels geometry points for.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use while determining water levels.</param>
         /// <returns>A collection with collections of points in 2D space or an empty list when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>no water levels could be determined.</item>
         /// </list>
         /// </returns>
-        public static IEnumerable<IEnumerable<Point2D>> CreateWaterLevelsGeometryPoints(WaveConditionsInput input)
+        public static IEnumerable<IEnumerable<Point2D>> CreateWaterLevelsGeometryPoints(WaveConditionsInput input, RoundedDouble normativeAssessmentLevel)
         {
-            return input?.GetWaterLevels(input.AssessmentLevel)
+            return input?.GetWaterLevels(normativeAssessmentLevel)
                         .Select(waterLevel => CreateGeometryPoints(input, () => waterLevel))
                         .ToArray() ?? new IEnumerable<Point2D>[0];
         }
