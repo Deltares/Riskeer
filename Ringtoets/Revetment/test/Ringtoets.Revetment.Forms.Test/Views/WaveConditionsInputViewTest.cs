@@ -31,7 +31,6 @@ using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
@@ -55,48 +54,26 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         private const int revetmentBaseChartDataIndex = 7;
         private const int revetmentChartDataIndex = 8;
 
-        private static IEnumerable<TestCaseData> WaterLevelUpdateFunctions
+        private static IEnumerable<TestCaseData> NotifyChange
         {
             get
             {
-                yield return new TestCaseData(new Func<WaveConditionsInput, double>(wci =>
-                {
-                    const double expectedWaterLevel = 5.2;
-                    wci.HydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged);
-                    wci.HydraulicBoundaryLocation.NotifyObservers();
-                    return expectedWaterLevel;
-                })).SetName("UpdateWaterLevel");
+                yield return new TestCaseData(new Action<WaveConditionsInput>(wci => { wci.HydraulicBoundaryLocation.NotifyObservers(); })).SetName("NotifyWaterLevelChange");
 
-                yield return new TestCaseData(new Func<WaveConditionsInput, double>(wci =>
+                yield return new TestCaseData(new Action<WaveConditionsInput>(wci =>
                 {
-                    const double expectedWaterLevel = 2.66;
-
                     var newLocation = new TestHydraulicBoundaryLocation();
                     wci.HydraulicBoundaryLocation = newLocation;
                     wci.NotifyObservers();
-
-                    newLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged);
                     newLocation.NotifyObservers();
+                })).SetName("NotifyLocationAndWaterLevelChange");
 
-                    return expectedWaterLevel;
-                })).SetName("UpdateLocationAndWaterLevel");
-
-                yield return new TestCaseData(new Func<WaveConditionsInput, double>(wci =>
+                yield return new TestCaseData(new Action<WaveConditionsInput>(wci =>
                 {
-                    const double expectedWaterLevel = 8.33;
-
-                    var newLocation = new TestHydraulicBoundaryLocation
-                    {
-                        DesignWaterLevelCalculation1 =
-                        {
-                            Output = new TestHydraulicBoundaryLocationOutput(expectedWaterLevel, CalculationConvergence.CalculatedConverged)
-                        }
-                    };
+                    var newLocation = new TestHydraulicBoundaryLocation();
                     wci.HydraulicBoundaryLocation = newLocation;
                     wci.NotifyObservers();
-
-                    return expectedWaterLevel;
-                })).SetName("UpdateLocation");
+                })).SetName("NotifyLocationChange");
             }
         }
 
@@ -206,22 +183,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.Chart.Data);
                 Assert.IsEmpty(view.Chart.ChartTitle);
-            }
-        }
-
-        [Test]
-        public void Data_EmptyCalculation_NoChartDataSet()
-        {
-            // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
-            {
-                var calculation = new TestWaveConditionsCalculation();
-
-                // Call
-                view.Data = calculation;
-
-                // Assert
-                AssertEmptyChartData(view.Chart.Data);
             }
         }
 
@@ -497,8 +458,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(WaterLevelUpdateFunctions))]
-        public void GivenViewWithInputData_WhenWaterLevelForCalculationUpdated_ThenUpdatedDataIsShownInChart(Func<WaveConditionsInput, double> updateWaterLevelOnInput)
+        [TestCaseSource(nameof(NotifyChange))]
+        public void GivenViewWithInputData_WhenChangeNotified_ThenUpdatedDataIsShownInChart(Action<WaveConditionsInput> notifyChange)
         {
             // Given
             var profile = new TestForeshoreProfile(new[]
@@ -511,6 +472,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             {
                 InputParameters =
                 {
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                     ForeshoreProfile = profile,
                     LowerBoundaryRevetment = (RoundedDouble) 5,
                     UpperBoundaryRevetment = (RoundedDouble) 8,
@@ -519,7 +481,9 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 }
             };
 
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
+            var normativeAssessmentLevel = (RoundedDouble) 6;
+            Func<RoundedDouble> getNormativeAssessmentLevel = () => normativeAssessmentLevel;
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), getNormativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -535,7 +499,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 var revetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex);
 
                 // When
-                double expectedWaterLevel = updateWaterLevelOnInput(calculation.InputParameters);
+                normativeAssessmentLevel = (RoundedDouble) 8;
+                notifyChange(calculation.InputParameters);
 
                 // Then
                 Assert.AreSame(foreshoreChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex));
@@ -560,11 +525,11 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.UpperBoundaryWaterLevels,
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
-                AssertChartData(calculation.InputParameters.ForeshoreGeometry, expectedWaterLevel,
+                AssertChartData(calculation.InputParameters.ForeshoreGeometry, normativeAssessmentLevel,
                                 designWaterLevelChartData, "Toetspeil");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
-                                           calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel),
+                                           calculation.InputParameters.GetWaterLevels(normativeAssessmentLevel),
                                            waterLevelsChartData);
 
                 AssertRevetmentBaseChartData(profile.Geometry.Last(),
@@ -574,45 +539,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertRevetmentChartData(profile.Geometry.Last(), calculation.InputParameters.LowerBoundaryRevetment,
                                          calculation.InputParameters.UpperBoundaryRevetment, revetmentChartData);
             }
-        }
-
-        private static void AssertEmptyChartData(ChartDataCollection chartDataCollection)
-        {
-            Assert.AreEqual("Invoer", chartDataCollection.Name);
-
-            List<ChartData> chartDatasList = chartDataCollection.Collection.ToList();
-
-            Assert.AreEqual(numberOfChartDataLayers, chartDatasList.Count);
-
-            var foreshoreData = (ChartLineData) chartDatasList[foreShoreChartDataIndex];
-            var lowerBoundaryRevetmentData = (ChartLineData) chartDatasList[lowerBoundaryRevetmentChartDataIndex];
-            var upperBoundaryRevetmentData = (ChartLineData) chartDatasList[upperBoundaryRevetmentChartDataIndex];
-            var lowerBoundaryWaterLevelsData = (ChartLineData) chartDatasList[lowerBoundaryWaterLevelsChartDataIndex];
-            var upperBoundaryWaterLevelsData = (ChartLineData) chartDatasList[upperBoundaryWaterLevelsChartDataIndex];
-            var designWaterLevelData = (ChartLineData) chartDatasList[designWaterLevelChartDataIndex];
-            var waterLevelsData = (ChartMultipleLineData) chartDatasList[waterLevelsChartDataIndex];
-            var revetmentBaseData = (ChartLineData) chartDatasList[revetmentBaseChartDataIndex];
-            var revetmentData = (ChartLineData) chartDatasList[revetmentChartDataIndex];
-
-            CollectionAssert.IsEmpty(foreshoreData.Points);
-            CollectionAssert.IsEmpty(lowerBoundaryRevetmentData.Points);
-            CollectionAssert.IsEmpty(upperBoundaryRevetmentData.Points);
-            CollectionAssert.IsEmpty(lowerBoundaryWaterLevelsData.Points);
-            CollectionAssert.IsEmpty(upperBoundaryWaterLevelsData.Points);
-            CollectionAssert.IsEmpty(designWaterLevelData.Points);
-            CollectionAssert.IsEmpty(waterLevelsData.Lines);
-            CollectionAssert.IsEmpty(revetmentBaseData.Points);
-            CollectionAssert.IsEmpty(revetmentData.Points);
-
-            Assert.AreEqual("Voorlandprofiel", foreshoreData.Name);
-            Assert.AreEqual("Ondergrens bekleding", lowerBoundaryRevetmentData.Name);
-            Assert.AreEqual("Bovengrens bekleding", upperBoundaryRevetmentData.Name);
-            Assert.AreEqual("Ondergrens waterstanden", lowerBoundaryWaterLevelsData.Name);
-            Assert.AreEqual("Bovengrens waterstanden", upperBoundaryWaterLevelsData.Name);
-            Assert.AreEqual("Toetspeil", designWaterLevelData.Name);
-            Assert.AreEqual("Waterstanden in berekening", waterLevelsData.Name);
-            Assert.AreEqual("Hulplijn bekleding", revetmentBaseData.Name);
-            Assert.AreEqual("Bekleding", revetmentData.Name);
         }
 
         private static void AssertForeshoreChartData(ForeshoreProfile foreshoreProfile, ChartData chartData)
