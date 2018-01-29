@@ -72,13 +72,19 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(new StructuresOutputContext(structuresCalculation, assessmentSection));
+            IObjectProperties objectProperties = info.CreateInstance(new SimpleStructuresOutputContext(structuresCalculation, assessmentSection));
 
             // Assert
             Assert.IsInstanceOf<StructuresOutputProperties>(objectProperties);
             Assert.AreSame(structuresOutput, objectProperties.Data);
 
             mocks.VerifyAll();
+        }
+
+        private class SimpleStructuresOutputContext : StructuresOutputContext
+        {
+            public SimpleStructuresOutputContext(IStructuresCalculation wrappedData, IAssessmentSection assessmentSection)
+                : base(wrappedData, assessmentSection) { }
         }
     }
 }

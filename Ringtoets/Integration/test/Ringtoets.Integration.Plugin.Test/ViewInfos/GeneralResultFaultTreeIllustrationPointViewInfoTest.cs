@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             // Call
-            object viewData = info.GetViewData(new StructuresOutputContext(structuresCalculation, assessmentSection));
+            object viewData = info.GetViewData(new SimpleStructuresOutputContext(structuresCalculation, assessmentSection));
 
             // Assert
             Assert.AreSame(structuresCalculation, viewData);
@@ -110,6 +110,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);
+        }
+
+        private class SimpleStructuresOutputContext : StructuresOutputContext
+        {
+            public SimpleStructuresOutputContext(IStructuresCalculation wrappedData, IAssessmentSection assessmentSection)
+                : base(wrappedData, assessmentSection) {}
         }
 
         public abstract class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester : ShouldCloseViewWithCalculationDataTester

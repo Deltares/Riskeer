@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             // Call
-            Color color = info.ForeColor(new StructuresOutputContext(structuresCalculation, assessmentSection));
+            Color color = info.ForeColor(new SimpleStructuresOutputContext(structuresCalculation, assessmentSection));
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             // Call
-            Color color = info.ForeColor(new StructuresOutputContext(structuresCalculation, assessmentSection));
+            Color color = info.ForeColor(new SimpleStructuresOutputContext(structuresCalculation, assessmentSection));
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
@@ -168,6 +168,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             }
             // Assert
             // Assert expectancies called in TearDown()
+        }
+
+        private class SimpleStructuresOutputContext : StructuresOutputContext
+        {
+            public SimpleStructuresOutputContext(IStructuresCalculation wrappedData, IAssessmentSection assessmentSection)
+                : base(wrappedData, assessmentSection) { }
         }
     }
 }

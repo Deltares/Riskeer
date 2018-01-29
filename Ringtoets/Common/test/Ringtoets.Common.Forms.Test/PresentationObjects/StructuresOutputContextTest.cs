@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            var structuresOutputContext = new StructuresOutputContext(structuresCalculation, assessmentSection);
+            var structuresOutputContext = new SimpleStructuresOutputContext(structuresCalculation, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IStructuresCalculation>>(structuresOutputContext);
@@ -60,12 +60,18 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new StructuresOutputContext(structuresCalculation, null);
+            TestDelegate call = () => new SimpleStructuresOutputContext(structuresCalculation, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
             mocks.VerifyAll();
+        }
+
+        private class SimpleStructuresOutputContext : StructuresOutputContext
+        {
+            public SimpleStructuresOutputContext(IStructuresCalculation wrappedData, IAssessmentSection assessmentSection)
+                : base(wrappedData, assessmentSection) {}
         }
     }
 }
