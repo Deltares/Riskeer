@@ -23,6 +23,7 @@
     <Compile Include="ClosingStructuresFailureMechanismSectionResultTest.cs" />
     <Compile Include="ClosingStructuresFailureMechanismTest.cs" />
     <Compile Include="ClosingStructuresInputTest.cs" />
+    <Compile Include="ClosingStructuresProbabilityAssessmentOutputFactoryTest.cs" />
     <Compile Include="ClosingStructureTest.cs" />
     <Compile Include="GeneralClosingStructuresInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
