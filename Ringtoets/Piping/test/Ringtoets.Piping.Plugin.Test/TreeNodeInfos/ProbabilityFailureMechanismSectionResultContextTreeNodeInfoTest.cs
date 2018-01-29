@@ -30,13 +30,12 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class ProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -47,7 +46,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingFailureMechanismSectionResultContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>));
         }
 
         [TearDown]
@@ -92,7 +91,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new PipingFailureMechanism();
-            var context = new PipingFailureMechanismSectionResultContext(mechanism.SectionResults, mechanism, assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(mechanism.SectionResults, mechanism, assessmentSection);
 
             // Call
             string text = info.Text(context);

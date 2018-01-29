@@ -55,7 +55,9 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         }
 
         [Test]
-        public void Read_EntityWithValidValues_ReturnsCalculationScenarioWithExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Read_EntityWithValidValues_ReturnsCalculationScenarioWithExpectedValues(bool useAssessmentLevelManualInput)
         {
             // Setup
             var random = new Random(21);
@@ -64,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 Name = "Calculation name",
                 Comment = "Comment here",
                 AssessmentLevel = random.NextDouble(),
-                UseAssessmentLevelManualInput = Convert.ToByte(true),
+                UseAssessmentLevelManualInput = Convert.ToByte(useAssessmentLevelManualInput),
                 ScenarioContribution = random.NextDouble(),
                 RelevantForScenario = Convert.ToByte(random.NextBoolean()),
                 SlipPlaneMinimumDepth = random.NextDouble(),

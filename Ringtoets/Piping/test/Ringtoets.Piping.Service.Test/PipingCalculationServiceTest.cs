@@ -50,8 +50,6 @@ namespace Ringtoets.Piping.Service.Test
         {
             testCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             testSurfaceLineTopLevel = testCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
-
-            testCalculation.InputParameters.AssessmentLevel = (RoundedDouble) 1.1;
         }
 
         [Test]
@@ -949,13 +947,16 @@ namespace Ringtoets.Piping.Service.Test
         [Test]
         public void Calculate_ValidPipingCalculation_LogStartAndEndOfValidatingInputsAndCalculation()
         {
+            // Setup
+            RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
+
             Action call = () =>
             {
                 // Precondition
-                Assert.IsTrue(PipingCalculationService.Validate(testCalculation, GetTestNormativeAssessmentLevel()));
+                Assert.IsTrue(PipingCalculationService.Validate(testCalculation, normativeAssessmentLevel));
 
                 // Call
-                PipingCalculationService.Calculate(testCalculation, GetTestNormativeAssessmentLevel());
+                PipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
             };
 
             // Assert
@@ -972,12 +973,15 @@ namespace Ringtoets.Piping.Service.Test
         [Test]
         public void Calculate_ValidPipingCalculationNoOutput_ShouldSetOutput()
         {
+            // Setup
+            RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
+
             // Precondition
             Assert.IsNull(testCalculation.Output);
-            Assert.IsTrue(PipingCalculationService.Validate(testCalculation, GetTestNormativeAssessmentLevel()));
+            Assert.IsTrue(PipingCalculationService.Validate(testCalculation, normativeAssessmentLevel));
 
             // Call
-            PipingCalculationService.Calculate(testCalculation, GetTestNormativeAssessmentLevel());
+            PipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
 
             // Assert
             PipingOutput pipingOutput = testCalculation.Output;
@@ -996,14 +1000,15 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var output = new TestPipingOutput();
+            RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
 
             testCalculation.Output = output;
 
             // Precondition
-            Assert.IsTrue(PipingCalculationService.Validate(testCalculation, GetTestNormativeAssessmentLevel()));
+            Assert.IsTrue(PipingCalculationService.Validate(testCalculation, normativeAssessmentLevel));
 
             // Call
-            PipingCalculationService.Calculate(testCalculation, GetTestNormativeAssessmentLevel());
+            PipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
 
             // Assert
             Assert.AreNotSame(output, testCalculation.Output);
@@ -1017,12 +1022,14 @@ namespace Ringtoets.Piping.Service.Test
             RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
             PipingInput input = testCalculation.InputParameters;
 
+            input.AssessmentLevel = (RoundedDouble) 2.2;
+
             input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
 
             using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
-                PipingCalculationService.Validate(testCalculation, GetTestNormativeAssessmentLevel());
+                PipingCalculationService.Validate(testCalculation, normativeAssessmentLevel);
 
                 // Assert
                 RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput

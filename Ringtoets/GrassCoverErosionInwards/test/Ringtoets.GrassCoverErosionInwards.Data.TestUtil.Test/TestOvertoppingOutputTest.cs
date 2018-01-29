@@ -32,20 +32,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const double probability = 0.3;
+            const double reliability = 0.3;
 
             // Call
-            var output = new TestOvertoppingOutput(probability);
+            var output = new TestOvertoppingOutput(reliability);
 
             // Assert
             Assert.IsInstanceOf<OvertoppingOutput>(output);
 
             Assert.AreEqual(1.0, output.WaveHeight.Value);
             Assert.IsTrue(output.IsOvertoppingDominant);
+            Assert.AreEqual(reliability, output.Reliability);
 
             ProbabilityAssessmentOutput probabilityAssessmentOutput = output.ProbabilityAssessmentOutput;
             Assert.AreEqual(0, probabilityAssessmentOutput.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
-            Assert.AreEqual(probability, probabilityAssessmentOutput.Probability);
+            Assert.AreEqual(0, probabilityAssessmentOutput.Probability);
             Assert.AreEqual(0, probabilityAssessmentOutput.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
             Assert.AreEqual(0, probabilityAssessmentOutput.RequiredProbability);
             Assert.AreEqual(0, probabilityAssessmentOutput.RequiredReliability, probabilityAssessmentOutput.RequiredReliability.GetAccuracy());

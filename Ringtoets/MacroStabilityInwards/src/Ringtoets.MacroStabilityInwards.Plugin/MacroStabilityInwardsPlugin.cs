@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -74,7 +75,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             };
             yield return new PropertyInfo<MacroStabilityInwardsInputContext, MacroStabilityInwardsInputContextProperties>
             {
-                CreateInstance = context => new MacroStabilityInwardsInputContextProperties(context, new ObservablePropertyChangeHandler(context.MacroStabilityInwardsCalculation, context.WrappedData))
+                CreateInstance = context => new MacroStabilityInwardsInputContextProperties(context,
+                                                                                            () => GetNormativeAssessmentLevel(context.AssessmentSection, context.MacroStabilityInwardsCalculation),
+                                                                                            new ObservablePropertyChangeHandler(context.MacroStabilityInwardsCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsOutputProperties>
             {
@@ -211,7 +214,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             };
 
             yield return new ViewInfo<
-                MacroStabilityInwardsFailureMechanismSectionResultContext,
+                ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>,
                 IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>,
                 MacroStabilityInwardsFailureMechanismResultView>
             {
@@ -283,7 +286,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<MacroStabilityInwardsFailureMechanismSectionResultContext>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -385,6 +388,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 return new FileFilterGenerator(Resources.Soil_file_Extension, Resources.Soil_file_Description);
             }
+        }
+
+        private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, MacroStabilityInwardsCalculation calculation)
+        {
+            return assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
         private bool VerifyStochasticSoilModelUpdates(MacroStabilityInwardsStochasticSoilModelCollectionContext context, string query)
@@ -537,29 +545,30 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         {
             IEnumerable<MacroStabilityInwardsCalculation> calculations = GetAllMacroStabilityInwardsCalculations(failureMechanismContext.WrappedData);
 
-            CalculateAll(calculations);
+            CalculateAll(calculations, failureMechanismContext.Parent);
         }
 
         private void CalculateAll(CalculationGroup group, MacroStabilityInwardsCalculationGroupContext context)
         {
             MacroStabilityInwardsCalculation[] calculations = group.GetCalculations().OfType<MacroStabilityInwardsCalculation>().ToArray();
-            CalculateAll(calculations);
+            CalculateAll(calculations, context.AssessmentSection);
         }
 
-        private static void ValidateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations)
+        private static void ValidateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations, IAssessmentSection assessmentSection)
         {
             foreach (MacroStabilityInwardsCalculation calculation in calculations)
             {
-                MacroStabilityInwardsCalculationService.Validate(calculation);
+                MacroStabilityInwardsCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
             }
         }
 
-        private void CalculateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations)
+        private void CalculateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations, IAssessmentSection assessmentSection)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
                 calculations
-                    .Select(pc => new MacroStabilityInwardsCalculationActivity(pc))
+                    .Select(pc => new MacroStabilityInwardsCalculationActivity(pc,
+                                                                               GetNormativeAssessmentLevel(assessmentSection, pc)))
                     .ToList());
         }
 
@@ -644,7 +653,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
         private static void ValidateAll(MacroStabilityInwardsFailureMechanismContext context)
         {
-            ValidateAll(context.WrappedData.Calculations.OfType<MacroStabilityInwardsCalculation>());
+            ValidateAll(context.WrappedData.Calculations.OfType<MacroStabilityInwardsCalculation>(), context.Parent);
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(MacroStabilityInwardsFailureMechanismContext macroStabilityInwardsFailureMechanismContext,
@@ -705,7 +714,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             return new object[]
             {
                 new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new MacroStabilityInwardsFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
         }
@@ -780,7 +789,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
         private static void Validate(MacroStabilityInwardsCalculationScenarioContext context)
         {
-            MacroStabilityInwardsCalculationService.Validate(context.WrappedData);
+            MacroStabilityInwardsCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(MacroStabilityInwardsCalculationScenarioContext context)
@@ -791,7 +800,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         private void PerformCalculation(MacroStabilityInwardsCalculation calculation, MacroStabilityInwardsCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             new MacroStabilityInwardsCalculationActivity(calculation));
+                                             new MacroStabilityInwardsCalculationActivity(calculation, GetNormativeAssessmentLevel(context.AssessmentSection, calculation)));
         }
 
         #endregion
@@ -906,7 +915,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
         private static void ValidateAll(MacroStabilityInwardsCalculationGroupContext context)
         {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<MacroStabilityInwardsCalculation>());
+            ValidateAll(context.WrappedData.GetCalculations().OfType<MacroStabilityInwardsCalculation>(), context.AssessmentSection);
         }
 
         private static void AddCalculationScenario(MacroStabilityInwardsCalculationGroupContext nodeData)

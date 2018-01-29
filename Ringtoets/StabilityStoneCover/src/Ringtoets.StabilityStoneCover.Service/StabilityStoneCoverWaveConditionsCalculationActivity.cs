@@ -81,6 +81,7 @@ namespace Ringtoets.StabilityStoneCover.Service
         protected override bool Validate()
         {
             return StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                                assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation),
                                                                                 hlcdFilePath,
                                                                                 assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }

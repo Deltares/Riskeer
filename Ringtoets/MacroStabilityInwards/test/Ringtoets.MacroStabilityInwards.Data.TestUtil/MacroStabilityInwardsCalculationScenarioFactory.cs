@@ -92,6 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             {
                 throw new ArgumentNullException(nameof(section));
             }
+
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             Point2D p = section.Points.First();
             surfaceLine.SetGeometry(new[]
@@ -222,7 +223,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             surfaceLine.SetDikeToeAtPolderAt(fifthCharacteristicPointLocation);
             surfaceLine.SetSurfaceLevelInsideAt(sixthCharacteristicPointLocation);
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.0);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelCalculation2 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(1.1)
+                },
+                DesignWaterLevelCalculation3 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(2.2)
+                }
+            };
+
             return new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
@@ -231,7 +243,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     StochasticSoilProfile = stochasticSoilProfile,
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
-                    WaterLevelRiverAverage = (RoundedDouble) 1.5,
+                    WaterLevelRiverAverage = (RoundedDouble) 0.4,
                     LocationInputExtreme =
                     {
                         WaterLevelPolder = (RoundedDouble) 0.5,
@@ -263,7 +275,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) 1.0,
                     MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) 1.0,
                     DrainageConstructionPresent = true,
-                    XCoordinateDrainageConstruction = (RoundedDouble) 1.0,
+                    XCoordinateDrainageConstruction = (RoundedDouble) 0.35,
                     ZCoordinateDrainageConstruction = (RoundedDouble) 1.0,
                     GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual,
                     TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
@@ -272,8 +284,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     TangentLineNumber = 10,
                     LeftGrid =
                     {
-                        XLeft = (RoundedDouble) 1.0,
-                        XRight = (RoundedDouble) 2.0,
+                        XLeft = (RoundedDouble) 0.3,
+                        XRight = (RoundedDouble) 0.4,
                         ZTop = (RoundedDouble) 2.0,
                         ZBottom = (RoundedDouble) 1.0,
                         NumberOfVerticalPoints = 1,
@@ -281,8 +293,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     },
                     RightGrid =
                     {
-                        XLeft = (RoundedDouble) 1.0,
-                        XRight = (RoundedDouble) 2.0,
+                        XLeft = (RoundedDouble) 0.4,
+                        XRight = (RoundedDouble) 0.5,
                         ZTop = (RoundedDouble) 2.0,
                         ZBottom = (RoundedDouble) 1.0,
                         NumberOfVerticalPoints = 1,
@@ -295,7 +307,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 }
             };
         }
-        
+
         /// <summary>
         /// Creates a scenario with valid input and output.
         /// </summary>

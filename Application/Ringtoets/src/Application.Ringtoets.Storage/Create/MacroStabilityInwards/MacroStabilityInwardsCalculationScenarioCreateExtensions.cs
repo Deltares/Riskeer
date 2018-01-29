@@ -170,19 +170,12 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
                                                                       MacroStabilityInwardsInput inputParameters,
                                                                       PersistenceRegistry registry)
         {
-            bool useAssessmentLevelManualInput = inputParameters.UseAssessmentLevelManualInput;
-            entity.UseAssessmentLevelManualInput = Convert.ToByte(useAssessmentLevelManualInput);
-            if (!useAssessmentLevelManualInput)
+            entity.UseAssessmentLevelManualInput = Convert.ToByte(inputParameters.UseAssessmentLevelManualInput);
+            entity.AssessmentLevel = inputParameters.AssessmentLevel.ToNaNAsNull();
+
+            if (inputParameters.HydraulicBoundaryLocation != null)
             {
-                if (inputParameters.HydraulicBoundaryLocation != null)
-                {
-                    entity.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(inputParameters.HydraulicBoundaryLocation);
-                }
-                entity.AssessmentLevel = null;
-            }
-            else
-            {
-                entity.AssessmentLevel = inputParameters.AssessmentLevel.ToNaNAsNull();
+                entity.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(inputParameters.HydraulicBoundaryLocation);
             }
         }
 

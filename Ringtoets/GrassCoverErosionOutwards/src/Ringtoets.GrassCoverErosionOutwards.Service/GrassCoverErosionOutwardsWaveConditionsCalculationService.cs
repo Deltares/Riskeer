@@ -44,22 +44,26 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// Performs validation over the input parameters. Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> for which to validate the values.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use for determining water levels.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public static bool Validate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation, string hydraulicBoundaryDatabaseFilePath, string preprocessorDirectory)
+        public static bool Validate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                    RoundedDouble normativeAssessmentLevel,
+                                    string hydraulicBoundaryDatabaseFilePath,
+                                    string preprocessorDirectory)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            return ValidateWaveConditionsInput(
-                calculation.InputParameters,
-                hydraulicBoundaryDatabaseFilePath,
-                preprocessorDirectory,
-                Resources.GrassCoverErosionOutwardsWaveConditionsCalculationService_LogMessage_DesignWaterLevel_name);
+            return ValidateWaveConditionsInput(calculation.InputParameters,
+                                               normativeAssessmentLevel,
+                                               hydraulicBoundaryDatabaseFilePath,
+                                               preprocessorDirectory,
+                                               Resources.GrassCoverErosionOutwardsWaveConditionsCalculationService_LogMessage_DesignWaterLevel_name);
         }
 
         /// <summary>
@@ -92,20 +96,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         /// <exception cref="HydraRingFileParserException">Thrown when an error occurs during parsing of the Hydra-Ring output.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
-        public void Calculate(
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection,
-            string hlcdFilePath)
+        public void Calculate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                              GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                              IAssessmentSection assessmentSection,
+                              string hlcdFilePath)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
@@ -122,12 +127,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
+            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
 
-            TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count();
+            TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(normativeAssessmentLevel).Count();
 
             try
             {
-                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters, a, b, c, mechanismSpecificNorm, hlcdFilePath, preprocessorDirectory);
+                IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
+                                                                                    normativeAssessmentLevel,
+                                                                                    a,
+                                                                                    b,
+                                                                                    c,
+                                                                                    mechanismSpecificNorm,
+                                                                                    hlcdFilePath,
+                                                                                    preprocessorDirectory);
 
                 if (!Canceled)
                 {

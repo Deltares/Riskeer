@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -38,22 +38,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
     public class WaveImpactAsphaltCoverWaveConditionsInputContextPropertiesTest
     {
         [Test]
-        public void Constructor_WithoutContext_ThrowsArgumentNullException()
-        {
-            var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(null, handler);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("context", paramName);
-            mockRepository.ReplayAll();
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -65,11 +49,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
                 new WaveConditionsInput(),
                 new TestWaveConditionsCalculation(),
-                Enumerable.Empty<ForeshoreProfile>(),
-                assessmentSection);
+                assessmentSection,
+                Enumerable.Empty<ForeshoreProfile>());
 
             // Call
-            var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context, handler);
+            var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context, () => (RoundedDouble) 1.1, handler);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext>>(properties);

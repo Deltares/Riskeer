@@ -48,22 +48,26 @@ namespace Ringtoets.StabilityStoneCover.Service
         /// Performs validation over the input parameters. Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="StabilityStoneCoverWaveConditionsCalculation"/> for which to validate the values.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use for determining water levels.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public static bool Validate(StabilityStoneCoverWaveConditionsCalculation calculation, string hydraulicBoundaryDatabaseFilePath, string preprocessorDirectory)
+        public static bool Validate(StabilityStoneCoverWaveConditionsCalculation calculation,
+                                    RoundedDouble normativeAssessmentLevel,
+                                    string hydraulicBoundaryDatabaseFilePath,
+                                    string preprocessorDirectory)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            return ValidateWaveConditionsInput(
-                calculation.InputParameters,
-                hydraulicBoundaryDatabaseFilePath,
-                preprocessorDirectory,
-                RingtoetsRevetmentsServicesResources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
+            return ValidateWaveConditionsInput(calculation.InputParameters,
+                                               normativeAssessmentLevel,
+                                               hydraulicBoundaryDatabaseFilePath,
+                                               preprocessorDirectory,
+                                               RingtoetsRevetmentsServicesResources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
         }
 
         /// <summary>
@@ -100,10 +104,12 @@ namespace Ringtoets.StabilityStoneCover.Service
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
             if (generalWaveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(generalWaveConditionsInput));
@@ -121,19 +127,35 @@ namespace Ringtoets.StabilityStoneCover.Service
 
             double norm = assessmentSection.FailureMechanismContribution.Norm;
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count() * 2;
+            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
+
+            TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(normativeAssessmentLevel).Count() * 2;
 
             try
             {
                 log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_started);
-                IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateWaveConditions(calculation.InputParameters, aBlocks, bBlocks, cBlocks, norm, hlcdFilePath, preprocessorDirectory);
+                IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateWaveConditions(calculation.InputParameters,
+                                                                                          normativeAssessmentLevel,
+                                                                                          aBlocks,
+                                                                                          bBlocks,
+                                                                                          cBlocks,
+                                                                                          norm,
+                                                                                          hlcdFilePath,
+                                                                                          preprocessorDirectory);
                 log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_finished);
 
                 IEnumerable<WaveConditionsOutput> columnsOutputs = null;
                 if (!Canceled)
                 {
                     log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_started);
-                    columnsOutputs = CalculateWaveConditions(calculation.InputParameters, aColumns, bColumns, cColumns, norm, hlcdFilePath, preprocessorDirectory);
+                    columnsOutputs = CalculateWaveConditions(calculation.InputParameters,
+                                                             normativeAssessmentLevel,
+                                                             aColumns,
+                                                             bColumns,
+                                                             cColumns,
+                                                             norm,
+                                                             hlcdFilePath,
+                                                             preprocessorDirectory);
                     log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_finished);
                 }
 

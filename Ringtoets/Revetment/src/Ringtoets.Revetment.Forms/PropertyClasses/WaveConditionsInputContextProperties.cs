@@ -69,26 +69,39 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         private const int foreshoreGeometryPropertyIndex = 13;
         private const int revetmentTypePropertyIndex = 14;
 
+        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{T}"/>.
         /// </summary>
         /// <param name="context">The <see cref="WaveConditionsInputContext"/> for which the properties are shown.</param>
-        /// <param name="handler">The handler responsible for handling effects of a property change.</param>
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
+        /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected WaveConditionsInputContextProperties(T context, IObservablePropertyChangeHandler handler)
+        protected WaveConditionsInputContextProperties(T context,
+                                                       Func<RoundedDouble> getNormativeAssessmentLevelFunc,
+                                                       IObservablePropertyChangeHandler propertyChangeHandler)
         {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
-            if (handler == null)
+
+            if (getNormativeAssessmentLevelFunc == null)
             {
-                throw new ArgumentNullException(nameof(handler));
+                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
             }
-            propertyChangeHandler = handler;
+
+            if (propertyChangeHandler == null)
+            {
+                throw new ArgumentNullException(nameof(propertyChangeHandler));
+            }
+
             Data = context;
+
+            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
+            this.propertyChangeHandler = propertyChangeHandler;
         }
 
         [PropertyOrder(assessmentLevelPropertyIndex)]
@@ -99,7 +112,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.AssessmentLevel;
+                return getNormativeAssessmentLevelFunc();
             }
         }
 
@@ -111,7 +124,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.UpperBoundaryDesignWaterLevel;
+                return WaveConditionsInputHelper.GetUpperBoundaryDesignWaterLevel(AssessmentLevel);
             }
         }
 
@@ -205,7 +218,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.WaterLevels.ToArray();
+                return data.WrappedData.GetWaterLevels(getNormativeAssessmentLevelFunc()).ToArray();
             }
         }
 
@@ -217,10 +230,10 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.ForeshoreProfile == null ? null :
-                           new Point2D(
-                               new RoundedDouble(0, data.WrappedData.ForeshoreProfile.WorldReferencePoint.X),
-                               new RoundedDouble(0, data.WrappedData.ForeshoreProfile.WorldReferencePoint.Y));
+                return data.WrappedData.ForeshoreProfile == null
+                           ? null
+                           : new Point2D(new RoundedDouble(0, data.WrappedData.ForeshoreProfile.WorldReferencePoint.X),
+                                         new RoundedDouble(0, data.WrappedData.ForeshoreProfile.WorldReferencePoint.Y));
             }
         }
 
@@ -249,9 +262,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.ForeshoreProfile == null ?
-                           new UseBreakWaterProperties() :
-                           new UseBreakWaterProperties(data.WrappedData, propertyChangeHandler);
+                return data.WrappedData.ForeshoreProfile == null
+                           ? new UseBreakWaterProperties()
+                           : new UseBreakWaterProperties(data.WrappedData, propertyChangeHandler);
             }
         }
 

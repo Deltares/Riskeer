@@ -38,7 +38,6 @@ namespace Ringtoets.Revetment.Data
     /// </summary>
     public class WaveConditionsInput : CloneableObservable, ICalculationInput, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
     {
-        private const double designWaterLevelSubstraction = 0.01;
         private const int orientationNumberOfDecimals = 2;
 
         private static readonly Range<RoundedDouble> orientationValidityRange = new Range<RoundedDouble>(new RoundedDouble(orientationNumberOfDecimals),
@@ -104,18 +103,8 @@ namespace Ringtoets.Revetment.Data
                     throw new ArgumentOutOfRangeException(null, string.Format(RingtoetsCommonDataResources.Orientation_Value_needs_to_be_in_Range_0_,
                                                                               orientationValidityRange));
                 }
-                orientation = newOrientation;
-            }
-        }
 
-        /// <summary>
-        /// Gets the upper boundary based on <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation.DesignWaterLevel"/>.
-        /// </summary>
-        public RoundedDouble UpperBoundaryDesignWaterLevel
-        {
-            get
-            {
-                return new RoundedDouble(2, AssessmentLevel - designWaterLevelSubstraction);
+                orientation = newOrientation;
             }
         }
 
@@ -166,17 +155,17 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or sets the step size used for determining <see cref="WaterLevels"/>.
+        /// Gets or sets the step size used for determining water levels.
         /// </summary>
         public WaveConditionsInputStepSize StepSize { get; set; }
 
         /// <summary>
-        /// Gets or sets the lower boundary of the <see cref="WaterLevels"/> range.
+        /// Gets or sets the lower boundary of the water levels range.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is larger than or equal to <see cref="UpperBoundaryWaterLevels"/>.</exception>
         /// <remarks>
         /// <list type="bullet">
-        /// <item>Setting this property is optional when it comes to determining <see cref="WaterLevels"/>; if the value
+        /// <item>Setting this property is optional when it comes to determining water levels; if the value
         /// equals <see cref="double.NaN"/>, only <see cref="LowerBoundaryRevetment"/> will be taken into account.</item>
         /// <item>When the value is smaller than -50, it will be set to -50.</item>
         /// </list>
@@ -200,13 +189,13 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or sets the upper boundary of the <see cref="WaterLevels"/> range.
+        /// Gets or sets the upper boundary of the water levels range.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <see cref="LowerBoundaryWaterLevels"/>.</exception>
         /// <remarks>
         /// <list type="bullet">
-        /// <item>Setting this property is optional when it comes to determining <see cref="WaterLevels"/>; if the value
-        /// equals <see cref="double.NaN"/>, only <see cref="UpperBoundaryDesignWaterLevel"/> and <see cref="UpperBoundaryRevetment"/>
+        /// <item>Setting this property is optional when it comes to determining water levels; if the value
+        /// equals <see cref="double.NaN"/>, only the upper boundary design water level and <see cref="UpperBoundaryRevetment"/>
         /// will be taken into account.</item>
         /// <item>When the value is larger than 1000, it will be set to 1000.</item>
         /// </list>
@@ -226,17 +215,6 @@ namespace Ringtoets.Revetment.Data
                 ValidateWaterLevelBoundaries(LowerBoundaryWaterLevels, newUpperBoundaryWaterLevels);
 
                 upperBoundaryWaterLevels = newUpperBoundaryWaterLevels;
-            }
-        }
-
-        /// <summary>
-        /// Gets the water levels to perform a wave conditions calculation for.
-        /// </summary>
-        public IEnumerable<RoundedDouble> WaterLevels
-        {
-            get
-            {
-                return DetermineWaterLevels();
             }
         }
 
@@ -320,6 +298,7 @@ namespace Ringtoets.Revetment.Data
             {
                 boundary = new RoundedDouble(boundary.NumberOfDecimalPlaces, 1000);
             }
+
             return boundary;
         }
 
@@ -329,6 +308,7 @@ namespace Ringtoets.Revetment.Data
             {
                 boundary = new RoundedDouble(boundary.NumberOfDecimalPlaces, -50);
             }
+
             return boundary;
         }
 
@@ -350,44 +330,6 @@ namespace Ringtoets.Revetment.Data
             {
                 throw new ArgumentOutOfRangeException(null, exceptionMessage);
             }
-        }
-
-        private IEnumerable<RoundedDouble> DetermineWaterLevels()
-        {
-            var waterLevels = new List<RoundedDouble>();
-
-            var upperBoundary = new RoundedDouble(2, Math.Min(UpperBoundaryDesignWaterLevel,
-                                                              Math.Min(UpperBoundaryRevetment,
-                                                                       !double.IsNaN(UpperBoundaryWaterLevels)
-                                                                           ? UpperBoundaryWaterLevels
-                                                                           : double.MaxValue)));
-
-            var lowerBoundary = new RoundedDouble(2, Math.Max(LowerBoundaryRevetment,
-                                                              !double.IsNaN(LowerBoundaryWaterLevels)
-                                                                  ? LowerBoundaryWaterLevels
-                                                                  : double.MinValue));
-
-            if (double.IsNaN(upperBoundary) ||
-                double.IsNaN(lowerBoundary) ||
-                lowerBoundary >= upperBoundary)
-            {
-                return waterLevels;
-            }
-
-            waterLevels.Add(upperBoundary);
-
-            double stepSizeValue = StepSize.AsValue();
-            var currentWaterLevel = new RoundedDouble(2, Math.Ceiling(upperBoundary / stepSizeValue) * stepSizeValue - stepSizeValue);
-
-            while (currentWaterLevel > lowerBoundary)
-            {
-                waterLevels.Add(currentWaterLevel);
-                currentWaterLevel = new RoundedDouble(currentWaterLevel.NumberOfDecimalPlaces, currentWaterLevel - stepSizeValue);
-            }
-
-            waterLevels.Add(lowerBoundary);
-
-            return waterLevels;
         }
 
         private static BreakWater GetDefaultBreakWater()

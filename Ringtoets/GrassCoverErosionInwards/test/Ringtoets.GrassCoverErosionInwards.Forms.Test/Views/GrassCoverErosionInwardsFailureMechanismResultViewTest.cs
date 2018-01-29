@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -28,7 +29,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -59,15 +63,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_ExpectedValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            using (var view = new GrassCoverErosionInwardsFailureMechanismResultView())
+            using (var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult>>(view);
                 Assert.IsNull(view.Data);
             }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismResultView(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -291,7 +312,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -324,7 +345,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var calculation = new GrassCoverErosionInwardsCalculation();
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
@@ -359,7 +380,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
@@ -401,10 +422,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Given
             using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                const double probability = 0.56789;
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(probability),
+                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.56789),
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 };
@@ -428,7 +448,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), formattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
             }
         }
@@ -438,7 +458,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult, string expectedValue)
         {
-            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 view.Data = new[]
                 {
@@ -466,12 +486,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                const double probability = 0.56789;
                 var successfulCalculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(probability),
+                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.56789),
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 };
@@ -501,7 +520,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Precondition
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), formattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
                 // When
@@ -517,7 +536,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         private static IEnumerable AssessmentLayerOneStateIsSufficientVariousSectionResults()
         {
             FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-            const double probability = 0.56789;
+            const double reliability = 0.56789;
 
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
@@ -543,11 +562,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(probability),
+                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(reliability),
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 }
-            }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutput");
+            }, ProbabilityFormattingHelper.Format(0.25)).SetName("SectionWithValidCalculationOutput");
         }
 
         private static FailureMechanismSection CreateSimpleFailureMechanismSection()
@@ -586,7 +605,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         private GrassCoverErosionInwardsFailureMechanismResultView ShowFailureMechanismResultsView()
         {
-            var failureMechanismResultView = new GrassCoverErosionInwardsFailureMechanismResultView();
+            var failureMechanismResultView = new GrassCoverErosionInwardsFailureMechanismResultView(new ObservableTestAssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

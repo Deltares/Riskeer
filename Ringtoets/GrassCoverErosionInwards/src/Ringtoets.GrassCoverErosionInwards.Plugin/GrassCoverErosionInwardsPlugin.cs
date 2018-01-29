@@ -93,7 +93,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
             yield return new PropertyInfo<OvertoppingOutputContext, OvertoppingOutputProperties>
             {
-                CreateInstance = context => new OvertoppingOutputProperties(context.WrappedData.Output.OvertoppingOutput)
+                CreateInstance = context => new OvertoppingOutputProperties(context.WrappedData.Output.OvertoppingOutput,
+                                                                            context.FailureMechanism,
+                                                                            context.AssessmentSection)
             };
             yield return new PropertyInfo<DikeHeightOutputContext, DikeHeightOutputProperties>
             {
@@ -188,7 +190,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
 
             yield return new ViewInfo<
-                FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>,
+                ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>,
                 IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
                 GrassCoverErosionInwardsFailureMechanismResultView>
             {
@@ -196,7 +198,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
+                CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismResultView(context.AssessmentSection)
             };
 
             yield return new ViewInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInputView>
@@ -286,7 +289,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -523,14 +526,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #region GrassCoverErosionInwardsFailureMechanismContext TreeNodeInfo
 
-        private static object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionInwardsFailureMechanismContext context)
         {
-            GrassCoverErosionInwardsFailureMechanism wrappedData = grassCoverErosionInwardsFailureMechanismContext.WrappedData;
+            GrassCoverErosionInwardsFailureMechanism wrappedData = context.WrappedData;
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, grassCoverErosionInwardsFailureMechanismContext.Parent), TreeFolderCategory.Input),
-                new GrassCoverErosionInwardsCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, grassCoverErosionInwardsFailureMechanismContext.Parent),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, context.Parent), TreeFolderCategory.Input),
+                new GrassCoverErosionInwardsCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, context.Parent),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, context.Parent), TreeFolderCategory.Output)
             };
         }
 
@@ -552,13 +555,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
                 new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism),
+                new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
         }

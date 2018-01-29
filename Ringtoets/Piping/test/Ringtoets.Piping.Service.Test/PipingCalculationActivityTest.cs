@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Service.Test
             invalidPipingCalculation.Output = originalOutput;
 
             var activity = new PipingCalculationActivity(invalidPipingCalculation,
-                                                         GetCalculatedTestAssessmentLevel());
+                                                         GetTestNormativeAssessmentLevel());
 
             // Call
             Action call = () => activity.Run();
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Service.Test
             validPipingCalculation.Output = null;
 
             var activity = new PipingCalculationActivity(validPipingCalculation,
-                                                         GetCalculatedTestAssessmentLevel());
+                                                         GetTestNormativeAssessmentLevel());
             activity.Run();
 
             // Call
@@ -144,7 +144,7 @@ namespace Ringtoets.Piping.Service.Test
             validPipingCalculation.Attach(observer);
 
             var activity = new PipingCalculationActivity(validPipingCalculation,
-                                                         GetCalculatedTestAssessmentLevel());
+                                                         GetTestNormativeAssessmentLevel());
 
             activity.Run();
 
@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.Service.Test
             mocks.VerifyAll();
         }
 
-        private static RoundedDouble GetCalculatedTestAssessmentLevel()
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
         {
             return (RoundedDouble) 1.1;
         }

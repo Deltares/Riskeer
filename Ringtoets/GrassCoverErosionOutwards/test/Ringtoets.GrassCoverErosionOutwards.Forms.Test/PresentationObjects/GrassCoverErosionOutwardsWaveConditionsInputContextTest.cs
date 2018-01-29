@@ -21,6 +21,9 @@
 
 using System;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.Revetment.Data;
@@ -40,17 +43,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var calculation = new TestWaveConditionsCalculation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            mocks.ReplayAll();
+
             // Call
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(input,
                                                                                   calculation,
+                                                                                  assessmentSection,
                                                                                   failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
             Assert.AreSame(input, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, context.HydraulicBoundaryLocations);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, context.ForeshoreProfiles);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -60,14 +70,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var input = new WaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
 
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            mocks.ReplayAll();
+
             // Call
             TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(input,
                                                                                               calculation,
+                                                                                              assessmentSection,
                                                                                               null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
         }
     }
 }

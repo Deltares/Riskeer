@@ -66,7 +66,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                     SlipPlaneMinimumDepth = RoundedDouble.NaN,
                     SlipPlaneMinimumLength = RoundedDouble.NaN,
                     MaximumSliceWidth = RoundedDouble.NaN,
-                    UseAssessmentLevelManualInput = true,
                     AssessmentLevel = RoundedDouble.NaN,
                     WaterLevelRiverAverage = RoundedDouble.NaN,
                     XCoordinateDrainageConstruction = RoundedDouble.NaN,
@@ -172,7 +171,9 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         }
 
         [Test]
-        public void Create_MacroStabilityInwardsCalculationScenarioWithNumericAndBooleanPropertiesSet_ReturnsMacroStabilityInwardsCalculationEntity()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Create_MacroStabilityInwardsCalculationScenarioWithNumericAndBooleanPropertiesSet_ReturnsMacroStabilityInwardsCalculationEntity(bool useAssessmentLevelManualInput)
         {
             // Setup
             var random = new Random(21);
@@ -182,7 +183,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 Contribution = random.NextRoundedDouble(),
                 InputParameters =
                 {
-                    UseAssessmentLevelManualInput = true,
+                    UseAssessmentLevelManualInput = useAssessmentLevelManualInput,
                     AssessmentLevel = random.NextRoundedDouble(),
                     SlipPlaneMinimumDepth = random.NextRoundedDouble(),
                     SlipPlaneMinimumLength = random.NextRoundedDouble(),
@@ -265,31 +266,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.IsNull(entity.MacroStabilityInwardsStochasticSoilProfileEntity);
             Assert.IsNull(entity.HydraulicLocationEntity);
             Assert.AreEqual(order, entity.Order);
-        }
-
-        [Test]
-        public void GivenCalculationWithAssessmentLevelAndUseManualInputFalse_WhenCreated_ThenEntityDoesNotSafeManualAssessmentLevel()
-        {
-            // Given
-            var random = new Random(21);
-            var scenario = new MacroStabilityInwardsCalculationScenario
-            {
-                InputParameters =
-                {
-                    UseAssessmentLevelManualInput = true,
-                    AssessmentLevel = random.NextRoundedDouble()
-                }
-            };
-            scenario.InputParameters.UseAssessmentLevelManualInput = false;
-
-            var registry = new PersistenceRegistry();
-
-            // When
-            MacroStabilityInwardsCalculationEntity entity = scenario.Create(registry, 0);
-
-            // Then
-            Assert.IsNotNull(entity);
-            Assert.IsNull(entity.AssessmentLevel);
         }
 
         [Test]

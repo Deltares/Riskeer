@@ -30,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
@@ -62,7 +63,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingFailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>), info.DataType);
             Assert.AreEqual(typeof(IEnumerable<PipingFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -74,9 +75,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new PipingFailureMechanismSectionResultContext(failureMechanism.SectionResults,
-                                                                         failureMechanism,
-                                                                         assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults,
+                                                                                                                   failureMechanism,
+                                                                                                                   assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
@@ -311,9 +312,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             view.Expect(v => v.FailureMechanism = failureMechanism);
             mocks.ReplayAll();
 
-            var context = new PipingFailureMechanismSectionResultContext(failureMechanism.SectionResults,
-                                                                         failureMechanism,
-                                                                         assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults,
+                                                                                                                   failureMechanism,
+                                                                                                                   assessmentSection);
 
             // Call
             info.AfterCreate(view, context);
@@ -331,9 +332,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new PipingFailureMechanismSectionResultContext(failureMechanism.SectionResults,
-                                                                         failureMechanism,
-                                                                         assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults,
+                                                                                                                   failureMechanism,
+                                                                                                                   assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

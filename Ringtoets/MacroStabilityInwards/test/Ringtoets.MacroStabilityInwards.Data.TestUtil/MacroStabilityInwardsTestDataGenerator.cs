@@ -69,6 +69,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenarioWithAssessmentLevel()
         {
             MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenario();
+
+            calculation.InputParameters.HydraulicBoundaryLocation = null;
             calculation.InputParameters.UseAssessmentLevelManualInput = true;
             calculation.InputParameters.AssessmentLevel = (RoundedDouble) 3.0;
 
@@ -535,7 +537,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             input.StochasticSoilModel = stochasticSoilModel;
             input.StochasticSoilProfile = stochasticSoilProfile;
             input.SurfaceLine = surfaceLine;
-            input.UseAssessmentLevelManualInput = true;
+            input.UseAssessmentLevelManualInput = random.NextBoolean();
             input.AssessmentLevel = random.NextRoundedDouble();
             input.SlipPlaneMinimumDepth = random.NextRoundedDouble();
             input.SlipPlaneMinimumLength = random.NextRoundedDouble();

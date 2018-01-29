@@ -35,39 +35,33 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
     /// </summary>
     public class WaveImpactAsphaltCoverWaveConditionsInputContext : WaveConditionsInputContext
     {
-        private readonly IAssessmentSection assessmentSection;
-
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
         /// <param name="calculation">The calculation having <paramref name="wrappedData"/> as input.</param>
-        /// <param name="foreshoreProfiles">The foreshore profiles of the <see cref="WaveImpactAsphaltCoverFailureMechanismContext"/>.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
+        /// <param name="foreshoreProfiles">The foreshore profiles of the <see cref="WaveImpactAsphaltCoverFailureMechanismContext"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                                                 ICalculation<WaveConditionsInput> calculation,
-                                                                IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                                                IAssessmentSection assessmentSection)
-            : base(wrappedData, calculation)
+                                                                IAssessmentSection assessmentSection,
+                                                                IEnumerable<ForeshoreProfile> foreshoreProfiles)
+            : base(wrappedData, calculation, assessmentSection)
         {
             if (foreshoreProfiles == null)
             {
                 throw new ArgumentNullException(nameof(foreshoreProfiles));
             }
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
+
             ForeshoreProfiles = foreshoreProfiles;
-            this.assessmentSection = assessmentSection;
         }
 
         public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
         {
             get
             {
-                return assessmentSection.HydraulicBoundaryDatabase.Locations;
+                return AssessmentSection.HydraulicBoundaryDatabase.Locations;
             }
         }
 

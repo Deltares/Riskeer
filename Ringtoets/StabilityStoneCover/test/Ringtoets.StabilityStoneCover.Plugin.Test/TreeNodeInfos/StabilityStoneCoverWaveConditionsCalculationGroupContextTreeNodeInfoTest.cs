@@ -256,6 +256,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(groupContext, null, treeViewControl);
             }
+
             // Assert
             orderedMocks.VerifyAll();
         }
@@ -377,6 +378,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl);
             }
+
             // Assert
             // Assert expectancies called in TearDown()
         }
@@ -826,13 +828,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
-                    {
-                        DesignWaterLevelCalculation1 =
-                        {
-                            Output = new TestHydraulicBoundaryLocationOutput(12.0)
-                        }
-                    },
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -847,13 +843,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
-                    {
-                        DesignWaterLevelCalculation1 =
-                        {
-                            Output = new TestHydraulicBoundaryLocationOutput(12.0)
-                        }
-                    },
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -915,7 +905,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -982,7 +972,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1053,7 +1043,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1124,7 +1114,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(12),
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1893,19 +1883,24 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             base.TearDown();
         }
 
+        private static TestHydraulicBoundaryLocation CreateHydraulicBoundaryLocationWithNormativeOutput()
+        {
+            return new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelCalculation3 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(12)
+                }
+            };
+        }
+
         private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation()
         {
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            return new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
-                    {
-                        DesignWaterLevelCalculation1 =
-                        {
-                            Output = new TestHydraulicBoundaryLocationOutput(9.3)
-                        }
-                    },
+                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -1916,7 +1911,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            return calculation;
         }
     }
 }

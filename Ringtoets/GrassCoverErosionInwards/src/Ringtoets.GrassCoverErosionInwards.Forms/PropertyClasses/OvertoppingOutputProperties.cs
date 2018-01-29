@@ -28,7 +28,9 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Core.Common.Util.Extensions;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -42,19 +44,39 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class OvertoppingOutputProperties : ObjectProperties<OvertoppingOutput>
     {
+        private readonly ProbabilityAssessmentOutput derivedOutput;
+
         /// <summary>
         /// Creates a new instance of <see cref="OvertoppingOutputProperties"/>.
         /// </summary>
         /// <param name="overtoppingOutput">The overtopping output to create the object properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="overtoppingOutput"/> is <c>null</c>.</exception>
-        public OvertoppingOutputProperties(OvertoppingOutput overtoppingOutput)
+        /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the output belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public OvertoppingOutputProperties(OvertoppingOutput overtoppingOutput,
+                                           GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                           IAssessmentSection assessmentSection)
         {
             if (overtoppingOutput == null)
             {
                 throw new ArgumentNullException(nameof(overtoppingOutput));
             }
 
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             Data = overtoppingOutput;
+
+            derivedOutput = GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(overtoppingOutput,
+                                                                                              failureMechanism,
+                                                                                              assessmentSection);
         }
 
         [PropertyOrder(1)]
@@ -65,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.ProbabilityAssessmentOutput.RequiredProbability);
+                return ProbabilityFormattingHelper.Format(derivedOutput.RequiredProbability);
             }
         }
 
@@ -77,7 +99,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.ProbabilityAssessmentOutput.RequiredReliability;
+                return derivedOutput.RequiredReliability;
             }
         }
 
@@ -89,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.ProbabilityAssessmentOutput.Probability);
+                return ProbabilityFormattingHelper.Format(derivedOutput.Probability);
             }
         }
 
@@ -101,7 +123,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.ProbabilityAssessmentOutput.Reliability;
+                return derivedOutput.Reliability;
             }
         }
 
@@ -113,7 +135,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.ProbabilityAssessmentOutput.FactorOfSafety;
+                return derivedOutput.FactorOfSafety;
             }
         }
 

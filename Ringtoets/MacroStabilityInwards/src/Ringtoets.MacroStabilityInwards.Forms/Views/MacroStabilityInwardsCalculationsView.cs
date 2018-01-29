@@ -274,6 +274,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                     macroStabilityInwardsFailureMechanism,
                     assessmentSection);
             }
+
             return selection;
         }
 
@@ -308,9 +309,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSection.Points);
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = calculationGroup
-                .GetCalculations()
-                .OfType<MacroStabilityInwardsCalculationScenario>()
-                .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
+                                                                                 .GetCalculations()
+                                                                                 .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                 .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
             PrefillComboBoxListItemsAtColumnLevel();
 
@@ -389,11 +390,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(MacroStabilityInwardsCalculation macroStabilityInwardsCalculation)
         {
-            if (assessmentSection == null || macroStabilityInwardsCalculation.InputParameters.UseAssessmentLevelManualInput)
-            {
-                return Enumerable.Empty<SelectableHydraulicBoundaryLocation>();
-            }
-
             return GetSelectableHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                            macroStabilityInwardsCalculation.InputParameters.SurfaceLine);
         }
@@ -428,6 +424,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 return Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>();
             }
+
             return MacroStabilityInwardsCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
                 macroStabilityInwardsCalculation.InputParameters.SurfaceLine,
                 macroStabilityInwardsFailureMechanism.StochasticSoilModels);
@@ -465,6 +462,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 return Enumerable.Empty<MacroStabilityInwardsStochasticSoilProfile>();
             }
+
             return macroStabilityInwardsCalculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles;
         }
 
@@ -488,11 +486,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModels = macroStabilityInwardsFailureMechanism.StochasticSoilModels;
                 SetItemsOnObjectCollection(stochasticSoilModelColumn.Items, GetStochasticSoilModelsDataSource(stochasticSoilModels).ToArray());
             }
+
             using (new SuspendDataGridViewColumnResizes(stochasticSoilProfileColumn))
             {
                 MacroStabilityInwardsStochasticSoilProfile[] soilProfiles = GetStochasticSoilProfilesFromStochasticSoilModels();
                 SetItemsOnObjectCollection(stochasticSoilProfileColumn.Items, GetSoilProfilesDataSource(soilProfiles).ToArray());
             }
+
             using (new SuspendDataGridViewColumnResizes(selectableHydraulicBoundaryLocationColumn))
             {
                 SetItemsOnObjectCollection(selectableHydraulicBoundaryLocationColumn.Items,
@@ -519,6 +519,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, surfaceLine));
             }
+
             return selectableHydraulicBoundaryLocations;
         }
 
@@ -550,6 +551,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 return;
             }
+
             var dialog = new MacroStabilityInwardsSurfaceLineSelectionDialog(Parent, macroStabilityInwardsFailureMechanism.SurfaceLines);
             dialog.ShowDialog();
             IEnumerable<ICalculationBase> calculationsStructure = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(

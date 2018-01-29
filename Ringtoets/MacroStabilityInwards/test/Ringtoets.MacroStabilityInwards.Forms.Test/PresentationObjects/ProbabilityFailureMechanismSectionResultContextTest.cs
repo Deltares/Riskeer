@@ -27,18 +27,17 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismSectionResultContextTest
+    public class ProbabilityFailureMechanismSectionResultContextTest
     {
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismSectionResultContext(Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>(),
+            TestDelegate call = () => new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>(),
                                                                                                     new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
@@ -58,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var context = new MacroStabilityInwardsFailureMechanismSectionResultContext(sectionResults, failureMechanism, assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult> (sectionResults, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>>(context);

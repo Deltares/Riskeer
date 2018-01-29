@@ -31,7 +31,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -73,10 +72,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
             Data = grassCoverErosionInwardsOutput;
 
-            derivedOvertoppingOutput = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
-                                                                              failureMechanism.Contribution,
-                                                                              failureMechanism.GeneralInput.N,
-                                                                              grassCoverErosionInwardsOutput.OvertoppingOutput.Reliability);
+            derivedOvertoppingOutput = GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(grassCoverErosionInwardsOutput.OvertoppingOutput,
+                                                                                                         failureMechanism, assessmentSection);
         }
 
         [DynamicVisibleValidationMethod]

@@ -23,7 +23,6 @@ using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
@@ -51,13 +50,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             // Call
             var context = new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
                                                                             calculation,
-                                                                            foreshoreProfiles,
-                                                                            assessmentSection);
+                                                                            assessmentSection,
+                                                                            foreshoreProfiles);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
             Assert.AreSame(calculation.InputParameters, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(foreshoreProfiles, context.ForeshoreProfiles);
             Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, context.HydraulicBoundaryLocations);
             mocks.VerifyAll();
@@ -76,34 +76,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             // Call
             TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
                                                                                         calculation,
-                                                                                        null,
-                                                                                        assessmentSection);
+                                                                                        assessmentSection,
+                                                                                        null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("foreshoreProfiles", exception.ParamName);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var foreshoreProfiles = new[]
-            {
-                new TestForeshoreProfile()
-            };
-
-            // Call
-            TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
-                                                                                        calculation,
-                                                                                        foreshoreProfiles,
-                                                                                        null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }

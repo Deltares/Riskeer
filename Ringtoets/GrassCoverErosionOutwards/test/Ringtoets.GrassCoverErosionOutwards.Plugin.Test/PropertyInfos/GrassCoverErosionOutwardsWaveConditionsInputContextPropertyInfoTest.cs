@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
@@ -53,9 +54,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 calculation.InputParameters,
                 calculation,
+                assessmentSection,
                 failureMechanism);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())

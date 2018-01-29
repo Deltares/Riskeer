@@ -83,6 +83,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         protected override bool Validate()
         {
             return WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                                   assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation),
                                                                                    hlcdFilePath,
                                                                                    assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }

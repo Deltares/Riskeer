@@ -212,12 +212,12 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <returns>A collection with collections of points in 2D space or an empty list when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
-        /// <item>there are no <see cref="WaveConditionsInput.WaterLevels"/>.</item>
+        /// <item>no water levels could be determined.</item>
         /// </list>
         /// </returns>
         public static IEnumerable<IEnumerable<Point2D>> CreateWaterLevelsGeometryPoints(WaveConditionsInput input)
         {
-            return input?.WaterLevels
+            return input?.GetWaterLevels(input.AssessmentLevel)
                         .Select(waterLevel => CreateGeometryPoints(input, () => waterLevel))
                         .ToArray() ?? new IEnumerable<Point2D>[0];
         }

@@ -39,7 +39,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
         private static readonly Range<int> tangentLineNumberValidityRange = new Range<int>(1, 50);
 
         private RoundedDouble assessmentLevel;
-        private bool useAssessmentLevelManualInput;
         private RoundedDouble slipPlaneMinimumDepth;
         private RoundedDouble slipPlaneMinimumLength;
         private RoundedDouble maximumSliceWidth;
@@ -82,13 +81,13 @@ namespace Ringtoets.MacroStabilityInwards.Data
             {
                 throw new ArgumentNullException(nameof(properties));
             }
+
             if (!IsSmallerEqualOrNaN(properties.TangentLineZBottom, properties.TangentLineZTop))
             {
                 throw new ArgumentException(Resources.MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_or_equal_to_TangentLineZBottom);
             }
 
             assessmentLevel = new RoundedDouble(2, double.NaN);
-            useAssessmentLevelManualInput = false;
 
             slipPlaneMinimumDepth = new RoundedDouble(2);
             slipPlaneMinimumLength = new RoundedDouble(2);
@@ -157,22 +156,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets or sets whether the assessment level is manual input for the calculation.
         /// </summary>
-        public bool UseAssessmentLevelManualInput
-        {
-            get
-            {
-                return useAssessmentLevelManualInput;
-            }
-            set
-            {
-                useAssessmentLevelManualInput = value;
-
-                if (useAssessmentLevelManualInput)
-                {
-                    HydraulicBoundaryLocation = null;
-                }
-            }
-        }
+        public bool UseAssessmentLevelManualInput { get; set; }
 
         /// <summary>
         /// Gets or sets the surface line.
@@ -275,26 +259,15 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets the outside high water level.
         /// [m+NAP]
         /// </summary>
-        /// <exception cref="InvalidOperationException">Thrown when the user attempts to set the 
-        /// assessment level while <see cref="UseAssessmentLevelManualInput"/> is <c>false</c>.</exception>
+        /// <remarks>This property is only used for calculations when <see cref="UseAssessmentLevelManualInput"/> is <c>true</c>.</remarks>
         public RoundedDouble AssessmentLevel
         {
             get
             {
-                if (!UseAssessmentLevelManualInput)
-                {
-                    return HydraulicBoundaryLocation?.DesignWaterLevel ?? RoundedDouble.NaN;
-                }
-
                 return assessmentLevel;
             }
             set
             {
-                if (!UseAssessmentLevelManualInput)
-                {
-                    throw new InvalidOperationException("UseAssessmentLevelManualInput is false");
-                }
-
                 assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
         }

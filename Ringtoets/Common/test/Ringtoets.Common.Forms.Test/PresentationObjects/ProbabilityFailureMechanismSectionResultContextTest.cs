@@ -25,21 +25,21 @@ using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
 
-namespace Ringtoets.Piping.Forms.Test.PresentationObjects
+namespace Ringtoets.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class PipingFailureMechanismSectionResultContextTest
+    public class ProbabilityFailureMechanismSectionResultContextTest
     {
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PipingFailureMechanismSectionResultContext(Enumerable.Empty<PipingFailureMechanismSectionResult>(),
-                                                                                     new PipingFailureMechanism(), null);
+            TestDelegate call = () => new ProbabilityFailureMechanismSectionResultContext<FailureMechanismSectionResult>(Enumerable.Empty<FailureMechanismSectionResult>(),
+                                                                                                                         new TestFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -54,14 +54,14 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            IEnumerable<PipingFailureMechanismSectionResult> sectionResults = Enumerable.Empty<PipingFailureMechanismSectionResult>();
-            var failureMechanism = new PipingFailureMechanism();
+            IEnumerable<FailureMechanismSectionResult> sectionResults = Enumerable.Empty<FailureMechanismSectionResult>();
+            var failureMechanism = new TestFailureMechanism();
 
             // Call
-            var context = new PipingFailureMechanismSectionResultContext(sectionResults, failureMechanism, assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<FailureMechanismSectionResult>(sectionResults, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>>(context);
+            Assert.IsInstanceOf<FailureMechanismSectionResultContext<FailureMechanismSectionResult>>(context);
             Assert.AreSame(sectionResults, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);

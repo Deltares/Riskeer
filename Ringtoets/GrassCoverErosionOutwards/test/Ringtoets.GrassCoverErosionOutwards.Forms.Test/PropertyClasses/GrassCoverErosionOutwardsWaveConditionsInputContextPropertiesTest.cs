@@ -19,11 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -48,50 +49,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithoutContext_ThrowsArgumentNullException()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(null, handler);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("context", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithoutHandler_ThrowArgumentNullException()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                new WaveConditionsInput(),
-                new TestWaveConditionsCalculation(),
-                new GrassCoverErosionOutwardsFailureMechanism());
-
-            // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("handler", exception.ParamName);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 new WaveConditionsInput(),
                 new TestWaveConditionsCalculation(),
+                new ObservableTestAssessmentSectionStub(),
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, handler);
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>>(properties);
@@ -106,10 +74,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 new WaveConditionsInput(),
                 new TestWaveConditionsCalculation(),
+                new ObservableTestAssessmentSectionStub(),
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, handler);
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -130,6 +99,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicParametersCategory, upperBoundaryDesignWaterLevelProperty.Category);
             Assert.AreEqual("Bovengrens op basis van waterstand bij doorsnede-eis [m+NAP]", upperBoundaryDesignWaterLevelProperty.DisplayName);
             Assert.AreEqual("Bovengrens bepaald aan de hand van de waarde van de waterstand bij doorsnede-eis op de geselecteerde hydraulische locatie.", upperBoundaryDesignWaterLevelProperty.Description);
+        }
+
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
     }
 }

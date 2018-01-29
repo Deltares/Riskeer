@@ -268,7 +268,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                 chartData.Collection.ElementAt(designWaterLevelChartDataIndex), "Toetspeil");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
-                                           calculation.InputParameters.WaterLevels,
+                                           calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel),
                                            chartData.Collection.ElementAt(waterLevelsChartDataIndex));
 
                 AssertRevetmentBaseChartData(calculation.InputParameters.ForeshoreGeometry.Last(),
@@ -435,7 +435,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                 designWaterLevelChartData, "Toetspeil");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
-                                           calculation.InputParameters.WaterLevels,
+                                           calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel),
                                            waterLevelsChartData);
 
                 AssertRevetmentBaseChartData(profile2.Geometry.Last(),
@@ -445,6 +445,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertRevetmentChartData(profile2.Geometry.Last(), calculation.InputParameters.LowerBoundaryRevetment,
                                          calculation.InputParameters.UpperBoundaryRevetment, revetmentChartData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -480,6 +481,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(calculation1, view.Data);
             }
+
             mocks.VerifyAll(); // no update observer expected
         }
 
@@ -553,7 +555,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                 designWaterLevelChartData, "Toetspeil");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
-                                           calculation.InputParameters.WaterLevels,
+                                           calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel),
                                            waterLevelsChartData);
 
                 AssertRevetmentBaseChartData(profile.Geometry.Last(),

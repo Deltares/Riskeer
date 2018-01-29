@@ -44,21 +44,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets the value of assessment layer two a.
-        /// </summary>
-        public double AssessmentLayerTwoA
-        {
-            get
-            {
-                if (Calculation == null || !Calculation.HasOutput)
-                {
-                    return double.NaN;
-                }
-                return Calculation.Output.OvertoppingOutput.ProbabilityAssessmentOutput.Probability;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the <see cref="GrassCoverErosionInwardsCalculation"/>, which is chosen 
         /// to be representative for the whole section.
         /// </summary>

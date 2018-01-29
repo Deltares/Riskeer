@@ -23,27 +23,24 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Forms.PresentationObjects
+namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for a collection of <see cref="FailureMechanismSectionResult"/>
-    /// for piping.
+    /// This class is a presentation object for a collection of <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
-    public class PipingFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>
+    /// /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResult"/>.</typeparam>
+    public class ProbabilityFailureMechanismSectionResultContext<T> : FailureMechanismSectionResultContext<T> where T : FailureMechanismSectionResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultContext"/>.
+        /// Creates a new instance of <see cref="ProbabilityFailureMechanismSectionResultContext{T}"/>.
         /// </summary>
-        /// <param name="wrappedSectionResults">The <see cref="IEnumerable{T}"/> of <see cref="PipingFailureMechanismSectionResult"/> to wrap.</param>
+        /// <param name="wrappedSectionResults">The <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/> to wrap.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the <paramref name="wrappedSectionResults"/> belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the section results belong to.</param>
+        /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionResultContext(IEnumerable<PipingFailureMechanismSectionResult> wrappedSectionResults,
-                                                          IFailureMechanism failureMechanism,
-                                                          IAssessmentSection assessmentSection)
+        public ProbabilityFailureMechanismSectionResultContext(IEnumerable<T> wrappedSectionResults, IFailureMechanism failureMechanism,
+                                                               IAssessmentSection assessmentSection)
             : base(wrappedSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
@@ -55,7 +52,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the <see cref="IAssessmentSection"/>.
+        /// Gets the assessment section.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; }
     }

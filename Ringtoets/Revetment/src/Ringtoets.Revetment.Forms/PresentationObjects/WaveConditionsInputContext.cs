@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
@@ -39,21 +40,36 @@ namespace Ringtoets.Revetment.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
         /// <param name="calculation">The calculation having <paramref name="wrappedData"/> as input.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        protected WaveConditionsInputContext(WaveConditionsInput wrappedData, ICalculation<WaveConditionsInput> calculation)
+        protected WaveConditionsInputContext(WaveConditionsInput wrappedData,
+                                             ICalculation<WaveConditionsInput> calculation,
+                                             IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             Calculation = calculation;
+            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
         /// Gets the calculation containing the wrapped <see cref="WaveConditionsInput"/>.
         /// </summary>
         public ICalculation<WaveConditionsInput> Calculation { get; }
+
+        /// <summary>
+        /// Gets the assessment section the context belongs to.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets the hydraulic boundary locations.

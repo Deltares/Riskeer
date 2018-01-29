@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -28,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
@@ -66,7 +66,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Validate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(null, validFilePath, validPreprocessorDirectory);
+            TestDelegate test = () => GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(null,
+                                                                                                         GetTestNormativeAssessmentLevel(),
+                                                                                                         validFilePath,
+                                                                                                         validPreprocessorDirectory);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -89,7 +92,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
+                                                                                                                 GetTestNormativeAssessmentLevel(),
+                                                                                                                 testFilePath,
+                                                                                                                 validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -122,7 +128,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, invalidFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
+                                                                                                                 GetTestNormativeAssessmentLevel(),
+                                                                                                                 invalidFilePath,
+                                                                                                                 validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -155,7 +164,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath, invalidPreprocessorDirectory);
+                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
+                                                                                                                 GetTestNormativeAssessmentLevel(),
+                                                                                                                 validFilePath,
+                                                                                                                 invalidPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -188,7 +200,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
+                                                                                                                 GetTestNormativeAssessmentLevel(),
+                                                                                                                 testFilePath,
+                                                                                                                 validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -221,7 +236,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
+                                                                                                                 GetTestNormativeAssessmentLevel(),
+                                                                                                                 validFilePath,
+                                                                                                                 validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -239,7 +257,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void Validate_NoDesignWaterLevel_LogsValidationMessageAndReturnFalse()
+        public void Validate_NormativeAssessmentLevelNaN_LogsValidationMessageAndReturnFalse()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -254,7 +272,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
+                                                                                                                 RoundedDouble.NaN,
+                                                                                                                 validFilePath,
+                                                                                                                 validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -290,7 +311,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
+                                                                                                                 GetTestNormativeAssessmentLevel(),
+                                                                                                                 validFilePath,
+                                                                                                                 validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -328,7 +352,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath, validPreprocessorDirectory);
+                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
+                                                                                                                 GetTestNormativeAssessmentLevel(),
+                                                                                                                 validFilePath,
+                                                                                                                 validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -449,7 +476,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
                     var i = 0;
-                    foreach (RoundedDouble waterLevel in calculation.InputParameters.WaterLevels)
+                    foreach (RoundedDouble waterLevel in calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel))
                     {
                         Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", msgs[i + 1]);
                         StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i + 2]);
@@ -517,7 +544,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
                     var i = 0;
-                    foreach (RoundedDouble waterLevel in calculation.InputParameters.WaterLevels)
+                    foreach (RoundedDouble waterLevel in calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel))
                     {
                         Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", msgs[i + 1]);
                         StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i + 2]);
@@ -585,7 +612,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                                                  mechanismSpecificNorm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
-                                                                                 calculation.InputParameters.WaterLevels.ElementAt(waterLevelIndex++),
+                                                                                 GetWaterLevels(calculation, assessmentSection).ElementAt(waterLevelIndex++),
                                                                                  generalInput.GeneralWaveConditionsInput.A,
                                                                                  generalInput.GeneralWaveConditionsInput.B,
                                                                                  generalInput.GeneralWaveConditionsInput.C);
@@ -761,7 +788,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
-                    RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
+                    RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
                     RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
                     RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
                     RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
@@ -839,7 +866,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 };
 
                 // Assert
-                RoundedDouble[] waterLevels = calculation.InputParameters.WaterLevels.ToArray();
+                RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
                 RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
                 RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
                 RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
@@ -992,15 +1019,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation()
         {
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            return new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "locationName", 0, 0)
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
                     {
-                        DesignWaterLevelCalculation1 =
+                        DesignWaterLevelCalculation3 =
                         {
-                            Output = new TestHydraulicBoundaryLocationOutput(9.3)
+                            Output = new TestHydraulicBoundaryLocationOutput(12)
                         }
                     },
                     ForeshoreProfile = new TestForeshoreProfile(true),
@@ -1013,7 +1040,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            return calculation;
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetDefaultCalculation()
@@ -1023,6 +1049,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble) 5.4;
 
             return calculation;
+        }
+
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 9.3;
+        }
+
+        private static IEnumerable<RoundedDouble> GetWaterLevels(GrassCoverErosionOutwardsWaveConditionsCalculation calculation, IAssessmentSection assessmentSection)
+        {
+            return calculation.InputParameters.GetWaterLevels(assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation));
         }
     }
 }
