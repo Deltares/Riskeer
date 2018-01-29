@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <paramref name="probability"/> that falls  outside the [0.0, 1.0] range 
         /// and isn't <see cref="double.NaN"/>.</exception>
         public TestStructuresOutput(double probability)
-            : base(new ProbabilityAssessmentOutput(0, 0, probability, 0, 0), null) {}
+            : base(probability, new ProbabilityAssessmentOutput(0, 0, probability, 0, 0), null) {}
 
         /// <summary>
         /// Creates new instance of <see cref="TestStructuresOutput"/>.
@@ -54,6 +54,6 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="generalResult">The general result of this output with the 
         /// fault tree illustration points.</param>
         public TestStructuresOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
-            : base(new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), generalResult) {}
+            : base(0, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), generalResult) {}
     }
 }

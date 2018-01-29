@@ -53,10 +53,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const string resultCategoryName = "\tResultaat";
 
         [Test]
-        public void Constructor_StructuresOutput_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput(), null);
+            var structuresOutput = new StructuresOutput(0, new TestProbabilityAssessmentOutput(), null);
 
             // Call
             var properties = new StructuresOutputProperties(structuresOutput);
@@ -96,7 +96,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
 
-            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput, generalResult);
+            var structuresOutput = new StructuresOutput(reliability, probabilityAssessmentOutput, generalResult);
 
             // Call
             var properties = new StructuresOutputProperties(structuresOutput);
@@ -134,7 +134,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void IllustrationPoints_WithoutGeneralResult_ReturnsEmptyTopLevelFaultTreeIllustrationPointPropertiesArray()
         {
             // Setup
-            var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput(), null);
+            var structuresOutput = new StructuresOutput(0, new TestProbabilityAssessmentOutput(), null);
             var properties = new StructuresOutputProperties(structuresOutput);
 
             // Call
@@ -150,7 +150,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput, generalResult);
+            var structuresOutput = new StructuresOutput(0, probabilityAssessmentOutput, generalResult);
 
             // Call
             var properties = new StructuresOutputProperties(structuresOutput);
@@ -228,7 +228,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
-            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput, null);
+            var structuresOutput = new StructuresOutput(0, probabilityAssessmentOutput, null);
 
             // Call
             var properties = new StructuresOutputProperties(structuresOutput);

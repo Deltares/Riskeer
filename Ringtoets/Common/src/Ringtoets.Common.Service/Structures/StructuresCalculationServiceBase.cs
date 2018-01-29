@@ -269,15 +269,17 @@ namespace Ringtoets.Common.Service.Structures
                                                        contribution,
                                                        lengthEffectN,
                                                        calculator.ExceedanceProbabilityBeta);
-            SetOutput(calculation, probabilityAssessmentOutput);
+            SetOutput(calculation, calculator.ExceedanceProbabilityBeta, probabilityAssessmentOutput);
         }
 
         /// <summary>
         /// Sets the calculated output to the calculation object.
         /// </summary>
         /// <param name="calculation">The calculation to set the output for.</param>
+        /// <param name="reliability">The reliability of the calculation.</param>
         /// <param name="probabilityAssessmentOutput">The calculated output.</param>
         private void SetOutput(StructuresCalculation<TStructureInput> calculation,
+                               double reliability,
                                ProbabilityAssessmentOutput probabilityAssessmentOutput)
         {
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = null;
@@ -295,7 +297,7 @@ namespace Ringtoets.Common.Service.Structures
                                        e.Message));
             }
 
-            calculation.Output = new StructuresOutput(probabilityAssessmentOutput, generalResult);
+            calculation.Output = new StructuresOutput(reliability, probabilityAssessmentOutput, generalResult);
         }
 
         /// <summary>

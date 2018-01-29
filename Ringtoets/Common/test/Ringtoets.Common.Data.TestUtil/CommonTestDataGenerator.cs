@@ -104,7 +104,8 @@ namespace Ringtoets.Common.Data.TestUtil
         {
             var random = new Random(21);
 
-            return new StructuresOutput(new ProbabilityAssessmentOutput(random.NextDouble(),
+            return new StructuresOutput(random.NextDouble(),
+                                        new ProbabilityAssessmentOutput(random.NextDouble(),
                                                                         random.NextDouble(),
                                                                         random.NextDouble(),
                                                                         random.NextDouble(),

@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_StructuresOutputContext_ReturnStructuresOutputProperties()
         {
             // Setup
-            var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput(), null);
+            var structuresOutput = new StructuresOutput(0, new TestProbabilityAssessmentOutput(), null);
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();

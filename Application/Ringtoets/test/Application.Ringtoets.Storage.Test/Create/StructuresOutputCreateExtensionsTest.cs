@@ -51,11 +51,13 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var random = new Random(567);
             var output = new StructuresOutput(
-                new ProbabilityAssessmentOutput(random.NextDouble(),
-                                                random.NextDouble(),
-                                                random.NextDouble(),
-                                                random.NextDouble(),
-                                                random.NextDouble()), null);
+                random.NextDouble(),
+                new ProbabilityAssessmentOutput(
+                    random.NextDouble(),
+                    random.NextDouble(),
+                    random.NextDouble(),
+                    random.NextDouble(),
+                    random.NextDouble()), null);
 
             // Call
             var entity = output.Create<TestStructureOutputEntity>();
@@ -79,11 +81,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var output = new StructuresOutput(
-                new ProbabilityAssessmentOutput(double.NaN,
-                                                double.NaN,
-                                                double.NaN,
-                                                double.NaN,
-                                                double.NaN), null);
+                double.NaN,
+                new ProbabilityAssessmentOutput(
+                    double.NaN,
+                    double.NaN,
+                    double.NaN,
+                    double.NaN,
+                    double.NaN), null);
 
             // Call
             var entity = output.Create<TestStructureOutputEntity>();
