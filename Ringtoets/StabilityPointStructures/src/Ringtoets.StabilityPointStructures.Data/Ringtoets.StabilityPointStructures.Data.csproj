@@ -24,6 +24,7 @@
     <Compile Include="StabilityPointStructuresFailureMechanismSectionResult.cs" />
     <Compile Include="StabilityPointStructuresInput.cs" />
     <Compile Include="StabilityPointStructureInflowModelType.cs" />
+    <Compile Include="StabilityPointStructuresProbabilityAssessmentOutputFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
