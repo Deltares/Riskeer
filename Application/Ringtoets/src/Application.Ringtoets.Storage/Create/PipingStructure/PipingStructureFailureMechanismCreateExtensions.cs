@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Create.PipingStructure
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.PipingAtStructure, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
-
+            AddEntitiesForFailureMechanismMeta(mechanism, entity);
             return entity;
         }
 
@@ -57,6 +57,17 @@ namespace Application.Ringtoets.Storage.Create.PipingStructure
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.PipingStructureSectionResultEntities.Add(sectionResultEntity);
             }
+        }
+
+        private static void AddEntitiesForFailureMechanismMeta(PipingStructureFailureMechanism failureMechanism,
+                                                               FailureMechanismEntity entity)
+        {
+            var metaEntity = new PipingStructureFailureMechanismMetaEntity
+            {
+                N = failureMechanism.N
+            };
+
+            entity.PipingStructureFailureMechanismMetaEntities.Add(metaEntity);
         }
     }
 }

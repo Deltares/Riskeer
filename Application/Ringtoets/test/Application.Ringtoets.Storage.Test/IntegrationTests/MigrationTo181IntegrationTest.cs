@@ -64,6 +64,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertHydraRingPreprocessor(reader);
                     AssertStabilityStoneCoverFailureMechanism(reader);
                     AssertMacroStabilityOutwardsFailureMechanism(reader);
+                    AssertPipingStructureFailureMechanism(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -290,6 +291,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "WHERE [A] = 0.033 " +
                 "AND [FailureMechanismEntityId] IN " +
                 "(SELECT [FailureMechanismEntityId] FROM [FailureMechanismEntity] WHERE [FailureMechanismType] = 13);";
+            reader.AssertReturnedDataIsValid(validateFailureMechanisms);
+        }
+
+        private static void AssertPipingStructureFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateFailureMechanisms =
+                "SELECT COUNT() = (SELECT COUNT() FROM FailureMechanismEntity WHERE FailureMechanismType = 11) " +
+                "FROM [PipingStructureFailureMechanismMetaEntity] " +
+                "WHERE [N] = 1.0 " +
+                "AND [FailureMechanismEntityId] IN " +
+                "(SELECT [FailureMechanismEntityId] FROM [FailureMechanismEntity] WHERE [FailureMechanismType] = 11);";
             reader.AssertReturnedDataIsValid(validateFailureMechanisms);
         }
     }

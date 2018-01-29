@@ -35,7 +35,6 @@ namespace Application.Ringtoets.Storage.DbContext
 {
     public partial class RingtoetsEntities : System.Data.Entity.DbContext
     {
-        public virtual DbSet<MacroStabilityOutwardsSectionResultEntity> MacroStabilityOutwardsSectionResultEntities { get; set; }
         public virtual DbSet<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
         public virtual DbSet<BackgroundDataEntity> BackgroundDataEntities { get; set; }
         public virtual DbSet<BackgroundDataMetaEntity> BackgroundDataMetaEntities { get; set; }
@@ -92,6 +91,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<MacroStabilityInwardsSoilProfileTwoDEntity> MacroStabilityInwardsSoilProfileTwoDEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsStochasticSoilProfileEntity> MacroStabilityInwardsStochasticSoilProfileEntities { get; set; }
         public virtual DbSet<MacroStabilityOutwardsFailureMechanismMetaEntity> MacroStabilityOutwardsFailureMechanismMetaEntities { get; set; }
+        public virtual DbSet<MacroStabilityOutwardsSectionResultEntity> MacroStabilityOutwardsSectionResultEntities { get; set; }
         public virtual DbSet<MicrostabilitySectionResultEntity> MicrostabilitySectionResultEntities { get; set; }
         public virtual DbSet<PipingCalculationEntity> PipingCalculationEntities { get; set; }
         public virtual DbSet<PipingCalculationOutputEntity> PipingCalculationOutputEntities { get; set; }
@@ -102,6 +102,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<PipingSoilLayerEntity> PipingSoilLayerEntities { get; set; }
         public virtual DbSet<PipingSoilProfileEntity> PipingSoilProfileEntities { get; set; }
         public virtual DbSet<PipingStochasticSoilProfileEntity> PipingStochasticSoilProfileEntities { get; set; }
+        public virtual DbSet<PipingStructureFailureMechanismMetaEntity> PipingStructureFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<PipingStructureSectionResultEntity> PipingStructureSectionResultEntities { get; set; }
         public virtual DbSet<ProjectEntity> ProjectEntities { get; set; }
         public virtual DbSet<StabilityPointStructureEntity> StabilityPointStructureEntities { get; set; }

@@ -160,10 +160,14 @@ namespace Application.Ringtoets.Storage.TestUtil
                               (StructuresCalculation<StabilityPointStructuresInput>) stabilityPointStructuresFailureMechanism.Calculations.First());
 
             MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
-            ConfigureMacroStabilityOutwardsFailureMechanism(macroStabilityOutwardsFailureMechanism,
-                                                            assessmentSection);
+            ConfigureMacroStabilityOutwardsFailureMechanism(macroStabilityOutwardsFailureMechanism);
             AddSections(macroStabilityOutwardsFailureMechanism);
             SetSectionResults(macroStabilityOutwardsFailureMechanism.SectionResults);
+
+            PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
+            ConfigurePipingStructureFailureMechanism(pipingStructureFailureMechanism);
+            AddSections(pipingStructureFailureMechanism);
+            SetSectionResults(pipingStructureFailureMechanism.SectionResults);
 
             AddSections(assessmentSection.Microstability);
             SetSectionResults(assessmentSection.Microstability.SectionResults);
@@ -175,8 +179,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(assessmentSection.GrassCoverSlipOffOutwards.SectionResults);
             AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
             SetSectionResults(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
-            AddSections(assessmentSection.PipingStructure);
-            SetSectionResults(assessmentSection.PipingStructure.SectionResults);
             SetSectionResults(assessmentSection.DuneErosion.SectionResults);
             AddSections(assessmentSection.TechnicalInnovation);
             SetSectionResults(assessmentSection.TechnicalInnovation.SectionResults);
@@ -468,8 +470,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         #region MacroStabilityOutwards FailureMechanism
 
-        private static void ConfigureMacroStabilityOutwardsFailureMechanism(MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism,
-                                                                            AssessmentSection assessmentSection)
+        private static void ConfigureMacroStabilityOutwardsFailureMechanism(MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism)
         {
             macroStabilityOutwardsFailureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A = 0.6;
         }
@@ -2040,6 +2041,15 @@ namespace Application.Ringtoets.Storage.TestUtil
                 sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
+        }
+
+        #endregion
+
+        #region PipingStructure FailureMechanism
+
+        private static void ConfigurePipingStructureFailureMechanism(PipingStructureFailureMechanism pipingStructureFailureMechanism)
+        {
+            pipingStructureFailureMechanism.N = (RoundedDouble) 12.5;
         }
 
         #endregion

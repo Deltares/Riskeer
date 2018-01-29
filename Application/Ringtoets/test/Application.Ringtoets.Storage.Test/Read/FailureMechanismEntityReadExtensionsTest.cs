@@ -42,6 +42,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.Piping.Data;
@@ -934,6 +935,128 @@ namespace Application.Ringtoets.Storage.Test.Read
             ICalculationBase expectedCalculationGroup = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("A", expectedCalculationGroup.Name);
             Assert.IsInstanceOf<CalculationGroup>(expectedCalculationGroup);
+        }
+
+        #endregion
+
+        #region MacroStabilityOutwards
+
+        [Test]
+        public void ReadAsMacroStabilityOutwardsFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => ((FailureMechanismEntity) null).ReadAsMacroStabilityOutwardsFailureMechanism(
+                failureMechanism,
+                collector);
+
+            // Assert 
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", parameter);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityOutwardsFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            TestDelegate test = () => entity.ReadAsMacroStabilityOutwardsFailureMechanism(
+                null, new ReadConversionCollector());
+
+            // Assert 
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("failureMechanism", parameter);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityOutwardsFailureMechanism_WithoutCollector_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            TestDelegate test = () => entity.ReadAsMacroStabilityOutwardsFailureMechanism(
+                new MacroStabilityOutwardsFailureMechanism(), null);
+
+            // Assert 
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("collector", parameter);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityOutwardsFailureMechanism_WithPropertiesSet_SetsMacroStabilityOutwardsFailureMechanismProperties()
+        {
+            // Setup
+            var random = new Random(31);
+            bool isRelevant = random.NextBoolean();
+            var entity = new FailureMechanismEntity
+            {
+                IsRelevant = Convert.ToByte(isRelevant),
+                InputComments = "Some input text",
+                OutputComments = "Some output text",
+                NotRelevantComments = "Really not relevant",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                MacroStabilityOutwardsFailureMechanismMetaEntities = new[]
+                {
+                    new MacroStabilityOutwardsFailureMechanismMetaEntity
+                    {
+                        A = random.NextDouble()
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsMacroStabilityOutwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            MacroStabilityOutwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityOutwardsFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(metaEntity.A, failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityOutwardsFailureMechanism_WithSectionsSet_MacroStabilityOutwardsFailureMechanismWithFailureMechanismSectionsSet()
+        {
+            // Setup
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            failureMechanismSectionEntity.MacroStabilityOutwardsSectionResultEntities.Add(new MacroStabilityOutwardsSectionResultEntity
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            });
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                FailureMechanismSectionEntities =
+                {
+                    failureMechanismSectionEntity
+                },
+                MacroStabilityOutwardsFailureMechanismMetaEntities =
+                {
+                    new MacroStabilityOutwardsFailureMechanismMetaEntity()
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsMacroStabilityOutwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(failureMechanismSectionEntity.MacroStabilityOutwardsSectionResultEntities.Count,
+                            failureMechanism.Sections.Count());
         }
 
         #endregion
@@ -2435,6 +2558,131 @@ namespace Application.Ringtoets.Storage.Test.Read
             ICalculationBase expectedCalculationGroup = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("A", expectedCalculationGroup.Name);
             Assert.IsInstanceOf<CalculationGroup>(expectedCalculationGroup);
+        }
+
+        #endregion
+
+        #region PipingStructure
+
+        [Test]
+        public void ReadAsPipingStructureFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new PipingStructureFailureMechanism();
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => ((FailureMechanismEntity) null).ReadAsPipingStructureFailureMechanism(
+                failureMechanism,
+                collector);
+
+            // Assert 
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", parameter);
+        }
+
+        [Test]
+        public void ReadAsPipingStructureFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            TestDelegate test = () => entity.ReadAsPipingStructureFailureMechanism(
+                null, new ReadConversionCollector());
+
+            // Assert 
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("failureMechanism", parameter);
+        }
+
+        [Test]
+        public void ReadAsPipingStructureFailureMechanism_WithoutCollector_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            TestDelegate test = () => entity.ReadAsPipingStructureFailureMechanism(
+                new PipingStructureFailureMechanism(), null);
+
+            // Assert 
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("collector", parameter);
+        }
+
+        [Test]
+        public void ReadAsPipingStructureFailureMechanism_WithPropertiesSet_SetsPipingStructureFailureMechanismProperties()
+        {
+            // Setup
+            var random = new Random(31);
+            bool isRelevant = random.NextBoolean();
+            var entity = new FailureMechanismEntity
+            {
+                IsRelevant = Convert.ToByte(isRelevant),
+                InputComments = "Some input text",
+                OutputComments = "Some output text",
+                NotRelevantComments = "Really not relevant",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                PipingStructureFailureMechanismMetaEntities = new[]
+                {
+                    new PipingStructureFailureMechanismMetaEntity
+                    {
+                        N = random.NextDouble() + 1.0
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new PipingStructureFailureMechanism();
+
+            // Call
+            entity.ReadAsPipingStructureFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            PipingStructureFailureMechanismMetaEntity metaEntity = entity.PipingStructureFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(metaEntity.N, failureMechanism.N, failureMechanism.N.GetAccuracy());
+        }
+
+        [Test]
+        public void ReadAsPipingStructureFailureMechanism_WithSectionsSet_PipingStructureFailureMechanismWithFailureMechanismSectionsSet()
+        {
+            // Setup
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            failureMechanismSectionEntity.PipingStructureSectionResultEntities.Add(new PipingStructureSectionResultEntity
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            });
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                FailureMechanismSectionEntities =
+                {
+                    failureMechanismSectionEntity
+                },
+                PipingStructureFailureMechanismMetaEntities =
+                {
+                    new PipingStructureFailureMechanismMetaEntity
+                    {
+                        N = 1.0
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new PipingStructureFailureMechanism();
+
+            // Call
+            entity.ReadAsPipingStructureFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(failureMechanismSectionEntity.PipingStructureSectionResultEntities.Count,
+                            failureMechanism.Sections.Count());
         }
 
         #endregion

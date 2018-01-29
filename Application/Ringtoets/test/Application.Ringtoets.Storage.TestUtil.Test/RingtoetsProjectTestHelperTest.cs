@@ -463,6 +463,12 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreSame(calculationWithOutput, sectionResult.Calculation);
         }
 
+        private static void AsserPipingStructureFailureMechanism(AssessmentSection assessmentSection)
+        {
+            PipingStructureFailureMechanism failureMechanism = assessmentSection.PipingStructure;
+            Assert.AreEqual(12.5, failureMechanism.N, failureMechanism.N.GetAccuracy());
+        }
+
         private static void AssertGeneralResultTopLevelFaultTreeIllustrationPoint(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
             WindDirection actualGoverningWindDirection = generalResult.GoverningWindDirection;

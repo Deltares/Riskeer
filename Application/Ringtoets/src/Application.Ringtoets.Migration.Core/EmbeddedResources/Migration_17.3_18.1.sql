@@ -196,7 +196,14 @@ INSERT INTO MacroStabilityOutwardsFailureMechanismMetaEntity (
 	[A])
 SELECT FailureMechanismEntityId,
 	0.033
-	FROM FailureMechanismEntity WHERE FailureMechanismType = 13;
+FROM FailureMechanismEntity WHERE FailureMechanismType = 13;
+	
+INSERT INTO PipingStructureFailureMechanismMetaEntity (
+	[FailureMechanismEntityId],
+	[N])
+SELECT FailureMechanismEntityId,
+	1.0
+FROM FailureMechanismEntity WHERE FailureMechanismType = 11;
 
 /* 
 Write migration logging

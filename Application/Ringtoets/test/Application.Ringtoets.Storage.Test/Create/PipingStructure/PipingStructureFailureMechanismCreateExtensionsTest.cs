@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.PipingStructure;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Integration.Data.StandAlone;
 
@@ -53,6 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Create.PipingStructure
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
         {
             // Setup
+            const double n = 8.0;
             var failureMechanism = new PipingStructureFailureMechanism
             {
                 IsRelevant = isRelevant,
@@ -67,7 +69,8 @@ namespace Application.Ringtoets.Storage.Test.Create.PipingStructure
                 NotRelevantComments =
                 {
                     Body = "Really not relevant"
-                }
+                },
+                N = (RoundedDouble) n
             };
             var registry = new PersistenceRegistry();
 
@@ -81,6 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Create.PipingStructure
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            Assert.AreEqual(n, entity.PipingStructureFailureMechanismMetaEntities.Single().N);
         }
 
         [Test]

@@ -108,6 +108,7 @@ namespace Application.Ringtoets.Storage.DbContext
             PipingSemiProbabilisticOutputEntities.Load();
             PipingSoilLayerEntities.Load();
             PipingSoilProfileEntities.Load();
+            PipingStructureFailureMechanismMetaEntities.Load();
             PipingStructureSectionResultEntities.Load();
             PipingStochasticSoilProfileEntities.Load();
             StabilityPointStructureEntities.Load();

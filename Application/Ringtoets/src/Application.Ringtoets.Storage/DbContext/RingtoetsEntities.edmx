@@ -1096,6 +1096,14 @@
           <Property Name="Probability" Type="real" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="PipingStructureFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="PipingStructureFailureMechanismMetaEntityId" />
+          </Key>
+          <Property Name="PipingStructureFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="N" Type="real" Nullable="false" />
+        </EntityType>
         <EntityType Name="PipingStructureSectionResultEntity">
           <Key>
             <PropertyRef Name="PipingStructureSectionResultEntityId" />
@@ -2726,6 +2734,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PipingStructureFailureMechanismMetaEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
+          <End Role="PipingStructureFailureMechanismMetaEntity" Type="Self.PipingStructureFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="PipingStructureFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PipingStructureSectionResultEntity_0_0">
           <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
           <End Role="PipingStructureSectionResultEntity" Type="Self.PipingStructureSectionResultEntity" Multiplicity="*" />
@@ -3195,6 +3215,7 @@
           <EntitySet Name="PipingSoilLayerEntity" EntityType="Self.PipingSoilLayerEntity" store:Type="Tables" />
           <EntitySet Name="PipingSoilProfileEntity" EntityType="Self.PipingSoilProfileEntity" store:Type="Tables" />
           <EntitySet Name="PipingStochasticSoilProfileEntity" EntityType="Self.PipingStochasticSoilProfileEntity" store:Type="Tables" />
+          <EntitySet Name="PipingStructureFailureMechanismMetaEntity" EntityType="Self.PipingStructureFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="PipingStructureSectionResultEntity" EntityType="Self.PipingStructureSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="StabilityPointStructureEntity" EntityType="Self.StabilityPointStructureEntity" store:Type="Tables" />
@@ -3629,6 +3650,10 @@
             <End Role="PipingSoilProfileEntity" EntitySet="PipingSoilProfileEntity" />
             <End Role="PipingStochasticSoilProfileEntity" EntitySet="PipingStochasticSoilProfileEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_PipingStructureFailureMechanismMetaEntity_0_0" Association="Self.FK_PipingStructureFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="PipingStructureFailureMechanismMetaEntity" EntitySet="PipingStructureFailureMechanismMetaEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_PipingStructureSectionResultEntity_0_0" Association="Self.FK_PipingStructureSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="PipingStructureSectionResultEntity" EntitySet="PipingStructureSectionResultEntity" />
@@ -3767,7 +3792,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="RingtoetsEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RingtoetsEntities">
-          <EntitySet Name="MacroStabilityOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityOutwardsSectionResultEntity" />
           <EntitySet Name="AssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" />
           <EntitySet Name="BackgroundDataEntities" EntityType="RingtoetsEntitiesModel.BackgroundDataEntity" />
           <EntitySet Name="BackgroundDataMetaEntities" EntityType="RingtoetsEntitiesModel.BackgroundDataMetaEntity" />
@@ -3824,6 +3848,7 @@
           <EntitySet Name="MacroStabilityInwardsSoilProfileTwoDEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileTwoDEntity" />
           <EntitySet Name="MacroStabilityInwardsStochasticSoilProfileEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" />
           <EntitySet Name="MacroStabilityOutwardsFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityOutwardsFailureMechanismMetaEntity" />
+          <EntitySet Name="MacroStabilityOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityOutwardsSectionResultEntity" />
           <EntitySet Name="MicrostabilitySectionResultEntities" EntityType="RingtoetsEntitiesModel.MicrostabilitySectionResultEntity" />
           <EntitySet Name="PipingCalculationEntities" EntityType="RingtoetsEntitiesModel.PipingCalculationEntity" />
           <EntitySet Name="PipingCalculationOutputEntities" EntityType="RingtoetsEntitiesModel.PipingCalculationOutputEntity" />
@@ -3834,6 +3859,7 @@
           <EntitySet Name="PipingSoilLayerEntities" EntityType="RingtoetsEntitiesModel.PipingSoilLayerEntity" />
           <EntitySet Name="PipingSoilProfileEntities" EntityType="RingtoetsEntitiesModel.PipingSoilProfileEntity" />
           <EntitySet Name="PipingStochasticSoilProfileEntities" EntityType="RingtoetsEntitiesModel.PipingStochasticSoilProfileEntity" />
+          <EntitySet Name="PipingStructureFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.PipingStructureFailureMechanismMetaEntity" />
           <EntitySet Name="PipingStructureSectionResultEntities" EntityType="RingtoetsEntitiesModel.PipingStructureSectionResultEntity" />
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="StabilityPointStructureEntities" EntityType="RingtoetsEntitiesModel.StabilityPointStructureEntity" />
@@ -4027,6 +4053,10 @@
           <AssociationSet Name="FK_PipingFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="PipingFailureMechanismMetaEntity" EntitySet="PipingFailureMechanismMetaEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PipingStructureFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_PipingStructureFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="PipingStructureFailureMechanismMetaEntity" EntitySet="PipingStructureFailureMechanismMetaEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_StabilityPointStructureEntity_0_0" Association="RingtoetsEntitiesModel.FK_StabilityPointStructureEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
@@ -4380,18 +4410,7 @@
             <End Role="MacroStabilityInwardsSoilProfileTwoDEntity" EntitySet="MacroStabilityInwardsSoilProfileTwoDEntities" />
             <End Role="MacroStabilityInwardsSoilLayerTwoDEntity" EntitySet="MacroStabilityInwardsSoilLayerTwoDEntities" />
           </AssociationSet>
-          </EntityContainer>
-        <EntityType Name="MacroStabilityOutwardsSectionResultEntity">
-          <Key>
-            <PropertyRef Name="MacroStabilityOutwardsSectionResultEntityId" />
-          </Key>
-          <Property Name="MacroStabilityOutwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Double" />
-          <Property Name="LayerThree" Type="Double" />
-          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsSectionResultEntity_0_0" FromRole="MacroStabilityOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
-        </EntityType>
+        </EntityContainer>
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -4694,6 +4713,7 @@
           <NavigationProperty Name="MacroStabilityInwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="MacroStabilityInwardsFailureMechanismMetaEntity" />
           <NavigationProperty Name="MacroStabilityOutwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="MacroStabilityOutwardsFailureMechanismMetaEntity" />
           <NavigationProperty Name="PipingFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="PipingFailureMechanismMetaEntity" />
+          <NavigationProperty Name="PipingStructureFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_PipingStructureFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="PipingStructureFailureMechanismMetaEntity" />
           <NavigationProperty Name="StabilityPointStructureEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructureEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StabilityPointStructureEntity" />
           <NavigationProperty Name="StabilityPointStructuresFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StabilityPointStructuresFailureMechanismMetaEntity" />
           <NavigationProperty Name="StabilityStoneCoverFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StabilityStoneCoverFailureMechanismMetaEntity" />
@@ -5479,6 +5499,17 @@
           <Property Name="A" Type="Double" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsFailureMechanismMetaEntity_0_0" FromRole="MacroStabilityOutwardsFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
+        <EntityType Name="MacroStabilityOutwardsSectionResultEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityOutwardsSectionResultEntityId" />
+          </Key>
+          <Property Name="MacroStabilityOutwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="LayerOne" Type="Byte" Nullable="false" />
+          <Property Name="LayerTwoA" Type="Double" />
+          <Property Name="LayerThree" Type="Double" />
+          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsSectionResultEntity_0_0" FromRole="MacroStabilityOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
+        </EntityType>
         <EntityType Name="MicrostabilitySectionResultEntity">
           <Key>
             <PropertyRef Name="MicrostabilitySectionResultEntityId" />
@@ -5639,6 +5670,15 @@
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_1_0" FromRole="PipingStochasticSoilProfileEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="PipingSoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_PipingStochasticSoilProfileEntity_1_0" FromRole="PipingStochasticSoilProfileEntity" ToRole="PipingSoilProfileEntity" />
           <NavigationProperty Name="StochasticSoilModelEntity" Relationship="RingtoetsEntitiesModel.FK_PipingStochasticSoilProfileEntity_0_0" FromRole="PipingStochasticSoilProfileEntity" ToRole="StochasticSoilModelEntity" />
+        </EntityType>
+        <EntityType Name="PipingStructureFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="PipingStructureFailureMechanismMetaEntityId" />
+          </Key>
+          <Property Name="PipingStructureFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="N" Type="Double" Nullable="false" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_PipingStructureFailureMechanismMetaEntity_0_0" FromRole="PipingStructureFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="PipingStructureSectionResultEntity">
           <Key>
@@ -6598,6 +6638,18 @@
               <PropertyRef Name="FailureMechanismEntityId" />
             </Principal>
             <Dependent Role="PipingFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PipingStructureFailureMechanismMetaEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.PipingStructureFailureMechanismMetaEntity" Role="PipingStructureFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="PipingStructureFailureMechanismMetaEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -7624,17 +7676,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RingtoetsEntitiesModelStoreContainer" CdmEntityContainer="RingtoetsEntities">
-          <EntitySetMapping Name="MacroStabilityOutwardsSectionResultEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityOutwardsSectionResultEntity">
-              <MappingFragment StoreEntitySet="MacroStabilityOutwardsSectionResultEntity">
-                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
-                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
-                <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
-                <ScalarProperty Name="MacroStabilityOutwardsSectionResultEntityId" ColumnName="MacroStabilityOutwardsSectionResultEntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AssessmentSectionEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.AssessmentSectionEntity">
               <MappingFragment StoreEntitySet="AssessmentSectionEntity">
@@ -8589,6 +8630,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MacroStabilityOutwardsSectionResultEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityOutwardsSectionResultEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityOutwardsSectionResultEntity">
+                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
+                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
+                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
+                <ScalarProperty Name="MacroStabilityOutwardsSectionResultEntityId" ColumnName="MacroStabilityOutwardsSectionResultEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MicrostabilitySectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MicrostabilitySectionResultEntity">
               <MappingFragment StoreEntitySet="MicrostabilitySectionResultEntity">
@@ -8739,6 +8791,15 @@
                 <ScalarProperty Name="StochasticSoilModelEntityId" ColumnName="StochasticSoilModelEntityId" />
                 <ScalarProperty Name="PipingSoilProfileEntityId" ColumnName="PipingSoilProfileEntityId" />
                 <ScalarProperty Name="PipingStochasticSoilProfileEntityId" ColumnName="PipingStochasticSoilProfileEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PipingStructureFailureMechanismMetaEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.PipingStructureFailureMechanismMetaEntity">
+              <MappingFragment StoreEntitySet="PipingStructureFailureMechanismMetaEntity">
+                <ScalarProperty Name="N" ColumnName="N" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="PipingStructureFailureMechanismMetaEntityId" ColumnName="PipingStructureFailureMechanismMetaEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -9214,7 +9275,7 @@
               <ScalarProperty Name="MacroStabilityInwardsSoilProfileTwoDEntityId" ColumnName="MacroStabilityInwardsSoilProfileTwoDEntityId" />
             </EndProperty>
           </AssociationSetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
