@@ -85,6 +85,12 @@ namespace Ringtoets.ClosingStructures.Plugin
                     context,
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
+            yield return new PropertyInfo<ClosingStructuresOutputContext, ClosingStructuresOutputProperties>
+            {
+                CreateInstance = context => new ClosingStructuresOutputProperties(context.WrappedData.Output,
+                                                                                  context.FailureMechanism,
+                                                                                  context.AssessmentSection)
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
