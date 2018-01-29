@@ -321,8 +321,71 @@ SELECT
     [LocationX],
     [LocationY],
     [Order]
-    FROM [SOURCEPROJECT].HydraulicLocationEntity AS sp
+    FROM [SOURCEPROJECT].HydraulicLocationEntity
     JOIN TempHydraulicLocationCalculationEntity USING (HydraulicLocationEntityId);
+
+-- Perform the migration of the output entities
+
+INSERT INTO HydraulicLocationOutputEntity (
+	[HydraulicLocationEntityOutputId],
+	[HydraulicLocationCalculationEntityId],
+	[GeneralResultSubMechanismIllustrationPointEntityId],
+	[Result],
+	[TargetProbability],
+	[TargetReliability],
+	[CalculatedProbability],
+	[CalculatedReliability],
+	[CalculationConvergence])
+SELECT
+	[HydraulicLocationEntityOutputId],
+	CASE WHEN [HydraulicLocationOutputType] = 1
+		THEN [Calculation2Id]
+	ELSE
+		[Calculation6Id]
+	END,
+	[GeneralResultSubMechanismIllustrationPointEntityId],
+	[Result],
+	[TargetProbability],
+	[TargetReliability],
+	[CalculatedProbability],
+	[CalculatedReliability],
+	[CalculationConvergence]
+FROM [SOURCEPROJECT].HydraulicLocationOutputEntity hlo
+JOIN [SOURCEPROJECT].HydraulicLocationEntity hl ON hlo.HydraulicLocationEntityId = hl.HydraulicLocationEntityId
+JOIN TempHydraulicLocationCalculationEntity USING (HydraulicLocationEntityId)
+JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
+WHERE NormativeNormType = 2;
+
+
+INSERT INTO HydraulicLocationOutputEntity (
+	[HydraulicLocationEntityOutputId],
+	[HydraulicLocationCalculationEntityId],
+	[GeneralResultSubMechanismIllustrationPointEntityId],
+	[Result],
+	[TargetProbability],
+	[TargetReliability],
+	[CalculatedProbability],
+	[CalculatedReliability],
+	[CalculationConvergence])
+SELECT
+	[HydraulicLocationEntityOutputId],
+	CASE WHEN [HydraulicLocationOutputType] = 1
+		THEN [Calculation3Id]
+	ELSE
+		[Calculation7Id]
+	END,
+	[GeneralResultSubMechanismIllustrationPointEntityId],
+	[Result],
+	[TargetProbability],
+	[TargetReliability],
+	[CalculatedProbability],
+	[CalculatedReliability],
+	[CalculationConvergence]
+FROM [SOURCEPROJECT].HydraulicLocationOutputEntity hlo
+JOIN [SOURCEPROJECT].HydraulicLocationEntity hl ON hlo.HydraulicLocationEntityId = hl.HydraulicLocationEntityId
+JOIN TempHydraulicLocationCalculationEntity USING (HydraulicLocationEntityId)
+JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
+WHERE NormativeNormType = 1;
 
 -- Update the calculation inputs based on the norm
 UPDATE HydraulicLocationCalculationEntity
