@@ -35,6 +35,7 @@
     <Compile Include="PropertyClasses\ClosingStructuresFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ClosingStructurePropertiesTest.cs" />
     <Compile Include="PropertyClasses\ClosingStructuresInputContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\ClosingStructuresOutputPropertiesTest.cs" />
     <Compile Include="Views\ClosingStructuresFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\ClosingStructuresFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\ClosingStructuresScenarioRowTest.cs" />

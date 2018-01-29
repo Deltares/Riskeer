@@ -29,6 +29,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\ClosingStructuresInputContextProperties.cs" />
+    <Compile Include="PropertyClasses\ClosingStructuresOutputProperties.cs" />
     <Compile Include="Views\ClosingStructuresFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>

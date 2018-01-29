@@ -35,6 +35,7 @@
     <Compile Include="PropertyClasses\HeightStructuresFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HeightStructuresInputContextPropertiesTest.cs" />
     <Compile Include="PresentationObjects\HeightStructuresInputContextTest.cs" />
+    <Compile Include="PropertyClasses\HeightStructuresOutputPropertiesTest.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismViewTest.cs" />
     <Compile Include="Views\HeightStructuresScenarioRowTest.cs" />
     <Compile Include="Views\HeightStructuresScenariosViewTest.cs" />

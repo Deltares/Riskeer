@@ -24,6 +24,7 @@
     <Compile Include="PropertyClasses\HeightStructureProperties.cs" />
     <Compile Include="PropertyClasses\HeightStructuresFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\HeightStructuresInputContextProperties.cs" />
+    <Compile Include="PropertyClasses\HeightStructuresOutputProperties.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismView.cs">
       <SubType>UserControl</SubType>
     </Compile>

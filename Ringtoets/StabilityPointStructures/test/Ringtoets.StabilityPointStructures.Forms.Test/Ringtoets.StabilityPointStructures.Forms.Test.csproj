@@ -35,6 +35,7 @@
     <Compile Include="PropertyClasses\StabilityPointStructurePropertiesTest.cs" />
     <Compile Include="PropertyClasses\StabilityPointStructuresFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StabilityPointStructuresInputContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\StabilityPointStructuresOutputPropertiesTest.cs" />
     <Compile Include="Views\StabilityPointStructuresFailureMechanismViewTest.cs" />
     <Compile Include="Views\StabilityPointStructuresScenarioRowTest.cs" />
     <Compile Include="Views\StabilityPointStructuresScenariosViewTest.cs" />
