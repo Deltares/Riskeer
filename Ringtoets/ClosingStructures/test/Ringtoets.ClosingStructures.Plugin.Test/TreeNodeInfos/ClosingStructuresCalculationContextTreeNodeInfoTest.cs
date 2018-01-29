@@ -143,6 +143,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var structuresOutputContext = children[2] as StructuresOutputContext;
             Assert.IsNotNull(structuresOutputContext);
             Assert.AreSame(calculationContext.WrappedData, structuresOutputContext.WrappedData);
+            Assert.AreSame(calculationContext.AssessmentSection, structuresOutputContext.AssessmentSection);
         }
 
         [Test]

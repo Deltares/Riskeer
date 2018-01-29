@@ -24,6 +24,7 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -62,16 +63,16 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_StructuresOutputContext_ReturnStructuresOutputProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
             var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput(), null);
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
             structuresCalculation.Stub(c => c.Output).Return(structuresOutput);
-
             mocks.ReplayAll();
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(new StructuresOutputContext(structuresCalculation));
+            IObjectProperties objectProperties = info.CreateInstance(new StructuresOutputContext(structuresCalculation, assessmentSection));
 
             // Assert
             Assert.IsInstanceOf<StructuresOutputProperties>(objectProperties);

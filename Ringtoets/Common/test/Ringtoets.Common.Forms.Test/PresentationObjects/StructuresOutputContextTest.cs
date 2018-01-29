@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 
@@ -31,7 +33,26 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
     public class StructuresOutputContextTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            var structuresOutputContext = new StructuresOutputContext(structuresCalculation, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IStructuresCalculation>>(structuresOutputContext);
+            Assert.AreSame(structuresCalculation, structuresOutputContext.WrappedData);
+            Assert.AreSame(assessmentSection, structuresOutputContext.AssessmentSection);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -39,11 +60,11 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            var structuresOutputContext = new StructuresOutputContext(structuresCalculation);
+            TestDelegate call = () => new StructuresOutputContext(structuresCalculation, null);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IStructuresCalculation>>(structuresOutputContext);
-            Assert.AreSame(structuresCalculation, structuresOutputContext.WrappedData);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
             mocks.VerifyAll();
         }
     }

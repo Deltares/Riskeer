@@ -89,12 +89,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var structuresCalculation = mocks.Stub<IStructuresCalculation>();
-
             mocks.ReplayAll();
 
             // Call
-            object viewData = info.GetViewData(new StructuresOutputContext(structuresCalculation));
+            object viewData = info.GetViewData(new StructuresOutputContext(structuresCalculation, assessmentSection));
 
             // Assert
             Assert.AreSame(structuresCalculation, viewData);
