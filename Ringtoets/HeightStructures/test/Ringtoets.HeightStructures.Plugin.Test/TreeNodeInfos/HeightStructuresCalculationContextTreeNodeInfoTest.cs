@@ -154,9 +154,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(heightStructuresInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, heightStructuresInputContext.WrappedData);
 
-            var structuresOutputContext = children[2] as StructuresOutputContext;
+            var structuresOutputContext = children[2] as HeightStructuresOutputContext;
             Assert.IsNotNull(structuresOutputContext);
             Assert.AreSame(calculationContext.WrappedData, structuresOutputContext.WrappedData);
+            Assert.AreSame(calculationContext.FailureMechanism, structuresOutputContext.FailureMechanism);
             Assert.AreSame(calculationContext.AssessmentSection, structuresOutputContext.AssessmentSection);
         }
 

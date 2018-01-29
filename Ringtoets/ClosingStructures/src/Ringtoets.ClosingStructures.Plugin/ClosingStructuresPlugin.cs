@@ -713,7 +713,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                                                   calculation,
                                                   context.FailureMechanism,
                                                   context.AssessmentSection),
-                new StructuresOutputContext(calculation, context.AssessmentSection)
+                new ClosingStructuresOutputContext(calculation, context.FailureMechanism, context.AssessmentSection)
             };
         }
 

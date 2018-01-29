@@ -138,9 +138,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(stabilityPointStructuresInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, stabilityPointStructuresInputContext.WrappedData);
 
-            var structuresOutputContext = children[2] as StructuresOutputContext;
+            var structuresOutputContext = children[2] as StabilityPointStructuresOutputContext;
             Assert.IsNotNull(structuresOutputContext);
             Assert.AreSame(calculationContext.WrappedData, structuresOutputContext.WrappedData);
+            Assert.AreSame(calculationContext.FailureMechanism, structuresOutputContext.FailureMechanism);
             Assert.AreSame(calculationContext.AssessmentSection, structuresOutputContext.AssessmentSection);
         }
 

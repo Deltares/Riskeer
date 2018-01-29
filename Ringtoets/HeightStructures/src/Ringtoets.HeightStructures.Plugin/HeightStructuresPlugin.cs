@@ -725,7 +725,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                                  calculation,
                                                  context.FailureMechanism,
                                                  context.AssessmentSection),
-                new StructuresOutputContext(calculation, context.AssessmentSection)
+                new HeightStructuresOutputContext(calculation, context.FailureMechanism, context.AssessmentSection)
             };
         }
 
