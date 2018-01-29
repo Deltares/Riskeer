@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data.Probability
         /// when determining the maximum tolerated probability of failure.</param>
         /// <param name="b">The default value for the parameter 'b' to be used to factor in the 'length effect'
         /// when determining the maximum tolerated probability of failure.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="a"/> is not in the range [0, 1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="a"/> is not in the range [0, 1].</exception>
         protected ProbabilityAssessmentInput(double a, double b)
         {
             A = a;
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Data.Probability
         /// Gets or sets 'a' parameter used to factor in the 'length effect' when determining the
         /// maximum tolerated probability of failure.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when value is not in the range [0, 1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in the range [0, 1].</exception>
         public double A
         {
             get
@@ -70,8 +70,9 @@ namespace Ringtoets.Common.Data.Probability
             {
                 if (!validityRangeA.InRange(value))
                 {
-                    throw new ArgumentException(string.Format(Resources.ProbabilityAssessmentInput_A_Value_must_be_in_Range_0_,
-                                                              validityRangeA.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
+                    throw new ArgumentOutOfRangeException(nameof(value),
+                                                          string.Format(Resources.ProbabilityAssessmentInput_A_Value_must_be_in_Range_0_,
+                                                                        validityRangeA.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
                 }
 
                 a = value;

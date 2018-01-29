@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 
@@ -35,7 +36,7 @@ namespace Ringtoets.Common.Data.Test.Probability
         [TestCase(1.1)]
         [TestCase(8)]
         [TestCase(double.NaN)]
-        public void Constructor_InvalidA_ThrowsArgumentException(double a)
+        public void Constructor_InvalidA_ThrowsArgumentOutOfRangeException(double a)
         {
             // Setup
             var random = new Random(39);
@@ -45,8 +46,8 @@ namespace Ringtoets.Common.Data.Test.Probability
                                                                          random.NextDouble());
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("De waarde moet in het bereik [0,0, 1,0] liggen.", exception.Message);
+            const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -71,7 +72,7 @@ namespace Ringtoets.Common.Data.Test.Probability
         [TestCase(1.1)]
         [TestCase(8)]
         [TestCase(double.NaN)]
-        public void A_InvalidValue_ThrowsArgumentException(double a)
+        public void A_InvalidValue_ThrowsArgumentOutOfRangeException(double a)
         {
             // Setup
             var random = new Random(39);
@@ -82,8 +83,8 @@ namespace Ringtoets.Common.Data.Test.Probability
             TestDelegate call = () => probabilityAssessmentInput.A = a;
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("De waarde moet in het bereik [0,0, 1,0] liggen.", exception.Message);
+            const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]

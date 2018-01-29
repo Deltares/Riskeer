@@ -27,10 +27,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.Integration.Forms.PropertyClasses.StandAlone;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses
+namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
 {
     [TestFixture]
     public class StandAloneFailureMechanismPropertiesTest

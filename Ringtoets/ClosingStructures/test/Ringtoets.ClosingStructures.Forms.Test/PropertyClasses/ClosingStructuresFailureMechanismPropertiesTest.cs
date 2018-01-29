@@ -293,7 +293,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.N2A = value;
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(test);
+            const string expectedMessage = "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }

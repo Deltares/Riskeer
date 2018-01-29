@@ -357,8 +357,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.A = value;
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("De waarde moet in het bereik [0,0, 1,0] liggen.", exception.Message);
+            const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
             mocks.VerifyAll();
         }
 
@@ -424,7 +424,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.WaterVolumetricWeight = roundedValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde moet binnen het bereik [0,00, 20,00] liggen.");
+
+            const string expectedMessage = "De waarde moet binnen het bereik [0,00, 20,00] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
             Assert.IsTrue(changeHandler.Called);
             mocks.VerifyAll(); // Does not expect notify observers.
         }

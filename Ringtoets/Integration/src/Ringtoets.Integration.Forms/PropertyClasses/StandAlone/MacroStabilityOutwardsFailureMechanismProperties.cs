@@ -29,7 +29,7 @@ using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.Input;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
 {
     /// <summary>
     /// ViewModel of <see cref="MacroStabilityOutwardsFailureMechanism"/> properties panel.
@@ -113,7 +113,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         #region Semi-probabilistic parameters
 
         [DynamicVisible]
-        [PropertyOrder(21)]
+        [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_Description))]
@@ -131,7 +131,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(22)]
+        [PropertyOrder(5)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_Description))]
@@ -144,7 +144,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(23)]
+        [PropertyOrder(6)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_Description))]
@@ -157,7 +157,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(24)]
+        [PropertyOrder(7)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_Description))]

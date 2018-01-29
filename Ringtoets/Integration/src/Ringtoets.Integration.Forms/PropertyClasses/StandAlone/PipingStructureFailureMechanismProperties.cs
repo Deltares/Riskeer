@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -20,32 +20,71 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Integration.Data.StandAlone;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
 {
     /// <summary>
-    /// ViewModel of <see cref="IFailureMechanism"/> properties panel.
+    /// ViewModel of <see cref="PipingStructureFailureMechanism"/> properties panel.
     /// </summary>
-    public class StandAloneFailureMechanismProperties : ObjectProperties<IFailureMechanism>
+    public class PipingStructureFailureMechanismProperties : ObjectProperties<PipingStructureFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StandAloneFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="PipingStructureFailureMechanismProperties"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public StandAloneFailureMechanismProperties(IFailureMechanism failureMechanism)
+        /// <param name="data">The instance to show the properties of.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> input parameter is <c>null</c>.</exception>
+        public PipingStructureFailureMechanismProperties(PipingStructureFailureMechanism data)
         {
-            if (failureMechanism == null)
+            if (data == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanism));
+                throw new ArgumentNullException(nameof(data));
             }
 
-            Data = failureMechanism;
+            Data = data;
+        }
+
+        #region Semi-probabilistic parameters
+
+        [DynamicVisible]
+        [PropertyOrder(4)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                return data.N;
+            }
+            set
+            {
+                data.N = value;
+                data.NotifyObservers();
+            }
+        }
+
+        #endregion
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
+        {
+            return nameof(N).Equals(propertyName);
         }
 
         #region General

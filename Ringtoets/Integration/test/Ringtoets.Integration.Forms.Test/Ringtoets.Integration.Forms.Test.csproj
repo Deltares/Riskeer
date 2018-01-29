@@ -37,8 +37,10 @@
     <Compile Include="BackgroundMapDataSelectionDialogTest.cs" />
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContextTest.cs" />
-    <Compile Include="PropertyClasses\MacroStabilityOutwardsFailureMechanismPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\StandAlone\PipingStructureFailureMechanismPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\StandAlone\MacroStabilityOutwardsFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ReferenceLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\BackgroundDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesIntegrationTest.cs" />
@@ -55,7 +57,7 @@
     <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveHeightLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\StandAloneFailureMechanismPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\StandAlone\StandAloneFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveHeightLocationsPropertiesTest.cs" />

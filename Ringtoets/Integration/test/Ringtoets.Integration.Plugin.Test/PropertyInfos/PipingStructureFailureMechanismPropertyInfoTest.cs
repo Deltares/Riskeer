@@ -25,14 +25,14 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using Ringtoets.Integration.Forms.PropertyClasses.StandAlone;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class StandAloneFailureMechanismPropertyInfoTest
+    public class PipingStructureFailureMechanismPropertyInfoTest
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RingtoetsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StandAloneFailureMechanismProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingStructureFailureMechanismProperties));
         }
 
         [TearDown]
@@ -54,8 +54,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismContext<IFailureMechanism>), info.DataType);
-            Assert.AreEqual(typeof(StandAloneFailureMechanismProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(PipingStructureFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(PipingStructureFailureMechanismProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -64,16 +64,16 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var context = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
+            var failureMechanism = new PipingStructureFailureMechanism();
+            var context = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<StandAloneFailureMechanismProperties>(objectProperties);
+            Assert.IsInstanceOf<PipingStructureFailureMechanismProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
             mocks.VerifyAll();
         }

@@ -30,9 +30,9 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.Input;
-using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.Integration.Forms.PropertyClasses.StandAlone;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses
+namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
 {
     public class MacroStabilityOutwardsFailureMechanismPropertiesTest
     {
@@ -210,8 +210,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.A = value;
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("De waarde moet in het bereik [0,0, 1,0] liggen.", exception.Message);
+            const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
             mocks.VerifyAll();
         }
 

@@ -53,6 +53,7 @@
     <Compile Include="PropertyInfos\FailureMechanismContributionContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\FailureMechanismSectionsPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\FaultTreeIllustrationPointContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\PipingStructureFailureMechanismPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\ReferenceLinePropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\HydraulicBoundaryDatabasePropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\MacroStabilityOutwardsFailureMechanismPropertyInfoTest.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DesignWaterLevelLocationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DikeProfileTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingStructureFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\MacroStabilityOutwardsFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismContributionContextTreeNodeInfoTest.cs" />

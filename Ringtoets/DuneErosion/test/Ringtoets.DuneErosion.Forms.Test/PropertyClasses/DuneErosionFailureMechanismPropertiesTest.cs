@@ -227,6 +227,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(0.0)]
         [TestCase(-1.0)]
         [TestCase(-20.0)]
@@ -252,7 +253,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.N = (RoundedDouble) newN;
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(test);
+            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }

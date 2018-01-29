@@ -756,7 +756,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde moet in het bereik {0} liggen..
+        ///   Looks up a localized string similar to De waarde voor &apos;a&apos; moet in het bereik {0} liggen..
         /// </summary>
         public static string ProbabilityAssessmentInput_A_Value_must_be_in_Range_0_ {
             get {

@@ -81,6 +81,7 @@ using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.Integration.Forms.PropertyClasses.StandAlone;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Ringtoets.Integration.Plugin.FileImporters;
@@ -176,8 +177,8 @@ namespace Ringtoets.Integration.Plugin
             ),
             new FailureMechanismContextAssociation(
                 typeof(PipingStructureFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                    mechanism,
+                (mechanism, assessmentSection) => new PipingStructureFailureMechanismContext(
+                    (PipingStructureFailureMechanism) mechanism,
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
@@ -313,6 +314,10 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<MacroStabilityOutwardsFailureMechanismContext, MacroStabilityOutwardsFailureMechanismProperties>
             {
                 CreateInstance = context => new MacroStabilityOutwardsFailureMechanismProperties(context.WrappedData)
+            };
+            yield return new PropertyInfo<PipingStructureFailureMechanismContext, PipingStructureFailureMechanismProperties>
+            {
+                CreateInstance = context => new PipingStructureFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>
             {
@@ -660,6 +665,12 @@ namespace Ringtoets.Integration.Plugin
                 MacroStabilityOutwardsFailureMechanismDisabledChildNodeObjects,
                 MacroStabilityOutwardsFailureMechanismEnabledContextMenuStrip,
                 MacroStabilityOutwardsFailureMechanismDisabledContextMenuStrip);
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<PipingStructureFailureMechanismContext>(
+                PipingStructureFailureMechanismEnabledChildNodeObjects,
+                PipingStructureFailureMechanismDisabledChildNodeObjects,
+                PipingStructureFailureMechanismEnabledContextMenuStrip,
+                PipingStructureFailureMechanismDisabledContextMenuStrip);
 
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
             {
@@ -1494,6 +1505,87 @@ namespace Ringtoets.Integration.Plugin
         }
 
         private ContextMenuStrip MacroStabilityOutwardsFailureMechanismDisabledContextMenuStrip(MacroStabilityOutwardsFailureMechanismContext nodeData,
+                                                                                    object parentData,
+                                                                                    TreeViewControl treeViewControl)
+        {
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+
+            return builder.AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .Build();
+        }
+
+        #endregion
+
+        #region PipingStructureFailureMechanismContext TreeNodeInfo
+
+        private static object[] PipingStructureFailureMechanismEnabledChildNodeObjects(PipingStructureFailureMechanismContext nodeData)
+        {
+            return new object[]
+            {
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       TreeFolderCategory.Input),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetOutputs(nodeData.WrappedData),
+                                       TreeFolderCategory.Output)
+            };
+        }
+
+        private static object[] PipingStructureFailureMechanismDisabledChildNodeObjects(PipingStructureFailureMechanismContext nodeData)
+        {
+            return new object[]
+            {
+                nodeData.WrappedData.NotRelevantComments
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(PipingStructureFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(PipingStructureFailureMechanism nodeData)
+        {
+            var macrostabilityOutwards = nodeData as IHasSectionResults<PipingStructureFailureMechanismSectionResult>;
+            var failureMechanismSectionResultContexts = new object[2];
+            
+            if (macrostabilityOutwards != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(macrostabilityOutwards.SectionResults, nodeData);
+            }
+            failureMechanismSectionResultContexts[1] = nodeData.OutputComments;
+            return failureMechanismSectionResultContexts;
+        }
+
+        private ContextMenuStrip PipingStructureFailureMechanismEnabledContextMenuStrip(PipingStructureFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private void RemoveAllViewsForItem(PipingStructureFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+        }
+
+        private ContextMenuStrip PipingStructureFailureMechanismDisabledContextMenuStrip(PipingStructureFailureMechanismContext nodeData,
                                                                                     object parentData,
                                                                                     TreeViewControl treeViewControl)
         {
