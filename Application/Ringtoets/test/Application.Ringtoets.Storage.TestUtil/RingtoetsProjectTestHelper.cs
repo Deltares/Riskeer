@@ -45,6 +45,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -158,8 +159,12 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults,
                               (StructuresCalculation<StabilityPointStructuresInput>) stabilityPointStructuresFailureMechanism.Calculations.First());
 
-            AddSections(assessmentSection.MacroStabilityOutwards);
-            SetSectionResults(assessmentSection.MacroStabilityOutwards.SectionResults);
+            MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
+            ConfigureMacroStabilityOutwardsFailureMechanism(macroStabilityOutwardsFailureMechanism,
+                                                            assessmentSection);
+            AddSections(macroStabilityOutwardsFailureMechanism);
+            SetSectionResults(macroStabilityOutwardsFailureMechanism.SectionResults);
+
             AddSections(assessmentSection.Microstability);
             SetSectionResults(assessmentSection.Microstability.SectionResults);
             AddSections(assessmentSection.WaterPressureAsphaltCover);
@@ -460,6 +465,16 @@ namespace Application.Ringtoets.Storage.TestUtil
                 }
             );
         }
+
+        #region MacroStabilityOutwards FailureMechanism
+
+        private static void ConfigureMacroStabilityOutwardsFailureMechanism(MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism,
+                                                                            AssessmentSection assessmentSection)
+        {
+            macroStabilityOutwardsFailureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A = 0.6;
+        }
+
+        #endregion
 
         #region StabilityPointStructures FailureMechanism
 
@@ -1849,6 +1864,8 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
+            failureMechanism.GeneralInput.N = (RoundedDouble) 15;
+
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {

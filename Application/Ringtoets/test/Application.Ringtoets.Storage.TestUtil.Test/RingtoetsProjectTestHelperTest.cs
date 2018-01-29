@@ -35,6 +35,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -81,6 +82,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             AssertMacroStabilityInwardsFailureMechanism(assessmentSection);
 
+            AssertMacroStabilityOutwardsFailureMechanism(assessmentSection);
+
             AssertGrassCoverErosionInwardsFailureMechanism(assessmentSection);
 
             AssertGrassCoverErosionOutwardsFailureMechanism(assessmentSection);
@@ -101,6 +104,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         private static void AssertPipingFailureMechanism(AssessmentSection assessmentSection)
         {
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+            Assert.AreEqual(0.9, failureMechanism.PipingProbabilityAssessmentInput.A);
             Assert.AreEqual("some/path/to/stochasticSoilModelFile", failureMechanism.StochasticSoilModels.SourcePath);
             Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
             PipingStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
@@ -165,6 +169,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         private static void AssertMacroStabilityInwardsFailureMechanism(AssessmentSection assessmentSection)
         {
             MacroStabilityInwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
+            Assert.AreEqual(0.9, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
             Assert.AreEqual("some/path/to/stochasticSoilModelFile", failureMechanism.StochasticSoilModels.SourcePath);
             Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
             MacroStabilityInwardsStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
@@ -237,9 +242,17 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
         }
 
+        private static void AssertMacroStabilityOutwardsFailureMechanism(AssessmentSection assessmentSection)
+        {
+            MacroStabilityOutwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityOutwards;
+            Assert.AreEqual(0.6, failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A);
+        }
+
         private static void AssertGrassCoverErosionInwardsFailureMechanism(AssessmentSection assessmentSection)
         {
             GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
+            Assert.AreEqual(15.0, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+
             Assert.NotNull(failureMechanism.CalculationsGroup);
             Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
 
@@ -273,6 +286,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         private static void AssertGrassCoverErosionOutwardsFailureMechanism(AssessmentSection assessmentSection)
         {
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            Assert.AreEqual(15.0, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+
             Assert.AreEqual(2, failureMechanism.HydraulicBoundaryLocations.Count);
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
 
@@ -292,6 +307,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         private static void AssertStabilityStoneCoverFailureMechanism(AssessmentSection assessmentSection)
         {
             StabilityStoneCoverFailureMechanism failureMechanism = assessmentSection.StabilityStoneCover;
+            Assert.AreEqual(15.0, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
             Assert.NotNull(failureMechanism.WaveConditionsCalculationGroup);
             Assert.AreEqual(3, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
@@ -333,6 +350,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         private static void AssertHeightStructuresFailureMechanism(AssessmentSection assessmentSection)
         {
             HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
+            Assert.AreEqual(5.0, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
             Assert.AreEqual(2, failureMechanism.HeightStructures.Count);
 
@@ -363,6 +382,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         private static void AssertClosingStructuresFailureMechanism(AssessmentSection assessmentSection)
         {
             ClosingStructuresFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
+            Assert.AreEqual(6, failureMechanism.GeneralInput.N2A);
+
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
             Assert.AreEqual(2, failureMechanism.ClosingStructures.Count);
 
@@ -393,6 +414,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         private static void AssertDuneErosionFailureMechanism(AssessmentSection assessmentSection)
         {
             DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
+            Assert.AreEqual(5.5, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
 
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
 
@@ -412,6 +434,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         private static void AssertStabilityPointStructuresFailureMechanism(AssessmentSection assessmentSection)
         {
             StabilityPointStructuresFailureMechanism failureMechanism = assessmentSection.StabilityPointStructures;
+            Assert.AreEqual(8.0, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
             Assert.AreEqual(2, failureMechanism.StabilityPointStructures.Count);
 
