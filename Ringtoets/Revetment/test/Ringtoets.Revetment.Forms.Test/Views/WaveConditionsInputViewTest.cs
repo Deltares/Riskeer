@@ -230,8 +230,9 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         {
             // Setup
             const string calculationName = "Calculation name";
+            var normativeAssessmentLevel = (RoundedDouble) 6;
 
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), () => (RoundedDouble) 6))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), () => normativeAssessmentLevel))
             {
                 var calculation = new TestWaveConditionsCalculation
                 {
@@ -274,11 +275,11 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.UpperBoundaryWaterLevels,
                                 chartData.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex), "Bovengrens waterstanden");
 
-                AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel,
+                AssertChartData(calculation.InputParameters.ForeshoreGeometry, normativeAssessmentLevel,
                                 chartData.Collection.ElementAt(designWaterLevelChartDataIndex), "Toetspeil");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
-                                           calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel),
+                                           calculation.InputParameters.GetWaterLevels(normativeAssessmentLevel),
                                            chartData.Collection.ElementAt(waterLevelsChartDataIndex));
 
                 AssertRevetmentBaseChartData(calculation.InputParameters.ForeshoreGeometry.Last(),
@@ -363,6 +364,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChartDataLayers);
             mocks.ReplayAll();
 
+            var normativeAssessmentLevel = (RoundedDouble) 6;
             var calculation = new TestWaveConditionsCalculation
             {
                 InputParameters =
@@ -380,7 +382,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 }
             };
 
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), () => (RoundedDouble) 6)
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), () => normativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -440,11 +442,11 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.UpperBoundaryWaterLevels,
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
-                AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel,
+                AssertChartData(calculation.InputParameters.ForeshoreGeometry, normativeAssessmentLevel,
                                 designWaterLevelChartData, "Toetspeil");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
-                                           calculation.InputParameters.GetWaterLevels(calculation.InputParameters.AssessmentLevel),
+                                           calculation.InputParameters.GetWaterLevels(normativeAssessmentLevel),
                                            waterLevelsChartData);
 
                 AssertRevetmentBaseChartData(profile2.Geometry.Last(),
