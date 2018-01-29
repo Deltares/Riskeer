@@ -764,33 +764,20 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateDesignWaterLevelGeometryPoints_InputNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(null);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(null, RoundedDouble.NaN);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDesignWaterLevelGeometryPoints_HydraulicBoundaryLocationNull_ReturnsEmptyPointsCollection()
-        {
-            // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(new WaveConditionsInput());
-
-            // Assert
-            CollectionAssert.IsEmpty(points);
-        }
-
-        [Test]
-        public void CreateDesignWaterLevelGeometryPoints_DesignWaterLevelNaN_ReturnsEmptyPointsCollection()
+        public void CreateDesignWaterLevelGeometryPoints_NormativeAssessmentLevelNaN_ReturnsEmptyPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
-            {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-            };
+            var input = new WaveConditionsInput();
 
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, RoundedDouble.NaN);
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -800,13 +787,10 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateDesignWaterLevelGeometryPoints_NoForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
-            {
-                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(6)
-            };
+            var input = new WaveConditionsInput();
 
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, GetTestNormativeAssessmentLevel());
 
             // Assert
             var expectedPoints = new[]
@@ -823,7 +807,6 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Setup
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(6),
                 ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
                     new Point2D(0, 0),
@@ -833,7 +816,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, GetTestNormativeAssessmentLevel());
 
             // Assert
             var expectedPoints = new[]
@@ -853,18 +836,18 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
+            RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
             var input = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(6),
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
             };
 
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, normativeAssessmentLevel);
 
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
-            double endPointX = (input.HydraulicBoundaryLocation.DesignWaterLevel - lastGeometryPoint.Y) / 3;
+            double endPointX = (normativeAssessmentLevel - lastGeometryPoint.Y) / 3;
 
             var expectedPoints = new[]
             {
@@ -1024,6 +1007,11 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
                 new Point2D(3, 5),
                 new Point2D(10, 7)
             }).SetName(string.Format(testNameFormat, "ForeshoreProfilePositiveCoordinates"));
+        }
+
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 6;
         }
     }
 }

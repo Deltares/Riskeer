@@ -187,7 +187,7 @@ namespace Ringtoets.Revetment.Forms.Views
             upperBoundaryRevetmentChartData.Points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(input);
             lowerBoundaryWaterLevelsChartData.Points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(input);
             upperBoundaryWaterLevelsChartData.Points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(input);
-            designWaterLevelChartData.Points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input);
+            designWaterLevelChartData.Points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, getNormativeAssessmentLevelFunc());
             waterLevelsChartData.Lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input, getNormativeAssessmentLevelFunc());
             revetmentBaseChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
             revetmentChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
