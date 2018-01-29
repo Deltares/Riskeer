@@ -31,7 +31,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
@@ -474,7 +473,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            Assert.IsFalse(double.IsNaN(calculation.Output.OvertoppingOutput.ProbabilityAssessmentOutput.Reliability));
+            Assert.IsFalse(double.IsNaN(calculation.Output.OvertoppingOutput.Reliability));
             Assert.IsNull(calculation.Output.DikeHeightOutput);
             Assert.IsNull(calculation.Output.OvertoppingRateOutput);
             mockRepository.VerifyAll();
@@ -901,8 +900,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.OvertoppingOutput.ProbabilityAssessmentOutput;
-            Assert.IsFalse(double.IsNaN(probabilisticAssessmentOutput.Reliability));
+            Assert.IsFalse(double.IsNaN(calculation.Output.OvertoppingOutput.Reliability));
             DikeHeightOutput dikeHeightOutput = calculation.Output.DikeHeightOutput;
             Assert.IsNotNull(dikeHeightOutput);
             Assert.IsFalse(double.IsNaN(dikeHeightOutput.DikeHeight));
@@ -1329,8 +1327,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.OvertoppingOutput.ProbabilityAssessmentOutput;
-            Assert.IsFalse(double.IsNaN(probabilisticAssessmentOutput.Reliability));
+            Assert.IsFalse(double.IsNaN(calculation.Output.OvertoppingOutput.Reliability));
             OvertoppingRateOutput overtoppingRateOutput = calculation.Output.OvertoppingRateOutput;
             Assert.IsNotNull(overtoppingRateOutput);
             Assert.IsFalse(double.IsNaN(overtoppingRateOutput.OvertoppingRate));

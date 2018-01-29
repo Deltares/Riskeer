@@ -156,7 +156,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var resultOutput = new OvertoppingOutput(waveHeight,
                                                      isOvertoppingDominant,
                                                      reliability,
-                                                     probabilityAssessmentOutput,
                                                      null);
 
             var dikeHeightOutput = new DikeHeightOutput(dikeHeight,
@@ -243,7 +242,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var resultOutput = new OvertoppingOutput(10,
                                                      true,
                                                      0,
-                                                     probabilityAssessmentOutput,
                                                      null);
             var dikeHeightOutput = new TestDikeHeightOutput(double.NaN);
             var overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN);
@@ -285,7 +283,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var resultOutput = new OvertoppingOutput(2,
                                                      true,
                                                      0,
-                                                     probabilityAssessmentOutput,
                                                      null);
 
             if (dikeHeightCalculated)
@@ -339,7 +336,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var resultOutput = new OvertoppingOutput(waveHeight,
                                                      true,
                                                      0,
-                                                     probabilityAssessmentOutput,
                                                      null);
 
             var output = new GrassCoverErosionInwardsOutput(resultOutput, null, null);

@@ -34,6 +34,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
         /// </summary>
         /// <param name="reliability">The reliability to set to the output.</param>
         public TestOvertoppingOutput(double reliability)
-            : base(1, true, reliability, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), null) {}
+            : base(1, true, reliability, null) {}
     }
 }

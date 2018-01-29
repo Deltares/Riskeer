@@ -28,7 +28,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
     public class TestGrassCoverErosionInwardsOutputTest
     {
         [Test]
-        public void DefaultConstructor_PropertiesSet()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var output = new TestGrassCoverErosionInwardsOutput();
@@ -36,7 +36,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsOutput>(output);
             Assert.IsInstanceOf<TestOvertoppingOutput>(output.OvertoppingOutput);
-            Assert.AreEqual(0, output.OvertoppingOutput.ProbabilityAssessmentOutput.Probability);
             Assert.IsInstanceOf<TestDikeHeightOutput>(output.DikeHeightOutput);
             Assert.AreEqual((RoundedDouble) 0, output.DikeHeightOutput.DikeHeight);
             Assert.IsInstanceOf<TestOvertoppingRateOutput>(output.OvertoppingRateOutput);

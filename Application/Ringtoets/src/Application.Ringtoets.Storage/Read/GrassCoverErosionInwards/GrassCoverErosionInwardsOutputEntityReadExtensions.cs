@@ -59,7 +59,6 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             return new OvertoppingOutput(entity.WaveHeight.ToNullAsNaN(),
                                          Convert.ToBoolean(entity.IsOvertoppingDominant),
                                          entity.Reliability.ToNullAsNaN(),
-                                         ReadProbabilityAssessmentOutput(entity),
                                          entity.GeneralResultFaultTreeIllustrationPointEntity?.Read());
         }
 

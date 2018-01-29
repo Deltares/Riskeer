@@ -1675,7 +1675,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             UseForeshore = true,
                             UseBreakWater = true
                         },
-                        Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, new ProbabilityAssessmentOutput(0.004, 0.95, 0.00003, 1.1, 4.5), null),
+                        Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, null),
                                                                     new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, null),
                                                                     new OvertoppingRateOutput(0.57, 0.07, 4, 0.08, 5, CalculationConvergence.CalculatedConverged, null))
                     },
@@ -1710,7 +1710,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             ShouldDikeHeightIllustrationPointsBeCalculated = true,
                             ShouldOvertoppingRateIllustrationPointsBeCalculated = true
                         },
-                        Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, new ProbabilityAssessmentOutput(0.004, 0.95, 0.00003, 1.1, 4.5), GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
+                        Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
                                                                     new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
                                                                     new OvertoppingRateOutput(0.57, 0.07, 4, 0.08, 5, CalculationConvergence.CalculatedConverged, GetConfiguredGeneralResultFaultTreeIllustrationPoint()))
                     }

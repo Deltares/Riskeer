@@ -1794,8 +1794,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             Assert.AreEqual(expectedOutput.WaveHeight, actualOutput.WaveHeight);
             Assert.AreEqual(expectedOutput.IsOvertoppingDominant, actualOutput.IsOvertoppingDominant);
+            Assert.AreEqual(expectedOutput.Reliability, actualOutput.Reliability);
 
-            AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput, actualOutput.ProbabilityAssessmentOutput);
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(expectedOutput.GeneralResult, actualOutput.GeneralResult);
         }
 

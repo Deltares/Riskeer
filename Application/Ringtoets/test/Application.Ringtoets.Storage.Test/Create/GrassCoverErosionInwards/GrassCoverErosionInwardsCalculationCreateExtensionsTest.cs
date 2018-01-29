@@ -29,7 +29,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -247,10 +246,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(456);
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
-                                                                              random.NextDouble(), random.NextDouble(),
-                                                                              random.NextDouble());
-            var overtoppingOutput = new OvertoppingOutput(random.NextDouble(), false, random.NextDouble(), probabilityAssessmentOutput, null);
+            var overtoppingOutput = new OvertoppingOutput(random.NextDouble(), false, random.NextDouble(), null);
             var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, null, null);
 
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -265,11 +261,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             GrassCoverErosionInwardsOutputEntity outputEntity = entity.GrassCoverErosionInwardsOutputEntities.Single();
-            Assert.AreEqual(probabilityAssessmentOutput.FactorOfSafety, outputEntity.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
-            Assert.AreEqual(probabilityAssessmentOutput.Probability, outputEntity.Probability);
+            Assert.AreEqual(overtoppingOutput.WaveHeight, outputEntity.WaveHeight);
             Assert.AreEqual(overtoppingOutput.Reliability, outputEntity.Reliability);
-            Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, outputEntity.RequiredProbability);
-            Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability.Value, outputEntity.RequiredReliability);
             Assert.IsNull(outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
         }
     }

@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                                                                   : null;
 
             // Call
-            var output = new OvertoppingOutput(waveHeight, true, reliability, probabilityAssessmentOutput, generalResult);
+            var output = new OvertoppingOutput(waveHeight, true, reliability, generalResult);
 
             // Assert
             Assert.IsInstanceOf<ICloneable>(output);
@@ -66,7 +66,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.AreEqual(reliability, output.Reliability, 1e-6);
 
-            Assert.AreSame(probabilityAssessmentOutput, output.ProbabilityAssessmentOutput);
             Assert.IsTrue(output.HasWaveHeight);
 
             Assert.AreEqual(withIllustrationPoints, output.HasGeneralResult);
@@ -74,21 +73,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void Constructor_ProbabilityAssessmentNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new OvertoppingOutput(double.NaN, true, double.NaN, null, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("probabilityAssessmentOutput", exception.ParamName);
-        }
-
-        [Test]
         public void HasWaveHeight_WaveHeightNaN_ReturnFalse()
         {
             // Setup
-            var output = new OvertoppingOutput(double.NaN, false, double.NaN, new TestProbabilityAssessmentOutput(), null);
+            var output = new OvertoppingOutput(double.NaN, false, double.NaN, null);
 
             // Call
             bool hasWaveHeight = output.HasWaveHeight;

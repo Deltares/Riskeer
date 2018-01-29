@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
 {
@@ -44,12 +42,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.AreEqual(reliability, output.Reliability);
 
-            ProbabilityAssessmentOutput probabilityAssessmentOutput = output.ProbabilityAssessmentOutput;
-            Assert.AreEqual(0, probabilityAssessmentOutput.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
-            Assert.AreEqual(0, probabilityAssessmentOutput.Probability);
-            Assert.AreEqual(0, probabilityAssessmentOutput.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
-            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredProbability);
-            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredReliability, probabilityAssessmentOutput.RequiredReliability.GetAccuracy());
             Assert.IsNull(output.GeneralResult);
         }
     }

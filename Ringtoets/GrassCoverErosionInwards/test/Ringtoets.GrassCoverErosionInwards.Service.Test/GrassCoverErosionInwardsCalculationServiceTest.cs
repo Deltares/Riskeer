@@ -32,7 +32,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -671,13 +670,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Assert
             OvertoppingOutput overtoppingOutput = calculation.Output.OvertoppingOutput;
             Assert.IsFalse(double.IsNaN(overtoppingOutput.WaveHeight));
-            ProbabilityAssessmentOutput probabilityAssessmentOutput = overtoppingOutput.ProbabilityAssessmentOutput;
-            Assert.IsNotNull(probabilityAssessmentOutput);
-            Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.FactorOfSafety));
-            Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.Probability));
-            Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.Reliability));
-            Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.RequiredProbability));
-            Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.RequiredReliability));
+            Assert.IsFalse(double.IsNaN(overtoppingOutput.Reliability));
             Assert.IsFalse(overtoppingOutput.IsOvertoppingDominant);
             Assert.AreEqual(calculateIllustrationPoints, calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             Assert.AreEqual(calculateIllustrationPoints, overtoppingOutput.HasGeneralResult);

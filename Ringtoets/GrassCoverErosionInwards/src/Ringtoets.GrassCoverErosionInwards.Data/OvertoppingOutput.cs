@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -35,24 +34,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Creates a new instance of <see cref="OvertoppingOutput"/>.
         /// </summary>
         /// <param name="waveHeight">The calculated wave height.</param>
-        /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
+        /// <param name="isOvertoppingDominant">The value indicating whether overtopping was
+        /// dominant in the calculation.</param>
         /// <param name="reliability">The reliability of the calculation.</param>
-        /// <param name="probabilityAssessmentOutput">The probabilistic assessment output.</param>
         /// <param name="generalResult">The general result of this output with the fault tree 
         /// illustration points.</param>
         public OvertoppingOutput(double waveHeight, bool isOvertoppingDominant, double reliability,
-                                 ProbabilityAssessmentOutput probabilityAssessmentOutput,
                                  GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
-            if (probabilityAssessmentOutput == null)
-            {
-                throw new ArgumentNullException(nameof(probabilityAssessmentOutput));
-            }
-
             IsOvertoppingDominant = isOvertoppingDominant;
             Reliability = reliability;
             WaveHeight = new RoundedDouble(2, waveHeight);
-            ProbabilityAssessmentOutput = probabilityAssessmentOutput;
             GeneralResult = generalResult;
         }
 
@@ -71,11 +63,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the reliability of the calculation.
         /// </summary>
         public double Reliability { get; }
-
-        /// <summary>
-        /// Gets the probabilistic assessment output.
-        /// </summary>
-        public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; private set; }
 
         public bool HasWaveHeight
         {
@@ -104,8 +91,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public object Clone()
         {
             var clone = (OvertoppingOutput) MemberwiseClone();
-
-            clone.ProbabilityAssessmentOutput = (ProbabilityAssessmentOutput) ProbabilityAssessmentOutput.Clone();
 
             if (GeneralResult != null)
             {
