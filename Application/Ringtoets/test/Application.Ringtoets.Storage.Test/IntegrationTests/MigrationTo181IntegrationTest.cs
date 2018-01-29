@@ -257,6 +257,93 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM HydraulicLocationCalculationEntity; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateNrOfHydraulicBoundaryCalculationEntities);
+
+            AssertMigratedHydraulicLocationCalculations(reader, sourceFilePath);
+        }
+
+        private static void AssertMigratedHydraulicLocationCalculations(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            AssertNewHydraulicLocationCalculations(reader, sourceFilePath, 1);
+            string validateDesignWaterLevelCalculationsWithSignalingNorm =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].HydraulicLocationEntity " +
+                "JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
+                "WHERE NormativeNormType = 2 " +
+                ") " +
+                "FROM HydraulicLocationEntity AS NEW " +
+                "JOIN [SOURCEPROJECT].HydraulicLocationEntity AS OLD ON OLD.HydraulicLocationEntityId = NEW.HydraulicLocationEntityId " +
+                "JOIN HydraulicLocationCalculationEntity hlce ON NEW.HydraulicLocationCalculationEntity2Id = hlce.HydraulicLocationCalculationEntityId " +
+                "JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
+                "WHERE hlce.ShouldIllustrationPointsBeCalculated = OLD.ShouldDesignWaterLevelIllustrationPointsBeCalculated AND NormativeNormType = 2;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateDesignWaterLevelCalculationsWithSignalingNorm);
+            string validateDesignWaterLevelCalculationsWithLowerLimitNorm =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].HydraulicLocationEntity " +
+                "JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
+                "WHERE NormativeNormType = 1 " +
+                ") " +
+                "FROM HydraulicLocationEntity AS NEW " +
+                "JOIN [SOURCEPROJECT].HydraulicLocationEntity AS OLD ON OLD.HydraulicLocationEntityId = NEW.HydraulicLocationEntityId " +
+                "JOIN HydraulicLocationCalculationEntity hlce ON NEW.HydraulicLocationCalculationEntity3Id = hlce.HydraulicLocationCalculationEntityId " +
+                "JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
+                "WHERE hlce.ShouldIllustrationPointsBeCalculated = OLD.ShouldWaveHeightIllustrationPointsBeCalculated AND NormativeNormType = 1;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateDesignWaterLevelCalculationsWithLowerLimitNorm);
+            AssertNewHydraulicLocationCalculations(reader, sourceFilePath, 4);
+
+            AssertNewHydraulicLocationCalculations(reader, sourceFilePath, 5);
+            string validateWaveHeightCalculationsWithSignalingNorm =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].HydraulicLocationEntity " +
+                "JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
+                "WHERE NormativeNormType = 2 " +
+                ") " +
+                "FROM HydraulicLocationEntity AS NEW " +
+                "JOIN [SOURCEPROJECT].HydraulicLocationEntity AS OLD ON OLD.HydraulicLocationEntityId = NEW.HydraulicLocationEntityId " +
+                "JOIN HydraulicLocationCalculationEntity hlce ON NEW.HydraulicLocationCalculationEntity6Id = hlce.HydraulicLocationCalculationEntityId " +
+                "JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
+                "WHERE hlce.ShouldIllustrationPointsBeCalculated = OLD.ShouldWaveHeightIllustrationPointsBeCalculated AND NormativeNormType = 2;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateWaveHeightCalculationsWithSignalingNorm);
+            string validateWaveHeightCalculationsWithLowerLimitNorm =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].HydraulicLocationEntity " +
+                "JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
+                "WHERE NormativeNormType = 1 " +
+                ") " +
+                "FROM HydraulicLocationEntity AS NEW " +
+                "JOIN [SOURCEPROJECT].HydraulicLocationEntity AS OLD ON OLD.HydraulicLocationEntityId = NEW.HydraulicLocationEntityId " +
+                "JOIN HydraulicLocationCalculationEntity hlce ON NEW.HydraulicLocationCalculationEntity7Id = hlce.HydraulicLocationCalculationEntityId " +
+                "JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
+                "WHERE hlce.ShouldIllustrationPointsBeCalculated = OLD.ShouldDesignWaterLevelIllustrationPointsBeCalculated AND NormativeNormType = 1;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateWaveHeightCalculationsWithLowerLimitNorm);
+            AssertNewHydraulicLocationCalculations(reader, sourceFilePath, 8);
+        }
+
+        private static void AssertNewHydraulicLocationCalculations(MigratedDatabaseReader reader, string sourceFilePath, int entityCalculationNumber)
+        {
+            string validateNewHydraulicCalculations =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].HydraulicLocationEntity) " +
+                "FROM HydraulicLocationEntity AS NEW " +
+                $"INNER JOIN HydraulicLocationCalculationEntity hlce ON NEW.HydraulicLocationCalculationEntity{entityCalculationNumber}Id = hlce.HydraulicLocationCalculationEntityId " +
+                "WHERE hlce.ShouldIllustrationPointsBeCalculated = 0;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateNewHydraulicCalculations);
         }
 
         private static void AssertPipingSoilLayers(MigratedDatabaseReader reader)

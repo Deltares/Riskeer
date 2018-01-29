@@ -287,7 +287,7 @@ FROM (
     ORDER BY hleB.HydraulicLocationEntityId
 );
 
--- Perform the insertion
+-- Perform the migration of the location entities
 INSERT INTO HydraulicLocationEntity (
     [HydraulicLocationEntityId],
     [AssessmentSectionEntityId],
@@ -323,6 +323,56 @@ SELECT
     [Order]
     FROM [SOURCEPROJECT].HydraulicLocationEntity AS sp
     JOIN TempHydraulicLocationCalculationEntity USING (HydraulicLocationEntityId);
+
+-- Update the calculation inputs based on the norm
+UPDATE HydraulicLocationCalculationEntity
+    SET [ShouldIllustrationPointsBeCalculated] = 1
+    WHERE HydraulicLocationCalculationEntityId IN (
+        SELECT 
+            [HydraulicLocationCalculationEntityId]
+        FROM [SOURCEPROJECT].HydraulicLocationEntity hle
+        JOIN TempHydraulicLocationCalculationEntity mapping ON hle.HydraulicLocationEntityId = mapping.HydraulicLocationEntityId
+        JOIN HydraulicLocationCalculationEntity hlce ON mapping.Calculation2Id = hlce.HydraulicLocationCalculationEntityId
+        JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
+        WHERE NormativeNormType = 2 AND hle.ShouldDesignWaterlevelIllustrationPointsBeCalculated = 1
+    );
+
+UPDATE HydraulicLocationCalculationEntity
+    SET [ShouldIllustrationPointsBeCalculated] = 1
+    WHERE HydraulicLocationCalculationEntityId IN (
+        SELECT 
+            [HydraulicLocationCalculationEntityId]
+        FROM [SOURCEPROJECT].HydraulicLocationEntity hle
+        JOIN TempHydraulicLocationCalculationEntity mapping ON hle.HydraulicLocationEntityId = mapping.HydraulicLocationEntityId
+        JOIN HydraulicLocationCalculationEntity hlce ON mapping.Calculation3Id = hlce.HydraulicLocationCalculationEntityId
+        JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
+        WHERE NormativeNormType = 1 AND hle.ShouldDesignWaterlevelIllustrationPointsBeCalculated = 1
+    );
+    
+UPDATE HydraulicLocationCalculationEntity
+    SET [ShouldIllustrationPointsBeCalculated] = 1
+    WHERE HydraulicLocationCalculationEntityId IN (
+        SELECT 
+            [HydraulicLocationCalculationEntityId]
+        FROM [SOURCEPROJECT].HydraulicLocationEntity hle
+        JOIN TempHydraulicLocationCalculationEntity mapping ON hle.HydraulicLocationEntityId = mapping.HydraulicLocationEntityId
+        JOIN HydraulicLocationCalculationEntity hlce ON mapping.Calculation6Id = hlce.HydraulicLocationCalculationEntityId
+        JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
+        WHERE NormativeNormType = 2 AND hle.ShouldWaveHeightIllustrationPointsBeCalculated = 1
+    );
+
+UPDATE HydraulicLocationCalculationEntity
+    SET [ShouldIllustrationPointsBeCalculated] = 1
+    WHERE HydraulicLocationCalculationEntityId IN (
+        SELECT 
+            [HydraulicLocationCalculationEntityId]
+        FROM [SOURCEPROJECT].HydraulicLocationEntity hle
+        JOIN TempHydraulicLocationCalculationEntity mapping ON hle.HydraulicLocationEntityId = mapping.HydraulicLocationEntityId
+        JOIN HydraulicLocationCalculationEntity hlce ON mapping.Calculation7Id = hlce.HydraulicLocationCalculationEntityId
+        JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
+        WHERE NormativeNormType = 1 AND hle.ShouldWaveHeightIllustrationPointsBeCalculated = 1
+    );
+
 
 -- Cleanup
 DROP TABLE TempHydraulicLocationCalculationEntity;
