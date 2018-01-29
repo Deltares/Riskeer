@@ -31,7 +31,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class GeneralGrassCoverErosionInwardsInput
     {
-        private static readonly Range<double> validityRangeN = new Range<double>(1.0, 20.0);
+        private const int numberOfDecimalPlacesN = 2;
+
+        private static readonly Range<RoundedDouble> validityRangeN = new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlacesN, 1),
+                                                                                               new RoundedDouble(numberOfDecimalPlacesN, 20));
+
         private RoundedDouble n;
 
         /// <summary>
@@ -39,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public GeneralGrassCoverErosionInwardsInput()
         {
-            n = new RoundedDouble(2, 2.0);
+            n = new RoundedDouble(numberOfDecimalPlacesN, 2.0);
             CriticalOvertoppingModelFactor = 1.0;
             FbFactor = new TruncatedNormalDistribution(2)
             {
@@ -78,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is not in
-        /// the interval [1, 20].</exception>
+        /// the interval [1.0, 20.0].</exception>
         public RoundedDouble N
         {
             get
@@ -87,13 +91,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
             set
             {
-                if (!validityRangeN.InRange(value))
+                RoundedDouble newValue = value.ToPrecision(n.NumberOfDecimalPlaces);
+                if (!validityRangeN.InRange(newValue))
                 {
                     throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.N_Value_should_be_in_Range_0_,
                                                                                        validityRangeN));
                 }
 
-                n = value.ToPrecision(n.NumberOfDecimalPlaces);
+                n = newValue;
             }
         }
 

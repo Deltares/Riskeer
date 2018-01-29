@@ -19,10 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
@@ -41,6 +45,9 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Piping bij kunstwerk", failureMechanism.Name);
             Assert.AreEqual("PKW", failureMechanism.Code);
+            Assert.AreEqual(2, failureMechanism.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, failureMechanism.N, failureMechanism.N.GetAccuracy());
+
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 
@@ -59,6 +66,43 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
             // Assert
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.IsInstanceOf<PipingStructureFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+        }
+
+        [Test]
+        [TestCase(1.0)]
+        [TestCase(10.0)]
+        [TestCase(20.0)]
+        [TestCase(0.999)]
+        [TestCase(20.001)]
+        public void N_SetValidValue_UpdatesValue(double value)
+        {
+            // Setup
+            var pipingStructureFailureMechanism = new PipingStructureFailureMechanism();
+
+            // Call
+            pipingStructureFailureMechanism.N = (RoundedDouble) value;
+
+            // Assert
+            Assert.AreEqual(value, pipingStructureFailureMechanism.N, pipingStructureFailureMechanism.N.GetAccuracy());
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-10.0)]
+        [TestCase(0.99)]
+        [TestCase(20.01)]
+        [TestCase(50.0)]
+        public void N_SetValueOutsideValidRange_ThrowArgumentOutOfRangeException(double value)
+        {
+            // Setup
+            var pipingStructureFailureMechanism = new PipingStructureFailureMechanism();
+
+            // Call
+            TestDelegate test = () => pipingStructureFailureMechanism.N = (RoundedDouble) value;
+
+            // Assert
+            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
     }
 }

@@ -61,34 +61,38 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
 
         [Test]
         [TestCase(1.0)]
-        [TestCase(3.1415)]
+        [TestCase(10.0)]
         [TestCase(20.0)]
-        public void N_ValidValue_SetsNewValue(double n)
+        [TestCase(0.999)]
+        [TestCase(20.001)]
+        public void N_SetValidValue_UpdatesValue(double value)
         {
             // Setup
             var generalInput = new GeneralStabilityStoneCoverWaveConditionsInput();
 
             // Call
-            generalInput.N = (RoundedDouble) n;
+            generalInput.N = (RoundedDouble) value;
 
             // Assert
-            Assert.AreEqual(2, generalInput.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(n, generalInput.N, generalInput.N.GetAccuracy());
+            Assert.AreEqual(value, generalInput.N, generalInput.N.GetAccuracy());
         }
 
         [Test]
-        [TestCase(0.9)]
-        [TestCase(20.1)]
-        public void N_ValueOutOfRange_ThrowsArgumentException(double n)
+        [SetCulture("nl-NL")]
+        [TestCase(-10.0)]
+        [TestCase(0.99)]
+        [TestCase(20.01)]
+        [TestCase(50.0)]
+        public void N_SetValueOutsideValidRange_ThrowArgumentOutOfRangeException(double value)
         {
             // Setup
             var generalInput = new GeneralStabilityStoneCoverWaveConditionsInput();
 
             // Call
-            TestDelegate call = () => generalInput.N = (RoundedDouble) n;
+            TestDelegate call = () => generalInput.N = (RoundedDouble) value;
 
             // Assert
-            var expectedMessage = "De waarde voor 'N' moet in het bereik [1, 20] liggen.";
+            var expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
     }

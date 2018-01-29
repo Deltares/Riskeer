@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.Data.Test
 {
@@ -36,24 +37,23 @@ namespace Ringtoets.DuneErosion.Data.Test
             var generalInput = new GeneralDuneErosionInput();
 
             // Assert
-            Assert.AreEqual(2, generalInput.N.Value);
+            Assert.AreEqual(2.0, generalInput.N, generalInput.N.GetAccuracy());
             Assert.AreEqual(2, generalInput.N.NumberOfDecimalPlaces);
         }
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(-45.75)]
-        [TestCase(1.0 - 1e-2)]
-        [TestCase(20 + 1e-2)]
-        [TestCase(5987.234)]
-        [TestCase(double.NaN)]
-        public void N_SetOutsideValidRange_ThrowArgumentOutOfRangeException(double lengthEffect)
+        [TestCase(-10.0)]
+        [TestCase(0.99)]
+        [TestCase(20.01)]
+        [TestCase(50.0)]
+        public void N_SetValueOutsideValidRange_ThrowArgumentOutOfRangeException(double value)
         {
             // Setup
             var generalInput = new GeneralDuneErosionInput();
 
             // Call
-            TestDelegate call = () => generalInput.N = (RoundedDouble) lengthEffect;
+            TestDelegate call = () => generalInput.N = (RoundedDouble) value;
 
             // Assert
             const string message = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
@@ -62,19 +62,21 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
-        public void N_SetValidValue_GetNewlySetValue()
+        [TestCase(1.0)]
+        [TestCase(10.0)]
+        [TestCase(20.0)]
+        [TestCase(0.999)]
+        [TestCase(20.001)]
+        public void N_SetValidValue_UpdatesValue(double value)
         {
             // Setup
             var generalInput = new GeneralDuneErosionInput();
 
-            const double lengthEffect = 13.45678;
-
             // Call
-            generalInput.N = (RoundedDouble) lengthEffect;
+            generalInput.N = (RoundedDouble) value;
 
             // Assert
-            Assert.AreEqual(2, generalInput.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(13.46, generalInput.N.Value);
+            Assert.AreEqual(value, generalInput.N, generalInput.N.GetAccuracy());
         }
     }
 }

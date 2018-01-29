@@ -19,11 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.StandAlone
 {
@@ -33,7 +36,13 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class PipingStructureFailureMechanism : FailureMechanismBase, IHasSectionResults<PipingStructureFailureMechanismSectionResult>
     {
+        private const int numberOfDecimalPlacesN = 2;
+
+        private static readonly Range<RoundedDouble> validityRangeN = new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlacesN, 1),
+                                                                                               new RoundedDouble(numberOfDecimalPlacesN, 20));
+
         private readonly List<PipingStructureFailureMechanismSectionResult> sectionResults;
+        private RoundedDouble n;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingStructureFailureMechanism"/> class.
@@ -42,6 +51,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             : base(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code)
         {
             sectionResults = new List<PipingStructureFailureMechanismSectionResult>();
+            n = new RoundedDouble(numberOfDecimalPlacesN, 1.0);
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -49,6 +59,25 @@ namespace Ringtoets.Integration.Data.StandAlone
             get
             {
                 yield break;
+            }
+        }
+
+        public RoundedDouble N
+        {
+            get
+            {
+                return n;
+            }
+            set
+            {
+                RoundedDouble newValue = value.ToPrecision(n.NumberOfDecimalPlaces);
+                if (!validityRangeN.InRange(newValue))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(RingtoetsCommonDataResources.N_Value_should_be_in_Range_0_,
+                                                                                       validityRangeN));
+                }
+
+                n = newValue;
             }
         }
 

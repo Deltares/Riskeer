@@ -31,7 +31,11 @@ namespace Ringtoets.StabilityStoneCover.Data
     /// </summary>
     public class GeneralStabilityStoneCoverWaveConditionsInput
     {
-        private static readonly Range<double> validityRangeN = new Range<double>(1.0, 20.0);
+        private const int numberOfDecimalPlacesN = 2;
+
+        private static readonly Range<RoundedDouble> validityRangeN = new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlacesN, 1),
+                                                                                               new RoundedDouble(numberOfDecimalPlacesN, 20));
+
         private RoundedDouble n;
 
         /// <summary>
@@ -41,7 +45,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         {
             GeneralBlocksWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 1.0, 1.0);
             GeneralColumnsWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 0.4, 0.8);
-            n = new RoundedDouble(2, 4.0);
+            n = new RoundedDouble(numberOfDecimalPlacesN, 4.0);
         }
 
         /// <summary>
@@ -67,13 +71,14 @@ namespace Ringtoets.StabilityStoneCover.Data
             }
             set
             {
-                if (!validityRangeN.InRange(value))
+                RoundedDouble newValue = value.ToPrecision(n.NumberOfDecimalPlaces);
+                if (!validityRangeN.InRange(newValue))
                 {
                     throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.N_Value_should_be_in_Range_0_,
                                                                                        validityRangeN));
                 }
 
-                n = value.ToPrecision(n.NumberOfDecimalPlaces);
+                n = newValue;
             }
         }
     }

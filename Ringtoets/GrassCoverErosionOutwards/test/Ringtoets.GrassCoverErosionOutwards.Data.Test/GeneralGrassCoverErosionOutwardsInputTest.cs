@@ -48,25 +48,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         [TestCase(1.0)]
         [TestCase(10.0)]
         [TestCase(20.0)]
-        public void N_ValueInsideValidRegion_DoesNotThrow(double value)
+        [TestCase(0.999)]
+        [TestCase(20.001)]
+        public void N_SetValidValue_UpdatesValue(double value)
         {
             // Setup
             var generalGrassCoverErosionInwardsInput = new GeneralGrassCoverErosionOutwardsInput();
 
             // Call
-            TestDelegate test = () => generalGrassCoverErosionInwardsInput.N = (RoundedDouble) value;
+            generalGrassCoverErosionInwardsInput.N = (RoundedDouble) value;
 
             // Assert
-            Assert.DoesNotThrow(test);
             Assert.AreEqual(value, generalGrassCoverErosionInwardsInput.N, generalGrassCoverErosionInwardsInput.N.GetAccuracy());
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(-10.0)]
-        [TestCase(0.0)]
-        [TestCase(21.0)]
+        [TestCase(0.99)]
+        [TestCase(20.01)]
         [TestCase(50.0)]
-        public void N_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(double value)
+        public void N_SetValueOutsideValidRange_ThrowArgumentOutOfRangeException(double value)
         {
             // Setup
             var generalGrassCoverErosionInwardsInput = new GeneralGrassCoverErosionOutwardsInput();
@@ -75,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             TestDelegate test = () => generalGrassCoverErosionInwardsInput.N = (RoundedDouble) value;
 
             // Assert
-            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1, 20] liggen.";
+            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
     }
