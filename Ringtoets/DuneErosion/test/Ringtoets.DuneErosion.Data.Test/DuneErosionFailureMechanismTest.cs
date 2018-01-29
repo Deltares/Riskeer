@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.Data.Test
 {
@@ -41,7 +42,8 @@ namespace Ringtoets.DuneErosion.Data.Test
             Assert.AreEqual("DA", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
-            Assert.AreEqual(2, failureMechanism.GeneralInput.N.Value);
+            Assert.AreEqual(2, failureMechanism.GeneralInput.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(2.0, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 
         [Test]

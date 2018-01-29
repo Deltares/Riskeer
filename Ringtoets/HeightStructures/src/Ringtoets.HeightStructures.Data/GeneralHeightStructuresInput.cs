@@ -65,8 +65,8 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is not in
-        /// the interval [1.0, 20.0].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/>
+        /// is not in the [1.0, 20.0] interval.</exception>
         public RoundedDouble N
         {
             get
