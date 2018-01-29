@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -70,18 +69,6 @@ namespace Ringtoets.Revetment.Data
         /// Gets or sets the hydraulic boundary location.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
-
-        /// <summary>
-        /// Gets the assessment level from the current hydraulic boundary location, or <see cref="double.NaN"/> if there is no
-        /// location selected.
-        /// </summary>
-        public RoundedDouble AssessmentLevel
-        {
-            get
-            {
-                return HydraulicBoundaryLocation?.DesignWaterLevel ?? new RoundedDouble(2, double.NaN);
-            }
-        }
 
         /// <summary>
         /// Gets or sets the orientation of the foreshore profile geometry with respect to North

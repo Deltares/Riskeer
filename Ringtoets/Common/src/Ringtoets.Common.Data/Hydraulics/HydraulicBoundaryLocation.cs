@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
 namespace Ringtoets.Common.Data.Hydraulics
@@ -114,17 +113,6 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// Gets the fourth wave height calculation.
         /// </summary>
         public HydraulicBoundaryLocationCalculation WaveHeightCalculation4 { get; }
-
-        /// <summary>
-        /// Gets the design water level of the hydraulic boundary location.
-        /// </summary>
-        public RoundedDouble DesignWaterLevel
-        {
-            get
-            {
-                return DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
-            }
-        }
 
         public override string ToString()
         {
