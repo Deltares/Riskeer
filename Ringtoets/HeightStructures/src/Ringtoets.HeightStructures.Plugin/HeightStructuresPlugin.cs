@@ -86,6 +86,12 @@ namespace Ringtoets.HeightStructures.Plugin
                     context,
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
+            yield return new PropertyInfo<HeightStructuresOutputContext, HeightStructuresOutputProperties>
+            {
+                CreateInstance = context => new HeightStructuresOutputProperties(context.WrappedData.Output,
+                                                                                 context.FailureMechanism,
+                                                                                 context.AssessmentSection)
+            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
