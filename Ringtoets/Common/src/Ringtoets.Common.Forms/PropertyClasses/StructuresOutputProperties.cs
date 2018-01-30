@@ -38,14 +38,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="StructuresOutput"/> for properties panel.
     /// </summary>
-    public class StructuresOutputProperties : ObjectProperties<StructuresOutput>
+    public abstract class StructuresOutputProperties : ObjectProperties<StructuresOutput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StructuresOutputProperties"/>.
         /// </summary>
         /// <param name="structuresOutput">The structures output to create the object properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="structuresOutput"/> is <c>null</c>.</exception>
-        public StructuresOutputProperties(StructuresOutput structuresOutput)
+        protected StructuresOutputProperties(StructuresOutput structuresOutput)
         {
             if (structuresOutput == null)
             {

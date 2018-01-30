@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var structuresOutput = new StructuresOutput(0, new TestProbabilityAssessmentOutput(), null);
 
             // Call
-            var properties = new StructuresOutputProperties(structuresOutput);
+            var properties = new SimpleStructuresOutputProperties(structuresOutput);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<StructuresOutput>>(properties);
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_StructuresOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StructuresOutputProperties(null);
+            TestDelegate test = () => new SimpleStructuresOutputProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var structuresOutput = new StructuresOutput(reliability, probabilityAssessmentOutput, generalResult);
 
             // Call
-            var properties = new StructuresOutputProperties(structuresOutput);
+            var properties = new SimpleStructuresOutputProperties(structuresOutput);
 
             // Assert
             Assert.AreEqual(ProbabilityFormattingHelper.Format(requiredProbability), properties.RequiredProbability);
@@ -135,7 +135,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var structuresOutput = new StructuresOutput(0, new TestProbabilityAssessmentOutput(), null);
-            var properties = new StructuresOutputProperties(structuresOutput);
+            var properties = new SimpleStructuresOutputProperties(structuresOutput);
 
             // Call
             TopLevelFaultTreeIllustrationPointProperties[] illustrationPoints = properties.IllustrationPoints;
@@ -153,7 +153,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var structuresOutput = new StructuresOutput(0, probabilityAssessmentOutput, generalResult);
 
             // Call
-            var properties = new StructuresOutputProperties(structuresOutput);
+            var properties = new SimpleStructuresOutputProperties(structuresOutput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -231,7 +231,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var structuresOutput = new StructuresOutput(0, probabilityAssessmentOutput, null);
 
             // Call
-            var properties = new StructuresOutputProperties(structuresOutput);
+            var properties = new SimpleStructuresOutputProperties(structuresOutput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -271,6 +271,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Veiligheidsfactor [-]",
                                                                             "De veiligheidsfactor voor deze berekening.",
                                                                             true);
+        }
+
+        private class SimpleStructuresOutputProperties : StructuresOutputProperties
+        {
+            public SimpleStructuresOutputProperties(StructuresOutput structuresOutput) 
+                : base(structuresOutput) {}
         }
     }
 }
