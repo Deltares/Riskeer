@@ -483,7 +483,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.Calculation,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(GetWaveConditionsInputViewStyle(context),
-                                                                        () => context.AssessmentSection.GetNormativeAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation))
+                                                                        () => GetNormativeAssessmentLevel(context))
             };
 
             yield return new ViewInfo<StructuresOutputContext, IStructuresCalculation, GeneralResultFaultTreeIllustrationPointView>
@@ -1117,6 +1117,16 @@ namespace Ringtoets.Integration.Plugin
             return null;
         }
 
+        private static RoundedDouble GetNormativeAssessmentLevel(WaveConditionsInputContext context)
+        {
+            if (context is GrassCoverErosionOutwardsWaveConditionsInputContext)
+            {
+                return context.Calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
+            }
+
+            return context.AssessmentSection.GetNormativeAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation);
+        }
+
         #endregion
 
         #endregion
@@ -1471,12 +1481,13 @@ namespace Ringtoets.Integration.Plugin
         {
             var macrostabilityOutwards = nodeData as IHasSectionResults<MacroStabilityOutwardsFailureMechanismSectionResult>;
             var failureMechanismSectionResultContexts = new object[2];
-            
+
             if (macrostabilityOutwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(macrostabilityOutwards.SectionResults, nodeData);
             }
+
             failureMechanismSectionResultContexts[1] = nodeData.OutputComments;
             return failureMechanismSectionResultContexts;
         }
@@ -1502,8 +1513,8 @@ namespace Ringtoets.Integration.Plugin
         }
 
         private ContextMenuStrip MacroStabilityOutwardsFailureMechanismDisabledContextMenuStrip(MacroStabilityOutwardsFailureMechanismContext nodeData,
-                                                                                    object parentData,
-                                                                                    TreeViewControl treeViewControl)
+                                                                                                object parentData,
+                                                                                                TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -1552,12 +1563,13 @@ namespace Ringtoets.Integration.Plugin
         {
             var macrostabilityOutwards = nodeData as IHasSectionResults<PipingStructureFailureMechanismSectionResult>;
             var failureMechanismSectionResultContexts = new object[2];
-            
+
             if (macrostabilityOutwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(macrostabilityOutwards.SectionResults, nodeData);
             }
+
             failureMechanismSectionResultContexts[1] = nodeData.OutputComments;
             return failureMechanismSectionResultContexts;
         }
@@ -1583,8 +1595,8 @@ namespace Ringtoets.Integration.Plugin
         }
 
         private ContextMenuStrip PipingStructureFailureMechanismDisabledContextMenuStrip(PipingStructureFailureMechanismContext nodeData,
-                                                                                    object parentData,
-                                                                                    TreeViewControl treeViewControl)
+                                                                                         object parentData,
+                                                                                         TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -1596,7 +1608,6 @@ namespace Ringtoets.Integration.Plugin
         }
 
         #endregion
-
 
         #region CategoryTreeFolder TreeNodeInfo
 
