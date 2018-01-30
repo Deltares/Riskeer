@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -48,18 +49,45 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
             }
         }
 
-        [Test]
-        public void CreateInstance_Always_SetsFailureMechanismAsData()
+        [TestCase(NormType.Signaling)]
+        [TestCase(NormType.LowerLimit)]
+        public void CreateInstance_Always_ExpectedProperties(NormType normType)
         {
             // Setup
+            const double designWaterLevelSignaling = 1.1;
+            const double designWaterLevelLowerLimit = 2.2;
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                calculation.InputParameters,
-                calculation,
-                assessmentSection,
-                failureMechanism);
+            var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelCalculation2 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(designWaterLevelSignaling)
+                },
+                DesignWaterLevelCalculation3 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(designWaterLevelLowerLimit)
+                }
+            };
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = testHydraulicBoundaryLocation
+                }
+            };
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = normType
+                }
+            };
+
+            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
+                                                                                  calculation,
+                                                                                  assessmentSection,
+                                                                                  failureMechanism);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -71,6 +99,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 // Assert
                 Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsInputContextProperties>(objectProperties);
                 Assert.AreSame(context, objectProperties.Data);
+
+                double expectedAssessmentLevel = normType == NormType.Signaling
+                                                     ? designWaterLevelSignaling
+                                                     : designWaterLevelLowerLimit;
+                Assert.AreEqual(expectedAssessmentLevel, ((GrassCoverErosionOutwardsWaveConditionsInputContextProperties) objectProperties).AssessmentLevel);
             }
         }
 
