@@ -36,6 +36,17 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class HydraulicBoundaryLocationOutputCreateExtensionsTest
     {
         [Test]
+        public void CreateHydraulicLocationOutputEntity_HydraulicLocationOutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((HydraulicBoundaryLocationOutput) null).CreateHydraulicLocationOutputEntity();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("output", exception.ParamName);
+        }
+
+        [Test]
         public void CreateHydraulicLocationOutputEntity_WithValidParameters_ReturnsHydraulicLocationEntityWithOutputSet()
         {
             // Setup
@@ -44,14 +55,11 @@ namespace Application.Ringtoets.Storage.Test.Create
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), null);
 
-            var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
-
             // Call
-            var entity = output.Create<HydraulicLocationOutputEntity>(outputType);
+            HydraulicLocationOutputEntity entity = output.CreateHydraulicLocationOutputEntity();
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((byte) outputType, entity.HydraulicLocationOutputType);
             Assert.AreEqual(output.Result, entity.Result, output.Result.GetAccuracy());
             Assert.AreEqual(output.TargetProbability, entity.TargetProbability);
             Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
@@ -70,14 +78,11 @@ namespace Application.Ringtoets.Storage.Test.Create
             var output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN, double.NaN,
                                                              double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(), null);
 
-            var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
-
             // Call
-            var entity = output.Create<HydraulicLocationOutputEntity>(outputType);
+            HydraulicLocationOutputEntity entity = output.CreateHydraulicLocationOutputEntity();
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((byte) outputType, entity.HydraulicLocationOutputType);
             Assert.IsNull(entity.Result);
             Assert.IsNull(entity.TargetProbability);
             Assert.IsNull(entity.TargetReliability);
@@ -97,13 +102,26 @@ namespace Application.Ringtoets.Storage.Test.Create
                                                              double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(),
                                                              GetGeneralResult());
 
-            var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
-
             // Call
-            var entity = output.Create<HydraulicLocationOutputEntity>(outputType);
+            HydraulicLocationOutputEntity entity = output.CreateHydraulicLocationOutputEntity();
 
             // Assert
             AssertGeneralResult(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);
+        }
+
+        [Test]
+        public void CreateGrassCoverErosionOutwardsHydraulicLocationOutputEntity_HydraulicBoundaryLocationOutputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            TestDelegate call = () =>
+                ((HydraulicBoundaryLocationOutput) null).CreateGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputEntity(random.NextEnumValue<HydraulicLocationOutputType>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("output", exception.ParamName);
         }
 
         [Test]
@@ -118,7 +136,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
             // Call
-            var entity = output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>(outputType);
+            GrassCoverErosionOutwardsHydraulicLocationOutputEntity entity = output.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputEntity(outputType);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -144,8 +162,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
             // Call
-            var entity = output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>(
-                outputType);
+            GrassCoverErosionOutwardsHydraulicLocationOutputEntity entity =
+                output.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputEntity(outputType);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -173,7 +191,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
             // Call
-            var entity = output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>(outputType);
+            GrassCoverErosionOutwardsHydraulicLocationOutputEntity entity =
+                output.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputEntity(outputType);
 
             // Assert
             AssertGeneralResult(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);

@@ -81,6 +81,7 @@ namespace Application.Ringtoets.Storage.DbContext
             HeightStructuresOutputEntities.Load();
             HeightStructuresSectionResultEntities.Load();
             HydraulicLocationEntities.Load();
+            HydraulicLocationCalculationEntities.Load();
             HydraulicLocationOutputEntities.Load();
             HydraRingPreprocessorEntities.Load();
             MacroStabilityInwardsCharacteristicPointEntities.Load();

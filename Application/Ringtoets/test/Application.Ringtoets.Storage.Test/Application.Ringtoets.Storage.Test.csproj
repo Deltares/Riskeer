@@ -82,6 +82,7 @@
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputCreateExtensionsTest.cs" />
     <Compile Include="DbContext\RingtoetsEntitiesTest.cs" />
     <Compile Include="Exceptions\CannotDetermineFingerprintExceptionTest.cs" />
+    <Compile Include="Create\HydraulicBoundaryLocationCalculationCreateExtensionsTest.cs" />
     <Compile Include="IntegrationTests\MigrationIntegrationTest.cs" />
     <Compile Include="IntegrationTests\MigrationTo181IntegrationTest.cs" />
     <Compile Include="IntegrationTests\MigrationTo173IntegrationTest.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsOvertoppingRateOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsHydraulicLocationEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsHydraulicLocationOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresCalculationEntityReadExtensionsTest.cs" />

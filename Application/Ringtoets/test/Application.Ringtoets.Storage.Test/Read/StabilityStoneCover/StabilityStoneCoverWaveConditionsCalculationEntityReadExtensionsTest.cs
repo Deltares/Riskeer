@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.StabilityStoneCover;
 using Application.Ringtoets.Storage.Serializers;
+using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -233,11 +234,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
         public void Read_EntityWithHydraulicBoundaryLocationNotYetInCollector_CalculationWithCreatedHydraulicBoundaryLocationAndRegisteredNewEntities()
         {
             // Setup
-            var hydraulicLocationEntity = new HydraulicLocationEntity
-            {
-                Name = "A"
-            };
-
+            HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
                 HydraulicLocationEntity = hydraulicLocationEntity

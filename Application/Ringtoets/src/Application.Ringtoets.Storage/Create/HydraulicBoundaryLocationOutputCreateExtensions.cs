@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.Create.IllustrationPoints;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.Hydraulics;
@@ -26,22 +27,62 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="HydraulicBoundaryLocationOutput"/> related to creating a <see cref="IHydraulicLocationOutputEntity"/>.
+    /// Extension methods for <see cref="HydraulicBoundaryLocationOutput"/> related to creating a hydraulic boundary location output entity.
     /// </summary>
     internal static class HydraulicBoundaryLocationOutputCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="THydraulicLocationOutputEntity"/> based on the information of the <see cref="HydraulicBoundaryLocationOutput"/>.
+        /// Creates a <see cref="HydraulicLocationOutputEntity"/> based on the information of the <see cref="HydraulicBoundaryLocationOutput"/>.
         /// </summary>
-        /// <typeparam name="THydraulicLocationOutputEntity">The output entity type to create.</typeparam>
+        /// <param name="output">The output to create a database entity for.</param>
+        /// <returns>A new <see cref="HydraulicLocationOutputEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
+        internal static HydraulicLocationOutputEntity CreateHydraulicLocationOutputEntity(this HydraulicBoundaryLocationOutput output)
+        {
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
+            }
+
+            return new HydraulicLocationOutputEntity
+            {
+                Result = double.IsNaN(output.Result)
+                             ? (double?)null
+                             : output.Result,
+                TargetProbability = double.IsNaN(output.TargetProbability)
+                                        ? (double?)null
+                                        : output.TargetProbability,
+                TargetReliability = double.IsNaN(output.TargetReliability)
+                                        ? (double?)null
+                                        : output.TargetReliability,
+                CalculatedProbability = double.IsNaN(output.CalculatedProbability)
+                                            ? (double?)null
+                                            : output.CalculatedProbability,
+                CalculatedReliability = double.IsNaN(output.CalculatedReliability)
+                                            ? (double?)null
+                                            : output.CalculatedReliability,
+                CalculationConvergence = (byte)output.CalculationConvergence,
+                GeneralResultSubMechanismIllustrationPointEntity = output.GeneralResult?.CreateGeneralResultSubMechanismIllustrationPointEntity()
+            };
+        }
+
+        /// <summary>
+        /// Creates a <see cref="GrassCoverErosionOutwardsHydraulicLocationOutputEntity"/> based on the information of the <see cref="HydraulicBoundaryLocationOutput"/>.
+        /// </summary>
         /// <param name="output">The output to create a database entity for.</param>
         /// <param name="outputType">The calculation output type.</param>
-        /// <returns>A new <typeparamref name="THydraulicLocationOutputEntity"/> of output type <paramref name="outputType"/>.</returns>
-        internal static THydraulicLocationOutputEntity Create<THydraulicLocationOutputEntity>(this HydraulicBoundaryLocationOutput output,
-                                                                                              HydraulicLocationOutputType outputType)
-            where THydraulicLocationOutputEntity : IHydraulicLocationOutputEntity, new()
+        /// <returns>A new <see cref="GrassCoverErosionOutwardsHydraulicLocationOutputEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
+        internal static GrassCoverErosionOutwardsHydraulicLocationOutputEntity CreateGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputEntity(this HydraulicBoundaryLocationOutput output,
+                                                                                                                                                    HydraulicLocationOutputType outputType)
+
         {
-            return new THydraulicLocationOutputEntity
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
+            }
+
+            return new GrassCoverErosionOutwardsHydraulicLocationOutputEntity
             {
                 HydraulicLocationOutputType = (byte) outputType,
                 Result = double.IsNaN(output.Result)

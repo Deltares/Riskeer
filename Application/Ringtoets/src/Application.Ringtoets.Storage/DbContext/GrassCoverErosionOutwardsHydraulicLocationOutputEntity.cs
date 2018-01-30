@@ -30,12 +30,11 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class GrassCoverErosionOutwardsHydraulicLocationOutputEntity
+    public class GrassCoverErosionOutwardsHydraulicLocationOutputEntity
     {
         public long GrassCoverErosionOutwardsHydraulicLocationOutputEntityId { get; set; }
         public long GrassCoverErosionOutwardsHydraulicLocationEntityId { get; set; }
         public long? GeneralResultSubMechanismIllustrationPointEntityId { get; set; }
-        public virtual GrassCoverErosionOutwardsHydraulicLocationEntity GrassCoverErosionOutwardsHydraulicLocationEntity { get; set; }
         public byte HydraulicLocationOutputType { get; set; }
         public double? Result { get; set; }
         public double? TargetProbability { get; set; }
@@ -45,5 +44,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte CalculationConvergence { get; set; }
 
         public virtual GeneralResultSubMechanismIllustrationPointEntity GeneralResultSubMechanismIllustrationPointEntity { get; set; }
+        public virtual GrassCoverErosionOutwardsHydraulicLocationEntity GrassCoverErosionOutwardsHydraulicLocationEntity { get; set; }
     }
 }

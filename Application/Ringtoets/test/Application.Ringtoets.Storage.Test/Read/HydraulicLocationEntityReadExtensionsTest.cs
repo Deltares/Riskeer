@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithCollector_ReturnsHydraulicBoundaryLocationWithPropertiesSetAndEntityRegistered()
+        public void Read_WithCollectorAndEntitiesWithoutOutput_ReturnsHydraulicBoundaryLocationWithPropertiesSetAndEntityRegistered()
         {
             // Setup
             var random = new Random(21);
@@ -69,16 +69,21 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string testName = "testName";
             double x = random.NextDouble();
             double y = random.NextDouble();
-            bool shouldDesignWaterLevelIllustrationPointsBeCalculated = random.NextBoolean();
-            bool shouldWaveHeightIllustrationPointsBeCalculated = random.NextBoolean();
+
             var entity = new HydraulicLocationEntity
             {
                 LocationId = testId,
                 Name = testName,
                 LocationX = x,
                 LocationY = y,
-                ShouldDesignWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
-                ShouldWaveHeightIllustrationPointsBeCalculated = Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated)
+                HydraulicLocationCalculationEntity = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity1 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity2 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity3 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity4 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity5 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity6 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity7 = CreateCalculationEntity(random.Next())
             };
 
             var collector = new ReadConversionCollector();
@@ -93,13 +98,23 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(x, location.Location.X, 1e-6);
             Assert.AreEqual(y, location.Location.Y, 1e-6);
 
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = location.DesignWaterLevelCalculation1;
-            Assert.AreEqual(shouldDesignWaterLevelIllustrationPointsBeCalculated, designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            Assert.IsFalse(designWaterLevelCalculation.HasOutput);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity,
+                                                       location.DesignWaterLevelCalculation1);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity1,
+                                                       location.DesignWaterLevelCalculation2);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity2,
+                                                       location.DesignWaterLevelCalculation3);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity3,
+                                                       location.DesignWaterLevelCalculation4);
 
-            HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation1;
-            Assert.AreEqual(shouldWaveHeightIllustrationPointsBeCalculated, waveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            Assert.IsFalse(waveHeightCalculation.HasOutput);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity4,
+                                                       location.WaveHeightCalculation1);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity5,
+                                                       location.WaveHeightCalculation2);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity6,
+                                                       location.WaveHeightCalculation3);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity7,
+                                                       location.WaveHeightCalculation4);
 
             Assert.IsTrue(collector.Contains(entity));
         }
@@ -109,41 +124,17 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var random = new Random(21);
-            double designWaterLevel = random.NextDouble();
-            double waveHeight = random.NextDouble();
-            var designWaterLevelOutputEntity = new HydraulicLocationOutputEntity
-            {
-                HydraulicLocationOutputType = (byte) HydraulicLocationOutputType.DesignWaterLevel,
-                Result = designWaterLevel,
-                TargetProbability = random.NextDouble(),
-                TargetReliability = random.NextDouble(),
-                CalculatedProbability = random.NextDouble(),
-                CalculatedReliability = random.NextDouble(),
-                CalculationConvergence = (byte) CalculationConvergence.NotCalculated
-            };
-            var waveHeightOutputEntity = new HydraulicLocationOutputEntity
-            {
-                HydraulicLocationOutputType = (byte) HydraulicLocationOutputType.WaveHeight,
-                Result = waveHeight,
-                TargetProbability = random.NextDouble(),
-                TargetReliability = random.NextDouble(),
-                CalculatedProbability = random.NextDouble(),
-                CalculatedReliability = random.NextDouble(),
-                CalculationConvergence = (byte) CalculationConvergence.NotCalculated
-            };
-
-            bool shouldDesignWaterLevelIllustrationPointsBeCalculated = random.NextBoolean();
-            bool shouldWaveHeightIllustrationPointsBeCalculated = random.NextBoolean();
             var entity = new HydraulicLocationEntity
             {
                 Name = "someName",
-                ShouldDesignWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
-                ShouldWaveHeightIllustrationPointsBeCalculated = Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated),
-                HydraulicLocationOutputEntities =
-                {
-                    designWaterLevelOutputEntity,
-                    waveHeightOutputEntity
-                }
+                HydraulicLocationCalculationEntity = CreateCalculationEntityWithOutputEntity(random.Next()),
+                HydraulicLocationCalculationEntity1 = CreateCalculationEntityWithOutputEntity(random.Next()),
+                HydraulicLocationCalculationEntity2 = CreateCalculationEntityWithOutputEntity(random.Next()),
+                HydraulicLocationCalculationEntity3 = CreateCalculationEntityWithOutputEntity(random.Next()),
+                HydraulicLocationCalculationEntity4 = CreateCalculationEntityWithOutputEntity(random.Next()),
+                HydraulicLocationCalculationEntity5 = CreateCalculationEntityWithOutputEntity(random.Next()),
+                HydraulicLocationCalculationEntity6 = CreateCalculationEntityWithOutputEntity(random.Next()),
+                HydraulicLocationCalculationEntity7 = CreateCalculationEntityWithOutputEntity(random.Next())
             };
 
             var collector = new ReadConversionCollector();
@@ -154,13 +145,23 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(location);
 
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = location.DesignWaterLevelCalculation1;
-            Assert.AreEqual(shouldDesignWaterLevelIllustrationPointsBeCalculated, designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, designWaterLevelCalculation.Output);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity,
+                                                       location.DesignWaterLevelCalculation1);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity1,
+                                                       location.DesignWaterLevelCalculation2);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity2,
+                                                       location.DesignWaterLevelCalculation3);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity3,
+                                                       location.DesignWaterLevelCalculation4);
 
-            HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation1;
-            Assert.AreEqual(shouldWaveHeightIllustrationPointsBeCalculated, waveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            AssertHydraulicBoundaryLocationOutput(waveHeightOutputEntity, waveHeightCalculation.Output);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity4,
+                                                       location.WaveHeightCalculation1);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity5,
+                                                       location.WaveHeightCalculation2);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity6,
+                                                       location.WaveHeightCalculation3);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity7,
+                                                       location.WaveHeightCalculation4);
         }
 
         [Test]
@@ -168,57 +169,17 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var random = new Random(21);
-
-            const string windDirectionName = "Some wind direction";
-            double windDirectionAngle = random.NextDouble();
-            var designWaterLevelIllustrationPointEntity = new GeneralResultSubMechanismIllustrationPointEntity
-            {
-                GoverningWindDirectionName = windDirectionName,
-                GoverningWindDirectionAngle = windDirectionAngle
-            };
-            var waveHeightIllustrationPointEntity = new GeneralResultSubMechanismIllustrationPointEntity
-            {
-                GoverningWindDirectionName = windDirectionName,
-                GoverningWindDirectionAngle = windDirectionAngle
-            };
-
-            double designWaterLevel = random.NextDouble();
-            double waveHeight = random.NextDouble();
-            var designWaterLevelOutputEntity = new HydraulicLocationOutputEntity
-            {
-                HydraulicLocationOutputType = (byte) HydraulicLocationOutputType.DesignWaterLevel,
-                Result = designWaterLevel,
-                TargetProbability = random.NextDouble(),
-                TargetReliability = random.NextDouble(),
-                CalculatedProbability = random.NextDouble(),
-                CalculatedReliability = random.NextDouble(),
-                CalculationConvergence = (byte) CalculationConvergence.NotCalculated,
-                GeneralResultSubMechanismIllustrationPointEntity = designWaterLevelIllustrationPointEntity
-            };
-            var waveHeightOutputEntity = new HydraulicLocationOutputEntity
-            {
-                HydraulicLocationOutputType = (byte) HydraulicLocationOutputType.WaveHeight,
-                Result = waveHeight,
-                TargetProbability = random.NextDouble(),
-                TargetReliability = random.NextDouble(),
-                CalculatedProbability = random.NextDouble(),
-                CalculatedReliability = random.NextDouble(),
-                CalculationConvergence = (byte) CalculationConvergence.NotCalculated,
-                GeneralResultSubMechanismIllustrationPointEntity = waveHeightIllustrationPointEntity
-            };
-
-            bool shouldDesignWaterLevelIllustrationPointsBeCalculated = random.NextBoolean();
-            bool shouldWaveHeightIllustrationPointsBeCalculated = random.NextBoolean();
             var entity = new HydraulicLocationEntity
             {
                 Name = "someName",
-                ShouldDesignWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
-                ShouldWaveHeightIllustrationPointsBeCalculated = Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated),
-                HydraulicLocationOutputEntities =
-                {
-                    designWaterLevelOutputEntity,
-                    waveHeightOutputEntity
-                }
+                HydraulicLocationCalculationEntity = CreateCalculationEntityWithOutputAndGeneralResultEntity(random.Next()),
+                HydraulicLocationCalculationEntity1 = CreateCalculationEntityWithOutputAndGeneralResultEntity(random.Next()),
+                HydraulicLocationCalculationEntity2 = CreateCalculationEntityWithOutputAndGeneralResultEntity(random.Next()),
+                HydraulicLocationCalculationEntity3 = CreateCalculationEntityWithOutputAndGeneralResultEntity(random.Next()),
+                HydraulicLocationCalculationEntity4 = CreateCalculationEntityWithOutputAndGeneralResultEntity(random.Next()),
+                HydraulicLocationCalculationEntity5 = CreateCalculationEntityWithOutputAndGeneralResultEntity(random.Next()),
+                HydraulicLocationCalculationEntity6 = CreateCalculationEntityWithOutputAndGeneralResultEntity(random.Next()),
+                HydraulicLocationCalculationEntity7 = CreateCalculationEntityWithOutputAndGeneralResultEntity(random.Next())
             };
 
             var collector = new ReadConversionCollector();
@@ -229,22 +190,41 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(location);
 
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = location.DesignWaterLevelCalculation1;
-            Assert.AreEqual(shouldDesignWaterLevelIllustrationPointsBeCalculated, designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, designWaterLevelCalculation.Output);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity,
+                                                       location.DesignWaterLevelCalculation1);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity1,
+                                                       location.DesignWaterLevelCalculation2);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity2,
+                                                       location.DesignWaterLevelCalculation3);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity3,
+                                                       location.DesignWaterLevelCalculation4);
 
-            HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation1;
-            Assert.AreEqual(shouldWaveHeightIllustrationPointsBeCalculated, waveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            AssertHydraulicBoundaryLocationOutput(waveHeightOutputEntity, waveHeightCalculation.Output);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity4,
+                                                       location.WaveHeightCalculation1);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity5,
+                                                       location.WaveHeightCalculation2);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity6,
+                                                       location.WaveHeightCalculation3);
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity7,
+                                                       location.WaveHeightCalculation4);
         }
 
         [Test]
         public void Read_SameHydraulicLocationEntityTwice_ReturnSameHydraulicBoundaryLocation()
         {
             // Setup
+            var random = new Random(21);
             var entity = new HydraulicLocationEntity
             {
-                Name = "A"
+                Name = "A",
+                HydraulicLocationCalculationEntity = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity1 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity2 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity3 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity4 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity5 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity6 = CreateCalculationEntity(random.Next()),
+                HydraulicLocationCalculationEntity7 = CreateCalculationEntity(random.Next())
             };
 
             var collector = new ReadConversionCollector();
@@ -257,7 +237,68 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreSame(location1, location2);
         }
 
-        private static void AssertHydraulicBoundaryLocationOutput(IHydraulicLocationOutputEntity expected, HydraulicBoundaryLocationOutput actual)
+        private static HydraulicLocationCalculationEntity CreateCalculationEntity(int seed)
+        {
+            var random = new Random(seed);
+
+            return new HydraulicLocationCalculationEntity
+            {
+                ShouldIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean())
+            };
+        }
+
+        private static HydraulicLocationOutputEntity CreateHydraulicOutputEntity(int seed)
+        {
+            var random = new Random(seed);
+            var hydraulicLocationOutputEntity = new HydraulicLocationOutputEntity
+            {
+                Result = random.NextDouble(),
+                TargetProbability = random.NextDouble(),
+                TargetReliability = random.NextDouble(),
+                CalculatedProbability = random.NextDouble(),
+                CalculatedReliability = random.NextDouble(),
+                CalculationConvergence = (byte) CalculationConvergence.NotCalculated
+            };
+            return hydraulicLocationOutputEntity;
+        }
+
+        private static HydraulicLocationCalculationEntity CreateCalculationEntityWithOutputEntity(int seed)
+        {
+            HydraulicLocationCalculationEntity calculationEntity = CreateCalculationEntity(seed);
+            calculationEntity.HydraulicLocationOutputEntities.Add(CreateHydraulicOutputEntity(seed));
+
+            return calculationEntity;
+        }
+
+        private static HydraulicLocationCalculationEntity CreateCalculationEntityWithOutputAndGeneralResultEntity(int seed)
+        {
+            var random = new Random(seed);
+            var generalResultEntity = new GeneralResultSubMechanismIllustrationPointEntity
+            {
+                GoverningWindDirectionName = "A wind direction",
+                GoverningWindDirectionAngle = random.NextDouble()
+            };
+
+            HydraulicLocationOutputEntity hydraulicLocationOutputEntity = CreateHydraulicOutputEntity(seed);
+            hydraulicLocationOutputEntity.GeneralResultSubMechanismIllustrationPointEntity = generalResultEntity;
+
+            HydraulicLocationCalculationEntity calculationEntity = CreateCalculationEntity(seed);
+            calculationEntity.HydraulicLocationOutputEntities.Add(hydraulicLocationOutputEntity);
+
+            return calculationEntity;
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculation(HydraulicLocationCalculationEntity expected,
+                                                                       HydraulicBoundaryLocationCalculation actual)
+        {
+            Assert.AreEqual(Convert.ToBoolean(expected.ShouldIllustrationPointsBeCalculated),
+                            actual.InputParameters.ShouldIllustrationPointsBeCalculated);
+
+            AssertHydraulicBoundaryLocationOutput(expected.HydraulicLocationOutputEntities.SingleOrDefault(),
+                                                  actual.Output);
+        }
+
+        private static void AssertHydraulicBoundaryLocationOutput(HydraulicLocationOutputEntity expected, HydraulicBoundaryLocationOutput actual)
         {
             if (expected == null)
             {

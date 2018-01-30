@@ -21,6 +21,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hydraulics\HydraulicLocationEntityTestFactory.cs" />
     <Compile Include="IllustrationPoints\GeneralResultEntityTestHelper.cs" />
     <Compile Include="MacroStabilityInwards\MacroStabilityInwardsCalculationEntityTestHelper.cs" />
     <Compile Include="MacroStabilityInwards\MacroStabilityInwardsCalculationOutputEntityTestHelper.cs" />

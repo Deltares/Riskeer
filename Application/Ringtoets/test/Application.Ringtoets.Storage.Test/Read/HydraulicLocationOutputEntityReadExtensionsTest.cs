@@ -50,9 +50,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
-            var entity = new TestHydraulicLocationOutputEntity
+            var entity = new HydraulicLocationOutputEntity
             {
-                HydraulicLocationOutputType = (byte) outputType,
                 Result = result,
                 TargetProbability = targetProbability,
                 TargetReliability = targetReliability,
@@ -80,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
         {
             // Setup
-            var entity = new TestHydraulicLocationOutputEntity
+            var entity = new HydraulicLocationOutputEntity
             {
                 Result = double.NaN,
                 TargetProbability = double.NaN,
@@ -135,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 }
             };
 
-            var entity = new TestHydraulicLocationOutputEntity
+            var entity = new HydraulicLocationOutputEntity
             {
                 Result = double.NaN,
                 TargetProbability = double.NaN,
@@ -214,18 +213,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.GoverningWindDirectionName, windDirection.Name);
             Assert.AreEqual(entity.GoverningWindDirectionAngle, windDirection.Angle,
                             windDirection.Angle.GetAccuracy());
-        }
-
-        private class TestHydraulicLocationOutputEntity : IHydraulicLocationOutputEntity
-        {
-            public double? Result { get; set; }
-            public double? TargetProbability { get; set; }
-            public double? TargetReliability { get; set; }
-            public double? CalculatedProbability { get; set; }
-            public double? CalculatedReliability { get; set; }
-            public byte CalculationConvergence { get; set; }
-            public byte HydraulicLocationOutputType { get; set; }
-            public GeneralResultSubMechanismIllustrationPointEntity GeneralResultSubMechanismIllustrationPointEntity { get; set; }
         }
     }
 }

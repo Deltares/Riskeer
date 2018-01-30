@@ -35,6 +35,7 @@ namespace Application.Ringtoets.Storage.DbContext
 {
     public partial class RingtoetsEntities : System.Data.Entity.DbContext
     {
+        public virtual DbSet<HydraulicLocationCalculationEntity> HydraulicLocationCalculationEntities { get; set; }
         public virtual DbSet<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
         public virtual DbSet<BackgroundDataEntity> BackgroundDataEntities { get; set; }
         public virtual DbSet<BackgroundDataMetaEntity> BackgroundDataMetaEntities { get; set; }

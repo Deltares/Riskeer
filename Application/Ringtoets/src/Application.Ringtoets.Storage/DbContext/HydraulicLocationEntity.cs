@@ -41,7 +41,6 @@ namespace Application.Ringtoets.Storage.DbContext
             ClosingStructuresCalculationEntities = new HashSet<ClosingStructuresCalculationEntity>();
             GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
             HeightStructuresCalculationEntities = new HashSet<HeightStructuresCalculationEntity>();
-            HydraulicLocationOutputEntities = new HashSet<HydraulicLocationOutputEntity>();
             MacroStabilityInwardsCalculationEntities = new HashSet<MacroStabilityInwardsCalculationEntity>();
             PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
             StabilityPointStructuresCalculationEntities = new HashSet<StabilityPointStructuresCalculationEntity>();
@@ -51,12 +50,18 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long HydraulicLocationEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
+        public long HydraulicLocationCalculationEntity1Id { get; set; }
+        public long HydraulicLocationCalculationEntity2Id { get; set; }
+        public long HydraulicLocationCalculationEntity3Id { get; set; }
+        public long HydraulicLocationCalculationEntity4Id { get; set; }
+        public long HydraulicLocationCalculationEntity5Id { get; set; }
+        public long HydraulicLocationCalculationEntity6Id { get; set; }
+        public long HydraulicLocationCalculationEntity7Id { get; set; }
+        public long HydraulicLocationCalculationEntity8Id { get; set; }
         public long LocationId { get; set; }
         public string Name { get; set; }
         public double? LocationX { get; set; }
         public double? LocationY { get; set; }
-        public byte ShouldWaveHeightIllustrationPointsBeCalculated { get; set; }
-        public byte ShouldDesignWaterLevelIllustrationPointsBeCalculated { get; set; }
         public int Order { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
@@ -70,8 +75,14 @@ namespace Application.Ringtoets.Storage.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresCalculationEntity> HeightStructuresCalculationEntities { get; set; }
 
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationOutputEntity> HydraulicLocationOutputEntities { get; set; }
+        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity { get; set; }
+        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity1 { get; set; }
+        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity2 { get; set; }
+        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity3 { get; set; }
+        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity4 { get; set; }
+        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity5 { get; set; }
+        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity6 { get; set; }
+        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity7 { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MacroStabilityInwardsCalculationEntity> MacroStabilityInwardsCalculationEntities { get; set; }

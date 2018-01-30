@@ -44,6 +44,7 @@
     <Compile Include="Create\GrassCoverErosionInwards\OvertoppingRateOutputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensions.cs" />
+    <Compile Include="Create\HydraulicBoundaryLocationCalculationCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationOutputCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointNodeCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\GeneralResultCreateExtensions.cs" />
@@ -191,6 +192,9 @@
     <Compile Include="DbContext\HydraRingPreprocessorEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\HydraulicLocationCalculationEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\HydraulicLocationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -200,7 +204,6 @@
     <Compile Include="DbContext\HydraulicLocationOutputType.cs" />
     <Compile Include="DbContext\IGeneralResultEntity.cs" />
     <Compile Include="DbContext\IHasGeneralResultFaultTreeIllustrationPointEntity.cs" />
-    <Compile Include="DbContext\IHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\IllustrationPointResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -256,10 +259,8 @@
     <Compile Include="DbContext\PartialClosingStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialGeneralResultFaultTreeIllustrationPointEntity.cs" />
     <Compile Include="DbContext\PartialGeneralResultSubMechanismIllustrationPointEntity.cs" />
-    <Compile Include="DbContext\PartialGrassCoverErosionOutwardsHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresOutputEntity.cs" />
-    <Compile Include="DbContext\PartialHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\PartialStabilityPointStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialStabilityPointStructuresOutputEntity.cs" />
     <Compile Include="DbContext\PipingCalculationEntity.cs">
@@ -372,6 +373,7 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\CannotDetermineFingerprintException.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsHydraulicLocationOutputEntityReadExtensions.cs" />
     <Compile Include="Read\BackgroundDataMetaEntityReadExtensions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructureEntityReadExtensions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresCalculationEntityReadExtensions.cs" />

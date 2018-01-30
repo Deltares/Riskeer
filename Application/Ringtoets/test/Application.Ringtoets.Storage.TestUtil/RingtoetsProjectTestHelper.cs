@@ -353,7 +353,17 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                  double.NaN, double.NaN,
                                                                  double.NaN, CalculationConvergence.CalculatedConverged, null)
                 },
+                DesignWaterLevelCalculation3 =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(12.4, double.NaN,
+                                                                 double.NaN, double.NaN,
+                                                                 double.NaN, CalculationConvergence.CalculatedConverged, null)
+                },
                 WaveHeightCalculation1 =
+                {
+                    Output = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.CalculatedNotConverged, null)
+                },
+                WaveHeightCalculation3 =
                 {
                     Output = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.CalculatedNotConverged, null)
                 }
@@ -375,7 +385,23 @@ namespace Application.Ringtoets.Storage.TestUtil
                     },
                     Output = designWaterLevelOutput
                 },
+                DesignWaterLevelCalculation3 =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    },
+                    Output = designWaterLevelOutput
+                },
                 WaveHeightCalculation1 =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    },
+                    Output = waveHeightOutput
+                },
+                WaveHeightCalculation3 =
                 {
                     InputParameters =
                     {
