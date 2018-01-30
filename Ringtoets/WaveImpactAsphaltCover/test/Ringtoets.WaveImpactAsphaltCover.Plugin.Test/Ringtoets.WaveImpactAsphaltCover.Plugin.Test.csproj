@@ -30,6 +30,7 @@
     <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextWaveConditionsExportInfoTest.cs" />
     <Compile Include="ExportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextConfigurationExportInfoTest.cs" />
     <Compile Include="ImportInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextImportInfoTest.cs" />
+    <Compile Include="PropertyInfos\WaveImpactAsphaltCoverWaveConditionsInputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\WaveImpactAsphaltCoverFailureMechanismContextPropertyInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyWaveImpactAsphaltCoverOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverFailureMechanismContextTreeNodeInfoTest.cs" />

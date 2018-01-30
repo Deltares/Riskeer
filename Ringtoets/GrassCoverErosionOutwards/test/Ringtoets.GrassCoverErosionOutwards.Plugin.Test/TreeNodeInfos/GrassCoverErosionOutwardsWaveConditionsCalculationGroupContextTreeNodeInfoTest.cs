@@ -1980,7 +1980,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             return new TestHydraulicBoundaryLocation
             {
-                DesignWaterLevelCalculation3 =
+                DesignWaterLevelCalculation1 =
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(12)
                 }

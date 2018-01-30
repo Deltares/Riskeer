@@ -113,9 +113,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
-
-            failureMechanismSectionResult.Calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                Calculation = new GrassCoverErosionInwardsCalculation()
+            };
 
             // Call
             double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
@@ -134,15 +135,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
-
-            failureMechanismSectionResult.Calculation = new GrassCoverErosionInwardsCalculation
+            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                Output = new TestGrassCoverErosionInwardsOutput()
+                Calculation = new GrassCoverErosionInwardsCalculation
+                {
+                    Output = new TestGrassCoverErosionInwardsOutput()
+                }
             };
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(0.5, assessmentLayerTwoA);

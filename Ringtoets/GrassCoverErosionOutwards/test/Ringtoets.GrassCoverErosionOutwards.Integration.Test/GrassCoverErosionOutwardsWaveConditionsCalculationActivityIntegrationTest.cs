@@ -145,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                           assessmentSection.GrassCoverErosionOutwards,
                                                                                           assessmentSection);
 
-            RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
+            RoundedDouble[] waterLevels = GetWaterLevels(calculation).ToArray();
             int nrOfCalculators = waterLevels.Length;
 
             var mockRepository = new MockRepository();
@@ -200,7 +200,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                           assessmentSection.GrassCoverErosionOutwards,
                                                                                           assessmentSection);
 
-            RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
+            RoundedDouble[] waterLevels = GetWaterLevels(calculation).ToArray();
             int nrOfCalculators = waterLevels.Length;
 
             var mockRepository = new MockRepository();
@@ -249,7 +249,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             var waveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
 
-            RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
+            RoundedDouble[] waterLevels = GetWaterLevels(calculation).ToArray();
             int nrOfCalculators = waterLevels.Length;
 
             var mockRepository = new MockRepository();
@@ -330,7 +330,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 TestHelper.AssertLogMessages(() => activity.Run(), messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    RoundedDouble firstWaterLevel = GetWaterLevels(calculation, assessmentSection).First();
+                    RoundedDouble firstWaterLevel = GetWaterLevels(calculation).First();
 
                     Assert.AreEqual(8, msgs.Length);
                     Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
@@ -362,7 +362,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                           assessmentSection.GrassCoverErosionOutwards,
                                                                                           assessmentSection);
 
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
+            int nrOfCalculators = GetWaterLevels(calculation).Count();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -404,7 +404,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 LastErrorFileContent = lastErrorFileContent
             };
 
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
+            int nrOfCalculators = GetWaterLevels(calculation).Count();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -449,7 +449,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 LastErrorFileContent = lastErrorFileContent
             };
 
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
+            int nrOfCalculators = GetWaterLevels(calculation).Count();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -484,7 +484,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                           validFilePath,
                                                                                           grassCoverErosionOutwardsFailureMechanism,
                                                                                           assessmentSection);
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
+            int nrOfCalculators = GetWaterLevels(calculation).Count();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -521,7 +521,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                           validFilePath,
                                                                                           grassCoverErosionOutwardsFailureMechanism,
                                                                                           assessmentSection);
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
+            int nrOfCalculators = GetWaterLevels(calculation).Count();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -558,7 +558,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                           validFilePath,
                                                                                           grassCoverErosionOutwardsFailureMechanism,
                                                                                           assessmentSection);
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
+            int nrOfCalculators = GetWaterLevels(calculation).Count();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -599,7 +599,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
         private static AssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            hydraulicBoundaryLocation.DesignWaterLevelCalculation3.Output = new TestHydraulicBoundaryLocationOutput(9.3);
+            hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(9.3);
 
             return new AssessmentSection(AssessmentSectionComposition.Dike)
             {
@@ -614,9 +614,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             };
         }
 
-        private static IEnumerable<RoundedDouble> GetWaterLevels(GrassCoverErosionOutwardsWaveConditionsCalculation calculation, AssessmentSection assessmentSection)
+        private static IEnumerable<RoundedDouble> GetWaterLevels(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
         {
-            return calculation.InputParameters.GetWaterLevels(assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation));
+            return calculation.InputParameters.GetWaterLevels(calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN);
         }
     }
 }

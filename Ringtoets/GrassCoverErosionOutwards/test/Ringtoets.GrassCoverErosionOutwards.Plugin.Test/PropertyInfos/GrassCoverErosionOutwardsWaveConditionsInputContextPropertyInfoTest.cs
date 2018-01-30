@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -49,17 +50,32 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_SetsFailureMechanismAsData()
+        public void CreateInstance_Always_ExpectedProperties()
         {
             // Setup
+            const double assessmentLevel = 1.1;
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelCalculation1 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel)
+                }
+            };
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = testHydraulicBoundaryLocation
+                }
+            };
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                calculation.InputParameters,
-                calculation,
-                assessmentSection,
-                failureMechanism);
+
+            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
+                                                                                  calculation,
+                                                                                  assessmentSection,
+                                                                                  failureMechanism);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -71,6 +87,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 // Assert
                 Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsInputContextProperties>(objectProperties);
                 Assert.AreSame(context, objectProperties.Data);
+
+                var grassCoverErosionOutwardsWaveConditionsInputContextProperties = (GrassCoverErosionOutwardsWaveConditionsInputContextProperties) objectProperties;
+                Assert.AreEqual(assessmentLevel, grassCoverErosionOutwardsWaveConditionsInputContextProperties.AssessmentLevel);
             }
         }
 
