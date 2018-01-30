@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
@@ -38,6 +40,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
     public class HeightStructuresFailureMechanismResultView : FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult>
     {
         private const int assessmentLayerTwoAIndex = 2;
+        private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
@@ -45,8 +48,17 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismResultView"/>.
         /// </summary>
-        public HeightStructuresFailureMechanismResultView()
+        /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public HeightStructuresFailureMechanismResultView(IAssessmentSection assessmentSection)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.assessmentSection = assessmentSection;
             DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
 

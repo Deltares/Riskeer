@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -114,16 +115,15 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            mocks.ReplayAll();
+
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var view = new HeightStructuresFailureMechanismResultView
+            var view = new HeightStructuresFailureMechanismResultView(assessmentSection)
             {
                 Data = failureMechanism.SectionResults
             };
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
-
-            mocks.ReplayAll();
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -139,20 +139,19 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new HeightStructuresFailureMechanism();
             var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
-
-            var view = new HeightStructuresFailureMechanismResultView
-            {
-                Data = failureMechanism.SectionResults
-            };
-
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 otherFailureMechanism
             });
-
             mocks.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var view = new HeightStructuresFailureMechanismResultView(assessmentSection)
+            {
+                Data = failureMechanism.SectionResults
+            };
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -166,21 +165,21 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var view = new HeightStructuresFailureMechanismResultView
-            {
-                Data = failureMechanism.SectionResults
-            };
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 new HeightStructuresFailureMechanism(),
                 failureMechanism
             });
-
             mocks.ReplayAll();
+
+            var view = new HeightStructuresFailureMechanismResultView(assessmentSection)
+            {
+                Data = failureMechanism.SectionResults
+            };
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -194,9 +193,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var view = new HeightStructuresFailureMechanismResultView
+            var view = new HeightStructuresFailureMechanismResultView(assessmentSection)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -206,15 +209,20 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsTrue(closeForData);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var view = new HeightStructuresFailureMechanismResultView
+            var view = new HeightStructuresFailureMechanismResultView(assessmentSection)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -224,6 +232,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsFalse(closeForData);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -237,7 +246,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            var view = new HeightStructuresFailureMechanismResultView
+            var view = new HeightStructuresFailureMechanismResultView(assessmentSection)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -259,7 +268,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var view = new HeightStructuresFailureMechanismResultView
+            var view = new HeightStructuresFailureMechanismResultView(assessmentSection)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -281,7 +290,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();            
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var view = mocks.StrictMock<HeightStructuresFailureMechanismResultView>();
             view.Expect(v => v.FailureMechanism = failureMechanism);
             mocks.ReplayAll();
@@ -293,6 +302,27 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             info.AfterCreate(view, context);
 
             // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_Always_ReturnsView()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
+            var context = new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults,
+                                                                                                                             failureMechanism,
+                                                                                                                             assessmentSection);
+
+            // Call
+            IView view = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<HeightStructuresFailureMechanismResultView>(view);
             mocks.VerifyAll();
         }
     }

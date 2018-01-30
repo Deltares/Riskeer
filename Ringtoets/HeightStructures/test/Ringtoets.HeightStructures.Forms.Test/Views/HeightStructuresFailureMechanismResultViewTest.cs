@@ -28,6 +28,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -60,15 +62,21 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_ExpectedValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            using (var view = new HeightStructuresFailureMechanismResultView())
+            using (var view = new HeightStructuresFailureMechanismResultView(assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult>>(view);
                 Assert.IsNull(view.Data);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -579,7 +587,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
         private HeightStructuresFailureMechanismResultView ShowFailureMechanismResultsView()
         {
-            var failureMechanismResultView = new HeightStructuresFailureMechanismResultView();
+            var failureMechanismResultView = new HeightStructuresFailureMechanismResultView(new ObservableTestAssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
