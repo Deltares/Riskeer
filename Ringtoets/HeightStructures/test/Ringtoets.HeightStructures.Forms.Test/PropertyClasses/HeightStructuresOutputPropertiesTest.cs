@@ -23,7 +23,9 @@ using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
@@ -78,6 +80,34 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<StructuresOutputProperties>(properties);
             Assert.AreSame(output, properties.Data);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetProperties_WithData_ReturnExpectedValues()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
+            var random = new Random(39);
+            double reliability = random.NextDouble();
+
+            var structuresOutput = new TestStructuresOutput(reliability);
+
+            // Call
+            var properties = new HeightStructuresOutputProperties(structuresOutput, failureMechanism, assessmentSection);
+
+            // Assert
+            ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = HeightStructuresProbabilityAssessmentOutputFactory.Create(
+                structuresOutput, failureMechanism, assessmentSection);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.RequiredProbability), properties.RequiredProbability);
+            Assert.AreEqual(expectedProbabilityAssessmentOutput.RequiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.Probability), properties.Probability);
+            Assert.AreEqual(expectedProbabilityAssessmentOutput.Reliability, properties.Reliability, properties.Reliability.GetAccuracy());
+            Assert.AreEqual(expectedProbabilityAssessmentOutput.FactorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
             mocks.VerifyAll();
         }
     }

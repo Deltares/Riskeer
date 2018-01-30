@@ -21,6 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
@@ -32,6 +33,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     /// </summary>
     public class HeightStructuresOutputProperties : StructuresOutputProperties
     {
+        private readonly HeightStructuresFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresOutputProperties"/>.
         /// </summary>
@@ -53,6 +57,14 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
+        }
+
+        protected override ProbabilityAssessmentOutput CreateDerivedOutput()
+        {
+            return HeightStructuresProbabilityAssessmentOutputFactory.Create(data, failureMechanism, assessmentSection);
         }
     }
 }

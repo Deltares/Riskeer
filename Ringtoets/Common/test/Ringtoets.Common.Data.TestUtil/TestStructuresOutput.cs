@@ -41,12 +41,12 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestStructuresOutput"/>.
         /// </summary>
-        /// <param name="probability">The probability of failure.</param>
+        /// <param name="reliability">The reliability of failure.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when setting 
-        /// <paramref name="probability"/> that falls  outside the [0.0, 1.0] range 
+        /// <paramref name="reliability"/> that falls  outside the [0.0, 1.0] range 
         /// and isn't <see cref="double.NaN"/>.</exception>
-        public TestStructuresOutput(double probability)
-            : base(probability, new ProbabilityAssessmentOutput(0, 0, probability, 0, 0), null) {}
+        public TestStructuresOutput(double reliability)
+            : base(reliability, new ProbabilityAssessmentOutput(0, 0, reliability, 0, 0), null) {}
 
         /// <summary>
         /// Creates new instance of <see cref="TestStructuresOutput"/>.

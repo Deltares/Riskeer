@@ -73,13 +73,13 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void ProbabilityConstructor_SetExpectedValues()
+        public void ReliabilityConstructor_SetExpectedValues()
         {
             // Setup
-            const double probability = 0.5;
+            const double reliability = 0.5;
 
             // Call
-            var output = new TestStructuresOutput(probability);
+            var output = new TestStructuresOutput(reliability);
 
             // Assert
             Assert.IsInstanceOf<StructuresOutput>(output);
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                 output.ProbabilityAssessmentOutput;
             Assert.AreEqual(0, probabilityAssessmentOutput.FactorOfSafety.Value);
             Assert.AreEqual(0, probabilityAssessmentOutput.RequiredProbability);
-            Assert.AreEqual(probability, probabilityAssessmentOutput.Probability);
+            Assert.AreEqual(reliability, probabilityAssessmentOutput.Probability);
             Assert.AreEqual(0, probabilityAssessmentOutput.RequiredReliability.Value);
             Assert.AreEqual(0, probabilityAssessmentOutput.Reliability.Value);
             Assert.IsNull(output.GeneralResult);

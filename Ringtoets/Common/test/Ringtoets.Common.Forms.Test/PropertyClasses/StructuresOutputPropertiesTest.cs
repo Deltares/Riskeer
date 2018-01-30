@@ -31,7 +31,6 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -81,32 +80,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var random = new Random(22);
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
-            double probability = random.NextDouble();
-            double reliability = random.NextDouble();
-            double factorOfSafety = random.NextDouble();
-
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability,
-                                                                              requiredReliability,
-                                                                              probability,
-                                                                              reliability,
-                                                                              factorOfSafety);
-
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-
-            var structuresOutput = new StructuresOutput(reliability, probabilityAssessmentOutput, generalResult);
+            var structuresOutput = new TestStructuresOutput(generalResult);
 
             // Call
             var properties = new SimpleStructuresOutputProperties(structuresOutput);
 
             // Assert
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(requiredProbability), properties.RequiredProbability);
-            Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), properties.Probability);
-            Assert.AreEqual(reliability, properties.Reliability, properties.Reliability.GetAccuracy());
-            Assert.AreEqual(factorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
             Assert.AreEqual(generalResult.GoverningWindDirection.Name, properties.WindDirection);
 
             TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(
@@ -277,6 +257,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             public SimpleStructuresOutputProperties(StructuresOutput structuresOutput) 
                 : base(structuresOutput) {}
+
+            protected override ProbabilityAssessmentOutput CreateDerivedOutput()
+            {
+                return null;
+            }
         }
     }
 }

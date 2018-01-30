@@ -22,6 +22,7 @@
 using System;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PropertyClasses;
 
@@ -32,6 +33,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
     /// </summary>
     public class ClosingStructuresOutputProperties : StructuresOutputProperties
     {
+        private readonly ClosingStructuresFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresOutputProperties"/>.
         /// </summary>
@@ -53,6 +57,14 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
+        }
+
+        protected override ProbabilityAssessmentOutput CreateDerivedOutput()
+        {
+            return ClosingStructuresProbabilityAssessmentOutputFactory.Create(data, failureMechanism, assessmentSection);
         }
     }
 }

@@ -29,6 +29,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
@@ -40,6 +41,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// </summary>
     public abstract class StructuresOutputProperties : ObjectProperties<StructuresOutput>
     {
+        private ProbabilityAssessmentOutput derivedOutput;
+
         /// <summary>
         /// Creates a new instance of <see cref="StructuresOutputProperties"/>.
         /// </summary>
@@ -129,7 +132,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.ProbabilityAssessmentOutput.RequiredProbability);
+                return ProbabilityFormattingHelper.Format(DerivedOutput.RequiredProbability);
             }
         }
 
@@ -141,7 +144,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.ProbabilityAssessmentOutput.RequiredReliability;
+                return DerivedOutput.RequiredReliability;
             }
         }
 
@@ -153,7 +156,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.ProbabilityAssessmentOutput.Probability);
+                return ProbabilityFormattingHelper.Format(DerivedOutput.Probability);
             }
         }
 
@@ -165,7 +168,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.ProbabilityAssessmentOutput.Reliability;
+                return DerivedOutput.Reliability;
             }
         }
 
@@ -177,7 +180,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.ProbabilityAssessmentOutput.FactorOfSafety;
+                return DerivedOutput.FactorOfSafety;
             }
         }
 
@@ -191,6 +194,20 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                        propertyName.Equals(nameof(Durations)) ||
                        propertyName.Equals(nameof(IllustrationPoints))
                    );
+        }
+
+        /// <summary>
+        /// Creates the derived output.
+        /// </summary>
+        /// <returns>The created derived output.</returns>
+        protected abstract ProbabilityAssessmentOutput CreateDerivedOutput();
+
+        private ProbabilityAssessmentOutput DerivedOutput
+        {
+            get
+            {
+                return derivedOutput ?? (derivedOutput = CreateDerivedOutput());
+            }
         }
     }
 }
