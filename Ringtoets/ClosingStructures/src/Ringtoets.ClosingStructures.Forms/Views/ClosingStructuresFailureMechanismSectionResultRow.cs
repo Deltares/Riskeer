@@ -83,14 +83,14 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="ClosingStructuresFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
+        /// Gets the value representing the result of the layer 2a assessment.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double AssessmentLayerTwoA
         {
             get
             {
-                return SectionResult.AssessmentLayerTwoA;
+                return SectionResult.GetAssessmentLayerTwoA(failureMechanism, assessmentSection);
             }
         }
 

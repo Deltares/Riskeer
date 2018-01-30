@@ -187,7 +187,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(reliability, assessmentLayerTwoA);
+            Assert.AreEqual(0.2786727127146118, assessmentLayerTwoA);
             mocks.VerifyAll();
         }
 
