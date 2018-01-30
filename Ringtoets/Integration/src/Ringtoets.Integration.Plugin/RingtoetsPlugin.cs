@@ -324,10 +324,6 @@ namespace Ringtoets.Integration.Plugin
                 CreateInstance = context => new CalculationGroupContextProperties(context)
             };
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
-            yield return new PropertyInfo<StructuresOutputContext, StructuresOutputProperties>
-            {
-                CreateInstance = context => new StructuresOutputProperties(context.WrappedData.Output)
-            };
             yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsProperties>
             {
                 CreateInstance = context => new DesignWaterLevelLocationsProperties(context.WrappedData,

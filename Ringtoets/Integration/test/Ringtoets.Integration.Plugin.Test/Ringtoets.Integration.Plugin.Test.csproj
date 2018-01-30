@@ -60,7 +60,6 @@
     <Compile Include="PropertyInfos\StandAloneFailureMechanismPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\SubMechanismIllustrationPointContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\SelectedTopLevelSubMechanismIllustrationPointPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\StructuresOutputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\SelectedTopLevelFaultTreeIllustrationPointPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\WaveHeightLocationsContextPropertyInfoTest.cs" />
     <Compile Include="RingtoetsPluginTest.cs" />
