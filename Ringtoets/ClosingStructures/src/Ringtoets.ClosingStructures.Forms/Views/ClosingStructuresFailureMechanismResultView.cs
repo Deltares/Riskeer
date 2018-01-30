@@ -95,7 +95,12 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
         protected override object CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
         {
-            return new ClosingStructuresFailureMechanismSectionResultRow(sectionResult);
+            if (FailureMechanism == null)
+            {
+                return null;
+            }
+
+            return new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, (ClosingStructuresFailureMechanism) FailureMechanism, assessmentSection);
         }
 
         protected override void Dispose(bool disposing)

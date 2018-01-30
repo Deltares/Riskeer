@@ -274,7 +274,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
-            using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 // When
                 view.Data = new[]
@@ -342,7 +342,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssessmentLayerOne = assessmentLayerOneState,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 view.Data = new[]
                 {
@@ -397,7 +397,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
@@ -430,7 +430,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 var calculation = new StructuresCalculation<ClosingStructuresInput>();
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
@@ -465,7 +465,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 var calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
@@ -503,7 +503,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
                 var calculation = new StructuresCalculation<ClosingStructuresInput>
@@ -541,7 +541,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             ClosingStructuresFailureMechanismSectionResult sectionResult, string expectedValue)
         {
-            using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 view.Data = new[]
                 {
@@ -569,7 +569,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
                 var successfulCalculation = new StructuresCalculation<ClosingStructuresInput>
