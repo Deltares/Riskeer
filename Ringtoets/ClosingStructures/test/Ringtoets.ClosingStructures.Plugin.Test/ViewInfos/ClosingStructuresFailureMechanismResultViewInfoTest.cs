@@ -19,10 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -121,7 +121,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            using (var view = new ClosingStructuresFailureMechanismResultView())
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection))
             {
                 var failureMechanism = new ClosingStructuresFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
@@ -132,6 +132,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -140,26 +141,27 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
             var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
-
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 otherFailureMechanism
             });
-
             mocks.ReplayAll();
 
-            using (var view = new ClosingStructuresFailureMechanismResultView())
-            {
-                view.Data = failureMechanism.SectionResults;
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection)
+            {
+                Data = failureMechanism.SectionResults
+            })
+            {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -167,27 +169,28 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 new TestFailureMechanism(),
                 failureMechanism
             });
-
             mocks.ReplayAll();
 
-            using (var view = new ClosingStructuresFailureMechanismResultView())
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection)
             {
-                view.Data = failureMechanism.SectionResults;
-
+                Data = failureMechanism.SectionResults
+            })
+            {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -195,24 +198,34 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            using (var view = new ClosingStructuresFailureMechanismResultView())
-            {
-                var failureMechanism = new ClosingStructuresFailureMechanism();
-                view.Data = failureMechanism.SectionResults;
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
 
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection)
+            {
+                Data = failureMechanism.SectionResults
+        })
+            {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
 
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            using (var view = new ClosingStructuresFailureMechanismResultView())
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection))
             {
                 var failureMechanism = new ClosingStructuresFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
@@ -223,6 +236,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -235,7 +250,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new ClosingStructuresFailureMechanismResultView())
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -257,7 +272,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            using (var view = new ClosingStructuresFailureMechanismResultView())
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -295,17 +310,23 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             mocks.VerifyAll();
         }
 
-        private class TestFailureMechanism : FailureMechanismBase
+        [Test]
+        public void CreateInstance_Always_ReturnsView()
         {
-            public TestFailureMechanism() : base("Name", "FailureMechanismCode") {}
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
-            public override IEnumerable<ICalculation> Calculations
-            {
-                get
-                {
-                    return null;
-                }
-            }
+            var context = new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults,
+                                                                                                                              failureMechanism,
+                                                                                                                              assessmentSection);
+
+            // Call
+            IView view = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<ClosingStructuresFailureMechanismResultView>(view);
+            mocks.VerifyAll();
         }
     }
 }
