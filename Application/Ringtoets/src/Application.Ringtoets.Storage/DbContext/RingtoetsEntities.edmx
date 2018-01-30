@@ -664,9 +664,9 @@
         </EntityType>
         <EntityType Name="HydraulicLocationOutputEntity">
           <Key>
-            <PropertyRef Name="HydraulicLocationEntityOutputId" />
+            <PropertyRef Name="HydraulicLocationOutputEntityId" />
           </Key>
-          <Property Name="HydraulicLocationEntityOutputId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HydraulicLocationOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HydraulicLocationCalculationEntityId" Type="integer" />
           <Property Name="GeneralResultSubMechanismIllustrationPointEntityId" Type="integer" />
           <Property Name="Result" Type="real" />
@@ -5327,9 +5327,9 @@
         </EntityType>
         <EntityType Name="HydraulicLocationOutputEntity">
           <Key>
-            <PropertyRef Name="HydraulicLocationEntityOutputId" />
+            <PropertyRef Name="HydraulicLocationOutputEntityId" />
           </Key>
-          <Property Name="HydraulicLocationEntityOutputId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HydraulicLocationOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="HydraulicLocationCalculationEntityId" Type="Int64" />
           <Property Name="GeneralResultSubMechanismIllustrationPointEntityId" Type="Int64" />
           <Property Name="Result" Type="Double" />
@@ -8548,7 +8548,7 @@
                 <ScalarProperty Name="Result" ColumnName="Result" />
                 <ScalarProperty Name="GeneralResultSubMechanismIllustrationPointEntityId" ColumnName="GeneralResultSubMechanismIllustrationPointEntityId" />
                 <ScalarProperty Name="HydraulicLocationCalculationEntityId" ColumnName="HydraulicLocationCalculationEntityId" />
-                <ScalarProperty Name="HydraulicLocationEntityOutputId" ColumnName="HydraulicLocationEntityOutputId" />
+                <ScalarProperty Name="HydraulicLocationOutputEntityId" ColumnName="HydraulicLocationOutputEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

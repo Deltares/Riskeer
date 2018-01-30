@@ -32,7 +32,7 @@ namespace Application.Ringtoets.Storage.DbContext
 {
     public class HydraulicLocationOutputEntity
     {
-        public long HydraulicLocationEntityOutputId { get; set; }
+        public long HydraulicLocationOutputEntityId { get; set; }
         public long? HydraulicLocationCalculationEntityId { get; set; }
         public long? GeneralResultSubMechanismIllustrationPointEntityId { get; set; }
         public double? Result { get; set; }

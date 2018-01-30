@@ -327,7 +327,7 @@ SELECT
 -- Perform the migration of the output entities
 
 INSERT INTO HydraulicLocationOutputEntity (
-	[HydraulicLocationEntityOutputId],
+	[HydraulicLocationOutputEntityId],
 	[HydraulicLocationCalculationEntityId],
 	[GeneralResultSubMechanismIllustrationPointEntityId],
 	[Result],
@@ -358,7 +358,7 @@ WHERE NormativeNormType = 2;
 
 
 INSERT INTO HydraulicLocationOutputEntity (
-	[HydraulicLocationEntityOutputId],
+	[HydraulicLocationOutputEntityId],
 	[HydraulicLocationCalculationEntityId],
 	[GeneralResultSubMechanismIllustrationPointEntityId],
 	[Result],

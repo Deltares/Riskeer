@@ -312,7 +312,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT " +
                 "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].HydraulicLocationOutputEntity) " +
                 "FROM HydraulicLocationOutputEntity NEW " +
-                "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD USING(HydraulicLocationEntityOutputId) " +
+                "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON NEW.HydraulicLocationOutputEntityId = OLD.HydraulicLocationEntityOutputId " +
                 "WHERE NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
                 "AND NEW.Result IS OLD.Result " +
                 "AND NEW.TargetProbability IS OLD.TargetProbability " +
@@ -372,7 +372,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM HydraulicLocationEntity NEWHL " +
                 "JOIN HydraulicLocationCalculationEntity calc ON calc.HydraulicLocationCalculationEntityId = NEWHL.HydraulicLocationCalculationEntity2Id " +
                 "JOIN HydraulicLocationOutputEntity NEW USING(HydraulicLocationCalculationEntityId) " +
-                "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON NEW.HydraulicLocationEntityOutputId = OLD.HydraulicLocationEntityOutputId " +
+                "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON NEW.HydraulicLocationOutputEntityId = OLD.HydraulicLocationEntityOutputId " +
                 "WHERE OLD.HydraulicLocationEntityId = NEWHL.HydraulicLocationEntityId;" +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateDesignWaterLevelCalculationsWithSignalingNormOutput);
@@ -390,7 +390,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM HydraulicLocationEntity NEWHL " +
                 "JOIN HydraulicLocationCalculationEntity calc ON calc.HydraulicLocationCalculationEntityId = NEWHL.HydraulicLocationCalculationEntity3Id " +
                 "JOIN HydraulicLocationOutputEntity NEW USING(HydraulicLocationCalculationEntityId) " +
-                "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON NEW.HydraulicLocationEntityOutputId = OLD.HydraulicLocationEntityOutputId " +
+                "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON NEW.HydraulicLocationOutputEntityId = OLD.HydraulicLocationEntityOutputId " +
                 "WHERE OLD.HydraulicLocationEntityId = NEWHL.HydraulicLocationEntityId;" +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateDesignWaterLevelCalculationsWithLowerLimitNormOutput);
@@ -408,7 +408,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM HydraulicLocationEntity NEWHL " +
                 "JOIN HydraulicLocationCalculationEntity calc ON calc.HydraulicLocationCalculationEntityId = NEWHL.HydraulicLocationCalculationEntity6Id " +
                 "JOIN HydraulicLocationOutputEntity NEW USING(HydraulicLocationCalculationEntityId) " +
-                "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON NEW.HydraulicLocationEntityOutputId = OLD.HydraulicLocationEntityOutputId " +
+                "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON NEW.HydraulicLocationOutputEntityId = OLD.HydraulicLocationEntityOutputId " +
                 "WHERE OLD.HydraulicLocationEntityId = NEWHL.HydraulicLocationEntityId;" +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateWaveHeightCalculationsWithSignalingNormOutput);
@@ -426,7 +426,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM HydraulicLocationEntity NEWHL " +
                 "JOIN HydraulicLocationCalculationEntity calc ON calc.HydraulicLocationCalculationEntityId = NEWHL.HydraulicLocationCalculationEntity7Id " +
                 "JOIN HydraulicLocationOutputEntity NEW USING(HydraulicLocationCalculationEntityId) " +
-                "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON NEW.HydraulicLocationEntityOutputId = OLD.HydraulicLocationEntityOutputId " +
+                "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON NEW.HydraulicLocationOutputEntityId = OLD.HydraulicLocationEntityOutputId " +
                 "WHERE OLD.HydraulicLocationEntityId = NEWHL.HydraulicLocationEntityId;" +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateWaveHeightCalculationsWithLowerLimitNormOutput);
