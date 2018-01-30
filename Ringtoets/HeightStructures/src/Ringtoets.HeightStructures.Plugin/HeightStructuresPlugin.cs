@@ -176,7 +176,7 @@ namespace Ringtoets.HeightStructures.Plugin
             };
 
             yield return new ViewInfo<
-                FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
+                ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
                 IEnumerable<HeightStructuresFailureMechanismSectionResult>,
                 HeightStructuresFailureMechanismResultView>
             {
@@ -244,7 +244,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -382,7 +382,7 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, context.Parent), TreeFolderCategory.Input),
                 new HeightStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, context.Parent),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, context.Parent), TreeFolderCategory.Output)
             };
         }
 
@@ -397,13 +397,13 @@ namespace Ringtoets.HeightStructures.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(HeightStructuresFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
                 new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism),
+                new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
         }

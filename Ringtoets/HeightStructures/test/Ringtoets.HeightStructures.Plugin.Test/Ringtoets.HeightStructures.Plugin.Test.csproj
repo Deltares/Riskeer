@@ -34,7 +34,7 @@
     <Compile Include="PropertyInfos\HeightStructuresFailureMechanismContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\HeightStructuresInputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\HeightStrucutesOutputPropertyInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\FailureMechanismResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ProbabilityFailureMechanismResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresContextTreeNodeInfoTest.cs" />
