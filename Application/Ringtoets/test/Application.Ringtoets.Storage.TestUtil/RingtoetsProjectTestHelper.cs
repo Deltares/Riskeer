@@ -731,12 +731,12 @@ namespace Application.Ringtoets.Storage.TestUtil
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
         }
 
-        private static void SetSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults,
+        private static void SetSectionResults(IEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> sectionResults,
                                               StructuresCalculation<ClosingStructuresInput> calculation)
         {
             var random = new Random(21);
             var firstSectionResultHasCalculation = false;
-            foreach (ClosingStructuresFailureMechanismSectionResult sectionResult in sectionResults)
+            foreach (StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();

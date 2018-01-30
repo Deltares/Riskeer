@@ -67,20 +67,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         private ClosingStructuresPlugin plugin;
         private TreeNodeInfo info;
 
-        public override void Setup()
-        {
-            mocksRepository = new MockRepository();
-            plugin = new ClosingStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresFailureMechanismContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-
-            mocksRepository.VerifyAll();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -160,7 +146,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
             Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
 
-            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
+            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
@@ -741,6 +727,20 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     });
                 }
             }
+        }
+
+        public override void Setup()
+        {
+            mocksRepository = new MockRepository();
+            plugin = new ClosingStructuresPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresFailureMechanismContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+
+            mocksRepository.VerifyAll();
         }
     }
 }

@@ -1155,7 +1155,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 new Point2D(0, 0)
             }));
 
-            ClosingStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
+            StructuresFailureMechanismSectionResult<ClosingStructuresInput> result = failureMechanism.SectionResults.First();
             result.Calculation = elementToBeRemoved;
 
             // Call

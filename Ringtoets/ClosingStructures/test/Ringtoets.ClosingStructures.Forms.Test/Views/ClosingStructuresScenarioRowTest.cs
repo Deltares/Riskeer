@@ -44,7 +44,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
             });
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
 
             // Call
             var row = new ClosingStructuresScenarioRow(sectionResult);
@@ -75,7 +75,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
             });
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
 
             var row = new ClosingStructuresScenarioRow(sectionResult);
 
@@ -103,7 +103,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
             });
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
             sectionResult.Attach(observer);
 
             var row = new ClosingStructuresScenarioRow(sectionResult);

@@ -662,7 +662,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             StructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults,
                                                                          failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
 
-            ClosingStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
+            StructuresFailureMechanismSectionResult<ClosingStructuresInput>[] sectionResults = failureMechanism.SectionResults.ToArray();
 
             var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
 
@@ -734,7 +734,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             StructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults,
                                                                          failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
 
-            ClosingStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
+            StructuresFailureMechanismSectionResult<ClosingStructuresInput>[] sectionResults = failureMechanism.SectionResults.ToArray();
 
             var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
 

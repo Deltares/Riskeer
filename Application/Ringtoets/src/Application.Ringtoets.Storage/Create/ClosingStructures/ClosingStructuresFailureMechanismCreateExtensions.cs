@@ -26,6 +26,7 @@ using Core.Common.Util.Extensions;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Structures;
 
 namespace Application.Ringtoets.Storage.Create.ClosingStructures
 {
@@ -54,10 +55,10 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults,
+            IEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (StructuresFailureMechanismSectionResult<ClosingStructuresInput> failureMechanismSectionResult in sectionResults)
             {
                 ClosingStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create(registry);
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

@@ -374,10 +374,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             failureMechanism.AddSection(section1);
             failureMechanism.AddSection(section2);
-            ClosingStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
-                                                                                     .First(sr => ReferenceEquals(sr.Section, section1));
-            ClosingStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults
-                                                                                     .First(sr => ReferenceEquals(sr.Section, section2));
+            StructuresFailureMechanismSectionResult<ClosingStructuresInput> result1 = failureMechanism.SectionResults
+                                                                                                      .First(sr => ReferenceEquals(sr.Section, section1));
+            StructuresFailureMechanismSectionResult<ClosingStructuresInput> result2 = failureMechanism.SectionResults
+                                                                                                      .First(sr => ReferenceEquals(sr.Section, section2));
             result1.Calculation = calculation1;
             result2.Calculation = calculation2;
 

@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Data.Structures
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        protected StructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public StructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             assessmentLayerThree = double.NaN;
         }

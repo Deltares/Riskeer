@@ -75,7 +75,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<ClosingStructuresFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>>(view);
                 Assert.IsNull(view.Data);
             }
             mocks.VerifyAll();
@@ -99,8 +99,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
-                var testData = new List<ClosingStructuresFailureMechanismSectionResult>
+                var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
+                var testData = new List<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
                 {
                     sectionResult
                 };
@@ -258,17 +258,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             });
 
             var random = new Random(21);
-            var result1 = new ClosingStructuresFailureMechanismSectionResult(section1)
+            var result1 = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section1)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            var result2 = new ClosingStructuresFailureMechanismSectionResult(section2)
+            var result2 = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section2)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            var result3 = new ClosingStructuresFailureMechanismSectionResult(section3)
+            var result3 = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section3)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
@@ -337,7 +337,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 new Point2D(0, 0)
             });
             var random = new Random(21);
-            var result = new ClosingStructuresFailureMechanismSectionResult(section)
+            var result = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
             {
                 AssessmentLayerOne = assessmentLayerOneState,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
@@ -400,7 +400,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+                var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
                 {
                     AssessmentLayerOne = assessmentLayerOneState
                 };
@@ -434,7 +434,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 var calculation = new StructuresCalculation<ClosingStructuresInput>();
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+                var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
                 {
                     Calculation = calculation,
                     AssessmentLayerOne = assessmentLayerOneState
@@ -472,7 +472,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                     Output = new TestStructuresOutput(double.NaN)
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+                var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
                 {
                     Calculation = calculation,
                     AssessmentLayerOne = assessmentLayerOneState
@@ -510,7 +510,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                     Output = new TestStructuresOutput(0.56789)
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+                var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
                 {
                     Calculation = calculation,
                     AssessmentLayerOne = assessmentLayerOneState
@@ -538,7 +538,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         [Test]
         [TestCaseSource(nameof(AssessmentLayerOneStateIsSufficientVariousSections))]
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
-            ClosingStructuresFailureMechanismSectionResult sectionResult, string expectedValue)
+            StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult, string expectedValue)
         {
             using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
@@ -580,7 +580,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                     Output = new TestStructuresOutput(double.NaN)
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+                var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
                 {
                     Calculation = successfulCalculation,
                     AssessmentLayerOne = assessmentLayerOneState
@@ -670,9 +670,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
 
-                var dataObject = view.Data as List<ClosingStructuresFailureMechanismSectionResult>;
+                var dataObject = view.Data as List<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>;
                 Assert.IsNotNull(dataObject);
-                ClosingStructuresFailureMechanismSectionResult row = dataObject.First();
+                StructuresFailureMechanismSectionResult<ClosingStructuresInput> row = dataObject.First();
                 Assert.AreEqual(newValue, row.AssessmentLayerThree);
             }
         }
@@ -681,16 +681,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         {
             FailureMechanismSection section = CreateSimpleFailureMechanismSection();
 
-            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            yield return new TestCaseData(new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient
             }, "-").SetName("SectionWithoutCalculation");
-            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            yield return new TestCaseData(new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<ClosingStructuresInput>()
             }, "-").SetName("SectionWithCalculationNoOutput");
-            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            yield return new TestCaseData(new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
@@ -698,7 +698,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                     Output = new TestStructuresOutput(double.NaN)
                 }
             }, "-").SetName("SectionWithInvalidCalculationOutput");
-            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            yield return new TestCaseData(new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<ClosingStructuresInput>

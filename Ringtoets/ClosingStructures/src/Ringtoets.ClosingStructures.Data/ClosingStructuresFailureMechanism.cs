@@ -35,9 +35,9 @@ namespace Ringtoets.ClosingStructures.Data
     /// Model containing input and output needed to perform different levels of the
     /// Closing Structures failure mechanism.
     /// </summary>
-    public class ClosingStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>
+    public class ClosingStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
     {
-        private readonly List<ClosingStructuresFailureMechanismSectionResult> sectionResults;
+        private readonly List<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanism"/> class.
@@ -51,7 +51,7 @@ namespace Ringtoets.ClosingStructures.Data
             };
             GeneralInput = new GeneralClosingStructuresInput();
             ClosingStructures = new StructureCollection<ClosingStructure>();
-            sectionResults = new List<ClosingStructuresFailureMechanismSectionResult>();
+            sectionResults = new List<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -80,7 +80,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public IEnumerable<ClosingStructuresFailureMechanismSectionResult> SectionResults
+        public IEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> SectionResults
         {
             get
             {
@@ -92,7 +92,7 @@ namespace Ringtoets.ClosingStructures.Data
         {
             base.AddSection(section);
 
-            sectionResults.Add(new ClosingStructuresFailureMechanismSectionResult(section));
+            sectionResults.Add(new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section));
         }
 
         public override void ClearAllSections()

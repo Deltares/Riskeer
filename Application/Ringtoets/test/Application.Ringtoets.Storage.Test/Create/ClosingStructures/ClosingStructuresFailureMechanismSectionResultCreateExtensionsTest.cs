@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(new TestFailureMechanismSection());
 
             // Call
             TestDelegate test = () => sectionResult.Create(null);
@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
             RoundedDouble assessmentLayerThreeResult = random.NextRoundedDouble();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
                 AssessmentLayerThree = assessmentLayerThreeResult
@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
         public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(new TestFailureMechanismSection())
             {
                 AssessmentLayerThree = RoundedDouble.NaN
             };
@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
         {
             // Setup
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(new TestFailureMechanismSection())
             {
                 Calculation = calculation
             };

@@ -84,24 +84,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         private MockRepository mocks;
         private ClosingStructuresPlugin plugin;
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            gui = mocks.Stub<IGui>();
-            plugin = new ClosingStructuresPlugin
-            {
-                Gui = gui
-            };
-
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresCalculationGroupContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -238,6 +220,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(groupContext, null, treeViewControl);
             }
+
             // Assert
             // Assert expectancies called in TearDown()
         }
@@ -400,6 +383,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl);
             }
+
             // Assert
             // Assert expectancies called in TearDown()
         }
@@ -1623,7 +1607,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             group.Children.Add(calculation);
 
-            ClosingStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
+            StructuresFailureMechanismSectionResult<ClosingStructuresInput> result = failureMechanism.SectionResults.First();
             result.Calculation = calculation;
 
             // Call
@@ -1668,6 +1652,24 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            gui = mocks.Stub<IGui>();
+            plugin = new ClosingStructuresPlugin
+            {
+                Gui = gui
+            };
+
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresCalculationGroupContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
         }
 
         private static void ChangeStructure(ClosingStructure structure)

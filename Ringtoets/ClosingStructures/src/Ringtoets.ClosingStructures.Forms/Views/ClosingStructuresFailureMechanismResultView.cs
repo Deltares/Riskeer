@@ -35,9 +35,9 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.ClosingStructures.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="StructuresFailureMechanismSectionResult{T}"/> for closing structures.
     /// </summary>
-    public class ClosingStructuresFailureMechanismResultView : FailureMechanismResultView<ClosingStructuresFailureMechanismSectionResult>
+    public class ClosingStructuresFailureMechanismResultView : FailureMechanismResultView<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private readonly IAssessmentSection assessmentSection;
@@ -93,7 +93,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             }
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
+        protected override object CreateFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult)
         {
             if (FailureMechanism == null)
             {

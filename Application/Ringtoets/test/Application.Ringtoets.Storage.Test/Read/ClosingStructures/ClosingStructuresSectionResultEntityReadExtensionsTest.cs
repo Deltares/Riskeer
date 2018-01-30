@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             var entity = new ClosingStructuresSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(new ClosingStructuresFailureMechanismSectionResult(
+            TestDelegate call = () => entity.Read(new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(
                                                       new TestFailureMechanismSection()), null);
 
             // Assert
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);
@@ -110,7 +110,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             {
                 ClosingStructuresCalculationEntity = calculationEntity
             };
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);

@@ -27,19 +27,19 @@ using Ringtoets.Common.Forms;
 namespace Ringtoets.ClosingStructures.Forms.Views
 {
     /// <summary>
-    /// Container of a <see cref="ClosingStructuresFailureMechanismSectionResult"/>,
+    /// Container of a <see cref="StructuresFailureMechanismSectionResult{T}"/> for closing structures,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
     public class ClosingStructuresScenarioRow : IScenarioRow<StructuresCalculation<ClosingStructuresInput>>
     {
-        private readonly ClosingStructuresFailureMechanismSectionResult sectionResult;
+        private readonly StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClosingStructuresScenarioRow"/> class.
         /// </summary>
         /// <param name="sectionResult">The section result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public ClosingStructuresScenarioRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
+        public ClosingStructuresScenarioRow(StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult)
         {
             if (sectionResult == null)
             {

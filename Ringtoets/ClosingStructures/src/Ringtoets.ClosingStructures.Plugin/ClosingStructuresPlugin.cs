@@ -104,8 +104,8 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
 
             yield return new ViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
-                IEnumerable<ClosingStructuresFailureMechanismSectionResult>,
+                ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>,
+                IEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>,
                 ClosingStructuresFailureMechanismResultView>
             {
                 GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -144,7 +144,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -390,7 +390,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return new object[]
             {
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
+                new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
